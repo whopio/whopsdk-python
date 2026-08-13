@@ -5,197 +5,138 @@ from datetime import datetime
 from typing_extensions import Literal
 
 from .._models import BaseModel
-from .shared.currency import Currency
-from .resolution_center_case_status import ResolutionCenterCaseStatus
-from .resolution_center_case_issue_type import ResolutionCenterCaseIssueType
-from .resolution_center_case_customer_response import ResolutionCenterCaseCustomerResponse
-from .resolution_center_case_merchant_response import ResolutionCenterCaseMerchantResponse
-from .resolution_center_case_platform_response import ResolutionCenterCasePlatformResponse
 
-__all__ = [
-    "ResolutionCenterCaseDecidedWebhookEvent",
-    "Data",
-    "DataCompany",
-    "DataMember",
-    "DataPayment",
-    "DataResolutionEvent",
-    "DataUser",
-]
+__all__ = ["ResolutionCenterCaseDecidedWebhookEvent", "Data", "DataAccount", "DataBuyer", "DataPayment"]
 
 
-class DataCompany(BaseModel):
-    """The company involved in this resolution case.
-
-    Null if the company no longer exists.
-    """
+class DataAccount(BaseModel):
+    """The account the case was filed against."""
 
     id: str
-    """The unique identifier for the company."""
+    """Account ID, prefixed `biz_`."""
 
     title: str
-    """The display name of the company shown to customers."""
+    """Account display name."""
 
 
-class DataMember(BaseModel):
-    """The membership record associated with the disputed payment.
+class DataBuyer(BaseModel):
+    """The customer who opened the case."""
 
-    Null if the membership no longer exists.
+    email: Optional[str] = None
+    """The customer's email address.
+
+    Requires the `member:email:read` scope; `null` without it.
     """
 
-    id: str
-    """The unique identifier for the extra public member."""
+    member_id: Optional[str] = None
+    """The customer's member row on the account, prefixed `mem_`."""
+
+    name: Optional[str] = None
+    """The customer's display name."""
+
+    user_id: Optional[str] = None
+    """The customer's user ID, prefixed `user_`."""
+
+    username: Optional[str] = None
+    """The customer's Whop username."""
 
 
 class DataPayment(BaseModel):
-    """The payment record that is the subject of this resolution case."""
+    """The payment the case was opened against."""
 
     id: str
-    """The unique identifier for the payment."""
+    """Payment ID, prefixed `pay_`."""
 
-    created_at: datetime
-    """The datetime the payment was created."""
+    card_brand: Optional[str] = None
+    """Card brand, when the customer paid by card."""
 
-    currency: Optional[Currency] = None
-    """The available currencies on the platform"""
+    card_last4: Optional[str] = None
+    """Last four digits of the card, when the customer paid by card."""
 
-    paid_at: Optional[datetime] = None
-    """The time at which this payment was successfully collected.
+    created_at: str
+    """When the payment was made, as an ISO 8601 timestamp."""
 
-    Null if the payment has not yet succeeded. As a Unix timestamp.
-    """
-
-    subtotal: Optional[float] = None
-    """The payment amount before taxes and discounts are applied.
-
-    In the currency specified by the currency field.
-    """
-
-    total: float
-    """
-    The total amount charged to the customer for this payment, including taxes and
-    after any discounts. In the currency specified by the currency field.
-    """
-
-
-class DataResolutionEvent(BaseModel):
-    """
-    A resolution event is a message or action within a resolution case, such as a response, escalation, or status change.
-    """
-
-    id: str
-    """The unique identifier for the resolution event."""
-
-    action: Literal[
-        "created",
-        "responded",
-        "accepted",
-        "denied",
-        "appealed",
-        "withdrew",
-        "requested_more_info",
-        "escalated",
-        "dispute_opened",
-        "dispute_customer_won",
-        "dispute_merchant_won",
-    ]
-    """The type of action recorded in this event."""
-
-    created_at: datetime
-    """The datetime the resolution event was created."""
-
-    details: Optional[str] = None
-    """The message body or additional context provided with this resolution event.
-
-    Null if no details were included.
-    """
-
-    reporter_type: Literal["merchant", "customer", "platform", "system"]
-    """The party who performed this action."""
-
-
-class DataUser(BaseModel):
-    """The customer (buyer) who filed this resolution case."""
-
-    id: str
-    """The unique identifier for the user."""
-
-    name: Optional[str] = None
-    """The user's display name shown on their public profile."""
-
-    username: str
-    """The user's unique username shown on their public profile."""
+    payment_method_type: Optional[str] = None
+    """How the customer paid, such as `card` or `paypal`."""
 
 
 class Data(BaseModel):
-    """
-    A resolution center case is a dispute or support case between a user and a company, tracking the issue, status, and outcome.
-    """
-
     id: str
-    """The unique identifier for the resolution."""
+    """Resolution center case ID, prefixed `reso_`."""
 
-    company: Optional[DataCompany] = None
-    """The company involved in this resolution case.
+    account: Optional[DataAccount] = None
+    """The account the case was filed against."""
 
-    Null if the company no longer exists.
-    """
+    amount: float
+    """The amount in question, in whole units of `currency`."""
 
-    created_at: datetime
-    """The datetime the resolution was created."""
+    available_actions: List[Literal["accept", "deny", "request_info", "reply", "appeal", "withdraw"]]
+
+    buyer: DataBuyer
+    """The customer who opened the case."""
+
+    created_at: str
+    """When the case was opened, as an ISO 8601 timestamp."""
+
+    currency: Optional[str] = None
+    """Three-letter ISO currency code of the amount."""
 
     customer_appealed: bool
-    """Whether the customer has filed an appeal after the initial resolution decision."""
+    """Whether the customer has appealed a decision on this case."""
 
-    customer_response_actions: List[ResolutionCenterCaseCustomerResponse]
-    """The list of actions currently available to the customer."""
-
-    due_date: Optional[datetime] = None
-    """The deadline by which the next response is required.
-
-    Null if no deadline is currently active. As a Unix timestamp.
+    escalated: bool
+    """
+    Whether Whop is involved — either reviewing the case, or waiting on the side
+    named by `status` for something it asked for while reviewing.
     """
 
-    issue: ResolutionCenterCaseIssueType
-    """The category of the dispute."""
+    outcome: Optional[Literal["customer_won", "merchant_won", "withdrawn"]] = None
+    """Who prevailed on the claim.
 
-    member: Optional[DataMember] = None
-    """The membership record associated with the disputed payment.
-
-    Null if the membership no longer exists.
+    `null` until the case closes. Read `refund` for whether any money actually
+    moved.
     """
-
-    merchant_appealed: bool
-    """Whether the merchant has filed an appeal after the initial resolution decision."""
-
-    merchant_response_actions: List[ResolutionCenterCaseMerchantResponse]
-    """The list of actions currently available to the merchant."""
 
     payment: DataPayment
-    """The payment record that is the subject of this resolution case."""
+    """The payment the case was opened against."""
 
-    platform_response_actions: List[ResolutionCenterCasePlatformResponse]
-    """
-    The list of actions currently available to the Whop platform for moderating this
-    resolution.
-    """
+    plan_id: Optional[str] = None
+    """The plan the payment was made on, prefixed `plan_`."""
 
-    resolution_events: List[DataResolutionEvent]
-    """
-    The most recent 50 messages, actions, and status changes that have occurred
-    during this resolution case.
-    """
+    product_id: Optional[str] = None
+    """The product the payment was for, prefixed `prod_`."""
 
-    status: ResolutionCenterCaseStatus
-    """
-    The current status of the resolution case, indicating which party needs to
-    respond or if the case is closed.
+    reason: Literal[
+        "fraudulent", "product_not_received", "not_as_described", "product_unacceptable", "subscription_canceled"
+    ]
+    """What the customer says went wrong.
+
+    Shares the `/disputes` vocabulary, so a case that later becomes a chargeback
+    reports the same complaint.
     """
 
-    updated_at: datetime
-    """The datetime the resolution was last updated."""
+    refund: Optional[Literal["none", "merchant", "platform"]] = None
+    """
+    Whether money moved and off whose balance: `none`, `merchant`, or `platform`
+    (Whop refunded the customer and the merchant kept the funds). Independent of
+    `outcome` — a case the merchant won can still carry a platform refund. `null`
+    while the case is open, and on older closed cases that predate this being
+    recorded.
+    """
 
-    user: DataUser
-    """The customer (buyer) who filed this resolution case."""
+    response_due_at: Optional[str] = None
+    """When the next response is due, as an ISO 8601 timestamp."""
+
+    status: Literal["awaiting_merchant", "awaiting_customer", "under_review", "closed"]
+    """Who the case is waiting on.
+
+    `awaiting_merchant` and `awaiting_customer` name the side that owes a response,
+    `under_review` means Whop is deciding, and `closed` means it is settled — read
+    `outcome` for how.
+    """
+
+    updated_at: str
+    """When the case was last changed, as an ISO 8601 timestamp."""
 
 
 class ResolutionCenterCaseDecidedWebhookEvent(BaseModel):
@@ -205,11 +146,10 @@ class ResolutionCenterCaseDecidedWebhookEvent(BaseModel):
     api_version: Literal["v1"]
     """The API version for this webhook"""
 
+    api_version_date: Optional[str] = None
+    """The dated API version (Api-Version-Date) the payload is serialized to"""
+
     data: Data
-    """
-    A resolution center case is a dispute or support case between a user and a
-    company, tracking the issue, status, and outcome.
-    """
 
     timestamp: datetime
     """The timestamp in ISO 8601 format that the webhook was sent at on the server"""
@@ -218,4 +158,4 @@ class ResolutionCenterCaseDecidedWebhookEvent(BaseModel):
     """The webhook event type"""
 
     company_id: Optional[str] = None
-    """The company ID that this webhook event is associated with"""
+    """The account ID that this webhook event is associated with"""
