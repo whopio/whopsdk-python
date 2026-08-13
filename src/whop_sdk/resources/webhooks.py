@@ -64,7 +64,6 @@ class WebhooksResource(SyncAPIResource):
         self,
         *,
         url: str,
-        api_version: Literal["v1", "v2", "v5"] | Omit = omit,
         api_version_date: Optional[str] | Omit = omit,
         child_resource_events: bool | Omit = omit,
         enabled: bool | Omit = omit,
@@ -199,11 +198,8 @@ class WebhooksResource(SyncAPIResource):
         Args:
           url: The URL to send the webhook to.
 
-          api_version: The API version for this webhook. Defaults to `v2`.
-
-          api_version_date: The dated API version (Api-Version-Date) to pin this webhook's payloads to. Only
-              valid for `v1` webhooks. Omit to leave the webhook unpinned, tracking the
-              current payload shape.
+          api_version_date: The dated API version (Api-Version-Date) to pin this webhook's payloads to. Omit
+              to leave the webhook unpinned, tracking the current payload shape.
 
           child_resource_events: Whether to send events for child resources. For example, if the webhook is
               created for an account, enabling this sends events only from its connected
@@ -231,7 +227,6 @@ class WebhooksResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "url": url,
-                    "api_version": api_version,
                     "api_version_date": api_version_date,
                     "child_resource_events": child_resource_events,
                     "enabled": enabled,
@@ -287,7 +282,6 @@ class WebhooksResource(SyncAPIResource):
         self,
         id: str,
         *,
-        api_version: Literal["v1", "v2", "v5"] | Omit = omit,
         api_version_date: Optional[str] | Omit = omit,
         child_resource_events: bool | Omit = omit,
         enabled: bool | Omit = omit,
@@ -417,12 +411,10 @@ class WebhooksResource(SyncAPIResource):
         idempotency_key: str | None = None,
     ) -> Webhook:
         """
-        Updates a webhook endpoint's URL, subscribed events, API version, pinned payload
-        version, or enabled state.
+        Updates a webhook endpoint's URL, subscribed events, pinned payload version, or
+        enabled state.
 
         Args:
-          api_version: The API version for this webhook.
-
           api_version_date: The dated API version (Api-Version-Date) to pin this webhook's payloads to. Only
               valid for `v1` webhooks. Omit to leave the current pin unchanged, or pass `null`
               to unpin and track the current payload shape.
@@ -452,7 +444,6 @@ class WebhooksResource(SyncAPIResource):
             path_template("/webhooks/{id}", id=id),
             body=maybe_transform(
                 {
-                    "api_version": api_version,
                     "api_version_date": api_version_date,
                     "child_resource_events": child_resource_events,
                     "enabled": enabled,
@@ -785,7 +776,6 @@ class AsyncWebhooksResource(AsyncAPIResource):
         self,
         *,
         url: str,
-        api_version: Literal["v1", "v2", "v5"] | Omit = omit,
         api_version_date: Optional[str] | Omit = omit,
         child_resource_events: bool | Omit = omit,
         enabled: bool | Omit = omit,
@@ -920,11 +910,8 @@ class AsyncWebhooksResource(AsyncAPIResource):
         Args:
           url: The URL to send the webhook to.
 
-          api_version: The API version for this webhook. Defaults to `v2`.
-
-          api_version_date: The dated API version (Api-Version-Date) to pin this webhook's payloads to. Only
-              valid for `v1` webhooks. Omit to leave the webhook unpinned, tracking the
-              current payload shape.
+          api_version_date: The dated API version (Api-Version-Date) to pin this webhook's payloads to. Omit
+              to leave the webhook unpinned, tracking the current payload shape.
 
           child_resource_events: Whether to send events for child resources. For example, if the webhook is
               created for an account, enabling this sends events only from its connected
@@ -952,7 +939,6 @@ class AsyncWebhooksResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "url": url,
-                    "api_version": api_version,
                     "api_version_date": api_version_date,
                     "child_resource_events": child_resource_events,
                     "enabled": enabled,
@@ -1008,7 +994,6 @@ class AsyncWebhooksResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        api_version: Literal["v1", "v2", "v5"] | Omit = omit,
         api_version_date: Optional[str] | Omit = omit,
         child_resource_events: bool | Omit = omit,
         enabled: bool | Omit = omit,
@@ -1138,12 +1123,10 @@ class AsyncWebhooksResource(AsyncAPIResource):
         idempotency_key: str | None = None,
     ) -> Webhook:
         """
-        Updates a webhook endpoint's URL, subscribed events, API version, pinned payload
-        version, or enabled state.
+        Updates a webhook endpoint's URL, subscribed events, pinned payload version, or
+        enabled state.
 
         Args:
-          api_version: The API version for this webhook.
-
           api_version_date: The dated API version (Api-Version-Date) to pin this webhook's payloads to. Only
               valid for `v1` webhooks. Omit to leave the current pin unchanged, or pass `null`
               to unpin and track the current payload shape.
@@ -1173,7 +1156,6 @@ class AsyncWebhooksResource(AsyncAPIResource):
             path_template("/webhooks/{id}", id=id),
             body=await async_maybe_transform(
                 {
-                    "api_version": api_version,
                     "api_version_date": api_version_date,
                     "child_resource_events": child_resource_events,
                     "enabled": enabled,

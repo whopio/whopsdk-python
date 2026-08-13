@@ -9,9 +9,6 @@ __all__ = ["WebhookUpdateParams"]
 
 
 class WebhookUpdateParams(TypedDict, total=False):
-    api_version: Literal["v1", "v2", "v5"]
-    """The API version for this webhook."""
-
     api_version_date: Optional[str]
     """The dated API version (Api-Version-Date) to pin this webhook's payloads to.
 

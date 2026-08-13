@@ -40,7 +40,6 @@ class TestWebhooks:
     def test_method_create_with_all_params(self, client: Whop) -> None:
         webhook = client.webhooks.create(
             url="url",
-            api_version="v1",
             api_version_date="api_version_date",
             child_resource_events=True,
             enabled=True,
@@ -130,7 +129,6 @@ class TestWebhooks:
     def test_method_update_with_all_params(self, client: Whop) -> None:
         webhook = client.webhooks.update(
             id="id",
-            api_version="v1",
             api_version_date="api_version_date",
             child_resource_events=True,
             enabled=True,
@@ -472,7 +470,6 @@ class TestAsyncWebhooks:
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         webhook = await async_client.webhooks.create(
             url="url",
-            api_version="v1",
             api_version_date="api_version_date",
             child_resource_events=True,
             enabled=True,
@@ -562,7 +559,6 @@ class TestAsyncWebhooks:
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         webhook = await async_client.webhooks.update(
             id="id",
-            api_version="v1",
             api_version_date="api_version_date",
             child_resource_events=True,
             enabled=True,
