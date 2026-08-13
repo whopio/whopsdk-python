@@ -65,6 +65,10 @@ class DmChannelsResource(SyncAPIResource):
         Create a new DM channel between two or more users, optionally scoped to a
         specific company. Returns the existing channel if one already exists.
 
+        Required permissions:
+
+        - `dms:channel:manage`
+
         Args:
           with_user_ids: The list of user identifiers to include in the DM channel. Each entry can be an
               email, username, or user ID (e.g. 'user_xxxxx').
@@ -122,9 +126,10 @@ class DmChannelsResource(SyncAPIResource):
         """
         Retrieves the details of an existing DM channel.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `dms:read`
+        - `support_chat:read`
 
         Args:
           extra_headers: Send extra headers
@@ -163,9 +168,10 @@ class DmChannelsResource(SyncAPIResource):
         Only an
         admin of the channel can perform this action.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `dms:channel:manage`
+        - `support_chat:create`
 
         Args:
           custom_name: A new custom display name for the DM channel. For example, 'Project Discussion'.
@@ -277,9 +283,10 @@ class DmChannelsResource(SyncAPIResource):
         Only an admin of the
         channel can perform this action.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `dms:channel:manage`
+        - `support_chat:create`
 
         Args:
           extra_headers: Send extra headers
@@ -346,6 +353,10 @@ class AsyncDmChannelsResource(AsyncAPIResource):
         Create a new DM channel between two or more users, optionally scoped to a
         specific company. Returns the existing channel if one already exists.
 
+        Required permissions:
+
+        - `dms:channel:manage`
+
         Args:
           with_user_ids: The list of user identifiers to include in the DM channel. Each entry can be an
               email, username, or user ID (e.g. 'user_xxxxx').
@@ -403,9 +414,10 @@ class AsyncDmChannelsResource(AsyncAPIResource):
         """
         Retrieves the details of an existing DM channel.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `dms:read`
+        - `support_chat:read`
 
         Args:
           extra_headers: Send extra headers
@@ -444,9 +456,10 @@ class AsyncDmChannelsResource(AsyncAPIResource):
         Only an
         admin of the channel can perform this action.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `dms:channel:manage`
+        - `support_chat:create`
 
         Args:
           custom_name: A new custom display name for the DM channel. For example, 'Project Discussion'.
@@ -560,9 +573,10 @@ class AsyncDmChannelsResource(AsyncAPIResource):
         Only an admin of the
         channel can perform this action.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `dms:channel:manage`
+        - `support_chat:create`
 
         Args:
           extra_headers: Send extra headers

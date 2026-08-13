@@ -72,9 +72,10 @@ class DmMembersResource(SyncAPIResource):
         Only an admin of the channel can add
         members.
 
-        Required permissions:
+        Required permissions (one of):
 
-        - `dms:channel:manage`
+        - `dms:message:manage`
+        - `support_chat:message:create`
 
         Args:
           channel_id: The unique identifier of the DM channel to add the new member to.
@@ -125,9 +126,10 @@ class DmMembersResource(SyncAPIResource):
         """
         Retrieves the details of an existing DM member.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `dms:read`
+        - `support_chat:read`
 
         Args:
           extra_headers: Send extra headers
@@ -166,9 +168,10 @@ class DmMembersResource(SyncAPIResource):
         Update a DM channel member's settings, such as their notification preferences or
         membership status.
 
-        Required permissions:
+        Required permissions (one of):
 
-        - `dms:channel:manage`
+        - `dms:read`
+        - `support_chat:read`
 
         Args:
           notification_preference: The notification preferences for a DMs feed member
@@ -225,9 +228,10 @@ class DmMembersResource(SyncAPIResource):
         Returns a paginated list of members in a specific DM channel, sorted by the date
         they were added.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `dms:read`
+        - `support_chat:read`
 
         Args:
           channel_id: The unique identifier of the DM channel to list members for.
@@ -287,9 +291,10 @@ class DmMembersResource(SyncAPIResource):
         An admin can remove any member, and a member
         can remove themselves.
 
-        Required permissions:
+        Required permissions (one of):
 
-        - `dms:channel:manage`
+        - `dms:read`
+        - `support_chat:read`
 
         Args:
           extra_headers: Send extra headers
@@ -355,9 +360,10 @@ class AsyncDmMembersResource(AsyncAPIResource):
         Only an admin of the channel can add
         members.
 
-        Required permissions:
+        Required permissions (one of):
 
-        - `dms:channel:manage`
+        - `dms:message:manage`
+        - `support_chat:message:create`
 
         Args:
           channel_id: The unique identifier of the DM channel to add the new member to.
@@ -408,9 +414,10 @@ class AsyncDmMembersResource(AsyncAPIResource):
         """
         Retrieves the details of an existing DM member.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `dms:read`
+        - `support_chat:read`
 
         Args:
           extra_headers: Send extra headers
@@ -449,9 +456,10 @@ class AsyncDmMembersResource(AsyncAPIResource):
         Update a DM channel member's settings, such as their notification preferences or
         membership status.
 
-        Required permissions:
+        Required permissions (one of):
 
-        - `dms:channel:manage`
+        - `dms:read`
+        - `support_chat:read`
 
         Args:
           notification_preference: The notification preferences for a DMs feed member
@@ -508,9 +516,10 @@ class AsyncDmMembersResource(AsyncAPIResource):
         Returns a paginated list of members in a specific DM channel, sorted by the date
         they were added.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `dms:read`
+        - `support_chat:read`
 
         Args:
           channel_id: The unique identifier of the DM channel to list members for.
@@ -570,9 +579,10 @@ class AsyncDmMembersResource(AsyncAPIResource):
         An admin can remove any member, and a member
         can remove themselves.
 
-        Required permissions:
+        Required permissions (one of):
 
-        - `dms:channel:manage`
+        - `dms:read`
+        - `support_chat:read`
 
         Args:
           extra_headers: Send extra headers

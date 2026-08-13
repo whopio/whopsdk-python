@@ -65,9 +65,13 @@ class ReactionsResource(SyncAPIResource):
         In forums, the
         reaction is always a like.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `chat:read`
+        - `dms:read`
+        - `forum:read`
+        - `livestream:chat:read`
+        - `support_chat:read`
 
         Args:
           resource_id: The unique identifier of the message or forum post to react to.
@@ -122,9 +126,13 @@ class ReactionsResource(SyncAPIResource):
         """
         Retrieves the details of an existing reaction.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `chat:read`
+        - `dms:read`
+        - `forum:read`
+        - `livestream:chat:read`
+        - `support_chat:read`
 
         Args:
           extra_headers: Send extra headers
@@ -164,9 +172,13 @@ class ReactionsResource(SyncAPIResource):
         Returns a paginated list of emoji reactions on a specific message or forum post,
         sorted by most recent.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `chat:read`
+        - `dms:read`
+        - `forum:read`
+        - `livestream:chat:read`
+        - `support_chat:read`
 
         Args:
           resource_id: The unique identifier of the message or forum post to list reactions for.
@@ -227,9 +239,13 @@ class ReactionsResource(SyncAPIResource):
         Only the reaction author
         or a channel admin can remove a reaction.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `chat:read`
+        - `dms:read`
+        - `forum:read`
+        - `livestream:chat:read`
+        - `support_chat:read`
 
         Args:
           emoji: The emoji to remove, in shortcode or unicode format. For example, ':heart:' or a
@@ -301,9 +317,13 @@ class AsyncReactionsResource(AsyncAPIResource):
         In forums, the
         reaction is always a like.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `chat:read`
+        - `dms:read`
+        - `forum:read`
+        - `livestream:chat:read`
+        - `support_chat:read`
 
         Args:
           resource_id: The unique identifier of the message or forum post to react to.
@@ -358,9 +378,13 @@ class AsyncReactionsResource(AsyncAPIResource):
         """
         Retrieves the details of an existing reaction.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `chat:read`
+        - `dms:read`
+        - `forum:read`
+        - `livestream:chat:read`
+        - `support_chat:read`
 
         Args:
           extra_headers: Send extra headers
@@ -400,9 +424,13 @@ class AsyncReactionsResource(AsyncAPIResource):
         Returns a paginated list of emoji reactions on a specific message or forum post,
         sorted by most recent.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `chat:read`
+        - `dms:read`
+        - `forum:read`
+        - `livestream:chat:read`
+        - `support_chat:read`
 
         Args:
           resource_id: The unique identifier of the message or forum post to list reactions for.
@@ -463,9 +491,13 @@ class AsyncReactionsResource(AsyncAPIResource):
         Only the reaction author
         or a channel admin can remove a reaction.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `chat:read`
+        - `dms:read`
+        - `forum:read`
+        - `livestream:chat:read`
+        - `support_chat:read`
 
         Args:
           emoji: The emoji to remove, in shortcode or unicode format. For example, ':heart:' or a
