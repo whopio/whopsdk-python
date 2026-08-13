@@ -215,6 +215,7 @@ PermissionAction: TypeAlias = Literal[
     "webhook_receive:payout_accounts",
     "webhook_receive:chat",
     "webhook_receive:entries",
+    "webhook_receive:ad_campaigns",
     "webhook_receive:products",
     "webhook_receive:plans",
     "webhook_receive:shipments",

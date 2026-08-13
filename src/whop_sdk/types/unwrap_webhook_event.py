@@ -61,6 +61,7 @@ from .identity_profile_updated_webhook_event import IdentityProfileUpdatedWebhoo
 from .card_application_approved_webhook_event import CardApplicationApprovedWebhookEvent
 from .card_transaction_declined_webhook_event import CardTransactionDeclinedWebhookEvent
 from .card_transaction_reversed_webhook_event import CardTransactionReversedWebhookEvent
+from .ad_campaign_payment_failed_webhook_event import AdCampaignPaymentFailedWebhookEvent
 from .card_transaction_completed_webhook_event import CardTransactionCompletedWebhookEvent
 from .invoice_marked_uncollectible_webhook_event import InvoiceMarkedUncollectibleWebhookEvent
 from .membership_trial_ending_soon_webhook_event import MembershipTrialEndingSoonWebhookEvent
@@ -77,6 +78,7 @@ __all__ = ["UnwrapWebhookEvent"]
 
 UnwrapWebhookEvent: TypeAlias = Annotated[
     Union[
+        AdCampaignPaymentFailedWebhookEvent,
         CardCanceledWebhookEvent,
         CardCreatedWebhookEvent,
         CardFrozenWebhookEvent,

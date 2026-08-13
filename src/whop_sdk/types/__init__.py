@@ -631,6 +631,9 @@ from .resolution_center_case_summary_response import (
 from .setup_intent_update_return_url_response import (
     SetupIntentUpdateReturnURLResponse as SetupIntentUpdateReturnURLResponse,
 )
+from .ad_campaign_payment_failed_webhook_event import (
+    AdCampaignPaymentFailedWebhookEvent as AdCampaignPaymentFailedWebhookEvent,
+)
 from .ad_group_search_targeting_options_params import (
     AdGroupSearchTargetingOptionsParams as AdGroupSearchTargetingOptionsParams,
 )
