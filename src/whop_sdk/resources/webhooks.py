@@ -12,10 +12,11 @@ from ..types import (
     webhook_list_params,
     webhook_test_params,
     webhook_create_params,
+    webhook_replay_params,
     webhook_update_params,
     webhook_list_deliveries_params,
 )
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._models import construct_type
@@ -34,6 +35,7 @@ from ..types.unwrap_webhook_event import UnwrapWebhookEvent
 from ..types.webhook_list_response import WebhookListResponse
 from ..types.webhook_test_response import WebhookTestResponse
 from ..types.webhook_delete_response import WebhookDeleteResponse
+from ..types.webhook_replay_response import WebhookReplayResponse
 from ..types.webhook_list_deliveries_response import WebhookListDeliveriesResponse
 from ..types.webhook_replay_delivery_response import WebhookReplayDeliveryResponse
 
@@ -632,6 +634,78 @@ class WebhooksResource(SyncAPIResource):
                 ),
             ),
             model=WebhookListDeliveriesResponse,
+        )
+
+    def replay(
+        self,
+        id: str,
+        *,
+        sent_after: str,
+        events: SequenceNotStr[str] | Omit = omit,
+        failed_only: bool | Omit = omit,
+        sent_before: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> WebhookReplayResponse:
+        """
+        Re-sends the webhook's past deliveries within a time window, optionally limited
+        to specific events or to messages whose most recent delivery attempt failed.
+        Fire and forget: nothing about the replay is stored, and each re-send appears as
+        a new entry in the webhook's delivery log. Each matching message is re-sent once
+        with its original `webhook-id`, so consumers that deduplicate are unaffected.
+        Only available for enabled webhooks on API version v1; deliveries are retained
+        for 30 days.
+
+        Args:
+          sent_after: Start of the delivery window to replay, as an ISO 8601 timestamp. Clamped to the
+              30-day delivery retention.
+
+          events: Only replay these event types, in dot form (for example `payment.succeeded`).
+              Omit to include every event.
+
+          failed_only: Only replay messages whose most recent delivery attempt in the window failed.
+              Defaults to false. Best-effort: a message whose attempts span processing batches
+              can still be re-sent — replays keep the original `webhook-id`, so consumers that
+              deduplicate are unaffected.
+
+          sent_before: End of the delivery window to replay, as an ISO 8601 timestamp. Defaults to now.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            path_template("/webhooks/{id}/replay", id=id),
+            body=maybe_transform(
+                {
+                    "sent_after": sent_after,
+                    "events": events,
+                    "failed_only": failed_only,
+                    "sent_before": sent_before,
+                },
+                webhook_replay_params.WebhookReplayParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
+            ),
+            cast_to=WebhookReplayResponse,
         )
 
     def replay_delivery(
@@ -1348,6 +1422,78 @@ class AsyncWebhooksResource(AsyncAPIResource):
             model=WebhookListDeliveriesResponse,
         )
 
+    async def replay(
+        self,
+        id: str,
+        *,
+        sent_after: str,
+        events: SequenceNotStr[str] | Omit = omit,
+        failed_only: bool | Omit = omit,
+        sent_before: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> WebhookReplayResponse:
+        """
+        Re-sends the webhook's past deliveries within a time window, optionally limited
+        to specific events or to messages whose most recent delivery attempt failed.
+        Fire and forget: nothing about the replay is stored, and each re-send appears as
+        a new entry in the webhook's delivery log. Each matching message is re-sent once
+        with its original `webhook-id`, so consumers that deduplicate are unaffected.
+        Only available for enabled webhooks on API version v1; deliveries are retained
+        for 30 days.
+
+        Args:
+          sent_after: Start of the delivery window to replay, as an ISO 8601 timestamp. Clamped to the
+              30-day delivery retention.
+
+          events: Only replay these event types, in dot form (for example `payment.succeeded`).
+              Omit to include every event.
+
+          failed_only: Only replay messages whose most recent delivery attempt in the window failed.
+              Defaults to false. Best-effort: a message whose attempts span processing batches
+              can still be re-sent — replays keep the original `webhook-id`, so consumers that
+              deduplicate are unaffected.
+
+          sent_before: End of the delivery window to replay, as an ISO 8601 timestamp. Defaults to now.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            path_template("/webhooks/{id}/replay", id=id),
+            body=await async_maybe_transform(
+                {
+                    "sent_after": sent_after,
+                    "events": events,
+                    "failed_only": failed_only,
+                    "sent_before": sent_before,
+                },
+                webhook_replay_params.WebhookReplayParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
+            ),
+            cast_to=WebhookReplayResponse,
+        )
+
     async def replay_delivery(
         self,
         delivery_id: str,
@@ -1490,6 +1636,9 @@ class WebhooksResourceWithRawResponse:
         self.list_deliveries = to_raw_response_wrapper(
             webhooks.list_deliveries,
         )
+        self.replay = to_raw_response_wrapper(
+            webhooks.replay,
+        )
         self.replay_delivery = to_raw_response_wrapper(
             webhooks.replay_delivery,
         )
@@ -1519,6 +1668,9 @@ class AsyncWebhooksResourceWithRawResponse:
         )
         self.list_deliveries = async_to_raw_response_wrapper(
             webhooks.list_deliveries,
+        )
+        self.replay = async_to_raw_response_wrapper(
+            webhooks.replay,
         )
         self.replay_delivery = async_to_raw_response_wrapper(
             webhooks.replay_delivery,
@@ -1550,6 +1702,9 @@ class WebhooksResourceWithStreamingResponse:
         self.list_deliveries = to_streamed_response_wrapper(
             webhooks.list_deliveries,
         )
+        self.replay = to_streamed_response_wrapper(
+            webhooks.replay,
+        )
         self.replay_delivery = to_streamed_response_wrapper(
             webhooks.replay_delivery,
         )
@@ -1579,6 +1734,9 @@ class AsyncWebhooksResourceWithStreamingResponse:
         )
         self.list_deliveries = async_to_streamed_response_wrapper(
             webhooks.list_deliveries,
+        )
+        self.replay = async_to_streamed_response_wrapper(
+            webhooks.replay,
         )
         self.replay_delivery = async_to_streamed_response_wrapper(
             webhooks.replay_delivery,

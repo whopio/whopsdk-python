@@ -16,6 +16,7 @@ from whop_sdk.types import (
     WebhookListResponse,
     WebhookTestResponse,
     WebhookDeleteResponse,
+    WebhookReplayResponse,
     WebhookListDeliveriesResponse,
     WebhookReplayDeliveryResponse,
 )
@@ -312,6 +313,64 @@ class TestWebhooks:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.webhooks.with_raw_response.list_deliveries(
                 id="",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_replay(self, client: Whop) -> None:
+        webhook = client.webhooks.replay(
+            id="id",
+            sent_after="sent_after",
+        )
+        assert_matches_type(WebhookReplayResponse, webhook, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_replay_with_all_params(self, client: Whop) -> None:
+        webhook = client.webhooks.replay(
+            id="id",
+            sent_after="sent_after",
+            events=["string"],
+            failed_only=True,
+            sent_before="sent_before",
+        )
+        assert_matches_type(WebhookReplayResponse, webhook, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_replay(self, client: Whop) -> None:
+        response = client.webhooks.with_raw_response.replay(
+            id="id",
+            sent_after="sent_after",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        webhook = response.parse()
+        assert_matches_type(WebhookReplayResponse, webhook, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_replay(self, client: Whop) -> None:
+        with client.webhooks.with_streaming_response.replay(
+            id="id",
+            sent_after="sent_after",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            webhook = response.parse()
+            assert_matches_type(WebhookReplayResponse, webhook, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_replay(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.webhooks.with_raw_response.replay(
+                id="",
+                sent_after="sent_after",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -742,6 +801,64 @@ class TestAsyncWebhooks:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.webhooks.with_raw_response.list_deliveries(
                 id="",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_replay(self, async_client: AsyncWhop) -> None:
+        webhook = await async_client.webhooks.replay(
+            id="id",
+            sent_after="sent_after",
+        )
+        assert_matches_type(WebhookReplayResponse, webhook, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_replay_with_all_params(self, async_client: AsyncWhop) -> None:
+        webhook = await async_client.webhooks.replay(
+            id="id",
+            sent_after="sent_after",
+            events=["string"],
+            failed_only=True,
+            sent_before="sent_before",
+        )
+        assert_matches_type(WebhookReplayResponse, webhook, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_replay(self, async_client: AsyncWhop) -> None:
+        response = await async_client.webhooks.with_raw_response.replay(
+            id="id",
+            sent_after="sent_after",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        webhook = await response.parse()
+        assert_matches_type(WebhookReplayResponse, webhook, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_replay(self, async_client: AsyncWhop) -> None:
+        async with async_client.webhooks.with_streaming_response.replay(
+            id="id",
+            sent_after="sent_after",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            webhook = await response.parse()
+            assert_matches_type(WebhookReplayResponse, webhook, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_replay(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.webhooks.with_raw_response.replay(
+                id="",
+                sent_after="sent_after",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
