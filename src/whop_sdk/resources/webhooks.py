@@ -4,10 +4,17 @@ from __future__ import annotations
 
 import json
 from typing import List, Mapping, Optional, cast
+from typing_extensions import Literal
 
 import httpx
 
-from ..types import APIVersion, webhook_list_params, webhook_create_params, webhook_update_params
+from ..types import (
+    webhook_list_params,
+    webhook_test_params,
+    webhook_create_params,
+    webhook_update_params,
+    webhook_list_deliveries_params,
+)
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -23,19 +30,17 @@ from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._exceptions import WhopError
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.webhook import Webhook
-from ..types.api_version import APIVersion
-from ..types.webhook_event import WebhookEvent
 from ..types.unwrap_webhook_event import UnwrapWebhookEvent
 from ..types.webhook_list_response import WebhookListResponse
-from ..types.webhook_create_response import WebhookCreateResponse
+from ..types.webhook_test_response import WebhookTestResponse
 from ..types.webhook_delete_response import WebhookDeleteResponse
+from ..types.webhook_list_deliveries_response import WebhookListDeliveriesResponse
+from ..types.webhook_replay_delivery_response import WebhookReplayDeliveryResponse
 
 __all__ = ["WebhooksResource", "AsyncWebhooksResource"]
 
 
 class WebhooksResource(SyncAPIResource):
-    """Webhooks"""
-
     @cached_property
     def with_raw_response(self) -> WebhooksResourceWithRawResponse:
         """
@@ -59,10 +64,126 @@ class WebhooksResource(SyncAPIResource):
         self,
         *,
         url: str,
-        api_version: Optional[APIVersion] | Omit = omit,
-        child_resource_events: Optional[bool] | Omit = omit,
-        enabled: Optional[bool] | Omit = omit,
-        events: Optional[List[WebhookEvent]] | Omit = omit,
+        api_version_date: Optional[str] | Omit = omit,
+        child_resource_events: bool | Omit = omit,
+        enabled: bool | Omit = omit,
+        events: List[
+            Literal[
+                "invoice.created",
+                "invoice.marked_uncollectible",
+                "invoice.paid",
+                "invoice.past_due",
+                "invoice.voided",
+                "membership.activated",
+                "membership.deactivated",
+                "membership.trial_ending_soon",
+                "entry.created",
+                "entry.approved",
+                "entry.denied",
+                "entry.deleted",
+                "export.completed",
+                "export.failed",
+                "setup_intent.requires_action",
+                "setup_intent.succeeded",
+                "setup_intent.canceled",
+                "ledger_account.funds_available",
+                "swap.completed",
+                "deposit.succeeded",
+                "transfer.created",
+                "transfer.completed",
+                "withdrawal.created",
+                "withdrawal.updated",
+                "card_transaction.created",
+                "card_transaction.updated",
+                "card_transaction.completed",
+                "card_transaction.declined",
+                "card_transaction.reversed",
+                "card.created",
+                "card.updated",
+                "card.frozen",
+                "card.canceled",
+                "card_application.created",
+                "card_application.updated",
+                "card_application.approved",
+                "card_application.denied",
+                "course_lesson_interaction.completed",
+                "payout_method.created",
+                "verification.succeeded",
+                "identity_profile.approved",
+                "identity_profile.rejected",
+                "identity_profile.needs_action",
+                "identity_profile.updated",
+                "payout_account.status_updated",
+                "resolution_center_case.created",
+                "resolution_center_case.updated",
+                "resolution_center_case.decided",
+                "product.created",
+                "product.updated",
+                "product.deleted",
+                "product.published",
+                "product.unpublished",
+                "plan.created",
+                "plan.updated",
+                "plan.deleted",
+                "shipment.created",
+                "shipment.updated",
+                "member.created",
+                "ad_campaign.payment_failed",
+                "chat.message.created",
+                "chat.reaction.created",
+                "payment.created",
+                "payment.succeeded",
+                "payment.failed",
+                "payment.pending",
+                "dispute.created",
+                "dispute.updated",
+                "refund.created",
+                "refund.updated",
+                "dispute_alert.created",
+                "membership.cancel_at_period_end_changed",
+                "membership_went_valid",
+                "membership_went_invalid",
+                "membership_metadata_updated",
+                "resolution_created",
+                "resolution_updated",
+                "resolution_decided",
+                "payment_affiliate_reward_created",
+                "membership_experience_claimed",
+                "app_membership_went_valid",
+                "app_membership_went_invalid",
+                "app_payment_created",
+                "app_payment_succeeded",
+                "app_payment_failed",
+                "app_payment_pending",
+                "app_membership_cancel_at_period_end_changed",
+                "payment_created",
+                "payment_succeeded",
+                "payment_failed",
+                "payment_pending",
+                "dispute_created",
+                "dispute_updated",
+                "refund_created",
+                "refund_updated",
+                "dispute_alert_created",
+                "membership_cancel_at_period_end_changed",
+                "membership.went_valid",
+                "membership.went_invalid",
+                "membership.metadata_updated",
+                "resolution.created",
+                "resolution.updated",
+                "resolution.decided",
+                "payment.affiliate_reward_created",
+                "membership.experience_claimed",
+                "app_membership.went_valid",
+                "app_membership.went_invalid",
+                "app_payment.created",
+                "app_payment.succeeded",
+                "app_payment.failed",
+                "app_payment.pending",
+                "app_membership.cancel_at_period_end_changed",
+            ]
+        ]
+        | Omit = omit,
         resource_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -70,28 +191,27 @@ class WebhooksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> WebhookCreateResponse:
+        idempotency_key: str | None = None,
+    ) -> Webhook:
         """
-        Creates a new webhook
-
-        Required permissions:
-
-        - `developer:manage_webhook`
+        Creates a webhook endpoint that receives event notifications via HTTP POST.
 
         Args:
           url: The URL to send the webhook to.
 
-          api_version: The different API versions
+          api_version_date: The dated API version (Api-Version-Date) to pin this webhook's payloads to. Omit
+              to leave the webhook unpinned, tracking the current payload shape.
 
-          child_resource_events: Whether or not to send events for child resources. For example, if the webhook
-              is created for a Company, enabling this will only send events from the Company's
-              sub-merchants (child companies).
+          child_resource_events: Whether to send events for child resources. For example, if the webhook is
+              created for an account, enabling this sends events only from its connected
+              accounts.
 
-          enabled: Whether or not the webhook is enabled.
+          enabled: Whether or not the webhook is enabled. Defaults to `true`.
 
-          events: The events to send the webhook for.
+          events: The events to send the webhook for, in dot form (for example
+              `payment.succeeded`).
 
-          resource_id: The resource to create the webhook for. By default this will use current company
+          resource_id: The account or app to create the webhook for. Defaults to the current account.
 
           extra_headers: Send extra headers
 
@@ -100,13 +220,15 @@ class WebhooksResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return self._post(
             "/webhooks",
             body=maybe_transform(
                 {
                     "url": url,
-                    "api_version": api_version,
+                    "api_version_date": api_version_date,
                     "child_resource_events": child_resource_events,
                     "enabled": enabled,
                     "events": events,
@@ -115,9 +237,13 @@ class WebhooksResource(SyncAPIResource):
                 webhook_create_params.WebhookCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
-            cast_to=WebhookCreateResponse,
+            cast_to=Webhook,
         )
 
     def retrieve(
@@ -133,10 +259,6 @@ class WebhooksResource(SyncAPIResource):
     ) -> Webhook:
         """
         Retrieves the details of an existing webhook.
-
-        Required permissions:
-
-        - `developer:manage_webhook`
 
         Args:
           extra_headers: Send extra headers
@@ -161,33 +283,150 @@ class WebhooksResource(SyncAPIResource):
         self,
         id: str,
         *,
-        api_version: Optional[APIVersion] | Omit = omit,
-        child_resource_events: Optional[bool] | Omit = omit,
-        enabled: Optional[bool] | Omit = omit,
-        events: Optional[List[WebhookEvent]] | Omit = omit,
-        url: Optional[str] | Omit = omit,
+        api_version_date: Optional[str] | Omit = omit,
+        child_resource_events: bool | Omit = omit,
+        enabled: bool | Omit = omit,
+        events: List[
+            Literal[
+                "invoice.created",
+                "invoice.marked_uncollectible",
+                "invoice.paid",
+                "invoice.past_due",
+                "invoice.voided",
+                "membership.activated",
+                "membership.deactivated",
+                "membership.trial_ending_soon",
+                "entry.created",
+                "entry.approved",
+                "entry.denied",
+                "entry.deleted",
+                "export.completed",
+                "export.failed",
+                "setup_intent.requires_action",
+                "setup_intent.succeeded",
+                "setup_intent.canceled",
+                "ledger_account.funds_available",
+                "swap.completed",
+                "deposit.succeeded",
+                "transfer.created",
+                "transfer.completed",
+                "withdrawal.created",
+                "withdrawal.updated",
+                "card_transaction.created",
+                "card_transaction.updated",
+                "card_transaction.completed",
+                "card_transaction.declined",
+                "card_transaction.reversed",
+                "card.created",
+                "card.updated",
+                "card.frozen",
+                "card.canceled",
+                "card_application.created",
+                "card_application.updated",
+                "card_application.approved",
+                "card_application.denied",
+                "course_lesson_interaction.completed",
+                "payout_method.created",
+                "verification.succeeded",
+                "identity_profile.approved",
+                "identity_profile.rejected",
+                "identity_profile.needs_action",
+                "identity_profile.updated",
+                "payout_account.status_updated",
+                "resolution_center_case.created",
+                "resolution_center_case.updated",
+                "resolution_center_case.decided",
+                "product.created",
+                "product.updated",
+                "product.deleted",
+                "product.published",
+                "product.unpublished",
+                "plan.created",
+                "plan.updated",
+                "plan.deleted",
+                "shipment.created",
+                "shipment.updated",
+                "member.created",
+                "ad_campaign.payment_failed",
+                "chat.message.created",
+                "chat.reaction.created",
+                "payment.created",
+                "payment.succeeded",
+                "payment.failed",
+                "payment.pending",
+                "dispute.created",
+                "dispute.updated",
+                "refund.created",
+                "refund.updated",
+                "dispute_alert.created",
+                "membership.cancel_at_period_end_changed",
+                "membership_went_valid",
+                "membership_went_invalid",
+                "membership_metadata_updated",
+                "resolution_created",
+                "resolution_updated",
+                "resolution_decided",
+                "payment_affiliate_reward_created",
+                "membership_experience_claimed",
+                "app_membership_went_valid",
+                "app_membership_went_invalid",
+                "app_payment_created",
+                "app_payment_succeeded",
+                "app_payment_failed",
+                "app_payment_pending",
+                "app_membership_cancel_at_period_end_changed",
+                "payment_created",
+                "payment_succeeded",
+                "payment_failed",
+                "payment_pending",
+                "dispute_created",
+                "dispute_updated",
+                "refund_created",
+                "refund_updated",
+                "dispute_alert_created",
+                "membership_cancel_at_period_end_changed",
+                "membership.went_valid",
+                "membership.went_invalid",
+                "membership.metadata_updated",
+                "resolution.created",
+                "resolution.updated",
+                "resolution.decided",
+                "payment.affiliate_reward_created",
+                "membership.experience_claimed",
+                "app_membership.went_valid",
+                "app_membership.went_invalid",
+                "app_payment.created",
+                "app_payment.succeeded",
+                "app_payment.failed",
+                "app_payment.pending",
+                "app_membership.cancel_at_period_end_changed",
+            ]
+        ]
+        | Omit = omit,
+        url: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Webhook:
         """
-        Updates a webhook
-
-        Required permissions:
-
-        - `developer:manage_webhook`
+        Updates a webhook endpoint's URL, subscribed events, pinned payload version, or
+        enabled state.
 
         Args:
-          api_version: The different API versions
+          api_version_date: The dated API version (Api-Version-Date) to pin this webhook's payloads to. Only
+              valid for `v1` webhooks. Omit to leave the current pin unchanged, or pass `null`
+              to unpin and track the current payload shape.
 
           child_resource_events: Whether or not to send events for child resources.
 
           enabled: Whether or not the webhook is enabled.
 
-          events: The events to send the webhook for.
+          events: The events to send the webhook for, in dot form (for example
+              `payment.succeeded`).
 
           url: The URL to send the webhook to.
 
@@ -198,6 +437,8 @@ class WebhooksResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -205,7 +446,7 @@ class WebhooksResource(SyncAPIResource):
             path_template("/webhooks/{id}", id=id),
             body=maybe_transform(
                 {
-                    "api_version": api_version,
+                    "api_version_date": api_version_date,
                     "child_resource_events": child_resource_events,
                     "enabled": enabled,
                     "events": events,
@@ -214,7 +455,11 @@ class WebhooksResource(SyncAPIResource):
                 webhook_update_params.WebhookUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Webhook,
         )
@@ -222,11 +467,14 @@ class WebhooksResource(SyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
+        account_id: str,
+        after: str | Omit = omit,
+        app_id: str | Omit = omit,
+        before: str | Omit = omit,
+        first: int | Omit = omit,
+        has_failures: bool | Omit = omit,
+        include_app_webhooks: bool | Omit = omit,
+        last: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -235,23 +483,29 @@ class WebhooksResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[WebhookListResponse]:
         """
-        Returns a paginated list of webhook endpoints configured for a company, ordered
+        Returns a paginated list of webhook endpoints configured for an account, ordered
         by most recently created.
 
-        Required permissions:
-
-        - `developer:manage_webhook`
-
         Args:
-          company_id: The unique identifier of the company to list webhooks for.
+          account_id: The unique identifier of the account to list webhooks for.
 
-          after: Returns the elements in the list that come after the specified cursor.
+          after: A cursor; returns webhooks after this position.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          app_id: Only return webhooks attached to this app. Omit to list the account's own
+              webhooks.
 
-          first: Returns the first _n_ elements from the list.
+          before: A cursor; returns webhooks before this position.
 
-          last: Returns the last _n_ elements from the list.
+          first: The number of webhooks to return (default 20, max 100).
+
+          has_failures: Only return webhooks whose endpoint is currently failing — every delivery since
+              the current failure streak began has been rejected. Clears as soon as a delivery
+              succeeds.
+
+          include_app_webhooks: Also return webhooks attached to the account's apps, not just the account's own.
+              Cannot be combined with `app_id`.
+
+          last: The number of webhooks to return from the end of the range.
 
           extra_headers: Send extra headers
 
@@ -271,10 +525,13 @@ class WebhooksResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
+                        "app_id": app_id,
                         "before": before,
                         "first": first,
+                        "has_failures": has_failures,
+                        "include_app_webhooks": include_app_webhooks,
                         "last": last,
                     },
                     webhook_list_params.WebhookListParams,
@@ -293,15 +550,61 @@ class WebhooksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> WebhookDeleteResponse:
-        """
-        Deletes a webhook
+        """Permanently deletes a webhook endpoint.
 
-        Required permissions:
-
-        - `developer:manage_webhook`
+        Returns `true` on success, matching the
+        legacy proxy response.
 
         Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._delete(
+            path_template("/webhooks/{id}", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
+            ),
+            cast_to=WebhookDeleteResponse,
+        )
+
+    def list_deliveries(
+        self,
+        id: str,
+        *,
+        after: str | Omit = omit,
+        first: int | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncCursorPage[WebhookListDeliveriesResponse]:
+        """
+        Returns a paginated list of delivery attempts for a webhook, ordered by most
+        recent first. Includes the request payload, response body, response code, and
+        timing for each attempt.
+
+        Args:
+          after: A cursor; returns deliveries after this position.
+
+          first: The number of deliveries to return (default 50, max 100).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -312,12 +615,116 @@ class WebhooksResource(SyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return self._delete(
-            path_template("/webhooks/{id}", id=id),
+        return self._get_api_list(
+            path_template("/webhooks/{id}/deliveries", id=id),
+            page=SyncCursorPage[WebhookListDeliveriesResponse],
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "first": first,
+                    },
+                    webhook_list_deliveries_params.WebhookListDeliveriesParams,
+                ),
             ),
-            cast_to=WebhookDeleteResponse,
+            model=WebhookListDeliveriesResponse,
+        )
+
+    def replay_delivery(
+        self,
+        delivery_id: str,
+        *,
+        id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> WebhookReplayDeliveryResponse:
+        """
+        Re-sends the exact payload of a past delivery to the webhook's current URL and
+        returns the delivery result. The replay keeps the original `webhook-id`, so
+        consumers that deduplicate on it can drop events they already processed. Only
+        available for enabled webhooks on API version v1; deliveries are retained for 30
+        days.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not delivery_id:
+            raise ValueError(f"Expected a non-empty value for `delivery_id` but received {delivery_id!r}")
+        return self._post(
+            path_template("/webhooks/{id}/deliveries/{delivery_id}/replay", id=id, delivery_id=delivery_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
+            ),
+            cast_to=WebhookReplayDeliveryResponse,
+        )
+
+    def test(
+        self,
+        id: str,
+        *,
+        event: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> WebhookTestResponse:
+        """
+        Sends a sample payload for the given event to the webhook's URL and returns the
+        delivery result.
+
+        Args:
+          event: The event to test the webhook for, in dot form (for example
+              `payment.succeeded`).
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            path_template("/webhooks/{id}/test", id=id),
+            body=maybe_transform({"event": event}, webhook_test_params.WebhookTestParams),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
+            ),
+            cast_to=WebhookTestResponse,
         )
 
     def unwrap(self, payload: str, *, headers: Mapping[str, str], key: str | bytes | None = None) -> UnwrapWebhookEvent:
@@ -348,8 +755,6 @@ class WebhooksResource(SyncAPIResource):
 
 
 class AsyncWebhooksResource(AsyncAPIResource):
-    """Webhooks"""
-
     @cached_property
     def with_raw_response(self) -> AsyncWebhooksResourceWithRawResponse:
         """
@@ -373,10 +778,126 @@ class AsyncWebhooksResource(AsyncAPIResource):
         self,
         *,
         url: str,
-        api_version: Optional[APIVersion] | Omit = omit,
-        child_resource_events: Optional[bool] | Omit = omit,
-        enabled: Optional[bool] | Omit = omit,
-        events: Optional[List[WebhookEvent]] | Omit = omit,
+        api_version_date: Optional[str] | Omit = omit,
+        child_resource_events: bool | Omit = omit,
+        enabled: bool | Omit = omit,
+        events: List[
+            Literal[
+                "invoice.created",
+                "invoice.marked_uncollectible",
+                "invoice.paid",
+                "invoice.past_due",
+                "invoice.voided",
+                "membership.activated",
+                "membership.deactivated",
+                "membership.trial_ending_soon",
+                "entry.created",
+                "entry.approved",
+                "entry.denied",
+                "entry.deleted",
+                "export.completed",
+                "export.failed",
+                "setup_intent.requires_action",
+                "setup_intent.succeeded",
+                "setup_intent.canceled",
+                "ledger_account.funds_available",
+                "swap.completed",
+                "deposit.succeeded",
+                "transfer.created",
+                "transfer.completed",
+                "withdrawal.created",
+                "withdrawal.updated",
+                "card_transaction.created",
+                "card_transaction.updated",
+                "card_transaction.completed",
+                "card_transaction.declined",
+                "card_transaction.reversed",
+                "card.created",
+                "card.updated",
+                "card.frozen",
+                "card.canceled",
+                "card_application.created",
+                "card_application.updated",
+                "card_application.approved",
+                "card_application.denied",
+                "course_lesson_interaction.completed",
+                "payout_method.created",
+                "verification.succeeded",
+                "identity_profile.approved",
+                "identity_profile.rejected",
+                "identity_profile.needs_action",
+                "identity_profile.updated",
+                "payout_account.status_updated",
+                "resolution_center_case.created",
+                "resolution_center_case.updated",
+                "resolution_center_case.decided",
+                "product.created",
+                "product.updated",
+                "product.deleted",
+                "product.published",
+                "product.unpublished",
+                "plan.created",
+                "plan.updated",
+                "plan.deleted",
+                "shipment.created",
+                "shipment.updated",
+                "member.created",
+                "ad_campaign.payment_failed",
+                "chat.message.created",
+                "chat.reaction.created",
+                "payment.created",
+                "payment.succeeded",
+                "payment.failed",
+                "payment.pending",
+                "dispute.created",
+                "dispute.updated",
+                "refund.created",
+                "refund.updated",
+                "dispute_alert.created",
+                "membership.cancel_at_period_end_changed",
+                "membership_went_valid",
+                "membership_went_invalid",
+                "membership_metadata_updated",
+                "resolution_created",
+                "resolution_updated",
+                "resolution_decided",
+                "payment_affiliate_reward_created",
+                "membership_experience_claimed",
+                "app_membership_went_valid",
+                "app_membership_went_invalid",
+                "app_payment_created",
+                "app_payment_succeeded",
+                "app_payment_failed",
+                "app_payment_pending",
+                "app_membership_cancel_at_period_end_changed",
+                "payment_created",
+                "payment_succeeded",
+                "payment_failed",
+                "payment_pending",
+                "dispute_created",
+                "dispute_updated",
+                "refund_created",
+                "refund_updated",
+                "dispute_alert_created",
+                "membership_cancel_at_period_end_changed",
+                "membership.went_valid",
+                "membership.went_invalid",
+                "membership.metadata_updated",
+                "resolution.created",
+                "resolution.updated",
+                "resolution.decided",
+                "payment.affiliate_reward_created",
+                "membership.experience_claimed",
+                "app_membership.went_valid",
+                "app_membership.went_invalid",
+                "app_payment.created",
+                "app_payment.succeeded",
+                "app_payment.failed",
+                "app_payment.pending",
+                "app_membership.cancel_at_period_end_changed",
+            ]
+        ]
+        | Omit = omit,
         resource_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -384,28 +905,27 @@ class AsyncWebhooksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> WebhookCreateResponse:
+        idempotency_key: str | None = None,
+    ) -> Webhook:
         """
-        Creates a new webhook
-
-        Required permissions:
-
-        - `developer:manage_webhook`
+        Creates a webhook endpoint that receives event notifications via HTTP POST.
 
         Args:
           url: The URL to send the webhook to.
 
-          api_version: The different API versions
+          api_version_date: The dated API version (Api-Version-Date) to pin this webhook's payloads to. Omit
+              to leave the webhook unpinned, tracking the current payload shape.
 
-          child_resource_events: Whether or not to send events for child resources. For example, if the webhook
-              is created for a Company, enabling this will only send events from the Company's
-              sub-merchants (child companies).
+          child_resource_events: Whether to send events for child resources. For example, if the webhook is
+              created for an account, enabling this sends events only from its connected
+              accounts.
 
-          enabled: Whether or not the webhook is enabled.
+          enabled: Whether or not the webhook is enabled. Defaults to `true`.
 
-          events: The events to send the webhook for.
+          events: The events to send the webhook for, in dot form (for example
+              `payment.succeeded`).
 
-          resource_id: The resource to create the webhook for. By default this will use current company
+          resource_id: The account or app to create the webhook for. Defaults to the current account.
 
           extra_headers: Send extra headers
 
@@ -414,13 +934,15 @@ class AsyncWebhooksResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return await self._post(
             "/webhooks",
             body=await async_maybe_transform(
                 {
                     "url": url,
-                    "api_version": api_version,
+                    "api_version_date": api_version_date,
                     "child_resource_events": child_resource_events,
                     "enabled": enabled,
                     "events": events,
@@ -429,9 +951,13 @@ class AsyncWebhooksResource(AsyncAPIResource):
                 webhook_create_params.WebhookCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
-            cast_to=WebhookCreateResponse,
+            cast_to=Webhook,
         )
 
     async def retrieve(
@@ -447,10 +973,6 @@ class AsyncWebhooksResource(AsyncAPIResource):
     ) -> Webhook:
         """
         Retrieves the details of an existing webhook.
-
-        Required permissions:
-
-        - `developer:manage_webhook`
 
         Args:
           extra_headers: Send extra headers
@@ -475,33 +997,150 @@ class AsyncWebhooksResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        api_version: Optional[APIVersion] | Omit = omit,
-        child_resource_events: Optional[bool] | Omit = omit,
-        enabled: Optional[bool] | Omit = omit,
-        events: Optional[List[WebhookEvent]] | Omit = omit,
-        url: Optional[str] | Omit = omit,
+        api_version_date: Optional[str] | Omit = omit,
+        child_resource_events: bool | Omit = omit,
+        enabled: bool | Omit = omit,
+        events: List[
+            Literal[
+                "invoice.created",
+                "invoice.marked_uncollectible",
+                "invoice.paid",
+                "invoice.past_due",
+                "invoice.voided",
+                "membership.activated",
+                "membership.deactivated",
+                "membership.trial_ending_soon",
+                "entry.created",
+                "entry.approved",
+                "entry.denied",
+                "entry.deleted",
+                "export.completed",
+                "export.failed",
+                "setup_intent.requires_action",
+                "setup_intent.succeeded",
+                "setup_intent.canceled",
+                "ledger_account.funds_available",
+                "swap.completed",
+                "deposit.succeeded",
+                "transfer.created",
+                "transfer.completed",
+                "withdrawal.created",
+                "withdrawal.updated",
+                "card_transaction.created",
+                "card_transaction.updated",
+                "card_transaction.completed",
+                "card_transaction.declined",
+                "card_transaction.reversed",
+                "card.created",
+                "card.updated",
+                "card.frozen",
+                "card.canceled",
+                "card_application.created",
+                "card_application.updated",
+                "card_application.approved",
+                "card_application.denied",
+                "course_lesson_interaction.completed",
+                "payout_method.created",
+                "verification.succeeded",
+                "identity_profile.approved",
+                "identity_profile.rejected",
+                "identity_profile.needs_action",
+                "identity_profile.updated",
+                "payout_account.status_updated",
+                "resolution_center_case.created",
+                "resolution_center_case.updated",
+                "resolution_center_case.decided",
+                "product.created",
+                "product.updated",
+                "product.deleted",
+                "product.published",
+                "product.unpublished",
+                "plan.created",
+                "plan.updated",
+                "plan.deleted",
+                "shipment.created",
+                "shipment.updated",
+                "member.created",
+                "ad_campaign.payment_failed",
+                "chat.message.created",
+                "chat.reaction.created",
+                "payment.created",
+                "payment.succeeded",
+                "payment.failed",
+                "payment.pending",
+                "dispute.created",
+                "dispute.updated",
+                "refund.created",
+                "refund.updated",
+                "dispute_alert.created",
+                "membership.cancel_at_period_end_changed",
+                "membership_went_valid",
+                "membership_went_invalid",
+                "membership_metadata_updated",
+                "resolution_created",
+                "resolution_updated",
+                "resolution_decided",
+                "payment_affiliate_reward_created",
+                "membership_experience_claimed",
+                "app_membership_went_valid",
+                "app_membership_went_invalid",
+                "app_payment_created",
+                "app_payment_succeeded",
+                "app_payment_failed",
+                "app_payment_pending",
+                "app_membership_cancel_at_period_end_changed",
+                "payment_created",
+                "payment_succeeded",
+                "payment_failed",
+                "payment_pending",
+                "dispute_created",
+                "dispute_updated",
+                "refund_created",
+                "refund_updated",
+                "dispute_alert_created",
+                "membership_cancel_at_period_end_changed",
+                "membership.went_valid",
+                "membership.went_invalid",
+                "membership.metadata_updated",
+                "resolution.created",
+                "resolution.updated",
+                "resolution.decided",
+                "payment.affiliate_reward_created",
+                "membership.experience_claimed",
+                "app_membership.went_valid",
+                "app_membership.went_invalid",
+                "app_payment.created",
+                "app_payment.succeeded",
+                "app_payment.failed",
+                "app_payment.pending",
+                "app_membership.cancel_at_period_end_changed",
+            ]
+        ]
+        | Omit = omit,
+        url: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Webhook:
         """
-        Updates a webhook
-
-        Required permissions:
-
-        - `developer:manage_webhook`
+        Updates a webhook endpoint's URL, subscribed events, pinned payload version, or
+        enabled state.
 
         Args:
-          api_version: The different API versions
+          api_version_date: The dated API version (Api-Version-Date) to pin this webhook's payloads to. Only
+              valid for `v1` webhooks. Omit to leave the current pin unchanged, or pass `null`
+              to unpin and track the current payload shape.
 
           child_resource_events: Whether or not to send events for child resources.
 
           enabled: Whether or not the webhook is enabled.
 
-          events: The events to send the webhook for.
+          events: The events to send the webhook for, in dot form (for example
+              `payment.succeeded`).
 
           url: The URL to send the webhook to.
 
@@ -512,6 +1151,8 @@ class AsyncWebhooksResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -519,7 +1160,7 @@ class AsyncWebhooksResource(AsyncAPIResource):
             path_template("/webhooks/{id}", id=id),
             body=await async_maybe_transform(
                 {
-                    "api_version": api_version,
+                    "api_version_date": api_version_date,
                     "child_resource_events": child_resource_events,
                     "enabled": enabled,
                     "events": events,
@@ -528,7 +1169,11 @@ class AsyncWebhooksResource(AsyncAPIResource):
                 webhook_update_params.WebhookUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Webhook,
         )
@@ -536,11 +1181,14 @@ class AsyncWebhooksResource(AsyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
+        account_id: str,
+        after: str | Omit = omit,
+        app_id: str | Omit = omit,
+        before: str | Omit = omit,
+        first: int | Omit = omit,
+        has_failures: bool | Omit = omit,
+        include_app_webhooks: bool | Omit = omit,
+        last: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -549,23 +1197,29 @@ class AsyncWebhooksResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[WebhookListResponse, AsyncCursorPage[WebhookListResponse]]:
         """
-        Returns a paginated list of webhook endpoints configured for a company, ordered
+        Returns a paginated list of webhook endpoints configured for an account, ordered
         by most recently created.
 
-        Required permissions:
-
-        - `developer:manage_webhook`
-
         Args:
-          company_id: The unique identifier of the company to list webhooks for.
+          account_id: The unique identifier of the account to list webhooks for.
 
-          after: Returns the elements in the list that come after the specified cursor.
+          after: A cursor; returns webhooks after this position.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          app_id: Only return webhooks attached to this app. Omit to list the account's own
+              webhooks.
 
-          first: Returns the first _n_ elements from the list.
+          before: A cursor; returns webhooks before this position.
 
-          last: Returns the last _n_ elements from the list.
+          first: The number of webhooks to return (default 20, max 100).
+
+          has_failures: Only return webhooks whose endpoint is currently failing — every delivery since
+              the current failure streak began has been rejected. Clears as soon as a delivery
+              succeeds.
+
+          include_app_webhooks: Also return webhooks attached to the account's apps, not just the account's own.
+              Cannot be combined with `app_id`.
+
+          last: The number of webhooks to return from the end of the range.
 
           extra_headers: Send extra headers
 
@@ -585,10 +1239,13 @@ class AsyncWebhooksResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
+                        "app_id": app_id,
                         "before": before,
                         "first": first,
+                        "has_failures": has_failures,
+                        "include_app_webhooks": include_app_webhooks,
                         "last": last,
                     },
                     webhook_list_params.WebhookListParams,
@@ -607,15 +1264,61 @@ class AsyncWebhooksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> WebhookDeleteResponse:
-        """
-        Deletes a webhook
+        """Permanently deletes a webhook endpoint.
 
-        Required permissions:
-
-        - `developer:manage_webhook`
+        Returns `true` on success, matching the
+        legacy proxy response.
 
         Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._delete(
+            path_template("/webhooks/{id}", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
+            ),
+            cast_to=WebhookDeleteResponse,
+        )
+
+    def list_deliveries(
+        self,
+        id: str,
+        *,
+        after: str | Omit = omit,
+        first: int | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[WebhookListDeliveriesResponse, AsyncCursorPage[WebhookListDeliveriesResponse]]:
+        """
+        Returns a paginated list of delivery attempts for a webhook, ordered by most
+        recent first. Includes the request payload, response body, response code, and
+        timing for each attempt.
+
+        Args:
+          after: A cursor; returns deliveries after this position.
+
+          first: The number of deliveries to return (default 50, max 100).
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -626,12 +1329,116 @@ class AsyncWebhooksResource(AsyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return await self._delete(
-            path_template("/webhooks/{id}", id=id),
+        return self._get_api_list(
+            path_template("/webhooks/{id}/deliveries", id=id),
+            page=AsyncCursorPage[WebhookListDeliveriesResponse],
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "after": after,
+                        "first": first,
+                    },
+                    webhook_list_deliveries_params.WebhookListDeliveriesParams,
+                ),
             ),
-            cast_to=WebhookDeleteResponse,
+            model=WebhookListDeliveriesResponse,
+        )
+
+    async def replay_delivery(
+        self,
+        delivery_id: str,
+        *,
+        id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> WebhookReplayDeliveryResponse:
+        """
+        Re-sends the exact payload of a past delivery to the webhook's current URL and
+        returns the delivery result. The replay keeps the original `webhook-id`, so
+        consumers that deduplicate on it can drop events they already processed. Only
+        available for enabled webhooks on API version v1; deliveries are retained for 30
+        days.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not delivery_id:
+            raise ValueError(f"Expected a non-empty value for `delivery_id` but received {delivery_id!r}")
+        return await self._post(
+            path_template("/webhooks/{id}/deliveries/{delivery_id}/replay", id=id, delivery_id=delivery_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
+            ),
+            cast_to=WebhookReplayDeliveryResponse,
+        )
+
+    async def test(
+        self,
+        id: str,
+        *,
+        event: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> WebhookTestResponse:
+        """
+        Sends a sample payload for the given event to the webhook's URL and returns the
+        delivery result.
+
+        Args:
+          event: The event to test the webhook for, in dot form (for example
+              `payment.succeeded`).
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            path_template("/webhooks/{id}/test", id=id),
+            body=await async_maybe_transform({"event": event}, webhook_test_params.WebhookTestParams),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
+            ),
+            cast_to=WebhookTestResponse,
         )
 
     def unwrap(self, payload: str, *, headers: Mapping[str, str], key: str | bytes | None = None) -> UnwrapWebhookEvent:
@@ -680,6 +1487,15 @@ class WebhooksResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             webhooks.delete,
         )
+        self.list_deliveries = to_raw_response_wrapper(
+            webhooks.list_deliveries,
+        )
+        self.replay_delivery = to_raw_response_wrapper(
+            webhooks.replay_delivery,
+        )
+        self.test = to_raw_response_wrapper(
+            webhooks.test,
+        )
 
 
 class AsyncWebhooksResourceWithRawResponse:
@@ -700,6 +1516,15 @@ class AsyncWebhooksResourceWithRawResponse:
         )
         self.delete = async_to_raw_response_wrapper(
             webhooks.delete,
+        )
+        self.list_deliveries = async_to_raw_response_wrapper(
+            webhooks.list_deliveries,
+        )
+        self.replay_delivery = async_to_raw_response_wrapper(
+            webhooks.replay_delivery,
+        )
+        self.test = async_to_raw_response_wrapper(
+            webhooks.test,
         )
 
 
@@ -722,6 +1547,15 @@ class WebhooksResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             webhooks.delete,
         )
+        self.list_deliveries = to_streamed_response_wrapper(
+            webhooks.list_deliveries,
+        )
+        self.replay_delivery = to_streamed_response_wrapper(
+            webhooks.replay_delivery,
+        )
+        self.test = to_streamed_response_wrapper(
+            webhooks.test,
+        )
 
 
 class AsyncWebhooksResourceWithStreamingResponse:
@@ -742,4 +1576,13 @@ class AsyncWebhooksResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             webhooks.delete,
+        )
+        self.list_deliveries = async_to_streamed_response_wrapper(
+            webhooks.list_deliveries,
+        )
+        self.replay_delivery = async_to_streamed_response_wrapper(
+            webhooks.replay_delivery,
+        )
+        self.test = async_to_streamed_response_wrapper(
+            webhooks.test,
         )
