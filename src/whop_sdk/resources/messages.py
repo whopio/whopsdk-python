@@ -70,9 +70,12 @@ class MessagesResource(SyncAPIResource):
         Supports
         text content, attachments, polls, and replies.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `chat:message:create`
+        - `dms:message:manage`
+        - `livestream:chat:write`
+        - `support_chat:message:create`
 
         Args:
           channel_id: The unique identifier of the channel or experience to send the message in. For
@@ -131,9 +134,12 @@ class MessagesResource(SyncAPIResource):
         """
         Retrieves the details of an existing message.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `chat:read`
+        - `dms:read`
+        - `livestream:chat:read`
+        - `support_chat:read`
 
         Args:
           extra_headers: Send extra headers
@@ -171,6 +177,13 @@ class MessagesResource(SyncAPIResource):
         """
         Edit the content, attachments, or pinned status of an existing message in an
         experience chat, DM, or group chat channel.
+
+        Required permissions (one of):
+
+        - `chat:message:create`
+        - `dms:message:manage`
+        - `livestream:chat:write`
+        - `support_chat:message:create`
 
         Args:
           attachments: A replacement list of file attachments for this message, such as images or
@@ -227,9 +240,11 @@ class MessagesResource(SyncAPIResource):
         Returns a paginated list of messages within a specific experience chat, DM, or
         group chat channel, sorted by creation time.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `chat:read`
+        - `dms:read`
+        - `support_chat:read`
 
         Args:
           channel_id: The unique identifier of the channel or experience to list messages for.
@@ -290,9 +305,12 @@ class MessagesResource(SyncAPIResource):
         Permanently delete a message from an experience chat, DM, or group chat channel.
         Only the message author or a channel admin can delete a message.
 
-        Required permissions:
+        Required permissions (one of):
 
-        - `chat:message:create`
+        - `chat:message:create` and `chat:read`
+        - `dms:message:manage` and `dms:read`
+        - `livestream:chat:write` and `livestream:chat:read`
+        - `support_chat:message:create` and `support_chat:read`
 
         Args:
           extra_headers: Send extra headers
@@ -357,9 +375,12 @@ class AsyncMessagesResource(AsyncAPIResource):
         Supports
         text content, attachments, polls, and replies.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `chat:message:create`
+        - `dms:message:manage`
+        - `livestream:chat:write`
+        - `support_chat:message:create`
 
         Args:
           channel_id: The unique identifier of the channel or experience to send the message in. For
@@ -418,9 +439,12 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         Retrieves the details of an existing message.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `chat:read`
+        - `dms:read`
+        - `livestream:chat:read`
+        - `support_chat:read`
 
         Args:
           extra_headers: Send extra headers
@@ -458,6 +482,13 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         Edit the content, attachments, or pinned status of an existing message in an
         experience chat, DM, or group chat channel.
+
+        Required permissions (one of):
+
+        - `chat:message:create`
+        - `dms:message:manage`
+        - `livestream:chat:write`
+        - `support_chat:message:create`
 
         Args:
           attachments: A replacement list of file attachments for this message, such as images or
@@ -514,9 +545,11 @@ class AsyncMessagesResource(AsyncAPIResource):
         Returns a paginated list of messages within a specific experience chat, DM, or
         group chat channel, sorted by creation time.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `chat:read`
+        - `dms:read`
+        - `support_chat:read`
 
         Args:
           channel_id: The unique identifier of the channel or experience to list messages for.
@@ -577,9 +610,12 @@ class AsyncMessagesResource(AsyncAPIResource):
         Permanently delete a message from an experience chat, DM, or group chat channel.
         Only the message author or a channel admin can delete a message.
 
-        Required permissions:
+        Required permissions (one of):
 
-        - `chat:message:create`
+        - `chat:message:create` and `chat:read`
+        - `dms:message:manage` and `dms:read`
+        - `livestream:chat:write` and `livestream:chat:read`
+        - `support_chat:message:create` and `support_chat:read`
 
         Args:
           extra_headers: Send extra headers
