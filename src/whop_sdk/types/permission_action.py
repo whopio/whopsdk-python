@@ -49,6 +49,7 @@ PermissionAction: TypeAlias = Literal[
     "bounty:update",
     "bounty:submission:create",
     "bounty:submission:delete",
+    "bounty:submission:vote",
     "chat:manage_webhook",
     "chat:moderate",
     "chat:message:create",
