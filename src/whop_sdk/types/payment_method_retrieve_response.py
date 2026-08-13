@@ -106,6 +106,12 @@ class CardPaymentMethod(BaseModel):
     created_at: datetime
     """The time of the event in ISO 8601 UTC format with millisecond precision"""
 
+    has_payer_document: bool
+    """
+    Whether this card has the payer identity document required by its payment
+    provider.
+    """
+
     payment_method_type: PaymentMethodType
     """
     The type of payment instrument stored on file (e.g., card, us_bank_account,
