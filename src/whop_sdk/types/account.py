@@ -785,6 +785,9 @@ class Account(BaseModel):
     `state`, `postal_code`, and `country`. `null` when no address is set.
     """
 
+    business_name: Optional[str] = None
+    """The account's legal business name used with its tax address."""
+
     business_type: Optional[
         Literal[
             "education_program",

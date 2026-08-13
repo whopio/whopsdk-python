@@ -40,6 +40,9 @@ class AccountUpdateParams(TypedDict, total=False):
     `self`.
     """
 
+    business_name: Optional[str]
+    """The legal business name used with the account's tax address."""
+
     business_type: Optional[
         Literal[
             "education_program",

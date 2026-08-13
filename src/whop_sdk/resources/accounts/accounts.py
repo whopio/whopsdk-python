@@ -200,6 +200,7 @@ class AccountsResource(SyncAPIResource):
         affiliate_instructions: Optional[str] | Omit = omit,
         banner_image: Optional[account_update_params.BannerImage] | Omit = omit,
         business_address: account_update_params.BusinessAddress | Omit = omit,
+        business_name: Optional[str] | Omit = omit,
         business_type: Optional[
             Literal[
                 "education_program",
@@ -2447,6 +2448,8 @@ class AccountsResource(SyncAPIResource):
           business_address: Account business address used to calculate tax. A complete address in a
               supported country is required when `tax_remitted_by` is `self`.
 
+          business_name: The legal business name used with the account's tax address.
+
           business_type: High-level business category for the account. See the
               [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary)
               for valid values.
@@ -2554,6 +2557,7 @@ class AccountsResource(SyncAPIResource):
                     "affiliate_instructions": affiliate_instructions,
                     "banner_image": banner_image,
                     "business_address": business_address,
+                    "business_name": business_name,
                     "business_type": business_type,
                     "collect_vat_id": collect_vat_id,
                     "country": country,
@@ -3117,6 +3121,7 @@ class AsyncAccountsResource(AsyncAPIResource):
         affiliate_instructions: Optional[str] | Omit = omit,
         banner_image: Optional[account_update_params.BannerImage] | Omit = omit,
         business_address: account_update_params.BusinessAddress | Omit = omit,
+        business_name: Optional[str] | Omit = omit,
         business_type: Optional[
             Literal[
                 "education_program",
@@ -5364,6 +5369,8 @@ class AsyncAccountsResource(AsyncAPIResource):
           business_address: Account business address used to calculate tax. A complete address in a
               supported country is required when `tax_remitted_by` is `self`.
 
+          business_name: The legal business name used with the account's tax address.
+
           business_type: High-level business category for the account. See the
               [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary)
               for valid values.
@@ -5471,6 +5478,7 @@ class AsyncAccountsResource(AsyncAPIResource):
                     "affiliate_instructions": affiliate_instructions,
                     "banner_image": banner_image,
                     "business_address": business_address,
+                    "business_name": business_name,
                     "business_type": business_type,
                     "collect_vat_id": collect_vat_id,
                     "country": country,
