@@ -10,6 +10,7 @@ import pytest
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
 from whop_sdk.types import (
+    SwapListResponse,
     SwapCreateResponse,
     SwapRetrieveResponse,
     SwapCreateQuoteResponse,
@@ -26,7 +27,6 @@ class TestSwaps:
     def test_method_create(self, client: Whop) -> None:
         swap = client.swaps.create(
             account_id="account_id",
-            amount="amount",
             from_token="from_token",
             to_token="to_token",
         )
@@ -37,11 +37,12 @@ class TestSwaps:
     def test_method_create_with_all_params(self, client: Whop) -> None:
         swap = client.swaps.create(
             account_id="account_id",
-            amount="amount",
             from_token="from_token",
             to_token="to_token",
+            amount="amount",
             from_chain="string",
             slippage_bps=0,
+            to_amount="to_amount",
             to_chain="string",
         )
         assert_matches_type(SwapCreateResponse, swap, path=["response"])
@@ -51,7 +52,6 @@ class TestSwaps:
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.swaps.with_raw_response.create(
             account_id="account_id",
-            amount="amount",
             from_token="from_token",
             to_token="to_token",
         )
@@ -66,7 +66,6 @@ class TestSwaps:
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.swaps.with_streaming_response.create(
             account_id="account_id",
-            amount="amount",
             from_token="from_token",
             to_token="to_token",
         ) as response:
@@ -82,7 +81,7 @@ class TestSwaps:
     @parametrize
     def test_method_retrieve(self, client: Whop) -> None:
         swap = client.swaps.retrieve(
-            account_id="account_id",
+            "id",
         )
         assert_matches_type(SwapRetrieveResponse, swap, path=["response"])
 
@@ -90,7 +89,7 @@ class TestSwaps:
     @parametrize
     def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.swaps.with_raw_response.retrieve(
-            account_id="account_id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -102,13 +101,55 @@ class TestSwaps:
     @parametrize
     def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.swaps.with_streaming_response.retrieve(
-            account_id="account_id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             swap = response.parse()
             assert_matches_type(SwapRetrieveResponse, swap, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_retrieve(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.swaps.with_raw_response.retrieve(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_list(self, client: Whop) -> None:
+        swap = client.swaps.list(
+            account_id="account_id",
+        )
+        assert_matches_type(SwapListResponse, swap, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_list(self, client: Whop) -> None:
+        response = client.swaps.with_raw_response.list(
+            account_id="account_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        swap = response.parse()
+        assert_matches_type(SwapListResponse, swap, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_list(self, client: Whop) -> None:
+        with client.swaps.with_streaming_response.list(
+            account_id="account_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            swap = response.parse()
+            assert_matches_type(SwapListResponse, swap, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -179,7 +220,6 @@ class TestAsyncSwaps:
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         swap = await async_client.swaps.create(
             account_id="account_id",
-            amount="amount",
             from_token="from_token",
             to_token="to_token",
         )
@@ -190,11 +230,12 @@ class TestAsyncSwaps:
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         swap = await async_client.swaps.create(
             account_id="account_id",
-            amount="amount",
             from_token="from_token",
             to_token="to_token",
+            amount="amount",
             from_chain="string",
             slippage_bps=0,
+            to_amount="to_amount",
             to_chain="string",
         )
         assert_matches_type(SwapCreateResponse, swap, path=["response"])
@@ -204,7 +245,6 @@ class TestAsyncSwaps:
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.swaps.with_raw_response.create(
             account_id="account_id",
-            amount="amount",
             from_token="from_token",
             to_token="to_token",
         )
@@ -219,7 +259,6 @@ class TestAsyncSwaps:
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.swaps.with_streaming_response.create(
             account_id="account_id",
-            amount="amount",
             from_token="from_token",
             to_token="to_token",
         ) as response:
@@ -235,7 +274,7 @@ class TestAsyncSwaps:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         swap = await async_client.swaps.retrieve(
-            account_id="account_id",
+            "id",
         )
         assert_matches_type(SwapRetrieveResponse, swap, path=["response"])
 
@@ -243,7 +282,7 @@ class TestAsyncSwaps:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.swaps.with_raw_response.retrieve(
-            account_id="account_id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -255,13 +294,55 @@ class TestAsyncSwaps:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.swaps.with_streaming_response.retrieve(
-            account_id="account_id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             swap = await response.parse()
             assert_matches_type(SwapRetrieveResponse, swap, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_retrieve(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.swaps.with_raw_response.retrieve(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list(self, async_client: AsyncWhop) -> None:
+        swap = await async_client.swaps.list(
+            account_id="account_id",
+        )
+        assert_matches_type(SwapListResponse, swap, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
+        response = await async_client.swaps.with_raw_response.list(
+            account_id="account_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        swap = await response.parse()
+        assert_matches_type(SwapListResponse, swap, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
+        async with async_client.swaps.with_streaming_response.list(
+            account_id="account_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            swap = await response.parse()
+            assert_matches_type(SwapListResponse, swap, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
