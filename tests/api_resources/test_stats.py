@@ -64,6 +64,7 @@ class TestStats:
             source="source",
             status="status",
             time_zone="time_zone",
+            user_id="user_id",
         )
         assert_matches_type(StatRetrieveResponse, stat, path=["response"])
 
@@ -188,6 +189,7 @@ class TestAsyncStats:
             source="source",
             status="status",
             time_zone="time_zone",
+            user_id="user_id",
         )
         assert_matches_type(StatRetrieveResponse, stat, path=["response"])
 

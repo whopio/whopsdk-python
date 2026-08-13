@@ -217,3 +217,9 @@ class StatRetrieveParams(TypedDict, total=False):
 
     Defaults to UTC. Not accepted by snapshot metrics, which are UTC only.
     """
+
+    user_id: str
+    """The user this query concerns, for example user_AbC123.
+
+    Available on metrics that support user subjects, such as account_balance.
+    """

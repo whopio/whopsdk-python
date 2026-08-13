@@ -88,6 +88,7 @@ class StatsResource(SyncAPIResource):
         source: str | Omit = omit,
         status: str | Omit = omit,
         time_zone: str | Omit = omit,
+        user_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -96,8 +97,8 @@ class StatsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> StatRetrieveResponse:
         """
-        Retrieves a metric as a time series of points for an account over a time range.
-        The `market_prices` metric is public and requires no authentication.
+        Retrieves a metric as a time series of points for an account or user over a time
+        range. The `market_prices` metric is public and requires no authentication.
 
         Args:
           from_: Start of the range — a date (YYYY-MM-DD), expanded to the start of that day, or
@@ -211,6 +212,9 @@ class StatsResource(SyncAPIResource):
           time_zone: IANA time zone to bucket the series in, for example America/New_York. Defaults
               to UTC. Not accepted by snapshot metrics, which are UTC only.
 
+          user_id: The user this query concerns, for example user_AbC123. Available on metrics that
+              support user subjects, such as account_balance.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -262,6 +266,7 @@ class StatsResource(SyncAPIResource):
                         "source": source,
                         "status": status,
                         "time_zone": time_zone,
+                        "user_id": user_id,
                     },
                     stat_retrieve_params.StatRetrieveParams,
                 ),
@@ -356,6 +361,7 @@ class AsyncStatsResource(AsyncAPIResource):
         source: str | Omit = omit,
         status: str | Omit = omit,
         time_zone: str | Omit = omit,
+        user_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -364,8 +370,8 @@ class AsyncStatsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> StatRetrieveResponse:
         """
-        Retrieves a metric as a time series of points for an account over a time range.
-        The `market_prices` metric is public and requires no authentication.
+        Retrieves a metric as a time series of points for an account or user over a time
+        range. The `market_prices` metric is public and requires no authentication.
 
         Args:
           from_: Start of the range — a date (YYYY-MM-DD), expanded to the start of that day, or
@@ -479,6 +485,9 @@ class AsyncStatsResource(AsyncAPIResource):
           time_zone: IANA time zone to bucket the series in, for example America/New_York. Defaults
               to UTC. Not accepted by snapshot metrics, which are UTC only.
 
+          user_id: The user this query concerns, for example user_AbC123. Available on metrics that
+              support user subjects, such as account_balance.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -530,6 +539,7 @@ class AsyncStatsResource(AsyncAPIResource):
                         "source": source,
                         "status": status,
                         "time_zone": time_zone,
+                        "user_id": user_id,
                     },
                     stat_retrieve_params.StatRetrieveParams,
                 ),
