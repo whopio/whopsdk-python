@@ -3,9 +3,7 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Required, TypedDict
-
-from .shared.authorized_user_roles import AuthorizedUserRoles
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["AuthorizedUserCreateParams", "Elevation"]
 
@@ -14,7 +12,7 @@ class AuthorizedUserCreateParams(TypedDict, total=False):
     company_id: Required[str]
     """The ID of the company to add the authorized user to."""
 
-    role: Required[AuthorizedUserRoles]
+    role: Required[Literal["owner", "admin", "sales_manager", "moderator", "advertiser"]]
     """The role to assign to the authorized user within the company.
 
     Supported roles: 'moderator', 'sales_manager'.
