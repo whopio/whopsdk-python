@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
-from typing_extensions import Annotated, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 from .shared.direction import Direction
@@ -22,7 +22,8 @@ class PaymentMethodListParams(TypedDict, total=False):
     company_id: Optional[str]
     """The unique identifier of the company.
 
-    Provide either this or member_id, not both.
+    Provide either this or member_id, not both. Omit both to address your own saved
+    payment methods.
     """
 
     created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
@@ -37,8 +38,17 @@ class PaymentMethodListParams(TypedDict, total=False):
     first: Optional[int]
     """Returns the first _n_ elements from the list."""
 
+    future_usage: Optional[Literal["off_session", "on_session"]]
+    """
+    How a payment method will be charged after the buyer leaves — the same
+    vocabulary as a confirmation token's setup_future_usage.
+    """
+
     last: Optional[int]
     """Returns the last _n_ elements from the list."""
 
     member_id: Optional[str]
-    """The unique identifier of the member to list payment methods for."""
+    """The unique identifier of the member to list payment methods for.
+
+    Omit this and company_id to list your own saved payment methods.
+    """
