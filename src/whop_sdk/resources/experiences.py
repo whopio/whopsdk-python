@@ -36,8 +36,6 @@ __all__ = ["ExperiencesResource", "AsyncExperiencesResource"]
 
 
 class ExperiencesResource(SyncAPIResource):
-    """Experiences"""
-
     @cached_property
     def with_raw_response(self) -> ExperiencesResourceWithRawResponse:
         """
@@ -65,6 +63,7 @@ class ExperiencesResource(SyncAPIResource):
         is_public: Optional[bool] | Omit = omit,
         logo: Optional[experience_create_params.Logo] | Omit = omit,
         name: Optional[str] | Omit = omit,
+        notifications_enabled: Optional[bool] | Omit = omit,
         section_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -72,6 +71,7 @@ class ExperiencesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Experience:
         """
         Required permissions:
@@ -89,6 +89,9 @@ class ExperiencesResource(SyncAPIResource):
 
           name: The display name of the experience. Defaults to the app's name if not provided.
 
+          notifications_enabled: Whether Whop app notifications are enabled for this experience. Webhooks still
+              fire.
+
           section_id: The unique identifier of the section to place the experience in.
 
           extra_headers: Send extra headers
@@ -98,6 +101,8 @@ class ExperiencesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return self._post(
             "/experiences",
@@ -108,12 +113,17 @@ class ExperiencesResource(SyncAPIResource):
                     "is_public": is_public,
                     "logo": logo,
                     "name": name,
+                    "notifications_enabled": notifications_enabled,
                     "section_id": section_id,
                 },
                 experience_create_params.ExperienceCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Experience,
         )
@@ -159,6 +169,7 @@ class ExperiencesResource(SyncAPIResource):
         is_public: Optional[bool] | Omit = omit,
         logo: Optional[experience_update_params.Logo] | Omit = omit,
         name: Optional[str] | Omit = omit,
+        notifications_enabled: Optional[bool] | Omit = omit,
         order: Optional[str] | Omit = omit,
         section_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -167,6 +178,7 @@ class ExperiencesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Experience:
         """
         Required permissions:
@@ -182,6 +194,9 @@ class ExperiencesResource(SyncAPIResource):
 
           name: The display name of the experience.
 
+          notifications_enabled: Whether Whop app notifications are enabled for this experience. Webhooks still
+              fire.
+
           order: The position of the experience within its section for display ordering.
 
           section_id: The unique identifier of the section to move the experience into.
@@ -193,6 +208,8 @@ class ExperiencesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -204,13 +221,18 @@ class ExperiencesResource(SyncAPIResource):
                     "is_public": is_public,
                     "logo": logo,
                     "name": name,
+                    "notifications_enabled": notifications_enabled,
                     "order": order,
                     "section_id": section_id,
                 },
                 experience_update_params.ExperienceUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Experience,
         )
@@ -301,6 +323,7 @@ class ExperiencesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> ExperienceDeleteResponse:
         """
         Required permissions:
@@ -315,13 +338,19 @@ class ExperiencesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._delete(
             path_template("/experiences/{id}", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=ExperienceDeleteResponse,
         )
@@ -337,6 +366,7 @@ class ExperiencesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Experience:
         """
         Attach an experience to a product, making it accessible to the product's
@@ -356,6 +386,8 @@ class ExperiencesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -363,7 +395,11 @@ class ExperiencesResource(SyncAPIResource):
             path_template("/experiences/{id}/attach", id=id),
             body=maybe_transform({"product_id": product_id}, experience_attach_params.ExperienceAttachParams),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Experience,
         )
@@ -379,6 +415,7 @@ class ExperiencesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Experience:
         """
         Detach an experience from a product, removing customer access to it through that
@@ -398,6 +435,8 @@ class ExperiencesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -405,7 +444,11 @@ class ExperiencesResource(SyncAPIResource):
             path_template("/experiences/{id}/detach", id=id),
             body=maybe_transform({"product_id": product_id}, experience_detach_params.ExperienceDetachParams),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Experience,
         )
@@ -421,6 +464,7 @@ class ExperiencesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Experience:
         """Duplicates an existing experience.
 
@@ -446,6 +490,8 @@ class ExperiencesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -453,15 +499,17 @@ class ExperiencesResource(SyncAPIResource):
             path_template("/experiences/{id}/duplicate", id=id),
             body=maybe_transform({"name": name}, experience_duplicate_params.ExperienceDuplicateParams),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Experience,
         )
 
 
 class AsyncExperiencesResource(AsyncAPIResource):
-    """Experiences"""
-
     @cached_property
     def with_raw_response(self) -> AsyncExperiencesResourceWithRawResponse:
         """
@@ -489,6 +537,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
         is_public: Optional[bool] | Omit = omit,
         logo: Optional[experience_create_params.Logo] | Omit = omit,
         name: Optional[str] | Omit = omit,
+        notifications_enabled: Optional[bool] | Omit = omit,
         section_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -496,6 +545,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Experience:
         """
         Required permissions:
@@ -513,6 +563,9 @@ class AsyncExperiencesResource(AsyncAPIResource):
 
           name: The display name of the experience. Defaults to the app's name if not provided.
 
+          notifications_enabled: Whether Whop app notifications are enabled for this experience. Webhooks still
+              fire.
+
           section_id: The unique identifier of the section to place the experience in.
 
           extra_headers: Send extra headers
@@ -522,6 +575,8 @@ class AsyncExperiencesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return await self._post(
             "/experiences",
@@ -532,12 +587,17 @@ class AsyncExperiencesResource(AsyncAPIResource):
                     "is_public": is_public,
                     "logo": logo,
                     "name": name,
+                    "notifications_enabled": notifications_enabled,
                     "section_id": section_id,
                 },
                 experience_create_params.ExperienceCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Experience,
         )
@@ -583,6 +643,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
         is_public: Optional[bool] | Omit = omit,
         logo: Optional[experience_update_params.Logo] | Omit = omit,
         name: Optional[str] | Omit = omit,
+        notifications_enabled: Optional[bool] | Omit = omit,
         order: Optional[str] | Omit = omit,
         section_id: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -591,6 +652,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Experience:
         """
         Required permissions:
@@ -606,6 +668,9 @@ class AsyncExperiencesResource(AsyncAPIResource):
 
           name: The display name of the experience.
 
+          notifications_enabled: Whether Whop app notifications are enabled for this experience. Webhooks still
+              fire.
+
           order: The position of the experience within its section for display ordering.
 
           section_id: The unique identifier of the section to move the experience into.
@@ -617,6 +682,8 @@ class AsyncExperiencesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -628,13 +695,18 @@ class AsyncExperiencesResource(AsyncAPIResource):
                     "is_public": is_public,
                     "logo": logo,
                     "name": name,
+                    "notifications_enabled": notifications_enabled,
                     "order": order,
                     "section_id": section_id,
                 },
                 experience_update_params.ExperienceUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Experience,
         )
@@ -725,6 +797,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> ExperienceDeleteResponse:
         """
         Required permissions:
@@ -739,13 +812,19 @@ class AsyncExperiencesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._delete(
             path_template("/experiences/{id}", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=ExperienceDeleteResponse,
         )
@@ -761,6 +840,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Experience:
         """
         Attach an experience to a product, making it accessible to the product's
@@ -780,6 +860,8 @@ class AsyncExperiencesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -789,7 +871,11 @@ class AsyncExperiencesResource(AsyncAPIResource):
                 {"product_id": product_id}, experience_attach_params.ExperienceAttachParams
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Experience,
         )
@@ -805,6 +891,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Experience:
         """
         Detach an experience from a product, removing customer access to it through that
@@ -824,6 +911,8 @@ class AsyncExperiencesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -833,7 +922,11 @@ class AsyncExperiencesResource(AsyncAPIResource):
                 {"product_id": product_id}, experience_detach_params.ExperienceDetachParams
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Experience,
         )
@@ -849,6 +942,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Experience:
         """Duplicates an existing experience.
 
@@ -874,6 +968,8 @@ class AsyncExperiencesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -881,7 +977,11 @@ class AsyncExperiencesResource(AsyncAPIResource):
             path_template("/experiences/{id}/duplicate", id=id),
             body=await async_maybe_transform({"name": name}, experience_duplicate_params.ExperienceDuplicateParams),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Experience,
         )
