@@ -1,13 +1,14 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Annotated, TypeAlias
 
 from .._utils import PropertyInfo
 from .._models import BaseModel
 from .card_brands import CardBrands
-from .payment_method_types import PaymentMethodTypes
+from .shared.currency import Currency
+from .payment_method_type import PaymentMethodType
 
 __all__ = [
     "PaymentMethodRetrieveResponse",
@@ -22,6 +23,9 @@ __all__ = [
     "IdealPaymentMethodIdeal",
     "SepaDebitPaymentMethod",
     "SepaDebitPaymentMethodSepaDebit",
+    "PlatformBalancePaymentMethod",
+    "PlatformBalancePaymentMethodPlatformBalance",
+    "PlatformBalancePaymentMethodPlatformBalanceBalance",
 ]
 
 
@@ -41,7 +45,7 @@ class BasePaymentMethod(BaseModel):
     created_at: datetime
     """The time of the event in ISO 8601 UTC format with millisecond precision"""
 
-    payment_method_type: PaymentMethodTypes
+    payment_method_type: PaymentMethodType
     """
     The type of payment instrument stored on file (e.g., card, us_bank_account,
     cashapp, ideal, sepa_debit).
@@ -71,6 +75,12 @@ class CardPaymentMethodCard(BaseModel):
     last4: Optional[str] = None
     """The last four digits of the card number. Null if not available."""
 
+    three_ds_verified: bool
+    """
+    Whether this card was verified with 3D Secure, either when it was saved or on a
+    payment that used it.
+    """
+
 
 class CardPaymentMethod(BaseModel):
     """
@@ -96,7 +106,13 @@ class CardPaymentMethod(BaseModel):
     created_at: datetime
     """The time of the event in ISO 8601 UTC format with millisecond precision"""
 
-    payment_method_type: PaymentMethodTypes
+    has_payer_document: bool
+    """
+    Whether this card has the payer identity document required by its payment
+    provider.
+    """
+
+    payment_method_type: PaymentMethodType
     """
     The type of payment instrument stored on file (e.g., card, us_bank_account,
     cashapp, ideal, sepa_debit).
@@ -139,7 +155,7 @@ class UsBankAccountPaymentMethod(BaseModel):
     created_at: datetime
     """The time of the event in ISO 8601 UTC format with millisecond precision"""
 
-    payment_method_type: PaymentMethodTypes
+    payment_method_type: PaymentMethodType
     """
     The type of payment instrument stored on file (e.g., card, us_bank_account,
     cashapp, ideal, sepa_debit).
@@ -194,7 +210,7 @@ class CashappPaymentMethod(BaseModel):
     created_at: datetime
     """The time of the event in ISO 8601 UTC format with millisecond precision"""
 
-    payment_method_type: PaymentMethodTypes
+    payment_method_type: PaymentMethodType
     """
     The type of payment instrument stored on file (e.g., card, us_bank_account,
     cashapp, ideal, sepa_debit).
@@ -243,7 +259,7 @@ class IdealPaymentMethod(BaseModel):
     The iDEAL-specific details for this payment method, including bank name and BIC.
     """
 
-    payment_method_type: PaymentMethodTypes
+    payment_method_type: PaymentMethodType
     """
     The type of payment instrument stored on file (e.g., card, us_bank_account,
     cashapp, ideal, sepa_debit).
@@ -301,7 +317,7 @@ class SepaDebitPaymentMethod(BaseModel):
     created_at: datetime
     """The time of the event in ISO 8601 UTC format with millisecond precision"""
 
-    payment_method_type: PaymentMethodTypes
+    payment_method_type: PaymentMethodType
     """
     The type of payment instrument stored on file (e.g., card, us_bank_account,
     cashapp, ideal, sepa_debit).
@@ -317,6 +333,66 @@ class SepaDebitPaymentMethod(BaseModel):
     """The typename of this object"""
 
 
+class PlatformBalancePaymentMethodPlatformBalanceBalance(BaseModel):
+    """An available balance in one currency."""
+
+    amount: float
+    """The available amount in this currency."""
+
+    currency: Currency
+    """The currency this amount is held in."""
+
+
+class PlatformBalancePaymentMethodPlatformBalance(BaseModel):
+    """What is available to spend, and whether the account may spend it."""
+
+    balances: List[PlatformBalancePaymentMethodPlatformBalanceBalance]
+    """Available amount per currency.
+
+    Read from the balance cache, so it is indicative — the charge revalidates
+    against settled funds and may still refuse.
+    """
+
+    spendable: bool
+    """
+    Whether this balance can pay right now, which here means only whether it holds
+    funds — an account blocked from spending is not listed at all. A zero balance is
+    still returned so a client can show it as an option the buyer could top up.
+    """
+
+
+class PlatformBalancePaymentMethod(BaseModel):
+    """The buyer's Whop balance, offered as a payment method.
+
+    Charged by naming its ledger id on a `saved` confirmation token — it is a live wallet, not a stored credential, so it cannot be vaulted or charged off-session.
+    """
+
+    id: str
+    """Represents a unique identifier that is Base64 obfuscated.
+
+    It is often used to refetch an object or as key for a cache. The ID type appears
+    in a JSON response as a String; however, it is not intended to be
+    human-readable. When expected as an input type, any string (such as
+    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
+    ID.
+    """
+
+    created_at: datetime
+    """The time of the event in ISO 8601 UTC format with millisecond precision"""
+
+    payment_method_type: PaymentMethodType
+    """
+    The type of payment instrument stored on file (e.g., card, us_bank_account,
+    cashapp, ideal, sepa_debit).
+    """
+
+    platform_balance: PlatformBalancePaymentMethodPlatformBalance
+    """What is available to spend, and whether the account may spend it."""
+
+    typename: Literal["PlatformBalancePaymentMethod"]
+    """The typename of this object"""
+
+
 PaymentMethodRetrieveResponse: TypeAlias = Annotated[
     Union[
         BasePaymentMethod,
@@ -325,6 +401,7 @@ PaymentMethodRetrieveResponse: TypeAlias = Annotated[
         CashappPaymentMethod,
         IdealPaymentMethod,
         SepaDebitPaymentMethod,
+        PlatformBalancePaymentMethod,
     ],
     PropertyInfo(discriminator="typename"),
 ]
