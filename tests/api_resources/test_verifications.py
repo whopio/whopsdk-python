@@ -121,7 +121,10 @@ class TestVerifications:
             business_tax_identification_number="business_tax_identification_number",
             business_website="business_website",
             country="country",
+            date_of_birth="date_of_birth",
+            first_name="first_name",
             kind="business",
+            last_name="last_name",
             place_of_incorporation="place_of_incorporation",
             share_token="share_token",
             tax_identification_number="tax_identification_number",
@@ -209,6 +212,8 @@ class TestVerifications:
     def test_method_update_with_all_params_overload_1(self, client: Whop) -> None:
         verification = client.verifications.update(
             verification_id="verification_id",
+            business_name="business_name",
+            business_structure="business_structure",
             business_tax_identification_number="business_tax_identification_number",
             country="country",
             date_of_birth="date_of_birth",
@@ -310,6 +315,9 @@ class TestVerifications:
             business_structure="business_structure",
             business_tax_identification_number="business_tax_identification_number",
             country="country",
+            date_of_birth="date_of_birth",
+            first_name="first_name",
+            last_name="last_name",
             requested_information=[
                 {
                     "id": "id",
@@ -522,7 +530,10 @@ class TestAsyncVerifications:
             business_tax_identification_number="business_tax_identification_number",
             business_website="business_website",
             country="country",
+            date_of_birth="date_of_birth",
+            first_name="first_name",
             kind="business",
+            last_name="last_name",
             place_of_incorporation="place_of_incorporation",
             share_token="share_token",
             tax_identification_number="tax_identification_number",
@@ -610,6 +621,8 @@ class TestAsyncVerifications:
     async def test_method_update_with_all_params_overload_1(self, async_client: AsyncWhop) -> None:
         verification = await async_client.verifications.update(
             verification_id="verification_id",
+            business_name="business_name",
+            business_structure="business_structure",
             business_tax_identification_number="business_tax_identification_number",
             country="country",
             date_of_birth="date_of_birth",
@@ -711,6 +724,9 @@ class TestAsyncVerifications:
             business_structure="business_structure",
             business_tax_identification_number="business_tax_identification_number",
             country="country",
+            date_of_birth="date_of_birth",
+            first_name="first_name",
+            last_name="last_name",
             requested_information=[
                 {
                     "id": "id",

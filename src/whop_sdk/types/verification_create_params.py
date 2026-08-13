@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union
+from typing import Union, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 __all__ = [
@@ -24,6 +24,10 @@ class CreateIndividualVerification(TypedDict, total=False):
     """
 
     address: CreateIndividualVerificationAddress
+    """
+    Every value accepts `null`, so a form seeded from a previous response can
+    round-trip unset fields unchanged.
+    """
 
     business_name: str
     """Legal business name for a sole proprietor or single-member LLC."""
@@ -106,21 +110,25 @@ class CreateIndividualVerification(TypedDict, total=False):
 
 
 class CreateIndividualVerificationAddress(TypedDict, total=False):
-    city: str
+    """
+    Every value accepts `null`, so a form seeded from a previous response can round-trip unset fields unchanged.
+    """
 
-    country: str
+    city: Optional[str]
+
+    country: Optional[str]
     """Two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`."""
 
-    line1: str
+    line1: Optional[str]
     """First line of the street address."""
 
-    line2: str
+    line2: Optional[str]
     """Second line of the street address."""
 
-    postal_code: str
+    postal_code: Optional[str]
     """Postal or ZIP code."""
 
-    state: str
+    state: Optional[str]
     """State, province, or region code, for example `CA`."""
 
 
@@ -187,6 +195,10 @@ class CreateBusinessVerification(TypedDict, total=False):
     """
 
     address: CreateBusinessVerificationAddress
+    """
+    Every value accepts `null`, so a form seeded from a previous response can
+    round-trip unset fields unchanged.
+    """
 
     business_name: str
     """Legal business name."""
@@ -211,8 +223,23 @@ class CreateBusinessVerification(TypedDict, total=False):
     country: str
     """Country of incorporation as a two-letter ISO 3166-1 country code."""
 
+    date_of_birth: str
+    """Business representative's date of birth, formatted as `YYYY-MM-DD`."""
+
+    first_name: str
+    """
+    First name of the business representative, used to prefill the verification
+    session.
+    """
+
     kind: Literal["business"]
     """Must be `business` to start a KYB verification."""
+
+    last_name: str
+    """
+    Last name of the business representative, used to prefill the verification
+    session.
+    """
 
     place_of_incorporation: str
     """State or region where the business is incorporated."""
@@ -238,21 +265,25 @@ class CreateBusinessVerification(TypedDict, total=False):
 
 
 class CreateBusinessVerificationAddress(TypedDict, total=False):
-    city: str
+    """
+    Every value accepts `null`, so a form seeded from a previous response can round-trip unset fields unchanged.
+    """
 
-    country: str
+    city: Optional[str]
+
+    country: Optional[str]
     """Two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`."""
 
-    line1: str
+    line1: Optional[str]
     """First line of the street address."""
 
-    line2: str
+    line2: Optional[str]
     """Second line of the street address."""
 
-    postal_code: str
+    postal_code: Optional[str]
     """Postal or ZIP code."""
 
-    state: str
+    state: Optional[str]
     """State, province, or region code, for example `CA`."""
 
 

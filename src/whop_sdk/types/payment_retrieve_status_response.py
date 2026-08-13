@@ -434,13 +434,10 @@ NextActionPaymentNextActionDisplayInstructionsData: TypeAlias = Annotated[
 
 class NextActionPaymentNextActionDisplayInstructions(BaseModel):
     data: NextActionPaymentNextActionDisplayInstructionsData
-    """What to show the buyer so they can pay.
+    """The instructions.
 
-    `kind` picks the shape and the details sit under the key named for it, so
-    switching on `kind` gives you exactly that kind's payload. Every detail field is
-    optional — the rails behind these methods publish them unevenly — but a kind
-    that arrives with `document_url` can always fall back to sending the buyer to
-    that hosted copy of the instructions.
+    `kind` picks the shape, and the details sit under the key named for it:
+    `voucher`, `qr`, or `bank_transfer`.
     """
 
     render: List[Literal["inline", "full_page"]]
