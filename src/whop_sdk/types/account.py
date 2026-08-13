@@ -59,6 +59,12 @@ class BalanceBreakdown(BaseModel):
     string.
     """
 
+    in_transit: str
+    """
+    Amount moving between the account's own destinations, such as a treasury sweep
+    to its crypto wallet or a card top-up. In native units, as a decimal string.
+    """
+
     pending: str
     """
     Amount from recent payments still settling, in native units, as a decimal
