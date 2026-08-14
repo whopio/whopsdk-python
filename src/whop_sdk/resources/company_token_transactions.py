@@ -32,8 +32,6 @@ __all__ = ["CompanyTokenTransactionsResource", "AsyncCompanyTokenTransactionsRes
 
 
 class CompanyTokenTransactionsResource(SyncAPIResource):
-    """Company token transactions"""
-
     @cached_property
     def with_raw_response(self) -> CompanyTokenTransactionsResourceWithRawResponse:
         """
@@ -63,13 +61,14 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
         transaction_type: Literal["transfer"],
         user_id: str,
         description: Optional[str] | Omit = omit,
-        idempotency_key: Optional[str] | Omit = omit,
+        api_idempotency_key: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> CompanyTokenTransaction:
         """
         Create a token transaction to add, subtract, or transfer tokens for a member
@@ -95,7 +94,7 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
 
           description: A human-readable description of why the transaction was created.
 
-          idempotency_key: A unique key to prevent duplicate transactions. Use a UUID or similar unique
+          api_idempotency_key: A unique key to prevent duplicate transactions. Use a UUID or similar unique
               string.
 
           extra_headers: Send extra headers
@@ -105,6 +104,8 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         ...
 
@@ -117,13 +118,14 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
         transaction_type: Literal["add"],
         user_id: str,
         description: Optional[str] | Omit = omit,
-        idempotency_key: Optional[str] | Omit = omit,
+        api_idempotency_key: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> CompanyTokenTransaction:
         """
         Create a token transaction to add, subtract, or transfer tokens for a member
@@ -146,7 +148,7 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
 
           description: A human-readable description of why the transaction was created.
 
-          idempotency_key: A unique key to prevent duplicate transactions. Use a UUID or similar unique
+          api_idempotency_key: A unique key to prevent duplicate transactions. Use a UUID or similar unique
               string.
 
           extra_headers: Send extra headers
@@ -156,6 +158,8 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         ...
 
@@ -168,13 +172,14 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
         transaction_type: Literal["subtract"],
         user_id: str,
         description: Optional[str] | Omit = omit,
-        idempotency_key: Optional[str] | Omit = omit,
+        api_idempotency_key: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> CompanyTokenTransaction:
         """
         Create a token transaction to add, subtract, or transfer tokens for a member
@@ -197,7 +202,7 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
 
           description: A human-readable description of why the transaction was created.
 
-          idempotency_key: A unique key to prevent duplicate transactions. Use a UUID or similar unique
+          api_idempotency_key: A unique key to prevent duplicate transactions. Use a UUID or similar unique
               string.
 
           extra_headers: Send extra headers
@@ -207,6 +212,8 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         ...
 
@@ -223,13 +230,14 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
         transaction_type: Literal["transfer"] | Literal["add"] | Literal["subtract"],
         user_id: str,
         description: Optional[str] | Omit = omit,
-        idempotency_key: Optional[str] | Omit = omit,
+        api_idempotency_key: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> CompanyTokenTransaction:
         return self._post(
             "/company_token_transactions",
@@ -241,12 +249,16 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
                     "transaction_type": transaction_type,
                     "user_id": user_id,
                     "description": description,
-                    "idempotency_key": idempotency_key,
+                    "api_idempotency_key": api_idempotency_key,
                 },
                 company_token_transaction_create_params.CompanyTokenTransactionCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=CompanyTokenTransaction,
         )
@@ -367,8 +379,6 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
 
 
 class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
-    """Company token transactions"""
-
     @cached_property
     def with_raw_response(self) -> AsyncCompanyTokenTransactionsResourceWithRawResponse:
         """
@@ -398,13 +408,14 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
         transaction_type: Literal["transfer"],
         user_id: str,
         description: Optional[str] | Omit = omit,
-        idempotency_key: Optional[str] | Omit = omit,
+        api_idempotency_key: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> CompanyTokenTransaction:
         """
         Create a token transaction to add, subtract, or transfer tokens for a member
@@ -430,7 +441,7 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
 
           description: A human-readable description of why the transaction was created.
 
-          idempotency_key: A unique key to prevent duplicate transactions. Use a UUID or similar unique
+          api_idempotency_key: A unique key to prevent duplicate transactions. Use a UUID or similar unique
               string.
 
           extra_headers: Send extra headers
@@ -440,6 +451,8 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         ...
 
@@ -452,13 +465,14 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
         transaction_type: Literal["add"],
         user_id: str,
         description: Optional[str] | Omit = omit,
-        idempotency_key: Optional[str] | Omit = omit,
+        api_idempotency_key: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> CompanyTokenTransaction:
         """
         Create a token transaction to add, subtract, or transfer tokens for a member
@@ -481,7 +495,7 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
 
           description: A human-readable description of why the transaction was created.
 
-          idempotency_key: A unique key to prevent duplicate transactions. Use a UUID or similar unique
+          api_idempotency_key: A unique key to prevent duplicate transactions. Use a UUID or similar unique
               string.
 
           extra_headers: Send extra headers
@@ -491,6 +505,8 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         ...
 
@@ -503,13 +519,14 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
         transaction_type: Literal["subtract"],
         user_id: str,
         description: Optional[str] | Omit = omit,
-        idempotency_key: Optional[str] | Omit = omit,
+        api_idempotency_key: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> CompanyTokenTransaction:
         """
         Create a token transaction to add, subtract, or transfer tokens for a member
@@ -532,7 +549,7 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
 
           description: A human-readable description of why the transaction was created.
 
-          idempotency_key: A unique key to prevent duplicate transactions. Use a UUID or similar unique
+          api_idempotency_key: A unique key to prevent duplicate transactions. Use a UUID or similar unique
               string.
 
           extra_headers: Send extra headers
@@ -542,6 +559,8 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         ...
 
@@ -558,13 +577,14 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
         transaction_type: Literal["transfer"] | Literal["add"] | Literal["subtract"],
         user_id: str,
         description: Optional[str] | Omit = omit,
-        idempotency_key: Optional[str] | Omit = omit,
+        api_idempotency_key: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> CompanyTokenTransaction:
         return await self._post(
             "/company_token_transactions",
@@ -576,12 +596,16 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
                     "transaction_type": transaction_type,
                     "user_id": user_id,
                     "description": description,
-                    "idempotency_key": idempotency_key,
+                    "api_idempotency_key": api_idempotency_key,
                 },
                 company_token_transaction_create_params.CompanyTokenTransactionCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=CompanyTokenTransaction,
         )
