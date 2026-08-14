@@ -83,7 +83,8 @@ class SupportedMethodsResource(SyncAPIResource):
           before: Cursor to fetch the page before (from page_info.start_cursor).
 
           country: ISO 3166-1 alpha-2 country code for the bank account or wallet, such as `US`.
-              Defaults to the payout account's country.
+              Defaults to the country of supported_payout_method_id when one is given,
+              otherwise the payout account's country.
 
           currency: Currency code of the amount, for example `usd`. Only meaningful with amount.
 
@@ -197,7 +198,8 @@ class AsyncSupportedMethodsResource(AsyncAPIResource):
           before: Cursor to fetch the page before (from page_info.start_cursor).
 
           country: ISO 3166-1 alpha-2 country code for the bank account or wallet, such as `US`.
-              Defaults to the payout account's country.
+              Defaults to the country of supported_payout_method_id when one is given,
+              otherwise the payout account's country.
 
           currency: Currency code of the amount, for example `usd`. Only meaningful with amount.
 

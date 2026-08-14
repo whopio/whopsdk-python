@@ -26,7 +26,8 @@ class SupportedMethodListParams(TypedDict, total=False):
     country: str
     """ISO 3166-1 alpha-2 country code for the bank account or wallet, such as `US`.
 
-    Defaults to the payout account's country.
+    Defaults to the country of supported_payout_method_id when one is given,
+    otherwise the payout account's country.
     """
 
     currency: str
