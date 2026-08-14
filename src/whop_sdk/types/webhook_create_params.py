@@ -52,6 +52,7 @@ class WebhookCreateParams(TypedDict, total=False):
             "deposit.succeeded",
             "transfer.created",
             "transfer.completed",
+            "transfer.failed",
             "withdrawal.created",
             "withdrawal.updated",
             "card_transaction.created",

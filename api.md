@@ -344,6 +344,7 @@ from whop_sdk.types import (
     SwapCompletedWebhookEvent,
     TransferCompletedWebhookEvent,
     TransferCreatedWebhookEvent,
+    TransferFailedWebhookEvent,
     VerificationSucceededWebhookEvent,
     WithdrawalCreatedWebhookEvent,
     WithdrawalUpdatedWebhookEvent,

@@ -81,6 +81,7 @@ class WebhookListResponse(BaseModel):
             "deposit.succeeded",
             "transfer.created",
             "transfer.completed",
+            "transfer.failed",
             "withdrawal.created",
             "withdrawal.updated",
             "card_transaction.created",

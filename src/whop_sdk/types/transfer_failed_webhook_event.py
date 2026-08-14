@@ -9,7 +9,7 @@ from .._utils import PropertyInfo
 from .._models import BaseModel
 
 __all__ = [
-    "TransferCompletedWebhookEvent",
+    "TransferFailedWebhookEvent",
     "Data",
     "DataCreatedByUser",
     "DataDestination",
@@ -168,7 +168,7 @@ class Data(BaseModel):
     """Transfer note."""
 
 
-class TransferCompletedWebhookEvent(BaseModel):
+class TransferFailedWebhookEvent(BaseModel):
     id: str
     """A unique ID for every single webhook request"""
 
@@ -184,7 +184,7 @@ class TransferCompletedWebhookEvent(BaseModel):
     timestamp: datetime
     """The timestamp in ISO 8601 format that the webhook was sent at on the server"""
 
-    type: Literal["transfer.completed"]
+    type: Literal["transfer.failed"]
     """The webhook event type"""
 
     company_id: Optional[str] = None

@@ -59,7 +59,26 @@ class TransferListResponse(BaseModel):
     """Transfer status.
 
     `processing` means the on-chain leg is still executing — poll the transfer until
-    it resolves to `succeeded` or `failed`.
+    it resolves to `succeeded` or `failed`. A `failed` transfer may be retried under
+    the same ID and later resolve to `succeeded`.
+    """
+
+    failed_at: Optional[datetime] = None
+    """When the transfer failed, as an ISO 8601 timestamp.
+
+    Null unless the transfer has failed.
+    """
+
+    failure_code: Optional[str] = None
+    """Machine-readable code for why the transfer failed.
+
+    Null unless the transfer has failed.
+    """
+
+    failure_reason: Optional[str] = None
+    """Human-readable explanation of why the transfer failed.
+
+    Null unless the transfer has failed.
     """
 
     fee_amount: Optional[float] = None

@@ -31,6 +31,7 @@ from .payment_pending_webhook_event import PaymentPendingWebhookEvent
 from .product_created_webhook_event import ProductCreatedWebhookEvent
 from .product_deleted_webhook_event import ProductDeletedWebhookEvent
 from .product_updated_webhook_event import ProductUpdatedWebhookEvent
+from .transfer_failed_webhook_event import TransferFailedWebhookEvent
 from .export_completed_webhook_event import ExportCompletedWebhookEvent
 from .invoice_past_due_webhook_event import InvoicePastDueWebhookEvent
 from .shipment_created_webhook_event import ShipmentCreatedWebhookEvent
@@ -144,6 +145,7 @@ UnwrapWebhookEvent: TypeAlias = Annotated[
         SwapCompletedWebhookEvent,
         TransferCompletedWebhookEvent,
         TransferCreatedWebhookEvent,
+        TransferFailedWebhookEvent,
         VerificationSucceededWebhookEvent,
         WithdrawalCreatedWebhookEvent,
         WithdrawalUpdatedWebhookEvent,
