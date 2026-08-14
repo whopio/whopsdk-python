@@ -467,6 +467,8 @@ class Data(BaseModel):
         "installment_default",
         "internal_balance_transfer_incoming",
         "internal_balance_transfer_outgoing",
+        "internal_withdrawal",
+        "internal_withdrawal_reversal",
         "legacy_crypto_payment",
         "legacy_payment",
         "legacy_payment_refund",
