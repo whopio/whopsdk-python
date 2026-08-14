@@ -41,8 +41,6 @@ __all__ = ["CourseLessonsResource", "AsyncCourseLessonsResource"]
 
 
 class CourseLessonsResource(SyncAPIResource):
-    """Course lessons"""
-
     @cached_property
     def with_raw_response(self) -> CourseLessonsResourceWithRawResponse:
         """
@@ -79,6 +77,7 @@ class CourseLessonsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Lesson:
         """Create a new lesson within a course chapter.
 
@@ -116,6 +115,8 @@ class CourseLessonsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return self._post(
             "/course_lessons",
@@ -133,7 +134,11 @@ class CourseLessonsResource(SyncAPIResource):
                 course_lesson_create_params.CourseLessonCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Lesson,
         )
@@ -200,6 +205,7 @@ class CourseLessonsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Lesson:
         """
         Update a lesson's content, type, visibility, assessment questions, or media
@@ -252,6 +258,8 @@ class CourseLessonsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -277,7 +285,11 @@ class CourseLessonsResource(SyncAPIResource):
                 course_lesson_update_params.CourseLessonUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Lesson,
         )
@@ -360,6 +372,7 @@ class CourseLessonsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> CourseLessonDeleteResponse:
         """
         Permanently delete a lesson and remove it from its chapter.
@@ -376,13 +389,19 @@ class CourseLessonsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._delete(
             path_template("/course_lessons/{id}", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=CourseLessonDeleteResponse,
         )
@@ -397,6 +416,7 @@ class CourseLessonsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> CourseLessonMarkAsCompletedResponse:
         """
         Mark a lesson as completed for the current user after they finish the content.
@@ -409,13 +429,19 @@ class CourseLessonsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not lesson_id:
             raise ValueError(f"Expected a non-empty value for `lesson_id` but received {lesson_id!r}")
         return self._post(
             path_template("/course_lessons/{lesson_id}/mark_as_completed", lesson_id=lesson_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=CourseLessonMarkAsCompletedResponse,
         )
@@ -430,6 +456,7 @@ class CourseLessonsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> CourseLessonStartResponse:
         """
         Record that the current user has started viewing a lesson, creating progress
@@ -443,13 +470,19 @@ class CourseLessonsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not lesson_id:
             raise ValueError(f"Expected a non-empty value for `lesson_id` but received {lesson_id!r}")
         return self._post(
             path_template("/course_lessons/{lesson_id}/start", lesson_id=lesson_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=CourseLessonStartResponse,
         )
@@ -465,6 +498,7 @@ class CourseLessonsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> CourseLessonSubmitAssessmentResponse:
         """
         Submit answers for a quiz or knowledge check lesson and receive a graded result.
@@ -479,6 +513,8 @@ class CourseLessonsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not lesson_id:
             raise ValueError(f"Expected a non-empty value for `lesson_id` but received {lesson_id!r}")
@@ -488,15 +524,17 @@ class CourseLessonsResource(SyncAPIResource):
                 {"answers": answers}, course_lesson_submit_assessment_params.CourseLessonSubmitAssessmentParams
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=CourseLessonSubmitAssessmentResponse,
         )
 
 
 class AsyncCourseLessonsResource(AsyncAPIResource):
-    """Course lessons"""
-
     @cached_property
     def with_raw_response(self) -> AsyncCourseLessonsResourceWithRawResponse:
         """
@@ -533,6 +571,7 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Lesson:
         """Create a new lesson within a course chapter.
 
@@ -570,6 +609,8 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return await self._post(
             "/course_lessons",
@@ -587,7 +628,11 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
                 course_lesson_create_params.CourseLessonCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Lesson,
         )
@@ -654,6 +699,7 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Lesson:
         """
         Update a lesson's content, type, visibility, assessment questions, or media
@@ -706,6 +752,8 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -731,7 +779,11 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
                 course_lesson_update_params.CourseLessonUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Lesson,
         )
@@ -814,6 +866,7 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> CourseLessonDeleteResponse:
         """
         Permanently delete a lesson and remove it from its chapter.
@@ -830,13 +883,19 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._delete(
             path_template("/course_lessons/{id}", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=CourseLessonDeleteResponse,
         )
@@ -851,6 +910,7 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> CourseLessonMarkAsCompletedResponse:
         """
         Mark a lesson as completed for the current user after they finish the content.
@@ -863,13 +923,19 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not lesson_id:
             raise ValueError(f"Expected a non-empty value for `lesson_id` but received {lesson_id!r}")
         return await self._post(
             path_template("/course_lessons/{lesson_id}/mark_as_completed", lesson_id=lesson_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=CourseLessonMarkAsCompletedResponse,
         )
@@ -884,6 +950,7 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> CourseLessonStartResponse:
         """
         Record that the current user has started viewing a lesson, creating progress
@@ -897,13 +964,19 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not lesson_id:
             raise ValueError(f"Expected a non-empty value for `lesson_id` but received {lesson_id!r}")
         return await self._post(
             path_template("/course_lessons/{lesson_id}/start", lesson_id=lesson_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=CourseLessonStartResponse,
         )
@@ -919,6 +992,7 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> CourseLessonSubmitAssessmentResponse:
         """
         Submit answers for a quiz or knowledge check lesson and receive a graded result.
@@ -933,6 +1007,8 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not lesson_id:
             raise ValueError(f"Expected a non-empty value for `lesson_id` but received {lesson_id!r}")
@@ -942,7 +1018,11 @@ class AsyncCourseLessonsResource(AsyncAPIResource):
                 {"answers": answers}, course_lesson_submit_assessment_params.CourseLessonSubmitAssessmentParams
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=CourseLessonSubmitAssessmentResponse,
         )
