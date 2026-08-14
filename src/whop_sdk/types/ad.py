@@ -1,169 +1,659 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
-from datetime import datetime
 from typing_extensions import Literal
 
 from .._models import BaseModel
-from .shared.currency import Currency
-from .external_ad_status import ExternalAdStatus
-from .ad_campaign_platform import AdCampaignPlatform
 
-__all__ = ["Ad", "AdCampaign", "AdGroup", "Issue"]
+__all__ = [
+    "Ad",
+    "AdCampaign",
+    "AdGroup",
+    "Creative",
+    "CreativeCrop",
+    "Issue",
+    "SocialAccount",
+    "LeadForm",
+    "LeadFormCompletion",
+    "LeadFormDisclaimer",
+    "LeadFormDisclaimerCheckbox",
+    "LeadFormIntro",
+    "LeadFormPrivacyPolicy",
+    "LeadFormQuestion",
+    "LeadFormQuestionOption",
+    "LeadFormQuestionOptionLogic",
+    "MessagingConfig",
+]
 
 
 class AdCampaign(BaseModel):
     """The ad campaign this ad belongs to."""
 
     id: str
-    """The unique identifier for this ad campaign."""
+    """The referenced entity's id."""
 
 
 class AdGroup(BaseModel):
-    """The parent ad group this ad belongs to."""
+    """The ad group this ad belongs to."""
 
     id: str
-    """The unique identifier for this ad group."""
+    """The referenced entity's id."""
+
+
+class CreativeCrop(BaseModel):
+    """The saved crop window for this creative, in source image pixels.
+
+    Null for the original asset or a format that has not been cropped.
+    """
+
+    height: float
+    """Height of the crop window in source pixels."""
+
+    width: float
+    """Width of the crop window in source pixels."""
+
+    x: float
+    """Left edge of the crop window in source pixels."""
+
+    y: float
+    """Top edge of the crop window in source pixels."""
+
+
+class Creative(BaseModel):
+    """The creative assets used by this ad.
+
+    The original asset has a null format; square, vertical, and horizontal entries are placement-specific variants. A carousel ad returns one format-null entry per attachment, in order.
+    """
+
+    id: str
+    """The creative attachment's file id."""
+
+    crop: Optional[CreativeCrop] = None
+    """The saved crop window for this creative, in source image pixels.
+
+    Null for the original asset or a format that has not been cropped.
+    """
+
+    format: Optional[Literal["square", "vertical", "horizontal"]] = None
+    """The placement variant this asset covers, or null for the original asset."""
+
+    media_type: Optional[str] = None
+    """The kind of asset, image or video."""
+
+    url: Optional[str] = None
+    """CDN url of the asset."""
 
 
 class Issue(BaseModel):
-    """A platform-reported issue on an ad object (rejection, policy flag, etc.)."""
+    """Open issues affecting this ad. Empty when there are none."""
 
-    created_at: datetime
-    """When the issue was first reported."""
+    id: str
+    """Unique identifier for the issue."""
 
-    error_code: Optional[str] = None
-    """Platform-specific error code."""
-
-    error_message: Optional[str] = None
-    """Full error detail from the platform."""
-
-    error_summary: str
-    """Short description of the issue."""
-
-    resolution_status: Literal["open", "resolved", "acknowledged"]
-    """Current resolution status."""
+    message: str
+    """A description of what the issue is and how it can be resolved."""
 
     resource_id: Optional[str] = None
-    """The Whop ID of the ad object this issue is on (the ad, ad group, or campaign).
+    """The ID of the campaign, ad group, or ad the issue is attached to."""
 
-    Null when the issue isn't tied to a local object.
+    resource_type: Literal["ad_campaign", "ad_group", "ad"]
+    """The type of resource the issue is attached to."""
+
+
+class SocialAccount(BaseModel):
+    """
+    The social accounts the ad runs under — its Facebook page and Instagram profile — each referenced by ID, prefixed `sacc_`.
     """
 
-    resource_type: str
-    """The kind of ad object this issue is on: `ad`, `ad_group`, or `ad_campaign`.
+    id: str
+    """The referenced entity's id."""
 
-    Pairs with `resourceId`.
+
+class LeadFormCompletion(BaseModel):
+    """Screen shown after the form is submitted.
+
+    `null` when the form uses the default.
     """
+
+    button_text: Optional[str] = None
+    """Text of the follow-up button."""
+
+    description: Optional[str] = None
+    """Body text under the headline."""
+
+    headline: Optional[str] = None
+    """Headline of the completion screen."""
+
+    url: Optional[str] = None
+    """Website the follow-up button opens. `null` when the screen has no button."""
+
+
+class LeadFormDisclaimerCheckbox(BaseModel):
+    """Consent checkboxes the person can tick. Empty when the disclaimer is text-only."""
+
+    checked_by_default: Optional[bool] = None
+    """Whether the checkbox starts ticked."""
+
+    key: Optional[str] = None
+    """Stable identifier consent responses are stored under."""
+
+    required: Optional[bool] = None
+    """Whether the checkbox must be ticked to submit the form."""
+
+    text: str
+    """Consent text next to the checkbox."""
+
+
+class LeadFormDisclaimer(BaseModel):
+    """Custom consent disclaimer shown before submission.
+
+    `null` when the form has none.
+    """
+
+    body: Optional[str] = None
+    """Disclaimer text."""
+
+    checkboxes: List[LeadFormDisclaimerCheckbox]
+
+    title: Optional[str] = None
+    """Disclaimer title."""
+
+
+class LeadFormIntro(BaseModel):
+    """Intro screen shown before the questions. `null` when the form has none."""
+
+    description: Optional[str] = None
+    """Body text under the headline."""
+
+    headline: Optional[str] = None
+    """Headline of the intro screen."""
+
+
+class LeadFormPrivacyPolicy(BaseModel):
+    """Your privacy policy, linked from the form. `null` when unset."""
+
+    link_text: Optional[str] = None
+    """Link text shown for the policy. `null` uses the platform default."""
+
+    url: str
+    """URL of your privacy policy."""
+
+
+class LeadFormQuestionOptionLogic(BaseModel):
+    """Where the form goes when this choice is selected.
+
+    Absent when the form just continues to the next question.
+    """
+
+    action: Literal["go_to_question", "submit_form", "close_form"]
+    """What happens when the choice is selected."""
+
+    target_end_page_index: Optional[float] = None
+    """Zero-based index of the ending screen to jump to."""
+
+    target_question_index: Optional[float] = None
+    """Zero-based index of the question to jump to, for `go_to_question`."""
+
+
+class LeadFormQuestionOption(BaseModel):
+    """Choices for `multiple_choice` questions. Absent for other formats."""
+
+    value: str
+    """Choice text shown to the person."""
+
+    key: Optional[str] = None
+    """Stable identifier the choice's answers are stored under.
+
+    Absent for simple choices.
+    """
+
+    logic: Optional[LeadFormQuestionOptionLogic] = None
+    """Where the form goes when this choice is selected.
+
+    Absent when the form just continues to the next question.
+    """
+
+
+class LeadFormQuestion(BaseModel):
+    """Questions on the form, in order."""
+
+    type: str
+    """
+    Question type: a standard prefill type such as `email`, `phone`, or `full_name`,
+    or `custom` for your own question.
+    """
+
+    format: Optional[str] = None
+    """
+    Answer format for `custom` questions: `short_answer`, `multiple_choice`, or
+    `appointment`. Absent otherwise.
+    """
+
+    label: Optional[str] = None
+    """Question text for `custom` questions. Absent for standard prefill questions."""
+
+    options: Optional[List[LeadFormQuestionOption]] = None
+
+
+class LeadForm(BaseModel):
+    """The instant lead form shown when someone taps this ad.
+
+    `null` when the ad group's conversion_location is not an instant-form destination.
+    """
+
+    completion: Optional[LeadFormCompletion] = None
+    """Screen shown after the form is submitted.
+
+    `null` when the form uses the default.
+    """
+
+    disclaimer: Optional[LeadFormDisclaimer] = None
+    """Custom consent disclaimer shown before submission.
+
+    `null` when the form has none.
+    """
+
+    form_type: Literal["more_volume", "higher_intent"]
+    """
+    `more_volume` is quickest to submit; `higher_intent` adds a confirmation step
+    before submission.
+    """
+
+    intro: Optional[LeadFormIntro] = None
+    """Intro screen shown before the questions. `null` when the form has none."""
+
+    name: Optional[str] = None
+    """Internal name of the form."""
+
+    phone_verification: bool
+    """Whether the phone number must be verified by SMS before submitting."""
+
+    privacy_policy: Optional[LeadFormPrivacyPolicy] = None
+    """Your privacy policy, linked from the form. `null` when unset."""
+
+    questions: List[LeadFormQuestion]
+
+
+class MessagingConfig(BaseModel):
+    """Welcome message for click-to-message ads, shown when the conversation opens.
+
+    `null` when the ad has none.
+    """
+
+    keyword: Optional[str] = None
+    """Suggested reply the person can tap to start the conversation."""
+
+    message: Optional[str] = None
+    """Greeting shown when the conversation opens."""
 
 
 class Ad(BaseModel):
-    """An ad belonging to an ad group."""
-
     id: str
-    """The unique identifier for this ad."""
+    """Unique identifier for the ad, prefixed `ad_`."""
 
     ad_campaign: AdCampaign
     """The ad campaign this ad belongs to."""
 
     ad_group: AdGroup
-    """The parent ad group this ad belongs to."""
+    """The ad group this ad belongs to."""
+
+    added_to_cart_value: float
+    """USD value attributed to add-to-cart events.
+
+    Sums the value sent with each event, normalized to USD; events without a value
+    contribute 0.
+    """
+
+    added_to_carts: float
+    """Whop pixel-attributed add-to-cart events, last-click."""
+
+    call_to_action: Optional[
+        Literal[
+            "learn_more",
+            "shop_now",
+            "sign_up",
+            "subscribe",
+            "get_started",
+            "book_now",
+            "apply_now",
+            "contact_us",
+            "download",
+            "order_now",
+            "buy_now",
+            "get_quote",
+            "message_page",
+            "whatsapp_message",
+            "instagram_message",
+            "call_now",
+            "get_directions",
+            "send_updates",
+            "get_offer",
+            "watch_more",
+            "listen_now",
+            "play_game",
+            "open_link",
+            "no_button",
+            "get_offer_view",
+            "get_event_tickets",
+            "see_menu",
+            "request_time",
+            "event_rsvp",
+            "see_details",
+            "view_instagram_profile",
+        ]
+    ] = None
+    """The call-to-action button shown on the ad."""
 
     click_through_rate: float
-    """Click-through rate as a fraction of impressions (clicks / impressions, 0–1)."""
+    """Clicks divided by impressions, between 0 and 1."""
 
-    clicks: int
-    """Total clicks on this ad in the stats window."""
+    clicks: float
+    """The number of clicks."""
+
+    completed_registration_value: float
+    """USD value attributed to complete-registration events.
+
+    Sums the value sent with each event, normalized to USD; events without a value
+    contribute 0.
+    """
+
+    completed_registrations: float
+    """Whop pixel-attributed complete-registration events, last-click."""
+
+    contact_value: float
+    """USD value attributed to contact events.
+
+    Sums the value sent with each event, normalized to USD; events without a value
+    contribute 0.
+    """
+
+    contacts: float
+    """Whop pixel-attributed contact events, last-click."""
+
+    cost_per_added_to_cart: Optional[float] = None
+    """
+    Spend divided by attributed add-to-cart events; null when they are not the goal
+    and none are attributed.
+    """
 
     cost_per_click: float
-    """Cost per click in dollars (spend / clicks). 0 when there are no clicks."""
+    """Spend divided by clicks; 0 when there are no clicks."""
+
+    cost_per_completed_registration: Optional[float] = None
+    """
+    Spend divided by attributed complete-registration events; null when they are not
+    the goal and none are attributed.
+    """
+
+    cost_per_contact: Optional[float] = None
+    """
+    Spend divided by attributed contact events; null when contacts are not the goal
+    and none are attributed.
+    """
 
     cost_per_lead: Optional[float] = None
-    """Cost in dollars per Whop pixel-attributed lead (spend / leads).
-
-    0 when leads are tracked but none happened yet; null when leads are not a goal
-    and none were attributed.
+    """
+    Spend divided by attributed leads; null when leads are not a goal and none are
+    attributed.
     """
 
     cost_per_mille: float
-    """Cost per 1,000 impressions in dollars (spend / impressions × 1000).
-
-    0 when there are no impressions.
-    """
+    """Spend per 1,000 impressions; 0 when there are no impressions."""
 
     cost_per_purchase: Optional[float] = None
-    """Cost in dollars per Whop pixel-attributed purchase (spend / purchases).
-
-    0 when purchases are tracked but none happened yet; null when purchases are not
-    a goal and none were attributed.
+    """
+    Spend divided by attributed purchases; null when purchases are not a goal and
+    none are attributed.
     """
 
     cost_per_result: Optional[float] = None
-    """Cost in dollars per optimization result (spend / results).
-
-    0 when a result is being optimized for but none happened yet; null when nothing
-    is being optimized for.
+    """
+    Spend divided by Whop pixel-attributed results; null when nothing
+    Whop-attributable is being optimized for.
     """
 
-    created_at: datetime
-    """When the ad was created."""
+    cost_per_schedule: Optional[float] = None
+    """
+    Spend divided by attributed schedule events; null when schedules are not the
+    goal and none are attributed.
+    """
+
+    cost_per_submitted_application: Optional[float] = None
+    """
+    Spend divided by attributed submit-application events; null when they are not
+    the goal and none are attributed.
+    """
+
+    cost_per_unique_click: Optional[float] = None
+    """Spend divided by unique clicks; null when there are no unique clicks."""
+
+    cost_per_viewed_content: Optional[float] = None
+    """
+    Spend divided by attributed view-content events; null when they are not the goal
+    and none are attributed.
+    """
+
+    created_at: str
+    """When the ad was created, as an ISO 8601 timestamp."""
+
+    creatives: List[Creative]
+
+    custom_conversions: float
+    """
+    Whop pixel-attributed custom (merchant-defined) conversion events, last-click,
+    across all custom event names.
+    """
+
+    custom_event_counts: object
+    """
+    Whop pixel-attributed custom conversions, keyed by your event name with its
+    last-click count as the value. Empty when no named custom events are attributed.
+    Custom events fired without a name are counted in custom_conversions but omitted
+    here, so these values sum to at most custom_conversions.
+    """
+
+    custom_event_values: object
+    """
+    Conversion value attributed to each custom event, keyed by event name like
+    custom_event_counts. Sums the value passed to whop.track, normalized to USD;
+    events fired without a value contribute 0.
+    """
+
+    delivery_status: Literal[
+        "rejected",
+        "in_review",
+        "draft",
+        "campaign_paused",
+        "ad_group_paused",
+        "paused",
+        "processing",
+        "issues",
+        "learning_limited",
+        "learning",
+        "active",
+    ]
+    """Whether the ad is delivering right now, and if not, why.
+
+    When several states apply at once, the highest-precedence one is returned.
+    """
+
+    descriptions: List[str]
 
     frequency: Optional[float] = None
-    """
-    Average number of times each person saw an ad (impressions / reach), as reported
-    by the platform.
-    """
+    """Platform-reported impressions divided by reach."""
 
-    impressions: int
-    """Total impressions (views) on this ad in the stats window."""
+    headlines: List[str]
+
+    impressions: float
+    """The number of impressions."""
 
     issues: List[Issue]
-    """Open platform issues affecting this ad, deduplicated per object.
 
-    Empty when there are none.
+    lead_value: float
+    """USD value attributed to lead events.
+
+    Sums the value sent with each event, normalized to USD; events without a value
+    contribute 0.
     """
 
-    leads: int
-    """Number of Whop pixel-attributed leads (last-click) in the stats window."""
+    leads: float
+    """Whop pixel-attributed leads, last-click."""
 
-    platform: AdCampaignPlatform
-    """The external ad platform this ad is running on (e.g., meta, tiktok)."""
+    post_id: Optional[str] = None
+    """The existing post this ad promotes — a Facebook post or Instagram media ID.
+
+    `null` when the ad uses uploaded creatives.
+    """
+
+    post_source: Optional[Literal["facebook", "instagram"]] = None
+    """
+    Identifies the network that owns `post_id`; `null` when the ad uses uploaded
+    creatives.
+    """
+
+    post_thumbnail_url: Optional[str] = None
+    """Preview image of the existing post this ad promotes.
+
+    `null` for ads that use uploaded creatives, or until the post's media has been
+    fetched from the network.
+    """
+
+    primary_texts: List[str]
 
     purchase_value: float
-    """Total USD value of Whop pixel-attributed purchases in the stats window."""
+    """USD value of pixel-attributed purchases."""
 
-    purchases: int
-    """Number of Whop pixel-attributed purchases (last-click) in the stats window."""
+    purchases: float
+    """Whop pixel-attributed purchases, last-click."""
 
-    reach: int
-    """Unique users reached in the stats window (deduplicated by the platform)."""
+    reach: float
+    """The number of unique people who saw this."""
+
+    result_event: Optional[
+        Literal[
+            "purchase",
+            "lead",
+            "schedule",
+            "submit_application",
+            "contact",
+            "complete_registration",
+            "view_content",
+            "add_to_cart",
+            "custom",
+            "messaging_conversation",
+        ]
+    ] = None
+    """
+    The Whop pixel conversion event whose attributed count represents results — the
+    optimization goal, or the highest-volume attributed event for campaigns that
+    budget per ad group. Null when the goal isn't a Whop-attributed event.
+    """
+
+    result_event_name: Optional[str] = None
+    """
+    The merchant-defined event name when result_event is custom; null for the
+    standard events.
+    """
+
+    results: Optional[float] = None
+    """The Whop pixel-attributed count behind result_event.
+
+    When a campaign's ad groups optimize different goals there is no single
+    result_event (it is null), and this is instead the sum of each ad group's own
+    attributed results. Null when nothing Whop-attributable is being optimized for.
+    """
 
     return_on_ad_spend: float
     """
-    Return on ad spend as a ratio (purchaseValue / spend) — 2.5 means $2.50 of
-    attributed purchase value per $1 spent. 0 when there is no spend.
+    Purchase value divided by spend, both in USD (a currency-neutral ratio); 0 when
+    there is no spend.
     """
+
+    schedule_value: float
+    """USD value attributed to schedule events.
+
+    Sums the value sent with each event, normalized to USD; events without a value
+    contribute 0.
+    """
+
+    schedules: float
+    """Whop pixel-attributed schedule events, last-click."""
+
+    social_accounts: List[SocialAccount]
 
     spend: float
-    """Amount charged in dollars in the stats window."""
+    """The amount charged, in spend_currency."""
 
-    spend_currency: Optional[Currency] = None
-    """The available currencies on the platform"""
+    spend_currency: Optional[str] = None
+    """The ISO 4217 currency code of all monetary metrics."""
 
-    status: ExternalAdStatus
-    """Current delivery status of the ad."""
+    status: Literal["active", "paused", "in_review", "rejected"]
+    """Whether the ad is enabled.
+
+    `active` and `paused` are set by you; `in_review` and `rejected` come from ad
+    review.
+    """
+
+    submitted_application_value: float
+    """USD value attributed to submit-application events.
+
+    Sums the value sent with each event, normalized to USD; events without a value
+    contribute 0.
+    """
+
+    submitted_applications: float
+    """Whop pixel-attributed submit-application events, last-click."""
 
     title: Optional[str] = None
-    """The display title of the ad. Falls back to the creative set caption when unset."""
+    """Display title of the ad."""
 
     unique_click_through_rate: Optional[float] = None
-    """
-    Unique click-through rate as a fraction of impressions (unique clicks /
-    impressions, 0–1).
+    """Unique clicks divided by impressions, between 0 and 1."""
+
+    unique_clicks: float
+    """People who clicked, reported by the Whop pixel, counted once per person."""
+
+    updated_at: str
+    """When the ad was last updated, as an ISO 8601 timestamp."""
+
+    url: Optional[str] = None
+    """The URL the ad links to."""
+
+    url_parameters: object
+    """Query parameters appended to the URL, keyed by parameter name."""
+
+    viewed_content_value: float
+    """USD value attributed to view-content events.
+
+    Sums the value sent with each event, normalized to USD; events without a value
+    contribute 0.
     """
 
-    unique_clicks: int
-    """Unique clicks (deduplicated by the platform) in the stats window."""
+    viewed_contents: float
+    """Whop pixel-attributed view-content events, last-click."""
 
-    updated_at: datetime
-    """When the ad was last updated."""
+    lead_form: Optional[LeadForm] = None
+    """The instant lead form shown when someone taps this ad.
+
+    `null` when the ad group's conversion_location is not an instant-form
+    destination.
+    """
+
+    lead_form_id: Optional[str] = None
+    """The ad platform's ID for the instant form the ad uses.
+
+    Set when the ad references an existing form via `lead_form_id`, or once a form
+    built from `lead_form` has been created on the platform.
+    """
+
+    messaging_config: Optional[MessagingConfig] = None
+    """Welcome message for click-to-message ads, shown when the conversation opens.
+
+    `null` when the ad has none.
+    """
+
+    multi_advertiser_ads: Optional[bool] = None
+    """Whether the ad can appear alongside other advertisers' ads in the same unit.
+
+    Defaults to true.
+    """
