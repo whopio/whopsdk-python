@@ -540,6 +540,7 @@ class Ad(BaseModel):
             "view_content",
             "add_to_cart",
             "custom",
+            "messaging_conversation",
         ]
     ] = None
     """
