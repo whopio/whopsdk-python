@@ -1257,11 +1257,16 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import RecommendedActionListResponse, RecommendedActionRunResponse
+from whop_sdk.types import (
+    RecommendedActionRetrieveResponse,
+    RecommendedActionListResponse,
+    RecommendedActionRunResponse,
+)
 ```
 
 Methods:
 
+- <code title="get /recommended_actions/{chain_id}">client.recommended_actions.<a href="./src/whop_sdk/resources/recommended_actions.py">retrieve</a>(chain_id, \*\*<a href="src/whop_sdk/types/recommended_action_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/recommended_action_retrieve_response.py">RecommendedActionRetrieveResponse</a></code>
 - <code title="get /recommended_actions">client.recommended_actions.<a href="./src/whop_sdk/resources/recommended_actions.py">list</a>(\*\*<a href="src/whop_sdk/types/recommended_action_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/recommended_action_list_response.py">RecommendedActionListResponse</a></code>
 - <code title="post /recommended_actions/{chain_id}">client.recommended_actions.<a href="./src/whop_sdk/resources/recommended_actions.py">run</a>(chain_id, \*\*<a href="src/whop_sdk/types/recommended_action_run_params.py">params</a>) -> <a href="./src/whop_sdk/types/recommended_action_run_response.py">RecommendedActionRunResponse</a></code>
 

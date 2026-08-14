@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import httpx
 
-from ..types import recommended_action_run_params, recommended_action_list_params
+from ..types import recommended_action_run_params, recommended_action_list_params, recommended_action_retrieve_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -18,6 +18,7 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.recommended_action_run_response import RecommendedActionRunResponse
 from ..types.recommended_action_list_response import RecommendedActionListResponse
+from ..types.recommended_action_retrieve_response import RecommendedActionRetrieveResponse
 
 __all__ = ["RecommendedActionsResource", "AsyncRecommendedActionsResource"]
 
@@ -47,6 +48,50 @@ class RecommendedActionsResource(SyncAPIResource):
         For more information, see https://www.github.com/whopio/whopsdk-python#with_streaming_response
         """
         return RecommendedActionsResourceWithStreamingResponse(self)
+
+    def retrieve(
+        self,
+        chain_id: str,
+        *,
+        account_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> RecommendedActionRetrieveResponse:
+        """
+        Retrieves a recommended action chain by id, including chains that have already
+        been run. Seeded chains are reconstructed from their preset; generated chains
+        are read from the account's stored chain, with each step's filled-in input.
+
+        Args:
+          account_id: Account ID, prefixed `biz_`. Defaults to the API key's own account.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chain_id:
+            raise ValueError(f"Expected a non-empty value for `chain_id` but received {chain_id!r}")
+        return self._get(
+            path_template("/recommended_actions/{chain_id}", chain_id=chain_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"account_id": account_id}, recommended_action_retrieve_params.RecommendedActionRetrieveParams
+                ),
+            ),
+            cast_to=RecommendedActionRetrieveResponse,
+        )
 
     def list(
         self,
@@ -165,6 +210,50 @@ class AsyncRecommendedActionsResource(AsyncAPIResource):
         """
         return AsyncRecommendedActionsResourceWithStreamingResponse(self)
 
+    async def retrieve(
+        self,
+        chain_id: str,
+        *,
+        account_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> RecommendedActionRetrieveResponse:
+        """
+        Retrieves a recommended action chain by id, including chains that have already
+        been run. Seeded chains are reconstructed from their preset; generated chains
+        are read from the account's stored chain, with each step's filled-in input.
+
+        Args:
+          account_id: Account ID, prefixed `biz_`. Defaults to the API key's own account.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not chain_id:
+            raise ValueError(f"Expected a non-empty value for `chain_id` but received {chain_id!r}")
+        return await self._get(
+            path_template("/recommended_actions/{chain_id}", chain_id=chain_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"account_id": account_id}, recommended_action_retrieve_params.RecommendedActionRetrieveParams
+                ),
+            ),
+            cast_to=RecommendedActionRetrieveResponse,
+        )
+
     async def list(
         self,
         *,
@@ -260,6 +349,9 @@ class RecommendedActionsResourceWithRawResponse:
     def __init__(self, recommended_actions: RecommendedActionsResource) -> None:
         self._recommended_actions = recommended_actions
 
+        self.retrieve = to_raw_response_wrapper(
+            recommended_actions.retrieve,
+        )
         self.list = to_raw_response_wrapper(
             recommended_actions.list,
         )
@@ -272,6 +364,9 @@ class AsyncRecommendedActionsResourceWithRawResponse:
     def __init__(self, recommended_actions: AsyncRecommendedActionsResource) -> None:
         self._recommended_actions = recommended_actions
 
+        self.retrieve = async_to_raw_response_wrapper(
+            recommended_actions.retrieve,
+        )
         self.list = async_to_raw_response_wrapper(
             recommended_actions.list,
         )
@@ -284,6 +379,9 @@ class RecommendedActionsResourceWithStreamingResponse:
     def __init__(self, recommended_actions: RecommendedActionsResource) -> None:
         self._recommended_actions = recommended_actions
 
+        self.retrieve = to_streamed_response_wrapper(
+            recommended_actions.retrieve,
+        )
         self.list = to_streamed_response_wrapper(
             recommended_actions.list,
         )
@@ -296,6 +394,9 @@ class AsyncRecommendedActionsResourceWithStreamingResponse:
     def __init__(self, recommended_actions: AsyncRecommendedActionsResource) -> None:
         self._recommended_actions = recommended_actions
 
+        self.retrieve = async_to_streamed_response_wrapper(
+            recommended_actions.retrieve,
+        )
         self.list = async_to_streamed_response_wrapper(
             recommended_actions.list,
         )
