@@ -26,9 +26,9 @@ class TestAPIKeys:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         api_key = client.api_keys.create(
-            name="name",
+            name="Shine Time Booking (production)",
             permissions={},
-            resource_id="resource_id",
+            resource_id="biz_xxxxxxxxxxxxxx",
             resource_type="account",
         )
         assert_matches_type(APIKey, api_key, path=["response"])
@@ -37,22 +37,22 @@ class TestAPIKeys:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         api_key = client.api_keys.create(
-            name="name",
+            name="Shine Time Booking (production)",
             permissions={
                 "statements": [
                     {
-                        "actions": ["string"],
+                        "actions": ["company:basic:read"],
                         "grant": True,
-                        "resources": ["string"],
+                        "resources": ["biz_xxxxxxxxxxxxxx"],
                     }
                 ],
-                "system_role": "owner",
+                "system_role": "admin",
             },
-            resource_id="resource_id",
+            resource_id="biz_xxxxxxxxxxxxxx",
             resource_type="account",
             api_version_date="2026-08-13",
-            expires_at="expires_at",
-            ip_allowlist=["string"],
+            expires_at="2026-01-01T12:00:00.000Z",
+            ip_allowlist=["203.0.113.0/24"],
         )
         assert_matches_type(APIKey, api_key, path=["response"])
 
@@ -60,9 +60,9 @@ class TestAPIKeys:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.api_keys.with_raw_response.create(
-            name="name",
+            name="Shine Time Booking (production)",
             permissions={},
-            resource_id="resource_id",
+            resource_id="biz_xxxxxxxxxxxxxx",
             resource_type="account",
         )
 
@@ -75,9 +75,9 @@ class TestAPIKeys:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.api_keys.with_streaming_response.create(
-            name="name",
+            name="Shine Time Booking (production)",
             permissions={},
-            resource_id="resource_id",
+            resource_id="biz_xxxxxxxxxxxxxx",
             resource_type="account",
         ) as response:
             assert not response.is_closed
@@ -144,18 +144,18 @@ class TestAPIKeys:
         api_key = client.api_keys.update(
             id="id",
             api_version_date="2026-08-13",
-            expires_at="expires_at",
-            ip_allowlist=["string"],
-            name="name",
+            expires_at="2026-01-01T12:00:00.000Z",
+            ip_allowlist=["203.0.113.0/24"],
+            name="Shine Time Booking (staging)",
             permissions={
                 "statements": [
                     {
-                        "actions": ["string"],
+                        "actions": ["company:basic:read"],
                         "grant": True,
-                        "resources": ["string"],
+                        "resources": ["biz_xxxxxxxxxxxxxx"],
                     }
                 ],
-                "system_role": "owner",
+                "system_role": "admin",
             },
         )
         assert_matches_type(APIKey, api_key, path=["response"])
@@ -370,9 +370,9 @@ class TestAsyncAPIKeys:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         api_key = await async_client.api_keys.create(
-            name="name",
+            name="Shine Time Booking (production)",
             permissions={},
-            resource_id="resource_id",
+            resource_id="biz_xxxxxxxxxxxxxx",
             resource_type="account",
         )
         assert_matches_type(APIKey, api_key, path=["response"])
@@ -381,22 +381,22 @@ class TestAsyncAPIKeys:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         api_key = await async_client.api_keys.create(
-            name="name",
+            name="Shine Time Booking (production)",
             permissions={
                 "statements": [
                     {
-                        "actions": ["string"],
+                        "actions": ["company:basic:read"],
                         "grant": True,
-                        "resources": ["string"],
+                        "resources": ["biz_xxxxxxxxxxxxxx"],
                     }
                 ],
-                "system_role": "owner",
+                "system_role": "admin",
             },
-            resource_id="resource_id",
+            resource_id="biz_xxxxxxxxxxxxxx",
             resource_type="account",
             api_version_date="2026-08-13",
-            expires_at="expires_at",
-            ip_allowlist=["string"],
+            expires_at="2026-01-01T12:00:00.000Z",
+            ip_allowlist=["203.0.113.0/24"],
         )
         assert_matches_type(APIKey, api_key, path=["response"])
 
@@ -404,9 +404,9 @@ class TestAsyncAPIKeys:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.api_keys.with_raw_response.create(
-            name="name",
+            name="Shine Time Booking (production)",
             permissions={},
-            resource_id="resource_id",
+            resource_id="biz_xxxxxxxxxxxxxx",
             resource_type="account",
         )
 
@@ -419,9 +419,9 @@ class TestAsyncAPIKeys:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.api_keys.with_streaming_response.create(
-            name="name",
+            name="Shine Time Booking (production)",
             permissions={},
-            resource_id="resource_id",
+            resource_id="biz_xxxxxxxxxxxxxx",
             resource_type="account",
         ) as response:
             assert not response.is_closed
@@ -488,18 +488,18 @@ class TestAsyncAPIKeys:
         api_key = await async_client.api_keys.update(
             id="id",
             api_version_date="2026-08-13",
-            expires_at="expires_at",
-            ip_allowlist=["string"],
-            name="name",
+            expires_at="2026-01-01T12:00:00.000Z",
+            ip_allowlist=["203.0.113.0/24"],
+            name="Shine Time Booking (staging)",
             permissions={
                 "statements": [
                     {
-                        "actions": ["string"],
+                        "actions": ["company:basic:read"],
                         "grant": True,
-                        "resources": ["string"],
+                        "resources": ["biz_xxxxxxxxxxxxxx"],
                     }
                 ],
-                "system_role": "owner",
+                "system_role": "admin",
             },
         )
         assert_matches_type(APIKey, api_key, path=["response"])

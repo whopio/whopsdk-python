@@ -88,16 +88,16 @@ class TestUsers:
             id="id",
             account_id="account_id",
             banner={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
+                "id": "file_xxxxxxxxxxxxxx",
+                "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             },
-            bio="bio",
-            name="name",
+            bio="Interior specialist. Leather, upholstery, and odor removal.",
+            name="Tanya Cole",
             profile_picture={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
+                "id": "file_xxxxxxxxxxxxxx",
+                "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             },
-            username="username",
+            username="tanyacole",
         )
         assert_matches_type(User, user, path=["response"])
 
@@ -322,16 +322,16 @@ class TestUsers:
         user = client.users.update_me(
             account_id="account_id",
             banner={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
+                "id": "file_xxxxxxxxxxxxxx",
+                "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             },
-            bio="bio",
-            name="name",
+            bio="Interior specialist. Leather, upholstery, and odor removal.",
+            name="Tanya Cole",
             profile_picture={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
+                "id": "file_xxxxxxxxxxxxxx",
+                "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             },
-            username="username",
+            username="tanyacole",
         )
         assert_matches_type(User, user, path=["response"])
 
@@ -429,16 +429,16 @@ class TestAsyncUsers:
             id="id",
             account_id="account_id",
             banner={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
+                "id": "file_xxxxxxxxxxxxxx",
+                "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             },
-            bio="bio",
-            name="name",
+            bio="Interior specialist. Leather, upholstery, and odor removal.",
+            name="Tanya Cole",
             profile_picture={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
+                "id": "file_xxxxxxxxxxxxxx",
+                "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             },
-            username="username",
+            username="tanyacole",
         )
         assert_matches_type(User, user, path=["response"])
 
@@ -663,16 +663,16 @@ class TestAsyncUsers:
         user = await async_client.users.update_me(
             account_id="account_id",
             banner={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
+                "id": "file_xxxxxxxxxxxxxx",
+                "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             },
-            bio="bio",
-            name="name",
+            bio="Interior specialist. Leather, upholstery, and odor removal.",
+            name="Tanya Cole",
             profile_picture={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
+                "id": "file_xxxxxxxxxxxxxx",
+                "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             },
-            username="username",
+            username="tanyacole",
         )
         assert_matches_type(User, user, path=["response"])
 

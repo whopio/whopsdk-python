@@ -23,7 +23,7 @@ class TestProducts:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         product = client.products.create(
-            title="title",
+            title="Interior Deep Clean",
         )
         assert_matches_type(Product, product, path=["response"])
 
@@ -31,24 +31,27 @@ class TestProducts:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         product = client.products.create(
-            title="title",
-            account_id="account_id",
-            collect_shipping_address=True,
-            custom_cta="get_access",
-            custom_cta_url="custom_cta_url",
-            custom_statement_descriptor="custom_statement_descriptor",
-            description="description",
-            global_affiliate_percentage=0,
+            title="Interior Deep Clean",
+            account_id="biz_xxxxxxxxxxxxxx",
+            collect_shipping_address=False,
+            custom_cta="order_now",
+            custom_cta_url="https://shinetime.example/book",
+            custom_statement_descriptor="WHOP*SHINETIME",
+            description="Full interior extraction, leather conditioning, and an ozone odor treatment.",
+            global_affiliate_percentage=10,
             global_affiliate_status="enabled",
-            headline="headline",
-            member_affiliate_percentage=0,
+            headline="Steam, shampoo, and odor removal in one visit",
+            member_affiliate_percentage=5,
             member_affiliate_status="enabled",
-            metadata={},
-            product_tax_code_id="product_tax_code_id",
-            redirect_purchase_url="redirect_purchase_url",
-            route="route",
+            metadata={
+                "bay": "1",
+                "duration_hours": "4",
+            },
+            product_tax_code_id="ptc_xxxxxxxxxxxxxx",
+            redirect_purchase_url="https://shinetime.example/thanks",
+            route="interior-deep-clean",
             send_welcome_message=True,
-            visibility="visibility",
+            visibility="visible",
         )
         assert_matches_type(Product, product, path=["response"])
 
@@ -56,7 +59,7 @@ class TestProducts:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.products.with_raw_response.create(
-            title="title",
+            title="Interior Deep Clean",
         )
 
         assert response.is_closed is True
@@ -68,7 +71,7 @@ class TestProducts:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.products.with_streaming_response.create(
-            title="title",
+            title="Interior Deep Clean",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -134,16 +137,19 @@ class TestProducts:
         product = client.products.update(
             id="id",
             banner_image={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
+                "id": "file_xxxxxxxxxxxxxx",
+                "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             },
-            description="description",
-            headline="headline",
-            metadata={},
-            product_tax_code_id="product_tax_code_id",
+            description="Full interior extraction, leather conditioning, and an ozone odor treatment.",
+            headline="Steam, shampoo, and odor removal in one visit",
+            metadata={
+                "bay": "1",
+                "duration_hours": "4",
+            },
+            product_tax_code_id="ptc_xxxxxxxxxxxxxx",
             send_welcome_message=True,
-            title="title",
-            visibility="visibility",
+            title="Interior Deep Clean",
+            visibility="visible",
         )
         assert_matches_type(Product, product, path=["response"])
 
@@ -194,14 +200,14 @@ class TestProducts:
     def test_method_list_with_all_params(self, client: Whop) -> None:
         product = client.products.list(
             account_id="account_id",
-            access_pass_types=["string"],
+            access_pass_types=["regular"],
             after="after",
             before="before",
             direction="asc",
             first=0,
             last=0,
             order="order",
-            visibilities=["string"],
+            visibilities=["visible"],
         )
         assert_matches_type(SyncCursorPage[ProductListItem], product, path=["response"])
 
@@ -367,7 +373,7 @@ class TestAsyncProducts:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         product = await async_client.products.create(
-            title="title",
+            title="Interior Deep Clean",
         )
         assert_matches_type(Product, product, path=["response"])
 
@@ -375,24 +381,27 @@ class TestAsyncProducts:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         product = await async_client.products.create(
-            title="title",
-            account_id="account_id",
-            collect_shipping_address=True,
-            custom_cta="get_access",
-            custom_cta_url="custom_cta_url",
-            custom_statement_descriptor="custom_statement_descriptor",
-            description="description",
-            global_affiliate_percentage=0,
+            title="Interior Deep Clean",
+            account_id="biz_xxxxxxxxxxxxxx",
+            collect_shipping_address=False,
+            custom_cta="order_now",
+            custom_cta_url="https://shinetime.example/book",
+            custom_statement_descriptor="WHOP*SHINETIME",
+            description="Full interior extraction, leather conditioning, and an ozone odor treatment.",
+            global_affiliate_percentage=10,
             global_affiliate_status="enabled",
-            headline="headline",
-            member_affiliate_percentage=0,
+            headline="Steam, shampoo, and odor removal in one visit",
+            member_affiliate_percentage=5,
             member_affiliate_status="enabled",
-            metadata={},
-            product_tax_code_id="product_tax_code_id",
-            redirect_purchase_url="redirect_purchase_url",
-            route="route",
+            metadata={
+                "bay": "1",
+                "duration_hours": "4",
+            },
+            product_tax_code_id="ptc_xxxxxxxxxxxxxx",
+            redirect_purchase_url="https://shinetime.example/thanks",
+            route="interior-deep-clean",
             send_welcome_message=True,
-            visibility="visibility",
+            visibility="visible",
         )
         assert_matches_type(Product, product, path=["response"])
 
@@ -400,7 +409,7 @@ class TestAsyncProducts:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.products.with_raw_response.create(
-            title="title",
+            title="Interior Deep Clean",
         )
 
         assert response.is_closed is True
@@ -412,7 +421,7 @@ class TestAsyncProducts:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.products.with_streaming_response.create(
-            title="title",
+            title="Interior Deep Clean",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -478,16 +487,19 @@ class TestAsyncProducts:
         product = await async_client.products.update(
             id="id",
             banner_image={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
+                "id": "file_xxxxxxxxxxxxxx",
+                "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             },
-            description="description",
-            headline="headline",
-            metadata={},
-            product_tax_code_id="product_tax_code_id",
+            description="Full interior extraction, leather conditioning, and an ozone odor treatment.",
+            headline="Steam, shampoo, and odor removal in one visit",
+            metadata={
+                "bay": "1",
+                "duration_hours": "4",
+            },
+            product_tax_code_id="ptc_xxxxxxxxxxxxxx",
             send_welcome_message=True,
-            title="title",
-            visibility="visibility",
+            title="Interior Deep Clean",
+            visibility="visible",
         )
         assert_matches_type(Product, product, path=["response"])
 
@@ -538,14 +550,14 @@ class TestAsyncProducts:
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         product = await async_client.products.list(
             account_id="account_id",
-            access_pass_types=["string"],
+            access_pass_types=["regular"],
             after="after",
             before="before",
             direction="asc",
             first=0,
             last=0,
             order="order",
-            visibilities=["string"],
+            visibilities=["visible"],
         )
         assert_matches_type(AsyncCursorPage[ProductListItem], product, path=["response"])
 

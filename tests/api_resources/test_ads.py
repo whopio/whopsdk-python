@@ -32,85 +32,90 @@ class TestAds:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         ad = client.ads.create(
-            ad_group={},
-            ad_group_id="ad_group_id",
-            call_to_action="apply_now",
+            ad_group={
+                "ad_campaign_id": "adcamp_xxxxxxxxxxxxxx",
+                "budget_amount": 60,
+                "optimization_goal": "conversions",
+                "title": "Austin — ceramic coating buyers",
+            },
+            ad_group_id="adgrp_xxxxxxxxxxxxxx",
+            call_to_action="message_page",
             creatives=[
                 {
-                    "id": "id",
+                    "id": "file_xxxxxxxxxxxxxx",
                     "crop": {
-                        "height": 0,
-                        "width": 0,
-                        "x": 0,
+                        "height": 1000,
+                        "width": 1000,
+                        "x": 40,
                         "y": 0,
                     },
                     "format": "square",
                 }
             ],
-            descriptions=["string"],
-            headlines=["string"],
+            descriptions=["Two-stage paint correction included"],
+            headlines=["Showroom shine, guaranteed"],
             lead_form={
                 "completion": {
-                    "button_text": "button_text",
-                    "description": "description",
-                    "headline": "headline",
-                    "url": "url",
+                    "button_text": "See our work",
+                    "description": "We book coatings two days out, so pick a slot when we ring.",
+                    "headline": "Thanks — we will call you today",
+                    "url": "https://shinetime.example/gallery",
                 },
                 "disclaimer": {
-                    "body": "body",
+                    "body": "Ceramic coating requires the vehicle for two days.",
                     "checkboxes": [
                         {
-                            "checked_by_default": True,
-                            "key": "key",
+                            "checked_by_default": False,
+                            "key": "two_days",
                             "required": True,
-                            "text": "text",
+                            "text": "I can leave my vehicle for two days",
                         }
                     ],
-                    "title": "title",
+                    "title": "Before you submit",
                 },
-                "form_type": "more_volume",
+                "form_type": "higher_intent",
                 "intro": {
-                    "description": "description",
-                    "headline": "headline",
+                    "description": "Tell us about your vehicle and we will send a fixed price.",
+                    "headline": "Get a ceramic coating quote",
                 },
-                "name": "name",
+                "name": "Ceramic coating quote requests",
                 "phone_verification": True,
                 "privacy_policy": {
-                    "link_text": "link_text",
-                    "url": "url",
+                    "link_text": "Shine Time privacy policy",
+                    "url": "https://shinetime.example/privacy",
                 },
                 "questions": [
                     {
-                        "format": "short_answer",
-                        "label": "label",
+                        "format": "multiple_choice",
+                        "label": "What vehicle are we detailing?",
                         "options": [
                             {
-                                "key": "key",
+                                "key": "sedan",
                                 "logic": {
                                     "action": "go_to_question",
                                     "target_end_page_index": 0,
-                                    "target_question_index": 0,
+                                    "target_question_index": 3,
                                 },
-                                "value": "value",
+                                "value": "Sedan or coupe",
                             }
                         ],
-                        "type": "email",
+                        "type": "phone",
                     }
                 ],
             },
-            lead_form_id="lead_form_id",
+            lead_form_id="1037724182084885",
             messaging_config={
-                "keyword": "keyword",
-                "message": "message",
+                "keyword": "Book an interior deep clean",
+                "message": "Hi! Tell us your vehicle and ZIP and we will send an interior deep clean quote.",
             },
-            multi_advertiser_ads=True,
-            post_id="post_id",
-            post_source="facebook",
-            primary_texts=["string"],
-            social_accounts=[{"id": "id"}],
-            title="title",
-            url="url",
-            url_parameters={},
+            multi_advertiser_ads=False,
+            post_id="1784512345678901",
+            post_source="instagram",
+            primary_texts=["Three-year ceramic coating, booked online in under a minute."],
+            social_accounts=[{"id": "sacc_xxxxxxxxxxxxxx"}],
+            title="Interior deep clean — DM us",
+            url="https://shinetime.example/ceramic-coating",
+            url_parameters={"ref": "spring"},
         )
         assert_matches_type(Ad, ad, path=["response"])
 
@@ -203,83 +208,86 @@ class TestAds:
     def test_method_update_with_all_params(self, client: Whop) -> None:
         ad = client.ads.update(
             id="id",
-            call_to_action="apply_now",
+            call_to_action="learn_more",
             creatives=[
                 {
-                    "id": "id",
+                    "id": "file_xxxxxxxxxxxxxx",
                     "crop": {
-                        "height": 0,
-                        "width": 0,
+                        "height": 1920,
+                        "width": 1080,
                         "x": 0,
-                        "y": 0,
+                        "y": 120,
                     },
-                    "format": "square",
+                    "format": "vertical",
                 }
             ],
-            descriptions=["string"],
-            headlines=["string"],
+            descriptions=["Paint correction included"],
+            headlines=["Austin's mobile detailers"],
             lead_form={
                 "completion": {
-                    "button_text": "button_text",
-                    "description": "description",
-                    "headline": "headline",
-                    "url": "url",
+                    "button_text": "See our work",
+                    "description": "We book coatings two days out, so pick a slot when we ring.",
+                    "headline": "Thanks — we will call you today",
+                    "url": "https://shinetime.example/gallery",
                 },
                 "disclaimer": {
-                    "body": "body",
+                    "body": "Ceramic coating requires the vehicle for two days.",
                     "checkboxes": [
                         {
-                            "checked_by_default": True,
-                            "key": "key",
+                            "checked_by_default": False,
+                            "key": "two_days",
                             "required": True,
-                            "text": "text",
+                            "text": "I can leave my vehicle for two days",
                         }
                     ],
-                    "title": "title",
+                    "title": "Before you submit",
                 },
-                "form_type": "more_volume",
+                "form_type": "higher_intent",
                 "intro": {
-                    "description": "description",
-                    "headline": "headline",
+                    "description": "Tell us about your vehicle and we will send a fixed price.",
+                    "headline": "Get a ceramic coating quote",
                 },
-                "name": "name",
+                "name": "Ceramic coating quote requests",
                 "phone_verification": True,
                 "privacy_policy": {
-                    "link_text": "link_text",
-                    "url": "url",
+                    "link_text": "Shine Time privacy policy",
+                    "url": "https://shinetime.example/privacy",
                 },
                 "questions": [
                     {
-                        "format": "short_answer",
-                        "label": "label",
+                        "format": "multiple_choice",
+                        "label": "What vehicle are we detailing?",
                         "options": [
                             {
-                                "key": "key",
+                                "key": "sedan",
                                 "logic": {
                                     "action": "go_to_question",
                                     "target_end_page_index": 0,
-                                    "target_question_index": 0,
+                                    "target_question_index": 3,
                                 },
-                                "value": "value",
+                                "value": "Sedan or coupe",
                             }
                         ],
-                        "type": "email",
+                        "type": "phone",
                     }
                 ],
             },
-            lead_form_id="lead_form_id",
+            lead_form_id="1037724182084885",
             messaging_config={
-                "keyword": "keyword",
-                "message": "message",
+                "keyword": "Get a ceramic coating quote",
+                "message": "Hi! Which vehicle are we coating?",
             },
-            multi_advertiser_ads=True,
-            post_id="post_id",
+            multi_advertiser_ads=False,
+            post_id="xxxxxxxxxxxxxxxx_98765",
             post_source="facebook",
-            primary_texts=["string"],
-            social_accounts=[{"id": "id"}],
-            title="title",
-            url="url",
-            url_parameters={},
+            primary_texts=["Book a two-day ceramic coating and keep the shine for three years."],
+            social_accounts=[{"id": "sacc_xxxxxxxxxxxxxx"}],
+            title="Ceramic coating — spring hook v2",
+            url="https://shinetime.example/ceramic-coating",
+            url_parameters={
+                "placement": "{{placement}}",
+                "ref": "spring",
+            },
         )
         assert_matches_type(Ad, ad, path=["response"])
 
@@ -329,9 +337,9 @@ class TestAds:
         ad = client.ads.list(
             account_id="account_id",
             ad_campaign_id="ad_campaign_id",
-            ad_campaign_ids=["string"],
+            ad_campaign_ids=["adcamp_xxxxxxxxxxxxxx"],
             ad_group_id="ad_group_id",
-            ad_group_ids=["string"],
+            ad_group_ids=["adgrp_xxxxxxxxxxxxxx"],
             after="after",
             attribution_model="last_touch",
             before="before",
@@ -426,9 +434,9 @@ class TestAds:
     def test_method_duplicate_with_all_params(self, client: Whop) -> None:
         ad = client.ads.duplicate(
             id="id",
-            count=0,
+            count=2,
             preserve_engagement=True,
-            target_ad_group_id="target_ad_group_id",
+            target_ad_group_id="adgrp_xxxxxxxxxxxxxx",
         )
         assert_matches_type(AdDuplicateResponse, ad, path=["response"])
 
@@ -566,85 +574,90 @@ class TestAsyncAds:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         ad = await async_client.ads.create(
-            ad_group={},
-            ad_group_id="ad_group_id",
-            call_to_action="apply_now",
+            ad_group={
+                "ad_campaign_id": "adcamp_xxxxxxxxxxxxxx",
+                "budget_amount": 60,
+                "optimization_goal": "conversions",
+                "title": "Austin — ceramic coating buyers",
+            },
+            ad_group_id="adgrp_xxxxxxxxxxxxxx",
+            call_to_action="message_page",
             creatives=[
                 {
-                    "id": "id",
+                    "id": "file_xxxxxxxxxxxxxx",
                     "crop": {
-                        "height": 0,
-                        "width": 0,
-                        "x": 0,
+                        "height": 1000,
+                        "width": 1000,
+                        "x": 40,
                         "y": 0,
                     },
                     "format": "square",
                 }
             ],
-            descriptions=["string"],
-            headlines=["string"],
+            descriptions=["Two-stage paint correction included"],
+            headlines=["Showroom shine, guaranteed"],
             lead_form={
                 "completion": {
-                    "button_text": "button_text",
-                    "description": "description",
-                    "headline": "headline",
-                    "url": "url",
+                    "button_text": "See our work",
+                    "description": "We book coatings two days out, so pick a slot when we ring.",
+                    "headline": "Thanks — we will call you today",
+                    "url": "https://shinetime.example/gallery",
                 },
                 "disclaimer": {
-                    "body": "body",
+                    "body": "Ceramic coating requires the vehicle for two days.",
                     "checkboxes": [
                         {
-                            "checked_by_default": True,
-                            "key": "key",
+                            "checked_by_default": False,
+                            "key": "two_days",
                             "required": True,
-                            "text": "text",
+                            "text": "I can leave my vehicle for two days",
                         }
                     ],
-                    "title": "title",
+                    "title": "Before you submit",
                 },
-                "form_type": "more_volume",
+                "form_type": "higher_intent",
                 "intro": {
-                    "description": "description",
-                    "headline": "headline",
+                    "description": "Tell us about your vehicle and we will send a fixed price.",
+                    "headline": "Get a ceramic coating quote",
                 },
-                "name": "name",
+                "name": "Ceramic coating quote requests",
                 "phone_verification": True,
                 "privacy_policy": {
-                    "link_text": "link_text",
-                    "url": "url",
+                    "link_text": "Shine Time privacy policy",
+                    "url": "https://shinetime.example/privacy",
                 },
                 "questions": [
                     {
-                        "format": "short_answer",
-                        "label": "label",
+                        "format": "multiple_choice",
+                        "label": "What vehicle are we detailing?",
                         "options": [
                             {
-                                "key": "key",
+                                "key": "sedan",
                                 "logic": {
                                     "action": "go_to_question",
                                     "target_end_page_index": 0,
-                                    "target_question_index": 0,
+                                    "target_question_index": 3,
                                 },
-                                "value": "value",
+                                "value": "Sedan or coupe",
                             }
                         ],
-                        "type": "email",
+                        "type": "phone",
                     }
                 ],
             },
-            lead_form_id="lead_form_id",
+            lead_form_id="1037724182084885",
             messaging_config={
-                "keyword": "keyword",
-                "message": "message",
+                "keyword": "Book an interior deep clean",
+                "message": "Hi! Tell us your vehicle and ZIP and we will send an interior deep clean quote.",
             },
-            multi_advertiser_ads=True,
-            post_id="post_id",
-            post_source="facebook",
-            primary_texts=["string"],
-            social_accounts=[{"id": "id"}],
-            title="title",
-            url="url",
-            url_parameters={},
+            multi_advertiser_ads=False,
+            post_id="1784512345678901",
+            post_source="instagram",
+            primary_texts=["Three-year ceramic coating, booked online in under a minute."],
+            social_accounts=[{"id": "sacc_xxxxxxxxxxxxxx"}],
+            title="Interior deep clean — DM us",
+            url="https://shinetime.example/ceramic-coating",
+            url_parameters={"ref": "spring"},
         )
         assert_matches_type(Ad, ad, path=["response"])
 
@@ -737,83 +750,86 @@ class TestAsyncAds:
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         ad = await async_client.ads.update(
             id="id",
-            call_to_action="apply_now",
+            call_to_action="learn_more",
             creatives=[
                 {
-                    "id": "id",
+                    "id": "file_xxxxxxxxxxxxxx",
                     "crop": {
-                        "height": 0,
-                        "width": 0,
+                        "height": 1920,
+                        "width": 1080,
                         "x": 0,
-                        "y": 0,
+                        "y": 120,
                     },
-                    "format": "square",
+                    "format": "vertical",
                 }
             ],
-            descriptions=["string"],
-            headlines=["string"],
+            descriptions=["Paint correction included"],
+            headlines=["Austin's mobile detailers"],
             lead_form={
                 "completion": {
-                    "button_text": "button_text",
-                    "description": "description",
-                    "headline": "headline",
-                    "url": "url",
+                    "button_text": "See our work",
+                    "description": "We book coatings two days out, so pick a slot when we ring.",
+                    "headline": "Thanks — we will call you today",
+                    "url": "https://shinetime.example/gallery",
                 },
                 "disclaimer": {
-                    "body": "body",
+                    "body": "Ceramic coating requires the vehicle for two days.",
                     "checkboxes": [
                         {
-                            "checked_by_default": True,
-                            "key": "key",
+                            "checked_by_default": False,
+                            "key": "two_days",
                             "required": True,
-                            "text": "text",
+                            "text": "I can leave my vehicle for two days",
                         }
                     ],
-                    "title": "title",
+                    "title": "Before you submit",
                 },
-                "form_type": "more_volume",
+                "form_type": "higher_intent",
                 "intro": {
-                    "description": "description",
-                    "headline": "headline",
+                    "description": "Tell us about your vehicle and we will send a fixed price.",
+                    "headline": "Get a ceramic coating quote",
                 },
-                "name": "name",
+                "name": "Ceramic coating quote requests",
                 "phone_verification": True,
                 "privacy_policy": {
-                    "link_text": "link_text",
-                    "url": "url",
+                    "link_text": "Shine Time privacy policy",
+                    "url": "https://shinetime.example/privacy",
                 },
                 "questions": [
                     {
-                        "format": "short_answer",
-                        "label": "label",
+                        "format": "multiple_choice",
+                        "label": "What vehicle are we detailing?",
                         "options": [
                             {
-                                "key": "key",
+                                "key": "sedan",
                                 "logic": {
                                     "action": "go_to_question",
                                     "target_end_page_index": 0,
-                                    "target_question_index": 0,
+                                    "target_question_index": 3,
                                 },
-                                "value": "value",
+                                "value": "Sedan or coupe",
                             }
                         ],
-                        "type": "email",
+                        "type": "phone",
                     }
                 ],
             },
-            lead_form_id="lead_form_id",
+            lead_form_id="1037724182084885",
             messaging_config={
-                "keyword": "keyword",
-                "message": "message",
+                "keyword": "Get a ceramic coating quote",
+                "message": "Hi! Which vehicle are we coating?",
             },
-            multi_advertiser_ads=True,
-            post_id="post_id",
+            multi_advertiser_ads=False,
+            post_id="xxxxxxxxxxxxxxxx_98765",
             post_source="facebook",
-            primary_texts=["string"],
-            social_accounts=[{"id": "id"}],
-            title="title",
-            url="url",
-            url_parameters={},
+            primary_texts=["Book a two-day ceramic coating and keep the shine for three years."],
+            social_accounts=[{"id": "sacc_xxxxxxxxxxxxxx"}],
+            title="Ceramic coating — spring hook v2",
+            url="https://shinetime.example/ceramic-coating",
+            url_parameters={
+                "placement": "{{placement}}",
+                "ref": "spring",
+            },
         )
         assert_matches_type(Ad, ad, path=["response"])
 
@@ -863,9 +879,9 @@ class TestAsyncAds:
         ad = await async_client.ads.list(
             account_id="account_id",
             ad_campaign_id="ad_campaign_id",
-            ad_campaign_ids=["string"],
+            ad_campaign_ids=["adcamp_xxxxxxxxxxxxxx"],
             ad_group_id="ad_group_id",
-            ad_group_ids=["string"],
+            ad_group_ids=["adgrp_xxxxxxxxxxxxxx"],
             after="after",
             attribution_model="last_touch",
             before="before",
@@ -960,9 +976,9 @@ class TestAsyncAds:
     async def test_method_duplicate_with_all_params(self, async_client: AsyncWhop) -> None:
         ad = await async_client.ads.duplicate(
             id="id",
-            count=0,
+            count=2,
             preserve_engagement=True,
-            target_ad_group_id="target_ad_group_id",
+            target_ad_group_id="adgrp_xxxxxxxxxxxxxx",
         )
         assert_matches_type(AdDuplicateResponse, ad, path=["response"])
 

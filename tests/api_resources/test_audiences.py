@@ -26,7 +26,7 @@ class TestAudiences:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         audience = client.audiences.create(
-            account_id="account_id",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(AudienceCreateResponse, audience, path=["response"])
 
@@ -34,23 +34,26 @@ class TestAudiences:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         audience = client.audiences.create(
-            account_id="account_id",
-            audience_type="custom",
+            account_id="biz_xxxxxxxxxxxxxx",
+            audience_type="lookalike",
             auto_refresh=True,
             column_mapping={
-                "country": "country",
-                "email": "email",
-                "first_name": "first_name",
-                "last_name": "last_name",
-                "ltv": "ltv",
-                "phone": "phone",
+                "country": "Country",
+                "email": "Email",
+                "first_name": "First Name",
+                "last_name": "Last Name",
+                "ltv": "Lifetime Value",
+                "phone": "Phone",
             },
-            count=0,
-            file_id="file_id",
-            filters={},
-            name="name",
-            percentage=0,
-            source_audience_id="source_audience_id",
+            count=3,
+            file_id="eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            filters={
+                "country": "US",
+                "last_seen_within_days": 30,
+            },
+            name="Austin visitors, last 30 days",
+            percentage=6,
+            source_audience_id="adaud_xxxxxxxxxxxxxx",
         )
         assert_matches_type(AudienceCreateResponse, audience, path=["response"])
 
@@ -58,7 +61,7 @@ class TestAudiences:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.audiences.with_raw_response.create(
-            account_id="account_id",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -70,7 +73,7 @@ class TestAudiences:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.audiences.with_streaming_response.create(
-            account_id="account_id",
+            account_id="biz_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -93,8 +96,11 @@ class TestAudiences:
     def test_method_update_with_all_params(self, client: Whop) -> None:
         audience = client.audiences.update(
             audience_id="audience_id",
-            filters={},
-            name="name",
+            filters={
+                "country": "US",
+                "last_seen_within_days": 60,
+            },
+            name="Austin visitors, last 60 days",
         )
         assert_matches_type(Audience, audience, path=["response"])
 
@@ -226,7 +232,7 @@ class TestAudiences:
     def test_method_add_people(self, client: Whop) -> None:
         audience = client.audiences.add_people(
             audience_id="audience_id",
-            file_id="file_id",
+            file_id="file_xxxxxxxxxxxxxx",
         )
         assert_matches_type(Audience, audience, path=["response"])
 
@@ -235,7 +241,7 @@ class TestAudiences:
     def test_raw_response_add_people(self, client: Whop) -> None:
         response = client.audiences.with_raw_response.add_people(
             audience_id="audience_id",
-            file_id="file_id",
+            file_id="file_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -248,7 +254,7 @@ class TestAudiences:
     def test_streaming_response_add_people(self, client: Whop) -> None:
         with client.audiences.with_streaming_response.add_people(
             audience_id="audience_id",
-            file_id="file_id",
+            file_id="file_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -264,7 +270,7 @@ class TestAudiences:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `audience_id` but received ''"):
             client.audiences.with_raw_response.add_people(
                 audience_id="",
-                file_id="file_id",
+                file_id="file_xxxxxxxxxxxxxx",
             )
 
 
@@ -277,7 +283,7 @@ class TestAsyncAudiences:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         audience = await async_client.audiences.create(
-            account_id="account_id",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(AudienceCreateResponse, audience, path=["response"])
 
@@ -285,23 +291,26 @@ class TestAsyncAudiences:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         audience = await async_client.audiences.create(
-            account_id="account_id",
-            audience_type="custom",
+            account_id="biz_xxxxxxxxxxxxxx",
+            audience_type="lookalike",
             auto_refresh=True,
             column_mapping={
-                "country": "country",
-                "email": "email",
-                "first_name": "first_name",
-                "last_name": "last_name",
-                "ltv": "ltv",
-                "phone": "phone",
+                "country": "Country",
+                "email": "Email",
+                "first_name": "First Name",
+                "last_name": "Last Name",
+                "ltv": "Lifetime Value",
+                "phone": "Phone",
             },
-            count=0,
-            file_id="file_id",
-            filters={},
-            name="name",
-            percentage=0,
-            source_audience_id="source_audience_id",
+            count=3,
+            file_id="eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            filters={
+                "country": "US",
+                "last_seen_within_days": 30,
+            },
+            name="Austin visitors, last 30 days",
+            percentage=6,
+            source_audience_id="adaud_xxxxxxxxxxxxxx",
         )
         assert_matches_type(AudienceCreateResponse, audience, path=["response"])
 
@@ -309,7 +318,7 @@ class TestAsyncAudiences:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.audiences.with_raw_response.create(
-            account_id="account_id",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -321,7 +330,7 @@ class TestAsyncAudiences:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.audiences.with_streaming_response.create(
-            account_id="account_id",
+            account_id="biz_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -344,8 +353,11 @@ class TestAsyncAudiences:
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         audience = await async_client.audiences.update(
             audience_id="audience_id",
-            filters={},
-            name="name",
+            filters={
+                "country": "US",
+                "last_seen_within_days": 60,
+            },
+            name="Austin visitors, last 60 days",
         )
         assert_matches_type(Audience, audience, path=["response"])
 
@@ -477,7 +489,7 @@ class TestAsyncAudiences:
     async def test_method_add_people(self, async_client: AsyncWhop) -> None:
         audience = await async_client.audiences.add_people(
             audience_id="audience_id",
-            file_id="file_id",
+            file_id="file_xxxxxxxxxxxxxx",
         )
         assert_matches_type(Audience, audience, path=["response"])
 
@@ -486,7 +498,7 @@ class TestAsyncAudiences:
     async def test_raw_response_add_people(self, async_client: AsyncWhop) -> None:
         response = await async_client.audiences.with_raw_response.add_people(
             audience_id="audience_id",
-            file_id="file_id",
+            file_id="file_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -499,7 +511,7 @@ class TestAsyncAudiences:
     async def test_streaming_response_add_people(self, async_client: AsyncWhop) -> None:
         async with async_client.audiences.with_streaming_response.add_people(
             audience_id="audience_id",
-            file_id="file_id",
+            file_id="file_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -515,5 +527,5 @@ class TestAsyncAudiences:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `audience_id` but received ''"):
             await async_client.audiences.with_raw_response.add_people(
                 audience_id="",
-                file_id="file_id",
+                file_id="file_xxxxxxxxxxxxxx",
             )

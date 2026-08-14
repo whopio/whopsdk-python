@@ -32,13 +32,13 @@ class TestCards:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         card = client.cards.create(
-            account_id="account_id",
-            assigned_user_id="assigned_user_id",
-            name="name",
-            spend_limit=0,
-            spend_limit_frequency="daily",
-            transaction_limit=0,
-            user_id="user_id",
+            account_id="biz_xxxxxxxxxxxxxx",
+            assigned_user_id="user_xxxxxxxxxxxxxx",
+            name="Detailer card",
+            spend_limit=500,
+            spend_limit_frequency="weekly",
+            transaction_limit=200,
+            user_id="user_xxxxxxxxxxxxxx",
         )
         assert_matches_type(CardCreateResponse, card, path=["response"])
 
@@ -129,24 +129,24 @@ class TestCards:
     def test_method_update_with_all_params(self, client: Whop) -> None:
         card = client.cards.update(
             card_id="card_id",
-            account_id="account_id",
+            account_id="biz_xxxxxxxxxxxxxx",
             billing={
-                "city": "city",
-                "country_code": "country_code",
-                "line1": "line1",
-                "postal_code": "postal_code",
-                "region": "region",
-                "line2": "line2",
+                "city": "Austin",
+                "country_code": "US",
+                "line1": "4180 Burnet Rd",
+                "postal_code": "78756",
+                "region": "TX",
+                "line2": "Suite 210",
             },
             canceled=True,
             frozen=True,
-            name="name",
-            pin="pin",
+            name="Detailing supplies",
+            pin="1234",
             remove_limit=True,
-            spend_limit=0,
-            spend_limit_frequency="daily",
-            transaction_limit=0,
-            user_id="user_id",
+            spend_limit=2500,
+            spend_limit_frequency="monthly",
+            transaction_limit=500,
+            user_id="user_xxxxxxxxxxxxxx",
         )
         assert_matches_type(CardUpdateResponse, card, path=["response"])
 
@@ -237,13 +237,13 @@ class TestAsyncCards:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         card = await async_client.cards.create(
-            account_id="account_id",
-            assigned_user_id="assigned_user_id",
-            name="name",
-            spend_limit=0,
-            spend_limit_frequency="daily",
-            transaction_limit=0,
-            user_id="user_id",
+            account_id="biz_xxxxxxxxxxxxxx",
+            assigned_user_id="user_xxxxxxxxxxxxxx",
+            name="Detailer card",
+            spend_limit=500,
+            spend_limit_frequency="weekly",
+            transaction_limit=200,
+            user_id="user_xxxxxxxxxxxxxx",
         )
         assert_matches_type(CardCreateResponse, card, path=["response"])
 
@@ -334,24 +334,24 @@ class TestAsyncCards:
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         card = await async_client.cards.update(
             card_id="card_id",
-            account_id="account_id",
+            account_id="biz_xxxxxxxxxxxxxx",
             billing={
-                "city": "city",
-                "country_code": "country_code",
-                "line1": "line1",
-                "postal_code": "postal_code",
-                "region": "region",
-                "line2": "line2",
+                "city": "Austin",
+                "country_code": "US",
+                "line1": "4180 Burnet Rd",
+                "postal_code": "78756",
+                "region": "TX",
+                "line2": "Suite 210",
             },
             canceled=True,
             frozen=True,
-            name="name",
-            pin="pin",
+            name="Detailing supplies",
+            pin="1234",
             remove_limit=True,
-            spend_limit=0,
-            spend_limit_frequency="daily",
-            transaction_limit=0,
-            user_id="user_id",
+            spend_limit=2500,
+            spend_limit_frequency="monthly",
+            transaction_limit=500,
+            user_id="user_xxxxxxxxxxxxxx",
         )
         assert_matches_type(CardUpdateResponse, card, path=["response"])
 

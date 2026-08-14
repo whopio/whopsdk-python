@@ -23,7 +23,7 @@ class TestNotifications:
         notification = client.users.preferences.notifications.set(
             preferences=[
                 {
-                    "level": "all",
+                    "level": "nothing",
                     "scope": {},
                 }
             ],
@@ -36,7 +36,7 @@ class TestNotifications:
         response = client.users.preferences.notifications.with_raw_response.set(
             preferences=[
                 {
-                    "level": "all",
+                    "level": "nothing",
                     "scope": {},
                 }
             ],
@@ -53,7 +53,7 @@ class TestNotifications:
         with client.users.preferences.notifications.with_streaming_response.set(
             preferences=[
                 {
-                    "level": "all",
+                    "level": "nothing",
                     "scope": {},
                 }
             ],
@@ -78,7 +78,7 @@ class TestAsyncNotifications:
         notification = await async_client.users.preferences.notifications.set(
             preferences=[
                 {
-                    "level": "all",
+                    "level": "nothing",
                     "scope": {},
                 }
             ],
@@ -91,7 +91,7 @@ class TestAsyncNotifications:
         response = await async_client.users.preferences.notifications.with_raw_response.set(
             preferences=[
                 {
-                    "level": "all",
+                    "level": "nothing",
                     "scope": {},
                 }
             ],
@@ -108,7 +108,7 @@ class TestAsyncNotifications:
         async with async_client.users.preferences.notifications.with_streaming_response.set(
             preferences=[
                 {
-                    "level": "all",
+                    "level": "nothing",
                     "scope": {},
                 }
             ],

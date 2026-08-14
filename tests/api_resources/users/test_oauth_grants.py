@@ -22,11 +22,11 @@ class TestOAuthGrants:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         oauth_grant = client.users.oauth_grants.create(
-            client_id="client_id",
-            code_challenge="code_challenge",
+            client_id="app_xxxxxxxxxxxxxx",
+            code_challenge="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             code_challenge_method="S256",
-            redirect_uri="redirect_uri",
-            requested_scopes=["string"],
+            redirect_uri="https://Booking.Shinetime.example:8443/oauth/Callback/",
+            requested_scopes=["profile"],
         )
         assert_matches_type(OAuthGrant, oauth_grant, path=["response"])
 
@@ -34,16 +34,16 @@ class TestOAuthGrants:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         oauth_grant = client.users.oauth_grants.create(
-            client_id="client_id",
-            code_challenge="code_challenge",
+            client_id="app_xxxxxxxxxxxxxx",
+            code_challenge="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             code_challenge_method="S256",
-            redirect_uri="redirect_uri",
-            requested_scopes=["string"],
-            account_id="account_id",
+            redirect_uri="https://Booking.Shinetime.example:8443/oauth/Callback/",
+            requested_scopes=["profile"],
+            account_id="biz_xxxxxxxxxxxxxx",
             consent_shown=True,
-            nonce="nonce",
+            nonce="n-0S6_WzA2Mj",
             response_type="code",
-            state="state",
+            state="opaque-client-state",
         )
         assert_matches_type(OAuthGrant, oauth_grant, path=["response"])
 
@@ -51,11 +51,11 @@ class TestOAuthGrants:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.users.oauth_grants.with_raw_response.create(
-            client_id="client_id",
-            code_challenge="code_challenge",
+            client_id="app_xxxxxxxxxxxxxx",
+            code_challenge="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             code_challenge_method="S256",
-            redirect_uri="redirect_uri",
-            requested_scopes=["string"],
+            redirect_uri="https://Booking.Shinetime.example:8443/oauth/Callback/",
+            requested_scopes=["profile"],
         )
 
         assert response.is_closed is True
@@ -67,11 +67,11 @@ class TestOAuthGrants:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.users.oauth_grants.with_streaming_response.create(
-            client_id="client_id",
-            code_challenge="code_challenge",
+            client_id="app_xxxxxxxxxxxxxx",
+            code_challenge="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             code_challenge_method="S256",
-            redirect_uri="redirect_uri",
-            requested_scopes=["string"],
+            redirect_uri="https://Booking.Shinetime.example:8443/oauth/Callback/",
+            requested_scopes=["profile"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -133,11 +133,11 @@ class TestAsyncOAuthGrants:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         oauth_grant = await async_client.users.oauth_grants.create(
-            client_id="client_id",
-            code_challenge="code_challenge",
+            client_id="app_xxxxxxxxxxxxxx",
+            code_challenge="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             code_challenge_method="S256",
-            redirect_uri="redirect_uri",
-            requested_scopes=["string"],
+            redirect_uri="https://Booking.Shinetime.example:8443/oauth/Callback/",
+            requested_scopes=["profile"],
         )
         assert_matches_type(OAuthGrant, oauth_grant, path=["response"])
 
@@ -145,16 +145,16 @@ class TestAsyncOAuthGrants:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         oauth_grant = await async_client.users.oauth_grants.create(
-            client_id="client_id",
-            code_challenge="code_challenge",
+            client_id="app_xxxxxxxxxxxxxx",
+            code_challenge="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             code_challenge_method="S256",
-            redirect_uri="redirect_uri",
-            requested_scopes=["string"],
-            account_id="account_id",
+            redirect_uri="https://Booking.Shinetime.example:8443/oauth/Callback/",
+            requested_scopes=["profile"],
+            account_id="biz_xxxxxxxxxxxxxx",
             consent_shown=True,
-            nonce="nonce",
+            nonce="n-0S6_WzA2Mj",
             response_type="code",
-            state="state",
+            state="opaque-client-state",
         )
         assert_matches_type(OAuthGrant, oauth_grant, path=["response"])
 
@@ -162,11 +162,11 @@ class TestAsyncOAuthGrants:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.users.oauth_grants.with_raw_response.create(
-            client_id="client_id",
-            code_challenge="code_challenge",
+            client_id="app_xxxxxxxxxxxxxx",
+            code_challenge="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             code_challenge_method="S256",
-            redirect_uri="redirect_uri",
-            requested_scopes=["string"],
+            redirect_uri="https://Booking.Shinetime.example:8443/oauth/Callback/",
+            requested_scopes=["profile"],
         )
 
         assert response.is_closed is True
@@ -178,11 +178,11 @@ class TestAsyncOAuthGrants:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.users.oauth_grants.with_streaming_response.create(
-            client_id="client_id",
-            code_challenge="code_challenge",
+            client_id="app_xxxxxxxxxxxxxx",
+            code_challenge="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             code_challenge_method="S256",
-            redirect_uri="redirect_uri",
-            requested_scopes=["string"],
+            redirect_uri="https://Booking.Shinetime.example:8443/oauth/Callback/",
+            requested_scopes=["profile"],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

@@ -17,6 +17,18 @@ class PlanUpdateParams(TypedDict, total=False):
     billing_period: Optional[int]
     """Recurring billing interval in days, such as 30 for monthly or 365 for annual."""
 
+    cancel_discount_intervals: Optional[int]
+    """How many renewals the retention discount applies to.
+
+    Required when `offer_cancel_discount` is true.
+    """
+
+    cancel_discount_percentage: Optional[int]
+    """Percentage taken off each discounted renewal.
+
+    Required when `offer_cancel_discount` is true.
+    """
+
     checkout_styling: Optional[object]
     """Checkout styling overrides for this plan."""
 

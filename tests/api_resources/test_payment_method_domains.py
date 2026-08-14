@@ -26,7 +26,7 @@ class TestPaymentMethodDomains:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         payment_method_domain = client.payment_method_domains.create(
-            hostname="hostname",
+            hostname="pending.shinetime.example",
         )
         assert_matches_type(PaymentMethodDomain, payment_method_domain, path=["response"])
 
@@ -34,8 +34,8 @@ class TestPaymentMethodDomains:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         payment_method_domain = client.payment_method_domains.create(
-            hostname="hostname",
-            account_id="account_id",
+            hostname="pending.shinetime.example",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(PaymentMethodDomain, payment_method_domain, path=["response"])
 
@@ -43,7 +43,7 @@ class TestPaymentMethodDomains:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.payment_method_domains.with_raw_response.create(
-            hostname="hostname",
+            hostname="pending.shinetime.example",
         )
 
         assert response.is_closed is True
@@ -55,7 +55,7 @@ class TestPaymentMethodDomains:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.payment_method_domains.with_streaming_response.create(
-            hostname="hostname",
+            hostname="pending.shinetime.example",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -248,7 +248,7 @@ class TestAsyncPaymentMethodDomains:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         payment_method_domain = await async_client.payment_method_domains.create(
-            hostname="hostname",
+            hostname="pending.shinetime.example",
         )
         assert_matches_type(PaymentMethodDomain, payment_method_domain, path=["response"])
 
@@ -256,8 +256,8 @@ class TestAsyncPaymentMethodDomains:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         payment_method_domain = await async_client.payment_method_domains.create(
-            hostname="hostname",
-            account_id="account_id",
+            hostname="pending.shinetime.example",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(PaymentMethodDomain, payment_method_domain, path=["response"])
 
@@ -265,7 +265,7 @@ class TestAsyncPaymentMethodDomains:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.payment_method_domains.with_raw_response.create(
-            hostname="hostname",
+            hostname="pending.shinetime.example",
         )
 
         assert response.is_closed is True
@@ -277,7 +277,7 @@ class TestAsyncPaymentMethodDomains:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.payment_method_domains.with_streaming_response.create(
-            hostname="hostname",
+            hostname="pending.shinetime.example",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

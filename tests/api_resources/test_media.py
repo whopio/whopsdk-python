@@ -63,7 +63,7 @@ class TestMedia:
     @parametrize
     def test_method_generate(self, client: Whop) -> None:
         media = client.media.generate(
-            prompt="prompt",
+            prompt="A 9:16 product showcase of a cordless power scrubber",
             type="video",
         )
         assert_matches_type(MediaAsset, media, path=["response"])
@@ -72,12 +72,12 @@ class TestMedia:
     @parametrize
     def test_method_generate_with_all_params(self, client: Whop) -> None:
         media = client.media.generate(
-            prompt="prompt",
+            prompt="A 9:16 product showcase of a cordless power scrubber",
             type="video",
-            account_id="account_id",
+            account_id="biz_xxxxxxxxxxxxxx",
             duration_seconds=5,
-            reference_media=["string"],
-            resolution="480p",
+            reference_media=["file_xxxxxxxxxxxxxx"],
+            resolution="1080p",
         )
         assert_matches_type(MediaAsset, media, path=["response"])
 
@@ -85,7 +85,7 @@ class TestMedia:
     @parametrize
     def test_raw_response_generate(self, client: Whop) -> None:
         response = client.media.with_raw_response.generate(
-            prompt="prompt",
+            prompt="A 9:16 product showcase of a cordless power scrubber",
             type="video",
         )
 
@@ -98,7 +98,7 @@ class TestMedia:
     @parametrize
     def test_streaming_response_generate(self, client: Whop) -> None:
         with client.media.with_streaming_response.generate(
-            prompt="prompt",
+            prompt="A 9:16 product showcase of a cordless power scrubber",
             type="video",
         ) as response:
             assert not response.is_closed
@@ -161,7 +161,7 @@ class TestAsyncMedia:
     @parametrize
     async def test_method_generate(self, async_client: AsyncWhop) -> None:
         media = await async_client.media.generate(
-            prompt="prompt",
+            prompt="A 9:16 product showcase of a cordless power scrubber",
             type="video",
         )
         assert_matches_type(MediaAsset, media, path=["response"])
@@ -170,12 +170,12 @@ class TestAsyncMedia:
     @parametrize
     async def test_method_generate_with_all_params(self, async_client: AsyncWhop) -> None:
         media = await async_client.media.generate(
-            prompt="prompt",
+            prompt="A 9:16 product showcase of a cordless power scrubber",
             type="video",
-            account_id="account_id",
+            account_id="biz_xxxxxxxxxxxxxx",
             duration_seconds=5,
-            reference_media=["string"],
-            resolution="480p",
+            reference_media=["file_xxxxxxxxxxxxxx"],
+            resolution="1080p",
         )
         assert_matches_type(MediaAsset, media, path=["response"])
 
@@ -183,7 +183,7 @@ class TestAsyncMedia:
     @parametrize
     async def test_raw_response_generate(self, async_client: AsyncWhop) -> None:
         response = await async_client.media.with_raw_response.generate(
-            prompt="prompt",
+            prompt="A 9:16 product showcase of a cordless power scrubber",
             type="video",
         )
 
@@ -196,7 +196,7 @@ class TestAsyncMedia:
     @parametrize
     async def test_streaming_response_generate(self, async_client: AsyncWhop) -> None:
         async with async_client.media.with_streaming_response.generate(
-            prompt="prompt",
+            prompt="A 9:16 product showcase of a cordless power scrubber",
             type="video",
         ) as response:
             assert not response.is_closed

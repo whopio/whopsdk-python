@@ -25,8 +25,8 @@ class TestTeamMembers:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         team_member = client.team_members.create(
-            account_id="account_id",
-            role="owner",
+            account_id="biz_xxxxxxxxxxxxxx",
+            role="sales_manager",
         )
         assert_matches_type(TeamMember, team_member, path=["response"])
 
@@ -34,10 +34,10 @@ class TestTeamMembers:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         team_member = client.team_members.create(
-            account_id="account_id",
-            role="owner",
-            email="email",
-            user_id="user_id",
+            account_id="biz_xxxxxxxxxxxxxx",
+            role="sales_manager",
+            email="marcus@shinetime.example",
+            user_id="user_xxxxxxxxxxxxxx",
         )
         assert_matches_type(TeamMember, team_member, path=["response"])
 
@@ -45,8 +45,8 @@ class TestTeamMembers:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.team_members.with_raw_response.create(
-            account_id="account_id",
-            role="owner",
+            account_id="biz_xxxxxxxxxxxxxx",
+            role="sales_manager",
         )
 
         assert response.is_closed is True
@@ -58,8 +58,8 @@ class TestTeamMembers:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.team_members.with_streaming_response.create(
-            account_id="account_id",
-            role="owner",
+            account_id="biz_xxxxxxxxxxxxxx",
+            role="sales_manager",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -116,7 +116,7 @@ class TestTeamMembers:
     def test_method_update(self, client: Whop) -> None:
         team_member = client.team_members.update(
             id="id",
-            role="owner",
+            role="workforce",
         )
         assert_matches_type(TeamMember, team_member, path=["response"])
 
@@ -125,7 +125,7 @@ class TestTeamMembers:
     def test_raw_response_update(self, client: Whop) -> None:
         response = client.team_members.with_raw_response.update(
             id="id",
-            role="owner",
+            role="workforce",
         )
 
         assert response.is_closed is True
@@ -138,7 +138,7 @@ class TestTeamMembers:
     def test_streaming_response_update(self, client: Whop) -> None:
         with client.team_members.with_streaming_response.update(
             id="id",
-            role="owner",
+            role="workforce",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -154,7 +154,7 @@ class TestTeamMembers:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.team_members.with_raw_response.update(
                 id="",
-                role="owner",
+                role="workforce",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -260,8 +260,8 @@ class TestAsyncTeamMembers:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         team_member = await async_client.team_members.create(
-            account_id="account_id",
-            role="owner",
+            account_id="biz_xxxxxxxxxxxxxx",
+            role="sales_manager",
         )
         assert_matches_type(TeamMember, team_member, path=["response"])
 
@@ -269,10 +269,10 @@ class TestAsyncTeamMembers:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         team_member = await async_client.team_members.create(
-            account_id="account_id",
-            role="owner",
-            email="email",
-            user_id="user_id",
+            account_id="biz_xxxxxxxxxxxxxx",
+            role="sales_manager",
+            email="marcus@shinetime.example",
+            user_id="user_xxxxxxxxxxxxxx",
         )
         assert_matches_type(TeamMember, team_member, path=["response"])
 
@@ -280,8 +280,8 @@ class TestAsyncTeamMembers:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.team_members.with_raw_response.create(
-            account_id="account_id",
-            role="owner",
+            account_id="biz_xxxxxxxxxxxxxx",
+            role="sales_manager",
         )
 
         assert response.is_closed is True
@@ -293,8 +293,8 @@ class TestAsyncTeamMembers:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.team_members.with_streaming_response.create(
-            account_id="account_id",
-            role="owner",
+            account_id="biz_xxxxxxxxxxxxxx",
+            role="sales_manager",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -351,7 +351,7 @@ class TestAsyncTeamMembers:
     async def test_method_update(self, async_client: AsyncWhop) -> None:
         team_member = await async_client.team_members.update(
             id="id",
-            role="owner",
+            role="workforce",
         )
         assert_matches_type(TeamMember, team_member, path=["response"])
 
@@ -360,7 +360,7 @@ class TestAsyncTeamMembers:
     async def test_raw_response_update(self, async_client: AsyncWhop) -> None:
         response = await async_client.team_members.with_raw_response.update(
             id="id",
-            role="owner",
+            role="workforce",
         )
 
         assert response.is_closed is True
@@ -373,7 +373,7 @@ class TestAsyncTeamMembers:
     async def test_streaming_response_update(self, async_client: AsyncWhop) -> None:
         async with async_client.team_members.with_streaming_response.update(
             id="id",
-            role="owner",
+            role="workforce",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -389,7 +389,7 @@ class TestAsyncTeamMembers:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.team_members.with_raw_response.update(
                 id="",
-                role="owner",
+                role="workforce",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")

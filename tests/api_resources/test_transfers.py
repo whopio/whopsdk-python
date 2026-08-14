@@ -28,8 +28,8 @@ class TestTransfers:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         transfer = client.transfers.create(
-            amount=0,
-            origin_id="origin_id",
+            amount=25,
+            origin_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(TransferCreateResponse, transfer, path=["response"])
 
@@ -37,16 +37,16 @@ class TestTransfers:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         transfer = client.transfers.create(
-            amount=0,
-            origin_id="origin_id",
+            amount=25,
+            origin_id="biz_xxxxxxxxxxxxxx",
             currency="usd",
-            destination_id="destination_id",
-            expires_at=parse_datetime("2019-12-27T18:11:19.117Z"),
-            idempotence_key="idempotence_key",
-            metadata={"foo": "bar"},
-            notes="notes",
-            redeemable_count=0,
-            type="ledger",
+            destination_id="user_xxxxxxxxxxxxxx",
+            expires_at=parse_datetime("2026-01-01T12:00:00.000Z"),
+            idempotence_key="shine-supplies-restock-118",
+            metadata={"order_id": "bar"},
+            notes="Refund for the rescheduled interior detail",
+            redeemable_count=3,
+            type="wallet_send",
         )
         assert_matches_type(TransferCreateResponse, transfer, path=["response"])
 
@@ -54,8 +54,8 @@ class TestTransfers:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.transfers.with_raw_response.create(
-            amount=0,
-            origin_id="origin_id",
+            amount=25,
+            origin_id="biz_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -67,8 +67,8 @@ class TestTransfers:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.transfers.with_streaming_response.create(
-            amount=0,
-            origin_id="origin_id",
+            amount=25,
+            origin_id="biz_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -220,8 +220,8 @@ class TestAsyncTransfers:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         transfer = await async_client.transfers.create(
-            amount=0,
-            origin_id="origin_id",
+            amount=25,
+            origin_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(TransferCreateResponse, transfer, path=["response"])
 
@@ -229,16 +229,16 @@ class TestAsyncTransfers:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         transfer = await async_client.transfers.create(
-            amount=0,
-            origin_id="origin_id",
+            amount=25,
+            origin_id="biz_xxxxxxxxxxxxxx",
             currency="usd",
-            destination_id="destination_id",
-            expires_at=parse_datetime("2019-12-27T18:11:19.117Z"),
-            idempotence_key="idempotence_key",
-            metadata={"foo": "bar"},
-            notes="notes",
-            redeemable_count=0,
-            type="ledger",
+            destination_id="user_xxxxxxxxxxxxxx",
+            expires_at=parse_datetime("2026-01-01T12:00:00.000Z"),
+            idempotence_key="shine-supplies-restock-118",
+            metadata={"order_id": "bar"},
+            notes="Refund for the rescheduled interior detail",
+            redeemable_count=3,
+            type="wallet_send",
         )
         assert_matches_type(TransferCreateResponse, transfer, path=["response"])
 
@@ -246,8 +246,8 @@ class TestAsyncTransfers:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.transfers.with_raw_response.create(
-            amount=0,
-            origin_id="origin_id",
+            amount=25,
+            origin_id="biz_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -259,8 +259,8 @@ class TestAsyncTransfers:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.transfers.with_streaming_response.create(
-            amount=0,
-            origin_id="origin_id",
+            amount=25,
+            origin_id="biz_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

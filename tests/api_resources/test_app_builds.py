@@ -23,8 +23,8 @@ class TestAppBuilds:
     def test_method_create(self, client: Whop) -> None:
         app_build = client.app_builds.create(
             attachment={},
-            checksum="checksum",
-            platform="ios",
+            checksum="xxxxxxxxxxxxxxx",
+            platform="web",
         )
         assert_matches_type(AppBuild, app_build, path=["response"])
 
@@ -33,16 +33,16 @@ class TestAppBuilds:
     def test_method_create_with_all_params(self, client: Whop) -> None:
         app_build = client.app_builds.create(
             attachment={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
+                "id": "file_xxxxxxxxxxxxxx",
+                "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             },
-            checksum="checksum",
-            platform="ios",
-            ai_prompt_id="ai_prompt_id",
-            app_id="app_id",
+            checksum="xxxxxxxxxxxxxxx",
+            platform="web",
+            ai_prompt_id="prmt_xxxxxxxxxxxxxx",
+            app_id="app_xxxxxxxxxxxxxx",
             source_attachment={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
+                "id": "file_xxxxxxxxxxxxxx",
+                "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             },
             supported_app_view_types=["hub"],
         )
@@ -53,8 +53,8 @@ class TestAppBuilds:
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.app_builds.with_raw_response.create(
             attachment={},
-            checksum="checksum",
-            platform="ios",
+            checksum="xxxxxxxxxxxxxxx",
+            platform="web",
         )
 
         assert response.is_closed is True
@@ -67,8 +67,8 @@ class TestAppBuilds:
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.app_builds.with_streaming_response.create(
             attachment={},
-            checksum="checksum",
-            platform="ios",
+            checksum="xxxxxxxxxxxxxxx",
+            platform="web",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -223,8 +223,8 @@ class TestAsyncAppBuilds:
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         app_build = await async_client.app_builds.create(
             attachment={},
-            checksum="checksum",
-            platform="ios",
+            checksum="xxxxxxxxxxxxxxx",
+            platform="web",
         )
         assert_matches_type(AppBuild, app_build, path=["response"])
 
@@ -233,16 +233,16 @@ class TestAsyncAppBuilds:
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         app_build = await async_client.app_builds.create(
             attachment={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
+                "id": "file_xxxxxxxxxxxxxx",
+                "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             },
-            checksum="checksum",
-            platform="ios",
-            ai_prompt_id="ai_prompt_id",
-            app_id="app_id",
+            checksum="xxxxxxxxxxxxxxx",
+            platform="web",
+            ai_prompt_id="prmt_xxxxxxxxxxxxxx",
+            app_id="app_xxxxxxxxxxxxxx",
             source_attachment={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
+                "id": "file_xxxxxxxxxxxxxx",
+                "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             },
             supported_app_view_types=["hub"],
         )
@@ -253,8 +253,8 @@ class TestAsyncAppBuilds:
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.app_builds.with_raw_response.create(
             attachment={},
-            checksum="checksum",
-            platform="ios",
+            checksum="xxxxxxxxxxxxxxx",
+            platform="web",
         )
 
         assert response.is_closed is True
@@ -267,8 +267,8 @@ class TestAsyncAppBuilds:
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.app_builds.with_streaming_response.create(
             attachment={},
-            checksum="checksum",
-            platform="ios",
+            checksum="xxxxxxxxxxxxxxx",
+            platform="web",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

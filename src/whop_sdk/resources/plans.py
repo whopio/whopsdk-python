@@ -245,6 +245,8 @@ class PlansResource(SyncAPIResource):
         *,
         adaptive_pricing_enabled: Optional[bool] | Omit = omit,
         billing_period: Optional[int] | Omit = omit,
+        cancel_discount_intervals: Optional[int] | Omit = omit,
+        cancel_discount_percentage: Optional[int] | Omit = omit,
         checkout_styling: Optional[object] | Omit = omit,
         currency: str | Omit = omit,
         custom_fields: Optional[Iterable[plan_update_params.CustomField]] | Omit = omit,
@@ -283,6 +285,12 @@ class PlansResource(SyncAPIResource):
           adaptive_pricing_enabled: Whether this plan accepts local currency payments via adaptive pricing.
 
           billing_period: Recurring billing interval in days, such as 30 for monthly or 365 for annual.
+
+          cancel_discount_intervals: How many renewals the retention discount applies to. Required when
+              `offer_cancel_discount` is true.
+
+          cancel_discount_percentage: Percentage taken off each discounted renewal. Required when
+              `offer_cancel_discount` is true.
 
           checkout_styling: Checkout styling overrides for this plan.
 
@@ -352,6 +360,8 @@ class PlansResource(SyncAPIResource):
                 {
                     "adaptive_pricing_enabled": adaptive_pricing_enabled,
                     "billing_period": billing_period,
+                    "cancel_discount_intervals": cancel_discount_intervals,
+                    "cancel_discount_percentage": cancel_discount_percentage,
                     "checkout_styling": checkout_styling,
                     "currency": currency,
                     "custom_fields": custom_fields,
@@ -798,6 +808,8 @@ class AsyncPlansResource(AsyncAPIResource):
         *,
         adaptive_pricing_enabled: Optional[bool] | Omit = omit,
         billing_period: Optional[int] | Omit = omit,
+        cancel_discount_intervals: Optional[int] | Omit = omit,
+        cancel_discount_percentage: Optional[int] | Omit = omit,
         checkout_styling: Optional[object] | Omit = omit,
         currency: str | Omit = omit,
         custom_fields: Optional[Iterable[plan_update_params.CustomField]] | Omit = omit,
@@ -836,6 +848,12 @@ class AsyncPlansResource(AsyncAPIResource):
           adaptive_pricing_enabled: Whether this plan accepts local currency payments via adaptive pricing.
 
           billing_period: Recurring billing interval in days, such as 30 for monthly or 365 for annual.
+
+          cancel_discount_intervals: How many renewals the retention discount applies to. Required when
+              `offer_cancel_discount` is true.
+
+          cancel_discount_percentage: Percentage taken off each discounted renewal. Required when
+              `offer_cancel_discount` is true.
 
           checkout_styling: Checkout styling overrides for this plan.
 
@@ -905,6 +923,8 @@ class AsyncPlansResource(AsyncAPIResource):
                 {
                     "adaptive_pricing_enabled": adaptive_pricing_enabled,
                     "billing_period": billing_period,
+                    "cancel_discount_intervals": cancel_discount_intervals,
+                    "cancel_discount_percentage": cancel_discount_percentage,
                     "checkout_styling": checkout_styling,
                     "currency": currency,
                     "custom_fields": custom_fields,

@@ -26,9 +26,9 @@ class TestSwaps:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         swap = client.swaps.create(
-            account_id="account_id",
-            from_token="from_token",
-            to_token="to_token",
+            account_id="biz_xxxxxxxxxxxxxx",
+            from_token="usd",
+            to_token="cad",
         )
         assert_matches_type(SwapCreateResponse, swap, path=["response"])
 
@@ -36,14 +36,14 @@ class TestSwaps:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         swap = client.swaps.create(
-            account_id="account_id",
-            from_token="from_token",
-            to_token="to_token",
-            amount="amount",
-            from_chain="string",
-            slippage_bps=0,
-            to_amount="to_amount",
-            to_chain="string",
+            account_id="biz_xxxxxxxxxxxxxx",
+            from_token="usd",
+            to_token="cad",
+            amount="100",
+            from_chain="plasma",
+            slippage_bps=50,
+            to_amount="180.00",
+            to_chain="plasma",
         )
         assert_matches_type(SwapCreateResponse, swap, path=["response"])
 
@@ -51,9 +51,9 @@ class TestSwaps:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.swaps.with_raw_response.create(
-            account_id="account_id",
-            from_token="from_token",
-            to_token="to_token",
+            account_id="biz_xxxxxxxxxxxxxx",
+            from_token="usd",
+            to_token="cad",
         )
 
         assert response.is_closed is True
@@ -65,9 +65,9 @@ class TestSwaps:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.swaps.with_streaming_response.create(
-            account_id="account_id",
-            from_token="from_token",
-            to_token="to_token",
+            account_id="biz_xxxxxxxxxxxxxx",
+            from_token="usd",
+            to_token="cad",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -157,9 +157,9 @@ class TestSwaps:
     @parametrize
     def test_method_create_quote(self, client: Whop) -> None:
         swap = client.swaps.create_quote(
-            amount="amount",
-            from_token="from_token",
-            to_token="to_token",
+            amount="100",
+            from_token="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            to_token="0x1b64b9025eebb9a6239575df9ea4b9ac46d4d193",
         )
         assert_matches_type(SwapCreateQuoteResponse, swap, path=["response"])
 
@@ -167,15 +167,15 @@ class TestSwaps:
     @parametrize
     def test_method_create_quote_with_all_params(self, client: Whop) -> None:
         swap = client.swaps.create_quote(
-            amount="amount",
-            from_token="from_token",
-            to_token="to_token",
-            from_address="from_address",
-            from_chain="string",
-            metadata={"foo": "bar"},
-            slippage_bps=0,
-            to_address="to_address",
-            to_chain="string",
+            amount="100",
+            from_token="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            to_token="0x1b64b9025eebb9a6239575df9ea4b9ac46d4d193",
+            from_address="0x6f1c0a3d5b2e4f8a9c7d1e0b3a5f7c9d2e4b6a80",
+            from_chain="plasma",
+            metadata={"external_id": "bar"},
+            slippage_bps=50,
+            to_address="0x9d2e4b6a806f1c0a3d5b2e4f8a9c7d1e0b3a5f7c",
+            to_chain="plasma",
         )
         assert_matches_type(SwapCreateQuoteResponse, swap, path=["response"])
 
@@ -183,9 +183,9 @@ class TestSwaps:
     @parametrize
     def test_raw_response_create_quote(self, client: Whop) -> None:
         response = client.swaps.with_raw_response.create_quote(
-            amount="amount",
-            from_token="from_token",
-            to_token="to_token",
+            amount="100",
+            from_token="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            to_token="0x1b64b9025eebb9a6239575df9ea4b9ac46d4d193",
         )
 
         assert response.is_closed is True
@@ -197,9 +197,9 @@ class TestSwaps:
     @parametrize
     def test_streaming_response_create_quote(self, client: Whop) -> None:
         with client.swaps.with_streaming_response.create_quote(
-            amount="amount",
-            from_token="from_token",
-            to_token="to_token",
+            amount="100",
+            from_token="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            to_token="0x1b64b9025eebb9a6239575df9ea4b9ac46d4d193",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -219,9 +219,9 @@ class TestAsyncSwaps:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         swap = await async_client.swaps.create(
-            account_id="account_id",
-            from_token="from_token",
-            to_token="to_token",
+            account_id="biz_xxxxxxxxxxxxxx",
+            from_token="usd",
+            to_token="cad",
         )
         assert_matches_type(SwapCreateResponse, swap, path=["response"])
 
@@ -229,14 +229,14 @@ class TestAsyncSwaps:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         swap = await async_client.swaps.create(
-            account_id="account_id",
-            from_token="from_token",
-            to_token="to_token",
-            amount="amount",
-            from_chain="string",
-            slippage_bps=0,
-            to_amount="to_amount",
-            to_chain="string",
+            account_id="biz_xxxxxxxxxxxxxx",
+            from_token="usd",
+            to_token="cad",
+            amount="100",
+            from_chain="plasma",
+            slippage_bps=50,
+            to_amount="180.00",
+            to_chain="plasma",
         )
         assert_matches_type(SwapCreateResponse, swap, path=["response"])
 
@@ -244,9 +244,9 @@ class TestAsyncSwaps:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.swaps.with_raw_response.create(
-            account_id="account_id",
-            from_token="from_token",
-            to_token="to_token",
+            account_id="biz_xxxxxxxxxxxxxx",
+            from_token="usd",
+            to_token="cad",
         )
 
         assert response.is_closed is True
@@ -258,9 +258,9 @@ class TestAsyncSwaps:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.swaps.with_streaming_response.create(
-            account_id="account_id",
-            from_token="from_token",
-            to_token="to_token",
+            account_id="biz_xxxxxxxxxxxxxx",
+            from_token="usd",
+            to_token="cad",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -350,9 +350,9 @@ class TestAsyncSwaps:
     @parametrize
     async def test_method_create_quote(self, async_client: AsyncWhop) -> None:
         swap = await async_client.swaps.create_quote(
-            amount="amount",
-            from_token="from_token",
-            to_token="to_token",
+            amount="100",
+            from_token="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            to_token="0x1b64b9025eebb9a6239575df9ea4b9ac46d4d193",
         )
         assert_matches_type(SwapCreateQuoteResponse, swap, path=["response"])
 
@@ -360,15 +360,15 @@ class TestAsyncSwaps:
     @parametrize
     async def test_method_create_quote_with_all_params(self, async_client: AsyncWhop) -> None:
         swap = await async_client.swaps.create_quote(
-            amount="amount",
-            from_token="from_token",
-            to_token="to_token",
-            from_address="from_address",
-            from_chain="string",
-            metadata={"foo": "bar"},
-            slippage_bps=0,
-            to_address="to_address",
-            to_chain="string",
+            amount="100",
+            from_token="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            to_token="0x1b64b9025eebb9a6239575df9ea4b9ac46d4d193",
+            from_address="0x6f1c0a3d5b2e4f8a9c7d1e0b3a5f7c9d2e4b6a80",
+            from_chain="plasma",
+            metadata={"external_id": "bar"},
+            slippage_bps=50,
+            to_address="0x9d2e4b6a806f1c0a3d5b2e4f8a9c7d1e0b3a5f7c",
+            to_chain="plasma",
         )
         assert_matches_type(SwapCreateQuoteResponse, swap, path=["response"])
 
@@ -376,9 +376,9 @@ class TestAsyncSwaps:
     @parametrize
     async def test_raw_response_create_quote(self, async_client: AsyncWhop) -> None:
         response = await async_client.swaps.with_raw_response.create_quote(
-            amount="amount",
-            from_token="from_token",
-            to_token="to_token",
+            amount="100",
+            from_token="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            to_token="0x1b64b9025eebb9a6239575df9ea4b9ac46d4d193",
         )
 
         assert response.is_closed is True
@@ -390,9 +390,9 @@ class TestAsyncSwaps:
     @parametrize
     async def test_streaming_response_create_quote(self, async_client: AsyncWhop) -> None:
         async with async_client.swaps.with_streaming_response.create_quote(
-            amount="amount",
-            from_token="from_token",
-            to_token="to_token",
+            amount="100",
+            from_token="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            to_token="0x1b64b9025eebb9a6239575df9ea4b9ac46d4d193",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

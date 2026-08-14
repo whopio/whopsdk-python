@@ -27,12 +27,12 @@ class TestPromoCodes:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         promo_code = client.promo_codes.create(
-            account_id="account_id",
-            amount_off=0,
+            account_id="biz_xxxxxxxxxxxxxx",
+            amount_off=25,
             base_currency="usd",
-            code="code",
+            code="AFFILIATE25",
             new_users_only=True,
-            promo_duration_months=0,
+            promo_duration_months=3,
             promo_type="percentage",
         )
         assert_matches_type(PromoCode, promo_code, path=["response"])
@@ -41,21 +41,21 @@ class TestPromoCodes:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         promo_code = client.promo_codes.create(
-            account_id="account_id",
-            amount_off=0,
+            account_id="biz_xxxxxxxxxxxxxx",
+            amount_off=25,
             base_currency="usd",
-            code="code",
+            code="AFFILIATE25",
             new_users_only=True,
-            promo_duration_months=0,
+            promo_duration_months=3,
             promo_type="percentage",
-            churned_users_only=True,
-            existing_memberships_only=True,
-            expires_at="expires_at",
+            churned_users_only=False,
+            existing_memberships_only=False,
+            expires_at="2026-01-01T12:00:00.000Z",
             one_per_customer=True,
-            plan_ids=["string"],
-            product_id="product_id",
-            stock=0,
-            unlimited_stock=True,
+            plan_ids=["plan_xxxxxxxxxxxxxx"],
+            product_id="prod_xxxxxxxxxxxxxx",
+            stock=200,
+            unlimited_stock=False,
         )
         assert_matches_type(PromoCode, promo_code, path=["response"])
 
@@ -63,12 +63,12 @@ class TestPromoCodes:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.promo_codes.with_raw_response.create(
-            account_id="account_id",
-            amount_off=0,
+            account_id="biz_xxxxxxxxxxxxxx",
+            amount_off=25,
             base_currency="usd",
-            code="code",
+            code="AFFILIATE25",
             new_users_only=True,
-            promo_duration_months=0,
+            promo_duration_months=3,
             promo_type="percentage",
         )
 
@@ -81,12 +81,12 @@ class TestPromoCodes:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.promo_codes.with_streaming_response.create(
-            account_id="account_id",
-            amount_off=0,
+            account_id="biz_xxxxxxxxxxxxxx",
+            amount_off=25,
             base_currency="usd",
-            code="code",
+            code="AFFILIATE25",
             new_users_only=True,
-            promo_duration_months=0,
+            promo_duration_months=3,
             promo_type="percentage",
         ) as response:
             assert not response.is_closed
@@ -160,8 +160,8 @@ class TestPromoCodes:
             first=100,
             last=100,
             order="created_at",
-            plan_ids=["string"],
-            product_ids=["string"],
+            plan_ids=["plan_xxxxxxxxxxxxxx"],
+            product_ids=["prod_xxxxxxxxxxxxxx"],
             status="active",
         )
         assert_matches_type(SyncCursorPage[PromoCodeListResponse], promo_code, path=["response"])
@@ -328,12 +328,12 @@ class TestAsyncPromoCodes:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         promo_code = await async_client.promo_codes.create(
-            account_id="account_id",
-            amount_off=0,
+            account_id="biz_xxxxxxxxxxxxxx",
+            amount_off=25,
             base_currency="usd",
-            code="code",
+            code="AFFILIATE25",
             new_users_only=True,
-            promo_duration_months=0,
+            promo_duration_months=3,
             promo_type="percentage",
         )
         assert_matches_type(PromoCode, promo_code, path=["response"])
@@ -342,21 +342,21 @@ class TestAsyncPromoCodes:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         promo_code = await async_client.promo_codes.create(
-            account_id="account_id",
-            amount_off=0,
+            account_id="biz_xxxxxxxxxxxxxx",
+            amount_off=25,
             base_currency="usd",
-            code="code",
+            code="AFFILIATE25",
             new_users_only=True,
-            promo_duration_months=0,
+            promo_duration_months=3,
             promo_type="percentage",
-            churned_users_only=True,
-            existing_memberships_only=True,
-            expires_at="expires_at",
+            churned_users_only=False,
+            existing_memberships_only=False,
+            expires_at="2026-01-01T12:00:00.000Z",
             one_per_customer=True,
-            plan_ids=["string"],
-            product_id="product_id",
-            stock=0,
-            unlimited_stock=True,
+            plan_ids=["plan_xxxxxxxxxxxxxx"],
+            product_id="prod_xxxxxxxxxxxxxx",
+            stock=200,
+            unlimited_stock=False,
         )
         assert_matches_type(PromoCode, promo_code, path=["response"])
 
@@ -364,12 +364,12 @@ class TestAsyncPromoCodes:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.promo_codes.with_raw_response.create(
-            account_id="account_id",
-            amount_off=0,
+            account_id="biz_xxxxxxxxxxxxxx",
+            amount_off=25,
             base_currency="usd",
-            code="code",
+            code="AFFILIATE25",
             new_users_only=True,
-            promo_duration_months=0,
+            promo_duration_months=3,
             promo_type="percentage",
         )
 
@@ -382,12 +382,12 @@ class TestAsyncPromoCodes:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.promo_codes.with_streaming_response.create(
-            account_id="account_id",
-            amount_off=0,
+            account_id="biz_xxxxxxxxxxxxxx",
+            amount_off=25,
             base_currency="usd",
-            code="code",
+            code="AFFILIATE25",
             new_users_only=True,
-            promo_duration_months=0,
+            promo_duration_months=3,
             promo_type="percentage",
         ) as response:
             assert not response.is_closed
@@ -461,8 +461,8 @@ class TestAsyncPromoCodes:
             first=100,
             last=100,
             order="created_at",
-            plan_ids=["string"],
-            product_ids=["string"],
+            plan_ids=["plan_xxxxxxxxxxxxxx"],
+            product_ids=["prod_xxxxxxxxxxxxxx"],
             status="active",
         )
         assert_matches_type(AsyncCursorPage[PromoCodeListResponse], promo_code, path=["response"])

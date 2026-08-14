@@ -26,9 +26,9 @@ class TestAdCampaigns:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         ad_campaign = client.ad_campaigns.create(
-            objective="awareness",
+            objective="leads",
             platform="meta",
-            title="title",
+            title="Now hiring mobile detailers — Austin",
         )
         assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
@@ -36,18 +36,18 @@ class TestAdCampaigns:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         ad_campaign = client.ad_campaigns.create(
-            objective="awareness",
+            objective="leads",
             platform="meta",
-            title="title",
-            account_id="account_id",
-            bid_type="minimum_cost",
-            budget_amount=0,
+            title="Now hiring mobile detailers — Austin",
+            account_id="biz_xxxxxxxxxxxxxx",
+            bid_type="average_target",
+            budget_amount=25,
             budget_optimization="ad_campaign",
             budget_type="daily",
-            desired_cost_per_result=0,
-            ends_at="ends_at",
-            special_ad_categories=["housing"],
-            starts_at="starts_at",
+            desired_cost_per_result=4.5,
+            ends_at="2026-01-01T12:00:00.000Z",
+            special_ad_categories=["employment"],
+            starts_at="2026-01-01T12:00:00.000Z",
         )
         assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
@@ -55,9 +55,9 @@ class TestAdCampaigns:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.ad_campaigns.with_raw_response.create(
-            objective="awareness",
+            objective="leads",
             platform="meta",
-            title="title",
+            title="Now hiring mobile detailers — Austin",
         )
 
         assert response.is_closed is True
@@ -69,9 +69,9 @@ class TestAdCampaigns:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.ad_campaigns.with_streaming_response.create(
-            objective="awareness",
+            objective="leads",
             platform="meta",
-            title="title",
+            title="Now hiring mobile detailers — Austin",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -148,14 +148,14 @@ class TestAdCampaigns:
     def test_method_update_with_all_params(self, client: Whop) -> None:
         ad_campaign = client.ad_campaigns.update(
             id="id",
-            bid_type="minimum_cost",
-            budget_amount=0,
+            bid_type="average_target",
+            budget_amount=40,
             budget_optimization="ad_campaign",
-            ends_at="ends_at",
-            special_ad_categories=["housing"],
-            starts_at="starts_at",
+            ends_at="2026-01-01T12:00:00.000Z",
+            special_ad_categories=["employment"],
+            starts_at="2026-01-01T12:00:00.000Z",
             status="active",
-            title="title",
+            title="Now hiring mobile detailers — Austin & Round Rock",
         )
         assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
@@ -298,7 +298,7 @@ class TestAdCampaigns:
     def test_method_duplicate_with_all_params(self, client: Whop) -> None:
         ad_campaign = client.ad_campaigns.duplicate(
             id="id",
-            count=0,
+            count=2,
             preserve_engagement=True,
         )
         assert_matches_type(AdCampaignDuplicateResponse, ad_campaign, path=["response"])
@@ -473,9 +473,9 @@ class TestAsyncAdCampaigns:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         ad_campaign = await async_client.ad_campaigns.create(
-            objective="awareness",
+            objective="leads",
             platform="meta",
-            title="title",
+            title="Now hiring mobile detailers — Austin",
         )
         assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
@@ -483,18 +483,18 @@ class TestAsyncAdCampaigns:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         ad_campaign = await async_client.ad_campaigns.create(
-            objective="awareness",
+            objective="leads",
             platform="meta",
-            title="title",
-            account_id="account_id",
-            bid_type="minimum_cost",
-            budget_amount=0,
+            title="Now hiring mobile detailers — Austin",
+            account_id="biz_xxxxxxxxxxxxxx",
+            bid_type="average_target",
+            budget_amount=25,
             budget_optimization="ad_campaign",
             budget_type="daily",
-            desired_cost_per_result=0,
-            ends_at="ends_at",
-            special_ad_categories=["housing"],
-            starts_at="starts_at",
+            desired_cost_per_result=4.5,
+            ends_at="2026-01-01T12:00:00.000Z",
+            special_ad_categories=["employment"],
+            starts_at="2026-01-01T12:00:00.000Z",
         )
         assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
@@ -502,9 +502,9 @@ class TestAsyncAdCampaigns:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.ad_campaigns.with_raw_response.create(
-            objective="awareness",
+            objective="leads",
             platform="meta",
-            title="title",
+            title="Now hiring mobile detailers — Austin",
         )
 
         assert response.is_closed is True
@@ -516,9 +516,9 @@ class TestAsyncAdCampaigns:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.ad_campaigns.with_streaming_response.create(
-            objective="awareness",
+            objective="leads",
             platform="meta",
-            title="title",
+            title="Now hiring mobile detailers — Austin",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -595,14 +595,14 @@ class TestAsyncAdCampaigns:
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         ad_campaign = await async_client.ad_campaigns.update(
             id="id",
-            bid_type="minimum_cost",
-            budget_amount=0,
+            bid_type="average_target",
+            budget_amount=40,
             budget_optimization="ad_campaign",
-            ends_at="ends_at",
-            special_ad_categories=["housing"],
-            starts_at="starts_at",
+            ends_at="2026-01-01T12:00:00.000Z",
+            special_ad_categories=["employment"],
+            starts_at="2026-01-01T12:00:00.000Z",
             status="active",
-            title="title",
+            title="Now hiring mobile detailers — Austin & Round Rock",
         )
         assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
@@ -745,7 +745,7 @@ class TestAsyncAdCampaigns:
     async def test_method_duplicate_with_all_params(self, async_client: AsyncWhop) -> None:
         ad_campaign = await async_client.ad_campaigns.duplicate(
             id="id",
-            count=0,
+            count=2,
             preserve_engagement=True,
         )
         assert_matches_type(AdCampaignDuplicateResponse, ad_campaign, path=["response"])

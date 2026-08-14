@@ -10,13 +10,11 @@ __all__ = ["IdentityProfileUpdatedWebhookEvent", "Data"]
 
 
 class Data(BaseModel):
-    """The identity profile that changed.
-
-    Re-fetch `GET /api/v1/verifications` to read its current, access-scoped state.
-    """
-
     id: str
-    """The identity profile id."""
+    """The identity profile id (`idpf_`).
+
+    Re-fetch `GET /verifications` for its current state.
+    """
 
 
 class IdentityProfileUpdatedWebhookEvent(BaseModel):
@@ -30,10 +28,6 @@ class IdentityProfileUpdatedWebhookEvent(BaseModel):
     """The dated API version (Api-Version-Date) the payload is serialized to"""
 
     data: Data
-    """The identity profile that changed.
-
-    Re-fetch `GET /api/v1/verifications` to read its current, access-scoped state.
-    """
 
     timestamp: datetime
     """The timestamp in ISO 8601 format that the webhook was sent at on the server"""

@@ -26,10 +26,10 @@ class TestPasskeys:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         passkey = client.users.passkeys.create(
-            attestation_object="attestation_object",
-            client_data_json="client_data_json",
-            credential_id="credential_id",
-            nickname="nickname",
+            attestation_object="YXR0ZXN0YXRpb24",
+            client_data_json="Y2xpZW50LWRhdGE",
+            credential_id="bmV3LWNyZWRlbnRpYWw",
+            nickname="Work laptop",
         )
         assert_matches_type(Passkey, passkey, path=["response"])
 
@@ -37,10 +37,10 @@ class TestPasskeys:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.users.passkeys.with_raw_response.create(
-            attestation_object="attestation_object",
-            client_data_json="client_data_json",
-            credential_id="credential_id",
-            nickname="nickname",
+            attestation_object="YXR0ZXN0YXRpb24",
+            client_data_json="Y2xpZW50LWRhdGE",
+            credential_id="bmV3LWNyZWRlbnRpYWw",
+            nickname="Work laptop",
         )
 
         assert response.is_closed is True
@@ -52,10 +52,10 @@ class TestPasskeys:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.users.passkeys.with_streaming_response.create(
-            attestation_object="attestation_object",
-            client_data_json="client_data_json",
-            credential_id="credential_id",
-            nickname="nickname",
+            attestation_object="YXR0ZXN0YXRpb24",
+            client_data_json="Y2xpZW50LWRhdGE",
+            credential_id="bmV3LWNyZWRlbnRpYWw",
+            nickname="Work laptop",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -111,9 +111,9 @@ class TestPasskeys:
     def test_method_delete(self, client: Whop) -> None:
         passkey = client.users.passkeys.delete(
             id="id",
-            authenticator_data="authenticator_data",
-            client_data_json="client_data_json",
-            signature="signature",
+            authenticator_data="YXV0aGVudGljYXRvci1kYXRh",
+            client_data_json="Y2xpZW50LWRhdGE",
+            signature="c2lnbmF0dXJl",
         )
         assert_matches_type(PasskeyDeleteResponse, passkey, path=["response"])
 
@@ -122,9 +122,9 @@ class TestPasskeys:
     def test_raw_response_delete(self, client: Whop) -> None:
         response = client.users.passkeys.with_raw_response.delete(
             id="id",
-            authenticator_data="authenticator_data",
-            client_data_json="client_data_json",
-            signature="signature",
+            authenticator_data="YXV0aGVudGljYXRvci1kYXRh",
+            client_data_json="Y2xpZW50LWRhdGE",
+            signature="c2lnbmF0dXJl",
         )
 
         assert response.is_closed is True
@@ -137,9 +137,9 @@ class TestPasskeys:
     def test_streaming_response_delete(self, client: Whop) -> None:
         with client.users.passkeys.with_streaming_response.delete(
             id="id",
-            authenticator_data="authenticator_data",
-            client_data_json="client_data_json",
-            signature="signature",
+            authenticator_data="YXV0aGVudGljYXRvci1kYXRh",
+            client_data_json="Y2xpZW50LWRhdGE",
+            signature="c2lnbmF0dXJl",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -155,9 +155,9 @@ class TestPasskeys:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.users.passkeys.with_raw_response.delete(
                 id="",
-                authenticator_data="authenticator_data",
-                client_data_json="client_data_json",
-                signature="signature",
+                authenticator_data="YXV0aGVudGljYXRvci1kYXRh",
+                client_data_json="Y2xpZW50LWRhdGE",
+                signature="c2lnbmF0dXJl",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -173,7 +173,7 @@ class TestPasskeys:
     def test_method_challenge_with_all_params(self, client: Whop) -> None:
         passkey = client.users.passkeys.challenge(
             challenge_type="registration",
-            passkey_id="passkey_id",
+            passkey_id="wcred_xxxxxxxxxxxxxx",
         )
         assert_matches_type(PasskeyChallengeResponse, passkey, path=["response"])
 
@@ -213,10 +213,10 @@ class TestAsyncPasskeys:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         passkey = await async_client.users.passkeys.create(
-            attestation_object="attestation_object",
-            client_data_json="client_data_json",
-            credential_id="credential_id",
-            nickname="nickname",
+            attestation_object="YXR0ZXN0YXRpb24",
+            client_data_json="Y2xpZW50LWRhdGE",
+            credential_id="bmV3LWNyZWRlbnRpYWw",
+            nickname="Work laptop",
         )
         assert_matches_type(Passkey, passkey, path=["response"])
 
@@ -224,10 +224,10 @@ class TestAsyncPasskeys:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.users.passkeys.with_raw_response.create(
-            attestation_object="attestation_object",
-            client_data_json="client_data_json",
-            credential_id="credential_id",
-            nickname="nickname",
+            attestation_object="YXR0ZXN0YXRpb24",
+            client_data_json="Y2xpZW50LWRhdGE",
+            credential_id="bmV3LWNyZWRlbnRpYWw",
+            nickname="Work laptop",
         )
 
         assert response.is_closed is True
@@ -239,10 +239,10 @@ class TestAsyncPasskeys:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.users.passkeys.with_streaming_response.create(
-            attestation_object="attestation_object",
-            client_data_json="client_data_json",
-            credential_id="credential_id",
-            nickname="nickname",
+            attestation_object="YXR0ZXN0YXRpb24",
+            client_data_json="Y2xpZW50LWRhdGE",
+            credential_id="bmV3LWNyZWRlbnRpYWw",
+            nickname="Work laptop",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -298,9 +298,9 @@ class TestAsyncPasskeys:
     async def test_method_delete(self, async_client: AsyncWhop) -> None:
         passkey = await async_client.users.passkeys.delete(
             id="id",
-            authenticator_data="authenticator_data",
-            client_data_json="client_data_json",
-            signature="signature",
+            authenticator_data="YXV0aGVudGljYXRvci1kYXRh",
+            client_data_json="Y2xpZW50LWRhdGE",
+            signature="c2lnbmF0dXJl",
         )
         assert_matches_type(PasskeyDeleteResponse, passkey, path=["response"])
 
@@ -309,9 +309,9 @@ class TestAsyncPasskeys:
     async def test_raw_response_delete(self, async_client: AsyncWhop) -> None:
         response = await async_client.users.passkeys.with_raw_response.delete(
             id="id",
-            authenticator_data="authenticator_data",
-            client_data_json="client_data_json",
-            signature="signature",
+            authenticator_data="YXV0aGVudGljYXRvci1kYXRh",
+            client_data_json="Y2xpZW50LWRhdGE",
+            signature="c2lnbmF0dXJl",
         )
 
         assert response.is_closed is True
@@ -324,9 +324,9 @@ class TestAsyncPasskeys:
     async def test_streaming_response_delete(self, async_client: AsyncWhop) -> None:
         async with async_client.users.passkeys.with_streaming_response.delete(
             id="id",
-            authenticator_data="authenticator_data",
-            client_data_json="client_data_json",
-            signature="signature",
+            authenticator_data="YXV0aGVudGljYXRvci1kYXRh",
+            client_data_json="Y2xpZW50LWRhdGE",
+            signature="c2lnbmF0dXJl",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -342,9 +342,9 @@ class TestAsyncPasskeys:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.users.passkeys.with_raw_response.delete(
                 id="",
-                authenticator_data="authenticator_data",
-                client_data_json="client_data_json",
-                signature="signature",
+                authenticator_data="YXV0aGVudGljYXRvci1kYXRh",
+                client_data_json="Y2xpZW50LWRhdGE",
+                signature="c2lnbmF0dXJl",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -360,7 +360,7 @@ class TestAsyncPasskeys:
     async def test_method_challenge_with_all_params(self, async_client: AsyncWhop) -> None:
         passkey = await async_client.users.passkeys.challenge(
             challenge_type="registration",
-            passkey_id="passkey_id",
+            passkey_id="wcred_xxxxxxxxxxxxxx",
         )
         assert_matches_type(PasskeyChallengeResponse, passkey, path=["response"])
 

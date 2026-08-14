@@ -77,7 +77,7 @@ class TestMemberships:
         membership = client.memberships.update(
             id="id",
             cancel_at_period_end=True,
-            metadata={},
+            metadata={"seat": "42"},
         )
         assert_matches_type(Membership, membership, path=["response"])
 
@@ -176,7 +176,7 @@ class TestMemberships:
     def test_method_cancel_with_all_params(self, client: Whop) -> None:
         membership = client.memberships.cancel(
             id="id",
-            reason="reason",
+            reason="chargeback risk",
         )
         assert_matches_type(Membership, membership, path=["response"])
 
@@ -219,7 +219,7 @@ class TestMemberships:
     def test_method_extend(self, client: Whop) -> None:
         membership = client.memberships.extend(
             id="id",
-            days=1,
+            days=7,
         )
         assert_matches_type(Membership, membership, path=["response"])
 
@@ -228,7 +228,7 @@ class TestMemberships:
     def test_raw_response_extend(self, client: Whop) -> None:
         response = client.memberships.with_raw_response.extend(
             id="id",
-            days=1,
+            days=7,
         )
 
         assert response.is_closed is True
@@ -241,7 +241,7 @@ class TestMemberships:
     def test_streaming_response_extend(self, client: Whop) -> None:
         with client.memberships.with_streaming_response.extend(
             id="id",
-            days=1,
+            days=7,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -257,15 +257,15 @@ class TestMemberships:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.memberships.with_raw_response.extend(
                 id="",
-                days=1,
+                days=7,
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_invite_overload_1(self, client: Whop) -> None:
         membership = client.memberships.invite(
-            plan_id="plan_id",
-            user_id="user_id",
+            plan_id="plan_xxxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxxx",
         )
         assert_matches_type(MembershipInviteResponse, membership, path=["response"])
 
@@ -273,9 +273,9 @@ class TestMemberships:
     @parametrize
     def test_method_invite_with_all_params_overload_1(self, client: Whop) -> None:
         membership = client.memberships.invite(
-            plan_id="plan_id",
-            user_id="user_id",
-            email="dev@stainless.com",
+            plan_id="plan_xxxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxxx",
+            email="  Dana@Shinetime.example ",
         )
         assert_matches_type(MembershipInviteResponse, membership, path=["response"])
 
@@ -283,8 +283,8 @@ class TestMemberships:
     @parametrize
     def test_raw_response_invite_overload_1(self, client: Whop) -> None:
         response = client.memberships.with_raw_response.invite(
-            plan_id="plan_id",
-            user_id="user_id",
+            plan_id="plan_xxxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -296,8 +296,8 @@ class TestMemberships:
     @parametrize
     def test_streaming_response_invite_overload_1(self, client: Whop) -> None:
         with client.memberships.with_streaming_response.invite(
-            plan_id="plan_id",
-            user_id="user_id",
+            plan_id="plan_xxxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -311,8 +311,8 @@ class TestMemberships:
     @parametrize
     def test_method_invite_overload_2(self, client: Whop) -> None:
         membership = client.memberships.invite(
-            email="dev@stainless.com",
-            plan_id="plan_id",
+            email="  Dana@Shinetime.example ",
+            plan_id="plan_xxxxxxxxxxxxxx",
         )
         assert_matches_type(MembershipInviteResponse, membership, path=["response"])
 
@@ -320,9 +320,9 @@ class TestMemberships:
     @parametrize
     def test_method_invite_with_all_params_overload_2(self, client: Whop) -> None:
         membership = client.memberships.invite(
-            email="dev@stainless.com",
-            plan_id="plan_id",
-            user_id="user_id",
+            email="  Dana@Shinetime.example ",
+            plan_id="plan_xxxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxxx",
         )
         assert_matches_type(MembershipInviteResponse, membership, path=["response"])
 
@@ -330,8 +330,8 @@ class TestMemberships:
     @parametrize
     def test_raw_response_invite_overload_2(self, client: Whop) -> None:
         response = client.memberships.with_raw_response.invite(
-            email="dev@stainless.com",
-            plan_id="plan_id",
+            email="  Dana@Shinetime.example ",
+            plan_id="plan_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -343,8 +343,8 @@ class TestMemberships:
     @parametrize
     def test_streaming_response_invite_overload_2(self, client: Whop) -> None:
         with client.memberships.with_streaming_response.invite(
-            email="dev@stainless.com",
-            plan_id="plan_id",
+            email="  Dana@Shinetime.example ",
+            plan_id="plan_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -367,7 +367,7 @@ class TestMemberships:
     def test_method_pause_with_all_params(self, client: Whop) -> None:
         membership = client.memberships.pause(
             id="id",
-            until="until",
+            until="2026-01-01T12:00:00.000Z",
         )
         assert_matches_type(Membership, membership, path=["response"])
 
@@ -509,7 +509,7 @@ class TestAsyncMemberships:
         membership = await async_client.memberships.update(
             id="id",
             cancel_at_period_end=True,
-            metadata={},
+            metadata={"seat": "42"},
         )
         assert_matches_type(Membership, membership, path=["response"])
 
@@ -608,7 +608,7 @@ class TestAsyncMemberships:
     async def test_method_cancel_with_all_params(self, async_client: AsyncWhop) -> None:
         membership = await async_client.memberships.cancel(
             id="id",
-            reason="reason",
+            reason="chargeback risk",
         )
         assert_matches_type(Membership, membership, path=["response"])
 
@@ -651,7 +651,7 @@ class TestAsyncMemberships:
     async def test_method_extend(self, async_client: AsyncWhop) -> None:
         membership = await async_client.memberships.extend(
             id="id",
-            days=1,
+            days=7,
         )
         assert_matches_type(Membership, membership, path=["response"])
 
@@ -660,7 +660,7 @@ class TestAsyncMemberships:
     async def test_raw_response_extend(self, async_client: AsyncWhop) -> None:
         response = await async_client.memberships.with_raw_response.extend(
             id="id",
-            days=1,
+            days=7,
         )
 
         assert response.is_closed is True
@@ -673,7 +673,7 @@ class TestAsyncMemberships:
     async def test_streaming_response_extend(self, async_client: AsyncWhop) -> None:
         async with async_client.memberships.with_streaming_response.extend(
             id="id",
-            days=1,
+            days=7,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -689,15 +689,15 @@ class TestAsyncMemberships:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.memberships.with_raw_response.extend(
                 id="",
-                days=1,
+                days=7,
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_invite_overload_1(self, async_client: AsyncWhop) -> None:
         membership = await async_client.memberships.invite(
-            plan_id="plan_id",
-            user_id="user_id",
+            plan_id="plan_xxxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxxx",
         )
         assert_matches_type(MembershipInviteResponse, membership, path=["response"])
 
@@ -705,9 +705,9 @@ class TestAsyncMemberships:
     @parametrize
     async def test_method_invite_with_all_params_overload_1(self, async_client: AsyncWhop) -> None:
         membership = await async_client.memberships.invite(
-            plan_id="plan_id",
-            user_id="user_id",
-            email="dev@stainless.com",
+            plan_id="plan_xxxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxxx",
+            email="  Dana@Shinetime.example ",
         )
         assert_matches_type(MembershipInviteResponse, membership, path=["response"])
 
@@ -715,8 +715,8 @@ class TestAsyncMemberships:
     @parametrize
     async def test_raw_response_invite_overload_1(self, async_client: AsyncWhop) -> None:
         response = await async_client.memberships.with_raw_response.invite(
-            plan_id="plan_id",
-            user_id="user_id",
+            plan_id="plan_xxxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -728,8 +728,8 @@ class TestAsyncMemberships:
     @parametrize
     async def test_streaming_response_invite_overload_1(self, async_client: AsyncWhop) -> None:
         async with async_client.memberships.with_streaming_response.invite(
-            plan_id="plan_id",
-            user_id="user_id",
+            plan_id="plan_xxxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -743,8 +743,8 @@ class TestAsyncMemberships:
     @parametrize
     async def test_method_invite_overload_2(self, async_client: AsyncWhop) -> None:
         membership = await async_client.memberships.invite(
-            email="dev@stainless.com",
-            plan_id="plan_id",
+            email="  Dana@Shinetime.example ",
+            plan_id="plan_xxxxxxxxxxxxxx",
         )
         assert_matches_type(MembershipInviteResponse, membership, path=["response"])
 
@@ -752,9 +752,9 @@ class TestAsyncMemberships:
     @parametrize
     async def test_method_invite_with_all_params_overload_2(self, async_client: AsyncWhop) -> None:
         membership = await async_client.memberships.invite(
-            email="dev@stainless.com",
-            plan_id="plan_id",
-            user_id="user_id",
+            email="  Dana@Shinetime.example ",
+            plan_id="plan_xxxxxxxxxxxxxx",
+            user_id="user_xxxxxxxxxxxxxx",
         )
         assert_matches_type(MembershipInviteResponse, membership, path=["response"])
 
@@ -762,8 +762,8 @@ class TestAsyncMemberships:
     @parametrize
     async def test_raw_response_invite_overload_2(self, async_client: AsyncWhop) -> None:
         response = await async_client.memberships.with_raw_response.invite(
-            email="dev@stainless.com",
-            plan_id="plan_id",
+            email="  Dana@Shinetime.example ",
+            plan_id="plan_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -775,8 +775,8 @@ class TestAsyncMemberships:
     @parametrize
     async def test_streaming_response_invite_overload_2(self, async_client: AsyncWhop) -> None:
         async with async_client.memberships.with_streaming_response.invite(
-            email="dev@stainless.com",
-            plan_id="plan_id",
+            email="  Dana@Shinetime.example ",
+            plan_id="plan_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -799,7 +799,7 @@ class TestAsyncMemberships:
     async def test_method_pause_with_all_params(self, async_client: AsyncWhop) -> None:
         membership = await async_client.memberships.pause(
             id="id",
-            until="until",
+            until="2026-01-01T12:00:00.000Z",
         )
         assert_matches_type(Membership, membership, path=["response"])
 

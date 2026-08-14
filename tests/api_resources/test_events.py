@@ -28,8 +28,8 @@ class TestEvents:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         event = client.events.create(
-            account_id="account_id",
-            event_name="course_completed",
+            account_id="biz_xxxxxxxxxxxxxx",
+            event_name="coating_deposit_paid",
         )
         assert_matches_type(EventCreateResponse, event, path=["response"])
 
@@ -37,74 +37,74 @@ class TestEvents:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         event = client.events.create(
-            account_id="account_id",
-            event_name="course_completed",
-            action_source="email",
+            account_id="biz_xxxxxxxxxxxxxx",
+            event_name="coating_deposit_paid",
+            action_source="website",
             context={
-                "ad_campaign_id": "ad_campaign_id",
-                "ad_id": "ad_id",
-                "ad_set_id": "ad_set_id",
-                "fbc": "fbc",
-                "fbclid": "fbclid",
-                "fbp": "fbp",
-                "fingerprint": "fingerprint",
+                "ad_campaign_id": "23851234567890123",
+                "ad_id": "23851234567890125",
+                "ad_set_id": "23851234567890124",
+                "fbc": "fb.1.xxxxxxxxxx.IwAR0shine",
+                "fbclid": "IwAR0shineTimeAutoDetailing",
+                "fbp": "fb.1.xxxxxxxxxx.xxxxxxxxxx",
+                "fingerprint": "fp_4d19c7",
                 "fingerprint_confidence": 6.9,
-                "ga": "ga",
-                "gbraid": "gbraid",
-                "gclid": "gclid",
-                "ig_sid": "ig_sid",
-                "ip_address": "ip_address",
-                "language": "language",
-                "li_fat_id": "li_fat_id",
-                "msclkid": "msclkid",
-                "rdt_cid": "rdt_cid",
-                "sccid": "sccid",
-                "screen_resolution": "screen_resolution",
-                "timezone": "timezone",
-                "ttclid": "ttclid",
-                "ttp": "ttp",
-                "twclid": "twclid",
-                "user_agent": "user_agent",
-                "utm_campaign": "utm_campaign",
-                "utm_content": "utm_content",
-                "utm_id": "utm_id",
-                "utm_medium": "utm_medium",
-                "utm_source": "utm_source",
-                "utm_term": "utm_term",
-                "wbraid": "wbraid",
+                "ga": "GA1.1.xxxxxxxxxx.xxxxxxxxxx",
+                "gbraid": "0AAAAA-shinetime",
+                "gclid": "Cj0KCQiAshinetime",
+                "ig_sid": "ig_shinetime_1",
+                "ip_address": "1.2.3.4",
+                "language": "en-US",
+                "li_fat_id": "lifat-shinetime",
+                "msclkid": "a1b2c3d4shine",
+                "rdt_cid": "t2_shinetime",
+                "sccid": "sccid-shinetime",
+                "screen_resolution": "390x844",
+                "timezone": "America/Chicago",
+                "ttclid": "E.C.P.ttclid.shine",
+                "ttp": "2ShineTimeTtp",
+                "twclid": "twclid-shinetime",
+                "user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15",
+                "utm_campaign": "ceramic-coating-spring",
+                "utm_content": "carousel-a",
+                "utm_id": "utm_88213",
+                "utm_medium": "cpc",
+                "utm_source": "google",
+                "utm_term": "ceramic coating austin",
+                "wbraid": "Cj0KCQjw-wbraid-shine",
             },
             currency="usd",
-            custom_name="custom_name",
+            custom_name="coating_deposit_paid",
             duration=42,
             event_id="evnt_xxxxxxxxxxxxx",
             event_time=parse_datetime("2023-12-01T05:00:00.401Z"),
             plan_id="plan_xxxxxxxxxxxxx",
             product_id="prod_xxxxxxxxxxxxx",
-            referrer_url="referrer_url",
-            resumed=True,
-            source="source",
-            title="title",
-            url="url",
+            referrer_url="https://www.google.com/",
+            resumed=False,
+            source="website",
+            title="Ceramic coating quote request",
+            url="https://shinetime.example/quote",
             user={
-                "anonymous_id": "anonymous_id",
+                "anonymous_id": "anon_8f2c41",
                 "birthdate": "1990-01-15",
-                "city": "city",
-                "country": "country",
-                "email": "email",
-                "external_id": "external_id",
-                "first_name": "first_name",
-                "gender": "male",
-                "last_name": "last_name",
-                "linked_anonymous_id": "linked_anonymous_id",
-                "linked_wuid": "linked_wuid",
+                "city": "Austin",
+                "country": "US",
+                "email": "marcus@shinetime.example",
+                "external_id": "crm_8842",
+                "first_name": "Dana",
+                "gender": "female",
+                "last_name": "Whitfield",
+                "linked_anonymous_id": "anon_1b9de0",
+                "linked_wuid": "user_xxxxxxxxxxxxxx",
                 "member_id": "mber_xxxxxxxxxxxxx",
                 "membership_id": "mem_xxxxxxxxxxxxxx",
-                "name": "name",
-                "phone": "phone",
-                "postal_code": "postal_code",
-                "state": "state",
+                "name": "Dana Whitfield",
+                "phone": "+xxxxxxxxxxx",
+                "postal_code": "78756",
+                "state": "TX",
                 "user_id": "user_xxxxxxxxxxxxx",
-                "username": "username",
+                "username": "danawhitfield",
             },
             value=6.9,
         )
@@ -114,8 +114,8 @@ class TestEvents:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.events.with_raw_response.create(
-            account_id="account_id",
-            event_name="course_completed",
+            account_id="biz_xxxxxxxxxxxxxx",
+            event_name="coating_deposit_paid",
         )
 
         assert response.is_closed is True
@@ -127,8 +127,8 @@ class TestEvents:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.events.with_streaming_response.create(
-            account_id="account_id",
-            event_name="course_completed",
+            account_id="biz_xxxxxxxxxxxxxx",
+            event_name="coating_deposit_paid",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -241,8 +241,8 @@ class TestEvents:
     @parametrize
     def test_method_validate_pixel_with_all_params(self, client: Whop) -> None:
         event = client.events.validate_pixel(
-            account_id="account_id",
-            url="url",
+            account_id="biz_xxxxxxxxxxxxxx",
+            url="https://shinetime.example/checkout/complete",
         )
         assert_matches_type(PixelValidation, event, path=["response"])
 
@@ -278,8 +278,8 @@ class TestAsyncEvents:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         event = await async_client.events.create(
-            account_id="account_id",
-            event_name="course_completed",
+            account_id="biz_xxxxxxxxxxxxxx",
+            event_name="coating_deposit_paid",
         )
         assert_matches_type(EventCreateResponse, event, path=["response"])
 
@@ -287,74 +287,74 @@ class TestAsyncEvents:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         event = await async_client.events.create(
-            account_id="account_id",
-            event_name="course_completed",
-            action_source="email",
+            account_id="biz_xxxxxxxxxxxxxx",
+            event_name="coating_deposit_paid",
+            action_source="website",
             context={
-                "ad_campaign_id": "ad_campaign_id",
-                "ad_id": "ad_id",
-                "ad_set_id": "ad_set_id",
-                "fbc": "fbc",
-                "fbclid": "fbclid",
-                "fbp": "fbp",
-                "fingerprint": "fingerprint",
+                "ad_campaign_id": "23851234567890123",
+                "ad_id": "23851234567890125",
+                "ad_set_id": "23851234567890124",
+                "fbc": "fb.1.xxxxxxxxxx.IwAR0shine",
+                "fbclid": "IwAR0shineTimeAutoDetailing",
+                "fbp": "fb.1.xxxxxxxxxx.xxxxxxxxxx",
+                "fingerprint": "fp_4d19c7",
                 "fingerprint_confidence": 6.9,
-                "ga": "ga",
-                "gbraid": "gbraid",
-                "gclid": "gclid",
-                "ig_sid": "ig_sid",
-                "ip_address": "ip_address",
-                "language": "language",
-                "li_fat_id": "li_fat_id",
-                "msclkid": "msclkid",
-                "rdt_cid": "rdt_cid",
-                "sccid": "sccid",
-                "screen_resolution": "screen_resolution",
-                "timezone": "timezone",
-                "ttclid": "ttclid",
-                "ttp": "ttp",
-                "twclid": "twclid",
-                "user_agent": "user_agent",
-                "utm_campaign": "utm_campaign",
-                "utm_content": "utm_content",
-                "utm_id": "utm_id",
-                "utm_medium": "utm_medium",
-                "utm_source": "utm_source",
-                "utm_term": "utm_term",
-                "wbraid": "wbraid",
+                "ga": "GA1.1.xxxxxxxxxx.xxxxxxxxxx",
+                "gbraid": "0AAAAA-shinetime",
+                "gclid": "Cj0KCQiAshinetime",
+                "ig_sid": "ig_shinetime_1",
+                "ip_address": "1.2.3.4",
+                "language": "en-US",
+                "li_fat_id": "lifat-shinetime",
+                "msclkid": "a1b2c3d4shine",
+                "rdt_cid": "t2_shinetime",
+                "sccid": "sccid-shinetime",
+                "screen_resolution": "390x844",
+                "timezone": "America/Chicago",
+                "ttclid": "E.C.P.ttclid.shine",
+                "ttp": "2ShineTimeTtp",
+                "twclid": "twclid-shinetime",
+                "user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15",
+                "utm_campaign": "ceramic-coating-spring",
+                "utm_content": "carousel-a",
+                "utm_id": "utm_88213",
+                "utm_medium": "cpc",
+                "utm_source": "google",
+                "utm_term": "ceramic coating austin",
+                "wbraid": "Cj0KCQjw-wbraid-shine",
             },
             currency="usd",
-            custom_name="custom_name",
+            custom_name="coating_deposit_paid",
             duration=42,
             event_id="evnt_xxxxxxxxxxxxx",
             event_time=parse_datetime("2023-12-01T05:00:00.401Z"),
             plan_id="plan_xxxxxxxxxxxxx",
             product_id="prod_xxxxxxxxxxxxx",
-            referrer_url="referrer_url",
-            resumed=True,
-            source="source",
-            title="title",
-            url="url",
+            referrer_url="https://www.google.com/",
+            resumed=False,
+            source="website",
+            title="Ceramic coating quote request",
+            url="https://shinetime.example/quote",
             user={
-                "anonymous_id": "anonymous_id",
+                "anonymous_id": "anon_8f2c41",
                 "birthdate": "1990-01-15",
-                "city": "city",
-                "country": "country",
-                "email": "email",
-                "external_id": "external_id",
-                "first_name": "first_name",
-                "gender": "male",
-                "last_name": "last_name",
-                "linked_anonymous_id": "linked_anonymous_id",
-                "linked_wuid": "linked_wuid",
+                "city": "Austin",
+                "country": "US",
+                "email": "marcus@shinetime.example",
+                "external_id": "crm_8842",
+                "first_name": "Dana",
+                "gender": "female",
+                "last_name": "Whitfield",
+                "linked_anonymous_id": "anon_1b9de0",
+                "linked_wuid": "user_xxxxxxxxxxxxxx",
                 "member_id": "mber_xxxxxxxxxxxxx",
                 "membership_id": "mem_xxxxxxxxxxxxxx",
-                "name": "name",
-                "phone": "phone",
-                "postal_code": "postal_code",
-                "state": "state",
+                "name": "Dana Whitfield",
+                "phone": "+xxxxxxxxxxx",
+                "postal_code": "78756",
+                "state": "TX",
                 "user_id": "user_xxxxxxxxxxxxx",
-                "username": "username",
+                "username": "danawhitfield",
             },
             value=6.9,
         )
@@ -364,8 +364,8 @@ class TestAsyncEvents:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.events.with_raw_response.create(
-            account_id="account_id",
-            event_name="course_completed",
+            account_id="biz_xxxxxxxxxxxxxx",
+            event_name="coating_deposit_paid",
         )
 
         assert response.is_closed is True
@@ -377,8 +377,8 @@ class TestAsyncEvents:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.events.with_streaming_response.create(
-            account_id="account_id",
-            event_name="course_completed",
+            account_id="biz_xxxxxxxxxxxxxx",
+            event_name="coating_deposit_paid",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -491,8 +491,8 @@ class TestAsyncEvents:
     @parametrize
     async def test_method_validate_pixel_with_all_params(self, async_client: AsyncWhop) -> None:
         event = await async_client.events.validate_pixel(
-            account_id="account_id",
-            url="url",
+            account_id="biz_xxxxxxxxxxxxxx",
+            url="https://shinetime.example/checkout/complete",
         )
         assert_matches_type(PixelValidation, event, path=["response"])
 

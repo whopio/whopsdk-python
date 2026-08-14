@@ -263,7 +263,7 @@ class TestSetupIntents:
     def test_method_update_return_url(self, client: Whop) -> None:
         setup_intent = client.setup_intents.update_return_url(
             setup_intent_id="setup_intent_id",
-            return_url="https://merchant.example/thanks",
+            return_url="https://shinetime.example/checkout/thanks",
         )
         assert_matches_type(SetupIntentUpdateReturnURLResponse, setup_intent, path=["response"])
 
@@ -272,7 +272,7 @@ class TestSetupIntents:
     def test_raw_response_update_return_url(self, client: Whop) -> None:
         response = client.setup_intents.with_raw_response.update_return_url(
             setup_intent_id="setup_intent_id",
-            return_url="https://merchant.example/thanks",
+            return_url="https://shinetime.example/checkout/thanks",
         )
 
         assert response.is_closed is True
@@ -285,7 +285,7 @@ class TestSetupIntents:
     def test_streaming_response_update_return_url(self, client: Whop) -> None:
         with client.setup_intents.with_streaming_response.update_return_url(
             setup_intent_id="setup_intent_id",
-            return_url="https://merchant.example/thanks",
+            return_url="https://shinetime.example/checkout/thanks",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -301,7 +301,7 @@ class TestSetupIntents:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `setup_intent_id` but received ''"):
             client.setup_intents.with_raw_response.update_return_url(
                 setup_intent_id="",
-                return_url="https://merchant.example/thanks",
+                return_url="https://shinetime.example/checkout/thanks",
             )
 
 
@@ -548,7 +548,7 @@ class TestAsyncSetupIntents:
     async def test_method_update_return_url(self, async_client: AsyncWhop) -> None:
         setup_intent = await async_client.setup_intents.update_return_url(
             setup_intent_id="setup_intent_id",
-            return_url="https://merchant.example/thanks",
+            return_url="https://shinetime.example/checkout/thanks",
         )
         assert_matches_type(SetupIntentUpdateReturnURLResponse, setup_intent, path=["response"])
 
@@ -557,7 +557,7 @@ class TestAsyncSetupIntents:
     async def test_raw_response_update_return_url(self, async_client: AsyncWhop) -> None:
         response = await async_client.setup_intents.with_raw_response.update_return_url(
             setup_intent_id="setup_intent_id",
-            return_url="https://merchant.example/thanks",
+            return_url="https://shinetime.example/checkout/thanks",
         )
 
         assert response.is_closed is True
@@ -570,7 +570,7 @@ class TestAsyncSetupIntents:
     async def test_streaming_response_update_return_url(self, async_client: AsyncWhop) -> None:
         async with async_client.setup_intents.with_streaming_response.update_return_url(
             setup_intent_id="setup_intent_id",
-            return_url="https://merchant.example/thanks",
+            return_url="https://shinetime.example/checkout/thanks",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -586,5 +586,5 @@ class TestAsyncSetupIntents:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `setup_intent_id` but received ''"):
             await async_client.setup_intents.with_raw_response.update_return_url(
                 setup_intent_id="",
-                return_url="https://merchant.example/thanks",
+                return_url="https://shinetime.example/checkout/thanks",
             )

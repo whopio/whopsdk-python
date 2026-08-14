@@ -9,7 +9,7 @@ __all__ = ["PaymentMethodDomainCreateParams"]
 
 class PaymentMethodDomainCreateParams(TypedDict, total=False):
     hostname: Required[str]
-    """Hostname to register (e.g. `checkout.example.com`)."""
+    """Hostname to register (e.g. `checkout.shinetime.example`)."""
 
     account_id: str
     """Account to register the domain for (`biz_` tag).

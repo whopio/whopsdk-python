@@ -594,7 +594,7 @@ class TestPayments:
     def test_method_update_return_url(self, client: Whop) -> None:
         payment = client.payments.update_return_url(
             payment_id="payment_id",
-            return_url="https://merchant.example/thanks",
+            return_url="https://shinetime.example/checkout/thanks",
         )
         assert_matches_type(PaymentUpdateReturnURLResponse, payment, path=["response"])
 
@@ -603,7 +603,7 @@ class TestPayments:
     def test_raw_response_update_return_url(self, client: Whop) -> None:
         response = client.payments.with_raw_response.update_return_url(
             payment_id="payment_id",
-            return_url="https://merchant.example/thanks",
+            return_url="https://shinetime.example/checkout/thanks",
         )
 
         assert response.is_closed is True
@@ -616,7 +616,7 @@ class TestPayments:
     def test_streaming_response_update_return_url(self, client: Whop) -> None:
         with client.payments.with_streaming_response.update_return_url(
             payment_id="payment_id",
-            return_url="https://merchant.example/thanks",
+            return_url="https://shinetime.example/checkout/thanks",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -632,7 +632,7 @@ class TestPayments:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `payment_id` but received ''"):
             client.payments.with_raw_response.update_return_url(
                 payment_id="",
-                return_url="https://merchant.example/thanks",
+                return_url="https://shinetime.example/checkout/thanks",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -1252,7 +1252,7 @@ class TestAsyncPayments:
     async def test_method_update_return_url(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.update_return_url(
             payment_id="payment_id",
-            return_url="https://merchant.example/thanks",
+            return_url="https://shinetime.example/checkout/thanks",
         )
         assert_matches_type(PaymentUpdateReturnURLResponse, payment, path=["response"])
 
@@ -1261,7 +1261,7 @@ class TestAsyncPayments:
     async def test_raw_response_update_return_url(self, async_client: AsyncWhop) -> None:
         response = await async_client.payments.with_raw_response.update_return_url(
             payment_id="payment_id",
-            return_url="https://merchant.example/thanks",
+            return_url="https://shinetime.example/checkout/thanks",
         )
 
         assert response.is_closed is True
@@ -1274,7 +1274,7 @@ class TestAsyncPayments:
     async def test_streaming_response_update_return_url(self, async_client: AsyncWhop) -> None:
         async with async_client.payments.with_streaming_response.update_return_url(
             payment_id="payment_id",
-            return_url="https://merchant.example/thanks",
+            return_url="https://shinetime.example/checkout/thanks",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1290,7 +1290,7 @@ class TestAsyncPayments:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `payment_id` but received ''"):
             await async_client.payments.with_raw_response.update_return_url(
                 payment_id="",
-                return_url="https://merchant.example/thanks",
+                return_url="https://shinetime.example/checkout/thanks",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")

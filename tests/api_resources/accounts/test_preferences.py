@@ -75,16 +75,16 @@ class TestPreferences:
             ads_payment_methods={
                 "primary": {
                     "type": "platform_balance",
-                    "id": "id",
+                    "id": "payt_xxxxxxxxxxxxxx",
                 },
                 "backup": {
-                    "type": "platform_balance",
-                    "id": "id",
+                    "type": "card",
+                    "id": "payt_xxxxxxxxxxxxxx",
                 },
             },
-            ads_reporting_currency="ads_reporting_currency",
-            ads_scheduling_timezone="ads_scheduling_timezone",
-            ads_triple_whale_integration={"api_key": "api_key"},
+            ads_reporting_currency="eur",
+            ads_scheduling_timezone="PST8PDT",
+            ads_triple_whale_integration={"api_key": "tw_live_key_1234"},
             cards_auto_top_up=True,
         )
         assert_matches_type(PreferenceUpdateResponse, preference, path=["response"])
@@ -187,16 +187,16 @@ class TestAsyncPreferences:
             ads_payment_methods={
                 "primary": {
                     "type": "platform_balance",
-                    "id": "id",
+                    "id": "payt_xxxxxxxxxxxxxx",
                 },
                 "backup": {
-                    "type": "platform_balance",
-                    "id": "id",
+                    "type": "card",
+                    "id": "payt_xxxxxxxxxxxxxx",
                 },
             },
-            ads_reporting_currency="ads_reporting_currency",
-            ads_scheduling_timezone="ads_scheduling_timezone",
-            ads_triple_whale_integration={"api_key": "api_key"},
+            ads_reporting_currency="eur",
+            ads_scheduling_timezone="PST8PDT",
+            ads_triple_whale_integration={"api_key": "tw_live_key_1234"},
             cards_auto_top_up=True,
         )
         assert_matches_type(PreferenceUpdateResponse, preference, path=["response"])

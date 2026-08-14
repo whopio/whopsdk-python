@@ -21,7 +21,7 @@ class TestExports:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         export = client.exports.create(
-            resource="ad_campaigns",
+            resource="transfers",
         )
         assert_matches_type(Export, export, path=["response"])
 
@@ -29,11 +29,11 @@ class TestExports:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         export = client.exports.create(
-            resource="ad_campaigns",
-            account_id="account_id",
-            columns=["string"],
-            filters={},
-            timezone="timezone",
+            resource="transfers",
+            account_id="biz_xxxxxxxxxxxxxx",
+            columns=["member_user_name"],
+            filters={"origin_id": "ldgr_x"},
+            timezone="America/Chicago",
         )
         assert_matches_type(Export, export, path=["response"])
 
@@ -41,7 +41,7 @@ class TestExports:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.exports.with_raw_response.create(
-            resource="ad_campaigns",
+            resource="transfers",
         )
 
         assert response.is_closed is True
@@ -53,7 +53,7 @@ class TestExports:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.exports.with_streaming_response.create(
-            resource="ad_campaigns",
+            resource="transfers",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -157,7 +157,7 @@ class TestAsyncExports:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         export = await async_client.exports.create(
-            resource="ad_campaigns",
+            resource="transfers",
         )
         assert_matches_type(Export, export, path=["response"])
 
@@ -165,11 +165,11 @@ class TestAsyncExports:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         export = await async_client.exports.create(
-            resource="ad_campaigns",
-            account_id="account_id",
-            columns=["string"],
-            filters={},
-            timezone="timezone",
+            resource="transfers",
+            account_id="biz_xxxxxxxxxxxxxx",
+            columns=["member_user_name"],
+            filters={"origin_id": "ldgr_x"},
+            timezone="America/Chicago",
         )
         assert_matches_type(Export, export, path=["response"])
 
@@ -177,7 +177,7 @@ class TestAsyncExports:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.exports.with_raw_response.create(
-            resource="ad_campaigns",
+            resource="transfers",
         )
 
         assert response.is_closed is True
@@ -189,7 +189,7 @@ class TestAsyncExports:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.exports.with_streaming_response.create(
-            resource="ad_campaigns",
+            resource="transfers",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

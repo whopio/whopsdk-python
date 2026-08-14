@@ -22,8 +22,8 @@ class TestShipments:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         shipment = client.shipments.create(
-            payment_id="payment_id",
-            tracking_number="tracking_number",
+            payment_id="pay_xxxxxxxxxxxxxx",
+            tracking_number="1Z999AA10123456784",
         )
         assert_matches_type(Shipment, shipment, path=["response"])
 
@@ -31,9 +31,9 @@ class TestShipments:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         shipment = client.shipments.create(
-            payment_id="payment_id",
-            tracking_number="tracking_number",
-            account_id="account_id",
+            payment_id="pay_xxxxxxxxxxxxxx",
+            tracking_number="1Z999AA10123456784",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(Shipment, shipment, path=["response"])
 
@@ -41,8 +41,8 @@ class TestShipments:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.shipments.with_raw_response.create(
-            payment_id="payment_id",
-            tracking_number="tracking_number",
+            payment_id="pay_xxxxxxxxxxxxxx",
+            tracking_number="1Z999AA10123456784",
         )
 
         assert response.is_closed is True
@@ -54,8 +54,8 @@ class TestShipments:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.shipments.with_streaming_response.create(
-            payment_id="payment_id",
-            tracking_number="tracking_number",
+            payment_id="pay_xxxxxxxxxxxxxx",
+            tracking_number="1Z999AA10123456784",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -112,7 +112,7 @@ class TestShipments:
     def test_method_update(self, client: Whop) -> None:
         shipment = client.shipments.update(
             id="id",
-            tracking_number="tracking_number",
+            tracking_number="9400111899223456789012",
         )
         assert_matches_type(Shipment, shipment, path=["response"])
 
@@ -121,7 +121,7 @@ class TestShipments:
     def test_raw_response_update(self, client: Whop) -> None:
         response = client.shipments.with_raw_response.update(
             id="id",
-            tracking_number="tracking_number",
+            tracking_number="9400111899223456789012",
         )
 
         assert response.is_closed is True
@@ -134,7 +134,7 @@ class TestShipments:
     def test_streaming_response_update(self, client: Whop) -> None:
         with client.shipments.with_streaming_response.update(
             id="id",
-            tracking_number="tracking_number",
+            tracking_number="9400111899223456789012",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -150,7 +150,7 @@ class TestShipments:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.shipments.with_raw_response.update(
                 id="",
-                tracking_number="tracking_number",
+                tracking_number="9400111899223456789012",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -172,7 +172,7 @@ class TestShipments:
             first=0,
             last=0,
             order="created_at",
-            payment_id=["string"],
+            payment_id=["pay_xxxxxxxxxxxxxx"],
             status="unknown",
         )
         assert_matches_type(SyncCursorPage[Shipment], shipment, path=["response"])
@@ -209,8 +209,8 @@ class TestAsyncShipments:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         shipment = await async_client.shipments.create(
-            payment_id="payment_id",
-            tracking_number="tracking_number",
+            payment_id="pay_xxxxxxxxxxxxxx",
+            tracking_number="1Z999AA10123456784",
         )
         assert_matches_type(Shipment, shipment, path=["response"])
 
@@ -218,9 +218,9 @@ class TestAsyncShipments:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         shipment = await async_client.shipments.create(
-            payment_id="payment_id",
-            tracking_number="tracking_number",
-            account_id="account_id",
+            payment_id="pay_xxxxxxxxxxxxxx",
+            tracking_number="1Z999AA10123456784",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(Shipment, shipment, path=["response"])
 
@@ -228,8 +228,8 @@ class TestAsyncShipments:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.shipments.with_raw_response.create(
-            payment_id="payment_id",
-            tracking_number="tracking_number",
+            payment_id="pay_xxxxxxxxxxxxxx",
+            tracking_number="1Z999AA10123456784",
         )
 
         assert response.is_closed is True
@@ -241,8 +241,8 @@ class TestAsyncShipments:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.shipments.with_streaming_response.create(
-            payment_id="payment_id",
-            tracking_number="tracking_number",
+            payment_id="pay_xxxxxxxxxxxxxx",
+            tracking_number="1Z999AA10123456784",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -299,7 +299,7 @@ class TestAsyncShipments:
     async def test_method_update(self, async_client: AsyncWhop) -> None:
         shipment = await async_client.shipments.update(
             id="id",
-            tracking_number="tracking_number",
+            tracking_number="9400111899223456789012",
         )
         assert_matches_type(Shipment, shipment, path=["response"])
 
@@ -308,7 +308,7 @@ class TestAsyncShipments:
     async def test_raw_response_update(self, async_client: AsyncWhop) -> None:
         response = await async_client.shipments.with_raw_response.update(
             id="id",
-            tracking_number="tracking_number",
+            tracking_number="9400111899223456789012",
         )
 
         assert response.is_closed is True
@@ -321,7 +321,7 @@ class TestAsyncShipments:
     async def test_streaming_response_update(self, async_client: AsyncWhop) -> None:
         async with async_client.shipments.with_streaming_response.update(
             id="id",
-            tracking_number="tracking_number",
+            tracking_number="9400111899223456789012",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -337,7 +337,7 @@ class TestAsyncShipments:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.shipments.with_raw_response.update(
                 id="",
-                tracking_number="tracking_number",
+                tracking_number="9400111899223456789012",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -359,7 +359,7 @@ class TestAsyncShipments:
             first=0,
             last=0,
             order="created_at",
-            payment_id=["string"],
+            payment_id=["pay_xxxxxxxxxxxxxx"],
             status="unknown",
         )
         assert_matches_type(AsyncCursorPage[Shipment], shipment, path=["response"])

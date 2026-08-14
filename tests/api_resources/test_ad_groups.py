@@ -28,7 +28,7 @@ class TestAdGroups:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         ad_group = client.ad_groups.create(
-            ad_campaign_id="ad_campaign_id",
+            ad_campaign_id="adcamp_xxxxxxxxxxxxxx",
         )
         assert_matches_type(AdGroup, ad_group, path=["response"])
 
@@ -36,41 +36,41 @@ class TestAdGroups:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         ad_group = client.ad_groups.create(
-            ad_campaign_id="ad_campaign_id",
+            ad_campaign_id="adcamp_xxxxxxxxxxxxxx",
             audiences={
-                "exclude": ["string"],
-                "include": ["string"],
+                "exclude": ["adaud_xxxxxxxxxxxxxx"],
+                "include": ["adaud_xxxxxxxxxxxxxx"],
             },
-            bid_type="minimum_cost",
-            budget_amount=0,
+            bid_type="average_target",
+            budget_amount=40,
             budget_type="daily",
             conversion_event="purchase",
             conversion_location="website",
             demographics={
-                "automatic": True,
+                "automatic": False,
                 "gender": "all",
-                "maximum_age": 0,
-                "minimum_age": 0,
+                "maximum_age": 64,
+                "minimum_age": 21,
             },
-            desired_cost_per_result=0,
+            desired_cost_per_result=35,
             detailed_targeting={
                 "behaviors": [
                     {
-                        "id": "id",
-                        "name": "name",
+                        "id": "6007101291578",
+                        "name": "Recent vehicle purchase (30 days)",
                     }
                 ],
                 "demographics": [
                     {
-                        "id": "id",
+                        "id": "6002714398172",
                         "type": "life_events",
-                        "name": "name",
+                        "name": "Recently moved",
                     }
                 ],
                 "interests": [
                     {
-                        "id": "id",
-                        "name": "name",
+                        "id": "6007101291578",
+                        "name": "Recent vehicle purchase (30 days)",
                     }
                 ],
             },
@@ -78,69 +78,69 @@ class TestAdGroups:
                 "operating_systems": [
                     {
                         "os": "ios",
-                        "minimum_version": "minimum_version",
+                        "minimum_version": "18.0",
                     }
                 ],
                 "platforms": ["mobile"],
             },
-            dynamic_creative=True,
-            ends_at="ends_at",
+            dynamic_creative=False,
+            ends_at="2026-01-01T12:00:00.000Z",
             frequency_cap={
-                "maximum_impressions": 0,
-                "per_days": 0,
+                "maximum_impressions": 3,
+                "per_days": 7,
             },
-            languages=["string"],
-            message_apps=["messenger"],
-            minimum_daily_spend=0,
-            optimization_goal="conversions",
+            languages=["en"],
+            message_apps=["whatsapp"],
+            minimum_daily_spend=20,
+            optimization_goal="reach",
             placements="automatic",
             regions={
                 "exclude": {
                     "cities": [
                         {
-                            "key": "key",
-                            "name": "name",
+                            "key": "2418046",
+                            "name": "Austin",
                         }
                     ],
-                    "countries": ["string"],
-                    "country_groups": ["string"],
+                    "countries": ["US"],
+                    "country_groups": ["north_america"],
                     "custom_locations": [
                         {
-                            "latitude": 0,
-                            "longitude": 0,
-                            "radius": 0,
+                            "latitude": 30.2672,
+                            "longitude": -97.7431,
+                            "radius": 25,
                             "distance_unit": "mile",
-                            "name": "name",
+                            "name": "4180 Burnet Rd, Austin TX 78756",
                         }
                     ],
-                    "regions": ["string"],
-                    "zips": ["string"],
+                    "regions": ["US-TX"],
+                    "zips": ["78756"],
                 },
                 "include": {
                     "cities": [
                         {
-                            "key": "key",
-                            "name": "name",
+                            "key": "2418046",
+                            "name": "Austin",
                         }
                     ],
-                    "countries": ["string"],
-                    "country_groups": ["string"],
+                    "countries": ["US"],
+                    "country_groups": ["north_america"],
                     "custom_locations": [
                         {
-                            "latitude": 0,
-                            "longitude": 0,
-                            "radius": 0,
+                            "latitude": 30.2672,
+                            "longitude": -97.7431,
+                            "radius": 25,
                             "distance_unit": "mile",
-                            "name": "name",
+                            "name": "4180 Burnet Rd, Austin TX 78756",
                         }
                     ],
-                    "regions": ["string"],
-                    "zips": ["string"],
+                    "regions": ["US-TX"],
+                    "zips": ["78756"],
                 },
             },
-            starts_at="starts_at",
-            status="active",
-            title="title",
+            starts_at="2026-01-01T12:00:00.000Z",
+            status="paused",
+            title="North America — brand prospecting",
         )
         assert_matches_type(AdGroup, ad_group, path=["response"])
 
@@ -148,7 +148,7 @@ class TestAdGroups:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.ad_groups.with_raw_response.create(
-            ad_campaign_id="ad_campaign_id",
+            ad_campaign_id="adcamp_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -160,7 +160,7 @@ class TestAdGroups:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.ad_groups.with_streaming_response.create(
-            ad_campaign_id="ad_campaign_id",
+            ad_campaign_id="adcamp_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -238,39 +238,39 @@ class TestAdGroups:
         ad_group = client.ad_groups.update(
             id="id",
             audiences={
-                "exclude": ["string"],
-                "include": ["string"],
+                "exclude": ["adaud_xxxxxxxxxxxxxx"],
+                "include": ["adaud_xxxxxxxxxxxxxx"],
             },
-            bid_type="minimum_cost",
-            budget_amount=0,
+            bid_type="average_target",
+            budget_amount=40,
             budget_type="daily",
             conversion_event="purchase",
             conversion_location="website",
             demographics={
-                "automatic": True,
+                "automatic": False,
                 "gender": "all",
-                "maximum_age": 0,
-                "minimum_age": 0,
+                "maximum_age": 64,
+                "minimum_age": 21,
             },
-            desired_cost_per_result=0,
+            desired_cost_per_result=35,
             detailed_targeting={
                 "behaviors": [
                     {
-                        "id": "id",
-                        "name": "name",
+                        "id": "6007101291578",
+                        "name": "Recent vehicle purchase (30 days)",
                     }
                 ],
                 "demographics": [
                     {
-                        "id": "id",
+                        "id": "6002714398172",
                         "type": "life_events",
-                        "name": "name",
+                        "name": "Recently moved",
                     }
                 ],
                 "interests": [
                     {
-                        "id": "id",
-                        "name": "name",
+                        "id": "6007101291578",
+                        "name": "Recent vehicle purchase (30 days)",
                     }
                 ],
             },
@@ -278,68 +278,68 @@ class TestAdGroups:
                 "operating_systems": [
                     {
                         "os": "ios",
-                        "minimum_version": "minimum_version",
+                        "minimum_version": "18.0",
                     }
                 ],
                 "platforms": ["mobile"],
             },
-            ends_at="ends_at",
+            ends_at="2026-01-01T12:00:00.000Z",
             frequency_cap={
-                "maximum_impressions": 0,
-                "per_days": 0,
+                "maximum_impressions": 3,
+                "per_days": 7,
             },
-            languages=["string"],
-            message_apps=["messenger"],
-            minimum_daily_spend=0,
-            optimization_goal="conversions",
+            languages=["en"],
+            message_apps=["whatsapp"],
+            minimum_daily_spend=20,
+            optimization_goal="reach",
             placements="automatic",
             regions={
                 "exclude": {
                     "cities": [
                         {
-                            "key": "key",
-                            "name": "name",
+                            "key": "2418046",
+                            "name": "Austin",
                         }
                     ],
-                    "countries": ["string"],
-                    "country_groups": ["string"],
+                    "countries": ["US"],
+                    "country_groups": ["north_america"],
                     "custom_locations": [
                         {
-                            "latitude": 0,
-                            "longitude": 0,
-                            "radius": 0,
+                            "latitude": 30.2672,
+                            "longitude": -97.7431,
+                            "radius": 25,
                             "distance_unit": "mile",
-                            "name": "name",
+                            "name": "4180 Burnet Rd, Austin TX 78756",
                         }
                     ],
-                    "regions": ["string"],
-                    "zips": ["string"],
+                    "regions": ["US-TX"],
+                    "zips": ["78756"],
                 },
                 "include": {
                     "cities": [
                         {
-                            "key": "key",
-                            "name": "name",
+                            "key": "2418046",
+                            "name": "Austin",
                         }
                     ],
-                    "countries": ["string"],
-                    "country_groups": ["string"],
+                    "countries": ["US"],
+                    "country_groups": ["north_america"],
                     "custom_locations": [
                         {
-                            "latitude": 0,
-                            "longitude": 0,
-                            "radius": 0,
+                            "latitude": 30.2672,
+                            "longitude": -97.7431,
+                            "radius": 25,
                             "distance_unit": "mile",
-                            "name": "name",
+                            "name": "4180 Burnet Rd, Austin TX 78756",
                         }
                     ],
-                    "regions": ["string"],
-                    "zips": ["string"],
+                    "regions": ["US-TX"],
+                    "zips": ["78756"],
                 },
             },
-            starts_at="starts_at",
-            status="active",
-            title="title",
+            starts_at="2026-01-01T12:00:00.000Z",
+            status="paused",
+            title="North America — brand prospecting",
         )
         assert_matches_type(AdGroup, ad_group, path=["response"])
 
@@ -389,7 +389,7 @@ class TestAdGroups:
         ad_group = client.ad_groups.list(
             account_id="account_id",
             ad_campaign_id="ad_campaign_id",
-            ad_campaign_ids=["string"],
+            ad_campaign_ids=["adcamp_xxxxxxxxxxxxxx"],
             after="after",
             attribution_model="last_touch",
             before="before",
@@ -484,9 +484,9 @@ class TestAdGroups:
     def test_method_duplicate_with_all_params(self, client: Whop) -> None:
         ad_group = client.ad_groups.duplicate(
             id="id",
-            count=0,
+            count=2,
             preserve_engagement=True,
-            target_ad_campaign_id="target_ad_campaign_id",
+            target_ad_campaign_id="adcamp_xxxxxxxxxxxxxx",
         )
         assert_matches_type(AdGroupDuplicateResponse, ad_group, path=["response"])
 
@@ -537,35 +537,35 @@ class TestAdGroups:
     def test_method_estimate_reach_with_all_params(self, client: Whop) -> None:
         ad_group = client.ad_groups.estimate_reach(
             platform="meta",
-            account_id="account_id",
+            account_id="biz_xxxxxxxxxxxxxx",
             audiences={
-                "exclude": ["string"],
-                "include": ["string"],
+                "exclude": ["adaud_xxxxxxxxxxxxxx"],
+                "include": ["adaud_xxxxxxxxxxxxxx"],
             },
             demographics={
-                "automatic": True,
+                "automatic": False,
                 "gender": "all",
-                "maximum_age": 0,
-                "minimum_age": 0,
+                "maximum_age": 64,
+                "minimum_age": 21,
             },
             detailed_targeting={
                 "behaviors": [
                     {
-                        "id": "id",
-                        "name": "name",
+                        "id": "6007101291578",
+                        "name": "Recent vehicle purchase (30 days)",
                     }
                 ],
                 "demographics": [
                     {
-                        "id": "id",
+                        "id": "6002714398172",
                         "type": "life_events",
-                        "name": "name",
+                        "name": "Recently moved",
                     }
                 ],
                 "interests": [
                     {
-                        "id": "id",
-                        "name": "name",
+                        "id": "6007101291578",
+                        "name": "Recent vehicle purchase (30 days)",
                     }
                 ],
             },
@@ -573,54 +573,54 @@ class TestAdGroups:
                 "operating_systems": [
                     {
                         "os": "ios",
-                        "minimum_version": "minimum_version",
+                        "minimum_version": "18.0",
                     }
                 ],
                 "platforms": ["mobile"],
             },
-            languages=["string"],
+            languages=["en"],
             regions={
                 "exclude": {
                     "cities": [
                         {
-                            "key": "key",
-                            "name": "name",
+                            "key": "2418046",
+                            "name": "Austin",
                         }
                     ],
-                    "countries": ["string"],
-                    "country_groups": ["string"],
+                    "countries": ["US"],
+                    "country_groups": ["north_america"],
                     "custom_locations": [
                         {
-                            "latitude": 0,
-                            "longitude": 0,
-                            "radius": 0,
+                            "latitude": 30.2672,
+                            "longitude": -97.7431,
+                            "radius": 25,
                             "distance_unit": "mile",
-                            "name": "name",
+                            "name": "4180 Burnet Rd, Austin TX 78756",
                         }
                     ],
-                    "regions": ["string"],
-                    "zips": ["string"],
+                    "regions": ["US-TX"],
+                    "zips": ["78756"],
                 },
                 "include": {
                     "cities": [
                         {
-                            "key": "key",
-                            "name": "name",
+                            "key": "2418046",
+                            "name": "Austin",
                         }
                     ],
-                    "countries": ["string"],
-                    "country_groups": ["string"],
+                    "countries": ["US"],
+                    "country_groups": ["north_america"],
                     "custom_locations": [
                         {
-                            "latitude": 0,
-                            "longitude": 0,
-                            "radius": 0,
+                            "latitude": 30.2672,
+                            "longitude": -97.7431,
+                            "radius": 25,
                             "distance_unit": "mile",
-                            "name": "name",
+                            "name": "4180 Burnet Rd, Austin TX 78756",
                         }
                     ],
-                    "regions": ["string"],
-                    "zips": ["string"],
+                    "regions": ["US-TX"],
+                    "zips": ["78756"],
                 },
             },
         )
@@ -794,7 +794,7 @@ class TestAsyncAdGroups:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         ad_group = await async_client.ad_groups.create(
-            ad_campaign_id="ad_campaign_id",
+            ad_campaign_id="adcamp_xxxxxxxxxxxxxx",
         )
         assert_matches_type(AdGroup, ad_group, path=["response"])
 
@@ -802,41 +802,41 @@ class TestAsyncAdGroups:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         ad_group = await async_client.ad_groups.create(
-            ad_campaign_id="ad_campaign_id",
+            ad_campaign_id="adcamp_xxxxxxxxxxxxxx",
             audiences={
-                "exclude": ["string"],
-                "include": ["string"],
+                "exclude": ["adaud_xxxxxxxxxxxxxx"],
+                "include": ["adaud_xxxxxxxxxxxxxx"],
             },
-            bid_type="minimum_cost",
-            budget_amount=0,
+            bid_type="average_target",
+            budget_amount=40,
             budget_type="daily",
             conversion_event="purchase",
             conversion_location="website",
             demographics={
-                "automatic": True,
+                "automatic": False,
                 "gender": "all",
-                "maximum_age": 0,
-                "minimum_age": 0,
+                "maximum_age": 64,
+                "minimum_age": 21,
             },
-            desired_cost_per_result=0,
+            desired_cost_per_result=35,
             detailed_targeting={
                 "behaviors": [
                     {
-                        "id": "id",
-                        "name": "name",
+                        "id": "6007101291578",
+                        "name": "Recent vehicle purchase (30 days)",
                     }
                 ],
                 "demographics": [
                     {
-                        "id": "id",
+                        "id": "6002714398172",
                         "type": "life_events",
-                        "name": "name",
+                        "name": "Recently moved",
                     }
                 ],
                 "interests": [
                     {
-                        "id": "id",
-                        "name": "name",
+                        "id": "6007101291578",
+                        "name": "Recent vehicle purchase (30 days)",
                     }
                 ],
             },
@@ -844,69 +844,69 @@ class TestAsyncAdGroups:
                 "operating_systems": [
                     {
                         "os": "ios",
-                        "minimum_version": "minimum_version",
+                        "minimum_version": "18.0",
                     }
                 ],
                 "platforms": ["mobile"],
             },
-            dynamic_creative=True,
-            ends_at="ends_at",
+            dynamic_creative=False,
+            ends_at="2026-01-01T12:00:00.000Z",
             frequency_cap={
-                "maximum_impressions": 0,
-                "per_days": 0,
+                "maximum_impressions": 3,
+                "per_days": 7,
             },
-            languages=["string"],
-            message_apps=["messenger"],
-            minimum_daily_spend=0,
-            optimization_goal="conversions",
+            languages=["en"],
+            message_apps=["whatsapp"],
+            minimum_daily_spend=20,
+            optimization_goal="reach",
             placements="automatic",
             regions={
                 "exclude": {
                     "cities": [
                         {
-                            "key": "key",
-                            "name": "name",
+                            "key": "2418046",
+                            "name": "Austin",
                         }
                     ],
-                    "countries": ["string"],
-                    "country_groups": ["string"],
+                    "countries": ["US"],
+                    "country_groups": ["north_america"],
                     "custom_locations": [
                         {
-                            "latitude": 0,
-                            "longitude": 0,
-                            "radius": 0,
+                            "latitude": 30.2672,
+                            "longitude": -97.7431,
+                            "radius": 25,
                             "distance_unit": "mile",
-                            "name": "name",
+                            "name": "4180 Burnet Rd, Austin TX 78756",
                         }
                     ],
-                    "regions": ["string"],
-                    "zips": ["string"],
+                    "regions": ["US-TX"],
+                    "zips": ["78756"],
                 },
                 "include": {
                     "cities": [
                         {
-                            "key": "key",
-                            "name": "name",
+                            "key": "2418046",
+                            "name": "Austin",
                         }
                     ],
-                    "countries": ["string"],
-                    "country_groups": ["string"],
+                    "countries": ["US"],
+                    "country_groups": ["north_america"],
                     "custom_locations": [
                         {
-                            "latitude": 0,
-                            "longitude": 0,
-                            "radius": 0,
+                            "latitude": 30.2672,
+                            "longitude": -97.7431,
+                            "radius": 25,
                             "distance_unit": "mile",
-                            "name": "name",
+                            "name": "4180 Burnet Rd, Austin TX 78756",
                         }
                     ],
-                    "regions": ["string"],
-                    "zips": ["string"],
+                    "regions": ["US-TX"],
+                    "zips": ["78756"],
                 },
             },
-            starts_at="starts_at",
-            status="active",
-            title="title",
+            starts_at="2026-01-01T12:00:00.000Z",
+            status="paused",
+            title="North America — brand prospecting",
         )
         assert_matches_type(AdGroup, ad_group, path=["response"])
 
@@ -914,7 +914,7 @@ class TestAsyncAdGroups:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.ad_groups.with_raw_response.create(
-            ad_campaign_id="ad_campaign_id",
+            ad_campaign_id="adcamp_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -926,7 +926,7 @@ class TestAsyncAdGroups:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.ad_groups.with_streaming_response.create(
-            ad_campaign_id="ad_campaign_id",
+            ad_campaign_id="adcamp_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1004,39 +1004,39 @@ class TestAsyncAdGroups:
         ad_group = await async_client.ad_groups.update(
             id="id",
             audiences={
-                "exclude": ["string"],
-                "include": ["string"],
+                "exclude": ["adaud_xxxxxxxxxxxxxx"],
+                "include": ["adaud_xxxxxxxxxxxxxx"],
             },
-            bid_type="minimum_cost",
-            budget_amount=0,
+            bid_type="average_target",
+            budget_amount=40,
             budget_type="daily",
             conversion_event="purchase",
             conversion_location="website",
             demographics={
-                "automatic": True,
+                "automatic": False,
                 "gender": "all",
-                "maximum_age": 0,
-                "minimum_age": 0,
+                "maximum_age": 64,
+                "minimum_age": 21,
             },
-            desired_cost_per_result=0,
+            desired_cost_per_result=35,
             detailed_targeting={
                 "behaviors": [
                     {
-                        "id": "id",
-                        "name": "name",
+                        "id": "6007101291578",
+                        "name": "Recent vehicle purchase (30 days)",
                     }
                 ],
                 "demographics": [
                     {
-                        "id": "id",
+                        "id": "6002714398172",
                         "type": "life_events",
-                        "name": "name",
+                        "name": "Recently moved",
                     }
                 ],
                 "interests": [
                     {
-                        "id": "id",
-                        "name": "name",
+                        "id": "6007101291578",
+                        "name": "Recent vehicle purchase (30 days)",
                     }
                 ],
             },
@@ -1044,68 +1044,68 @@ class TestAsyncAdGroups:
                 "operating_systems": [
                     {
                         "os": "ios",
-                        "minimum_version": "minimum_version",
+                        "minimum_version": "18.0",
                     }
                 ],
                 "platforms": ["mobile"],
             },
-            ends_at="ends_at",
+            ends_at="2026-01-01T12:00:00.000Z",
             frequency_cap={
-                "maximum_impressions": 0,
-                "per_days": 0,
+                "maximum_impressions": 3,
+                "per_days": 7,
             },
-            languages=["string"],
-            message_apps=["messenger"],
-            minimum_daily_spend=0,
-            optimization_goal="conversions",
+            languages=["en"],
+            message_apps=["whatsapp"],
+            minimum_daily_spend=20,
+            optimization_goal="reach",
             placements="automatic",
             regions={
                 "exclude": {
                     "cities": [
                         {
-                            "key": "key",
-                            "name": "name",
+                            "key": "2418046",
+                            "name": "Austin",
                         }
                     ],
-                    "countries": ["string"],
-                    "country_groups": ["string"],
+                    "countries": ["US"],
+                    "country_groups": ["north_america"],
                     "custom_locations": [
                         {
-                            "latitude": 0,
-                            "longitude": 0,
-                            "radius": 0,
+                            "latitude": 30.2672,
+                            "longitude": -97.7431,
+                            "radius": 25,
                             "distance_unit": "mile",
-                            "name": "name",
+                            "name": "4180 Burnet Rd, Austin TX 78756",
                         }
                     ],
-                    "regions": ["string"],
-                    "zips": ["string"],
+                    "regions": ["US-TX"],
+                    "zips": ["78756"],
                 },
                 "include": {
                     "cities": [
                         {
-                            "key": "key",
-                            "name": "name",
+                            "key": "2418046",
+                            "name": "Austin",
                         }
                     ],
-                    "countries": ["string"],
-                    "country_groups": ["string"],
+                    "countries": ["US"],
+                    "country_groups": ["north_america"],
                     "custom_locations": [
                         {
-                            "latitude": 0,
-                            "longitude": 0,
-                            "radius": 0,
+                            "latitude": 30.2672,
+                            "longitude": -97.7431,
+                            "radius": 25,
                             "distance_unit": "mile",
-                            "name": "name",
+                            "name": "4180 Burnet Rd, Austin TX 78756",
                         }
                     ],
-                    "regions": ["string"],
-                    "zips": ["string"],
+                    "regions": ["US-TX"],
+                    "zips": ["78756"],
                 },
             },
-            starts_at="starts_at",
-            status="active",
-            title="title",
+            starts_at="2026-01-01T12:00:00.000Z",
+            status="paused",
+            title="North America — brand prospecting",
         )
         assert_matches_type(AdGroup, ad_group, path=["response"])
 
@@ -1155,7 +1155,7 @@ class TestAsyncAdGroups:
         ad_group = await async_client.ad_groups.list(
             account_id="account_id",
             ad_campaign_id="ad_campaign_id",
-            ad_campaign_ids=["string"],
+            ad_campaign_ids=["adcamp_xxxxxxxxxxxxxx"],
             after="after",
             attribution_model="last_touch",
             before="before",
@@ -1250,9 +1250,9 @@ class TestAsyncAdGroups:
     async def test_method_duplicate_with_all_params(self, async_client: AsyncWhop) -> None:
         ad_group = await async_client.ad_groups.duplicate(
             id="id",
-            count=0,
+            count=2,
             preserve_engagement=True,
-            target_ad_campaign_id="target_ad_campaign_id",
+            target_ad_campaign_id="adcamp_xxxxxxxxxxxxxx",
         )
         assert_matches_type(AdGroupDuplicateResponse, ad_group, path=["response"])
 
@@ -1303,35 +1303,35 @@ class TestAsyncAdGroups:
     async def test_method_estimate_reach_with_all_params(self, async_client: AsyncWhop) -> None:
         ad_group = await async_client.ad_groups.estimate_reach(
             platform="meta",
-            account_id="account_id",
+            account_id="biz_xxxxxxxxxxxxxx",
             audiences={
-                "exclude": ["string"],
-                "include": ["string"],
+                "exclude": ["adaud_xxxxxxxxxxxxxx"],
+                "include": ["adaud_xxxxxxxxxxxxxx"],
             },
             demographics={
-                "automatic": True,
+                "automatic": False,
                 "gender": "all",
-                "maximum_age": 0,
-                "minimum_age": 0,
+                "maximum_age": 64,
+                "minimum_age": 21,
             },
             detailed_targeting={
                 "behaviors": [
                     {
-                        "id": "id",
-                        "name": "name",
+                        "id": "6007101291578",
+                        "name": "Recent vehicle purchase (30 days)",
                     }
                 ],
                 "demographics": [
                     {
-                        "id": "id",
+                        "id": "6002714398172",
                         "type": "life_events",
-                        "name": "name",
+                        "name": "Recently moved",
                     }
                 ],
                 "interests": [
                     {
-                        "id": "id",
-                        "name": "name",
+                        "id": "6007101291578",
+                        "name": "Recent vehicle purchase (30 days)",
                     }
                 ],
             },
@@ -1339,54 +1339,54 @@ class TestAsyncAdGroups:
                 "operating_systems": [
                     {
                         "os": "ios",
-                        "minimum_version": "minimum_version",
+                        "minimum_version": "18.0",
                     }
                 ],
                 "platforms": ["mobile"],
             },
-            languages=["string"],
+            languages=["en"],
             regions={
                 "exclude": {
                     "cities": [
                         {
-                            "key": "key",
-                            "name": "name",
+                            "key": "2418046",
+                            "name": "Austin",
                         }
                     ],
-                    "countries": ["string"],
-                    "country_groups": ["string"],
+                    "countries": ["US"],
+                    "country_groups": ["north_america"],
                     "custom_locations": [
                         {
-                            "latitude": 0,
-                            "longitude": 0,
-                            "radius": 0,
+                            "latitude": 30.2672,
+                            "longitude": -97.7431,
+                            "radius": 25,
                             "distance_unit": "mile",
-                            "name": "name",
+                            "name": "4180 Burnet Rd, Austin TX 78756",
                         }
                     ],
-                    "regions": ["string"],
-                    "zips": ["string"],
+                    "regions": ["US-TX"],
+                    "zips": ["78756"],
                 },
                 "include": {
                     "cities": [
                         {
-                            "key": "key",
-                            "name": "name",
+                            "key": "2418046",
+                            "name": "Austin",
                         }
                     ],
-                    "countries": ["string"],
-                    "country_groups": ["string"],
+                    "countries": ["US"],
+                    "country_groups": ["north_america"],
                     "custom_locations": [
                         {
-                            "latitude": 0,
-                            "longitude": 0,
-                            "radius": 0,
+                            "latitude": 30.2672,
+                            "longitude": -97.7431,
+                            "radius": 25,
                             "distance_unit": "mile",
-                            "name": "name",
+                            "name": "4180 Burnet Rd, Austin TX 78756",
                         }
                     ],
-                    "regions": ["string"],
-                    "zips": ["string"],
+                    "regions": ["US-TX"],
+                    "zips": ["78756"],
                 },
             },
         )

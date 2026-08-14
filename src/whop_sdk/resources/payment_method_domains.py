@@ -74,7 +74,7 @@ class PaymentMethodDomainsResource(SyncAPIResource):
         endpoint.
 
         Args:
-          hostname: Hostname to register (e.g. `checkout.example.com`).
+          hostname: Hostname to register (e.g. `checkout.shinetime.example`).
 
           account_id: Account to register the domain for (`biz_` tag). Defaults to the caller's
               account.
@@ -362,7 +362,7 @@ class AsyncPaymentMethodDomainsResource(AsyncAPIResource):
         endpoint.
 
         Args:
-          hostname: Hostname to register (e.g. `checkout.example.com`).
+          hostname: Hostname to register (e.g. `checkout.shinetime.example`).
 
           account_id: Account to register the domain for (`biz_` tag). Defaults to the caller's
               account.

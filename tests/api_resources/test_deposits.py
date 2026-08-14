@@ -30,8 +30,8 @@ class TestDeposits:
     def test_method_create_with_all_params(self, client: Whop) -> None:
         deposit = client.deposits.create(
             destination="string",
-            amount=0,
-            metadata={"foo": "bar"},
+            amount=50,
+            metadata={"invoice": "bar"},
             network="ethereum",
         )
         assert_matches_type(DepositCreateResponse, deposit, path=["response"])
@@ -81,8 +81,8 @@ class TestAsyncDeposits:
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         deposit = await async_client.deposits.create(
             destination="string",
-            amount=0,
-            metadata={"foo": "bar"},
+            amount=50,
+            metadata={"invoice": "bar"},
             network="ethereum",
         )
         assert_matches_type(DepositCreateResponse, deposit, path=["response"])

@@ -27,7 +27,7 @@ class TestMethods:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         method = client.payouts.methods.create(
-            supported_payout_method_id="supported_payout_method_id",
+            supported_payout_method_id="podst_xxxxxxxxxxxxxx",
         )
         assert_matches_type(MethodCreateResponse, method, path=["response"])
 
@@ -35,13 +35,16 @@ class TestMethods:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         method = client.payouts.methods.create(
-            supported_payout_method_id="supported_payout_method_id",
-            account_id="account_id",
-            destination_currency="destination_currency",
-            fields={"foo": "string"},
+            supported_payout_method_id="podst_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
+            destination_currency="usd",
+            fields={
+                "attr_account": "8825310472",
+                "attr_type": "Checking",
+            },
             is_default=True,
-            nickname="nickname",
-            user_id="user_id",
+            nickname="Personal checking",
+            user_id="user_xxxxxxxxxxxxxx",
         )
         assert_matches_type(MethodCreateResponse, method, path=["response"])
 
@@ -49,7 +52,7 @@ class TestMethods:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.payouts.methods.with_raw_response.create(
-            supported_payout_method_id="supported_payout_method_id",
+            supported_payout_method_id="podst_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -61,7 +64,7 @@ class TestMethods:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.payouts.methods.with_streaming_response.create(
-            supported_payout_method_id="supported_payout_method_id",
+            supported_payout_method_id="podst_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -76,7 +79,7 @@ class TestMethods:
     def test_method_update(self, client: Whop) -> None:
         method = client.payouts.methods.update(
             payout_method_id="payout_method_id",
-            nickname="x",
+            nickname="Primary checking",
         )
         assert_matches_type(MethodUpdateResponse, method, path=["response"])
 
@@ -85,7 +88,7 @@ class TestMethods:
     def test_raw_response_update(self, client: Whop) -> None:
         response = client.payouts.methods.with_raw_response.update(
             payout_method_id="payout_method_id",
-            nickname="x",
+            nickname="Primary checking",
         )
 
         assert response.is_closed is True
@@ -98,7 +101,7 @@ class TestMethods:
     def test_streaming_response_update(self, client: Whop) -> None:
         with client.payouts.methods.with_streaming_response.update(
             payout_method_id="payout_method_id",
-            nickname="x",
+            nickname="Primary checking",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -114,7 +117,7 @@ class TestMethods:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `payout_method_id` but received ''"):
             client.payouts.methods.with_raw_response.update(
                 payout_method_id="",
-                nickname="x",
+                nickname="Primary checking",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -214,7 +217,7 @@ class TestAsyncMethods:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         method = await async_client.payouts.methods.create(
-            supported_payout_method_id="supported_payout_method_id",
+            supported_payout_method_id="podst_xxxxxxxxxxxxxx",
         )
         assert_matches_type(MethodCreateResponse, method, path=["response"])
 
@@ -222,13 +225,16 @@ class TestAsyncMethods:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         method = await async_client.payouts.methods.create(
-            supported_payout_method_id="supported_payout_method_id",
-            account_id="account_id",
-            destination_currency="destination_currency",
-            fields={"foo": "string"},
+            supported_payout_method_id="podst_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
+            destination_currency="usd",
+            fields={
+                "attr_account": "8825310472",
+                "attr_type": "Checking",
+            },
             is_default=True,
-            nickname="nickname",
-            user_id="user_id",
+            nickname="Personal checking",
+            user_id="user_xxxxxxxxxxxxxx",
         )
         assert_matches_type(MethodCreateResponse, method, path=["response"])
 
@@ -236,7 +242,7 @@ class TestAsyncMethods:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.payouts.methods.with_raw_response.create(
-            supported_payout_method_id="supported_payout_method_id",
+            supported_payout_method_id="podst_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -248,7 +254,7 @@ class TestAsyncMethods:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.payouts.methods.with_streaming_response.create(
-            supported_payout_method_id="supported_payout_method_id",
+            supported_payout_method_id="podst_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -263,7 +269,7 @@ class TestAsyncMethods:
     async def test_method_update(self, async_client: AsyncWhop) -> None:
         method = await async_client.payouts.methods.update(
             payout_method_id="payout_method_id",
-            nickname="x",
+            nickname="Primary checking",
         )
         assert_matches_type(MethodUpdateResponse, method, path=["response"])
 
@@ -272,7 +278,7 @@ class TestAsyncMethods:
     async def test_raw_response_update(self, async_client: AsyncWhop) -> None:
         response = await async_client.payouts.methods.with_raw_response.update(
             payout_method_id="payout_method_id",
-            nickname="x",
+            nickname="Primary checking",
         )
 
         assert response.is_closed is True
@@ -285,7 +291,7 @@ class TestAsyncMethods:
     async def test_streaming_response_update(self, async_client: AsyncWhop) -> None:
         async with async_client.payouts.methods.with_streaming_response.update(
             payout_method_id="payout_method_id",
-            nickname="x",
+            nickname="Primary checking",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -301,7 +307,7 @@ class TestAsyncMethods:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `payout_method_id` but received ''"):
             await async_client.payouts.methods.with_raw_response.update(
                 payout_method_id="",
-                nickname="x",
+                nickname="Primary checking",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")

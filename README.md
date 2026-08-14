@@ -202,7 +202,7 @@ from whop_sdk import Whop
 client = Whop()
 
 app = client.apps.create(
-    name="name",
+    name="Shine Time Booking",
     icon={},
 )
 print(app.icon)

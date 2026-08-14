@@ -33,10 +33,10 @@ class TestAccounts:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         account = client.accounts.create(
-            country="country",
-            email="email",
-            metadata={"foo": "bar"},
-            title="title",
+            country="US",
+            email="marcus@shinetime.example",
+            metadata={"external_id": "bar"},
+            title="Shine Time Auto Detailing",
         )
         assert_matches_type(Account, account, path=["response"])
 
@@ -118,59 +118,67 @@ class TestAccounts:
         account = client.accounts.update(
             account_id="account_id",
             affiliate_application_required=True,
-            affiliate_instructions="affiliate_instructions",
-            banner_image={"id": "id"},
+            affiliate_instructions="Send us your detailing content before promoting. No paid search on our brand terms.",
+            banner_image={"id": "file_xxxxxxxxxxxxxx"},
             business_address={
-                "city": "city",
-                "country": "country",
-                "line1": "line1",
-                "line2": "line2",
-                "postal_code": "postal_code",
-                "state": "state",
+                "city": "Austin",
+                "country": "US",
+                "line1": "4180 Burnet Rd",
+                "line2": "Suite 2",
+                "postal_code": "78756",
+                "state": "TX",
             },
-            business_name="business_name",
-            business_type="education_program",
+            business_name="  Shine Time Auto Detailing, LLC  ",
+            business_type="other",
             collect_vat_id=True,
-            country="country",
-            description="description",
-            featured_affiliate_product_id="featured_affiliate_product_id",
+            country="US",
+            description="Mobile ceramic coating, paint correction, and interior detailing across the Austin metro.",
+            featured_affiliate_product_id="prod_xxxxxxxxxxxxxx",
             home_preferences=["hide_member_count"],
-            industry_group="academic_and_test_prep",
-            industry_type="trading",
-            invoice_prefix="invoice_prefix",
-            logo={"id": "id"},
-            metadata={"foo": "bar"},
-            onboarding_type="platform",
-            opengraph_image={"id": "id"},
-            opengraph_image_variant="white",
-            other_business_description="other_business_description",
-            other_industry_description="other_industry_description",
-            product_tax_code_id="product_tax_code_id",
-            require_2fa=True,
-            route="route",
-            send_customer_emails=True,
-            show_joined_whops=True,
-            show_reviews_dtc=True,
-            show_user_directory=True,
-            social_links=[{"foo": "bar"}],
-            store_page_config={
-                "accent_color": "ruby",
-                "layout": "featured",
-                "profile_variant": "personal",
-                "whop_affiliate_link": True,
+            industry_group="automotive",
+            industry_type="other",
+            invoice_prefix="SHINE",
+            logo={"id": "file_xxxxxxxxxxxxxx"},
+            metadata={
+                "external_id": "bar",
+                "region": "bar",
             },
-            target_audience="target_audience",
-            tax_collection_enabled_states=["AL"],
-            tax_identifiers=[
+            onboarding_type="seller",
+            opengraph_image={"id": "file_xxxxxxxxxxxxxx"},
+            opengraph_image_variant="black",
+            other_business_description="Mobile auto detailing",
+            other_industry_description="Automotive services",
+            product_tax_code_id="ptc_xxxxxxxxxxxxxx",
+            require_2fa=True,
+            route="shine-time-detailing",
+            send_customer_emails=False,
+            show_joined_whops=False,
+            show_reviews_dtc=False,
+            show_user_directory=False,
+            social_links=[
                 {
-                    "tax_id_type": "ad_nrt",
-                    "tax_id_value": "tax_id_value",
+                    "url": "bar",
+                    "website": "bar",
                 }
             ],
-            tax_remitted_by="whop",
+            store_page_config={
+                "accent_color": "red",
+                "layout": "compact",
+                "profile_variant": "business",
+                "whop_affiliate_link": True,
+            },
+            target_audience="Owners of new and enthusiast vehicles in Austin, TX",
+            tax_collection_enabled_states=["TX"],
+            tax_identifiers=[
+                {
+                    "tax_id_type": "eu_vat",
+                    "tax_id_value": "DE123456789",
+                }
+            ],
+            tax_remitted_by="self",
             tax_type="inclusive",
             three_ds_level="mandate_challenge",
-            title="title",
+            title="Shine Time Auto Detailing",
             use_logo_as_opengraph_image_fallback=True,
         )
         assert_matches_type(Account, account, path=["response"])
@@ -262,27 +270,27 @@ class TestAccounts:
     def test_method_form_company(self, client: Whop) -> None:
         account = client.accounts.form_company(
             account_id="account_id",
-            business_name="<string>",
-            business_type="<string>",
-            formation_state="AL",
+            business_name="Shine Time Auto Detailing",
+            business_type="brick_and_mortar",
+            formation_state="TX",
             founders=[
                 {
                     "address": {
-                        "city": "<string>",
-                        "country": "<string>",
-                        "line1": "<string>",
-                        "postal_code": "<string>",
-                        "state": "<string>",
+                        "city": "Austin",
+                        "country": "US",
+                        "line1": "907 Ridgemont Dr",
+                        "postal_code": "78704",
+                        "state": "TX",
                     },
-                    "email": "<string>",
-                    "first_name": "<string>",
+                    "email": "marcus@shinetime.example",
+                    "first_name": "Marcus",
                     "is_primary": True,
-                    "last_name": "<string>",
-                    "phone": "<string>",
+                    "last_name": "Webb",
+                    "phone": "+15125550142",
                 }
             ],
-            industry_group="<string>",
-            industry_type="<string>",
+            industry_group="automotive",
+            industry_type="car_wash",
         )
         assert_matches_type(AccountFormCompanyResponse, account, path=["response"])
 
@@ -291,42 +299,42 @@ class TestAccounts:
     def test_method_form_company_with_all_params(self, client: Whop) -> None:
         account = client.accounts.form_company(
             account_id="account_id",
-            business_name="<string>",
-            business_type="<string>",
-            formation_state="AL",
+            business_name="Shine Time Auto Detailing",
+            business_type="brick_and_mortar",
+            formation_state="TX",
             founders=[
                 {
                     "address": {
-                        "city": "<string>",
-                        "country": "<string>",
-                        "line1": "<string>",
-                        "postal_code": "<string>",
-                        "state": "<string>",
-                        "line2": "<string>",
+                        "city": "Austin",
+                        "country": "US",
+                        "line1": "907 Ridgemont Dr",
+                        "postal_code": "78704",
+                        "state": "TX",
+                        "line2": "Apt 4",
                     },
-                    "email": "<string>",
-                    "first_name": "<string>",
+                    "email": "marcus@shinetime.example",
+                    "first_name": "Marcus",
                     "is_primary": True,
-                    "last_name": "<string>",
-                    "phone": "<string>",
-                    "date_of_birth": "<string>",
-                    "ownership_percentage": 123,
+                    "last_name": "Webb",
+                    "phone": "+15125550142",
+                    "date_of_birth": "1988-03-14",
+                    "ownership_percentage": 100,
                     "roles": ["president"],
-                    "ssn": "<string>",
+                    "ssn": "123-45-6789",
                 }
             ],
-            industry_group="<string>",
-            industry_type="<string>",
+            industry_group="automotive",
+            industry_type="car_wash",
             business_address={
-                "city": "<string>",
-                "country": "<string>",
-                "line1": "<string>",
-                "postal_code": "<string>",
-                "state": "<string>",
-                "line2": "<string>",
+                "city": "Austin",
+                "country": "US",
+                "line1": "4180 Burnet Rd",
+                "postal_code": "78756",
+                "state": "TX",
+                "line2": "Suite 2",
             },
-            business_phone="<string>",
-            business_website="<string>",
+            business_phone="+15125550142",
+            business_website="https://shinetime.example",
             entity_suffix="LLC",
             entity_type="llc",
             expedite_ein=True,
@@ -343,27 +351,27 @@ class TestAccounts:
     def test_raw_response_form_company(self, client: Whop) -> None:
         response = client.accounts.with_raw_response.form_company(
             account_id="account_id",
-            business_name="<string>",
-            business_type="<string>",
-            formation_state="AL",
+            business_name="Shine Time Auto Detailing",
+            business_type="brick_and_mortar",
+            formation_state="TX",
             founders=[
                 {
                     "address": {
-                        "city": "<string>",
-                        "country": "<string>",
-                        "line1": "<string>",
-                        "postal_code": "<string>",
-                        "state": "<string>",
+                        "city": "Austin",
+                        "country": "US",
+                        "line1": "907 Ridgemont Dr",
+                        "postal_code": "78704",
+                        "state": "TX",
                     },
-                    "email": "<string>",
-                    "first_name": "<string>",
+                    "email": "marcus@shinetime.example",
+                    "first_name": "Marcus",
                     "is_primary": True,
-                    "last_name": "<string>",
-                    "phone": "<string>",
+                    "last_name": "Webb",
+                    "phone": "+15125550142",
                 }
             ],
-            industry_group="<string>",
-            industry_type="<string>",
+            industry_group="automotive",
+            industry_type="car_wash",
         )
 
         assert response.is_closed is True
@@ -376,27 +384,27 @@ class TestAccounts:
     def test_streaming_response_form_company(self, client: Whop) -> None:
         with client.accounts.with_streaming_response.form_company(
             account_id="account_id",
-            business_name="<string>",
-            business_type="<string>",
-            formation_state="AL",
+            business_name="Shine Time Auto Detailing",
+            business_type="brick_and_mortar",
+            formation_state="TX",
             founders=[
                 {
                     "address": {
-                        "city": "<string>",
-                        "country": "<string>",
-                        "line1": "<string>",
-                        "postal_code": "<string>",
-                        "state": "<string>",
+                        "city": "Austin",
+                        "country": "US",
+                        "line1": "907 Ridgemont Dr",
+                        "postal_code": "78704",
+                        "state": "TX",
                     },
-                    "email": "<string>",
-                    "first_name": "<string>",
+                    "email": "marcus@shinetime.example",
+                    "first_name": "Marcus",
                     "is_primary": True,
-                    "last_name": "<string>",
-                    "phone": "<string>",
+                    "last_name": "Webb",
+                    "phone": "+15125550142",
                 }
             ],
-            industry_group="<string>",
-            industry_type="<string>",
+            industry_group="automotive",
+            industry_type="car_wash",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -412,27 +420,27 @@ class TestAccounts:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `account_id` but received ''"):
             client.accounts.with_raw_response.form_company(
                 account_id="",
-                business_name="<string>",
-                business_type="<string>",
-                formation_state="AL",
+                business_name="Shine Time Auto Detailing",
+                business_type="brick_and_mortar",
+                formation_state="TX",
                 founders=[
                     {
                         "address": {
-                            "city": "<string>",
-                            "country": "<string>",
-                            "line1": "<string>",
-                            "postal_code": "<string>",
-                            "state": "<string>",
+                            "city": "Austin",
+                            "country": "US",
+                            "line1": "907 Ridgemont Dr",
+                            "postal_code": "78704",
+                            "state": "TX",
                         },
-                        "email": "<string>",
-                        "first_name": "<string>",
+                        "email": "marcus@shinetime.example",
+                        "first_name": "Marcus",
                         "is_primary": True,
-                        "last_name": "<string>",
-                        "phone": "<string>",
+                        "last_name": "Webb",
+                        "phone": "+15125550142",
                     }
                 ],
-                industry_group="<string>",
-                industry_type="<string>",
+                industry_group="automotive",
+                industry_type="car_wash",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -468,7 +476,7 @@ class TestAccounts:
     def test_method_transfer_ownership(self, client: Whop) -> None:
         account = client.accounts.transfer_ownership(
             account_id="account_id",
-            identifier="identifier",
+            identifier="marcus@shinetime.example",
         )
         assert_matches_type(AccountTransferOwnershipResponse, account, path=["response"])
 
@@ -477,7 +485,7 @@ class TestAccounts:
     def test_method_transfer_ownership_with_all_params(self, client: Whop) -> None:
         account = client.accounts.transfer_ownership(
             account_id="account_id",
-            identifier="identifier",
+            identifier="marcus@shinetime.example",
             as_partner=True,
         )
         assert_matches_type(AccountTransferOwnershipResponse, account, path=["response"])
@@ -487,7 +495,7 @@ class TestAccounts:
     def test_raw_response_transfer_ownership(self, client: Whop) -> None:
         response = client.accounts.with_raw_response.transfer_ownership(
             account_id="account_id",
-            identifier="identifier",
+            identifier="marcus@shinetime.example",
         )
 
         assert response.is_closed is True
@@ -500,7 +508,7 @@ class TestAccounts:
     def test_streaming_response_transfer_ownership(self, client: Whop) -> None:
         with client.accounts.with_streaming_response.transfer_ownership(
             account_id="account_id",
-            identifier="identifier",
+            identifier="marcus@shinetime.example",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -516,7 +524,7 @@ class TestAccounts:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `account_id` but received ''"):
             client.accounts.with_raw_response.transfer_ownership(
                 account_id="",
-                identifier="identifier",
+                identifier="marcus@shinetime.example",
             )
 
 
@@ -535,10 +543,10 @@ class TestAsyncAccounts:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         account = await async_client.accounts.create(
-            country="country",
-            email="email",
-            metadata={"foo": "bar"},
-            title="title",
+            country="US",
+            email="marcus@shinetime.example",
+            metadata={"external_id": "bar"},
+            title="Shine Time Auto Detailing",
         )
         assert_matches_type(Account, account, path=["response"])
 
@@ -620,59 +628,67 @@ class TestAsyncAccounts:
         account = await async_client.accounts.update(
             account_id="account_id",
             affiliate_application_required=True,
-            affiliate_instructions="affiliate_instructions",
-            banner_image={"id": "id"},
+            affiliate_instructions="Send us your detailing content before promoting. No paid search on our brand terms.",
+            banner_image={"id": "file_xxxxxxxxxxxxxx"},
             business_address={
-                "city": "city",
-                "country": "country",
-                "line1": "line1",
-                "line2": "line2",
-                "postal_code": "postal_code",
-                "state": "state",
+                "city": "Austin",
+                "country": "US",
+                "line1": "4180 Burnet Rd",
+                "line2": "Suite 2",
+                "postal_code": "78756",
+                "state": "TX",
             },
-            business_name="business_name",
-            business_type="education_program",
+            business_name="  Shine Time Auto Detailing, LLC  ",
+            business_type="other",
             collect_vat_id=True,
-            country="country",
-            description="description",
-            featured_affiliate_product_id="featured_affiliate_product_id",
+            country="US",
+            description="Mobile ceramic coating, paint correction, and interior detailing across the Austin metro.",
+            featured_affiliate_product_id="prod_xxxxxxxxxxxxxx",
             home_preferences=["hide_member_count"],
-            industry_group="academic_and_test_prep",
-            industry_type="trading",
-            invoice_prefix="invoice_prefix",
-            logo={"id": "id"},
-            metadata={"foo": "bar"},
-            onboarding_type="platform",
-            opengraph_image={"id": "id"},
-            opengraph_image_variant="white",
-            other_business_description="other_business_description",
-            other_industry_description="other_industry_description",
-            product_tax_code_id="product_tax_code_id",
-            require_2fa=True,
-            route="route",
-            send_customer_emails=True,
-            show_joined_whops=True,
-            show_reviews_dtc=True,
-            show_user_directory=True,
-            social_links=[{"foo": "bar"}],
-            store_page_config={
-                "accent_color": "ruby",
-                "layout": "featured",
-                "profile_variant": "personal",
-                "whop_affiliate_link": True,
+            industry_group="automotive",
+            industry_type="other",
+            invoice_prefix="SHINE",
+            logo={"id": "file_xxxxxxxxxxxxxx"},
+            metadata={
+                "external_id": "bar",
+                "region": "bar",
             },
-            target_audience="target_audience",
-            tax_collection_enabled_states=["AL"],
-            tax_identifiers=[
+            onboarding_type="seller",
+            opengraph_image={"id": "file_xxxxxxxxxxxxxx"},
+            opengraph_image_variant="black",
+            other_business_description="Mobile auto detailing",
+            other_industry_description="Automotive services",
+            product_tax_code_id="ptc_xxxxxxxxxxxxxx",
+            require_2fa=True,
+            route="shine-time-detailing",
+            send_customer_emails=False,
+            show_joined_whops=False,
+            show_reviews_dtc=False,
+            show_user_directory=False,
+            social_links=[
                 {
-                    "tax_id_type": "ad_nrt",
-                    "tax_id_value": "tax_id_value",
+                    "url": "bar",
+                    "website": "bar",
                 }
             ],
-            tax_remitted_by="whop",
+            store_page_config={
+                "accent_color": "red",
+                "layout": "compact",
+                "profile_variant": "business",
+                "whop_affiliate_link": True,
+            },
+            target_audience="Owners of new and enthusiast vehicles in Austin, TX",
+            tax_collection_enabled_states=["TX"],
+            tax_identifiers=[
+                {
+                    "tax_id_type": "eu_vat",
+                    "tax_id_value": "DE123456789",
+                }
+            ],
+            tax_remitted_by="self",
             tax_type="inclusive",
             three_ds_level="mandate_challenge",
-            title="title",
+            title="Shine Time Auto Detailing",
             use_logo_as_opengraph_image_fallback=True,
         )
         assert_matches_type(Account, account, path=["response"])
@@ -764,27 +780,27 @@ class TestAsyncAccounts:
     async def test_method_form_company(self, async_client: AsyncWhop) -> None:
         account = await async_client.accounts.form_company(
             account_id="account_id",
-            business_name="<string>",
-            business_type="<string>",
-            formation_state="AL",
+            business_name="Shine Time Auto Detailing",
+            business_type="brick_and_mortar",
+            formation_state="TX",
             founders=[
                 {
                     "address": {
-                        "city": "<string>",
-                        "country": "<string>",
-                        "line1": "<string>",
-                        "postal_code": "<string>",
-                        "state": "<string>",
+                        "city": "Austin",
+                        "country": "US",
+                        "line1": "907 Ridgemont Dr",
+                        "postal_code": "78704",
+                        "state": "TX",
                     },
-                    "email": "<string>",
-                    "first_name": "<string>",
+                    "email": "marcus@shinetime.example",
+                    "first_name": "Marcus",
                     "is_primary": True,
-                    "last_name": "<string>",
-                    "phone": "<string>",
+                    "last_name": "Webb",
+                    "phone": "+15125550142",
                 }
             ],
-            industry_group="<string>",
-            industry_type="<string>",
+            industry_group="automotive",
+            industry_type="car_wash",
         )
         assert_matches_type(AccountFormCompanyResponse, account, path=["response"])
 
@@ -793,42 +809,42 @@ class TestAsyncAccounts:
     async def test_method_form_company_with_all_params(self, async_client: AsyncWhop) -> None:
         account = await async_client.accounts.form_company(
             account_id="account_id",
-            business_name="<string>",
-            business_type="<string>",
-            formation_state="AL",
+            business_name="Shine Time Auto Detailing",
+            business_type="brick_and_mortar",
+            formation_state="TX",
             founders=[
                 {
                     "address": {
-                        "city": "<string>",
-                        "country": "<string>",
-                        "line1": "<string>",
-                        "postal_code": "<string>",
-                        "state": "<string>",
-                        "line2": "<string>",
+                        "city": "Austin",
+                        "country": "US",
+                        "line1": "907 Ridgemont Dr",
+                        "postal_code": "78704",
+                        "state": "TX",
+                        "line2": "Apt 4",
                     },
-                    "email": "<string>",
-                    "first_name": "<string>",
+                    "email": "marcus@shinetime.example",
+                    "first_name": "Marcus",
                     "is_primary": True,
-                    "last_name": "<string>",
-                    "phone": "<string>",
-                    "date_of_birth": "<string>",
-                    "ownership_percentage": 123,
+                    "last_name": "Webb",
+                    "phone": "+15125550142",
+                    "date_of_birth": "1988-03-14",
+                    "ownership_percentage": 100,
                     "roles": ["president"],
-                    "ssn": "<string>",
+                    "ssn": "123-45-6789",
                 }
             ],
-            industry_group="<string>",
-            industry_type="<string>",
+            industry_group="automotive",
+            industry_type="car_wash",
             business_address={
-                "city": "<string>",
-                "country": "<string>",
-                "line1": "<string>",
-                "postal_code": "<string>",
-                "state": "<string>",
-                "line2": "<string>",
+                "city": "Austin",
+                "country": "US",
+                "line1": "4180 Burnet Rd",
+                "postal_code": "78756",
+                "state": "TX",
+                "line2": "Suite 2",
             },
-            business_phone="<string>",
-            business_website="<string>",
+            business_phone="+15125550142",
+            business_website="https://shinetime.example",
             entity_suffix="LLC",
             entity_type="llc",
             expedite_ein=True,
@@ -845,27 +861,27 @@ class TestAsyncAccounts:
     async def test_raw_response_form_company(self, async_client: AsyncWhop) -> None:
         response = await async_client.accounts.with_raw_response.form_company(
             account_id="account_id",
-            business_name="<string>",
-            business_type="<string>",
-            formation_state="AL",
+            business_name="Shine Time Auto Detailing",
+            business_type="brick_and_mortar",
+            formation_state="TX",
             founders=[
                 {
                     "address": {
-                        "city": "<string>",
-                        "country": "<string>",
-                        "line1": "<string>",
-                        "postal_code": "<string>",
-                        "state": "<string>",
+                        "city": "Austin",
+                        "country": "US",
+                        "line1": "907 Ridgemont Dr",
+                        "postal_code": "78704",
+                        "state": "TX",
                     },
-                    "email": "<string>",
-                    "first_name": "<string>",
+                    "email": "marcus@shinetime.example",
+                    "first_name": "Marcus",
                     "is_primary": True,
-                    "last_name": "<string>",
-                    "phone": "<string>",
+                    "last_name": "Webb",
+                    "phone": "+15125550142",
                 }
             ],
-            industry_group="<string>",
-            industry_type="<string>",
+            industry_group="automotive",
+            industry_type="car_wash",
         )
 
         assert response.is_closed is True
@@ -878,27 +894,27 @@ class TestAsyncAccounts:
     async def test_streaming_response_form_company(self, async_client: AsyncWhop) -> None:
         async with async_client.accounts.with_streaming_response.form_company(
             account_id="account_id",
-            business_name="<string>",
-            business_type="<string>",
-            formation_state="AL",
+            business_name="Shine Time Auto Detailing",
+            business_type="brick_and_mortar",
+            formation_state="TX",
             founders=[
                 {
                     "address": {
-                        "city": "<string>",
-                        "country": "<string>",
-                        "line1": "<string>",
-                        "postal_code": "<string>",
-                        "state": "<string>",
+                        "city": "Austin",
+                        "country": "US",
+                        "line1": "907 Ridgemont Dr",
+                        "postal_code": "78704",
+                        "state": "TX",
                     },
-                    "email": "<string>",
-                    "first_name": "<string>",
+                    "email": "marcus@shinetime.example",
+                    "first_name": "Marcus",
                     "is_primary": True,
-                    "last_name": "<string>",
-                    "phone": "<string>",
+                    "last_name": "Webb",
+                    "phone": "+15125550142",
                 }
             ],
-            industry_group="<string>",
-            industry_type="<string>",
+            industry_group="automotive",
+            industry_type="car_wash",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -914,27 +930,27 @@ class TestAsyncAccounts:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `account_id` but received ''"):
             await async_client.accounts.with_raw_response.form_company(
                 account_id="",
-                business_name="<string>",
-                business_type="<string>",
-                formation_state="AL",
+                business_name="Shine Time Auto Detailing",
+                business_type="brick_and_mortar",
+                formation_state="TX",
                 founders=[
                     {
                         "address": {
-                            "city": "<string>",
-                            "country": "<string>",
-                            "line1": "<string>",
-                            "postal_code": "<string>",
-                            "state": "<string>",
+                            "city": "Austin",
+                            "country": "US",
+                            "line1": "907 Ridgemont Dr",
+                            "postal_code": "78704",
+                            "state": "TX",
                         },
-                        "email": "<string>",
-                        "first_name": "<string>",
+                        "email": "marcus@shinetime.example",
+                        "first_name": "Marcus",
                         "is_primary": True,
-                        "last_name": "<string>",
-                        "phone": "<string>",
+                        "last_name": "Webb",
+                        "phone": "+15125550142",
                     }
                 ],
-                industry_group="<string>",
-                industry_type="<string>",
+                industry_group="automotive",
+                industry_type="car_wash",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -970,7 +986,7 @@ class TestAsyncAccounts:
     async def test_method_transfer_ownership(self, async_client: AsyncWhop) -> None:
         account = await async_client.accounts.transfer_ownership(
             account_id="account_id",
-            identifier="identifier",
+            identifier="marcus@shinetime.example",
         )
         assert_matches_type(AccountTransferOwnershipResponse, account, path=["response"])
 
@@ -979,7 +995,7 @@ class TestAsyncAccounts:
     async def test_method_transfer_ownership_with_all_params(self, async_client: AsyncWhop) -> None:
         account = await async_client.accounts.transfer_ownership(
             account_id="account_id",
-            identifier="identifier",
+            identifier="marcus@shinetime.example",
             as_partner=True,
         )
         assert_matches_type(AccountTransferOwnershipResponse, account, path=["response"])
@@ -989,7 +1005,7 @@ class TestAsyncAccounts:
     async def test_raw_response_transfer_ownership(self, async_client: AsyncWhop) -> None:
         response = await async_client.accounts.with_raw_response.transfer_ownership(
             account_id="account_id",
-            identifier="identifier",
+            identifier="marcus@shinetime.example",
         )
 
         assert response.is_closed is True
@@ -1002,7 +1018,7 @@ class TestAsyncAccounts:
     async def test_streaming_response_transfer_ownership(self, async_client: AsyncWhop) -> None:
         async with async_client.accounts.with_streaming_response.transfer_ownership(
             account_id="account_id",
-            identifier="identifier",
+            identifier="marcus@shinetime.example",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1018,5 +1034,5 @@ class TestAsyncAccounts:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `account_id` but received ''"):
             await async_client.accounts.with_raw_response.transfer_ownership(
                 account_id="",
-                identifier="identifier",
+                identifier="marcus@shinetime.example",
             )

@@ -82,8 +82,8 @@ class TestCardTransactions:
             account_id="account_id",
             after="after",
             before="before",
-            card_id=["string"],
-            cardholder_id=["string"],
+            card_id=["icrd_xxxxxxxxxxxxxx"],
+            cardholder_id=["user_xxxxxxxxxxxxxx"],
             created_after="created_after",
             created_before="created_before",
             direction="asc",
@@ -91,7 +91,7 @@ class TestCardTransactions:
             last=0,
             order="created_at",
             status="pending",
-            transaction_ids=["string"],
+            transaction_ids=["citx_xxxxxxxxxxxxxx"],
         )
         assert_matches_type(SyncCursorPage[CardTransaction], card_transaction, path=["response"])
 
@@ -187,8 +187,8 @@ class TestAsyncCardTransactions:
             account_id="account_id",
             after="after",
             before="before",
-            card_id=["string"],
-            cardholder_id=["string"],
+            card_id=["icrd_xxxxxxxxxxxxxx"],
+            cardholder_id=["user_xxxxxxxxxxxxxx"],
             created_after="created_after",
             created_before="created_before",
             direction="asc",
@@ -196,7 +196,7 @@ class TestAsyncCardTransactions:
             last=0,
             order="created_at",
             status="pending",
-            transaction_ids=["string"],
+            transaction_ids=["citx_xxxxxxxxxxxxxx"],
         )
         assert_matches_type(AsyncCursorPage[CardTransaction], card_transaction, path=["response"])
 

@@ -37,7 +37,7 @@ class TestSocialAccounts:
     def test_method_create_with_all_params(self, client: Whop) -> None:
         social_account = client.social_accounts.create(
             platform="facebook",
-            account_id="account_id",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(SocialAccount, social_account, path=["response"])
 
@@ -178,8 +178,8 @@ class TestSocialAccounts:
     def test_method_connect_with_all_params(self, client: Whop) -> None:
         social_account = client.social_accounts.connect(
             platform="meta_business",
-            account_id="account_id",
-            redirect_url="redirect_url",
+            account_id="biz_xxxxxxxxxxxxxx",
+            redirect_url="https://whop.com/core/api/callback/meta/",
             scopes=["advertise"],
         )
         assert_matches_type(SocialAccountConnectResponse, social_account, path=["response"])
@@ -333,7 +333,7 @@ class TestAsyncSocialAccounts:
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         social_account = await async_client.social_accounts.create(
             platform="facebook",
-            account_id="account_id",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(SocialAccount, social_account, path=["response"])
 
@@ -474,8 +474,8 @@ class TestAsyncSocialAccounts:
     async def test_method_connect_with_all_params(self, async_client: AsyncWhop) -> None:
         social_account = await async_client.social_accounts.connect(
             platform="meta_business",
-            account_id="account_id",
-            redirect_url="redirect_url",
+            account_id="biz_xxxxxxxxxxxxxx",
+            redirect_url="https://whop.com/core/api/callback/meta/",
             scopes=["advertise"],
         )
         assert_matches_type(SocialAccountConnectResponse, social_account, path=["response"])

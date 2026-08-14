@@ -25,7 +25,7 @@ class TestBountySubmissions:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         bounty_submission = client.bounty_submissions.create(
-            bounty_id="bounty_id",
+            bounty_id="bnty_xxxxxxxxxxxxxx",
         )
         assert_matches_type(BountySubmission, bounty_submission, path=["response"])
 
@@ -33,22 +33,22 @@ class TestBountySubmissions:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         bounty_submission = client.bounty_submissions.create(
-            bounty_id="bounty_id",
-            affiliate_code="affiliate_code",
+            bounty_id="bnty_xxxxxxxxxxxxxx",
+            affiliate_code="tanyacole",
             deliverable={
-                "caption": "caption",
-                "file_ids": ["string"],
+                "caption": "Ceramic coating reveal, shot at the Burnet Rd bay",
+                "file_ids": ["file_xxxxxxxxxxxxxx"],
                 "type": "content_url",
-                "urls": ["string"],
+                "urls": ["https://youtube.com/shorts/2"],
             },
             metadata={
-                "city": "city",
-                "country": "country",
-                "device": "device",
-                "fov": 0,
-                "operator": "operator",
-                "site": "site",
-                "station": "station",
+                "city": "Austin",
+                "country": "US",
+                "device": "iPhone 15 Pro",
+                "fov": 120,
+                "operator": "mwebb",
+                "site": "BurnetRd",
+                "station": "Bay2",
             },
         )
         assert_matches_type(BountySubmission, bounty_submission, path=["response"])
@@ -57,7 +57,7 @@ class TestBountySubmissions:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.bounty_submissions.with_raw_response.create(
-            bounty_id="bounty_id",
+            bounty_id="bnty_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -69,7 +69,7 @@ class TestBountySubmissions:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.bounty_submissions.with_streaming_response.create(
-            bounty_id="bounty_id",
+            bounty_id="bnty_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -223,9 +223,9 @@ class TestBountySubmissions:
         bounty_submission = client.bounty_submissions.submit(
             bounty_submission_id="bounty_submission_id",
             deliverable={
-                "caption": "caption",
-                "file_ids": ["string"],
-                "urls": ["string"],
+                "caption": "Full interior detail, start to finish, on a 2019 Tacoma.",
+                "file_ids": ["file_xxxxxxxxxxxxxx"],
+                "urls": ["https://youtube.com/shorts/4"],
             },
         )
         assert_matches_type(BountySubmission, bounty_submission, path=["response"])
@@ -274,7 +274,7 @@ class TestAsyncBountySubmissions:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         bounty_submission = await async_client.bounty_submissions.create(
-            bounty_id="bounty_id",
+            bounty_id="bnty_xxxxxxxxxxxxxx",
         )
         assert_matches_type(BountySubmission, bounty_submission, path=["response"])
 
@@ -282,22 +282,22 @@ class TestAsyncBountySubmissions:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         bounty_submission = await async_client.bounty_submissions.create(
-            bounty_id="bounty_id",
-            affiliate_code="affiliate_code",
+            bounty_id="bnty_xxxxxxxxxxxxxx",
+            affiliate_code="tanyacole",
             deliverable={
-                "caption": "caption",
-                "file_ids": ["string"],
+                "caption": "Ceramic coating reveal, shot at the Burnet Rd bay",
+                "file_ids": ["file_xxxxxxxxxxxxxx"],
                 "type": "content_url",
-                "urls": ["string"],
+                "urls": ["https://youtube.com/shorts/2"],
             },
             metadata={
-                "city": "city",
-                "country": "country",
-                "device": "device",
-                "fov": 0,
-                "operator": "operator",
-                "site": "site",
-                "station": "station",
+                "city": "Austin",
+                "country": "US",
+                "device": "iPhone 15 Pro",
+                "fov": 120,
+                "operator": "mwebb",
+                "site": "BurnetRd",
+                "station": "Bay2",
             },
         )
         assert_matches_type(BountySubmission, bounty_submission, path=["response"])
@@ -306,7 +306,7 @@ class TestAsyncBountySubmissions:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.bounty_submissions.with_raw_response.create(
-            bounty_id="bounty_id",
+            bounty_id="bnty_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -318,7 +318,7 @@ class TestAsyncBountySubmissions:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.bounty_submissions.with_streaming_response.create(
-            bounty_id="bounty_id",
+            bounty_id="bnty_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -472,9 +472,9 @@ class TestAsyncBountySubmissions:
         bounty_submission = await async_client.bounty_submissions.submit(
             bounty_submission_id="bounty_submission_id",
             deliverable={
-                "caption": "caption",
-                "file_ids": ["string"],
-                "urls": ["string"],
+                "caption": "Full interior detail, start to finish, on a 2019 Tacoma.",
+                "file_ids": ["file_xxxxxxxxxxxxxx"],
+                "urls": ["https://youtube.com/shorts/4"],
             },
         )
         assert_matches_type(BountySubmission, bounty_submission, path=["response"])

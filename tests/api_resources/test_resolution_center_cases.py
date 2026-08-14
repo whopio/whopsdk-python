@@ -34,9 +34,9 @@ class TestResolutionCenterCases:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         resolution_center_case = client.resolution_center_cases.create(
-            message="message",
-            reason="fraudulent",
-            receipt_id="receipt_id",
+            message="The mobile detailer never showed up for the Ceramic Coating appointment.",
+            reason="product_not_received",
+            receipt_id="pay_xxxxxxxxxxxxxx",
         )
         assert_matches_type(ResolutionCenterCaseCreateResponse, resolution_center_case, path=["response"])
 
@@ -44,13 +44,13 @@ class TestResolutionCenterCases:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         resolution_center_case = client.resolution_center_cases.create(
-            message="message",
-            reason="fraudulent",
-            receipt_id="receipt_id",
+            message="The mobile detailer never showed up for the Ceramic Coating appointment.",
+            reason="product_not_received",
+            receipt_id="pay_xxxxxxxxxxxxxx",
             attachments=[
                 {
-                    "id": "id",
-                    "direct_upload_id": "direct_upload_id",
+                    "id": "file_xxxxxxxxxxxxxx",
+                    "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
                 }
             ],
         )
@@ -60,9 +60,9 @@ class TestResolutionCenterCases:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.resolution_center_cases.with_raw_response.create(
-            message="message",
-            reason="fraudulent",
-            receipt_id="receipt_id",
+            message="The mobile detailer never showed up for the Ceramic Coating appointment.",
+            reason="product_not_received",
+            receipt_id="pay_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -74,9 +74,9 @@ class TestResolutionCenterCases:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.resolution_center_cases.with_streaming_response.create(
-            message="message",
-            reason="fraudulent",
-            receipt_id="receipt_id",
+            message="The mobile detailer never showed up for the Ceramic Coating appointment.",
+            reason="product_not_received",
+            receipt_id="pay_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -193,12 +193,12 @@ class TestResolutionCenterCases:
             id="id",
             attachments=[
                 {
-                    "id": "id",
-                    "direct_upload_id": "direct_upload_id",
+                    "id": "file_xxxxxxxxxxxxxx",
+                    "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
                 }
             ],
-            message="message",
-            terminate_membership=True,
+            message="Refunding the deposit in full — we could not make the Austin booking window.",
+            terminate_membership=False,
         )
         assert_matches_type(ResolutionCenterCaseAcceptResponse, resolution_center_case, path=["response"])
 
@@ -241,7 +241,7 @@ class TestResolutionCenterCases:
     def test_method_appeal(self, client: Whop) -> None:
         resolution_center_case = client.resolution_center_cases.appeal(
             id="id",
-            message="message",
+            message="The coating is already flaking on the hood two weeks later.",
         )
         assert_matches_type(ResolutionCenterCaseAppealResponse, resolution_center_case, path=["response"])
 
@@ -250,11 +250,11 @@ class TestResolutionCenterCases:
     def test_method_appeal_with_all_params(self, client: Whop) -> None:
         resolution_center_case = client.resolution_center_cases.appeal(
             id="id",
-            message="message",
+            message="The coating is already flaking on the hood two weeks later.",
             attachments=[
                 {
-                    "id": "id",
-                    "direct_upload_id": "direct_upload_id",
+                    "id": "file_xxxxxxxxxxxxxx",
+                    "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
                 }
             ],
         )
@@ -265,7 +265,7 @@ class TestResolutionCenterCases:
     def test_raw_response_appeal(self, client: Whop) -> None:
         response = client.resolution_center_cases.with_raw_response.appeal(
             id="id",
-            message="message",
+            message="The coating is already flaking on the hood two weeks later.",
         )
 
         assert response.is_closed is True
@@ -278,7 +278,7 @@ class TestResolutionCenterCases:
     def test_streaming_response_appeal(self, client: Whop) -> None:
         with client.resolution_center_cases.with_streaming_response.appeal(
             id="id",
-            message="message",
+            message="The coating is already flaking on the hood two weeks later.",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -294,7 +294,7 @@ class TestResolutionCenterCases:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.resolution_center_cases.with_raw_response.appeal(
                 id="",
-                message="message",
+                message="The coating is already flaking on the hood two weeks later.",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -302,7 +302,7 @@ class TestResolutionCenterCases:
     def test_method_deny(self, client: Whop) -> None:
         resolution_center_case = client.resolution_center_cases.deny(
             id="id",
-            message="message",
+            message="The ceramic coating was applied and the vehicle was collected on 2026-01-05.",
         )
         assert_matches_type(ResolutionCenterCaseDenyResponse, resolution_center_case, path=["response"])
 
@@ -311,11 +311,11 @@ class TestResolutionCenterCases:
     def test_method_deny_with_all_params(self, client: Whop) -> None:
         resolution_center_case = client.resolution_center_cases.deny(
             id="id",
-            message="message",
+            message="The ceramic coating was applied and the vehicle was collected on 2026-01-05.",
             attachments=[
                 {
-                    "id": "id",
-                    "direct_upload_id": "direct_upload_id",
+                    "id": "file_xxxxxxxxxxxxxx",
+                    "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
                 }
             ],
         )
@@ -326,7 +326,7 @@ class TestResolutionCenterCases:
     def test_raw_response_deny(self, client: Whop) -> None:
         response = client.resolution_center_cases.with_raw_response.deny(
             id="id",
-            message="message",
+            message="The ceramic coating was applied and the vehicle was collected on 2026-01-05.",
         )
 
         assert response.is_closed is True
@@ -339,7 +339,7 @@ class TestResolutionCenterCases:
     def test_streaming_response_deny(self, client: Whop) -> None:
         with client.resolution_center_cases.with_streaming_response.deny(
             id="id",
-            message="message",
+            message="The ceramic coating was applied and the vehicle was collected on 2026-01-05.",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -355,7 +355,7 @@ class TestResolutionCenterCases:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.resolution_center_cases.with_raw_response.deny(
                 id="",
-                message="message",
+                message="The ceramic coating was applied and the vehicle was collected on 2026-01-05.",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -417,7 +417,7 @@ class TestResolutionCenterCases:
     def test_method_reply(self, client: Whop) -> None:
         resolution_center_case = client.resolution_center_cases.reply(
             id="id",
-            message="message",
+            message="Here are the before and after photos from the Burnet Rd bay.",
         )
         assert_matches_type(ResolutionCenterCaseReplyResponse, resolution_center_case, path=["response"])
 
@@ -426,11 +426,11 @@ class TestResolutionCenterCases:
     def test_method_reply_with_all_params(self, client: Whop) -> None:
         resolution_center_case = client.resolution_center_cases.reply(
             id="id",
-            message="message",
+            message="Here are the before and after photos from the Burnet Rd bay.",
             attachments=[
                 {
-                    "id": "id",
-                    "direct_upload_id": "direct_upload_id",
+                    "id": "file_xxxxxxxxxxxxxx",
+                    "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
                 }
             ],
         )
@@ -441,7 +441,7 @@ class TestResolutionCenterCases:
     def test_raw_response_reply(self, client: Whop) -> None:
         response = client.resolution_center_cases.with_raw_response.reply(
             id="id",
-            message="message",
+            message="Here are the before and after photos from the Burnet Rd bay.",
         )
 
         assert response.is_closed is True
@@ -454,7 +454,7 @@ class TestResolutionCenterCases:
     def test_streaming_response_reply(self, client: Whop) -> None:
         with client.resolution_center_cases.with_streaming_response.reply(
             id="id",
-            message="message",
+            message="Here are the before and after photos from the Burnet Rd bay.",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -470,7 +470,7 @@ class TestResolutionCenterCases:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.resolution_center_cases.with_raw_response.reply(
                 id="",
-                message="message",
+                message="Here are the before and after photos from the Burnet Rd bay.",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -488,11 +488,11 @@ class TestResolutionCenterCases:
             id="id",
             attachments=[
                 {
-                    "id": "id",
-                    "direct_upload_id": "direct_upload_id",
+                    "id": "file_xxxxxxxxxxxxxx",
+                    "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
                 }
             ],
-            message="message",
+            message="Please send a photo of the panels you are unhappy with.",
         )
         assert_matches_type(ResolutionCenterCaseRequestInfoResponse, resolution_center_case, path=["response"])
 
@@ -625,9 +625,9 @@ class TestAsyncResolutionCenterCases:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         resolution_center_case = await async_client.resolution_center_cases.create(
-            message="message",
-            reason="fraudulent",
-            receipt_id="receipt_id",
+            message="The mobile detailer never showed up for the Ceramic Coating appointment.",
+            reason="product_not_received",
+            receipt_id="pay_xxxxxxxxxxxxxx",
         )
         assert_matches_type(ResolutionCenterCaseCreateResponse, resolution_center_case, path=["response"])
 
@@ -635,13 +635,13 @@ class TestAsyncResolutionCenterCases:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         resolution_center_case = await async_client.resolution_center_cases.create(
-            message="message",
-            reason="fraudulent",
-            receipt_id="receipt_id",
+            message="The mobile detailer never showed up for the Ceramic Coating appointment.",
+            reason="product_not_received",
+            receipt_id="pay_xxxxxxxxxxxxxx",
             attachments=[
                 {
-                    "id": "id",
-                    "direct_upload_id": "direct_upload_id",
+                    "id": "file_xxxxxxxxxxxxxx",
+                    "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
                 }
             ],
         )
@@ -651,9 +651,9 @@ class TestAsyncResolutionCenterCases:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.resolution_center_cases.with_raw_response.create(
-            message="message",
-            reason="fraudulent",
-            receipt_id="receipt_id",
+            message="The mobile detailer never showed up for the Ceramic Coating appointment.",
+            reason="product_not_received",
+            receipt_id="pay_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -665,9 +665,9 @@ class TestAsyncResolutionCenterCases:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.resolution_center_cases.with_streaming_response.create(
-            message="message",
-            reason="fraudulent",
-            receipt_id="receipt_id",
+            message="The mobile detailer never showed up for the Ceramic Coating appointment.",
+            reason="product_not_received",
+            receipt_id="pay_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -790,12 +790,12 @@ class TestAsyncResolutionCenterCases:
             id="id",
             attachments=[
                 {
-                    "id": "id",
-                    "direct_upload_id": "direct_upload_id",
+                    "id": "file_xxxxxxxxxxxxxx",
+                    "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
                 }
             ],
-            message="message",
-            terminate_membership=True,
+            message="Refunding the deposit in full — we could not make the Austin booking window.",
+            terminate_membership=False,
         )
         assert_matches_type(ResolutionCenterCaseAcceptResponse, resolution_center_case, path=["response"])
 
@@ -838,7 +838,7 @@ class TestAsyncResolutionCenterCases:
     async def test_method_appeal(self, async_client: AsyncWhop) -> None:
         resolution_center_case = await async_client.resolution_center_cases.appeal(
             id="id",
-            message="message",
+            message="The coating is already flaking on the hood two weeks later.",
         )
         assert_matches_type(ResolutionCenterCaseAppealResponse, resolution_center_case, path=["response"])
 
@@ -847,11 +847,11 @@ class TestAsyncResolutionCenterCases:
     async def test_method_appeal_with_all_params(self, async_client: AsyncWhop) -> None:
         resolution_center_case = await async_client.resolution_center_cases.appeal(
             id="id",
-            message="message",
+            message="The coating is already flaking on the hood two weeks later.",
             attachments=[
                 {
-                    "id": "id",
-                    "direct_upload_id": "direct_upload_id",
+                    "id": "file_xxxxxxxxxxxxxx",
+                    "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
                 }
             ],
         )
@@ -862,7 +862,7 @@ class TestAsyncResolutionCenterCases:
     async def test_raw_response_appeal(self, async_client: AsyncWhop) -> None:
         response = await async_client.resolution_center_cases.with_raw_response.appeal(
             id="id",
-            message="message",
+            message="The coating is already flaking on the hood two weeks later.",
         )
 
         assert response.is_closed is True
@@ -875,7 +875,7 @@ class TestAsyncResolutionCenterCases:
     async def test_streaming_response_appeal(self, async_client: AsyncWhop) -> None:
         async with async_client.resolution_center_cases.with_streaming_response.appeal(
             id="id",
-            message="message",
+            message="The coating is already flaking on the hood two weeks later.",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -891,7 +891,7 @@ class TestAsyncResolutionCenterCases:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.resolution_center_cases.with_raw_response.appeal(
                 id="",
-                message="message",
+                message="The coating is already flaking on the hood two weeks later.",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -899,7 +899,7 @@ class TestAsyncResolutionCenterCases:
     async def test_method_deny(self, async_client: AsyncWhop) -> None:
         resolution_center_case = await async_client.resolution_center_cases.deny(
             id="id",
-            message="message",
+            message="The ceramic coating was applied and the vehicle was collected on 2026-01-05.",
         )
         assert_matches_type(ResolutionCenterCaseDenyResponse, resolution_center_case, path=["response"])
 
@@ -908,11 +908,11 @@ class TestAsyncResolutionCenterCases:
     async def test_method_deny_with_all_params(self, async_client: AsyncWhop) -> None:
         resolution_center_case = await async_client.resolution_center_cases.deny(
             id="id",
-            message="message",
+            message="The ceramic coating was applied and the vehicle was collected on 2026-01-05.",
             attachments=[
                 {
-                    "id": "id",
-                    "direct_upload_id": "direct_upload_id",
+                    "id": "file_xxxxxxxxxxxxxx",
+                    "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
                 }
             ],
         )
@@ -923,7 +923,7 @@ class TestAsyncResolutionCenterCases:
     async def test_raw_response_deny(self, async_client: AsyncWhop) -> None:
         response = await async_client.resolution_center_cases.with_raw_response.deny(
             id="id",
-            message="message",
+            message="The ceramic coating was applied and the vehicle was collected on 2026-01-05.",
         )
 
         assert response.is_closed is True
@@ -936,7 +936,7 @@ class TestAsyncResolutionCenterCases:
     async def test_streaming_response_deny(self, async_client: AsyncWhop) -> None:
         async with async_client.resolution_center_cases.with_streaming_response.deny(
             id="id",
-            message="message",
+            message="The ceramic coating was applied and the vehicle was collected on 2026-01-05.",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -952,7 +952,7 @@ class TestAsyncResolutionCenterCases:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.resolution_center_cases.with_raw_response.deny(
                 id="",
-                message="message",
+                message="The ceramic coating was applied and the vehicle was collected on 2026-01-05.",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -1014,7 +1014,7 @@ class TestAsyncResolutionCenterCases:
     async def test_method_reply(self, async_client: AsyncWhop) -> None:
         resolution_center_case = await async_client.resolution_center_cases.reply(
             id="id",
-            message="message",
+            message="Here are the before and after photos from the Burnet Rd bay.",
         )
         assert_matches_type(ResolutionCenterCaseReplyResponse, resolution_center_case, path=["response"])
 
@@ -1023,11 +1023,11 @@ class TestAsyncResolutionCenterCases:
     async def test_method_reply_with_all_params(self, async_client: AsyncWhop) -> None:
         resolution_center_case = await async_client.resolution_center_cases.reply(
             id="id",
-            message="message",
+            message="Here are the before and after photos from the Burnet Rd bay.",
             attachments=[
                 {
-                    "id": "id",
-                    "direct_upload_id": "direct_upload_id",
+                    "id": "file_xxxxxxxxxxxxxx",
+                    "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
                 }
             ],
         )
@@ -1038,7 +1038,7 @@ class TestAsyncResolutionCenterCases:
     async def test_raw_response_reply(self, async_client: AsyncWhop) -> None:
         response = await async_client.resolution_center_cases.with_raw_response.reply(
             id="id",
-            message="message",
+            message="Here are the before and after photos from the Burnet Rd bay.",
         )
 
         assert response.is_closed is True
@@ -1051,7 +1051,7 @@ class TestAsyncResolutionCenterCases:
     async def test_streaming_response_reply(self, async_client: AsyncWhop) -> None:
         async with async_client.resolution_center_cases.with_streaming_response.reply(
             id="id",
-            message="message",
+            message="Here are the before and after photos from the Burnet Rd bay.",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1067,7 +1067,7 @@ class TestAsyncResolutionCenterCases:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.resolution_center_cases.with_raw_response.reply(
                 id="",
-                message="message",
+                message="Here are the before and after photos from the Burnet Rd bay.",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -1085,11 +1085,11 @@ class TestAsyncResolutionCenterCases:
             id="id",
             attachments=[
                 {
-                    "id": "id",
-                    "direct_upload_id": "direct_upload_id",
+                    "id": "file_xxxxxxxxxxxxxx",
+                    "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
                 }
             ],
-            message="message",
+            message="Please send a photo of the panels you are unhappy with.",
         )
         assert_matches_type(ResolutionCenterCaseRequestInfoResponse, resolution_center_case, path=["response"])
 

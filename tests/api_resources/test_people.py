@@ -91,7 +91,7 @@ class TestPeople:
             direction="asc",
             email="email",
             event_from=parse_datetime("2019-12-27T18:11:19.117Z"),
-            event_name=["string"],
+            event_name=["payment.completed"],
             event_to=parse_datetime("2019-12-27T18:11:19.117Z"),
             first=0,
             first_seen_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -104,7 +104,7 @@ class TestPeople:
             order="first_seen_at",
             phone="phone",
             query="query",
-            source=["string"],
+            source=["direct"],
             user_id="user_id",
         )
         assert_matches_type(SyncCursorPage[PersonListResponse], person, path=["response"])
@@ -209,7 +209,7 @@ class TestAsyncPeople:
             direction="asc",
             email="email",
             event_from=parse_datetime("2019-12-27T18:11:19.117Z"),
-            event_name=["string"],
+            event_name=["payment.completed"],
             event_to=parse_datetime("2019-12-27T18:11:19.117Z"),
             first=0,
             first_seen_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -222,7 +222,7 @@ class TestAsyncPeople:
             order="first_seen_at",
             phone="phone",
             query="query",
-            source=["string"],
+            source=["direct"],
             user_id="user_id",
         )
         assert_matches_type(AsyncCursorPage[PersonListResponse], person, path=["response"])

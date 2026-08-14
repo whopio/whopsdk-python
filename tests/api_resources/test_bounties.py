@@ -22,9 +22,9 @@ class TestBounties:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         bounty = client.bounties.create(
-            description="description",
-            gross_reward_amount=0,
-            title="title",
+            description="Record one continuous pass of a full interior detail, dash to trunk, on a customer vehicle.",
+            gross_reward_amount=40,
+            title="Record interior detailing passes",
         )
         assert_matches_type(Bounty, bounty, path=["response"])
 
@@ -32,25 +32,25 @@ class TestBounties:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         bounty = client.bounties.create(
-            description="description",
-            gross_reward_amount=0,
-            title="title",
-            accepted_submissions_limit=0,
-            account_id="account_id",
-            allowed_country_codes=["string"],
+            description="Record one continuous pass of a full interior detail, dash to trunk, on a customer vehicle.",
+            gross_reward_amount=40,
+            title="Record interior detailing passes",
+            accepted_submissions_limit=3,
+            account_id="biz_xxxxxxxxxxxxxx",
+            allowed_country_codes=["US"],
             business_goal_type="clipping",
             capture_spec={
-                "bitrate_target_mbps": 0,
+                "bitrate_target_mbps": 12,
                 "embed_camera_metadata": True,
-                "frame_gap_tolerance_ms": 0,
-                "min_clip_duration_seconds": 0,
-                "min_total_verified_duration_seconds": 0,
+                "frame_gap_tolerance_ms": 2000,
+                "min_clip_duration_seconds": 120,
+                "min_total_verified_duration_seconds": 14400,
                 "stabilization_mode": "off",
             },
-            experience_id="experience_id",
+            experience_id="exp_xxxxxxxxxxxxxx",
             frequency="weekly",
-            publish_at="publish_at",
-            publish_at_timezone="publish_at_timezone",
+            publish_at="2026-01-01T12:00:00.000Z",
+            publish_at_timezone="America/Chicago",
         )
         assert_matches_type(Bounty, bounty, path=["response"])
 
@@ -58,9 +58,9 @@ class TestBounties:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.bounties.with_raw_response.create(
-            description="description",
-            gross_reward_amount=0,
-            title="title",
+            description="Record one continuous pass of a full interior detail, dash to trunk, on a customer vehicle.",
+            gross_reward_amount=40,
+            title="Record interior detailing passes",
         )
 
         assert response.is_closed is True
@@ -72,9 +72,9 @@ class TestBounties:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.bounties.with_streaming_response.create(
-            description="description",
-            gross_reward_amount=0,
-            title="title",
+            description="Record one continuous pass of a full interior detail, dash to trunk, on a customer vehicle.",
+            gross_reward_amount=40,
+            title="Record interior detailing passes",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -139,15 +139,15 @@ class TestBounties:
     def test_method_update_with_all_params(self, client: Whop) -> None:
         bounty = client.bounties.update(
             id="id",
-            accepted_submissions_limit=0,
-            allowed_country_codes=["string"],
-            business_goal_type="clipping",
-            description="description",
-            frequency="once",
-            gross_reward_amount=0,
-            publish_at="publish_at",
-            publish_at_timezone="publish_at_timezone",
-            title="title",
+            accepted_submissions_limit=3,
+            allowed_country_codes=["US"],
+            business_goal_type="data_capture",
+            description="Record one continuous pass of a full interior detail, dash to trunk, on a customer vehicle.",
+            frequency="weekly",
+            gross_reward_amount=40,
+            publish_at="2026-01-01T12:00:00.000Z",
+            publish_at_timezone="America/Chicago",
+            title="Record interior detailing passes",
         )
         assert_matches_type(Bounty, bounty, path=["response"])
 
@@ -284,9 +284,9 @@ class TestAsyncBounties:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         bounty = await async_client.bounties.create(
-            description="description",
-            gross_reward_amount=0,
-            title="title",
+            description="Record one continuous pass of a full interior detail, dash to trunk, on a customer vehicle.",
+            gross_reward_amount=40,
+            title="Record interior detailing passes",
         )
         assert_matches_type(Bounty, bounty, path=["response"])
 
@@ -294,25 +294,25 @@ class TestAsyncBounties:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         bounty = await async_client.bounties.create(
-            description="description",
-            gross_reward_amount=0,
-            title="title",
-            accepted_submissions_limit=0,
-            account_id="account_id",
-            allowed_country_codes=["string"],
+            description="Record one continuous pass of a full interior detail, dash to trunk, on a customer vehicle.",
+            gross_reward_amount=40,
+            title="Record interior detailing passes",
+            accepted_submissions_limit=3,
+            account_id="biz_xxxxxxxxxxxxxx",
+            allowed_country_codes=["US"],
             business_goal_type="clipping",
             capture_spec={
-                "bitrate_target_mbps": 0,
+                "bitrate_target_mbps": 12,
                 "embed_camera_metadata": True,
-                "frame_gap_tolerance_ms": 0,
-                "min_clip_duration_seconds": 0,
-                "min_total_verified_duration_seconds": 0,
+                "frame_gap_tolerance_ms": 2000,
+                "min_clip_duration_seconds": 120,
+                "min_total_verified_duration_seconds": 14400,
                 "stabilization_mode": "off",
             },
-            experience_id="experience_id",
+            experience_id="exp_xxxxxxxxxxxxxx",
             frequency="weekly",
-            publish_at="publish_at",
-            publish_at_timezone="publish_at_timezone",
+            publish_at="2026-01-01T12:00:00.000Z",
+            publish_at_timezone="America/Chicago",
         )
         assert_matches_type(Bounty, bounty, path=["response"])
 
@@ -320,9 +320,9 @@ class TestAsyncBounties:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.bounties.with_raw_response.create(
-            description="description",
-            gross_reward_amount=0,
-            title="title",
+            description="Record one continuous pass of a full interior detail, dash to trunk, on a customer vehicle.",
+            gross_reward_amount=40,
+            title="Record interior detailing passes",
         )
 
         assert response.is_closed is True
@@ -334,9 +334,9 @@ class TestAsyncBounties:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.bounties.with_streaming_response.create(
-            description="description",
-            gross_reward_amount=0,
-            title="title",
+            description="Record one continuous pass of a full interior detail, dash to trunk, on a customer vehicle.",
+            gross_reward_amount=40,
+            title="Record interior detailing passes",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -401,15 +401,15 @@ class TestAsyncBounties:
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         bounty = await async_client.bounties.update(
             id="id",
-            accepted_submissions_limit=0,
-            allowed_country_codes=["string"],
-            business_goal_type="clipping",
-            description="description",
-            frequency="once",
-            gross_reward_amount=0,
-            publish_at="publish_at",
-            publish_at_timezone="publish_at_timezone",
-            title="title",
+            accepted_submissions_limit=3,
+            allowed_country_codes=["US"],
+            business_goal_type="data_capture",
+            description="Record one continuous pass of a full interior detail, dash to trunk, on a customer vehicle.",
+            frequency="weekly",
+            gross_reward_amount=40,
+            publish_at="2026-01-01T12:00:00.000Z",
+            publish_at_timezone="America/Chicago",
+            title="Record interior detailing passes",
         )
         assert_matches_type(Bounty, bounty, path=["response"])
 

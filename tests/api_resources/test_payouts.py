@@ -26,8 +26,8 @@ class TestPayouts:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         payout = client.payouts.create(
-            amount=0,
-            payout_method_id="payout_method_id",
+            amount=50,
+            payout_method_id="potk_xxxxxxxxxxxxxx",
         )
         assert_matches_type(PayoutCreateResponse, payout, path=["response"])
 
@@ -35,16 +35,16 @@ class TestPayouts:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         payout = client.payouts.create(
-            amount=0,
-            payout_method_id="payout_method_id",
-            account_id="account_id",
+            amount=50,
+            payout_method_id="potk_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             acknowledge_bank_warning=True,
-            currency="currency",
-            api_idempotency_key="idempotency_key",
-            notes="notes",
+            currency="usd",
+            api_idempotency_key="payout-supplies-restock-2026",
+            notes="Detailing supplies restock",
             platform_covers_fees=True,
-            speed="standard",
-            user_id="user_id",
+            speed="instant",
+            user_id="user_xxxxxxxxxxxxxx",
         )
         assert_matches_type(PayoutCreateResponse, payout, path=["response"])
 
@@ -52,8 +52,8 @@ class TestPayouts:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.payouts.with_raw_response.create(
-            amount=0,
-            payout_method_id="payout_method_id",
+            amount=50,
+            payout_method_id="potk_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -65,8 +65,8 @@ class TestPayouts:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.payouts.with_streaming_response.create(
-            amount=0,
-            payout_method_id="payout_method_id",
+            amount=50,
+            payout_method_id="potk_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -180,8 +180,8 @@ class TestAsyncPayouts:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         payout = await async_client.payouts.create(
-            amount=0,
-            payout_method_id="payout_method_id",
+            amount=50,
+            payout_method_id="potk_xxxxxxxxxxxxxx",
         )
         assert_matches_type(PayoutCreateResponse, payout, path=["response"])
 
@@ -189,16 +189,16 @@ class TestAsyncPayouts:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         payout = await async_client.payouts.create(
-            amount=0,
-            payout_method_id="payout_method_id",
-            account_id="account_id",
+            amount=50,
+            payout_method_id="potk_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             acknowledge_bank_warning=True,
-            currency="currency",
-            api_idempotency_key="idempotency_key",
-            notes="notes",
+            currency="usd",
+            api_idempotency_key="payout-supplies-restock-2026",
+            notes="Detailing supplies restock",
             platform_covers_fees=True,
-            speed="standard",
-            user_id="user_id",
+            speed="instant",
+            user_id="user_xxxxxxxxxxxxxx",
         )
         assert_matches_type(PayoutCreateResponse, payout, path=["response"])
 
@@ -206,8 +206,8 @@ class TestAsyncPayouts:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.payouts.with_raw_response.create(
-            amount=0,
-            payout_method_id="payout_method_id",
+            amount=50,
+            payout_method_id="potk_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -219,8 +219,8 @@ class TestAsyncPayouts:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.payouts.with_streaming_response.create(
-            amount=0,
-            payout_method_id="payout_method_id",
+            amount=50,
+            payout_method_id="potk_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

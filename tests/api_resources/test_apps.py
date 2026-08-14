@@ -28,7 +28,7 @@ class TestApps:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         app = client.apps.create(
-            name="name",
+            name="Shine Time Booking",
         )
         assert_matches_type(App, app, path=["response"])
 
@@ -36,16 +36,16 @@ class TestApps:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         app = client.apps.create(
-            name="name",
-            account_id="account_id",
-            app_type="b2b_app",
-            base_url="base_url",
+            name="Shine Time Booking",
+            account_id="biz_xxxxxxxxxxxxxx",
+            app_type="website",
+            base_url="https://booking.shinetime.example",
             icon={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
+                "id": "file_xxxxxxxxxxxxxx",
+                "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             },
-            redirect_uris=["string"],
-            route="route",
+            redirect_uris=["https://booking.shinetime.example/oauth/callback"],
+            route="shine-time-booking-site",
         )
         assert_matches_type(App, app, path=["response"])
 
@@ -53,7 +53,7 @@ class TestApps:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.apps.with_raw_response.create(
-            name="name",
+            name="Shine Time Booking",
         )
 
         assert response.is_closed is True
@@ -65,7 +65,7 @@ class TestApps:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.apps.with_streaming_response.create(
-            name="name",
+            name="Shine Time Booking",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -130,29 +130,29 @@ class TestApps:
     def test_method_update_with_all_params(self, client: Whop) -> None:
         app = client.apps.update(
             id="id",
-            app_store_description="app_store_description",
-            app_type="b2b_app",
-            base_url="base_url",
-            dashboard_path="dashboard_path",
-            description="description",
-            discover_path="discover_path",
-            experience_path="experience_path",
+            app_store_description="Shine Time Booking turns a whop into a booking calendar. Members pick a package, choose a slot that fits the day's route, and pay up front.",
+            app_type="b2c_app",
+            base_url="https://booking.shinetime.example",
+            dashboard_path="/dashboard/[companyId]",
+            description="Let members book a mobile detailing appointment without leaving your whop.",
+            discover_path="/discover",
+            experience_path="/experiences/[experienceId]",
             icon={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
+                "id": "file_xxxxxxxxxxxxxx",
+                "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             },
-            name="name",
-            oauth_client_type="public",
-            openapi_path="openapi_path",
-            production_android_build_id="production_android_build_id",
-            production_ios_build_id="production_ios_build_id",
-            production_web_build_id="production_web_build_id",
-            redirect_uris=["string"],
-            required_scopes=["string"],
-            route="route",
-            secrets={},
-            skills_path="skills_path",
-            status="live",
+            name="Shine Time Booking Pro",
+            oauth_client_type="confidential",
+            openapi_path="/openapi.json",
+            production_android_build_id="apbu_xxxxxxxxxxxxxx",
+            production_ios_build_id="apbu_xxxxxxxxxxxxxx",
+            production_web_build_id="apbu_xxxxxxxxxxxxxx",
+            redirect_uris=["https://booking.shinetime.example/oauth/callback"],
+            required_scopes=["read_user"],
+            route="shine-time-booking-pro",
+            secrets={"BOOKING_CALENDAR_ID": "cal_9f21"},
+            skills_path="/skills",
+            status="unlisted",
         )
         assert_matches_type(App, app, path=["response"])
 
@@ -343,9 +343,9 @@ class TestApps:
             id="id",
             requested_permissions=[
                 {
-                    "action": "action",
+                    "action": "company:basic:read",
                     "is_required": True,
-                    "justification": "justification",
+                    "justification": "Reads basic account info to render the dashboard home.",
                 }
             ],
         )
@@ -358,9 +358,9 @@ class TestApps:
             id="id",
             requested_permissions=[
                 {
-                    "action": "action",
+                    "action": "company:basic:read",
                     "is_required": True,
-                    "justification": "justification",
+                    "justification": "Reads basic account info to render the dashboard home.",
                 }
             ],
         )
@@ -377,9 +377,9 @@ class TestApps:
             id="id",
             requested_permissions=[
                 {
-                    "action": "action",
+                    "action": "company:basic:read",
                     "is_required": True,
-                    "justification": "justification",
+                    "justification": "Reads basic account info to render the dashboard home.",
                 }
             ],
         ) as response:
@@ -399,9 +399,9 @@ class TestApps:
                 id="",
                 requested_permissions=[
                     {
-                        "action": "action",
+                        "action": "company:basic:read",
                         "is_required": True,
-                        "justification": "justification",
+                        "justification": "Reads basic account info to render the dashboard home.",
                     }
                 ],
             )
@@ -416,7 +416,7 @@ class TestAsyncApps:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         app = await async_client.apps.create(
-            name="name",
+            name="Shine Time Booking",
         )
         assert_matches_type(App, app, path=["response"])
 
@@ -424,16 +424,16 @@ class TestAsyncApps:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         app = await async_client.apps.create(
-            name="name",
-            account_id="account_id",
-            app_type="b2b_app",
-            base_url="base_url",
+            name="Shine Time Booking",
+            account_id="biz_xxxxxxxxxxxxxx",
+            app_type="website",
+            base_url="https://booking.shinetime.example",
             icon={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
+                "id": "file_xxxxxxxxxxxxxx",
+                "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             },
-            redirect_uris=["string"],
-            route="route",
+            redirect_uris=["https://booking.shinetime.example/oauth/callback"],
+            route="shine-time-booking-site",
         )
         assert_matches_type(App, app, path=["response"])
 
@@ -441,7 +441,7 @@ class TestAsyncApps:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.apps.with_raw_response.create(
-            name="name",
+            name="Shine Time Booking",
         )
 
         assert response.is_closed is True
@@ -453,7 +453,7 @@ class TestAsyncApps:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.apps.with_streaming_response.create(
-            name="name",
+            name="Shine Time Booking",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -518,29 +518,29 @@ class TestAsyncApps:
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         app = await async_client.apps.update(
             id="id",
-            app_store_description="app_store_description",
-            app_type="b2b_app",
-            base_url="base_url",
-            dashboard_path="dashboard_path",
-            description="description",
-            discover_path="discover_path",
-            experience_path="experience_path",
+            app_store_description="Shine Time Booking turns a whop into a booking calendar. Members pick a package, choose a slot that fits the day's route, and pay up front.",
+            app_type="b2c_app",
+            base_url="https://booking.shinetime.example",
+            dashboard_path="/dashboard/[companyId]",
+            description="Let members book a mobile detailing appointment without leaving your whop.",
+            discover_path="/discover",
+            experience_path="/experiences/[experienceId]",
             icon={
-                "id": "id",
-                "direct_upload_id": "direct_upload_id",
+                "id": "file_xxxxxxxxxxxxxx",
+                "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             },
-            name="name",
-            oauth_client_type="public",
-            openapi_path="openapi_path",
-            production_android_build_id="production_android_build_id",
-            production_ios_build_id="production_ios_build_id",
-            production_web_build_id="production_web_build_id",
-            redirect_uris=["string"],
-            required_scopes=["string"],
-            route="route",
-            secrets={},
-            skills_path="skills_path",
-            status="live",
+            name="Shine Time Booking Pro",
+            oauth_client_type="confidential",
+            openapi_path="/openapi.json",
+            production_android_build_id="apbu_xxxxxxxxxxxxxx",
+            production_ios_build_id="apbu_xxxxxxxxxxxxxx",
+            production_web_build_id="apbu_xxxxxxxxxxxxxx",
+            redirect_uris=["https://booking.shinetime.example/oauth/callback"],
+            required_scopes=["read_user"],
+            route="shine-time-booking-pro",
+            secrets={"BOOKING_CALENDAR_ID": "cal_9f21"},
+            skills_path="/skills",
+            status="unlisted",
         )
         assert_matches_type(App, app, path=["response"])
 
@@ -731,9 +731,9 @@ class TestAsyncApps:
             id="id",
             requested_permissions=[
                 {
-                    "action": "action",
+                    "action": "company:basic:read",
                     "is_required": True,
-                    "justification": "justification",
+                    "justification": "Reads basic account info to render the dashboard home.",
                 }
             ],
         )
@@ -746,9 +746,9 @@ class TestAsyncApps:
             id="id",
             requested_permissions=[
                 {
-                    "action": "action",
+                    "action": "company:basic:read",
                     "is_required": True,
-                    "justification": "justification",
+                    "justification": "Reads basic account info to render the dashboard home.",
                 }
             ],
         )
@@ -765,9 +765,9 @@ class TestAsyncApps:
             id="id",
             requested_permissions=[
                 {
-                    "action": "action",
+                    "action": "company:basic:read",
                     "is_required": True,
-                    "justification": "justification",
+                    "justification": "Reads basic account info to render the dashboard home.",
                 }
             ],
         ) as response:
@@ -787,9 +787,9 @@ class TestAsyncApps:
                 id="",
                 requested_permissions=[
                     {
-                        "action": "action",
+                        "action": "company:basic:read",
                         "is_required": True,
-                        "justification": "justification",
+                        "justification": "Reads basic account info to render the dashboard home.",
                     }
                 ],
             )
