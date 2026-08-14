@@ -48,7 +48,7 @@ class Limit(BaseModel):
 class Secrets(BaseModel):
     """Sensitive card details.
 
-    Present only on `GET /cards/:card_id` for active cards; `null` when the card is inactive or details cannot be retrieved.
+    Present only on `GET /cards/:id` for active cards; `null` when the card is inactive or details cannot be retrieved.
     """
 
     card_number: str
@@ -117,6 +117,6 @@ class CardUpdateResponse(BaseModel):
     secrets: Optional[Secrets] = None
     """Sensitive card details.
 
-    Present only on `GET /cards/:card_id` for active cards; `null` when the card is
+    Present only on `GET /cards/:id` for active cards; `null` when the card is
     inactive or details cannot be retrieved.
     """

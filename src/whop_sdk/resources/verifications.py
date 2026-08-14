@@ -322,7 +322,7 @@ class VerificationsResource(SyncAPIResource):
 
     def retrieve(
         self,
-        verification_id: str,
+        id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -344,10 +344,10 @@ class VerificationsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not verification_id:
-            raise ValueError(f"Expected a non-empty value for `verification_id` but received {verification_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            path_template("/verifications/{verification_id}", verification_id=verification_id),
+            path_template("/verifications/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -357,7 +357,7 @@ class VerificationsResource(SyncAPIResource):
     @overload
     def update(
         self,
-        verification_id: str,
+        id: str,
         *,
         business_name: str | Omit = omit,
         business_structure: str | Omit = omit,
@@ -423,7 +423,7 @@ class VerificationsResource(SyncAPIResource):
     @overload
     def update(
         self,
-        verification_id: str,
+        id: str,
         *,
         business_address: verification_update_params.UpdateBusinessVerificationBusinessAddress | Omit = omit,
         business_name: str | Omit = omit,
@@ -492,7 +492,7 @@ class VerificationsResource(SyncAPIResource):
 
     def update(
         self,
-        verification_id: str,
+        id: str,
         *,
         business_name: str | Omit = omit,
         business_structure: str | Omit = omit,
@@ -515,10 +515,10 @@ class VerificationsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
         idempotency_key: str | None = None,
     ) -> VerificationUpdateResponse:
-        if not verification_id:
-            raise ValueError(f"Expected a non-empty value for `verification_id` but received {verification_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._patch(
-            path_template("/verifications/{verification_id}", verification_id=verification_id),
+            path_template("/verifications/{id}", id=id),
             body=maybe_transform(
                 {
                     "business_name": business_name,
@@ -895,7 +895,7 @@ class AsyncVerificationsResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        verification_id: str,
+        id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -917,10 +917,10 @@ class AsyncVerificationsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not verification_id:
-            raise ValueError(f"Expected a non-empty value for `verification_id` but received {verification_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            path_template("/verifications/{verification_id}", verification_id=verification_id),
+            path_template("/verifications/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -930,7 +930,7 @@ class AsyncVerificationsResource(AsyncAPIResource):
     @overload
     async def update(
         self,
-        verification_id: str,
+        id: str,
         *,
         business_name: str | Omit = omit,
         business_structure: str | Omit = omit,
@@ -996,7 +996,7 @@ class AsyncVerificationsResource(AsyncAPIResource):
     @overload
     async def update(
         self,
-        verification_id: str,
+        id: str,
         *,
         business_address: verification_update_params.UpdateBusinessVerificationBusinessAddress | Omit = omit,
         business_name: str | Omit = omit,
@@ -1065,7 +1065,7 @@ class AsyncVerificationsResource(AsyncAPIResource):
 
     async def update(
         self,
-        verification_id: str,
+        id: str,
         *,
         business_name: str | Omit = omit,
         business_structure: str | Omit = omit,
@@ -1088,10 +1088,10 @@ class AsyncVerificationsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
         idempotency_key: str | None = None,
     ) -> VerificationUpdateResponse:
-        if not verification_id:
-            raise ValueError(f"Expected a non-empty value for `verification_id` but received {verification_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._patch(
-            path_template("/verifications/{verification_id}", verification_id=verification_id),
+            path_template("/verifications/{id}", id=id),
             body=await async_maybe_transform(
                 {
                     "business_name": business_name,

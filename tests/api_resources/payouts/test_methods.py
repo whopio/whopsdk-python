@@ -78,7 +78,7 @@ class TestMethods:
     @parametrize
     def test_method_update(self, client: Whop) -> None:
         method = client.payouts.methods.update(
-            payout_method_id="payout_method_id",
+            id="id",
             nickname="Primary checking",
         )
         assert_matches_type(MethodUpdateResponse, method, path=["response"])
@@ -87,7 +87,7 @@ class TestMethods:
     @parametrize
     def test_raw_response_update(self, client: Whop) -> None:
         response = client.payouts.methods.with_raw_response.update(
-            payout_method_id="payout_method_id",
+            id="id",
             nickname="Primary checking",
         )
 
@@ -100,7 +100,7 @@ class TestMethods:
     @parametrize
     def test_streaming_response_update(self, client: Whop) -> None:
         with client.payouts.methods.with_streaming_response.update(
-            payout_method_id="payout_method_id",
+            id="id",
             nickname="Primary checking",
         ) as response:
             assert not response.is_closed
@@ -114,9 +114,9 @@ class TestMethods:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_update(self, client: Whop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `payout_method_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.payouts.methods.with_raw_response.update(
-                payout_method_id="",
+                id="",
                 nickname="Primary checking",
             )
 
@@ -169,7 +169,7 @@ class TestMethods:
     @parametrize
     def test_method_delete(self, client: Whop) -> None:
         method = client.payouts.methods.delete(
-            "payout_method_id",
+            "id",
         )
         assert_matches_type(MethodDeleteResponse, method, path=["response"])
 
@@ -177,7 +177,7 @@ class TestMethods:
     @parametrize
     def test_raw_response_delete(self, client: Whop) -> None:
         response = client.payouts.methods.with_raw_response.delete(
-            "payout_method_id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -189,7 +189,7 @@ class TestMethods:
     @parametrize
     def test_streaming_response_delete(self, client: Whop) -> None:
         with client.payouts.methods.with_streaming_response.delete(
-            "payout_method_id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -202,7 +202,7 @@ class TestMethods:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_delete(self, client: Whop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `payout_method_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.payouts.methods.with_raw_response.delete(
                 "",
             )
@@ -268,7 +268,7 @@ class TestAsyncMethods:
     @parametrize
     async def test_method_update(self, async_client: AsyncWhop) -> None:
         method = await async_client.payouts.methods.update(
-            payout_method_id="payout_method_id",
+            id="id",
             nickname="Primary checking",
         )
         assert_matches_type(MethodUpdateResponse, method, path=["response"])
@@ -277,7 +277,7 @@ class TestAsyncMethods:
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncWhop) -> None:
         response = await async_client.payouts.methods.with_raw_response.update(
-            payout_method_id="payout_method_id",
+            id="id",
             nickname="Primary checking",
         )
 
@@ -290,7 +290,7 @@ class TestAsyncMethods:
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncWhop) -> None:
         async with async_client.payouts.methods.with_streaming_response.update(
-            payout_method_id="payout_method_id",
+            id="id",
             nickname="Primary checking",
         ) as response:
             assert not response.is_closed
@@ -304,9 +304,9 @@ class TestAsyncMethods:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_update(self, async_client: AsyncWhop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `payout_method_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.payouts.methods.with_raw_response.update(
-                payout_method_id="",
+                id="",
                 nickname="Primary checking",
             )
 
@@ -359,7 +359,7 @@ class TestAsyncMethods:
     @parametrize
     async def test_method_delete(self, async_client: AsyncWhop) -> None:
         method = await async_client.payouts.methods.delete(
-            "payout_method_id",
+            "id",
         )
         assert_matches_type(MethodDeleteResponse, method, path=["response"])
 
@@ -367,7 +367,7 @@ class TestAsyncMethods:
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncWhop) -> None:
         response = await async_client.payouts.methods.with_raw_response.delete(
-            "payout_method_id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -379,7 +379,7 @@ class TestAsyncMethods:
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncWhop) -> None:
         async with async_client.payouts.methods.with_streaming_response.delete(
-            "payout_method_id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -392,7 +392,7 @@ class TestAsyncMethods:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncWhop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `payout_method_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.payouts.methods.with_raw_response.delete(
                 "",
             )

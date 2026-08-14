@@ -189,7 +189,7 @@ class PayoutsResource(SyncAPIResource):
 
     def retrieve(
         self,
-        payout_id: str,
+        id: str,
         *,
         account_id: str | Omit = omit,
         user_id: str | Omit = omit,
@@ -221,10 +221,10 @@ class PayoutsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not payout_id:
-            raise ValueError(f"Expected a non-empty value for `payout_id` but received {payout_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            path_template("/payouts/{payout_id}", payout_id=payout_id),
+            path_template("/payouts/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -455,7 +455,7 @@ class AsyncPayoutsResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        payout_id: str,
+        id: str,
         *,
         account_id: str | Omit = omit,
         user_id: str | Omit = omit,
@@ -487,10 +487,10 @@ class AsyncPayoutsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not payout_id:
-            raise ValueError(f"Expected a non-empty value for `payout_id` but received {payout_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            path_template("/payouts/{payout_id}", payout_id=payout_id),
+            path_template("/payouts/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

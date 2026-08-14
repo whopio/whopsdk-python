@@ -160,7 +160,7 @@ class AccountsResource(SyncAPIResource):
 
     def retrieve(
         self,
-        account_id: str,
+        id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -182,10 +182,10 @@ class AccountsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not account_id:
-            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            path_template("/accounts/{account_id}", account_id=account_id),
+            path_template("/accounts/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -194,7 +194,7 @@ class AccountsResource(SyncAPIResource):
 
     def update(
         self,
-        account_id: str,
+        id: str,
         *,
         affiliate_application_required: bool | Omit = omit,
         affiliate_instructions: Optional[str] | Omit = omit,
@@ -2547,10 +2547,10 @@ class AccountsResource(SyncAPIResource):
 
           idempotency_key: Specify a custom idempotency key for this request
         """
-        if not account_id:
-            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._patch(
-            path_template("/accounts/{account_id}", account_id=account_id),
+            path_template("/accounts/{id}", id=id),
             body=maybe_transform(
                 {
                     "affiliate_application_required": affiliate_application_required,
@@ -2706,7 +2706,7 @@ class AccountsResource(SyncAPIResource):
 
     def form_company(
         self,
-        account_id: str,
+        id: str,
         *,
         business_name: str,
         business_type: str,
@@ -2860,10 +2860,10 @@ class AccountsResource(SyncAPIResource):
 
           idempotency_key: Specify a custom idempotency key for this request
         """
-        if not account_id:
-            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            path_template("/accounts/{account_id}/form_company", account_id=account_id),
+            path_template("/accounts/{id}/form_company", id=id),
             body=maybe_transform(
                 {
                     "business_name": business_name,
@@ -2914,7 +2914,7 @@ class AccountsResource(SyncAPIResource):
 
     def transfer_ownership(
         self,
-        account_id: str,
+        id: str,
         *,
         identifier: str,
         as_partner: bool | Omit = omit,
@@ -2949,10 +2949,10 @@ class AccountsResource(SyncAPIResource):
 
           idempotency_key: Specify a custom idempotency key for this request
         """
-        if not account_id:
-            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            path_template("/accounts/{account_id}/transfer_ownership", account_id=account_id),
+            path_template("/accounts/{id}/transfer_ownership", id=id),
             body=maybe_transform(
                 {
                     "identifier": identifier,
@@ -3081,7 +3081,7 @@ class AsyncAccountsResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        account_id: str,
+        id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -3103,10 +3103,10 @@ class AsyncAccountsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not account_id:
-            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            path_template("/accounts/{account_id}", account_id=account_id),
+            path_template("/accounts/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -3115,7 +3115,7 @@ class AsyncAccountsResource(AsyncAPIResource):
 
     async def update(
         self,
-        account_id: str,
+        id: str,
         *,
         affiliate_application_required: bool | Omit = omit,
         affiliate_instructions: Optional[str] | Omit = omit,
@@ -5468,10 +5468,10 @@ class AsyncAccountsResource(AsyncAPIResource):
 
           idempotency_key: Specify a custom idempotency key for this request
         """
-        if not account_id:
-            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._patch(
-            path_template("/accounts/{account_id}", account_id=account_id),
+            path_template("/accounts/{id}", id=id),
             body=await async_maybe_transform(
                 {
                     "affiliate_application_required": affiliate_application_required,
@@ -5627,7 +5627,7 @@ class AsyncAccountsResource(AsyncAPIResource):
 
     async def form_company(
         self,
-        account_id: str,
+        id: str,
         *,
         business_name: str,
         business_type: str,
@@ -5781,10 +5781,10 @@ class AsyncAccountsResource(AsyncAPIResource):
 
           idempotency_key: Specify a custom idempotency key for this request
         """
-        if not account_id:
-            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            path_template("/accounts/{account_id}/form_company", account_id=account_id),
+            path_template("/accounts/{id}/form_company", id=id),
             body=await async_maybe_transform(
                 {
                     "business_name": business_name,
@@ -5835,7 +5835,7 @@ class AsyncAccountsResource(AsyncAPIResource):
 
     async def transfer_ownership(
         self,
-        account_id: str,
+        id: str,
         *,
         identifier: str,
         as_partner: bool | Omit = omit,
@@ -5870,10 +5870,10 @@ class AsyncAccountsResource(AsyncAPIResource):
 
           idempotency_key: Specify a custom idempotency key for this request
         """
-        if not account_id:
-            raise ValueError(f"Expected a non-empty value for `account_id` but received {account_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            path_template("/accounts/{account_id}/transfer_ownership", account_id=account_id),
+            path_template("/accounts/{id}/transfer_ownership", id=id),
             body=await async_maybe_transform(
                 {
                     "identifier": identifier,

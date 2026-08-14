@@ -68,7 +68,7 @@ class TestCards:
     @parametrize
     def test_method_retrieve(self, client: Whop) -> None:
         card = client.cards.retrieve(
-            card_id="card_id",
+            id="id",
         )
         assert_matches_type(CardRetrieveResponse, card, path=["response"])
 
@@ -76,7 +76,7 @@ class TestCards:
     @parametrize
     def test_method_retrieve_with_all_params(self, client: Whop) -> None:
         card = client.cards.retrieve(
-            card_id="card_id",
+            id="id",
             account_id="account_id",
             user_id="user_id",
         )
@@ -86,7 +86,7 @@ class TestCards:
     @parametrize
     def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.cards.with_raw_response.retrieve(
-            card_id="card_id",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -98,7 +98,7 @@ class TestCards:
     @parametrize
     def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.cards.with_streaming_response.retrieve(
-            card_id="card_id",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -111,16 +111,16 @@ class TestCards:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: Whop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `card_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.cards.with_raw_response.retrieve(
-                card_id="",
+                id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update(self, client: Whop) -> None:
         card = client.cards.update(
-            card_id="card_id",
+            id="id",
         )
         assert_matches_type(CardUpdateResponse, card, path=["response"])
 
@@ -128,7 +128,7 @@ class TestCards:
     @parametrize
     def test_method_update_with_all_params(self, client: Whop) -> None:
         card = client.cards.update(
-            card_id="card_id",
+            id="id",
             account_id="biz_xxxxxxxxxxxxxx",
             billing={
                 "city": "Austin",
@@ -154,7 +154,7 @@ class TestCards:
     @parametrize
     def test_raw_response_update(self, client: Whop) -> None:
         response = client.cards.with_raw_response.update(
-            card_id="card_id",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -166,7 +166,7 @@ class TestCards:
     @parametrize
     def test_streaming_response_update(self, client: Whop) -> None:
         with client.cards.with_streaming_response.update(
-            card_id="card_id",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -179,9 +179,9 @@ class TestCards:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_update(self, client: Whop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `card_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.cards.with_raw_response.update(
-                card_id="",
+                id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -273,7 +273,7 @@ class TestAsyncCards:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         card = await async_client.cards.retrieve(
-            card_id="card_id",
+            id="id",
         )
         assert_matches_type(CardRetrieveResponse, card, path=["response"])
 
@@ -281,7 +281,7 @@ class TestAsyncCards:
     @parametrize
     async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
         card = await async_client.cards.retrieve(
-            card_id="card_id",
+            id="id",
             account_id="account_id",
             user_id="user_id",
         )
@@ -291,7 +291,7 @@ class TestAsyncCards:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.cards.with_raw_response.retrieve(
-            card_id="card_id",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -303,7 +303,7 @@ class TestAsyncCards:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.cards.with_streaming_response.retrieve(
-            card_id="card_id",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -316,16 +316,16 @@ class TestAsyncCards:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncWhop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `card_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.cards.with_raw_response.retrieve(
-                card_id="",
+                id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update(self, async_client: AsyncWhop) -> None:
         card = await async_client.cards.update(
-            card_id="card_id",
+            id="id",
         )
         assert_matches_type(CardUpdateResponse, card, path=["response"])
 
@@ -333,7 +333,7 @@ class TestAsyncCards:
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         card = await async_client.cards.update(
-            card_id="card_id",
+            id="id",
             account_id="biz_xxxxxxxxxxxxxx",
             billing={
                 "city": "Austin",
@@ -359,7 +359,7 @@ class TestAsyncCards:
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncWhop) -> None:
         response = await async_client.cards.with_raw_response.update(
-            card_id="card_id",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -371,7 +371,7 @@ class TestAsyncCards:
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncWhop) -> None:
         async with async_client.cards.with_streaming_response.update(
-            card_id="card_id",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -384,9 +384,9 @@ class TestAsyncCards:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_update(self, async_client: AsyncWhop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `card_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.cards.with_raw_response.update(
-                card_id="",
+                id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")

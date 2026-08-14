@@ -115,6 +115,13 @@ class StatRetrieveParams(TypedDict, total=False):
     Pair with breakdown_by=dispute_reason to split dispute counts by reason.
     """
 
+    event: str
+    """
+    Filter the events metric to one or more full event names, for example
+    payment.completed or pixel.lead. Comma-separate several to break the metric down
+    by each event. Available on metrics that list event.
+    """
+
     event_name: str
     """
     Filter the events metric to one tracked event name, for example pixel.page or

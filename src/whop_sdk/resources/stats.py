@@ -71,6 +71,7 @@ class StatsResource(SyncAPIResource):
         custom_name: str | Omit = omit,
         device_type: str | Omit = omit,
         dispute_reason: str | Omit = omit,
+        event: str | Omit = omit,
         event_name: str | Omit = omit,
         event_type: Literal["page_view", "checkout_start", "other"] | Omit = omit,
         fee_type: str | Omit = omit,
@@ -156,6 +157,10 @@ class StatsResource(SyncAPIResource):
 
           dispute_reason: Filter disputes to a normalized reason, for example product_not_received. Pair
               with breakdown_by=dispute_reason to split dispute counts by reason.
+
+          event: Filter the events metric to one or more full event names, for example
+              payment.completed or pixel.lead. Comma-separate several to break the metric down
+              by each event. Available on metrics that list event.
 
           event_name: Filter the events metric to one tracked event name, for example pixel.page or
               pixel.custom. Pair with breakdown_by=event_name to split by event.
@@ -250,6 +255,7 @@ class StatsResource(SyncAPIResource):
                         "custom_name": custom_name,
                         "device_type": device_type,
                         "dispute_reason": dispute_reason,
+                        "event": event,
                         "event_name": event_name,
                         "event_type": event_type,
                         "fee_type": fee_type,
@@ -344,6 +350,7 @@ class AsyncStatsResource(AsyncAPIResource):
         custom_name: str | Omit = omit,
         device_type: str | Omit = omit,
         dispute_reason: str | Omit = omit,
+        event: str | Omit = omit,
         event_name: str | Omit = omit,
         event_type: Literal["page_view", "checkout_start", "other"] | Omit = omit,
         fee_type: str | Omit = omit,
@@ -429,6 +436,10 @@ class AsyncStatsResource(AsyncAPIResource):
 
           dispute_reason: Filter disputes to a normalized reason, for example product_not_received. Pair
               with breakdown_by=dispute_reason to split dispute counts by reason.
+
+          event: Filter the events metric to one or more full event names, for example
+              payment.completed or pixel.lead. Comma-separate several to break the metric down
+              by each event. Available on metrics that list event.
 
           event_name: Filter the events metric to one tracked event name, for example pixel.page or
               pixel.custom. Pair with breakdown_by=event_name to split by event.
@@ -523,6 +534,7 @@ class AsyncStatsResource(AsyncAPIResource):
                         "custom_name": custom_name,
                         "device_type": device_type,
                         "dispute_reason": dispute_reason,
+                        "event": event,
                         "event_name": event_name,
                         "event_type": event_type,
                         "fee_type": fee_type,

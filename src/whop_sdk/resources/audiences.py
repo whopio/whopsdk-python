@@ -167,7 +167,7 @@ class AudiencesResource(SyncAPIResource):
 
     def update(
         self,
-        audience_id: str,
+        id: str,
         *,
         filters: object | Omit = omit,
         name: str | Omit = omit,
@@ -212,10 +212,10 @@ class AudiencesResource(SyncAPIResource):
 
           idempotency_key: Specify a custom idempotency key for this request
         """
-        if not audience_id:
-            raise ValueError(f"Expected a non-empty value for `audience_id` but received {audience_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._patch(
-            path_template("/audiences/{audience_id}", audience_id=audience_id),
+            path_template("/audiences/{id}", id=id),
             body=maybe_transform(
                 {
                     "filters": filters,
@@ -301,7 +301,7 @@ class AudiencesResource(SyncAPIResource):
 
     def delete(
         self,
-        audience_id: str,
+        id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -325,10 +325,10 @@ class AudiencesResource(SyncAPIResource):
 
           idempotency_key: Specify a custom idempotency key for this request
         """
-        if not audience_id:
-            raise ValueError(f"Expected a non-empty value for `audience_id` but received {audience_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._delete(
-            path_template("/audiences/{audience_id}", audience_id=audience_id),
+            path_template("/audiences/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -341,7 +341,7 @@ class AudiencesResource(SyncAPIResource):
 
     def add_people(
         self,
-        audience_id: str,
+        id: str,
         *,
         file_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -372,10 +372,10 @@ class AudiencesResource(SyncAPIResource):
 
           idempotency_key: Specify a custom idempotency key for this request
         """
-        if not audience_id:
-            raise ValueError(f"Expected a non-empty value for `audience_id` but received {audience_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            path_template("/audiences/{audience_id}/add_people", audience_id=audience_id),
+            path_template("/audiences/{id}/add_people", id=id),
             body=maybe_transform({"file_id": file_id}, audience_add_people_params.AudienceAddPeopleParams),
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -528,7 +528,7 @@ class AsyncAudiencesResource(AsyncAPIResource):
 
     async def update(
         self,
-        audience_id: str,
+        id: str,
         *,
         filters: object | Omit = omit,
         name: str | Omit = omit,
@@ -573,10 +573,10 @@ class AsyncAudiencesResource(AsyncAPIResource):
 
           idempotency_key: Specify a custom idempotency key for this request
         """
-        if not audience_id:
-            raise ValueError(f"Expected a non-empty value for `audience_id` but received {audience_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._patch(
-            path_template("/audiences/{audience_id}", audience_id=audience_id),
+            path_template("/audiences/{id}", id=id),
             body=await async_maybe_transform(
                 {
                     "filters": filters,
@@ -662,7 +662,7 @@ class AsyncAudiencesResource(AsyncAPIResource):
 
     async def delete(
         self,
-        audience_id: str,
+        id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -686,10 +686,10 @@ class AsyncAudiencesResource(AsyncAPIResource):
 
           idempotency_key: Specify a custom idempotency key for this request
         """
-        if not audience_id:
-            raise ValueError(f"Expected a non-empty value for `audience_id` but received {audience_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._delete(
-            path_template("/audiences/{audience_id}", audience_id=audience_id),
+            path_template("/audiences/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -702,7 +702,7 @@ class AsyncAudiencesResource(AsyncAPIResource):
 
     async def add_people(
         self,
-        audience_id: str,
+        id: str,
         *,
         file_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -733,10 +733,10 @@ class AsyncAudiencesResource(AsyncAPIResource):
 
           idempotency_key: Specify a custom idempotency key for this request
         """
-        if not audience_id:
-            raise ValueError(f"Expected a non-empty value for `audience_id` but received {audience_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            path_template("/audiences/{audience_id}/add_people", audience_id=audience_id),
+            path_template("/audiences/{id}/add_people", id=id),
             body=await async_maybe_transform({"file_id": file_id}, audience_add_people_params.AudienceAddPeopleParams),
             options=make_request_options(
                 extra_headers=extra_headers,

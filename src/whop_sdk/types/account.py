@@ -489,7 +489,7 @@ class PaymentControls(BaseModel):
 
 class RecommendedAction(BaseModel):
     """
-    Deprecated: use the `GET /accounts/{account_id}/recommend_actions` endpoint instead. Optional actions that unlock capabilities or grow the account, same shape as `required_actions`. Computed only on `retrieve` and `me`; `null` otherwise.
+    Deprecated: use the `GET /recommended_actions?account_id={account_id}` endpoint instead. Optional actions that unlock capabilities or grow the account, same shape as `required_actions`. Computed only on `retrieve` and `me`; `null` otherwise.
     """
 
     action: Literal[
@@ -3046,7 +3046,7 @@ class Account(BaseModel):
 
     recommended_actions: Optional[List[RecommendedAction]] = None
     """
-    DEPRECATED: Use the `GET /accounts/{account_id}/recommend_actions` endpoint
+    DEPRECATED: Use the `GET /recommended_actions?account_id={account_id}` endpoint
     instead.
     """
 

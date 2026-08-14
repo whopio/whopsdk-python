@@ -79,7 +79,7 @@ class TestNotifications:
     @parametrize
     def test_method_retrieve(self, client: Whop) -> None:
         notification = client.notifications.retrieve(
-            "notification_id",
+            "id",
         )
         assert_matches_type(Notification, notification, path=["response"])
 
@@ -87,7 +87,7 @@ class TestNotifications:
     @parametrize
     def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.notifications.with_raw_response.retrieve(
-            "notification_id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -99,7 +99,7 @@ class TestNotifications:
     @parametrize
     def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.notifications.with_streaming_response.retrieve(
-            "notification_id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -112,7 +112,7 @@ class TestNotifications:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: Whop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `notification_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.notifications.with_raw_response.retrieve(
                 "",
             )
@@ -294,7 +294,7 @@ class TestAsyncNotifications:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         notification = await async_client.notifications.retrieve(
-            "notification_id",
+            "id",
         )
         assert_matches_type(Notification, notification, path=["response"])
 
@@ -302,7 +302,7 @@ class TestAsyncNotifications:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.notifications.with_raw_response.retrieve(
-            "notification_id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -314,7 +314,7 @@ class TestAsyncNotifications:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.notifications.with_streaming_response.retrieve(
-            "notification_id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -327,7 +327,7 @@ class TestAsyncNotifications:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncWhop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `notification_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.notifications.with_raw_response.retrieve(
                 "",
             )

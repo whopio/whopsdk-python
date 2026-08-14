@@ -18,7 +18,7 @@ __all__ = [
 class AdsAgreement(BaseModel):
     """The account's Whop Ads services and payment authorization agreement.
 
-    While `pending_signature`, campaign launch is blocked; sign by answering `requested_information` via `PATCH /verifications/{account_id}`.
+    While `pending_signature`, campaign launch is blocked; sign by answering `requested_information` via `PATCH /verifications/{id}`.
     """
 
     accepted_at: Optional[str] = None
@@ -142,7 +142,7 @@ class PreferenceUpdateResponse(BaseModel):
     """The account's Whop Ads services and payment authorization agreement.
 
     While `pending_signature`, campaign launch is blocked; sign by answering
-    `requested_information` via `PATCH /verifications/{account_id}`.
+    `requested_information` via `PATCH /verifications/{id}`.
     """
 
     ads_payment_methods: Optional[AdsPaymentMethods] = None

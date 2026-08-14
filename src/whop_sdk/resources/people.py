@@ -55,7 +55,7 @@ class PeopleResource(SyncAPIResource):
 
     def retrieve(
         self,
-        person_id: str,
+        id: str,
         *,
         account_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -83,10 +83,10 @@ class PeopleResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not person_id:
-            raise ValueError(f"Expected a non-empty value for `person_id` but received {person_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            path_template("/people/{person_id}", person_id=person_id),
+            path_template("/people/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -298,7 +298,7 @@ class AsyncPeopleResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        person_id: str,
+        id: str,
         *,
         account_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -326,10 +326,10 @@ class AsyncPeopleResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not person_id:
-            raise ValueError(f"Expected a non-empty value for `person_id` but received {person_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            path_template("/people/{person_id}", person_id=person_id),
+            path_template("/people/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

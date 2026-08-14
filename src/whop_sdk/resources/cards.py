@@ -125,7 +125,7 @@ class CardsResource(SyncAPIResource):
 
     def retrieve(
         self,
-        card_id: str,
+        id: str,
         *,
         account_id: str | Omit = omit,
         user_id: str | Omit = omit,
@@ -152,10 +152,10 @@ class CardsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not card_id:
-            raise ValueError(f"Expected a non-empty value for `card_id` but received {card_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            path_template("/cards/{card_id}", card_id=card_id),
+            path_template("/cards/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -174,7 +174,7 @@ class CardsResource(SyncAPIResource):
 
     def update(
         self,
-        card_id: str,
+        id: str,
         *,
         account_id: str | Omit = omit,
         billing: card_update_params.Billing | Omit = omit,
@@ -240,10 +240,10 @@ class CardsResource(SyncAPIResource):
 
           idempotency_key: Specify a custom idempotency key for this request
         """
-        if not card_id:
-            raise ValueError(f"Expected a non-empty value for `card_id` but received {card_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._patch(
-            path_template("/cards/{card_id}", card_id=card_id),
+            path_template("/cards/{id}", id=id),
             body=maybe_transform(
                 {
                     "account_id": account_id,
@@ -417,7 +417,7 @@ class AsyncCardsResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        card_id: str,
+        id: str,
         *,
         account_id: str | Omit = omit,
         user_id: str | Omit = omit,
@@ -444,10 +444,10 @@ class AsyncCardsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not card_id:
-            raise ValueError(f"Expected a non-empty value for `card_id` but received {card_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            path_template("/cards/{card_id}", card_id=card_id),
+            path_template("/cards/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -466,7 +466,7 @@ class AsyncCardsResource(AsyncAPIResource):
 
     async def update(
         self,
-        card_id: str,
+        id: str,
         *,
         account_id: str | Omit = omit,
         billing: card_update_params.Billing | Omit = omit,
@@ -532,10 +532,10 @@ class AsyncCardsResource(AsyncAPIResource):
 
           idempotency_key: Specify a custom idempotency key for this request
         """
-        if not card_id:
-            raise ValueError(f"Expected a non-empty value for `card_id` but received {card_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._patch(
-            path_template("/cards/{card_id}", card_id=card_id),
+            path_template("/cards/{id}", id=id),
             body=await async_maybe_transform(
                 {
                     "account_id": account_id,

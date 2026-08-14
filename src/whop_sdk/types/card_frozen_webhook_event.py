@@ -48,7 +48,7 @@ class DataLimit(BaseModel):
 class DataSecrets(BaseModel):
     """Sensitive card details.
 
-    Present only on `GET /cards/:card_id` for active cards; `null` when the card is inactive or details cannot be retrieved.
+    Present only on `GET /cards/:id` for active cards; `null` when the card is inactive or details cannot be retrieved.
     """
 
     card_number: str
@@ -117,7 +117,7 @@ class Data(BaseModel):
     secrets: Optional[DataSecrets] = None
     """Sensitive card details.
 
-    Present only on `GET /cards/:card_id` for active cards; `null` when the card is
+    Present only on `GET /cards/:id` for active cards; `null` when the card is
     inactive or details cannot be retrieved.
     """
 

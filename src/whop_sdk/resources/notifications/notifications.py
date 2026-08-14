@@ -164,7 +164,7 @@ class NotificationsResource(SyncAPIResource):
 
     def retrieve(
         self,
-        notification_id: str,
+        id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -187,10 +187,10 @@ class NotificationsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not notification_id:
-            raise ValueError(f"Expected a non-empty value for `notification_id` but received {notification_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            path_template("/notifications/{notification_id}", notification_id=notification_id),
+            path_template("/notifications/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -495,7 +495,7 @@ class AsyncNotificationsResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        notification_id: str,
+        id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -518,10 +518,10 @@ class AsyncNotificationsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not notification_id:
-            raise ValueError(f"Expected a non-empty value for `notification_id` but received {notification_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            path_template("/notifications/{notification_id}", notification_id=notification_id),
+            path_template("/notifications/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

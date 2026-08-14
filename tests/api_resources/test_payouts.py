@@ -80,7 +80,7 @@ class TestPayouts:
     @parametrize
     def test_method_retrieve(self, client: Whop) -> None:
         payout = client.payouts.retrieve(
-            payout_id="payout_id",
+            id="id",
         )
         assert_matches_type(PayoutRetrieveResponse, payout, path=["response"])
 
@@ -88,7 +88,7 @@ class TestPayouts:
     @parametrize
     def test_method_retrieve_with_all_params(self, client: Whop) -> None:
         payout = client.payouts.retrieve(
-            payout_id="payout_id",
+            id="id",
             account_id="account_id",
             user_id="user_id",
         )
@@ -98,7 +98,7 @@ class TestPayouts:
     @parametrize
     def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.payouts.with_raw_response.retrieve(
-            payout_id="payout_id",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -110,7 +110,7 @@ class TestPayouts:
     @parametrize
     def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.payouts.with_streaming_response.retrieve(
-            payout_id="payout_id",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -123,9 +123,9 @@ class TestPayouts:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: Whop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `payout_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.payouts.with_raw_response.retrieve(
-                payout_id="",
+                id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -234,7 +234,7 @@ class TestAsyncPayouts:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         payout = await async_client.payouts.retrieve(
-            payout_id="payout_id",
+            id="id",
         )
         assert_matches_type(PayoutRetrieveResponse, payout, path=["response"])
 
@@ -242,7 +242,7 @@ class TestAsyncPayouts:
     @parametrize
     async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
         payout = await async_client.payouts.retrieve(
-            payout_id="payout_id",
+            id="id",
             account_id="account_id",
             user_id="user_id",
         )
@@ -252,7 +252,7 @@ class TestAsyncPayouts:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.payouts.with_raw_response.retrieve(
-            payout_id="payout_id",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -264,7 +264,7 @@ class TestAsyncPayouts:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.payouts.with_streaming_response.retrieve(
-            payout_id="payout_id",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -277,9 +277,9 @@ class TestAsyncPayouts:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncWhop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `payout_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.payouts.with_raw_response.retrieve(
-                payout_id="",
+                id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")

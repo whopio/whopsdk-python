@@ -136,7 +136,7 @@ class MethodsResource(SyncAPIResource):
 
     def update(
         self,
-        payout_method_id: str,
+        id: str,
         *,
         nickname: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -164,10 +164,10 @@ class MethodsResource(SyncAPIResource):
 
           idempotency_key: Specify a custom idempotency key for this request
         """
-        if not payout_method_id:
-            raise ValueError(f"Expected a non-empty value for `payout_method_id` but received {payout_method_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._patch(
-            path_template("/payouts/methods/{payout_method_id}", payout_method_id=payout_method_id),
+            path_template("/payouts/methods/{id}", id=id),
             body=maybe_transform({"nickname": nickname}, method_update_params.MethodUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -268,7 +268,7 @@ class MethodsResource(SyncAPIResource):
 
     def delete(
         self,
-        payout_method_id: str,
+        id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -292,10 +292,10 @@ class MethodsResource(SyncAPIResource):
 
           idempotency_key: Specify a custom idempotency key for this request
         """
-        if not payout_method_id:
-            raise ValueError(f"Expected a non-empty value for `payout_method_id` but received {payout_method_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._delete(
-            path_template("/payouts/methods/{payout_method_id}", payout_method_id=payout_method_id),
+            path_template("/payouts/methods/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -415,7 +415,7 @@ class AsyncMethodsResource(AsyncAPIResource):
 
     async def update(
         self,
-        payout_method_id: str,
+        id: str,
         *,
         nickname: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -443,10 +443,10 @@ class AsyncMethodsResource(AsyncAPIResource):
 
           idempotency_key: Specify a custom idempotency key for this request
         """
-        if not payout_method_id:
-            raise ValueError(f"Expected a non-empty value for `payout_method_id` but received {payout_method_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._patch(
-            path_template("/payouts/methods/{payout_method_id}", payout_method_id=payout_method_id),
+            path_template("/payouts/methods/{id}", id=id),
             body=await async_maybe_transform({"nickname": nickname}, method_update_params.MethodUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -547,7 +547,7 @@ class AsyncMethodsResource(AsyncAPIResource):
 
     async def delete(
         self,
-        payout_method_id: str,
+        id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -571,10 +571,10 @@ class AsyncMethodsResource(AsyncAPIResource):
 
           idempotency_key: Specify a custom idempotency key for this request
         """
-        if not payout_method_id:
-            raise ValueError(f"Expected a non-empty value for `payout_method_id` but received {payout_method_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._delete(
-            path_template("/payouts/methods/{payout_method_id}", payout_method_id=payout_method_id),
+            path_template("/payouts/methods/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

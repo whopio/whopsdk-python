@@ -66,7 +66,7 @@ class TestAccounts:
     @parametrize
     def test_method_retrieve(self, client: Whop) -> None:
         account = client.accounts.retrieve(
-            "account_id",
+            "id",
         )
         assert_matches_type(Account, account, path=["response"])
 
@@ -74,7 +74,7 @@ class TestAccounts:
     @parametrize
     def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.accounts.with_raw_response.retrieve(
-            "account_id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -86,7 +86,7 @@ class TestAccounts:
     @parametrize
     def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.accounts.with_streaming_response.retrieve(
-            "account_id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -99,7 +99,7 @@ class TestAccounts:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: Whop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `account_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.accounts.with_raw_response.retrieve(
                 "",
             )
@@ -108,7 +108,7 @@ class TestAccounts:
     @parametrize
     def test_method_update(self, client: Whop) -> None:
         account = client.accounts.update(
-            account_id="account_id",
+            id="id",
         )
         assert_matches_type(Account, account, path=["response"])
 
@@ -116,7 +116,7 @@ class TestAccounts:
     @parametrize
     def test_method_update_with_all_params(self, client: Whop) -> None:
         account = client.accounts.update(
-            account_id="account_id",
+            id="id",
             affiliate_application_required=True,
             affiliate_instructions="Send us your detailing content before promoting. No paid search on our brand terms.",
             banner_image={"id": "file_xxxxxxxxxxxxxx"},
@@ -187,7 +187,7 @@ class TestAccounts:
     @parametrize
     def test_raw_response_update(self, client: Whop) -> None:
         response = client.accounts.with_raw_response.update(
-            account_id="account_id",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -199,7 +199,7 @@ class TestAccounts:
     @parametrize
     def test_streaming_response_update(self, client: Whop) -> None:
         with client.accounts.with_streaming_response.update(
-            account_id="account_id",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -212,9 +212,9 @@ class TestAccounts:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_update(self, client: Whop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `account_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.accounts.with_raw_response.update(
-                account_id="",
+                id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -269,7 +269,7 @@ class TestAccounts:
     @parametrize
     def test_method_form_company(self, client: Whop) -> None:
         account = client.accounts.form_company(
-            account_id="account_id",
+            id="id",
             business_name="Shine Time Auto Detailing",
             business_type="brick_and_mortar",
             formation_state="TX",
@@ -298,7 +298,7 @@ class TestAccounts:
     @parametrize
     def test_method_form_company_with_all_params(self, client: Whop) -> None:
         account = client.accounts.form_company(
-            account_id="account_id",
+            id="id",
             business_name="Shine Time Auto Detailing",
             business_type="brick_and_mortar",
             formation_state="TX",
@@ -350,7 +350,7 @@ class TestAccounts:
     @parametrize
     def test_raw_response_form_company(self, client: Whop) -> None:
         response = client.accounts.with_raw_response.form_company(
-            account_id="account_id",
+            id="id",
             business_name="Shine Time Auto Detailing",
             business_type="brick_and_mortar",
             formation_state="TX",
@@ -383,7 +383,7 @@ class TestAccounts:
     @parametrize
     def test_streaming_response_form_company(self, client: Whop) -> None:
         with client.accounts.with_streaming_response.form_company(
-            account_id="account_id",
+            id="id",
             business_name="Shine Time Auto Detailing",
             business_type="brick_and_mortar",
             formation_state="TX",
@@ -417,9 +417,9 @@ class TestAccounts:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_form_company(self, client: Whop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `account_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.accounts.with_raw_response.form_company(
-                account_id="",
+                id="",
                 business_name="Shine Time Auto Detailing",
                 business_type="brick_and_mortar",
                 formation_state="TX",
@@ -475,7 +475,7 @@ class TestAccounts:
     @parametrize
     def test_method_transfer_ownership(self, client: Whop) -> None:
         account = client.accounts.transfer_ownership(
-            account_id="account_id",
+            id="id",
             identifier="marcus@shinetime.example",
         )
         assert_matches_type(AccountTransferOwnershipResponse, account, path=["response"])
@@ -484,7 +484,7 @@ class TestAccounts:
     @parametrize
     def test_method_transfer_ownership_with_all_params(self, client: Whop) -> None:
         account = client.accounts.transfer_ownership(
-            account_id="account_id",
+            id="id",
             identifier="marcus@shinetime.example",
             as_partner=True,
         )
@@ -494,7 +494,7 @@ class TestAccounts:
     @parametrize
     def test_raw_response_transfer_ownership(self, client: Whop) -> None:
         response = client.accounts.with_raw_response.transfer_ownership(
-            account_id="account_id",
+            id="id",
             identifier="marcus@shinetime.example",
         )
 
@@ -507,7 +507,7 @@ class TestAccounts:
     @parametrize
     def test_streaming_response_transfer_ownership(self, client: Whop) -> None:
         with client.accounts.with_streaming_response.transfer_ownership(
-            account_id="account_id",
+            id="id",
             identifier="marcus@shinetime.example",
         ) as response:
             assert not response.is_closed
@@ -521,9 +521,9 @@ class TestAccounts:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_transfer_ownership(self, client: Whop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `account_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.accounts.with_raw_response.transfer_ownership(
-                account_id="",
+                id="",
                 identifier="marcus@shinetime.example",
             )
 
@@ -576,7 +576,7 @@ class TestAsyncAccounts:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         account = await async_client.accounts.retrieve(
-            "account_id",
+            "id",
         )
         assert_matches_type(Account, account, path=["response"])
 
@@ -584,7 +584,7 @@ class TestAsyncAccounts:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.accounts.with_raw_response.retrieve(
-            "account_id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -596,7 +596,7 @@ class TestAsyncAccounts:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.accounts.with_streaming_response.retrieve(
-            "account_id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -609,7 +609,7 @@ class TestAsyncAccounts:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncWhop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `account_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.accounts.with_raw_response.retrieve(
                 "",
             )
@@ -618,7 +618,7 @@ class TestAsyncAccounts:
     @parametrize
     async def test_method_update(self, async_client: AsyncWhop) -> None:
         account = await async_client.accounts.update(
-            account_id="account_id",
+            id="id",
         )
         assert_matches_type(Account, account, path=["response"])
 
@@ -626,7 +626,7 @@ class TestAsyncAccounts:
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         account = await async_client.accounts.update(
-            account_id="account_id",
+            id="id",
             affiliate_application_required=True,
             affiliate_instructions="Send us your detailing content before promoting. No paid search on our brand terms.",
             banner_image={"id": "file_xxxxxxxxxxxxxx"},
@@ -697,7 +697,7 @@ class TestAsyncAccounts:
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncWhop) -> None:
         response = await async_client.accounts.with_raw_response.update(
-            account_id="account_id",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -709,7 +709,7 @@ class TestAsyncAccounts:
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncWhop) -> None:
         async with async_client.accounts.with_streaming_response.update(
-            account_id="account_id",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -722,9 +722,9 @@ class TestAsyncAccounts:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_update(self, async_client: AsyncWhop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `account_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.accounts.with_raw_response.update(
-                account_id="",
+                id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -779,7 +779,7 @@ class TestAsyncAccounts:
     @parametrize
     async def test_method_form_company(self, async_client: AsyncWhop) -> None:
         account = await async_client.accounts.form_company(
-            account_id="account_id",
+            id="id",
             business_name="Shine Time Auto Detailing",
             business_type="brick_and_mortar",
             formation_state="TX",
@@ -808,7 +808,7 @@ class TestAsyncAccounts:
     @parametrize
     async def test_method_form_company_with_all_params(self, async_client: AsyncWhop) -> None:
         account = await async_client.accounts.form_company(
-            account_id="account_id",
+            id="id",
             business_name="Shine Time Auto Detailing",
             business_type="brick_and_mortar",
             formation_state="TX",
@@ -860,7 +860,7 @@ class TestAsyncAccounts:
     @parametrize
     async def test_raw_response_form_company(self, async_client: AsyncWhop) -> None:
         response = await async_client.accounts.with_raw_response.form_company(
-            account_id="account_id",
+            id="id",
             business_name="Shine Time Auto Detailing",
             business_type="brick_and_mortar",
             formation_state="TX",
@@ -893,7 +893,7 @@ class TestAsyncAccounts:
     @parametrize
     async def test_streaming_response_form_company(self, async_client: AsyncWhop) -> None:
         async with async_client.accounts.with_streaming_response.form_company(
-            account_id="account_id",
+            id="id",
             business_name="Shine Time Auto Detailing",
             business_type="brick_and_mortar",
             formation_state="TX",
@@ -927,9 +927,9 @@ class TestAsyncAccounts:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_form_company(self, async_client: AsyncWhop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `account_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.accounts.with_raw_response.form_company(
-                account_id="",
+                id="",
                 business_name="Shine Time Auto Detailing",
                 business_type="brick_and_mortar",
                 formation_state="TX",
@@ -985,7 +985,7 @@ class TestAsyncAccounts:
     @parametrize
     async def test_method_transfer_ownership(self, async_client: AsyncWhop) -> None:
         account = await async_client.accounts.transfer_ownership(
-            account_id="account_id",
+            id="id",
             identifier="marcus@shinetime.example",
         )
         assert_matches_type(AccountTransferOwnershipResponse, account, path=["response"])
@@ -994,7 +994,7 @@ class TestAsyncAccounts:
     @parametrize
     async def test_method_transfer_ownership_with_all_params(self, async_client: AsyncWhop) -> None:
         account = await async_client.accounts.transfer_ownership(
-            account_id="account_id",
+            id="id",
             identifier="marcus@shinetime.example",
             as_partner=True,
         )
@@ -1004,7 +1004,7 @@ class TestAsyncAccounts:
     @parametrize
     async def test_raw_response_transfer_ownership(self, async_client: AsyncWhop) -> None:
         response = await async_client.accounts.with_raw_response.transfer_ownership(
-            account_id="account_id",
+            id="id",
             identifier="marcus@shinetime.example",
         )
 
@@ -1017,7 +1017,7 @@ class TestAsyncAccounts:
     @parametrize
     async def test_streaming_response_transfer_ownership(self, async_client: AsyncWhop) -> None:
         async with async_client.accounts.with_streaming_response.transfer_ownership(
-            account_id="account_id",
+            id="id",
             identifier="marcus@shinetime.example",
         ) as response:
             assert not response.is_closed
@@ -1031,8 +1031,8 @@ class TestAsyncAccounts:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_transfer_ownership(self, async_client: AsyncWhop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `account_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.accounts.with_raw_response.transfer_ownership(
-                account_id="",
+                id="",
                 identifier="marcus@shinetime.example",
             )

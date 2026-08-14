@@ -87,7 +87,7 @@ class TestAudiences:
     @parametrize
     def test_method_update(self, client: Whop) -> None:
         audience = client.audiences.update(
-            audience_id="audience_id",
+            id="id",
         )
         assert_matches_type(Audience, audience, path=["response"])
 
@@ -95,7 +95,7 @@ class TestAudiences:
     @parametrize
     def test_method_update_with_all_params(self, client: Whop) -> None:
         audience = client.audiences.update(
-            audience_id="audience_id",
+            id="id",
             filters={
                 "country": "US",
                 "last_seen_within_days": 60,
@@ -108,7 +108,7 @@ class TestAudiences:
     @parametrize
     def test_raw_response_update(self, client: Whop) -> None:
         response = client.audiences.with_raw_response.update(
-            audience_id="audience_id",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -120,7 +120,7 @@ class TestAudiences:
     @parametrize
     def test_streaming_response_update(self, client: Whop) -> None:
         with client.audiences.with_streaming_response.update(
-            audience_id="audience_id",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -133,9 +133,9 @@ class TestAudiences:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_update(self, client: Whop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `audience_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.audiences.with_raw_response.update(
-                audience_id="",
+                id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -189,7 +189,7 @@ class TestAudiences:
     @parametrize
     def test_method_delete(self, client: Whop) -> None:
         audience = client.audiences.delete(
-            "audience_id",
+            "id",
         )
         assert_matches_type(AudienceDeleteResponse, audience, path=["response"])
 
@@ -197,7 +197,7 @@ class TestAudiences:
     @parametrize
     def test_raw_response_delete(self, client: Whop) -> None:
         response = client.audiences.with_raw_response.delete(
-            "audience_id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -209,7 +209,7 @@ class TestAudiences:
     @parametrize
     def test_streaming_response_delete(self, client: Whop) -> None:
         with client.audiences.with_streaming_response.delete(
-            "audience_id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -222,7 +222,7 @@ class TestAudiences:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_delete(self, client: Whop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `audience_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.audiences.with_raw_response.delete(
                 "",
             )
@@ -231,7 +231,7 @@ class TestAudiences:
     @parametrize
     def test_method_add_people(self, client: Whop) -> None:
         audience = client.audiences.add_people(
-            audience_id="audience_id",
+            id="id",
             file_id="file_xxxxxxxxxxxxxx",
         )
         assert_matches_type(Audience, audience, path=["response"])
@@ -240,7 +240,7 @@ class TestAudiences:
     @parametrize
     def test_raw_response_add_people(self, client: Whop) -> None:
         response = client.audiences.with_raw_response.add_people(
-            audience_id="audience_id",
+            id="id",
             file_id="file_xxxxxxxxxxxxxx",
         )
 
@@ -253,7 +253,7 @@ class TestAudiences:
     @parametrize
     def test_streaming_response_add_people(self, client: Whop) -> None:
         with client.audiences.with_streaming_response.add_people(
-            audience_id="audience_id",
+            id="id",
             file_id="file_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
@@ -267,9 +267,9 @@ class TestAudiences:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_add_people(self, client: Whop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `audience_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.audiences.with_raw_response.add_people(
-                audience_id="",
+                id="",
                 file_id="file_xxxxxxxxxxxxxx",
             )
 
@@ -344,7 +344,7 @@ class TestAsyncAudiences:
     @parametrize
     async def test_method_update(self, async_client: AsyncWhop) -> None:
         audience = await async_client.audiences.update(
-            audience_id="audience_id",
+            id="id",
         )
         assert_matches_type(Audience, audience, path=["response"])
 
@@ -352,7 +352,7 @@ class TestAsyncAudiences:
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         audience = await async_client.audiences.update(
-            audience_id="audience_id",
+            id="id",
             filters={
                 "country": "US",
                 "last_seen_within_days": 60,
@@ -365,7 +365,7 @@ class TestAsyncAudiences:
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncWhop) -> None:
         response = await async_client.audiences.with_raw_response.update(
-            audience_id="audience_id",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -377,7 +377,7 @@ class TestAsyncAudiences:
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncWhop) -> None:
         async with async_client.audiences.with_streaming_response.update(
-            audience_id="audience_id",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -390,9 +390,9 @@ class TestAsyncAudiences:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_update(self, async_client: AsyncWhop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `audience_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.audiences.with_raw_response.update(
-                audience_id="",
+                id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -446,7 +446,7 @@ class TestAsyncAudiences:
     @parametrize
     async def test_method_delete(self, async_client: AsyncWhop) -> None:
         audience = await async_client.audiences.delete(
-            "audience_id",
+            "id",
         )
         assert_matches_type(AudienceDeleteResponse, audience, path=["response"])
 
@@ -454,7 +454,7 @@ class TestAsyncAudiences:
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncWhop) -> None:
         response = await async_client.audiences.with_raw_response.delete(
-            "audience_id",
+            "id",
         )
 
         assert response.is_closed is True
@@ -466,7 +466,7 @@ class TestAsyncAudiences:
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncWhop) -> None:
         async with async_client.audiences.with_streaming_response.delete(
-            "audience_id",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -479,7 +479,7 @@ class TestAsyncAudiences:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncWhop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `audience_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.audiences.with_raw_response.delete(
                 "",
             )
@@ -488,7 +488,7 @@ class TestAsyncAudiences:
     @parametrize
     async def test_method_add_people(self, async_client: AsyncWhop) -> None:
         audience = await async_client.audiences.add_people(
-            audience_id="audience_id",
+            id="id",
             file_id="file_xxxxxxxxxxxxxx",
         )
         assert_matches_type(Audience, audience, path=["response"])
@@ -497,7 +497,7 @@ class TestAsyncAudiences:
     @parametrize
     async def test_raw_response_add_people(self, async_client: AsyncWhop) -> None:
         response = await async_client.audiences.with_raw_response.add_people(
-            audience_id="audience_id",
+            id="id",
             file_id="file_xxxxxxxxxxxxxx",
         )
 
@@ -510,7 +510,7 @@ class TestAsyncAudiences:
     @parametrize
     async def test_streaming_response_add_people(self, async_client: AsyncWhop) -> None:
         async with async_client.audiences.with_streaming_response.add_people(
-            audience_id="audience_id",
+            id="id",
             file_id="file_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
@@ -524,8 +524,8 @@ class TestAsyncAudiences:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_add_people(self, async_client: AsyncWhop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `audience_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.audiences.with_raw_response.add_people(
-                audience_id="",
+                id="",
                 file_id="file_xxxxxxxxxxxxxx",
             )

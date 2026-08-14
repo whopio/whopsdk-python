@@ -25,7 +25,7 @@ class TestRecommendedActions:
     @parametrize
     def test_method_retrieve(self, client: Whop) -> None:
         recommended_action = client.recommended_actions.retrieve(
-            chain_id="chain_id",
+            id="id",
         )
         assert_matches_type(RecommendedActionRetrieveResponse, recommended_action, path=["response"])
 
@@ -33,7 +33,7 @@ class TestRecommendedActions:
     @parametrize
     def test_method_retrieve_with_all_params(self, client: Whop) -> None:
         recommended_action = client.recommended_actions.retrieve(
-            chain_id="chain_id",
+            id="id",
             account_id="account_id",
         )
         assert_matches_type(RecommendedActionRetrieveResponse, recommended_action, path=["response"])
@@ -42,7 +42,7 @@ class TestRecommendedActions:
     @parametrize
     def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.recommended_actions.with_raw_response.retrieve(
-            chain_id="chain_id",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -54,7 +54,7 @@ class TestRecommendedActions:
     @parametrize
     def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.recommended_actions.with_streaming_response.retrieve(
-            chain_id="chain_id",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -67,9 +67,9 @@ class TestRecommendedActions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: Whop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chain_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.recommended_actions.with_raw_response.retrieve(
-                chain_id="",
+                id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -112,7 +112,7 @@ class TestRecommendedActions:
     @parametrize
     def test_method_run(self, client: Whop) -> None:
         recommended_action = client.recommended_actions.run(
-            chain_id="chain_id",
+            id="id",
         )
         assert_matches_type(RecommendedActionRunResponse, recommended_action, path=["response"])
 
@@ -120,7 +120,7 @@ class TestRecommendedActions:
     @parametrize
     def test_method_run_with_all_params(self, client: Whop) -> None:
         recommended_action = client.recommended_actions.run(
-            chain_id="chain_id",
+            id="id",
             account_id="account_id",
         )
         assert_matches_type(RecommendedActionRunResponse, recommended_action, path=["response"])
@@ -129,7 +129,7 @@ class TestRecommendedActions:
     @parametrize
     def test_raw_response_run(self, client: Whop) -> None:
         response = client.recommended_actions.with_raw_response.run(
-            chain_id="chain_id",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -141,7 +141,7 @@ class TestRecommendedActions:
     @parametrize
     def test_streaming_response_run(self, client: Whop) -> None:
         with client.recommended_actions.with_streaming_response.run(
-            chain_id="chain_id",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -154,9 +154,9 @@ class TestRecommendedActions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_run(self, client: Whop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chain_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.recommended_actions.with_raw_response.run(
-                chain_id="",
+                id="",
             )
 
 
@@ -169,7 +169,7 @@ class TestAsyncRecommendedActions:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         recommended_action = await async_client.recommended_actions.retrieve(
-            chain_id="chain_id",
+            id="id",
         )
         assert_matches_type(RecommendedActionRetrieveResponse, recommended_action, path=["response"])
 
@@ -177,7 +177,7 @@ class TestAsyncRecommendedActions:
     @parametrize
     async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
         recommended_action = await async_client.recommended_actions.retrieve(
-            chain_id="chain_id",
+            id="id",
             account_id="account_id",
         )
         assert_matches_type(RecommendedActionRetrieveResponse, recommended_action, path=["response"])
@@ -186,7 +186,7 @@ class TestAsyncRecommendedActions:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.recommended_actions.with_raw_response.retrieve(
-            chain_id="chain_id",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -198,7 +198,7 @@ class TestAsyncRecommendedActions:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.recommended_actions.with_streaming_response.retrieve(
-            chain_id="chain_id",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -211,9 +211,9 @@ class TestAsyncRecommendedActions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncWhop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chain_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.recommended_actions.with_raw_response.retrieve(
-                chain_id="",
+                id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -256,7 +256,7 @@ class TestAsyncRecommendedActions:
     @parametrize
     async def test_method_run(self, async_client: AsyncWhop) -> None:
         recommended_action = await async_client.recommended_actions.run(
-            chain_id="chain_id",
+            id="id",
         )
         assert_matches_type(RecommendedActionRunResponse, recommended_action, path=["response"])
 
@@ -264,7 +264,7 @@ class TestAsyncRecommendedActions:
     @parametrize
     async def test_method_run_with_all_params(self, async_client: AsyncWhop) -> None:
         recommended_action = await async_client.recommended_actions.run(
-            chain_id="chain_id",
+            id="id",
             account_id="account_id",
         )
         assert_matches_type(RecommendedActionRunResponse, recommended_action, path=["response"])
@@ -273,7 +273,7 @@ class TestAsyncRecommendedActions:
     @parametrize
     async def test_raw_response_run(self, async_client: AsyncWhop) -> None:
         response = await async_client.recommended_actions.with_raw_response.run(
-            chain_id="chain_id",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -285,7 +285,7 @@ class TestAsyncRecommendedActions:
     @parametrize
     async def test_streaming_response_run(self, async_client: AsyncWhop) -> None:
         async with async_client.recommended_actions.with_streaming_response.run(
-            chain_id="chain_id",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -298,7 +298,7 @@ class TestAsyncRecommendedActions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_run(self, async_client: AsyncWhop) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `chain_id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.recommended_actions.with_raw_response.run(
-                chain_id="",
+                id="",
             )

@@ -123,7 +123,7 @@ class BountySubmissionsResource(SyncAPIResource):
 
     def retrieve(
         self,
-        bounty_submission_id: str,
+        id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -145,12 +145,10 @@ class BountySubmissionsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not bounty_submission_id:
-            raise ValueError(
-                f"Expected a non-empty value for `bounty_submission_id` but received {bounty_submission_id!r}"
-            )
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._get(
-            path_template("/bounty_submissions/{bounty_submission_id}", bounty_submission_id=bounty_submission_id),
+            path_template("/bounty_submissions/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -246,7 +244,7 @@ class BountySubmissionsResource(SyncAPIResource):
 
     def delete(
         self,
-        bounty_submission_id: str,
+        id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -272,12 +270,10 @@ class BountySubmissionsResource(SyncAPIResource):
 
           idempotency_key: Specify a custom idempotency key for this request
         """
-        if not bounty_submission_id:
-            raise ValueError(
-                f"Expected a non-empty value for `bounty_submission_id` but received {bounty_submission_id!r}"
-            )
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._delete(
-            path_template("/bounty_submissions/{bounty_submission_id}", bounty_submission_id=bounty_submission_id),
+            path_template("/bounty_submissions/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -290,7 +286,7 @@ class BountySubmissionsResource(SyncAPIResource):
 
     def submit(
         self,
-        bounty_submission_id: str,
+        id: str,
         *,
         deliverable: Optional[bounty_submission_submit_params.Deliverable] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -324,14 +320,10 @@ class BountySubmissionsResource(SyncAPIResource):
 
           idempotency_key: Specify a custom idempotency key for this request
         """
-        if not bounty_submission_id:
-            raise ValueError(
-                f"Expected a non-empty value for `bounty_submission_id` but received {bounty_submission_id!r}"
-            )
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            path_template(
-                "/bounty_submissions/{bounty_submission_id}/submit", bounty_submission_id=bounty_submission_id
-            ),
+            path_template("/bounty_submissions/{id}/submit", id=id),
             body=maybe_transform(
                 {"deliverable": deliverable}, bounty_submission_submit_params.BountySubmissionSubmitParams
             ),
@@ -443,7 +435,7 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        bounty_submission_id: str,
+        id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -465,12 +457,10 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not bounty_submission_id:
-            raise ValueError(
-                f"Expected a non-empty value for `bounty_submission_id` but received {bounty_submission_id!r}"
-            )
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._get(
-            path_template("/bounty_submissions/{bounty_submission_id}", bounty_submission_id=bounty_submission_id),
+            path_template("/bounty_submissions/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -566,7 +556,7 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
 
     async def delete(
         self,
-        bounty_submission_id: str,
+        id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -592,12 +582,10 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
 
           idempotency_key: Specify a custom idempotency key for this request
         """
-        if not bounty_submission_id:
-            raise ValueError(
-                f"Expected a non-empty value for `bounty_submission_id` but received {bounty_submission_id!r}"
-            )
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._delete(
-            path_template("/bounty_submissions/{bounty_submission_id}", bounty_submission_id=bounty_submission_id),
+            path_template("/bounty_submissions/{id}", id=id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -610,7 +598,7 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
 
     async def submit(
         self,
-        bounty_submission_id: str,
+        id: str,
         *,
         deliverable: Optional[bounty_submission_submit_params.Deliverable] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -644,14 +632,10 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
 
           idempotency_key: Specify a custom idempotency key for this request
         """
-        if not bounty_submission_id:
-            raise ValueError(
-                f"Expected a non-empty value for `bounty_submission_id` but received {bounty_submission_id!r}"
-            )
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            path_template(
-                "/bounty_submissions/{bounty_submission_id}/submit", bounty_submission_id=bounty_submission_id
-            ),
+            path_template("/bounty_submissions/{id}/submit", id=id),
             body=await async_maybe_transform(
                 {"deliverable": deliverable}, bounty_submission_submit_params.BountySubmissionSubmitParams
             ),
