@@ -17,6 +17,14 @@ class BountyUpdateParams(TypedDict, total=False):
     Number of submissions that can be accepted (winner slots).
     """
 
+    accepted_submissions_per_user_limit: Optional[int]
+    """How many winner slots one worker can win.
+
+    Defaults to `1`. Wins plus proofs awaiting review never exceed this number, and
+    a worker runs one attempt at a time. Cannot exceed `accepted_submissions_limit`.
+    Editable while the bounty is still open with nothing under review.
+    """
+
     allowed_country_codes: Optional[SequenceNotStr[str]]
     """
     Replace the countries whose residents can work the bounty, as ISO 3166 alpha-2

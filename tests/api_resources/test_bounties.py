@@ -36,6 +36,7 @@ class TestBounties:
             gross_reward_amount=40,
             title="Record interior detailing passes",
             accepted_submissions_limit=3,
+            accepted_submissions_per_user_limit=2,
             account_id="biz_xxxxxxxxxxxxxx",
             allowed_country_codes=["US"],
             business_goal_type="clipping",
@@ -140,6 +141,7 @@ class TestBounties:
         bounty = client.bounties.update(
             id="id",
             accepted_submissions_limit=3,
+            accepted_submissions_per_user_limit=2,
             allowed_country_codes=["US"],
             business_goal_type="data_capture",
             description="Record one continuous pass of a full interior detail, dash to trunk, on a customer vehicle.",
@@ -298,6 +300,7 @@ class TestAsyncBounties:
             gross_reward_amount=40,
             title="Record interior detailing passes",
             accepted_submissions_limit=3,
+            accepted_submissions_per_user_limit=2,
             account_id="biz_xxxxxxxxxxxxxx",
             allowed_country_codes=["US"],
             business_goal_type="clipping",
@@ -402,6 +405,7 @@ class TestAsyncBounties:
         bounty = await async_client.bounties.update(
             id="id",
             accepted_submissions_limit=3,
+            accepted_submissions_per_user_limit=2,
             allowed_country_codes=["US"],
             business_goal_type="data_capture",
             description="Record one continuous pass of a full interior detail, dash to trunk, on a customer vehicle.",

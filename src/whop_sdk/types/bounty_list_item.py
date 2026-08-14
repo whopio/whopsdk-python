@@ -65,6 +65,13 @@ class BountyListItem(BaseModel):
     accepted_submissions_limit: int
     """Number of submissions that can be accepted (winner slots)."""
 
+    accepted_submissions_per_user_limit: int
+    """How many winner slots one worker can win.
+
+    Defaults to `1`. Wins plus proofs awaiting review never exceed this number, and
+    a worker runs one attempt at a time. Cannot exceed `accepted_submissions_limit`.
+    """
+
     affiliate_share_amount: float
     """
     What a referrer earns per accepted submission when the worker arrived through
@@ -200,3 +207,10 @@ class BountyListItem(BaseModel):
 
     updated_at: str
     """When the bounty was last updated, as an ISO 8601 timestamp."""
+
+    viewer_accepted_submissions_count: int
+    """How many winner slots the authenticated user has already won on this bounty.
+
+    Read against `accepted_submissions_per_user_limit` to show a worker their
+    remaining allowance. `0` when the request has no authenticated user.
+    """

@@ -78,6 +78,7 @@ class BountiesResource(SyncAPIResource):
         gross_reward_amount: float,
         title: str,
         accepted_submissions_limit: Optional[int] | Omit = omit,
+        accepted_submissions_per_user_limit: Optional[int] | Omit = omit,
         account_id: Optional[str] | Omit = omit,
         allowed_country_codes: Optional[SequenceNotStr[str]] | Omit = omit,
         business_goal_type: Literal[
@@ -119,6 +120,10 @@ class BountiesResource(SyncAPIResource):
           accepted_submissions_limit: Number of submissions that can be accepted (winner slots). Defaults to 1. The
               escrowed total is `gross_reward_amount` times this limit and must be at least
               $5.
+
+          accepted_submissions_per_user_limit: How many winner slots one worker can win. Defaults to `1`. Wins plus proofs
+              awaiting review never exceed this number, and a worker runs one attempt at a
+              time. Cannot exceed `accepted_submissions_limit`.
 
           account_id: Account whose balance funds the bounty pool (`biz_` tag). Defaults to the
               caller's personal balance. Requires permission to move the account's funds.
@@ -163,6 +168,7 @@ class BountiesResource(SyncAPIResource):
                     "gross_reward_amount": gross_reward_amount,
                     "title": title,
                     "accepted_submissions_limit": accepted_submissions_limit,
+                    "accepted_submissions_per_user_limit": accepted_submissions_per_user_limit,
                     "account_id": account_id,
                     "allowed_country_codes": allowed_country_codes,
                     "business_goal_type": business_goal_type,
@@ -223,6 +229,7 @@ class BountiesResource(SyncAPIResource):
         id: str,
         *,
         accepted_submissions_limit: Optional[int] | Omit = omit,
+        accepted_submissions_per_user_limit: Optional[int] | Omit = omit,
         allowed_country_codes: Optional[SequenceNotStr[str]] | Omit = omit,
         business_goal_type: Literal[
             "clipping",
@@ -258,6 +265,11 @@ class BountiesResource(SyncAPIResource):
         Args:
           accepted_submissions_limit: Scheduled drafts only. Number of submissions that can be accepted (winner
               slots).
+
+          accepted_submissions_per_user_limit: How many winner slots one worker can win. Defaults to `1`. Wins plus proofs
+              awaiting review never exceed this number, and a worker runs one attempt at a
+              time. Cannot exceed `accepted_submissions_limit`. Editable while the bounty is
+              still open with nothing under review.
 
           allowed_country_codes: Replace the countries whose residents can work the bounty, as ISO 3166 alpha-2
               codes. Empty means worldwide.
@@ -296,6 +308,7 @@ class BountiesResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "accepted_submissions_limit": accepted_submissions_limit,
+                    "accepted_submissions_per_user_limit": accepted_submissions_per_user_limit,
                     "allowed_country_codes": allowed_country_codes,
                     "business_goal_type": business_goal_type,
                     "description": description,
@@ -497,6 +510,7 @@ class AsyncBountiesResource(AsyncAPIResource):
         gross_reward_amount: float,
         title: str,
         accepted_submissions_limit: Optional[int] | Omit = omit,
+        accepted_submissions_per_user_limit: Optional[int] | Omit = omit,
         account_id: Optional[str] | Omit = omit,
         allowed_country_codes: Optional[SequenceNotStr[str]] | Omit = omit,
         business_goal_type: Literal[
@@ -538,6 +552,10 @@ class AsyncBountiesResource(AsyncAPIResource):
           accepted_submissions_limit: Number of submissions that can be accepted (winner slots). Defaults to 1. The
               escrowed total is `gross_reward_amount` times this limit and must be at least
               $5.
+
+          accepted_submissions_per_user_limit: How many winner slots one worker can win. Defaults to `1`. Wins plus proofs
+              awaiting review never exceed this number, and a worker runs one attempt at a
+              time. Cannot exceed `accepted_submissions_limit`.
 
           account_id: Account whose balance funds the bounty pool (`biz_` tag). Defaults to the
               caller's personal balance. Requires permission to move the account's funds.
@@ -582,6 +600,7 @@ class AsyncBountiesResource(AsyncAPIResource):
                     "gross_reward_amount": gross_reward_amount,
                     "title": title,
                     "accepted_submissions_limit": accepted_submissions_limit,
+                    "accepted_submissions_per_user_limit": accepted_submissions_per_user_limit,
                     "account_id": account_id,
                     "allowed_country_codes": allowed_country_codes,
                     "business_goal_type": business_goal_type,
@@ -642,6 +661,7 @@ class AsyncBountiesResource(AsyncAPIResource):
         id: str,
         *,
         accepted_submissions_limit: Optional[int] | Omit = omit,
+        accepted_submissions_per_user_limit: Optional[int] | Omit = omit,
         allowed_country_codes: Optional[SequenceNotStr[str]] | Omit = omit,
         business_goal_type: Literal[
             "clipping",
@@ -677,6 +697,11 @@ class AsyncBountiesResource(AsyncAPIResource):
         Args:
           accepted_submissions_limit: Scheduled drafts only. Number of submissions that can be accepted (winner
               slots).
+
+          accepted_submissions_per_user_limit: How many winner slots one worker can win. Defaults to `1`. Wins plus proofs
+              awaiting review never exceed this number, and a worker runs one attempt at a
+              time. Cannot exceed `accepted_submissions_limit`. Editable while the bounty is
+              still open with nothing under review.
 
           allowed_country_codes: Replace the countries whose residents can work the bounty, as ISO 3166 alpha-2
               codes. Empty means worldwide.
@@ -715,6 +740,7 @@ class AsyncBountiesResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "accepted_submissions_limit": accepted_submissions_limit,
+                    "accepted_submissions_per_user_limit": accepted_submissions_per_user_limit,
                     "allowed_country_codes": allowed_country_codes,
                     "business_goal_type": business_goal_type,
                     "description": description,

@@ -30,6 +30,13 @@ class BountyCreateParams(TypedDict, total=False):
     must be at least $5.
     """
 
+    accepted_submissions_per_user_limit: Optional[int]
+    """How many winner slots one worker can win.
+
+    Defaults to `1`. Wins plus proofs awaiting review never exceed this number, and
+    a worker runs one attempt at a time. Cannot exceed `accepted_submissions_limit`.
+    """
+
     account_id: Optional[str]
     """Account whose balance funds the bounty pool (`biz_` tag).
 
