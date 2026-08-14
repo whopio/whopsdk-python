@@ -461,6 +461,7 @@ class Data(BaseModel):
         "currency_conversion_outgoing",
         "dispute_alert_fee",
         "dispute_hold_adjustment",
+        "dispute_representment_fee",
         "fraud_prevention_fee",
         "fx_percentage_fee",
         "high_risk_merchant_fee",

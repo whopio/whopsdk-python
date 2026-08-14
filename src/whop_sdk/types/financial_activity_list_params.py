@@ -79,6 +79,7 @@ class FinancialActivityListParams(TypedDict, total=False):
             "currency_conversion_outgoing",
             "dispute_alert_fee",
             "dispute_hold_adjustment",
+            "dispute_representment_fee",
             "fees",
             "fraud_prevention_fee",
             "fx_percentage_fee",
