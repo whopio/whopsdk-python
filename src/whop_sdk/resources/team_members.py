@@ -74,7 +74,8 @@ class TeamMembersResource(SyncAPIResource):
         response is `202` with
         `{ "object": "team_member_invite", "invitation_sent": true }`. If they already
         have a pending invite, the request fails with a `400`. Custom roles cannot be
-        granted via the API.
+        granted via the API. Granting the `workforce` role is also allowed with the
+        `bounty:create` scope.
 
         Args:
           account_id: Account ID, prefixed `biz_`.
@@ -236,7 +237,8 @@ class TeamMembersResource(SyncAPIResource):
         Lists an account's team members, including pending invites (`status: "pending"`,
         `ausri_` ids; `user` is `null` for invites sent to an email with no Whop account
         yet). For accepted members, `email` requires the
-        `company:authorized_user:email:read` scope and is `null` otherwise.
+        `company:authorized_user:email:read` scope and is `null` otherwise. Listing
+        `role=workforce` is also allowed with the `bounty:create` scope.
 
         Args:
           account_id: Account ID, prefixed `biz_`.
@@ -311,7 +313,8 @@ class TeamMembersResource(SyncAPIResource):
         """
         Removes a team member from the account, or revokes a pending invite when given
         an `ausri_` ID. A user session may delete its own membership to leave the team
-        without the delete scope. The account owner cannot be removed.
+        without the delete scope. Removing a member on the `workforce` role is also
+        allowed with the `bounty:create` scope. The account owner cannot be removed.
 
         Args:
           extra_headers: Send extra headers
@@ -388,7 +391,8 @@ class AsyncTeamMembersResource(AsyncAPIResource):
         response is `202` with
         `{ "object": "team_member_invite", "invitation_sent": true }`. If they already
         have a pending invite, the request fails with a `400`. Custom roles cannot be
-        granted via the API.
+        granted via the API. Granting the `workforce` role is also allowed with the
+        `bounty:create` scope.
 
         Args:
           account_id: Account ID, prefixed `biz_`.
@@ -550,7 +554,8 @@ class AsyncTeamMembersResource(AsyncAPIResource):
         Lists an account's team members, including pending invites (`status: "pending"`,
         `ausri_` ids; `user` is `null` for invites sent to an email with no Whop account
         yet). For accepted members, `email` requires the
-        `company:authorized_user:email:read` scope and is `null` otherwise.
+        `company:authorized_user:email:read` scope and is `null` otherwise. Listing
+        `role=workforce` is also allowed with the `bounty:create` scope.
 
         Args:
           account_id: Account ID, prefixed `biz_`.
@@ -625,7 +630,8 @@ class AsyncTeamMembersResource(AsyncAPIResource):
         """
         Removes a team member from the account, or revokes a pending invite when given
         an `ausri_` ID. A user session may delete its own membership to leave the team
-        without the delete scope. The account owner cannot be removed.
+        without the delete scope. Removing a member on the `workforce` role is also
+        allowed with the `bounty:create` scope. The account owner cannot be removed.
 
         Args:
           extra_headers: Send extra headers
