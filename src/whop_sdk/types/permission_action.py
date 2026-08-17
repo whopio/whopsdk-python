@@ -130,6 +130,7 @@ PermissionAction: TypeAlias = Literal[
     "membership:resync_access",
     "membership:create",
     "membership:update",
+    "membership:transfer",
     "member:moderate",
     "member:stats:export",
     "member:stats:read",

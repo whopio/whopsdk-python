@@ -28,6 +28,7 @@ from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.membership import Membership
 from ..types.membership_invite_response import MembershipInviteResponse
+from ..types.membership_transfer_response import MembershipTransferResponse
 
 __all__ = ["MembershipsResource", "AsyncMembershipsResource"]
 
@@ -36,7 +37,7 @@ class MembershipsResource(SyncAPIResource):
     """
     A Membership is a customer's purchase of a plan: the subscription or one-time grant that gives them access to a product. It tracks billing state (`active`, `trialing`, `past_due`, and so on), the current period, pending cancellations, custom metadata, and the software license key when the product includes licensing.
 
-    Use the Memberships API to list an account's memberships or the caller's own, retrieve one by ID or license key, invite a recipient to join through a free plan, and manage the lifecycle: cancel immediately or at period end, reverse a scheduled period-end cancellation, pause and resume payment collection, extend with free days, and update metadata.
+    Use the Memberships API to list an account's memberships or the caller's own, retrieve one by ID or license key, invite a recipient to join through a free plan, and manage the lifecycle: cancel immediately or at period end, reverse a scheduled period-end cancellation, pause and resume payment collection, extend with free days, generate a transfer link, and update metadata.
     """
 
     @cached_property
@@ -254,6 +255,7 @@ class MembershipsResource(SyncAPIResource):
         self,
         id: str,
         *,
+        cancel_at_period_end: bool | Omit = omit,
         reason: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -263,13 +265,17 @@ class MembershipsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
         idempotency_key: str | None = None,
     ) -> Membership:
-        """Cancels a membership immediately, revoking access right away.
+        """Cancels a membership.
 
-        To cancel at the
-        end of the billing period instead, update the membership with
-        `cancel_at_period_end: true`.
+        Pass `cancel_at_period_end: true` to stop auto-renewal and
+        keep access until the current billing period ends. Omit it (or pass `false`) to
+        revoke access immediately. Buyers cannot cancel buy-now-pay-later (`splitit`,
+        `sezzle`) or non-trial split-pay memberships.
 
         Args:
+          cancel_at_period_end: `true` stops auto-renewal and keeps access until the current billing period
+              ends. Omit or `false` revokes access immediately.
+
           reason: Free-form note recording why the membership was canceled.
 
           extra_headers: Send extra headers
@@ -286,7 +292,13 @@ class MembershipsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
             path_template("/memberships/{id}/cancel", id=id),
-            body=maybe_transform({"reason": reason}, membership_cancel_params.MembershipCancelParams),
+            body=maybe_transform(
+                {
+                    "cancel_at_period_end": cancel_at_period_end,
+                    "reason": reason,
+                },
+                membership_cancel_params.MembershipCancelParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -548,12 +560,58 @@ class MembershipsResource(SyncAPIResource):
             cast_to=Membership,
         )
 
+    def transfer(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> MembershipTransferResponse:
+        """Creates a one-use transfer URL for a membership.
+
+        Opening the URL while logged
+        into a different Whop account claims the membership onto that account. The
+        membership's buyer can generate a link for their own membership with
+        `membership:transfer` when the product allows transfers and the membership is
+        `trialing`, `active`, or `completed`. An account credential with
+        `membership:update` bypasses both restrictions.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            path_template("/memberships/{id}/transfer", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
+            ),
+            cast_to=MembershipTransferResponse,
+        )
+
 
 class AsyncMembershipsResource(AsyncAPIResource):
     """
     A Membership is a customer's purchase of a plan: the subscription or one-time grant that gives them access to a product. It tracks billing state (`active`, `trialing`, `past_due`, and so on), the current period, pending cancellations, custom metadata, and the software license key when the product includes licensing.
 
-    Use the Memberships API to list an account's memberships or the caller's own, retrieve one by ID or license key, invite a recipient to join through a free plan, and manage the lifecycle: cancel immediately or at period end, reverse a scheduled period-end cancellation, pause and resume payment collection, extend with free days, and update metadata.
+    Use the Memberships API to list an account's memberships or the caller's own, retrieve one by ID or license key, invite a recipient to join through a free plan, and manage the lifecycle: cancel immediately or at period end, reverse a scheduled period-end cancellation, pause and resume payment collection, extend with free days, generate a transfer link, and update metadata.
     """
 
     @cached_property
@@ -771,6 +829,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        cancel_at_period_end: bool | Omit = omit,
         reason: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -780,13 +839,17 @@ class AsyncMembershipsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
         idempotency_key: str | None = None,
     ) -> Membership:
-        """Cancels a membership immediately, revoking access right away.
+        """Cancels a membership.
 
-        To cancel at the
-        end of the billing period instead, update the membership with
-        `cancel_at_period_end: true`.
+        Pass `cancel_at_period_end: true` to stop auto-renewal and
+        keep access until the current billing period ends. Omit it (or pass `false`) to
+        revoke access immediately. Buyers cannot cancel buy-now-pay-later (`splitit`,
+        `sezzle`) or non-trial split-pay memberships.
 
         Args:
+          cancel_at_period_end: `true` stops auto-renewal and keeps access until the current billing period
+              ends. Omit or `false` revokes access immediately.
+
           reason: Free-form note recording why the membership was canceled.
 
           extra_headers: Send extra headers
@@ -803,7 +866,13 @@ class AsyncMembershipsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
             path_template("/memberships/{id}/cancel", id=id),
-            body=await async_maybe_transform({"reason": reason}, membership_cancel_params.MembershipCancelParams),
+            body=await async_maybe_transform(
+                {
+                    "cancel_at_period_end": cancel_at_period_end,
+                    "reason": reason,
+                },
+                membership_cancel_params.MembershipCancelParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1065,6 +1134,52 @@ class AsyncMembershipsResource(AsyncAPIResource):
             cast_to=Membership,
         )
 
+    async def transfer(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> MembershipTransferResponse:
+        """Creates a one-use transfer URL for a membership.
+
+        Opening the URL while logged
+        into a different Whop account claims the membership onto that account. The
+        membership's buyer can generate a link for their own membership with
+        `membership:transfer` when the product allows transfers and the membership is
+        `trialing`, `active`, or `completed`. An account credential with
+        `membership:update` bypasses both restrictions.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            path_template("/memberships/{id}/transfer", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
+            ),
+            cast_to=MembershipTransferResponse,
+        )
+
 
 class MembershipsResourceWithRawResponse:
     def __init__(self, memberships: MembershipsResource) -> None:
@@ -1093,6 +1208,9 @@ class MembershipsResourceWithRawResponse:
         )
         self.resume = to_raw_response_wrapper(
             memberships.resume,
+        )
+        self.transfer = to_raw_response_wrapper(
+            memberships.transfer,
         )
 
 
@@ -1124,6 +1242,9 @@ class AsyncMembershipsResourceWithRawResponse:
         self.resume = async_to_raw_response_wrapper(
             memberships.resume,
         )
+        self.transfer = async_to_raw_response_wrapper(
+            memberships.transfer,
+        )
 
 
 class MembershipsResourceWithStreamingResponse:
@@ -1154,6 +1275,9 @@ class MembershipsResourceWithStreamingResponse:
         self.resume = to_streamed_response_wrapper(
             memberships.resume,
         )
+        self.transfer = to_streamed_response_wrapper(
+            memberships.transfer,
+        )
 
 
 class AsyncMembershipsResourceWithStreamingResponse:
@@ -1183,4 +1307,7 @@ class AsyncMembershipsResourceWithStreamingResponse:
         )
         self.resume = async_to_streamed_response_wrapper(
             memberships.resume,
+        )
+        self.transfer = async_to_streamed_response_wrapper(
+            memberships.transfer,
         )
