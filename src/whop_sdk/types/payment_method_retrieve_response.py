@@ -13,20 +13,166 @@ from .payment_method_type import PaymentMethodType
 __all__ = [
     "PaymentMethodRetrieveResponse",
     "BasePaymentMethod",
+    "BasePaymentMethodIcons",
+    "BasePaymentMethodIconsCard",
+    "BasePaymentMethodIconsCardDark",
+    "BasePaymentMethodIconsCardLight",
+    "BasePaymentMethodIconsSquare",
+    "BasePaymentMethodIconsSquareDark",
+    "BasePaymentMethodIconsSquareLight",
     "CardPaymentMethod",
     "CardPaymentMethodCard",
+    "CardPaymentMethodIcons",
+    "CardPaymentMethodIconsCard",
+    "CardPaymentMethodIconsCardDark",
+    "CardPaymentMethodIconsCardLight",
+    "CardPaymentMethodIconsSquare",
+    "CardPaymentMethodIconsSquareDark",
+    "CardPaymentMethodIconsSquareLight",
     "UsBankAccountPaymentMethod",
+    "UsBankAccountPaymentMethodIcons",
+    "UsBankAccountPaymentMethodIconsCard",
+    "UsBankAccountPaymentMethodIconsCardDark",
+    "UsBankAccountPaymentMethodIconsCardLight",
+    "UsBankAccountPaymentMethodIconsSquare",
+    "UsBankAccountPaymentMethodIconsSquareDark",
+    "UsBankAccountPaymentMethodIconsSquareLight",
     "UsBankAccountPaymentMethodUsBankAccount",
     "CashappPaymentMethod",
     "CashappPaymentMethodCashapp",
+    "CashappPaymentMethodIcons",
+    "CashappPaymentMethodIconsCard",
+    "CashappPaymentMethodIconsCardDark",
+    "CashappPaymentMethodIconsCardLight",
+    "CashappPaymentMethodIconsSquare",
+    "CashappPaymentMethodIconsSquareDark",
+    "CashappPaymentMethodIconsSquareLight",
     "IdealPaymentMethod",
+    "IdealPaymentMethodIcons",
+    "IdealPaymentMethodIconsCard",
+    "IdealPaymentMethodIconsCardDark",
+    "IdealPaymentMethodIconsCardLight",
+    "IdealPaymentMethodIconsSquare",
+    "IdealPaymentMethodIconsSquareDark",
+    "IdealPaymentMethodIconsSquareLight",
     "IdealPaymentMethodIdeal",
     "SepaDebitPaymentMethod",
+    "SepaDebitPaymentMethodIcons",
+    "SepaDebitPaymentMethodIconsCard",
+    "SepaDebitPaymentMethodIconsCardDark",
+    "SepaDebitPaymentMethodIconsCardLight",
+    "SepaDebitPaymentMethodIconsSquare",
+    "SepaDebitPaymentMethodIconsSquareDark",
+    "SepaDebitPaymentMethodIconsSquareLight",
     "SepaDebitPaymentMethodSepaDebit",
     "PlatformBalancePaymentMethod",
+    "PlatformBalancePaymentMethodIcons",
+    "PlatformBalancePaymentMethodIconsCard",
+    "PlatformBalancePaymentMethodIconsCardDark",
+    "PlatformBalancePaymentMethodIconsCardLight",
+    "PlatformBalancePaymentMethodIconsSquare",
+    "PlatformBalancePaymentMethodIconsSquareDark",
+    "PlatformBalancePaymentMethodIconsSquareLight",
     "PlatformBalancePaymentMethodPlatformBalance",
     "PlatformBalancePaymentMethodPlatformBalanceBalance",
 ]
+
+
+class BasePaymentMethodIconsCardDark(BaseModel):
+    """The colorway for dark surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class BasePaymentMethodIconsCardLight(BaseModel):
+    """The colorway for light surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class BasePaymentMethodIconsCard(BaseModel):
+    """The credit-card-proportioned tile (48x30)."""
+
+    dark: BasePaymentMethodIconsCardDark
+    """The colorway for dark surfaces."""
+
+    light: BasePaymentMethodIconsCardLight
+    """The colorway for light surfaces."""
+
+
+class BasePaymentMethodIconsSquareDark(BaseModel):
+    """The colorway for dark surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class BasePaymentMethodIconsSquareLight(BaseModel):
+    """The colorway for light surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class BasePaymentMethodIconsSquare(BaseModel):
+    """The square tile (32x32)."""
+
+    dark: BasePaymentMethodIconsSquareDark
+    """The colorway for dark surfaces."""
+
+    light: BasePaymentMethodIconsSquareLight
+    """The colorway for light surfaces."""
+
+
+class BasePaymentMethodIcons(BaseModel):
+    """Every rendition of the icon to display this payment method with.
+
+    A saved card carries its brand's icon (Visa, Mastercard, ...) rather than the generic card art.
+    """
+
+    card: BasePaymentMethodIconsCard
+    """The credit-card-proportioned tile (48x30)."""
+
+    square: BasePaymentMethodIconsSquare
+    """The square tile (32x32)."""
 
 
 class BasePaymentMethod(BaseModel):
@@ -44,6 +190,13 @@ class BasePaymentMethod(BaseModel):
 
     created_at: datetime
     """The time of the event in ISO 8601 UTC format with millisecond precision"""
+
+    icons: BasePaymentMethodIcons
+    """Every rendition of the icon to display this payment method with.
+
+    A saved card carries its brand's icon (Visa, Mastercard, ...) rather than the
+    generic card art.
+    """
 
     payment_method_type: PaymentMethodType
     """
@@ -82,6 +235,103 @@ class CardPaymentMethodCard(BaseModel):
     """
 
 
+class CardPaymentMethodIconsCardDark(BaseModel):
+    """The colorway for dark surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class CardPaymentMethodIconsCardLight(BaseModel):
+    """The colorway for light surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class CardPaymentMethodIconsCard(BaseModel):
+    """The credit-card-proportioned tile (48x30)."""
+
+    dark: CardPaymentMethodIconsCardDark
+    """The colorway for dark surfaces."""
+
+    light: CardPaymentMethodIconsCardLight
+    """The colorway for light surfaces."""
+
+
+class CardPaymentMethodIconsSquareDark(BaseModel):
+    """The colorway for dark surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class CardPaymentMethodIconsSquareLight(BaseModel):
+    """The colorway for light surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class CardPaymentMethodIconsSquare(BaseModel):
+    """The square tile (32x32)."""
+
+    dark: CardPaymentMethodIconsSquareDark
+    """The colorway for dark surfaces."""
+
+    light: CardPaymentMethodIconsSquareLight
+    """The colorway for light surfaces."""
+
+
+class CardPaymentMethodIcons(BaseModel):
+    """Every rendition of the icon to display this payment method with.
+
+    A saved card carries its brand's icon (Visa, Mastercard, ...) rather than the generic card art.
+    """
+
+    card: CardPaymentMethodIconsCard
+    """The credit-card-proportioned tile (48x30)."""
+
+    square: CardPaymentMethodIconsSquare
+    """The square tile (32x32)."""
+
+
 class CardPaymentMethod(BaseModel):
     """
     A saved card payment method, including brand, last four digits, and expiration details.
@@ -112,6 +362,13 @@ class CardPaymentMethod(BaseModel):
     provider.
     """
 
+    icons: CardPaymentMethodIcons
+    """Every rendition of the icon to display this payment method with.
+
+    A saved card carries its brand's icon (Visa, Mastercard, ...) rather than the
+    generic card art.
+    """
+
     payment_method_type: PaymentMethodType
     """
     The type of payment instrument stored on file (e.g., card, us_bank_account,
@@ -120,6 +377,103 @@ class CardPaymentMethod(BaseModel):
 
     typename: Literal["CardPaymentMethod"]
     """The typename of this object"""
+
+
+class UsBankAccountPaymentMethodIconsCardDark(BaseModel):
+    """The colorway for dark surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class UsBankAccountPaymentMethodIconsCardLight(BaseModel):
+    """The colorway for light surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class UsBankAccountPaymentMethodIconsCard(BaseModel):
+    """The credit-card-proportioned tile (48x30)."""
+
+    dark: UsBankAccountPaymentMethodIconsCardDark
+    """The colorway for dark surfaces."""
+
+    light: UsBankAccountPaymentMethodIconsCardLight
+    """The colorway for light surfaces."""
+
+
+class UsBankAccountPaymentMethodIconsSquareDark(BaseModel):
+    """The colorway for dark surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class UsBankAccountPaymentMethodIconsSquareLight(BaseModel):
+    """The colorway for light surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class UsBankAccountPaymentMethodIconsSquare(BaseModel):
+    """The square tile (32x32)."""
+
+    dark: UsBankAccountPaymentMethodIconsSquareDark
+    """The colorway for dark surfaces."""
+
+    light: UsBankAccountPaymentMethodIconsSquareLight
+    """The colorway for light surfaces."""
+
+
+class UsBankAccountPaymentMethodIcons(BaseModel):
+    """Every rendition of the icon to display this payment method with.
+
+    A saved card carries its brand's icon (Visa, Mastercard, ...) rather than the generic card art.
+    """
+
+    card: UsBankAccountPaymentMethodIconsCard
+    """The credit-card-proportioned tile (48x30)."""
+
+    square: UsBankAccountPaymentMethodIconsSquare
+    """The square tile (32x32)."""
 
 
 class UsBankAccountPaymentMethodUsBankAccount(BaseModel):
@@ -155,6 +509,13 @@ class UsBankAccountPaymentMethod(BaseModel):
     created_at: datetime
     """The time of the event in ISO 8601 UTC format with millisecond precision"""
 
+    icons: UsBankAccountPaymentMethodIcons
+    """Every rendition of the icon to display this payment method with.
+
+    A saved card carries its brand's icon (Visa, Mastercard, ...) rather than the
+    generic card art.
+    """
+
     payment_method_type: PaymentMethodType
     """
     The type of payment instrument stored on file (e.g., card, us_bank_account,
@@ -186,6 +547,103 @@ class CashappPaymentMethodCashapp(BaseModel):
     """The public cashtag handle of the buyer on Cash App. Null if not available."""
 
 
+class CashappPaymentMethodIconsCardDark(BaseModel):
+    """The colorway for dark surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class CashappPaymentMethodIconsCardLight(BaseModel):
+    """The colorway for light surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class CashappPaymentMethodIconsCard(BaseModel):
+    """The credit-card-proportioned tile (48x30)."""
+
+    dark: CashappPaymentMethodIconsCardDark
+    """The colorway for dark surfaces."""
+
+    light: CashappPaymentMethodIconsCardLight
+    """The colorway for light surfaces."""
+
+
+class CashappPaymentMethodIconsSquareDark(BaseModel):
+    """The colorway for dark surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class CashappPaymentMethodIconsSquareLight(BaseModel):
+    """The colorway for light surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class CashappPaymentMethodIconsSquare(BaseModel):
+    """The square tile (32x32)."""
+
+    dark: CashappPaymentMethodIconsSquareDark
+    """The colorway for dark surfaces."""
+
+    light: CashappPaymentMethodIconsSquareLight
+    """The colorway for light surfaces."""
+
+
+class CashappPaymentMethodIcons(BaseModel):
+    """Every rendition of the icon to display this payment method with.
+
+    A saved card carries its brand's icon (Visa, Mastercard, ...) rather than the generic card art.
+    """
+
+    card: CashappPaymentMethodIconsCard
+    """The credit-card-proportioned tile (48x30)."""
+
+    square: CashappPaymentMethodIconsSquare
+    """The square tile (32x32)."""
+
+
 class CashappPaymentMethod(BaseModel):
     """
     A saved Cash App payment method, including the buyer's cashtag and unique identifier.
@@ -210,6 +668,13 @@ class CashappPaymentMethod(BaseModel):
     created_at: datetime
     """The time of the event in ISO 8601 UTC format with millisecond precision"""
 
+    icons: CashappPaymentMethodIcons
+    """Every rendition of the icon to display this payment method with.
+
+    A saved card carries its brand's icon (Visa, Mastercard, ...) rather than the
+    generic card art.
+    """
+
     payment_method_type: PaymentMethodType
     """
     The type of payment instrument stored on file (e.g., card, us_bank_account,
@@ -218,6 +683,103 @@ class CashappPaymentMethod(BaseModel):
 
     typename: Literal["CashappPaymentMethod"]
     """The typename of this object"""
+
+
+class IdealPaymentMethodIconsCardDark(BaseModel):
+    """The colorway for dark surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class IdealPaymentMethodIconsCardLight(BaseModel):
+    """The colorway for light surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class IdealPaymentMethodIconsCard(BaseModel):
+    """The credit-card-proportioned tile (48x30)."""
+
+    dark: IdealPaymentMethodIconsCardDark
+    """The colorway for dark surfaces."""
+
+    light: IdealPaymentMethodIconsCardLight
+    """The colorway for light surfaces."""
+
+
+class IdealPaymentMethodIconsSquareDark(BaseModel):
+    """The colorway for dark surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class IdealPaymentMethodIconsSquareLight(BaseModel):
+    """The colorway for light surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class IdealPaymentMethodIconsSquare(BaseModel):
+    """The square tile (32x32)."""
+
+    dark: IdealPaymentMethodIconsSquareDark
+    """The colorway for dark surfaces."""
+
+    light: IdealPaymentMethodIconsSquareLight
+    """The colorway for light surfaces."""
+
+
+class IdealPaymentMethodIcons(BaseModel):
+    """Every rendition of the icon to display this payment method with.
+
+    A saved card carries its brand's icon (Visa, Mastercard, ...) rather than the generic card art.
+    """
+
+    card: IdealPaymentMethodIconsCard
+    """The credit-card-proportioned tile (48x30)."""
+
+    square: IdealPaymentMethodIconsSquare
+    """The square tile (32x32)."""
 
 
 class IdealPaymentMethodIdeal(BaseModel):
@@ -254,6 +816,13 @@ class IdealPaymentMethod(BaseModel):
     created_at: datetime
     """The time of the event in ISO 8601 UTC format with millisecond precision"""
 
+    icons: IdealPaymentMethodIcons
+    """Every rendition of the icon to display this payment method with.
+
+    A saved card carries its brand's icon (Visa, Mastercard, ...) rather than the
+    generic card art.
+    """
+
     ideal: IdealPaymentMethodIdeal
     """
     The iDEAL-specific details for this payment method, including bank name and BIC.
@@ -267,6 +836,103 @@ class IdealPaymentMethod(BaseModel):
 
     typename: Literal["IdealPaymentMethod"]
     """The typename of this object"""
+
+
+class SepaDebitPaymentMethodIconsCardDark(BaseModel):
+    """The colorway for dark surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class SepaDebitPaymentMethodIconsCardLight(BaseModel):
+    """The colorway for light surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class SepaDebitPaymentMethodIconsCard(BaseModel):
+    """The credit-card-proportioned tile (48x30)."""
+
+    dark: SepaDebitPaymentMethodIconsCardDark
+    """The colorway for dark surfaces."""
+
+    light: SepaDebitPaymentMethodIconsCardLight
+    """The colorway for light surfaces."""
+
+
+class SepaDebitPaymentMethodIconsSquareDark(BaseModel):
+    """The colorway for dark surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class SepaDebitPaymentMethodIconsSquareLight(BaseModel):
+    """The colorway for light surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class SepaDebitPaymentMethodIconsSquare(BaseModel):
+    """The square tile (32x32)."""
+
+    dark: SepaDebitPaymentMethodIconsSquareDark
+    """The colorway for dark surfaces."""
+
+    light: SepaDebitPaymentMethodIconsSquareLight
+    """The colorway for light surfaces."""
+
+
+class SepaDebitPaymentMethodIcons(BaseModel):
+    """Every rendition of the icon to display this payment method with.
+
+    A saved card carries its brand's icon (Visa, Mastercard, ...) rather than the generic card art.
+    """
+
+    card: SepaDebitPaymentMethodIconsCard
+    """The credit-card-proportioned tile (48x30)."""
+
+    square: SepaDebitPaymentMethodIconsSquare
+    """The square tile (32x32)."""
 
 
 class SepaDebitPaymentMethodSepaDebit(BaseModel):
@@ -317,6 +983,13 @@ class SepaDebitPaymentMethod(BaseModel):
     created_at: datetime
     """The time of the event in ISO 8601 UTC format with millisecond precision"""
 
+    icons: SepaDebitPaymentMethodIcons
+    """Every rendition of the icon to display this payment method with.
+
+    A saved card carries its brand's icon (Visa, Mastercard, ...) rather than the
+    generic card art.
+    """
+
     payment_method_type: PaymentMethodType
     """
     The type of payment instrument stored on file (e.g., card, us_bank_account,
@@ -331,6 +1004,103 @@ class SepaDebitPaymentMethod(BaseModel):
 
     typename: Literal["SepaDebitPaymentMethod"]
     """The typename of this object"""
+
+
+class PlatformBalancePaymentMethodIconsCardDark(BaseModel):
+    """The colorway for dark surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class PlatformBalancePaymentMethodIconsCardLight(BaseModel):
+    """The colorway for light surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class PlatformBalancePaymentMethodIconsCard(BaseModel):
+    """The credit-card-proportioned tile (48x30)."""
+
+    dark: PlatformBalancePaymentMethodIconsCardDark
+    """The colorway for dark surfaces."""
+
+    light: PlatformBalancePaymentMethodIconsCardLight
+    """The colorway for light surfaces."""
+
+
+class PlatformBalancePaymentMethodIconsSquareDark(BaseModel):
+    """The colorway for dark surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class PlatformBalancePaymentMethodIconsSquareLight(BaseModel):
+    """The colorway for light surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class PlatformBalancePaymentMethodIconsSquare(BaseModel):
+    """The square tile (32x32)."""
+
+    dark: PlatformBalancePaymentMethodIconsSquareDark
+    """The colorway for dark surfaces."""
+
+    light: PlatformBalancePaymentMethodIconsSquareLight
+    """The colorway for light surfaces."""
+
+
+class PlatformBalancePaymentMethodIcons(BaseModel):
+    """Every rendition of the icon to display this payment method with.
+
+    A saved card carries its brand's icon (Visa, Mastercard, ...) rather than the generic card art.
+    """
+
+    card: PlatformBalancePaymentMethodIconsCard
+    """The credit-card-proportioned tile (48x30)."""
+
+    square: PlatformBalancePaymentMethodIconsSquare
+    """The square tile (32x32)."""
 
 
 class PlatformBalancePaymentMethodPlatformBalanceBalance(BaseModel):
@@ -379,6 +1149,13 @@ class PlatformBalancePaymentMethod(BaseModel):
 
     created_at: datetime
     """The time of the event in ISO 8601 UTC format with millisecond precision"""
+
+    icons: PlatformBalancePaymentMethodIcons
+    """Every rendition of the icon to display this payment method with.
+
+    A saved card carries its brand's icon (Visa, Mastercard, ...) rather than the
+    generic card art.
+    """
 
     payment_method_type: PaymentMethodType
     """
