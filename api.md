@@ -522,6 +522,19 @@ Methods:
 - <code title="get /app_builds">client.app_builds.<a href="./src/whop_sdk/resources/app_builds.py">list</a>(\*\*<a href="src/whop_sdk/types/app_build_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/app_build.py">SyncCursorPage[AppBuild]</a></code>
 - <code title="post /app_builds/{id}/promote">client.app_builds.<a href="./src/whop_sdk/resources/app_builds.py">promote</a>(id) -> <a href="./src/whop_sdk/types/shared/app_build.py">AppBuild</a></code>
 
+# AppDeployments
+
+Types:
+
+```python
+from whop_sdk.types import AppDeploymentCreateResponse, AppDeploymentRetrieveResponse
+```
+
+Methods:
+
+- <code title="post /apps/{app_id}/deployment">client.app_deployments.<a href="./src/whop_sdk/resources/app_deployments.py">create</a>(app_id, \*\*<a href="src/whop_sdk/types/app_deployment_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/app_deployment_create_response.py">AppDeploymentCreateResponse</a></code>
+- <code title="get /apps/{app_id}/deployment">client.app_deployments.<a href="./src/whop_sdk/resources/app_deployments.py">retrieve</a>(app_id) -> <a href="./src/whop_sdk/types/app_deployment_retrieve_response.py">AppDeploymentRetrieveResponse</a></code>
+
 # Shipments
 
 Methods:
