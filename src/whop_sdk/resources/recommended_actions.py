@@ -4,7 +4,12 @@ from __future__ import annotations
 
 import httpx
 
-from ..types import recommended_action_run_params, recommended_action_list_params, recommended_action_retrieve_params
+from ..types import (
+    recommended_action_run_params,
+    recommended_action_list_params,
+    recommended_action_retrieve_params,
+    recommended_action_list_executions_params,
+)
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -19,6 +24,7 @@ from .._base_client import make_request_options
 from ..types.recommended_action_run_response import RecommendedActionRunResponse
 from ..types.recommended_action_list_response import RecommendedActionListResponse
 from ..types.recommended_action_retrieve_response import RecommendedActionRetrieveResponse
+from ..types.recommended_action_list_executions_response import RecommendedActionListExecutionsResponse
 
 __all__ = ["RecommendedActionsResource", "AsyncRecommendedActionsResource"]
 
@@ -132,6 +138,52 @@ class RecommendedActionsResource(SyncAPIResource):
                 ),
             ),
             cast_to=RecommendedActionListResponse,
+        )
+
+    def list_executions(
+        self,
+        id: str,
+        *,
+        account_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> RecommendedActionListExecutionsResponse:
+        """
+        Lists the per-step record of a recommended action chain the server ran — one
+        entry per step in position order, each carrying its current status and, once the
+        step completed, the API response it produced. A chain that was never run
+        server-side returns an empty list.
+
+        Args:
+          account_id: Account ID, prefixed `biz_`. Defaults to the API key's own account.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._get(
+            path_template("/recommended_actions/{id}/executions", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"account_id": account_id},
+                    recommended_action_list_executions_params.RecommendedActionListExecutionsParams,
+                ),
+            ),
+            cast_to=RecommendedActionListExecutionsResponse,
         )
 
     def run(
@@ -295,6 +347,52 @@ class AsyncRecommendedActionsResource(AsyncAPIResource):
             cast_to=RecommendedActionListResponse,
         )
 
+    async def list_executions(
+        self,
+        id: str,
+        *,
+        account_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> RecommendedActionListExecutionsResponse:
+        """
+        Lists the per-step record of a recommended action chain the server ran — one
+        entry per step in position order, each carrying its current status and, once the
+        step completed, the API response it produced. A chain that was never run
+        server-side returns an empty list.
+
+        Args:
+          account_id: Account ID, prefixed `biz_`. Defaults to the API key's own account.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._get(
+            path_template("/recommended_actions/{id}/executions", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"account_id": account_id},
+                    recommended_action_list_executions_params.RecommendedActionListExecutionsParams,
+                ),
+            ),
+            cast_to=RecommendedActionListExecutionsResponse,
+        )
+
     async def run(
         self,
         id: str,
@@ -355,6 +453,9 @@ class RecommendedActionsResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             recommended_actions.list,
         )
+        self.list_executions = to_raw_response_wrapper(
+            recommended_actions.list_executions,
+        )
         self.run = to_raw_response_wrapper(
             recommended_actions.run,
         )
@@ -369,6 +470,9 @@ class AsyncRecommendedActionsResourceWithRawResponse:
         )
         self.list = async_to_raw_response_wrapper(
             recommended_actions.list,
+        )
+        self.list_executions = async_to_raw_response_wrapper(
+            recommended_actions.list_executions,
         )
         self.run = async_to_raw_response_wrapper(
             recommended_actions.run,
@@ -385,6 +489,9 @@ class RecommendedActionsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             recommended_actions.list,
         )
+        self.list_executions = to_streamed_response_wrapper(
+            recommended_actions.list_executions,
+        )
         self.run = to_streamed_response_wrapper(
             recommended_actions.run,
         )
@@ -399,6 +506,9 @@ class AsyncRecommendedActionsResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             recommended_actions.list,
+        )
+        self.list_executions = async_to_streamed_response_wrapper(
+            recommended_actions.list_executions,
         )
         self.run = async_to_streamed_response_wrapper(
             recommended_actions.run,

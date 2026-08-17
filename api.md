@@ -1274,6 +1274,7 @@ Types:
 from whop_sdk.types import (
     RecommendedActionRetrieveResponse,
     RecommendedActionListResponse,
+    RecommendedActionListExecutionsResponse,
     RecommendedActionRunResponse,
 )
 ```
@@ -1282,6 +1283,7 @@ Methods:
 
 - <code title="get /recommended_actions/{id}">client.recommended_actions.<a href="./src/whop_sdk/resources/recommended_actions.py">retrieve</a>(id, \*\*<a href="src/whop_sdk/types/recommended_action_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/recommended_action_retrieve_response.py">RecommendedActionRetrieveResponse</a></code>
 - <code title="get /recommended_actions">client.recommended_actions.<a href="./src/whop_sdk/resources/recommended_actions.py">list</a>(\*\*<a href="src/whop_sdk/types/recommended_action_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/recommended_action_list_response.py">RecommendedActionListResponse</a></code>
+- <code title="get /recommended_actions/{id}/executions">client.recommended_actions.<a href="./src/whop_sdk/resources/recommended_actions.py">list_executions</a>(id, \*\*<a href="src/whop_sdk/types/recommended_action_list_executions_params.py">params</a>) -> <a href="./src/whop_sdk/types/recommended_action_list_executions_response.py">RecommendedActionListExecutionsResponse</a></code>
 - <code title="post /recommended_actions/{id}">client.recommended_actions.<a href="./src/whop_sdk/resources/recommended_actions.py">run</a>(id, \*\*<a href="src/whop_sdk/types/recommended_action_run_params.py">params</a>) -> <a href="./src/whop_sdk/types/recommended_action_run_response.py">RecommendedActionRunResponse</a></code>
 
 # SetupIntents
