@@ -2,43 +2,32 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
-from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
-
-from .._utils import PropertyInfo
-from .shared.direction import Direction
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["CheckoutConfigurationListParams"]
 
 
 class CheckoutConfigurationListParams(TypedDict, total=False):
-    company_id: Required[str]
-    """The unique identifier of the company to list checkout configurations for."""
+    account_id: Required[str]
+    """Account ID, prefixed `biz_`."""
 
-    after: Optional[str]
-    """Returns the elements in the list that come after the specified cursor."""
+    after: str
+    """Cursor for the next page of results."""
 
-    before: Optional[str]
-    """Returns the elements in the list that come before the specified cursor."""
+    created_after: str
+    """Only return checkout configurations created after this ISO 8601 timestamp."""
 
-    created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only return checkout configurations created after this timestamp."""
+    created_before: str
+    """Only return checkout configurations created before this ISO 8601 timestamp."""
 
-    created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only return checkout configurations created before this timestamp."""
+    direction: Literal["asc", "desc"]
+    """Sort direction. Defaults to `desc`."""
 
-    direction: Optional[Direction]
-    """The direction of the sort."""
+    first: int
+    """Number of checkout configurations to return."""
 
-    first: Optional[int]
-    """Returns the first _n_ elements from the list."""
+    order: Literal["created_at"]
+    """Field used to sort checkout configurations."""
 
-    last: Optional[int]
-    """Returns the last _n_ elements from the list."""
-
-    plan_id: Optional[str]
-    """
-    Filter checkout configurations to only those associated with this plan
-    identifier.
-    """
+    plan_id: str
+    """Only return checkout configurations for this plan ID, prefixed `plan_`."""
