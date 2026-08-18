@@ -28,7 +28,10 @@ class DataPoint(BaseModel):
 
 class DataTotal(BaseModel):
     name: str
-    """The property value the total is for."""
+    """
+    The property value this total is for, or the metric's name when it isn't split
+    by a property.
+    """
 
     value: Optional[float] = None
     """The metric's whole-window value for this entry."""
@@ -45,10 +48,11 @@ class Data(BaseModel):
     """
 
     totals: Optional[List[DataTotal]] = None
-    """Whole-window aggregates, present when the metric computes them (e.g.
+    """Whole-window aggregates, present when the metric computes them.
 
-    conversions returns window count / unique-people / value per entry — uniques
-    only exist at window level and cannot be summed from points).
+    Don't derive these from `points`: a rate is measured across the whole window,
+    not averaged across its points, and unique-people counts exist only at window
+    level.
     """
 
 

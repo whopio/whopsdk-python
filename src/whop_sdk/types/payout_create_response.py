@@ -12,6 +12,19 @@ __all__ = ["PayoutCreateResponse", "PayoutMethod", "PayoutMethodSupportedPayoutM
 class PayoutMethodSupportedPayoutMethod(BaseModel):
     """Supported payout method display details."""
 
+    delivery_type: Literal[
+        "cash_pickup",
+        "bank_deposit",
+        "home_delivery",
+        "mobile_wallet",
+        "masspay_card",
+        "paper_check",
+        "bill",
+        "cryptocurrency",
+        "unknown",
+    ]
+    """How the funds are delivered to the recipient."""
+
     icon_url: Optional[str] = None
     """Supported payout method icon URL."""
 
@@ -45,10 +58,30 @@ class PayoutCreateResponse(BaseModel):
     currency: str
     """Payout currency."""
 
+    destination_amount: Optional[float] = None
+    """The amount delivered in the destination currency, in whole currency units.
+
+    Null until the payout settles; appears on the payout in GET /payouts once
+    assigned.
+    """
+
+    destination_currency: Optional[str] = None
+    """Currency the funds are delivered in, taken from the payout method.
+
+    `null` on stablecoin payout requests, which record no destination currency.
+    """
+
     estimated_arrival: Optional[datetime] = None
     """Estimated time the funds become available in the destination account.
 
     Null until the payout settles.
+    """
+
+    exchange_rate: Optional[float] = None
+    """Exchange rate from the payout currency to the destination currency.
+
+    Null until the payout settles; appears on the payout in GET /payouts once
+    assigned.
     """
 
     fee_amount: float
