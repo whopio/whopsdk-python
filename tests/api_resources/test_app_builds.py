@@ -9,8 +9,6 @@ import pytest
 
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
-from whop_sdk.types import AppBuildListResponse
-from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 from whop_sdk.types.shared import AppBuild
 
@@ -24,9 +22,9 @@ class TestAppBuilds:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         app_build = client.app_builds.create(
-            attachment={"id": "id"},
-            checksum="checksum",
-            platform="ios",
+            attachment={},
+            checksum="xxxxxxxxxxxxxxx",
+            platform="web",
         )
         assert_matches_type(AppBuild, app_build, path=["response"])
 
@@ -34,11 +32,18 @@ class TestAppBuilds:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         app_build = client.app_builds.create(
-            attachment={"id": "id"},
-            checksum="checksum",
-            platform="ios",
-            ai_prompt_id="prmt_xxxxxxxxxxxxx",
+            attachment={
+                "id": "file_xxxxxxxxxxxxxx",
+                "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            },
+            checksum="xxxxxxxxxxxxxxx",
+            platform="web",
+            ai_prompt_id="prmt_xxxxxxxxxxxxxx",
             app_id="app_xxxxxxxxxxxxxx",
+            source_attachment={
+                "id": "file_xxxxxxxxxxxxxx",
+                "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            },
             supported_app_view_types=["hub"],
         )
         assert_matches_type(AppBuild, app_build, path=["response"])
@@ -47,9 +52,9 @@ class TestAppBuilds:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.app_builds.with_raw_response.create(
-            attachment={"id": "id"},
-            checksum="checksum",
-            platform="ios",
+            attachment={},
+            checksum="xxxxxxxxxxxxxxx",
+            platform="web",
         )
 
         assert response.is_closed is True
@@ -61,9 +66,9 @@ class TestAppBuilds:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.app_builds.with_streaming_response.create(
-            attachment={"id": "id"},
-            checksum="checksum",
-            platform="ios",
+            attachment={},
+            checksum="xxxxxxxxxxxxxxx",
+            platform="web",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -77,7 +82,7 @@ class TestAppBuilds:
     @parametrize
     def test_method_retrieve(self, client: Whop) -> None:
         app_build = client.app_builds.retrieve(
-            "apbu_xxxxxxxxxxxxx",
+            "id",
         )
         assert_matches_type(AppBuild, app_build, path=["response"])
 
@@ -85,7 +90,7 @@ class TestAppBuilds:
     @parametrize
     def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.app_builds.with_raw_response.retrieve(
-            "apbu_xxxxxxxxxxxxx",
+            "id",
         )
 
         assert response.is_closed is True
@@ -97,7 +102,7 @@ class TestAppBuilds:
     @parametrize
     def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.app_builds.with_streaming_response.retrieve(
-            "apbu_xxxxxxxxxxxxx",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -119,49 +124,49 @@ class TestAppBuilds:
     @parametrize
     def test_method_list(self, client: Whop) -> None:
         app_build = client.app_builds.list(
-            app_id="app_xxxxxxxxxxxxxx",
+            app_id="app_id",
         )
-        assert_matches_type(SyncCursorPage[AppBuildListResponse], app_build, path=["response"])
+        assert_matches_type(SyncCursorPage[AppBuild], app_build, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         app_build = client.app_builds.list(
-            app_id="app_xxxxxxxxxxxxxx",
+            app_id="app_id",
             after="after",
             before="before",
-            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
-            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
-            first=42,
-            last=42,
+            created_after=0,
+            created_before=0,
+            first=0,
+            last=0,
             platform="ios",
             status="draft",
         )
-        assert_matches_type(SyncCursorPage[AppBuildListResponse], app_build, path=["response"])
+        assert_matches_type(SyncCursorPage[AppBuild], app_build, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Whop) -> None:
         response = client.app_builds.with_raw_response.list(
-            app_id="app_xxxxxxxxxxxxxx",
+            app_id="app_id",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         app_build = response.parse()
-        assert_matches_type(SyncCursorPage[AppBuildListResponse], app_build, path=["response"])
+        assert_matches_type(SyncCursorPage[AppBuild], app_build, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Whop) -> None:
         with client.app_builds.with_streaming_response.list(
-            app_id="app_xxxxxxxxxxxxxx",
+            app_id="app_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             app_build = response.parse()
-            assert_matches_type(SyncCursorPage[AppBuildListResponse], app_build, path=["response"])
+            assert_matches_type(SyncCursorPage[AppBuild], app_build, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -169,7 +174,7 @@ class TestAppBuilds:
     @parametrize
     def test_method_promote(self, client: Whop) -> None:
         app_build = client.app_builds.promote(
-            "apbu_xxxxxxxxxxxxx",
+            "id",
         )
         assert_matches_type(AppBuild, app_build, path=["response"])
 
@@ -177,7 +182,7 @@ class TestAppBuilds:
     @parametrize
     def test_raw_response_promote(self, client: Whop) -> None:
         response = client.app_builds.with_raw_response.promote(
-            "apbu_xxxxxxxxxxxxx",
+            "id",
         )
 
         assert response.is_closed is True
@@ -189,7 +194,7 @@ class TestAppBuilds:
     @parametrize
     def test_streaming_response_promote(self, client: Whop) -> None:
         with client.app_builds.with_streaming_response.promote(
-            "apbu_xxxxxxxxxxxxx",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -217,9 +222,9 @@ class TestAsyncAppBuilds:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         app_build = await async_client.app_builds.create(
-            attachment={"id": "id"},
-            checksum="checksum",
-            platform="ios",
+            attachment={},
+            checksum="xxxxxxxxxxxxxxx",
+            platform="web",
         )
         assert_matches_type(AppBuild, app_build, path=["response"])
 
@@ -227,11 +232,18 @@ class TestAsyncAppBuilds:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         app_build = await async_client.app_builds.create(
-            attachment={"id": "id"},
-            checksum="checksum",
-            platform="ios",
-            ai_prompt_id="prmt_xxxxxxxxxxxxx",
+            attachment={
+                "id": "file_xxxxxxxxxxxxxx",
+                "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            },
+            checksum="xxxxxxxxxxxxxxx",
+            platform="web",
+            ai_prompt_id="prmt_xxxxxxxxxxxxxx",
             app_id="app_xxxxxxxxxxxxxx",
+            source_attachment={
+                "id": "file_xxxxxxxxxxxxxx",
+                "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            },
             supported_app_view_types=["hub"],
         )
         assert_matches_type(AppBuild, app_build, path=["response"])
@@ -240,9 +252,9 @@ class TestAsyncAppBuilds:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.app_builds.with_raw_response.create(
-            attachment={"id": "id"},
-            checksum="checksum",
-            platform="ios",
+            attachment={},
+            checksum="xxxxxxxxxxxxxxx",
+            platform="web",
         )
 
         assert response.is_closed is True
@@ -254,9 +266,9 @@ class TestAsyncAppBuilds:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.app_builds.with_streaming_response.create(
-            attachment={"id": "id"},
-            checksum="checksum",
-            platform="ios",
+            attachment={},
+            checksum="xxxxxxxxxxxxxxx",
+            platform="web",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -270,7 +282,7 @@ class TestAsyncAppBuilds:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         app_build = await async_client.app_builds.retrieve(
-            "apbu_xxxxxxxxxxxxx",
+            "id",
         )
         assert_matches_type(AppBuild, app_build, path=["response"])
 
@@ -278,7 +290,7 @@ class TestAsyncAppBuilds:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.app_builds.with_raw_response.retrieve(
-            "apbu_xxxxxxxxxxxxx",
+            "id",
         )
 
         assert response.is_closed is True
@@ -290,7 +302,7 @@ class TestAsyncAppBuilds:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.app_builds.with_streaming_response.retrieve(
-            "apbu_xxxxxxxxxxxxx",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -312,49 +324,49 @@ class TestAsyncAppBuilds:
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
         app_build = await async_client.app_builds.list(
-            app_id="app_xxxxxxxxxxxxxx",
+            app_id="app_id",
         )
-        assert_matches_type(AsyncCursorPage[AppBuildListResponse], app_build, path=["response"])
+        assert_matches_type(AsyncCursorPage[AppBuild], app_build, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         app_build = await async_client.app_builds.list(
-            app_id="app_xxxxxxxxxxxxxx",
+            app_id="app_id",
             after="after",
             before="before",
-            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
-            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
-            first=42,
-            last=42,
+            created_after=0,
+            created_before=0,
+            first=0,
+            last=0,
             platform="ios",
             status="draft",
         )
-        assert_matches_type(AsyncCursorPage[AppBuildListResponse], app_build, path=["response"])
+        assert_matches_type(AsyncCursorPage[AppBuild], app_build, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
         response = await async_client.app_builds.with_raw_response.list(
-            app_id="app_xxxxxxxxxxxxxx",
+            app_id="app_id",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         app_build = await response.parse()
-        assert_matches_type(AsyncCursorPage[AppBuildListResponse], app_build, path=["response"])
+        assert_matches_type(AsyncCursorPage[AppBuild], app_build, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
         async with async_client.app_builds.with_streaming_response.list(
-            app_id="app_xxxxxxxxxxxxxx",
+            app_id="app_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             app_build = await response.parse()
-            assert_matches_type(AsyncCursorPage[AppBuildListResponse], app_build, path=["response"])
+            assert_matches_type(AsyncCursorPage[AppBuild], app_build, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -362,7 +374,7 @@ class TestAsyncAppBuilds:
     @parametrize
     async def test_method_promote(self, async_client: AsyncWhop) -> None:
         app_build = await async_client.app_builds.promote(
-            "apbu_xxxxxxxxxxxxx",
+            "id",
         )
         assert_matches_type(AppBuild, app_build, path=["response"])
 
@@ -370,7 +382,7 @@ class TestAsyncAppBuilds:
     @parametrize
     async def test_raw_response_promote(self, async_client: AsyncWhop) -> None:
         response = await async_client.app_builds.with_raw_response.promote(
-            "apbu_xxxxxxxxxxxxx",
+            "id",
         )
 
         assert response.is_closed is True
@@ -382,7 +394,7 @@ class TestAsyncAppBuilds:
     @parametrize
     async def test_streaming_response_promote(self, async_client: AsyncWhop) -> None:
         async with async_client.app_builds.with_streaming_response.promote(
-            "apbu_xxxxxxxxxxxxx",
+            "id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
