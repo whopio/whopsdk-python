@@ -28,8 +28,6 @@ __all__ = ["MessagesResource", "AsyncMessagesResource"]
 
 
 class MessagesResource(SyncAPIResource):
-    """Messages"""
-
     @cached_property
     def with_raw_response(self) -> MessagesResourceWithRawResponse:
         """
@@ -64,15 +62,19 @@ class MessagesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Message:
         """Send a new message in an experience chat, DM, or group chat channel.
 
         Supports
         text content, attachments, polls, and replies.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `chat:message:create`
+        - `dms:message:manage`
+        - `livestream:chat:write`
+        - `support_chat:message:create`
 
         Args:
           channel_id: The unique identifier of the channel or experience to send the message in. For
@@ -97,6 +99,8 @@ class MessagesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return self._post(
             "/messages",
@@ -112,7 +116,11 @@ class MessagesResource(SyncAPIResource):
                 message_create_params.MessageCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Message,
         )
@@ -131,9 +139,12 @@ class MessagesResource(SyncAPIResource):
         """
         Retrieves the details of an existing message.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `chat:read`
+        - `dms:read`
+        - `livestream:chat:read`
+        - `support_chat:read`
 
         Args:
           extra_headers: Send extra headers
@@ -167,10 +178,18 @@ class MessagesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Message:
         """
         Edit the content, attachments, or pinned status of an existing message in an
         experience chat, DM, or group chat channel.
+
+        Required permissions (one of):
+
+        - `chat:message:create`
+        - `dms:message:manage`
+        - `livestream:chat:write`
+        - `support_chat:message:create`
 
         Args:
           attachments: A replacement list of file attachments for this message, such as images or
@@ -188,6 +207,8 @@ class MessagesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -202,7 +223,11 @@ class MessagesResource(SyncAPIResource):
                 message_update_params.MessageUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Message,
         )
@@ -227,9 +252,11 @@ class MessagesResource(SyncAPIResource):
         Returns a paginated list of messages within a specific experience chat, DM, or
         group chat channel, sorted by creation time.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `chat:read`
+        - `dms:read`
+        - `support_chat:read`
 
         Args:
           channel_id: The unique identifier of the channel or experience to list messages for.
@@ -285,14 +312,18 @@ class MessagesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> MessageDeleteResponse:
         """
         Permanently delete a message from an experience chat, DM, or group chat channel.
         Only the message author or a channel admin can delete a message.
 
-        Required permissions:
+        Required permissions (one of):
 
-        - `chat:message:create`
+        - `chat:message:create` and `chat:read`
+        - `dms:message:manage` and `dms:read`
+        - `livestream:chat:write` and `livestream:chat:read`
+        - `support_chat:message:create` and `support_chat:read`
 
         Args:
           extra_headers: Send extra headers
@@ -302,21 +333,25 @@ class MessagesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._delete(
             path_template("/messages/{id}", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=MessageDeleteResponse,
         )
 
 
 class AsyncMessagesResource(AsyncAPIResource):
-    """Messages"""
-
     @cached_property
     def with_raw_response(self) -> AsyncMessagesResourceWithRawResponse:
         """
@@ -351,15 +386,19 @@ class AsyncMessagesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Message:
         """Send a new message in an experience chat, DM, or group chat channel.
 
         Supports
         text content, attachments, polls, and replies.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `chat:message:create`
+        - `dms:message:manage`
+        - `livestream:chat:write`
+        - `support_chat:message:create`
 
         Args:
           channel_id: The unique identifier of the channel or experience to send the message in. For
@@ -384,6 +423,8 @@ class AsyncMessagesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return await self._post(
             "/messages",
@@ -399,7 +440,11 @@ class AsyncMessagesResource(AsyncAPIResource):
                 message_create_params.MessageCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Message,
         )
@@ -418,9 +463,12 @@ class AsyncMessagesResource(AsyncAPIResource):
         """
         Retrieves the details of an existing message.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `chat:read`
+        - `dms:read`
+        - `livestream:chat:read`
+        - `support_chat:read`
 
         Args:
           extra_headers: Send extra headers
@@ -454,10 +502,18 @@ class AsyncMessagesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Message:
         """
         Edit the content, attachments, or pinned status of an existing message in an
         experience chat, DM, or group chat channel.
+
+        Required permissions (one of):
+
+        - `chat:message:create`
+        - `dms:message:manage`
+        - `livestream:chat:write`
+        - `support_chat:message:create`
 
         Args:
           attachments: A replacement list of file attachments for this message, such as images or
@@ -475,6 +531,8 @@ class AsyncMessagesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -489,7 +547,11 @@ class AsyncMessagesResource(AsyncAPIResource):
                 message_update_params.MessageUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Message,
         )
@@ -514,9 +576,11 @@ class AsyncMessagesResource(AsyncAPIResource):
         Returns a paginated list of messages within a specific experience chat, DM, or
         group chat channel, sorted by creation time.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `chat:read`
+        - `dms:read`
+        - `support_chat:read`
 
         Args:
           channel_id: The unique identifier of the channel or experience to list messages for.
@@ -572,14 +636,18 @@ class AsyncMessagesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> MessageDeleteResponse:
         """
         Permanently delete a message from an experience chat, DM, or group chat channel.
         Only the message author or a channel admin can delete a message.
 
-        Required permissions:
+        Required permissions (one of):
 
-        - `chat:message:create`
+        - `chat:message:create` and `chat:read`
+        - `dms:message:manage` and `dms:read`
+        - `livestream:chat:write` and `livestream:chat:read`
+        - `support_chat:message:create` and `support_chat:read`
 
         Args:
           extra_headers: Send extra headers
@@ -589,13 +657,19 @@ class AsyncMessagesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._delete(
             path_template("/messages/{id}", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=MessageDeleteResponse,
         )
