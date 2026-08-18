@@ -59,6 +59,7 @@ class Webhook(BaseModel):
 
     events: List[
         Literal[
+            "account.updated",
             "invoice.created",
             "invoice.marked_uncollectible",
             "invoice.paid",
@@ -169,6 +170,7 @@ class Webhook(BaseModel):
 
     testable_events: List[
         Literal[
+            "account.updated",
             "invoice.created",
             "invoice.marked_uncollectible",
             "invoice.paid",

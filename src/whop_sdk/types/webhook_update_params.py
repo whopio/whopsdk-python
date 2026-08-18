@@ -24,6 +24,7 @@ class WebhookUpdateParams(TypedDict, total=False):
 
     events: List[
         Literal[
+            "account.updated",
             "invoice.created",
             "invoice.marked_uncollectible",
             "invoice.paid",

@@ -71,6 +71,7 @@ class WebhooksResource(SyncAPIResource):
         enabled: bool | Omit = omit,
         events: List[
             Literal[
+                "account.updated",
                 "invoice.created",
                 "invoice.marked_uncollectible",
                 "invoice.paid",
@@ -291,6 +292,7 @@ class WebhooksResource(SyncAPIResource):
         enabled: bool | Omit = omit,
         events: List[
             Literal[
+                "account.updated",
                 "invoice.created",
                 "invoice.marked_uncollectible",
                 "invoice.paid",
@@ -859,6 +861,7 @@ class AsyncWebhooksResource(AsyncAPIResource):
         enabled: bool | Omit = omit,
         events: List[
             Literal[
+                "account.updated",
                 "invoice.created",
                 "invoice.marked_uncollectible",
                 "invoice.paid",
@@ -1079,6 +1082,7 @@ class AsyncWebhooksResource(AsyncAPIResource):
         enabled: bool | Omit = omit,
         events: List[
             Literal[
+                "account.updated",
                 "invoice.created",
                 "invoice.marked_uncollectible",
                 "invoice.paid",

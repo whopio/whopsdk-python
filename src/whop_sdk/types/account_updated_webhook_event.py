@@ -4,13 +4,13 @@ from typing import Optional
 from datetime import datetime
 from typing_extensions import Literal
 
+from .account import Account
 from .._models import BaseModel
-from .shared.product import Product
 
-__all__ = ["ProductUnpublishedWebhookEvent"]
+__all__ = ["AccountUpdatedWebhookEvent"]
 
 
-class ProductUnpublishedWebhookEvent(BaseModel):
+class AccountUpdatedWebhookEvent(BaseModel):
     id: str
     """A unique ID for every single webhook request"""
 
@@ -20,12 +20,12 @@ class ProductUnpublishedWebhookEvent(BaseModel):
     api_version_date: Optional[str] = None
     """The dated API version (Api-Version-Date) the payload is serialized to"""
 
-    data: Product
+    data: Account
 
     timestamp: datetime
     """The timestamp in ISO 8601 format that the webhook was sent at on the server"""
 
-    type: Literal["product.unpublished"]
+    type: Literal["account.updated"]
     """The webhook event type"""
 
     company_id: Optional[str] = None

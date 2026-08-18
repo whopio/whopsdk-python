@@ -23,6 +23,7 @@ from .payment_failed_webhook_event import PaymentFailedWebhookEvent
 from .refund_created_webhook_event import RefundCreatedWebhookEvent
 from .refund_updated_webhook_event import RefundUpdatedWebhookEvent
 from .swap_completed_webhook_event import SwapCompletedWebhookEvent
+from .account_updated_webhook_event import AccountUpdatedWebhookEvent
 from .dispute_created_webhook_event import DisputeCreatedWebhookEvent
 from .dispute_updated_webhook_event import DisputeUpdatedWebhookEvent
 from .invoice_created_webhook_event import InvoiceCreatedWebhookEvent
@@ -79,6 +80,7 @@ __all__ = ["UnwrapWebhookEvent"]
 
 UnwrapWebhookEvent: TypeAlias = Annotated[
     Union[
+        AccountUpdatedWebhookEvent,
         AdCampaignPaymentFailedWebhookEvent,
         CardCanceledWebhookEvent,
         CardCreatedWebhookEvent,

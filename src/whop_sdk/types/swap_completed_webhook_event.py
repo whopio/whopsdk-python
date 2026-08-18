@@ -580,3 +580,9 @@ class SwapCompletedWebhookEvent(BaseModel):
 
     company_id: Optional[str] = None
     """The account ID that this webhook event is associated with"""
+
+    previous_attributes: Optional[object] = None
+    """
+    For some `.updated` events, the old values of the payload fields that changed,
+    keyed by field name. Omitted when no capture is available for the event
+    """

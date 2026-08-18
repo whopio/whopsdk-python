@@ -285,6 +285,7 @@ from whop_sdk.types import (
     WebhookReplayResponse,
     WebhookReplayDeliveryResponse,
     WebhookTestResponse,
+    AccountUpdatedWebhookEvent,
     AdCampaignPaymentFailedWebhookEvent,
     CardCanceledWebhookEvent,
     CardCreatedWebhookEvent,
