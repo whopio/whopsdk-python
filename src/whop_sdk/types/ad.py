@@ -617,10 +617,19 @@ class Ad(BaseModel):
     """When the ad was last updated, as an ISO 8601 timestamp."""
 
     url: Optional[str] = None
-    """The URL the ad links to."""
+    """The URL the ad links to, without its query string.
+
+    Parameters belong in `url_parameters`; any you send on `url` are moved there.
+    """
 
     url_parameters: object
-    """Query parameters appended to the URL, keyed by parameter name."""
+    """
+    Every query parameter appended to the URL, keyed by parameter name — including
+    any you sent on `url` itself. Whop adds its own click-attribution parameters on
+    top; those are reserved and rejected if you set them (utm_meta_ad_id,
+    utm_meta_adset_id, utm_meta_campaign_id, utm_source, utm_placement, utm_medium,
+    utm_content, utm_adset, utm_whop, wacid, wasid, waid, tw_source, tw_adid).
+    """
 
     viewed_content_value: float
     """USD value attributed to view-content events.
