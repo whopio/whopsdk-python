@@ -332,6 +332,7 @@ class TestWebhooks:
             sent_after="2026-01-01T12:00:00.000Z",
             events=["string"],
             failed_only=True,
+            regenerate_ids=True,
             sent_before="sent_before",
         )
         assert_matches_type(WebhookReplayResponse, webhook, path=["response"])
@@ -379,6 +380,16 @@ class TestWebhooks:
         webhook = client.webhooks.replay_delivery(
             delivery_id="delivery_id",
             id="id",
+        )
+        assert_matches_type(WebhookReplayDeliveryResponse, webhook, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_replay_delivery_with_all_params(self, client: Whop) -> None:
+        webhook = client.webhooks.replay_delivery(
+            delivery_id="delivery_id",
+            id="id",
+            regenerate_id=True,
         )
         assert_matches_type(WebhookReplayDeliveryResponse, webhook, path=["response"])
 
@@ -820,6 +831,7 @@ class TestAsyncWebhooks:
             sent_after="2026-01-01T12:00:00.000Z",
             events=["string"],
             failed_only=True,
+            regenerate_ids=True,
             sent_before="sent_before",
         )
         assert_matches_type(WebhookReplayResponse, webhook, path=["response"])
@@ -867,6 +879,16 @@ class TestAsyncWebhooks:
         webhook = await async_client.webhooks.replay_delivery(
             delivery_id="delivery_id",
             id="id",
+        )
+        assert_matches_type(WebhookReplayDeliveryResponse, webhook, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_replay_delivery_with_all_params(self, async_client: AsyncWhop) -> None:
+        webhook = await async_client.webhooks.replay_delivery(
+            delivery_id="delivery_id",
+            id="id",
+            regenerate_id=True,
         )
         assert_matches_type(WebhookReplayDeliveryResponse, webhook, path=["response"])
 

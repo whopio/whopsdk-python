@@ -15,6 +15,7 @@ from ..types import (
     webhook_replay_params,
     webhook_update_params,
     webhook_list_deliveries_params,
+    webhook_replay_delivery_params,
 )
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
@@ -647,6 +648,7 @@ class WebhooksResource(SyncAPIResource):
         sent_after: str,
         events: SequenceNotStr[str] | Omit = omit,
         failed_only: bool | Omit = omit,
+        regenerate_ids: bool | Omit = omit,
         sent_before: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -660,10 +662,11 @@ class WebhooksResource(SyncAPIResource):
         Re-sends the webhook's past deliveries within a time window, optionally limited
         to specific events or to messages whose most recent delivery attempt failed.
         Fire and forget: nothing about the replay is stored, and each re-send appears as
-        a new entry in the webhook's delivery log. Each matching message is re-sent once
-        with its original `webhook-id`, so consumers that deduplicate are unaffected.
-        Only available for enabled webhooks on API version v1; deliveries are retained
-        for 30 days.
+        a new entry in the webhook's delivery log. Each matching message is re-sent
+        once, by default with its original `webhook-id`, so consumers that deduplicate
+        are unaffected; pass `regenerate_ids` to re-send under freshly generated ids
+        instead. Only available for enabled webhooks on API version v1; deliveries are
+        retained for 30 days.
 
         Args:
           sent_after: Start of the delivery window to replay, as an ISO 8601 timestamp. Clamped to the
@@ -674,8 +677,13 @@ class WebhooksResource(SyncAPIResource):
 
           failed_only: Only replay messages whose most recent delivery attempt in the window failed.
               Defaults to false. Best-effort: a message whose attempts span processing batches
-              can still be re-sent — replays keep the original `webhook-id`, so consumers that
-              deduplicate are unaffected.
+              can still be re-sent — replays keep the original `webhook-id` by default, so
+              consumers that deduplicate are unaffected.
+
+          regenerate_ids: Re-send each replayed message under a freshly generated `webhook-id` (in both
+              the envelope and the signed headers) instead of its original one. Defaults to
+              false. Use this when your endpoint deduplicates on `webhook-id` and you want it
+              to process the replays as new messages.
 
           sent_before: End of the delivery window to replay, as an ISO 8601 timestamp. Defaults to now.
 
@@ -698,6 +706,7 @@ class WebhooksResource(SyncAPIResource):
                     "sent_after": sent_after,
                     "events": events,
                     "failed_only": failed_only,
+                    "regenerate_ids": regenerate_ids,
                     "sent_before": sent_before,
                 },
                 webhook_replay_params.WebhookReplayParams,
@@ -717,6 +726,7 @@ class WebhooksResource(SyncAPIResource):
         delivery_id: str,
         *,
         id: str,
+        regenerate_id: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -727,12 +737,19 @@ class WebhooksResource(SyncAPIResource):
     ) -> WebhookReplayDeliveryResponse:
         """
         Re-sends the exact payload of a past delivery to the webhook's current URL and
-        returns the delivery result. The replay keeps the original `webhook-id`, so
-        consumers that deduplicate on it can drop events they already processed. Only
-        available for enabled webhooks on API version v1; deliveries are retained for 30
-        days.
+        returns the delivery result. By default the replay keeps the original
+        `webhook-id`, so consumers that deduplicate on it can drop events they already
+        processed. Pass `regenerate_id` to re-send under a freshly generated
+        `webhook-id` instead, so a deduplicating consumer processes the replay as a new
+        message. Only available for enabled webhooks on API version v1; deliveries are
+        retained for 30 days.
 
         Args:
+          regenerate_id: Re-send the delivery under a freshly generated `webhook-id` (in both the
+              envelope and the signed headers) instead of the original one. Defaults to false.
+              Use this when your endpoint deduplicates on `webhook-id` and you want it to
+              process the replay as a new message.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -749,6 +766,9 @@ class WebhooksResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `delivery_id` but received {delivery_id!r}")
         return self._post(
             path_template("/webhooks/{id}/deliveries/{delivery_id}/replay", id=id, delivery_id=delivery_id),
+            body=maybe_transform(
+                {"regenerate_id": regenerate_id}, webhook_replay_delivery_params.WebhookReplayDeliveryParams
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1437,6 +1457,7 @@ class AsyncWebhooksResource(AsyncAPIResource):
         sent_after: str,
         events: SequenceNotStr[str] | Omit = omit,
         failed_only: bool | Omit = omit,
+        regenerate_ids: bool | Omit = omit,
         sent_before: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1450,10 +1471,11 @@ class AsyncWebhooksResource(AsyncAPIResource):
         Re-sends the webhook's past deliveries within a time window, optionally limited
         to specific events or to messages whose most recent delivery attempt failed.
         Fire and forget: nothing about the replay is stored, and each re-send appears as
-        a new entry in the webhook's delivery log. Each matching message is re-sent once
-        with its original `webhook-id`, so consumers that deduplicate are unaffected.
-        Only available for enabled webhooks on API version v1; deliveries are retained
-        for 30 days.
+        a new entry in the webhook's delivery log. Each matching message is re-sent
+        once, by default with its original `webhook-id`, so consumers that deduplicate
+        are unaffected; pass `regenerate_ids` to re-send under freshly generated ids
+        instead. Only available for enabled webhooks on API version v1; deliveries are
+        retained for 30 days.
 
         Args:
           sent_after: Start of the delivery window to replay, as an ISO 8601 timestamp. Clamped to the
@@ -1464,8 +1486,13 @@ class AsyncWebhooksResource(AsyncAPIResource):
 
           failed_only: Only replay messages whose most recent delivery attempt in the window failed.
               Defaults to false. Best-effort: a message whose attempts span processing batches
-              can still be re-sent — replays keep the original `webhook-id`, so consumers that
-              deduplicate are unaffected.
+              can still be re-sent — replays keep the original `webhook-id` by default, so
+              consumers that deduplicate are unaffected.
+
+          regenerate_ids: Re-send each replayed message under a freshly generated `webhook-id` (in both
+              the envelope and the signed headers) instead of its original one. Defaults to
+              false. Use this when your endpoint deduplicates on `webhook-id` and you want it
+              to process the replays as new messages.
 
           sent_before: End of the delivery window to replay, as an ISO 8601 timestamp. Defaults to now.
 
@@ -1488,6 +1515,7 @@ class AsyncWebhooksResource(AsyncAPIResource):
                     "sent_after": sent_after,
                     "events": events,
                     "failed_only": failed_only,
+                    "regenerate_ids": regenerate_ids,
                     "sent_before": sent_before,
                 },
                 webhook_replay_params.WebhookReplayParams,
@@ -1507,6 +1535,7 @@ class AsyncWebhooksResource(AsyncAPIResource):
         delivery_id: str,
         *,
         id: str,
+        regenerate_id: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1517,12 +1546,19 @@ class AsyncWebhooksResource(AsyncAPIResource):
     ) -> WebhookReplayDeliveryResponse:
         """
         Re-sends the exact payload of a past delivery to the webhook's current URL and
-        returns the delivery result. The replay keeps the original `webhook-id`, so
-        consumers that deduplicate on it can drop events they already processed. Only
-        available for enabled webhooks on API version v1; deliveries are retained for 30
-        days.
+        returns the delivery result. By default the replay keeps the original
+        `webhook-id`, so consumers that deduplicate on it can drop events they already
+        processed. Pass `regenerate_id` to re-send under a freshly generated
+        `webhook-id` instead, so a deduplicating consumer processes the replay as a new
+        message. Only available for enabled webhooks on API version v1; deliveries are
+        retained for 30 days.
 
         Args:
+          regenerate_id: Re-send the delivery under a freshly generated `webhook-id` (in both the
+              envelope and the signed headers) instead of the original one. Defaults to false.
+              Use this when your endpoint deduplicates on `webhook-id` and you want it to
+              process the replay as a new message.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1539,6 +1575,9 @@ class AsyncWebhooksResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `delivery_id` but received {delivery_id!r}")
         return await self._post(
             path_template("/webhooks/{id}/deliveries/{delivery_id}/replay", id=id, delivery_id=delivery_id),
+            body=await async_maybe_transform(
+                {"regenerate_id": regenerate_id}, webhook_replay_delivery_params.WebhookReplayDeliveryParams
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
