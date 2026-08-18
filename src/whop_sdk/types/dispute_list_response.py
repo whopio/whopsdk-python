@@ -7,7 +7,18 @@ from .._models import BaseModel
 from .shared.currency import Currency
 from .dispute_statuses import DisputeStatuses
 
-__all__ = ["DisputeListResponse", "Company", "Payment", "Plan", "Product"]
+__all__ = [
+    "DisputeListResponse",
+    "Company",
+    "Payment",
+    "PaymentPaymentInstrument",
+    "PaymentPaymentInstrumentIcons",
+    "PaymentPaymentInstrumentIconsSquare",
+    "PaymentPaymentInstrumentIconsSquareDark",
+    "PaymentPaymentInstrumentIconsSquareLight",
+    "Plan",
+    "Product",
+]
 
 
 class Company(BaseModel):
@@ -20,11 +31,77 @@ class Company(BaseModel):
     """The written name of the company."""
 
 
+class PaymentPaymentInstrumentIconsSquareDark(BaseModel):
+    """The colorway for dark surfaces."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class PaymentPaymentInstrumentIconsSquareLight(BaseModel):
+    """The colorway for light surfaces."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class PaymentPaymentInstrumentIconsSquare(BaseModel):
+    """The square tile (32x32)."""
+
+    dark: PaymentPaymentInstrumentIconsSquareDark
+    """The colorway for dark surfaces."""
+
+    light: PaymentPaymentInstrumentIconsSquareLight
+    """The colorway for light surfaces."""
+
+
+class PaymentPaymentInstrumentIcons(BaseModel):
+    """
+    The standard icon set: square and card shapes, each in light and dark colorways.
+    """
+
+    square: PaymentPaymentInstrumentIconsSquare
+    """The square tile (32x32)."""
+
+
+class PaymentPaymentInstrument(BaseModel):
+    """
+    The instrument this payment was made with, shaped for display: the method type, a buyer-facing name, the standard icon set, and the card facts when it was a card. Null when the receipt names no payment method.
+    """
+
+    display_name: str
+    """
+    Buyer-facing instrument name — "Visa •••• 4242" when the card surfaced, else the
+    method's own name ("Klarna").
+    """
+
+    icons: PaymentPaymentInstrumentIcons
+    """
+    The standard icon set: square and card shapes, each in light and dark colorways.
+    """
+
+    installment_count: Optional[int] = None
+    """Installment methods only: how many payments the charge splits into.
+
+    Data, not copy — compose and translate the label client-side.
+    """
+
+    payment_method_type: str
+    """The payment method type identifier, e.g. `card`, `klarna`, `apple_pay`."""
+
+
 class Payment(BaseModel):
     """The original payment that was disputed."""
 
     id: str
     """The unique identifier for the payment."""
+
+    payment_instrument: Optional[PaymentPaymentInstrument] = None
+    """
+    The instrument this payment was made with, shaped for display: the method type,
+    a buyer-facing name, the standard icon set, and the card facts when it was a
+    card. Null when the receipt names no payment method.
+    """
 
 
 class Plan(BaseModel):

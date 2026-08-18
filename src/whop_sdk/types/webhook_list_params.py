@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Optional
 from typing_extensions import Required, TypedDict
 
 __all__ = ["WebhookListParams"]
@@ -12,20 +11,20 @@ class WebhookListParams(TypedDict, total=False):
     company_id: Required[str]
     """The unique identifier of the company to list webhooks for."""
 
-    after: Optional[str]
+    after: str
     """Returns the elements in the list that come after the specified cursor."""
 
-    app_id: Optional[str]
+    app_id: str
     """Only return webhooks attached to this app.
 
     Omit to list the company's own webhooks.
     """
 
-    before: Optional[str]
+    before: str
     """Returns the elements in the list that come before the specified cursor."""
 
-    first: Optional[int]
+    first: int
     """Returns the first _n_ elements from the list."""
 
-    last: Optional[int]
+    last: int
     """Returns the last _n_ elements from the list."""

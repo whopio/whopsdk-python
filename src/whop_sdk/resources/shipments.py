@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Optional
-
 import httpx
 
 from ..types import shipment_list_params, shipment_create_params
@@ -143,13 +141,13 @@ class ShipmentsResource(SyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        payment_id: Optional[str] | Omit = omit,
-        user_id: Optional[str] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        company_id: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        payment_id: str | Omit = omit,
+        user_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -332,13 +330,13 @@ class AsyncShipmentsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        payment_id: Optional[str] | Omit = omit,
-        user_id: Optional[str] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        company_id: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        payment_id: str | Omit = omit,
+        user_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

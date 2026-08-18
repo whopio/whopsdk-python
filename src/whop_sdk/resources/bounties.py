@@ -211,13 +211,13 @@ class BountiesResource(SyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        experience_id: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        status: Optional[Literal["published", "archived", "scheduled"]] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        direction: Direction | Omit = omit,
+        experience_id: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        status: Literal["published", "archived", "scheduled"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -236,7 +236,7 @@ class BountiesResource(SyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          direction: The direction of the sort.
+          direction: Sort direction. Defaults to descending.
 
           experience_id: The experience to list bounties for. When omitted, returns bounties with no
               experience.
@@ -245,7 +245,7 @@ class BountiesResource(SyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          status: The available bounty statuses to choose from.
+          status: Filter bounties by status.
 
           extra_headers: Send extra headers
 
@@ -461,13 +461,13 @@ class AsyncBountiesResource(AsyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        experience_id: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        status: Optional[Literal["published", "archived", "scheduled"]] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        direction: Direction | Omit = omit,
+        experience_id: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        status: Literal["published", "archived", "scheduled"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -486,7 +486,7 @@ class AsyncBountiesResource(AsyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          direction: The direction of the sort.
+          direction: Sort direction. Defaults to descending.
 
           experience_id: The experience to list bounties for. When omitted, returns bounties with no
               experience.
@@ -495,7 +495,7 @@ class AsyncBountiesResource(AsyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          status: The available bounty statuses to choose from.
+          status: Filter bounties by status.
 
           extra_headers: Send extra headers
 

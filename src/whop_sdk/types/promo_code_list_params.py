@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Union
 from datetime import datetime
 from typing_extensions import Required, Annotated, TypedDict
 
@@ -17,29 +17,29 @@ class PromoCodeListParams(TypedDict, total=False):
     company_id: Required[str]
     """The unique identifier of the company to list promo codes for."""
 
-    after: Optional[str]
+    after: str
     """Returns the elements in the list that come after the specified cursor."""
 
-    before: Optional[str]
+    before: str
     """Returns the elements in the list that come before the specified cursor."""
 
-    created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    created_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Only return promo codes created after this timestamp."""
 
-    created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    created_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Only return promo codes created before this timestamp."""
 
-    first: Optional[int]
+    first: int
     """Returns the first _n_ elements from the list."""
 
-    last: Optional[int]
+    last: int
     """Returns the last _n_ elements from the list."""
 
-    plan_ids: Optional[SequenceNotStr[str]]
+    plan_ids: SequenceNotStr[str]
     """Filter to only promo codes scoped to these plan identifiers."""
 
-    product_ids: Optional[SequenceNotStr[str]]
+    product_ids: SequenceNotStr[str]
     """Filter to only promo codes scoped to these product identifiers."""
 
-    status: Optional[PromoCodeStatus]
-    """Statuses for promo codes"""
+    status: PromoCodeStatus
+    """Filter to only promo codes matching this status."""

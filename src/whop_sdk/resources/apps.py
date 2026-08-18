@@ -287,33 +287,31 @@ class AppsResource(SyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        app_type: Optional[AppType] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[
-            Literal[
-                "created_at",
-                "discoverable_at",
-                "total_installs_last_30_days",
-                "total_installs_last_7_days",
-                "time_spent",
-                "time_spent_last_24_hours",
-                "daily_active_users",
-                "ai_prompt_count",
-                "total_ai_cost_usd",
-                "total_ai_tokens",
-                "last_ai_prompt_at",
-                "ai_average_rating",
-            ]
+        after: str | Omit = omit,
+        app_type: AppType | Omit = omit,
+        before: str | Omit = omit,
+        company_id: str | Omit = omit,
+        direction: Direction | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal[
+            "created_at",
+            "discoverable_at",
+            "total_installs_last_30_days",
+            "total_installs_last_7_days",
+            "time_spent",
+            "time_spent_last_24_hours",
+            "daily_active_users",
+            "ai_prompt_count",
+            "total_ai_cost_usd",
+            "total_ai_tokens",
+            "last_ai_prompt_at",
+            "ai_average_rating",
         ]
         | Omit = omit,
-        query: Optional[str] | Omit = omit,
-        verified_apps_only: Optional[bool] | Omit = omit,
-        view_type: Optional[AppViewType] | Omit = omit,
+        query: str | Omit = omit,
+        verified_apps_only: bool | Omit = omit,
+        view_type: AppViewType | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -328,26 +326,29 @@ class AppsResource(SyncAPIResource):
         Args:
           after: Returns the elements in the list that come after the specified cursor.
 
-          app_type: The type of end-user an app is built for
+          app_type: Filter apps by the type of end-user they are built for, such as consumer or
+              business.
 
           before: Returns the elements in the list that come before the specified cursor.
 
           company_id: Filter apps to only those created by this company, starting with 'biz\\__'.
 
-          direction: The direction of the sort.
+          direction: The sort direction for results. Accepted values: asc, desc.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          order: The order to fetch the apps in for discovery.
+          order: The field to sort apps by. Defaults to discoverable_at descending, showing the
+              most recently published apps first.
 
           query: A search string to filter apps by name, such as 'chat' or 'analytics'.
 
           verified_apps_only: Whether to only return apps that have been verified by Whop. Useful for
               populating a featured apps section.
 
-          view_type: The different types of an app view
+          view_type: Filter apps to only those supporting a specific view type, such as 'dashboard'
+              or 'hub'.
 
           extra_headers: Send extra headers
 
@@ -643,33 +644,31 @@ class AsyncAppsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        app_type: Optional[AppType] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[
-            Literal[
-                "created_at",
-                "discoverable_at",
-                "total_installs_last_30_days",
-                "total_installs_last_7_days",
-                "time_spent",
-                "time_spent_last_24_hours",
-                "daily_active_users",
-                "ai_prompt_count",
-                "total_ai_cost_usd",
-                "total_ai_tokens",
-                "last_ai_prompt_at",
-                "ai_average_rating",
-            ]
+        after: str | Omit = omit,
+        app_type: AppType | Omit = omit,
+        before: str | Omit = omit,
+        company_id: str | Omit = omit,
+        direction: Direction | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal[
+            "created_at",
+            "discoverable_at",
+            "total_installs_last_30_days",
+            "total_installs_last_7_days",
+            "time_spent",
+            "time_spent_last_24_hours",
+            "daily_active_users",
+            "ai_prompt_count",
+            "total_ai_cost_usd",
+            "total_ai_tokens",
+            "last_ai_prompt_at",
+            "ai_average_rating",
         ]
         | Omit = omit,
-        query: Optional[str] | Omit = omit,
-        verified_apps_only: Optional[bool] | Omit = omit,
-        view_type: Optional[AppViewType] | Omit = omit,
+        query: str | Omit = omit,
+        verified_apps_only: bool | Omit = omit,
+        view_type: AppViewType | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -684,26 +683,29 @@ class AsyncAppsResource(AsyncAPIResource):
         Args:
           after: Returns the elements in the list that come after the specified cursor.
 
-          app_type: The type of end-user an app is built for
+          app_type: Filter apps by the type of end-user they are built for, such as consumer or
+              business.
 
           before: Returns the elements in the list that come before the specified cursor.
 
           company_id: Filter apps to only those created by this company, starting with 'biz\\__'.
 
-          direction: The direction of the sort.
+          direction: The sort direction for results. Accepted values: asc, desc.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          order: The order to fetch the apps in for discovery.
+          order: The field to sort apps by. Defaults to discoverable_at descending, showing the
+              most recently published apps first.
 
           query: A search string to filter apps by name, such as 'chat' or 'analytics'.
 
           verified_apps_only: Whether to only return apps that have been verified by Whop. Useful for
               populating a featured apps section.
 
-          view_type: The different types of an app view
+          view_type: Filter apps to only those supporting a specific view type, such as 'dashboard'
+              or 'hub'.
 
           extra_headers: Send extra headers
 

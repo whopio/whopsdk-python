@@ -167,14 +167,14 @@ class AppBuildsResource(SyncAPIResource):
         self,
         *,
         app_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        platform: Optional[AppBuildPlatforms] | Omit = omit,
-        status: Optional[AppBuildStatuses] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        platform: AppBuildPlatforms | Omit = omit,
+        status: AppBuildStatuses | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -205,9 +205,9 @@ class AppBuildsResource(SyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          platform: The different platforms an app build can target.
+          platform: Filter builds by target platform.
 
-          status: The different statuses an AppBuild can be in.
+          status: Filter builds by review status.
 
           extra_headers: Send extra headers
 
@@ -420,14 +420,14 @@ class AsyncAppBuildsResource(AsyncAPIResource):
         self,
         *,
         app_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        platform: Optional[AppBuildPlatforms] | Omit = omit,
-        status: Optional[AppBuildStatuses] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        platform: AppBuildPlatforms | Omit = omit,
+        status: AppBuildStatuses | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -458,9 +458,9 @@ class AsyncAppBuildsResource(AsyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          platform: The different platforms an app build can target.
+          platform: Filter builds by target platform.
 
-          status: The different statuses an AppBuild can be in.
+          status: Filter builds by review status.
 
           extra_headers: Send extra headers
 

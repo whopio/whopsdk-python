@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Union
 from datetime import datetime
 from typing_extensions import Required, Annotated, TypedDict
 
@@ -17,26 +17,26 @@ class AppBuildListParams(TypedDict, total=False):
     app_id: Required[str]
     """The unique identifier of the app to list builds for."""
 
-    after: Optional[str]
+    after: str
     """Returns the elements in the list that come after the specified cursor."""
 
-    before: Optional[str]
+    before: str
     """Returns the elements in the list that come before the specified cursor."""
 
-    created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    created_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Only return builds created after this timestamp."""
 
-    created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    created_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Only return builds created before this timestamp."""
 
-    first: Optional[int]
+    first: int
     """Returns the first _n_ elements from the list."""
 
-    last: Optional[int]
+    last: int
     """Returns the last _n_ elements from the list."""
 
-    platform: Optional[AppBuildPlatforms]
-    """The different platforms an app build can target."""
+    platform: AppBuildPlatforms
+    """Filter builds by target platform."""
 
-    status: Optional[AppBuildStatuses]
-    """The different statuses an AppBuild can be in."""
+    status: AppBuildStatuses
+    """Filter builds by review status."""

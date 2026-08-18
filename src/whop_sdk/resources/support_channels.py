@@ -148,15 +148,15 @@ class SupportChannelsResource(SyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        open: Optional[bool] | Omit = omit,
-        order: Optional[Literal["created_at", "last_post_sent_at"]] | Omit = omit,
-        view: Optional[Literal["all", "admin", "customer"]] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        company_id: str | Omit = omit,
+        direction: Direction | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        open: bool | Omit = omit,
+        order: Literal["created_at", "last_post_sent_at"] | Omit = omit,
+        view: Literal["all", "admin", "customer"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -181,7 +181,8 @@ class SupportChannelsResource(SyncAPIResource):
               channels of child companies. When omitted, returns support channels across all
               companies the user has access to.
 
-          direction: The direction of the sort.
+          direction: The sort direction for the results. Use 'asc' for oldest first or 'desc' for
+              newest first.
 
           first: Returns the first _n_ elements from the list.
 
@@ -190,9 +191,12 @@ class SupportChannelsResource(SyncAPIResource):
           open: Whether to filter by open or resolved support channels. Set to true to only
               return channels awaiting a response, or false for resolved channels.
 
-          order: Sort options for message channels
+          order: The field to sort the support channels by, such as creation date or last message
+              time.
 
-          view: The perspective to filter support channels by.
+          view: Filter support channels by the authenticated user's role. Defaults to admin.
+              When the caller is a company API key (no user), only admin-visible channels are
+              returned.
 
           extra_headers: Send extra headers
 
@@ -350,15 +354,15 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        open: Optional[bool] | Omit = omit,
-        order: Optional[Literal["created_at", "last_post_sent_at"]] | Omit = omit,
-        view: Optional[Literal["all", "admin", "customer"]] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        company_id: str | Omit = omit,
+        direction: Direction | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        open: bool | Omit = omit,
+        order: Literal["created_at", "last_post_sent_at"] | Omit = omit,
+        view: Literal["all", "admin", "customer"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -383,7 +387,8 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
               channels of child companies. When omitted, returns support channels across all
               companies the user has access to.
 
-          direction: The direction of the sort.
+          direction: The sort direction for the results. Use 'asc' for oldest first or 'desc' for
+              newest first.
 
           first: Returns the first _n_ elements from the list.
 
@@ -392,9 +397,12 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
           open: Whether to filter by open or resolved support channels. Set to true to only
               return channels awaiting a response, or false for resolved channels.
 
-          order: Sort options for message channels
+          order: The field to sort the support channels by, such as creation date or last message
+              time.
 
-          view: The perspective to filter support channels by.
+          view: Filter support channels by the authenticated user's role. Defaults to admin.
+              When the caller is a company API key (no user), only admin-visible channels are
+              returned.
 
           extra_headers: Send extra headers
 

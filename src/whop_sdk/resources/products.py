@@ -354,16 +354,16 @@ class ProductsResource(SyncAPIResource):
         self,
         *,
         company_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[Literal["active_memberships_count", "created_at", "usd_gmv", "usd_gmv_30_days"]] | Omit = omit,
-        product_types: Optional[List[AccessPassType]] | Omit = omit,
-        visibilities: Optional[List[VisibilityFilter]] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        direction: Direction | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["active_memberships_count", "created_at", "usd_gmv", "usd_gmv_30_days"] | Omit = omit,
+        product_types: List[AccessPassType] | Omit = omit,
+        visibilities: List[VisibilityFilter] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -390,13 +390,13 @@ class ProductsResource(SyncAPIResource):
 
           created_before: Only return products created before this timestamp.
 
-          direction: The direction of the sort.
+          direction: The sort direction for results. Defaults to descending.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          order: The ways a relation of AccessPasses can be ordered
+          order: The field to sort results by. Defaults to created_at.
 
           product_types: Filter to only products matching these type classifications.
 
@@ -796,16 +796,16 @@ class AsyncProductsResource(AsyncAPIResource):
         self,
         *,
         company_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[Literal["active_memberships_count", "created_at", "usd_gmv", "usd_gmv_30_days"]] | Omit = omit,
-        product_types: Optional[List[AccessPassType]] | Omit = omit,
-        visibilities: Optional[List[VisibilityFilter]] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        direction: Direction | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["active_memberships_count", "created_at", "usd_gmv", "usd_gmv_30_days"] | Omit = omit,
+        product_types: List[AccessPassType] | Omit = omit,
+        visibilities: List[VisibilityFilter] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -832,13 +832,13 @@ class AsyncProductsResource(AsyncAPIResource):
 
           created_before: Only return products created before this timestamp.
 
-          direction: The direction of the sort.
+          direction: The sort direction for results. Defaults to descending.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          order: The ways a relation of AccessPasses can be ordered
+          order: The field to sort results by. Defaults to created_at.
 
           product_types: Filter to only products matching these type classifications.
 

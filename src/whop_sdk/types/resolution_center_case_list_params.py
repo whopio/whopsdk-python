@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import List, Union
 from datetime import datetime
 from typing_extensions import Annotated, TypedDict
 
@@ -14,29 +14,29 @@ __all__ = ["ResolutionCenterCaseListParams"]
 
 
 class ResolutionCenterCaseListParams(TypedDict, total=False):
-    after: Optional[str]
+    after: str
     """Returns the elements in the list that come after the specified cursor."""
 
-    before: Optional[str]
+    before: str
     """Returns the elements in the list that come before the specified cursor."""
 
-    company_id: Optional[str]
+    company_id: str
     """The unique identifier of the company to list resolution center cases for."""
 
-    created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    created_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Only return cases created after this timestamp."""
 
-    created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    created_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Only return cases created before this timestamp."""
 
-    direction: Optional[Direction]
-    """The direction of the sort."""
+    direction: Direction
+    """The sort direction."""
 
-    first: Optional[int]
+    first: int
     """Returns the first _n_ elements from the list."""
 
-    last: Optional[int]
+    last: int
     """Returns the last _n_ elements from the list."""
 
-    statuses: Optional[List[ResolutionCenterCaseStatus]]
+    statuses: List[ResolutionCenterCaseStatus]
     """Filter by resolution center case status."""

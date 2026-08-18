@@ -464,18 +464,18 @@ class InvoicesResource(SyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        collection_methods: Optional[List[CollectionMethod]] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[Literal["id", "created_at", "due_date"]] | Omit = omit,
-        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        statuses: Optional[List[InvoiceStatus]] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        collection_methods: List[CollectionMethod] | Omit = omit,
+        company_id: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        direction: Direction | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["id", "created_at", "due_date"] | Omit = omit,
+        product_ids: SequenceNotStr[str] | Omit = omit,
+        statuses: List[InvoiceStatus] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -504,13 +504,13 @@ class InvoicesResource(SyncAPIResource):
 
           created_before: Only return invoices created before this timestamp.
 
-          direction: The direction of the sort.
+          direction: The sort direction for ordering results, either ascending or descending.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          order: Which columns can be used to sort.
+          order: The field to order results by, such as creation date or due date.
 
           product_ids: Filter invoices to only those associated with these specific product
               identifiers.
@@ -1135,18 +1135,18 @@ class AsyncInvoicesResource(AsyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        collection_methods: Optional[List[CollectionMethod]] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[Literal["id", "created_at", "due_date"]] | Omit = omit,
-        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        statuses: Optional[List[InvoiceStatus]] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        collection_methods: List[CollectionMethod] | Omit = omit,
+        company_id: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        direction: Direction | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["id", "created_at", "due_date"] | Omit = omit,
+        product_ids: SequenceNotStr[str] | Omit = omit,
+        statuses: List[InvoiceStatus] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1175,13 +1175,13 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
           created_before: Only return invoices created before this timestamp.
 
-          direction: The direction of the sort.
+          direction: The sort direction for ordering results, either ascending or descending.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          order: Which columns can be used to sort.
+          order: The field to order results by, such as creation date or due date.
 
           product_ids: Filter invoices to only those associated with these specific product
               identifiers.

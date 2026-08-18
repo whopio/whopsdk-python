@@ -178,10 +178,10 @@ class CourseChaptersResource(SyncAPIResource):
         self,
         *,
         course_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -427,10 +427,10 @@ class AsyncCourseChaptersResource(AsyncAPIResource):
         self,
         *,
         course_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

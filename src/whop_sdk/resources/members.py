@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import List, Union
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -95,24 +95,23 @@ class MembersResource(SyncAPIResource):
     def list(
         self,
         *,
-        access_level: Optional[AccessLevel] | Omit = omit,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        most_recent_actions: Optional[List[MemberMostRecentActions]] | Omit = omit,
-        order: Optional[Literal["id", "usd_total_spent", "created_at", "joined_at", "most_recent_action"]]
-        | Omit = omit,
-        plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        promo_code_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        query: Optional[str] | Omit = omit,
-        statuses: Optional[List[MemberStatuses]] | Omit = omit,
-        user_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        access_level: AccessLevel | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        company_id: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        direction: Direction | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        most_recent_actions: List[MemberMostRecentActions] | Omit = omit,
+        order: Literal["id", "usd_total_spent", "created_at", "joined_at", "most_recent_action"] | Omit = omit,
+        plan_ids: SequenceNotStr[str] | Omit = omit,
+        product_ids: SequenceNotStr[str] | Omit = omit,
+        promo_code_ids: SequenceNotStr[str] | Omit = omit,
+        query: str | Omit = omit,
+        statuses: List[MemberStatuses] | Omit = omit,
+        user_ids: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -131,7 +130,7 @@ class MembersResource(SyncAPIResource):
         - `member:phone:read`
 
         Args:
-          access_level: The access level a given user (or company) has to a product or company.
+          access_level: Filter members by their current access level to the product.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -143,7 +142,7 @@ class MembersResource(SyncAPIResource):
 
           created_before: Only return members created before this timestamp.
 
-          direction: The direction of the sort.
+          direction: The sort direction for results. Defaults to descending.
 
           first: Returns the first _n_ elements from the list.
 
@@ -151,7 +150,7 @@ class MembersResource(SyncAPIResource):
 
           most_recent_actions: Filter members by their most recent activity type.
 
-          order: Which columns can be used to sort.
+          order: The column to sort members by, such as creation date or revenue.
 
           plan_ids: Filter members to only those subscribed to these specific plans.
 
@@ -273,24 +272,23 @@ class AsyncMembersResource(AsyncAPIResource):
     def list(
         self,
         *,
-        access_level: Optional[AccessLevel] | Omit = omit,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        most_recent_actions: Optional[List[MemberMostRecentActions]] | Omit = omit,
-        order: Optional[Literal["id", "usd_total_spent", "created_at", "joined_at", "most_recent_action"]]
-        | Omit = omit,
-        plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        promo_code_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        query: Optional[str] | Omit = omit,
-        statuses: Optional[List[MemberStatuses]] | Omit = omit,
-        user_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        access_level: AccessLevel | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        company_id: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        direction: Direction | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        most_recent_actions: List[MemberMostRecentActions] | Omit = omit,
+        order: Literal["id", "usd_total_spent", "created_at", "joined_at", "most_recent_action"] | Omit = omit,
+        plan_ids: SequenceNotStr[str] | Omit = omit,
+        product_ids: SequenceNotStr[str] | Omit = omit,
+        promo_code_ids: SequenceNotStr[str] | Omit = omit,
+        query: str | Omit = omit,
+        statuses: List[MemberStatuses] | Omit = omit,
+        user_ids: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -309,7 +307,7 @@ class AsyncMembersResource(AsyncAPIResource):
         - `member:phone:read`
 
         Args:
-          access_level: The access level a given user (or company) has to a product or company.
+          access_level: Filter members by their current access level to the product.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -321,7 +319,7 @@ class AsyncMembersResource(AsyncAPIResource):
 
           created_before: Only return members created before this timestamp.
 
-          direction: The direction of the sort.
+          direction: The sort direction for results. Defaults to descending.
 
           first: Returns the first _n_ elements from the list.
 
@@ -329,7 +327,7 @@ class AsyncMembersResource(AsyncAPIResource):
 
           most_recent_actions: Filter members by their most recent activity type.
 
-          order: Which columns can be used to sort.
+          order: The column to sort members by, such as creation date or revenue.
 
           plan_ids: Filter members to only those subscribed to these specific plans.
 

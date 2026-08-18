@@ -152,10 +152,10 @@ class ReactionsResource(SyncAPIResource):
         self,
         *,
         resource_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -220,7 +220,7 @@ class ReactionsResource(SyncAPIResource):
         self,
         id: str,
         *,
-        emoji: Optional[str] | Omit = omit,
+        emoji: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -395,10 +395,10 @@ class AsyncReactionsResource(AsyncAPIResource):
         self,
         *,
         resource_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -463,7 +463,7 @@ class AsyncReactionsResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        emoji: Optional[str] | Omit = omit,
+        emoji: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

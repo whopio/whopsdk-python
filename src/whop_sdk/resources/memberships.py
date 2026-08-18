@@ -143,25 +143,24 @@ class MembershipsResource(SyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        cancel_options: Optional[List[CancelOptions]] | Omit = omit,
-        cancelation_status: Optional[Literal["won_back", "left", "canceling"]] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        has_cancelation_reason: Optional[bool] | Omit = omit,
-        include_text_only_cancelation_reasons: Optional[bool] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[Literal["id", "created_at", "status", "canceled_at", "date_joined", "total_spend"]]
-        | Omit = omit,
-        plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        promo_code_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        statuses: Optional[List[MembershipStatus]] | Omit = omit,
-        user_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        cancel_options: List[CancelOptions] | Omit = omit,
+        cancelation_status: Literal["won_back", "left", "canceling"] | Omit = omit,
+        company_id: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        direction: Direction | Omit = omit,
+        first: int | Omit = omit,
+        has_cancelation_reason: bool | Omit = omit,
+        include_text_only_cancelation_reasons: bool | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["id", "created_at", "status", "canceled_at", "date_joined", "total_spend"] | Omit = omit,
+        plan_ids: SequenceNotStr[str] | Omit = omit,
+        product_ids: SequenceNotStr[str] | Omit = omit,
+        promo_code_ids: SequenceNotStr[str] | Omit = omit,
+        statuses: List[MembershipStatus] | Omit = omit,
+        user_ids: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -185,7 +184,7 @@ class MembershipsResource(SyncAPIResource):
 
           cancel_options: Filter to only memberships matching these cancellation reasons.
 
-          cancelation_status: The state of a membership after a customer provides a cancelation reason.
+          cancelation_status: Filter memberships by whether the customer is canceling, left, or was won back.
 
           company_id: The unique identifier of the company to list memberships for. Required when
               using an API key.
@@ -194,7 +193,7 @@ class MembershipsResource(SyncAPIResource):
 
           created_before: Only return memberships created before this timestamp.
 
-          direction: The direction of the sort.
+          direction: The sort direction for results. Defaults to descending.
 
           first: Returns the first _n_ elements from the list.
 
@@ -206,7 +205,7 @@ class MembershipsResource(SyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          order: Which columns can be used to sort.
+          order: The field to sort results by. Null uses the default sort order.
 
           plan_ids: Filter to only memberships belonging to these plan identifiers.
 
@@ -597,25 +596,24 @@ class AsyncMembershipsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        cancel_options: Optional[List[CancelOptions]] | Omit = omit,
-        cancelation_status: Optional[Literal["won_back", "left", "canceling"]] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        has_cancelation_reason: Optional[bool] | Omit = omit,
-        include_text_only_cancelation_reasons: Optional[bool] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[Literal["id", "created_at", "status", "canceled_at", "date_joined", "total_spend"]]
-        | Omit = omit,
-        plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        promo_code_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        statuses: Optional[List[MembershipStatus]] | Omit = omit,
-        user_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        cancel_options: List[CancelOptions] | Omit = omit,
+        cancelation_status: Literal["won_back", "left", "canceling"] | Omit = omit,
+        company_id: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        direction: Direction | Omit = omit,
+        first: int | Omit = omit,
+        has_cancelation_reason: bool | Omit = omit,
+        include_text_only_cancelation_reasons: bool | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["id", "created_at", "status", "canceled_at", "date_joined", "total_spend"] | Omit = omit,
+        plan_ids: SequenceNotStr[str] | Omit = omit,
+        product_ids: SequenceNotStr[str] | Omit = omit,
+        promo_code_ids: SequenceNotStr[str] | Omit = omit,
+        statuses: List[MembershipStatus] | Omit = omit,
+        user_ids: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -639,7 +637,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
 
           cancel_options: Filter to only memberships matching these cancellation reasons.
 
-          cancelation_status: The state of a membership after a customer provides a cancelation reason.
+          cancelation_status: Filter memberships by whether the customer is canceling, left, or was won back.
 
           company_id: The unique identifier of the company to list memberships for. Required when
               using an API key.
@@ -648,7 +646,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
 
           created_before: Only return memberships created before this timestamp.
 
-          direction: The direction of the sort.
+          direction: The sort direction for results. Defaults to descending.
 
           first: Returns the first _n_ elements from the list.
 
@@ -660,7 +658,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          order: Which columns can be used to sort.
+          order: The field to sort results by. Null uses the default sort order.
 
           plan_ids: Filter to only memberships belonging to these plan identifiers.
 

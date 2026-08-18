@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import List, Union
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -94,17 +94,17 @@ class EntriesResource(SyncAPIResource):
         self,
         *,
         company_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[Literal["id", "created_at"]] | Omit = omit,
-        plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        statuses: Optional[List[EntryStatus]] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        direction: Direction | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["id", "created_at"] | Omit = omit,
+        plan_ids: SequenceNotStr[str] | Omit = omit,
+        product_ids: SequenceNotStr[str] | Omit = omit,
+        statuses: List[EntryStatus] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -132,13 +132,13 @@ class EntriesResource(SyncAPIResource):
 
           created_before: Only return entries created before this timestamp.
 
-          direction: The direction of the sort.
+          direction: The sort direction for results. Defaults to descending.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          order: Which columns can be used to sort.
+          order: The column to sort waitlist entries by. Defaults to creation date.
 
           plan_ids: Filter entries to only those for specific plans.
 
@@ -326,17 +326,17 @@ class AsyncEntriesResource(AsyncAPIResource):
         self,
         *,
         company_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[Literal["id", "created_at"]] | Omit = omit,
-        plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        statuses: Optional[List[EntryStatus]] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        direction: Direction | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["id", "created_at"] | Omit = omit,
+        plan_ids: SequenceNotStr[str] | Omit = omit,
+        product_ids: SequenceNotStr[str] | Omit = omit,
+        statuses: List[EntryStatus] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -364,13 +364,13 @@ class AsyncEntriesResource(AsyncAPIResource):
 
           created_before: Only return entries created before this timestamp.
 
-          direction: The direction of the sort.
+          direction: The sort direction for results. Defaults to descending.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          order: Which columns can be used to sort.
+          order: The column to sort waitlist entries by. Defaults to creation date.
 
           plan_ids: Filter entries to only those for specific plans.
 

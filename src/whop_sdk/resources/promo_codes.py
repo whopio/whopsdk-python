@@ -206,15 +206,15 @@ class PromoCodesResource(SyncAPIResource):
         self,
         *,
         company_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        status: Optional[PromoCodeStatus] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        plan_ids: SequenceNotStr[str] | Omit = omit,
+        product_ids: SequenceNotStr[str] | Omit = omit,
+        status: PromoCodeStatus | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -250,7 +250,7 @@ class PromoCodesResource(SyncAPIResource):
 
           product_ids: Filter to only promo codes scoped to these product identifiers.
 
-          status: Statuses for promo codes
+          status: Filter to only promo codes matching this status.
 
           extra_headers: Send extra headers
 
@@ -502,15 +502,15 @@ class AsyncPromoCodesResource(AsyncAPIResource):
         self,
         *,
         company_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        status: Optional[PromoCodeStatus] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        plan_ids: SequenceNotStr[str] | Omit = omit,
+        product_ids: SequenceNotStr[str] | Omit = omit,
+        status: PromoCodeStatus | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -546,7 +546,7 @@ class AsyncPromoCodesResource(AsyncAPIResource):
 
           product_ids: Filter to only promo codes scoped to these product identifiers.
 
-          status: Statuses for promo codes
+          status: Filter to only promo codes matching this status.
 
           extra_headers: Send extra headers
 

@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Optional
 from typing_extensions import Literal, TypedDict
 
 from .shared.direction import Direction
@@ -11,26 +10,26 @@ __all__ = ["BountyListParams"]
 
 
 class BountyListParams(TypedDict, total=False):
-    after: Optional[str]
+    after: str
     """Returns the elements in the list that come after the specified cursor."""
 
-    before: Optional[str]
+    before: str
     """Returns the elements in the list that come before the specified cursor."""
 
-    direction: Optional[Direction]
-    """The direction of the sort."""
+    direction: Direction
+    """Sort direction. Defaults to descending."""
 
-    experience_id: Optional[str]
+    experience_id: str
     """The experience to list bounties for.
 
     When omitted, returns bounties with no experience.
     """
 
-    first: Optional[int]
+    first: int
     """Returns the first _n_ elements from the list."""
 
-    last: Optional[int]
+    last: int
     """Returns the last _n_ elements from the list."""
 
-    status: Optional[Literal["published", "archived", "scheduled"]]
-    """The available bounty statuses to choose from."""
+    status: Literal["published", "archived", "scheduled"]
+    """Filter bounties by status."""
