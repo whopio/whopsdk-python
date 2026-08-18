@@ -126,6 +126,7 @@ class AccountRequiredAction(BaseModel):
     action: Literal[
         "deposit_funds",
         "submit_information_request",
+        "update_payout_profile",
         "card_usage_review",
         "verify_identity",
         "sign_formation_documents",
