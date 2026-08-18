@@ -14,6 +14,9 @@ class TeamMemberListParams(TypedDict, total=False):
     after: str
     """Cursor for the next page of members."""
 
+    before: str
+    """Cursor to paginate backwards from."""
+
     created_after: str
     """Only return members added after this ISO 8601 timestamp."""
 
@@ -25,6 +28,9 @@ class TeamMemberListParams(TypedDict, total=False):
 
     first: int
     """Number of members to return. Defaults to 20; maximum 100."""
+
+    last: int
+    """Number of members to return from the end of the window."""
 
     order: Literal["created_at"]
     """Field used to sort members."""

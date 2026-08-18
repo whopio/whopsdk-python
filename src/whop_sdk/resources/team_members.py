@@ -206,10 +206,12 @@ class TeamMembersResource(SyncAPIResource):
         *,
         account_id: str,
         after: str | Omit = omit,
+        before: str | Omit = omit,
         created_after: str | Omit = omit,
         created_before: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
+        last: int | Omit = omit,
         order: Literal["created_at"] | Omit = omit,
         role: Literal[
             "owner",
@@ -245,6 +247,8 @@ class TeamMembersResource(SyncAPIResource):
 
           after: Cursor for the next page of members.
 
+          before: Cursor to paginate backwards from.
+
           created_after: Only return members added after this ISO 8601 timestamp.
 
           created_before: Only return members added before this ISO 8601 timestamp.
@@ -252,6 +256,8 @@ class TeamMembersResource(SyncAPIResource):
           direction: Sort direction. Defaults to `desc`.
 
           first: Number of members to return. Defaults to 20; maximum 100.
+
+          last: Number of members to return from the end of the window.
 
           order: Field used to sort members.
 
@@ -283,10 +289,12 @@ class TeamMembersResource(SyncAPIResource):
                     {
                         "account_id": account_id,
                         "after": after,
+                        "before": before,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
                         "first": first,
+                        "last": last,
                         "order": order,
                         "role": role,
                         "status": status,
@@ -523,10 +531,12 @@ class AsyncTeamMembersResource(AsyncAPIResource):
         *,
         account_id: str,
         after: str | Omit = omit,
+        before: str | Omit = omit,
         created_after: str | Omit = omit,
         created_before: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
+        last: int | Omit = omit,
         order: Literal["created_at"] | Omit = omit,
         role: Literal[
             "owner",
@@ -562,6 +572,8 @@ class AsyncTeamMembersResource(AsyncAPIResource):
 
           after: Cursor for the next page of members.
 
+          before: Cursor to paginate backwards from.
+
           created_after: Only return members added after this ISO 8601 timestamp.
 
           created_before: Only return members added before this ISO 8601 timestamp.
@@ -569,6 +581,8 @@ class AsyncTeamMembersResource(AsyncAPIResource):
           direction: Sort direction. Defaults to `desc`.
 
           first: Number of members to return. Defaults to 20; maximum 100.
+
+          last: Number of members to return from the end of the window.
 
           order: Field used to sort members.
 
@@ -600,10 +614,12 @@ class AsyncTeamMembersResource(AsyncAPIResource):
                     {
                         "account_id": account_id,
                         "after": after,
+                        "before": before,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
                         "first": first,
+                        "last": last,
                         "order": order,
                         "role": role,
                         "status": status,

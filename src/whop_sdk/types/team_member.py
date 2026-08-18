@@ -5,7 +5,19 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["TeamMember", "User", "UserProfilePicture"]
+__all__ = ["TeamMember", "AuthorizedRole", "User", "UserProfilePicture"]
+
+
+class AuthorizedRole(BaseModel):
+    """
+    Custom role assigned to this member, or `null` when the member has a system role.
+    """
+
+    id: str
+    """Custom role ID, prefixed `aurl_`."""
+
+    name: str
+    """Custom role name."""
 
 
 class UserProfilePicture(BaseModel):
@@ -48,6 +60,12 @@ class TeamMember(BaseModel):
 
     account_id: str
     """The account this membership belongs to, prefixed `biz_`."""
+
+    authorized_role: Optional[AuthorizedRole] = None
+    """
+    Custom role assigned to this member, or `null` when the member has a system
+    role.
+    """
 
     created_at: str
     """When the member joined or the invite was sent, as an ISO 8601 timestamp."""
