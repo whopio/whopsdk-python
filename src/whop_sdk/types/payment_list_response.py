@@ -23,6 +23,15 @@ __all__ = [
     "Company",
     "Member",
     "Membership",
+    "PaymentInstrument",
+    "PaymentInstrumentCard",
+    "PaymentInstrumentIcons",
+    "PaymentInstrumentIconsCard",
+    "PaymentInstrumentIconsCardDark",
+    "PaymentInstrumentIconsCardLight",
+    "PaymentInstrumentIconsSquare",
+    "PaymentInstrumentIconsSquareDark",
+    "PaymentInstrumentIconsSquareLight",
     "PaymentMethod",
     "PaymentMethodCard",
     "Plan",
@@ -115,6 +124,144 @@ class Membership(BaseModel):
 
     status: MembershipStatus
     """The state of the membership."""
+
+
+class PaymentInstrumentCard(BaseModel):
+    """Card payments only: the card's network and last four."""
+
+    brand: str
+    """
+    The network identifier (`visa`, `amex`, …), matching `card.networks` entries and
+    saved card payment methods.
+    """
+
+    last4: Optional[str] = None
+    """The card's last four digits, when captured."""
+
+
+class PaymentInstrumentIconsCardDark(BaseModel):
+    """The colorway for dark surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class PaymentInstrumentIconsCardLight(BaseModel):
+    """The colorway for light surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class PaymentInstrumentIconsCard(BaseModel):
+    """The credit-card-proportioned tile (48x30)."""
+
+    dark: PaymentInstrumentIconsCardDark
+    """The colorway for dark surfaces."""
+
+    light: PaymentInstrumentIconsCardLight
+    """The colorway for light surfaces."""
+
+
+class PaymentInstrumentIconsSquareDark(BaseModel):
+    """The colorway for dark surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class PaymentInstrumentIconsSquareLight(BaseModel):
+    """The colorway for light surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class PaymentInstrumentIconsSquare(BaseModel):
+    """The square tile (32x32)."""
+
+    dark: PaymentInstrumentIconsSquareDark
+    """The colorway for dark surfaces."""
+
+    light: PaymentInstrumentIconsSquareLight
+    """The colorway for light surfaces."""
+
+
+class PaymentInstrumentIcons(BaseModel):
+    """
+    The standard icon set: square and card shapes, each in light and dark colorways.
+    """
+
+    card: PaymentInstrumentIconsCard
+    """The credit-card-proportioned tile (48x30)."""
+
+    square: PaymentInstrumentIconsSquare
+    """The square tile (32x32)."""
+
+
+class PaymentInstrument(BaseModel):
+    """
+    The instrument this payment was made with, shaped for display: the method type, a buyer-facing name, the standard icon set, and the card facts when it was a card. Null when the receipt names no payment method.
+    """
+
+    card: Optional[PaymentInstrumentCard] = None
+    """Card payments only: the card's network and last four."""
+
+    display_name: str
+    """
+    Buyer-facing instrument name — "Visa •••• 4242" when the card surfaced, else the
+    method's own name ("Klarna").
+    """
+
+    icons: PaymentInstrumentIcons
+    """
+    The standard icon set: square and card shapes, each in light and dark colorways.
+    """
+
+    installment_count: Optional[int] = None
+    """Installment methods only: how many payments the charge splits into.
+
+    Data, not copy — compose and translate the label client-side.
+    """
+
+    payment_method_type: str
+    """The payment method type identifier, e.g. `card`, `klarna`, `apple_pay`."""
 
 
 class PaymentMethodCard(BaseModel):
@@ -480,6 +627,13 @@ class PaymentListResponse(BaseModel):
     """The time at which this payment was successfully collected.
 
     Null if the payment has not yet succeeded. As a Unix timestamp.
+    """
+
+    payment_instrument: Optional[PaymentInstrument] = None
+    """
+    The instrument this payment was made with, shaped for display: the method type,
+    a buyer-facing name, the standard icon set, and the card facts when it was a
+    card. Null when the receipt names no payment method.
     """
 
     payment_method: Optional[PaymentMethod] = None
