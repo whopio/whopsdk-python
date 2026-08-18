@@ -101,6 +101,13 @@ class InvoiceListItem(BaseModel):
     number: str
     """The sequential invoice number for display purposes."""
 
+    payment_processing: bool
+    """Whether a payment on this invoice is still clearing.
+
+    True while a delayed payment method such as ACH or SEPA settles, during which
+    the invoice stays open and is not marked past due.
+    """
+
     status: InvoiceStatus
     """The current payment status of the invoice, such as draft, open, paid, or void."""
 

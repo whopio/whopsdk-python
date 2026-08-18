@@ -5,6 +5,7 @@ from typing_extensions import Literal, TypeAlias
 __all__ = ["WebhookEvent"]
 
 WebhookEvent: TypeAlias = Literal[
+    "account.updated",
     "invoice.created",
     "invoice.marked_uncollectible",
     "invoice.paid",

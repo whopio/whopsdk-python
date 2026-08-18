@@ -42,7 +42,7 @@ class TestWebhooks:
             api_version_date="api_version_date",
             child_resource_events=True,
             enabled=True,
-            events=["invoice.created"],
+            events=["account.updated"],
             resource_id="resource_id",
         )
         assert_matches_type(WebhookCreateResponse, webhook, path=["response"])
@@ -132,7 +132,7 @@ class TestWebhooks:
             api_version_date="api_version_date",
             child_resource_events=True,
             enabled=True,
-            events=["invoice.created"],
+            events=["account.updated"],
             url="https://example.com/path",
         )
         assert_matches_type(Webhook, webhook, path=["response"])
@@ -275,7 +275,7 @@ class TestWebhooks:
 
         client = client.with_options(webhook_key=client_opt)
 
-        data = """{"id":"msg_xxxxxxxxxxxxxxxxxxxxxxxx","api_version":"v1","api_version_date":"2026-07-20","data":{"id":"inv_xxxxxxxxxxxxxx","automatically_finalizes_at":"2023-12-01T05:00:00.401Z","charge_buyer_fee":true,"collection_method":"send_invoice","company":{"id":"biz_xxxxxxxxxxxxxx"},"created_at":"2023-12-01T05:00:00.401Z","current_plan":{"id":"plan_xxxxxxxxxxxxx","currency":"usd","description":"Monthly access to all premium analytics dashboards and data exports.","formatted_price":"$10.00"},"customer_name":"Jane Doe","due_date":"2023-12-01T05:00:00.401Z","email_address":"customer@example.com","fetch_invoice_token":"eyJhbGciOiJIUzI1NiJ9...","line_items":[{"label":"Platform subscription","position":42,"quantity":6.9,"total":6.9,"unit_price":6.9}],"mailing_address":{"city":"city","country":"country","line1":"line1","line2":"line2","name":"name","phone":"phone","postal_code":"postal_code","state":"state"},"number":"#0001","pay_online_url":"pay_online_url","product":{"id":"prod_xxxxxxxxxxxxx","title":"Pickaxe Analytics"},"status":"draft","subscription_billing_anchor_at":"2023-12-01T05:00:00.401Z","updated_at":"2023-12-01T05:00:00.401Z","user":{"id":"user_xxxxxxxxxxxxx","email":"john.doe@example.com","name":"John Doe","username":"johndoe42"}},"timestamp":"2025-01-01T00:00:00.000Z","type":"invoice.created","company_id":"biz_xxxxxxxxxxxxxx"}"""
+        data = """{"id":"msg_xxxxxxxxxxxxxxxxxxxxxxxx","api_version":"v1","api_version_date":"2026-07-20","data":{"id":"inv_xxxxxxxxxxxxxx","automatically_finalizes_at":"2023-12-01T05:00:00.401Z","charge_buyer_fee":true,"collection_method":"send_invoice","company":{"id":"biz_xxxxxxxxxxxxxx"},"created_at":"2023-12-01T05:00:00.401Z","current_plan":{"id":"plan_xxxxxxxxxxxxx","currency":"usd","description":"Monthly access to all premium analytics dashboards and data exports.","formatted_price":"$10.00"},"customer_name":"Jane Doe","due_date":"2023-12-01T05:00:00.401Z","email_address":"customer@example.com","fetch_invoice_token":"eyJhbGciOiJIUzI1NiJ9...","line_items":[{"label":"Platform subscription","position":42,"quantity":6.9,"total":6.9,"unit_price":6.9}],"mailing_address":{"city":"city","country":"country","line1":"line1","line2":"line2","name":"name","phone":"phone","postal_code":"postal_code","state":"state"},"number":"#0001","pay_online_url":"pay_online_url","payment_processing":true,"product":{"id":"prod_xxxxxxxxxxxxx","title":"Pickaxe Analytics"},"status":"draft","subscription_billing_anchor_at":"2023-12-01T05:00:00.401Z","updated_at":"2023-12-01T05:00:00.401Z","user":{"id":"user_xxxxxxxxxxxxx","email":"john.doe@example.com","name":"John Doe","username":"johndoe42"}},"timestamp":"2025-01-01T00:00:00.000Z","type":"invoice.created","company_id":"biz_xxxxxxxxxxxxxx","previous_attributes":{}}"""
         msg_id = "1"
         timestamp = datetime.now(tz=timezone.utc)
         sig = hook.sign(msg_id=msg_id, timestamp=timestamp, data=data)
@@ -322,7 +322,7 @@ class TestAsyncWebhooks:
             api_version_date="api_version_date",
             child_resource_events=True,
             enabled=True,
-            events=["invoice.created"],
+            events=["account.updated"],
             resource_id="resource_id",
         )
         assert_matches_type(WebhookCreateResponse, webhook, path=["response"])
@@ -412,7 +412,7 @@ class TestAsyncWebhooks:
             api_version_date="api_version_date",
             child_resource_events=True,
             enabled=True,
-            events=["invoice.created"],
+            events=["account.updated"],
             url="https://example.com/path",
         )
         assert_matches_type(Webhook, webhook, path=["response"])
@@ -555,7 +555,7 @@ class TestAsyncWebhooks:
 
         async_client = async_client.with_options(webhook_key=client_opt)
 
-        data = """{"id":"msg_xxxxxxxxxxxxxxxxxxxxxxxx","api_version":"v1","api_version_date":"2026-07-20","data":{"id":"inv_xxxxxxxxxxxxxx","automatically_finalizes_at":"2023-12-01T05:00:00.401Z","charge_buyer_fee":true,"collection_method":"send_invoice","company":{"id":"biz_xxxxxxxxxxxxxx"},"created_at":"2023-12-01T05:00:00.401Z","current_plan":{"id":"plan_xxxxxxxxxxxxx","currency":"usd","description":"Monthly access to all premium analytics dashboards and data exports.","formatted_price":"$10.00"},"customer_name":"Jane Doe","due_date":"2023-12-01T05:00:00.401Z","email_address":"customer@example.com","fetch_invoice_token":"eyJhbGciOiJIUzI1NiJ9...","line_items":[{"label":"Platform subscription","position":42,"quantity":6.9,"total":6.9,"unit_price":6.9}],"mailing_address":{"city":"city","country":"country","line1":"line1","line2":"line2","name":"name","phone":"phone","postal_code":"postal_code","state":"state"},"number":"#0001","pay_online_url":"pay_online_url","product":{"id":"prod_xxxxxxxxxxxxx","title":"Pickaxe Analytics"},"status":"draft","subscription_billing_anchor_at":"2023-12-01T05:00:00.401Z","updated_at":"2023-12-01T05:00:00.401Z","user":{"id":"user_xxxxxxxxxxxxx","email":"john.doe@example.com","name":"John Doe","username":"johndoe42"}},"timestamp":"2025-01-01T00:00:00.000Z","type":"invoice.created","company_id":"biz_xxxxxxxxxxxxxx"}"""
+        data = """{"id":"msg_xxxxxxxxxxxxxxxxxxxxxxxx","api_version":"v1","api_version_date":"2026-07-20","data":{"id":"inv_xxxxxxxxxxxxxx","automatically_finalizes_at":"2023-12-01T05:00:00.401Z","charge_buyer_fee":true,"collection_method":"send_invoice","company":{"id":"biz_xxxxxxxxxxxxxx"},"created_at":"2023-12-01T05:00:00.401Z","current_plan":{"id":"plan_xxxxxxxxxxxxx","currency":"usd","description":"Monthly access to all premium analytics dashboards and data exports.","formatted_price":"$10.00"},"customer_name":"Jane Doe","due_date":"2023-12-01T05:00:00.401Z","email_address":"customer@example.com","fetch_invoice_token":"eyJhbGciOiJIUzI1NiJ9...","line_items":[{"label":"Platform subscription","position":42,"quantity":6.9,"total":6.9,"unit_price":6.9}],"mailing_address":{"city":"city","country":"country","line1":"line1","line2":"line2","name":"name","phone":"phone","postal_code":"postal_code","state":"state"},"number":"#0001","pay_online_url":"pay_online_url","payment_processing":true,"product":{"id":"prod_xxxxxxxxxxxxx","title":"Pickaxe Analytics"},"status":"draft","subscription_billing_anchor_at":"2023-12-01T05:00:00.401Z","updated_at":"2023-12-01T05:00:00.401Z","user":{"id":"user_xxxxxxxxxxxxx","email":"john.doe@example.com","name":"John Doe","username":"johndoe42"}},"timestamp":"2025-01-01T00:00:00.000Z","type":"invoice.created","company_id":"biz_xxxxxxxxxxxxxx","previous_attributes":{}}"""
         msg_id = "1"
         timestamp = datetime.now(tz=timezone.utc)
         sig = hook.sign(msg_id=msg_id, timestamp=timestamp, data=data)
