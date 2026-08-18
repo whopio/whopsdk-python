@@ -13,6 +13,7 @@ __all__ = [
     "EvidenceCustomerCommunicationAttachment",
     "EvidenceRefundPolicyAttachment",
     "EvidenceUncategorizedAttachment",
+    "GeneratedResponseAttachment",
     "IssuerComment",
     "Payment",
     "PaymentPaymentInstrument",
@@ -208,6 +209,33 @@ class Evidence(BaseModel):
 
     uncategorized_attachment: Optional[EvidenceUncategorizedAttachment] = None
     """Supporting evidence that does not fit the other categories."""
+
+
+class GeneratedResponseAttachment(BaseModel):
+    """
+    The AI-generated representment document filed with the processor on the seller's behalf, once ready. Null until generation completes, and for disputes not using Whop Dispute Fighter.
+    """
+
+    id: Optional[str] = None
+    """The attachment's ID.
+
+    `null` for a Whop-hosted policy, which is not an uploaded file.
+    """
+
+    content_type: Optional[str] = None
+    """The uploaded file's MIME type."""
+
+    filename: Optional[str] = None
+    """The uploaded file's name."""
+
+    platform: bool
+    """
+    Whether this is Whop's own hosted policy, standing in because the seller
+    uploaded none. Sending it back on a PATCH changes nothing.
+    """
+
+    url: Optional[str] = None
+    """A URL to download the attachment."""
 
 
 class IssuerComment(BaseModel):
@@ -437,6 +465,13 @@ class Dispute(BaseModel):
 
     evidence_submitted_at: Optional[str] = None
     """When the evidence was submitted to the processor, as an ISO 8601 timestamp."""
+
+    generated_response_attachment: Optional[GeneratedResponseAttachment] = None
+    """
+    The AI-generated representment document filed with the processor on the seller's
+    behalf, once ready. Null until generation completes, and for disputes not using
+    Whop Dispute Fighter.
+    """
 
     inquiry: bool
     """Whether this is a pre-dispute inquiry rather than a formal chargeback.
