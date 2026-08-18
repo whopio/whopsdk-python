@@ -24,13 +24,16 @@ class WebhookListDeliveriesResponse(BaseModel):
     """
 
     request_body: object
-    """Request body sent to the webhook endpoint."""
+    """The JSON event payload sent to the webhook endpoint."""
 
     resource_id: str
     """ID of the resource that triggered the webhook."""
 
-    response_body: object
-    """Response body received from the webhook endpoint."""
+    response_body: Optional[object] = None
+    """The endpoint's JSON response.
+
+    A non-JSON response is stored as `{ error, raw_body }` with the first 100 bytes.
+    """
 
     response_code: float
     """HTTP response code received from the webhook endpoint."""

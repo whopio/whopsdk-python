@@ -277,7 +277,7 @@ class TestMemberships:
         membership = client.memberships.invite(
             plan_id="plan_xxxxxxxxxxxxxx",
             user_id="user_xxxxxxxxxxxxxx",
-            email="  Dana@Shinetime.example ",
+            email="marcus@shinetime.example",
         )
         assert_matches_type(MembershipInviteResponse, membership, path=["response"])
 
@@ -313,7 +313,7 @@ class TestMemberships:
     @parametrize
     def test_method_invite_overload_2(self, client: Whop) -> None:
         membership = client.memberships.invite(
-            email="  Dana@Shinetime.example ",
+            email="marcus@shinetime.example",
             plan_id="plan_xxxxxxxxxxxxxx",
         )
         assert_matches_type(MembershipInviteResponse, membership, path=["response"])
@@ -322,7 +322,7 @@ class TestMemberships:
     @parametrize
     def test_method_invite_with_all_params_overload_2(self, client: Whop) -> None:
         membership = client.memberships.invite(
-            email="  Dana@Shinetime.example ",
+            email="marcus@shinetime.example",
             plan_id="plan_xxxxxxxxxxxxxx",
             user_id="user_xxxxxxxxxxxxxx",
         )
@@ -332,7 +332,7 @@ class TestMemberships:
     @parametrize
     def test_raw_response_invite_overload_2(self, client: Whop) -> None:
         response = client.memberships.with_raw_response.invite(
-            email="  Dana@Shinetime.example ",
+            email="marcus@shinetime.example",
             plan_id="plan_xxxxxxxxxxxxxx",
         )
 
@@ -345,7 +345,7 @@ class TestMemberships:
     @parametrize
     def test_streaming_response_invite_overload_2(self, client: Whop) -> None:
         with client.memberships.with_streaming_response.invite(
-            email="  Dana@Shinetime.example ",
+            email="marcus@shinetime.example",
             plan_id="plan_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
@@ -752,7 +752,7 @@ class TestAsyncMemberships:
         membership = await async_client.memberships.invite(
             plan_id="plan_xxxxxxxxxxxxxx",
             user_id="user_xxxxxxxxxxxxxx",
-            email="  Dana@Shinetime.example ",
+            email="marcus@shinetime.example",
         )
         assert_matches_type(MembershipInviteResponse, membership, path=["response"])
 
@@ -788,7 +788,7 @@ class TestAsyncMemberships:
     @parametrize
     async def test_method_invite_overload_2(self, async_client: AsyncWhop) -> None:
         membership = await async_client.memberships.invite(
-            email="  Dana@Shinetime.example ",
+            email="marcus@shinetime.example",
             plan_id="plan_xxxxxxxxxxxxxx",
         )
         assert_matches_type(MembershipInviteResponse, membership, path=["response"])
@@ -797,7 +797,7 @@ class TestAsyncMemberships:
     @parametrize
     async def test_method_invite_with_all_params_overload_2(self, async_client: AsyncWhop) -> None:
         membership = await async_client.memberships.invite(
-            email="  Dana@Shinetime.example ",
+            email="marcus@shinetime.example",
             plan_id="plan_xxxxxxxxxxxxxx",
             user_id="user_xxxxxxxxxxxxxx",
         )
@@ -807,7 +807,7 @@ class TestAsyncMemberships:
     @parametrize
     async def test_raw_response_invite_overload_2(self, async_client: AsyncWhop) -> None:
         response = await async_client.memberships.with_raw_response.invite(
-            email="  Dana@Shinetime.example ",
+            email="marcus@shinetime.example",
             plan_id="plan_xxxxxxxxxxxxxx",
         )
 
@@ -820,7 +820,7 @@ class TestAsyncMemberships:
     @parametrize
     async def test_streaming_response_invite_overload_2(self, async_client: AsyncWhop) -> None:
         async with async_client.memberships.with_streaming_response.invite(
-            email="  Dana@Shinetime.example ",
+            email="marcus@shinetime.example",
             plan_id="plan_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
