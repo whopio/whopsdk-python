@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, List, Union, Optional, cast
+from typing import Any, List, Union, cast
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -54,8 +54,8 @@ class PaymentMethodsResource(SyncAPIResource):
         self,
         id: str,
         *,
-        company_id: Optional[str] | Omit = omit,
-        member_id: Optional[str] | Omit = omit,
+        company_id: str | Omit = omit,
+        member_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -115,22 +115,22 @@ class PaymentMethodsResource(SyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        broken: Optional[bool] | Omit = omit,
-        card_brands: Optional[List[CardBrands]] | Omit = omit,
-        card_funding_types: Optional[List[Literal["credit", "debit", "prepaid"]]] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        expired: Optional[bool] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        future_usage: Optional[Literal["off_session", "on_session"]] | Omit = omit,
-        has_payer_document: Optional[bool] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        member_id: Optional[str] | Omit = omit,
-        payment_method_types: Optional[List[PaymentMethodType]] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        broken: bool | Omit = omit,
+        card_brands: List[CardBrands] | Omit = omit,
+        card_funding_types: List[Literal["credit", "debit", "prepaid"]] | Omit = omit,
+        company_id: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        direction: Direction | Omit = omit,
+        expired: bool | Omit = omit,
+        first: int | Omit = omit,
+        future_usage: Literal["off_session", "on_session"] | Omit = omit,
+        has_payer_document: bool | Omit = omit,
+        last: int | Omit = omit,
+        member_id: str | Omit = omit,
+        payment_method_types: List[PaymentMethodType] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -169,15 +169,17 @@ class PaymentMethodsResource(SyncAPIResource):
 
           created_before: Only return payment methods created before this timestamp.
 
-          direction: The direction of the sort.
+          direction: The sort direction for ordering results, either ascending or descending.
 
           expired: Filter by expiry. Only a card can expire, so `false` keeps every payment method
               that is not past its expiration month and `true` returns expired cards alone.
 
           first: Returns the first _n_ elements from the list.
 
-          future_usage: How a payment method will be charged after the buyer leaves — the same
-              vocabulary as a confirmation token's setup_future_usage.
+          future_usage: Only return methods that can be charged this way after the buyer leaves. A
+              checkout that renews should pass `off_session`, which drops the buyer's platform
+              balance — a balance settles against the ledger at the time of purchase and
+              cannot be charged later.
 
           has_payer_document: Filter cards by whether they carry the payer identity document their payment
               provider requires. Payment methods that are not cards are unaffected.
@@ -259,8 +261,8 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        company_id: Optional[str] | Omit = omit,
-        member_id: Optional[str] | Omit = omit,
+        company_id: str | Omit = omit,
+        member_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -320,22 +322,22 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        broken: Optional[bool] | Omit = omit,
-        card_brands: Optional[List[CardBrands]] | Omit = omit,
-        card_funding_types: Optional[List[Literal["credit", "debit", "prepaid"]]] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        expired: Optional[bool] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        future_usage: Optional[Literal["off_session", "on_session"]] | Omit = omit,
-        has_payer_document: Optional[bool] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        member_id: Optional[str] | Omit = omit,
-        payment_method_types: Optional[List[PaymentMethodType]] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        broken: bool | Omit = omit,
+        card_brands: List[CardBrands] | Omit = omit,
+        card_funding_types: List[Literal["credit", "debit", "prepaid"]] | Omit = omit,
+        company_id: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        direction: Direction | Omit = omit,
+        expired: bool | Omit = omit,
+        first: int | Omit = omit,
+        future_usage: Literal["off_session", "on_session"] | Omit = omit,
+        has_payer_document: bool | Omit = omit,
+        last: int | Omit = omit,
+        member_id: str | Omit = omit,
+        payment_method_types: List[PaymentMethodType] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -374,15 +376,17 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
 
           created_before: Only return payment methods created before this timestamp.
 
-          direction: The direction of the sort.
+          direction: The sort direction for ordering results, either ascending or descending.
 
           expired: Filter by expiry. Only a card can expire, so `false` keeps every payment method
               that is not past its expiration month and `true` returns expired cards alone.
 
           first: Returns the first _n_ elements from the list.
 
-          future_usage: How a payment method will be charged after the buyer leaves — the same
-              vocabulary as a confirmation token's setup_future_usage.
+          future_usage: Only return methods that can be charged this way after the buyer leaves. A
+              checkout that renews should pass `off_session`, which drops the buyer's platform
+              balance — a balance settles against the ledger at the time of purchase and
+              cannot be charged later.
 
           has_payer_document: Filter cards by whether they carry the payer identity document their payment
               provider requires. Payment methods that are not cards are unaffected.

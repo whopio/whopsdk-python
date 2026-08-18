@@ -509,26 +509,26 @@ class PaymentsResource(SyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        billing_reasons: Optional[List[BillingReasons]] | Omit = omit,
-        checkout_configuration_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        currencies: Optional[List[Currency]] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        include_free: Optional[bool] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[Literal["final_amount", "created_at", "paid_at"]] | Omit = omit,
-        plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        query: Optional[str] | Omit = omit,
-        statuses: Optional[List[ReceiptStatus]] | Omit = omit,
-        substatuses: Optional[List[FriendlyReceiptStatus]] | Omit = omit,
-        updated_after: Union[str, datetime, None] | Omit = omit,
-        updated_before: Union[str, datetime, None] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        billing_reasons: List[BillingReasons] | Omit = omit,
+        checkout_configuration_ids: SequenceNotStr[str] | Omit = omit,
+        company_id: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        currencies: List[Currency] | Omit = omit,
+        direction: Direction | Omit = omit,
+        first: int | Omit = omit,
+        include_free: bool | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["final_amount", "created_at", "paid_at"] | Omit = omit,
+        plan_ids: SequenceNotStr[str] | Omit = omit,
+        product_ids: SequenceNotStr[str] | Omit = omit,
+        query: str | Omit = omit,
+        statuses: List[ReceiptStatus] | Omit = omit,
+        substatuses: List[FriendlyReceiptStatus] | Omit = omit,
+        updated_after: Union[str, datetime] | Omit = omit,
+        updated_before: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -568,7 +568,7 @@ class PaymentsResource(SyncAPIResource):
 
           currencies: Filter payments by their currency code.
 
-          direction: The direction of the sort.
+          direction: The sort direction for ordering results, either ascending or descending.
 
           first: Returns the first _n_ elements from the list.
 
@@ -576,7 +576,7 @@ class PaymentsResource(SyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          order: The order to sort the results by.
+          order: The field to order results by, such as creation date.
 
           plan_ids: Filter payments to only those associated with these specific plan identifiers.
 
@@ -643,10 +643,10 @@ class PaymentsResource(SyncAPIResource):
         self,
         id: str,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1429,26 +1429,26 @@ class AsyncPaymentsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        billing_reasons: Optional[List[BillingReasons]] | Omit = omit,
-        checkout_configuration_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        currencies: Optional[List[Currency]] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        include_free: Optional[bool] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[Literal["final_amount", "created_at", "paid_at"]] | Omit = omit,
-        plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        query: Optional[str] | Omit = omit,
-        statuses: Optional[List[ReceiptStatus]] | Omit = omit,
-        substatuses: Optional[List[FriendlyReceiptStatus]] | Omit = omit,
-        updated_after: Union[str, datetime, None] | Omit = omit,
-        updated_before: Union[str, datetime, None] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        billing_reasons: List[BillingReasons] | Omit = omit,
+        checkout_configuration_ids: SequenceNotStr[str] | Omit = omit,
+        company_id: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        currencies: List[Currency] | Omit = omit,
+        direction: Direction | Omit = omit,
+        first: int | Omit = omit,
+        include_free: bool | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["final_amount", "created_at", "paid_at"] | Omit = omit,
+        plan_ids: SequenceNotStr[str] | Omit = omit,
+        product_ids: SequenceNotStr[str] | Omit = omit,
+        query: str | Omit = omit,
+        statuses: List[ReceiptStatus] | Omit = omit,
+        substatuses: List[FriendlyReceiptStatus] | Omit = omit,
+        updated_after: Union[str, datetime] | Omit = omit,
+        updated_before: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1488,7 +1488,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
 
           currencies: Filter payments by their currency code.
 
-          direction: The direction of the sort.
+          direction: The sort direction for ordering results, either ascending or descending.
 
           first: Returns the first _n_ elements from the list.
 
@@ -1496,7 +1496,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          order: The order to sort the results by.
+          order: The field to order results by, such as creation date.
 
           plan_ids: Filter payments to only those associated with these specific plan identifiers.
 
@@ -1563,10 +1563,10 @@ class AsyncPaymentsResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

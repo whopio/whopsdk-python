@@ -321,11 +321,11 @@ class OverridesResource(SyncAPIResource):
         self,
         id: str,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        override_type: Optional[AffiliateOverrideRoles] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        override_type: AffiliateOverrideRoles | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -349,7 +349,7 @@ class OverridesResource(SyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          override_type: The role of an affiliate override (standard or rev_share)
+          override_type: Filter by override type (standard or rev_share).
 
           extra_headers: Send extra headers
 
@@ -711,11 +711,11 @@ class AsyncOverridesResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        override_type: Optional[AffiliateOverrideRoles] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        override_type: AffiliateOverrideRoles | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -739,7 +739,7 @@ class AsyncOverridesResource(AsyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          override_type: The role of an affiliate override (standard or rev_share)
+          override_type: Filter by override type (standard or rev_share).
 
           extra_headers: Send extra headers
 

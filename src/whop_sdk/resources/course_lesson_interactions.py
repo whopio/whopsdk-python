@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Optional
-
 import httpx
 
 from ..types import course_lesson_interaction_list_params
@@ -86,14 +84,14 @@ class CourseLessonInteractionsResource(SyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        completed: Optional[bool] | Omit = omit,
-        course_id: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        lesson_id: Optional[str] | Omit = omit,
-        user_id: Optional[str] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        completed: bool | Omit = omit,
+        course_id: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        lesson_id: str | Omit = omit,
+        user_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -222,14 +220,14 @@ class AsyncCourseLessonInteractionsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        completed: Optional[bool] | Omit = omit,
-        course_id: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        lesson_id: Optional[str] | Omit = omit,
-        user_id: Optional[str] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        completed: bool | Omit = omit,
+        course_id: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        lesson_id: str | Omit = omit,
+        user_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Optional
 from typing_extensions import Literal
 
 import httpx
@@ -157,14 +156,14 @@ class AffiliatesResource(SyncAPIResource):
         self,
         *,
         company_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[Literal["id", "created_at", "cached_total_referrals", "cached_total_rewards"]] | Omit = omit,
-        query: Optional[str] | Omit = omit,
-        status: Optional[Status] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        direction: Direction | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["id", "created_at", "cached_total_referrals", "cached_total_rewards"] | Omit = omit,
+        query: str | Omit = omit,
+        status: Status | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -187,17 +186,17 @@ class AffiliatesResource(SyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          direction: The direction of the sort.
+          direction: The sort direction for results. Defaults to descending.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          order: Which columns can be used to sort.
+          order: The field to sort results by.
 
           query: Search affiliates by username.
 
-          status: Statuses for resources
+          status: Filter by affiliate status (active or archived).
 
           extra_headers: Send extra headers
 
@@ -441,14 +440,14 @@ class AsyncAffiliatesResource(AsyncAPIResource):
         self,
         *,
         company_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[Literal["id", "created_at", "cached_total_referrals", "cached_total_rewards"]] | Omit = omit,
-        query: Optional[str] | Omit = omit,
-        status: Optional[Status] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        direction: Direction | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["id", "created_at", "cached_total_referrals", "cached_total_rewards"] | Omit = omit,
+        query: str | Omit = omit,
+        status: Status | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -471,17 +470,17 @@ class AsyncAffiliatesResource(AsyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          direction: The direction of the sort.
+          direction: The sort direction for results. Defaults to descending.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          order: Which columns can be used to sort.
+          order: The field to sort results by.
 
           query: Search affiliates by username.
 
-          status: Statuses for resources
+          status: Filter by affiliate status (active or archived).
 
           extra_headers: Send extra headers
 
