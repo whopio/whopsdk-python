@@ -5,6 +5,8 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import TypedDict
 
+from .._types import SequenceNotStr
+
 __all__ = ["ProductUpdateParams", "BannerImage"]
 
 
@@ -21,6 +23,12 @@ class ProductUpdateParams(TypedDict, total=False):
 
     headline: Optional[str]
     """A short marketing headline for the product page."""
+
+    labels: Optional[SequenceNotStr[str]]
+    """Labels used to group products into collections.
+
+    Replaces the existing labels. Send an empty array to clear them.
+    """
 
     metadata: Optional[object]
     """Custom key-value pairs to store on the product."""

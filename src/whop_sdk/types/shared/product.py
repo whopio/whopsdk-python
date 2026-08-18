@@ -73,6 +73,8 @@ class Product(BaseModel):
     headline: Optional[str] = None
     """Short marketing headline displayed on product page."""
 
+    labels: List[str]
+
     marketplace_status: Literal["not_available", "pending_review", "live_marketplace"]
     """Listing state on the whop.com marketplace.
 

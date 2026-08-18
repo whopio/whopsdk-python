@@ -5,6 +5,8 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import Literal, Required, TypedDict
 
+from .._types import SequenceNotStr
+
 __all__ = ["ProductCreateParams"]
 
 
@@ -54,6 +56,12 @@ class ProductCreateParams(TypedDict, total=False):
 
     headline: Optional[str]
     """A short marketing headline for the product page."""
+
+    labels: Optional[SequenceNotStr[str]]
+    """Labels used to group products into collections.
+
+    Stored lowercased and de-duplicated. Maximum 20 labels, 50 characters each.
+    """
 
     member_affiliate_percentage: Optional[float]
     """The commission rate members earn."""

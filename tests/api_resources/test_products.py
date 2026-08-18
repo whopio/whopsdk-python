@@ -41,6 +41,7 @@ class TestProducts:
             global_affiliate_percentage=10,
             global_affiliate_status="enabled",
             headline="Steam, shampoo, and odor removal in one visit",
+            labels=["interior"],
             member_affiliate_percentage=5,
             member_affiliate_status="enabled",
             metadata={
@@ -142,6 +143,7 @@ class TestProducts:
             },
             description="Full interior extraction, leather conditioning, and an ozone odor treatment.",
             headline="Steam, shampoo, and odor removal in one visit",
+            labels=["string"],
             metadata={
                 "bay": "1",
                 "duration_hours": "4",
@@ -205,6 +207,7 @@ class TestProducts:
             before="before",
             direction="asc",
             first=0,
+            labels=["string"],
             last=0,
             order="order",
             visibilities=["visible"],
@@ -391,6 +394,7 @@ class TestAsyncProducts:
             global_affiliate_percentage=10,
             global_affiliate_status="enabled",
             headline="Steam, shampoo, and odor removal in one visit",
+            labels=["interior"],
             member_affiliate_percentage=5,
             member_affiliate_status="enabled",
             metadata={
@@ -492,6 +496,7 @@ class TestAsyncProducts:
             },
             description="Full interior extraction, leather conditioning, and an ozone odor treatment.",
             headline="Steam, shampoo, and odor removal in one visit",
+            labels=["string"],
             metadata={
                 "bay": "1",
                 "duration_hours": "4",
@@ -555,6 +560,7 @@ class TestAsyncProducts:
             before="before",
             direction="asc",
             first=0,
+            labels=["string"],
             last=0,
             order="order",
             visibilities=["visible"],

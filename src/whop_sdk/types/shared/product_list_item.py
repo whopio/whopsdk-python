@@ -35,6 +35,8 @@ class ProductListItem(BaseModel):
     headline: Optional[str] = None
     """Short marketing headline displayed on product page."""
 
+    labels: List[str]
+
     member_count: float
     """Active memberships for this product; 0 if public member counts are disabled."""
 

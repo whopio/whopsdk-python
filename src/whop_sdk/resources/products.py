@@ -84,6 +84,7 @@ class ProductsResource(SyncAPIResource):
         global_affiliate_percentage: Optional[float] | Omit = omit,
         global_affiliate_status: Literal["enabled", "disabled"] | Omit = omit,
         headline: Optional[str] | Omit = omit,
+        labels: Optional[SequenceNotStr[str]] | Omit = omit,
         member_affiliate_percentage: Optional[float] | Omit = omit,
         member_affiliate_status: Literal["enabled", "disabled"] | Omit = omit,
         metadata: Optional[object] | Omit = omit,
@@ -123,6 +124,9 @@ class ProductsResource(SyncAPIResource):
           global_affiliate_status: The enrollment status in the global affiliate program.
 
           headline: A short marketing headline for the product page.
+
+          labels: Labels used to group products into collections. Stored lowercased and
+              de-duplicated. Maximum 20 labels, 50 characters each.
 
           member_affiliate_percentage: The commission rate members earn.
 
@@ -166,6 +170,7 @@ class ProductsResource(SyncAPIResource):
                     "global_affiliate_percentage": global_affiliate_percentage,
                     "global_affiliate_status": global_affiliate_status,
                     "headline": headline,
+                    "labels": labels,
                     "member_affiliate_percentage": member_affiliate_percentage,
                     "member_affiliate_status": member_affiliate_status,
                     "metadata": metadata,
@@ -229,6 +234,7 @@ class ProductsResource(SyncAPIResource):
         banner_image: Optional[product_update_params.BannerImage] | Omit = omit,
         description: Optional[str] | Omit = omit,
         headline: Optional[str] | Omit = omit,
+        labels: Optional[SequenceNotStr[str]] | Omit = omit,
         metadata: Optional[object] | Omit = omit,
         product_tax_code_id: Optional[str] | Omit = omit,
         send_welcome_message: Optional[bool] | Omit = omit,
@@ -253,6 +259,9 @@ class ProductsResource(SyncAPIResource):
           description: A written description displayed on the product page.
 
           headline: A short marketing headline for the product page.
+
+          labels: Labels used to group products into collections. Replaces the existing labels.
+              Send an empty array to clear them.
 
           metadata: Custom key-value pairs to store on the product.
 
@@ -285,6 +294,7 @@ class ProductsResource(SyncAPIResource):
                     "banner_image": banner_image,
                     "description": description,
                     "headline": headline,
+                    "labels": labels,
                     "metadata": metadata,
                     "product_tax_code_id": product_tax_code_id,
                     "send_welcome_message": send_welcome_message,
@@ -312,6 +322,7 @@ class ProductsResource(SyncAPIResource):
         before: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
+        labels: SequenceNotStr[str] | Omit = omit,
         last: int | Omit = omit,
         order: str | Omit = omit,
         visibilities: SequenceNotStr[str] | Omit = omit,
@@ -337,6 +348,9 @@ class ProductsResource(SyncAPIResource):
           direction: The sort direction for results. Defaults to descending.
 
           first: The number of products to return (default and max 100).
+
+          labels: Filter to only products carrying all of these labels. Labels are matched
+              lowercased.
 
           last: The number of products to return from the end of the range.
 
@@ -368,6 +382,7 @@ class ProductsResource(SyncAPIResource):
                         "before": before,
                         "direction": direction,
                         "first": first,
+                        "labels": labels,
                         "last": last,
                         "order": order,
                         "visibilities": visibilities,
@@ -562,6 +577,7 @@ class AsyncProductsResource(AsyncAPIResource):
         global_affiliate_percentage: Optional[float] | Omit = omit,
         global_affiliate_status: Literal["enabled", "disabled"] | Omit = omit,
         headline: Optional[str] | Omit = omit,
+        labels: Optional[SequenceNotStr[str]] | Omit = omit,
         member_affiliate_percentage: Optional[float] | Omit = omit,
         member_affiliate_status: Literal["enabled", "disabled"] | Omit = omit,
         metadata: Optional[object] | Omit = omit,
@@ -601,6 +617,9 @@ class AsyncProductsResource(AsyncAPIResource):
           global_affiliate_status: The enrollment status in the global affiliate program.
 
           headline: A short marketing headline for the product page.
+
+          labels: Labels used to group products into collections. Stored lowercased and
+              de-duplicated. Maximum 20 labels, 50 characters each.
 
           member_affiliate_percentage: The commission rate members earn.
 
@@ -644,6 +663,7 @@ class AsyncProductsResource(AsyncAPIResource):
                     "global_affiliate_percentage": global_affiliate_percentage,
                     "global_affiliate_status": global_affiliate_status,
                     "headline": headline,
+                    "labels": labels,
                     "member_affiliate_percentage": member_affiliate_percentage,
                     "member_affiliate_status": member_affiliate_status,
                     "metadata": metadata,
@@ -707,6 +727,7 @@ class AsyncProductsResource(AsyncAPIResource):
         banner_image: Optional[product_update_params.BannerImage] | Omit = omit,
         description: Optional[str] | Omit = omit,
         headline: Optional[str] | Omit = omit,
+        labels: Optional[SequenceNotStr[str]] | Omit = omit,
         metadata: Optional[object] | Omit = omit,
         product_tax_code_id: Optional[str] | Omit = omit,
         send_welcome_message: Optional[bool] | Omit = omit,
@@ -731,6 +752,9 @@ class AsyncProductsResource(AsyncAPIResource):
           description: A written description displayed on the product page.
 
           headline: A short marketing headline for the product page.
+
+          labels: Labels used to group products into collections. Replaces the existing labels.
+              Send an empty array to clear them.
 
           metadata: Custom key-value pairs to store on the product.
 
@@ -763,6 +787,7 @@ class AsyncProductsResource(AsyncAPIResource):
                     "banner_image": banner_image,
                     "description": description,
                     "headline": headline,
+                    "labels": labels,
                     "metadata": metadata,
                     "product_tax_code_id": product_tax_code_id,
                     "send_welcome_message": send_welcome_message,
@@ -790,6 +815,7 @@ class AsyncProductsResource(AsyncAPIResource):
         before: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
+        labels: SequenceNotStr[str] | Omit = omit,
         last: int | Omit = omit,
         order: str | Omit = omit,
         visibilities: SequenceNotStr[str] | Omit = omit,
@@ -815,6 +841,9 @@ class AsyncProductsResource(AsyncAPIResource):
           direction: The sort direction for results. Defaults to descending.
 
           first: The number of products to return (default and max 100).
+
+          labels: Filter to only products carrying all of these labels. Labels are matched
+              lowercased.
 
           last: The number of products to return from the end of the range.
 
@@ -846,6 +875,7 @@ class AsyncProductsResource(AsyncAPIResource):
                         "before": before,
                         "direction": direction,
                         "first": first,
+                        "labels": labels,
                         "last": last,
                         "order": order,
                         "visibilities": visibilities,

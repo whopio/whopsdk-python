@@ -28,6 +28,12 @@ class ProductListParams(TypedDict, total=False):
     first: int
     """The number of products to return (default and max 100)."""
 
+    labels: SequenceNotStr[str]
+    """Filter to only products carrying all of these labels.
+
+    Labels are matched lowercased.
+    """
+
     last: int
     """The number of products to return from the end of the range."""
 
