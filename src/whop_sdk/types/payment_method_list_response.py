@@ -225,6 +225,15 @@ class CardPaymentMethodCard(BaseModel):
     Null if not available.
     """
 
+    expired: bool
+    """Whether the card is past its expiration month.
+
+    An expired card cannot take a new charge.
+    """
+
+    funding_type: Optional[Literal["credit", "debit", "prepaid"]] = None
+    """The funding types of a card"""
+
     last4: Optional[str] = None
     """The last four digits of the card number. Null if not available."""
 

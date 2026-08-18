@@ -86,14 +86,20 @@ class TestPaymentMethods:
         payment_method = client.payment_methods.list(
             after="after",
             before="before",
+            broken=True,
+            card_brands=["mastercard"],
+            card_funding_types=["credit"],
             company_id="biz_xxxxxxxxxxxxxx",
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
             created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             direction="asc",
+            expired=True,
             first=42,
             future_usage="off_session",
+            has_payer_document=True,
             last=42,
             member_id="mber_xxxxxxxxxxxxx",
+            payment_method_types=["acss_debit"],
         )
         assert_matches_type(SyncCursorPage[PaymentMethodListResponse], payment_method, path=["response"])
 
@@ -189,14 +195,20 @@ class TestAsyncPaymentMethods:
         payment_method = await async_client.payment_methods.list(
             after="after",
             before="before",
+            broken=True,
+            card_brands=["mastercard"],
+            card_funding_types=["credit"],
             company_id="biz_xxxxxxxxxxxxxx",
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
             created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             direction="asc",
+            expired=True,
             first=42,
             future_usage="off_session",
+            has_payer_document=True,
             last=42,
             member_id="mber_xxxxxxxxxxxxx",
+            payment_method_types=["acss_debit"],
         )
         assert_matches_type(AsyncCursorPage[PaymentMethodListResponse], payment_method, path=["response"])
 
