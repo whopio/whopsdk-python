@@ -15,6 +15,15 @@ __all__ = [
     "EvidenceUncategorizedAttachment",
     "IssuerComment",
     "Payment",
+    "PaymentPaymentInstrument",
+    "PaymentPaymentInstrumentCard",
+    "PaymentPaymentInstrumentIcons",
+    "PaymentPaymentInstrumentIconsCard",
+    "PaymentPaymentInstrumentIconsCardDark",
+    "PaymentPaymentInstrumentIconsCardLight",
+    "PaymentPaymentInstrumentIconsSquare",
+    "PaymentPaymentInstrumentIconsSquareDark",
+    "PaymentPaymentInstrumentIconsSquareLight",
 ]
 
 
@@ -214,6 +223,144 @@ class IssuerComment(BaseModel):
     """What the issuer wrote, as received."""
 
 
+class PaymentPaymentInstrumentCard(BaseModel):
+    """Card payments only: the card's network and last four."""
+
+    brand: str
+    """
+    The network identifier (`visa`, `amex`, …), matching `card.networks` entries and
+    saved card payment methods.
+    """
+
+    last4: Optional[str] = None
+    """The card's last four digits, when captured."""
+
+
+class PaymentPaymentInstrumentIconsCardDark(BaseModel):
+    """The colorway for dark surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class PaymentPaymentInstrumentIconsCardLight(BaseModel):
+    """The colorway for light surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class PaymentPaymentInstrumentIconsCard(BaseModel):
+    """The credit-card-proportioned tile (48x30)."""
+
+    dark: PaymentPaymentInstrumentIconsCardDark
+    """The colorway for dark surfaces."""
+
+    light: PaymentPaymentInstrumentIconsCardLight
+    """The colorway for light surfaces."""
+
+
+class PaymentPaymentInstrumentIconsSquareDark(BaseModel):
+    """The colorway for dark surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class PaymentPaymentInstrumentIconsSquareLight(BaseModel):
+    """The colorway for light surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class PaymentPaymentInstrumentIconsSquare(BaseModel):
+    """The square tile (32x32)."""
+
+    dark: PaymentPaymentInstrumentIconsSquareDark
+    """The colorway for dark surfaces."""
+
+    light: PaymentPaymentInstrumentIconsSquareLight
+    """The colorway for light surfaces."""
+
+
+class PaymentPaymentInstrumentIcons(BaseModel):
+    """
+    The standard icon set: square and card shapes, each in light and dark colorways.
+    """
+
+    card: PaymentPaymentInstrumentIconsCard
+    """The credit-card-proportioned tile (48x30)."""
+
+    square: PaymentPaymentInstrumentIconsSquare
+    """The square tile (32x32)."""
+
+
+class PaymentPaymentInstrument(BaseModel):
+    """
+    The instrument this payment was made with, shaped for display: the method type, a buyer-facing name, the standard icon set, and the card facts when it was a card. Null when the payment names no method.
+    """
+
+    card: Optional[PaymentPaymentInstrumentCard] = None
+    """Card payments only: the card's network and last four."""
+
+    display_name: str
+    """
+    Buyer-facing instrument name — "Visa •••• 4242" when the card surfaced, else the
+    method's own name ("Klarna").
+    """
+
+    icons: PaymentPaymentInstrumentIcons
+    """
+    The standard icon set: square and card shapes, each in light and dark colorways.
+    """
+
+    installment_count: Optional[float] = None
+    """Installment methods only: how many payments the charge splits into.
+
+    Data, not copy — compose and translate the label client-side.
+    """
+
+    payment_method_type: str
+    """The payment method type identifier, e.g. `card`, `klarna`, `apple_pay`."""
+
+
 class Payment(BaseModel):
     """The payment being disputed."""
 
@@ -237,6 +384,13 @@ class Payment(BaseModel):
 
     Can differ from the dispute's currency when the processor settles in another
     currency.
+    """
+
+    payment_instrument: Optional[PaymentPaymentInstrument] = None
+    """
+    The instrument this payment was made with, shaped for display: the method type,
+    a buyer-facing name, the standard icon set, and the card facts when it was a
+    card. Null when the payment names no method.
     """
 
     payment_method_type: Optional[str] = None
