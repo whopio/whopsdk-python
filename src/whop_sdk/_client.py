@@ -97,7 +97,6 @@ if TYPE_CHECKING:
         verifications,
         course_lessons,
         dispute_alerts,
-        app_deployments,
         course_chapters,
         course_students,
         ledger_accounts,
@@ -170,7 +169,6 @@ if TYPE_CHECKING:
     from .resources.verifications import VerificationsResource, AsyncVerificationsResource
     from .resources.course_lessons import CourseLessonsResource, AsyncCourseLessonsResource
     from .resources.dispute_alerts import DisputeAlertsResource, AsyncDisputeAlertsResource
-    from .resources.app_deployments import AppDeploymentsResource, AsyncAppDeploymentsResource
     from .resources.course_chapters import CourseChaptersResource, AsyncCourseChaptersResource
     from .resources.course_students import CourseStudentsResource, AsyncCourseStudentsResource
     from .resources.ledger_accounts import LedgerAccountsResource, AsyncLedgerAccountsResource
@@ -299,7 +297,7 @@ class Whop(SyncAPIClient):
 
         It can be a hosted web app served at `<route>.whop.app` or an API integration installed as an experience, and it belongs to the account that owns its credentials, settings, builds, and runtime logs.
 
-        Use the Apps API to manage app configuration and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
+        Use the Apps API to manage app configuration, deploy an app's working copy and follow the run on the app's `deployment` field, and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
         """
         from .resources.apps import AppsResource
 
@@ -513,18 +511,6 @@ class Whop(SyncAPIClient):
         from .resources.app_builds import AppBuildsResource
 
         return AppBuildsResource(self)
-
-    @cached_property
-    def app_deployments(self) -> AppDeploymentsResource:
-        """A Deployment builds an app's current source and ships it, producing an App Build.
-
-        It is a single resource per app rather than a list: retrieving it reports whether the working copy differs from what was last published, and starting one advances that same resource through `publishing` to `published` or `failed`.
-
-        Use the App Deployments API to decide whether there is anything to publish, start a publish (optionally as a draft that appears under Versions without going live), and follow a run to completion with a progress estimate you can render.
-        """
-        from .resources.app_deployments import AppDeploymentsResource
-
-        return AppDeploymentsResource(self)
 
     @cached_property
     def shipments(self) -> ShipmentsResource:
@@ -1211,7 +1197,7 @@ class AsyncWhop(AsyncAPIClient):
 
         It can be a hosted web app served at `<route>.whop.app` or an API integration installed as an experience, and it belongs to the account that owns its credentials, settings, builds, and runtime logs.
 
-        Use the Apps API to manage app configuration and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
+        Use the Apps API to manage app configuration, deploy an app's working copy and follow the run on the app's `deployment` field, and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
         """
         from .resources.apps import AsyncAppsResource
 
@@ -1425,18 +1411,6 @@ class AsyncWhop(AsyncAPIClient):
         from .resources.app_builds import AsyncAppBuildsResource
 
         return AsyncAppBuildsResource(self)
-
-    @cached_property
-    def app_deployments(self) -> AsyncAppDeploymentsResource:
-        """A Deployment builds an app's current source and ships it, producing an App Build.
-
-        It is a single resource per app rather than a list: retrieving it reports whether the working copy differs from what was last published, and starting one advances that same resource through `publishing` to `published` or `failed`.
-
-        Use the App Deployments API to decide whether there is anything to publish, start a publish (optionally as a draft that appears under Versions without going live), and follow a run to completion with a progress estimate you can render.
-        """
-        from .resources.app_deployments import AsyncAppDeploymentsResource
-
-        return AsyncAppDeploymentsResource(self)
 
     @cached_property
     def shipments(self) -> AsyncShipmentsResource:
@@ -2041,7 +2015,7 @@ class WhopWithRawResponse:
 
         It can be a hosted web app served at `<route>.whop.app` or an API integration installed as an experience, and it belongs to the account that owns its credentials, settings, builds, and runtime logs.
 
-        Use the Apps API to manage app configuration and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
+        Use the Apps API to manage app configuration, deploy an app's working copy and follow the run on the app's `deployment` field, and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
         """
         from .resources.apps import AppsResourceWithRawResponse
 
@@ -2255,18 +2229,6 @@ class WhopWithRawResponse:
         from .resources.app_builds import AppBuildsResourceWithRawResponse
 
         return AppBuildsResourceWithRawResponse(self._client.app_builds)
-
-    @cached_property
-    def app_deployments(self) -> app_deployments.AppDeploymentsResourceWithRawResponse:
-        """A Deployment builds an app's current source and ships it, producing an App Build.
-
-        It is a single resource per app rather than a list: retrieving it reports whether the working copy differs from what was last published, and starting one advances that same resource through `publishing` to `published` or `failed`.
-
-        Use the App Deployments API to decide whether there is anything to publish, start a publish (optionally as a draft that appears under Versions without going live), and follow a run to completion with a progress estimate you can render.
-        """
-        from .resources.app_deployments import AppDeploymentsResourceWithRawResponse
-
-        return AppDeploymentsResourceWithRawResponse(self._client.app_deployments)
 
     @cached_property
     def shipments(self) -> shipments.ShipmentsResourceWithRawResponse:
@@ -2751,7 +2713,7 @@ class AsyncWhopWithRawResponse:
 
         It can be a hosted web app served at `<route>.whop.app` or an API integration installed as an experience, and it belongs to the account that owns its credentials, settings, builds, and runtime logs.
 
-        Use the Apps API to manage app configuration and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
+        Use the Apps API to manage app configuration, deploy an app's working copy and follow the run on the app's `deployment` field, and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
         """
         from .resources.apps import AsyncAppsResourceWithRawResponse
 
@@ -2967,18 +2929,6 @@ class AsyncWhopWithRawResponse:
         from .resources.app_builds import AsyncAppBuildsResourceWithRawResponse
 
         return AsyncAppBuildsResourceWithRawResponse(self._client.app_builds)
-
-    @cached_property
-    def app_deployments(self) -> app_deployments.AsyncAppDeploymentsResourceWithRawResponse:
-        """A Deployment builds an app's current source and ships it, producing an App Build.
-
-        It is a single resource per app rather than a list: retrieving it reports whether the working copy differs from what was last published, and starting one advances that same resource through `publishing` to `published` or `failed`.
-
-        Use the App Deployments API to decide whether there is anything to publish, start a publish (optionally as a draft that appears under Versions without going live), and follow a run to completion with a progress estimate you can render.
-        """
-        from .resources.app_deployments import AsyncAppDeploymentsResourceWithRawResponse
-
-        return AsyncAppDeploymentsResourceWithRawResponse(self._client.app_deployments)
 
     @cached_property
     def shipments(self) -> shipments.AsyncShipmentsResourceWithRawResponse:
@@ -3465,7 +3415,7 @@ class WhopWithStreamedResponse:
 
         It can be a hosted web app served at `<route>.whop.app` or an API integration installed as an experience, and it belongs to the account that owns its credentials, settings, builds, and runtime logs.
 
-        Use the Apps API to manage app configuration and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
+        Use the Apps API to manage app configuration, deploy an app's working copy and follow the run on the app's `deployment` field, and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
         """
         from .resources.apps import AppsResourceWithStreamingResponse
 
@@ -3681,18 +3631,6 @@ class WhopWithStreamedResponse:
         from .resources.app_builds import AppBuildsResourceWithStreamingResponse
 
         return AppBuildsResourceWithStreamingResponse(self._client.app_builds)
-
-    @cached_property
-    def app_deployments(self) -> app_deployments.AppDeploymentsResourceWithStreamingResponse:
-        """A Deployment builds an app's current source and ships it, producing an App Build.
-
-        It is a single resource per app rather than a list: retrieving it reports whether the working copy differs from what was last published, and starting one advances that same resource through `publishing` to `published` or `failed`.
-
-        Use the App Deployments API to decide whether there is anything to publish, start a publish (optionally as a draft that appears under Versions without going live), and follow a run to completion with a progress estimate you can render.
-        """
-        from .resources.app_deployments import AppDeploymentsResourceWithStreamingResponse
-
-        return AppDeploymentsResourceWithStreamingResponse(self._client.app_deployments)
 
     @cached_property
     def shipments(self) -> shipments.ShipmentsResourceWithStreamingResponse:
@@ -4179,7 +4117,7 @@ class AsyncWhopWithStreamedResponse:
 
         It can be a hosted web app served at `<route>.whop.app` or an API integration installed as an experience, and it belongs to the account that owns its credentials, settings, builds, and runtime logs.
 
-        Use the Apps API to manage app configuration and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
+        Use the Apps API to manage app configuration, deploy an app's working copy and follow the run on the app's `deployment` field, and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
         """
         from .resources.apps import AsyncAppsResourceWithStreamingResponse
 
@@ -4395,18 +4333,6 @@ class AsyncWhopWithStreamedResponse:
         from .resources.app_builds import AsyncAppBuildsResourceWithStreamingResponse
 
         return AsyncAppBuildsResourceWithStreamingResponse(self._client.app_builds)
-
-    @cached_property
-    def app_deployments(self) -> app_deployments.AsyncAppDeploymentsResourceWithStreamingResponse:
-        """A Deployment builds an app's current source and ships it, producing an App Build.
-
-        It is a single resource per app rather than a list: retrieving it reports whether the working copy differs from what was last published, and starting one advances that same resource through `publishing` to `published` or `failed`.
-
-        Use the App Deployments API to decide whether there is anything to publish, start a publish (optionally as a draft that appears under Versions without going live), and follow a run to completion with a progress estimate you can render.
-        """
-        from .resources.app_deployments import AsyncAppDeploymentsResourceWithStreamingResponse
-
-        return AsyncAppDeploymentsResourceWithStreamingResponse(self._client.app_deployments)
 
     @cached_property
     def shipments(self) -> shipments.AsyncShipmentsResourceWithStreamingResponse:

@@ -5,10 +5,10 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["AppDeploymentRetrieveResponse"]
+__all__ = ["AppDeployResponse"]
 
 
-class AppDeploymentRetrieveResponse(BaseModel):
+class AppDeployResponse(BaseModel):
     app_id: str
     """The app being deployed, prefixed `app_`."""
 

@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from typing_extensions import TypedDict
 
-__all__ = ["AppDeploymentCreateParams"]
+__all__ = ["AppDeployParams"]
 
 
-class AppDeploymentCreateParams(TypedDict, total=False):
+class AppDeployParams(TypedDict, total=False):
     draft: bool
     """Upload the build without making it live.
 

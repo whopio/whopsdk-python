@@ -488,14 +488,6 @@ from .dispute_alerts import (
     DisputeAlertsResourceWithStreamingResponse,
     AsyncDisputeAlertsResourceWithStreamingResponse,
 )
-from .app_deployments import (
-    AppDeploymentsResource,
-    AsyncAppDeploymentsResource,
-    AppDeploymentsResourceWithRawResponse,
-    AsyncAppDeploymentsResourceWithRawResponse,
-    AppDeploymentsResourceWithStreamingResponse,
-    AsyncAppDeploymentsResourceWithStreamingResponse,
-)
 from .course_chapters import (
     CourseChaptersResource,
     AsyncCourseChaptersResource,
@@ -772,12 +764,6 @@ __all__ = [
     "AsyncAppBuildsResourceWithRawResponse",
     "AppBuildsResourceWithStreamingResponse",
     "AsyncAppBuildsResourceWithStreamingResponse",
-    "AppDeploymentsResource",
-    "AsyncAppDeploymentsResource",
-    "AppDeploymentsResourceWithRawResponse",
-    "AsyncAppDeploymentsResourceWithRawResponse",
-    "AppDeploymentsResourceWithStreamingResponse",
-    "AsyncAppDeploymentsResourceWithStreamingResponse",
     "ShipmentsResource",
     "AsyncShipmentsResource",
     "ShipmentsResourceWithRawResponse",

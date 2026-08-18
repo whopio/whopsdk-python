@@ -12,6 +12,7 @@ from ..types import (
     app_list_params,
     app_logs_params,
     app_create_params,
+    app_deploy_params,
     app_update_params,
     app_update_permissions_params,
 )
@@ -31,6 +32,7 @@ from ..types.shared.app import App
 from ..types.app_list_response import AppListResponse
 from ..types.app_logs_response import AppLogsResponse
 from ..types.app_delete_response import AppDeleteResponse
+from ..types.app_deploy_response import AppDeployResponse
 
 __all__ = ["AppsResource", "AsyncAppsResource"]
 
@@ -40,7 +42,7 @@ class AppsResource(SyncAPIResource):
 
     It can be a hosted web app served at `<route>.whop.app` or an API integration installed as an experience, and it belongs to the account that owns its credentials, settings, builds, and runtime logs.
 
-    Use the Apps API to manage app configuration and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
+    Use the Apps API to manage app configuration, deploy an app's working copy and follow the run on the app's `deployment` field, and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
     """
 
     @cached_property
@@ -452,6 +454,56 @@ class AppsResource(SyncAPIResource):
             cast_to=AppDeleteResponse,
         )
 
+    def deploy(
+        self,
+        id: str,
+        *,
+        draft: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> AppDeployResponse:
+        """Builds the app's current source and ships it.
+
+        Returns the run it started, so the
+        caller can render progress from this response and then follow it on the app's
+        `deployment` field. Only one deployment runs per app at a time — calling this
+        while one is in flight reports that run rather than starting a second, and
+        calling it with nothing to publish reports that instead of starting one.
+
+        Args:
+          draft: Upload the build without making it live. Defaults to `false`, which deploys and
+              promotes in one step.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            path_template("/apps/{id}/deploy", id=id),
+            body=maybe_transform({"draft": draft}, app_deploy_params.AppDeployParams),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
+            ),
+            cast_to=AppDeployResponse,
+        )
+
     def logs(
         self,
         id: str,
@@ -585,7 +637,7 @@ class AsyncAppsResource(AsyncAPIResource):
 
     It can be a hosted web app served at `<route>.whop.app` or an API integration installed as an experience, and it belongs to the account that owns its credentials, settings, builds, and runtime logs.
 
-    Use the Apps API to manage app configuration and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
+    Use the Apps API to manage app configuration, deploy an app's working copy and follow the run on the app's `deployment` field, and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
     """
 
     @cached_property
@@ -997,6 +1049,56 @@ class AsyncAppsResource(AsyncAPIResource):
             cast_to=AppDeleteResponse,
         )
 
+    async def deploy(
+        self,
+        id: str,
+        *,
+        draft: bool | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> AppDeployResponse:
+        """Builds the app's current source and ships it.
+
+        Returns the run it started, so the
+        caller can render progress from this response and then follow it on the app's
+        `deployment` field. Only one deployment runs per app at a time — calling this
+        while one is in flight reports that run rather than starting a second, and
+        calling it with nothing to publish reports that instead of starting one.
+
+        Args:
+          draft: Upload the build without making it live. Defaults to `false`, which deploys and
+              promotes in one step.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            path_template("/apps/{id}/deploy", id=id),
+            body=await async_maybe_transform({"draft": draft}, app_deploy_params.AppDeployParams),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
+            ),
+            cast_to=AppDeployResponse,
+        )
+
     async def logs(
         self,
         id: str,
@@ -1144,6 +1246,9 @@ class AppsResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             apps.delete,
         )
+        self.deploy = to_raw_response_wrapper(
+            apps.deploy,
+        )
         self.logs = to_raw_response_wrapper(
             apps.logs,
         )
@@ -1170,6 +1275,9 @@ class AsyncAppsResourceWithRawResponse:
         )
         self.delete = async_to_raw_response_wrapper(
             apps.delete,
+        )
+        self.deploy = async_to_raw_response_wrapper(
+            apps.deploy,
         )
         self.logs = async_to_raw_response_wrapper(
             apps.logs,
@@ -1198,6 +1306,9 @@ class AppsResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             apps.delete,
         )
+        self.deploy = to_streamed_response_wrapper(
+            apps.deploy,
+        )
         self.logs = to_streamed_response_wrapper(
             apps.logs,
         )
@@ -1224,6 +1335,9 @@ class AsyncAppsResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             apps.delete,
+        )
+        self.deploy = async_to_streamed_response_wrapper(
+            apps.deploy,
         )
         self.logs = async_to_streamed_response_wrapper(
             apps.logs,
