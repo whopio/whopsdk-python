@@ -2,78 +2,43 @@
 
 from __future__ import annotations
 
-from typing import Dict, Iterable, Optional
-from typing_extensions import Required, TypedDict
+from typing import Optional
+from typing_extensions import TypedDict
 
-from .shared.custom_cta import CustomCta
-from .shared.visibility import Visibility
-from .shared.global_affiliate_status import GlobalAffiliateStatus
+from .._types import SequenceNotStr
 
-__all__ = ["ProductUpdateParams", "GalleryImage", "StorePageConfig"]
+__all__ = ["ProductUpdateParams", "BannerImage"]
 
 
 class ProductUpdateParams(TypedDict, total=False):
-    collect_shipping_address: Optional[bool]
-    """Whether the checkout flow collects a shipping address from the customer."""
+    banner_image: Optional[BannerImage]
+    """A wide image for the product, shown on the product page and on listing cards.
 
-    custom_cta: Optional[CustomCta]
-    """The different types of custom CTAs that can be selected."""
-
-    custom_cta_url: Optional[str]
-    """
-    A URL that the call-to-action button links to instead of the default checkout
-    flow.
-    """
-
-    custom_statement_descriptor: Optional[str]
-    """A custom text label that appears on the customer's bank statement.
-
-    Must be 5-22 characters, contain at least one letter, and not contain <, >, \\,,
-    ', or " characters.
+    Pass `{ id }` for an existing attachment or `{ direct_upload_id }` for a
+    completed direct upload; `null` removes it.
     """
 
     description: Optional[str]
-    """A written description of the product displayed on its product page."""
-
-    gallery_images: Optional[Iterable[GalleryImage]]
-    """The gallery images for the product."""
-
-    global_affiliate_percentage: Optional[float]
-    """
-    The commission rate as a percentage that affiliates earn through the global
-    affiliate program.
-    """
-
-    global_affiliate_status: Optional[GlobalAffiliateStatus]
-    """The different statuses of the global affiliate program for a product."""
+    """A written description displayed on the product page."""
 
     headline: Optional[str]
-    """A short marketing headline displayed prominently on the product page."""
+    """A short marketing headline for the product page."""
 
-    member_affiliate_percentage: Optional[float]
+    labels: Optional[SequenceNotStr[str]]
+    """Labels used to group products into collections.
+
+    Replaces the existing labels. Send an empty array to clear them.
     """
-    The commission rate as a percentage that members earn through the member
-    affiliate program.
-    """
 
-    member_affiliate_status: Optional[GlobalAffiliateStatus]
-    """The different statuses of the global affiliate program for a product."""
-
-    metadata: Optional[Dict[str, object]]
-    """Custom key-value pairs to store on the product.
-
-    Included in webhook payloads for payment and membership events. Max 50 keys, 500
-    chars per key, 5000 chars per value.
-    """
+    metadata: Optional[object]
+    """Custom key-value pairs to store on the product."""
 
     product_tax_code_id: Optional[str]
-    """The unique identifier of the tax classification code to apply to this product."""
+    """The unique identifier of the tax classification code.
 
-    redirect_purchase_url: Optional[str]
-    """A URL to redirect the customer to after completing a purchase."""
-
-    route: Optional[str]
-    """The URL slug for the product's public link."""
+    See the available
+    [product categories](https://docs.numeral.com/essentials/product-categories).
+    """
 
     send_welcome_message: Optional[bool]
     """
@@ -81,28 +46,21 @@ class ProductUpdateParams(TypedDict, total=False):
     this product.
     """
 
-    store_page_config: Optional[StorePageConfig]
-    """Layout and display configuration for this product on the company's store page."""
+    title: str
+    """The display name of the product."""
 
-    title: Optional[str]
-    """The display name of the product. Maximum 80 characters."""
-
-    visibility: Optional[Visibility]
-    """Visibility of a resource"""
+    visibility: str
+    """Whether the product is visible to customers."""
 
 
-class GalleryImage(TypedDict, total=False):
-    """Input for an attachment"""
+class BannerImage(TypedDict, total=False):
+    """A wide image for the product, shown on the product page and on listing cards.
 
-    id: Required[str]
-    """The ID of an existing file object."""
+    Pass `{ id }` for an existing attachment or `{ direct_upload_id }` for a completed direct upload; `null` removes it.
+    """
 
+    id: str
+    """The tag of an already-uploaded attachment."""
 
-class StorePageConfig(TypedDict, total=False):
-    """Layout and display configuration for this product on the company's store page."""
-
-    custom_cta: Optional[str]
-    """Custom call-to-action text for the product's store page."""
-
-    show_price: Optional[bool]
-    """Whether or not to show the price on the product's store page."""
+    direct_upload_id: str
+    """The signed id of a completed direct upload."""
