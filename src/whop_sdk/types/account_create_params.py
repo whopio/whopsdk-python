@@ -2,13 +2,16 @@
 
 from __future__ import annotations
 
-from typing import Dict
+from typing import Dict, Optional
 from typing_extensions import TypedDict
 
 __all__ = ["AccountCreateParams"]
 
 
 class AccountCreateParams(TypedDict, total=False):
+    affiliate_code: Optional[str]
+    """The username, if any, of the partner who referred this account"""
+
     country: str
     """The ISO 3166-1 alpha-2 country code where the account's business is located
     (e.g.

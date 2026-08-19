@@ -97,6 +97,7 @@ class AccountsResource(SyncAPIResource):
     def create(
         self,
         *,
+        affiliate_code: Optional[str] | Omit = omit,
         country: str | Omit = omit,
         email: str | Omit = omit,
         metadata: Dict[str, object] | Omit = omit,
@@ -117,6 +118,8 @@ class AccountsResource(SyncAPIResource):
         with Update Account, not at creation.
 
         Args:
+          affiliate_code: The username, if any, of the partner who referred this account
+
           country: The ISO 3166-1 alpha-2 country code where the account's business is located
               (e.g. `US`). Defaults to the parent account's country for connected accounts.
 
@@ -141,6 +144,7 @@ class AccountsResource(SyncAPIResource):
             "/accounts",
             body=maybe_transform(
                 {
+                    "affiliate_code": affiliate_code,
                     "country": country,
                     "email": email,
                     "metadata": metadata,
@@ -3018,6 +3022,7 @@ class AsyncAccountsResource(AsyncAPIResource):
     async def create(
         self,
         *,
+        affiliate_code: Optional[str] | Omit = omit,
         country: str | Omit = omit,
         email: str | Omit = omit,
         metadata: Dict[str, object] | Omit = omit,
@@ -3038,6 +3043,8 @@ class AsyncAccountsResource(AsyncAPIResource):
         with Update Account, not at creation.
 
         Args:
+          affiliate_code: The username, if any, of the partner who referred this account
+
           country: The ISO 3166-1 alpha-2 country code where the account's business is located
               (e.g. `US`). Defaults to the parent account's country for connected accounts.
 
@@ -3062,6 +3069,7 @@ class AsyncAccountsResource(AsyncAPIResource):
             "/accounts",
             body=await async_maybe_transform(
                 {
+                    "affiliate_code": affiliate_code,
                     "country": country,
                     "email": email,
                     "metadata": metadata,
