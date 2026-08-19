@@ -5,7 +5,17 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["PlanListResponse", "CustomField"]
+__all__ = ["PlanListResponse", "Account", "CustomField"]
+
+
+class Account(BaseModel):
+    """Account that sells this plan; `null` for standalone invoice plans."""
+
+    id: str
+    """Account ID, prefixed `biz_`."""
+
+    title: str
+    """Account display name."""
 
 
 class CustomField(BaseModel):
@@ -34,7 +44,7 @@ class PlanListResponse(BaseModel):
     id: str
     """Plan ID, prefixed `plan_`."""
 
-    account: Optional[object] = None
+    account: Optional[Account] = None
     """Account that sells this plan; `null` for standalone invoice plans."""
 
     adaptive_pricing_enabled: bool

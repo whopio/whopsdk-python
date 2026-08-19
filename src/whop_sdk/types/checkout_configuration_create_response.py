@@ -5,7 +5,27 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["CheckoutConfigurationCreateResponse", "PaymentMethodConfiguration", "Plan"]
+__all__ = [
+    "CheckoutConfigurationCreateResponse",
+    "EffectivePaymentMethodConfiguration",
+    "PaymentMethodConfiguration",
+    "Plan",
+]
+
+
+class EffectivePaymentMethodConfiguration(BaseModel):
+    """
+    The configuration governing a checkout mounted from this configuration, resolved through every layer (its own overrides, the plan's, and the account's) — the shape a session's `payment_method_configuration` carries. Apply it over the payment method types catalogue for the offerable set. `null` means platform defaults; `payment_method_configuration` stays this configuration's own editable override.
+    """
+
+    disabled: Optional[List[str]] = None
+    """Payment methods explicitly disabled."""
+
+    enabled: Optional[List[str]] = None
+    """Payment methods explicitly enabled."""
+
+    include_platform_defaults: Optional[bool] = None
+    """Whether platform default payment methods are included."""
 
 
 class PaymentMethodConfiguration(BaseModel):
@@ -93,6 +113,16 @@ class CheckoutConfigurationCreateResponse(BaseModel):
     """
     Currency used for setup-mode payment method availability; defaults to `usd` when
     omitted.
+    """
+
+    effective_payment_method_configuration: Optional[EffectivePaymentMethodConfiguration] = None
+    """
+    The configuration governing a checkout mounted from this configuration, resolved
+    through every layer (its own overrides, the plan's, and the account's) — the
+    shape a session's `payment_method_configuration` carries. Apply it over the
+    payment method types catalogue for the offerable set. `null` means platform
+    defaults; `payment_method_configuration` stays this configuration's own editable
+    override.
     """
 
     metadata: Optional[object] = None

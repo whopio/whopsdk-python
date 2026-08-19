@@ -5,7 +5,17 @@ from typing_extensions import Literal
 
 from ..._models import BaseModel
 
-__all__ = ["Plan", "CustomField"]
+__all__ = ["Plan", "Account", "CustomField", "EffectivePaymentMethodConfiguration"]
+
+
+class Account(BaseModel):
+    """Account that sells this plan; `null` for standalone invoice plans."""
+
+    id: str
+    """Account ID, prefixed `biz_`."""
+
+    title: str
+    """Account display name."""
 
 
 class CustomField(BaseModel):
@@ -30,11 +40,27 @@ class CustomField(BaseModel):
     """Whether the customer must complete this field to check out."""
 
 
+class EffectivePaymentMethodConfiguration(BaseModel):
+    """
+    The configuration governing a checkout for this plan, resolved through every layer (the plan's own and the account's) — the shape a session's `payment_method_configuration` carries. Apply it over the payment method types catalogue for the offerable set. `null` means platform defaults; `payment_method_configuration` stays the plan's own editable override.
+    """
+
+    disabled: List[str]
+
+    enabled: List[str]
+
+    include_platform_defaults: bool
+    """Whether Whop's default set is the starting point.
+
+    When `false`, only `enabled` is offered.
+    """
+
+
 class Plan(BaseModel):
     id: str
     """Plan ID, prefixed `plan_`."""
 
-    account: Optional[object] = None
+    account: Optional[Account] = None
     """Account that sells this plan; `null` for standalone invoice plans."""
 
     adaptive_pricing_enabled: bool
@@ -183,6 +209,15 @@ class Plan(BaseModel):
     """Customer-visible plan description.
 
     Maximum 1000 characters. `null` if no description is set.
+    """
+
+    effective_payment_method_configuration: Optional[EffectivePaymentMethodConfiguration] = None
+    """
+    The configuration governing a checkout for this plan, resolved through every
+    layer (the plan's own and the account's) — the shape a session's
+    `payment_method_configuration` carries. Apply it over the payment method types
+    catalogue for the offerable set. `null` means platform defaults;
+    `payment_method_configuration` stays the plan's own editable override.
     """
 
     expiration_days: Optional[float] = None

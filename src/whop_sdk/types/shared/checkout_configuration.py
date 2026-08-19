@@ -1,11 +1,27 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import Literal
 
 from ..._models import BaseModel
 
-__all__ = ["CheckoutConfiguration", "Plan"]
+__all__ = ["CheckoutConfiguration", "EffectivePaymentMethodConfiguration", "Plan"]
+
+
+class EffectivePaymentMethodConfiguration(BaseModel):
+    """
+    The configuration governing a checkout mounted from this configuration, resolved through every layer (its own overrides, the plan's, and the account's) — the shape a session's `payment_method_configuration` carries. Apply it over the payment method types catalogue for the offerable set. `null` means platform defaults; `payment_method_configuration` stays this configuration's own editable override.
+    """
+
+    disabled: List[str]
+
+    enabled: List[str]
+
+    include_platform_defaults: bool
+    """Whether Whop's default set is the starting point.
+
+    When `false`, only `enabled` is offered.
+    """
 
 
 class Plan(BaseModel):
@@ -157,6 +173,16 @@ class CheckoutConfiguration(BaseModel):
     """
     Currency used for setup-mode payment method availability; defaults to `usd` when
     omitted.
+    """
+
+    effective_payment_method_configuration: Optional[EffectivePaymentMethodConfiguration] = None
+    """
+    The configuration governing a checkout mounted from this configuration, resolved
+    through every layer (its own overrides, the plan's, and the account's) — the
+    shape a session's `payment_method_configuration` carries. Apply it over the
+    payment method types catalogue for the offerable set. `null` means platform
+    defaults; `payment_method_configuration` stays this configuration's own editable
+    override.
     """
 
     metadata: Optional[object] = None
