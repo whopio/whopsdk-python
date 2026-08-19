@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Optional
 from typing_extensions import Required, TypedDict
 
 __all__ = ["ChatChannelListParams"]
@@ -12,19 +11,19 @@ class ChatChannelListParams(TypedDict, total=False):
     company_id: Required[str]
     """The unique identifier of the company to list chat channels for."""
 
-    after: Optional[str]
+    after: str
     """Returns the elements in the list that come after the specified cursor."""
 
-    before: Optional[str]
+    before: str
     """Returns the elements in the list that come before the specified cursor."""
 
-    first: Optional[int]
+    first: int
     """Returns the first _n_ elements from the list."""
 
-    last: Optional[int]
+    last: int
     """Returns the last _n_ elements from the list."""
 
-    product_id: Optional[str]
+    product_id: str
     """The unique identifier of a product to filter by.
 
     When set, only chat channels connected to this product are returned.
