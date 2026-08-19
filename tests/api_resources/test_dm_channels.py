@@ -37,6 +37,7 @@ class TestDmChannels:
             with_user_ids=["string"],
             company_id="biz_xxxxxxxxxxxxxx",
             custom_name="custom_name",
+            notifications_enabled=True,
         )
         assert_matches_type(DmChannel, dm_channel, path=["response"])
 
@@ -262,6 +263,7 @@ class TestAsyncDmChannels:
             with_user_ids=["string"],
             company_id="biz_xxxxxxxxxxxxxx",
             custom_name="custom_name",
+            notifications_enabled=True,
         )
         assert_matches_type(DmChannel, dm_channel, path=["response"])
 

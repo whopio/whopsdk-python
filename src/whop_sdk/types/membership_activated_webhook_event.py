@@ -17,11 +17,10 @@ class MembershipActivatedWebhookEvent(BaseModel):
     api_version: Literal["v1"]
     """The API version for this webhook"""
 
-    data: Membership
-    """A membership represents an active relationship between a user and a product.
+    api_version_date: Optional[str] = None
+    """The dated API version (Api-Version-Date) the payload is serialized to"""
 
-    It tracks the user's access, billing status, and renewal schedule.
-    """
+    data: Membership
 
     timestamp: datetime
     """The timestamp in ISO 8601 format that the webhook was sent at on the server"""
@@ -30,4 +29,10 @@ class MembershipActivatedWebhookEvent(BaseModel):
     """The webhook event type"""
 
     company_id: Optional[str] = None
-    """The company ID that this webhook event is associated with"""
+    """The account ID that this webhook event is associated with"""
+
+    previous_attributes: Optional[object] = None
+    """
+    For some `.updated` events, the old values of the payload fields that changed,
+    keyed by field name. Omitted when no capture is available for the event
+    """
