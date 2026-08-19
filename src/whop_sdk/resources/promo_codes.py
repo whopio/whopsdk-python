@@ -4,10 +4,11 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 import httpx
 
-from ..types import PromoCodeStatus, promo_code_list_params, promo_code_create_params
+from ..types import promo_code_list_params, promo_code_create_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -21,9 +22,6 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.promo_code import PromoCode
-from ..types.shared.currency import Currency
-from ..types.promo_code_status import PromoCodeStatus
-from ..types.shared.promo_type import PromoType
 from ..types.promo_code_list_response import PromoCodeListResponse
 from ..types.promo_code_delete_response import PromoCodeDeleteResponse
 
@@ -31,8 +29,6 @@ __all__ = ["PromoCodesResource", "AsyncPromoCodesResource"]
 
 
 class PromoCodesResource(SyncAPIResource):
-    """Promo codes"""
-
     @cached_property
     def with_raw_response(self) -> PromoCodesResourceWithRawResponse:
         """
@@ -55,79 +51,126 @@ class PromoCodesResource(SyncAPIResource):
     def create(
         self,
         *,
+        account_id: str,
         amount_off: float,
-        base_currency: Currency,
+        base_currency: Literal[
+            "usd",
+            "sgd",
+            "inr",
+            "aud",
+            "brl",
+            "cad",
+            "dkk",
+            "eur",
+            "nok",
+            "gbp",
+            "sek",
+            "chf",
+            "hkd",
+            "huf",
+            "jpy",
+            "mxn",
+            "myr",
+            "pln",
+            "czk",
+            "nzd",
+            "aed",
+            "eth",
+            "ape",
+            "cop",
+            "ron",
+            "thb",
+            "bgn",
+            "idr",
+            "dop",
+            "php",
+            "try",
+            "krw",
+            "twd",
+            "vnd",
+            "pkr",
+            "clp",
+            "uyu",
+            "ars",
+            "zar",
+            "dzd",
+            "tnd",
+            "mad",
+            "kes",
+            "kwd",
+            "jod",
+            "all",
+            "xcd",
+            "amd",
+            "bsd",
+            "bhd",
+            "bob",
+            "bam",
+            "khr",
+            "crc",
+            "xof",
+            "egp",
+            "etb",
+            "gmd",
+            "ghs",
+            "gtq",
+            "gyd",
+            "ils",
+            "jmd",
+            "mop",
+            "mga",
+            "mur",
+            "mdl",
+            "mnt",
+            "nad",
+            "ngn",
+            "mkd",
+            "omr",
+            "pyg",
+            "pen",
+            "qar",
+            "rwf",
+            "sar",
+            "rsd",
+            "lkr",
+            "tzs",
+            "ttd",
+            "uzs",
+            "rub",
+            "btc",
+            "cny",
+            "usdt",
+            "kzt",
+            "awg",
+            "whop_usd",
+            "xau",
+        ],
         code: str,
-        company_id: str,
         new_users_only: bool,
         promo_duration_months: int,
-        promo_type: PromoType,
-        churned_users_only: Optional[bool] | Omit = omit,
-        existing_memberships_only: Optional[bool] | Omit = omit,
-        expires_at: Union[str, datetime, None] | Omit = omit,
-        one_per_customer: Optional[bool] | Omit = omit,
-        plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        promo_type: Literal["percentage", "flat_amount"],
+        churned_users_only: bool | Omit = omit,
+        existing_memberships_only: bool | Omit = omit,
+        expires_at: Optional[str] | Omit = omit,
+        one_per_customer: bool | Omit = omit,
+        plan_ids: SequenceNotStr[str] | Omit = omit,
         product_id: Optional[str] | Omit = omit,
         stock: Optional[int] | Omit = omit,
-        unlimited_stock: Optional[bool] | Omit = omit,
+        unlimited_stock: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> PromoCode:
-        """Create a new promo code that applies a discount at checkout.
+        """Creates a promo code for an account.
 
-        Can be scoped to
-        specific products or plans.
-
-        Required permissions:
-
-        - `promo_code:create`
-        - `access_pass:basic:read`
+        First-party sessions may attach an
+        affiliate.
 
         Args:
-          amount_off: The discount amount. When promo_type is percentage, this is the percent off
-              (e.g., 20 for 20% off). When promo_type is flat_amount, this is the currency
-              amount off (e.g., 10.00 for $10.00 off).
-
-          base_currency: The three-letter ISO currency code for the promo code discount.
-
-          code: The alphanumeric code customers enter at checkout to apply the discount.
-
-          company_id: The unique identifier of the company to create this promo code for.
-
-          new_users_only: Whether to restrict this promo code to only users who have never purchased from
-              the company before.
-
-          promo_duration_months: The number of billing months the discount remains active. For example, 3 means
-              the discount applies to the first 3 billing cycles.
-
-          promo_type: The discount type, either percentage or flat_amount.
-
-          churned_users_only: Whether to restrict this promo code to only users who have previously churned
-              from the company.
-
-          existing_memberships_only: Whether this promo code can only be applied to existing memberships, such as for
-              cancellation retention offers.
-
-          expires_at: The datetime when the promo code expires and can no longer be used. Null means
-              it never expires.
-
-          one_per_customer: Whether each customer can only use this promo code once.
-
-          plan_ids: The identifiers of plans this promo code applies to. When product_id is also
-              provided, only plans attached to that product are included.
-
-          product_id: The identifier of the product to scope this promo code to. When provided, the
-              promo code only applies to plans attached to this product.
-
-          stock: The maximum number of times this promo code can be used. Ignored when
-              unlimited_stock is true.
-
-          unlimited_stock: Whether the promo code can be used an unlimited number of times.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -135,15 +178,17 @@ class PromoCodesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return self._post(
             "/promo_codes",
             body=maybe_transform(
                 {
+                    "account_id": account_id,
                     "amount_off": amount_off,
                     "base_currency": base_currency,
                     "code": code,
-                    "company_id": company_id,
                     "new_users_only": new_users_only,
                     "promo_duration_months": promo_duration_months,
                     "promo_type": promo_type,
@@ -159,7 +204,11 @@ class PromoCodesResource(SyncAPIResource):
                 promo_code_create_params.PromoCodeCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=PromoCode,
         )
@@ -176,12 +225,7 @@ class PromoCodesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PromoCode:
         """
-        Retrieves the details of an existing promo code.
-
-        Required permissions:
-
-        - `promo_code:basic:read`
-        - `access_pass:basic:read`
+        Retrieves a promo code by ID.
 
         Args:
           extra_headers: Send extra headers
@@ -205,16 +249,18 @@ class PromoCodesResource(SyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        status: Optional[PromoCodeStatus] | Omit = omit,
+        account_id: str,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["created_at"] | Omit = omit,
+        plan_ids: SequenceNotStr[str] | Omit = omit,
+        product_ids: SequenceNotStr[str] | Omit = omit,
+        status: Literal["active", "inactive", "archived", "expired"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -223,34 +269,32 @@ class PromoCodesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[PromoCodeListResponse]:
         """
-        Returns a paginated list of promo codes belonging to a company, with optional
-        filtering by product, plan, and status.
-
-        Required permissions:
-
-        - `promo_code:basic:read`
-        - `access_pass:basic:read`
+        Lists promo codes for an account with cursor pagination, filters, and sorting.
 
         Args:
-          company_id: The unique identifier of the company to list promo codes for.
+          account_id: Account whose promo codes are listed (`biz_` tag).
 
-          after: Returns the elements in the list that come after the specified cursor.
+          after: Cursor to paginate forwards from.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          before: Cursor to paginate backwards from.
 
-          created_after: Only return promo codes created after this timestamp.
+          created_after: Only promo codes created after this ISO 8601 timestamp.
 
-          created_before: Only return promo codes created before this timestamp.
+          created_before: Only promo codes created before this ISO 8601 timestamp.
 
-          first: Returns the first _n_ elements from the list.
+          direction: Sort direction.
 
-          last: Returns the last _n_ elements from the list.
+          first: Number of promo codes to return from the start of the window.
 
-          plan_ids: Filter to only promo codes scoped to these plan identifiers.
+          last: Number of promo codes to return from the end of the window.
 
-          product_ids: Filter to only promo codes scoped to these product identifiers.
+          order: Sort field.
 
-          status: Statuses for promo codes
+          plan_ids: Only promo codes scoped to these plan IDs.
+
+          product_ids: Only promo codes scoped to these product IDs.
+
+          status: Promo-code status. `expired` groups inactive and archived codes.
 
           extra_headers: Send extra headers
 
@@ -270,13 +314,15 @@ class PromoCodesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "created_after": created_after,
                         "created_before": created_before,
+                        "direction": direction,
                         "first": first,
                         "last": last,
+                        "order": order,
                         "plan_ids": plan_ids,
                         "product_ids": product_ids,
                         "status": status,
@@ -297,14 +343,10 @@ class PromoCodesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> PromoCodeDeleteResponse:
         """
-        Archive a promo code, preventing it from being used in future checkouts.
-        Existing memberships are not affected.
-
-        Required permissions:
-
-        - `promo_code:delete`
+        Archives a promo code so it cannot be used in future checkouts.
 
         Args:
           extra_headers: Send extra headers
@@ -314,21 +356,105 @@ class PromoCodesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._delete(
             path_template("/promo_codes/{id}", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=PromoCodeDeleteResponse,
         )
 
+    def activate(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> PromoCode:
+        """
+        Turns an inactive promo code back on so it can be redeemed at checkout.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            path_template("/promo_codes/{id}/activate", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
+            ),
+            cast_to=PromoCode,
+        )
+
+    def deactivate(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> PromoCode:
+        """
+        Turns off an active promo code so it can no longer be redeemed at checkout.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            path_template("/promo_codes/{id}/deactivate", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
+            ),
+            cast_to=PromoCode,
+        )
+
 
 class AsyncPromoCodesResource(AsyncAPIResource):
-    """Promo codes"""
-
     @cached_property
     def with_raw_response(self) -> AsyncPromoCodesResourceWithRawResponse:
         """
@@ -351,79 +477,126 @@ class AsyncPromoCodesResource(AsyncAPIResource):
     async def create(
         self,
         *,
+        account_id: str,
         amount_off: float,
-        base_currency: Currency,
+        base_currency: Literal[
+            "usd",
+            "sgd",
+            "inr",
+            "aud",
+            "brl",
+            "cad",
+            "dkk",
+            "eur",
+            "nok",
+            "gbp",
+            "sek",
+            "chf",
+            "hkd",
+            "huf",
+            "jpy",
+            "mxn",
+            "myr",
+            "pln",
+            "czk",
+            "nzd",
+            "aed",
+            "eth",
+            "ape",
+            "cop",
+            "ron",
+            "thb",
+            "bgn",
+            "idr",
+            "dop",
+            "php",
+            "try",
+            "krw",
+            "twd",
+            "vnd",
+            "pkr",
+            "clp",
+            "uyu",
+            "ars",
+            "zar",
+            "dzd",
+            "tnd",
+            "mad",
+            "kes",
+            "kwd",
+            "jod",
+            "all",
+            "xcd",
+            "amd",
+            "bsd",
+            "bhd",
+            "bob",
+            "bam",
+            "khr",
+            "crc",
+            "xof",
+            "egp",
+            "etb",
+            "gmd",
+            "ghs",
+            "gtq",
+            "gyd",
+            "ils",
+            "jmd",
+            "mop",
+            "mga",
+            "mur",
+            "mdl",
+            "mnt",
+            "nad",
+            "ngn",
+            "mkd",
+            "omr",
+            "pyg",
+            "pen",
+            "qar",
+            "rwf",
+            "sar",
+            "rsd",
+            "lkr",
+            "tzs",
+            "ttd",
+            "uzs",
+            "rub",
+            "btc",
+            "cny",
+            "usdt",
+            "kzt",
+            "awg",
+            "whop_usd",
+            "xau",
+        ],
         code: str,
-        company_id: str,
         new_users_only: bool,
         promo_duration_months: int,
-        promo_type: PromoType,
-        churned_users_only: Optional[bool] | Omit = omit,
-        existing_memberships_only: Optional[bool] | Omit = omit,
-        expires_at: Union[str, datetime, None] | Omit = omit,
-        one_per_customer: Optional[bool] | Omit = omit,
-        plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        promo_type: Literal["percentage", "flat_amount"],
+        churned_users_only: bool | Omit = omit,
+        existing_memberships_only: bool | Omit = omit,
+        expires_at: Optional[str] | Omit = omit,
+        one_per_customer: bool | Omit = omit,
+        plan_ids: SequenceNotStr[str] | Omit = omit,
         product_id: Optional[str] | Omit = omit,
         stock: Optional[int] | Omit = omit,
-        unlimited_stock: Optional[bool] | Omit = omit,
+        unlimited_stock: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> PromoCode:
-        """Create a new promo code that applies a discount at checkout.
+        """Creates a promo code for an account.
 
-        Can be scoped to
-        specific products or plans.
-
-        Required permissions:
-
-        - `promo_code:create`
-        - `access_pass:basic:read`
+        First-party sessions may attach an
+        affiliate.
 
         Args:
-          amount_off: The discount amount. When promo_type is percentage, this is the percent off
-              (e.g., 20 for 20% off). When promo_type is flat_amount, this is the currency
-              amount off (e.g., 10.00 for $10.00 off).
-
-          base_currency: The three-letter ISO currency code for the promo code discount.
-
-          code: The alphanumeric code customers enter at checkout to apply the discount.
-
-          company_id: The unique identifier of the company to create this promo code for.
-
-          new_users_only: Whether to restrict this promo code to only users who have never purchased from
-              the company before.
-
-          promo_duration_months: The number of billing months the discount remains active. For example, 3 means
-              the discount applies to the first 3 billing cycles.
-
-          promo_type: The discount type, either percentage or flat_amount.
-
-          churned_users_only: Whether to restrict this promo code to only users who have previously churned
-              from the company.
-
-          existing_memberships_only: Whether this promo code can only be applied to existing memberships, such as for
-              cancellation retention offers.
-
-          expires_at: The datetime when the promo code expires and can no longer be used. Null means
-              it never expires.
-
-          one_per_customer: Whether each customer can only use this promo code once.
-
-          plan_ids: The identifiers of plans this promo code applies to. When product_id is also
-              provided, only plans attached to that product are included.
-
-          product_id: The identifier of the product to scope this promo code to. When provided, the
-              promo code only applies to plans attached to this product.
-
-          stock: The maximum number of times this promo code can be used. Ignored when
-              unlimited_stock is true.
-
-          unlimited_stock: Whether the promo code can be used an unlimited number of times.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -431,15 +604,17 @@ class AsyncPromoCodesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return await self._post(
             "/promo_codes",
             body=await async_maybe_transform(
                 {
+                    "account_id": account_id,
                     "amount_off": amount_off,
                     "base_currency": base_currency,
                     "code": code,
-                    "company_id": company_id,
                     "new_users_only": new_users_only,
                     "promo_duration_months": promo_duration_months,
                     "promo_type": promo_type,
@@ -455,7 +630,11 @@ class AsyncPromoCodesResource(AsyncAPIResource):
                 promo_code_create_params.PromoCodeCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=PromoCode,
         )
@@ -472,12 +651,7 @@ class AsyncPromoCodesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PromoCode:
         """
-        Retrieves the details of an existing promo code.
-
-        Required permissions:
-
-        - `promo_code:basic:read`
-        - `access_pass:basic:read`
+        Retrieves a promo code by ID.
 
         Args:
           extra_headers: Send extra headers
@@ -501,16 +675,18 @@ class AsyncPromoCodesResource(AsyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        status: Optional[PromoCodeStatus] | Omit = omit,
+        account_id: str,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["created_at"] | Omit = omit,
+        plan_ids: SequenceNotStr[str] | Omit = omit,
+        product_ids: SequenceNotStr[str] | Omit = omit,
+        status: Literal["active", "inactive", "archived", "expired"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -519,34 +695,32 @@ class AsyncPromoCodesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[PromoCodeListResponse, AsyncCursorPage[PromoCodeListResponse]]:
         """
-        Returns a paginated list of promo codes belonging to a company, with optional
-        filtering by product, plan, and status.
-
-        Required permissions:
-
-        - `promo_code:basic:read`
-        - `access_pass:basic:read`
+        Lists promo codes for an account with cursor pagination, filters, and sorting.
 
         Args:
-          company_id: The unique identifier of the company to list promo codes for.
+          account_id: Account whose promo codes are listed (`biz_` tag).
 
-          after: Returns the elements in the list that come after the specified cursor.
+          after: Cursor to paginate forwards from.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          before: Cursor to paginate backwards from.
 
-          created_after: Only return promo codes created after this timestamp.
+          created_after: Only promo codes created after this ISO 8601 timestamp.
 
-          created_before: Only return promo codes created before this timestamp.
+          created_before: Only promo codes created before this ISO 8601 timestamp.
 
-          first: Returns the first _n_ elements from the list.
+          direction: Sort direction.
 
-          last: Returns the last _n_ elements from the list.
+          first: Number of promo codes to return from the start of the window.
 
-          plan_ids: Filter to only promo codes scoped to these plan identifiers.
+          last: Number of promo codes to return from the end of the window.
 
-          product_ids: Filter to only promo codes scoped to these product identifiers.
+          order: Sort field.
 
-          status: Statuses for promo codes
+          plan_ids: Only promo codes scoped to these plan IDs.
+
+          product_ids: Only promo codes scoped to these product IDs.
+
+          status: Promo-code status. `expired` groups inactive and archived codes.
 
           extra_headers: Send extra headers
 
@@ -566,13 +740,15 @@ class AsyncPromoCodesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "created_after": created_after,
                         "created_before": created_before,
+                        "direction": direction,
                         "first": first,
                         "last": last,
+                        "order": order,
                         "plan_ids": plan_ids,
                         "product_ids": product_ids,
                         "status": status,
@@ -593,14 +769,10 @@ class AsyncPromoCodesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> PromoCodeDeleteResponse:
         """
-        Archive a promo code, preventing it from being used in future checkouts.
-        Existing memberships are not affected.
-
-        Required permissions:
-
-        - `promo_code:delete`
+        Archives a promo code so it cannot be used in future checkouts.
 
         Args:
           extra_headers: Send extra headers
@@ -610,15 +782,101 @@ class AsyncPromoCodesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._delete(
             path_template("/promo_codes/{id}", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=PromoCodeDeleteResponse,
+        )
+
+    async def activate(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> PromoCode:
+        """
+        Turns an inactive promo code back on so it can be redeemed at checkout.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            path_template("/promo_codes/{id}/activate", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
+            ),
+            cast_to=PromoCode,
+        )
+
+    async def deactivate(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> PromoCode:
+        """
+        Turns off an active promo code so it can no longer be redeemed at checkout.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            path_template("/promo_codes/{id}/deactivate", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
+            ),
+            cast_to=PromoCode,
         )
 
 
@@ -638,6 +896,12 @@ class PromoCodesResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             promo_codes.delete,
         )
+        self.activate = to_raw_response_wrapper(
+            promo_codes.activate,
+        )
+        self.deactivate = to_raw_response_wrapper(
+            promo_codes.deactivate,
+        )
 
 
 class AsyncPromoCodesResourceWithRawResponse:
@@ -655,6 +919,12 @@ class AsyncPromoCodesResourceWithRawResponse:
         )
         self.delete = async_to_raw_response_wrapper(
             promo_codes.delete,
+        )
+        self.activate = async_to_raw_response_wrapper(
+            promo_codes.activate,
+        )
+        self.deactivate = async_to_raw_response_wrapper(
+            promo_codes.deactivate,
         )
 
 
@@ -674,6 +944,12 @@ class PromoCodesResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             promo_codes.delete,
         )
+        self.activate = to_streamed_response_wrapper(
+            promo_codes.activate,
+        )
+        self.deactivate = to_streamed_response_wrapper(
+            promo_codes.deactivate,
+        )
 
 
 class AsyncPromoCodesResourceWithStreamingResponse:
@@ -691,4 +967,10 @@ class AsyncPromoCodesResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             promo_codes.delete,
+        )
+        self.activate = async_to_streamed_response_wrapper(
+            promo_codes.activate,
+        )
+        self.deactivate = async_to_streamed_response_wrapper(
+            promo_codes.deactivate,
         )
