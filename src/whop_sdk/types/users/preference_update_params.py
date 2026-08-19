@@ -19,3 +19,10 @@ class PreferenceUpdateParams(TypedDict, total=False):
 
     Only meaningful for staff users with investigation access.
     """
+
+    terms_accepted: bool
+    """Records the user's acceptance of Whop's terms and policies.
+
+    Only `true` is accepted — the server stamps `terms_accepted_at` and acceptance
+    cannot be withdrawn here.
+    """

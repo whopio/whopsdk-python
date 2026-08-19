@@ -57,6 +57,7 @@ class TestPreferences:
         preference = client.users.preferences.update(
             bounty_worker_onboarding_dismissed=True,
             investigation_enabled=False,
+            terms_accepted=True,
         )
         assert_matches_type(PreferenceUpdateResponse, preference, path=["response"])
 
@@ -128,6 +129,7 @@ class TestAsyncPreferences:
         preference = await async_client.users.preferences.update(
             bounty_worker_onboarding_dismissed=True,
             investigation_enabled=False,
+            terms_accepted=True,
         )
         assert_matches_type(PreferenceUpdateResponse, preference, path=["response"])
 

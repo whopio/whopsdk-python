@@ -95,6 +95,7 @@ class PreferencesResource(SyncAPIResource):
         *,
         bounty_worker_onboarding_dismissed: bool | Omit = omit,
         investigation_enabled: bool | Omit = omit,
+        terms_accepted: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -115,6 +116,10 @@ class PreferencesResource(SyncAPIResource):
           investigation_enabled: Whether investigation mode is enabled for the user. Only meaningful for staff
               users with investigation access.
 
+          terms_accepted: Records the user's acceptance of Whop's terms and policies. Only `true` is
+              accepted — the server stamps `terms_accepted_at` and acceptance cannot be
+              withdrawn here.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -131,6 +136,7 @@ class PreferencesResource(SyncAPIResource):
                 {
                     "bounty_worker_onboarding_dismissed": bounty_worker_onboarding_dismissed,
                     "investigation_enabled": investigation_enabled,
+                    "terms_accepted": terms_accepted,
                 },
                 preference_update_params.PreferenceUpdateParams,
             ),
@@ -210,6 +216,7 @@ class AsyncPreferencesResource(AsyncAPIResource):
         *,
         bounty_worker_onboarding_dismissed: bool | Omit = omit,
         investigation_enabled: bool | Omit = omit,
+        terms_accepted: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -230,6 +237,10 @@ class AsyncPreferencesResource(AsyncAPIResource):
           investigation_enabled: Whether investigation mode is enabled for the user. Only meaningful for staff
               users with investigation access.
 
+          terms_accepted: Records the user's acceptance of Whop's terms and policies. Only `true` is
+              accepted — the server stamps `terms_accepted_at` and acceptance cannot be
+              withdrawn here.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -246,6 +257,7 @@ class AsyncPreferencesResource(AsyncAPIResource):
                 {
                     "bounty_worker_onboarding_dismissed": bounty_worker_onboarding_dismissed,
                     "investigation_enabled": investigation_enabled,
+                    "terms_accepted": terms_accepted,
                 },
                 preference_update_params.PreferenceUpdateParams,
             ),
