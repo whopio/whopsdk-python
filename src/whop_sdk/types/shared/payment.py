@@ -371,6 +371,13 @@ class PaymentMethodCard(BaseModel):
     Null if not available.
     """
 
+    fingerprint: Optional[str] = None
+    """A stable identifier for the underlying card.
+
+    Two payment methods with the same fingerprint are the same card. Null if not
+    available.
+    """
+
     last4: Optional[str] = None
     """The last four digits of the card number. Null if not available."""
 

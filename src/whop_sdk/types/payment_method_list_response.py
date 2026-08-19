@@ -231,6 +231,13 @@ class CardPaymentMethodCard(BaseModel):
     An expired card cannot take a new charge.
     """
 
+    fingerprint: Optional[str] = None
+    """A stable identifier for the underlying card.
+
+    Two payment methods with the same fingerprint are the same card. Null if not
+    available.
+    """
+
     funding_type: Optional[Literal["credit", "debit", "prepaid"]] = None
     """The funding types of a card"""
 
