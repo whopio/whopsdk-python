@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import List, Union
 from datetime import datetime
 from typing_extensions import Literal, Annotated, TypedDict
 
@@ -16,41 +16,41 @@ __all__ = ["InvoiceListParams"]
 
 
 class InvoiceListParams(TypedDict, total=False):
-    after: Optional[str]
+    after: str
     """Returns the elements in the list that come after the specified cursor."""
 
-    before: Optional[str]
+    before: str
     """Returns the elements in the list that come before the specified cursor."""
 
-    collection_methods: Optional[List[CollectionMethod]]
+    collection_methods: List[CollectionMethod]
     """Filter invoices by their collection method."""
 
-    company_id: Optional[str]
+    company_id: str
     """The unique identifier of the company to list invoices for."""
 
-    created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    created_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Only return invoices created after this timestamp."""
 
-    created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    created_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Only return invoices created before this timestamp."""
 
-    direction: Optional[Direction]
-    """The direction of the sort."""
+    direction: Direction
+    """The sort direction for ordering results, either ascending or descending."""
 
-    first: Optional[int]
+    first: int
     """Returns the first _n_ elements from the list."""
 
-    last: Optional[int]
+    last: int
     """Returns the last _n_ elements from the list."""
 
-    order: Optional[Literal["id", "created_at", "due_date"]]
-    """Which columns can be used to sort."""
+    order: Literal["id", "created_at", "due_date"]
+    """The field to order results by, such as creation date or due date."""
 
-    product_ids: Optional[SequenceNotStr[str]]
+    product_ids: SequenceNotStr[str]
     """
     Filter invoices to only those associated with these specific product
     identifiers.
     """
 
-    statuses: Optional[List[InvoiceStatus]]
+    statuses: List[InvoiceStatus]
     """Filter invoices by their current status."""
