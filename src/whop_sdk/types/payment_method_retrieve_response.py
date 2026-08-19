@@ -74,6 +74,8 @@ __all__ = [
     "PlatformBalancePaymentMethodIconsSquareDark",
     "PlatformBalancePaymentMethodIconsSquareLight",
     "PlatformBalancePaymentMethodPlatformBalance",
+    "PlatformBalancePaymentMethodPlatformBalanceAccount",
+    "PlatformBalancePaymentMethodPlatformBalanceAccountLogo",
     "PlatformBalancePaymentMethodPlatformBalanceBalance",
 ]
 
@@ -1119,6 +1121,32 @@ class PlatformBalancePaymentMethodIcons(BaseModel):
     """The square tile (32x32)."""
 
 
+class PlatformBalancePaymentMethodPlatformBalanceAccountLogo(BaseModel):
+    """The company's logo."""
+
+    url: Optional[str] = None
+    """A pre-optimized URL for rendering this attachment on the client.
+
+    This should be used for displaying attachments in apps.
+    """
+
+
+class PlatformBalancePaymentMethodPlatformBalanceAccount(BaseModel):
+    """The account whose wallet this is.
+
+    Null for the buyer's own personal wallet. A buyer sees an account's balance here when they hold permission to spend it, so a list can hold several — their own and one per account they are on.
+    """
+
+    id: str
+    """The unique identifier for the company."""
+
+    logo: Optional[PlatformBalancePaymentMethodPlatformBalanceAccountLogo] = None
+    """The company's logo."""
+
+    title: str
+    """The display name of the company shown to customers."""
+
+
 class PlatformBalancePaymentMethodPlatformBalanceBalance(BaseModel):
     """An amount of money.
 
@@ -1153,6 +1181,14 @@ class PlatformBalancePaymentMethodPlatformBalanceBalance(BaseModel):
 class PlatformBalancePaymentMethodPlatformBalance(BaseModel):
     """What is available to spend, and whether the account may spend it."""
 
+    account: Optional[PlatformBalancePaymentMethodPlatformBalanceAccount] = None
+    """The account whose wallet this is.
+
+    Null for the buyer's own personal wallet. A buyer sees an account's balance here
+    when they hold permission to spend it, so a list can hold several — their own
+    and one per account they are on.
+    """
+
     balances: List[PlatformBalancePaymentMethodPlatformBalanceBalance]
     """Available amount per currency.
 
@@ -1169,9 +1205,8 @@ class PlatformBalancePaymentMethodPlatformBalance(BaseModel):
 
 
 class PlatformBalancePaymentMethod(BaseModel):
-    """The buyer's Whop balance, offered as a payment method.
-
-    Charged by naming its ledger id on a `saved` confirmation token — it is a live wallet, not a stored credential, so it cannot be vaulted or charged off-session.
+    """
+    A Whop balance the buyer can pay with — their own, or an account's they hold permission to spend. Charged by naming its ledger id on a `saved` confirmation token — it is a live wallet, not a stored credential, so it cannot be vaulted or charged off-session.
     """
 
     id: str
