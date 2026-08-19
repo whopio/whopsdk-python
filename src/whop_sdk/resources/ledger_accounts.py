@@ -21,8 +21,6 @@ __all__ = ["LedgerAccountsResource", "AsyncLedgerAccountsResource"]
 
 
 class LedgerAccountsResource(SyncAPIResource):
-    """Ledger accounts"""
-
     @cached_property
     def with_raw_response(self) -> LedgerAccountsResourceWithRawResponse:
         """
@@ -82,8 +80,6 @@ class LedgerAccountsResource(SyncAPIResource):
 
 
 class AsyncLedgerAccountsResource(AsyncAPIResource):
-    """Ledger accounts"""
-
     @cached_property
     def with_raw_response(self) -> AsyncLedgerAccountsResourceWithRawResponse:
         """
