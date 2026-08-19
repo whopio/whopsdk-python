@@ -35,8 +35,6 @@ __all__ = ["DmMembersResource", "AsyncDmMembersResource"]
 
 
 class DmMembersResource(SyncAPIResource):
-    """Dm members"""
-
     @cached_property
     def with_raw_response(self) -> DmMembersResourceWithRawResponse:
         """
@@ -67,15 +65,17 @@ class DmMembersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> DmMember:
         """Add a new user to an existing DM channel.
 
         Only an admin of the channel can add
         members.
 
-        Required permissions:
+        Required permissions (one of):
 
-        - `dms:channel:manage`
+        - `dms:message:manage`
+        - `support_chat:message:create`
 
         Args:
           channel_id: The unique identifier of the DM channel to add the new member to.
@@ -90,6 +90,8 @@ class DmMembersResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return self._post(
             "/dm_members",
@@ -101,7 +103,11 @@ class DmMembersResource(SyncAPIResource):
                 dm_member_create_params.DmMemberCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=DmMember,
         )
@@ -120,9 +126,10 @@ class DmMembersResource(SyncAPIResource):
         """
         Retrieves the details of an existing DM member.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `dms:read`
+        - `support_chat:read`
 
         Args:
           extra_headers: Send extra headers
@@ -155,14 +162,16 @@ class DmMembersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> DmMember:
         """
         Update a DM channel member's settings, such as their notification preferences or
         membership status.
 
-        Required permissions:
+        Required permissions (one of):
 
-        - `dms:channel:manage`
+        - `dms:read`
+        - `support_chat:read`
 
         Args:
           notification_preference: The notification preferences for a DMs feed member
@@ -176,6 +185,8 @@ class DmMembersResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -189,7 +200,11 @@ class DmMembersResource(SyncAPIResource):
                 dm_member_update_params.DmMemberUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=DmMember,
         )
@@ -198,10 +213,10 @@ class DmMembersResource(SyncAPIResource):
         self,
         *,
         channel_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -213,9 +228,10 @@ class DmMembersResource(SyncAPIResource):
         Returns a paginated list of members in a specific DM channel, sorted by the date
         they were added.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `dms:read`
+        - `support_chat:read`
 
         Args:
           channel_id: The unique identifier of the DM channel to list members for.
@@ -268,15 +284,17 @@ class DmMembersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> DmMemberDeleteResponse:
         """Remove a user from a DM channel.
 
         An admin can remove any member, and a member
         can remove themselves.
 
-        Required permissions:
+        Required permissions (one of):
 
-        - `dms:channel:manage`
+        - `dms:read`
+        - `support_chat:read`
 
         Args:
           extra_headers: Send extra headers
@@ -286,21 +304,25 @@ class DmMembersResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._delete(
             path_template("/dm_members/{id}", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=DmMemberDeleteResponse,
         )
 
 
 class AsyncDmMembersResource(AsyncAPIResource):
-    """Dm members"""
-
     @cached_property
     def with_raw_response(self) -> AsyncDmMembersResourceWithRawResponse:
         """
@@ -331,15 +353,17 @@ class AsyncDmMembersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> DmMember:
         """Add a new user to an existing DM channel.
 
         Only an admin of the channel can add
         members.
 
-        Required permissions:
+        Required permissions (one of):
 
-        - `dms:channel:manage`
+        - `dms:message:manage`
+        - `support_chat:message:create`
 
         Args:
           channel_id: The unique identifier of the DM channel to add the new member to.
@@ -354,6 +378,8 @@ class AsyncDmMembersResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return await self._post(
             "/dm_members",
@@ -365,7 +391,11 @@ class AsyncDmMembersResource(AsyncAPIResource):
                 dm_member_create_params.DmMemberCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=DmMember,
         )
@@ -384,9 +414,10 @@ class AsyncDmMembersResource(AsyncAPIResource):
         """
         Retrieves the details of an existing DM member.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `dms:read`
+        - `support_chat:read`
 
         Args:
           extra_headers: Send extra headers
@@ -419,14 +450,16 @@ class AsyncDmMembersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> DmMember:
         """
         Update a DM channel member's settings, such as their notification preferences or
         membership status.
 
-        Required permissions:
+        Required permissions (one of):
 
-        - `dms:channel:manage`
+        - `dms:read`
+        - `support_chat:read`
 
         Args:
           notification_preference: The notification preferences for a DMs feed member
@@ -440,6 +473,8 @@ class AsyncDmMembersResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -453,7 +488,11 @@ class AsyncDmMembersResource(AsyncAPIResource):
                 dm_member_update_params.DmMemberUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=DmMember,
         )
@@ -462,10 +501,10 @@ class AsyncDmMembersResource(AsyncAPIResource):
         self,
         *,
         channel_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -477,9 +516,10 @@ class AsyncDmMembersResource(AsyncAPIResource):
         Returns a paginated list of members in a specific DM channel, sorted by the date
         they were added.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `dms:read`
+        - `support_chat:read`
 
         Args:
           channel_id: The unique identifier of the DM channel to list members for.
@@ -532,15 +572,17 @@ class AsyncDmMembersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> DmMemberDeleteResponse:
         """Remove a user from a DM channel.
 
         An admin can remove any member, and a member
         can remove themselves.
 
-        Required permissions:
+        Required permissions (one of):
 
-        - `dms:channel:manage`
+        - `dms:read`
+        - `support_chat:read`
 
         Args:
           extra_headers: Send extra headers
@@ -550,13 +592,19 @@ class AsyncDmMembersResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._delete(
             path_template("/dm_members/{id}", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=DmMemberDeleteResponse,
         )

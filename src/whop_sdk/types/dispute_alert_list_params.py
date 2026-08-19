@@ -2,37 +2,49 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
-from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
-
-from .._utils import PropertyInfo
-from .shared.direction import Direction
+from typing_extensions import Literal, TypedDict
 
 __all__ = ["DisputeAlertListParams"]
 
 
 class DisputeAlertListParams(TypedDict, total=False):
-    company_id: Required[str]
-    """The unique identifier of the company to list dispute alerts for."""
+    account_id: str
+    """Only alerts on this account's payments (`biz_` tag).
 
-    after: Optional[str]
-    """Returns the elements in the list that come after the specified cursor."""
+    Omit it to cover every account you can read.
+    """
 
-    before: Optional[str]
-    """Returns the elements in the list that come before the specified cursor."""
+    after: str
+    """A cursor; returns alerts after this position."""
 
-    created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only return dispute alerts created after this timestamp."""
+    before: str
+    """A cursor; returns alerts before this position."""
 
-    created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """Only return dispute alerts created before this timestamp."""
+    created_after: str
+    """Only alerts Whop received after this ISO 8601 timestamp."""
 
-    direction: Optional[Direction]
-    """The direction of the sort."""
+    created_before: str
+    """Only alerts Whop received before this ISO 8601 timestamp."""
 
-    first: Optional[int]
-    """Returns the first _n_ elements from the list."""
+    direction: Literal["asc", "desc"]
+    """Sort direction."""
 
-    last: Optional[int]
-    """Returns the last _n_ elements from the list."""
+    first: int
+    """The number of alerts to return (default 20, max 100)."""
+
+    last: int
+    """The number of alerts to return from the end of the range."""
+
+    order: Literal["created_at", "reported_at", "amount"]
+    """The field to sort alerts by."""
+
+    payment_id: str
+    """Only alerts on this payment (`pay_` tag). A payment can carry several."""
+
+    type: Literal["early_fraud_warning", "dispute_alert", "rapid_dispute_resolution"]
+    """Only alerts of this kind.
+
+    `early_fraud_warning` for issuer fraud reports, `dispute_alert` for pre-dispute
+    notices, `rapid_dispute_resolution` for Visa RDR cases the network already
+    closed.
+    """

@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Optional
 from typing_extensions import Literal, Required, TypedDict
 
 from .status import Status
@@ -15,26 +14,26 @@ class AffiliateListParams(TypedDict, total=False):
     company_id: Required[str]
     """The unique identifier of the company to list affiliates for."""
 
-    after: Optional[str]
+    after: str
     """Returns the elements in the list that come after the specified cursor."""
 
-    before: Optional[str]
+    before: str
     """Returns the elements in the list that come before the specified cursor."""
 
-    direction: Optional[Direction]
-    """The direction of the sort."""
+    direction: Direction
+    """The sort direction for results. Defaults to descending."""
 
-    first: Optional[int]
+    first: int
     """Returns the first _n_ elements from the list."""
 
-    last: Optional[int]
+    last: int
     """Returns the last _n_ elements from the list."""
 
-    order: Optional[Literal["id", "created_at", "cached_total_referrals", "cached_total_rewards"]]
-    """Which columns can be used to sort."""
+    order: Literal["id", "created_at", "cached_total_referrals", "cached_total_rewards"]
+    """The field to sort results by."""
 
-    query: Optional[str]
+    query: str
     """Search affiliates by username."""
 
-    status: Optional[Status]
-    """Statuses for resources"""
+    status: Status
+    """Filter by affiliate status (active or archived)."""
