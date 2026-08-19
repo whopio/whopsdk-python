@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Union
 from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
@@ -20,28 +20,35 @@ class AdReportRetrieveParams(TypedDict, total=False):
     to: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """Inclusive end of the reporting window."""
 
-    ad_campaign_ids: Optional[SequenceNotStr[str]]
+    ad_campaign_ids: SequenceNotStr[str]
     """Scope the report to these ad campaigns (max 100); stats are summed across them.
 
     Mutually exclusive with `companyId`, `adGroupIds`, and `adIds`.
     """
 
-    ad_group_ids: Optional[SequenceNotStr[str]]
+    ad_group_ids: SequenceNotStr[str]
     """Scope the report to these ad groups (max 100); stats are summed across them.
 
     Mutually exclusive with `companyId`, `adCampaignIds`, and `adIds`.
     """
 
-    ad_ids: Optional[SequenceNotStr[str]]
+    ad_ids: SequenceNotStr[str]
     """Scope the report to these ads (max 100); stats are summed across them.
 
     Mutually exclusive with `companyId`, `adCampaignIds`, and `adGroupIds`.
     """
 
-    breakdown: Optional[Literal["campaign", "ad_group", "ad"]]
-    """Entity level to group an ad report by."""
+    breakdown: Literal["campaign", "ad_group", "ad"]
+    """Entity level to break down the report by.
 
-    company_id: Optional[str]
+    When set, `breakdown` on the response contains one row per entity at the
+    requested level inside the requested scope. `ad` returns one row per ad,
+    `ad_group` per ad group, `campaign` per ad campaign. The breakdown level must be
+    at or below the scope (e.g. `adId` cannot be broken down by `campaign`). The
+    `summary` totals are unaffected.
+    """
+
+    company_id: str
     """The unique identifier of a company.
 
     Mutually exclusive with `adCampaignIds`, `adGroupIds`, and `adIds`. Use with
@@ -49,11 +56,16 @@ class AdReportRetrieveParams(TypedDict, total=False):
     without paging.
     """
 
-    currency: Optional[str]
+    currency: str
     """ISO 4217 currency code to report `spend` in.
 
     Defaults to the company's ads reporting currency.
     """
 
-    granularity: Optional[Granularities]
-    """Bucket size for external ad stat rows."""
+    granularity: Granularities
+    """Bucket grain for the per-bucket `granularity` time series.
+
+    Omit (`null`) for summary-only. `hourly`/`daily` max 90 days, `weekly` max 366
+    days, `monthly` max 4 years. The `summary` totals are unaffected. With
+    `breakdown`, each row gets its own series at the same grain.
+    """
