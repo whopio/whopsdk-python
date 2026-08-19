@@ -263,6 +263,10 @@ class EventListResponse(BaseModel):
 
     questions: Optional[List[Question]] = None
 
+    recommended_action_chain_id: Optional[str] = None
+
+    recommended_action_shown_position: Optional[int] = None
+
     referrer_url: Optional[str] = None
 
     related: Optional[Related] = None
