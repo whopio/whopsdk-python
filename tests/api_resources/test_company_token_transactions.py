@@ -43,7 +43,7 @@ class TestCompanyTokenTransactions:
             transaction_type="transfer",
             user_id="user_xxxxxxxxxxxxx",
             description="description",
-            idempotency_key="idempotency_key",
+            api_idempotency_key="idempotency_key",
         )
         assert_matches_type(CompanyTokenTransaction, company_token_transaction, path=["response"])
 
@@ -101,7 +101,7 @@ class TestCompanyTokenTransactions:
             transaction_type="add",
             user_id="user_xxxxxxxxxxxxx",
             description="description",
-            idempotency_key="idempotency_key",
+            api_idempotency_key="idempotency_key",
         )
         assert_matches_type(CompanyTokenTransaction, company_token_transaction, path=["response"])
 
@@ -157,7 +157,7 @@ class TestCompanyTokenTransactions:
             transaction_type="subtract",
             user_id="user_xxxxxxxxxxxxx",
             description="description",
-            idempotency_key="idempotency_key",
+            api_idempotency_key="idempotency_key",
         )
         assert_matches_type(CompanyTokenTransaction, company_token_transaction, path=["response"])
 
@@ -319,7 +319,7 @@ class TestAsyncCompanyTokenTransactions:
             transaction_type="transfer",
             user_id="user_xxxxxxxxxxxxx",
             description="description",
-            idempotency_key="idempotency_key",
+            api_idempotency_key="idempotency_key",
         )
         assert_matches_type(CompanyTokenTransaction, company_token_transaction, path=["response"])
 
@@ -377,7 +377,7 @@ class TestAsyncCompanyTokenTransactions:
             transaction_type="add",
             user_id="user_xxxxxxxxxxxxx",
             description="description",
-            idempotency_key="idempotency_key",
+            api_idempotency_key="idempotency_key",
         )
         assert_matches_type(CompanyTokenTransaction, company_token_transaction, path=["response"])
 
@@ -433,7 +433,7 @@ class TestAsyncCompanyTokenTransactions:
             transaction_type="subtract",
             user_id="user_xxxxxxxxxxxxx",
             description="description",
-            idempotency_key="idempotency_key",
+            api_idempotency_key="idempotency_key",
         )
         assert_matches_type(CompanyTokenTransaction, company_token_transaction, path=["response"])
 
