@@ -150,7 +150,7 @@ class CheckoutConfigurationListResponse(BaseModel):
     purchase_url: str
     """A URL you can send to customers to complete a checkout.
 
-    It looks like `/checkout/plan_xxxx?session={id}`
+    It looks like `/checkout/ch_xxxx/`
     """
 
     redirect_url: Optional[str] = None
