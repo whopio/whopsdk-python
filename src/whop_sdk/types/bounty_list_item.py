@@ -176,8 +176,9 @@ class BountyListItem(BaseModel):
     spots_remaining: int
     """
     Unfilled winner capacity: `accepted_submissions_limit` minus
-    `accepted_submissions_count`, clamped to zero. Not a signal that the bounty
-    currently accepts new claims.
+    `accepted_submissions_count`, clamped to zero. Not on its own a signal that the
+    bounty accepts new claims — read `status` for that: only an `open` bounty takes
+    new submissions.
     """
 
     status: Literal["scheduled", "open", "closed", "completed", "canceled"]

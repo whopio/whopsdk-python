@@ -21,6 +21,27 @@ class BountyListParams(TypedDict, total=False):
     before: str
     """Cursor to paginate backwards from."""
 
+    business_goal_type: Literal[
+        "clipping",
+        "post_engagement",
+        "owned_account_growth",
+        "ugc_content",
+        "local_activation",
+        "data_capture",
+        "other",
+    ]
+    """Filter by the poster's declared goal.
+
+    Bounties created before the goal taxonomy carry no goal and never match this
+    filter.
+    """
+
+    country: str
+    """Only bounties workable from this country, as an ISO 3166-1 alpha-2 code.
+
+    Bounties with no country targeting are workable worldwide and always match.
+    """
+
     created_after: str
     """Only bounties created after this ISO 8601 timestamp."""
 
@@ -30,13 +51,19 @@ class BountyListParams(TypedDict, total=False):
     direction: Literal["asc", "desc"]
     """Sort direction."""
 
+    experience_id: str
+    """Only bounties posted to this forum experience, prefixed `exp_`.
+
+    An unknown experience, or one outside the caller's scope, matches nothing.
+    """
+
     first: int
     """Number of bounties to return from the start of the window."""
 
     last: int
     """Number of bounties to return from the end of the window."""
 
-    order: Literal["created_at", "gross_paid_out_amount"]
+    order: Literal["created_at", "gross_paid_out_amount", "gross_reward_amount"]
     """Sort field."""
 
     query: str

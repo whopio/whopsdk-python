@@ -336,12 +336,24 @@ class BountiesResource(SyncAPIResource):
         account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
+        business_goal_type: Literal[
+            "clipping",
+            "post_engagement",
+            "owned_account_growth",
+            "ugc_content",
+            "local_activation",
+            "data_capture",
+            "other",
+        ]
+        | Omit = omit,
+        country: str | Omit = omit,
         created_after: str | Omit = omit,
         created_before: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
+        experience_id: str | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
-        order: Literal["created_at", "gross_paid_out_amount"] | Omit = omit,
+        order: Literal["created_at", "gross_paid_out_amount", "gross_reward_amount"] | Omit = omit,
         query: str | Omit = omit,
         status: Literal["scheduled", "open", "closed", "completed", "canceled"] | Omit = omit,
         user_id: str | Omit = omit,
@@ -365,11 +377,20 @@ class BountiesResource(SyncAPIResource):
 
           before: Cursor to paginate backwards from.
 
+          business_goal_type: Filter by the poster's declared goal. Bounties created before the goal taxonomy
+              carry no goal and never match this filter.
+
+          country: Only bounties workable from this country, as an ISO 3166-1 alpha-2 code.
+              Bounties with no country targeting are workable worldwide and always match.
+
           created_after: Only bounties created after this ISO 8601 timestamp.
 
           created_before: Only bounties created before this ISO 8601 timestamp.
 
           direction: Sort direction.
+
+          experience_id: Only bounties posted to this forum experience, prefixed `exp_`. An unknown
+              experience, or one outside the caller's scope, matches nothing.
 
           first: Number of bounties to return from the start of the window.
 
@@ -405,9 +426,12 @@ class BountiesResource(SyncAPIResource):
                         "account_id": account_id,
                         "after": after,
                         "before": before,
+                        "business_goal_type": business_goal_type,
+                        "country": country,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
+                        "experience_id": experience_id,
                         "first": first,
                         "last": last,
                         "order": order,
@@ -768,12 +792,24 @@ class AsyncBountiesResource(AsyncAPIResource):
         account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
+        business_goal_type: Literal[
+            "clipping",
+            "post_engagement",
+            "owned_account_growth",
+            "ugc_content",
+            "local_activation",
+            "data_capture",
+            "other",
+        ]
+        | Omit = omit,
+        country: str | Omit = omit,
         created_after: str | Omit = omit,
         created_before: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
+        experience_id: str | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
-        order: Literal["created_at", "gross_paid_out_amount"] | Omit = omit,
+        order: Literal["created_at", "gross_paid_out_amount", "gross_reward_amount"] | Omit = omit,
         query: str | Omit = omit,
         status: Literal["scheduled", "open", "closed", "completed", "canceled"] | Omit = omit,
         user_id: str | Omit = omit,
@@ -797,11 +833,20 @@ class AsyncBountiesResource(AsyncAPIResource):
 
           before: Cursor to paginate backwards from.
 
+          business_goal_type: Filter by the poster's declared goal. Bounties created before the goal taxonomy
+              carry no goal and never match this filter.
+
+          country: Only bounties workable from this country, as an ISO 3166-1 alpha-2 code.
+              Bounties with no country targeting are workable worldwide and always match.
+
           created_after: Only bounties created after this ISO 8601 timestamp.
 
           created_before: Only bounties created before this ISO 8601 timestamp.
 
           direction: Sort direction.
+
+          experience_id: Only bounties posted to this forum experience, prefixed `exp_`. An unknown
+              experience, or one outside the caller's scope, matches nothing.
 
           first: Number of bounties to return from the start of the window.
 
@@ -837,9 +882,12 @@ class AsyncBountiesResource(AsyncAPIResource):
                         "account_id": account_id,
                         "after": after,
                         "before": before,
+                        "business_goal_type": business_goal_type,
+                        "country": country,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
+                        "experience_id": experience_id,
                         "first": first,
                         "last": last,
                         "order": order,
