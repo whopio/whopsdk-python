@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Optional
 from typing_extensions import Literal
 
 import httpx
@@ -39,11 +38,8 @@ __all__ = ["AffiliatesResource", "AsyncAffiliatesResource"]
 
 
 class AffiliatesResource(SyncAPIResource):
-    """Affiliates"""
-
     @cached_property
     def overrides(self) -> OverridesResource:
-        """Affiliates"""
         return OverridesResource(self._client)
 
     @cached_property
@@ -76,6 +72,7 @@ class AffiliatesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Affiliate:
         """
         Creates or finds an affiliate for a company and user.
@@ -96,6 +93,8 @@ class AffiliatesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return self._post(
             "/affiliates",
@@ -107,7 +106,11 @@ class AffiliatesResource(SyncAPIResource):
                 affiliate_create_params.AffiliateCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Affiliate,
         )
@@ -153,14 +156,14 @@ class AffiliatesResource(SyncAPIResource):
         self,
         *,
         company_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[Literal["id", "created_at", "cached_total_referrals", "cached_total_rewards"]] | Omit = omit,
-        query: Optional[str] | Omit = omit,
-        status: Optional[Status] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        direction: Direction | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["id", "created_at", "cached_total_referrals", "cached_total_rewards"] | Omit = omit,
+        query: str | Omit = omit,
+        status: Status | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -183,17 +186,17 @@ class AffiliatesResource(SyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          direction: The direction of the sort.
+          direction: The sort direction for results. Defaults to descending.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          order: Which columns can be used to sort.
+          order: The field to sort results by.
 
           query: Search affiliates by username.
 
-          status: Statuses for resources
+          status: Filter by affiliate status (active or archived).
 
           extra_headers: Send extra headers
 
@@ -239,6 +242,7 @@ class AffiliatesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> AffiliateArchiveResponse:
         """
         Archives an existing Affiliate
@@ -255,13 +259,19 @@ class AffiliatesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
             path_template("/affiliates/{id}/archive", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=AffiliateArchiveResponse,
         )
@@ -276,6 +286,7 @@ class AffiliatesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> AffiliateUnarchiveResponse:
         """
         Unarchives an existing Affiliate
@@ -292,24 +303,27 @@ class AffiliatesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
             path_template("/affiliates/{id}/unarchive", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=AffiliateUnarchiveResponse,
         )
 
 
 class AsyncAffiliatesResource(AsyncAPIResource):
-    """Affiliates"""
-
     @cached_property
     def overrides(self) -> AsyncOverridesResource:
-        """Affiliates"""
         return AsyncOverridesResource(self._client)
 
     @cached_property
@@ -342,6 +356,7 @@ class AsyncAffiliatesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Affiliate:
         """
         Creates or finds an affiliate for a company and user.
@@ -362,6 +377,8 @@ class AsyncAffiliatesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return await self._post(
             "/affiliates",
@@ -373,7 +390,11 @@ class AsyncAffiliatesResource(AsyncAPIResource):
                 affiliate_create_params.AffiliateCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Affiliate,
         )
@@ -419,14 +440,14 @@ class AsyncAffiliatesResource(AsyncAPIResource):
         self,
         *,
         company_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[Literal["id", "created_at", "cached_total_referrals", "cached_total_rewards"]] | Omit = omit,
-        query: Optional[str] | Omit = omit,
-        status: Optional[Status] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        direction: Direction | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["id", "created_at", "cached_total_referrals", "cached_total_rewards"] | Omit = omit,
+        query: str | Omit = omit,
+        status: Status | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -449,17 +470,17 @@ class AsyncAffiliatesResource(AsyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          direction: The direction of the sort.
+          direction: The sort direction for results. Defaults to descending.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          order: Which columns can be used to sort.
+          order: The field to sort results by.
 
           query: Search affiliates by username.
 
-          status: Statuses for resources
+          status: Filter by affiliate status (active or archived).
 
           extra_headers: Send extra headers
 
@@ -505,6 +526,7 @@ class AsyncAffiliatesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> AffiliateArchiveResponse:
         """
         Archives an existing Affiliate
@@ -521,13 +543,19 @@ class AsyncAffiliatesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
             path_template("/affiliates/{id}/archive", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=AffiliateArchiveResponse,
         )
@@ -542,6 +570,7 @@ class AsyncAffiliatesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> AffiliateUnarchiveResponse:
         """
         Unarchives an existing Affiliate
@@ -558,13 +587,19 @@ class AsyncAffiliatesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
             path_template("/affiliates/{id}/unarchive", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=AffiliateUnarchiveResponse,
         )
@@ -592,7 +627,6 @@ class AffiliatesResourceWithRawResponse:
 
     @cached_property
     def overrides(self) -> OverridesResourceWithRawResponse:
-        """Affiliates"""
         return OverridesResourceWithRawResponse(self._affiliates.overrides)
 
 
@@ -618,7 +652,6 @@ class AsyncAffiliatesResourceWithRawResponse:
 
     @cached_property
     def overrides(self) -> AsyncOverridesResourceWithRawResponse:
-        """Affiliates"""
         return AsyncOverridesResourceWithRawResponse(self._affiliates.overrides)
 
 
@@ -644,7 +677,6 @@ class AffiliatesResourceWithStreamingResponse:
 
     @cached_property
     def overrides(self) -> OverridesResourceWithStreamingResponse:
-        """Affiliates"""
         return OverridesResourceWithStreamingResponse(self._affiliates.overrides)
 
 
@@ -670,5 +702,4 @@ class AsyncAffiliatesResourceWithStreamingResponse:
 
     @cached_property
     def overrides(self) -> AsyncOverridesResourceWithStreamingResponse:
-        """Affiliates"""
         return AsyncOverridesResourceWithStreamingResponse(self._affiliates.overrides)

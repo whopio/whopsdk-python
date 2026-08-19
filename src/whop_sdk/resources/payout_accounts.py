@@ -21,8 +21,6 @@ __all__ = ["PayoutAccountsResource", "AsyncPayoutAccountsResource"]
 
 
 class PayoutAccountsResource(SyncAPIResource):
-    """Payout accounts"""
-
     @cached_property
     def with_raw_response(self) -> PayoutAccountsResourceWithRawResponse:
         """
@@ -81,8 +79,6 @@ class PayoutAccountsResource(SyncAPIResource):
 
 
 class AsyncPayoutAccountsResource(AsyncAPIResource):
-    """Payout accounts"""
-
     @cached_property
     def with_raw_response(self) -> AsyncPayoutAccountsResourceWithRawResponse:
         """
