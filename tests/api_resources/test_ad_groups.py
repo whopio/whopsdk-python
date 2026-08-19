@@ -57,7 +57,9 @@ class TestAdGroups:
                 "behaviors": [
                     {
                         "id": "6007101291578",
+                        "behavior_type": "video",
                         "name": "Recent vehicle purchase (30 days)",
+                        "period": 0,
                     }
                 ],
                 "demographics": [
@@ -69,8 +71,8 @@ class TestAdGroups:
                 ],
                 "interests": [
                     {
-                        "id": "6007101291578",
-                        "name": "Recent vehicle purchase (30 days)",
+                        "id": "6003193685204",
+                        "name": "Car wash",
                     }
                 ],
             },
@@ -257,7 +259,9 @@ class TestAdGroups:
                 "behaviors": [
                     {
                         "id": "6007101291578",
+                        "behavior_type": "video",
                         "name": "Recent vehicle purchase (30 days)",
+                        "period": 0,
                     }
                 ],
                 "demographics": [
@@ -269,8 +273,8 @@ class TestAdGroups:
                 ],
                 "interests": [
                     {
-                        "id": "6007101291578",
-                        "name": "Recent vehicle purchase (30 days)",
+                        "id": "6003193685204",
+                        "name": "Car wash",
                     }
                 ],
             },
@@ -552,7 +556,9 @@ class TestAdGroups:
                 "behaviors": [
                     {
                         "id": "6007101291578",
+                        "behavior_type": "video",
                         "name": "Recent vehicle purchase (30 days)",
+                        "period": 0,
                     }
                 ],
                 "demographics": [
@@ -564,8 +570,8 @@ class TestAdGroups:
                 ],
                 "interests": [
                     {
-                        "id": "6007101291578",
-                        "name": "Recent vehicle purchase (30 days)",
+                        "id": "6003193685204",
+                        "name": "Car wash",
                     }
                 ],
             },
@@ -823,7 +829,9 @@ class TestAsyncAdGroups:
                 "behaviors": [
                     {
                         "id": "6007101291578",
+                        "behavior_type": "video",
                         "name": "Recent vehicle purchase (30 days)",
+                        "period": 0,
                     }
                 ],
                 "demographics": [
@@ -835,8 +843,8 @@ class TestAsyncAdGroups:
                 ],
                 "interests": [
                     {
-                        "id": "6007101291578",
-                        "name": "Recent vehicle purchase (30 days)",
+                        "id": "6003193685204",
+                        "name": "Car wash",
                     }
                 ],
             },
@@ -1023,7 +1031,9 @@ class TestAsyncAdGroups:
                 "behaviors": [
                     {
                         "id": "6007101291578",
+                        "behavior_type": "video",
                         "name": "Recent vehicle purchase (30 days)",
+                        "period": 0,
                     }
                 ],
                 "demographics": [
@@ -1035,8 +1045,8 @@ class TestAsyncAdGroups:
                 ],
                 "interests": [
                     {
-                        "id": "6007101291578",
-                        "name": "Recent vehicle purchase (30 days)",
+                        "id": "6003193685204",
+                        "name": "Car wash",
                     }
                 ],
             },
@@ -1318,7 +1328,9 @@ class TestAsyncAdGroups:
                 "behaviors": [
                     {
                         "id": "6007101291578",
+                        "behavior_type": "video",
                         "name": "Recent vehicle purchase (30 days)",
+                        "period": 0,
                     }
                 ],
                 "demographics": [
@@ -1330,8 +1342,8 @@ class TestAsyncAdGroups:
                 ],
                 "interests": [
                     {
-                        "id": "6007101291578",
-                        "name": "Recent vehicle purchase (30 days)",
+                        "id": "6003193685204",
+                        "name": "Car wash",
                     }
                 ],
             },

@@ -256,8 +256,20 @@ class DetailedTargetingBehavior(TypedDict, total=False):
     id: Required[str]
     """The ad platform's ID for the category in its targeting taxonomy."""
 
+    behavior_type: Literal["video", "creator", "hashtag"]
+    """On ad platforms that scope behavior categories, what this one is measured on.
+
+    Send back the value the targeting_options endpoint returned alongside the id.
+    """
+
     name: str
-    """Category name, such as `Movies`."""
+    """Category name, such as `Frequent travelers`."""
+
+    period: int
+    """
+    On ad platforms that scope behavior categories, how many days of activity the
+    category covers.
+    """
 
 
 class DetailedTargetingDemographic(TypedDict, total=False):

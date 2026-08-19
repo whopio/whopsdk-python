@@ -24,7 +24,7 @@ class AdGroupSearchTargetingOptionsParams(TypedDict, total=False):
     limit: int
     """Maximum number of results per requested type."""
 
-    location_types: List[Literal["country", "region", "city", "zip"]]
+    location_types: List[Literal["country", "region", "city", "zip", "neighborhood", "subcity", "medium_geo_area"]]
     """Narrow location results to these kinds of places.
 
     Only applies when `types` includes `locations`.

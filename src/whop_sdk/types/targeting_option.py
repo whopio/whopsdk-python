@@ -27,6 +27,13 @@ class DetailedTargetingOption(BaseModel):
     Null when the platform doesn't publish one.
     """
 
+    behavior_type: Optional[Literal["video", "creator", "hashtag"]] = None
+    """What a behavior category is measured on, on ad platforms that scope them.
+
+    Send it back on the `detailed_targeting.behaviors` entry alongside the id. Null
+    for options that aren't scoped.
+    """
+
     description: Optional[str] = None
     """The ad platform's description of who the option covers, when it publishes one."""
 
@@ -46,11 +53,11 @@ class DetailedTargetingOption(BaseModel):
         "education_majors",
     ]
     """
-    Which detailed-targeting field the option belongs in: `interests`/`behaviors` go
-    in `detailed_targeting.interests`/`.behaviors`; demographic categories
-    (`life_events`, `industries`, `income`, `family_statuses`, `work_employers`,
-    `work_positions`, `education_schools`, `education_majors`) go in
-    `detailed_targeting.demographics` with this value as the entry's `type`.
+    Which detailed-targeting field the option belongs in: `interests` and
+    `behaviors` go in the matching `detailed_targeting` field; demographic
+    categories (`life_events`, `industries`, `income`, `family_statuses`,
+    `work_employers`, `work_positions`, `education_schools`, `education_majors`) go
+    in `detailed_targeting.demographics` with this value as the entry's `type`.
     """
 
 
@@ -68,9 +75,10 @@ class LanguageTargetingOption(BaseModel):
 class LocationTargetingOption(BaseModel):
     code: Optional[str] = None
     """
-    The standardized code the ad-group targeting fields take: an ISO 3166-1 code for
-    countries (`US`) or an ISO 3166-2 code for US states and DC (`US-CA`). Null for
-    locations without one, such as cities — target those by `key` instead.
+    The standardized code the ad-group `regions` field takes: an ISO 3166-1 code for
+    countries (`US`) or an ISO 3166-2 code for states and provinces (`US-CA`,
+    `CA-ON`). Null for a location that has no standard code, such as a city or a
+    metro area — target those by `key` in the `regions` cities list instead.
     """
 
     country_code: Optional[str] = None
@@ -85,8 +93,14 @@ class LocationTargetingOption(BaseModel):
     Use it as the `key` of a `regions` city or zip entry.
     """
 
-    location_type: Literal["country", "region", "city", "zip"]
-    """Kind of location: `country`, `region`, `city`, or `zip`."""
+    location_type: Literal[
+        "country", "region", "city", "zip", "neighborhood", "subcity", "medium_geo_area", "district", "dma"
+    ]
+    """Granularity of the location.
+
+    Which of these an ad platform reports depends on how finely it divides its
+    location taxonomy.
+    """
 
     name: str
     """Display name, such as `California`."""

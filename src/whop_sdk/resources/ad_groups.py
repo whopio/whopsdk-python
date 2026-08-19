@@ -921,7 +921,8 @@ class AdGroupsResource(SyncAPIResource):
         account_id: str | Omit = omit,
         country: str | Omit = omit,
         limit: int | Omit = omit,
-        location_types: List[Literal["country", "region", "city", "zip"]] | Omit = omit,
+        location_types: List[Literal["country", "region", "city", "zip", "neighborhood", "subcity", "medium_geo_area"]]
+        | Omit = omit,
         query: str | Omit = omit,
         types: List[
             Literal[
@@ -1929,7 +1930,8 @@ class AsyncAdGroupsResource(AsyncAPIResource):
         account_id: str | Omit = omit,
         country: str | Omit = omit,
         limit: int | Omit = omit,
-        location_types: List[Literal["country", "region", "city", "zip"]] | Omit = omit,
+        location_types: List[Literal["country", "region", "city", "zip", "neighborhood", "subcity", "medium_geo_area"]]
+        | Omit = omit,
         query: str | Omit = omit,
         types: List[
             Literal[

@@ -10,7 +10,6 @@ __all__ = [
     "AdCampaign",
     "Audiences",
     "Demographics",
-    "Issue",
     "DetailedTargeting",
     "DetailedTargetingBehavior",
     "DetailedTargetingDemographic",
@@ -18,6 +17,7 @@ __all__ = [
     "Devices",
     "DevicesOperatingSystem",
     "FrequencyCap",
+    "Issue",
     "Placement",
     "Regions",
     "RegionsExclude",
@@ -64,30 +64,27 @@ class Demographics(BaseModel):
     """Youngest age targeted. `null` when no minimum is set."""
 
 
-class Issue(BaseModel):
-    """Open issues affecting this ad group and its ads. Empty when there are none."""
-
-    id: str
-    """Unique identifier for the issue."""
-
-    message: str
-    """A description of what the issue is and how it can be resolved."""
-
-    resource_id: Optional[str] = None
-    """The ID of the campaign, ad group, or ad the issue is attached to."""
-
-    resource_type: Literal["ad_campaign", "ad_group", "ad"]
-    """The type of resource the issue is attached to."""
-
-
 class DetailedTargetingBehavior(BaseModel):
     """Behavior categories targeted, such as frequent travelers."""
 
     id: str
     """The ad platform's ID for the category in its targeting taxonomy."""
 
+    behavior_type: Optional[Literal["video", "creator", "hashtag"]] = None
+    """On ad platforms that scope behavior categories, what this one is measured on.
+
+    Send back the value the targeting_options endpoint returned alongside the id.
+    Absent on platforms that don't scope them.
+    """
+
     name: Optional[str] = None
-    """Category name, such as `Movies`."""
+    """Category name, such as `Frequent travelers`."""
+
+    period: Optional[float] = None
+    """
+    On ad platforms that scope behavior categories, how many days of activity the
+    category covers. Absent on platforms that don't scope them.
+    """
 
 
 class DetailedTargetingDemographic(BaseModel):
@@ -165,6 +162,22 @@ class FrequencyCap(BaseModel):
 
     per_days: Optional[float] = None
     """Length of the rolling window, in days."""
+
+
+class Issue(BaseModel):
+    """Open issues affecting this ad group and its ads. Empty when there are none."""
+
+    id: str
+    """Unique identifier for the issue."""
+
+    message: str
+    """A description of what the issue is and how it can be resolved."""
+
+    resource_id: Optional[str] = None
+    """The ID of the campaign, ad group, or ad the issue is attached to."""
+
+    resource_type: Literal["ad_campaign", "ad_group", "ad"]
+    """The type of resource the issue is attached to."""
 
 
 class Placement(BaseModel):
@@ -467,6 +480,18 @@ class AdGroup(BaseModel):
     `null` for `minimum_cost` bidding.
     """
 
+    detailed_targeting: DetailedTargeting
+    """
+    Interest, behavior, and demographic targeting, using categories from the ad
+    platform's targeting taxonomy. Entries across interests, behaviors, and
+    demographics are OR'd together (anyone matching any entry is reached), matching
+    Ads Manager's detailed-targeting box. Can't be combined with automatic audience
+    targeting, and unavailable to campaigns with special_ad_categories.
+    """
+
+    devices: Devices
+    """Device platforms and operating systems targeted."""
+
     ends_at: Optional[str] = None
     """When the ad group stops delivering, as an ISO 8601 timestamp.
 
@@ -476,10 +501,19 @@ class AdGroup(BaseModel):
     frequency: Optional[float] = None
     """Platform-reported impressions divided by reach."""
 
+    frequency_cap: Optional[FrequencyCap] = None
+    """Cap on how often one person sees ads from this ad group.
+
+    Only available on campaigns with the `awareness` objective; `null` when
+    uncapped.
+    """
+
     impressions: float
     """The number of impressions."""
 
     issues: List[Issue]
+
+    languages: List[str]
 
     lead_value: float
     """USD value attributed to lead events.
@@ -515,6 +549,8 @@ class AdGroup(BaseModel):
     ] = None
     """The result the ad group's delivery is optimized to get the most of."""
 
+    placements: List[Placement]
+
     purchase_value: float
     """USD value of pixel-attributed purchases."""
 
@@ -523,6 +559,9 @@ class AdGroup(BaseModel):
 
     reach: float
     """The number of unique people who saw this."""
+
+    regions: Regions
+    """Locations targeted and excluded."""
 
     result_event: Optional[
         Literal[
@@ -671,39 +710,13 @@ class AdGroup(BaseModel):
     submission.
     """
 
-    detailed_targeting: Optional[DetailedTargeting] = None
-    """
-    Interest, behavior, and demographic targeting, using categories from the ad
-    platform's targeting taxonomy. Entries across interests, behaviors, and
-    demographics are OR'd together (anyone matching any entry is reached), matching
-    Ads Manager's detailed-targeting box. Can't be combined with automatic audience
-    targeting, and unavailable to campaigns with special_ad_categories.
-    """
-
-    devices: Optional[Devices] = None
-    """Device platforms and operating systems targeted."""
-
     dynamic_creative: Optional[bool] = None
     """
     Whether the ad platform automatically mixes and matches this ad group's
     creatives and copy to find the best-performing combinations.
     """
 
-    frequency_cap: Optional[FrequencyCap] = None
-    """Cap on how often one person sees ads from this ad group.
-
-    Only available on campaigns with the `awareness` objective; `null` when
-    uncapped.
-    """
-
-    languages: Optional[List[str]] = None
-
     message_apps: Optional[List[Literal["messenger", "instagram", "whatsapp"]]] = None
 
     minimum_daily_spend: Optional[float] = None
     """Minimum the ad group tries to spend each day. `null` when no floor is set."""
-
-    placements: Optional[List[Placement]] = None
-
-    regions: Optional[Regions] = None
-    """Locations targeted and excluded."""
