@@ -86,6 +86,7 @@ class TestPreferences:
             ads_scheduling_timezone="PST8PDT",
             ads_triple_whale_integration={"api_key": "tw_live_key_1234"},
             cards_auto_top_up=True,
+            dispute_fighter_enabled=True,
         )
         assert_matches_type(PreferenceUpdateResponse, preference, path=["response"])
 
@@ -198,6 +199,7 @@ class TestAsyncPreferences:
             ads_scheduling_timezone="PST8PDT",
             ads_triple_whale_integration={"api_key": "tw_live_key_1234"},
             cards_auto_top_up=True,
+            dispute_fighter_enabled=True,
         )
         assert_matches_type(PreferenceUpdateResponse, preference, path=["response"])
 

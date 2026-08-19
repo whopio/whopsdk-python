@@ -11,6 +11,7 @@ __all__ = [
     "Evidence",
     "EvidenceCancellationPolicyAttachment",
     "EvidenceCustomerCommunicationAttachment",
+    "EvidenceDocument",
     "EvidenceRefundPolicyAttachment",
     "EvidenceUncategorizedAttachment",
     "GeneratedResponseAttachment",
@@ -103,6 +104,42 @@ class EvidenceCustomerCommunicationAttachment(BaseModel):
     """A URL to download the attachment."""
 
 
+class EvidenceDocument(BaseModel):
+    """
+    Additional evidence documents uploaded through `POST /disputes/{id}/upload_evidence`, beyond the four fixed slots. Each rides into the submitted packet under its `document_type`.
+    """
+
+    id: str
+    """The attachment's ID, prefixed `file_`."""
+
+    content_type: Optional[Literal["application/pdf", "application/json", "image/jpeg", "image/png", "image/webp"]] = (
+        None
+    )
+    """The uploaded file's MIME type.
+
+    Uploads are restricted to the types the processor accepts.
+    """
+
+    document_type: Literal[
+        "return_policy",
+        "shipping_policy",
+        "physical_fulfillment",
+        "customer_order_history",
+        "product_image",
+        "prior_transactions",
+        "customer_session",
+        "digital_fulfillment",
+        "subscription",
+    ]
+    """What kind of evidence the document is."""
+
+    filename: Optional[str] = None
+    """The uploaded file's name."""
+
+    url: Optional[str] = None
+    """A URL to download the document."""
+
+
 class EvidenceRefundPolicyAttachment(BaseModel):
     """The refund policy document.
 
@@ -185,6 +222,8 @@ class Evidence(BaseModel):
 
     customer_name: Optional[str] = None
     """The customer's name as given at checkout."""
+
+    documents: List[EvidenceDocument]
 
     notes: Optional[str] = None
     """Any additional context for the processor reviewing the dispute."""

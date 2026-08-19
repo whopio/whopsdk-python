@@ -980,6 +980,7 @@ Methods:
 - <code title="get /disputes">client.disputes.<a href="./src/whop_sdk/resources/disputes.py">list</a>(\*\*<a href="src/whop_sdk/types/dispute_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/dispute.py">SyncCursorPage[Dispute]</a></code>
 - <code title="post /disputes/{id}/submit">client.disputes.<a href="./src/whop_sdk/resources/disputes.py">submit</a>(id) -> <a href="./src/whop_sdk/types/dispute.py">Dispute</a></code>
 - <code title="get /disputes/summary">client.disputes.<a href="./src/whop_sdk/resources/disputes.py">summary</a>(\*\*<a href="src/whop_sdk/types/dispute_summary_params.py">params</a>) -> <a href="./src/whop_sdk/types/dispute_summary_response.py">DisputeSummaryResponse</a></code>
+- <code title="post /disputes/{id}/upload_evidence">client.disputes.<a href="./src/whop_sdk/resources/disputes.py">upload_evidence</a>(id, \*\*<a href="src/whop_sdk/types/dispute_upload_evidence_params.py">params</a>) -> <a href="./src/whop_sdk/types/dispute.py">Dispute</a></code>
 
 # Refunds
 

@@ -176,3 +176,10 @@ class PreferenceUpdateResponse(BaseModel):
 
     `false` when the account has no cards balance.
     """
+
+    dispute_fighter_enabled: bool
+    """
+    Whether Whop assembles and files the evidence response when this account's
+    payments are disputed. Off by default; enabling it also opts the account into
+    the success fee charged only on disputes it wins.
+    """

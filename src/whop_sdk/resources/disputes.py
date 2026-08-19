@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 
-from typing import List
+from typing import List, Mapping, Iterable, cast
 from typing_extensions import Literal
 
 import httpx
 
-from ..types import dispute_list_params, dispute_update_params, dispute_summary_params
+from ..types import dispute_list_params, dispute_update_params, dispute_summary_params, dispute_upload_evidence_params
+from .._files import deepcopy_with_paths
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
+from .._utils import extract_files, path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -325,6 +326,65 @@ class DisputesResource(SyncAPIResource):
             cast_to=DisputeSummaryResponse,
         )
 
+    def upload_evidence(
+        self,
+        id: str,
+        *,
+        documents: Iterable[dispute_upload_evidence_params.Document],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> Dispute:
+        """
+        Replaces the full set of uploaded evidence documents on a dispute, beyond the
+        four fixed evidence slots. Send the files as multipart file parts to upload and
+        attach in one call, or reference files already stored by
+        `id`/`direct_upload_id`. Send every document the packet should carry — up to 10,
+        10MB each and 25MB in total; an empty list removes them all. Accepted content
+        types: application/pdf, application/json, image/jpeg, image/png, image/webp —
+        any other type is rejected.
+
+        Args:
+          documents: The full set of evidence documents the dispute should carry. Replaces all
+              previously uploaded documents.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        body = deepcopy_with_paths({"documents": documents}, [["documents", "<array>", "file"]])
+        files = extract_files(cast(Mapping[str, object], body), paths=[["documents", "<array>", "file"]])
+        if files:
+            # It should be noted that the actual Content-Type header that will be
+            # sent to the server will contain a `boundary` parameter, e.g.
+            # multipart/form-data; boundary=---abc--
+            extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
+        return self._post(
+            path_template("/disputes/{id}/upload_evidence", id=id),
+            body=maybe_transform(body, dispute_upload_evidence_params.DisputeUploadEvidenceParams),
+            files=files,
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
+            ),
+            cast_to=Dispute,
+        )
+
 
 class AsyncDisputesResource(AsyncAPIResource):
     """
@@ -625,6 +685,65 @@ class AsyncDisputesResource(AsyncAPIResource):
             cast_to=DisputeSummaryResponse,
         )
 
+    async def upload_evidence(
+        self,
+        id: str,
+        *,
+        documents: Iterable[dispute_upload_evidence_params.Document],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> Dispute:
+        """
+        Replaces the full set of uploaded evidence documents on a dispute, beyond the
+        four fixed evidence slots. Send the files as multipart file parts to upload and
+        attach in one call, or reference files already stored by
+        `id`/`direct_upload_id`. Send every document the packet should carry — up to 10,
+        10MB each and 25MB in total; an empty list removes them all. Accepted content
+        types: application/pdf, application/json, image/jpeg, image/png, image/webp —
+        any other type is rejected.
+
+        Args:
+          documents: The full set of evidence documents the dispute should carry. Replaces all
+              previously uploaded documents.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        body = deepcopy_with_paths({"documents": documents}, [["documents", "<array>", "file"]])
+        files = extract_files(cast(Mapping[str, object], body), paths=[["documents", "<array>", "file"]])
+        if files:
+            # It should be noted that the actual Content-Type header that will be
+            # sent to the server will contain a `boundary` parameter, e.g.
+            # multipart/form-data; boundary=---abc--
+            extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
+        return await self._post(
+            path_template("/disputes/{id}/upload_evidence", id=id),
+            body=await async_maybe_transform(body, dispute_upload_evidence_params.DisputeUploadEvidenceParams),
+            files=files,
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
+            ),
+            cast_to=Dispute,
+        )
+
 
 class DisputesResourceWithRawResponse:
     def __init__(self, disputes: DisputesResource) -> None:
@@ -644,6 +763,9 @@ class DisputesResourceWithRawResponse:
         )
         self.summary = to_raw_response_wrapper(
             disputes.summary,
+        )
+        self.upload_evidence = to_raw_response_wrapper(
+            disputes.upload_evidence,
         )
 
 
@@ -666,6 +788,9 @@ class AsyncDisputesResourceWithRawResponse:
         self.summary = async_to_raw_response_wrapper(
             disputes.summary,
         )
+        self.upload_evidence = async_to_raw_response_wrapper(
+            disputes.upload_evidence,
+        )
 
 
 class DisputesResourceWithStreamingResponse:
@@ -687,6 +812,9 @@ class DisputesResourceWithStreamingResponse:
         self.summary = to_streamed_response_wrapper(
             disputes.summary,
         )
+        self.upload_evidence = to_streamed_response_wrapper(
+            disputes.upload_evidence,
+        )
 
 
 class AsyncDisputesResourceWithStreamingResponse:
@@ -707,4 +835,7 @@ class AsyncDisputesResourceWithStreamingResponse:
         )
         self.summary = async_to_streamed_response_wrapper(
             disputes.summary,
+        )
+        self.upload_evidence = async_to_streamed_response_wrapper(
+            disputes.upload_evidence,
         )

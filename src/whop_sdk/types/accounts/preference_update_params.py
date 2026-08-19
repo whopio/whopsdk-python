@@ -47,6 +47,13 @@ class PreferenceUpdateParams(TypedDict, total=False):
     Requires a cards balance on the account.
     """
 
+    dispute_fighter_enabled: bool
+    """
+    Whether Whop assembles and files the evidence response when this account's
+    payments are disputed. Off by default; enabling it also opts the account into
+    the success fee charged only on disputes it wins.
+    """
+
 
 class AdsPaymentMethodsPrimary(TypedDict, total=False):
     type: Required[Literal["platform_balance", "card"]]

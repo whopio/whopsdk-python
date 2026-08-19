@@ -270,6 +270,52 @@ class TestDisputes:
 
         assert cast(Any, response.is_closed) is True
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_upload_evidence(self, client: Whop) -> None:
+        dispute = client.disputes.upload_evidence(
+            id="id",
+            documents=[{"document_type": "product_image"}],
+        )
+        assert_matches_type(Dispute, dispute, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_upload_evidence(self, client: Whop) -> None:
+        response = client.disputes.with_raw_response.upload_evidence(
+            id="id",
+            documents=[{"document_type": "product_image"}],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        dispute = response.parse()
+        assert_matches_type(Dispute, dispute, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_upload_evidence(self, client: Whop) -> None:
+        with client.disputes.with_streaming_response.upload_evidence(
+            id="id",
+            documents=[{"document_type": "product_image"}],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            dispute = response.parse()
+            assert_matches_type(Dispute, dispute, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_upload_evidence(self, client: Whop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.disputes.with_raw_response.upload_evidence(
+                id="",
+                documents=[{"document_type": "product_image"}],
+            )
+
 
 class TestAsyncDisputes:
     parametrize = pytest.mark.parametrize(
@@ -524,3 +570,49 @@ class TestAsyncDisputes:
             assert_matches_type(DisputeSummaryResponse, dispute, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_upload_evidence(self, async_client: AsyncWhop) -> None:
+        dispute = await async_client.disputes.upload_evidence(
+            id="id",
+            documents=[{"document_type": "product_image"}],
+        )
+        assert_matches_type(Dispute, dispute, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_upload_evidence(self, async_client: AsyncWhop) -> None:
+        response = await async_client.disputes.with_raw_response.upload_evidence(
+            id="id",
+            documents=[{"document_type": "product_image"}],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        dispute = await response.parse()
+        assert_matches_type(Dispute, dispute, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_upload_evidence(self, async_client: AsyncWhop) -> None:
+        async with async_client.disputes.with_streaming_response.upload_evidence(
+            id="id",
+            documents=[{"document_type": "product_image"}],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            dispute = await response.parse()
+            assert_matches_type(Dispute, dispute, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_upload_evidence(self, async_client: AsyncWhop) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.disputes.with_raw_response.upload_evidence(
+                id="",
+                documents=[{"document_type": "product_image"}],
+            )

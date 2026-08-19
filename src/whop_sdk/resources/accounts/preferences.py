@@ -91,6 +91,7 @@ class PreferencesResource(SyncAPIResource):
         ads_scheduling_timezone: str | Omit = omit,
         ads_triple_whale_integration: preference_update_params.AdsTripleWhaleIntegration | Omit = omit,
         cards_auto_top_up: bool | Omit = omit,
+        dispute_fighter_enabled: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -129,6 +130,10 @@ class PreferencesResource(SyncAPIResource):
           cards_auto_top_up: Whether incoming funds are automatically moved to the account's cards balance.
               Requires a cards balance on the account.
 
+          dispute_fighter_enabled: Whether Whop assembles and files the evidence response when this account's
+              payments are disputed. Off by default; enabling it also opts the account into
+              the success fee charged only on disputes it wins.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -150,6 +155,7 @@ class PreferencesResource(SyncAPIResource):
                     "ads_scheduling_timezone": ads_scheduling_timezone,
                     "ads_triple_whale_integration": ads_triple_whale_integration,
                     "cards_auto_top_up": cards_auto_top_up,
+                    "dispute_fighter_enabled": dispute_fighter_enabled,
                 },
                 preference_update_params.PreferenceUpdateParams,
             ),
@@ -233,6 +239,7 @@ class AsyncPreferencesResource(AsyncAPIResource):
         ads_scheduling_timezone: str | Omit = omit,
         ads_triple_whale_integration: preference_update_params.AdsTripleWhaleIntegration | Omit = omit,
         cards_auto_top_up: bool | Omit = omit,
+        dispute_fighter_enabled: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -271,6 +278,10 @@ class AsyncPreferencesResource(AsyncAPIResource):
           cards_auto_top_up: Whether incoming funds are automatically moved to the account's cards balance.
               Requires a cards balance on the account.
 
+          dispute_fighter_enabled: Whether Whop assembles and files the evidence response when this account's
+              payments are disputed. Off by default; enabling it also opts the account into
+              the success fee charged only on disputes it wins.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -292,6 +303,7 @@ class AsyncPreferencesResource(AsyncAPIResource):
                     "ads_scheduling_timezone": ads_scheduling_timezone,
                     "ads_triple_whale_integration": ads_triple_whale_integration,
                     "cards_auto_top_up": cards_auto_top_up,
+                    "dispute_fighter_enabled": dispute_fighter_enabled,
                 },
                 preference_update_params.PreferenceUpdateParams,
             ),
