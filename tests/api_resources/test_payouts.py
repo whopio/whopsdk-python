@@ -43,7 +43,7 @@ class TestPayouts:
             api_idempotency_key="payout-supplies-restock-2026",
             notes="Detailing supplies restock",
             platform_covers_fees=True,
-            speed="instant",
+            speed="standard",
             user_id="user_xxxxxxxxxxxxxx",
         )
         assert_matches_type(PayoutCreateResponse, payout, path=["response"])
@@ -197,7 +197,7 @@ class TestAsyncPayouts:
             api_idempotency_key="payout-supplies-restock-2026",
             notes="Detailing supplies restock",
             platform_covers_fees=True,
-            speed="instant",
+            speed="standard",
             user_id="user_xxxxxxxxxxxxxx",
         )
         assert_matches_type(PayoutCreateResponse, payout, path=["response"])
