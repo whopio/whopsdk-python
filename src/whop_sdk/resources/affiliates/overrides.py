@@ -42,8 +42,6 @@ __all__ = ["OverridesResource", "AsyncOverridesResource"]
 
 
 class OverridesResource(SyncAPIResource):
-    """Affiliates"""
-
     @cached_property
     def with_raw_response(self) -> OverridesResourceWithRawResponse:
         """
@@ -80,6 +78,7 @@ class OverridesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> OverrideCreateResponse:
         """
         Creates a commission override for an affiliate.
@@ -106,6 +105,8 @@ class OverridesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         ...
 
@@ -126,6 +127,7 @@ class OverridesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> OverrideCreateResponse:
         """
         Creates a commission override for an affiliate.
@@ -152,6 +154,8 @@ class OverridesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         ...
 
@@ -176,6 +180,7 @@ class OverridesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> OverrideCreateResponse:
         if not path_id:
             raise ValueError(f"Expected a non-empty value for `path_id` but received {path_id!r}")
@@ -195,7 +200,11 @@ class OverridesResource(SyncAPIResource):
                 override_create_params.OverrideCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=OverrideCreateResponse,
         )
@@ -255,6 +264,7 @@ class OverridesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> OverrideUpdateResponse:
         """
         Updates an existing affiliate override.
@@ -279,6 +289,8 @@ class OverridesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -296,7 +308,11 @@ class OverridesResource(SyncAPIResource):
                 override_update_params.OverrideUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=OverrideUpdateResponse,
         )
@@ -305,11 +321,11 @@ class OverridesResource(SyncAPIResource):
         self,
         id: str,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        override_type: Optional[AffiliateOverrideRoles] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        override_type: AffiliateOverrideRoles | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -333,7 +349,7 @@ class OverridesResource(SyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          override_type: The role of an affiliate override (standard or rev_share)
+          override_type: Filter by override type (standard or rev_share).
 
           extra_headers: Send extra headers
 
@@ -378,6 +394,7 @@ class OverridesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> OverrideDeleteResponse:
         """
         Deletes an affiliate override.
@@ -394,6 +411,8 @@ class OverridesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -402,15 +421,17 @@ class OverridesResource(SyncAPIResource):
         return self._delete(
             path_template("/affiliates/{id}/overrides/{override_id}", id=id, override_id=override_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=OverrideDeleteResponse,
         )
 
 
 class AsyncOverridesResource(AsyncAPIResource):
-    """Affiliates"""
-
     @cached_property
     def with_raw_response(self) -> AsyncOverridesResourceWithRawResponse:
         """
@@ -447,6 +468,7 @@ class AsyncOverridesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> OverrideCreateResponse:
         """
         Creates a commission override for an affiliate.
@@ -473,6 +495,8 @@ class AsyncOverridesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         ...
 
@@ -493,6 +517,7 @@ class AsyncOverridesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> OverrideCreateResponse:
         """
         Creates a commission override for an affiliate.
@@ -519,6 +544,8 @@ class AsyncOverridesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         ...
 
@@ -543,6 +570,7 @@ class AsyncOverridesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> OverrideCreateResponse:
         if not path_id:
             raise ValueError(f"Expected a non-empty value for `path_id` but received {path_id!r}")
@@ -562,7 +590,11 @@ class AsyncOverridesResource(AsyncAPIResource):
                 override_create_params.OverrideCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=OverrideCreateResponse,
         )
@@ -622,6 +654,7 @@ class AsyncOverridesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> OverrideUpdateResponse:
         """
         Updates an existing affiliate override.
@@ -646,6 +679,8 @@ class AsyncOverridesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -663,7 +698,11 @@ class AsyncOverridesResource(AsyncAPIResource):
                 override_update_params.OverrideUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=OverrideUpdateResponse,
         )
@@ -672,11 +711,11 @@ class AsyncOverridesResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        override_type: Optional[AffiliateOverrideRoles] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        override_type: AffiliateOverrideRoles | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -700,7 +739,7 @@ class AsyncOverridesResource(AsyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          override_type: The role of an affiliate override (standard or rev_share)
+          override_type: Filter by override type (standard or rev_share).
 
           extra_headers: Send extra headers
 
@@ -745,6 +784,7 @@ class AsyncOverridesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> OverrideDeleteResponse:
         """
         Deletes an affiliate override.
@@ -761,6 +801,8 @@ class AsyncOverridesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -769,7 +811,11 @@ class AsyncOverridesResource(AsyncAPIResource):
         return await self._delete(
             path_template("/affiliates/{id}/overrides/{override_id}", id=id, override_id=override_id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=OverrideDeleteResponse,
         )
