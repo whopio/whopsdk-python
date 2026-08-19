@@ -13,7 +13,6 @@ from .currency import Currency as Currency
 from .reaction import Reaction as Reaction
 from .shipment import Shipment as Shipment
 from .tax_type import TaxType as TaxType
-from .transfer import Transfer as Transfer
 from .app_build import AppBuild as AppBuild
 from .direction import Direction as Direction
 from .page_info import PageInfo as PageInfo
@@ -39,7 +38,6 @@ from .member_statuses import MemberStatuses as MemberStatuses
 from .shipment_status import ShipmentStatus as ShipmentStatus
 from .support_channel import SupportChannel as SupportChannel
 from .access_pass_type import AccessPassType as AccessPassType
-from .shipment_carrier import ShipmentCarrier as ShipmentCarrier
 from .collection_method import CollectionMethod as CollectionMethod
 from .invoice_list_item import InvoiceListItem as InvoiceListItem
 from .membership_status import MembershipStatus as MembershipStatus

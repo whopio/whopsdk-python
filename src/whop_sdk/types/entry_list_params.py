@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import List, Union
 from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
@@ -18,35 +18,35 @@ class EntryListParams(TypedDict, total=False):
     company_id: Required[str]
     """The unique identifier of the company to list waitlist entries for."""
 
-    after: Optional[str]
+    after: str
     """Returns the elements in the list that come after the specified cursor."""
 
-    before: Optional[str]
+    before: str
     """Returns the elements in the list that come before the specified cursor."""
 
-    created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    created_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Only return entries created after this timestamp."""
 
-    created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    created_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Only return entries created before this timestamp."""
 
-    direction: Optional[Direction]
-    """The direction of the sort."""
+    direction: Direction
+    """The sort direction for results. Defaults to descending."""
 
-    first: Optional[int]
+    first: int
     """Returns the first _n_ elements from the list."""
 
-    last: Optional[int]
+    last: int
     """Returns the last _n_ elements from the list."""
 
-    order: Optional[Literal["id", "created_at"]]
-    """Which columns can be used to sort."""
+    order: Literal["id", "created_at"]
+    """The column to sort waitlist entries by. Defaults to creation date."""
 
-    plan_ids: Optional[SequenceNotStr[str]]
+    plan_ids: SequenceNotStr[str]
     """Filter entries to only those for specific plans."""
 
-    product_ids: Optional[SequenceNotStr[str]]
+    product_ids: SequenceNotStr[str]
     """Filter entries to only those for specific products."""
 
-    statuses: Optional[List[EntryStatus]]
+    statuses: List[EntryStatus]
     """Filter entries by their current status."""
