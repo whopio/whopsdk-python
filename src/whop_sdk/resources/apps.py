@@ -606,7 +606,8 @@ class AppsResource(SyncAPIResource):
         it.
 
         Requires a user session: the `developer:update_app_authorization` scope
-        cannot be delegated to API keys.
+        cannot be delegated to API keys. Sensitive permissions require step-up
+        verification.
 
         Args:
           requested_permissions: The full set of permissions the app requests on install; permissions not listed
@@ -1210,7 +1211,8 @@ class AsyncAppsResource(AsyncAPIResource):
         it.
 
         Requires a user session: the `developer:update_app_authorization` scope
-        cannot be delegated to API keys.
+        cannot be delegated to API keys. Sensitive permissions require step-up
+        verification.
 
         Args:
           requested_permissions: The full set of permissions the app requests on install; permissions not listed
