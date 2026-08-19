@@ -39,7 +39,7 @@ class User(BaseModel):
 
 class AuthorizedUserListResponse(BaseModel):
     """
-    A user who has been granted administrative access to manage a company's dashboard and settings.
+    A user who belongs to a company's team with access determined by their assigned role.
     """
 
     id: str
