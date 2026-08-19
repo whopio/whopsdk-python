@@ -316,6 +316,11 @@ class App(BaseModel):
     which never expose it.
     """
 
+    businesses_created_count: int
+    """Website businesses created from this app as a template."""
+
+    businesses_created_logo_urls: List[str]
+
     creator: Creator
     """The user who owns the publishing account."""
 

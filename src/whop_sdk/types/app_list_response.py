@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import Literal
 
 from .._models import BaseModel
@@ -71,6 +71,11 @@ class AppListResponse(BaseModel):
     `developer:basic:read` permission on the app's account, or on list responses,
     which never expose it.
     """
+
+    businesses_created_count: int
+    """Number of businesses created from this app as a template."""
+
+    businesses_created_logo_urls: List[str]
 
     creator: Creator
     """The user who owns the publishing account."""

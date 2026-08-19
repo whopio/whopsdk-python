@@ -35,10 +35,14 @@ class AppListParams(TypedDict, total=False):
     last: int
     """The number of apps to return from the end of the range."""
 
-    order: Literal["created_at", "discoverable_at", "total_installs_last_30_days", "total_installs_last_7_days"]
+    order: Literal[
+        "created_at", "discoverable_at", "template_usage", "total_installs_last_30_days", "total_installs_last_7_days"
+    ]
     """The field to sort apps by.
 
     Defaults to discoverable_at, showing the most recently published apps first.
+    `template_usage` ranks Whop-verified apps first, then apps with a banner image,
+    then by how many apps were created from each app as a template.
     """
 
     query: str

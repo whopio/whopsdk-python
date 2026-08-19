@@ -329,7 +329,13 @@ class AppsResource(SyncAPIResource):
         direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
-        order: Literal["created_at", "discoverable_at", "total_installs_last_30_days", "total_installs_last_7_days"]
+        order: Literal[
+            "created_at",
+            "discoverable_at",
+            "template_usage",
+            "total_installs_last_30_days",
+            "total_installs_last_7_days",
+        ]
         | Omit = omit,
         query: str | Omit = omit,
         verified_apps_only: bool | Omit = omit,
@@ -344,8 +350,9 @@ class AppsResource(SyncAPIResource):
         """
         Lists apps on the Whop platform: the app store's live apps, or — with
         `account_id` and developer access to that account — every app the account owns.
-        Requires authentication, except when `verified_apps_only=true`, which is
-        publicly readable.
+        Requires authentication, except for the publicly readable lists:
+        `verified_apps_only=true`, and `app_type=website` with no `account_id`, which
+        returns every deployed website that is not hidden.
 
         Args:
           account_id: Only return apps created by this account (`biz_` tag). With developer access to
@@ -365,7 +372,9 @@ class AppsResource(SyncAPIResource):
           last: The number of apps to return from the end of the range.
 
           order: The field to sort apps by. Defaults to discoverable_at, showing the most
-              recently published apps first.
+              recently published apps first. `template_usage` ranks Whop-verified apps first,
+              then apps with a banner image, then by how many apps were created from each app
+              as a template.
 
           query: A search string matched against app names.
 
@@ -924,7 +933,13 @@ class AsyncAppsResource(AsyncAPIResource):
         direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
-        order: Literal["created_at", "discoverable_at", "total_installs_last_30_days", "total_installs_last_7_days"]
+        order: Literal[
+            "created_at",
+            "discoverable_at",
+            "template_usage",
+            "total_installs_last_30_days",
+            "total_installs_last_7_days",
+        ]
         | Omit = omit,
         query: str | Omit = omit,
         verified_apps_only: bool | Omit = omit,
@@ -939,8 +954,9 @@ class AsyncAppsResource(AsyncAPIResource):
         """
         Lists apps on the Whop platform: the app store's live apps, or — with
         `account_id` and developer access to that account — every app the account owns.
-        Requires authentication, except when `verified_apps_only=true`, which is
-        publicly readable.
+        Requires authentication, except for the publicly readable lists:
+        `verified_apps_only=true`, and `app_type=website` with no `account_id`, which
+        returns every deployed website that is not hidden.
 
         Args:
           account_id: Only return apps created by this account (`biz_` tag). With developer access to
@@ -960,7 +976,9 @@ class AsyncAppsResource(AsyncAPIResource):
           last: The number of apps to return from the end of the range.
 
           order: The field to sort apps by. Defaults to discoverable_at, showing the most
-              recently published apps first.
+              recently published apps first. `template_usage` ranks Whop-verified apps first,
+              then apps with a banner image, then by how many apps were created from each app
+              as a template.
 
           query: A search string matched against app names.
 
