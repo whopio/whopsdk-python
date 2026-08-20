@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Dict, Optional
 from typing_extensions import Literal
 
 import httpx
@@ -96,6 +96,7 @@ class PayoutsResource(SyncAPIResource):
         acknowledge_bank_warning: bool | Omit = omit,
         currency: str | Omit = omit,
         api_idempotency_key: Optional[str] | Omit = omit,
+        metadata: Dict[str, str] | Omit = omit,
         notes: Optional[str] | Omit = omit,
         platform_covers_fees: bool | Omit = omit,
         speed: Literal["standard", "instant"] | Omit = omit,
@@ -131,9 +132,20 @@ class PayoutsResource(SyncAPIResource):
               in — for example `cad` for an account funded by CAD transfers. Defaults to
               `usd`.
 
-          api_idempotency_key: A unique key that makes retries safe. Retrying with the same key returns the
-              original payout instead of paying out twice. Also accepted as the
-              `Idempotency-Key` header.
+          api_idempotency_key: A unique key that makes retries safe, at most 255 bytes. It claims one durable
+              slot for this account before anything runs, so concurrent duplicates can never
+              pay twice: retrying with the same key and body returns the original response, a
+              retry while the first request is still running gets a 409, and reusing the key
+              with a different body gets a 400. The claim is account-wide: reusing the key
+              through a different API key or session of the same account gets a 409 — retry
+              through the credential that created the payout. Prefer sending it as the
+              `Idempotency-Key` header — the header is the canonical form and this field
+              defers to it; if both are sent they must match.
+
+          metadata: Key-value data to attach to the payout, echoed on every read and in webhook
+              payloads. At most 50 keys, key names up to 40 characters, string values up to
+              500 characters. Never store secrets or regulated personal data here — webhook
+              bodies are retained for delivery inspection.
 
           notes: Free-form notes to attach to the payout, with a maximum of 255 characters. Omit
               or pass `null` for no notes.
@@ -170,6 +182,7 @@ class PayoutsResource(SyncAPIResource):
                     "acknowledge_bank_warning": acknowledge_bank_warning,
                     "currency": currency,
                     "api_idempotency_key": api_idempotency_key,
+                    "metadata": metadata,
                     "notes": notes,
                     "platform_covers_fees": platform_covers_fees,
                     "speed": speed,
@@ -362,6 +375,7 @@ class AsyncPayoutsResource(AsyncAPIResource):
         acknowledge_bank_warning: bool | Omit = omit,
         currency: str | Omit = omit,
         api_idempotency_key: Optional[str] | Omit = omit,
+        metadata: Dict[str, str] | Omit = omit,
         notes: Optional[str] | Omit = omit,
         platform_covers_fees: bool | Omit = omit,
         speed: Literal["standard", "instant"] | Omit = omit,
@@ -397,9 +411,20 @@ class AsyncPayoutsResource(AsyncAPIResource):
               in — for example `cad` for an account funded by CAD transfers. Defaults to
               `usd`.
 
-          api_idempotency_key: A unique key that makes retries safe. Retrying with the same key returns the
-              original payout instead of paying out twice. Also accepted as the
-              `Idempotency-Key` header.
+          api_idempotency_key: A unique key that makes retries safe, at most 255 bytes. It claims one durable
+              slot for this account before anything runs, so concurrent duplicates can never
+              pay twice: retrying with the same key and body returns the original response, a
+              retry while the first request is still running gets a 409, and reusing the key
+              with a different body gets a 400. The claim is account-wide: reusing the key
+              through a different API key or session of the same account gets a 409 — retry
+              through the credential that created the payout. Prefer sending it as the
+              `Idempotency-Key` header — the header is the canonical form and this field
+              defers to it; if both are sent they must match.
+
+          metadata: Key-value data to attach to the payout, echoed on every read and in webhook
+              payloads. At most 50 keys, key names up to 40 characters, string values up to
+              500 characters. Never store secrets or regulated personal data here — webhook
+              bodies are retained for delivery inspection.
 
           notes: Free-form notes to attach to the payout, with a maximum of 255 characters. Omit
               or pass `null` for no notes.
@@ -436,6 +461,7 @@ class AsyncPayoutsResource(AsyncAPIResource):
                     "acknowledge_bank_warning": acknowledge_bank_warning,
                     "currency": currency,
                     "api_idempotency_key": api_idempotency_key,
+                    "metadata": metadata,
                     "notes": notes,
                     "platform_covers_fees": platform_covers_fees,
                     "speed": speed,

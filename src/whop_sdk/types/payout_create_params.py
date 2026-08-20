@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Dict, Optional
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
@@ -41,10 +41,24 @@ class PayoutCreateParams(TypedDict, total=False):
     """
 
     api_idempotency_key: Annotated[Optional[str], PropertyInfo(alias="idempotency_key")]
-    """A unique key that makes retries safe.
+    """A unique key that makes retries safe, at most 255 bytes.
 
-    Retrying with the same key returns the original payout instead of paying out
-    twice. Also accepted as the `Idempotency-Key` header.
+    It claims one durable slot for this account before anything runs, so concurrent
+    duplicates can never pay twice: retrying with the same key and body returns the
+    original response, a retry while the first request is still running gets a 409,
+    and reusing the key with a different body gets a 400. The claim is account-wide:
+    reusing the key through a different API key or session of the same account gets
+    a 409 — retry through the credential that created the payout. Prefer sending it
+    as the `Idempotency-Key` header — the header is the canonical form and this
+    field defers to it; if both are sent they must match.
+    """
+
+    metadata: Dict[str, str]
+    """
+    Key-value data to attach to the payout, echoed on every read and in webhook
+    payloads. At most 50 keys, key names up to 40 characters, string values up to
+    500 characters. Never store secrets or regulated personal data here — webhook
+    bodies are retained for delivery inspection.
     """
 
     notes: Optional[str]
