@@ -85,6 +85,7 @@ class APIKeysResource(SyncAPIResource):
             "2026-08-10",
             "2026-08-12",
             "2026-08-13",
+            "2026-08-14",
         ]
         | Omit = omit,
         expires_at: Optional[str] | Omit = omit,
@@ -221,6 +222,7 @@ class APIKeysResource(SyncAPIResource):
             "2026-08-10",
             "2026-08-12",
             "2026-08-13",
+            "2026-08-14",
         ]
         | Omit = omit,
         expires_at: Optional[str] | Omit = omit,
@@ -538,6 +540,7 @@ class AsyncAPIKeysResource(AsyncAPIResource):
             "2026-08-10",
             "2026-08-12",
             "2026-08-13",
+            "2026-08-14",
         ]
         | Omit = omit,
         expires_at: Optional[str] | Omit = omit,
@@ -674,6 +677,7 @@ class AsyncAPIKeysResource(AsyncAPIResource):
             "2026-08-10",
             "2026-08-12",
             "2026-08-13",
+            "2026-08-14",
         ]
         | Omit = omit,
         expires_at: Optional[str] | Omit = omit,

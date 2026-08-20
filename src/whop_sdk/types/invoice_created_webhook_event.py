@@ -33,7 +33,7 @@ class InvoiceCreatedWebhookEvent(BaseModel):
     type: Literal["invoice.created"]
     """The webhook event type"""
 
-    company_id: Optional[str] = None
+    account_id: Optional[str] = None
     """The account ID that this webhook event is associated with"""
 
     previous_attributes: Optional[object] = None

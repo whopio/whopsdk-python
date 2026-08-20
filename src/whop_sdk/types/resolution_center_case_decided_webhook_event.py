@@ -157,7 +157,7 @@ class ResolutionCenterCaseDecidedWebhookEvent(BaseModel):
     type: Literal["resolution_center_case.decided"]
     """The webhook event type"""
 
-    company_id: Optional[str] = None
+    account_id: Optional[str] = None
     """The account ID that this webhook event is associated with"""
 
     previous_attributes: Optional[object] = None
