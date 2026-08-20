@@ -181,7 +181,8 @@ class DisputesResource(SyncAPIResource):
 
           status: Only disputes in these statuses. Repeat the parameter to pass several — one
               paginated list covers all of them. Covers both chargebacks and inquiries at each
-              stage.
+              stage. A `needs_response` dispute whose evidence deadline has passed reports and
+              filters as `under_review` instead.
 
           extra_headers: Send extra headers
 
@@ -294,7 +295,9 @@ class DisputesResource(SyncAPIResource):
           groups: Which breakdowns to return, keyed by these names under `groups`. Repeat the
               parameter to ask for several; omit it for all of them.
 
-          status: Only disputes in these statuses. Repeat the parameter to pass several.
+          status: Only disputes in these statuses. Repeat the parameter to pass several. A
+              `needs_response` dispute whose evidence deadline has passed reports and filters
+              as `under_review` instead.
 
           extra_headers: Send extra headers
 
@@ -540,7 +543,8 @@ class AsyncDisputesResource(AsyncAPIResource):
 
           status: Only disputes in these statuses. Repeat the parameter to pass several — one
               paginated list covers all of them. Covers both chargebacks and inquiries at each
-              stage.
+              stage. A `needs_response` dispute whose evidence deadline has passed reports and
+              filters as `under_review` instead.
 
           extra_headers: Send extra headers
 
@@ -653,7 +657,9 @@ class AsyncDisputesResource(AsyncAPIResource):
           groups: Which breakdowns to return, keyed by these names under `groups`. Repeat the
               parameter to ask for several; omit it for all of them.
 
-          status: Only disputes in these statuses. Repeat the parameter to pass several.
+          status: Only disputes in these statuses. Repeat the parameter to pass several. A
+              `needs_response` dispute whose evidence deadline has passed reports and filters
+              as `under_review` instead.
 
           extra_headers: Send extra headers
 

@@ -31,4 +31,8 @@ class DisputeSummaryParams(TypedDict, total=False):
     """
 
     status: List[Literal["needs_response", "under_review", "won", "lost", "closed"]]
-    """Only disputes in these statuses. Repeat the parameter to pass several."""
+    """Only disputes in these statuses.
+
+    Repeat the parameter to pass several. A `needs_response` dispute whose evidence
+    deadline has passed reports and filters as `under_review` instead.
+    """
