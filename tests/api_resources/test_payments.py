@@ -11,7 +11,9 @@ from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
 from whop_sdk.types import (
     PaymentListResponse,
+    PaymentCreateResponse,
     PaymentListFeesResponse,
+    PaymentRetrieveResponse,
 )
 from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
@@ -31,7 +33,7 @@ class TestPayments:
             confirmation_token="confirmation_token",
             plan={"currency": "usd"},
         )
-        assert_matches_type(Payment, payment, path=["response"])
+        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -75,7 +77,7 @@ class TestPayments:
             promo_code_id="promo_xxxxxxxxxxxx",
             return_url="https://example.com/path",
         )
-        assert_matches_type(Payment, payment, path=["response"])
+        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -89,7 +91,7 @@ class TestPayments:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         payment = response.parse()
-        assert_matches_type(Payment, payment, path=["response"])
+        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -103,7 +105,7 @@ class TestPayments:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             payment = response.parse()
-            assert_matches_type(Payment, payment, path=["response"])
+            assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -115,7 +117,7 @@ class TestPayments:
             member_id="mber_xxxxxxxxxxxxx",
             plan={"currency": "usd"},
         )
-        assert_matches_type(Payment, payment, path=["response"])
+        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -159,7 +161,7 @@ class TestPayments:
             promo_code_id="promo_xxxxxxxxxxxx",
             return_url="https://example.com/path",
         )
-        assert_matches_type(Payment, payment, path=["response"])
+        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -173,7 +175,7 @@ class TestPayments:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         payment = response.parse()
-        assert_matches_type(Payment, payment, path=["response"])
+        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -187,7 +189,7 @@ class TestPayments:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             payment = response.parse()
-            assert_matches_type(Payment, payment, path=["response"])
+            assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -199,7 +201,7 @@ class TestPayments:
             confirmation_token="confirmation_token",
             plan_id="plan_xxxxxxxxxxxxx",
         )
-        assert_matches_type(Payment, payment, path=["response"])
+        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -214,7 +216,7 @@ class TestPayments:
             promo_code_id="promo_xxxxxxxxxxxx",
             return_url="https://example.com/path",
         )
-        assert_matches_type(Payment, payment, path=["response"])
+        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -228,7 +230,7 @@ class TestPayments:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         payment = response.parse()
-        assert_matches_type(Payment, payment, path=["response"])
+        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -242,7 +244,7 @@ class TestPayments:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             payment = response.parse()
-            assert_matches_type(Payment, payment, path=["response"])
+            assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -254,7 +256,7 @@ class TestPayments:
             member_id="mber_xxxxxxxxxxxxx",
             plan_id="plan_xxxxxxxxxxxxx",
         )
-        assert_matches_type(Payment, payment, path=["response"])
+        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -269,7 +271,7 @@ class TestPayments:
             promo_code_id="promo_xxxxxxxxxxxx",
             return_url="https://example.com/path",
         )
-        assert_matches_type(Payment, payment, path=["response"])
+        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -283,7 +285,7 @@ class TestPayments:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         payment = response.parse()
-        assert_matches_type(Payment, payment, path=["response"])
+        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -297,7 +299,7 @@ class TestPayments:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             payment = response.parse()
-            assert_matches_type(Payment, payment, path=["response"])
+            assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -307,7 +309,7 @@ class TestPayments:
         payment = client.payments.retrieve(
             "pay_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(Payment, payment, path=["response"])
+        assert_matches_type(PaymentRetrieveResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -319,7 +321,7 @@ class TestPayments:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         payment = response.parse()
-        assert_matches_type(Payment, payment, path=["response"])
+        assert_matches_type(PaymentRetrieveResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -331,7 +333,7 @@ class TestPayments:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             payment = response.parse()
-            assert_matches_type(Payment, payment, path=["response"])
+            assert_matches_type(PaymentRetrieveResponse, payment, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -601,7 +603,7 @@ class TestAsyncPayments:
             confirmation_token="confirmation_token",
             plan={"currency": "usd"},
         )
-        assert_matches_type(Payment, payment, path=["response"])
+        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -645,7 +647,7 @@ class TestAsyncPayments:
             promo_code_id="promo_xxxxxxxxxxxx",
             return_url="https://example.com/path",
         )
-        assert_matches_type(Payment, payment, path=["response"])
+        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -659,7 +661,7 @@ class TestAsyncPayments:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         payment = await response.parse()
-        assert_matches_type(Payment, payment, path=["response"])
+        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -673,7 +675,7 @@ class TestAsyncPayments:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             payment = await response.parse()
-            assert_matches_type(Payment, payment, path=["response"])
+            assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -685,7 +687,7 @@ class TestAsyncPayments:
             member_id="mber_xxxxxxxxxxxxx",
             plan={"currency": "usd"},
         )
-        assert_matches_type(Payment, payment, path=["response"])
+        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -729,7 +731,7 @@ class TestAsyncPayments:
             promo_code_id="promo_xxxxxxxxxxxx",
             return_url="https://example.com/path",
         )
-        assert_matches_type(Payment, payment, path=["response"])
+        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -743,7 +745,7 @@ class TestAsyncPayments:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         payment = await response.parse()
-        assert_matches_type(Payment, payment, path=["response"])
+        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -757,7 +759,7 @@ class TestAsyncPayments:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             payment = await response.parse()
-            assert_matches_type(Payment, payment, path=["response"])
+            assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -769,7 +771,7 @@ class TestAsyncPayments:
             confirmation_token="confirmation_token",
             plan_id="plan_xxxxxxxxxxxxx",
         )
-        assert_matches_type(Payment, payment, path=["response"])
+        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -784,7 +786,7 @@ class TestAsyncPayments:
             promo_code_id="promo_xxxxxxxxxxxx",
             return_url="https://example.com/path",
         )
-        assert_matches_type(Payment, payment, path=["response"])
+        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -798,7 +800,7 @@ class TestAsyncPayments:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         payment = await response.parse()
-        assert_matches_type(Payment, payment, path=["response"])
+        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -812,7 +814,7 @@ class TestAsyncPayments:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             payment = await response.parse()
-            assert_matches_type(Payment, payment, path=["response"])
+            assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -824,7 +826,7 @@ class TestAsyncPayments:
             member_id="mber_xxxxxxxxxxxxx",
             plan_id="plan_xxxxxxxxxxxxx",
         )
-        assert_matches_type(Payment, payment, path=["response"])
+        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -839,7 +841,7 @@ class TestAsyncPayments:
             promo_code_id="promo_xxxxxxxxxxxx",
             return_url="https://example.com/path",
         )
-        assert_matches_type(Payment, payment, path=["response"])
+        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -853,7 +855,7 @@ class TestAsyncPayments:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         payment = await response.parse()
-        assert_matches_type(Payment, payment, path=["response"])
+        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -867,7 +869,7 @@ class TestAsyncPayments:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             payment = await response.parse()
-            assert_matches_type(Payment, payment, path=["response"])
+            assert_matches_type(PaymentCreateResponse, payment, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -877,7 +879,7 @@ class TestAsyncPayments:
         payment = await async_client.payments.retrieve(
             "pay_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(Payment, payment, path=["response"])
+        assert_matches_type(PaymentRetrieveResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -889,7 +891,7 @@ class TestAsyncPayments:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         payment = await response.parse()
-        assert_matches_type(Payment, payment, path=["response"])
+        assert_matches_type(PaymentRetrieveResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -901,7 +903,7 @@ class TestAsyncPayments:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             payment = await response.parse()
-            assert_matches_type(Payment, payment, path=["response"])
+            assert_matches_type(PaymentRetrieveResponse, payment, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

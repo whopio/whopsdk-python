@@ -203,6 +203,7 @@ from .dm_member_update_params import DmMemberUpdateParams as DmMemberUpdateParam
 from .invoice_delete_response import InvoiceDeleteResponse as InvoiceDeleteResponse
 from .membership_pause_params import MembershipPauseParams as MembershipPauseParams
 from .message_delete_response import MessageDeleteResponse as MessageDeleteResponse
+from .payment_create_response import PaymentCreateResponse as PaymentCreateResponse
 from .product_delete_response import ProductDeleteResponse as ProductDeleteResponse
 from .refund_reference_status import RefundReferenceStatus as RefundReferenceStatus
 from .verification_error_code import VerificationErrorCode as VerificationErrorCode
@@ -244,6 +245,7 @@ from .company_token_transaction import CompanyTokenTransaction as CompanyTokenTr
 from .course_lesson_list_params import CourseLessonListParams as CourseLessonListParams
 from .dispute_alert_list_params import DisputeAlertListParams as DisputeAlertListParams
 from .dm_member_delete_response import DmMemberDeleteResponse as DmMemberDeleteResponse
+from .payment_retrieve_response import PaymentRetrieveResponse as PaymentRetrieveResponse
 from .payout_method_list_params import PayoutMethodListParams as PayoutMethodListParams
 from .access_token_create_params import AccessTokenCreateParams as AccessTokenCreateParams
 from .account_link_create_params import AccountLinkCreateParams as AccountLinkCreateParams

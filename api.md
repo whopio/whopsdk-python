@@ -381,6 +381,8 @@ from whop_sdk.types import (
     CardBrands,
     PaymentMethodTypes,
     ReceiptTaxBehavior,
+    PaymentCreateResponse,
+    PaymentRetrieveResponse,
     PaymentListResponse,
     PaymentListFeesResponse,
 )
@@ -388,8 +390,8 @@ from whop_sdk.types import (
 
 Methods:
 
-- <code title="post /payments">client.payments.<a href="./src/whop_sdk/resources/payments.py">create</a>(\*\*<a href="src/whop_sdk/types/payment_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/payment.py">Payment</a></code>
-- <code title="get /payments/{id}">client.payments.<a href="./src/whop_sdk/resources/payments.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/payment.py">Payment</a></code>
+- <code title="post /payments">client.payments.<a href="./src/whop_sdk/resources/payments.py">create</a>(\*\*<a href="src/whop_sdk/types/payment_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/payment_create_response.py">PaymentCreateResponse</a></code>
+- <code title="get /payments/{id}">client.payments.<a href="./src/whop_sdk/resources/payments.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/payment_retrieve_response.py">PaymentRetrieveResponse</a></code>
 - <code title="get /payments">client.payments.<a href="./src/whop_sdk/resources/payments.py">list</a>(\*\*<a href="src/whop_sdk/types/payment_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/payment_list_response.py">SyncCursorPage[PaymentListResponse]</a></code>
 - <code title="get /payments/{id}/fees">client.payments.<a href="./src/whop_sdk/resources/payments.py">list_fees</a>(id, \*\*<a href="src/whop_sdk/types/payment_list_fees_params.py">params</a>) -> <a href="./src/whop_sdk/types/payment_list_fees_response.py">SyncCursorPage[PaymentListFeesResponse]</a></code>
 - <code title="post /payments/{id}/refund">client.payments.<a href="./src/whop_sdk/resources/payments.py">refund</a>(id, \*\*<a href="src/whop_sdk/types/payment_refund_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/payment.py">Payment</a></code>

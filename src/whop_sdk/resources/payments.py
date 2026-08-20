@@ -27,6 +27,8 @@ from ..types.shared.currency import Currency
 from ..types.shared.direction import Direction
 from ..types.payment_list_response import PaymentListResponse
 from ..types.shared.receipt_status import ReceiptStatus
+from ..types.payment_create_response import PaymentCreateResponse
+from ..types.payment_retrieve_response import PaymentRetrieveResponse
 from ..types.payment_list_fees_response import PaymentListFeesResponse
 from ..types.shared.friendly_receipt_status import FriendlyReceiptStatus
 
@@ -73,7 +75,7 @@ class PaymentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Payment:
+    ) -> PaymentCreateResponse:
         """
         Charge an existing member off-session using one of their stored payment methods.
         You can provide an existing plan, or create a new one in-line. This endpoint
@@ -156,7 +158,7 @@ class PaymentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Payment:
+    ) -> PaymentCreateResponse:
         """
         Charge an existing member off-session using one of their stored payment methods.
         You can provide an existing plan, or create a new one in-line. This endpoint
@@ -235,7 +237,7 @@ class PaymentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Payment:
+    ) -> PaymentCreateResponse:
         """
         Charge an existing member off-session using one of their stored payment methods.
         You can provide an existing plan, or create a new one in-line. This endpoint
@@ -318,7 +320,7 @@ class PaymentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Payment:
+    ) -> PaymentCreateResponse:
         """
         Charge an existing member off-session using one of their stored payment methods.
         You can provide an existing plan, or create a new one in-line. This endpoint
@@ -406,7 +408,7 @@ class PaymentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Payment:
+    ) -> PaymentCreateResponse:
         return self._post(
             "/payments",
             body=maybe_transform(
@@ -427,7 +429,7 @@ class PaymentsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Payment,
+            cast_to=PaymentCreateResponse,
         )
 
     def retrieve(
@@ -440,7 +442,7 @@ class PaymentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Payment:
+    ) -> PaymentRetrieveResponse:
         """
         Retrieves the details of an existing payment.
 
@@ -473,7 +475,7 @@ class PaymentsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Payment,
+            cast_to=PaymentRetrieveResponse,
         )
 
     def list(
@@ -863,7 +865,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Payment:
+    ) -> PaymentCreateResponse:
         """
         Charge an existing member off-session using one of their stored payment methods.
         You can provide an existing plan, or create a new one in-line. This endpoint
@@ -946,7 +948,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Payment:
+    ) -> PaymentCreateResponse:
         """
         Charge an existing member off-session using one of their stored payment methods.
         You can provide an existing plan, or create a new one in-line. This endpoint
@@ -1025,7 +1027,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Payment:
+    ) -> PaymentCreateResponse:
         """
         Charge an existing member off-session using one of their stored payment methods.
         You can provide an existing plan, or create a new one in-line. This endpoint
@@ -1108,7 +1110,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Payment:
+    ) -> PaymentCreateResponse:
         """
         Charge an existing member off-session using one of their stored payment methods.
         You can provide an existing plan, or create a new one in-line. This endpoint
@@ -1196,7 +1198,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Payment:
+    ) -> PaymentCreateResponse:
         return await self._post(
             "/payments",
             body=await async_maybe_transform(
@@ -1217,7 +1219,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Payment,
+            cast_to=PaymentCreateResponse,
         )
 
     async def retrieve(
@@ -1230,7 +1232,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Payment:
+    ) -> PaymentRetrieveResponse:
         """
         Retrieves the details of an existing payment.
 
@@ -1263,7 +1265,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Payment,
+            cast_to=PaymentRetrieveResponse,
         )
 
     def list(
