@@ -10,7 +10,7 @@ from .refund_status import RefundStatus
 from .billing_reasons import BillingReasons
 from .shared.currency import Currency
 from .payment_provider import PaymentProvider
-from .payment_method_types import PaymentMethodTypes
+from .payment_method_type import PaymentMethodType
 from .receipt_tax_behavior import ReceiptTaxBehavior
 from .refund_reference_type import RefundReferenceType
 from .refund_reference_status import RefundReferenceStatus
@@ -57,7 +57,10 @@ class DataPaymentPlan(BaseModel):
     metadata: Optional[Dict[str, object]] = None
     """Custom key-value pairs stored on the plan.
 
-    Included in webhook payloads for payment and membership events.
+    Included in webhook payloads for payment and membership events. Max 50 keys, 100
+    chars per key, 500 chars per string value. The reserved keys `custom_cta` and
+    `custom_cta_url`, when set, override the product's checkout call to action for
+    this plan.
     """
 
 
@@ -68,9 +71,10 @@ class DataPaymentProduct(BaseModel):
     """The unique identifier for the product."""
 
     metadata: Optional[Dict[str, object]] = None
-    """Custom key-value pairs stored on the product.
-
-    Included in webhook payloads for payment and membership events.
+    """
+    Custom key-value pairs stored on the product and included in payment and
+    membership webhook payloads. Max 50 keys, 100 characters per key, 500 characters
+    per string value.
     """
 
 
@@ -142,7 +146,7 @@ class DataPayment(BaseModel):
     Null if the payment has not yet succeeded. As a Unix timestamp.
     """
 
-    payment_method_type: Optional[PaymentMethodTypes] = None
+    payment_method_type: Optional[PaymentMethodType] = None
     """The different types of payment methods that can be used."""
 
     plan: Optional[DataPaymentPlan] = None
@@ -237,6 +241,9 @@ class RefundUpdatedWebhookEvent(BaseModel):
     api_version: Literal["v1"]
     """The API version for this webhook"""
 
+    api_version_date: Optional[str] = None
+    """The dated API version (Api-Version-Date) the payload is serialized to"""
+
     data: Data
     """
     A refund represents a full or partial reversal of a payment, including the
@@ -250,4 +257,10 @@ class RefundUpdatedWebhookEvent(BaseModel):
     """The webhook event type"""
 
     company_id: Optional[str] = None
-    """The company ID that this webhook event is associated with"""
+    """The account ID that this webhook event is associated with"""
+
+    previous_attributes: Optional[object] = None
+    """
+    For some `.updated` events, the old values of the payload fields that changed,
+    keyed by field name. Omitted when no capture is available for the event
+    """
