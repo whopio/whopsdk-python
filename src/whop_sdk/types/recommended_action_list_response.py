@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
+from typing_extensions import Literal
 
 from .._models import BaseModel
 
@@ -25,14 +26,26 @@ class DataAction(BaseModel):
     description: str
     """Supporting copy, or empty"""
 
+    error: Optional[str] = None
+    """Why the step failed, or `null`"""
+
     input: Optional[object] = None
-    """The filled-in request body for the step's endpoint, or `null` for seeded chains"""
+    """
+    The filled-in request body for the step's endpoint, or `null` when it was not
+    recorded
+    """
+
+    output: Optional[object] = None
+    """The API response the step produced, or `null` until it succeeds"""
 
     position: int
     """Zero-based order of this step within the chain"""
 
     reasoning: Optional[object] = None
     """Why the generator filled the step this way, or `null` for seeded chains"""
+
+    status: Optional[Literal["pending", "redirected", "running", "succeeded", "failed"]] = None
+    """Where the run step currently stands, or `null` when the chain has not been run"""
 
     title: str
     """Headline for the step"""
