@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import List
 from typing_extensions import Literal
 
 import httpx
@@ -60,6 +61,7 @@ class EarningsResource(SyncAPIResource):
         created_before: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
+        income_source: List[Literal["sales", "ad_spend", "transfer", "card_interchange"]] | Omit = omit,
         last: int | Omit = omit,
         order: Literal["created_at", "commission_amount", "transaction_amount", "payout_at"] | Omit = omit,
         status: Literal["awaiting_settlement", "pending", "completed", "canceled", "reversed"] | Omit = omit,
@@ -80,6 +82,9 @@ class EarningsResource(SyncAPIResource):
           created_before: Only return earnings created before this timestamp.
 
           direction: Sort direction.
+
+          income_source: Filter to earnings from these income sources. Repeat the parameter for each one
+              (income_source=sales&income_source=ad_spend).
 
           order: The field to sort earnings by.
 
@@ -111,6 +116,7 @@ class EarningsResource(SyncAPIResource):
                         "created_before": created_before,
                         "direction": direction,
                         "first": first,
+                        "income_source": income_source,
                         "last": last,
                         "order": order,
                         "status": status,
@@ -158,6 +164,7 @@ class AsyncEarningsResource(AsyncAPIResource):
         created_before: str | Omit = omit,
         direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
+        income_source: List[Literal["sales", "ad_spend", "transfer", "card_interchange"]] | Omit = omit,
         last: int | Omit = omit,
         order: Literal["created_at", "commission_amount", "transaction_amount", "payout_at"] | Omit = omit,
         status: Literal["awaiting_settlement", "pending", "completed", "canceled", "reversed"] | Omit = omit,
@@ -178,6 +185,9 @@ class AsyncEarningsResource(AsyncAPIResource):
           created_before: Only return earnings created before this timestamp.
 
           direction: Sort direction.
+
+          income_source: Filter to earnings from these income sources. Repeat the parameter for each one
+              (income_source=sales&income_source=ad_spend).
 
           order: The field to sort earnings by.
 
@@ -209,6 +219,7 @@ class AsyncEarningsResource(AsyncAPIResource):
                         "created_before": created_before,
                         "direction": direction,
                         "first": first,
+                        "income_source": income_source,
                         "last": last,
                         "order": order,
                         "status": status,
