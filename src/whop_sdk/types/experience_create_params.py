@@ -24,6 +24,12 @@ class ExperienceCreateParams(TypedDict, total=False):
     name: Optional[str]
     """The display name of the experience. Defaults to the app's name if not provided."""
 
+    notifications_enabled: Optional[bool]
+    """Whether Whop app notifications are enabled for this experience.
+
+    Webhooks still fire.
+    """
+
     section_id: Optional[str]
     """The unique identifier of the section to place the experience in."""
 
