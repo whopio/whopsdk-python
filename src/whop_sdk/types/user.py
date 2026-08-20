@@ -32,7 +32,7 @@ class BalanceHistoryData(BaseModel):
 
 class BalanceHistory(BaseModel):
     """
-    The user's cumulative wallet balance over time (USD `{ t, v }` points plus last/min/max), for the balance chart. Opt in with `include_balance_history=true` on `GET /users/me`; populated only for callers with balance-read scope and `null` otherwise. A user with no wallet activity returns an empty series.
+    The user's cumulative wallet balance over time (USD `{ t, v }` points plus last/min/max), for the balance chart. Opt in with `include_balance_history=true` when retrieving yourself with the reserved id `me`; populated only for callers with balance-read scope and `null` otherwise. A user with no wallet activity returns an empty series.
     """
 
     data: List[BalanceHistoryData]
@@ -141,7 +141,7 @@ class ProfilePicture(BaseModel):
 class Staff(BaseModel):
     """Whop staff access flags.
 
-    Populated only on `GET /users/me` self-view for callers with staff-read scope; `null` there for every user who is not Whop staff, and always `null` elsewhere.
+    Populated only on the self view (retrieved with the reserved id `me`) for callers with staff-read scope; `null` there for every user who is not Whop staff, and always `null` elsewhere.
     """
 
     admin: bool
@@ -167,16 +167,18 @@ class User(BaseModel):
     balance: Optional[UserBalance] = None
     """
     The user's balance: personal cash + crypto + in-flight treasury deposits, plus
-    account balances for accounts they own. Computed only on `GET /users/me`
-    self-view for callers with balance-read scope; `null` otherwise.
+    account balances for accounts they own. Computed only on the self view
+    (retrieved with the reserved id `me`) for callers with balance-read scope;
+    `null` otherwise.
     """
 
     balance_history: Optional[BalanceHistory] = None
     """
     The user's cumulative wallet balance over time (USD `{ t, v }` points plus
     last/min/max), for the balance chart. Opt in with `include_balance_history=true`
-    on `GET /users/me`; populated only for callers with balance-read scope and
-    `null` otherwise. A user with no wallet activity returns an empty series.
+    when retrieving yourself with the reserved id `me`; populated only for callers
+    with balance-read scope and `null` otherwise. A user with no wallet activity
+    returns an empty series.
     """
 
     banner: Optional[Banner] = None
@@ -198,8 +200,9 @@ class User(BaseModel):
     email: Optional[str] = None
     """The user's email address.
 
-    Populated only on `GET /users/me` self-view for callers with email-read scope;
-    `null` otherwise, or while the account has no confirmed email yet.
+    Populated only on the self view (retrieved with the reserved id `me`) for
+    callers with email-read scope; `null` otherwise, or while the account has no
+    confirmed email yet.
     """
 
     name: Optional[str] = None
@@ -216,8 +219,9 @@ class User(BaseModel):
     staff: Optional[Staff] = None
     """Whop staff access flags.
 
-    Populated only on `GET /users/me` self-view for callers with staff-read scope;
-    `null` there for every user who is not Whop staff, and always `null` elsewhere.
+    Populated only on the self view (retrieved with the reserved id `me`) for
+    callers with staff-read scope; `null` there for every user who is not Whop
+    staff, and always `null` elsewhere.
     """
 
     username: str

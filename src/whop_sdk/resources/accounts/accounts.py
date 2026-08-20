@@ -175,7 +175,9 @@ class AccountsResource(SyncAPIResource):
     ) -> Account:
         """
         Retrieves a single account by ID or public route when it is visible to the
-        credential, including its crypto wallet.
+        credential, including its crypto wallet. The reserved id `me` retrieves the
+        account associated with the current Account API key; user tokens have no single
+        account, so they must address one by ID or route.
 
         Args:
           extra_headers: Send extra headers
@@ -2437,7 +2439,9 @@ class AccountsResource(SyncAPIResource):
         """Updates an account.
 
         User tokens can update business accounts; Account API keys
-        can update connected accounts.
+        can update connected accounts. The reserved id `me` — accepted on Retrieve
+        Account — resolves to the requesting account, which an Account API key cannot
+        edit, so updates must name the connected account by its `biz_` id.
 
         Args:
           affiliate_application_required: Whether prospective affiliates must submit an application before promoting this
@@ -3100,7 +3104,9 @@ class AsyncAccountsResource(AsyncAPIResource):
     ) -> Account:
         """
         Retrieves a single account by ID or public route when it is visible to the
-        credential, including its crypto wallet.
+        credential, including its crypto wallet. The reserved id `me` retrieves the
+        account associated with the current Account API key; user tokens have no single
+        account, so they must address one by ID or route.
 
         Args:
           extra_headers: Send extra headers
@@ -5362,7 +5368,9 @@ class AsyncAccountsResource(AsyncAPIResource):
         """Updates an account.
 
         User tokens can update business accounts; Account API keys
-        can update connected accounts.
+        can update connected accounts. The reserved id `me` — accepted on Retrieve
+        Account — resolves to the requesting account, which an Account API key cannot
+        edit, so updates must name the connected account by its `biz_` id.
 
         Args:
           affiliate_application_required: Whether prospective affiliates must submit an application before promoting this

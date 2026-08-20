@@ -36,6 +36,11 @@ class TestUsers:
         user = client.users.retrieve(
             id="id",
             account_id="account_id",
+            from_="from",
+            include_balance_history=True,
+            interval="hour",
+            time_zone="time_zone",
+            to="to",
         )
         assert_matches_type(User, user, path=["response"])
 
@@ -377,6 +382,11 @@ class TestAsyncUsers:
         user = await async_client.users.retrieve(
             id="id",
             account_id="account_id",
+            from_="from",
+            include_balance_history=True,
+            interval="hour",
+            time_zone="time_zone",
+            to="to",
         )
         assert_matches_type(User, user, path=["response"])
 
