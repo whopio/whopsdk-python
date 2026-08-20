@@ -179,6 +179,7 @@ PermissionAction: TypeAlias = Literal[
     "referral:basic:read",
     "referral:partner:create",
     "partner:basic:read",
+    "partner:invite:create",
     "partner:create",
     "stats:read",
     "support_chat:read",
