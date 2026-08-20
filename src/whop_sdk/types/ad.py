@@ -468,6 +468,7 @@ class Ad(BaseModel):
         "paused",
         "processing",
         "issues",
+        "scheduled",
         "learning_limited",
         "learning",
         "active",
