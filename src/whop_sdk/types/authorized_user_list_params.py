@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Union
 from datetime import datetime
 from typing_extensions import Annotated, TypedDict
 
@@ -13,31 +13,31 @@ __all__ = ["AuthorizedUserListParams"]
 
 
 class AuthorizedUserListParams(TypedDict, total=False):
-    after: Optional[str]
+    after: str
     """Returns the elements in the list that come after the specified cursor."""
 
-    before: Optional[str]
+    before: str
     """Returns the elements in the list that come before the specified cursor."""
 
-    company_id: Optional[str]
+    company_id: str
     """The unique identifier of the company to list authorized users for."""
 
-    created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    created_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Only return authorized users created after this timestamp."""
 
-    created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    created_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Only return authorized users created before this timestamp."""
 
-    first: Optional[int]
+    first: int
     """Returns the first _n_ elements from the list."""
 
-    last: Optional[int]
+    last: int
     """Returns the last _n_ elements from the list."""
 
-    role: Optional[AuthorizedUserRoles]
-    """Possible roles an authorized user can have"""
+    role: AuthorizedUserRoles
+    """Filter authorized users by their assigned role within the company."""
 
-    user_id: Optional[str]
+    user_id: str
     """
     Filter results to a specific user to check if they are an authorized team
     member.
