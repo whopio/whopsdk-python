@@ -14,11 +14,24 @@ class LatestProofLivestreamFeed(BaseModel):
     id: str
     """Livestream feed ID."""
 
+    ended_at: Optional[str] = None
+    """When the proof livestream ended, as an ISO 8601 timestamp.
+
+    `null` while it is still live — a feed with a `started_at` and no `ended_at` is
+    streaming right now.
+    """
+
     recording_status: Optional[Literal["recording", "processing", "completed", "failed"]] = None
     """Recording lifecycle state."""
 
     recording_url: Optional[str] = None
     """Playback URL for a completed proof recording, when available."""
+
+    started_at: Optional[str] = None
+    """When the proof livestream went live, as an ISO 8601 timestamp.
+
+    `null` before it starts.
+    """
 
     thumbnail_url: Optional[str] = None
     """Current proof thumbnail URL, when available."""
