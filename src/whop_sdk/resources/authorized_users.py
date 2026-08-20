@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Union, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 import httpx
 
@@ -29,8 +30,6 @@ __all__ = ["AuthorizedUsersResource", "AsyncAuthorizedUsersResource"]
 
 
 class AuthorizedUsersResource(SyncAPIResource):
-    """Authorized users"""
-
     @cached_property
     def with_raw_response(self) -> AuthorizedUsersResourceWithRawResponse:
         """
@@ -54,8 +53,9 @@ class AuthorizedUsersResource(SyncAPIResource):
         self,
         *,
         company_id: str,
-        role: AuthorizedUserRoles,
+        role: Literal["owner", "admin", "sales_manager", "moderator", "advertiser"],
         user_id: str,
+        elevation: Optional[authorized_user_create_params.Elevation] | Omit = omit,
         send_emails: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -63,6 +63,7 @@ class AuthorizedUsersResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> AuthorizedUser:
         """
         Add a new authorized user to a company.
@@ -81,6 +82,8 @@ class AuthorizedUsersResource(SyncAPIResource):
 
           user_id: The ID of the user to add as an authorized user.
 
+          elevation: Re-authentication proof required to perform this sensitive action.
+
           send_emails: Whether to send notification emails to the user on creation.
 
           extra_headers: Send extra headers
@@ -90,6 +93,8 @@ class AuthorizedUsersResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return self._post(
             "/authorized_users",
@@ -98,12 +103,17 @@ class AuthorizedUsersResource(SyncAPIResource):
                     "company_id": company_id,
                     "role": role,
                     "user_id": user_id,
+                    "elevation": elevation,
                     "send_emails": send_emails,
                 },
                 authorized_user_create_params.AuthorizedUserCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=AuthorizedUser,
         )
@@ -149,15 +159,15 @@ class AuthorizedUsersResource(SyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        role: Optional[AuthorizedUserRoles] | Omit = omit,
-        user_id: Optional[str] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        company_id: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        role: AuthorizedUserRoles | Omit = omit,
+        user_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -189,7 +199,7 @@ class AuthorizedUsersResource(SyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          role: Possible roles an authorized user can have
+          role: Filter authorized users by their assigned role within the company.
 
           user_id: Filter results to a specific user to check if they are an authorized team
               member.
@@ -232,13 +242,14 @@ class AuthorizedUsersResource(SyncAPIResource):
         self,
         id: str,
         *,
-        company_id: Optional[str] | Omit = omit,
+        company_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> AuthorizedUserDeleteResponse:
         """
         Remove an authorized user from a company.
@@ -258,6 +269,8 @@ class AuthorizedUsersResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -268,6 +281,7 @@ class AuthorizedUsersResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
+                idempotency_key=idempotency_key,
                 query=maybe_transform(
                     {"company_id": company_id}, authorized_user_delete_params.AuthorizedUserDeleteParams
                 ),
@@ -277,8 +291,6 @@ class AuthorizedUsersResource(SyncAPIResource):
 
 
 class AsyncAuthorizedUsersResource(AsyncAPIResource):
-    """Authorized users"""
-
     @cached_property
     def with_raw_response(self) -> AsyncAuthorizedUsersResourceWithRawResponse:
         """
@@ -302,8 +314,9 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
         self,
         *,
         company_id: str,
-        role: AuthorizedUserRoles,
+        role: Literal["owner", "admin", "sales_manager", "moderator", "advertiser"],
         user_id: str,
+        elevation: Optional[authorized_user_create_params.Elevation] | Omit = omit,
         send_emails: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -311,6 +324,7 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> AuthorizedUser:
         """
         Add a new authorized user to a company.
@@ -329,6 +343,8 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
 
           user_id: The ID of the user to add as an authorized user.
 
+          elevation: Re-authentication proof required to perform this sensitive action.
+
           send_emails: Whether to send notification emails to the user on creation.
 
           extra_headers: Send extra headers
@@ -338,6 +354,8 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return await self._post(
             "/authorized_users",
@@ -346,12 +364,17 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
                     "company_id": company_id,
                     "role": role,
                     "user_id": user_id,
+                    "elevation": elevation,
                     "send_emails": send_emails,
                 },
                 authorized_user_create_params.AuthorizedUserCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=AuthorizedUser,
         )
@@ -397,15 +420,15 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        role: Optional[AuthorizedUserRoles] | Omit = omit,
-        user_id: Optional[str] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        company_id: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        role: AuthorizedUserRoles | Omit = omit,
+        user_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -437,7 +460,7 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          role: Possible roles an authorized user can have
+          role: Filter authorized users by their assigned role within the company.
 
           user_id: Filter results to a specific user to check if they are an authorized team
               member.
@@ -480,13 +503,14 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        company_id: Optional[str] | Omit = omit,
+        company_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> AuthorizedUserDeleteResponse:
         """
         Remove an authorized user from a company.
@@ -506,6 +530,8 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -516,6 +542,7 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
+                idempotency_key=idempotency_key,
                 query=await async_maybe_transform(
                     {"company_id": company_id}, authorized_user_delete_params.AuthorizedUserDeleteParams
                 ),
