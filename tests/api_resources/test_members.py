@@ -9,8 +9,7 @@ import pytest
 
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
-from whop_sdk.types import MemberListResponse, MemberRetrieveResponse
-from whop_sdk._utils import parse_datetime
+from whop_sdk.types import Member
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -25,7 +24,7 @@ class TestMembers:
         member = client.members.retrieve(
             "id",
         )
-        assert_matches_type(MemberRetrieveResponse, member, path=["response"])
+        assert_matches_type(Member, member, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -37,7 +36,7 @@ class TestMembers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         member = response.parse()
-        assert_matches_type(MemberRetrieveResponse, member, path=["response"])
+        assert_matches_type(Member, member, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -49,7 +48,7 @@ class TestMembers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             member = response.parse()
-            assert_matches_type(MemberRetrieveResponse, member, path=["response"])
+            assert_matches_type(Member, member, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -65,31 +64,26 @@ class TestMembers:
     @parametrize
     def test_method_list(self, client: Whop) -> None:
         member = client.members.list()
-        assert_matches_type(SyncCursorPage[MemberListResponse], member, path=["response"])
+        assert_matches_type(SyncCursorPage[Member], member, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         member = client.members.list(
             access_level="no_access",
+            account_id="account_id",
             after="after",
             before="before",
-            company_id="biz_xxxxxxxxxxxxxx",
-            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
-            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
+            created_after="created_after",
+            created_before="created_before",
             direction="asc",
-            first=42,
-            last=42,
-            most_recent_actions=["canceling"],
-            order="id",
-            plan_ids=["string"],
-            product_ids=["string"],
-            promo_code_ids=["string"],
+            first=100,
+            last=100,
+            order="created_at",
             query="query",
-            statuses=["drafted"],
-            user_ids=["string"],
+            status="joined",
         )
-        assert_matches_type(SyncCursorPage[MemberListResponse], member, path=["response"])
+        assert_matches_type(SyncCursorPage[Member], member, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -99,7 +93,7 @@ class TestMembers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         member = response.parse()
-        assert_matches_type(SyncCursorPage[MemberListResponse], member, path=["response"])
+        assert_matches_type(SyncCursorPage[Member], member, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -109,7 +103,7 @@ class TestMembers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             member = response.parse()
-            assert_matches_type(SyncCursorPage[MemberListResponse], member, path=["response"])
+            assert_matches_type(SyncCursorPage[Member], member, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -125,7 +119,7 @@ class TestAsyncMembers:
         member = await async_client.members.retrieve(
             "id",
         )
-        assert_matches_type(MemberRetrieveResponse, member, path=["response"])
+        assert_matches_type(Member, member, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -137,7 +131,7 @@ class TestAsyncMembers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         member = await response.parse()
-        assert_matches_type(MemberRetrieveResponse, member, path=["response"])
+        assert_matches_type(Member, member, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -149,7 +143,7 @@ class TestAsyncMembers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             member = await response.parse()
-            assert_matches_type(MemberRetrieveResponse, member, path=["response"])
+            assert_matches_type(Member, member, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -165,31 +159,26 @@ class TestAsyncMembers:
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
         member = await async_client.members.list()
-        assert_matches_type(AsyncCursorPage[MemberListResponse], member, path=["response"])
+        assert_matches_type(AsyncCursorPage[Member], member, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         member = await async_client.members.list(
             access_level="no_access",
+            account_id="account_id",
             after="after",
             before="before",
-            company_id="biz_xxxxxxxxxxxxxx",
-            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
-            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
+            created_after="created_after",
+            created_before="created_before",
             direction="asc",
-            first=42,
-            last=42,
-            most_recent_actions=["canceling"],
-            order="id",
-            plan_ids=["string"],
-            product_ids=["string"],
-            promo_code_ids=["string"],
+            first=100,
+            last=100,
+            order="created_at",
             query="query",
-            statuses=["drafted"],
-            user_ids=["string"],
+            status="joined",
         )
-        assert_matches_type(AsyncCursorPage[MemberListResponse], member, path=["response"])
+        assert_matches_type(AsyncCursorPage[Member], member, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -199,7 +188,7 @@ class TestAsyncMembers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         member = await response.parse()
-        assert_matches_type(AsyncCursorPage[MemberListResponse], member, path=["response"])
+        assert_matches_type(AsyncCursorPage[Member], member, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -209,6 +198,6 @@ class TestAsyncMembers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             member = await response.parse()
-            assert_matches_type(AsyncCursorPage[MemberListResponse], member, path=["response"])
+            assert_matches_type(AsyncCursorPage[Member], member, path=["response"])
 
         assert cast(Any, response.is_closed) is True
