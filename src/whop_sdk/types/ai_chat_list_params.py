@@ -2,24 +2,23 @@
 
 from __future__ import annotations
 
-from typing import Optional
 from typing_extensions import TypedDict
 
 __all__ = ["AIChatListParams"]
 
 
 class AIChatListParams(TypedDict, total=False):
-    after: Optional[str]
+    after: str
     """Returns the elements in the list that come after the specified cursor."""
 
-    before: Optional[str]
+    before: str
     """Returns the elements in the list that come before the specified cursor."""
 
-    first: Optional[int]
+    first: int
     """Returns the first _n_ elements from the list."""
 
-    last: Optional[int]
+    last: int
     """Returns the last _n_ elements from the list."""
 
-    only_active_crons: Optional[bool]
+    only_active_crons: bool
     """When true, returns only chats with an active cron schedule"""
