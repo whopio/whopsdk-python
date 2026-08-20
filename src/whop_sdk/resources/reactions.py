@@ -27,8 +27,6 @@ __all__ = ["ReactionsResource", "AsyncReactionsResource"]
 
 
 class ReactionsResource(SyncAPIResource):
-    """Reactions"""
-
     @cached_property
     def with_raw_response(self) -> ReactionsResourceWithRawResponse:
         """
@@ -60,15 +58,20 @@ class ReactionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Reaction:
         """Add an emoji reaction or poll vote to a message or forum post.
 
         In forums, the
         reaction is always a like.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `chat:read`
+        - `dms:read`
+        - `forum:read`
+        - `livestream:chat:read`
+        - `support_chat:read`
 
         Args:
           resource_id: The unique identifier of the message or forum post to react to.
@@ -86,6 +89,8 @@ class ReactionsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return self._post(
             "/reactions",
@@ -98,7 +103,11 @@ class ReactionsResource(SyncAPIResource):
                 reaction_create_params.ReactionCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Reaction,
         )
@@ -117,9 +126,13 @@ class ReactionsResource(SyncAPIResource):
         """
         Retrieves the details of an existing reaction.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `chat:read`
+        - `dms:read`
+        - `forum:read`
+        - `livestream:chat:read`
+        - `support_chat:read`
 
         Args:
           extra_headers: Send extra headers
@@ -144,10 +157,10 @@ class ReactionsResource(SyncAPIResource):
         self,
         *,
         resource_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -159,9 +172,13 @@ class ReactionsResource(SyncAPIResource):
         Returns a paginated list of emoji reactions on a specific message or forum post,
         sorted by most recent.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `chat:read`
+        - `dms:read`
+        - `forum:read`
+        - `livestream:chat:read`
+        - `support_chat:read`
 
         Args:
           resource_id: The unique identifier of the message or forum post to list reactions for.
@@ -208,22 +225,27 @@ class ReactionsResource(SyncAPIResource):
         self,
         id: str,
         *,
-        emoji: Optional[str] | Omit = omit,
+        emoji: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> ReactionDeleteResponse:
         """Remove an emoji reaction from a message or forum post.
 
         Only the reaction author
         or a channel admin can remove a reaction.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `chat:read`
+        - `dms:read`
+        - `forum:read`
+        - `livestream:chat:read`
+        - `support_chat:read`
 
         Args:
           emoji: The emoji to remove, in shortcode or unicode format. For example, ':heart:' or a
@@ -237,6 +259,8 @@ class ReactionsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -247,6 +271,7 @@ class ReactionsResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
+                idempotency_key=idempotency_key,
                 query=maybe_transform({"emoji": emoji}, reaction_delete_params.ReactionDeleteParams),
             ),
             cast_to=ReactionDeleteResponse,
@@ -254,8 +279,6 @@ class ReactionsResource(SyncAPIResource):
 
 
 class AsyncReactionsResource(AsyncAPIResource):
-    """Reactions"""
-
     @cached_property
     def with_raw_response(self) -> AsyncReactionsResourceWithRawResponse:
         """
@@ -287,15 +310,20 @@ class AsyncReactionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Reaction:
         """Add an emoji reaction or poll vote to a message or forum post.
 
         In forums, the
         reaction is always a like.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `chat:read`
+        - `dms:read`
+        - `forum:read`
+        - `livestream:chat:read`
+        - `support_chat:read`
 
         Args:
           resource_id: The unique identifier of the message or forum post to react to.
@@ -313,6 +341,8 @@ class AsyncReactionsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return await self._post(
             "/reactions",
@@ -325,7 +355,11 @@ class AsyncReactionsResource(AsyncAPIResource):
                 reaction_create_params.ReactionCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Reaction,
         )
@@ -344,9 +378,13 @@ class AsyncReactionsResource(AsyncAPIResource):
         """
         Retrieves the details of an existing reaction.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `chat:read`
+        - `dms:read`
+        - `forum:read`
+        - `livestream:chat:read`
+        - `support_chat:read`
 
         Args:
           extra_headers: Send extra headers
@@ -371,10 +409,10 @@ class AsyncReactionsResource(AsyncAPIResource):
         self,
         *,
         resource_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -386,9 +424,13 @@ class AsyncReactionsResource(AsyncAPIResource):
         Returns a paginated list of emoji reactions on a specific message or forum post,
         sorted by most recent.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `chat:read`
+        - `dms:read`
+        - `forum:read`
+        - `livestream:chat:read`
+        - `support_chat:read`
 
         Args:
           resource_id: The unique identifier of the message or forum post to list reactions for.
@@ -435,22 +477,27 @@ class AsyncReactionsResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        emoji: Optional[str] | Omit = omit,
+        emoji: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> ReactionDeleteResponse:
         """Remove an emoji reaction from a message or forum post.
 
         Only the reaction author
         or a channel admin can remove a reaction.
 
-        Required permissions:
+        Required permissions (one of):
 
         - `chat:read`
+        - `dms:read`
+        - `forum:read`
+        - `livestream:chat:read`
+        - `support_chat:read`
 
         Args:
           emoji: The emoji to remove, in shortcode or unicode format. For example, ':heart:' or a
@@ -464,6 +511,8 @@ class AsyncReactionsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -474,6 +523,7 @@ class AsyncReactionsResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
+                idempotency_key=idempotency_key,
                 query=await async_maybe_transform({"emoji": emoji}, reaction_delete_params.ReactionDeleteParams),
             ),
             cast_to=ReactionDeleteResponse,
