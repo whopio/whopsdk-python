@@ -312,6 +312,7 @@ from .invoice_resend_response import InvoiceResendResponse as InvoiceResendRespo
 from .membership_pause_params import MembershipPauseParams as MembershipPauseParams
 from .message_delete_response import MessageDeleteResponse as MessageDeleteResponse
 from .partner_create_response import PartnerCreateResponse as PartnerCreateResponse
+from .payment_create_response import PaymentCreateResponse as PaymentCreateResponse
 from .product_delete_response import ProductDeleteResponse as ProductDeleteResponse
 from .refund_reference_status import RefundReferenceStatus as RefundReferenceStatus
 from .team_member_list_params import TeamMemberListParams as TeamMemberListParams
@@ -368,6 +369,7 @@ from .company_token_transaction import CompanyTokenTransaction as CompanyTokenTr
 from .course_lesson_list_params import CourseLessonListParams as CourseLessonListParams
 from .dispute_alert_list_params import DisputeAlertListParams as DisputeAlertListParams
 from .dm_member_delete_response import DmMemberDeleteResponse as DmMemberDeleteResponse
+from .payment_retrieve_response import PaymentRetrieveResponse as PaymentRetrieveResponse
 from .plan_calculate_tax_params import PlanCalculateTaxParams as PlanCalculateTaxParams
 from .team_member_create_params import TeamMemberCreateParams as TeamMemberCreateParams
 from .team_member_update_params import TeamMemberUpdateParams as TeamMemberUpdateParams
