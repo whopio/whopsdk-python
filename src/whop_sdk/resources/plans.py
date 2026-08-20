@@ -123,7 +123,10 @@ class PlansResource(SyncAPIResource):
 
           metadata: Custom key-value pairs to store on the plan. Included in webhook payloads for
               payment and membership events. Max 50 keys, 100 chars per key, 500 chars per
-              string value.
+              string value. The reserved keys `custom_cta` (a checkout call-to-action button
+              label — one of the product custom CTA values, e.g. `subscribe`, `get_offer`) and
+              `custom_cta_url` (a URL the button links to; web or `tel:`) override the
+              product's call to action for this plan and are validated on save.
 
           override_tax_type: Override the default tax classification for this specific plan.
 
@@ -311,7 +314,10 @@ class PlansResource(SyncAPIResource):
 
           metadata: Custom key-value pairs to store on the plan. Included in webhook payloads for
               payment and membership events. Max 50 keys, 100 chars per key, 500 chars per
-              string value.
+              string value. The reserved keys `custom_cta` (a checkout call-to-action button
+              label — one of the product custom CTA values, e.g. `subscribe`, `get_offer`) and
+              `custom_cta_url` (a URL the button links to; web or `tel:`) override the
+              product's call to action for this plan and are validated on save.
 
           offer_cancel_discount: Whether to offer a retention discount when a customer attempts to cancel.
 
@@ -686,7 +692,10 @@ class AsyncPlansResource(AsyncAPIResource):
 
           metadata: Custom key-value pairs to store on the plan. Included in webhook payloads for
               payment and membership events. Max 50 keys, 100 chars per key, 500 chars per
-              string value.
+              string value. The reserved keys `custom_cta` (a checkout call-to-action button
+              label — one of the product custom CTA values, e.g. `subscribe`, `get_offer`) and
+              `custom_cta_url` (a URL the button links to; web or `tel:`) override the
+              product's call to action for this plan and are validated on save.
 
           override_tax_type: Override the default tax classification for this specific plan.
 
@@ -874,7 +883,10 @@ class AsyncPlansResource(AsyncAPIResource):
 
           metadata: Custom key-value pairs to store on the plan. Included in webhook payloads for
               payment and membership events. Max 50 keys, 100 chars per key, 500 chars per
-              string value.
+              string value. The reserved keys `custom_cta` (a checkout call-to-action button
+              label — one of the product custom CTA values, e.g. `subscribe`, `get_offer`) and
+              `custom_cta_url` (a URL the button links to; web or `tel:`) override the
+              product's call to action for this plan and are validated on save.
 
           offer_cancel_discount: Whether to offer a retention discount when a customer attempts to cancel.
 

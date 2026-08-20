@@ -257,7 +257,9 @@ class Plan(BaseModel):
     """Custom key-value pairs stored on the plan.
 
     Included in webhook payloads for payment and membership events. Maximum 50 keys,
-    100 characters per key, 500 characters per value.
+    100 characters per key, 500 characters per value. The reserved keys `custom_cta`
+    and `custom_cta_url`, when set, override the product's checkout call to action
+    for this plan.
     """
 
     offer_cancel_discount: Optional[bool] = None

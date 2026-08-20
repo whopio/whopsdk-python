@@ -54,7 +54,11 @@ class PlanCreateParams(TypedDict, total=False):
     """Custom key-value pairs to store on the plan.
 
     Included in webhook payloads for payment and membership events. Max 50 keys, 100
-    chars per key, 500 chars per string value.
+    chars per key, 500 chars per string value. The reserved keys `custom_cta` (a
+    checkout call-to-action button label — one of the product custom CTA values,
+    e.g. `subscribe`, `get_offer`) and `custom_cta_url` (a URL the button links to;
+    web or `tel:`) override the product's call to action for this plan and are
+    validated on save.
     """
 
     override_tax_type: str

@@ -63,6 +63,8 @@ class TestPlans:
             internal_notes="Maintenance tier. Upsell the interior shampoo add-on at renewal.",
             metadata={
                 "bay": "2",
+                "custom_cta": "subscribe",
+                "custom_cta_url": "https://shinetime.example/wash-club",
                 "route": "north-austin",
             },
             override_tax_type="inclusive",
@@ -193,6 +195,8 @@ class TestPlans:
             internal_notes="Maintenance tier. Upsell the interior shampoo add-on at renewal.",
             metadata={
                 "bay": "2",
+                "custom_cta": "subscribe",
+                "custom_cta_url": "https://shinetime.example/wash-club",
                 "route": "north-austin",
             },
             offer_cancel_discount=True,
@@ -456,6 +460,8 @@ class TestAsyncPlans:
             internal_notes="Maintenance tier. Upsell the interior shampoo add-on at renewal.",
             metadata={
                 "bay": "2",
+                "custom_cta": "subscribe",
+                "custom_cta_url": "https://shinetime.example/wash-club",
                 "route": "north-austin",
             },
             override_tax_type="inclusive",
@@ -586,6 +592,8 @@ class TestAsyncPlans:
             internal_notes="Maintenance tier. Upsell the interior shampoo add-on at renewal.",
             metadata={
                 "bay": "2",
+                "custom_cta": "subscribe",
+                "custom_cta_url": "https://shinetime.example/wash-club",
                 "route": "north-austin",
             },
             offer_cancel_discount=True,
