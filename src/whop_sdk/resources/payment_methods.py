@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from typing import Any, Union, Optional, cast
+from typing import Any, List, Union, cast
 from datetime import datetime
+from typing_extensions import Literal
 
 import httpx
 
@@ -20,7 +21,9 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
+from ..types.card_brands import CardBrands
 from ..types.shared.direction import Direction
+from ..types.payment_method_type import PaymentMethodType
 from ..types.payment_method_list_response import PaymentMethodListResponse
 from ..types.payment_method_retrieve_response import PaymentMethodRetrieveResponse
 
@@ -28,8 +31,6 @@ __all__ = ["PaymentMethodsResource", "AsyncPaymentMethodsResource"]
 
 
 class PaymentMethodsResource(SyncAPIResource):
-    """Payment methods"""
-
     @cached_property
     def with_raw_response(self) -> PaymentMethodsResourceWithRawResponse:
         """
@@ -53,8 +54,8 @@ class PaymentMethodsResource(SyncAPIResource):
         self,
         id: str,
         *,
-        company_id: Optional[str] | Omit = omit,
-        member_id: Optional[str] | Omit = omit,
+        company_id: str | Omit = omit,
+        member_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -62,8 +63,10 @@ class PaymentMethodsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PaymentMethodRetrieveResponse:
-        """
-        Retrieves the details of an existing payment method.
+        """Retrieves the details of an existing payment method.
+
+        Addresses a member's wallet
+        when member_id or company_id is given, otherwise your own.
 
         Required permissions:
 
@@ -71,10 +74,10 @@ class PaymentMethodsResource(SyncAPIResource):
 
         Args:
           company_id: The unique identifier of the company. Provide either this or member_id, not
-              both.
+              both. Omit both to address your own saved payment methods.
 
           member_id: The unique identifier of the member. Provide either this or company_id, not
-              both.
+              both. Omit both to address your own saved payment methods.
 
           extra_headers: Send extra headers
 
@@ -112,15 +115,22 @@ class PaymentMethodsResource(SyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        member_id: Optional[str] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        broken: bool | Omit = omit,
+        card_brands: List[CardBrands] | Omit = omit,
+        card_funding_types: List[Literal["credit", "debit", "prepaid"]] | Omit = omit,
+        company_id: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        direction: Direction | Omit = omit,
+        expired: bool | Omit = omit,
+        first: int | Omit = omit,
+        future_usage: Literal["off_session", "on_session"] | Omit = omit,
+        has_payer_document: bool | Omit = omit,
+        last: int | Omit = omit,
+        member_id: str | Omit = omit,
+        payment_method_types: List[PaymentMethodType] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -129,10 +139,10 @@ class PaymentMethodsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[PaymentMethodListResponse]:
         """
-        Returns a paginated list of payment methods for a member or company, with
-        optional filtering by creation date. A payment method is a stored representation
-        of how a customer intends to pay, such as a card, bank account, or digital
-        wallet.
+        Returns a paginated list of payment methods for a member or company, or for the
+        authenticated user when neither is given, with optional filtering by creation
+        date. A payment method is a stored representation of how a customer intends to
+        pay, such as a card, bank account, or digital wallet.
 
         Required permissions:
 
@@ -143,20 +153,45 @@ class PaymentMethodsResource(SyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
+          broken: Filter by whether the stored credential has permanently stopped charging, such
+              as a vault entry its provider closed.
+
+          card_brands: Only return cards on these networks, such as the networks the seller accepts.
+              Payment methods that are not cards are unaffected.
+
+          card_funding_types: Only return cards funded this way. A card whose funding could not be determined
+              is excluded, and payment methods that are not cards are unaffected.
+
           company_id: The unique identifier of the company. Provide either this or member_id, not
-              both.
+              both. Omit both to address your own saved payment methods.
 
           created_after: Only return payment methods created after this timestamp.
 
           created_before: Only return payment methods created before this timestamp.
 
-          direction: The direction of the sort.
+          direction: The sort direction for ordering results, either ascending or descending.
+
+          expired: Filter by expiry. Only a card can expire, so `false` keeps every payment method
+              that is not past its expiration month and `true` returns expired cards alone.
 
           first: Returns the first _n_ elements from the list.
 
+          future_usage: Only return methods that can be charged this way after the buyer leaves. A
+              checkout that renews should pass `off_session`, which drops the buyer's platform
+              balance — a balance settles against the ledger at the time of purchase and
+              cannot be charged later.
+
+          has_payer_document: Filter cards by whether they carry the payer identity document their payment
+              provider requires. Payment methods that are not cards are unaffected.
+
           last: Returns the last _n_ elements from the list.
 
-          member_id: The unique identifier of the member to list payment methods for.
+          member_id: The unique identifier of the member to list payment methods for. Omit this and
+              company_id to list your own saved payment methods.
+
+          payment_method_types: Only return payment methods of these types. Pass the eligible `type` values from
+              the payment method types catalogue so the list holds nothing the purchase cannot
+              take. An empty list returns no payment methods.
 
           extra_headers: Send extra headers
 
@@ -178,13 +213,20 @@ class PaymentMethodsResource(SyncAPIResource):
                     {
                         "after": after,
                         "before": before,
+                        "broken": broken,
+                        "card_brands": card_brands,
+                        "card_funding_types": card_funding_types,
                         "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
+                        "expired": expired,
                         "first": first,
+                        "future_usage": future_usage,
+                        "has_payer_document": has_payer_document,
                         "last": last,
                         "member_id": member_id,
+                        "payment_method_types": payment_method_types,
                     },
                     payment_method_list_params.PaymentMethodListParams,
                 ),
@@ -196,8 +238,6 @@ class PaymentMethodsResource(SyncAPIResource):
 
 
 class AsyncPaymentMethodsResource(AsyncAPIResource):
-    """Payment methods"""
-
     @cached_property
     def with_raw_response(self) -> AsyncPaymentMethodsResourceWithRawResponse:
         """
@@ -221,8 +261,8 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        company_id: Optional[str] | Omit = omit,
-        member_id: Optional[str] | Omit = omit,
+        company_id: str | Omit = omit,
+        member_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -230,8 +270,10 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PaymentMethodRetrieveResponse:
-        """
-        Retrieves the details of an existing payment method.
+        """Retrieves the details of an existing payment method.
+
+        Addresses a member's wallet
+        when member_id or company_id is given, otherwise your own.
 
         Required permissions:
 
@@ -239,10 +281,10 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
 
         Args:
           company_id: The unique identifier of the company. Provide either this or member_id, not
-              both.
+              both. Omit both to address your own saved payment methods.
 
           member_id: The unique identifier of the member. Provide either this or company_id, not
-              both.
+              both. Omit both to address your own saved payment methods.
 
           extra_headers: Send extra headers
 
@@ -280,15 +322,22 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        member_id: Optional[str] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        broken: bool | Omit = omit,
+        card_brands: List[CardBrands] | Omit = omit,
+        card_funding_types: List[Literal["credit", "debit", "prepaid"]] | Omit = omit,
+        company_id: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        direction: Direction | Omit = omit,
+        expired: bool | Omit = omit,
+        first: int | Omit = omit,
+        future_usage: Literal["off_session", "on_session"] | Omit = omit,
+        has_payer_document: bool | Omit = omit,
+        last: int | Omit = omit,
+        member_id: str | Omit = omit,
+        payment_method_types: List[PaymentMethodType] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -297,10 +346,10 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[PaymentMethodListResponse, AsyncCursorPage[PaymentMethodListResponse]]:
         """
-        Returns a paginated list of payment methods for a member or company, with
-        optional filtering by creation date. A payment method is a stored representation
-        of how a customer intends to pay, such as a card, bank account, or digital
-        wallet.
+        Returns a paginated list of payment methods for a member or company, or for the
+        authenticated user when neither is given, with optional filtering by creation
+        date. A payment method is a stored representation of how a customer intends to
+        pay, such as a card, bank account, or digital wallet.
 
         Required permissions:
 
@@ -311,20 +360,45 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
+          broken: Filter by whether the stored credential has permanently stopped charging, such
+              as a vault entry its provider closed.
+
+          card_brands: Only return cards on these networks, such as the networks the seller accepts.
+              Payment methods that are not cards are unaffected.
+
+          card_funding_types: Only return cards funded this way. A card whose funding could not be determined
+              is excluded, and payment methods that are not cards are unaffected.
+
           company_id: The unique identifier of the company. Provide either this or member_id, not
-              both.
+              both. Omit both to address your own saved payment methods.
 
           created_after: Only return payment methods created after this timestamp.
 
           created_before: Only return payment methods created before this timestamp.
 
-          direction: The direction of the sort.
+          direction: The sort direction for ordering results, either ascending or descending.
+
+          expired: Filter by expiry. Only a card can expire, so `false` keeps every payment method
+              that is not past its expiration month and `true` returns expired cards alone.
 
           first: Returns the first _n_ elements from the list.
 
+          future_usage: Only return methods that can be charged this way after the buyer leaves. A
+              checkout that renews should pass `off_session`, which drops the buyer's platform
+              balance — a balance settles against the ledger at the time of purchase and
+              cannot be charged later.
+
+          has_payer_document: Filter cards by whether they carry the payer identity document their payment
+              provider requires. Payment methods that are not cards are unaffected.
+
           last: Returns the last _n_ elements from the list.
 
-          member_id: The unique identifier of the member to list payment methods for.
+          member_id: The unique identifier of the member to list payment methods for. Omit this and
+              company_id to list your own saved payment methods.
+
+          payment_method_types: Only return payment methods of these types. Pass the eligible `type` values from
+              the payment method types catalogue so the list holds nothing the purchase cannot
+              take. An empty list returns no payment methods.
 
           extra_headers: Send extra headers
 
@@ -346,13 +420,20 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
                     {
                         "after": after,
                         "before": before,
+                        "broken": broken,
+                        "card_brands": card_brands,
+                        "card_funding_types": card_funding_types,
                         "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
+                        "expired": expired,
                         "first": first,
+                        "future_usage": future_usage,
+                        "has_payer_document": has_payer_document,
                         "last": last,
                         "member_id": member_id,
+                        "payment_method_types": payment_method_types,
                     },
                     payment_method_list_params.PaymentMethodListParams,
                 ),
