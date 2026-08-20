@@ -1622,6 +1622,7 @@ from whop_sdk.types.bounties import PublicBountySubmission
 
 Methods:
 
+- <code title="get /bounties/{bounty_id}/submissions/{id}">client.bounties.submissions.<a href="./src/whop_sdk/resources/bounties/submissions.py">retrieve</a>(id, \*, bounty_id) -> <a href="./src/whop_sdk/types/bounties/public_bounty_submission.py">PublicBountySubmission</a></code>
 - <code title="get /bounties/{bounty_id}/submissions">client.bounties.submissions.<a href="./src/whop_sdk/resources/bounties/submissions.py">list</a>(bounty_id, \*\*<a href="src/whop_sdk/types/bounties/submission_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/bounties/public_bounty_submission.py">SyncCursorPage[PublicBountySubmission]</a></code>
 
 # BountySubmissions

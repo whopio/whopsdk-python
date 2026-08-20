@@ -51,6 +51,46 @@ class SubmissionsResource(SyncAPIResource):
         """
         return SubmissionsResourceWithStreamingResponse(self)
 
+    def retrieve(
+        self,
+        id: str,
+        *,
+        bounty_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PublicBountySubmission:
+        """
+        Retrieves one of a bounty's publicly visible submissions in the reduced public
+        shape — the read behind a shared proof link, whose submission is usually outside
+        the bounty page's capped preview. Authentication is optional; a bounty that is
+        not publicly visible, and a submission that is not publicly visible work on it,
+        both return `404`.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not bounty_id:
+            raise ValueError(f"Expected a non-empty value for `bounty_id` but received {bounty_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._get(
+            path_template("/bounties/{bounty_id}/submissions/{id}", bounty_id=bounty_id, id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=PublicBountySubmission,
+        )
+
     def list(
         self,
         bounty_id: str,
@@ -159,6 +199,46 @@ class AsyncSubmissionsResource(AsyncAPIResource):
         """
         return AsyncSubmissionsResourceWithStreamingResponse(self)
 
+    async def retrieve(
+        self,
+        id: str,
+        *,
+        bounty_id: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PublicBountySubmission:
+        """
+        Retrieves one of a bounty's publicly visible submissions in the reduced public
+        shape — the read behind a shared proof link, whose submission is usually outside
+        the bounty page's capped preview. Authentication is optional; a bounty that is
+        not publicly visible, and a submission that is not publicly visible work on it,
+        both return `404`.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not bounty_id:
+            raise ValueError(f"Expected a non-empty value for `bounty_id` but received {bounty_id!r}")
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._get(
+            path_template("/bounties/{bounty_id}/submissions/{id}", bounty_id=bounty_id, id=id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=PublicBountySubmission,
+        )
+
     def list(
         self,
         bounty_id: str,
@@ -244,6 +324,9 @@ class SubmissionsResourceWithRawResponse:
     def __init__(self, submissions: SubmissionsResource) -> None:
         self._submissions = submissions
 
+        self.retrieve = to_raw_response_wrapper(
+            submissions.retrieve,
+        )
         self.list = to_raw_response_wrapper(
             submissions.list,
         )
@@ -253,6 +336,9 @@ class AsyncSubmissionsResourceWithRawResponse:
     def __init__(self, submissions: AsyncSubmissionsResource) -> None:
         self._submissions = submissions
 
+        self.retrieve = async_to_raw_response_wrapper(
+            submissions.retrieve,
+        )
         self.list = async_to_raw_response_wrapper(
             submissions.list,
         )
@@ -262,6 +348,9 @@ class SubmissionsResourceWithStreamingResponse:
     def __init__(self, submissions: SubmissionsResource) -> None:
         self._submissions = submissions
 
+        self.retrieve = to_streamed_response_wrapper(
+            submissions.retrieve,
+        )
         self.list = to_streamed_response_wrapper(
             submissions.list,
         )
@@ -271,6 +360,9 @@ class AsyncSubmissionsResourceWithStreamingResponse:
     def __init__(self, submissions: AsyncSubmissionsResource) -> None:
         self._submissions = submissions
 
+        self.retrieve = async_to_streamed_response_wrapper(
+            submissions.retrieve,
+        )
         self.list = async_to_streamed_response_wrapper(
             submissions.list,
         )
