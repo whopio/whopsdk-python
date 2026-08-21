@@ -54,7 +54,7 @@ class DataAction(BaseModel):
 class Data(BaseModel):
     id: str
     """
-    Chain ID — `rac_seed_<preset>_<nonce>` for seeded chains, `rac_chain_*` for
+    Chain ID — `rac_seed_<chain>_<nonce>` for seeded chains, `rac_chain_*` for
     generated ones
     """
 

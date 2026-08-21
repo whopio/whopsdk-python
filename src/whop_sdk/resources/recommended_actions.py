@@ -69,8 +69,9 @@ class RecommendedActionsResource(SyncAPIResource):
     ) -> RecommendedActionRetrieveResponse:
         """
         Retrieves a recommended action chain by id, including chains that have already
-        been run. Seeded chains are reconstructed from their preset; generated chains
-        are read from the account's stored chain, with each step's filled-in input.
+        been run. Seeded chains are reconstructed from their hard-coded chain; generated
+        chains are read from the account's stored chain, with each step's filled-in
+        input.
 
         Args:
           account_id: Account ID, prefixed `biz_`. Defaults to the API key's own account.
@@ -276,8 +277,9 @@ class AsyncRecommendedActionsResource(AsyncAPIResource):
     ) -> RecommendedActionRetrieveResponse:
         """
         Retrieves a recommended action chain by id, including chains that have already
-        been run. Seeded chains are reconstructed from their preset; generated chains
-        are read from the account's stored chain, with each step's filled-in input.
+        been run. Seeded chains are reconstructed from their hard-coded chain; generated
+        chains are read from the account's stored chain, with each step's filled-in
+        input.
 
         Args:
           account_id: Account ID, prefixed `biz_`. Defaults to the API key's own account.
