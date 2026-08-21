@@ -74,7 +74,6 @@ class AccountRecommendedAction(BaseModel):
         "verify_identity",
         "connect_affiliate_program",
         "create_promotion",
-        "setup_tracking_pixel",
         "migrate_from_stripe",
         "accept_first_payment",
         "launch_first_ad",
