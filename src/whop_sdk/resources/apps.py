@@ -352,7 +352,8 @@ class AppsResource(SyncAPIResource):
         `account_id` and developer access to that account — every app the account owns.
         Requires authentication, except for the publicly readable lists:
         `verified_apps_only=true`, and `app_type=website` with no `account_id`, which
-        returns every live deployed website.
+        returns every live deployed website that Whop has not verified — verified
+        templates are the curated `verified_apps_only=true` list instead.
 
         Args:
           account_id: Only return apps created by this account (`biz_` tag). With developer access to
@@ -957,7 +958,8 @@ class AsyncAppsResource(AsyncAPIResource):
         `account_id` and developer access to that account — every app the account owns.
         Requires authentication, except for the publicly readable lists:
         `verified_apps_only=true`, and `app_type=website` with no `account_id`, which
-        returns every live deployed website.
+        returns every live deployed website that Whop has not verified — verified
+        templates are the curated `verified_apps_only=true` list instead.
 
         Args:
           account_id: Only return apps created by this account (`biz_` tag). With developer access to
