@@ -36,7 +36,7 @@ class BreakdownGranularity(BaseModel):
     """Clicks in this bucket."""
 
     granularity: Granularities
-    """The bucket size of this row (`daily` or `hourly`)."""
+    """The bucket size of this row (`hourly`, `daily`, `weekly`, or `monthly`)."""
 
     impressions: int
     """Impressions in this bucket."""
@@ -173,7 +173,7 @@ class Granularity(BaseModel):
     """Clicks in this bucket."""
 
     granularity: Granularities
-    """The bucket size of this row (`daily` or `hourly`)."""
+    """The bucket size of this row (`hourly`, `daily`, `weekly`, or `monthly`)."""
 
     impressions: int
     """Impressions in this bucket."""
