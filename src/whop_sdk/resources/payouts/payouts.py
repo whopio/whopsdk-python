@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
+from typing import Dict, Union, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
@@ -247,9 +248,15 @@ class PayoutsResource(SyncAPIResource):
         account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
         currency: str | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
+        payout_method_id: str | Omit = omit,
+        source: Literal["api", "dashboard", "automatic"] | Omit = omit,
+        status: Literal["requested", "in_review", "processing", "completed", "reversed", "canceled", "failed", "denied"]
+        | Omit = omit,
         user_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -268,11 +275,25 @@ class PayoutsResource(SyncAPIResource):
 
           before: Cursor to fetch the page before (from page_info.start_cursor).
 
+          created_after: Only payouts created at or after this ISO 8601 time (inclusive).
+
+          created_before: Only payouts created before this ISO 8601 time (exclusive).
+
           currency: Optional currency code filter, for example `usd`.
 
           first: Number of payouts to return from the start of the window.
 
           last: Number of payouts to return from the end of the window.
+
+          payout_method_id: Filter to payouts sent to one saved payout method (a pytk\\__ identifier). An
+              unknown id matches nothing.
+
+          source: Filter by how the payout was created. Payouts created before source tracking or
+              through internal tooling carry no source and never match.
+
+          status: Filter to payouts whose `status` reads this word, matching exactly what this
+              version displays — `reversed` finds settled payouts the bank later returned.
+              Requires Api-Version-Date 2026-08-21 or later.
 
           user_id: The owning user ID (a user\\__ identifier). Provide this or account_id.
 
@@ -297,9 +318,14 @@ class PayoutsResource(SyncAPIResource):
                         "account_id": account_id,
                         "after": after,
                         "before": before,
+                        "created_after": created_after,
+                        "created_before": created_before,
                         "currency": currency,
                         "first": first,
                         "last": last,
+                        "payout_method_id": payout_method_id,
+                        "source": source,
+                        "status": status,
                         "user_id": user_id,
                     },
                     payout_list_params.PayoutListParams,
@@ -513,9 +539,15 @@ class AsyncPayoutsResource(AsyncAPIResource):
         account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
         currency: str | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
+        payout_method_id: str | Omit = omit,
+        source: Literal["api", "dashboard", "automatic"] | Omit = omit,
+        status: Literal["requested", "in_review", "processing", "completed", "reversed", "canceled", "failed", "denied"]
+        | Omit = omit,
         user_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -534,11 +566,25 @@ class AsyncPayoutsResource(AsyncAPIResource):
 
           before: Cursor to fetch the page before (from page_info.start_cursor).
 
+          created_after: Only payouts created at or after this ISO 8601 time (inclusive).
+
+          created_before: Only payouts created before this ISO 8601 time (exclusive).
+
           currency: Optional currency code filter, for example `usd`.
 
           first: Number of payouts to return from the start of the window.
 
           last: Number of payouts to return from the end of the window.
+
+          payout_method_id: Filter to payouts sent to one saved payout method (a pytk\\__ identifier). An
+              unknown id matches nothing.
+
+          source: Filter by how the payout was created. Payouts created before source tracking or
+              through internal tooling carry no source and never match.
+
+          status: Filter to payouts whose `status` reads this word, matching exactly what this
+              version displays — `reversed` finds settled payouts the bank later returned.
+              Requires Api-Version-Date 2026-08-21 or later.
 
           user_id: The owning user ID (a user\\__ identifier). Provide this or account_id.
 
@@ -563,9 +609,14 @@ class AsyncPayoutsResource(AsyncAPIResource):
                         "account_id": account_id,
                         "after": after,
                         "before": before,
+                        "created_after": created_after,
+                        "created_before": created_before,
                         "currency": currency,
                         "first": first,
                         "last": last,
+                        "payout_method_id": payout_method_id,
+                        "source": source,
+                        "status": status,
                         "user_id": user_id,
                     },
                     payout_list_params.PayoutListParams,

@@ -14,6 +14,7 @@ from whop_sdk.types import (
     PayoutCreateResponse,
     PayoutRetrieveResponse,
 )
+from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -141,9 +142,14 @@ class TestPayouts:
             account_id="account_id",
             after="after",
             before="before",
+            created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             currency="currency",
             first=100,
             last=100,
+            payout_method_id="payout_method_id",
+            source="api",
+            status="requested",
             user_id="user_id",
         )
         assert_matches_type(SyncCursorPage[PayoutListResponse], payout, path=["response"])
@@ -295,9 +301,14 @@ class TestAsyncPayouts:
             account_id="account_id",
             after="after",
             before="before",
+            created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             currency="currency",
             first=100,
             last=100,
+            payout_method_id="payout_method_id",
+            source="api",
+            status="requested",
             user_id="user_id",
         )
         assert_matches_type(AsyncCursorPage[PayoutListResponse], payout, path=["response"])
