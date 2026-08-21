@@ -120,6 +120,16 @@ class BountyListItem(BaseModel):
     currency: str
     """Currency for all amounts on the bounty, as a lowercase ISO 4217 code."""
 
+    description: str
+    """Full task instructions shown to workers."""
+
+    discussion_experience_id: Optional[str] = None
+    """Experience the bounty's discussion thread lives in, prefixed `exp_`.
+
+    Read this — not `experience_id` — to open the thread: a platform-wide bounty has
+    no hosting experience of its own but its discussion still lives in one.
+    """
+
     discussion_feed_id: Optional[str] = None
     """Forum feed containing the bounty's discussion thread.
 
@@ -129,8 +139,8 @@ class BountyListItem(BaseModel):
     discussion_post_id: Optional[str] = None
     """Forum post anchoring the bounty's discussion thread.
 
-    Read together with `experience_id` to address the thread. `null` for a bounty
-    with no forum post.
+    Read together with `discussion_experience_id` to address the thread. `null` for
+    a bounty with no forum post.
     """
 
     experience_id: Optional[str] = None
