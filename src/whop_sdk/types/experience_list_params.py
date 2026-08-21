@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Union
 from datetime import datetime
 from typing_extensions import Required, Annotated, TypedDict
 
@@ -15,26 +15,26 @@ class ExperienceListParams(TypedDict, total=False):
     company_id: Required[str]
     """The unique identifier of the company to list experiences for."""
 
-    after: Optional[str]
+    after: str
     """Returns the elements in the list that come after the specified cursor."""
 
-    app_id: Optional[str]
+    app_id: str
     """Filter to only experiences powered by this app identifier."""
 
-    before: Optional[str]
+    before: str
     """Returns the elements in the list that come before the specified cursor."""
 
-    created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    created_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Only return experiences created after this timestamp."""
 
-    created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    created_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Only return experiences created before this timestamp."""
 
-    first: Optional[int]
+    first: int
     """Returns the first _n_ elements from the list."""
 
-    last: Optional[int]
+    last: int
     """Returns the last _n_ elements from the list."""
 
-    product_id: Optional[str]
+    product_id: str
     """Filter to only experiences attached to this product identifier."""
