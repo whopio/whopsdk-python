@@ -3,34 +3,39 @@
 from __future__ import annotations
 
 from typing import Dict, Union, Optional
-from typing_extensions import Required, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 __all__ = ["DepositCreateParams", "Destination", "DestinationUnionMember1"]
 
 
 class DepositCreateParams(TypedDict, total=False):
-    amount: Required[float]
-    """Amount to deposit."""
-
     destination: Required[Destination]
     """Destination account ID or wallet address.
 
-    Object form is supported for compatibility.
+    Object form is supported for compatibility. Any business resolves by its account
+    ID without authentication; a user account resolves only for that same
+    authenticated user.
     """
 
-    metadata: Dict[str, object]
-    """Arbitrary metadata echoed in the response."""
+    amount: float
+    """Amount to prefill on hosted deposit page."""
 
-    network: Optional[str]
-    """Optional destination network override."""
+    metadata: Dict[str, object]
+    """Metadata to include with the deposit response."""
+
+    network: Optional[Literal["ethereum", "polygon", "base", "solana"]]
+    """Destination network override. Defaults to the destination wallet's own network."""
 
 
 class DestinationUnionMember1(TypedDict, total=False):
     account_id: str
+    """Destination account ID."""
 
     address: str
+    """Destination wallet address."""
 
-    network: str
+    network: Literal["ethereum", "polygon", "base", "solana"]
+    """Destination wallet network."""
 
 
 Destination: TypeAlias = Union[str, DestinationUnionMember1]
