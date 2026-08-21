@@ -80,6 +80,10 @@ class MethodCreateResponse(BaseModel):
     """Always null on create."""
 
     status: Literal["created", "active", "broken"]
+    """Always `created` on create — no payout has used the method yet."""
+
+    status_reason: Optional[str] = None
+    """Always `null` on create."""
 
     supported_payout_method: Optional[SupportedPayoutMethod] = None
 

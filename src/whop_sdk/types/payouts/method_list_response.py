@@ -225,7 +225,16 @@ class MethodListResponse(BaseModel):
     status: Literal["created", "active", "broken"]
     """
     Lifecycle status: `created` means saved but unused, `active` means a payout
-    succeeded through it, `broken` means the last payout failed.
+    succeeded through it, `broken` means a payout failure disabled it; a later
+    successful payout returns it to `active`.
+    """
+
+    status_reason: Optional[str] = None
+    """
+    Machine-readable code for why the method is `broken` — the newest disabling
+    failure recorded through it, whether a payout error or a pre-payout rejection.
+    `null` unless the method is broken, or when it was disabled without a recorded
+    failure.
     """
 
     supported_payout_method: Optional[SupportedPayoutMethod] = None

@@ -39,8 +39,8 @@ class TestMethods:
             account_id="biz_xxxxxxxxxxxxxx",
             destination_currency="usd",
             fields={
-                "attr_account": "8825310472",
-                "attr_type": "Checking",
+                "fld_bank_account_number": "8825310472",
+                "fld_bank_account_type": "Checking",
             },
             is_default=True,
             nickname="Personal checking",
@@ -229,8 +229,8 @@ class TestAsyncMethods:
             account_id="biz_xxxxxxxxxxxxxx",
             destination_currency="usd",
             fields={
-                "attr_account": "8825310472",
-                "attr_type": "Checking",
+                "fld_bank_account_number": "8825310472",
+                "fld_bank_account_type": "Checking",
             },
             is_default=True,
             nickname="Personal checking",

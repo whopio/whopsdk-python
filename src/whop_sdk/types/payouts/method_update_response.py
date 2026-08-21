@@ -107,6 +107,19 @@ class MethodUpdateResponse(BaseModel):
     """Always `null` after an update."""
 
     status: Literal["created", "active", "broken"]
+    """`created` — saved, no payout has completed through it yet.
+
+    `active` — a payout through it completed. `broken` — a payout through it failed
+    with an error attributable to the method, and it no longer accepts payouts; a
+    later successful payout returns it to `active`.
+    """
+
+    status_reason: Optional[str] = None
+    """
+    Machine-readable code for why the method is `broken` — the newest failure
+    recorded through it, whether a payout error or a pre-payout rejection. `null`
+    unless the method is broken, or when it was disabled without a recorded failure.
+    """
 
     supported_payout_method: Optional[SupportedPayoutMethod] = None
 
