@@ -29,8 +29,6 @@ __all__ = ["CoursesResource", "AsyncCoursesResource"]
 
 
 class CoursesResource(SyncAPIResource):
-    """Courses"""
-
     @cached_property
     def with_raw_response(self) -> CoursesResourceWithRawResponse:
         """
@@ -67,6 +65,7 @@ class CoursesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Course:
         """
         Create a new course within an experience, with optional chapters, lessons, and a
@@ -106,6 +105,8 @@ class CoursesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return self._post(
             "/courses",
@@ -123,7 +124,11 @@ class CoursesResource(SyncAPIResource):
                 course_create_params.CourseCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Course,
         )
@@ -185,6 +190,7 @@ class CoursesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Course:
         """
         Update a course's title, description, visibility, thumbnail, or chapter
@@ -227,6 +233,8 @@ class CoursesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -248,7 +256,11 @@ class CoursesResource(SyncAPIResource):
                 course_update_params.CourseUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Course,
         )
@@ -256,12 +268,12 @@ class CoursesResource(SyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        experience_id: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        company_id: str | Omit = omit,
+        experience_id: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -331,6 +343,7 @@ class CoursesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> CourseDeleteResponse:
         """
         Permanently delete a course and all of its chapters, lessons, and student
@@ -348,21 +361,25 @@ class CoursesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._delete(
             path_template("/courses/{id}", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=CourseDeleteResponse,
         )
 
 
 class AsyncCoursesResource(AsyncAPIResource):
-    """Courses"""
-
     @cached_property
     def with_raw_response(self) -> AsyncCoursesResourceWithRawResponse:
         """
@@ -399,6 +416,7 @@ class AsyncCoursesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Course:
         """
         Create a new course within an experience, with optional chapters, lessons, and a
@@ -438,6 +456,8 @@ class AsyncCoursesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         return await self._post(
             "/courses",
@@ -455,7 +475,11 @@ class AsyncCoursesResource(AsyncAPIResource):
                 course_create_params.CourseCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Course,
         )
@@ -517,6 +541,7 @@ class AsyncCoursesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Course:
         """
         Update a course's title, description, visibility, thumbnail, or chapter
@@ -559,6 +584,8 @@ class AsyncCoursesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -580,7 +607,11 @@ class AsyncCoursesResource(AsyncAPIResource):
                 course_update_params.CourseUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Course,
         )
@@ -588,12 +619,12 @@ class AsyncCoursesResource(AsyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        experience_id: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        company_id: str | Omit = omit,
+        experience_id: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -663,6 +694,7 @@ class AsyncCoursesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> CourseDeleteResponse:
         """
         Permanently delete a course and all of its chapters, lessons, and student
@@ -680,13 +712,19 @@ class AsyncCoursesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._delete(
             path_template("/courses/{id}", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=CourseDeleteResponse,
         )
