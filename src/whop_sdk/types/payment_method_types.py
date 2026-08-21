@@ -6,6 +6,7 @@ __all__ = ["PaymentMethodTypes"]
 
 PaymentMethodTypes: TypeAlias = Literal[
     "acss_debit",
+    "addi",
     "affirm",
     "afterpay_clearpay",
     "alipay",
