@@ -203,7 +203,11 @@ class BountiesResource(SyncAPIResource):
     ) -> Bounty:
         """Retrieves a bounty by ID.
 
-        Bounties outside the caller's scope return `404`.
+        Authentication is optional: a request with no
+        credential reads the bounty when it is publicly visible — published or
+        completed, and not restricted to a private experience's members. Bounties
+        outside the caller's scope, and bounties not publicly visible to an anonymous
+        caller, return `404`.
 
         Args:
           extra_headers: Send extra headers
@@ -659,7 +663,11 @@ class AsyncBountiesResource(AsyncAPIResource):
     ) -> Bounty:
         """Retrieves a bounty by ID.
 
-        Bounties outside the caller's scope return `404`.
+        Authentication is optional: a request with no
+        credential reads the bounty when it is publicly visible — published or
+        completed, and not restricted to a private experience's members. Bounties
+        outside the caller's scope, and bounties not publicly visible to an anonymous
+        caller, return `404`.
 
         Args:
           extra_headers: Send extra headers

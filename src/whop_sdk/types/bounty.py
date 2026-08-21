@@ -11,6 +11,7 @@ __all__ = [
     "CaptureSpecImu",
     "CaptureSpecVideo",
     "FundingAccount",
+    "HostingAccount",
     "Poster",
     "PosterProfilePicture",
 ]
@@ -148,6 +149,21 @@ class FundingAccount(BaseModel):
 
     id: str
     """Account ID, prefixed `biz_`."""
+
+    title: str
+    """Account display name."""
+
+
+class HostingAccount(BaseModel):
+    """
+    Account hosting the bounty's forum — the one whose `route` and `experience_id` address its discussion thread, and where its submissions dashboard lives. `null` for a platform-wide bounty with no host. May differ from `funding_account`.
+    """
+
+    id: str
+    """Account ID, prefixed `biz_`."""
+
+    route: str
+    """Account public route identifier — the `whop.com/{route}` storefront path."""
 
     title: str
     """Account display name."""
@@ -347,6 +363,19 @@ class Bounty(BaseModel):
     description: str
     """Full task instructions shown to workers."""
 
+    discussion_feed_id: Optional[str] = None
+    """Forum feed containing the bounty's discussion thread.
+
+    `null` for a bounty with no forum post.
+    """
+
+    discussion_post_id: Optional[str] = None
+    """Forum post anchoring the bounty's discussion thread.
+
+    Read together with `experience_id` to address the thread. `null` for a bounty
+    with no forum post.
+    """
+
     experience_id: Optional[str] = None
     """Experience the bounty is hosted in, prefixed `exp_`.
 
@@ -371,6 +400,13 @@ class Bounty(BaseModel):
     """
     Gross bounty-pool amount allocated per accepted submission, in whole currency
     units.
+    """
+
+    hosting_account: Optional[HostingAccount] = None
+    """
+    Account hosting the bounty's forum — the one whose `route` and `experience_id`
+    address its discussion thread, and where its submissions dashboard lives. `null`
+    for a platform-wide bounty with no host. May differ from `funding_account`.
     """
 
     net_reward_amount: float
