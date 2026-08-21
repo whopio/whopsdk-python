@@ -70,7 +70,11 @@ class Quote(BaseModel):
 
 class RequiredField(BaseModel):
     id: str
-    """Field ID, used as the field key when creating the payout method."""
+    """
+    Stable field ID (`fld_` + the semantic type), used as the field key when
+    creating the payout method. Safe to hardcode — it never changes for a given
+    field.
+    """
 
     input_type: str
     """How to collect the value: `text`, `options`, or `date`."""

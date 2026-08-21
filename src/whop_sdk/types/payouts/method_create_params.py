@@ -27,11 +27,13 @@ class MethodCreateParams(TypedDict, total=False):
     fields: Dict[str, str]
     """
     The supported payout method's required field values, keyed by field id — list
-    them with `GET /payouts/supported_methods?supported_payout_method_id=...`. A
-    Basis Theory token id may be passed in place of a raw value. For a U.S. bank
-    routing-number field, a raw nine-digit value must also pass the ABA checksum. A
-    validation failure returns the method's full required_fields schema alongside
-    the error. Required whenever the account details are supplied directly.
+    them with `GET /payouts/supported_methods?supported_payout_method_id=...`. Field
+    ids are stable `fld_` identifiers you may hardcode; they never change for a
+    given field. A Basis Theory token id may be passed in place of a raw value. For
+    a U.S. bank routing-number field, a raw nine-digit value must also pass the ABA
+    checksum. A validation failure returns the method's full required_fields schema
+    alongside the error. Required whenever the account details are supplied
+    directly.
     """
 
     is_default: bool
