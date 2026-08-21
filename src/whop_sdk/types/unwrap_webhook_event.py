@@ -45,6 +45,7 @@ from .transfer_completed_webhook_event import TransferCompletedWebhookEvent
 from .withdrawal_created_webhook_event import WithdrawalCreatedWebhookEvent
 from .withdrawal_updated_webhook_event import WithdrawalUpdatedWebhookEvent
 from .product_unpublished_webhook_event import ProductUnpublishedWebhookEvent
+from .withdrawal_reversed_webhook_event import WithdrawalReversedWebhookEvent
 from .chat_message_created_webhook_event import ChatMessageCreatedWebhookEvent
 from .membership_activated_webhook_event import MembershipActivatedWebhookEvent
 from .chat_reaction_created_webhook_event import ChatReactionCreatedWebhookEvent
@@ -150,6 +151,7 @@ UnwrapWebhookEvent: TypeAlias = Annotated[
         TransferFailedWebhookEvent,
         VerificationSucceededWebhookEvent,
         WithdrawalCreatedWebhookEvent,
+        WithdrawalReversedWebhookEvent,
         WithdrawalUpdatedWebhookEvent,
     ],
     PropertyInfo(discriminator="type"),

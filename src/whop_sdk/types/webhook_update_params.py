@@ -50,6 +50,7 @@ class WebhookUpdateParams(TypedDict, total=False):
             "transfer.failed",
             "withdrawal.created",
             "withdrawal.updated",
+            "withdrawal.reversed",
             "card_transaction.created",
             "card_transaction.updated",
             "card_transaction.completed",
