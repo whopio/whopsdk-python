@@ -78,6 +78,12 @@ class MethodUpdateResponse(BaseModel):
 
     is_default: bool
 
+    last_paid_out_at: Optional[datetime] = None
+    """
+    When the most recent completed payout was delivered to this method, as an ISO
+    8601 timestamp. `null` when nothing has been paid out to it yet.
+    """
+
     linked_via_plaid: bool
     """
     Whether the payer added this method by signing in to their bank rather than
