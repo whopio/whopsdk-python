@@ -28,8 +28,6 @@ __all__ = ["ChatChannelsResource", "AsyncChatChannelsResource"]
 
 
 class ChatChannelsResource(SyncAPIResource):
-    """Chat channels"""
-
     @cached_property
     def with_raw_response(self) -> ChatChannelsResourceWithRawResponse:
         """
@@ -102,6 +100,7 @@ class ChatChannelsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> ChatChannel:
         """
         Update moderation settings for a chat channel, such as who can post, banned
@@ -133,6 +132,8 @@ class ChatChannelsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -150,7 +151,11 @@ class ChatChannelsResource(SyncAPIResource):
                 chat_channel_update_params.ChatChannelUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=ChatChannel,
         )
@@ -159,11 +164,11 @@ class ChatChannelsResource(SyncAPIResource):
         self,
         *,
         company_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        product_id: Optional[str] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        product_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -226,8 +231,6 @@ class ChatChannelsResource(SyncAPIResource):
 
 
 class AsyncChatChannelsResource(AsyncAPIResource):
-    """Chat channels"""
-
     @cached_property
     def with_raw_response(self) -> AsyncChatChannelsResourceWithRawResponse:
         """
@@ -300,6 +303,7 @@ class AsyncChatChannelsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> ChatChannel:
         """
         Update moderation settings for a chat channel, such as who can post, banned
@@ -331,6 +335,8 @@ class AsyncChatChannelsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -348,7 +354,11 @@ class AsyncChatChannelsResource(AsyncAPIResource):
                 chat_channel_update_params.ChatChannelUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=ChatChannel,
         )
@@ -357,11 +367,11 @@ class AsyncChatChannelsResource(AsyncAPIResource):
         self,
         *,
         company_id: str,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        product_id: Optional[str] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        product_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
