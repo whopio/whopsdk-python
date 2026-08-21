@@ -8,7 +8,7 @@ from ..._models import BaseModel
 from .invoice_status import InvoiceStatus
 from .collection_method import CollectionMethod
 
-__all__ = ["Invoice", "Company", "CurrentPlan", "LineItem", "MailingAddress", "Product", "User"]
+__all__ = ["Invoice", "Company", "CurrentPlan", "LineItem", "MailingAddress", "Member", "Payment", "Product", "User"]
 
 
 class Company(BaseModel):
@@ -89,6 +89,26 @@ class MailingAddress(BaseModel):
 
     state: Optional[str] = None
     """The state of the address."""
+
+
+class Member(BaseModel):
+    """The member that the invoice was created for.
+
+    Null when the invoice is addressed to an email address with no member record behind it.
+    """
+
+    id: str
+    """The unique identifier for the company member."""
+
+
+class Payment(BaseModel):
+    """The payment that settled this invoice.
+
+    Null while the invoice is unpaid, when the invoice was marked paid manually, and on a subscription renewal invoice, where the settling payment cannot yet be identified.
+    """
+
+    id: str
+    """The unique identifier for the payment."""
 
 
 class Product(BaseModel):
@@ -192,6 +212,13 @@ class Invoice(BaseModel):
     creation time.
     """
 
+    member: Optional[Member] = None
+    """The member that the invoice was created for.
+
+    Null when the invoice is addressed to an email address with no member record
+    behind it.
+    """
+
     number: str
     """The sequential invoice number for display purposes."""
 
@@ -199,6 +226,14 @@ class Invoice(BaseModel):
     """
     The checkout URL where the customer can pay this invoice online, with their
     email address pre-filled and locked.
+    """
+
+    payment: Optional[Payment] = None
+    """The payment that settled this invoice.
+
+    Null while the invoice is unpaid, when the invoice was marked paid manually, and
+    on a subscription renewal invoice, where the settling payment cannot yet be
+    identified.
     """
 
     payment_processing: bool

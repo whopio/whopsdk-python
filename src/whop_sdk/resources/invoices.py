@@ -93,6 +93,8 @@ class InvoicesResource(SyncAPIResource):
 
         - `invoice:create`
         - `member:email:read`
+        - `member:basic:read`
+        - `payment:basic:read`
 
         Args:
           collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
@@ -195,6 +197,8 @@ class InvoicesResource(SyncAPIResource):
 
         - `invoice:create`
         - `member:email:read`
+        - `member:basic:read`
+        - `payment:basic:read`
 
         Args:
           collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
@@ -349,6 +353,8 @@ class InvoicesResource(SyncAPIResource):
 
         - `invoice:basic:read`
         - `member:email:read`
+        - `member:basic:read`
+        - `payment:basic:read`
 
         Args:
           extra_headers: Send extra headers
@@ -402,6 +408,8 @@ class InvoicesResource(SyncAPIResource):
 
         - `invoice:update`
         - `member:email:read`
+        - `member:basic:read`
+        - `payment:basic:read`
 
         Args:
           automatically_finalizes_at: The date and time when the invoice will be automatically finalized. For
@@ -852,6 +860,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
         - `invoice:create`
         - `member:email:read`
+        - `member:basic:read`
+        - `payment:basic:read`
 
         Args:
           collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
@@ -954,6 +964,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
         - `invoice:create`
         - `member:email:read`
+        - `member:basic:read`
+        - `payment:basic:read`
 
         Args:
           collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
@@ -1108,6 +1120,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
         - `invoice:basic:read`
         - `member:email:read`
+        - `member:basic:read`
+        - `payment:basic:read`
 
         Args:
           extra_headers: Send extra headers
@@ -1161,6 +1175,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
         - `invoice:update`
         - `member:email:read`
+        - `member:basic:read`
+        - `payment:basic:read`
 
         Args:
           automatically_finalizes_at: The date and time when the invoice will be automatically finalized. For
