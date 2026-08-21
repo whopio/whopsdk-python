@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import List, Union
 from datetime import datetime
 from typing_extensions import Literal, Annotated, TypedDict
 
@@ -18,68 +18,68 @@ __all__ = ["PaymentListParams"]
 
 
 class PaymentListParams(TypedDict, total=False):
-    after: Optional[str]
+    after: str
     """Returns the elements in the list that come after the specified cursor."""
 
-    before: Optional[str]
+    before: str
     """Returns the elements in the list that come before the specified cursor."""
 
-    billing_reasons: Optional[List[BillingReasons]]
+    billing_reasons: List[BillingReasons]
     """Filter payments by their billing reason."""
 
-    checkout_configuration_ids: Optional[SequenceNotStr[str]]
+    checkout_configuration_ids: SequenceNotStr[str]
     """Only return payments from these checkout configurations."""
 
-    company_id: Optional[str]
+    company_id: str
     """The unique identifier of the company to list payments for."""
 
-    created_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    created_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Only return payments created after this timestamp."""
 
-    created_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    created_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Only return payments created before this timestamp."""
 
-    currencies: Optional[List[Currency]]
+    currencies: List[Currency]
     """Filter payments by their currency code."""
 
-    direction: Optional[Direction]
-    """The direction of the sort."""
+    direction: Direction
+    """The sort direction for ordering results, either ascending or descending."""
 
-    first: Optional[int]
+    first: int
     """Returns the first _n_ elements from the list."""
 
-    include_free: Optional[bool]
+    include_free: bool
     """Whether to include payments with a zero amount."""
 
-    last: Optional[int]
+    last: int
     """Returns the last _n_ elements from the list."""
 
-    order: Optional[Literal["final_amount", "created_at", "paid_at"]]
-    """The order to sort the results by."""
+    order: Literal["final_amount", "created_at", "paid_at"]
+    """The field to order results by, such as creation date."""
 
-    plan_ids: Optional[SequenceNotStr[str]]
+    plan_ids: SequenceNotStr[str]
     """Filter payments to only those associated with these specific plan identifiers."""
 
-    product_ids: Optional[SequenceNotStr[str]]
+    product_ids: SequenceNotStr[str]
     """
     Filter payments to only those associated with these specific product
     identifiers.
     """
 
-    query: Optional[str]
+    query: str
     """Search payments by user ID, membership ID, user email, name, or username.
 
     Email filtering requires the member:email:read permission.
     """
 
-    statuses: Optional[List[ReceiptStatus]]
+    statuses: List[ReceiptStatus]
     """Filter payments by their current status."""
 
-    substatuses: Optional[List[FriendlyReceiptStatus]]
+    substatuses: List[FriendlyReceiptStatus]
     """Filter payments by their current substatus for more granular filtering."""
 
-    updated_after: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    updated_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Only return payments last updated after this timestamp."""
 
-    updated_before: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    updated_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Only return payments last updated before this timestamp."""

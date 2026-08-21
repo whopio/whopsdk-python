@@ -1,240 +1,217 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
-from datetime import datetime
+from typing import List, Optional
 from typing_extensions import Literal
 
 from .._models import BaseModel
-from .shared.currency import Currency
-from .shared.plan_type import PlanType
-from .shared.visibility import Visibility
-from .payment_method_types import PaymentMethodTypes
-from .shared.release_method import ReleaseMethod
 
-__all__ = ["PlanListResponse", "Company", "Invoice", "PaymentMethodConfiguration", "Product"]
+__all__ = ["PlanListResponse", "Account", "CustomField"]
 
 
-class Company(BaseModel):
-    """The company that sells this plan.
-
-    Null for standalone invoice plans not linked to a company.
-    """
+class Account(BaseModel):
+    """Account that sells this plan; `null` for standalone invoice plans."""
 
     id: str
-    """The unique identifier for the company."""
+    """Account ID, prefixed `biz_`."""
 
     title: str
-    """The display name of the company shown to customers."""
+    """Account display name."""
 
 
-class Invoice(BaseModel):
-    """The invoice this plan was generated for.
-
-    Null if the plan was not created for a specific invoice.
-    """
+class CustomField(BaseModel):
+    """Custom input fields collected on the checkout form."""
 
     id: str
-    """The unique identifier for the invoice."""
+    """Custom field ID, prefixed `field_`."""
 
+    field_type: Literal["text"]
+    """Custom field input type."""
 
-class PaymentMethodConfiguration(BaseModel):
-    """
-    The explicit payment method configuration specifying which payment methods are enabled or disabled for this plan. Null if the plan uses default settings.
-    """
+    name: str
+    """Field label shown to customer at checkout."""
 
-    disabled: List[PaymentMethodTypes]
-    """An array of payment method identifiers that are explicitly disabled.
+    order: float
+    """Field position on checkout form."""
 
-    Only applies if the include_platform_defaults is true.
-    """
+    placeholder: Optional[str] = None
+    """Placeholder text shown in the empty field. `null` if none is set."""
 
-    enabled: List[PaymentMethodTypes]
-    """An array of payment method identifiers that are explicitly enabled.
-
-    This means these payment methods will be shown on checkout. Example use case is
-    to only enable a specific payment method like cashapp, or extending the platform
-    defaults with additional methods.
-    """
-
-    include_platform_defaults: bool
-    """
-    Whether Whop's platform default payment method enablement settings are included
-    in this configuration. The full list of default payment methods can be found in
-    the documentation at docs.whop.com/payments.
-    """
-
-
-class Product(BaseModel):
-    """The product that this plan belongs to.
-
-    Null for standalone one-off purchases not linked to a product.
-    """
-
-    id: str
-    """The unique identifier for the product."""
-
-    title: str
-    """
-    The display name of the product shown to customers on the product page and in
-    search results.
-    """
+    required: bool
+    """Whether the customer must complete this field to check out."""
 
 
 class PlanListResponse(BaseModel):
-    """A plan defines pricing and billing terms for a checkout.
-
-    Plans can optionally belong to a product, where they represent different pricing options such as one-time payments, recurring subscriptions, or free trials.
-    """
-
     id: str
-    """The unique identifier for the plan."""
+    """Plan ID, prefixed `plan_`."""
+
+    account: Optional[Account] = None
+    """Account that sells this plan; `null` for standalone invoice plans."""
 
     adaptive_pricing_enabled: bool
-    """Whether the creator has turned on adaptive pricing for this plan.
+    """Whether adaptive pricing is enabled for this plan.
 
     Raw setting — does not check processor compatibility or feature flags.
     """
 
-    billing_period: Optional[int] = None
-    """The number of days between each recurring charge.
-
-    Null for one-time plans. For example, 30 for monthly or 365 for annual billing.
+    billing_period: Optional[float] = None
+    """
+    Number of days between recurring charges, such as 30 for monthly or 365 for
+    annual. `null` for one-time plans.
     """
 
-    company: Optional[Company] = None
-    """The company that sells this plan.
-
-    Null for standalone invoice plans not linked to a company.
+    cancel_discount_intervals: Optional[float] = None
+    """
+    Billing intervals the cancellation discount applies to (`0` forever, `1` first
+    payment, or a month count). `null` when none is offered or the actor lacks the
+    `plan:basic:read` scope.
     """
 
-    created_at: datetime
-    """The datetime the plan was created."""
+    cancel_discount_percentage: Optional[float] = None
+    """Cancellation discount as a whole-number percentage.
 
-    currency: Currency
-    """The currency used for all prices on this plan (e.g., 'usd', 'eur').
-
-    All monetary amounts on the plan are denominated in this currency.
+    `null` when none is offered or the actor lacks the `plan:basic:read` scope.
     """
+
+    checkout_styling: Optional[object] = None
+    """
+    Plan-level checkout styling (`background_color`, `button_color`, `font_family`,
+    `border_style`); `null` inherits the account default.
+    """
+
+    created_at: str
+    """When the plan was created, as an ISO 8601 timestamp."""
+
+    currency: str
+    """Three-letter ISO currency code for this plan's prices."""
+
+    custom_fields: List[CustomField]
 
     description: Optional[str] = None
-    """A text description of the plan visible to customers.
+    """Customer-visible plan description.
 
-    Maximum 1000 characters. Null if no description is set.
+    Maximum 1000 characters. `null` if no description is set.
     """
 
-    expiration_days: Optional[int] = None
-    """The number of days until the membership expires (for expiration-based plans).
+    expiration_days: Optional[float] = None
+    """
+    Access duration in days for expiration-based plans, such as 365 for a one-year
+    pass. `null` for plans without an expiration.
+    """
 
-    For example, 365 for a one-year access pass.
+    formatted_price: str
+    """Human-readable price for display (currency + interval), e.g. "$10 / month"."""
+
+    image: Optional[object] = None
+    """
+    Pricing-tier image (`url`, `blurhash`) shown on the product page; `null` when no
+    image is set.
     """
 
     initial_price: float
-    """The initial purchase price in the plan's base_currency (e.g., 49.99 for $49.99).
-
-    For one-time plans, this is the full price. For renewal plans, this is charged
-    on top of the first renewal_price.
-    """
+    """Initial purchase price in plan currency."""
 
     internal_notes: Optional[str] = None
-    """Private notes visible only to the company owner and team members.
+    """Private notes not shown to customers.
 
-    Not shown to customers. Null if no notes have been added.
+    `null` unless the actor has the `plan:basic:read` scope on the plan's account.
     """
 
-    invoice: Optional[Invoice] = None
-    """The invoice this plan was generated for.
+    invoice: Optional[object] = None
+    """Invoice this plan was generated for; `null` unless created for an invoice."""
 
-    Null if the plan was not created for a specific invoice.
+    member_count: Optional[float] = None
+    """Active memberships through this plan.
+
+    `null` unless the actor has the `plan:basic:read` scope on the plan's account.
     """
 
-    member_count: Optional[int] = None
-    """The number of users who currently hold an active membership through this plan.
-
-    Only visible to authorized team members.
-    """
-
-    metadata: Optional[Dict[str, object]] = None
+    metadata: Optional[object] = None
     """Custom key-value pairs stored on the plan.
 
-    Included in webhook payloads for payment and membership events.
+    Included in webhook payloads for payment and membership events. Maximum 50 keys,
+    100 characters per key, 500 characters per value. The reserved keys `custom_cta`
+    and `custom_cta_url`, when set, override the product's checkout call to action
+    for this plan.
     """
 
-    payment_method_configuration: Optional[PaymentMethodConfiguration] = None
-    """
-    The explicit payment method configuration specifying which payment methods are
-    enabled or disabled for this plan. Null if the plan uses default settings.
+    offer_cancel_discount: Optional[bool] = None
+    """Whether a cancellation discount is offered.
+
+    `null` unless the actor has the `plan:basic:read` scope on the plan's account.
     """
 
-    plan_type: PlanType
+    payment_method_configuration: Optional[object] = None
     """
-    The billing model for this plan: 'renewal' for recurring subscriptions or
-    'one_time' for single payments.
+    Payment method configuration (`enabled`, `disabled`,
+    `include_platform_defaults`); `null` when plan uses default settings.
     """
 
-    product: Optional[Product] = None
-    """The product that this plan belongs to.
+    plan_type: Literal["renewal", "one_time"]
+    """Billing model for this plan."""
 
-    Null for standalone one-off purchases not linked to a product.
-    """
+    product: Optional[object] = None
+    """Product this plan belongs to; `null` for standalone plans."""
 
     purchase_url: str
-    """
-    The full URL where customers can purchase this plan directly, bypassing the
-    product page.
-    """
+    """URL where customers can purchase this plan directly."""
 
-    release_method: ReleaseMethod
-    """
-    The method used to sell this plan: 'buy_now' for immediate purchase or
-    'waitlist' for waitlist-based access.
-    """
+    release_method: Literal["buy_now", "waitlist"]
+    """Sales method for this plan."""
 
     renewal_price: float
-    """
-    The recurring price charged every billing_period in the plan's base_currency
-    (e.g., 9.99 for $9.99/period). Zero for one-time plans.
-    """
+    """Recurring price charged every billing period."""
 
-    split_pay_required_payments: Optional[int] = None
-    """The total number of installment payments required before the subscription
-    pauses.
+    split_pay_required_payments: Optional[float] = None
+    """Installment payments required before the subscription pauses.
 
-    Null if split pay is not configured. Must be greater than 1.
+    Must be greater than 1. `null` if split pay is not configured.
     """
 
-    stock: Optional[int] = None
-    """The number of units available for purchase.
+    stock: Optional[float] = None
+    """Units available for purchase.
 
-    Only visible to authorized team members. Null if the requester lacks permission.
+    `null` unless the actor has the `plan:basic:read` scope on the plan's account.
+    """
+
+    strike_through_initial_price: Optional[float] = None
+    """Original initial price shown with a strikethrough, in the plan's currency.
+
+    `null` when no strikethrough is set.
+    """
+
+    strike_through_renewal_price: Optional[float] = None
+    """Original renewal price shown with a strikethrough, in the plan's currency.
+
+    `null` when no strikethrough is set.
     """
 
     three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] = None
-    """The 3D Secure behavior for a plan."""
+    """3D Secure behavior for this plan; `null` inherits the account default."""
 
     title: Optional[str] = None
-    """
-    The display name of the plan shown to customers on the product page and at
-    checkout. Maximum 30 characters. Null if no title has been set.
+    """Plan display name shown to customers.
+
+    Maximum 30 characters. `null` if no title has been set.
     """
 
-    trial_period_days: Optional[int] = None
-    """The number of free trial days before the first charge on a renewal plan.
+    trial_period_days: Optional[float] = None
+    """Free trial days before the first renewal charge.
 
-    Null if no trial is configured or the current user has already used a trial for
-    this plan.
+    `null` if no trial is configured or the user has already used a trial for this
+    plan.
     """
 
     unlimited_stock: bool
-    """When true, the plan has unlimited stock (stock field is ignored).
+    """Whether the plan has unlimited stock.
 
-    When false, purchases are limited by the stock field.
+    When `true`, the `stock` field is ignored; waitlist plans always report `true`.
     """
 
-    updated_at: datetime
-    """The datetime the plan was last updated."""
+    updated_at: str
+    """When the plan was last updated, as an ISO 8601 timestamp."""
 
-    visibility: Visibility
-    """Controls whether the plan is visible to customers.
+    visibility: Literal["visible", "hidden", "archived", "quick_link"]
+    """Controls where this plan can be seen.
 
-    When set to 'hidden', the plan is only accessible via direct link.
+    When `hidden`, the plan is reachable only by its direct link.
     """

@@ -116,6 +116,9 @@ class PayoutAccountStatusUpdatedWebhookEvent(BaseModel):
     api_version: Literal["v1"]
     """The API version for this webhook"""
 
+    api_version_date: Optional[str] = None
+    """The dated API version (Api-Version-Date) the payload is serialized to"""
+
     data: Data
     """An object representing an account used for payouts."""
 
@@ -125,5 +128,11 @@ class PayoutAccountStatusUpdatedWebhookEvent(BaseModel):
     type: Literal["payout_account.status_updated"]
     """The webhook event type"""
 
-    company_id: Optional[str] = None
-    """The company ID that this webhook event is associated with"""
+    account_id: Optional[str] = None
+    """The account ID that this webhook event is associated with"""
+
+    previous_attributes: Optional[object] = None
+    """
+    For some `.updated` events, the old values of the payload fields that changed,
+    keyed by field name. Omitted when no capture is available for the event
+    """
