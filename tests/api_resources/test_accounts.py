@@ -33,7 +33,7 @@ class TestAccounts:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         account = client.accounts.create(
-            affiliate_code="random-username-34-xxxxxxxx",
+            affiliate_code="random-username-38-xxxxxxxx",
             country="US",
             email="marcus@shinetime.example",
             metadata={"external_id": "bar"},
@@ -544,7 +544,7 @@ class TestAsyncAccounts:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         account = await async_client.accounts.create(
-            affiliate_code="random-username-34-xxxxxxxx",
+            affiliate_code="random-username-38-xxxxxxxx",
             country="US",
             email="marcus@shinetime.example",
             metadata={"external_id": "bar"},
