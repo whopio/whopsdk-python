@@ -16,9 +16,9 @@ __all__ = [
 
 
 class DataFailure(BaseModel):
-    """Why the payout ended without paying.
+    """Why the payout ended without paying, or why it reversed after settlement.
 
-    Present on failed, canceled, and denied payouts; `null` otherwise.
+    Present on failed, canceled, denied, and reversed payouts; `null` otherwise.
     """
 
     code: Optional[str] = None
@@ -80,8 +80,8 @@ class Data(BaseModel):
     id: str
     """Payout ID, prefixed `wdrl_`."""
 
-    amount: float
-    """The payout amount in whole currency units."""
+    amount: str
+    """The payout amount in whole currency units, as a decimal string."""
 
     created_at: datetime
     """When the payout was created."""
@@ -89,8 +89,8 @@ class Data(BaseModel):
     currency: str
     """Payout currency."""
 
-    destination_amount: Optional[float] = None
-    """The amount delivered in the destination currency, in whole currency units.
+    destination_amount: Optional[str] = None
+    """The amount delivered in the destination currency, as a decimal string.
 
     Assigned when the payout is processed, so it is `null` before then and on
     payouts without a recorded conversion.
@@ -115,21 +115,21 @@ class Data(BaseModel):
     """
 
     failure: Optional[DataFailure] = None
-    """Why the payout ended without paying.
+    """Why the payout ended without paying, or why it reversed after settlement.
 
-    Present on failed, canceled, and denied payouts; `null` otherwise.
+    Present on failed, canceled, denied, and reversed payouts; `null` otherwise.
     """
 
-    fee_amount: float
-    """The fee charged for the payout, in the payout currency."""
+    fee_amount: str
+    """The fee charged for the payout, in the payout currency, as a decimal string."""
 
     fee_paid_by: Literal["self", "platform"]
     """Who bore the payout fee: the account itself, or its parent platform."""
 
-    markup_fee: float
-    """Whop's markup on the provider fee, in the payout currency.
+    markup_fee: str
+    """Whop's markup on the provider fee, in the payout currency, as a decimal string.
 
-    `0.0` when none applies.
+    `"0.0"` when none applies.
     """
 
     metadata: Dict[str, str]
@@ -139,7 +139,7 @@ class Data(BaseModel):
     characters.
     """
 
-    net_amount: float
+    net_amount: str
     """
     The planned net for the destination, in the payout currency: amount minus
     fee_amount minus markup_fee when fee_paid_by is `self`; equal to amount when the
@@ -184,8 +184,16 @@ class Data(BaseModel):
     speed: Literal["standard", "instant"]
     """Payout delivery speed."""
 
-    status: Literal["requested", "awaiting_payment", "in_transit", "completed", "failed", "canceled", "denied"]
+    status: Literal["requested", "in_review", "processing", "completed", "reversed", "canceled", "failed", "denied"]
     """Current payout status."""
+
+    status_detail: str
+    """
+    The finest machine phase under `status` — for example
+    `awaiting_provider_acceptance` vs `in_transit` under `processing`, or the
+    stablecoin conversion phase under `requested`. Informational vocabulary: values
+    can be added without a version bump; `status` is the versioned contract.
+    """
 
     trace_code: Optional[str] = None
     """ACH trace number the recipient's bank can use to locate this payout.

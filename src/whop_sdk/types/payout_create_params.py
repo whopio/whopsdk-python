@@ -3,9 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict, Optional
-from typing_extensions import Literal, Required, Annotated, TypedDict
-
-from .._utils import PropertyInfo
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["PayoutCreateParams"]
 
@@ -38,19 +36,6 @@ class PayoutCreateParams(TypedDict, total=False):
     Balances are held per currency and the payout draws only from the balance in
     this currency, so match the currency the funds arrived in — for example `cad`
     for an account funded by CAD transfers. Defaults to `usd`.
-    """
-
-    api_idempotency_key: Annotated[Optional[str], PropertyInfo(alias="idempotency_key")]
-    """A unique key that makes retries safe, at most 255 bytes.
-
-    It claims one durable slot for this account before anything runs, so concurrent
-    duplicates can never pay twice: retrying with the same key and body returns the
-    original response, a retry while the first request is still running gets a 409,
-    and reusing the key with a different body gets a 400. The claim is account-wide:
-    reusing the key through a different API key or session of the same account gets
-    a 409 — retry through the credential that created the payout. Prefer sending it
-    as the `Idempotency-Key` header — the header is the canonical form and this
-    field defers to it; if both are sent they must match.
     """
 
     metadata: Dict[str, str]

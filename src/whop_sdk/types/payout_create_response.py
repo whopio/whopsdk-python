@@ -10,9 +10,9 @@ __all__ = ["PayoutCreateResponse", "Failure", "PayoutMethod", "PayoutMethodSuppo
 
 
 class Failure(BaseModel):
-    """Why the payout ended without paying.
+    """Why the payout ended without paying, or why it reversed after settlement.
 
-    Present on failed, canceled, and denied payouts; `null` otherwise.
+    Present on failed, canceled, denied, and reversed payouts; `null` otherwise.
     """
 
     code: Optional[str] = None
@@ -72,10 +72,14 @@ class PayoutMethod(BaseModel):
 
 class PayoutCreateResponse(BaseModel):
     id: str
-    """Payout ID."""
+    """Payout ID, prefixed `wdrl_` — the id POST returns is the id GET /payouts lists.
 
-    amount: float
-    """The payout amount in whole currency units."""
+    Conversion requests created before this version keep answering under their
+    `cofr_` id.
+    """
+
+    amount: str
+    """The payout amount in whole currency units, as a decimal string."""
 
     created_at: datetime
     """When the payout was created."""
@@ -83,8 +87,8 @@ class PayoutCreateResponse(BaseModel):
     currency: str
     """Payout currency."""
 
-    destination_amount: Optional[float] = None
-    """The amount delivered in the destination currency, in whole currency units.
+    destination_amount: Optional[str] = None
+    """The amount delivered in the destination currency, as a decimal string.
 
     Null until the payout settles; appears on the payout in GET /payouts once
     assigned.
@@ -112,21 +116,21 @@ class PayoutCreateResponse(BaseModel):
     """
 
     failure: Optional[Failure] = None
-    """Why the payout ended without paying.
+    """Why the payout ended without paying, or why it reversed after settlement.
 
-    Present on failed, canceled, and denied payouts; `null` otherwise.
+    Present on failed, canceled, denied, and reversed payouts; `null` otherwise.
     """
 
-    fee_amount: float
-    """The fee charged for the payout, in the payout currency."""
+    fee_amount: str
+    """The fee charged for the payout, in the payout currency, as a decimal string."""
 
     fee_paid_by: Literal["self", "platform"]
     """Who bore the payout fee: the account itself, or its parent platform."""
 
-    markup_fee: float
-    """Whop's markup on the provider fee, in the payout currency.
+    markup_fee: str
+    """Whop's markup on the provider fee, in the payout currency, as a decimal string.
 
-    `0.0` when none applies.
+    `"0.0"` when none applies.
     """
 
     metadata: Dict[str, str]
@@ -136,7 +140,7 @@ class PayoutCreateResponse(BaseModel):
     characters.
     """
 
-    net_amount: float
+    net_amount: str
     """
     The planned net for the destination, in the payout currency: amount minus
     fee_amount minus markup_fee when fee_paid_by is `self`; equal to amount when the
@@ -164,6 +168,12 @@ class PayoutCreateResponse(BaseModel):
     Requires payout:destination:read; null without it.
     """
 
+    payout_request_id: Optional[str] = None
+    """
+    For a stablecoin payout, the id of the conversion request that funds it,
+    prefixed `cofr_`; `null` on fiat payouts.
+    """
+
     source: Optional[Literal["api", "dashboard", "automatic"]] = None
     """How the payout was created.
 
@@ -174,8 +184,16 @@ class PayoutCreateResponse(BaseModel):
     speed: Literal["standard", "instant"]
     """Payout delivery speed."""
 
-    status: Literal["requested", "awaiting_payment", "in_transit", "completed", "failed", "canceled", "denied"]
+    status: Literal["requested", "in_review", "processing", "completed", "reversed", "canceled", "failed", "denied"]
     """Current payout status, in the same vocabulary as GET /payouts."""
+
+    status_detail: str
+    """
+    The finest machine phase under `status` — for example
+    `awaiting_provider_acceptance` vs `in_transit` under `processing`, or the
+    stablecoin conversion phase under `requested`. Informational vocabulary: values
+    can be added without a version bump; `status` is the versioned contract.
+    """
 
     trace_code: Optional[str] = None
     """ACH trace number the recipient's bank can use to locate this payout.

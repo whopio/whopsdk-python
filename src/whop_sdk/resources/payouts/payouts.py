@@ -95,7 +95,6 @@ class PayoutsResource(SyncAPIResource):
         account_id: str | Omit = omit,
         acknowledge_bank_warning: bool | Omit = omit,
         currency: str | Omit = omit,
-        api_idempotency_key: Optional[str] | Omit = omit,
         metadata: Dict[str, str] | Omit = omit,
         notes: Optional[str] | Omit = omit,
         platform_covers_fees: bool | Omit = omit,
@@ -131,16 +130,6 @@ class PayoutsResource(SyncAPIResource):
               only from the balance in this currency, so match the currency the funds arrived
               in — for example `cad` for an account funded by CAD transfers. Defaults to
               `usd`.
-
-          api_idempotency_key: A unique key that makes retries safe, at most 255 bytes. It claims one durable
-              slot for this account before anything runs, so concurrent duplicates can never
-              pay twice: retrying with the same key and body returns the original response, a
-              retry while the first request is still running gets a 409, and reusing the key
-              with a different body gets a 400. The claim is account-wide: reusing the key
-              through a different API key or session of the same account gets a 409 — retry
-              through the credential that created the payout. Prefer sending it as the
-              `Idempotency-Key` header — the header is the canonical form and this field
-              defers to it; if both are sent they must match.
 
           metadata: Key-value data to attach to the payout, echoed on every read and in webhook
               payloads. At most 50 keys, key names up to 40 characters, string values up to
@@ -181,7 +170,6 @@ class PayoutsResource(SyncAPIResource):
                     "account_id": account_id,
                     "acknowledge_bank_warning": acknowledge_bank_warning,
                     "currency": currency,
-                    "api_idempotency_key": api_idempotency_key,
                     "metadata": metadata,
                     "notes": notes,
                     "platform_covers_fees": platform_covers_fees,
@@ -213,11 +201,10 @@ class PayoutsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PayoutRetrieveResponse:
-        """Fetches one payout by its `wdrl_` or `cofr_` ID.
-
-        Use the `cofr_` payout request
-        ID returned by `POST /payouts` for a stablecoin account to poll until the payout
-        settles.
+        """
+        Fetches one payout by its `wdrl_` ID, or by the `cofr_` conversion request ID a
+        stablecoin payout carries as `payout_request_id` — both ids answer with the same
+        payout object.
 
         Args:
           account_id: Owning account ID, prefixed `biz_`. Provide exactly one of `account_id` or
@@ -374,7 +361,6 @@ class AsyncPayoutsResource(AsyncAPIResource):
         account_id: str | Omit = omit,
         acknowledge_bank_warning: bool | Omit = omit,
         currency: str | Omit = omit,
-        api_idempotency_key: Optional[str] | Omit = omit,
         metadata: Dict[str, str] | Omit = omit,
         notes: Optional[str] | Omit = omit,
         platform_covers_fees: bool | Omit = omit,
@@ -410,16 +396,6 @@ class AsyncPayoutsResource(AsyncAPIResource):
               only from the balance in this currency, so match the currency the funds arrived
               in — for example `cad` for an account funded by CAD transfers. Defaults to
               `usd`.
-
-          api_idempotency_key: A unique key that makes retries safe, at most 255 bytes. It claims one durable
-              slot for this account before anything runs, so concurrent duplicates can never
-              pay twice: retrying with the same key and body returns the original response, a
-              retry while the first request is still running gets a 409, and reusing the key
-              with a different body gets a 400. The claim is account-wide: reusing the key
-              through a different API key or session of the same account gets a 409 — retry
-              through the credential that created the payout. Prefer sending it as the
-              `Idempotency-Key` header — the header is the canonical form and this field
-              defers to it; if both are sent they must match.
 
           metadata: Key-value data to attach to the payout, echoed on every read and in webhook
               payloads. At most 50 keys, key names up to 40 characters, string values up to
@@ -460,7 +436,6 @@ class AsyncPayoutsResource(AsyncAPIResource):
                     "account_id": account_id,
                     "acknowledge_bank_warning": acknowledge_bank_warning,
                     "currency": currency,
-                    "api_idempotency_key": api_idempotency_key,
                     "metadata": metadata,
                     "notes": notes,
                     "platform_covers_fees": platform_covers_fees,
@@ -492,11 +467,10 @@ class AsyncPayoutsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PayoutRetrieveResponse:
-        """Fetches one payout by its `wdrl_` or `cofr_` ID.
-
-        Use the `cofr_` payout request
-        ID returned by `POST /payouts` for a stablecoin account to poll until the payout
-        settles.
+        """
+        Fetches one payout by its `wdrl_` ID, or by the `cofr_` conversion request ID a
+        stablecoin payout carries as `payout_request_id` — both ids answer with the same
+        payout object.
 
         Args:
           account_id: Owning account ID, prefixed `biz_`. Provide exactly one of `account_id` or

@@ -50,7 +50,7 @@ class TestAPIKeys:
             },
             resource_id="biz_xxxxxxxxxxxxxx",
             resource_type="account",
-            api_version_date="2026-08-14",
+            api_version_date="2026-08-21",
             expires_at="2026-01-01T12:00:00.000Z",
             ip_allowlist=["203.0.113.0/24"],
         )
@@ -143,7 +143,7 @@ class TestAPIKeys:
     def test_method_update_with_all_params(self, client: Whop) -> None:
         api_key = client.api_keys.update(
             id="id",
-            api_version_date="2026-08-14",
+            api_version_date="2026-08-21",
             expires_at="2026-01-01T12:00:00.000Z",
             ip_allowlist=["203.0.113.0/24"],
             name="Shine Time Booking (staging)",
@@ -394,7 +394,7 @@ class TestAsyncAPIKeys:
             },
             resource_id="biz_xxxxxxxxxxxxxx",
             resource_type="account",
-            api_version_date="2026-08-14",
+            api_version_date="2026-08-21",
             expires_at="2026-01-01T12:00:00.000Z",
             ip_allowlist=["203.0.113.0/24"],
         )
@@ -487,7 +487,7 @@ class TestAsyncAPIKeys:
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         api_key = await async_client.api_keys.update(
             id="id",
-            api_version_date="2026-08-14",
+            api_version_date="2026-08-21",
             expires_at="2026-01-01T12:00:00.000Z",
             ip_allowlist=["203.0.113.0/24"],
             name="Shine Time Booking (staging)",
