@@ -2,9 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Optional
-from datetime import datetime
-from typing_extensions import Literal
+from typing_extensions import Literal, overload
 
 import httpx
 
@@ -12,11 +10,12 @@ from ..types import (
     membership_list_params,
     membership_pause_params,
     membership_cancel_params,
+    membership_extend_params,
+    membership_invite_params,
     membership_update_params,
-    membership_add_free_days_params,
 )
-from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._utils import path_template, required_args, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -27,17 +26,19 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.cancel_options import CancelOptions
-from ..types.shared.direction import Direction
 from ..types.shared.membership import Membership
-from ..types.membership_list_response import MembershipListResponse
-from ..types.shared.membership_status import MembershipStatus
+from ..types.membership_invite_response import MembershipInviteResponse
+from ..types.membership_transfer_response import MembershipTransferResponse
 
 __all__ = ["MembershipsResource", "AsyncMembershipsResource"]
 
 
 class MembershipsResource(SyncAPIResource):
-    """Memberships"""
+    """
+    A Membership is a customer's purchase of a plan: the subscription or one-time grant that gives them access to a product. It tracks billing state (`active`, `trialing`, `past_due`, and so on), the current period, pending cancellations, custom metadata, and the software license key when the product includes licensing.
+
+    Use the Memberships API to list an account's memberships or the caller's own, retrieve one by ID or license key, invite a recipient to join through a free plan, and manage the lifecycle: cancel immediately or at period end, reverse a scheduled period-end cancellation, pause and resume payment collection, extend with free days, generate a transfer link, and update metadata.
+    """
 
     @cached_property
     def with_raw_response(self) -> MembershipsResourceWithRawResponse:
@@ -69,13 +70,10 @@ class MembershipsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Membership:
-        """
-        Retrieves the details of an existing membership.
+        """Retrieves a membership by ID or license key.
 
-        Required permissions:
-
-        - `member:basic:read`
-        - `member:email:read`
+        Accessible to the account and to
+        the membership's own user.
 
         Args:
           extra_headers: Send extra headers
@@ -100,26 +98,27 @@ class MembershipsResource(SyncAPIResource):
         self,
         id: str,
         *,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
+        cancel_at_period_end: bool | Omit = omit,
+        metadata: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Membership:
         """
-        Update a membership's metadata or other mutable properties.
-
-        Required permissions:
-
-        - `member:manage`
-        - `member:email:read`
-        - `member:basic:read`
+        Updates a membership: merge metadata key-value pairs, or toggle
+        `cancel_at_period_end` — `true` schedules the cancellation for the end of the
+        current billing period, `false` reverses a pending one.
 
         Args:
-          metadata: A JSON object of key-value pairs to store on the membership. Replaces any
-              existing metadata.
+          cancel_at_period_end: `true` cancels at the end of the current billing period (the customer keeps
+              access until then); `false` reverses a pending cancellation.
+
+          metadata: Key-value pairs to merge into the membership's metadata. Pass an empty object to
+              clear it.
 
           extra_headers: Send extra headers
 
@@ -128,14 +127,26 @@ class MembershipsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._patch(
             path_template("/memberships/{id}", id=id),
-            body=maybe_transform({"metadata": metadata}, membership_update_params.MembershipUpdateParams),
+            body=maybe_transform(
+                {
+                    "cancel_at_period_end": cancel_at_period_end,
+                    "metadata": metadata,
+                },
+                membership_update_params.MembershipUpdateParams,
+            ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Membership,
         )
@@ -143,69 +154,64 @@ class MembershipsResource(SyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        cancel_options: Optional[List[CancelOptions]] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[Literal["id", "created_at", "status", "canceled_at", "date_joined", "total_spend"]]
+        account_id: str | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["created_at"] | Omit = omit,
+        plan_id: str | Omit = omit,
+        product_id: str | Omit = omit,
+        status: Literal["active", "trialing", "past_due", "completed", "canceled", "expired", "canceling", "paused"]
         | Omit = omit,
-        plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        promo_code_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        statuses: Optional[List[MembershipStatus]] | Omit = omit,
-        user_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        user_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[MembershipListResponse]:
+    ) -> SyncCursorPage[Membership]:
         """
-        Returns a paginated list of memberships, with optional filtering by product,
-        plan, status, and user.
-
-        Required permissions:
-
-        - `member:basic:read`
-        - `member:email:read`
+        Lists every membership the caller can read: an account API key its account's; a
+        user credential their own plus those of every account they manage. `account_id`
+        and `user_id` only narrow that list — values outside the caller's reach return
+        fewer results, not an error.
 
         Args:
-          after: Returns the elements in the list that come after the specified cursor.
+          account_id: Narrow to one account (`biz_` tag). With read access to the account this lists
+              all of its memberships; without, only the caller's own memberships in it.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          after: Cursor to paginate forwards from.
 
-          cancel_options: Filter to only memberships matching these cancellation reasons.
+          before: Cursor to paginate backwards from.
 
-          company_id: The unique identifier of the company to list memberships for. Required when
-              using an API key.
+          created_after: Only memberships created after this ISO 8601 timestamp.
 
-          created_after: Only return memberships created after this timestamp.
+          created_before: Only memberships created before this ISO 8601 timestamp.
 
-          created_before: Only return memberships created before this timestamp.
+          direction: Sort direction.
 
-          direction: The direction of the sort.
+          first: Number of memberships to return from the start of the window.
 
-          first: Returns the first _n_ elements from the list.
+          last: Number of memberships to return from the end of the window.
 
-          last: Returns the last _n_ elements from the list.
+          order: Sort field.
 
-          order: Which columns can be used to sort.
+          plan_id: Filter to memberships of this plan (`plan_` tag). Repeat as plan_ids[] for
+              several.
 
-          plan_ids: Filter to only memberships belonging to these plan identifiers.
+          product_id: Filter to memberships of this product (`prod_` tag). Repeat as product_ids[] for
+              several.
 
-          product_ids: Filter to only memberships belonging to these product identifiers.
+          status: Filter by billing state. `canceling` matches active memberships set to cancel at
+              period end; `paused` matches memberships with payment collection paused.
 
-          promo_code_ids: Filter to only memberships that used these promo code identifiers.
-
-          statuses: Filter to only memberships matching these statuses.
-
-          user_ids: Filter to only memberships belonging to these user identifiers.
+          user_id: Narrow to one user's memberships (`user_` tag, or `me` for the caller). A user
+              outside the caller's visible set returns an empty list.
 
           extra_headers: Send extra headers
 
@@ -217,7 +223,7 @@ class MembershipsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/memberships",
-            page=SyncCursorPage[MembershipListResponse],
+            page=SyncCursorPage[Membership],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -225,97 +231,52 @@ class MembershipsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
-                        "cancel_options": cancel_options,
-                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
                         "first": first,
                         "last": last,
                         "order": order,
-                        "plan_ids": plan_ids,
-                        "product_ids": product_ids,
-                        "promo_code_ids": promo_code_ids,
-                        "statuses": statuses,
-                        "user_ids": user_ids,
+                        "plan_id": plan_id,
+                        "product_id": product_id,
+                        "status": status,
+                        "user_id": user_id,
                     },
                     membership_list_params.MembershipListParams,
                 ),
             ),
-            model=MembershipListResponse,
-        )
-
-    def add_free_days(
-        self,
-        id: str,
-        *,
-        free_days: int,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Membership:
-        """
-        Add free days to extend a membership's current billing period, expiration date,
-        or Stripe trial.
-
-        Required permissions:
-
-        - `member:manage`
-        - `member:email:read`
-        - `member:basic:read`
-
-        Args:
-          free_days: The number of free days to add (1-1095). Extends the billing period, expiration
-              date, or Stripe trial depending on plan type.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return self._post(
-            path_template("/memberships/{id}/add_free_days", id=id),
-            body=maybe_transform({"free_days": free_days}, membership_add_free_days_params.MembershipAddFreeDaysParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Membership,
+            model=Membership,
         )
 
     def cancel(
         self,
         id: str,
         *,
-        cancellation_mode: Optional[Literal["at_period_end", "immediate"]] | Omit = omit,
+        cancel_at_period_end: bool | Omit = omit,
+        reason: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Membership:
-        """
-        Cancel a membership either immediately or at the end of the current billing
-        period. Immediate cancellation revokes access right away.
+        """Cancels a membership.
 
-        Required permissions:
-
-        - `membership:cancel`
-        - `member:email:read`
-        - `member:basic:read`
+        Pass `cancel_at_period_end: true` to stop auto-renewal and
+        keep access until the current billing period ends. Omit it (or pass `false`) to
+        revoke access immediately. Buyers cannot cancel buy-now-pay-later (`splitit`,
+        `sezzle`) or non-trial split-pay memberships.
 
         Args:
-          cancellation_mode: The mode of cancellation for a membership
+          cancel_at_period_end: `true` stops auto-renewal and keeps access until the current billing period
+              ends. Omit or `false` revokes access immediately.
+
+          reason: Free-form note recording why the membership was canceled.
 
           extra_headers: Send extra headers
 
@@ -324,46 +285,49 @@ class MembershipsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
             path_template("/memberships/{id}/cancel", id=id),
             body=maybe_transform(
-                {"cancellation_mode": cancellation_mode}, membership_cancel_params.MembershipCancelParams
+                {
+                    "cancel_at_period_end": cancel_at_period_end,
+                    "reason": reason,
+                },
+                membership_cancel_params.MembershipCancelParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Membership,
         )
 
-    def pause(
+    def extend(
         self,
         id: str,
         *,
-        void_payments: Optional[bool] | Omit = omit,
+        days: int,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Membership:
-        """Pause a membership's recurring payments.
-
-        The customer retains access but will
-        not be charged until the membership is resumed.
-
-        Required permissions:
-
-        - `member:manage`
-        - `member:email:read`
-        - `member:basic:read`
+        """
+        Adds free days to a membership, extending its current billing period, expiration
+        date, or trial depending on the plan type.
 
         Args:
-          void_payments: Whether to void any outstanding past-due payments on this membership, preventing
-              future collection attempts.
+          days: Number of free days to add (1-1095).
 
           extra_headers: Send extra headers
 
@@ -372,14 +336,184 @@ class MembershipsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            path_template("/memberships/{id}/extend", id=id),
+            body=maybe_transform({"days": days}, membership_extend_params.MembershipExtendParams),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
+            ),
+            cast_to=Membership,
+        )
+
+    @overload
+    def invite(
+        self,
+        *,
+        plan_id: str,
+        user_id: str,
+        email: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> MembershipInviteResponse:
+        """
+        Sends an email inviting one recipient to join the account through a free plan.
+        Identify the recipient by exactly one of `user_id` or `email`. The invitation is
+        bound to that recipient; after signing in, accepting it immediately grants the
+        membership without checkout. This Experimental endpoint is available only to
+        accounts enabled for membership invitations.
+
+        Args:
+          plan_id: Free plan whose membership the recipient is invited to, prefixed `plan_`.
+
+          user_id: Recipient user ID, prefixed `user_`.
+
+          email: Recipient email address. Mutually exclusive with `user_id`.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        ...
+
+    @overload
+    def invite(
+        self,
+        *,
+        email: str,
+        plan_id: str,
+        user_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> MembershipInviteResponse:
+        """
+        Sends an email inviting one recipient to join the account through a free plan.
+        Identify the recipient by exactly one of `user_id` or `email`. The invitation is
+        bound to that recipient; after signing in, accepting it immediately grants the
+        membership without checkout. This Experimental endpoint is available only to
+        accounts enabled for membership invitations.
+
+        Args:
+          email: Recipient email address.
+
+          plan_id: Free plan whose membership the recipient is invited to, prefixed `plan_`.
+
+          user_id: Recipient user ID, prefixed `user_`. Mutually exclusive with `email`.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        ...
+
+    @required_args(["plan_id", "user_id"], ["email", "plan_id"])
+    def invite(
+        self,
+        *,
+        plan_id: str,
+        user_id: str | Omit = omit,
+        email: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> MembershipInviteResponse:
+        return self._post(
+            "/memberships/invite",
+            body=maybe_transform(
+                {
+                    "plan_id": plan_id,
+                    "user_id": user_id,
+                    "email": email,
+                },
+                membership_invite_params.MembershipInviteParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
+            ),
+            cast_to=MembershipInviteResponse,
+        )
+
+    def pause(
+        self,
+        id: str,
+        *,
+        until: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> Membership:
+        """Pauses a membership's recurring payment collection.
+
+        The customer keeps access
+        but is not charged until the membership is resumed.
+
+        Args:
+          until: ISO 8601 time to automatically resume payment collection. Must be in the future;
+              only supported for memberships billed by Whop.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
             path_template("/memberships/{id}/pause", id=id),
-            body=maybe_transform({"void_payments": void_payments}, membership_pause_params.MembershipPauseParams),
+            body=maybe_transform({"until": until}, membership_pause_params.MembershipPauseParams),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Membership,
         )
@@ -394,17 +528,12 @@ class MembershipsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Membership:
-        """Resume a previously paused membership's recurring payments.
+        """Resumes a previously paused membership's recurring payment collection.
 
-        Billing resumes on
-        the next cycle.
-
-        Required permissions:
-
-        - `member:manage`
-        - `member:email:read`
-        - `member:basic:read`
+        Billing
+        resumes on the next cycle.
 
         Args:
           extra_headers: Send extra headers
@@ -414,18 +543,24 @@ class MembershipsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
             path_template("/memberships/{id}/resume", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Membership,
         )
 
-    def uncancel(
+    def transfer(
         self,
         id: str,
         *,
@@ -435,16 +570,16 @@ class MembershipsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Membership:
-        """
-        Reverse a pending cancellation for a membership that was scheduled to cancel at
-        period end.
+        idempotency_key: str | None = None,
+    ) -> MembershipTransferResponse:
+        """Creates a one-use transfer URL for a membership.
 
-        Required permissions:
-
-        - `member:manage`
-        - `member:email:read`
-        - `member:basic:read`
+        Opening the URL while logged
+        into a different Whop account claims the membership onto that account. The
+        membership's buyer can generate a link for their own membership with
+        `membership:transfer` when the product allows transfers and the membership is
+        `trialing`, `active`, or `completed`. An account credential with
+        `membership:update` bypasses both restrictions.
 
         Args:
           extra_headers: Send extra headers
@@ -454,20 +589,30 @@ class MembershipsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
-            path_template("/memberships/{id}/uncancel", id=id),
+            path_template("/memberships/{id}/transfer", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
-            cast_to=Membership,
+            cast_to=MembershipTransferResponse,
         )
 
 
 class AsyncMembershipsResource(AsyncAPIResource):
-    """Memberships"""
+    """
+    A Membership is a customer's purchase of a plan: the subscription or one-time grant that gives them access to a product. It tracks billing state (`active`, `trialing`, `past_due`, and so on), the current period, pending cancellations, custom metadata, and the software license key when the product includes licensing.
+
+    Use the Memberships API to list an account's memberships or the caller's own, retrieve one by ID or license key, invite a recipient to join through a free plan, and manage the lifecycle: cancel immediately or at period end, reverse a scheduled period-end cancellation, pause and resume payment collection, extend with free days, generate a transfer link, and update metadata.
+    """
 
     @cached_property
     def with_raw_response(self) -> AsyncMembershipsResourceWithRawResponse:
@@ -499,13 +644,10 @@ class AsyncMembershipsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Membership:
-        """
-        Retrieves the details of an existing membership.
+        """Retrieves a membership by ID or license key.
 
-        Required permissions:
-
-        - `member:basic:read`
-        - `member:email:read`
+        Accessible to the account and to
+        the membership's own user.
 
         Args:
           extra_headers: Send extra headers
@@ -530,26 +672,27 @@ class AsyncMembershipsResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
+        cancel_at_period_end: bool | Omit = omit,
+        metadata: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Membership:
         """
-        Update a membership's metadata or other mutable properties.
-
-        Required permissions:
-
-        - `member:manage`
-        - `member:email:read`
-        - `member:basic:read`
+        Updates a membership: merge metadata key-value pairs, or toggle
+        `cancel_at_period_end` — `true` schedules the cancellation for the end of the
+        current billing period, `false` reverses a pending one.
 
         Args:
-          metadata: A JSON object of key-value pairs to store on the membership. Replaces any
-              existing metadata.
+          cancel_at_period_end: `true` cancels at the end of the current billing period (the customer keeps
+              access until then); `false` reverses a pending cancellation.
+
+          metadata: Key-value pairs to merge into the membership's metadata. Pass an empty object to
+              clear it.
 
           extra_headers: Send extra headers
 
@@ -558,14 +701,26 @@ class AsyncMembershipsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._patch(
             path_template("/memberships/{id}", id=id),
-            body=await async_maybe_transform({"metadata": metadata}, membership_update_params.MembershipUpdateParams),
+            body=await async_maybe_transform(
+                {
+                    "cancel_at_period_end": cancel_at_period_end,
+                    "metadata": metadata,
+                },
+                membership_update_params.MembershipUpdateParams,
+            ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Membership,
         )
@@ -573,69 +728,64 @@ class AsyncMembershipsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        cancel_options: Optional[List[CancelOptions]] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[Literal["id", "created_at", "status", "canceled_at", "date_joined", "total_spend"]]
+        account_id: str | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["created_at"] | Omit = omit,
+        plan_id: str | Omit = omit,
+        product_id: str | Omit = omit,
+        status: Literal["active", "trialing", "past_due", "completed", "canceled", "expired", "canceling", "paused"]
         | Omit = omit,
-        plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        promo_code_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        statuses: Optional[List[MembershipStatus]] | Omit = omit,
-        user_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        user_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[MembershipListResponse, AsyncCursorPage[MembershipListResponse]]:
+    ) -> AsyncPaginator[Membership, AsyncCursorPage[Membership]]:
         """
-        Returns a paginated list of memberships, with optional filtering by product,
-        plan, status, and user.
-
-        Required permissions:
-
-        - `member:basic:read`
-        - `member:email:read`
+        Lists every membership the caller can read: an account API key its account's; a
+        user credential their own plus those of every account they manage. `account_id`
+        and `user_id` only narrow that list — values outside the caller's reach return
+        fewer results, not an error.
 
         Args:
-          after: Returns the elements in the list that come after the specified cursor.
+          account_id: Narrow to one account (`biz_` tag). With read access to the account this lists
+              all of its memberships; without, only the caller's own memberships in it.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          after: Cursor to paginate forwards from.
 
-          cancel_options: Filter to only memberships matching these cancellation reasons.
+          before: Cursor to paginate backwards from.
 
-          company_id: The unique identifier of the company to list memberships for. Required when
-              using an API key.
+          created_after: Only memberships created after this ISO 8601 timestamp.
 
-          created_after: Only return memberships created after this timestamp.
+          created_before: Only memberships created before this ISO 8601 timestamp.
 
-          created_before: Only return memberships created before this timestamp.
+          direction: Sort direction.
 
-          direction: The direction of the sort.
+          first: Number of memberships to return from the start of the window.
 
-          first: Returns the first _n_ elements from the list.
+          last: Number of memberships to return from the end of the window.
 
-          last: Returns the last _n_ elements from the list.
+          order: Sort field.
 
-          order: Which columns can be used to sort.
+          plan_id: Filter to memberships of this plan (`plan_` tag). Repeat as plan_ids[] for
+              several.
 
-          plan_ids: Filter to only memberships belonging to these plan identifiers.
+          product_id: Filter to memberships of this product (`prod_` tag). Repeat as product_ids[] for
+              several.
 
-          product_ids: Filter to only memberships belonging to these product identifiers.
+          status: Filter by billing state. `canceling` matches active memberships set to cancel at
+              period end; `paused` matches memberships with payment collection paused.
 
-          promo_code_ids: Filter to only memberships that used these promo code identifiers.
-
-          statuses: Filter to only memberships matching these statuses.
-
-          user_ids: Filter to only memberships belonging to these user identifiers.
+          user_id: Narrow to one user's memberships (`user_` tag, or `me` for the caller). A user
+              outside the caller's visible set returns an empty list.
 
           extra_headers: Send extra headers
 
@@ -647,7 +797,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/memberships",
-            page=AsyncCursorPage[MembershipListResponse],
+            page=AsyncCursorPage[Membership],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -655,99 +805,52 @@ class AsyncMembershipsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
-                        "cancel_options": cancel_options,
-                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
                         "first": first,
                         "last": last,
                         "order": order,
-                        "plan_ids": plan_ids,
-                        "product_ids": product_ids,
-                        "promo_code_ids": promo_code_ids,
-                        "statuses": statuses,
-                        "user_ids": user_ids,
+                        "plan_id": plan_id,
+                        "product_id": product_id,
+                        "status": status,
+                        "user_id": user_id,
                     },
                     membership_list_params.MembershipListParams,
                 ),
             ),
-            model=MembershipListResponse,
-        )
-
-    async def add_free_days(
-        self,
-        id: str,
-        *,
-        free_days: int,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Membership:
-        """
-        Add free days to extend a membership's current billing period, expiration date,
-        or Stripe trial.
-
-        Required permissions:
-
-        - `member:manage`
-        - `member:email:read`
-        - `member:basic:read`
-
-        Args:
-          free_days: The number of free days to add (1-1095). Extends the billing period, expiration
-              date, or Stripe trial depending on plan type.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return await self._post(
-            path_template("/memberships/{id}/add_free_days", id=id),
-            body=await async_maybe_transform(
-                {"free_days": free_days}, membership_add_free_days_params.MembershipAddFreeDaysParams
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Membership,
+            model=Membership,
         )
 
     async def cancel(
         self,
         id: str,
         *,
-        cancellation_mode: Optional[Literal["at_period_end", "immediate"]] | Omit = omit,
+        cancel_at_period_end: bool | Omit = omit,
+        reason: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Membership:
-        """
-        Cancel a membership either immediately or at the end of the current billing
-        period. Immediate cancellation revokes access right away.
+        """Cancels a membership.
 
-        Required permissions:
-
-        - `membership:cancel`
-        - `member:email:read`
-        - `member:basic:read`
+        Pass `cancel_at_period_end: true` to stop auto-renewal and
+        keep access until the current billing period ends. Omit it (or pass `false`) to
+        revoke access immediately. Buyers cannot cancel buy-now-pay-later (`splitit`,
+        `sezzle`) or non-trial split-pay memberships.
 
         Args:
-          cancellation_mode: The mode of cancellation for a membership
+          cancel_at_period_end: `true` stops auto-renewal and keeps access until the current billing period
+              ends. Omit or `false` revokes access immediately.
+
+          reason: Free-form note recording why the membership was canceled.
 
           extra_headers: Send extra headers
 
@@ -756,46 +859,49 @@ class AsyncMembershipsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
             path_template("/memberships/{id}/cancel", id=id),
             body=await async_maybe_transform(
-                {"cancellation_mode": cancellation_mode}, membership_cancel_params.MembershipCancelParams
+                {
+                    "cancel_at_period_end": cancel_at_period_end,
+                    "reason": reason,
+                },
+                membership_cancel_params.MembershipCancelParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Membership,
         )
 
-    async def pause(
+    async def extend(
         self,
         id: str,
         *,
-        void_payments: Optional[bool] | Omit = omit,
+        days: int,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Membership:
-        """Pause a membership's recurring payments.
-
-        The customer retains access but will
-        not be charged until the membership is resumed.
-
-        Required permissions:
-
-        - `member:manage`
-        - `member:email:read`
-        - `member:basic:read`
+        """
+        Adds free days to a membership, extending its current billing period, expiration
+        date, or trial depending on the plan type.
 
         Args:
-          void_payments: Whether to void any outstanding past-due payments on this membership, preventing
-              future collection attempts.
+          days: Number of free days to add (1-1095).
 
           extra_headers: Send extra headers
 
@@ -804,16 +910,184 @@ class AsyncMembershipsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            path_template("/memberships/{id}/extend", id=id),
+            body=await async_maybe_transform({"days": days}, membership_extend_params.MembershipExtendParams),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
+            ),
+            cast_to=Membership,
+        )
+
+    @overload
+    async def invite(
+        self,
+        *,
+        plan_id: str,
+        user_id: str,
+        email: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> MembershipInviteResponse:
+        """
+        Sends an email inviting one recipient to join the account through a free plan.
+        Identify the recipient by exactly one of `user_id` or `email`. The invitation is
+        bound to that recipient; after signing in, accepting it immediately grants the
+        membership without checkout. This Experimental endpoint is available only to
+        accounts enabled for membership invitations.
+
+        Args:
+          plan_id: Free plan whose membership the recipient is invited to, prefixed `plan_`.
+
+          user_id: Recipient user ID, prefixed `user_`.
+
+          email: Recipient email address. Mutually exclusive with `user_id`.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        ...
+
+    @overload
+    async def invite(
+        self,
+        *,
+        email: str,
+        plan_id: str,
+        user_id: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> MembershipInviteResponse:
+        """
+        Sends an email inviting one recipient to join the account through a free plan.
+        Identify the recipient by exactly one of `user_id` or `email`. The invitation is
+        bound to that recipient; after signing in, accepting it immediately grants the
+        membership without checkout. This Experimental endpoint is available only to
+        accounts enabled for membership invitations.
+
+        Args:
+          email: Recipient email address.
+
+          plan_id: Free plan whose membership the recipient is invited to, prefixed `plan_`.
+
+          user_id: Recipient user ID, prefixed `user_`. Mutually exclusive with `email`.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        ...
+
+    @required_args(["plan_id", "user_id"], ["email", "plan_id"])
+    async def invite(
+        self,
+        *,
+        plan_id: str,
+        user_id: str | Omit = omit,
+        email: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> MembershipInviteResponse:
+        return await self._post(
+            "/memberships/invite",
+            body=await async_maybe_transform(
+                {
+                    "plan_id": plan_id,
+                    "user_id": user_id,
+                    "email": email,
+                },
+                membership_invite_params.MembershipInviteParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
+            ),
+            cast_to=MembershipInviteResponse,
+        )
+
+    async def pause(
+        self,
+        id: str,
+        *,
+        until: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> Membership:
+        """Pauses a membership's recurring payment collection.
+
+        The customer keeps access
+        but is not charged until the membership is resumed.
+
+        Args:
+          until: ISO 8601 time to automatically resume payment collection. Must be in the future;
+              only supported for memberships billed by Whop.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
             path_template("/memberships/{id}/pause", id=id),
-            body=await async_maybe_transform(
-                {"void_payments": void_payments}, membership_pause_params.MembershipPauseParams
-            ),
+            body=await async_maybe_transform({"until": until}, membership_pause_params.MembershipPauseParams),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Membership,
         )
@@ -828,17 +1102,12 @@ class AsyncMembershipsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Membership:
-        """Resume a previously paused membership's recurring payments.
+        """Resumes a previously paused membership's recurring payment collection.
 
-        Billing resumes on
-        the next cycle.
-
-        Required permissions:
-
-        - `member:manage`
-        - `member:email:read`
-        - `member:basic:read`
+        Billing
+        resumes on the next cycle.
 
         Args:
           extra_headers: Send extra headers
@@ -848,18 +1117,24 @@ class AsyncMembershipsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
             path_template("/memberships/{id}/resume", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Membership,
         )
 
-    async def uncancel(
+    async def transfer(
         self,
         id: str,
         *,
@@ -869,16 +1144,16 @@ class AsyncMembershipsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Membership:
-        """
-        Reverse a pending cancellation for a membership that was scheduled to cancel at
-        period end.
+        idempotency_key: str | None = None,
+    ) -> MembershipTransferResponse:
+        """Creates a one-use transfer URL for a membership.
 
-        Required permissions:
-
-        - `member:manage`
-        - `member:email:read`
-        - `member:basic:read`
+        Opening the URL while logged
+        into a different Whop account claims the membership onto that account. The
+        membership's buyer can generate a link for their own membership with
+        `membership:transfer` when the product allows transfers and the membership is
+        `trialing`, `active`, or `completed`. An account credential with
+        `membership:update` bypasses both restrictions.
 
         Args:
           extra_headers: Send extra headers
@@ -888,15 +1163,21 @@ class AsyncMembershipsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
-            path_template("/memberships/{id}/uncancel", id=id),
+            path_template("/memberships/{id}/transfer", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
-            cast_to=Membership,
+            cast_to=MembershipTransferResponse,
         )
 
 
@@ -913,11 +1194,14 @@ class MembershipsResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             memberships.list,
         )
-        self.add_free_days = to_raw_response_wrapper(
-            memberships.add_free_days,
-        )
         self.cancel = to_raw_response_wrapper(
             memberships.cancel,
+        )
+        self.extend = to_raw_response_wrapper(
+            memberships.extend,
+        )
+        self.invite = to_raw_response_wrapper(
+            memberships.invite,
         )
         self.pause = to_raw_response_wrapper(
             memberships.pause,
@@ -925,8 +1209,8 @@ class MembershipsResourceWithRawResponse:
         self.resume = to_raw_response_wrapper(
             memberships.resume,
         )
-        self.uncancel = to_raw_response_wrapper(
-            memberships.uncancel,
+        self.transfer = to_raw_response_wrapper(
+            memberships.transfer,
         )
 
 
@@ -943,11 +1227,14 @@ class AsyncMembershipsResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             memberships.list,
         )
-        self.add_free_days = async_to_raw_response_wrapper(
-            memberships.add_free_days,
-        )
         self.cancel = async_to_raw_response_wrapper(
             memberships.cancel,
+        )
+        self.extend = async_to_raw_response_wrapper(
+            memberships.extend,
+        )
+        self.invite = async_to_raw_response_wrapper(
+            memberships.invite,
         )
         self.pause = async_to_raw_response_wrapper(
             memberships.pause,
@@ -955,8 +1242,8 @@ class AsyncMembershipsResourceWithRawResponse:
         self.resume = async_to_raw_response_wrapper(
             memberships.resume,
         )
-        self.uncancel = async_to_raw_response_wrapper(
-            memberships.uncancel,
+        self.transfer = async_to_raw_response_wrapper(
+            memberships.transfer,
         )
 
 
@@ -973,11 +1260,14 @@ class MembershipsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             memberships.list,
         )
-        self.add_free_days = to_streamed_response_wrapper(
-            memberships.add_free_days,
-        )
         self.cancel = to_streamed_response_wrapper(
             memberships.cancel,
+        )
+        self.extend = to_streamed_response_wrapper(
+            memberships.extend,
+        )
+        self.invite = to_streamed_response_wrapper(
+            memberships.invite,
         )
         self.pause = to_streamed_response_wrapper(
             memberships.pause,
@@ -985,8 +1275,8 @@ class MembershipsResourceWithStreamingResponse:
         self.resume = to_streamed_response_wrapper(
             memberships.resume,
         )
-        self.uncancel = to_streamed_response_wrapper(
-            memberships.uncancel,
+        self.transfer = to_streamed_response_wrapper(
+            memberships.transfer,
         )
 
 
@@ -1003,11 +1293,14 @@ class AsyncMembershipsResourceWithStreamingResponse:
         self.list = async_to_streamed_response_wrapper(
             memberships.list,
         )
-        self.add_free_days = async_to_streamed_response_wrapper(
-            memberships.add_free_days,
-        )
         self.cancel = async_to_streamed_response_wrapper(
             memberships.cancel,
+        )
+        self.extend = async_to_streamed_response_wrapper(
+            memberships.extend,
+        )
+        self.invite = async_to_streamed_response_wrapper(
+            memberships.invite,
         )
         self.pause = async_to_streamed_response_wrapper(
             memberships.pause,
@@ -1015,6 +1308,6 @@ class AsyncMembershipsResourceWithStreamingResponse:
         self.resume = async_to_streamed_response_wrapper(
             memberships.resume,
         )
-        self.uncancel = async_to_streamed_response_wrapper(
-            memberships.uncancel,
+        self.transfer = async_to_streamed_response_wrapper(
+            memberships.transfer,
         )
