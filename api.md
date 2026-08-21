@@ -169,6 +169,7 @@ from whop_sdk.types import (
     LedgerAccountFundsAvailableWebhookEvent,
     WithdrawalCreatedWebhookEvent,
     WithdrawalUpdatedWebhookEvent,
+    WithdrawalReversedWebhookEvent,
     CardTransactionCreatedWebhookEvent,
     CardTransactionUpdatedWebhookEvent,
     CardTransactionCompletedWebhookEvent,
