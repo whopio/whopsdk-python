@@ -1,66 +1,92 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
-from datetime import datetime
+from typing import List, Optional
+from typing_extensions import Literal
 
 from ..._models import BaseModel
-from .shipment_status import ShipmentStatus
-from .shipment_carrier import ShipmentCarrier
-from .shipment_substatus import ShipmentSubstatus
 
-__all__ = ["Shipment", "Payment"]
+__all__ = ["Shipment", "Checkpoint"]
 
 
-class Payment(BaseModel):
-    """The payment associated with this shipment.
+class Checkpoint(BaseModel):
+    """Carrier scan history for this shipment, oldest scan first.
 
-    Null if the payment has been deleted or is inaccessible.
+    Empty until the carrier reports its first scan.
     """
 
-    id: str
-    """The unique identifier for the payment."""
+    location: Optional[str] = None
+    """Where the carrier recorded the scan, such as `PHILADELPHIA, PA`.
+
+    Null when the carrier sent none.
+    """
+
+    message: Optional[str] = None
+    """Carrier's description of the scan, such as `Departed USPS Regional Facility`.
+
+    Null when the carrier sent none.
+    """
+
+    status: Literal[
+        "unknown",
+        "pre_transit",
+        "in_transit",
+        "out_for_delivery",
+        "delivered",
+        "available_for_pickup",
+        "return_to_sender",
+        "failure",
+        "cancelled",
+        "error",
+    ]
+    """Delivery status this carrier scan maps to."""
+
+    timestamp: Optional[str] = None
+    """When the carrier recorded the scan, as an ISO 8601 timestamp.
+
+    Null when the carrier sent no scan time.
+    """
 
 
 class Shipment(BaseModel):
-    """
-    A physical shipment associated with a payment, including carrier details and tracking information.
-    """
-
     id: str
-    """The unique identifier for the shipment."""
+    """Shipment ID, prefixed `ship_`."""
 
-    carrier: ShipmentCarrier
-    """The shipping carrier responsible for delivering this shipment."""
+    account_id: str
+    """The account that owns this shipment, prefixed `biz_`."""
 
-    created_at: datetime
-    """The datetime the shipment was created."""
+    carrier: Optional[str] = None
+    """The shipping carrier detected for this shipment.
 
-    delivery_estimate: Optional[datetime] = None
-    """The estimated delivery date for this shipment.
-
-    Null if the carrier has not provided an estimate.
+    Null until a tracking update identifies it.
     """
 
-    payment: Optional[Payment] = None
-    """The payment associated with this shipment.
+    checkpoints: List[Checkpoint]
 
-    Null if the payment has been deleted or is inaccessible.
-    """
+    created_at: str
+    """The datetime the shipment was created (ISO 8601)."""
 
-    service: Optional[str] = None
-    """The shipping service level used for this shipment.
+    payment_id: str
+    """The payment this shipment fulfills, prefixed `pay_`."""
 
-    Null if the carrier does not specify a service tier.
-    """
-
-    status: ShipmentStatus
+    status: Literal[
+        "unknown",
+        "pre_transit",
+        "in_transit",
+        "out_for_delivery",
+        "delivered",
+        "available_for_pickup",
+        "return_to_sender",
+        "failure",
+        "cancelled",
+        "error",
+    ]
     """The current delivery status of this shipment."""
 
-    substatus: Optional[ShipmentSubstatus] = None
-    """The substatus of a shipment"""
-
-    tracking_code: str
+    tracking_number: str
     """The carrier-assigned tracking number used to look up shipment progress."""
 
-    updated_at: datetime
-    """The datetime the shipment was last updated."""
+    tracking_url: str
+    """A customer-facing URL to track this shipment's progress."""
+
+    updated_at: str
+    """The datetime the shipment was last updated (ISO 8601)."""
