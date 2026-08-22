@@ -1,4 +1,4 @@
-name: Publish to PyPI
+name: Release
 
 on:
   push:
@@ -170,8 +170,10 @@ jobs:
           wrapper = pathlib.Path("src/whop_sdk/core/client_wrapper.py")
           text = wrapper.read_text()
           stamped, count = re.subn(
-              r'"whop_sdk/\d[^"]*"', f'"whop_sdk/{version}"', text
+              r'("X-Fern-SDK-Version":\s*")[^"]*', rf'\g<1>{version}', text
           )
+          stamped, ua = re.subn(r'"whop_sdk/\d[^"]*"', f'"whop_sdk/{version}"', stamped)
+          count += ua
           if count == 0:
               sys.exit(f"::error::no version stamp found in {wrapper}")
           wrapper.write_text(stamped)
