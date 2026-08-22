@@ -4,7 +4,7 @@ dynamic = ["version"]
 
 [tool.poetry]
 name = "whop_sdk"
-version = "0.0.41"
+version = "1.0.11"
 description = ""
 readme = "README.md"
 authors = []
