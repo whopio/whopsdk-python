@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Union
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -27,8 +27,6 @@ __all__ = ["AdReportsResource", "AsyncAdReportsResource"]
 
 
 class AdReportsResource(SyncAPIResource):
-    """Ad reports"""
-
     @cached_property
     def with_raw_response(self) -> AdReportsResourceWithRawResponse:
         """
@@ -53,13 +51,13 @@ class AdReportsResource(SyncAPIResource):
         *,
         from_: Union[str, datetime],
         to: Union[str, datetime],
-        ad_campaign_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        ad_group_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        ad_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        breakdown: Optional[Literal["campaign", "ad_group", "ad"]] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        currency: Optional[str] | Omit = omit,
-        granularity: Optional[Granularities] | Omit = omit,
+        ad_campaign_ids: SequenceNotStr[str] | Omit = omit,
+        ad_group_ids: SequenceNotStr[str] | Omit = omit,
+        ad_ids: SequenceNotStr[str] | Omit = omit,
+        breakdown: Literal["campaign", "ad_group", "ad"] | Omit = omit,
+        company_id: str | Omit = omit,
+        currency: str | Omit = omit,
+        granularity: Granularities | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -70,11 +68,10 @@ class AdReportsResource(SyncAPIResource):
         """Performance report for a company, ad campaigns, ad groups, or ads.
 
         Always
-        returns aggregate `summary` totals summed across the scope. Set `granularity`
-        (`daily`/`hourly`) to additionally get a time series, or set `breakdown`
-        (`campaign`/`ad_group`/`ad`) to additionally get per-entity rows inside the
-        requested scope. Exactly one of `companyId`, `adCampaignIds`, `adGroupIds`, or
-        `adIds` must be provided.
+        returns aggregate `summary` totals summed across the scope. Set `granularity` to
+        additionally get a time series, or set `breakdown` (`campaign`/`ad_group`/`ad`)
+        to additionally get per-entity rows inside the requested scope. Exactly one of
+        `companyId`, `adCampaignIds`, `adGroupIds`, or `adIds` must be provided.
 
         Required permissions:
 
@@ -94,7 +91,11 @@ class AdReportsResource(SyncAPIResource):
           ad_ids: Scope the report to these ads (max 100); stats are summed across them. Mutually
               exclusive with `companyId`, `adCampaignIds`, and `adGroupIds`.
 
-          breakdown: Entity level to group an ad report by.
+          breakdown: Entity level to break down the report by. When set, `breakdown` on the response
+              contains one row per entity at the requested level inside the requested scope.
+              `ad` returns one row per ad, `ad_group` per ad group, `campaign` per ad
+              campaign. The breakdown level must be at or below the scope (e.g. `adId` cannot
+              be broken down by `campaign`). The `summary` totals are unaffected.
 
           company_id: The unique identifier of a company. Mutually exclusive with `adCampaignIds`,
               `adGroupIds`, and `adIds`. Use with `breakdown` to fan out across every
@@ -103,7 +104,10 @@ class AdReportsResource(SyncAPIResource):
           currency: ISO 4217 currency code to report `spend` in. Defaults to the company's ads
               reporting currency.
 
-          granularity: Bucket size for external ad stat rows.
+          granularity: Bucket grain for the per-bucket `granularity` time series. Omit (`null`) for
+              summary-only. `hourly`/`daily` max 90 days, `weekly` max 366 days, `monthly` max
+              4 years. The `summary` totals are unaffected. With `breakdown`, each row gets
+              its own series at the same grain.
 
           extra_headers: Send extra headers
 
@@ -140,8 +144,6 @@ class AdReportsResource(SyncAPIResource):
 
 
 class AsyncAdReportsResource(AsyncAPIResource):
-    """Ad reports"""
-
     @cached_property
     def with_raw_response(self) -> AsyncAdReportsResourceWithRawResponse:
         """
@@ -166,13 +168,13 @@ class AsyncAdReportsResource(AsyncAPIResource):
         *,
         from_: Union[str, datetime],
         to: Union[str, datetime],
-        ad_campaign_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        ad_group_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        ad_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        breakdown: Optional[Literal["campaign", "ad_group", "ad"]] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        currency: Optional[str] | Omit = omit,
-        granularity: Optional[Granularities] | Omit = omit,
+        ad_campaign_ids: SequenceNotStr[str] | Omit = omit,
+        ad_group_ids: SequenceNotStr[str] | Omit = omit,
+        ad_ids: SequenceNotStr[str] | Omit = omit,
+        breakdown: Literal["campaign", "ad_group", "ad"] | Omit = omit,
+        company_id: str | Omit = omit,
+        currency: str | Omit = omit,
+        granularity: Granularities | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -183,11 +185,10 @@ class AsyncAdReportsResource(AsyncAPIResource):
         """Performance report for a company, ad campaigns, ad groups, or ads.
 
         Always
-        returns aggregate `summary` totals summed across the scope. Set `granularity`
-        (`daily`/`hourly`) to additionally get a time series, or set `breakdown`
-        (`campaign`/`ad_group`/`ad`) to additionally get per-entity rows inside the
-        requested scope. Exactly one of `companyId`, `adCampaignIds`, `adGroupIds`, or
-        `adIds` must be provided.
+        returns aggregate `summary` totals summed across the scope. Set `granularity` to
+        additionally get a time series, or set `breakdown` (`campaign`/`ad_group`/`ad`)
+        to additionally get per-entity rows inside the requested scope. Exactly one of
+        `companyId`, `adCampaignIds`, `adGroupIds`, or `adIds` must be provided.
 
         Required permissions:
 
@@ -207,7 +208,11 @@ class AsyncAdReportsResource(AsyncAPIResource):
           ad_ids: Scope the report to these ads (max 100); stats are summed across them. Mutually
               exclusive with `companyId`, `adCampaignIds`, and `adGroupIds`.
 
-          breakdown: Entity level to group an ad report by.
+          breakdown: Entity level to break down the report by. When set, `breakdown` on the response
+              contains one row per entity at the requested level inside the requested scope.
+              `ad` returns one row per ad, `ad_group` per ad group, `campaign` per ad
+              campaign. The breakdown level must be at or below the scope (e.g. `adId` cannot
+              be broken down by `campaign`). The `summary` totals are unaffected.
 
           company_id: The unique identifier of a company. Mutually exclusive with `adCampaignIds`,
               `adGroupIds`, and `adIds`. Use with `breakdown` to fan out across every
@@ -216,7 +221,10 @@ class AsyncAdReportsResource(AsyncAPIResource):
           currency: ISO 4217 currency code to report `spend` in. Defaults to the company's ads
               reporting currency.
 
-          granularity: Bucket size for external ad stat rows.
+          granularity: Bucket grain for the per-bucket `granularity` time series. Omit (`null`) for
+              summary-only. `hourly`/`daily` max 90 days, `weekly` max 366 days, `monthly` max
+              4 years. The `summary` totals are unaffected. With `breakdown`, each row gets
+              its own series at the same grain.
 
           extra_headers: Send extra headers
 

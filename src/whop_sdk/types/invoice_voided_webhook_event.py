@@ -17,6 +17,9 @@ class InvoiceVoidedWebhookEvent(BaseModel):
     api_version: Literal["v1"]
     """The API version for this webhook"""
 
+    api_version_date: Optional[str] = None
+    """The dated API version (Api-Version-Date) the payload is serialized to"""
+
     data: Invoice
     """
     An invoice represents an itemized bill sent by a company to a customer for a
@@ -30,5 +33,11 @@ class InvoiceVoidedWebhookEvent(BaseModel):
     type: Literal["invoice.voided"]
     """The webhook event type"""
 
-    company_id: Optional[str] = None
-    """The company ID that this webhook event is associated with"""
+    account_id: Optional[str] = None
+    """The account ID that this webhook event is associated with"""
+
+    previous_attributes: Optional[object] = None
+    """
+    For some `.updated` events, the old values of the payload fields that changed,
+    keyed by field name. Omitted when no capture is available for the event
+    """

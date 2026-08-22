@@ -1,0 +1,133 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+import builtins
+from typing import Optional
+from datetime import datetime
+from typing_extensions import Literal
+
+from ..._models import BaseModel
+
+__all__ = ["MethodUpdateResponse", "SupportedPayoutMethod"]
+
+
+class SupportedPayoutMethod(BaseModel):
+    country_code: Optional[str] = None
+    """ISO 3166-1 alpha-3 country the destination pays out to."""
+
+    delivery_type: Literal[
+        "cash_pickup",
+        "bank_deposit",
+        "home_delivery",
+        "mobile_wallet",
+        "masspay_card",
+        "paper_check",
+        "bill",
+        "cryptocurrency",
+        "unknown",
+    ]
+    """How funds are delivered."""
+
+    icon_url: Optional[str] = None
+
+    name: Optional[str] = None
+
+    supports_instant_delivery: bool
+
+    supports_plaid: bool
+    """
+    Whether the payer can link this method by signing in to their bank instead of
+    typing account details.
+    """
+
+    supports_standard_delivery: bool
+
+
+class MethodUpdateResponse(BaseModel):
+    id: str
+    """Payout method ID, prefixed `potk_`."""
+
+    account_reference: Optional[str] = None
+    """Masked identifier for the destination."""
+
+    bank_verification_state: Optional[Literal["checking", "verified", "no_data", "warning", "broken"]] = None
+    """
+    Lifecycle trust state: `checking` (verification still running), `verified` (bank
+    confirmed ownership or a payout already completed to it), `no_data`
+    (verification unavailable or bank returned no ownership data), `warning` (bank
+    could not confirm the destination's owner), `broken` (payouts failed with a
+    permanent account error), `null` (never checked).
+    """
+
+    created_at: datetime
+
+    destination_currency: str
+
+    estimated_arrival: Optional[object] = None
+    """`null` after an update. List payout methods to retrieve arrival estimates."""
+
+    fee_structure: Optional[object] = None
+    """`null` after an update.
+
+    List payout methods to retrieve the configured fee terms.
+    """
+
+    institution_name: Optional[str] = None
+
+    is_clone: bool
+    """Whether this method is a copy of one saved on another of the payer's accounts."""
+
+    is_default: bool
+
+    last_paid_out_at: Optional[datetime] = None
+    """
+    When the most recent completed payout was delivered to this method, as an ISO
+    8601 timestamp. `null` when nothing has been paid out to it yet.
+    """
+
+    linked_via_plaid: bool
+    """
+    Whether the payer added this method by signing in to their bank rather than
+    typing account details.
+    """
+
+    needs_plaid_reconnect: bool
+    """
+    Whether the bank sign-in behind this method has expired and must be redone
+    before it counts as linked.
+    """
+
+    nickname: Optional[str] = None
+    """User-defined label for the payout method."""
+
+    object: Literal["payout_method"]
+
+    payer_name: Optional[str] = None
+
+    quote: Optional[builtins.object] = None
+    """Always `null` after an update."""
+
+    status: Literal["created", "active", "broken"]
+    """`created` — saved, no payout has completed through it yet.
+
+    `active` — a payout through it completed. `broken` — a payout through it failed
+    with an error attributable to the method, and it no longer accepts payouts; a
+    later successful payout returns it to `active`.
+    """
+
+    status_reason: Optional[str] = None
+    """
+    Machine-readable code for why the method is `broken` — the newest failure
+    recorded through it, whether a payout error or a pre-payout rejection. `null`
+    unless the method is broken, or when it was disabled without a recorded failure.
+    """
+
+    supported_payout_method: Optional[SupportedPayoutMethod] = None
+
+    unavailable_reason: Optional[Literal["destination_retired"]] = None
+    """
+    Why this method is unavailable: `destination_retired` means the payout provider
+    stopped offering the destination. Whop may automatically remap an eligible
+    method that was not linked through Plaid to a compatible replacement; otherwise,
+    the account owner must re-add it. `null` means no unavailability reason is
+    known.
+    """

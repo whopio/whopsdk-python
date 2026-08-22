@@ -26,6 +26,7 @@ from ..types.shared.direction import Direction
 from ..types.invoice_void_response import InvoiceVoidResponse
 from ..types.shared.invoice_status import InvoiceStatus
 from ..types.invoice_delete_response import InvoiceDeleteResponse
+from ..types.invoice_resend_response import InvoiceResendResponse
 from ..types.shared.collection_method import CollectionMethod
 from ..types.shared.invoice_list_item import InvoiceListItem
 from ..types.invoice_mark_paid_response import InvoiceMarkPaidResponse
@@ -35,8 +36,6 @@ __all__ = ["InvoicesResource", "AsyncInvoicesResource"]
 
 
 class InvoicesResource(SyncAPIResource):
-    """Invoices"""
-
     @cached_property
     def with_raw_response(self) -> InvoicesResourceWithRawResponse:
         """
@@ -83,6 +82,7 @@ class InvoicesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Invoice:
         """Create an invoice for a customer.
 
@@ -92,6 +92,9 @@ class InvoicesResource(SyncAPIResource):
         Required permissions:
 
         - `invoice:create`
+        - `member:email:read`
+        - `member:basic:read`
+        - `payment:basic:read`
 
         Args:
           collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
@@ -151,6 +154,8 @@ class InvoicesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         ...
 
@@ -181,6 +186,7 @@ class InvoicesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Invoice:
         """Create an invoice for a customer.
 
@@ -190,6 +196,9 @@ class InvoicesResource(SyncAPIResource):
         Required permissions:
 
         - `invoice:create`
+        - `member:email:read`
+        - `member:basic:read`
+        - `payment:basic:read`
 
         Args:
           collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
@@ -248,6 +257,8 @@ class InvoicesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         ...
 
@@ -271,7 +282,9 @@ class InvoicesResource(SyncAPIResource):
         customer_name: Optional[str] | Omit = omit,
         due_date: Union[str, datetime, None] | Omit = omit,
         email_address: Optional[str] | Omit = omit,
-        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductLineItem]] | Omit = omit,
+        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductLineItem]]
+        | Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductIDLineItem]]
+        | Omit = omit,
         mailing_address_id: Optional[str] | Omit = omit,
         member_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -285,6 +298,7 @@ class InvoicesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Invoice:
         return self._post(
             "/invoices",
@@ -312,7 +326,11 @@ class InvoicesResource(SyncAPIResource):
                 invoice_create_params.InvoiceCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Invoice,
         )
@@ -334,6 +352,9 @@ class InvoicesResource(SyncAPIResource):
         Required permissions:
 
         - `invoice:basic:read`
+        - `member:email:read`
+        - `member:basic:read`
+        - `payment:basic:read`
 
         Args:
           extra_headers: Send extra headers
@@ -378,6 +399,7 @@ class InvoicesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Invoice:
         """
         Update a draft invoice's details.
@@ -385,6 +407,9 @@ class InvoicesResource(SyncAPIResource):
         Required permissions:
 
         - `invoice:update`
+        - `member:email:read`
+        - `member:basic:read`
+        - `payment:basic:read`
 
         Args:
           automatically_finalizes_at: The date and time when the invoice will be automatically finalized. For
@@ -425,6 +450,8 @@ class InvoicesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -450,7 +477,11 @@ class InvoicesResource(SyncAPIResource):
                 invoice_update_params.InvoiceUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Invoice,
         )
@@ -458,18 +489,18 @@ class InvoicesResource(SyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        collection_methods: Optional[List[CollectionMethod]] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[Literal["id", "created_at", "due_date"]] | Omit = omit,
-        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        statuses: Optional[List[InvoiceStatus]] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        collection_methods: List[CollectionMethod] | Omit = omit,
+        company_id: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        direction: Direction | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["id", "created_at", "due_date"] | Omit = omit,
+        product_ids: SequenceNotStr[str] | Omit = omit,
+        statuses: List[InvoiceStatus] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -498,13 +529,13 @@ class InvoicesResource(SyncAPIResource):
 
           created_before: Only return invoices created before this timestamp.
 
-          direction: The direction of the sort.
+          direction: The sort direction for ordering results, either ascending or descending.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          order: Which columns can be used to sort.
+          order: The field to order results by, such as creation date or due date.
 
           product_ids: Filter invoices to only those associated with these specific product
               identifiers.
@@ -558,6 +589,7 @@ class InvoicesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> InvoiceDeleteResponse:
         """
         Delete a draft invoice.
@@ -574,13 +606,19 @@ class InvoicesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._delete(
             path_template("/invoices/{id}", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=InvoiceDeleteResponse,
         )
@@ -595,6 +633,7 @@ class InvoicesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> InvoiceMarkPaidResponse:
         """
         Mark an open invoice as paid when payment was collected outside of Whop.
@@ -611,13 +650,19 @@ class InvoicesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
             path_template("/invoices/{id}/mark_paid", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=InvoiceMarkPaidResponse,
         )
@@ -632,6 +677,7 @@ class InvoicesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> InvoiceMarkUncollectibleResponse:
         """
         Mark an open invoice as uncollectible when payment is not expected.
@@ -648,15 +694,65 @@ class InvoicesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
             path_template("/invoices/{id}/mark_uncollectible", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=InvoiceMarkUncollectibleResponse,
+        )
+
+    def resend(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> InvoiceResendResponse:
+        """
+        Resend the notification email for an existing invoice to the customer.
+
+        Required permissions:
+
+        - `invoice:update`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            path_template("/invoices/{id}/resend", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
+            ),
+            cast_to=InvoiceResendResponse,
         )
 
     def void(
@@ -669,6 +765,7 @@ class InvoicesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> InvoiceVoidResponse:
         """Void an open invoice so it can no longer be paid.
 
@@ -687,21 +784,25 @@ class InvoicesResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
             path_template("/invoices/{id}/void", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=InvoiceVoidResponse,
         )
 
 
 class AsyncInvoicesResource(AsyncAPIResource):
-    """Invoices"""
-
     @cached_property
     def with_raw_response(self) -> AsyncInvoicesResourceWithRawResponse:
         """
@@ -748,6 +849,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Invoice:
         """Create an invoice for a customer.
 
@@ -757,6 +859,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
         Required permissions:
 
         - `invoice:create`
+        - `member:email:read`
+        - `member:basic:read`
+        - `payment:basic:read`
 
         Args:
           collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
@@ -816,6 +921,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         ...
 
@@ -846,6 +953,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Invoice:
         """Create an invoice for a customer.
 
@@ -855,6 +963,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
         Required permissions:
 
         - `invoice:create`
+        - `member:email:read`
+        - `member:basic:read`
+        - `payment:basic:read`
 
         Args:
           collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
@@ -913,6 +1024,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         ...
 
@@ -936,7 +1049,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
         customer_name: Optional[str] | Omit = omit,
         due_date: Union[str, datetime, None] | Omit = omit,
         email_address: Optional[str] | Omit = omit,
-        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductLineItem]] | Omit = omit,
+        line_items: Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductLineItem]]
+        | Optional[Iterable[invoice_create_params.CreateInvoiceInputWithProductIDLineItem]]
+        | Omit = omit,
         mailing_address_id: Optional[str] | Omit = omit,
         member_id: Optional[str] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -950,6 +1065,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Invoice:
         return await self._post(
             "/invoices",
@@ -977,7 +1093,11 @@ class AsyncInvoicesResource(AsyncAPIResource):
                 invoice_create_params.InvoiceCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Invoice,
         )
@@ -999,6 +1119,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
         Required permissions:
 
         - `invoice:basic:read`
+        - `member:email:read`
+        - `member:basic:read`
+        - `payment:basic:read`
 
         Args:
           extra_headers: Send extra headers
@@ -1043,6 +1166,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Invoice:
         """
         Update a draft invoice's details.
@@ -1050,6 +1174,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
         Required permissions:
 
         - `invoice:update`
+        - `member:email:read`
+        - `member:basic:read`
+        - `payment:basic:read`
 
         Args:
           automatically_finalizes_at: The date and time when the invoice will be automatically finalized. For
@@ -1090,6 +1217,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -1115,7 +1244,11 @@ class AsyncInvoicesResource(AsyncAPIResource):
                 invoice_update_params.InvoiceUpdateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Invoice,
         )
@@ -1123,18 +1256,18 @@ class AsyncInvoicesResource(AsyncAPIResource):
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        collection_methods: Optional[List[CollectionMethod]] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[Literal["id", "created_at", "due_date"]] | Omit = omit,
-        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        statuses: Optional[List[InvoiceStatus]] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        collection_methods: List[CollectionMethod] | Omit = omit,
+        company_id: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        direction: Direction | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["id", "created_at", "due_date"] | Omit = omit,
+        product_ids: SequenceNotStr[str] | Omit = omit,
+        statuses: List[InvoiceStatus] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1163,13 +1296,13 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
           created_before: Only return invoices created before this timestamp.
 
-          direction: The direction of the sort.
+          direction: The sort direction for ordering results, either ascending or descending.
 
           first: Returns the first _n_ elements from the list.
 
           last: Returns the last _n_ elements from the list.
 
-          order: Which columns can be used to sort.
+          order: The field to order results by, such as creation date or due date.
 
           product_ids: Filter invoices to only those associated with these specific product
               identifiers.
@@ -1223,6 +1356,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> InvoiceDeleteResponse:
         """
         Delete a draft invoice.
@@ -1239,13 +1373,19 @@ class AsyncInvoicesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._delete(
             path_template("/invoices/{id}", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=InvoiceDeleteResponse,
         )
@@ -1260,6 +1400,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> InvoiceMarkPaidResponse:
         """
         Mark an open invoice as paid when payment was collected outside of Whop.
@@ -1276,13 +1417,19 @@ class AsyncInvoicesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
             path_template("/invoices/{id}/mark_paid", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=InvoiceMarkPaidResponse,
         )
@@ -1297,6 +1444,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> InvoiceMarkUncollectibleResponse:
         """
         Mark an open invoice as uncollectible when payment is not expected.
@@ -1313,15 +1461,65 @@ class AsyncInvoicesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
             path_template("/invoices/{id}/mark_uncollectible", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=InvoiceMarkUncollectibleResponse,
+        )
+
+    async def resend(
+        self,
+        id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> InvoiceResendResponse:
+        """
+        Resend the notification email for an existing invoice to the customer.
+
+        Required permissions:
+
+        - `invoice:update`
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            path_template("/invoices/{id}/resend", id=id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
+            ),
+            cast_to=InvoiceResendResponse,
         )
 
     async def void(
@@ -1334,6 +1532,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> InvoiceVoidResponse:
         """Void an open invoice so it can no longer be paid.
 
@@ -1352,13 +1551,19 @@ class AsyncInvoicesResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
             path_template("/invoices/{id}/void", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=InvoiceVoidResponse,
         )
@@ -1388,6 +1593,9 @@ class InvoicesResourceWithRawResponse:
         )
         self.mark_uncollectible = to_raw_response_wrapper(
             invoices.mark_uncollectible,
+        )
+        self.resend = to_raw_response_wrapper(
+            invoices.resend,
         )
         self.void = to_raw_response_wrapper(
             invoices.void,
@@ -1419,6 +1627,9 @@ class AsyncInvoicesResourceWithRawResponse:
         self.mark_uncollectible = async_to_raw_response_wrapper(
             invoices.mark_uncollectible,
         )
+        self.resend = async_to_raw_response_wrapper(
+            invoices.resend,
+        )
         self.void = async_to_raw_response_wrapper(
             invoices.void,
         )
@@ -1449,6 +1660,9 @@ class InvoicesResourceWithStreamingResponse:
         self.mark_uncollectible = to_streamed_response_wrapper(
             invoices.mark_uncollectible,
         )
+        self.resend = to_streamed_response_wrapper(
+            invoices.resend,
+        )
         self.void = to_streamed_response_wrapper(
             invoices.void,
         )
@@ -1478,6 +1692,9 @@ class AsyncInvoicesResourceWithStreamingResponse:
         )
         self.mark_uncollectible = async_to_streamed_response_wrapper(
             invoices.mark_uncollectible,
+        )
+        self.resend = async_to_streamed_response_wrapper(
+            invoices.resend,
         )
         self.void = async_to_streamed_response_wrapper(
             invoices.void,
