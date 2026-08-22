@@ -1,27 +1,9 @@
 name: Publish to PyPI
 
-# Releasing whop-sdk is a one-line PR bumping `version` under [tool.poetry] in
-# pyproject.toml. Merging it lands a version that is not on PyPI, and this workflow
-# builds, checks, publishes and tags it. Regenerating the SDK never releases: the
-# monorepo pins generation to the version already on PyPI, and `only-version-changed`
-# below rejects a release push that carries anything else.
-#
-# This file is hand-written and listed in .fernignore. Fern deletes files it did not
-# generate, and it reads .fernignore from the PR's base branch, so a copy on a feature
-# branch protects nothing.
-#
-# Authentication is PyPI trusted publishing (OIDC) — there is no PyPI token in scope
-# here. The trusted publisher on pypi.org matches on this file's name, so renaming it
-# breaks authentication silently.
-
 on:
   push:
     branches: [main]
     paths: ["pyproject.toml"]
-  # Every pull request runs the whole thing in dry mode. Two earlier releases failed on
-  # plumbing that static review cannot see, so the build path is exercised before it is
-  # ever trusted. `decide` forces dry=true for this event and `publish`/`tag` are gated
-  # on dry == 'false', so a pull request cannot reach PyPI.
   pull_request:
   workflow_dispatch:
     inputs:
@@ -51,7 +33,6 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          # HEAD^ is what only-version-changed diffs against.
           fetch-depth: 2
           persist-credentials: false
 
@@ -72,10 +53,6 @@ jobs:
 
           emit() { echo "$1=$2" >> "$GITHUB_OUTPUT"; }
 
-          # The Fern tree keeps the package version under [tool.poetry]; [project] only
-          # carries `dynamic = ["version"]`. The Stainless tree has neither, so on a
-          # pre-cutover checkout this workflow is inert rather than a second publish
-          # path racing release-please.
           version=$(python - <<'PY'
           import tomllib
 
@@ -111,10 +88,6 @@ jobs:
 
           emit dry false
 
-          # only-version-changed. The version pin during generation is resolved at
-          # generation time, so it can go stale; this is the backstop that keeps a
-          # regeneration — which touches hundreds of files — from being read as a
-          # release just because it also moved the version.
           if [ "$EVENT" = "push" ]; then
             changed=$(git diff --name-only HEAD^ HEAD)
             if [ "$changed" != "pyproject.toml" ]; then
@@ -131,9 +104,6 @@ jobs:
             fi
           fi
 
-          # Registry existence, branching on 404 specifically. Treating any failed
-          # lookup as "not published" turns a PyPI outage into a duplicate publish
-          # attempt, so anything that is neither 200 nor 404 is a hard failure.
           status=$(curl -sS -o /dev/null -w '%{http_code}' \
             "https://pypi.org/pypi/${PYPI_PROJECT}/${version}/json")
 
@@ -150,11 +120,6 @@ jobs:
               ;;
           esac
 
-          # Version-regression. The generation pin is resolved when Fern runs, so a PR
-          # generated before a release carries a stale version. Merging it would move
-          # pyproject.toml backwards; the existence check above would find that version
-          # on PyPI, call it "already published" and stay green, leaving the repo
-          # quietly claiming an older version than it ships. This is what catches it.
           latest=$(curl -sS --fail "https://pypi.org/pypi/${PYPI_PROJECT}/json" \
             | python -c 'import json,sys; print(json.load(sys.stdin)["info"]["version"])')
           echo "Latest on PyPI: $latest"
@@ -178,10 +143,6 @@ jobs:
     needs: decide
     if: needs.decide.outputs.release == 'true'
     runs-on: ubuntu-latest
-    # No id-token here, deliberately. With `id-token: write` at workflow level the
-    # OIDC request token sits in the environment of every step, including the pip
-    # install below — any dependency could then mint a PyPI token and publish its own
-    # tarball under this name. The build hands the publish job a finished artifact.
     permissions:
       contents: read
     steps:
@@ -193,10 +154,6 @@ jobs:
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
-      # The generator stamps the version into the source tree as well as pyproject.toml,
-      # and a one-line release PR only touches pyproject.toml — so without this the
-      # published wheel would report the previous version on the wire. The scan
-      # afterwards fails if the generator ever adds a stamp somewhere new.
       - name: Sync the version stamps
         env:
           VERSION: ${{ needs.decide.outputs.version }}
@@ -242,16 +199,9 @@ jobs:
           python -m pip install --disable-pip-version-check --quiet build twine
           python -m build --sdist --wheel --outdir dist .
 
-      # twine check is the real static gate on a Python artifact: it parses the built
-      # metadata the way PyPI's uploader does, so a broken long_description or a
-      # metadata field PyPI would reject fails here instead of half-way through an
-      # upload. `twine upload --repository testpypi` is not a dry run — it publishes.
       - name: Check the distribution
         run: python -m twine check --strict dist/*
 
-      # Install the artifact a user would install and import it, so a packaging bug
-      # (a missing package directory, a py.typed that did not ship, a version the wheel
-      # metadata disagrees with) fails before the artifact is immutable.
       - name: Smoke-test the built wheel
         env:
           VERSION: ${{ needs.decide.outputs.version }}
@@ -286,8 +236,6 @@ jobs:
     needs: [decide, build]
     if: needs.decide.outputs.release == 'true' && needs.decide.outputs.dry == 'false'
     runs-on: ubuntu-latest
-    # The only job that can mint an OIDC token, and it installs nothing: it downloads
-    # the artifact the build job produced and hands it to PyPI.
     permissions:
       id-token: write
     steps:
@@ -303,11 +251,6 @@ jobs:
 
   tag:
     needs: [decide, build, publish]
-    # Independent of the publish gate on purpose. If publishing succeeds and tagging
-    # fails, a re-run sees the version on PyPI, decides there is nothing to release,
-    # and the tag could never be created — so this job re-checks the registry itself
-    # and tags whatever is published, whether this run put it there or an earlier one
-    # did.
     if: always() && needs.decide.outputs.dry == 'false' && needs.decide.outputs.version != ''
     runs-on: ubuntu-latest
     permissions:
@@ -337,6 +280,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git tag -a "v${VERSION}" -m "whop-sdk ${VERSION}"
 
-          # A concurrent run may have won the race; that is the desired end state.
           git push origin "refs/tags/v${VERSION}" || \
             git ls-remote --exit-code --tags origin "refs/tags/v${VERSION}" >/dev/null
