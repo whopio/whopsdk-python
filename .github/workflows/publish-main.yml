@@ -1,0 +1,342 @@
+name: Publish to PyPI
+
+# Releasing whop-sdk is a one-line PR bumping `version` under [tool.poetry] in
+# pyproject.toml. Merging it lands a version that is not on PyPI, and this workflow
+# builds, checks, publishes and tags it. Regenerating the SDK never releases: the
+# monorepo pins generation to the version already on PyPI, and `only-version-changed`
+# below rejects a release push that carries anything else.
+#
+# This file is hand-written and listed in .fernignore. Fern deletes files it did not
+# generate, and it reads .fernignore from the PR's base branch, so a copy on a feature
+# branch protects nothing.
+#
+# Authentication is PyPI trusted publishing (OIDC) — there is no PyPI token in scope
+# here. The trusted publisher on pypi.org matches on this file's name, so renaming it
+# breaks authentication silently.
+
+on:
+  push:
+    branches: [main]
+    paths: ["pyproject.toml"]
+  # Every pull request runs the whole thing in dry mode. Two earlier releases failed on
+  # plumbing that static review cannot see, so the build path is exercised before it is
+  # ever trusted. `decide` forces dry=true for this event and `publish`/`tag` are gated
+  # on dry == 'false', so a pull request cannot reach PyPI.
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Build and check the distribution without publishing"
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-whop-sdk
+  cancel-in-progress: false
+
+env:
+  PYPI_PROJECT: whop-sdk
+  PYTHON_VERSION: "3.12"
+
+jobs:
+  decide:
+    runs-on: ubuntu-latest
+    outputs:
+      release: ${{ steps.gate.outputs.release }}
+      dry: ${{ steps.gate.outputs.dry }}
+      version: ${{ steps.gate.outputs.version }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # HEAD^ is what only-version-changed diffs against.
+          fetch-depth: 2
+          persist-credentials: false
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install version tooling
+        run: python -m pip install --disable-pip-version-check --quiet packaging
+
+      - name: Decide whether to release
+        id: gate
+        env:
+          EVENT: ${{ github.event_name }}
+          DRY_RUN: ${{ github.event.inputs.dry_run }}
+        run: |
+          set -euo pipefail
+
+          emit() { echo "$1=$2" >> "$GITHUB_OUTPUT"; }
+
+          # The Fern tree keeps the package version under [tool.poetry]; [project] only
+          # carries `dynamic = ["version"]`. The Stainless tree has neither, so on a
+          # pre-cutover checkout this workflow is inert rather than a second publish
+          # path racing release-please.
+          version=$(python - <<'PY'
+          import tomllib
+
+          with open("pyproject.toml", "rb") as handle:
+              config = tomllib.load(handle)
+
+          print(config.get("tool", {}).get("poetry", {}).get("version") or "")
+          PY
+          )
+
+          if [ -z "$version" ]; then
+            echo "::notice::pyproject.toml has no [tool.poetry] version — this is not the Fern-generated tree, so there is nothing to release."
+            emit release false
+            emit dry true
+            emit version ""
+            exit 0
+          fi
+
+          echo "pyproject.toml version: $version"
+          emit version "$version"
+
+          if ! printf '%s' "$version" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+([.-][0-9A-Za-z.]+)?$'; then
+            echo "::error::'$version' is not a version this workflow will publish."
+            exit 1
+          fi
+
+          if [ "$EVENT" = "pull_request" ] || [ "$DRY_RUN" = "true" ]; then
+            echo "Dry run: building and checking the distribution, publishing nothing."
+            emit release true
+            emit dry true
+            exit 0
+          fi
+
+          emit dry false
+
+          # only-version-changed. The version pin during generation is resolved at
+          # generation time, so it can go stale; this is the backstop that keeps a
+          # regeneration — which touches hundreds of files — from being read as a
+          # release just because it also moved the version.
+          if [ "$EVENT" = "push" ]; then
+            changed=$(git diff --name-only HEAD^ HEAD)
+            if [ "$changed" != "pyproject.toml" ]; then
+              echo "::error::a release push must change pyproject.toml and nothing else. Changed:"
+              printf '%s\n' "$changed"
+              exit 1
+            fi
+
+            body=$(git diff -U0 HEAD^ HEAD -- pyproject.toml | grep -E '^[+-]' | grep -vE '^(\+\+\+|---)' || true)
+            if [ "$(printf '%s\n' "$body" | grep -cvE '^[+-]version = ')" -ne 0 ]; then
+              echo "::error::a release push must change only the version line. Diff:"
+              printf '%s\n' "$body"
+              exit 1
+            fi
+          fi
+
+          # Registry existence, branching on 404 specifically. Treating any failed
+          # lookup as "not published" turns a PyPI outage into a duplicate publish
+          # attempt, so anything that is neither 200 nor 404 is a hard failure.
+          status=$(curl -sS -o /dev/null -w '%{http_code}' \
+            "https://pypi.org/pypi/${PYPI_PROJECT}/${version}/json")
+
+          case "$status" in
+            200)
+              echo "::notice::${PYPI_PROJECT} ${version} is already on PyPI; nothing to publish."
+              emit release false
+              exit 0
+              ;;
+            404) ;;
+            *)
+              echo "::error::PyPI returned HTTP $status for ${PYPI_PROJECT} ${version}; refusing to guess whether it is published."
+              exit 1
+              ;;
+          esac
+
+          # Version-regression. The generation pin is resolved when Fern runs, so a PR
+          # generated before a release carries a stale version. Merging it would move
+          # pyproject.toml backwards; the existence check above would find that version
+          # on PyPI, call it "already published" and stay green, leaving the repo
+          # quietly claiming an older version than it ships. This is what catches it.
+          latest=$(curl -sS --fail "https://pypi.org/pypi/${PYPI_PROJECT}/json" \
+            | python -c 'import json,sys; print(json.load(sys.stdin)["info"]["version"])')
+          echo "Latest on PyPI: $latest"
+
+          python - "$version" "$latest" <<'PY'
+          import sys
+
+          from packaging.version import Version
+
+          candidate, latest = Version(sys.argv[1]), Version(sys.argv[2])
+          if candidate < latest:
+              sys.exit(
+                  f"::error::pyproject.toml is at {candidate} but PyPI already has {latest}. "
+                  "This branch was generated before that release; regenerate it before merging."
+              )
+          PY
+
+          emit release true
+
+  build:
+    needs: decide
+    if: needs.decide.outputs.release == 'true'
+    runs-on: ubuntu-latest
+    # No id-token here, deliberately. With `id-token: write` at workflow level the
+    # OIDC request token sits in the environment of every step, including the pip
+    # install below — any dependency could then mint a PyPI token and publish its own
+    # tarball under this name. The build hands the publish job a finished artifact.
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      # The generator stamps the version into the source tree as well as pyproject.toml,
+      # and a one-line release PR only touches pyproject.toml — so without this the
+      # published wheel would report the previous version on the wire. The scan
+      # afterwards fails if the generator ever adds a stamp somewhere new.
+      - name: Sync the version stamps
+        env:
+          VERSION: ${{ needs.decide.outputs.version }}
+        run: |
+          set -euo pipefail
+          python - "$VERSION" <<'PY'
+          import json
+          import pathlib
+          import re
+          import sys
+
+          version = sys.argv[1]
+
+          wrapper = pathlib.Path("src/whop_sdk/core/client_wrapper.py")
+          text = wrapper.read_text()
+          stamped, count = re.subn(
+              r'"whop_sdk/\d[^"]*"', f'"whop_sdk/{version}"', text
+          )
+          if count == 0:
+              sys.exit(f"::error::no version stamp found in {wrapper}")
+          wrapper.write_text(stamped)
+
+          metadata_path = pathlib.Path(".fern/metadata.json")
+          if metadata_path.exists():
+              metadata = json.loads(metadata_path.read_text())
+              if "requestedVersion" in metadata:
+                  metadata["requestedVersion"] = version
+                  metadata_path.write_text(json.dumps(metadata, indent=2) + "\n")
+
+          print(f"stamped {count} occurrence(s) in {wrapper}")
+          PY
+
+          stale=$(grep -rEn '"whop_sdk/[0-9][^"]*"' src \
+            | grep -v "whop_sdk/${VERSION}" || true)
+          if [ -n "$stale" ]; then
+            echo "::error::the source tree still reports a version other than ${VERSION}:"
+            printf '%s\n' "$stale"
+            exit 1
+          fi
+
+      - name: Build the distribution
+        run: |
+          python -m pip install --disable-pip-version-check --quiet build twine
+          python -m build --sdist --wheel --outdir dist .
+
+      # twine check is the real static gate on a Python artifact: it parses the built
+      # metadata the way PyPI's uploader does, so a broken long_description or a
+      # metadata field PyPI would reject fails here instead of half-way through an
+      # upload. `twine upload --repository testpypi` is not a dry run — it publishes.
+      - name: Check the distribution
+        run: python -m twine check --strict dist/*
+
+      # Install the artifact a user would install and import it, so a packaging bug
+      # (a missing package directory, a py.typed that did not ship, a version the wheel
+      # metadata disagrees with) fails before the artifact is immutable.
+      - name: Smoke-test the built wheel
+        env:
+          VERSION: ${{ needs.decide.outputs.version }}
+        run: |
+          set -euo pipefail
+          python -m venv /tmp/smoke
+          /tmp/smoke/bin/pip install --disable-pip-version-check --quiet dist/*.whl
+          /tmp/smoke/bin/python - "$VERSION" <<'PY'
+          import sys
+          from importlib import metadata
+
+          from whop_sdk import AsyncWhop, Whop
+
+          expected = sys.argv[1]
+          installed = metadata.version("whop-sdk")
+          if installed != expected:
+              sys.exit(f"wheel reports {installed}, expected {expected}")
+
+          Whop(token="smoke-test")
+          AsyncWhop(token="smoke-test")
+          print(f"whop-sdk {installed} imports and constructs")
+          PY
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: dist
+          path: dist/
+          if-no-files-found: error
+          retention-days: 7
+
+  publish:
+    needs: [decide, build]
+    if: needs.decide.outputs.release == 'true' && needs.decide.outputs.dry == 'false'
+    runs-on: ubuntu-latest
+    # The only job that can mint an OIDC token, and it installs nothing: it downloads
+    # the artifact the build job produced and hands it to PyPI.
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: dist
+          path: dist/
+
+      - uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # v1.14.2
+        with:
+          packages-dir: dist/
+          print-hash: true
+
+  tag:
+    needs: [decide, build, publish]
+    # Independent of the publish gate on purpose. If publishing succeeds and tagging
+    # fails, a re-run sees the version on PyPI, decides there is nothing to release,
+    # and the tag could never be created — so this job re-checks the registry itself
+    # and tags whatever is published, whether this run put it there or an earlier one
+    # did.
+    if: always() && needs.decide.outputs.dry == 'false' && needs.decide.outputs.version != ''
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Tag the published version
+        env:
+          VERSION: ${{ needs.decide.outputs.version }}
+        run: |
+          set -euo pipefail
+
+          status=$(curl -sS -o /dev/null -w '%{http_code}' \
+            "https://pypi.org/pypi/${PYPI_PROJECT}/${VERSION}/json")
+          if [ "$status" != "200" ]; then
+            echo "::notice::${PYPI_PROJECT} ${VERSION} is not on PyPI (HTTP $status); nothing to tag."
+            exit 0
+          fi
+
+          if git ls-remote --exit-code --tags origin "refs/tags/v${VERSION}" >/dev/null 2>&1; then
+            echo "v${VERSION} is already tagged."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "v${VERSION}" -m "whop-sdk ${VERSION}"
+
+          # A concurrent run may have won the race; that is the desired end state.
+          git push origin "refs/tags/v${VERSION}" || \
+            git ls-remote --exit-code --tags origin "refs/tags/v${VERSION}" >/dev/null
