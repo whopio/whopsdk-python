@@ -1226,6 +1226,18 @@ files = [
 ]
 
 [[package]]
+name = "standardwebhooks"
+version = "1.1.0"
+description = "Standard Webhooks"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "standardwebhooks-1.1.0-py3-none-any.whl", hash = "sha256:9a88d48a1f198be61517fc7ad328cf58ba02b73f0fbd8941d4213e9c0b6c2a61"},
+    {file = "standardwebhooks-1.1.0.tar.gz", hash = "sha256:e5cb66e21a6356ebb9375aeb57f1348583323015808d475a7c1baaa4b718068a"},
+]
+
+[[package]]
 name = "tomli"
 version = "2.4.1"
 description = "A lil' TOML parser"
@@ -1466,4 +1478,4 @@ aiohttp = ["aiohttp", "httpx-aiohttp"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.10"
-content-hash = "4eaeff06fb8e558535aa3729ed6f99c2398eaaba665bcdf9c096bb08d9cb5fc6"
+content-hash = "bd92c3ec03904984bad084ecc0b18fecd563e9dda8200299aff3508422e83931"
