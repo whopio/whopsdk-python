@@ -2,27 +2,26 @@
 
 from __future__ import annotations
 
-from typing import Optional
 from typing_extensions import TypedDict
 
 __all__ = ["CourseLessonListParams"]
 
 
 class CourseLessonListParams(TypedDict, total=False):
-    after: Optional[str]
+    after: str
     """Returns the elements in the list that come after the specified cursor."""
 
-    before: Optional[str]
+    before: str
     """Returns the elements in the list that come before the specified cursor."""
 
-    chapter_id: Optional[str]
+    chapter_id: str
     """The unique identifier of a chapter to return only its lessons."""
 
-    course_id: Optional[str]
+    course_id: str
     """The unique identifier of the course to return all lessons across all chapters."""
 
-    first: Optional[int]
+    first: int
     """Returns the first _n_ elements from the list."""
 
-    last: Optional[int]
+    last: int
     """Returns the last _n_ elements from the list."""
