@@ -5,7 +5,9 @@
 # once it is on main.
 #
 # publish-main.yml is hand-written: it releases whop-sdk when a merge to main lands a
-# [tool.poetry] version that is not yet on PyPI.
+# [tool.poetry] version that is not yet on PyPI. It is the only publish path — the
+# Stainless machinery (release-please, publish-pypi.yml, release-doctor.yml, bin/) was
+# removed with the cutover.
 #
 # src/whop_sdk/lib holds verify_user_token, the one hand-written helper in this SDK. It
 # depends only on the standard library and pyjwt, so it survives the generated client
