@@ -7,7 +7,12 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import bounty_submission_list_params, bounty_submission_create_params, bounty_submission_submit_params
+from ..types import (
+    bounty_submission_list_params,
+    bounty_submission_create_params,
+    bounty_submission_submit_params,
+    bounty_submission_retrieve_params,
+)
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -125,6 +130,7 @@ class BountySubmissionsResource(SyncAPIResource):
         self,
         id: str,
         *,
+        account_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -134,9 +140,16 @@ class BountySubmissionsResource(SyncAPIResource):
     ) -> BountySubmission:
         """
         Retrieves one bounty submission the credential can see — one the caller
-        authored, or one on a bounty they posted or their account owns.
+        authored, or one on a bounty they posted or their account owns. Reading another
+        member's work on an account's bounty takes `account_id`, the same way the list
+        does.
 
         Args:
+          account_id: Read the submission as this account (`biz_` tag), scoping the lookup to its
+              bounties rather than the caller's own work. Requires read access to the account.
+              Without it the lookup covers only what the credential owns — the submissions the
+              caller authored plus those on bounties they posted.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -150,7 +163,13 @@ class BountySubmissionsResource(SyncAPIResource):
         return self._get(
             path_template("/bounty_submissions/{id}", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"account_id": account_id}, bounty_submission_retrieve_params.BountySubmissionRetrieveParams
+                ),
             ),
             cast_to=BountySubmission,
         )
@@ -437,6 +456,7 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        account_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -446,9 +466,16 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
     ) -> BountySubmission:
         """
         Retrieves one bounty submission the credential can see — one the caller
-        authored, or one on a bounty they posted or their account owns.
+        authored, or one on a bounty they posted or their account owns. Reading another
+        member's work on an account's bounty takes `account_id`, the same way the list
+        does.
 
         Args:
+          account_id: Read the submission as this account (`biz_` tag), scoping the lookup to its
+              bounties rather than the caller's own work. Requires read access to the account.
+              Without it the lookup covers only what the credential owns — the submissions the
+              caller authored plus those on bounties they posted.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -462,7 +489,13 @@ class AsyncBountySubmissionsResource(AsyncAPIResource):
         return await self._get(
             path_template("/bounty_submissions/{id}", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"account_id": account_id}, bounty_submission_retrieve_params.BountySubmissionRetrieveParams
+                ),
             ),
             cast_to=BountySubmission,
         )
