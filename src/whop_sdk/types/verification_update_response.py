@@ -81,6 +81,23 @@ class RequestedInformation(BaseModel):
     make.
     """
 
+    scope: Optional[Literal["person", "company"]] = None
+    """Whether this requirement belongs to a named individual or to the account itself.
+
+    Present on payout requirements, which are collected per account and mix the two.
+    When it is set but `subject` is absent, the owner is known but unnamed — do not
+    attribute the item to anyone else.
+    """
+
+    subject: Optional[str] = None
+    """
+    Who this requirement is asked of — the representative's name for a personal one,
+    the legal entity's for a company one. A single request mixes both (an EIN is the
+    company's, an SSN its representative's), so group by this rather than applying
+    one name to every item. Absent when the subject is the account itself or is not
+    yet known.
+    """
+
 
 class RequiredDocument(BaseModel):
     document: Optional[str] = None
