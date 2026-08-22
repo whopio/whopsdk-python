@@ -5,8 +5,8 @@ from datetime import datetime
 
 from .._models import BaseModel
 from .card_brands import CardBrands
+from .payment_method_type import PaymentMethodType
 from .setup_intent_status import SetupIntentStatus
-from .payment_method_types import PaymentMethodTypes
 
 __all__ = [
     "SetupIntent",
@@ -135,7 +135,7 @@ class PaymentMethod(BaseModel):
     mailing_address: Optional[PaymentMethodMailingAddress] = None
     """The mailing address associated with the payment method's user"""
 
-    payment_method_type: PaymentMethodTypes
+    payment_method_type: PaymentMethodType
     """The payment method type of the payment method"""
 
 
@@ -188,3 +188,9 @@ class SetupIntent(BaseModel):
 
     status: SetupIntentStatus
     """The current status of the setup intent."""
+
+    three_ds_verified: bool
+    """
+    Whether 3D Secure authentication was completed when this payment method was set
+    up.
+    """

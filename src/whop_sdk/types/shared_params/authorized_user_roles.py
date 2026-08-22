@@ -7,5 +7,14 @@ from typing_extensions import Literal, TypeAlias
 __all__ = ["AuthorizedUserRoles"]
 
 AuthorizedUserRoles: TypeAlias = Literal[
-    "owner", "admin", "sales_manager", "moderator", "advertiser", "app_manager", "support", "manager", "custom"
+    "owner",
+    "admin",
+    "sales_manager",
+    "moderator",
+    "advertiser",
+    "app_manager",
+    "support",
+    "manager",
+    "workforce",
+    "custom",
 ]

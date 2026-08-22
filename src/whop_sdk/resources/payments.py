@@ -8,7 +8,13 @@ from typing_extensions import Literal, overload
 
 import httpx
 
-from ..types import payment_list_params, payment_create_params, payment_refund_params, payment_list_fees_params
+from ..types import (
+    payment_list_params,
+    payment_create_params,
+    payment_refund_params,
+    payment_list_fees_params,
+    payment_update_return_url_params,
+)
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, required_args, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -27,14 +33,23 @@ from ..types.shared.currency import Currency
 from ..types.shared.direction import Direction
 from ..types.payment_list_response import PaymentListResponse
 from ..types.shared.receipt_status import ReceiptStatus
+from ..types.payment_create_response import PaymentCreateResponse
+from ..types.payment_retrieve_response import PaymentRetrieveResponse
 from ..types.payment_list_fees_response import PaymentListFeesResponse
 from ..types.shared.friendly_receipt_status import FriendlyReceiptStatus
+from ..types.payment_retrieve_status_response import PaymentRetrieveStatusResponse
+from ..types.payment_update_return_url_response import PaymentUpdateReturnURLResponse
 
 __all__ = ["PaymentsResource", "AsyncPaymentsResource"]
 
 
 class PaymentsResource(SyncAPIResource):
-    """Payments"""
+    """A Payment is one charge against a buyer.
+
+    Create it with a payment method already on file, or with a `confirmation_token` describing a method the buyer has just supplied.
+
+    Collection runs in the background, so the create response is not the outcome. Poll [Retrieve status](/api-reference/beta/payments/retrieve-status) for how far the payment has got and, while it is `requires_action`, what the buyer must do next — follow a redirect, complete 3D Secure, display transfer instructions, or link a bank account. Use the return_url operation to change where they land afterwards, up until they come back.
+    """
 
     @cached_property
     def with_raw_response(self) -> PaymentsResourceWithRawResponse:
@@ -60,17 +75,21 @@ class PaymentsResource(SyncAPIResource):
         self,
         *,
         company_id: str,
-        member_id: str,
-        payment_method_id: str,
-        plan: payment_create_params.CreatePaymentInputWithPlanPlan,
+        confirmation_token: str,
+        plan: payment_create_params.CreatePaymentInputWithPlanAndConfirmationTokenPlan,
+        email: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
+        promo_code_id: Optional[str] | Omit = omit,
+        return_url: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Payment:
+        idempotency_key: str | None = None,
+    ) -> PaymentCreateResponse:
         """
         Charge an existing member off-session using one of their stored payment methods.
         You can provide an existing plan, or create a new one in-line. This endpoint
@@ -90,20 +109,40 @@ class PaymentsResource(SyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
         - `payment:dispute:read`
         - `payment:resolution_center_case:read`
 
         Args:
           company_id: The ID of the company to create the payment for.
 
-          member_id: The ID of the member to create the payment for.
-
-          payment_method_id: The ID of the payment method to use for the payment. It must be connected to the
-              Member being charged.
+          confirmation_token: A confirmation token ID (ctok\\__) describing a payment method the buyer just
+              supplied. Provide this INSTEAD of member_id and payment_method_id to charge a
+              method that is not yet on file — the buyer is resolved from the token's billing
+              email, or from `email`. The buyer may still have a step to complete (3DS, a
+              redirect, linking a bank); poll the payment's status endpoint for what to do
+              next.
 
           plan: Pass this object to create a new plan for this payment
 
+          email: Overrides the buyer email carried on the confirmation token, resolving or
+              creating the Whop user the payment belongs to. Ignored when the confirmation
+              token was created by a signed-in buyer, and unless confirmation_token is
+              provided.
+
           metadata: Custom metadata to attach to the payment.
+
+          payment_method_id: The ID of the payment method to use for the payment. It must be connected to the
+              Member being charged. Required unless confirmation_token is provided.
+
+          promo_code_id: The ID of an active promo code to apply to this payment. The promo code must
+              belong to the company and be valid for the plan being purchased. The plan must
+              be attached to a product — promo codes are not eligible for one-off purchases.
+
+          return_url: Where the buyer continues after completing an off-site step. Must be an absolute
+              https URL without credentials (http is allowed for localhost), at most 2,048
+              characters. Editable until they return — see the payment's update endpoint.
+              Ignored unless confirmation_token is provided.
 
           extra_headers: Send extra headers
 
@@ -112,6 +151,8 @@ class PaymentsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         ...
 
@@ -121,16 +162,20 @@ class PaymentsResource(SyncAPIResource):
         *,
         company_id: str,
         member_id: str,
-        payment_method_id: str,
-        plan_id: str,
+        plan: payment_create_params.CreatePaymentInputWithPlanAndMemberIDPlan,
+        email: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
+        promo_code_id: Optional[str] | Omit = omit,
+        return_url: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Payment:
+        idempotency_key: str | None = None,
+    ) -> PaymentCreateResponse:
         """
         Charge an existing member off-session using one of their stored payment methods.
         You can provide an existing plan, or create a new one in-line. This endpoint
@@ -150,20 +195,36 @@ class PaymentsResource(SyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
         - `payment:dispute:read`
         - `payment:resolution_center_case:read`
 
         Args:
           company_id: The ID of the company to create the payment for.
 
-          member_id: The ID of the member to create the payment for.
+          member_id: The ID of the member to create the payment for. Required unless
+              confirmation_token is provided.
 
-          payment_method_id: The ID of the payment method to use for the payment. It must be connected to the
-              Member being charged.
+          plan: Pass this object to create a new plan for this payment
 
-          plan_id: An ID of an existing plan to use for the payment.
+          email: Overrides the buyer email carried on the confirmation token, resolving or
+              creating the Whop user the payment belongs to. Ignored when the confirmation
+              token was created by a signed-in buyer, and unless confirmation_token is
+              provided.
 
           metadata: Custom metadata to attach to the payment.
+
+          payment_method_id: The ID of the payment method to use for the payment. It must be connected to the
+              Member being charged. Required unless confirmation_token is provided.
+
+          promo_code_id: The ID of an active promo code to apply to this payment. The promo code must
+              belong to the company and be valid for the plan being purchased. The plan must
+              be attached to a product — promo codes are not eligible for one-off purchases.
+
+          return_url: Where the buyer continues after completing an off-site step. Must be an absolute
+              https URL without credentials (http is allowed for localhost), at most 2,048
+              characters. Editable until they return — see the payment's update endpoint.
+              Ignored unless confirmation_token is provided.
 
           extra_headers: Send extra headers
 
@@ -172,21 +233,199 @@ class PaymentsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         ...
 
-    @required_args(
-        ["company_id", "member_id", "payment_method_id", "plan"],
-        ["company_id", "member_id", "payment_method_id", "plan_id"],
-    )
+    @overload
+    def create(
+        self,
+        *,
+        company_id: str,
+        confirmation_token: str,
+        plan_id: str,
+        email: Optional[str] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
+        promo_code_id: Optional[str] | Omit = omit,
+        return_url: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> PaymentCreateResponse:
+        """
+        Charge an existing member off-session using one of their stored payment methods.
+        You can provide an existing plan, or create a new one in-line. This endpoint
+        will respond with a payment object immediately, but the payment is processed
+        asynchronously in the background. Use webhooks to be notified when the payment
+        succeeds or fails.
+
+        Required permissions:
+
+        - `payment:charge`
+        - `plan:create`
+        - `access_pass:create`
+        - `access_pass:update`
+        - `plan:basic:read`
+        - `access_pass:basic:read`
+        - `member:email:read`
+        - `member:basic:read`
+        - `member:phone:read`
+        - `promo_code:basic:read`
+        - `shipment:basic:read`
+        - `payment:dispute:read`
+        - `payment:resolution_center_case:read`
+
+        Args:
+          company_id: The ID of the company to create the payment for.
+
+          confirmation_token: A confirmation token ID (ctok\\__) describing a payment method the buyer just
+              supplied. Provide this INSTEAD of member_id and payment_method_id to charge a
+              method that is not yet on file — the buyer is resolved from the token's billing
+              email, or from `email`. The buyer may still have a step to complete (3DS, a
+              redirect, linking a bank); poll the payment's status endpoint for what to do
+              next.
+
+          plan_id: An ID of an existing plan to use for the payment.
+
+          email: Overrides the buyer email carried on the confirmation token, resolving or
+              creating the Whop user the payment belongs to. Ignored when the confirmation
+              token was created by a signed-in buyer, and unless confirmation_token is
+              provided.
+
+          metadata: Custom metadata to attach to the payment.
+
+          payment_method_id: The ID of the payment method to use for the payment. It must be connected to the
+              Member being charged. Required unless confirmation_token is provided.
+
+          promo_code_id: The ID of an active promo code to apply to this payment. The promo code must
+              belong to the company and be valid for the plan being purchased. The plan must
+              be attached to a product — promo codes are not eligible for one-off purchases.
+
+          return_url: Where the buyer continues after completing an off-site step. Must be an absolute
+              https URL without credentials (http is allowed for localhost), at most 2,048
+              characters. Editable until they return — see the payment's update endpoint.
+              Ignored unless confirmation_token is provided.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        ...
+
+    @overload
     def create(
         self,
         *,
         company_id: str,
         member_id: str,
-        payment_method_id: str,
-        plan: payment_create_params.CreatePaymentInputWithPlanPlan | Omit = omit,
+        plan_id: str,
+        email: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
+        promo_code_id: Optional[str] | Omit = omit,
+        return_url: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> PaymentCreateResponse:
+        """
+        Charge an existing member off-session using one of their stored payment methods.
+        You can provide an existing plan, or create a new one in-line. This endpoint
+        will respond with a payment object immediately, but the payment is processed
+        asynchronously in the background. Use webhooks to be notified when the payment
+        succeeds or fails.
+
+        Required permissions:
+
+        - `payment:charge`
+        - `plan:create`
+        - `access_pass:create`
+        - `access_pass:update`
+        - `plan:basic:read`
+        - `access_pass:basic:read`
+        - `member:email:read`
+        - `member:basic:read`
+        - `member:phone:read`
+        - `promo_code:basic:read`
+        - `shipment:basic:read`
+        - `payment:dispute:read`
+        - `payment:resolution_center_case:read`
+
+        Args:
+          company_id: The ID of the company to create the payment for.
+
+          member_id: The ID of the member to create the payment for. Required unless
+              confirmation_token is provided.
+
+          plan_id: An ID of an existing plan to use for the payment.
+
+          email: Overrides the buyer email carried on the confirmation token, resolving or
+              creating the Whop user the payment belongs to. Ignored when the confirmation
+              token was created by a signed-in buyer, and unless confirmation_token is
+              provided.
+
+          metadata: Custom metadata to attach to the payment.
+
+          payment_method_id: The ID of the payment method to use for the payment. It must be connected to the
+              Member being charged. Required unless confirmation_token is provided.
+
+          promo_code_id: The ID of an active promo code to apply to this payment. The promo code must
+              belong to the company and be valid for the plan being purchased. The plan must
+              be attached to a product — promo codes are not eligible for one-off purchases.
+
+          return_url: Where the buyer continues after completing an off-site step. Must be an absolute
+              https URL without credentials (http is allowed for localhost), at most 2,048
+              characters. Editable until they return — see the payment's update endpoint.
+              Ignored unless confirmation_token is provided.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        ...
+
+    @required_args(
+        ["company_id", "confirmation_token", "plan"],
+        ["company_id", "member_id", "plan"],
+        ["company_id", "confirmation_token", "plan_id"],
+        ["company_id", "member_id", "plan_id"],
+    )
+    def create(
+        self,
+        *,
+        company_id: str,
+        confirmation_token: str | Omit = omit,
+        plan: payment_create_params.CreatePaymentInputWithPlanAndConfirmationTokenPlan
+        | payment_create_params.CreatePaymentInputWithPlanAndMemberIDPlan
+        | Omit = omit,
+        email: Optional[str] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
+        promo_code_id: Optional[str] | Omit = omit,
+        return_url: Optional[str] | Omit = omit,
+        member_id: str | Omit = omit,
         plan_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -194,24 +433,33 @@ class PaymentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Payment:
+        idempotency_key: str | None = None,
+    ) -> PaymentCreateResponse:
         return self._post(
             "/payments",
             body=maybe_transform(
                 {
                     "company_id": company_id,
-                    "member_id": member_id,
-                    "payment_method_id": payment_method_id,
+                    "confirmation_token": confirmation_token,
                     "plan": plan,
+                    "email": email,
                     "metadata": metadata,
+                    "payment_method_id": payment_method_id,
+                    "promo_code_id": promo_code_id,
+                    "return_url": return_url,
+                    "member_id": member_id,
                     "plan_id": plan_id,
                 },
                 payment_create_params.PaymentCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
-            cast_to=Payment,
+            cast_to=PaymentCreateResponse,
         )
 
     def retrieve(
@@ -224,7 +472,7 @@ class PaymentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Payment:
+    ) -> PaymentRetrieveResponse:
         """
         Retrieves the details of an existing payment.
 
@@ -237,6 +485,7 @@ class PaymentsResource(SyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
         - `payment:dispute:read`
         - `payment:resolution_center_case:read`
 
@@ -256,32 +505,32 @@ class PaymentsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Payment,
+            cast_to=PaymentRetrieveResponse,
         )
 
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        billing_reasons: Optional[List[BillingReasons]] | Omit = omit,
-        checkout_configuration_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        currencies: Optional[List[Currency]] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        include_free: Optional[bool] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[Literal["final_amount", "created_at", "paid_at"]] | Omit = omit,
-        plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        query: Optional[str] | Omit = omit,
-        statuses: Optional[List[ReceiptStatus]] | Omit = omit,
-        substatuses: Optional[List[FriendlyReceiptStatus]] | Omit = omit,
-        updated_after: Union[str, datetime, None] | Omit = omit,
-        updated_before: Union[str, datetime, None] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        billing_reasons: List[BillingReasons] | Omit = omit,
+        checkout_configuration_ids: SequenceNotStr[str] | Omit = omit,
+        company_id: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        currencies: List[Currency] | Omit = omit,
+        direction: Direction | Omit = omit,
+        first: int | Omit = omit,
+        include_free: bool | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["final_amount", "created_at", "paid_at"] | Omit = omit,
+        plan_ids: SequenceNotStr[str] | Omit = omit,
+        product_ids: SequenceNotStr[str] | Omit = omit,
+        query: str | Omit = omit,
+        statuses: List[ReceiptStatus] | Omit = omit,
+        substatuses: List[FriendlyReceiptStatus] | Omit = omit,
+        updated_after: Union[str, datetime] | Omit = omit,
+        updated_before: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -302,6 +551,7 @@ class PaymentsResource(SyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
 
         Args:
           after: Returns the elements in the list that come after the specified cursor.
@@ -320,7 +570,7 @@ class PaymentsResource(SyncAPIResource):
 
           currencies: Filter payments by their currency code.
 
-          direction: The direction of the sort.
+          direction: The sort direction for ordering results, either ascending or descending.
 
           first: Returns the first _n_ elements from the list.
 
@@ -328,7 +578,7 @@ class PaymentsResource(SyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          order: The order to sort the results by.
+          order: The field to order results by, such as creation date.
 
           plan_ids: Filter payments to only those associated with these specific plan identifiers.
 
@@ -395,10 +645,10 @@ class PaymentsResource(SyncAPIResource):
         self,
         id: str,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -465,6 +715,7 @@ class PaymentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Payment:
         """Issue a full or partial refund for a payment.
 
@@ -480,6 +731,7 @@ class PaymentsResource(SyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
         - `payment:dispute:read`
         - `payment:resolution_center_case:read`
 
@@ -495,6 +747,8 @@ class PaymentsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -502,9 +756,50 @@ class PaymentsResource(SyncAPIResource):
             path_template("/payments/{id}/refund", id=id),
             body=maybe_transform({"partial_amount": partial_amount}, payment_refund_params.PaymentRefundParams),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Payment,
+        )
+
+    def retrieve_status(
+        self,
+        payment_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PaymentRetrieveStatusResponse:
+        """Retrieves how far a payment has got and what the buyer must do next, if
+        anything.
+
+        A payment is collected in the background, so poll this rather than
+        reading the create response. Accepts either a secret key or the payment's own
+        `client_secret`, so the surface collecting the payment can poll it directly.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not payment_id:
+            raise ValueError(f"Expected a non-empty value for `payment_id` but received {payment_id!r}")
+        return self._get(
+            path_template("/payments/{payment_id}/status", payment_id=payment_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=PaymentRetrieveStatusResponse,
         )
 
     def retry(
@@ -517,6 +812,7 @@ class PaymentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Payment:
         """Retry a failed or pending payment.
 
@@ -532,6 +828,7 @@ class PaymentsResource(SyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
         - `payment:dispute:read`
         - `payment:resolution_center_case:read`
 
@@ -543,15 +840,71 @@ class PaymentsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
             path_template("/payments/{id}/retry", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Payment,
+        )
+
+    def update_return_url(
+        self,
+        payment_id: str,
+        *,
+        return_url: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> PaymentUpdateReturnURLResponse:
+        """
+        Changes where the buyer lands after completing an off-site step, up until they
+        return. Accepts either a secret key or the payment's own `client_secret`, so the
+        surface that knows the final destination can set it.
+
+        Args:
+          return_url: Where the buyer continues after completing an off-site step. Must be an absolute
+              https URL without credentials (http is allowed for localhost), at most 2,048
+              characters.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        if not payment_id:
+            raise ValueError(f"Expected a non-empty value for `payment_id` but received {payment_id!r}")
+        return self._patch(
+            path_template("/payments/{payment_id}/return_url", payment_id=payment_id),
+            body=maybe_transform(
+                {"return_url": return_url}, payment_update_return_url_params.PaymentUpdateReturnURLParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
+            ),
+            cast_to=PaymentUpdateReturnURLResponse,
         )
 
     def void(
@@ -564,6 +917,7 @@ class PaymentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Payment:
         """Void a payment that has not yet been settled.
 
@@ -579,6 +933,7 @@ class PaymentsResource(SyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
         - `payment:dispute:read`
         - `payment:resolution_center_case:read`
 
@@ -590,20 +945,31 @@ class PaymentsResource(SyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
             path_template("/payments/{id}/void", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Payment,
         )
 
 
 class AsyncPaymentsResource(AsyncAPIResource):
-    """Payments"""
+    """A Payment is one charge against a buyer.
+
+    Create it with a payment method already on file, or with a `confirmation_token` describing a method the buyer has just supplied.
+
+    Collection runs in the background, so the create response is not the outcome. Poll [Retrieve status](/api-reference/beta/payments/retrieve-status) for how far the payment has got and, while it is `requires_action`, what the buyer must do next — follow a redirect, complete 3D Secure, display transfer instructions, or link a bank account. Use the return_url operation to change where they land afterwards, up until they come back.
+    """
 
     @cached_property
     def with_raw_response(self) -> AsyncPaymentsResourceWithRawResponse:
@@ -629,17 +995,21 @@ class AsyncPaymentsResource(AsyncAPIResource):
         self,
         *,
         company_id: str,
-        member_id: str,
-        payment_method_id: str,
-        plan: payment_create_params.CreatePaymentInputWithPlanPlan,
+        confirmation_token: str,
+        plan: payment_create_params.CreatePaymentInputWithPlanAndConfirmationTokenPlan,
+        email: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
+        promo_code_id: Optional[str] | Omit = omit,
+        return_url: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Payment:
+        idempotency_key: str | None = None,
+    ) -> PaymentCreateResponse:
         """
         Charge an existing member off-session using one of their stored payment methods.
         You can provide an existing plan, or create a new one in-line. This endpoint
@@ -659,20 +1029,40 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
         - `payment:dispute:read`
         - `payment:resolution_center_case:read`
 
         Args:
           company_id: The ID of the company to create the payment for.
 
-          member_id: The ID of the member to create the payment for.
-
-          payment_method_id: The ID of the payment method to use for the payment. It must be connected to the
-              Member being charged.
+          confirmation_token: A confirmation token ID (ctok\\__) describing a payment method the buyer just
+              supplied. Provide this INSTEAD of member_id and payment_method_id to charge a
+              method that is not yet on file — the buyer is resolved from the token's billing
+              email, or from `email`. The buyer may still have a step to complete (3DS, a
+              redirect, linking a bank); poll the payment's status endpoint for what to do
+              next.
 
           plan: Pass this object to create a new plan for this payment
 
+          email: Overrides the buyer email carried on the confirmation token, resolving or
+              creating the Whop user the payment belongs to. Ignored when the confirmation
+              token was created by a signed-in buyer, and unless confirmation_token is
+              provided.
+
           metadata: Custom metadata to attach to the payment.
+
+          payment_method_id: The ID of the payment method to use for the payment. It must be connected to the
+              Member being charged. Required unless confirmation_token is provided.
+
+          promo_code_id: The ID of an active promo code to apply to this payment. The promo code must
+              belong to the company and be valid for the plan being purchased. The plan must
+              be attached to a product — promo codes are not eligible for one-off purchases.
+
+          return_url: Where the buyer continues after completing an off-site step. Must be an absolute
+              https URL without credentials (http is allowed for localhost), at most 2,048
+              characters. Editable until they return — see the payment's update endpoint.
+              Ignored unless confirmation_token is provided.
 
           extra_headers: Send extra headers
 
@@ -681,6 +1071,8 @@ class AsyncPaymentsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         ...
 
@@ -690,16 +1082,20 @@ class AsyncPaymentsResource(AsyncAPIResource):
         *,
         company_id: str,
         member_id: str,
-        payment_method_id: str,
-        plan_id: str,
+        plan: payment_create_params.CreatePaymentInputWithPlanAndMemberIDPlan,
+        email: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
+        promo_code_id: Optional[str] | Omit = omit,
+        return_url: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Payment:
+        idempotency_key: str | None = None,
+    ) -> PaymentCreateResponse:
         """
         Charge an existing member off-session using one of their stored payment methods.
         You can provide an existing plan, or create a new one in-line. This endpoint
@@ -719,20 +1115,36 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
         - `payment:dispute:read`
         - `payment:resolution_center_case:read`
 
         Args:
           company_id: The ID of the company to create the payment for.
 
-          member_id: The ID of the member to create the payment for.
+          member_id: The ID of the member to create the payment for. Required unless
+              confirmation_token is provided.
 
-          payment_method_id: The ID of the payment method to use for the payment. It must be connected to the
-              Member being charged.
+          plan: Pass this object to create a new plan for this payment
 
-          plan_id: An ID of an existing plan to use for the payment.
+          email: Overrides the buyer email carried on the confirmation token, resolving or
+              creating the Whop user the payment belongs to. Ignored when the confirmation
+              token was created by a signed-in buyer, and unless confirmation_token is
+              provided.
 
           metadata: Custom metadata to attach to the payment.
+
+          payment_method_id: The ID of the payment method to use for the payment. It must be connected to the
+              Member being charged. Required unless confirmation_token is provided.
+
+          promo_code_id: The ID of an active promo code to apply to this payment. The promo code must
+              belong to the company and be valid for the plan being purchased. The plan must
+              be attached to a product — promo codes are not eligible for one-off purchases.
+
+          return_url: Where the buyer continues after completing an off-site step. Must be an absolute
+              https URL without credentials (http is allowed for localhost), at most 2,048
+              characters. Editable until they return — see the payment's update endpoint.
+              Ignored unless confirmation_token is provided.
 
           extra_headers: Send extra headers
 
@@ -741,21 +1153,199 @@ class AsyncPaymentsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         ...
 
-    @required_args(
-        ["company_id", "member_id", "payment_method_id", "plan"],
-        ["company_id", "member_id", "payment_method_id", "plan_id"],
-    )
+    @overload
+    async def create(
+        self,
+        *,
+        company_id: str,
+        confirmation_token: str,
+        plan_id: str,
+        email: Optional[str] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
+        promo_code_id: Optional[str] | Omit = omit,
+        return_url: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> PaymentCreateResponse:
+        """
+        Charge an existing member off-session using one of their stored payment methods.
+        You can provide an existing plan, or create a new one in-line. This endpoint
+        will respond with a payment object immediately, but the payment is processed
+        asynchronously in the background. Use webhooks to be notified when the payment
+        succeeds or fails.
+
+        Required permissions:
+
+        - `payment:charge`
+        - `plan:create`
+        - `access_pass:create`
+        - `access_pass:update`
+        - `plan:basic:read`
+        - `access_pass:basic:read`
+        - `member:email:read`
+        - `member:basic:read`
+        - `member:phone:read`
+        - `promo_code:basic:read`
+        - `shipment:basic:read`
+        - `payment:dispute:read`
+        - `payment:resolution_center_case:read`
+
+        Args:
+          company_id: The ID of the company to create the payment for.
+
+          confirmation_token: A confirmation token ID (ctok\\__) describing a payment method the buyer just
+              supplied. Provide this INSTEAD of member_id and payment_method_id to charge a
+              method that is not yet on file — the buyer is resolved from the token's billing
+              email, or from `email`. The buyer may still have a step to complete (3DS, a
+              redirect, linking a bank); poll the payment's status endpoint for what to do
+              next.
+
+          plan_id: An ID of an existing plan to use for the payment.
+
+          email: Overrides the buyer email carried on the confirmation token, resolving or
+              creating the Whop user the payment belongs to. Ignored when the confirmation
+              token was created by a signed-in buyer, and unless confirmation_token is
+              provided.
+
+          metadata: Custom metadata to attach to the payment.
+
+          payment_method_id: The ID of the payment method to use for the payment. It must be connected to the
+              Member being charged. Required unless confirmation_token is provided.
+
+          promo_code_id: The ID of an active promo code to apply to this payment. The promo code must
+              belong to the company and be valid for the plan being purchased. The plan must
+              be attached to a product — promo codes are not eligible for one-off purchases.
+
+          return_url: Where the buyer continues after completing an off-site step. Must be an absolute
+              https URL without credentials (http is allowed for localhost), at most 2,048
+              characters. Editable until they return — see the payment's update endpoint.
+              Ignored unless confirmation_token is provided.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        ...
+
+    @overload
     async def create(
         self,
         *,
         company_id: str,
         member_id: str,
-        payment_method_id: str,
-        plan: payment_create_params.CreatePaymentInputWithPlanPlan | Omit = omit,
+        plan_id: str,
+        email: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
+        promo_code_id: Optional[str] | Omit = omit,
+        return_url: Optional[str] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> PaymentCreateResponse:
+        """
+        Charge an existing member off-session using one of their stored payment methods.
+        You can provide an existing plan, or create a new one in-line. This endpoint
+        will respond with a payment object immediately, but the payment is processed
+        asynchronously in the background. Use webhooks to be notified when the payment
+        succeeds or fails.
+
+        Required permissions:
+
+        - `payment:charge`
+        - `plan:create`
+        - `access_pass:create`
+        - `access_pass:update`
+        - `plan:basic:read`
+        - `access_pass:basic:read`
+        - `member:email:read`
+        - `member:basic:read`
+        - `member:phone:read`
+        - `promo_code:basic:read`
+        - `shipment:basic:read`
+        - `payment:dispute:read`
+        - `payment:resolution_center_case:read`
+
+        Args:
+          company_id: The ID of the company to create the payment for.
+
+          member_id: The ID of the member to create the payment for. Required unless
+              confirmation_token is provided.
+
+          plan_id: An ID of an existing plan to use for the payment.
+
+          email: Overrides the buyer email carried on the confirmation token, resolving or
+              creating the Whop user the payment belongs to. Ignored when the confirmation
+              token was created by a signed-in buyer, and unless confirmation_token is
+              provided.
+
+          metadata: Custom metadata to attach to the payment.
+
+          payment_method_id: The ID of the payment method to use for the payment. It must be connected to the
+              Member being charged. Required unless confirmation_token is provided.
+
+          promo_code_id: The ID of an active promo code to apply to this payment. The promo code must
+              belong to the company and be valid for the plan being purchased. The plan must
+              be attached to a product — promo codes are not eligible for one-off purchases.
+
+          return_url: Where the buyer continues after completing an off-site step. Must be an absolute
+              https URL without credentials (http is allowed for localhost), at most 2,048
+              characters. Editable until they return — see the payment's update endpoint.
+              Ignored unless confirmation_token is provided.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        ...
+
+    @required_args(
+        ["company_id", "confirmation_token", "plan"],
+        ["company_id", "member_id", "plan"],
+        ["company_id", "confirmation_token", "plan_id"],
+        ["company_id", "member_id", "plan_id"],
+    )
+    async def create(
+        self,
+        *,
+        company_id: str,
+        confirmation_token: str | Omit = omit,
+        plan: payment_create_params.CreatePaymentInputWithPlanAndConfirmationTokenPlan
+        | payment_create_params.CreatePaymentInputWithPlanAndMemberIDPlan
+        | Omit = omit,
+        email: Optional[str] | Omit = omit,
+        metadata: Optional[Dict[str, object]] | Omit = omit,
+        payment_method_id: Optional[str] | Omit = omit,
+        promo_code_id: Optional[str] | Omit = omit,
+        return_url: Optional[str] | Omit = omit,
+        member_id: str | Omit = omit,
         plan_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -763,24 +1353,33 @@ class AsyncPaymentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Payment:
+        idempotency_key: str | None = None,
+    ) -> PaymentCreateResponse:
         return await self._post(
             "/payments",
             body=await async_maybe_transform(
                 {
                     "company_id": company_id,
-                    "member_id": member_id,
-                    "payment_method_id": payment_method_id,
+                    "confirmation_token": confirmation_token,
                     "plan": plan,
+                    "email": email,
                     "metadata": metadata,
+                    "payment_method_id": payment_method_id,
+                    "promo_code_id": promo_code_id,
+                    "return_url": return_url,
+                    "member_id": member_id,
                     "plan_id": plan_id,
                 },
                 payment_create_params.PaymentCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
-            cast_to=Payment,
+            cast_to=PaymentCreateResponse,
         )
 
     async def retrieve(
@@ -793,7 +1392,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Payment:
+    ) -> PaymentRetrieveResponse:
         """
         Retrieves the details of an existing payment.
 
@@ -806,6 +1405,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
         - `payment:dispute:read`
         - `payment:resolution_center_case:read`
 
@@ -825,32 +1425,32 @@ class AsyncPaymentsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Payment,
+            cast_to=PaymentRetrieveResponse,
         )
 
     def list(
         self,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        billing_reasons: Optional[List[BillingReasons]] | Omit = omit,
-        checkout_configuration_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        company_id: Optional[str] | Omit = omit,
-        created_after: Union[str, datetime, None] | Omit = omit,
-        created_before: Union[str, datetime, None] | Omit = omit,
-        currencies: Optional[List[Currency]] | Omit = omit,
-        direction: Optional[Direction] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        include_free: Optional[bool] | Omit = omit,
-        last: Optional[int] | Omit = omit,
-        order: Optional[Literal["final_amount", "created_at", "paid_at"]] | Omit = omit,
-        plan_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        product_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        query: Optional[str] | Omit = omit,
-        statuses: Optional[List[ReceiptStatus]] | Omit = omit,
-        substatuses: Optional[List[FriendlyReceiptStatus]] | Omit = omit,
-        updated_after: Union[str, datetime, None] | Omit = omit,
-        updated_before: Union[str, datetime, None] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        billing_reasons: List[BillingReasons] | Omit = omit,
+        checkout_configuration_ids: SequenceNotStr[str] | Omit = omit,
+        company_id: str | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        currencies: List[Currency] | Omit = omit,
+        direction: Direction | Omit = omit,
+        first: int | Omit = omit,
+        include_free: bool | Omit = omit,
+        last: int | Omit = omit,
+        order: Literal["final_amount", "created_at", "paid_at"] | Omit = omit,
+        plan_ids: SequenceNotStr[str] | Omit = omit,
+        product_ids: SequenceNotStr[str] | Omit = omit,
+        query: str | Omit = omit,
+        statuses: List[ReceiptStatus] | Omit = omit,
+        substatuses: List[FriendlyReceiptStatus] | Omit = omit,
+        updated_after: Union[str, datetime] | Omit = omit,
+        updated_before: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -871,6 +1471,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
 
         Args:
           after: Returns the elements in the list that come after the specified cursor.
@@ -889,7 +1490,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
 
           currencies: Filter payments by their currency code.
 
-          direction: The direction of the sort.
+          direction: The sort direction for ordering results, either ascending or descending.
 
           first: Returns the first _n_ elements from the list.
 
@@ -897,7 +1498,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          order: The order to sort the results by.
+          order: The field to order results by, such as creation date.
 
           plan_ids: Filter payments to only those associated with these specific plan identifiers.
 
@@ -964,10 +1565,10 @@ class AsyncPaymentsResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        after: Optional[str] | Omit = omit,
-        before: Optional[str] | Omit = omit,
-        first: Optional[int] | Omit = omit,
-        last: Optional[int] | Omit = omit,
+        after: str | Omit = omit,
+        before: str | Omit = omit,
+        first: int | Omit = omit,
+        last: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1034,6 +1635,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Payment:
         """Issue a full or partial refund for a payment.
 
@@ -1049,6 +1651,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
         - `payment:dispute:read`
         - `payment:resolution_center_case:read`
 
@@ -1064,6 +1667,8 @@ class AsyncPaymentsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
@@ -1073,9 +1678,50 @@ class AsyncPaymentsResource(AsyncAPIResource):
                 {"partial_amount": partial_amount}, payment_refund_params.PaymentRefundParams
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Payment,
+        )
+
+    async def retrieve_status(
+        self,
+        payment_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PaymentRetrieveStatusResponse:
+        """Retrieves how far a payment has got and what the buyer must do next, if
+        anything.
+
+        A payment is collected in the background, so poll this rather than
+        reading the create response. Accepts either a secret key or the payment's own
+        `client_secret`, so the surface collecting the payment can poll it directly.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not payment_id:
+            raise ValueError(f"Expected a non-empty value for `payment_id` but received {payment_id!r}")
+        return await self._get(
+            path_template("/payments/{payment_id}/status", payment_id=payment_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=PaymentRetrieveStatusResponse,
         )
 
     async def retry(
@@ -1088,6 +1734,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Payment:
         """Retry a failed or pending payment.
 
@@ -1103,6 +1750,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
         - `payment:dispute:read`
         - `payment:resolution_center_case:read`
 
@@ -1114,15 +1762,71 @@ class AsyncPaymentsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
             path_template("/payments/{id}/retry", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Payment,
+        )
+
+    async def update_return_url(
+        self,
+        payment_id: str,
+        *,
+        return_url: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
+    ) -> PaymentUpdateReturnURLResponse:
+        """
+        Changes where the buyer lands after completing an off-site step, up until they
+        return. Accepts either a secret key or the payment's own `client_secret`, so the
+        surface that knows the final destination can set it.
+
+        Args:
+          return_url: Where the buyer continues after completing an off-site step. Must be an absolute
+              https URL without credentials (http is allowed for localhost), at most 2,048
+              characters.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
+        """
+        if not payment_id:
+            raise ValueError(f"Expected a non-empty value for `payment_id` but received {payment_id!r}")
+        return await self._patch(
+            path_template("/payments/{payment_id}/return_url", payment_id=payment_id),
+            body=await async_maybe_transform(
+                {"return_url": return_url}, payment_update_return_url_params.PaymentUpdateReturnURLParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
+            ),
+            cast_to=PaymentUpdateReturnURLResponse,
         )
 
     async def void(
@@ -1135,6 +1839,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
+        idempotency_key: str | None = None,
     ) -> Payment:
         """Void a payment that has not yet been settled.
 
@@ -1150,6 +1855,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         - `member:basic:read`
         - `member:phone:read`
         - `promo_code:basic:read`
+        - `shipment:basic:read`
         - `payment:dispute:read`
         - `payment:resolution_center_case:read`
 
@@ -1161,13 +1867,19 @@ class AsyncPaymentsResource(AsyncAPIResource):
           extra_body: Add additional JSON properties to the request
 
           timeout: Override the client-level default timeout for this request, in seconds
+
+          idempotency_key: Specify a custom idempotency key for this request
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._post(
             path_template("/payments/{id}/void", id=id),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                idempotency_key=idempotency_key,
             ),
             cast_to=Payment,
         )
@@ -1192,8 +1904,14 @@ class PaymentsResourceWithRawResponse:
         self.refund = to_raw_response_wrapper(
             payments.refund,
         )
+        self.retrieve_status = to_raw_response_wrapper(
+            payments.retrieve_status,
+        )
         self.retry = to_raw_response_wrapper(
             payments.retry,
+        )
+        self.update_return_url = to_raw_response_wrapper(
+            payments.update_return_url,
         )
         self.void = to_raw_response_wrapper(
             payments.void,
@@ -1219,8 +1937,14 @@ class AsyncPaymentsResourceWithRawResponse:
         self.refund = async_to_raw_response_wrapper(
             payments.refund,
         )
+        self.retrieve_status = async_to_raw_response_wrapper(
+            payments.retrieve_status,
+        )
         self.retry = async_to_raw_response_wrapper(
             payments.retry,
+        )
+        self.update_return_url = async_to_raw_response_wrapper(
+            payments.update_return_url,
         )
         self.void = async_to_raw_response_wrapper(
             payments.void,
@@ -1246,8 +1970,14 @@ class PaymentsResourceWithStreamingResponse:
         self.refund = to_streamed_response_wrapper(
             payments.refund,
         )
+        self.retrieve_status = to_streamed_response_wrapper(
+            payments.retrieve_status,
+        )
         self.retry = to_streamed_response_wrapper(
             payments.retry,
+        )
+        self.update_return_url = to_streamed_response_wrapper(
+            payments.update_return_url,
         )
         self.void = to_streamed_response_wrapper(
             payments.void,
@@ -1273,8 +2003,14 @@ class AsyncPaymentsResourceWithStreamingResponse:
         self.refund = async_to_streamed_response_wrapper(
             payments.refund,
         )
+        self.retrieve_status = async_to_streamed_response_wrapper(
+            payments.retrieve_status,
+        )
         self.retry = async_to_streamed_response_wrapper(
             payments.retry,
+        )
+        self.update_return_url = async_to_streamed_response_wrapper(
+            payments.update_return_url,
         )
         self.void = async_to_streamed_response_wrapper(
             payments.void,
