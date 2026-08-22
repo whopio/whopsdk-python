@@ -1,0 +1,17 @@
+# Files Fern must not modify or delete when regenerating this repo.
+#
+# Fern owns the SDK source and its ci.yml, and prunes anything it did not generate — it
+# reads this file from the pull request's base branch, so an entry only protects a file
+# once it is on main.
+#
+# publish-main.yml is hand-written: it releases whop-sdk when a merge to main lands a
+# [tool.poetry] version that is not yet on PyPI. It is the only publish path — the
+# Stainless machinery (release-please, publish-pypi.yml, release-doctor.yml, bin/) was
+# removed with the cutover.
+#
+# src/whop_sdk/lib holds verify_user_token, the one hand-written helper in this SDK. It
+# depends only on the standard library and pyjwt, so it survives the generated client
+# being replaced. The [user-tokens] extra that declares pyjwt does not survive — see the
+# cutover notes in the monorepo's sdks/fern/README.md.
+.github/workflows/publish-main.yml
+src/whop_sdk/lib
