@@ -9,9 +9,31 @@
 # Stainless machinery (release-please, publish-pypi.yml, release-doctor.yml, bin/) was
 # removed with the cutover.
 #
-# src/whop_sdk/lib holds verify_user_token, the one hand-written helper in this SDK. It
-# depends only on the standard library and pyjwt, so it survives the generated client
-# being replaced. The [user-tokens] extra that declares pyjwt does not survive — see the
-# cutover notes in the monorepo's sdks/fern/README.md.
+# src/whop_sdk/lib holds the hand-written helpers in this SDK. Each depends only on the
+# standard library and one third-party package, never on the generated client, so each
+# survives the generated client being replaced:
+#
+#   - verify_user_token — the x-whop-user-token verifier, on pyjwt.
+#   - verify_webhook — the Standard Webhooks signature verifier, on standardwebhooks. It
+#     restores the verification half of `client.webhooks.unwrap`, which the Stainless SDK
+#     shipped through 0.0.41 and Fern cannot generate: Fern generates from OpenAPI paths
+#     and `unwrap` was never a path.
+#
+# Reaching a helper needs nothing else — src/whop_sdk/lib is a real package and
+# `from whop_sdk.lib.verify_webhook import unwrap` resolves without a generated re-export,
+# which is why there is no Python equivalent of the Ruby SDK's requirePaths entry.
+# Declaring what a helper imports does: pyproject.toml is generated, so the declaration
+# comes from `extra_dependencies` in the python config in whop-monorepo's
+# sdks/fern/generators.yml, not from here. standardwebhooks is declared there.
+# pyjwt is not — the [user-tokens] extra did not survive the cutover, so importing
+# verify_user_token from a clean install still raises ImportError.
+#
+# tests/custom holds the generated placeholder test plus the helpers' tests. Fern owns
+# tests/, so without this entry a regeneration would prune them and a helper would go
+# untested rather than fail loudly. tests/custom/test_verify_webhook.py also asserts the
+# standardwebhooks declaration survived, which is where Ruby's ci.yml guard would sit if
+# this repo's ci.yml were hand-written; it is not, and forking it for a guard is a worse
+# trade than putting the guard in a test.
 .github/workflows/publish-main.yml
 src/whop_sdk/lib
+tests/custom
