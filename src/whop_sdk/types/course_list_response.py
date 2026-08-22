@@ -1,13 +1,22 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import List, Optional
 from datetime import datetime
 
 from .._models import BaseModel
 from .languages import Languages
 from .course_visibilities import CourseVisibilities
 
-__all__ = ["CourseListResponse", "Thumbnail"]
+__all__ = ["CourseListResponse", "ResumeLesson", "Thumbnail"]
+
+
+class ResumeLesson(BaseModel):
+    """
+    The lesson the current user should continue from: their first incomplete lesson, or the first lesson when they have finished the course, have not started it, or can edit it. Null if the course has no lessons.
+    """
+
+    id: str
+    """The unique identifier for the lesson."""
 
 
 class Thumbnail(BaseModel):
@@ -27,7 +36,7 @@ class Thumbnail(BaseModel):
     """
 
     content_type: Optional[str] = None
-    """The MIME type of the uploaded file (e.g., image/jpeg, video/mp4, audio/mpeg)."""
+    """Uploaded file MIME type, such as image/jpeg, video/mp4, or audio/mpeg."""
 
     filename: Optional[str] = None
     """The original filename of the uploaded attachment, including its file extension."""
@@ -60,6 +69,18 @@ class CourseListResponse(BaseModel):
     course. Null if the setting has not been configured.
     """
 
+    chapters_count: int
+    """
+    The total number of chapters in this course, including chapters whose lessons
+    are all hidden from the current user.
+    """
+
+    completed_lessons_count: int
+    """
+    The number of lessons in this course that the current user has marked as
+    completed. Zero when the request is not made on behalf of a user.
+    """
+
     cover_image: Optional[str] = None
     """The URL of the course cover image shown on preview cards.
 
@@ -82,6 +103,19 @@ class CourseListResponse(BaseModel):
     sk, el, cs, hr, da, ro, bg.
     """
 
+    latest_lesson_created_at: Optional[datetime] = None
+    """
+    The creation timestamp of the most recently added lesson visible to the current
+    user. Null if the course has no lessons.
+    """
+
+    lesson_unlock_days: List[int]
+    """
+    The distinct drip schedules, in days after the course start, of lessons visible
+    to the current user. Combine with startedAt to work out which have unlocked.
+    Empty when the user has not started the course or no lesson is on a schedule.
+    """
+
     order: str
     """
     The sort position of this course within its parent experience, as a decimal for
@@ -92,6 +126,20 @@ class CourseListResponse(BaseModel):
     """
     Whether students must complete each lesson sequentially before advancing to the
     next one.
+    """
+
+    resume_lesson: Optional[ResumeLesson] = None
+    """
+    The lesson the current user should continue from: their first incomplete lesson,
+    or the first lesson when they have finished the course, have not started it, or
+    can edit it. Null if the course has no lessons.
+    """
+
+    started_at: Optional[datetime] = None
+    """The earliest time the current user is known to have started this course.
+
+    Null if they have not started it. Drip unlock schedules are measured from this
+    point.
     """
 
     tagline: Optional[str] = None
@@ -111,6 +159,15 @@ class CourseListResponse(BaseModel):
 
     Null if no title has been set.
     """
+
+    total_duration_seconds: int
+    """
+    The combined duration in seconds of every hosted video across the lessons
+    visible to the current user.
+    """
+
+    total_lessons_count: int
+    """The number of lessons in this course visible to the current user."""
 
     updated_at: datetime
     """The datetime the course was last updated."""
