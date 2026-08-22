@@ -1,13 +1,33 @@
-# Whop Python API library
+# Whop Python Library
 
-<!-- prettier-ignore -->
-[![PyPI version](https://img.shields.io/pypi/v/whop-sdk.svg?label=pypi%20(stable))](https://pypi.org/project/whop-sdk/)
+[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fwhopio%2Fwhopsdk-python)
+[![pypi](https://img.shields.io/pypi/v/whop_sdk)](https://pypi.python.org/pypi/whop_sdk)
 
-The Whop Python library provides convenient access to the Whop REST API from any Python 3.9+
-application. The library includes type definitions for all request params and response fields,
-and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
+The Whop Python library provides convenient access to the Whop APIs from Python.
 
-It is generated with [Stainless](https://www.stainless.com/).
+## Table of Contents
+
+- [Mcp Server](#mcp-server)
+- [Documentation](#documentation)
+- [Installation](#installation)
+- [Reference](#reference)
+- [Usage](#usage)
+- [Async Usage](#async-usage)
+- [Using Types](#using-types)
+- [Environments](#environments)
+- [Async Client](#async-client)
+- [Exception Handling](#exception-handling)
+- [Pagination](#pagination)
+- [Nested Params](#nested-params)
+- [Handling Errors](#handling-errors)
+- [Advanced](#advanced)
+  - [Access Raw Response Data](#access-raw-response-data)
+  - [Retries](#retries)
+  - [Timeouts](#timeouts)
+  - [Custom Client](#custom-client)
+- [Versioning](#versioning)
+- [Requirements](#requirements)
+- [Contributing](#contributing)
 
 ## MCP Server
 
@@ -25,32 +45,26 @@ The REST API documentation can be found on [docs.whop.com](https://docs.whop.com
 ## Installation
 
 ```sh
-# install from PyPI
-pip install whop-sdk
+pip install whop_sdk
 ```
+
+## Reference
+
+A full reference for this library is available [here](https://github.com/whopio/whopsdk-python/blob/HEAD/./reference.md).
 
 ## Usage
 
-The full API of this library can be found in [api.md](api.md).
+Instantiate and use the client with the following:
 
 ```python
-import os
 from whop_sdk import Whop
 
 client = Whop(
-    api_key=os.environ.get("WHOP_API_KEY"),  # This is the default and can be omitted
+    token="<token>",
 )
 
-page = client.payments.list(
-    company_id="biz_xxxxxxxxxxxxxx",
-)
-print(page.data)
+client.access_tokens.create()
 ```
-
-While you can provide an `api_key` keyword argument,
-we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `WHOP_API_KEY="My API Key"` to your `.env` file
-so that your API Key is not stored in source control.
 
 ## Async usage
 
@@ -121,75 +135,76 @@ Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typ
 
 Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
 
-## Pagination
+## Environments
 
-List methods in the Whop API are paginated.
-
-This library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:
+This SDK allows you to configure different environments for API requests.
 
 ```python
 from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
 
-client = Whop()
-
-all_payments = []
-# Automatically fetches more pages as needed.
-for payment in client.payments.list(
-    company_id="biz_xxxxxxxxxxxxxx",
-):
-    # Do something with payment here
-    all_payments.append(payment)
-print(all_payments)
+client = Whop(
+    environment=WhopEnvironment.DEFAULT,
+)
 ```
 
-Or, asynchronously:
+## Async Client
+
+The SDK also exports an `async` client so that you can make non-blocking calls to our API. Note that if you are constructing an Async httpx client class to pass into this client, use `httpx.AsyncClient()` instead of `httpx.Client()` (e.g. for the `httpx_client` parameter of this client).
 
 ```python
 import asyncio
+
 from whop_sdk import AsyncWhop
 
-client = AsyncWhop()
+client = AsyncWhop(
+    token="<token>",
+)
 
 
 async def main() -> None:
-    all_payments = []
-    # Iterate through items across all pages, issuing requests as needed.
-    async for payment in client.payments.list(
-        company_id="biz_xxxxxxxxxxxxxx",
-    ):
-        all_payments.append(payment)
-    print(all_payments)
+    await client.access_tokens.create()
 
 
 asyncio.run(main())
 ```
 
-Alternatively, you can use the `.has_next_page()`, `.next_page_info()`, or `.get_next_page()` methods for more granular control working with pages:
+## Exception Handling
+
+When the API returns a non-success status code (4xx or 5xx response), a subclass of the following error
+will be thrown.
 
 ```python
-first_page = await client.payments.list(
-    company_id="biz_xxxxxxxxxxxxxx",
-)
-if first_page.has_next_page():
-    print(f"will fetch next page using these details: {first_page.next_page_info()}")
-    next_page = await first_page.get_next_page()
-    print(f"number of items we just fetched: {len(next_page.data)}")
+from whop_sdk.core.api_error import ApiError
 
-# Remove `await` for non-async usage.
+try:
+    client.access_tokens.create(...)
+except ApiError as e:
+    print(e.status_code)
+    print(e.body)
 ```
 
-Or just work directly with the returned data:
+## Pagination
+
+Paginated requests will return a `SyncPager` or `AsyncPager`, which can be used as generators for the underlying object.
 
 ```python
-first_page = await client.payments.list(
-    company_id="biz_xxxxxxxxxxxxxx",
+from whop_sdk import Whop
+
+client = Whop(
+    token="<token>",
 )
 
-print(f"next page cursor: {first_page.page_info.end_cursor}")  # => "next page cursor: ..."
-for payment in first_page.data:
-    print(payment.id)
+client.accounts.list()
+```
 
-# Remove `await` for non-async usage.
+```python
+# You can also iterate through pages and access the typed response per page
+pager = client.accounts.list(...)
+for page in pager.iter_pages():
+    print(page.response)  # access the typed response for each page
+    for item in page:
+        print(item)
 ```
 
 ## Nested params
@@ -306,143 +321,82 @@ Note that requests that time out are [retried twice by default](#retries).
 
 ## Advanced
 
-### Logging
+### Access Raw Response Data
 
-We use the standard library [`logging`](https://docs.python.org/3/library/logging.html) module.
+The SDK provides access to raw response data, including headers, through the `.with_raw_response` property.
+The `.with_raw_response` property returns a "raw" client that can be used to access the `.headers` and `.data` attributes.
 
-You can enable logging by setting the environment variable `WHOP_LOG` to `info`.
-
-```shell
-$ export WHOP_LOG=info
-```
-
-Or to `debug` for more verbose logging.
-
-### How to tell whether `None` means `null` or missing
-
-In an API response, a field may be explicitly `null`, or missing entirely; in either case, its value is `None` in this library. You can differentiate the two cases with `.model_fields_set`:
-
-```py
-if response.my_field is None:
-  if 'my_field' not in response.model_fields_set:
-    print('Got json like {}, without a "my_field" key present at all.')
-  else:
-    print('Got json like {"my_field": null}.')
-```
-
-### Accessing raw response data (e.g. headers)
-
-The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
-
-```py
+```python
 from whop_sdk import Whop
 
-client = Whop()
-response = client.payments.with_raw_response.list(
-    company_id="biz_xxxxxxxxxxxxxx",
-)
-print(response.headers.get('X-My-Header'))
-
-payment = response.parse()  # get the object that `payments.list()` would have returned
-print(payment.id)
+client = Whop(...)
+response = client.access_tokens.with_raw_response.create(...)
+print(response.headers)  # access the response headers
+print(response.status_code)  # access the response status code
+print(response.data)  # access the underlying object
 ```
 
-These methods return an [`APIResponse`](https://github.com/whopio/whopsdk-python/tree/main/src/whop_sdk/_response.py) object.
+### Retries
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/whopio/whopsdk-python/tree/main/src/whop_sdk/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The SDK is instrumented with automatic retries with exponential backoff. A request will be retried as long
+as the request is deemed retryable and the number of retry attempts has not grown larger than the configured
+retry limit (default: 2).
 
-#### `.with_streaming_response`
+Which status codes are retried depends on the `retryStatusCodes` generator configuration:
 
-The above interface eagerly reads the full response body when you make the request, which may not always be what you want.
+**`legacy`** (current default): retries on
+- [408](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408) (Timeout)
+- [409](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/409) (Conflict)
+- [429](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429) (Too Many Requests)
+- [5XX](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#server_error_responses) (All server errors, including 500)
 
-To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
+**`recommended`**: retries on
+- [408](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408) (Timeout)
+- [409](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/409) (Conflict)
+- [429](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429) (Too Many Requests)
+- [502](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/502) (Bad Gateway)
+- [503](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503) (Service Unavailable)
+- [504](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/504) (Gateway Timeout)
+
+Use the `max_retries` request option to configure this behavior.
 
 ```python
-with client.payments.with_streaming_response.list(
-    company_id="biz_xxxxxxxxxxxxxx",
-) as response:
-    print(response.headers.get("X-My-Header"))
-
-    for line in response.iter_lines():
-        print(line)
+client.access_tokens.create(..., request_options={
+    "max_retries": 1
+})
 ```
 
-The context manager is required so that the response will reliably be closed.
+### Timeouts
 
-### Making custom/undocumented requests
+The SDK defaults to a 60 second timeout. You can configure this with a timeout option at the client or request level.
 
-This library is typed for convenient access to the documented API.
+```python
+from whop_sdk import Whop
 
-If you need to access undocumented endpoints, params, or response properties, the library can still be used.
+client = Whop(..., timeout=20.0)
 
-#### Undocumented endpoints
-
-To make requests to undocumented endpoints, you can make requests using `client.get`, `client.post`, and other
-http verbs. Options on the client will be respected (such as retries) when making this request.
-
-```py
-import httpx
-
-response = client.post(
-    "/foo",
-    cast_to=httpx.Response,
-    body={"my_param": True},
-)
-
-print(response.headers.get("x-foo"))
+# Override timeout for a specific method
+client.access_tokens.create(..., request_options={
+    "timeout": 1
+})
 ```
 
-#### Undocumented request params
+### Custom Client
 
-If you want to explicitly send an extra param, you can do so with the `extra_query`, `extra_body`, and `extra_headers` request
-options.
-
-#### Undocumented response properties
-
-To access undocumented response properties, you can access the extra fields like `response.unknown_prop`. You
-can also get all the extra fields on the Pydantic model as a dict with
-[`response.model_extra`](https://docs.pydantic.dev/latest/api/base_model/#pydantic.BaseModel.model_extra).
-
-### Configuring the HTTP client
-
-You can directly override the [httpx client](https://www.python-httpx.org/api/#client) to customize it for your use case, including:
-
-- Support for [proxies](https://www.python-httpx.org/advanced/proxies/)
-- Custom [transports](https://www.python-httpx.org/advanced/transports/)
-- Additional [advanced](https://www.python-httpx.org/advanced/clients/) functionality
+You can override the `httpx` client to customize it for your use-case. Some common use-cases include support for proxies
+and transports.
 
 ```python
 import httpx
-from whop_sdk import Whop, DefaultHttpxClient
+from whop_sdk import Whop
 
 client = Whop(
-    # Or use the `WHOP_BASE_URL` env var
-    base_url="http://my.test.server.example.com:8083",
-    http_client=DefaultHttpxClient(
+    ...,
+    httpx_client=httpx.Client(
         proxy="http://my.test.proxy.example.com",
         transport=httpx.HTTPTransport(local_address="0.0.0.0"),
     ),
 )
-```
-
-You can also customize the client on a per-request basis by using `with_options()`:
-
-```python
-client.with_options(http_client=DefaultHttpxClient(...))
-```
-
-### Managing HTTP resources
-
-By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
-
-```py
-from whop_sdk import Whop
-
-with Whop() as client:
-  # make requests here
-  ...
-
-# HTTP client is now closed
 ```
 
 ## Versioning
@@ -474,4 +428,10 @@ Python 3.9 or higher.
 
 ## Contributing
 
-See [the contributing documentation](./CONTRIBUTING.md).
+While we value open-source contributions to this SDK, this library is generated programmatically.
+Additions made directly to this library would have to be moved over to our generation code,
+otherwise they would be overwritten upon the next generated release. Feel free to open a PR as
+a proof of concept, but know that we will not be able to merge it as-is. We suggest opening
+an issue first to discuss with us!
+
+On the other hand, contributions to the README are always very welcome!
