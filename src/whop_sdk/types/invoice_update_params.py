@@ -52,7 +52,13 @@ class InvoiceUpdateParams(TypedDict, total=False):
     """The email address of the customer."""
 
     line_items: Optional[Iterable[LineItem]]
-    """Line items that break down the invoice total."""
+    """Line items that break down the invoice total.
+
+    When provided, the sum of (quantity \\** unit_price) for all items must equal the
+    plan price. Individual items may be negative to represent a credit, as long as
+    the sum is not negative and clears the currency's minimum charge. Pass an empty
+    list to remove the breakdown.
+    """
 
     mailing_address_id: Optional[str]
     """The unique identifier of an existing mailing address to attach."""
@@ -121,7 +127,9 @@ class LineItem(TypedDict, total=False):
     unit_price: Required[float]
     """The unit price for this line item.
 
-    Provided as a number in the specified currency. Eg: 10.43 for $10.43
+    Provided as a number in the specified currency. Eg: 10.43 for $10.43. Negative
+    values represent a credit or deduction, as long as the line items still total a
+    chargeable amount.
     """
 
     quantity: Optional[float]

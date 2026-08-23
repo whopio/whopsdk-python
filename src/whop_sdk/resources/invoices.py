@@ -127,7 +127,9 @@ class InvoicesResource(SyncAPIResource):
               customer who is not yet a member of the company.
 
           line_items: Optional line items that break down the invoice total. When provided, the sum of
-              (quantity \\** unit_price) for all items must equal the plan price.
+              (quantity \\** unit_price) for all items must equal the plan price. Individual
+              items may be negative to represent a credit, as long as the sum is not negative
+              and clears the currency's minimum charge.
 
           mailing_address_id: The unique identifier of an existing mailing address to attach to this invoice.
               Cannot be used together with billing_address.
@@ -227,7 +229,9 @@ class InvoicesResource(SyncAPIResource):
               customer who is not yet a member of the company.
 
           line_items: Optional line items that break down the invoice total. When provided, the sum of
-              (quantity \\** unit_price) for all items must equal the plan price.
+              (quantity \\** unit_price) for all items must equal the plan price. Individual
+              items may be negative to represent a credit, as long as the sum is not negative
+              and clears the currency's minimum charge.
 
           mailing_address_id: The unique identifier of an existing mailing address to attach to this invoice.
               Cannot be used together with billing_address.
@@ -417,7 +421,11 @@ class InvoicesResource(SyncAPIResource):
 
           email_address: The email address of the customer.
 
-          line_items: Line items that break down the invoice total.
+          line_items: Line items that break down the invoice total. When provided, the sum of
+              (quantity \\** unit_price) for all items must equal the plan price. Individual
+              items may be negative to represent a credit, as long as the sum is not negative
+              and clears the currency's minimum charge. Pass an empty list to remove the
+              breakdown.
 
           mailing_address_id: The unique identifier of an existing mailing address to attach.
 
@@ -806,7 +814,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
               customer who is not yet a member of the company.
 
           line_items: Optional line items that break down the invoice total. When provided, the sum of
-              (quantity \\** unit_price) for all items must equal the plan price.
+              (quantity \\** unit_price) for all items must equal the plan price. Individual
+              items may be negative to represent a credit, as long as the sum is not negative
+              and clears the currency's minimum charge.
 
           mailing_address_id: The unique identifier of an existing mailing address to attach to this invoice.
               Cannot be used together with billing_address.
@@ -906,7 +916,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
               customer who is not yet a member of the company.
 
           line_items: Optional line items that break down the invoice total. When provided, the sum of
-              (quantity \\** unit_price) for all items must equal the plan price.
+              (quantity \\** unit_price) for all items must equal the plan price. Individual
+              items may be negative to represent a credit, as long as the sum is not negative
+              and clears the currency's minimum charge.
 
           mailing_address_id: The unique identifier of an existing mailing address to attach to this invoice.
               Cannot be used together with billing_address.
@@ -1096,7 +1108,11 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
           email_address: The email address of the customer.
 
-          line_items: Line items that break down the invoice total.
+          line_items: Line items that break down the invoice total. When provided, the sum of
+              (quantity \\** unit_price) for all items must equal the plan price. Individual
+              items may be negative to represent a credit, as long as the sum is not negative
+              and clears the currency's minimum charge. Pass an empty list to remove the
+              breakdown.
 
           mailing_address_id: The unique identifier of an existing mailing address to attach.
 

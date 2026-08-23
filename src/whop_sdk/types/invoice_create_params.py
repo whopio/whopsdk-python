@@ -96,7 +96,8 @@ class CreateInvoiceInputWithProduct(TypedDict, total=False):
     """Optional line items that break down the invoice total.
 
     When provided, the sum of (quantity \\** unit_price) for all items must equal the
-    plan price.
+    plan price. Individual items may be negative to represent a credit, as long as
+    the sum is not negative and clears the currency's minimum charge.
     """
 
     mailing_address_id: Optional[str]
@@ -321,7 +322,9 @@ class CreateInvoiceInputWithProductLineItem(TypedDict, total=False):
     unit_price: Required[float]
     """The unit price for this line item.
 
-    Provided as a number in the specified currency. Eg: 10.43 for $10.43
+    Provided as a number in the specified currency. Eg: 10.43 for $10.43. Negative
+    values represent a credit or deduction, as long as the line items still total a
+    chargeable amount.
     """
 
     quantity: Optional[float]
@@ -388,7 +391,8 @@ class CreateInvoiceInputWithProductID(TypedDict, total=False):
     """Optional line items that break down the invoice total.
 
     When provided, the sum of (quantity \\** unit_price) for all items must equal the
-    plan price.
+    plan price. Individual items may be negative to represent a credit, as long as
+    the sum is not negative and clears the currency's minimum charge.
     """
 
     mailing_address_id: Optional[str]
@@ -600,7 +604,9 @@ class CreateInvoiceInputWithProductIDLineItem(TypedDict, total=False):
     unit_price: Required[float]
     """The unit price for this line item.
 
-    Provided as a number in the specified currency. Eg: 10.43 for $10.43
+    Provided as a number in the specified currency. Eg: 10.43 for $10.43. Negative
+    values represent a credit or deduction, as long as the line items still total a
+    chargeable amount.
     """
 
     quantity: Optional[float]
