@@ -1,3 +1,6 @@
+import base64
+import hashlib
+import hmac
 import json
 import re
 from datetime import datetime, timedelta, timezone
@@ -5,26 +8,45 @@ from pathlib import Path
 from typing import Dict, Optional, Union
 
 import pytest
-from standardwebhooks import Webhook, WebhookVerificationError
+from standardwebhooks import WebhookVerificationError
 
 from whop_sdk.lib.verify_webhook import unwrap
 
-KEY = "whsec_MfKQ9r8GKYqrTwjUPD8ILPZIo2LaLaSw"
-OTHER_KEY = "whsec_C2FVsBQIhrscChlQIMV+b5sSYspob7oD"
+# The format WebhooksManager::Create issues: "ws_" + SecureRandom.hex(32).
+KEY = "ws_" + "3f2a" * 16
+OTHER_KEY = "ws_" + "c17b" * 16
 PAYLOAD = '{"id":"evt_123","event":"payment.succeeded","data":{"id":"pay_123"}}'
 
 
+def backend_signature(payload: Union[str, bytes], key: str, msg_id: str, timestamp: str) -> str:
+    """Reproduce backend/app/services/webhooks_manager/sign_webhook.rb.
+
+    Deliberately not the library under test. Signing and verifying with the same library is
+    self-consistent and proved nothing: it agreed with itself while rejecting every genuine
+    Whop delivery.
+
+        payload   = "#{id}.#{timestamp}.#{body_json}"
+        raw_sig   = OpenSSL::HMAC.digest("sha256", secret, payload)
+        signature = Base64.strict_encode64(raw_sig)
+        header    = "v1,#{signature}"
+    """
+    body = payload if isinstance(payload, bytes) else payload.encode("utf-8")
+    signed = f"{msg_id}.{timestamp}.".encode("utf-8") + body
+    return base64.b64encode(hmac.new(key.encode("utf-8"), signed, hashlib.sha256).digest()).decode("ascii")
+
+
 def signed_headers(
-    payload: str = PAYLOAD,
+    payload: Union[str, bytes] = PAYLOAD,
     key: str = KEY,
     msg_id: str = "msg_2Xa9",
     timestamp: Optional[datetime] = None,
 ) -> Dict[str, str]:
     at = timestamp if timestamp is not None else datetime.now(tz=timezone.utc)
+    ts = str(int(at.timestamp()))
     return {
         "webhook-id": msg_id,
-        "webhook-timestamp": str(int(at.timestamp())),
-        "webhook-signature": Webhook(key).sign(msg_id=msg_id, timestamp=at, data=payload),
+        "webhook-timestamp": ts,
+        "webhook-signature": "v1," + backend_signature(payload, key, msg_id, ts),
     }
 
 
@@ -44,10 +66,60 @@ def test_accepts_headers_whose_names_are_capitalized() -> None:
     assert unwrap(PAYLOAD, headers=headers, key=KEY)["id"] == "evt_123"
 
 
-def test_accepts_a_key_without_the_whsec_prefix() -> None:
-    bare = KEY.removeprefix("whsec_")
+def test_signs_over_the_exact_bytes_of_the_body() -> None:
+    payload = '{"id":"evt_123","note":"a\\u00e9b","emoji":"\U0001f600"}'.encode("utf-8")
+    headers = signed_headers(payload=payload)
 
-    assert unwrap(PAYLOAD, headers=signed_headers(key=bare), key=bare)["id"] == "evt_123"
+    signed = f"{headers['webhook-id']}.{headers['webhook-timestamp']}.".encode("utf-8") + payload
+    expected = base64.b64encode(hmac.new(KEY.encode("utf-8"), signed, hashlib.sha256).digest()).decode("ascii")
+
+    assert headers["webhook-signature"] == f"v1,{expected}"
+    assert unwrap(payload, headers=headers, key=KEY)["id"] == "evt_123"
+
+
+def test_uses_the_secret_verbatim_without_stripping_a_prefix() -> None:
+    # The backend HMACs the stored secret as-is, so a secret and that same secret minus a
+    # prefix are two different keys. Stripping either one would silently derive the wrong key.
+    prefixed = "whsec_" + "9d4e" * 16
+    bare = prefixed.removeprefix("whsec_")
+
+    assert unwrap(PAYLOAD, headers=signed_headers(key=prefixed), key=prefixed)["id"] == "evt_123"
+    with pytest.raises(WebhookVerificationError):
+        unwrap(PAYLOAD, headers=signed_headers(key=prefixed), key=bare)
+
+
+@pytest.mark.parametrize("template", ["v1,{filler} {valid}", "{valid} v1,{filler}", "v0,{filler} {valid} v2,{filler}"])
+def test_accepts_a_valid_v1_entry_in_a_multi_signature_header(template: str) -> None:
+    headers = signed_headers()
+    value = template.format(valid=headers["webhook-signature"], filler="A" * 44)
+
+    assert unwrap(PAYLOAD, headers={**headers, "webhook-signature": value}, key=KEY)["id"] == "evt_123"
+
+
+def test_ignores_a_v1n_entry_and_verifies_the_v1_entry_beside_it() -> None:
+    """The nonce-bound scheme from https://github.com/whopio/whop/pull/23394:
+    base64(HMAC(secret, "v1n.<id>.<timestamp>.<nonce>.<body>")), appended after the v1
+    entry. That PR is closed and no deployed sender emits it — WebhooksManager::SignWebhook
+    on main writes a single "v1,<sig>" entry — so the helper ignores v1n rather than
+    verifying it. This pins that ignoring it stays harmless if the scheme ever ships: the v1
+    entry it travels beside is still the one that authenticates the delivery."""
+    headers = signed_headers()
+    msg_id, ts, nonce = headers["webhook-id"], headers["webhook-timestamp"], "nonce_zRq4"
+    signed = f"v1n.{msg_id}.{ts}.{nonce}.{PAYLOAD}".encode("utf-8")
+    v1n = base64.b64encode(hmac.new(KEY.encode("utf-8"), signed, hashlib.sha256).digest()).decode("ascii")
+    headers = {**headers, "webhook-nonce": nonce, "webhook-signature": f"{headers['webhook-signature']} v1n,{v1n}"}
+
+    assert unwrap(PAYLOAD, headers=headers, key=KEY)["id"] == "evt_123"
+
+
+def test_rejects_a_header_carrying_only_a_v1n_entry() -> None:
+    headers = signed_headers()
+    msg_id, ts = headers["webhook-id"], headers["webhook-timestamp"]
+    signed = f"v1n.{msg_id}.{ts}.nonce_zRq4.{PAYLOAD}".encode("utf-8")
+    v1n = base64.b64encode(hmac.new(KEY.encode("utf-8"), signed, hashlib.sha256).digest()).decode("ascii")
+
+    with pytest.raises(WebhookVerificationError):
+        unwrap(PAYLOAD, headers={**headers, "webhook-signature": f"v1n,{v1n}"}, key=KEY)
 
 
 def test_rejects_a_tampered_payload() -> None:

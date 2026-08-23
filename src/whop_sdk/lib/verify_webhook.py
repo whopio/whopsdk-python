@@ -19,6 +19,7 @@ nothing to coerce into. The parsed body is returned as a plain dict.
 
 from __future__ import annotations
 
+import base64
 import json
 from typing import Any, Dict, Mapping, Union
 
@@ -27,6 +28,23 @@ from standardwebhooks import Webhook, WebhookVerificationError
 __all__ = ["unwrap", "WebhookVerificationError"]
 
 MISSING_KEY_MESSAGE = "Cannot verify a webhook without a key. Pass the endpoint's signing secret as `key`."
+
+
+def _hmac_key(key: Union[str, bytes]) -> str:
+    """Base64-encode the secret so ``Webhook`` derives the key Whop actually signs with.
+
+    Whop's backend HMACs with the *literal bytes* of the secret it issued
+    (``WebhooksManager::SignWebhook`` passes ``webhook.webhook_secret`` straight to
+    ``OpenSSL::HMAC``). ``standardwebhooks.Webhook`` instead base64-decodes whatever it is
+    handed to derive its key, so handing it the secret raw derives the wrong key and every
+    genuine delivery fails to verify. Encoding here cancels that decode out, leaving
+    exactly the bytes the backend signed with.
+
+    The whole secret is encoded, prefix included, because the backend never strips a prefix
+    either. That also disarms the library's own ``whsec_`` stripping: base64 output cannot
+    begin with ``whsec_``, since ``_`` is not in the base64 alphabet.
+    """
+    return base64.b64encode(key.encode("utf-8") if isinstance(key, str) else key).decode("ascii")
 
 
 def unwrap(
@@ -42,7 +60,8 @@ def unwrap(
             the signature covers the exact bytes sent.
         headers: The request headers. Only ``webhook-id``, ``webhook-timestamp`` and
             ``webhook-signature`` are read, and the lookup is case-insensitive.
-        key: The endpoint's signing secret, with or without the ``whsec_`` prefix.
+        key: The endpoint's signing secret, exactly as Whop shows it — a ``ws_``-prefixed
+            string. Pass it verbatim; do not strip the prefix and do not pre-encode it.
 
     Returns:
         The parsed body.
@@ -57,7 +76,7 @@ def unwrap(
         raise ValueError(MISSING_KEY_MESSAGE)
 
     try:
-        Webhook(key).verify(payload, dict(headers), json_parse=False)
+        Webhook(_hmac_key(key)).verify(payload, dict(headers), json_parse=False)
     except WebhookVerificationError:
         raise
     except Exception as error:
