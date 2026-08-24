@@ -14,6 +14,12 @@ class Experience(BaseModel):
     id: str
     """The unique identifier for the experience."""
 
+    is_public: bool
+    """
+    Whether this experience is publicly visible to all users, including those
+    without a membership.
+    """
+
     name: str
     """The display name of this experience shown to users in the product navigation.
 
