@@ -4,26 +4,23 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .money import Money
 
 
-class TransferOriginCompany(UniversalBaseModel):
+class CheckoutSessionBreakdownUpcomingOneTime(UniversalBaseModel):
+    amount: Money = pydantic.Field()
     """
-    A company on Whop.
-    """
-
-    id: str = pydantic.Field()
-    """
-    The unique identifier for the company.
+    What the charge takes.
     """
 
-    route: str = pydantic.Field()
+    charge_at: str = pydantic.Field()
     """
-    The URL slug for the company's store page.
+    When it is charged, as an ISO 8601 timestamp.
     """
 
-    title: str = pydantic.Field()
+    description: str = pydantic.Field()
     """
-    The display name of the company shown to customers.
+    What to show the buyer for this future charge.
     """
 
     if IS_PYDANTIC_V2:

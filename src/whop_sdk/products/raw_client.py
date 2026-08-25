@@ -24,6 +24,7 @@ from .types.create_products_request_global_affiliate_status import CreateProduct
 from .types.create_products_request_member_affiliate_status import CreateProductsRequestMemberAffiliateStatus
 from .types.delete_products_response import DeleteProductsResponse
 from .types.list_products_request_direction import ListProductsRequestDirection
+from .types.list_products_request_plan_types_item import ListProductsRequestPlanTypesItem
 from .types.list_products_response import ListProductsResponse
 from .types.update_products_request_banner_image import UpdateProductsRequestBannerImage
 from pydantic import ValidationError
@@ -39,7 +40,14 @@ class RawProductsClient:
     def list(
         self,
         *,
-        account_id: str,
+        account_id: typing.Optional[str] = None,
+        query: typing.Optional[str] = None,
+        marketplace_category_route: typing.Optional[str] = None,
+        plan_types: typing.Optional[
+            typing.Union[ListProductsRequestPlanTypesItem, typing.Sequence[ListProductsRequestPlanTypesItem]]
+        ] = None,
+        price_minimum: typing.Optional[float] = None,
+        price_maximum: typing.Optional[float] = None,
         visibilities: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         access_pass_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         labels: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
@@ -49,18 +57,35 @@ class RawProductsClient:
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
+        created_after: typing.Optional[str] = None,
+        created_before: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ProductListItem, ListProductsResponse]:
         """
-        Returns a paginated list of products belonging to an account.
+        Returns a paginated list of products. Omit `account_id` to search the public marketplace.
 
         Parameters
         ----------
-        account_id : str
-            The unique identifier of the account to list products for.
+        account_id : typing.Optional[str]
+            The unique identifier of the account to list products for. Omit to search the public marketplace.
+
+        query : typing.Optional[str]
+            Ranked search against product title and headline. Omit to browse by recency.
+
+        marketplace_category_route : typing.Optional[str]
+            Only return marketplace products assigned to this category route, such as `trading`.
+
+        plan_types : typing.Optional[typing.Union[ListProductsRequestPlanTypesItem, typing.Sequence[ListProductsRequestPlanTypesItem]]]
+            Filter to products with a buyable plan of these billing models, such as `one_time` or `renewal`.
+
+        price_minimum : typing.Optional[float]
+            Only return products whose advertised buyable plan has a displayed price of at least this amount. Recurring plans use renewal price.
+
+        price_maximum : typing.Optional[float]
+            Only return products whose advertised buyable plan has a displayed price of at most this amount. Recurring plans use renewal price.
 
         visibilities : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Filter to only products matching these visibility states.
+            Filter to only products matching these visibility states. Ignored on the public marketplace list, which only returns visible products.
 
         access_pass_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to only products matching these types.
@@ -72,7 +97,7 @@ class RawProductsClient:
             The sort direction for results. Defaults to descending.
 
         order : typing.Optional[str]
-            The field to sort results by. Defaults to created_at.
+            The field to sort results by. Account lists default to `created_at`. Marketplace lists default to `discoverable_at` and accept `created_at` or `discoverable_at`. Cannot be combined with `query`.
 
         first : typing.Optional[int]
             The number of products to return (default and max 100).
@@ -86,19 +111,30 @@ class RawProductsClient:
         before : typing.Optional[str]
             A cursor; returns products before this position.
 
+        created_after : typing.Optional[str]
+            Only return products created after this ISO 8601 timestamp.
+
+        created_before : typing.Optional[str]
+            Only return products created before this ISO 8601 timestamp.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
         SyncPager[ProductListItem, ListProductsResponse]
-            products filtered by label
+            marketplace products listed without an account
         """
         _response = self._client_wrapper.httpx_client.request(
             "products",
             method="GET",
             params={
                 "account_id": account_id,
+                "query": query,
+                "marketplace_category_route": marketplace_category_route,
+                "plan_types": plan_types,
+                "price_minimum": price_minimum,
+                "price_maximum": price_maximum,
                 "visibilities": visibilities,
                 "access_pass_types": access_pass_types,
                 "labels": labels,
@@ -108,6 +144,8 @@ class RawProductsClient:
                 "after": after,
                 "last": last,
                 "before": before,
+                "created_after": created_after,
+                "created_before": created_before,
             },
             request_options=request_options,
         )
@@ -128,6 +166,11 @@ class RawProductsClient:
                     _has_next = _parsed_next is not None and _parsed_next != ""
                     _get_next = lambda: self.list(
                         account_id=account_id,
+                        query=query,
+                        marketplace_category_route=marketplace_category_route,
+                        plan_types=plan_types,
+                        price_minimum=price_minimum,
+                        price_maximum=price_maximum,
                         visibilities=visibilities,
                         access_pass_types=access_pass_types,
                         labels=labels,
@@ -137,6 +180,8 @@ class RawProductsClient:
                         after=_parsed_next,
                         last=last,
                         before=before,
+                        created_after=created_after,
+                        created_before=created_before,
                         request_options=request_options,
                     )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
@@ -338,7 +383,7 @@ class RawProductsClient:
 
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[Product]:
         """
-        Retrieves the details of an existing product. This endpoint is publicly accessible.
+        Retrieves a product. Public — no credentials.
 
         Parameters
         ----------
@@ -732,7 +777,14 @@ class AsyncRawProductsClient:
     async def list(
         self,
         *,
-        account_id: str,
+        account_id: typing.Optional[str] = None,
+        query: typing.Optional[str] = None,
+        marketplace_category_route: typing.Optional[str] = None,
+        plan_types: typing.Optional[
+            typing.Union[ListProductsRequestPlanTypesItem, typing.Sequence[ListProductsRequestPlanTypesItem]]
+        ] = None,
+        price_minimum: typing.Optional[float] = None,
+        price_maximum: typing.Optional[float] = None,
         visibilities: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         access_pass_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         labels: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
@@ -742,18 +794,35 @@ class AsyncRawProductsClient:
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
+        created_after: typing.Optional[str] = None,
+        created_before: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ProductListItem, ListProductsResponse]:
         """
-        Returns a paginated list of products belonging to an account.
+        Returns a paginated list of products. Omit `account_id` to search the public marketplace.
 
         Parameters
         ----------
-        account_id : str
-            The unique identifier of the account to list products for.
+        account_id : typing.Optional[str]
+            The unique identifier of the account to list products for. Omit to search the public marketplace.
+
+        query : typing.Optional[str]
+            Ranked search against product title and headline. Omit to browse by recency.
+
+        marketplace_category_route : typing.Optional[str]
+            Only return marketplace products assigned to this category route, such as `trading`.
+
+        plan_types : typing.Optional[typing.Union[ListProductsRequestPlanTypesItem, typing.Sequence[ListProductsRequestPlanTypesItem]]]
+            Filter to products with a buyable plan of these billing models, such as `one_time` or `renewal`.
+
+        price_minimum : typing.Optional[float]
+            Only return products whose advertised buyable plan has a displayed price of at least this amount. Recurring plans use renewal price.
+
+        price_maximum : typing.Optional[float]
+            Only return products whose advertised buyable plan has a displayed price of at most this amount. Recurring plans use renewal price.
 
         visibilities : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Filter to only products matching these visibility states.
+            Filter to only products matching these visibility states. Ignored on the public marketplace list, which only returns visible products.
 
         access_pass_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to only products matching these types.
@@ -765,7 +834,7 @@ class AsyncRawProductsClient:
             The sort direction for results. Defaults to descending.
 
         order : typing.Optional[str]
-            The field to sort results by. Defaults to created_at.
+            The field to sort results by. Account lists default to `created_at`. Marketplace lists default to `discoverable_at` and accept `created_at` or `discoverable_at`. Cannot be combined with `query`.
 
         first : typing.Optional[int]
             The number of products to return (default and max 100).
@@ -779,19 +848,30 @@ class AsyncRawProductsClient:
         before : typing.Optional[str]
             A cursor; returns products before this position.
 
+        created_after : typing.Optional[str]
+            Only return products created after this ISO 8601 timestamp.
+
+        created_before : typing.Optional[str]
+            Only return products created before this ISO 8601 timestamp.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
         AsyncPager[ProductListItem, ListProductsResponse]
-            products filtered by label
+            marketplace products listed without an account
         """
         _response = await self._client_wrapper.httpx_client.request(
             "products",
             method="GET",
             params={
                 "account_id": account_id,
+                "query": query,
+                "marketplace_category_route": marketplace_category_route,
+                "plan_types": plan_types,
+                "price_minimum": price_minimum,
+                "price_maximum": price_maximum,
                 "visibilities": visibilities,
                 "access_pass_types": access_pass_types,
                 "labels": labels,
@@ -801,6 +881,8 @@ class AsyncRawProductsClient:
                 "after": after,
                 "last": last,
                 "before": before,
+                "created_after": created_after,
+                "created_before": created_before,
             },
             request_options=request_options,
         )
@@ -823,6 +905,11 @@ class AsyncRawProductsClient:
                     async def _get_next():
                         return await self.list(
                             account_id=account_id,
+                            query=query,
+                            marketplace_category_route=marketplace_category_route,
+                            plan_types=plan_types,
+                            price_minimum=price_minimum,
+                            price_maximum=price_maximum,
                             visibilities=visibilities,
                             access_pass_types=access_pass_types,
                             labels=labels,
@@ -832,6 +919,8 @@ class AsyncRawProductsClient:
                             after=_parsed_next,
                             last=last,
                             before=before,
+                            created_after=created_after,
+                            created_before=created_before,
                             request_options=request_options,
                         )
 
@@ -1036,7 +1125,7 @@ class AsyncRawProductsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[Product]:
         """
-        Retrieves the details of an existing product. This endpoint is publicly accessible.
+        Retrieves a product. Public — no credentials.
 
         Parameters
         ----------

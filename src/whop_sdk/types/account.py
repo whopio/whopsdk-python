@@ -26,6 +26,7 @@ from .account_tax_remitted_by import AccountTaxRemittedBy
 from .account_tax_type import AccountTaxType
 from .account_three_ds_level import AccountThreeDsLevel
 from .account_wallet import AccountWallet
+from .file import File
 from .user_summary import UserSummary
 
 
@@ -94,6 +95,11 @@ class Account(UniversalBaseModel):
     email: typing.Optional[str] = pydantic.Field(default=None)
     """
     Account owner email address.
+    """
+
+    eula: typing.Optional[File] = pydantic.Field(default=None)
+    """
+    The account's end-user license agreement document, or `null` if they have not published one.
     """
 
     home_preferences: typing.List[AccountHomePreferencesItem]
@@ -167,6 +173,11 @@ class Account(UniversalBaseModel):
     Payment health controls currently applied to the account. Computed only on `retrieve` and `me` for callers with `company:balance:read` scope; `null` otherwise.
     """
 
+    privacy_policy: typing.Optional[File] = pydantic.Field(default=None)
+    """
+    The account's privacy policy document, or `null` if they have not published one.
+    """
+
     product_tax_code: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
     """
     Tax classification code applied by default to the account's products, with `id`, `name`, and `product_type`. `null` when no default is set.
@@ -189,6 +200,11 @@ class Account(UniversalBaseModel):
     """
 
     required_actions: typing.Optional[typing.List[AccountRequiredAction]] = None
+    return_policy: typing.Optional[File] = pydantic.Field(default=None)
+    """
+    The account's return policy document, or `null` if they have not published one.
+    """
+
     route: str = pydantic.Field()
     """
     Account public route identifier.
@@ -250,6 +266,11 @@ class Account(UniversalBaseModel):
     tax_type: typing.Optional[AccountTaxType] = pydantic.Field(default=None)
     """
     How tax is applied to the account's prices: `inclusive` (tax included in the listed price) or `exclusive` (tax added on top). Defaults to `exclusive` when unset; `null` only when the account has no payment connection.
+    """
+
+    terms_of_service: typing.Optional[File] = pydantic.Field(default=None)
+    """
+    The account's terms of service document, or `null` if they have not published one.
     """
 
     three_ds_level: typing.Optional[AccountThreeDsLevel] = pydantic.Field(default=None)

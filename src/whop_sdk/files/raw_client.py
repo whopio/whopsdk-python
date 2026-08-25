@@ -10,16 +10,15 @@ from ..core.jsonable_encoder import encode_path_param
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
+from ..core.serialization import convert_and_respect_annotation_metadata
 from ..errors.bad_request_error import BadRequestError
-from ..errors.forbidden_error import ForbiddenError
-from ..errors.internal_server_error import InternalServerError
+from ..errors.conflict_error import ConflictError
 from ..errors.not_found_error import NotFoundError
-from ..errors.too_many_requests_error import TooManyRequestsError
 from ..errors.unauthorized_error import UnauthorizedError
-from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.file import File
-from ..types.file_visibility import FileVisibility
-from .types.create_files_response import CreateFilesResponse
+from ..types.v1error_response import V1ErrorResponse
+from .types.complete_files_request_multipart_parts_item import CompleteFilesRequestMultipartPartsItem
+from .types.create_files_request_visibility import CreateFilesRequestVisibility
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -34,145 +33,27 @@ class RawFilesClient:
         self,
         *,
         filename: str,
-        visibility: typing.Optional[FileVisibility] = OMIT,
+        byte_size: typing.Optional[int] = OMIT,
+        multipart: typing.Optional[bool] = OMIT,
+        visibility: typing.Optional[CreateFilesRequestVisibility] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[CreateFilesResponse]:
+    ) -> HttpResponse[File]:
         """
-        Create a new file record and receive a presigned URL for uploading content to S3.
+        Creates a file and returns a presigned destination to upload its bytes to. PUT the bytes to `upload_url` (single-part), or to each of `multipart_upload_urls` and then call Complete File Multipart Upload. Once the bytes land the file becomes `ready`, and its ID can be attached wherever a file is accepted — account legal documents, dispute evidence documents.
 
         Parameters
         ----------
         filename : str
-            The name of the file including its extension (e.g., "photo.png" or "document.pdf").
+            The name of the file including its extension, e.g. `terms.pdf`.
 
-        visibility : typing.Optional[FileVisibility]
-            Controls whether the file is publicly accessible via CDN or requires authentication. Defaults to private.
+        byte_size : typing.Optional[int]
+            The file's size in bytes. Required when `multipart` is `true`. Multipart uploads support at most 10,000 parts of 5MB each (about 50 GB).
 
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
+        multipart : typing.Optional[bool]
+            Upload the file in 5MB parts. Required for files larger than 5GB; useful above ~100MB. The file must be larger than 5MB.
 
-        Returns
-        -------
-        HttpResponse[CreateFilesResponse]
-            A successful response
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            "files",
-            method="POST",
-            json={
-                "filename": filename,
-                "visibility": visibility,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    CreateFilesResponse,
-                    parse_obj_as(
-                        type_=CreateFilesResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[File]:
-        """
-        Retrieves the details of an existing file.
-
-        Parameters
-        ----------
-        id : str
-            The unique identifier of the file to retrieve.
+        visibility : typing.Optional[CreateFilesRequestVisibility]
+            `public` files are served via an unsigned CDN URL — use for assets anyone may see. `private` files are served via a signed, expiring URL — use for sensitive documents. Defaults to `private`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -180,12 +61,22 @@ class RawFilesClient:
         Returns
         -------
         HttpResponse[File]
-            A successful response
+            file created with a single-part upload destination
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"files/{encode_path_param(id)}",
-            method="GET",
+            "files",
+            method="POST",
+            json={
+                "byte_size": byte_size,
+                "filename": filename,
+                "multipart": multipart,
+                "visibility": visibility,
+            },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
+            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
@@ -219,8 +110,60 @@ class RawFilesClient:
                         ),
                     ),
                 )
-            if _response.status_code == 403:
-                raise ForbiddenError(
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        V1ErrorResponse,
+                        parse_obj_as(
+                            type_=V1ErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[File]:
+        """
+        Retrieves a file you uploaded — poll it after uploading the bytes to see `upload_status` become `ready`. Only the creator can retrieve a file this way; a file attached to another resource is read through that resource.
+
+        Parameters
+        ----------
+        id : str
+            The unique identifier of the file, prefixed `file_`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[File]
+            file retrieved
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"files/{encode_path_param(id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    File,
+                    parse_obj_as(
+                        type_=File,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -241,8 +184,74 @@ class RawFilesClient:
                         ),
                     ),
                 )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def complete(
+        self,
+        id: str,
+        *,
+        multipart_parts: typing.Sequence[CompleteFilesRequestMultipartPartsItem],
+        multipart_upload_id: str,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[File]:
+        """
+        Assembles the parts of a multipart upload after every part has been PUT to its presigned URL. Pass the `multipart_upload_id` from Create File and each part's `ETag` response header.
+
+        Parameters
+        ----------
+        id : str
+            The unique identifier of the file, prefixed `file_`.
+
+        multipart_parts : typing.Sequence[CompleteFilesRequestMultipartPartsItem]
+            Every uploaded part, in order.
+
+        multipart_upload_id : str
+            The ID of the multipart upload, returned by Create File.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[File]
+            multipart upload completed
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"files/{encode_path_param(id)}/complete",
+            method="POST",
+            json={
+                "multipart_parts": convert_and_respect_annotation_metadata(
+                    object_=multipart_parts,
+                    annotation=typing.Sequence[CompleteFilesRequestMultipartPartsItem],
+                    direction="write",
+                ),
+                "multipart_upload_id": multipart_upload_id,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    File,
+                    parse_obj_as(
+                        type_=File,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -252,8 +261,8 @@ class RawFilesClient:
                         ),
                     ),
                 )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
+            if _response.status_code == 401:
+                raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -263,13 +272,24 @@ class RawFilesClient:
                         ),
                     ),
                 )
-            if _response.status_code == 500:
-                raise InternalServerError(
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
                         parse_obj_as(
                             type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        V1ErrorResponse,
+                        parse_obj_as(
+                            type_=V1ErrorResponse,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -292,147 +312,27 @@ class AsyncRawFilesClient:
         self,
         *,
         filename: str,
-        visibility: typing.Optional[FileVisibility] = OMIT,
+        byte_size: typing.Optional[int] = OMIT,
+        multipart: typing.Optional[bool] = OMIT,
+        visibility: typing.Optional[CreateFilesRequestVisibility] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[CreateFilesResponse]:
+    ) -> AsyncHttpResponse[File]:
         """
-        Create a new file record and receive a presigned URL for uploading content to S3.
+        Creates a file and returns a presigned destination to upload its bytes to. PUT the bytes to `upload_url` (single-part), or to each of `multipart_upload_urls` and then call Complete File Multipart Upload. Once the bytes land the file becomes `ready`, and its ID can be attached wherever a file is accepted — account legal documents, dispute evidence documents.
 
         Parameters
         ----------
         filename : str
-            The name of the file including its extension (e.g., "photo.png" or "document.pdf").
+            The name of the file including its extension, e.g. `terms.pdf`.
 
-        visibility : typing.Optional[FileVisibility]
-            Controls whether the file is publicly accessible via CDN or requires authentication. Defaults to private.
+        byte_size : typing.Optional[int]
+            The file's size in bytes. Required when `multipart` is `true`. Multipart uploads support at most 10,000 parts of 5MB each (about 50 GB).
 
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
+        multipart : typing.Optional[bool]
+            Upload the file in 5MB parts. Required for files larger than 5GB; useful above ~100MB. The file must be larger than 5MB.
 
-        Returns
-        -------
-        AsyncHttpResponse[CreateFilesResponse]
-            A successful response
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "files",
-            method="POST",
-            json={
-                "filename": filename,
-                "visibility": visibility,
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    CreateFilesResponse,
-                    parse_obj_as(
-                        type_=CreateFilesResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def retrieve(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[File]:
-        """
-        Retrieves the details of an existing file.
-
-        Parameters
-        ----------
-        id : str
-            The unique identifier of the file to retrieve.
+        visibility : typing.Optional[CreateFilesRequestVisibility]
+            `public` files are served via an unsigned CDN URL — use for assets anyone may see. `private` files are served via a signed, expiring URL — use for sensitive documents. Defaults to `private`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -440,12 +340,22 @@ class AsyncRawFilesClient:
         Returns
         -------
         AsyncHttpResponse[File]
-            A successful response
+            file created with a single-part upload destination
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"files/{encode_path_param(id)}",
-            method="GET",
+            "files",
+            method="POST",
+            json={
+                "byte_size": byte_size,
+                "filename": filename,
+                "multipart": multipart,
+                "visibility": visibility,
+            },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
+            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
@@ -479,8 +389,62 @@ class AsyncRawFilesClient:
                         ),
                     ),
                 )
-            if _response.status_code == 403:
-                raise ForbiddenError(
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        V1ErrorResponse,
+                        parse_obj_as(
+                            type_=V1ErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def retrieve(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[File]:
+        """
+        Retrieves a file you uploaded — poll it after uploading the bytes to see `upload_status` become `ready`. Only the creator can retrieve a file this way; a file attached to another resource is read through that resource.
+
+        Parameters
+        ----------
+        id : str
+            The unique identifier of the file, prefixed `file_`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[File]
+            file retrieved
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"files/{encode_path_param(id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    File,
+                    parse_obj_as(
+                        type_=File,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -501,8 +465,74 @@ class AsyncRawFilesClient:
                         ),
                     ),
                 )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def complete(
+        self,
+        id: str,
+        *,
+        multipart_parts: typing.Sequence[CompleteFilesRequestMultipartPartsItem],
+        multipart_upload_id: str,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[File]:
+        """
+        Assembles the parts of a multipart upload after every part has been PUT to its presigned URL. Pass the `multipart_upload_id` from Create File and each part's `ETag` response header.
+
+        Parameters
+        ----------
+        id : str
+            The unique identifier of the file, prefixed `file_`.
+
+        multipart_parts : typing.Sequence[CompleteFilesRequestMultipartPartsItem]
+            Every uploaded part, in order.
+
+        multipart_upload_id : str
+            The ID of the multipart upload, returned by Create File.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[File]
+            multipart upload completed
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"files/{encode_path_param(id)}/complete",
+            method="POST",
+            json={
+                "multipart_parts": convert_and_respect_annotation_metadata(
+                    object_=multipart_parts,
+                    annotation=typing.Sequence[CompleteFilesRequestMultipartPartsItem],
+                    direction="write",
+                ),
+                "multipart_upload_id": multipart_upload_id,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    File,
+                    parse_obj_as(
+                        type_=File,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -512,8 +542,8 @@ class AsyncRawFilesClient:
                         ),
                     ),
                 )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
+            if _response.status_code == 401:
+                raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -523,13 +553,24 @@ class AsyncRawFilesClient:
                         ),
                     ),
                 )
-            if _response.status_code == 500:
-                raise InternalServerError(
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
                         parse_obj_as(
                             type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        V1ErrorResponse,
+                        parse_obj_as(
+                            type_=V1ErrorResponse,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

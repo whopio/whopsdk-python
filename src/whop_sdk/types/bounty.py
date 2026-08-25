@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .account_summary import AccountSummary
 from .bounty_accepted_deliverable_types_item import BountyAcceptedDeliverableTypesItem
+from .bounty_active_livestream_feed import BountyActiveLivestreamFeed
 from .bounty_business_goal_type import BountyBusinessGoalType
 from .bounty_currency import BountyCurrency
 from .bounty_scheduled_frequency import BountyScheduledFrequency
@@ -32,12 +33,18 @@ class Bounty(UniversalBaseModel):
     How many winner slots one worker can win. Defaults to `1`. Wins plus proofs awaiting review never exceed this number, and a worker runs one attempt at a time. Cannot exceed `accepted_submissions_limit`.
     """
 
+    active_proof_livestream_feeds: typing.List[BountyActiveLivestreamFeed]
     affiliate_share_amount: float = pydantic.Field()
     """
     What a referrer earns per accepted submission when the worker arrived through their affiliate link, in whole currency units, at the standard platform fee rate. Taken out of the worker's post-fee reward rather than added on top. `0` when the bounty pays no affiliate share, including bounties tied to no account, which cannot record a referral.
     """
 
     allowed_country_codes: typing.List[str]
+    awaiting_review_submissions_count: int = pydantic.Field()
+    """
+    Submissions delivered and waiting on review. A subset of `unresolved_submissions_count`, which also counts attempts still in progress.
+    """
+
     budget_amount: float = pydantic.Field()
     """
     Total gross budget committed to the bounty: `gross_reward_amount` times `accepted_submissions_limit`.
@@ -66,6 +73,11 @@ class Bounty(UniversalBaseModel):
     currency: BountyCurrency = pydantic.Field()
     """
     Currency for all amounts on the bounty, as a lowercase ISO 4217 code.
+    """
+
+    denied_submissions_count: int = pydantic.Field()
+    """
+    Submissions reviewed and turned down.
     """
 
     description: str = pydantic.Field()

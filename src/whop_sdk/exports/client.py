@@ -83,7 +83,7 @@ class ExportsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -126,7 +126,7 @@ class ExportsClient:
             Column keys to include. Empty means all columns for the resource.
 
         filters : typing.Optional[typing.Dict[str, typing.Any]]
-            Resource-specific filters. For native REST resources (`payouts`, `transfers`, `memberships`) these are the resource's own list query params; for dashboard tables they mirror the dashboard table filters.
+            Resource-specific filters. For native REST resources (`payouts`, `transfers`, `products`) these are the resource's own list query params; for dashboard tables they mirror the dashboard table filters.
 
         timezone : typing.Optional[str]
             IANA timezone for date columns, e.g. `America/New_York`. Defaults to `UTC`.
@@ -144,7 +144,7 @@ class ExportsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -184,7 +184,7 @@ class ExportsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -264,7 +264,7 @@ class AsyncExportsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -313,7 +313,7 @@ class AsyncExportsClient:
             Column keys to include. Empty means all columns for the resource.
 
         filters : typing.Optional[typing.Dict[str, typing.Any]]
-            Resource-specific filters. For native REST resources (`payouts`, `transfers`, `memberships`) these are the resource's own list query params; for dashboard tables they mirror the dashboard table filters.
+            Resource-specific filters. For native REST resources (`payouts`, `transfers`, `products`) these are the resource's own list query params; for dashboard tables they mirror the dashboard table filters.
 
         timezone : typing.Optional[str]
             IANA timezone for date columns, e.g. `America/New_York`. Defaults to `UTC`.
@@ -333,7 +333,7 @@ class AsyncExportsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -381,7 +381,7 @@ class AsyncExportsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

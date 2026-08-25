@@ -41,7 +41,7 @@ class BaseClientWrapper:
             "X-Fern-Runtime": f"python/{platform.python_version()}",
             "X-Fern-Platform": f"{platform.system().lower()}/{platform.release()}",
             "X-Fern-SDK-Name": "whop_sdk",
-            "X-Fern-SDK-Version": "0.0.41",
+            "X-Fern-SDK-Version": "1.0.13",
             **(self.get_custom_headers() or {}),
         }
         if self._api_version_date is not None:

@@ -217,6 +217,7 @@ if typing.TYPE_CHECKING:
     from .app_deployment import AppDeployment
     from .app_deployment_phase import AppDeploymentPhase
     from .app_deployment_status import AppDeploymentStatus
+    from .app_elements_used_item import AppElementsUsedItem
     from .app_icon import AppIcon
     from .app_list_item import AppListItem
     from .app_list_item_app_type import AppListItemAppType
@@ -255,6 +256,7 @@ if typing.TYPE_CHECKING:
     from .billing_reasons import BillingReasons
     from .bounty import Bounty
     from .bounty_accepted_deliverable_types_item import BountyAcceptedDeliverableTypesItem
+    from .bounty_active_livestream_feed import BountyActiveLivestreamFeed
     from .bounty_business_goal_type import BountyBusinessGoalType
     from .bounty_capture_clip import BountyCaptureClip
     from .bounty_capture_clip_status import BountyCaptureClipStatus
@@ -308,7 +310,89 @@ if typing.TYPE_CHECKING:
     from .checkout_configuration_three_ds_level import CheckoutConfigurationThreeDsLevel
     from .checkout_fonts import CheckoutFonts
     from .checkout_modes import CheckoutModes
+    from .checkout_session import CheckoutSession
+    from .checkout_session_authenticate_action import CheckoutSessionAuthenticateAction
+    from .checkout_session_await_claim_action import CheckoutSessionAwaitClaimAction
+    from .checkout_session_await_claim_action_state import CheckoutSessionAwaitClaimActionState
+    from .checkout_session_branding import CheckoutSessionBranding
+    from .checkout_session_branding_border_style import CheckoutSessionBrandingBorderStyle
+    from .checkout_session_branding_font_family import CheckoutSessionBrandingFontFamily
+    from .checkout_session_breakdown import CheckoutSessionBreakdown
+    from .checkout_session_breakdown_adjustment import CheckoutSessionBreakdownAdjustment
+    from .checkout_session_breakdown_adjustment_applied import CheckoutSessionBreakdownAdjustmentApplied
+    from .checkout_session_breakdown_adjustment_kind import CheckoutSessionBreakdownAdjustmentKind
+    from .checkout_session_breakdown_adjustment_status import CheckoutSessionBreakdownAdjustmentStatus
+    from .checkout_session_breakdown_currency import CheckoutSessionBreakdownCurrency
+    from .checkout_session_breakdown_display import CheckoutSessionBreakdownDisplay
+    from .checkout_session_breakdown_display_headline import CheckoutSessionBreakdownDisplayHeadline
+    from .checkout_session_breakdown_display_headline_kind import CheckoutSessionBreakdownDisplayHeadlineKind
+    from .checkout_session_breakdown_display_row import CheckoutSessionBreakdownDisplayRow
+    from .checkout_session_breakdown_display_row_detail import CheckoutSessionBreakdownDisplayRowDetail
+    from .checkout_session_breakdown_display_row_detail_applied import CheckoutSessionBreakdownDisplayRowDetailApplied
+    from .checkout_session_breakdown_display_row_kind import CheckoutSessionBreakdownDisplayRowKind
+    from .checkout_session_breakdown_display_row_status import CheckoutSessionBreakdownDisplayRowStatus
+    from .checkout_session_breakdown_display_sections import CheckoutSessionBreakdownDisplaySections
+    from .checkout_session_breakdown_line import CheckoutSessionBreakdownLine
+    from .checkout_session_breakdown_line_kind import CheckoutSessionBreakdownLineKind
+    from .checkout_session_breakdown_upcoming import (
+        CheckoutSessionBreakdownUpcoming,
+        CheckoutSessionBreakdownUpcoming_Installments,
+        CheckoutSessionBreakdownUpcoming_OneTime,
+        CheckoutSessionBreakdownUpcoming_Recurring,
+    )
+    from .checkout_session_breakdown_upcoming_installments import CheckoutSessionBreakdownUpcomingInstallments
+    from .checkout_session_breakdown_upcoming_one_time import CheckoutSessionBreakdownUpcomingOneTime
+    from .checkout_session_breakdown_upcoming_recurring import CheckoutSessionBreakdownUpcomingRecurring
+    from .checkout_session_buyer_identity import CheckoutSessionBuyerIdentity
+    from .checkout_session_buyer_identity_method import CheckoutSessionBuyerIdentityMethod
+    from .checkout_session_complete_action import CheckoutSessionCompleteAction
+    from .checkout_session_complete_action_kind import CheckoutSessionCompleteActionKind
+    from .checkout_session_confirm_error import CheckoutSessionConfirmError
+    from .checkout_session_confirm_error_code import CheckoutSessionConfirmErrorCode
+    from .checkout_session_cta_label import CheckoutSessionCtaLabel
+    from .checkout_session_custom_field import CheckoutSessionCustomField
+    from .checkout_session_custom_field_field_type import CheckoutSessionCustomFieldFieldType
+    from .checkout_session_custom_field_response import CheckoutSessionCustomFieldResponse
+    from .checkout_session_entry import CheckoutSessionEntry
+    from .checkout_session_entry_status import CheckoutSessionEntryStatus
+    from .checkout_session_item import CheckoutSessionItem
+    from .checkout_session_mode import CheckoutSessionMode
+    from .checkout_session_next_action import (
+        CheckoutSessionNextAction,
+        CheckoutSessionNextAction_Authenticate,
+        CheckoutSessionNextAction_AwaitClaim,
+        CheckoutSessionNextAction_Complete,
+        CheckoutSessionNextAction_Redirect,
+        CheckoutSessionNextAction_UpgradeAuthentication,
+        CheckoutSessionNextAction_VerifyPhone,
+        CheckoutSessionNextAction_WaitForPayment,
+    )
+    from .checkout_session_payment import CheckoutSessionPayment
     from .checkout_session_payment_method_configuration import CheckoutSessionPaymentMethodConfiguration
+    from .checkout_session_payment_status import CheckoutSessionPaymentStatus
+    from .checkout_session_promo import CheckoutSessionPromo
+    from .checkout_session_promo_currency import CheckoutSessionPromoCurrency
+    from .checkout_session_promo_duration import CheckoutSessionPromoDuration
+    from .checkout_session_promo_promo_type import CheckoutSessionPromoPromoType
+    from .checkout_session_quote import CheckoutSessionQuote
+    from .checkout_session_redirect_action import CheckoutSessionRedirectAction
+    from .checkout_session_requirement import CheckoutSessionRequirement
+    from .checkout_session_requirement_type import CheckoutSessionRequirementType
+    from .checkout_session_seller import CheckoutSessionSeller
+    from .checkout_session_seller_terms import CheckoutSessionSellerTerms
+    from .checkout_session_shipping_address import CheckoutSessionShippingAddress
+    from .checkout_session_status import CheckoutSessionStatus
+    from .checkout_session_tax_behavior import CheckoutSessionTaxBehavior
+    from .checkout_session_tax_id import CheckoutSessionTaxId
+    from .checkout_session_tax_id_type import CheckoutSessionTaxIdType
+    from .checkout_session_three_ds_level import CheckoutSessionThreeDsLevel
+    from .checkout_session_transfer import CheckoutSessionTransfer
+    from .checkout_session_upgrade_authentication_action import CheckoutSessionUpgradeAuthenticationAction
+    from .checkout_session_upgrade_authentication_action_sign_in_intent import (
+        CheckoutSessionUpgradeAuthenticationActionSignInIntent,
+    )
+    from .checkout_session_verify_phone_action import CheckoutSessionVerifyPhoneAction
+    from .checkout_session_wait_for_payment_action import CheckoutSessionWaitForPaymentAction
     from .checkout_shapes import CheckoutShapes
     from .company import Company
     from .company_featured_affiliate_product import CompanyFeaturedAffiliateProduct
@@ -408,6 +492,8 @@ if typing.TYPE_CHECKING:
     from .dispute_evidence_document import DisputeEvidenceDocument
     from .dispute_evidence_document_content_type import DisputeEvidenceDocumentContentType
     from .dispute_evidence_document_document_type import DisputeEvidenceDocumentDocumentType
+    from .dispute_evidence_document_upload_status import DisputeEvidenceDocumentUploadStatus
+    from .dispute_evidence_document_visibility import DisputeEvidenceDocumentVisibility
     from .dispute_evidence_locked_reason import DisputeEvidenceLockedReason
     from .dispute_issuer_comment import DisputeIssuerComment
     from .dispute_list_item import DisputeListItem
@@ -471,6 +557,8 @@ if typing.TYPE_CHECKING:
     from .fee_markup_list_item import FeeMarkupListItem
     from .fee_markup_types import FeeMarkupTypes
     from .file import File
+    from .file_multipart_url import FileMultipartUrl
+    from .file_upload_status import FileUploadStatus
     from .file_visibility import FileVisibility
     from .forbidden_error_body import ForbiddenErrorBody
     from .forbidden_error_body_error import ForbiddenErrorBodyError
@@ -558,6 +646,8 @@ if typing.TYPE_CHECKING:
     from .ledger_activity_currency import LedgerActivityCurrency
     from .ledger_activity_line_type import LedgerActivityLineType
     from .ledger_activity_object import LedgerActivityObject
+    from .ledger_activity_payment import LedgerActivityPayment
+    from .ledger_activity_payment_object import LedgerActivityPaymentObject
     from .ledger_activity_resource import LedgerActivityResource
     from .ledger_activity_resource_account_reference import LedgerActivityResourceAccountReference
     from .ledger_activity_resource_account_reference_object import LedgerActivityResourceAccountReferenceObject
@@ -1097,6 +1187,9 @@ if typing.TYPE_CHECKING:
     from .product_list_item import ProductListItem
     from .product_marketplace_status import ProductMarketplaceStatus
     from .product_member_affiliate_status import ProductMemberAffiliateStatus
+    from .product_public_plan import ProductPublicPlan
+    from .product_public_plan_plan_type import ProductPublicPlanPlanType
+    from .product_public_plan_visibility import ProductPublicPlanVisibility
     from .product_tax_code_product_types import ProductTaxCodeProductTypes
     from .promo_code import PromoCode
     from .promo_code_currency import PromoCodeCurrency
@@ -1242,13 +1335,6 @@ if typing.TYPE_CHECKING:
     from .too_many_requests_error_body import TooManyRequestsErrorBody
     from .too_many_requests_error_body_error import TooManyRequestsErrorBodyError
     from .topup import Topup
-    from .transfer import Transfer
-    from .transfer_destination import TransferDestination, TransferDestination_Company, TransferDestination_User
-    from .transfer_destination_company import TransferDestinationCompany
-    from .transfer_destination_user import TransferDestinationUser
-    from .transfer_origin import TransferOrigin, TransferOrigin_Company, TransferOrigin_User
-    from .transfer_origin_company import TransferOriginCompany
-    from .transfer_origin_user import TransferOriginUser
     from .unauthorized_error_body import UnauthorizedErrorBody
     from .unauthorized_error_body_error import UnauthorizedErrorBodyError
     from .unprocessable_entity_error_body import UnprocessableEntityErrorBody
@@ -1508,6 +1594,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AppDeployment": ".app_deployment",
     "AppDeploymentPhase": ".app_deployment_phase",
     "AppDeploymentStatus": ".app_deployment_status",
+    "AppElementsUsedItem": ".app_elements_used_item",
     "AppIcon": ".app_icon",
     "AppListItem": ".app_list_item",
     "AppListItemAppType": ".app_list_item_app_type",
@@ -1546,6 +1633,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "BillingReasons": ".billing_reasons",
     "Bounty": ".bounty",
     "BountyAcceptedDeliverableTypesItem": ".bounty_accepted_deliverable_types_item",
+    "BountyActiveLivestreamFeed": ".bounty_active_livestream_feed",
     "BountyBusinessGoalType": ".bounty_business_goal_type",
     "BountyCaptureClip": ".bounty_capture_clip",
     "BountyCaptureClipStatus": ".bounty_capture_clip_status",
@@ -1597,7 +1685,83 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CheckoutConfigurationThreeDsLevel": ".checkout_configuration_three_ds_level",
     "CheckoutFonts": ".checkout_fonts",
     "CheckoutModes": ".checkout_modes",
+    "CheckoutSession": ".checkout_session",
+    "CheckoutSessionAuthenticateAction": ".checkout_session_authenticate_action",
+    "CheckoutSessionAwaitClaimAction": ".checkout_session_await_claim_action",
+    "CheckoutSessionAwaitClaimActionState": ".checkout_session_await_claim_action_state",
+    "CheckoutSessionBranding": ".checkout_session_branding",
+    "CheckoutSessionBrandingBorderStyle": ".checkout_session_branding_border_style",
+    "CheckoutSessionBrandingFontFamily": ".checkout_session_branding_font_family",
+    "CheckoutSessionBreakdown": ".checkout_session_breakdown",
+    "CheckoutSessionBreakdownAdjustment": ".checkout_session_breakdown_adjustment",
+    "CheckoutSessionBreakdownAdjustmentApplied": ".checkout_session_breakdown_adjustment_applied",
+    "CheckoutSessionBreakdownAdjustmentKind": ".checkout_session_breakdown_adjustment_kind",
+    "CheckoutSessionBreakdownAdjustmentStatus": ".checkout_session_breakdown_adjustment_status",
+    "CheckoutSessionBreakdownCurrency": ".checkout_session_breakdown_currency",
+    "CheckoutSessionBreakdownDisplay": ".checkout_session_breakdown_display",
+    "CheckoutSessionBreakdownDisplayHeadline": ".checkout_session_breakdown_display_headline",
+    "CheckoutSessionBreakdownDisplayHeadlineKind": ".checkout_session_breakdown_display_headline_kind",
+    "CheckoutSessionBreakdownDisplayRow": ".checkout_session_breakdown_display_row",
+    "CheckoutSessionBreakdownDisplayRowDetail": ".checkout_session_breakdown_display_row_detail",
+    "CheckoutSessionBreakdownDisplayRowDetailApplied": ".checkout_session_breakdown_display_row_detail_applied",
+    "CheckoutSessionBreakdownDisplayRowKind": ".checkout_session_breakdown_display_row_kind",
+    "CheckoutSessionBreakdownDisplayRowStatus": ".checkout_session_breakdown_display_row_status",
+    "CheckoutSessionBreakdownDisplaySections": ".checkout_session_breakdown_display_sections",
+    "CheckoutSessionBreakdownLine": ".checkout_session_breakdown_line",
+    "CheckoutSessionBreakdownLineKind": ".checkout_session_breakdown_line_kind",
+    "CheckoutSessionBreakdownUpcoming": ".checkout_session_breakdown_upcoming",
+    "CheckoutSessionBreakdownUpcomingInstallments": ".checkout_session_breakdown_upcoming_installments",
+    "CheckoutSessionBreakdownUpcomingOneTime": ".checkout_session_breakdown_upcoming_one_time",
+    "CheckoutSessionBreakdownUpcomingRecurring": ".checkout_session_breakdown_upcoming_recurring",
+    "CheckoutSessionBreakdownUpcoming_Installments": ".checkout_session_breakdown_upcoming",
+    "CheckoutSessionBreakdownUpcoming_OneTime": ".checkout_session_breakdown_upcoming",
+    "CheckoutSessionBreakdownUpcoming_Recurring": ".checkout_session_breakdown_upcoming",
+    "CheckoutSessionBuyerIdentity": ".checkout_session_buyer_identity",
+    "CheckoutSessionBuyerIdentityMethod": ".checkout_session_buyer_identity_method",
+    "CheckoutSessionCompleteAction": ".checkout_session_complete_action",
+    "CheckoutSessionCompleteActionKind": ".checkout_session_complete_action_kind",
+    "CheckoutSessionConfirmError": ".checkout_session_confirm_error",
+    "CheckoutSessionConfirmErrorCode": ".checkout_session_confirm_error_code",
+    "CheckoutSessionCtaLabel": ".checkout_session_cta_label",
+    "CheckoutSessionCustomField": ".checkout_session_custom_field",
+    "CheckoutSessionCustomFieldFieldType": ".checkout_session_custom_field_field_type",
+    "CheckoutSessionCustomFieldResponse": ".checkout_session_custom_field_response",
+    "CheckoutSessionEntry": ".checkout_session_entry",
+    "CheckoutSessionEntryStatus": ".checkout_session_entry_status",
+    "CheckoutSessionItem": ".checkout_session_item",
+    "CheckoutSessionMode": ".checkout_session_mode",
+    "CheckoutSessionNextAction": ".checkout_session_next_action",
+    "CheckoutSessionNextAction_Authenticate": ".checkout_session_next_action",
+    "CheckoutSessionNextAction_AwaitClaim": ".checkout_session_next_action",
+    "CheckoutSessionNextAction_Complete": ".checkout_session_next_action",
+    "CheckoutSessionNextAction_Redirect": ".checkout_session_next_action",
+    "CheckoutSessionNextAction_UpgradeAuthentication": ".checkout_session_next_action",
+    "CheckoutSessionNextAction_VerifyPhone": ".checkout_session_next_action",
+    "CheckoutSessionNextAction_WaitForPayment": ".checkout_session_next_action",
+    "CheckoutSessionPayment": ".checkout_session_payment",
     "CheckoutSessionPaymentMethodConfiguration": ".checkout_session_payment_method_configuration",
+    "CheckoutSessionPaymentStatus": ".checkout_session_payment_status",
+    "CheckoutSessionPromo": ".checkout_session_promo",
+    "CheckoutSessionPromoCurrency": ".checkout_session_promo_currency",
+    "CheckoutSessionPromoDuration": ".checkout_session_promo_duration",
+    "CheckoutSessionPromoPromoType": ".checkout_session_promo_promo_type",
+    "CheckoutSessionQuote": ".checkout_session_quote",
+    "CheckoutSessionRedirectAction": ".checkout_session_redirect_action",
+    "CheckoutSessionRequirement": ".checkout_session_requirement",
+    "CheckoutSessionRequirementType": ".checkout_session_requirement_type",
+    "CheckoutSessionSeller": ".checkout_session_seller",
+    "CheckoutSessionSellerTerms": ".checkout_session_seller_terms",
+    "CheckoutSessionShippingAddress": ".checkout_session_shipping_address",
+    "CheckoutSessionStatus": ".checkout_session_status",
+    "CheckoutSessionTaxBehavior": ".checkout_session_tax_behavior",
+    "CheckoutSessionTaxId": ".checkout_session_tax_id",
+    "CheckoutSessionTaxIdType": ".checkout_session_tax_id_type",
+    "CheckoutSessionThreeDsLevel": ".checkout_session_three_ds_level",
+    "CheckoutSessionTransfer": ".checkout_session_transfer",
+    "CheckoutSessionUpgradeAuthenticationAction": ".checkout_session_upgrade_authentication_action",
+    "CheckoutSessionUpgradeAuthenticationActionSignInIntent": ".checkout_session_upgrade_authentication_action_sign_in_intent",
+    "CheckoutSessionVerifyPhoneAction": ".checkout_session_verify_phone_action",
+    "CheckoutSessionWaitForPaymentAction": ".checkout_session_wait_for_payment_action",
     "CheckoutShapes": ".checkout_shapes",
     "Company": ".company",
     "CompanyFeaturedAffiliateProduct": ".company_featured_affiliate_product",
@@ -1693,6 +1857,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DisputeEvidenceDocument": ".dispute_evidence_document",
     "DisputeEvidenceDocumentContentType": ".dispute_evidence_document_content_type",
     "DisputeEvidenceDocumentDocumentType": ".dispute_evidence_document_document_type",
+    "DisputeEvidenceDocumentUploadStatus": ".dispute_evidence_document_upload_status",
+    "DisputeEvidenceDocumentVisibility": ".dispute_evidence_document_visibility",
     "DisputeEvidenceLockedReason": ".dispute_evidence_locked_reason",
     "DisputeIssuerComment": ".dispute_issuer_comment",
     "DisputeListItem": ".dispute_list_item",
@@ -1750,6 +1916,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "FeeMarkupListItem": ".fee_markup_list_item",
     "FeeMarkupTypes": ".fee_markup_types",
     "File": ".file",
+    "FileMultipartUrl": ".file_multipart_url",
+    "FileUploadStatus": ".file_upload_status",
     "FileVisibility": ".file_visibility",
     "ForbiddenErrorBody": ".forbidden_error_body",
     "ForbiddenErrorBodyError": ".forbidden_error_body_error",
@@ -1833,6 +2001,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LedgerActivityCurrency": ".ledger_activity_currency",
     "LedgerActivityLineType": ".ledger_activity_line_type",
     "LedgerActivityObject": ".ledger_activity_object",
+    "LedgerActivityPayment": ".ledger_activity_payment",
+    "LedgerActivityPaymentObject": ".ledger_activity_payment_object",
     "LedgerActivityResource": ".ledger_activity_resource",
     "LedgerActivityResourceAccountReference": ".ledger_activity_resource_account_reference",
     "LedgerActivityResourceAccountReferenceObject": ".ledger_activity_resource_account_reference_object",
@@ -2214,6 +2384,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ProductListItem": ".product_list_item",
     "ProductMarketplaceStatus": ".product_marketplace_status",
     "ProductMemberAffiliateStatus": ".product_member_affiliate_status",
+    "ProductPublicPlan": ".product_public_plan",
+    "ProductPublicPlanPlanType": ".product_public_plan_plan_type",
+    "ProductPublicPlanVisibility": ".product_public_plan_visibility",
     "ProductTaxCodeProductTypes": ".product_tax_code_product_types",
     "PromoCode": ".promo_code",
     "PromoCodeCurrency": ".promo_code_currency",
@@ -2357,17 +2530,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "TooManyRequestsErrorBody": ".too_many_requests_error_body",
     "TooManyRequestsErrorBodyError": ".too_many_requests_error_body_error",
     "Topup": ".topup",
-    "Transfer": ".transfer",
-    "TransferDestination": ".transfer_destination",
-    "TransferDestinationCompany": ".transfer_destination_company",
-    "TransferDestinationUser": ".transfer_destination_user",
-    "TransferDestination_Company": ".transfer_destination",
-    "TransferDestination_User": ".transfer_destination",
-    "TransferOrigin": ".transfer_origin",
-    "TransferOriginCompany": ".transfer_origin_company",
-    "TransferOriginUser": ".transfer_origin_user",
-    "TransferOrigin_Company": ".transfer_origin",
-    "TransferOrigin_User": ".transfer_origin",
     "UnauthorizedErrorBody": ".unauthorized_error_body",
     "UnauthorizedErrorBodyError": ".unauthorized_error_body_error",
     "UnprocessableEntityErrorBody": ".unprocessable_entity_error_body",
@@ -2651,6 +2813,7 @@ __all__ = [
     "AppDeployment",
     "AppDeploymentPhase",
     "AppDeploymentStatus",
+    "AppElementsUsedItem",
     "AppIcon",
     "AppListItem",
     "AppListItemAppType",
@@ -2689,6 +2852,7 @@ __all__ = [
     "BillingReasons",
     "Bounty",
     "BountyAcceptedDeliverableTypesItem",
+    "BountyActiveLivestreamFeed",
     "BountyBusinessGoalType",
     "BountyCaptureClip",
     "BountyCaptureClipStatus",
@@ -2740,7 +2904,83 @@ __all__ = [
     "CheckoutConfigurationThreeDsLevel",
     "CheckoutFonts",
     "CheckoutModes",
+    "CheckoutSession",
+    "CheckoutSessionAuthenticateAction",
+    "CheckoutSessionAwaitClaimAction",
+    "CheckoutSessionAwaitClaimActionState",
+    "CheckoutSessionBranding",
+    "CheckoutSessionBrandingBorderStyle",
+    "CheckoutSessionBrandingFontFamily",
+    "CheckoutSessionBreakdown",
+    "CheckoutSessionBreakdownAdjustment",
+    "CheckoutSessionBreakdownAdjustmentApplied",
+    "CheckoutSessionBreakdownAdjustmentKind",
+    "CheckoutSessionBreakdownAdjustmentStatus",
+    "CheckoutSessionBreakdownCurrency",
+    "CheckoutSessionBreakdownDisplay",
+    "CheckoutSessionBreakdownDisplayHeadline",
+    "CheckoutSessionBreakdownDisplayHeadlineKind",
+    "CheckoutSessionBreakdownDisplayRow",
+    "CheckoutSessionBreakdownDisplayRowDetail",
+    "CheckoutSessionBreakdownDisplayRowDetailApplied",
+    "CheckoutSessionBreakdownDisplayRowKind",
+    "CheckoutSessionBreakdownDisplayRowStatus",
+    "CheckoutSessionBreakdownDisplaySections",
+    "CheckoutSessionBreakdownLine",
+    "CheckoutSessionBreakdownLineKind",
+    "CheckoutSessionBreakdownUpcoming",
+    "CheckoutSessionBreakdownUpcomingInstallments",
+    "CheckoutSessionBreakdownUpcomingOneTime",
+    "CheckoutSessionBreakdownUpcomingRecurring",
+    "CheckoutSessionBreakdownUpcoming_Installments",
+    "CheckoutSessionBreakdownUpcoming_OneTime",
+    "CheckoutSessionBreakdownUpcoming_Recurring",
+    "CheckoutSessionBuyerIdentity",
+    "CheckoutSessionBuyerIdentityMethod",
+    "CheckoutSessionCompleteAction",
+    "CheckoutSessionCompleteActionKind",
+    "CheckoutSessionConfirmError",
+    "CheckoutSessionConfirmErrorCode",
+    "CheckoutSessionCtaLabel",
+    "CheckoutSessionCustomField",
+    "CheckoutSessionCustomFieldFieldType",
+    "CheckoutSessionCustomFieldResponse",
+    "CheckoutSessionEntry",
+    "CheckoutSessionEntryStatus",
+    "CheckoutSessionItem",
+    "CheckoutSessionMode",
+    "CheckoutSessionNextAction",
+    "CheckoutSessionNextAction_Authenticate",
+    "CheckoutSessionNextAction_AwaitClaim",
+    "CheckoutSessionNextAction_Complete",
+    "CheckoutSessionNextAction_Redirect",
+    "CheckoutSessionNextAction_UpgradeAuthentication",
+    "CheckoutSessionNextAction_VerifyPhone",
+    "CheckoutSessionNextAction_WaitForPayment",
+    "CheckoutSessionPayment",
     "CheckoutSessionPaymentMethodConfiguration",
+    "CheckoutSessionPaymentStatus",
+    "CheckoutSessionPromo",
+    "CheckoutSessionPromoCurrency",
+    "CheckoutSessionPromoDuration",
+    "CheckoutSessionPromoPromoType",
+    "CheckoutSessionQuote",
+    "CheckoutSessionRedirectAction",
+    "CheckoutSessionRequirement",
+    "CheckoutSessionRequirementType",
+    "CheckoutSessionSeller",
+    "CheckoutSessionSellerTerms",
+    "CheckoutSessionShippingAddress",
+    "CheckoutSessionStatus",
+    "CheckoutSessionTaxBehavior",
+    "CheckoutSessionTaxId",
+    "CheckoutSessionTaxIdType",
+    "CheckoutSessionThreeDsLevel",
+    "CheckoutSessionTransfer",
+    "CheckoutSessionUpgradeAuthenticationAction",
+    "CheckoutSessionUpgradeAuthenticationActionSignInIntent",
+    "CheckoutSessionVerifyPhoneAction",
+    "CheckoutSessionWaitForPaymentAction",
     "CheckoutShapes",
     "Company",
     "CompanyFeaturedAffiliateProduct",
@@ -2836,6 +3076,8 @@ __all__ = [
     "DisputeEvidenceDocument",
     "DisputeEvidenceDocumentContentType",
     "DisputeEvidenceDocumentDocumentType",
+    "DisputeEvidenceDocumentUploadStatus",
+    "DisputeEvidenceDocumentVisibility",
     "DisputeEvidenceLockedReason",
     "DisputeIssuerComment",
     "DisputeListItem",
@@ -2893,6 +3135,8 @@ __all__ = [
     "FeeMarkupListItem",
     "FeeMarkupTypes",
     "File",
+    "FileMultipartUrl",
+    "FileUploadStatus",
     "FileVisibility",
     "ForbiddenErrorBody",
     "ForbiddenErrorBodyError",
@@ -2976,6 +3220,8 @@ __all__ = [
     "LedgerActivityCurrency",
     "LedgerActivityLineType",
     "LedgerActivityObject",
+    "LedgerActivityPayment",
+    "LedgerActivityPaymentObject",
     "LedgerActivityResource",
     "LedgerActivityResourceAccountReference",
     "LedgerActivityResourceAccountReferenceObject",
@@ -3357,6 +3603,9 @@ __all__ = [
     "ProductListItem",
     "ProductMarketplaceStatus",
     "ProductMemberAffiliateStatus",
+    "ProductPublicPlan",
+    "ProductPublicPlanPlanType",
+    "ProductPublicPlanVisibility",
     "ProductTaxCodeProductTypes",
     "PromoCode",
     "PromoCodeCurrency",
@@ -3500,17 +3749,6 @@ __all__ = [
     "TooManyRequestsErrorBody",
     "TooManyRequestsErrorBodyError",
     "Topup",
-    "Transfer",
-    "TransferDestination",
-    "TransferDestinationCompany",
-    "TransferDestinationUser",
-    "TransferDestination_Company",
-    "TransferDestination_User",
-    "TransferOrigin",
-    "TransferOriginCompany",
-    "TransferOriginUser",
-    "TransferOrigin_Company",
-    "TransferOrigin_User",
     "UnauthorizedErrorBody",
     "UnauthorizedErrorBodyError",
     "UnprocessableEntityErrorBody",

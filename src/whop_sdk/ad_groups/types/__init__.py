@@ -31,6 +31,9 @@ if typing.TYPE_CHECKING:
         SearchTargetingOptionsAdGroupsRequestLocationTypesItem,
     )
     from .search_targeting_options_ad_groups_request_platform import SearchTargetingOptionsAdGroupsRequestPlatform
+    from .search_targeting_options_ad_groups_request_special_ad_categories_item import (
+        SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem,
+    )
     from .search_targeting_options_ad_groups_request_types_item import SearchTargetingOptionsAdGroupsRequestTypesItem
     from .search_targeting_options_ad_groups_response import SearchTargetingOptionsAdGroupsResponse
     from .update_ad_groups_request_bid_type import UpdateAdGroupsRequestBidType
@@ -68,6 +71,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrieveAdGroupsRequestAttributionModel": ".retrieve_ad_groups_request_attribution_model",
     "SearchTargetingOptionsAdGroupsRequestLocationTypesItem": ".search_targeting_options_ad_groups_request_location_types_item",
     "SearchTargetingOptionsAdGroupsRequestPlatform": ".search_targeting_options_ad_groups_request_platform",
+    "SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem": ".search_targeting_options_ad_groups_request_special_ad_categories_item",
     "SearchTargetingOptionsAdGroupsRequestTypesItem": ".search_targeting_options_ad_groups_request_types_item",
     "SearchTargetingOptionsAdGroupsResponse": ".search_targeting_options_ad_groups_response",
     "UpdateAdGroupsRequestBidType": ".update_ad_groups_request_bid_type",
@@ -129,6 +133,7 @@ __all__ = [
     "RetrieveAdGroupsRequestAttributionModel",
     "SearchTargetingOptionsAdGroupsRequestLocationTypesItem",
     "SearchTargetingOptionsAdGroupsRequestPlatform",
+    "SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem",
     "SearchTargetingOptionsAdGroupsRequestTypesItem",
     "SearchTargetingOptionsAdGroupsResponse",
     "UpdateAdGroupsRequestBidType",

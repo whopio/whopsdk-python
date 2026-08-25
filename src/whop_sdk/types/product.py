@@ -9,6 +9,7 @@ from .product_gallery_image import ProductGalleryImage
 from .product_global_affiliate_status import ProductGlobalAffiliateStatus
 from .product_marketplace_status import ProductMarketplaceStatus
 from .product_member_affiliate_status import ProductMemberAffiliateStatus
+from .product_public_plan import ProductPublicPlan
 
 
 class Product(UniversalBaseModel):
@@ -37,9 +38,14 @@ class Product(UniversalBaseModel):
     Custom text label on customer's bank statement.
     """
 
+    default_plan: typing.Optional[ProductPublicPlan] = pydantic.Field(default=None)
+    """
+    Buyable plan to show and check out with. The configured default when that plan is buyable, otherwise the first buyable plan in product-page order. `null` when none is buyable.
+    """
+
     description: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Written description displayed on product page.
+    Written description displayed on the product page. `null` if none is set.
     """
 
     external_identifier: typing.Optional[str] = pydantic.Field(default=None)

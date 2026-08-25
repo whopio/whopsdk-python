@@ -35,6 +35,9 @@ from .types.search_targeting_options_ad_groups_request_location_types_item impor
     SearchTargetingOptionsAdGroupsRequestLocationTypesItem,
 )
 from .types.search_targeting_options_ad_groups_request_platform import SearchTargetingOptionsAdGroupsRequestPlatform
+from .types.search_targeting_options_ad_groups_request_special_ad_categories_item import (
+    SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem,
+)
 from .types.search_targeting_options_ad_groups_request_types_item import SearchTargetingOptionsAdGroupsRequestTypesItem
 from .types.search_targeting_options_ad_groups_response import SearchTargetingOptionsAdGroupsResponse
 from .types.update_ad_groups_request_bid_type import UpdateAdGroupsRequestBidType
@@ -156,7 +159,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -313,7 +316,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -404,7 +407,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -445,6 +448,12 @@ class AdGroupsClient:
         ] = None,
         country: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        special_ad_categories: typing.Optional[
+            typing.Union[
+                SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem,
+                typing.Sequence[SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem],
+            ]
+        ] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SearchTargetingOptionsAdGroupsResponse:
         """
@@ -473,6 +482,9 @@ class AdGroupsClient:
         limit : typing.Optional[int]
             Maximum number of results per requested type.
 
+        special_ad_categories : typing.Optional[typing.Union[SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem, typing.Sequence[SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem]]]
+            The campaign's declared special ad categories. Under `housing`, `employment`, or `financial_products` the ad platform allows interests only, drawn from a short approved list, so results are narrowed to what such a campaign can launch with and other kinds return nothing. Blank `query` browses that approved list instead of the usual fixed lists.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -486,7 +498,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -502,6 +514,7 @@ class AdGroupsClient:
             location_types=location_types,
             country=country,
             limit=limit,
+            special_ad_categories=special_ad_categories,
             request_options=request_options,
         )
         return _response.data
@@ -549,7 +562,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -589,7 +602,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -719,7 +732,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -793,7 +806,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -832,7 +845,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -865,7 +878,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -985,7 +998,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1151,7 +1164,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1250,7 +1263,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1297,6 +1310,12 @@ class AsyncAdGroupsClient:
         ] = None,
         country: typing.Optional[str] = None,
         limit: typing.Optional[int] = None,
+        special_ad_categories: typing.Optional[
+            typing.Union[
+                SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem,
+                typing.Sequence[SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem],
+            ]
+        ] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SearchTargetingOptionsAdGroupsResponse:
         """
@@ -1325,6 +1344,9 @@ class AsyncAdGroupsClient:
         limit : typing.Optional[int]
             Maximum number of results per requested type.
 
+        special_ad_categories : typing.Optional[typing.Union[SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem, typing.Sequence[SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem]]]
+            The campaign's declared special ad categories. Under `housing`, `employment`, or `financial_products` the ad platform allows interests only, drawn from a short approved list, so results are narrowed to what such a campaign can launch with and other kinds return nothing. Blank `query` browses that approved list instead of the usual fixed lists.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1340,7 +1362,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1362,6 +1384,7 @@ class AsyncAdGroupsClient:
             location_types=location_types,
             country=country,
             limit=limit,
+            special_ad_categories=special_ad_categories,
             request_options=request_options,
         )
         return _response.data
@@ -1411,7 +1434,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1461,7 +1484,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1599,7 +1622,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1681,7 +1704,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1728,7 +1751,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1769,7 +1792,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

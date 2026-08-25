@@ -6,24 +6,15 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class TransferDestinationCompany(UniversalBaseModel):
-    """
-    A company on Whop.
-    """
-
+class CheckoutSessionCustomFieldResponse(UniversalBaseModel):
     id: str = pydantic.Field()
     """
-    The unique identifier for the company.
+    The plan custom field this answers, prefixed `field_` — the `id` of the matching entry published by the `custom_fields` requirement.
     """
 
-    route: str = pydantic.Field()
+    value: str = pydantic.Field()
     """
-    The URL slug for the company's store page.
-    """
-
-    title: str = pydantic.Field()
-    """
-    The display name of the company shown to customers.
+    The buyer's answer, as typed.
     """
 
     if IS_PYDANTIC_V2:

@@ -4,26 +4,23 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .user_summary import UserSummary
 
 
-class TransferDestinationUser(UniversalBaseModel):
+class BountyActiveLivestreamFeed(UniversalBaseModel):
+    host: typing.Optional[UserSummary] = pydantic.Field(default=None)
     """
-    A user account on Whop.
+    User hosting the proof livestream — the worker streaming their attempt. `null` if the host account no longer exists.
     """
 
     id: str = pydantic.Field()
     """
-    The unique identifier for the user.
+    Livestream feed ID.
     """
 
-    name: typing.Optional[str] = pydantic.Field(default=None)
+    title: str = pydantic.Field()
     """
-    The user's display name shown on their public profile.
-    """
-
-    username: str = pydantic.Field()
-    """
-    The user's unique username shown on their public profile.
+    Display title for the proof livestream.
     """
 
     if IS_PYDANTIC_V2:

@@ -45,3 +45,6 @@
 .github/workflows/publish-main.yml
 src/whop_sdk/lib
 tests/custom
+.fern/replay.lock
+.fern/replay.yml
+.gitattributes

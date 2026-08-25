@@ -17,6 +17,8 @@ LedgerActivityLineType = typing.Union[
         "airdrop_reversal",
         "application_fee",
         "application_fee_payout",
+        "balance_reservation",
+        "balance_reservation_reversal",
         "bank_transfer",
         "billing_percentage_fee",
         "buyer_fee",

@@ -9,6 +9,7 @@ from .ledger_activity_account import LedgerActivityAccount
 from .ledger_activity_currency import LedgerActivityCurrency
 from .ledger_activity_line_type import LedgerActivityLineType
 from .ledger_activity_object import LedgerActivityObject
+from .ledger_activity_payment import LedgerActivityPayment
 from .ledger_activity_resource import LedgerActivityResource
 from .ledger_activity_source import LedgerActivitySource
 
@@ -55,6 +56,11 @@ class LedgerActivity(UniversalBaseModel):
     """
 
     object: LedgerActivityObject
+    payment: typing.Optional[LedgerActivityPayment] = pydantic.Field(default=None)
+    """
+    Payment related to this ledger activity. Included when rich resource hydration is enabled and the movement is tied to a payment.
+    """
+
     posted_at: dt.datetime = pydantic.Field()
     """
     When the activity posted to the ledger.

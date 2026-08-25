@@ -77,7 +77,7 @@ class CourseStudentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -128,7 +128,7 @@ class CourseStudentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -208,7 +208,7 @@ class AsyncCourseStudentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -268,7 +268,7 @@ class AsyncCourseStudentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

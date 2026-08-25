@@ -5,12 +5,28 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .product_gallery_image import ProductGalleryImage
+from .product_public_plan import ProductPublicPlan
 
 
 class ProductListItem(UniversalBaseModel):
+    account: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
+    """
+    Account that sells this product.
+    """
+
     created_at: str = pydantic.Field()
     """
     When the product was created, as an ISO 8601 timestamp.
+    """
+
+    default_plan: typing.Optional[ProductPublicPlan] = pydantic.Field(default=None)
+    """
+    Buyable plan to show and check out with. The configured default when that plan is buyable, otherwise the first buyable plan in product-page order. `null` when none is buyable.
+    """
+
+    description: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Written description displayed on the product page. `null` if none is set.
     """
 
     external_identifier: typing.Optional[str] = pydantic.Field(default=None)

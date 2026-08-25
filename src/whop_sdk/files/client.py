@@ -5,9 +5,9 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from ..types.file import File
-from ..types.file_visibility import FileVisibility
 from .raw_client import AsyncRawFilesClient, RawFilesClient
-from .types.create_files_response import CreateFilesResponse
+from .types.complete_files_request_multipart_parts_item import CompleteFilesRequestMultipartPartsItem
+from .types.create_files_request_visibility import CreateFilesRequestVisibility
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -32,52 +32,27 @@ class FilesClient:
         self,
         *,
         filename: str,
-        visibility: typing.Optional[FileVisibility] = OMIT,
+        byte_size: typing.Optional[int] = OMIT,
+        multipart: typing.Optional[bool] = OMIT,
+        visibility: typing.Optional[CreateFilesRequestVisibility] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> CreateFilesResponse:
+    ) -> File:
         """
-        Create a new file record and receive a presigned URL for uploading content to S3.
+        Creates a file and returns a presigned destination to upload its bytes to. PUT the bytes to `upload_url` (single-part), or to each of `multipart_upload_urls` and then call Complete File Multipart Upload. Once the bytes land the file becomes `ready`, and its ID can be attached wherever a file is accepted — account legal documents, dispute evidence documents.
 
         Parameters
         ----------
         filename : str
-            The name of the file including its extension (e.g., "photo.png" or "document.pdf").
+            The name of the file including its extension, e.g. `terms.pdf`.
 
-        visibility : typing.Optional[FileVisibility]
-            Controls whether the file is publicly accessible via CDN or requires authentication. Defaults to private.
+        byte_size : typing.Optional[int]
+            The file's size in bytes. Required when `multipart` is `true`. Multipart uploads support at most 10,000 parts of 5MB each (about 50 GB).
 
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
+        multipart : typing.Optional[bool]
+            Upload the file in 5MB parts. Required for files larger than 5GB; useful above ~100MB. The file must be larger than 5MB.
 
-        Returns
-        -------
-        CreateFilesResponse
-            A successful response
-
-        Examples
-        --------
-        from whop_sdk import Whop
-
-        client = Whop(
-            "2026-08-21",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-        client.files.create(
-            filename="filename",
-        )
-        """
-        _response = self._raw_client.create(filename=filename, visibility=visibility, request_options=request_options)
-        return _response.data
-
-    def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> File:
-        """
-        Retrieves the details of an existing file.
-
-        Parameters
-        ----------
-        id : str
-            The unique identifier of the file to retrieve.
+        visibility : typing.Optional[CreateFilesRequestVisibility]
+            `public` files are served via an unsigned CDN URL — use for assets anyone may see. `private` files are served via a signed, expiring URL — use for sensitive documents. Defaults to `private`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -85,22 +60,120 @@ class FilesClient:
         Returns
         -------
         File
-            A successful response
+            file created with a single-part upload destination
 
         Examples
         --------
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.files.create(
+            filename="terms.pdf",
+        )
+        """
+        _response = self._raw_client.create(
+            filename=filename,
+            byte_size=byte_size,
+            multipart=multipart,
+            visibility=visibility,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> File:
+        """
+        Retrieves a file you uploaded — poll it after uploading the bytes to see `upload_status` become `ready`. Only the creator can retrieve a file this way; a file attached to another resource is read through that resource.
+
+        Parameters
+        ----------
+        id : str
+            The unique identifier of the file, prefixed `file_`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        File
+            file retrieved
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.files.retrieve(
-            id="file_xxxxxxxxxxxxx",
+            id="id",
         )
         """
         _response = self._raw_client.retrieve(id, request_options=request_options)
+        return _response.data
+
+    def complete(
+        self,
+        id: str,
+        *,
+        multipart_parts: typing.Sequence[CompleteFilesRequestMultipartPartsItem],
+        multipart_upload_id: str,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> File:
+        """
+        Assembles the parts of a multipart upload after every part has been PUT to its presigned URL. Pass the `multipart_upload_id` from Create File and each part's `ETag` response header.
+
+        Parameters
+        ----------
+        id : str
+            The unique identifier of the file, prefixed `file_`.
+
+        multipart_parts : typing.Sequence[CompleteFilesRequestMultipartPartsItem]
+            Every uploaded part, in order.
+
+        multipart_upload_id : str
+            The ID of the multipart upload, returned by Create File.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        File
+            multipart upload completed
+
+        Examples
+        --------
+        from whop_sdk import Whop
+        from whop_sdk.files import CompleteFilesRequestMultipartPartsItem
+
+        client = Whop(
+            "2026-08-21-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.files.complete(
+            id="id",
+            multipart_parts=[
+                CompleteFilesRequestMultipartPartsItem(
+                    etag="etag-1",
+                    part_number=1,
+                )
+            ],
+            multipart_upload_id="upload-id",
+        )
+        """
+        _response = self._raw_client.complete(
+            id,
+            multipart_parts=multipart_parts,
+            multipart_upload_id=multipart_upload_id,
+            request_options=request_options,
+        )
         return _response.data
 
 
@@ -123,62 +196,27 @@ class AsyncFilesClient:
         self,
         *,
         filename: str,
-        visibility: typing.Optional[FileVisibility] = OMIT,
+        byte_size: typing.Optional[int] = OMIT,
+        multipart: typing.Optional[bool] = OMIT,
+        visibility: typing.Optional[CreateFilesRequestVisibility] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> CreateFilesResponse:
+    ) -> File:
         """
-        Create a new file record and receive a presigned URL for uploading content to S3.
+        Creates a file and returns a presigned destination to upload its bytes to. PUT the bytes to `upload_url` (single-part), or to each of `multipart_upload_urls` and then call Complete File Multipart Upload. Once the bytes land the file becomes `ready`, and its ID can be attached wherever a file is accepted — account legal documents, dispute evidence documents.
 
         Parameters
         ----------
         filename : str
-            The name of the file including its extension (e.g., "photo.png" or "document.pdf").
+            The name of the file including its extension, e.g. `terms.pdf`.
 
-        visibility : typing.Optional[FileVisibility]
-            Controls whether the file is publicly accessible via CDN or requires authentication. Defaults to private.
+        byte_size : typing.Optional[int]
+            The file's size in bytes. Required when `multipart` is `true`. Multipart uploads support at most 10,000 parts of 5MB each (about 50 GB).
 
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
+        multipart : typing.Optional[bool]
+            Upload the file in 5MB parts. Required for files larger than 5GB; useful above ~100MB. The file must be larger than 5MB.
 
-        Returns
-        -------
-        CreateFilesResponse
-            A successful response
-
-        Examples
-        --------
-        import asyncio
-
-        from whop_sdk import AsyncWhop
-
-        client = AsyncWhop(
-            "2026-08-21",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.files.create(
-                filename="filename",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.create(
-            filename=filename, visibility=visibility, request_options=request_options
-        )
-        return _response.data
-
-    async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> File:
-        """
-        Retrieves the details of an existing file.
-
-        Parameters
-        ----------
-        id : str
-            The unique identifier of the file to retrieve.
+        visibility : typing.Optional[CreateFilesRequestVisibility]
+            `public` files are served via an unsigned CDN URL — use for assets anyone may see. `private` files are served via a signed, expiring URL — use for sensitive documents. Defaults to `private`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -186,7 +224,7 @@ class AsyncFilesClient:
         Returns
         -------
         File
-            A successful response
+            file created with a single-part upload destination
 
         Examples
         --------
@@ -195,7 +233,54 @@ class AsyncFilesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.files.create(
+                filename="terms.pdf",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.create(
+            filename=filename,
+            byte_size=byte_size,
+            multipart=multipart,
+            visibility=visibility,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> File:
+        """
+        Retrieves a file you uploaded — poll it after uploading the bytes to see `upload_status` become `ready`. Only the creator can retrieve a file this way; a file attached to another resource is read through that resource.
+
+        Parameters
+        ----------
+        id : str
+            The unique identifier of the file, prefixed `file_`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        File
+            file retrieved
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -203,11 +288,78 @@ class AsyncFilesClient:
 
         async def main() -> None:
             await client.files.retrieve(
-                id="file_xxxxxxxxxxxxx",
+                id="id",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._raw_client.retrieve(id, request_options=request_options)
+        return _response.data
+
+    async def complete(
+        self,
+        id: str,
+        *,
+        multipart_parts: typing.Sequence[CompleteFilesRequestMultipartPartsItem],
+        multipart_upload_id: str,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> File:
+        """
+        Assembles the parts of a multipart upload after every part has been PUT to its presigned URL. Pass the `multipart_upload_id` from Create File and each part's `ETag` response header.
+
+        Parameters
+        ----------
+        id : str
+            The unique identifier of the file, prefixed `file_`.
+
+        multipart_parts : typing.Sequence[CompleteFilesRequestMultipartPartsItem]
+            Every uploaded part, in order.
+
+        multipart_upload_id : str
+            The ID of the multipart upload, returned by Create File.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        File
+            multipart upload completed
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+        from whop_sdk.files import CompleteFilesRequestMultipartPartsItem
+
+        client = AsyncWhop(
+            "2026-08-21-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.files.complete(
+                id="id",
+                multipart_parts=[
+                    CompleteFilesRequestMultipartPartsItem(
+                        etag="etag-1",
+                        part_number=1,
+                    )
+                ],
+                multipart_upload_id="upload-id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.complete(
+            id,
+            multipart_parts=multipart_parts,
+            multipart_upload_id=multipart_upload_id,
+            request_options=request_options,
+        )
         return _response.data
