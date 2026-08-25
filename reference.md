@@ -2974,6 +2974,14 @@ client.ad_groups.search_targeting_options(
 <dl>
 <dd>
 
+**special_ad_categories:** `typing.Optional[typing.Union[SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem, typing.Sequence[SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem]]]` — The campaign's declared special ad categories. Under `housing`, `employment`, or `financial_products` the ad platform allows interests only, drawn from a short approved list, so results are narrowed to what such a campaign can launch with and other kinds return nothing. Blank `query` browses that approved list instead of the usual fixed lists.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -6919,6 +6927,14 @@ client.apps.list()
 <dd>
 
 **verified_apps_only:** `typing.Optional[bool]` — Whether to only return apps verified by Whop. Verified website templates — websites with a published web build — are included, even though websites are otherwise left out of app lists.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**recommended:** `typing.Optional[bool]` — Only return apps Whop recommends (or, with `false`, only those it does not). The community blueprints gallery is the recommended slice of the public website list.
     
 </dd>
 </dl>
@@ -11405,6 +11421,182 @@ client.checkout_configurations.delete(
 </dl>
 </details>
 
+## Checkout Sessions
+<details><summary><code>client.checkout_sessions.<a href="src/whop_sdk/checkout_sessions/client.py">create</a>(...) -> CheckoutSession</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Opens a checkout session. No credentials required. Pass exactly one of `items`, `checkout_configuration`, or `link`. The response includes `client_secret` once; later calls authenticate with it.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.DEFAULT,
+)
+
+client.checkout_sessions.create()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**affiliate_code:** `typing.Optional[str]` — The affiliate this checkout is attributed to. Write-once — set it here or never.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**attribution:** `typing.Optional[typing.Dict[str, typing.Any]]` — String-to-string acquisition context. Recognized keys: `utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, `utm_content`, `tracking_link_id`, `funnel_id`, `source`, `country`; anything else is dropped.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**checkout_configuration:** `typing.Optional[str]` — A seller's checkout configuration (`ch_…`) to open this checkout from. Its plan, mode, affiliate code, metadata, redirect URL, 3DS level and payment method configuration seed the session; anything you also send explicitly wins.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**items:** `typing.Optional[typing.List[CreateCheckoutSessionsRequestItemsItem]]` — What the buyer is purchasing. Exactly one entry today — more are refused until multi-item checkout ships; the array shape is the forward contract. Alongside a `checkout_configuration` or `link` it may only name that mount's own plan, where it sets quantity.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**link:** `typing.Optional[str]` — Any checkout link the seller has shared, resolved for you: a plan ID, a checkout configuration ID, a vanity short link (send `page_route` with it), a membership transfer code, or a checkout link the seller handed out earlier. A link that is not a checkout link is refused with a coded message rather than a bare not-found.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**metadata:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — Free-form string-to-string map, at most 40 keys. Whop never interprets it.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**mode:** `typing.Optional[CreateCheckoutSessionsRequestMode]` — Defaults to the checkout configuration's mode, then `payment`. `setup` sessions are not yet available and are refused.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**origin:** `typing.Optional[str]` — Where this checkout is being opened from — the scheme and host of your page, with no path (`https://shop.example.com`). Ignored when the request carries a browser `Origin` header, which is used instead. Recorded against the session as acquisition context.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_route:** `typing.Optional[str]` — The product route a vanity `link` belongs to — the `pageRoute` in the seller's shared URL.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**password:** `typing.Optional[str]` — The password for a password-protected plan. Right, and the gate is cleared for the session's whole life; wrong or omitted, and the session still opens — it publishes a `custom_password` requirement, the answer arrives through update, and confirm refuses until it is right.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**promo_code:** `typing.Optional[str]` — A promo code to apply to the quote.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**return_url:** `typing.Optional[str]` — Where the buyer lands after an off-site payment step. Absolute https URL without credentials.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**top_up_membership:** `typing.Optional[str]` — An existing membership (`mem_…`) this checkout pays against instead of creating a new one — the buyer pays the plan's price again onto something they already own. Ownership is checked at confirm, against the buyer who confirms: a membership they do not own is refused as not found. Cannot accompany a membership transfer link.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tracking_link_ids_by_account:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — First-party tracking-link candidates keyed by account ID. Ignored outside Whop's hosted checkout; an explicit `attribution.tracking_link_id` wins.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Companies
 <details><summary><code>client.companies.<a href="src/whop_sdk/companies/client.py">list</a>(...) -> ListCompaniesResponse</code></summary>
 <dl>
@@ -15648,7 +15840,7 @@ client.disputes.update_evidence_dispute(
 <dl>
 <dd>
 
-Replaces the full set of uploaded evidence documents on a dispute, beyond the four fixed evidence slots. Send the files as multipart file parts to upload and attach in one call, or reference files already stored by `id`/`direct_upload_id`. Send every document the packet should carry — up to 10, 10MB each and 25MB in total; an empty list removes them all. Accepted content types: application/pdf, application/json, image/jpeg, image/png, image/webp — any other type is rejected.
+Replaces the full set of uploaded evidence documents on a dispute, beyond the four fixed evidence slots. Upload files through `POST /files` and reference them by `id`, or send the files as multipart file parts to upload and attach in one call. Send every document the packet should carry — up to 10, 10MB each and 25MB in total; an empty list removes them all. Accepted content types: application/pdf, application/json, image/jpeg, image/png, image/webp — any other type is rejected.
 </dd>
 </dl>
 </dd>
@@ -18625,7 +18817,7 @@ client.exports.create(
 <dl>
 <dd>
 
-**filters:** `typing.Optional[typing.Dict[str, typing.Any]]` — Resource-specific filters. For native REST resources (`payouts`, `transfers`, `memberships`) these are the resource's own list query params; for dashboard tables they mirror the dashboard table filters.
+**filters:** `typing.Optional[typing.Dict[str, typing.Any]]` — Resource-specific filters. For native REST resources (`payouts`, `transfers`, `products`) these are the resource's own list query params; for dashboard tables they mirror the dashboard table filters.
     
 </dd>
 </dl>
@@ -19031,7 +19223,7 @@ client.fee_markups.delete(
 </details>
 
 ## Files
-<details><summary><code>client.files.<a href="src/whop_sdk/files/client.py">create</a>(...) -> CreateFilesResponse</code></summary>
+<details><summary><code>client.files.<a href="src/whop_sdk/files/client.py">create</a>(...) -> File</code></summary>
 <dl>
 <dd>
 
@@ -19043,7 +19235,7 @@ client.fee_markups.delete(
 <dl>
 <dd>
 
-Create a new file record and receive a presigned URL for uploading content to S3.
+Creates a file and returns a presigned destination to upload its bytes to. PUT the bytes to `upload_url` (single-part), or to each of `multipart_upload_urls` and then call Complete File Multipart Upload. Once the bytes land the file becomes `ready`, and its ID can be attached wherever a file is accepted — account legal documents, dispute evidence documents.
 </dd>
 </dl>
 </dd>
@@ -19067,7 +19259,7 @@ client = Whop(
 )
 
 client.files.create(
-    filename="filename",
+    filename="terms.pdf",
 )
 
 ```
@@ -19084,7 +19276,7 @@ client.files.create(
 <dl>
 <dd>
 
-**filename:** `str` — The name of the file including its extension (e.g., "photo.png" or "document.pdf").
+**filename:** `str` — The name of the file including its extension, e.g. `terms.pdf`.
     
 </dd>
 </dl>
@@ -19092,7 +19284,23 @@ client.files.create(
 <dl>
 <dd>
 
-**visibility:** `typing.Optional[FileVisibility]` — Controls whether the file is publicly accessible via CDN or requires authentication. Defaults to private.
+**byte_size:** `typing.Optional[int]` — The file's size in bytes. Required when `multipart` is `true`. Multipart uploads support at most 10,000 parts of 5MB each (about 50 GB).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**multipart:** `typing.Optional[bool]` — Upload the file in 5MB parts. Required for files larger than 5GB; useful above ~100MB. The file must be larger than 5MB.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**visibility:** `typing.Optional[CreateFilesRequestVisibility]` — `public` files are served via an unsigned CDN URL — use for assets anyone may see. `private` files are served via a signed, expiring URL — use for sensitive documents. Defaults to `private`.
     
 </dd>
 </dl>
@@ -19124,7 +19332,7 @@ client.files.create(
 <dl>
 <dd>
 
-Retrieves the details of an existing file.
+Retrieves a file you uploaded — poll it after uploading the bytes to see `upload_status` become `ready`. Only the creator can retrieve a file this way; a file attached to another resource is read through that resource.
 </dd>
 </dl>
 </dd>
@@ -19148,7 +19356,7 @@ client = Whop(
 )
 
 client.files.retrieve(
-    id="file_xxxxxxxxxxxxx",
+    id="id",
 )
 
 ```
@@ -19165,7 +19373,104 @@ client.files.retrieve(
 <dl>
 <dd>
 
-**id:** `str` — The unique identifier of the file to retrieve.
+**id:** `str` — The unique identifier of the file, prefixed `file_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.files.<a href="src/whop_sdk/files/client.py">complete</a>(...) -> File</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Assembles the parts of a multipart upload after every part has been PUT to its presigned URL. Pass the `multipart_upload_id` from Create File and each part's `ETag` response header.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+from whop_sdk.files import CompleteFilesRequestMultipartPartsItem
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.DEFAULT,
+)
+
+client.files.complete(
+    id="id",
+    multipart_parts=[
+        CompleteFilesRequestMultipartPartsItem(
+            etag="etag-1",
+            part_number=1,
+        )
+    ],
+    multipart_upload_id="upload-id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The unique identifier of the file, prefixed `file_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**multipart_parts:** `typing.List[CompleteFilesRequestMultipartPartsItem]` — Every uploaded part, in order.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**multipart_upload_id:** `str` — The ID of the multipart upload, returned by Create File.
     
 </dd>
 </dl>
@@ -21230,7 +21535,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-**line_items:** `typing.Optional[typing.List[UpdateInvoicesRequestLineItemsItem]]` — Line items that break down the invoice total.
+**line_items:** `typing.Optional[typing.List[UpdateInvoicesRequestLineItemsItem]]` — Line items that break down the invoice total. When provided, the sum of (quantity * unit_price) for all items must equal the plan price. Individual items may be negative to represent a credit, as long as the sum is not negative and clears the currency's minimum charge. Pass an empty list to remove the breakdown.
     
 </dd>
 </dl>
@@ -27643,7 +27948,7 @@ client.permissions.list(
 <dl>
 <dd>
 
-Returns a paginated list of plans belonging to an account, with optional filtering by visibility, type, release method, and product.
+Returns a paginated list of plans. Omit `account_id` and pass `product_ids` to list a product's public buyable plans.
 </dd>
 </dl>
 </dd>
@@ -27667,7 +27972,6 @@ client = Whop(
 )
 
 client.plans.list(
-    account_id="account_id",
     release_methods=[
         "buy_now"
     ],
@@ -27696,7 +28000,7 @@ client.plans.list(
 <dl>
 <dd>
 
-**account_id:** `str` — The unique identifier of the account to list plans for.
+**account_id:** `typing.Optional[str]` — The unique identifier of the account to list plans for. Required unless `product_ids` is provided for a public product-plan read.
     
 </dd>
 </dl>
@@ -27744,7 +28048,7 @@ client.plans.list(
 <dl>
 <dd>
 
-**product_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter to only plans belonging to these product identifiers.
+**product_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter to only plans belonging to these product identifiers. When `account_id` is omitted, this is required and the response is publicly readable: only visible, non-invoice plans are returned.
     
 </dd>
 </dl>
@@ -28617,7 +28921,7 @@ client.plans.calculate_tax(
 <dl>
 <dd>
 
-Returns a paginated list of products belonging to an account.
+Returns a paginated list of products. Omit `account_id` to search the public marketplace.
 </dd>
 </dl>
 </dd>
@@ -28641,7 +28945,6 @@ client = Whop(
 )
 
 client.products.list(
-    account_id="account_id",
     visibilities=[
         "visible"
     ],
@@ -28664,7 +28967,7 @@ client.products.list(
 <dl>
 <dd>
 
-**account_id:** `str` — The unique identifier of the account to list products for.
+**account_id:** `typing.Optional[str]` — The unique identifier of the account to list products for. Omit to search the public marketplace.
     
 </dd>
 </dl>
@@ -28672,7 +28975,47 @@ client.products.list(
 <dl>
 <dd>
 
-**visibilities:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter to only products matching these visibility states.
+**query:** `typing.Optional[str]` — Ranked search against product title and headline. Omit to browse by recency.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**marketplace_category_route:** `typing.Optional[str]` — Only return marketplace products assigned to this category route, such as `trading`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**plan_types:** `typing.Optional[typing.Union[ListProductsRequestPlanTypesItem, typing.Sequence[ListProductsRequestPlanTypesItem]]]` — Filter to products with a buyable plan of these billing models, such as `one_time` or `renewal`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**price_minimum:** `typing.Optional[float]` — Only return products whose advertised buyable plan has a displayed price of at least this amount. Recurring plans use renewal price.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**price_maximum:** `typing.Optional[float]` — Only return products whose advertised buyable plan has a displayed price of at most this amount. Recurring plans use renewal price.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**visibilities:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter to only products matching these visibility states. Ignored on the public marketplace list, which only returns visible products.
     
 </dd>
 </dl>
@@ -28704,7 +29047,7 @@ client.products.list(
 <dl>
 <dd>
 
-**order:** `typing.Optional[str]` — The field to sort results by. Defaults to created_at.
+**order:** `typing.Optional[str]` — The field to sort results by. Account lists default to `created_at`. Marketplace lists default to `discoverable_at` and accept `created_at` or `discoverable_at`. Cannot be combined with `query`.
     
 </dd>
 </dl>
@@ -28737,6 +29080,22 @@ client.products.list(
 <dd>
 
 **before:** `typing.Optional[str]` — A cursor; returns products before this position.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[str]` — Only return products created after this ISO 8601 timestamp.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[str]` — Only return products created before this ISO 8601 timestamp.
     
 </dd>
 </dl>
@@ -28985,7 +29344,7 @@ client.products.create(
 <dl>
 <dd>
 
-Retrieves the details of an existing product. This endpoint is publicly accessible.
+Retrieves a product. Public — no credentials.
 </dd>
 </dl>
 </dd>

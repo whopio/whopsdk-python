@@ -33,7 +33,7 @@ class InvoiceListItemLineItemsItem(UniversalBaseModel):
 
     unit_price: float = pydantic.Field()
     """
-    The unit price for this line item.
+    The unit price for this line item. Negative for a credit or deduction.
     """
 
     if IS_PYDANTIC_V2:

@@ -6,8 +6,12 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .create_files_response import CreateFilesResponse
-_dynamic_imports: typing.Dict[str, str] = {"CreateFilesResponse": ".create_files_response"}
+    from .complete_files_request_multipart_parts_item import CompleteFilesRequestMultipartPartsItem
+    from .create_files_request_visibility import CreateFilesRequestVisibility
+_dynamic_imports: typing.Dict[str, str] = {
+    "CompleteFilesRequestMultipartPartsItem": ".complete_files_request_multipart_parts_item",
+    "CreateFilesRequestVisibility": ".create_files_request_visibility",
+}
 
 
 def __getattr__(attr_name: str) -> typing.Any:
@@ -31,4 +35,4 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["CreateFilesResponse"]
+__all__ = ["CompleteFilesRequestMultipartPartsItem", "CreateFilesRequestVisibility"]

@@ -6,6 +6,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .ledger_activity_source_payout_destination import LedgerActivitySourcePayoutDestination
+from .money import Money
 
 
 class LedgerActivitySource(UniversalBaseModel):
@@ -16,6 +17,11 @@ class LedgerActivitySource(UniversalBaseModel):
     amount_float: typing.Optional[float] = pydantic.Field(default=None)
     """
     Withdrawal amount as a decimal number in the destination currency (withdrawal sources only; requires payout:withdrawal:read).
+    """
+
+    card_brand: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Card brand used by the payment source.
     """
 
     chain: typing.Optional[str] = pydantic.Field(default=None)
@@ -53,6 +59,21 @@ class LedgerActivitySource(UniversalBaseModel):
     payer_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     Name of the entity processing the payout (withdrawal sources only; requires payout:withdrawal:read).
+    """
+
+    payment_amount: typing.Optional[Money] = pydantic.Field(default=None)
+    """
+    Total charged by the payment source.
+    """
+
+    payment_method_type: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Payment method used by the payment source.
+    """
+
+    payment_processor: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Processor used by the payment source.
     """
 
     payout_destination: typing.Optional[LedgerActivitySourcePayoutDestination] = pydantic.Field(default=None)

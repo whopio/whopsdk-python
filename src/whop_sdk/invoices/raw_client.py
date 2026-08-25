@@ -680,7 +680,7 @@ class RawInvoicesClient:
             The email address of the customer.
 
         line_items : typing.Optional[typing.Sequence[UpdateInvoicesRequestLineItemsItem]]
-            Line items that break down the invoice total.
+            Line items that break down the invoice total. When provided, the sum of (quantity * unit_price) for all items must equal the plan price. Individual items may be negative to represent a credit, as long as the sum is not negative and clears the currency's minimum charge. Pass an empty list to remove the breakdown.
 
         mailing_address_id : typing.Optional[str]
             The unique identifier of an existing mailing address to attach.
@@ -1975,7 +1975,7 @@ class AsyncRawInvoicesClient:
             The email address of the customer.
 
         line_items : typing.Optional[typing.Sequence[UpdateInvoicesRequestLineItemsItem]]
-            Line items that break down the invoice total.
+            Line items that break down the invoice total. When provided, the sum of (quantity * unit_price) for all items must equal the plan price. Individual items may be negative to represent a credit, as long as the sum is not negative and clears the currency's minimum charge. Pass an empty list to remove the breakdown.
 
         mailing_address_id : typing.Optional[str]
             The unique identifier of an existing mailing address to attach.

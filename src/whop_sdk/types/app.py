@@ -11,6 +11,7 @@ from .app_banner_image import AppBannerImage
 from .app_creator import AppCreator
 from .app_default_api_key import AppDefaultApiKey
 from .app_deployment import AppDeployment
+from .app_elements_used_item import AppElementsUsedItem
 from .app_icon import AppIcon
 from .app_marketplace_status import AppMarketplaceStatus
 from .app_oauth_client_type import AppOauthClientType
@@ -92,6 +93,7 @@ class App(UniversalBaseModel):
     Subdomain identifier for the app's proxied URL, forming https://{domain_id}.apps.whop.com.
     """
 
+    elements_used: typing.List[AppElementsUsedItem]
     experience_path: typing.Optional[str] = pydantic.Field(default=None)
     """
     URL path for the member-facing hub view, or `null` when not configured.

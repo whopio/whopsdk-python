@@ -6,12 +6,20 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .dispute_evidence_document_content_type import DisputeEvidenceDocumentContentType
 from .dispute_evidence_document_document_type import DisputeEvidenceDocumentDocumentType
+from .dispute_evidence_document_upload_status import DisputeEvidenceDocumentUploadStatus
+from .dispute_evidence_document_visibility import DisputeEvidenceDocumentVisibility
+from .file_multipart_url import FileMultipartUrl
 
 
 class DisputeEvidenceDocument(UniversalBaseModel):
     content_type: typing.Optional[DisputeEvidenceDocumentContentType] = pydantic.Field(default=None)
     """
     The uploaded file's MIME type. Uploads are restricted to the types the processor accepts.
+    """
+
+    created_at: str = pydantic.Field()
+    """
+    When the file was created, as an ISO 8601 timestamp.
     """
 
     document_type: DisputeEvidenceDocumentDocumentType = pydantic.Field()
@@ -21,17 +29,58 @@ class DisputeEvidenceDocument(UniversalBaseModel):
 
     filename: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The uploaded file's name.
+    The original filename, including its extension.
     """
 
     id: str = pydantic.Field()
     """
-    The attachment's ID, prefixed `file_`.
+    The file's ID, prefixed `file_`.
+    """
+
+    multipart_chunk_size: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    The byte size each part (except the last) must be. Present only on create, and only for multipart uploads.
+    """
+
+    multipart_upload_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The ID of the multipart upload, passed back to `complete`. Present only on create, and only for multipart uploads.
+    """
+
+    multipart_upload_urls: typing.Optional[typing.List[FileMultipartUrl]] = None
+    object: str = pydantic.Field()
+    """
+    The type of this object, always `file`.
+    """
+
+    size: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    The file size in bytes. `null` until the upload has finished.
+    """
+
+    upload_headers: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
+    """
+    Headers to send with the upload PUT. Present only on create.
+    """
+
+    upload_status: DisputeEvidenceDocumentUploadStatus = pydantic.Field()
+    """
+    Where the file is in its upload lifecycle.
+    """
+
+    upload_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Presigned URL to PUT the file's bytes to. Present only on create, and only for single-part uploads.
     """
 
     url: typing.Optional[str] = pydantic.Field(default=None)
     """
-    A URL to download the document.
+    A URL to download the file: a permanent CDN URL for public files, a signed expiring URL for private ones. `null` until the upload has finished.
+    """
+
+    visibility: DisputeEvidenceDocumentVisibility = pydantic.Field()
+    """
+    `public` files are served via an unsigned CDN URL; `private` files via a signed, expiring URL.
     """
 
     if IS_PYDANTIC_V2:

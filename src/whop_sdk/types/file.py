@@ -4,48 +4,76 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .file_multipart_url import FileMultipartUrl
+from .file_upload_status import FileUploadStatus
 from .file_visibility import FileVisibility
-from .upload_statuses import UploadStatuses
 
 
 class File(UniversalBaseModel):
-    """
-    A file that has been uploaded or is pending upload.
-    """
-
     content_type: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The MIME type of the uploaded file (e.g., image/jpeg, video/mp4, audio/mpeg).
+    The file's MIME type, e.g. `application/pdf`.
+    """
+
+    created_at: str = pydantic.Field()
+    """
+    When the file was created, as an ISO 8601 timestamp.
     """
 
     filename: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The original filename of the uploaded file, including its file extension.
+    The original filename, including its extension.
     """
 
     id: str = pydantic.Field()
     """
-    The unique identifier for the file.
+    The file's ID, prefixed `file_`.
     """
 
-    size: typing.Optional[str] = pydantic.Field(default=None)
+    multipart_chunk_size: typing.Optional[int] = pydantic.Field(default=None)
     """
-    The file size in bytes. Null if the file has not finished uploading.
+    The byte size each part (except the last) must be. Present only on create, and only for multipart uploads.
     """
 
-    upload_status: UploadStatuses = pydantic.Field()
+    multipart_upload_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The current upload status of the file (e.g., pending, ready).
+    The ID of the multipart upload, passed back to `complete`. Present only on create, and only for multipart uploads.
+    """
+
+    multipart_upload_urls: typing.Optional[typing.List[FileMultipartUrl]] = None
+    object: str = pydantic.Field()
+    """
+    The type of this object, always `file`.
+    """
+
+    size: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    The file size in bytes. `null` until the upload has finished.
+    """
+
+    upload_headers: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
+    """
+    Headers to send with the upload PUT. Present only on create.
+    """
+
+    upload_status: FileUploadStatus = pydantic.Field()
+    """
+    Where the file is in its upload lifecycle.
+    """
+
+    upload_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Presigned URL to PUT the file's bytes to. Present only on create, and only for single-part uploads.
     """
 
     url: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The URL for accessing the file. For public files, this is a permanent CDN URL. For private files, this is a signed URL that expires. Null if the file has not finished uploading.
+    A URL to download the file: a permanent CDN URL for public files, a signed expiring URL for private ones. `null` until the upload has finished.
     """
 
     visibility: FileVisibility = pydantic.Field()
     """
-    Whether the file is publicly accessible or requires authentication.
+    `public` files are served via an unsigned CDN URL; `private` files via a signed, expiring URL.
     """
 
     if IS_PYDANTIC_V2:

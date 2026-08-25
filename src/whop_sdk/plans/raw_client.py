@@ -48,7 +48,7 @@ class RawPlansClient:
     def list(
         self,
         *,
-        account_id: str,
+        account_id: typing.Optional[str] = None,
         direction: typing.Optional[ListPlansRequestDirection] = None,
         order: typing.Optional[ListPlansRequestOrder] = None,
         release_methods: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
@@ -64,12 +64,12 @@ class RawPlansClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[PlanListItem, ListPlansResponse]:
         """
-        Returns a paginated list of plans belonging to an account, with optional filtering by visibility, type, release method, and product.
+        Returns a paginated list of plans. Omit `account_id` and pass `product_ids` to list a product's public buyable plans.
 
         Parameters
         ----------
-        account_id : str
-            The unique identifier of the account to list plans for.
+        account_id : typing.Optional[str]
+            The unique identifier of the account to list plans for. Required unless `product_ids` is provided for a public product-plan read.
 
         direction : typing.Optional[ListPlansRequestDirection]
             The sort direction for results. Defaults to descending.
@@ -87,7 +87,7 @@ class RawPlansClient:
             Filter to only plans matching these billing types.
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Filter to only plans belonging to these product identifiers.
+            Filter to only plans belonging to these product identifiers. When `account_id` is omitted, this is required and the response is publicly readable: only visible, non-invoice plans are returned.
 
         created_before : typing.Optional[str]
             Only return plans created before this timestamp.
@@ -113,7 +113,7 @@ class RawPlansClient:
         Returns
         -------
         SyncPager[PlanListItem, ListPlansResponse]
-            plans listed
+            visible plans listed by product without authentication
         """
         _response = self._client_wrapper.httpx_client.request(
             "plans",
@@ -859,7 +859,7 @@ class AsyncRawPlansClient:
     async def list(
         self,
         *,
-        account_id: str,
+        account_id: typing.Optional[str] = None,
         direction: typing.Optional[ListPlansRequestDirection] = None,
         order: typing.Optional[ListPlansRequestOrder] = None,
         release_methods: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
@@ -875,12 +875,12 @@ class AsyncRawPlansClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[PlanListItem, ListPlansResponse]:
         """
-        Returns a paginated list of plans belonging to an account, with optional filtering by visibility, type, release method, and product.
+        Returns a paginated list of plans. Omit `account_id` and pass `product_ids` to list a product's public buyable plans.
 
         Parameters
         ----------
-        account_id : str
-            The unique identifier of the account to list plans for.
+        account_id : typing.Optional[str]
+            The unique identifier of the account to list plans for. Required unless `product_ids` is provided for a public product-plan read.
 
         direction : typing.Optional[ListPlansRequestDirection]
             The sort direction for results. Defaults to descending.
@@ -898,7 +898,7 @@ class AsyncRawPlansClient:
             Filter to only plans matching these billing types.
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Filter to only plans belonging to these product identifiers.
+            Filter to only plans belonging to these product identifiers. When `account_id` is omitted, this is required and the response is publicly readable: only visible, non-invoice plans are returned.
 
         created_before : typing.Optional[str]
             Only return plans created before this timestamp.
@@ -924,7 +924,7 @@ class AsyncRawPlansClient:
         Returns
         -------
         AsyncPager[PlanListItem, ListPlansResponse]
-            plans listed
+            visible plans listed by product without authentication
         """
         _response = await self._client_wrapper.httpx_client.request(
             "plans",

@@ -58,6 +58,7 @@ class AppsClient:
         app_type: typing.Optional[ListAppsRequestAppType] = None,
         view_type: typing.Optional[ListAppsRequestViewType] = None,
         verified_apps_only: typing.Optional[bool] = None,
+        recommended: typing.Optional[bool] = None,
         query: typing.Optional[str] = None,
         order: typing.Optional[ListAppsRequestOrder] = None,
         direction: typing.Optional[ListAppsRequestDirection] = None,
@@ -83,6 +84,9 @@ class AppsClient:
 
         verified_apps_only : typing.Optional[bool]
             Whether to only return apps verified by Whop. Verified website templates — websites with a published web build — are included, even though websites are otherwise left out of app lists.
+
+        recommended : typing.Optional[bool]
+            Only return apps Whop recommends (or, with `false`, only those it does not). The community blueprints gallery is the recommended slice of the public website list.
 
         query : typing.Optional[str]
             A search string matched against app names.
@@ -118,7 +122,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -134,6 +138,7 @@ class AppsClient:
             app_type=app_type,
             view_type=view_type,
             verified_apps_only=verified_apps_only,
+            recommended=recommended,
             query=query,
             order=order,
             direction=direction,
@@ -195,7 +200,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -250,7 +255,7 @@ class AppsClient:
         from whop_sdk.apps import UpdatePermissionsAppRequestRequestedPermissionsItem
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -292,7 +297,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -325,7 +330,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -443,7 +448,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -504,7 +509,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -574,7 +579,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -632,7 +637,7 @@ class AppsClient:
         from whop_sdk.apps import UpdatePermissionsAppsRequestRequestedPermissionsItem
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -675,6 +680,7 @@ class AsyncAppsClient:
         app_type: typing.Optional[ListAppsRequestAppType] = None,
         view_type: typing.Optional[ListAppsRequestViewType] = None,
         verified_apps_only: typing.Optional[bool] = None,
+        recommended: typing.Optional[bool] = None,
         query: typing.Optional[str] = None,
         order: typing.Optional[ListAppsRequestOrder] = None,
         direction: typing.Optional[ListAppsRequestDirection] = None,
@@ -700,6 +706,9 @@ class AsyncAppsClient:
 
         verified_apps_only : typing.Optional[bool]
             Whether to only return apps verified by Whop. Verified website templates — websites with a published web build — are included, even though websites are otherwise left out of app lists.
+
+        recommended : typing.Optional[bool]
+            Only return apps Whop recommends (or, with `false`, only those it does not). The community blueprints gallery is the recommended slice of the public website list.
 
         query : typing.Optional[str]
             A search string matched against app names.
@@ -737,7 +746,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -760,6 +769,7 @@ class AsyncAppsClient:
             app_type=app_type,
             view_type=view_type,
             verified_apps_only=verified_apps_only,
+            recommended=recommended,
             query=query,
             order=order,
             direction=direction,
@@ -823,7 +833,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -886,7 +896,7 @@ class AsyncAppsClient:
         from whop_sdk.apps import UpdatePermissionsAppRequestRequestedPermissionsItem
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -936,7 +946,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -977,7 +987,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1103,7 +1113,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1172,7 +1182,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1250,7 +1260,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1317,7 +1327,7 @@ class AsyncAppsClient:
         from whop_sdk.apps import UpdatePermissionsAppsRequestRequestedPermissionsItem
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

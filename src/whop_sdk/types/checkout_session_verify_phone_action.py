@@ -6,24 +6,10 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class TransferOriginUser(UniversalBaseModel):
+class CheckoutSessionVerifyPhoneAction(UniversalBaseModel):
+    blocking: bool = pydantic.Field()
     """
-    A user account on Whop.
-    """
-
-    id: str = pydantic.Field()
-    """
-    The unique identifier for the user.
-    """
-
-    name: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The user's display name shown on their public profile.
-    """
-
-    username: str = pydantic.Field()
-    """
-    The user's unique username shown on their public profile.
+    Whether the sale depends on this. `true` stops the purchase until it is done — confirm refuses regardless of whether you ran it, so skipping it only costs the buyer an unexplained refusal. `false` is advisory: the purchase is already made and it stands whether or not the buyer ever does this, so the buyer may close the tab.
     """
 
     if IS_PYDANTIC_V2:

@@ -4,13 +4,19 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .transfer_destination import TransferDestination
-from .transfer_origin import TransferOrigin
+from .checkout_session_tax_id_type import CheckoutSessionTaxIdType
 
 
-class Transfer(UniversalBaseModel):
-    origin: typing.Optional[TransferOrigin] = None
-    destination: typing.Optional[TransferDestination] = None
+class CheckoutSessionTaxId(UniversalBaseModel):
+    type: CheckoutSessionTaxIdType = pydantic.Field()
+    """
+    The registration's type, such as `eu_vat`.
+    """
+
+    value: str = pydantic.Field()
+    """
+    The registration number, stored as the buyer entered it (whitespace removed).
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

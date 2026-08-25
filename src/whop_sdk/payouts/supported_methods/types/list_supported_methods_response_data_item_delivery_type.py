@@ -4,15 +4,7 @@ import typing
 
 ListSupportedMethodsResponseDataItemDeliveryType = typing.Union[
     typing.Literal[
-        "cash_pickup",
-        "bank_deposit",
-        "home_delivery",
-        "mobile_wallet",
-        "masspay_card",
-        "paper_check",
-        "bill",
-        "cryptocurrency",
-        "unknown",
+        "cash_pickup", "bank_deposit", "home_delivery", "mobile_wallet", "card", "check", "bill", "cryptocurrency"
     ],
     typing.Any,
 ]

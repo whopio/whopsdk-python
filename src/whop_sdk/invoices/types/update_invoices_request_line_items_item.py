@@ -23,7 +23,7 @@ class UpdateInvoicesRequestLineItemsItem(UniversalBaseModel):
 
     unit_price: float = pydantic.Field()
     """
-    The unit price for this line item. Provided as a number in the specified currency. Eg: 10.43 for $10.43
+    The unit price for this line item. Provided as a number in the specified currency. Eg: 10.43 for $10.43. Negative values represent a credit or deduction, as long as the line items still total a chargeable amount.
     """
 
     if IS_PYDANTIC_V2:

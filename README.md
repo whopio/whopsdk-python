@@ -1,9 +1,10 @@
 # Whop Python Library
 
-[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=Whop%2FPython)
+[![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fwhopio%2Fwhopsdk-python)
 [![pypi](https://img.shields.io/pypi/v/whop_sdk)](https://pypi.python.org/pypi/whop_sdk)
 
 The Whop SDK gives you typed access to the Whop API. Pass your API key to the client explicitly — the SDK reads no environment variables, so a client built without a key sends unauthenticated requests and the API answers 401.
+
 
 ## Table of Contents
 
@@ -11,23 +12,21 @@ The Whop SDK gives you typed access to the Whop API. Pass your API key to the cl
 - [Installation](#installation)
 - [Reference](#reference)
 - [Usage](#usage)
-- [Migrating from 0.0.41 and earlier](#migrating-from-0041-and-earlier)
-  - [There is no environment-variable fallback](#there-is-no-environment-variable-fallback)
-- [A first request](#a-first-request)
+- [Migrating From 0 0 41 and Earlier](#migrating-from-0-0-41-and-earlier)
+- [A First Request](#a-first-request)
 - [Environments](#environments)
 - [Async Client](#async-client)
-- [Using aiohttp](#using-aiohttp)
+- [Using Aiohttp](#using-aiohttp)
 - [Exception Handling](#exception-handling)
 - [Pagination](#pagination)
-  - [What a pager exposes](#what-a-pager-exposes)
-- [Verifying user tokens](#verifying-user-tokens)
+- [Verifying User Tokens](#verifying-user-tokens)
 - [Advanced](#advanced)
   - [Access Raw Response Data](#access-raw-response-data)
   - [Retries](#retries)
   - [Timeouts](#timeouts)
   - [Custom Client](#custom-client)
 - [Requirements](#requirements)
-- [Determining the installed version](#determining-the-installed-version)
+- [Determining The Installed Version](#determining-the-installed-version)
 - [Contributing](#contributing)
 
 ## Documentation
@@ -225,26 +224,6 @@ for page in pager.iter_pages():
     for item in page:
         print(item)
 ```
-
-### What a pager exposes
-
-The pager is not the response body. It carries `items` (this page only), `has_next`,
-`next_page()`, and `iter_pages()`, and iterating the pager itself walks every page. The
-decoded response — `data` and `page_info` — is on `pager.response`:
-
-```python
-from whop_sdk import Whop
-
-client = Whop(token="<token>")
-pager = client.products.list(account_id="biz_xxxxxxxxxxxxxx")
-
-print(pager.response.page_info.has_next_page)
-print(pager.response.data)  # this page's items, as returned by the API
-print(pager.items)          # the same items, off the pager
-```
-
-`SyncPager` and `AsyncPager` live in `whop_sdk.core.pagination`; they are not exported
-from the package root.
 
 ## Verifying user tokens
 

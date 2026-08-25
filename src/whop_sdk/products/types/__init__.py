@@ -11,6 +11,7 @@ if typing.TYPE_CHECKING:
     from .create_products_request_member_affiliate_status import CreateProductsRequestMemberAffiliateStatus
     from .delete_products_response import DeleteProductsResponse
     from .list_products_request_direction import ListProductsRequestDirection
+    from .list_products_request_plan_types_item import ListProductsRequestPlanTypesItem
     from .list_products_response import ListProductsResponse
     from .list_products_response_page_info import ListProductsResponsePageInfo
     from .post_product_created_payload import PostProductCreatedPayload
@@ -35,6 +36,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateProductsRequestMemberAffiliateStatus": ".create_products_request_member_affiliate_status",
     "DeleteProductsResponse": ".delete_products_response",
     "ListProductsRequestDirection": ".list_products_request_direction",
+    "ListProductsRequestPlanTypesItem": ".list_products_request_plan_types_item",
     "ListProductsResponse": ".list_products_response",
     "ListProductsResponsePageInfo": ".list_products_response_page_info",
     "PostProductCreatedPayload": ".post_product_created_payload",
@@ -83,6 +85,7 @@ __all__ = [
     "CreateProductsRequestMemberAffiliateStatus",
     "DeleteProductsResponse",
     "ListProductsRequestDirection",
+    "ListProductsRequestPlanTypesItem",
     "ListProductsResponse",
     "ListProductsResponsePageInfo",
     "PostProductCreatedPayload",

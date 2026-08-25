@@ -16,6 +16,11 @@ class ForumExperience(UniversalBaseModel):
     The unique identifier for the experience.
     """
 
+    is_public: bool = pydantic.Field()
+    """
+    Whether this experience is publicly visible to all users, including those without a membership.
+    """
+
     name: str = pydantic.Field()
     """
     The display name of this experience shown to users in the product navigation. Maximum 255 characters.

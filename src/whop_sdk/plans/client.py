@@ -46,7 +46,7 @@ class PlansClient:
     def list(
         self,
         *,
-        account_id: str,
+        account_id: typing.Optional[str] = None,
         direction: typing.Optional[ListPlansRequestDirection] = None,
         order: typing.Optional[ListPlansRequestOrder] = None,
         release_methods: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
@@ -62,12 +62,12 @@ class PlansClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[PlanListItem, ListPlansResponse]:
         """
-        Returns a paginated list of plans belonging to an account, with optional filtering by visibility, type, release method, and product.
+        Returns a paginated list of plans. Omit `account_id` and pass `product_ids` to list a product's public buyable plans.
 
         Parameters
         ----------
-        account_id : str
-            The unique identifier of the account to list plans for.
+        account_id : typing.Optional[str]
+            The unique identifier of the account to list plans for. Required unless `product_ids` is provided for a public product-plan read.
 
         direction : typing.Optional[ListPlansRequestDirection]
             The sort direction for results. Defaults to descending.
@@ -85,7 +85,7 @@ class PlansClient:
             Filter to only plans matching these billing types.
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Filter to only plans belonging to these product identifiers.
+            Filter to only plans belonging to these product identifiers. When `account_id` is omitted, this is required and the response is publicly readable: only visible, non-invoice plans are returned.
 
         created_before : typing.Optional[str]
             Only return plans created before this timestamp.
@@ -111,19 +111,18 @@ class PlansClient:
         Returns
         -------
         SyncPager[PlanListItem, ListPlansResponse]
-            plans listed
+            visible plans listed by product without authentication
 
         Examples
         --------
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         response = client.plans.list(
-            account_id="account_id",
             release_methods=["buy_now"],
             visibilities=["visible"],
             plan_types=["renewal"],
@@ -275,7 +274,7 @@ class PlansClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -333,7 +332,7 @@ class PlansClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -366,7 +365,7 @@ class PlansClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -508,7 +507,7 @@ class PlansClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -588,7 +587,7 @@ class PlansClient:
         from whop_sdk.plans import CalculateTaxPlansRequestAddress
 
         client = Whop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -624,7 +623,7 @@ class AsyncPlansClient:
     async def list(
         self,
         *,
-        account_id: str,
+        account_id: typing.Optional[str] = None,
         direction: typing.Optional[ListPlansRequestDirection] = None,
         order: typing.Optional[ListPlansRequestOrder] = None,
         release_methods: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
@@ -640,12 +639,12 @@ class AsyncPlansClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[PlanListItem, ListPlansResponse]:
         """
-        Returns a paginated list of plans belonging to an account, with optional filtering by visibility, type, release method, and product.
+        Returns a paginated list of plans. Omit `account_id` and pass `product_ids` to list a product's public buyable plans.
 
         Parameters
         ----------
-        account_id : str
-            The unique identifier of the account to list plans for.
+        account_id : typing.Optional[str]
+            The unique identifier of the account to list plans for. Required unless `product_ids` is provided for a public product-plan read.
 
         direction : typing.Optional[ListPlansRequestDirection]
             The sort direction for results. Defaults to descending.
@@ -663,7 +662,7 @@ class AsyncPlansClient:
             Filter to only plans matching these billing types.
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Filter to only plans belonging to these product identifiers.
+            Filter to only plans belonging to these product identifiers. When `account_id` is omitted, this is required and the response is publicly readable: only visible, non-invoice plans are returned.
 
         created_before : typing.Optional[str]
             Only return plans created before this timestamp.
@@ -689,7 +688,7 @@ class AsyncPlansClient:
         Returns
         -------
         AsyncPager[PlanListItem, ListPlansResponse]
-            plans listed
+            visible plans listed by product without authentication
 
         Examples
         --------
@@ -698,7 +697,7 @@ class AsyncPlansClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -706,7 +705,6 @@ class AsyncPlansClient:
 
         async def main() -> None:
             response = await client.plans.list(
-                account_id="account_id",
                 release_methods=["buy_now"],
                 visibilities=["visible"],
                 plan_types=["renewal"],
@@ -864,7 +862,7 @@ class AsyncPlansClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -930,7 +928,7 @@ class AsyncPlansClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -971,7 +969,7 @@ class AsyncPlansClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1121,7 +1119,7 @@ class AsyncPlansClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1209,7 +1207,7 @@ class AsyncPlansClient:
         from whop_sdk.plans import CalculateTaxPlansRequestAddress
 
         client = AsyncWhop(
-            "2026-08-21",
+            "2026-08-21-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
