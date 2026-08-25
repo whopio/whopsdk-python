@@ -69,9 +69,9 @@ class PaymentMethodListParams(TypedDict, total=False):
     future_usage: Literal["off_session", "on_session"]
     """Only return methods that can be charged this way after the buyer leaves.
 
-    A checkout that renews should pass `off_session`, which drops the buyer's
-    platform balance — a balance settles against the ledger at the time of purchase
-    and cannot be charged later.
+    Every stored credential answers either usage today, so this narrows nothing — it
+    used to drop the buyer's platform balance, which now lists on its own endpoint
+    instead of here.
     """
 
     has_payer_document: bool

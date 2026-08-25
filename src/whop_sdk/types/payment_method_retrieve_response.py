@@ -1,13 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union, Optional
+from typing import Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Annotated, TypeAlias
 
 from .._utils import PropertyInfo
 from .._models import BaseModel
 from .card_brands import CardBrands
-from .shared.currency import Currency
 from .payment_method_types import PaymentMethodTypes
 
 __all__ = [
@@ -65,18 +64,6 @@ __all__ = [
     "SepaDebitPaymentMethodIconsSquareDark",
     "SepaDebitPaymentMethodIconsSquareLight",
     "SepaDebitPaymentMethodSepaDebit",
-    "PlatformBalancePaymentMethod",
-    "PlatformBalancePaymentMethodIcons",
-    "PlatformBalancePaymentMethodIconsCard",
-    "PlatformBalancePaymentMethodIconsCardDark",
-    "PlatformBalancePaymentMethodIconsCardLight",
-    "PlatformBalancePaymentMethodIconsSquare",
-    "PlatformBalancePaymentMethodIconsSquareDark",
-    "PlatformBalancePaymentMethodIconsSquareLight",
-    "PlatformBalancePaymentMethodPlatformBalance",
-    "PlatformBalancePaymentMethodPlatformBalanceAccount",
-    "PlatformBalancePaymentMethodPlatformBalanceAccountLogo",
-    "PlatformBalancePaymentMethodPlatformBalanceBalance",
 ]
 
 
@@ -1024,224 +1011,6 @@ class SepaDebitPaymentMethod(BaseModel):
     """The typename of this object"""
 
 
-class PlatformBalancePaymentMethodIconsCardDark(BaseModel):
-    """The colorway for dark surfaces."""
-
-    png_1x: str
-    """Raster fallback at the shape's native size."""
-
-    png_2x: str
-    """Raster fallback at double density."""
-
-    png_4x: str
-    """Raster fallback at quadruple density."""
-
-    svg: str
-    """The vector file. Prefer this everywhere SVG renders."""
-
-
-class PlatformBalancePaymentMethodIconsCardLight(BaseModel):
-    """The colorway for light surfaces."""
-
-    png_1x: str
-    """Raster fallback at the shape's native size."""
-
-    png_2x: str
-    """Raster fallback at double density."""
-
-    png_4x: str
-    """Raster fallback at quadruple density."""
-
-    svg: str
-    """The vector file. Prefer this everywhere SVG renders."""
-
-
-class PlatformBalancePaymentMethodIconsCard(BaseModel):
-    """The credit-card-proportioned tile (48x30)."""
-
-    dark: PlatformBalancePaymentMethodIconsCardDark
-    """The colorway for dark surfaces."""
-
-    light: PlatformBalancePaymentMethodIconsCardLight
-    """The colorway for light surfaces."""
-
-
-class PlatformBalancePaymentMethodIconsSquareDark(BaseModel):
-    """The colorway for dark surfaces."""
-
-    png_1x: str
-    """Raster fallback at the shape's native size."""
-
-    png_2x: str
-    """Raster fallback at double density."""
-
-    png_4x: str
-    """Raster fallback at quadruple density."""
-
-    svg: str
-    """The vector file. Prefer this everywhere SVG renders."""
-
-
-class PlatformBalancePaymentMethodIconsSquareLight(BaseModel):
-    """The colorway for light surfaces."""
-
-    png_1x: str
-    """Raster fallback at the shape's native size."""
-
-    png_2x: str
-    """Raster fallback at double density."""
-
-    png_4x: str
-    """Raster fallback at quadruple density."""
-
-    svg: str
-    """The vector file. Prefer this everywhere SVG renders."""
-
-
-class PlatformBalancePaymentMethodIconsSquare(BaseModel):
-    """The square tile (32x32)."""
-
-    dark: PlatformBalancePaymentMethodIconsSquareDark
-    """The colorway for dark surfaces."""
-
-    light: PlatformBalancePaymentMethodIconsSquareLight
-    """The colorway for light surfaces."""
-
-
-class PlatformBalancePaymentMethodIcons(BaseModel):
-    """Every rendition of the icon to display this payment method with.
-
-    A saved card carries its brand's icon (Visa, Mastercard, ...) rather than the generic card art.
-    """
-
-    card: PlatformBalancePaymentMethodIconsCard
-    """The credit-card-proportioned tile (48x30)."""
-
-    square: PlatformBalancePaymentMethodIconsSquare
-    """The square tile (32x32)."""
-
-
-class PlatformBalancePaymentMethodPlatformBalanceAccountLogo(BaseModel):
-    """The company's logo."""
-
-    url: Optional[str] = None
-    """A pre-optimized URL for rendering this attachment on the client.
-
-    This should be used for displaying attachments in apps.
-    """
-
-
-class PlatformBalancePaymentMethodPlatformBalanceAccount(BaseModel):
-    """The account whose wallet this is.
-
-    Null for the buyer's own personal wallet. A buyer sees an account's balance here when they hold permission to spend it, so a list can hold several — their own and one per account they are on.
-    """
-
-    id: str
-    """The unique identifier for the company."""
-
-    logo: Optional[PlatformBalancePaymentMethodPlatformBalanceAccountLogo] = None
-    """The company's logo."""
-
-    title: str
-    """The display name of the company shown to customers."""
-
-
-class PlatformBalancePaymentMethodPlatformBalanceBalance(BaseModel):
-    """An amount of money.
-
-    Never a bare number, because a bare number cannot answer the two questions a client has to answer to render it: what currency is this, and how many digits do I write? The second is stated twice rather than derived, because the digits the amount CARRIES and the digits to SHOW differ in COP — charged in centavos, written in whole pesos. Formatting is deliberately left to the caller: the number belongs in the buyer's locale, and this API does not know it.
-    """
-
-    amount: str
-    """The amount in major units, as an exact decimal string — `"10.00"` is ten
-    dollars.
-
-    A string so no float rounds it in transit.
-    """
-
-    currency: Currency
-    """Three-letter ISO 4217 currency code, lowercase."""
-
-    decimals: int
-    """
-    How many decimal places the amount CARRIES — the precision the charge itself
-    runs at.
-    """
-
-    display_decimals: int
-    """How many decimal places to SHOW.
-
-    Usually equal to `decimals`, and deliberately not always: COP is charged in
-    centavos but written in whole pesos, so it is `2` and `0`. Format the number in
-    your own locale using this.
-    """
-
-
-class PlatformBalancePaymentMethodPlatformBalance(BaseModel):
-    """What is available to spend, and whether the account may spend it."""
-
-    account: Optional[PlatformBalancePaymentMethodPlatformBalanceAccount] = None
-    """The account whose wallet this is.
-
-    Null for the buyer's own personal wallet. A buyer sees an account's balance here
-    when they hold permission to spend it, so a list can hold several — their own
-    and one per account they are on.
-    """
-
-    balances: List[PlatformBalancePaymentMethodPlatformBalanceBalance]
-    """Available amount per currency.
-
-    Read from the balance cache, so it is indicative — the charge revalidates
-    against settled funds and may still refuse.
-    """
-
-    spendable: bool
-    """
-    Whether this balance can pay right now, which here means only whether it holds
-    funds — an account blocked from spending is not listed at all. A zero balance is
-    still returned so a client can show it as an option the buyer could top up.
-    """
-
-
-class PlatformBalancePaymentMethod(BaseModel):
-    """
-    A Whop balance the buyer can pay with — their own, or an account's they hold permission to spend. Charged by naming its ledger id on a `saved` confirmation token — it is a live wallet, not a stored credential, so it cannot be vaulted or charged off-session.
-    """
-
-    id: str
-    """Represents a unique identifier that is Base64 obfuscated.
-
-    It is often used to refetch an object or as key for a cache. The ID type appears
-    in a JSON response as a String; however, it is not intended to be
-    human-readable. When expected as an input type, any string (such as
-    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
-    ID.
-    """
-
-    created_at: datetime
-    """The time of the event in ISO 8601 UTC format with millisecond precision"""
-
-    icons: PlatformBalancePaymentMethodIcons
-    """Every rendition of the icon to display this payment method with.
-
-    A saved card carries its brand's icon (Visa, Mastercard, ...) rather than the
-    generic card art.
-    """
-
-    payment_method_type: PaymentMethodTypes
-    """
-    The type of payment instrument stored on file (e.g., card, us_bank_account,
-    cashapp, ideal, sepa_debit).
-    """
-
-    platform_balance: PlatformBalancePaymentMethodPlatformBalance
-    """What is available to spend, and whether the account may spend it."""
-
-    typename: Literal["PlatformBalancePaymentMethod"]
-    """The typename of this object"""
-
-
 PaymentMethodRetrieveResponse: TypeAlias = Annotated[
     Union[
         BasePaymentMethod,
@@ -1250,7 +1019,6 @@ PaymentMethodRetrieveResponse: TypeAlias = Annotated[
         CashappPaymentMethod,
         IdealPaymentMethod,
         SepaDebitPaymentMethod,
-        PlatformBalancePaymentMethod,
     ],
     PropertyInfo(discriminator="typename"),
 ]
