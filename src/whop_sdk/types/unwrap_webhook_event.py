@@ -27,10 +27,7 @@ from .shipment_created_webhook_event import ShipmentCreatedWebhookEvent
 from .shipment_updated_webhook_event import ShipmentUpdatedWebhookEvent
 from .payment_succeeded_webhook_event import PaymentSucceededWebhookEvent
 from .product_published_webhook_event import ProductPublishedWebhookEvent
-from .withdrawal_created_webhook_event import WithdrawalCreatedWebhookEvent
-from .withdrawal_updated_webhook_event import WithdrawalUpdatedWebhookEvent
 from .product_unpublished_webhook_event import ProductUnpublishedWebhookEvent
-from .withdrawal_reversed_webhook_event import WithdrawalReversedWebhookEvent
 from .chat_message_created_webhook_event import ChatMessageCreatedWebhookEvent
 from .membership_activated_webhook_event import MembershipActivatedWebhookEvent
 from .chat_reaction_created_webhook_event import ChatReactionCreatedWebhookEvent
@@ -77,9 +74,6 @@ UnwrapWebhookEvent: TypeAlias = Annotated[
         SetupIntentSucceededWebhookEvent,
         SetupIntentCanceledWebhookEvent,
         LedgerAccountFundsAvailableWebhookEvent,
-        WithdrawalCreatedWebhookEvent,
-        WithdrawalUpdatedWebhookEvent,
-        WithdrawalReversedWebhookEvent,
         CardTransactionCreatedWebhookEvent,
         CardTransactionUpdatedWebhookEvent,
         CardTransactionCompletedWebhookEvent,
