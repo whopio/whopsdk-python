@@ -6,6 +6,20 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .cancel_payouts_response import CancelPayoutsResponse
+    from .cancel_payouts_response_failure import CancelPayoutsResponseFailure
+    from .cancel_payouts_response_fee_paid_by import CancelPayoutsResponseFeePaidBy
+    from .cancel_payouts_response_object import CancelPayoutsResponseObject
+    from .cancel_payouts_response_payout_method import CancelPayoutsResponsePayoutMethod
+    from .cancel_payouts_response_payout_method_supported_payout_method import (
+        CancelPayoutsResponsePayoutMethodSupportedPayoutMethod,
+    )
+    from .cancel_payouts_response_payout_method_supported_payout_method_delivery_type import (
+        CancelPayoutsResponsePayoutMethodSupportedPayoutMethodDeliveryType,
+    )
+    from .cancel_payouts_response_source import CancelPayoutsResponseSource
+    from .cancel_payouts_response_speed import CancelPayoutsResponseSpeed
+    from .cancel_payouts_response_status import CancelPayoutsResponseStatus
     from .create_payouts_request_body import CreatePayoutsRequestBody
     from .create_payouts_request_body_speed import CreatePayoutsRequestBodySpeed
     from .create_payouts_response import CreatePayoutsResponse
@@ -40,6 +54,23 @@ if typing.TYPE_CHECKING:
     from .list_payouts_response_data_item_speed import ListPayoutsResponseDataItemSpeed
     from .list_payouts_response_data_item_status import ListPayoutsResponseDataItemStatus
     from .list_payouts_response_page_info import ListPayoutsResponsePageInfo
+    from .post_payout_created_payload import PostPayoutCreatedPayload
+    from .post_payout_created_payload_api_version import PostPayoutCreatedPayloadApiVersion
+    from .post_payout_created_payload_data import PostPayoutCreatedPayloadData
+    from .post_payout_created_payload_data_failure import PostPayoutCreatedPayloadDataFailure
+    from .post_payout_created_payload_data_fee_paid_by import PostPayoutCreatedPayloadDataFeePaidBy
+    from .post_payout_created_payload_data_object import PostPayoutCreatedPayloadDataObject
+    from .post_payout_created_payload_data_payout_method import PostPayoutCreatedPayloadDataPayoutMethod
+    from .post_payout_created_payload_data_payout_method_supported_payout_method import (
+        PostPayoutCreatedPayloadDataPayoutMethodSupportedPayoutMethod,
+    )
+    from .post_payout_created_payload_data_payout_method_supported_payout_method_delivery_type import (
+        PostPayoutCreatedPayloadDataPayoutMethodSupportedPayoutMethodDeliveryType,
+    )
+    from .post_payout_created_payload_data_source import PostPayoutCreatedPayloadDataSource
+    from .post_payout_created_payload_data_speed import PostPayoutCreatedPayloadDataSpeed
+    from .post_payout_created_payload_data_status import PostPayoutCreatedPayloadDataStatus
+    from .post_payout_created_payload_type import PostPayoutCreatedPayloadType
     from .post_payout_method_created_payload import PostPayoutMethodCreatedPayload
     from .post_payout_method_created_payload_api_version import PostPayoutMethodCreatedPayloadApiVersion
     from .post_payout_method_created_payload_data import PostPayoutMethodCreatedPayloadData
@@ -65,57 +96,40 @@ if typing.TYPE_CHECKING:
         PostPayoutMethodCreatedPayloadDataUnavailableReason,
     )
     from .post_payout_method_created_payload_type import PostPayoutMethodCreatedPayloadType
-    from .post_withdrawal_created_payload import PostWithdrawalCreatedPayload
-    from .post_withdrawal_created_payload_api_version import PostWithdrawalCreatedPayloadApiVersion
-    from .post_withdrawal_created_payload_data import PostWithdrawalCreatedPayloadData
-    from .post_withdrawal_created_payload_data_failure import PostWithdrawalCreatedPayloadDataFailure
-    from .post_withdrawal_created_payload_data_fee_paid_by import PostWithdrawalCreatedPayloadDataFeePaidBy
-    from .post_withdrawal_created_payload_data_object import PostWithdrawalCreatedPayloadDataObject
-    from .post_withdrawal_created_payload_data_payout_method import PostWithdrawalCreatedPayloadDataPayoutMethod
-    from .post_withdrawal_created_payload_data_payout_method_supported_payout_method import (
-        PostWithdrawalCreatedPayloadDataPayoutMethodSupportedPayoutMethod,
+    from .post_payout_reversed_payload import PostPayoutReversedPayload
+    from .post_payout_reversed_payload_api_version import PostPayoutReversedPayloadApiVersion
+    from .post_payout_reversed_payload_data import PostPayoutReversedPayloadData
+    from .post_payout_reversed_payload_data_failure import PostPayoutReversedPayloadDataFailure
+    from .post_payout_reversed_payload_data_fee_paid_by import PostPayoutReversedPayloadDataFeePaidBy
+    from .post_payout_reversed_payload_data_object import PostPayoutReversedPayloadDataObject
+    from .post_payout_reversed_payload_data_payout_method import PostPayoutReversedPayloadDataPayoutMethod
+    from .post_payout_reversed_payload_data_payout_method_supported_payout_method import (
+        PostPayoutReversedPayloadDataPayoutMethodSupportedPayoutMethod,
     )
-    from .post_withdrawal_created_payload_data_payout_method_supported_payout_method_delivery_type import (
-        PostWithdrawalCreatedPayloadDataPayoutMethodSupportedPayoutMethodDeliveryType,
+    from .post_payout_reversed_payload_data_payout_method_supported_payout_method_delivery_type import (
+        PostPayoutReversedPayloadDataPayoutMethodSupportedPayoutMethodDeliveryType,
     )
-    from .post_withdrawal_created_payload_data_source import PostWithdrawalCreatedPayloadDataSource
-    from .post_withdrawal_created_payload_data_speed import PostWithdrawalCreatedPayloadDataSpeed
-    from .post_withdrawal_created_payload_data_status import PostWithdrawalCreatedPayloadDataStatus
-    from .post_withdrawal_created_payload_type import PostWithdrawalCreatedPayloadType
-    from .post_withdrawal_reversed_payload import PostWithdrawalReversedPayload
-    from .post_withdrawal_reversed_payload_api_version import PostWithdrawalReversedPayloadApiVersion
-    from .post_withdrawal_reversed_payload_data import PostWithdrawalReversedPayloadData
-    from .post_withdrawal_reversed_payload_data_failure import PostWithdrawalReversedPayloadDataFailure
-    from .post_withdrawal_reversed_payload_data_fee_paid_by import PostWithdrawalReversedPayloadDataFeePaidBy
-    from .post_withdrawal_reversed_payload_data_object import PostWithdrawalReversedPayloadDataObject
-    from .post_withdrawal_reversed_payload_data_payout_method import PostWithdrawalReversedPayloadDataPayoutMethod
-    from .post_withdrawal_reversed_payload_data_payout_method_supported_payout_method import (
-        PostWithdrawalReversedPayloadDataPayoutMethodSupportedPayoutMethod,
+    from .post_payout_reversed_payload_data_source import PostPayoutReversedPayloadDataSource
+    from .post_payout_reversed_payload_data_speed import PostPayoutReversedPayloadDataSpeed
+    from .post_payout_reversed_payload_data_status import PostPayoutReversedPayloadDataStatus
+    from .post_payout_reversed_payload_type import PostPayoutReversedPayloadType
+    from .post_payout_updated_payload import PostPayoutUpdatedPayload
+    from .post_payout_updated_payload_api_version import PostPayoutUpdatedPayloadApiVersion
+    from .post_payout_updated_payload_data import PostPayoutUpdatedPayloadData
+    from .post_payout_updated_payload_data_failure import PostPayoutUpdatedPayloadDataFailure
+    from .post_payout_updated_payload_data_fee_paid_by import PostPayoutUpdatedPayloadDataFeePaidBy
+    from .post_payout_updated_payload_data_object import PostPayoutUpdatedPayloadDataObject
+    from .post_payout_updated_payload_data_payout_method import PostPayoutUpdatedPayloadDataPayoutMethod
+    from .post_payout_updated_payload_data_payout_method_supported_payout_method import (
+        PostPayoutUpdatedPayloadDataPayoutMethodSupportedPayoutMethod,
     )
-    from .post_withdrawal_reversed_payload_data_payout_method_supported_payout_method_delivery_type import (
-        PostWithdrawalReversedPayloadDataPayoutMethodSupportedPayoutMethodDeliveryType,
+    from .post_payout_updated_payload_data_payout_method_supported_payout_method_delivery_type import (
+        PostPayoutUpdatedPayloadDataPayoutMethodSupportedPayoutMethodDeliveryType,
     )
-    from .post_withdrawal_reversed_payload_data_source import PostWithdrawalReversedPayloadDataSource
-    from .post_withdrawal_reversed_payload_data_speed import PostWithdrawalReversedPayloadDataSpeed
-    from .post_withdrawal_reversed_payload_data_status import PostWithdrawalReversedPayloadDataStatus
-    from .post_withdrawal_reversed_payload_type import PostWithdrawalReversedPayloadType
-    from .post_withdrawal_updated_payload import PostWithdrawalUpdatedPayload
-    from .post_withdrawal_updated_payload_api_version import PostWithdrawalUpdatedPayloadApiVersion
-    from .post_withdrawal_updated_payload_data import PostWithdrawalUpdatedPayloadData
-    from .post_withdrawal_updated_payload_data_failure import PostWithdrawalUpdatedPayloadDataFailure
-    from .post_withdrawal_updated_payload_data_fee_paid_by import PostWithdrawalUpdatedPayloadDataFeePaidBy
-    from .post_withdrawal_updated_payload_data_object import PostWithdrawalUpdatedPayloadDataObject
-    from .post_withdrawal_updated_payload_data_payout_method import PostWithdrawalUpdatedPayloadDataPayoutMethod
-    from .post_withdrawal_updated_payload_data_payout_method_supported_payout_method import (
-        PostWithdrawalUpdatedPayloadDataPayoutMethodSupportedPayoutMethod,
-    )
-    from .post_withdrawal_updated_payload_data_payout_method_supported_payout_method_delivery_type import (
-        PostWithdrawalUpdatedPayloadDataPayoutMethodSupportedPayoutMethodDeliveryType,
-    )
-    from .post_withdrawal_updated_payload_data_source import PostWithdrawalUpdatedPayloadDataSource
-    from .post_withdrawal_updated_payload_data_speed import PostWithdrawalUpdatedPayloadDataSpeed
-    from .post_withdrawal_updated_payload_data_status import PostWithdrawalUpdatedPayloadDataStatus
-    from .post_withdrawal_updated_payload_type import PostWithdrawalUpdatedPayloadType
+    from .post_payout_updated_payload_data_source import PostPayoutUpdatedPayloadDataSource
+    from .post_payout_updated_payload_data_speed import PostPayoutUpdatedPayloadDataSpeed
+    from .post_payout_updated_payload_data_status import PostPayoutUpdatedPayloadDataStatus
+    from .post_payout_updated_payload_type import PostPayoutUpdatedPayloadType
     from .retrieve_payouts_response import RetrievePayoutsResponse
     from .retrieve_payouts_response_failure import RetrievePayoutsResponseFailure
     from .retrieve_payouts_response_fee_paid_by import RetrievePayoutsResponseFeePaidBy
@@ -131,6 +145,16 @@ if typing.TYPE_CHECKING:
     from .retrieve_payouts_response_speed import RetrievePayoutsResponseSpeed
     from .retrieve_payouts_response_status import RetrievePayoutsResponseStatus
 _dynamic_imports: typing.Dict[str, str] = {
+    "CancelPayoutsResponse": ".cancel_payouts_response",
+    "CancelPayoutsResponseFailure": ".cancel_payouts_response_failure",
+    "CancelPayoutsResponseFeePaidBy": ".cancel_payouts_response_fee_paid_by",
+    "CancelPayoutsResponseObject": ".cancel_payouts_response_object",
+    "CancelPayoutsResponsePayoutMethod": ".cancel_payouts_response_payout_method",
+    "CancelPayoutsResponsePayoutMethodSupportedPayoutMethod": ".cancel_payouts_response_payout_method_supported_payout_method",
+    "CancelPayoutsResponsePayoutMethodSupportedPayoutMethodDeliveryType": ".cancel_payouts_response_payout_method_supported_payout_method_delivery_type",
+    "CancelPayoutsResponseSource": ".cancel_payouts_response_source",
+    "CancelPayoutsResponseSpeed": ".cancel_payouts_response_speed",
+    "CancelPayoutsResponseStatus": ".cancel_payouts_response_status",
     "CreatePayoutsRequestBody": ".create_payouts_request_body",
     "CreatePayoutsRequestBodySpeed": ".create_payouts_request_body_speed",
     "CreatePayoutsResponse": ".create_payouts_response",
@@ -157,6 +181,19 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListPayoutsResponseDataItemSpeed": ".list_payouts_response_data_item_speed",
     "ListPayoutsResponseDataItemStatus": ".list_payouts_response_data_item_status",
     "ListPayoutsResponsePageInfo": ".list_payouts_response_page_info",
+    "PostPayoutCreatedPayload": ".post_payout_created_payload",
+    "PostPayoutCreatedPayloadApiVersion": ".post_payout_created_payload_api_version",
+    "PostPayoutCreatedPayloadData": ".post_payout_created_payload_data",
+    "PostPayoutCreatedPayloadDataFailure": ".post_payout_created_payload_data_failure",
+    "PostPayoutCreatedPayloadDataFeePaidBy": ".post_payout_created_payload_data_fee_paid_by",
+    "PostPayoutCreatedPayloadDataObject": ".post_payout_created_payload_data_object",
+    "PostPayoutCreatedPayloadDataPayoutMethod": ".post_payout_created_payload_data_payout_method",
+    "PostPayoutCreatedPayloadDataPayoutMethodSupportedPayoutMethod": ".post_payout_created_payload_data_payout_method_supported_payout_method",
+    "PostPayoutCreatedPayloadDataPayoutMethodSupportedPayoutMethodDeliveryType": ".post_payout_created_payload_data_payout_method_supported_payout_method_delivery_type",
+    "PostPayoutCreatedPayloadDataSource": ".post_payout_created_payload_data_source",
+    "PostPayoutCreatedPayloadDataSpeed": ".post_payout_created_payload_data_speed",
+    "PostPayoutCreatedPayloadDataStatus": ".post_payout_created_payload_data_status",
+    "PostPayoutCreatedPayloadType": ".post_payout_created_payload_type",
     "PostPayoutMethodCreatedPayload": ".post_payout_method_created_payload",
     "PostPayoutMethodCreatedPayloadApiVersion": ".post_payout_method_created_payload_api_version",
     "PostPayoutMethodCreatedPayloadData": ".post_payout_method_created_payload_data",
@@ -172,45 +209,32 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostPayoutMethodCreatedPayloadDataSupportedPayoutMethodDeliveryType": ".post_payout_method_created_payload_data_supported_payout_method_delivery_type",
     "PostPayoutMethodCreatedPayloadDataUnavailableReason": ".post_payout_method_created_payload_data_unavailable_reason",
     "PostPayoutMethodCreatedPayloadType": ".post_payout_method_created_payload_type",
-    "PostWithdrawalCreatedPayload": ".post_withdrawal_created_payload",
-    "PostWithdrawalCreatedPayloadApiVersion": ".post_withdrawal_created_payload_api_version",
-    "PostWithdrawalCreatedPayloadData": ".post_withdrawal_created_payload_data",
-    "PostWithdrawalCreatedPayloadDataFailure": ".post_withdrawal_created_payload_data_failure",
-    "PostWithdrawalCreatedPayloadDataFeePaidBy": ".post_withdrawal_created_payload_data_fee_paid_by",
-    "PostWithdrawalCreatedPayloadDataObject": ".post_withdrawal_created_payload_data_object",
-    "PostWithdrawalCreatedPayloadDataPayoutMethod": ".post_withdrawal_created_payload_data_payout_method",
-    "PostWithdrawalCreatedPayloadDataPayoutMethodSupportedPayoutMethod": ".post_withdrawal_created_payload_data_payout_method_supported_payout_method",
-    "PostWithdrawalCreatedPayloadDataPayoutMethodSupportedPayoutMethodDeliveryType": ".post_withdrawal_created_payload_data_payout_method_supported_payout_method_delivery_type",
-    "PostWithdrawalCreatedPayloadDataSource": ".post_withdrawal_created_payload_data_source",
-    "PostWithdrawalCreatedPayloadDataSpeed": ".post_withdrawal_created_payload_data_speed",
-    "PostWithdrawalCreatedPayloadDataStatus": ".post_withdrawal_created_payload_data_status",
-    "PostWithdrawalCreatedPayloadType": ".post_withdrawal_created_payload_type",
-    "PostWithdrawalReversedPayload": ".post_withdrawal_reversed_payload",
-    "PostWithdrawalReversedPayloadApiVersion": ".post_withdrawal_reversed_payload_api_version",
-    "PostWithdrawalReversedPayloadData": ".post_withdrawal_reversed_payload_data",
-    "PostWithdrawalReversedPayloadDataFailure": ".post_withdrawal_reversed_payload_data_failure",
-    "PostWithdrawalReversedPayloadDataFeePaidBy": ".post_withdrawal_reversed_payload_data_fee_paid_by",
-    "PostWithdrawalReversedPayloadDataObject": ".post_withdrawal_reversed_payload_data_object",
-    "PostWithdrawalReversedPayloadDataPayoutMethod": ".post_withdrawal_reversed_payload_data_payout_method",
-    "PostWithdrawalReversedPayloadDataPayoutMethodSupportedPayoutMethod": ".post_withdrawal_reversed_payload_data_payout_method_supported_payout_method",
-    "PostWithdrawalReversedPayloadDataPayoutMethodSupportedPayoutMethodDeliveryType": ".post_withdrawal_reversed_payload_data_payout_method_supported_payout_method_delivery_type",
-    "PostWithdrawalReversedPayloadDataSource": ".post_withdrawal_reversed_payload_data_source",
-    "PostWithdrawalReversedPayloadDataSpeed": ".post_withdrawal_reversed_payload_data_speed",
-    "PostWithdrawalReversedPayloadDataStatus": ".post_withdrawal_reversed_payload_data_status",
-    "PostWithdrawalReversedPayloadType": ".post_withdrawal_reversed_payload_type",
-    "PostWithdrawalUpdatedPayload": ".post_withdrawal_updated_payload",
-    "PostWithdrawalUpdatedPayloadApiVersion": ".post_withdrawal_updated_payload_api_version",
-    "PostWithdrawalUpdatedPayloadData": ".post_withdrawal_updated_payload_data",
-    "PostWithdrawalUpdatedPayloadDataFailure": ".post_withdrawal_updated_payload_data_failure",
-    "PostWithdrawalUpdatedPayloadDataFeePaidBy": ".post_withdrawal_updated_payload_data_fee_paid_by",
-    "PostWithdrawalUpdatedPayloadDataObject": ".post_withdrawal_updated_payload_data_object",
-    "PostWithdrawalUpdatedPayloadDataPayoutMethod": ".post_withdrawal_updated_payload_data_payout_method",
-    "PostWithdrawalUpdatedPayloadDataPayoutMethodSupportedPayoutMethod": ".post_withdrawal_updated_payload_data_payout_method_supported_payout_method",
-    "PostWithdrawalUpdatedPayloadDataPayoutMethodSupportedPayoutMethodDeliveryType": ".post_withdrawal_updated_payload_data_payout_method_supported_payout_method_delivery_type",
-    "PostWithdrawalUpdatedPayloadDataSource": ".post_withdrawal_updated_payload_data_source",
-    "PostWithdrawalUpdatedPayloadDataSpeed": ".post_withdrawal_updated_payload_data_speed",
-    "PostWithdrawalUpdatedPayloadDataStatus": ".post_withdrawal_updated_payload_data_status",
-    "PostWithdrawalUpdatedPayloadType": ".post_withdrawal_updated_payload_type",
+    "PostPayoutReversedPayload": ".post_payout_reversed_payload",
+    "PostPayoutReversedPayloadApiVersion": ".post_payout_reversed_payload_api_version",
+    "PostPayoutReversedPayloadData": ".post_payout_reversed_payload_data",
+    "PostPayoutReversedPayloadDataFailure": ".post_payout_reversed_payload_data_failure",
+    "PostPayoutReversedPayloadDataFeePaidBy": ".post_payout_reversed_payload_data_fee_paid_by",
+    "PostPayoutReversedPayloadDataObject": ".post_payout_reversed_payload_data_object",
+    "PostPayoutReversedPayloadDataPayoutMethod": ".post_payout_reversed_payload_data_payout_method",
+    "PostPayoutReversedPayloadDataPayoutMethodSupportedPayoutMethod": ".post_payout_reversed_payload_data_payout_method_supported_payout_method",
+    "PostPayoutReversedPayloadDataPayoutMethodSupportedPayoutMethodDeliveryType": ".post_payout_reversed_payload_data_payout_method_supported_payout_method_delivery_type",
+    "PostPayoutReversedPayloadDataSource": ".post_payout_reversed_payload_data_source",
+    "PostPayoutReversedPayloadDataSpeed": ".post_payout_reversed_payload_data_speed",
+    "PostPayoutReversedPayloadDataStatus": ".post_payout_reversed_payload_data_status",
+    "PostPayoutReversedPayloadType": ".post_payout_reversed_payload_type",
+    "PostPayoutUpdatedPayload": ".post_payout_updated_payload",
+    "PostPayoutUpdatedPayloadApiVersion": ".post_payout_updated_payload_api_version",
+    "PostPayoutUpdatedPayloadData": ".post_payout_updated_payload_data",
+    "PostPayoutUpdatedPayloadDataFailure": ".post_payout_updated_payload_data_failure",
+    "PostPayoutUpdatedPayloadDataFeePaidBy": ".post_payout_updated_payload_data_fee_paid_by",
+    "PostPayoutUpdatedPayloadDataObject": ".post_payout_updated_payload_data_object",
+    "PostPayoutUpdatedPayloadDataPayoutMethod": ".post_payout_updated_payload_data_payout_method",
+    "PostPayoutUpdatedPayloadDataPayoutMethodSupportedPayoutMethod": ".post_payout_updated_payload_data_payout_method_supported_payout_method",
+    "PostPayoutUpdatedPayloadDataPayoutMethodSupportedPayoutMethodDeliveryType": ".post_payout_updated_payload_data_payout_method_supported_payout_method_delivery_type",
+    "PostPayoutUpdatedPayloadDataSource": ".post_payout_updated_payload_data_source",
+    "PostPayoutUpdatedPayloadDataSpeed": ".post_payout_updated_payload_data_speed",
+    "PostPayoutUpdatedPayloadDataStatus": ".post_payout_updated_payload_data_status",
+    "PostPayoutUpdatedPayloadType": ".post_payout_updated_payload_type",
     "RetrievePayoutsResponse": ".retrieve_payouts_response",
     "RetrievePayoutsResponseFailure": ".retrieve_payouts_response_failure",
     "RetrievePayoutsResponseFeePaidBy": ".retrieve_payouts_response_fee_paid_by",
@@ -246,6 +270,16 @@ def __dir__():
 
 
 __all__ = [
+    "CancelPayoutsResponse",
+    "CancelPayoutsResponseFailure",
+    "CancelPayoutsResponseFeePaidBy",
+    "CancelPayoutsResponseObject",
+    "CancelPayoutsResponsePayoutMethod",
+    "CancelPayoutsResponsePayoutMethodSupportedPayoutMethod",
+    "CancelPayoutsResponsePayoutMethodSupportedPayoutMethodDeliveryType",
+    "CancelPayoutsResponseSource",
+    "CancelPayoutsResponseSpeed",
+    "CancelPayoutsResponseStatus",
     "CreatePayoutsRequestBody",
     "CreatePayoutsRequestBodySpeed",
     "CreatePayoutsResponse",
@@ -272,6 +306,19 @@ __all__ = [
     "ListPayoutsResponseDataItemSpeed",
     "ListPayoutsResponseDataItemStatus",
     "ListPayoutsResponsePageInfo",
+    "PostPayoutCreatedPayload",
+    "PostPayoutCreatedPayloadApiVersion",
+    "PostPayoutCreatedPayloadData",
+    "PostPayoutCreatedPayloadDataFailure",
+    "PostPayoutCreatedPayloadDataFeePaidBy",
+    "PostPayoutCreatedPayloadDataObject",
+    "PostPayoutCreatedPayloadDataPayoutMethod",
+    "PostPayoutCreatedPayloadDataPayoutMethodSupportedPayoutMethod",
+    "PostPayoutCreatedPayloadDataPayoutMethodSupportedPayoutMethodDeliveryType",
+    "PostPayoutCreatedPayloadDataSource",
+    "PostPayoutCreatedPayloadDataSpeed",
+    "PostPayoutCreatedPayloadDataStatus",
+    "PostPayoutCreatedPayloadType",
     "PostPayoutMethodCreatedPayload",
     "PostPayoutMethodCreatedPayloadApiVersion",
     "PostPayoutMethodCreatedPayloadData",
@@ -287,45 +334,32 @@ __all__ = [
     "PostPayoutMethodCreatedPayloadDataSupportedPayoutMethodDeliveryType",
     "PostPayoutMethodCreatedPayloadDataUnavailableReason",
     "PostPayoutMethodCreatedPayloadType",
-    "PostWithdrawalCreatedPayload",
-    "PostWithdrawalCreatedPayloadApiVersion",
-    "PostWithdrawalCreatedPayloadData",
-    "PostWithdrawalCreatedPayloadDataFailure",
-    "PostWithdrawalCreatedPayloadDataFeePaidBy",
-    "PostWithdrawalCreatedPayloadDataObject",
-    "PostWithdrawalCreatedPayloadDataPayoutMethod",
-    "PostWithdrawalCreatedPayloadDataPayoutMethodSupportedPayoutMethod",
-    "PostWithdrawalCreatedPayloadDataPayoutMethodSupportedPayoutMethodDeliveryType",
-    "PostWithdrawalCreatedPayloadDataSource",
-    "PostWithdrawalCreatedPayloadDataSpeed",
-    "PostWithdrawalCreatedPayloadDataStatus",
-    "PostWithdrawalCreatedPayloadType",
-    "PostWithdrawalReversedPayload",
-    "PostWithdrawalReversedPayloadApiVersion",
-    "PostWithdrawalReversedPayloadData",
-    "PostWithdrawalReversedPayloadDataFailure",
-    "PostWithdrawalReversedPayloadDataFeePaidBy",
-    "PostWithdrawalReversedPayloadDataObject",
-    "PostWithdrawalReversedPayloadDataPayoutMethod",
-    "PostWithdrawalReversedPayloadDataPayoutMethodSupportedPayoutMethod",
-    "PostWithdrawalReversedPayloadDataPayoutMethodSupportedPayoutMethodDeliveryType",
-    "PostWithdrawalReversedPayloadDataSource",
-    "PostWithdrawalReversedPayloadDataSpeed",
-    "PostWithdrawalReversedPayloadDataStatus",
-    "PostWithdrawalReversedPayloadType",
-    "PostWithdrawalUpdatedPayload",
-    "PostWithdrawalUpdatedPayloadApiVersion",
-    "PostWithdrawalUpdatedPayloadData",
-    "PostWithdrawalUpdatedPayloadDataFailure",
-    "PostWithdrawalUpdatedPayloadDataFeePaidBy",
-    "PostWithdrawalUpdatedPayloadDataObject",
-    "PostWithdrawalUpdatedPayloadDataPayoutMethod",
-    "PostWithdrawalUpdatedPayloadDataPayoutMethodSupportedPayoutMethod",
-    "PostWithdrawalUpdatedPayloadDataPayoutMethodSupportedPayoutMethodDeliveryType",
-    "PostWithdrawalUpdatedPayloadDataSource",
-    "PostWithdrawalUpdatedPayloadDataSpeed",
-    "PostWithdrawalUpdatedPayloadDataStatus",
-    "PostWithdrawalUpdatedPayloadType",
+    "PostPayoutReversedPayload",
+    "PostPayoutReversedPayloadApiVersion",
+    "PostPayoutReversedPayloadData",
+    "PostPayoutReversedPayloadDataFailure",
+    "PostPayoutReversedPayloadDataFeePaidBy",
+    "PostPayoutReversedPayloadDataObject",
+    "PostPayoutReversedPayloadDataPayoutMethod",
+    "PostPayoutReversedPayloadDataPayoutMethodSupportedPayoutMethod",
+    "PostPayoutReversedPayloadDataPayoutMethodSupportedPayoutMethodDeliveryType",
+    "PostPayoutReversedPayloadDataSource",
+    "PostPayoutReversedPayloadDataSpeed",
+    "PostPayoutReversedPayloadDataStatus",
+    "PostPayoutReversedPayloadType",
+    "PostPayoutUpdatedPayload",
+    "PostPayoutUpdatedPayloadApiVersion",
+    "PostPayoutUpdatedPayloadData",
+    "PostPayoutUpdatedPayloadDataFailure",
+    "PostPayoutUpdatedPayloadDataFeePaidBy",
+    "PostPayoutUpdatedPayloadDataObject",
+    "PostPayoutUpdatedPayloadDataPayoutMethod",
+    "PostPayoutUpdatedPayloadDataPayoutMethodSupportedPayoutMethod",
+    "PostPayoutUpdatedPayloadDataPayoutMethodSupportedPayoutMethodDeliveryType",
+    "PostPayoutUpdatedPayloadDataSource",
+    "PostPayoutUpdatedPayloadDataSpeed",
+    "PostPayoutUpdatedPayloadDataStatus",
+    "PostPayoutUpdatedPayloadType",
     "RetrievePayoutsResponse",
     "RetrievePayoutsResponseFailure",
     "RetrievePayoutsResponseFeePaidBy",

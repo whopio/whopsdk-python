@@ -15,12 +15,6 @@ from .payment_method_list_item_cashapp_payment_method_cashapp import PaymentMeth
 from .payment_method_list_item_cashapp_payment_method_icons import PaymentMethodListItemCashappPaymentMethodIcons
 from .payment_method_list_item_ideal_payment_method_icons import PaymentMethodListItemIdealPaymentMethodIcons
 from .payment_method_list_item_ideal_payment_method_ideal import PaymentMethodListItemIdealPaymentMethodIdeal
-from .payment_method_list_item_platform_balance_payment_method_icons import (
-    PaymentMethodListItemPlatformBalancePaymentMethodIcons,
-)
-from .payment_method_list_item_platform_balance_payment_method_platform_balance import (
-    PaymentMethodListItemPlatformBalancePaymentMethodPlatformBalance,
-)
 from .payment_method_list_item_sepa_debit_payment_method_icons import PaymentMethodListItemSepaDebitPaymentMethodIcons
 from .payment_method_list_item_sepa_debit_payment_method_sepa_debit import (
     PaymentMethodListItemSepaDebitPaymentMethodSepaDebit,
@@ -142,24 +136,6 @@ class PaymentMethodListItem_SepaDebitPaymentMethod(UniversalBaseModel):
             extra = pydantic.Extra.allow
 
 
-class PaymentMethodListItem_PlatformBalancePaymentMethod(UniversalBaseModel):
-    typename: typing.Literal["PlatformBalancePaymentMethod"] = "PlatformBalancePaymentMethod"
-    created_at: dt.datetime
-    icons: PaymentMethodListItemPlatformBalancePaymentMethodIcons
-    id: str
-    payment_method_type: PaymentMethodTypes
-    platform_balance: PaymentMethodListItemPlatformBalancePaymentMethodPlatformBalance
-
-    if IS_PYDANTIC_V2:
-        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
-    else:
-
-        class Config:
-            frozen = True
-            smart_union = True
-            extra = pydantic.Extra.allow
-
-
 PaymentMethodListItem = typing_extensions.Annotated[
     typing.Union[
         PaymentMethodListItem_BasePaymentMethod,
@@ -168,7 +144,6 @@ PaymentMethodListItem = typing_extensions.Annotated[
         PaymentMethodListItem_CashappPaymentMethod,
         PaymentMethodListItem_IdealPaymentMethod,
         PaymentMethodListItem_SepaDebitPaymentMethod,
-        PaymentMethodListItem_PlatformBalancePaymentMethod,
     ],
     pydantic.Field(discriminator="typename"),
 ]

@@ -159,6 +159,11 @@ class Ad(UniversalBaseModel):
     """
 
     descriptions: typing.List[str]
+    existing_post_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The post you pointed this ad at, when it promotes one you already published — a Facebook post, Instagram media, or TikTok video ID. `null` when the ad uses uploaded creatives.
+    """
+
     frequency: typing.Optional[float] = pydantic.Field(default=None)
     """
     Platform-reported impressions divided by reach.
@@ -208,17 +213,17 @@ class Ad(UniversalBaseModel):
 
     post_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The existing post this ad promotes — a Facebook post or Instagram media ID. `null` when the ad uses uploaded creatives.
+    The post the ad network serves for this ad, as `pageID_postID` on Meta — the post Meta created for an uploaded creative, or the post being promoted. Use it to open the live post, or to promote the same post from another ad. `null` until the network has created the post.
     """
 
     post_source: typing.Optional[AdPostSource] = pydantic.Field(default=None)
     """
-    Identifies the network that owns `post_id`; `null` when the ad uses uploaded creatives.
+    Identifies the network that owns `existing_post_id`; `null` when the ad uses uploaded creatives.
     """
 
     post_thumbnail_url: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Preview image of the existing post this ad promotes. `null` for ads that use uploaded creatives, or until the post's media has been fetched from the network.
+    Preview image of the post named by `existing_post_id`. `null` for ads that use uploaded creatives, or until the post's media has been fetched from the network.
     """
 
     primary_texts: typing.List[str]

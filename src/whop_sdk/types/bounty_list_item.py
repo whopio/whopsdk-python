@@ -9,6 +9,7 @@ from .bounty_list_item_accepted_deliverable_types_item import BountyListItemAcce
 from .bounty_list_item_business_goal_type import BountyListItemBusinessGoalType
 from .bounty_list_item_scheduled_frequency import BountyListItemScheduledFrequency
 from .bounty_list_item_status import BountyListItemStatus
+from .storefront_account import StorefrontAccount
 from .user_summary import UserSummary
 
 
@@ -98,6 +99,11 @@ class BountyListItem(UniversalBaseModel):
     gross_reward_amount: float = pydantic.Field()
     """
     Gross bounty-pool amount allocated per accepted submission, in whole currency units.
+    """
+
+    hosting_account: typing.Optional[StorefrontAccount] = pydantic.Field(default=None)
+    """
+    Account hosting the bounty's forum — the one whose `route` and `experience_id` address its discussion thread, and where its submissions dashboard lives. `null` for a platform-wide bounty with no host. May differ from `funding_account`.
     """
 
     id: str = pydantic.Field()

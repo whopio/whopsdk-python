@@ -6,6 +6,9 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .ledger_activity_payment_object import LedgerActivityPaymentObject
+from .ledger_activity_payment_plan import LedgerActivityPaymentPlan
+from .ledger_activity_payment_product import LedgerActivityPaymentProduct
+from .ledger_activity_payment_user import LedgerActivityPaymentUser
 from .money import Money
 
 
@@ -44,6 +47,21 @@ class LedgerActivityPayment(UniversalBaseModel):
     payment_processor: typing.Optional[str] = pydantic.Field(default=None)
     """
     Processor that handled the payment, such as `stripe`.
+    """
+
+    plan: typing.Optional[LedgerActivityPaymentPlan] = pydantic.Field(default=None)
+    """
+    Plan associated with the payment, when applicable.
+    """
+
+    product: typing.Optional[LedgerActivityPaymentProduct] = pydantic.Field(default=None)
+    """
+    Product associated with the payment, when applicable.
+    """
+
+    user: typing.Optional[LedgerActivityPaymentUser] = pydantic.Field(default=None)
+    """
+    Customer associated with the payment. Email requires member:email:read.
     """
 
     if IS_PYDANTIC_V2:

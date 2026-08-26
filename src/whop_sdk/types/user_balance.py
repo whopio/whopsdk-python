@@ -40,7 +40,7 @@ class UserBalance(UniversalBaseModel):
 
     treasury_pending_usd: str = pydantic.Field()
     """
-    Balance-to-wallet USDT0 withdrawals still in flight, in USD.
+    Balance-to-wallet USDT0 payouts still in flight, in USD.
     """
 
     if IS_PYDANTIC_V2:

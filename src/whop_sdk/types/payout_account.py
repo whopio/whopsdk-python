@@ -52,7 +52,7 @@ class PayoutAccount(UniversalBaseModel):
 
     status: typing.Optional[PayoutAccountCalculatedStatuses] = pydantic.Field(default=None)
     """
-    The granular calculated status of the payout account reflecting its current KYC and withdrawal readiness state.
+    The granular calculated status of the payout account reflecting its current KYC and payout readiness state.
     """
 
     if IS_PYDANTIC_V2:

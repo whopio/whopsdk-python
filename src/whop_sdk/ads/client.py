@@ -146,7 +146,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21-1",
+            "2026-08-25-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -191,12 +191,12 @@ class AdsClient:
         call_to_action: typing.Optional[CreateAdsRequestCallToAction] = OMIT,
         creatives: typing.Optional[typing.Sequence[CreateAdsRequestCreativesItem]] = OMIT,
         descriptions: typing.Optional[typing.Sequence[str]] = OMIT,
+        existing_post_id: typing.Optional[str] = OMIT,
         headlines: typing.Optional[typing.Sequence[str]] = OMIT,
         lead_form: typing.Optional[CreateAdsRequestLeadForm] = OMIT,
         lead_form_id: typing.Optional[str] = OMIT,
         messaging_config: typing.Optional[CreateAdsRequestMessagingConfig] = OMIT,
         multi_advertiser_ads: typing.Optional[bool] = OMIT,
-        post_id: typing.Optional[str] = OMIT,
         post_source: typing.Optional[CreateAdsRequestPostSource] = OMIT,
         primary_texts: typing.Optional[typing.Sequence[str]] = OMIT,
         social_accounts: typing.Optional[typing.Sequence[CreateAdsRequestSocialAccountsItem]] = OMIT,
@@ -225,6 +225,9 @@ class AdsClient:
         descriptions : typing.Optional[typing.Sequence[str]]
             The description variants shown on the ad.
 
+        existing_post_id : typing.Optional[str]
+            Promote a post you already published instead of uploading creatives — a Facebook post or Instagram media id. Mutually exclusive with creatives. Pair with post_source.
+
         headlines : typing.Optional[typing.Sequence[str]]
             The headline variants shown on the ad.
 
@@ -240,11 +243,8 @@ class AdsClient:
         multi_advertiser_ads : typing.Optional[bool]
             Whether the ad can appear alongside other advertisers' ads in the same unit. Defaults to true.
 
-        post_id : typing.Optional[str]
-            Promote an existing post instead of uploading creatives — a Facebook post or Instagram media id. Mutually exclusive with creatives. Pair with post_source.
-
         post_source : typing.Optional[CreateAdsRequestPostSource]
-            Identifies the network that owns `post_id`. The source is inferred from the ID shape when omitted.
+            Identifies the network that owns `existing_post_id`. The source is inferred from the ID shape when omitted.
 
         primary_texts : typing.Optional[typing.Sequence[str]]
             The primary text variants shown in the ad body.
@@ -274,7 +274,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21-1",
+            "2026-08-25-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -286,12 +286,12 @@ class AdsClient:
             call_to_action=call_to_action,
             creatives=creatives,
             descriptions=descriptions,
+            existing_post_id=existing_post_id,
             headlines=headlines,
             lead_form=lead_form,
             lead_form_id=lead_form_id,
             messaging_config=messaging_config,
             multi_advertiser_ads=multi_advertiser_ads,
-            post_id=post_id,
             post_source=post_source,
             primary_texts=primary_texts,
             social_accounts=social_accounts,
@@ -345,7 +345,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21-1",
+            "2026-08-25-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -385,7 +385,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21-1",
+            "2026-08-25-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -403,12 +403,12 @@ class AdsClient:
         call_to_action: typing.Optional[UpdateAdsRequestCallToAction] = OMIT,
         creatives: typing.Optional[typing.Sequence[UpdateAdsRequestCreativesItem]] = OMIT,
         descriptions: typing.Optional[typing.Sequence[str]] = OMIT,
+        existing_post_id: typing.Optional[str] = OMIT,
         headlines: typing.Optional[typing.Sequence[str]] = OMIT,
         lead_form: typing.Optional[UpdateAdsRequestLeadForm] = OMIT,
         lead_form_id: typing.Optional[str] = OMIT,
         messaging_config: typing.Optional[UpdateAdsRequestMessagingConfig] = OMIT,
         multi_advertiser_ads: typing.Optional[bool] = OMIT,
-        post_id: typing.Optional[str] = OMIT,
         post_source: typing.Optional[UpdateAdsRequestPostSource] = OMIT,
         primary_texts: typing.Optional[typing.Sequence[str]] = OMIT,
         social_accounts: typing.Optional[typing.Sequence[UpdateAdsRequestSocialAccountsItem]] = OMIT,
@@ -434,6 +434,9 @@ class AdsClient:
         descriptions : typing.Optional[typing.Sequence[str]]
             The description variants shown on the ad.
 
+        existing_post_id : typing.Optional[str]
+            Promote a post you already published instead of uploading creatives — a Facebook post or Instagram media id. Mutually exclusive with creatives. Pair with post_source.
+
         headlines : typing.Optional[typing.Sequence[str]]
             The headline variants shown on the ad.
 
@@ -449,11 +452,8 @@ class AdsClient:
         multi_advertiser_ads : typing.Optional[bool]
             Whether the ad can appear alongside other advertisers' ads in the same unit. Defaults to true.
 
-        post_id : typing.Optional[str]
-            Promote an existing post instead of uploading creatives — a Facebook post or Instagram media id. Mutually exclusive with creatives. Pair with post_source.
-
         post_source : typing.Optional[UpdateAdsRequestPostSource]
-            Identifies the network that owns `post_id`. The source is inferred from the ID shape when omitted.
+            Identifies the network that owns `existing_post_id`. The source is inferred from the ID shape when omitted.
 
         primary_texts : typing.Optional[typing.Sequence[str]]
             The primary text variants shown in the ad body.
@@ -483,7 +483,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21-1",
+            "2026-08-25-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -496,12 +496,12 @@ class AdsClient:
             call_to_action=call_to_action,
             creatives=creatives,
             descriptions=descriptions,
+            existing_post_id=existing_post_id,
             headlines=headlines,
             lead_form=lead_form,
             lead_form_id=lead_form_id,
             messaging_config=messaging_config,
             multi_advertiser_ads=multi_advertiser_ads,
-            post_id=post_id,
             post_source=post_source,
             primary_texts=primary_texts,
             social_accounts=social_accounts,
@@ -551,7 +551,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21-1",
+            "2026-08-25-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -590,7 +590,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21-1",
+            "2026-08-25-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -623,7 +623,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21-1",
+            "2026-08-25-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -751,7 +751,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21-1",
+            "2026-08-25-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -803,12 +803,12 @@ class AsyncAdsClient:
         call_to_action: typing.Optional[CreateAdsRequestCallToAction] = OMIT,
         creatives: typing.Optional[typing.Sequence[CreateAdsRequestCreativesItem]] = OMIT,
         descriptions: typing.Optional[typing.Sequence[str]] = OMIT,
+        existing_post_id: typing.Optional[str] = OMIT,
         headlines: typing.Optional[typing.Sequence[str]] = OMIT,
         lead_form: typing.Optional[CreateAdsRequestLeadForm] = OMIT,
         lead_form_id: typing.Optional[str] = OMIT,
         messaging_config: typing.Optional[CreateAdsRequestMessagingConfig] = OMIT,
         multi_advertiser_ads: typing.Optional[bool] = OMIT,
-        post_id: typing.Optional[str] = OMIT,
         post_source: typing.Optional[CreateAdsRequestPostSource] = OMIT,
         primary_texts: typing.Optional[typing.Sequence[str]] = OMIT,
         social_accounts: typing.Optional[typing.Sequence[CreateAdsRequestSocialAccountsItem]] = OMIT,
@@ -837,6 +837,9 @@ class AsyncAdsClient:
         descriptions : typing.Optional[typing.Sequence[str]]
             The description variants shown on the ad.
 
+        existing_post_id : typing.Optional[str]
+            Promote a post you already published instead of uploading creatives — a Facebook post or Instagram media id. Mutually exclusive with creatives. Pair with post_source.
+
         headlines : typing.Optional[typing.Sequence[str]]
             The headline variants shown on the ad.
 
@@ -852,11 +855,8 @@ class AsyncAdsClient:
         multi_advertiser_ads : typing.Optional[bool]
             Whether the ad can appear alongside other advertisers' ads in the same unit. Defaults to true.
 
-        post_id : typing.Optional[str]
-            Promote an existing post instead of uploading creatives — a Facebook post or Instagram media id. Mutually exclusive with creatives. Pair with post_source.
-
         post_source : typing.Optional[CreateAdsRequestPostSource]
-            Identifies the network that owns `post_id`. The source is inferred from the ID shape when omitted.
+            Identifies the network that owns `existing_post_id`. The source is inferred from the ID shape when omitted.
 
         primary_texts : typing.Optional[typing.Sequence[str]]
             The primary text variants shown in the ad body.
@@ -888,7 +888,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21-1",
+            "2026-08-25-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -906,12 +906,12 @@ class AsyncAdsClient:
             call_to_action=call_to_action,
             creatives=creatives,
             descriptions=descriptions,
+            existing_post_id=existing_post_id,
             headlines=headlines,
             lead_form=lead_form,
             lead_form_id=lead_form_id,
             messaging_config=messaging_config,
             multi_advertiser_ads=multi_advertiser_ads,
-            post_id=post_id,
             post_source=post_source,
             primary_texts=primary_texts,
             social_accounts=social_accounts,
@@ -967,7 +967,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21-1",
+            "2026-08-25-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1015,7 +1015,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21-1",
+            "2026-08-25-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1039,12 +1039,12 @@ class AsyncAdsClient:
         call_to_action: typing.Optional[UpdateAdsRequestCallToAction] = OMIT,
         creatives: typing.Optional[typing.Sequence[UpdateAdsRequestCreativesItem]] = OMIT,
         descriptions: typing.Optional[typing.Sequence[str]] = OMIT,
+        existing_post_id: typing.Optional[str] = OMIT,
         headlines: typing.Optional[typing.Sequence[str]] = OMIT,
         lead_form: typing.Optional[UpdateAdsRequestLeadForm] = OMIT,
         lead_form_id: typing.Optional[str] = OMIT,
         messaging_config: typing.Optional[UpdateAdsRequestMessagingConfig] = OMIT,
         multi_advertiser_ads: typing.Optional[bool] = OMIT,
-        post_id: typing.Optional[str] = OMIT,
         post_source: typing.Optional[UpdateAdsRequestPostSource] = OMIT,
         primary_texts: typing.Optional[typing.Sequence[str]] = OMIT,
         social_accounts: typing.Optional[typing.Sequence[UpdateAdsRequestSocialAccountsItem]] = OMIT,
@@ -1070,6 +1070,9 @@ class AsyncAdsClient:
         descriptions : typing.Optional[typing.Sequence[str]]
             The description variants shown on the ad.
 
+        existing_post_id : typing.Optional[str]
+            Promote a post you already published instead of uploading creatives — a Facebook post or Instagram media id. Mutually exclusive with creatives. Pair with post_source.
+
         headlines : typing.Optional[typing.Sequence[str]]
             The headline variants shown on the ad.
 
@@ -1085,11 +1088,8 @@ class AsyncAdsClient:
         multi_advertiser_ads : typing.Optional[bool]
             Whether the ad can appear alongside other advertisers' ads in the same unit. Defaults to true.
 
-        post_id : typing.Optional[str]
-            Promote an existing post instead of uploading creatives — a Facebook post or Instagram media id. Mutually exclusive with creatives. Pair with post_source.
-
         post_source : typing.Optional[UpdateAdsRequestPostSource]
-            Identifies the network that owns `post_id`. The source is inferred from the ID shape when omitted.
+            Identifies the network that owns `existing_post_id`. The source is inferred from the ID shape when omitted.
 
         primary_texts : typing.Optional[typing.Sequence[str]]
             The primary text variants shown in the ad body.
@@ -1121,7 +1121,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21-1",
+            "2026-08-25-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1140,12 +1140,12 @@ class AsyncAdsClient:
             call_to_action=call_to_action,
             creatives=creatives,
             descriptions=descriptions,
+            existing_post_id=existing_post_id,
             headlines=headlines,
             lead_form=lead_form,
             lead_form_id=lead_form_id,
             messaging_config=messaging_config,
             multi_advertiser_ads=multi_advertiser_ads,
-            post_id=post_id,
             post_source=post_source,
             primary_texts=primary_texts,
             social_accounts=social_accounts,
@@ -1197,7 +1197,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21-1",
+            "2026-08-25-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1244,7 +1244,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21-1",
+            "2026-08-25-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1285,7 +1285,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21-1",
+            "2026-08-25-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

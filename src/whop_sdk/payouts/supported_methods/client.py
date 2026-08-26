@@ -56,7 +56,7 @@ class SupportedMethodsClient:
             ISO 3166-1 alpha-2 country code for the bank account or wallet, such as `US`. Defaults to the country of supported_payout_method_id when one is given, otherwise the payout account's country.
 
         amount : typing.Optional[float]
-            Optional withdrawal amount in whole currency units, for example `250.00`. When provided, each destination includes per-currency fee and delivery quotes.
+            Optional payout amount in whole currency units, for example `250.00`. When provided, each destination includes per-currency fee and delivery quotes.
 
         currency : typing.Optional[str]
             Currency code of the amount, for example `usd`. Only meaningful with amount.
@@ -85,14 +85,14 @@ class SupportedMethodsClient:
         Returns
         -------
         SyncPager[ListSupportedMethodsResponseDataItem, ListSupportedMethodsResponse]
-            catalog failures degrade to no destinations
+            supported payout methods listed
 
         Examples
         --------
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21-1",
+            "2026-08-25-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -165,7 +165,7 @@ class AsyncSupportedMethodsClient:
             ISO 3166-1 alpha-2 country code for the bank account or wallet, such as `US`. Defaults to the country of supported_payout_method_id when one is given, otherwise the payout account's country.
 
         amount : typing.Optional[float]
-            Optional withdrawal amount in whole currency units, for example `250.00`. When provided, each destination includes per-currency fee and delivery quotes.
+            Optional payout amount in whole currency units, for example `250.00`. When provided, each destination includes per-currency fee and delivery quotes.
 
         currency : typing.Optional[str]
             Currency code of the amount, for example `usd`. Only meaningful with amount.
@@ -194,7 +194,7 @@ class AsyncSupportedMethodsClient:
         Returns
         -------
         AsyncPager[ListSupportedMethodsResponseDataItem, ListSupportedMethodsResponse]
-            catalog failures degrade to no destinations
+            supported payout methods listed
 
         Examples
         --------
@@ -203,7 +203,7 @@ class AsyncSupportedMethodsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21-1",
+            "2026-08-25-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

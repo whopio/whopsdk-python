@@ -15,10 +15,6 @@ from .payment_method_cashapp_payment_method_cashapp import PaymentMethodCashappP
 from .payment_method_cashapp_payment_method_icons import PaymentMethodCashappPaymentMethodIcons
 from .payment_method_ideal_payment_method_icons import PaymentMethodIdealPaymentMethodIcons
 from .payment_method_ideal_payment_method_ideal import PaymentMethodIdealPaymentMethodIdeal
-from .payment_method_platform_balance_payment_method_icons import PaymentMethodPlatformBalancePaymentMethodIcons
-from .payment_method_platform_balance_payment_method_platform_balance import (
-    PaymentMethodPlatformBalancePaymentMethodPlatformBalance,
-)
 from .payment_method_sepa_debit_payment_method_icons import PaymentMethodSepaDebitPaymentMethodIcons
 from .payment_method_sepa_debit_payment_method_sepa_debit import PaymentMethodSepaDebitPaymentMethodSepaDebit
 from .payment_method_types import PaymentMethodTypes
@@ -136,24 +132,6 @@ class PaymentMethod_SepaDebitPaymentMethod(UniversalBaseModel):
             extra = pydantic.Extra.allow
 
 
-class PaymentMethod_PlatformBalancePaymentMethod(UniversalBaseModel):
-    typename: typing.Literal["PlatformBalancePaymentMethod"] = "PlatformBalancePaymentMethod"
-    created_at: dt.datetime
-    icons: PaymentMethodPlatformBalancePaymentMethodIcons
-    id: str
-    payment_method_type: PaymentMethodTypes
-    platform_balance: PaymentMethodPlatformBalancePaymentMethodPlatformBalance
-
-    if IS_PYDANTIC_V2:
-        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
-    else:
-
-        class Config:
-            frozen = True
-            smart_union = True
-            extra = pydantic.Extra.allow
-
-
 PaymentMethod = typing_extensions.Annotated[
     typing.Union[
         PaymentMethod_BasePaymentMethod,
@@ -162,7 +140,6 @@ PaymentMethod = typing_extensions.Annotated[
         PaymentMethod_CashappPaymentMethod,
         PaymentMethod_IdealPaymentMethod,
         PaymentMethod_SepaDebitPaymentMethod,
-        PaymentMethod_PlatformBalancePaymentMethod,
     ],
     pydantic.Field(discriminator="typename"),
 ]

@@ -26,6 +26,7 @@ if typing.TYPE_CHECKING:
     from .retrieve_ad_campaigns_request_attribution_model import RetrieveAdCampaignsRequestAttributionModel
     from .update_ad_campaigns_request_bid_type import UpdateAdCampaignsRequestBidType
     from .update_ad_campaigns_request_budget_optimization import UpdateAdCampaignsRequestBudgetOptimization
+    from .update_ad_campaigns_request_budget_type import UpdateAdCampaignsRequestBudgetType
     from .update_ad_campaigns_request_special_ad_categories_item import UpdateAdCampaignsRequestSpecialAdCategoriesItem
     from .update_ad_campaigns_request_status import UpdateAdCampaignsRequestStatus
 _dynamic_imports: typing.Dict[str, str] = {
@@ -49,6 +50,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrieveAdCampaignsRequestAttributionModel": ".retrieve_ad_campaigns_request_attribution_model",
     "UpdateAdCampaignsRequestBidType": ".update_ad_campaigns_request_bid_type",
     "UpdateAdCampaignsRequestBudgetOptimization": ".update_ad_campaigns_request_budget_optimization",
+    "UpdateAdCampaignsRequestBudgetType": ".update_ad_campaigns_request_budget_type",
     "UpdateAdCampaignsRequestSpecialAdCategoriesItem": ".update_ad_campaigns_request_special_ad_categories_item",
     "UpdateAdCampaignsRequestStatus": ".update_ad_campaigns_request_status",
 }
@@ -96,6 +98,7 @@ __all__ = [
     "RetrieveAdCampaignsRequestAttributionModel",
     "UpdateAdCampaignsRequestBidType",
     "UpdateAdCampaignsRequestBudgetOptimization",
+    "UpdateAdCampaignsRequestBudgetType",
     "UpdateAdCampaignsRequestSpecialAdCategoriesItem",
     "UpdateAdCampaignsRequestStatus",
 ]

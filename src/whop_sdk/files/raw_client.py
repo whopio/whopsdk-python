@@ -7,6 +7,7 @@ from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
 from ..core.jsonable_encoder import encode_path_param
+from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
@@ -19,6 +20,9 @@ from ..types.file import File
 from ..types.v1error_response import V1ErrorResponse
 from .types.complete_files_request_multipart_parts_item import CompleteFilesRequestMultipartPartsItem
 from .types.create_files_request_visibility import CreateFilesRequestVisibility
+from .types.list_files_request_direction import ListFilesRequestDirection
+from .types.list_files_request_order import ListFilesRequestOrder
+from .types.list_files_response import ListFilesResponse
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -28,6 +32,123 @@ OMIT = typing.cast(typing.Any, ...)
 class RawFilesClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    def list(
+        self,
+        *,
+        file_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        order: typing.Optional[ListFilesRequestOrder] = None,
+        direction: typing.Optional[ListFilesRequestDirection] = None,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        last: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SyncPager[File, ListFilesResponse]:
+        """
+        Returns the files with the given IDs, newest first — fetch a batch in one request instead of retrieving each file individually. Only files you created are returned; IDs that do not exist, or that another credential created, are omitted. A request for up to 100 IDs answers in a single page by default; a larger batch pages at up to 100 files per response — follow `page_info` with the same `file_ids` to walk the rest.
+
+        Parameters
+        ----------
+        file_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            The files to return, each prefixed `file_`. Repeat the parameter to pass several, up to 250 per request. Batches of up to 100 answer in one page by default; larger batches page at up to 100 per response.
+
+        order : typing.Optional[ListFilesRequestOrder]
+            The field to sort by.
+
+        direction : typing.Optional[ListFilesRequestDirection]
+            The sort direction.
+
+        first : typing.Optional[int]
+            The number of files to return.
+
+        after : typing.Optional[str]
+            A cursor; returns files after this position.
+
+        last : typing.Optional[int]
+            The number of files to return from the end of the range.
+
+        before : typing.Optional[str]
+            A cursor; returns files before this position.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SyncPager[File, ListFilesResponse]
+            files listed
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "files",
+            method="GET",
+            params={
+                "file_ids": file_ids,
+                "order": order,
+                "direction": direction,
+                "first": first,
+                "after": after,
+                "last": last,
+                "before": before,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _parsed_response = typing.cast(
+                    ListFilesResponse,
+                    parse_obj_as(
+                        type_=ListFilesResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                _items = _parsed_response.data
+                _has_next = False
+                _get_next = None
+                if _parsed_response.page_info is not None:
+                    _parsed_next = _parsed_response.page_info.end_cursor
+                    _has_next = _parsed_next is not None and _parsed_next != ""
+                    _get_next = lambda: self.list(
+                        file_ids=file_ids,
+                        order=order,
+                        direction=direction,
+                        first=first,
+                        after=_parsed_next,
+                        last=last,
+                        before=before,
+                        request_options=request_options,
+                    )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def create(
         self,
@@ -307,6 +428,126 @@ class RawFilesClient:
 class AsyncRawFilesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    async def list(
+        self,
+        *,
+        file_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        order: typing.Optional[ListFilesRequestOrder] = None,
+        direction: typing.Optional[ListFilesRequestDirection] = None,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        last: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncPager[File, ListFilesResponse]:
+        """
+        Returns the files with the given IDs, newest first — fetch a batch in one request instead of retrieving each file individually. Only files you created are returned; IDs that do not exist, or that another credential created, are omitted. A request for up to 100 IDs answers in a single page by default; a larger batch pages at up to 100 files per response — follow `page_info` with the same `file_ids` to walk the rest.
+
+        Parameters
+        ----------
+        file_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            The files to return, each prefixed `file_`. Repeat the parameter to pass several, up to 250 per request. Batches of up to 100 answer in one page by default; larger batches page at up to 100 per response.
+
+        order : typing.Optional[ListFilesRequestOrder]
+            The field to sort by.
+
+        direction : typing.Optional[ListFilesRequestDirection]
+            The sort direction.
+
+        first : typing.Optional[int]
+            The number of files to return.
+
+        after : typing.Optional[str]
+            A cursor; returns files after this position.
+
+        last : typing.Optional[int]
+            The number of files to return from the end of the range.
+
+        before : typing.Optional[str]
+            A cursor; returns files before this position.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncPager[File, ListFilesResponse]
+            files listed
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "files",
+            method="GET",
+            params={
+                "file_ids": file_ids,
+                "order": order,
+                "direction": direction,
+                "first": first,
+                "after": after,
+                "last": last,
+                "before": before,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _parsed_response = typing.cast(
+                    ListFilesResponse,
+                    parse_obj_as(
+                        type_=ListFilesResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                _items = _parsed_response.data
+                _has_next = False
+                _get_next = None
+                if _parsed_response.page_info is not None:
+                    _parsed_next = _parsed_response.page_info.end_cursor
+                    _has_next = _parsed_next is not None and _parsed_next != ""
+
+                    async def _get_next():
+                        return await self.list(
+                            file_ids=file_ids,
+                            order=order,
+                            direction=direction,
+                            first=first,
+                            after=_parsed_next,
+                            last=last,
+                            before=before,
+                            request_options=request_options,
+                        )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def create(
         self,
