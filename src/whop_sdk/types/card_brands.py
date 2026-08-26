@@ -45,5 +45,9 @@ CardBrands: TypeAlias = Literal[
     "jcblankapay",
     "cmi",
     "aura",
+    "accel",
+    "nyce",
+    "pulse",
+    "star",
     "unknown",
 ]
