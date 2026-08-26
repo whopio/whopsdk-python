@@ -46,6 +46,7 @@ CardBrands: TypeAlias = Literal[
     "cmi",
     "aura",
     "accel",
+    "culiance",
     "nyce",
     "pulse",
     "star",
