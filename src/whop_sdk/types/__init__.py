@@ -310,89 +310,7 @@ if typing.TYPE_CHECKING:
     from .checkout_configuration_three_ds_level import CheckoutConfigurationThreeDsLevel
     from .checkout_fonts import CheckoutFonts
     from .checkout_modes import CheckoutModes
-    from .checkout_session import CheckoutSession
-    from .checkout_session_authenticate_action import CheckoutSessionAuthenticateAction
-    from .checkout_session_await_claim_action import CheckoutSessionAwaitClaimAction
-    from .checkout_session_await_claim_action_state import CheckoutSessionAwaitClaimActionState
-    from .checkout_session_branding import CheckoutSessionBranding
-    from .checkout_session_branding_border_style import CheckoutSessionBrandingBorderStyle
-    from .checkout_session_branding_font_family import CheckoutSessionBrandingFontFamily
-    from .checkout_session_breakdown import CheckoutSessionBreakdown
-    from .checkout_session_breakdown_adjustment import CheckoutSessionBreakdownAdjustment
-    from .checkout_session_breakdown_adjustment_applied import CheckoutSessionBreakdownAdjustmentApplied
-    from .checkout_session_breakdown_adjustment_kind import CheckoutSessionBreakdownAdjustmentKind
-    from .checkout_session_breakdown_adjustment_status import CheckoutSessionBreakdownAdjustmentStatus
-    from .checkout_session_breakdown_currency import CheckoutSessionBreakdownCurrency
-    from .checkout_session_breakdown_display import CheckoutSessionBreakdownDisplay
-    from .checkout_session_breakdown_display_headline import CheckoutSessionBreakdownDisplayHeadline
-    from .checkout_session_breakdown_display_headline_kind import CheckoutSessionBreakdownDisplayHeadlineKind
-    from .checkout_session_breakdown_display_row import CheckoutSessionBreakdownDisplayRow
-    from .checkout_session_breakdown_display_row_detail import CheckoutSessionBreakdownDisplayRowDetail
-    from .checkout_session_breakdown_display_row_detail_applied import CheckoutSessionBreakdownDisplayRowDetailApplied
-    from .checkout_session_breakdown_display_row_kind import CheckoutSessionBreakdownDisplayRowKind
-    from .checkout_session_breakdown_display_row_status import CheckoutSessionBreakdownDisplayRowStatus
-    from .checkout_session_breakdown_display_sections import CheckoutSessionBreakdownDisplaySections
-    from .checkout_session_breakdown_line import CheckoutSessionBreakdownLine
-    from .checkout_session_breakdown_line_kind import CheckoutSessionBreakdownLineKind
-    from .checkout_session_breakdown_upcoming import (
-        CheckoutSessionBreakdownUpcoming,
-        CheckoutSessionBreakdownUpcoming_Installments,
-        CheckoutSessionBreakdownUpcoming_OneTime,
-        CheckoutSessionBreakdownUpcoming_Recurring,
-    )
-    from .checkout_session_breakdown_upcoming_installments import CheckoutSessionBreakdownUpcomingInstallments
-    from .checkout_session_breakdown_upcoming_one_time import CheckoutSessionBreakdownUpcomingOneTime
-    from .checkout_session_breakdown_upcoming_recurring import CheckoutSessionBreakdownUpcomingRecurring
-    from .checkout_session_buyer_identity import CheckoutSessionBuyerIdentity
-    from .checkout_session_buyer_identity_method import CheckoutSessionBuyerIdentityMethod
-    from .checkout_session_complete_action import CheckoutSessionCompleteAction
-    from .checkout_session_complete_action_kind import CheckoutSessionCompleteActionKind
-    from .checkout_session_confirm_error import CheckoutSessionConfirmError
-    from .checkout_session_confirm_error_code import CheckoutSessionConfirmErrorCode
-    from .checkout_session_cta_label import CheckoutSessionCtaLabel
-    from .checkout_session_custom_field import CheckoutSessionCustomField
-    from .checkout_session_custom_field_field_type import CheckoutSessionCustomFieldFieldType
-    from .checkout_session_custom_field_response import CheckoutSessionCustomFieldResponse
-    from .checkout_session_entry import CheckoutSessionEntry
-    from .checkout_session_entry_status import CheckoutSessionEntryStatus
-    from .checkout_session_item import CheckoutSessionItem
-    from .checkout_session_mode import CheckoutSessionMode
-    from .checkout_session_next_action import (
-        CheckoutSessionNextAction,
-        CheckoutSessionNextAction_Authenticate,
-        CheckoutSessionNextAction_AwaitClaim,
-        CheckoutSessionNextAction_Complete,
-        CheckoutSessionNextAction_Redirect,
-        CheckoutSessionNextAction_UpgradeAuthentication,
-        CheckoutSessionNextAction_VerifyPhone,
-        CheckoutSessionNextAction_WaitForPayment,
-    )
-    from .checkout_session_payment import CheckoutSessionPayment
     from .checkout_session_payment_method_configuration import CheckoutSessionPaymentMethodConfiguration
-    from .checkout_session_payment_status import CheckoutSessionPaymentStatus
-    from .checkout_session_promo import CheckoutSessionPromo
-    from .checkout_session_promo_currency import CheckoutSessionPromoCurrency
-    from .checkout_session_promo_duration import CheckoutSessionPromoDuration
-    from .checkout_session_promo_promo_type import CheckoutSessionPromoPromoType
-    from .checkout_session_quote import CheckoutSessionQuote
-    from .checkout_session_redirect_action import CheckoutSessionRedirectAction
-    from .checkout_session_requirement import CheckoutSessionRequirement
-    from .checkout_session_requirement_type import CheckoutSessionRequirementType
-    from .checkout_session_seller import CheckoutSessionSeller
-    from .checkout_session_seller_terms import CheckoutSessionSellerTerms
-    from .checkout_session_shipping_address import CheckoutSessionShippingAddress
-    from .checkout_session_status import CheckoutSessionStatus
-    from .checkout_session_tax_behavior import CheckoutSessionTaxBehavior
-    from .checkout_session_tax_id import CheckoutSessionTaxId
-    from .checkout_session_tax_id_type import CheckoutSessionTaxIdType
-    from .checkout_session_three_ds_level import CheckoutSessionThreeDsLevel
-    from .checkout_session_transfer import CheckoutSessionTransfer
-    from .checkout_session_upgrade_authentication_action import CheckoutSessionUpgradeAuthenticationAction
-    from .checkout_session_upgrade_authentication_action_sign_in_intent import (
-        CheckoutSessionUpgradeAuthenticationActionSignInIntent,
-    )
-    from .checkout_session_verify_phone_action import CheckoutSessionVerifyPhoneAction
-    from .checkout_session_wait_for_payment_action import CheckoutSessionWaitForPaymentAction
     from .checkout_shapes import CheckoutShapes
     from .company import Company
     from .company_featured_affiliate_product import CompanyFeaturedAffiliateProduct
@@ -648,6 +566,9 @@ if typing.TYPE_CHECKING:
     from .ledger_activity_object import LedgerActivityObject
     from .ledger_activity_payment import LedgerActivityPayment
     from .ledger_activity_payment_object import LedgerActivityPaymentObject
+    from .ledger_activity_payment_plan import LedgerActivityPaymentPlan
+    from .ledger_activity_payment_product import LedgerActivityPaymentProduct
+    from .ledger_activity_payment_user import LedgerActivityPaymentUser
     from .ledger_activity_resource import LedgerActivityResource
     from .ledger_activity_resource_account_reference import LedgerActivityResourceAccountReference
     from .ledger_activity_resource_account_reference_object import LedgerActivityResourceAccountReferenceObject
@@ -799,7 +720,6 @@ if typing.TYPE_CHECKING:
         PaymentMethod_CardPaymentMethod,
         PaymentMethod_CashappPaymentMethod,
         PaymentMethod_IdealPaymentMethod,
-        PaymentMethod_PlatformBalancePaymentMethod,
         PaymentMethod_SepaDebitPaymentMethod,
         PaymentMethod_UsBankAccountPaymentMethod,
     )
@@ -854,7 +774,6 @@ if typing.TYPE_CHECKING:
         PaymentMethodListItem_CardPaymentMethod,
         PaymentMethodListItem_CashappPaymentMethod,
         PaymentMethodListItem_IdealPaymentMethod,
-        PaymentMethodListItem_PlatformBalancePaymentMethod,
         PaymentMethodListItem_SepaDebitPaymentMethod,
         PaymentMethodListItem_UsBankAccountPaymentMethod,
     )
@@ -939,42 +858,6 @@ if typing.TYPE_CHECKING:
         PaymentMethodListItemIdealPaymentMethodIconsSquareLight,
     )
     from .payment_method_list_item_ideal_payment_method_ideal import PaymentMethodListItemIdealPaymentMethodIdeal
-    from .payment_method_list_item_platform_balance_payment_method import (
-        PaymentMethodListItemPlatformBalancePaymentMethod,
-    )
-    from .payment_method_list_item_platform_balance_payment_method_icons import (
-        PaymentMethodListItemPlatformBalancePaymentMethodIcons,
-    )
-    from .payment_method_list_item_platform_balance_payment_method_icons_card import (
-        PaymentMethodListItemPlatformBalancePaymentMethodIconsCard,
-    )
-    from .payment_method_list_item_platform_balance_payment_method_icons_card_dark import (
-        PaymentMethodListItemPlatformBalancePaymentMethodIconsCardDark,
-    )
-    from .payment_method_list_item_platform_balance_payment_method_icons_card_light import (
-        PaymentMethodListItemPlatformBalancePaymentMethodIconsCardLight,
-    )
-    from .payment_method_list_item_platform_balance_payment_method_icons_square import (
-        PaymentMethodListItemPlatformBalancePaymentMethodIconsSquare,
-    )
-    from .payment_method_list_item_platform_balance_payment_method_icons_square_dark import (
-        PaymentMethodListItemPlatformBalancePaymentMethodIconsSquareDark,
-    )
-    from .payment_method_list_item_platform_balance_payment_method_icons_square_light import (
-        PaymentMethodListItemPlatformBalancePaymentMethodIconsSquareLight,
-    )
-    from .payment_method_list_item_platform_balance_payment_method_platform_balance import (
-        PaymentMethodListItemPlatformBalancePaymentMethodPlatformBalance,
-    )
-    from .payment_method_list_item_platform_balance_payment_method_platform_balance_account import (
-        PaymentMethodListItemPlatformBalancePaymentMethodPlatformBalanceAccount,
-    )
-    from .payment_method_list_item_platform_balance_payment_method_platform_balance_account_logo import (
-        PaymentMethodListItemPlatformBalancePaymentMethodPlatformBalanceAccountLogo,
-    )
-    from .payment_method_list_item_platform_balance_payment_method_platform_balance_balances_item import (
-        PaymentMethodListItemPlatformBalancePaymentMethodPlatformBalanceBalancesItem,
-    )
     from .payment_method_list_item_sepa_debit_payment_method import PaymentMethodListItemSepaDebitPaymentMethod
     from .payment_method_list_item_sepa_debit_payment_method_icons import (
         PaymentMethodListItemSepaDebitPaymentMethodIcons,
@@ -1024,38 +907,6 @@ if typing.TYPE_CHECKING:
     )
     from .payment_method_list_item_us_bank_account_payment_method_us_bank_account import (
         PaymentMethodListItemUsBankAccountPaymentMethodUsBankAccount,
-    )
-    from .payment_method_platform_balance_payment_method import PaymentMethodPlatformBalancePaymentMethod
-    from .payment_method_platform_balance_payment_method_icons import PaymentMethodPlatformBalancePaymentMethodIcons
-    from .payment_method_platform_balance_payment_method_icons_card import (
-        PaymentMethodPlatformBalancePaymentMethodIconsCard,
-    )
-    from .payment_method_platform_balance_payment_method_icons_card_dark import (
-        PaymentMethodPlatformBalancePaymentMethodIconsCardDark,
-    )
-    from .payment_method_platform_balance_payment_method_icons_card_light import (
-        PaymentMethodPlatformBalancePaymentMethodIconsCardLight,
-    )
-    from .payment_method_platform_balance_payment_method_icons_square import (
-        PaymentMethodPlatformBalancePaymentMethodIconsSquare,
-    )
-    from .payment_method_platform_balance_payment_method_icons_square_dark import (
-        PaymentMethodPlatformBalancePaymentMethodIconsSquareDark,
-    )
-    from .payment_method_platform_balance_payment_method_icons_square_light import (
-        PaymentMethodPlatformBalancePaymentMethodIconsSquareLight,
-    )
-    from .payment_method_platform_balance_payment_method_platform_balance import (
-        PaymentMethodPlatformBalancePaymentMethodPlatformBalance,
-    )
-    from .payment_method_platform_balance_payment_method_platform_balance_account import (
-        PaymentMethodPlatformBalancePaymentMethodPlatformBalanceAccount,
-    )
-    from .payment_method_platform_balance_payment_method_platform_balance_account_logo import (
-        PaymentMethodPlatformBalancePaymentMethodPlatformBalanceAccountLogo,
-    )
-    from .payment_method_platform_balance_payment_method_platform_balance_balances_item import (
-        PaymentMethodPlatformBalancePaymentMethodPlatformBalanceBalancesItem,
     )
     from .payment_method_sepa_debit_payment_method import PaymentMethodSepaDebitPaymentMethod
     from .payment_method_sepa_debit_payment_method_icons import PaymentMethodSepaDebitPaymentMethodIcons
@@ -1152,7 +1003,6 @@ if typing.TYPE_CHECKING:
     from .payout_account_calculated_statuses import PayoutAccountCalculatedStatuses
     from .payout_account_latest_verification import PayoutAccountLatestVerification
     from .payout_destination_category import PayoutDestinationCategory
-    from .payout_error_codes import PayoutErrorCodes
     from .payout_method import PayoutMethod
     from .payout_method_company import PayoutMethodCompany
     from .payout_method_destination import PayoutMethodDestination
@@ -1381,13 +1231,6 @@ if typing.TYPE_CHECKING:
     from .webhook_testable_events_item import WebhookTestableEventsItem
     from .who_can_post_types import WhoCanPostTypes
     from .who_can_react_types import WhoCanReactTypes
-    from .withdrawal import Withdrawal
-    from .withdrawal_fee_types import WithdrawalFeeTypes
-    from .withdrawal_ledger_account import WithdrawalLedgerAccount
-    from .withdrawal_list_item import WithdrawalListItem
-    from .withdrawal_payout_token import WithdrawalPayoutToken
-    from .withdrawal_speeds import WithdrawalSpeeds
-    from .withdrawal_status import WithdrawalStatus
     from .workforce_bounty import WorkforceBounty
     from .workforce_bounty_list_item import WorkforceBountyListItem
 _dynamic_imports: typing.Dict[str, str] = {
@@ -1685,83 +1528,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CheckoutConfigurationThreeDsLevel": ".checkout_configuration_three_ds_level",
     "CheckoutFonts": ".checkout_fonts",
     "CheckoutModes": ".checkout_modes",
-    "CheckoutSession": ".checkout_session",
-    "CheckoutSessionAuthenticateAction": ".checkout_session_authenticate_action",
-    "CheckoutSessionAwaitClaimAction": ".checkout_session_await_claim_action",
-    "CheckoutSessionAwaitClaimActionState": ".checkout_session_await_claim_action_state",
-    "CheckoutSessionBranding": ".checkout_session_branding",
-    "CheckoutSessionBrandingBorderStyle": ".checkout_session_branding_border_style",
-    "CheckoutSessionBrandingFontFamily": ".checkout_session_branding_font_family",
-    "CheckoutSessionBreakdown": ".checkout_session_breakdown",
-    "CheckoutSessionBreakdownAdjustment": ".checkout_session_breakdown_adjustment",
-    "CheckoutSessionBreakdownAdjustmentApplied": ".checkout_session_breakdown_adjustment_applied",
-    "CheckoutSessionBreakdownAdjustmentKind": ".checkout_session_breakdown_adjustment_kind",
-    "CheckoutSessionBreakdownAdjustmentStatus": ".checkout_session_breakdown_adjustment_status",
-    "CheckoutSessionBreakdownCurrency": ".checkout_session_breakdown_currency",
-    "CheckoutSessionBreakdownDisplay": ".checkout_session_breakdown_display",
-    "CheckoutSessionBreakdownDisplayHeadline": ".checkout_session_breakdown_display_headline",
-    "CheckoutSessionBreakdownDisplayHeadlineKind": ".checkout_session_breakdown_display_headline_kind",
-    "CheckoutSessionBreakdownDisplayRow": ".checkout_session_breakdown_display_row",
-    "CheckoutSessionBreakdownDisplayRowDetail": ".checkout_session_breakdown_display_row_detail",
-    "CheckoutSessionBreakdownDisplayRowDetailApplied": ".checkout_session_breakdown_display_row_detail_applied",
-    "CheckoutSessionBreakdownDisplayRowKind": ".checkout_session_breakdown_display_row_kind",
-    "CheckoutSessionBreakdownDisplayRowStatus": ".checkout_session_breakdown_display_row_status",
-    "CheckoutSessionBreakdownDisplaySections": ".checkout_session_breakdown_display_sections",
-    "CheckoutSessionBreakdownLine": ".checkout_session_breakdown_line",
-    "CheckoutSessionBreakdownLineKind": ".checkout_session_breakdown_line_kind",
-    "CheckoutSessionBreakdownUpcoming": ".checkout_session_breakdown_upcoming",
-    "CheckoutSessionBreakdownUpcomingInstallments": ".checkout_session_breakdown_upcoming_installments",
-    "CheckoutSessionBreakdownUpcomingOneTime": ".checkout_session_breakdown_upcoming_one_time",
-    "CheckoutSessionBreakdownUpcomingRecurring": ".checkout_session_breakdown_upcoming_recurring",
-    "CheckoutSessionBreakdownUpcoming_Installments": ".checkout_session_breakdown_upcoming",
-    "CheckoutSessionBreakdownUpcoming_OneTime": ".checkout_session_breakdown_upcoming",
-    "CheckoutSessionBreakdownUpcoming_Recurring": ".checkout_session_breakdown_upcoming",
-    "CheckoutSessionBuyerIdentity": ".checkout_session_buyer_identity",
-    "CheckoutSessionBuyerIdentityMethod": ".checkout_session_buyer_identity_method",
-    "CheckoutSessionCompleteAction": ".checkout_session_complete_action",
-    "CheckoutSessionCompleteActionKind": ".checkout_session_complete_action_kind",
-    "CheckoutSessionConfirmError": ".checkout_session_confirm_error",
-    "CheckoutSessionConfirmErrorCode": ".checkout_session_confirm_error_code",
-    "CheckoutSessionCtaLabel": ".checkout_session_cta_label",
-    "CheckoutSessionCustomField": ".checkout_session_custom_field",
-    "CheckoutSessionCustomFieldFieldType": ".checkout_session_custom_field_field_type",
-    "CheckoutSessionCustomFieldResponse": ".checkout_session_custom_field_response",
-    "CheckoutSessionEntry": ".checkout_session_entry",
-    "CheckoutSessionEntryStatus": ".checkout_session_entry_status",
-    "CheckoutSessionItem": ".checkout_session_item",
-    "CheckoutSessionMode": ".checkout_session_mode",
-    "CheckoutSessionNextAction": ".checkout_session_next_action",
-    "CheckoutSessionNextAction_Authenticate": ".checkout_session_next_action",
-    "CheckoutSessionNextAction_AwaitClaim": ".checkout_session_next_action",
-    "CheckoutSessionNextAction_Complete": ".checkout_session_next_action",
-    "CheckoutSessionNextAction_Redirect": ".checkout_session_next_action",
-    "CheckoutSessionNextAction_UpgradeAuthentication": ".checkout_session_next_action",
-    "CheckoutSessionNextAction_VerifyPhone": ".checkout_session_next_action",
-    "CheckoutSessionNextAction_WaitForPayment": ".checkout_session_next_action",
-    "CheckoutSessionPayment": ".checkout_session_payment",
     "CheckoutSessionPaymentMethodConfiguration": ".checkout_session_payment_method_configuration",
-    "CheckoutSessionPaymentStatus": ".checkout_session_payment_status",
-    "CheckoutSessionPromo": ".checkout_session_promo",
-    "CheckoutSessionPromoCurrency": ".checkout_session_promo_currency",
-    "CheckoutSessionPromoDuration": ".checkout_session_promo_duration",
-    "CheckoutSessionPromoPromoType": ".checkout_session_promo_promo_type",
-    "CheckoutSessionQuote": ".checkout_session_quote",
-    "CheckoutSessionRedirectAction": ".checkout_session_redirect_action",
-    "CheckoutSessionRequirement": ".checkout_session_requirement",
-    "CheckoutSessionRequirementType": ".checkout_session_requirement_type",
-    "CheckoutSessionSeller": ".checkout_session_seller",
-    "CheckoutSessionSellerTerms": ".checkout_session_seller_terms",
-    "CheckoutSessionShippingAddress": ".checkout_session_shipping_address",
-    "CheckoutSessionStatus": ".checkout_session_status",
-    "CheckoutSessionTaxBehavior": ".checkout_session_tax_behavior",
-    "CheckoutSessionTaxId": ".checkout_session_tax_id",
-    "CheckoutSessionTaxIdType": ".checkout_session_tax_id_type",
-    "CheckoutSessionThreeDsLevel": ".checkout_session_three_ds_level",
-    "CheckoutSessionTransfer": ".checkout_session_transfer",
-    "CheckoutSessionUpgradeAuthenticationAction": ".checkout_session_upgrade_authentication_action",
-    "CheckoutSessionUpgradeAuthenticationActionSignInIntent": ".checkout_session_upgrade_authentication_action_sign_in_intent",
-    "CheckoutSessionVerifyPhoneAction": ".checkout_session_verify_phone_action",
-    "CheckoutSessionWaitForPaymentAction": ".checkout_session_wait_for_payment_action",
     "CheckoutShapes": ".checkout_shapes",
     "Company": ".company",
     "CompanyFeaturedAffiliateProduct": ".company_featured_affiliate_product",
@@ -2003,6 +1770,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LedgerActivityObject": ".ledger_activity_object",
     "LedgerActivityPayment": ".ledger_activity_payment",
     "LedgerActivityPaymentObject": ".ledger_activity_payment_object",
+    "LedgerActivityPaymentPlan": ".ledger_activity_payment_plan",
+    "LedgerActivityPaymentProduct": ".ledger_activity_payment_product",
+    "LedgerActivityPaymentUser": ".ledger_activity_payment_user",
     "LedgerActivityResource": ".ledger_activity_resource",
     "LedgerActivityResourceAccountReference": ".ledger_activity_resource_account_reference",
     "LedgerActivityResourceAccountReferenceObject": ".ledger_activity_resource_account_reference_object",
@@ -2222,18 +1992,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaymentMethodListItemIdealPaymentMethodIconsSquareDark": ".payment_method_list_item_ideal_payment_method_icons_square_dark",
     "PaymentMethodListItemIdealPaymentMethodIconsSquareLight": ".payment_method_list_item_ideal_payment_method_icons_square_light",
     "PaymentMethodListItemIdealPaymentMethodIdeal": ".payment_method_list_item_ideal_payment_method_ideal",
-    "PaymentMethodListItemPlatformBalancePaymentMethod": ".payment_method_list_item_platform_balance_payment_method",
-    "PaymentMethodListItemPlatformBalancePaymentMethodIcons": ".payment_method_list_item_platform_balance_payment_method_icons",
-    "PaymentMethodListItemPlatformBalancePaymentMethodIconsCard": ".payment_method_list_item_platform_balance_payment_method_icons_card",
-    "PaymentMethodListItemPlatformBalancePaymentMethodIconsCardDark": ".payment_method_list_item_platform_balance_payment_method_icons_card_dark",
-    "PaymentMethodListItemPlatformBalancePaymentMethodIconsCardLight": ".payment_method_list_item_platform_balance_payment_method_icons_card_light",
-    "PaymentMethodListItemPlatformBalancePaymentMethodIconsSquare": ".payment_method_list_item_platform_balance_payment_method_icons_square",
-    "PaymentMethodListItemPlatformBalancePaymentMethodIconsSquareDark": ".payment_method_list_item_platform_balance_payment_method_icons_square_dark",
-    "PaymentMethodListItemPlatformBalancePaymentMethodIconsSquareLight": ".payment_method_list_item_platform_balance_payment_method_icons_square_light",
-    "PaymentMethodListItemPlatformBalancePaymentMethodPlatformBalance": ".payment_method_list_item_platform_balance_payment_method_platform_balance",
-    "PaymentMethodListItemPlatformBalancePaymentMethodPlatformBalanceAccount": ".payment_method_list_item_platform_balance_payment_method_platform_balance_account",
-    "PaymentMethodListItemPlatformBalancePaymentMethodPlatformBalanceAccountLogo": ".payment_method_list_item_platform_balance_payment_method_platform_balance_account_logo",
-    "PaymentMethodListItemPlatformBalancePaymentMethodPlatformBalanceBalancesItem": ".payment_method_list_item_platform_balance_payment_method_platform_balance_balances_item",
     "PaymentMethodListItemSepaDebitPaymentMethod": ".payment_method_list_item_sepa_debit_payment_method",
     "PaymentMethodListItemSepaDebitPaymentMethodIcons": ".payment_method_list_item_sepa_debit_payment_method_icons",
     "PaymentMethodListItemSepaDebitPaymentMethodIconsCard": ".payment_method_list_item_sepa_debit_payment_method_icons_card",
@@ -2256,21 +2014,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaymentMethodListItem_CardPaymentMethod": ".payment_method_list_item",
     "PaymentMethodListItem_CashappPaymentMethod": ".payment_method_list_item",
     "PaymentMethodListItem_IdealPaymentMethod": ".payment_method_list_item",
-    "PaymentMethodListItem_PlatformBalancePaymentMethod": ".payment_method_list_item",
     "PaymentMethodListItem_SepaDebitPaymentMethod": ".payment_method_list_item",
     "PaymentMethodListItem_UsBankAccountPaymentMethod": ".payment_method_list_item",
-    "PaymentMethodPlatformBalancePaymentMethod": ".payment_method_platform_balance_payment_method",
-    "PaymentMethodPlatformBalancePaymentMethodIcons": ".payment_method_platform_balance_payment_method_icons",
-    "PaymentMethodPlatformBalancePaymentMethodIconsCard": ".payment_method_platform_balance_payment_method_icons_card",
-    "PaymentMethodPlatformBalancePaymentMethodIconsCardDark": ".payment_method_platform_balance_payment_method_icons_card_dark",
-    "PaymentMethodPlatformBalancePaymentMethodIconsCardLight": ".payment_method_platform_balance_payment_method_icons_card_light",
-    "PaymentMethodPlatformBalancePaymentMethodIconsSquare": ".payment_method_platform_balance_payment_method_icons_square",
-    "PaymentMethodPlatformBalancePaymentMethodIconsSquareDark": ".payment_method_platform_balance_payment_method_icons_square_dark",
-    "PaymentMethodPlatformBalancePaymentMethodIconsSquareLight": ".payment_method_platform_balance_payment_method_icons_square_light",
-    "PaymentMethodPlatformBalancePaymentMethodPlatformBalance": ".payment_method_platform_balance_payment_method_platform_balance",
-    "PaymentMethodPlatformBalancePaymentMethodPlatformBalanceAccount": ".payment_method_platform_balance_payment_method_platform_balance_account",
-    "PaymentMethodPlatformBalancePaymentMethodPlatformBalanceAccountLogo": ".payment_method_platform_balance_payment_method_platform_balance_account_logo",
-    "PaymentMethodPlatformBalancePaymentMethodPlatformBalanceBalancesItem": ".payment_method_platform_balance_payment_method_platform_balance_balances_item",
     "PaymentMethodSepaDebitPaymentMethod": ".payment_method_sepa_debit_payment_method",
     "PaymentMethodSepaDebitPaymentMethodIcons": ".payment_method_sepa_debit_payment_method_icons",
     "PaymentMethodSepaDebitPaymentMethodIconsCard": ".payment_method_sepa_debit_payment_method_icons_card",
@@ -2294,7 +2039,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaymentMethod_CardPaymentMethod": ".payment_method",
     "PaymentMethod_CashappPaymentMethod": ".payment_method",
     "PaymentMethod_IdealPaymentMethod": ".payment_method",
-    "PaymentMethod_PlatformBalancePaymentMethod": ".payment_method",
     "PaymentMethod_SepaDebitPaymentMethod": ".payment_method",
     "PaymentMethod_UsBankAccountPaymentMethod": ".payment_method",
     "PaymentNextAction": ".payment_next_action",
@@ -2349,7 +2093,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PayoutAccountCalculatedStatuses": ".payout_account_calculated_statuses",
     "PayoutAccountLatestVerification": ".payout_account_latest_verification",
     "PayoutDestinationCategory": ".payout_destination_category",
-    "PayoutErrorCodes": ".payout_error_codes",
     "PayoutMethod": ".payout_method",
     "PayoutMethodCompany": ".payout_method_company",
     "PayoutMethodDestination": ".payout_method_destination",
@@ -2576,13 +2319,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "WebhookTestableEventsItem": ".webhook_testable_events_item",
     "WhoCanPostTypes": ".who_can_post_types",
     "WhoCanReactTypes": ".who_can_react_types",
-    "Withdrawal": ".withdrawal",
-    "WithdrawalFeeTypes": ".withdrawal_fee_types",
-    "WithdrawalLedgerAccount": ".withdrawal_ledger_account",
-    "WithdrawalListItem": ".withdrawal_list_item",
-    "WithdrawalPayoutToken": ".withdrawal_payout_token",
-    "WithdrawalSpeeds": ".withdrawal_speeds",
-    "WithdrawalStatus": ".withdrawal_status",
     "WorkforceBounty": ".workforce_bounty",
     "WorkforceBountyListItem": ".workforce_bounty_list_item",
 }
@@ -2904,83 +2640,7 @@ __all__ = [
     "CheckoutConfigurationThreeDsLevel",
     "CheckoutFonts",
     "CheckoutModes",
-    "CheckoutSession",
-    "CheckoutSessionAuthenticateAction",
-    "CheckoutSessionAwaitClaimAction",
-    "CheckoutSessionAwaitClaimActionState",
-    "CheckoutSessionBranding",
-    "CheckoutSessionBrandingBorderStyle",
-    "CheckoutSessionBrandingFontFamily",
-    "CheckoutSessionBreakdown",
-    "CheckoutSessionBreakdownAdjustment",
-    "CheckoutSessionBreakdownAdjustmentApplied",
-    "CheckoutSessionBreakdownAdjustmentKind",
-    "CheckoutSessionBreakdownAdjustmentStatus",
-    "CheckoutSessionBreakdownCurrency",
-    "CheckoutSessionBreakdownDisplay",
-    "CheckoutSessionBreakdownDisplayHeadline",
-    "CheckoutSessionBreakdownDisplayHeadlineKind",
-    "CheckoutSessionBreakdownDisplayRow",
-    "CheckoutSessionBreakdownDisplayRowDetail",
-    "CheckoutSessionBreakdownDisplayRowDetailApplied",
-    "CheckoutSessionBreakdownDisplayRowKind",
-    "CheckoutSessionBreakdownDisplayRowStatus",
-    "CheckoutSessionBreakdownDisplaySections",
-    "CheckoutSessionBreakdownLine",
-    "CheckoutSessionBreakdownLineKind",
-    "CheckoutSessionBreakdownUpcoming",
-    "CheckoutSessionBreakdownUpcomingInstallments",
-    "CheckoutSessionBreakdownUpcomingOneTime",
-    "CheckoutSessionBreakdownUpcomingRecurring",
-    "CheckoutSessionBreakdownUpcoming_Installments",
-    "CheckoutSessionBreakdownUpcoming_OneTime",
-    "CheckoutSessionBreakdownUpcoming_Recurring",
-    "CheckoutSessionBuyerIdentity",
-    "CheckoutSessionBuyerIdentityMethod",
-    "CheckoutSessionCompleteAction",
-    "CheckoutSessionCompleteActionKind",
-    "CheckoutSessionConfirmError",
-    "CheckoutSessionConfirmErrorCode",
-    "CheckoutSessionCtaLabel",
-    "CheckoutSessionCustomField",
-    "CheckoutSessionCustomFieldFieldType",
-    "CheckoutSessionCustomFieldResponse",
-    "CheckoutSessionEntry",
-    "CheckoutSessionEntryStatus",
-    "CheckoutSessionItem",
-    "CheckoutSessionMode",
-    "CheckoutSessionNextAction",
-    "CheckoutSessionNextAction_Authenticate",
-    "CheckoutSessionNextAction_AwaitClaim",
-    "CheckoutSessionNextAction_Complete",
-    "CheckoutSessionNextAction_Redirect",
-    "CheckoutSessionNextAction_UpgradeAuthentication",
-    "CheckoutSessionNextAction_VerifyPhone",
-    "CheckoutSessionNextAction_WaitForPayment",
-    "CheckoutSessionPayment",
     "CheckoutSessionPaymentMethodConfiguration",
-    "CheckoutSessionPaymentStatus",
-    "CheckoutSessionPromo",
-    "CheckoutSessionPromoCurrency",
-    "CheckoutSessionPromoDuration",
-    "CheckoutSessionPromoPromoType",
-    "CheckoutSessionQuote",
-    "CheckoutSessionRedirectAction",
-    "CheckoutSessionRequirement",
-    "CheckoutSessionRequirementType",
-    "CheckoutSessionSeller",
-    "CheckoutSessionSellerTerms",
-    "CheckoutSessionShippingAddress",
-    "CheckoutSessionStatus",
-    "CheckoutSessionTaxBehavior",
-    "CheckoutSessionTaxId",
-    "CheckoutSessionTaxIdType",
-    "CheckoutSessionThreeDsLevel",
-    "CheckoutSessionTransfer",
-    "CheckoutSessionUpgradeAuthenticationAction",
-    "CheckoutSessionUpgradeAuthenticationActionSignInIntent",
-    "CheckoutSessionVerifyPhoneAction",
-    "CheckoutSessionWaitForPaymentAction",
     "CheckoutShapes",
     "Company",
     "CompanyFeaturedAffiliateProduct",
@@ -3222,6 +2882,9 @@ __all__ = [
     "LedgerActivityObject",
     "LedgerActivityPayment",
     "LedgerActivityPaymentObject",
+    "LedgerActivityPaymentPlan",
+    "LedgerActivityPaymentProduct",
+    "LedgerActivityPaymentUser",
     "LedgerActivityResource",
     "LedgerActivityResourceAccountReference",
     "LedgerActivityResourceAccountReferenceObject",
@@ -3441,18 +3104,6 @@ __all__ = [
     "PaymentMethodListItemIdealPaymentMethodIconsSquareDark",
     "PaymentMethodListItemIdealPaymentMethodIconsSquareLight",
     "PaymentMethodListItemIdealPaymentMethodIdeal",
-    "PaymentMethodListItemPlatformBalancePaymentMethod",
-    "PaymentMethodListItemPlatformBalancePaymentMethodIcons",
-    "PaymentMethodListItemPlatformBalancePaymentMethodIconsCard",
-    "PaymentMethodListItemPlatformBalancePaymentMethodIconsCardDark",
-    "PaymentMethodListItemPlatformBalancePaymentMethodIconsCardLight",
-    "PaymentMethodListItemPlatformBalancePaymentMethodIconsSquare",
-    "PaymentMethodListItemPlatformBalancePaymentMethodIconsSquareDark",
-    "PaymentMethodListItemPlatformBalancePaymentMethodIconsSquareLight",
-    "PaymentMethodListItemPlatformBalancePaymentMethodPlatformBalance",
-    "PaymentMethodListItemPlatformBalancePaymentMethodPlatformBalanceAccount",
-    "PaymentMethodListItemPlatformBalancePaymentMethodPlatformBalanceAccountLogo",
-    "PaymentMethodListItemPlatformBalancePaymentMethodPlatformBalanceBalancesItem",
     "PaymentMethodListItemSepaDebitPaymentMethod",
     "PaymentMethodListItemSepaDebitPaymentMethodIcons",
     "PaymentMethodListItemSepaDebitPaymentMethodIconsCard",
@@ -3475,21 +3126,8 @@ __all__ = [
     "PaymentMethodListItem_CardPaymentMethod",
     "PaymentMethodListItem_CashappPaymentMethod",
     "PaymentMethodListItem_IdealPaymentMethod",
-    "PaymentMethodListItem_PlatformBalancePaymentMethod",
     "PaymentMethodListItem_SepaDebitPaymentMethod",
     "PaymentMethodListItem_UsBankAccountPaymentMethod",
-    "PaymentMethodPlatformBalancePaymentMethod",
-    "PaymentMethodPlatformBalancePaymentMethodIcons",
-    "PaymentMethodPlatformBalancePaymentMethodIconsCard",
-    "PaymentMethodPlatformBalancePaymentMethodIconsCardDark",
-    "PaymentMethodPlatformBalancePaymentMethodIconsCardLight",
-    "PaymentMethodPlatformBalancePaymentMethodIconsSquare",
-    "PaymentMethodPlatformBalancePaymentMethodIconsSquareDark",
-    "PaymentMethodPlatformBalancePaymentMethodIconsSquareLight",
-    "PaymentMethodPlatformBalancePaymentMethodPlatformBalance",
-    "PaymentMethodPlatformBalancePaymentMethodPlatformBalanceAccount",
-    "PaymentMethodPlatformBalancePaymentMethodPlatformBalanceAccountLogo",
-    "PaymentMethodPlatformBalancePaymentMethodPlatformBalanceBalancesItem",
     "PaymentMethodSepaDebitPaymentMethod",
     "PaymentMethodSepaDebitPaymentMethodIcons",
     "PaymentMethodSepaDebitPaymentMethodIconsCard",
@@ -3513,7 +3151,6 @@ __all__ = [
     "PaymentMethod_CardPaymentMethod",
     "PaymentMethod_CashappPaymentMethod",
     "PaymentMethod_IdealPaymentMethod",
-    "PaymentMethod_PlatformBalancePaymentMethod",
     "PaymentMethod_SepaDebitPaymentMethod",
     "PaymentMethod_UsBankAccountPaymentMethod",
     "PaymentNextAction",
@@ -3568,7 +3205,6 @@ __all__ = [
     "PayoutAccountCalculatedStatuses",
     "PayoutAccountLatestVerification",
     "PayoutDestinationCategory",
-    "PayoutErrorCodes",
     "PayoutMethod",
     "PayoutMethodCompany",
     "PayoutMethodDestination",
@@ -3795,13 +3431,6 @@ __all__ = [
     "WebhookTestableEventsItem",
     "WhoCanPostTypes",
     "WhoCanReactTypes",
-    "Withdrawal",
-    "WithdrawalFeeTypes",
-    "WithdrawalLedgerAccount",
-    "WithdrawalListItem",
-    "WithdrawalPayoutToken",
-    "WithdrawalSpeeds",
-    "WithdrawalStatus",
     "WorkforceBounty",
     "WorkforceBountyListItem",
 ]

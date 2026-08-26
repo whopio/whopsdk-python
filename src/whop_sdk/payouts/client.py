@@ -9,6 +9,7 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
 from .raw_client import AsyncRawPayoutsClient, RawPayoutsClient
+from .types.cancel_payouts_response import CancelPayoutsResponse
 from .types.create_payouts_request_body import CreatePayoutsRequestBody
 from .types.create_payouts_response import CreatePayoutsResponse
 from .types.list_payouts_request_source import ListPayoutsRequestSource
@@ -106,14 +107,14 @@ class PayoutsClient:
         Returns
         -------
         SyncPager[ListPayoutsResponseDataItem, ListPayoutsResponse]
-            payouts filtered by source, payout method, and created window
+            payouts listed
 
         Examples
         --------
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21-1",
+            "2026-08-25-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -163,7 +164,7 @@ class PayoutsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21-1",
+            "2026-08-25-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -202,14 +203,14 @@ class PayoutsClient:
         Returns
         -------
         RetrievePayoutsResponse
-            payout found for a user
+            payout found
 
         Examples
         --------
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-21-1",
+            "2026-08-25-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -220,6 +221,52 @@ class PayoutsClient:
         _response = self._raw_client.retrieve(
             id, account_id=account_id, user_id=user_id, request_options=request_options
         )
+        return _response.data
+
+    def cancel(
+        self,
+        id: str,
+        *,
+        account_id: typing.Optional[str] = None,
+        user_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> CancelPayoutsResponse:
+        """
+        Cancels a payout that is still in review and returns the funds, fees included, to the balance. A payout can be canceled while its status is `in_review`. A `requested` payout is still being prepared (its funds may be converting) and answers 409 until it reaches review; from `processing` on, the money is on its way and the answer is 409 with error type `not_cancelable`. Canceling a payout that is already canceled succeeds and returns it unchanged.
+
+        Parameters
+        ----------
+        id : str
+            Payout ID, prefixed `wdrl_`, or the `cofr_` payout request ID returned by `POST /payouts` — both cancel the same payout.
+
+        account_id : typing.Optional[str]
+            Owning account ID, prefixed `biz_`. Provide exactly one of `account_id` or `user_id`.
+
+        user_id : typing.Optional[str]
+            Owning user ID, prefixed `user_`. Provide exactly one of `account_id` or `user_id`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CancelPayoutsResponse
+            payout canceled and funds returned
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-08-25-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.payouts.cancel(
+            id="id",
+        )
+        """
+        _response = self._raw_client.cancel(id, account_id=account_id, user_id=user_id, request_options=request_options)
         return _response.data
 
     @property
@@ -321,7 +368,7 @@ class AsyncPayoutsClient:
         Returns
         -------
         AsyncPager[ListPayoutsResponseDataItem, ListPayoutsResponse]
-            payouts filtered by source, payout method, and created window
+            payouts listed
 
         Examples
         --------
@@ -330,7 +377,7 @@ class AsyncPayoutsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21-1",
+            "2026-08-25-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -389,7 +436,7 @@ class AsyncPayoutsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21-1",
+            "2026-08-25-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -434,7 +481,7 @@ class AsyncPayoutsClient:
         Returns
         -------
         RetrievePayoutsResponse
-            payout found for a user
+            payout found
 
         Examples
         --------
@@ -443,7 +490,7 @@ class AsyncPayoutsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-21-1",
+            "2026-08-25-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -458,6 +505,62 @@ class AsyncPayoutsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.retrieve(
+            id, account_id=account_id, user_id=user_id, request_options=request_options
+        )
+        return _response.data
+
+    async def cancel(
+        self,
+        id: str,
+        *,
+        account_id: typing.Optional[str] = None,
+        user_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> CancelPayoutsResponse:
+        """
+        Cancels a payout that is still in review and returns the funds, fees included, to the balance. A payout can be canceled while its status is `in_review`. A `requested` payout is still being prepared (its funds may be converting) and answers 409 until it reaches review; from `processing` on, the money is on its way and the answer is 409 with error type `not_cancelable`. Canceling a payout that is already canceled succeeds and returns it unchanged.
+
+        Parameters
+        ----------
+        id : str
+            Payout ID, prefixed `wdrl_`, or the `cofr_` payout request ID returned by `POST /payouts` — both cancel the same payout.
+
+        account_id : typing.Optional[str]
+            Owning account ID, prefixed `biz_`. Provide exactly one of `account_id` or `user_id`.
+
+        user_id : typing.Optional[str]
+            Owning user ID, prefixed `user_`. Provide exactly one of `account_id` or `user_id`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CancelPayoutsResponse
+            payout canceled and funds returned
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-08-25-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.payouts.cancel(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.cancel(
             id, account_id=account_id, user_id=user_id, request_options=request_options
         )
         return _response.data

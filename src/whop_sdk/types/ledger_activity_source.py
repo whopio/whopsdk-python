@@ -16,7 +16,7 @@ class LedgerActivitySource(UniversalBaseModel):
 
     amount_float: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Withdrawal amount as a decimal number in the destination currency (withdrawal sources only; requires payout:withdrawal:read).
+    Payout amount as a decimal number in the destination currency (payout sources only; requires payout:withdrawal:read).
     """
 
     card_brand: typing.Optional[str] = pydantic.Field(default=None)
@@ -36,12 +36,12 @@ class LedgerActivitySource(UniversalBaseModel):
 
     created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
-    Withdrawal creation time as an ISO 8601 timestamp (withdrawal sources only; requires payout:withdrawal:read).
+    Payout creation time as an ISO 8601 timestamp (payout sources only; requires payout:withdrawal:read).
     """
 
     estimated_arrival: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
-    Estimated arrival as an ISO 8601 timestamp (withdrawal sources only; requires payout:withdrawal:read).
+    Estimated arrival as an ISO 8601 timestamp (payout sources only; requires payout:withdrawal:read).
     """
 
     from_amount: typing.Optional[str] = pydantic.Field(default=None)
@@ -58,7 +58,7 @@ class LedgerActivitySource(UniversalBaseModel):
     object: str
     payer_name: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Name of the entity processing the payout (withdrawal sources only; requires payout:withdrawal:read).
+    Name of the entity processing the payout (payout sources only; requires payout:withdrawal:read).
     """
 
     payment_amount: typing.Optional[Money] = pydantic.Field(default=None)
@@ -78,17 +78,22 @@ class LedgerActivitySource(UniversalBaseModel):
 
     payout_destination: typing.Optional[LedgerActivitySourcePayoutDestination] = pydantic.Field(default=None)
     """
-    Payout destination display info (withdrawal sources only).
+    Payout destination display info (payout sources only).
     """
 
     payout_token_nickname: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Saved payout destination nickname (withdrawal sources only).
+    Saved payout destination nickname (payout sources only).
     """
 
     reason: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Why the activity happened. On transfer sources this is the transfer reason, for example pool_top_up or bounty_return. On withdrawal sources it explains why the withdrawal was canceled, denied, or failed (requires payout:withdrawal:read); null while the withdrawal is progressing normally.
+    Why the activity happened. On transfer sources this is the transfer reason, for example pool_top_up or bounty_return. On payout sources it explains why the payout was canceled, denied, or failed (requires payout:withdrawal:read); null while the payout is progressing normally.
+    """
+
+    risk_review_hold: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether this payout is currently held for manual risk review (payout sources only; requires payout:withdrawal:read).
     """
 
     sender_address: typing.Optional[str] = pydantic.Field(default=None)
@@ -98,7 +103,7 @@ class LedgerActivitySource(UniversalBaseModel):
 
     status: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Lifecycle status. On withdrawal sources this is the withdrawal status (requires payout:withdrawal:read); on airdrop_link sources it is the claim-link status (ungated); on payment and top-up sources it is the friendly payment status such as succeeded/pending/failed (ungated).
+    Lifecycle status. On payout sources this is the payout status (requires payout:withdrawal:read); on airdrop_link sources it is the claim-link status (ungated); on payment and top-up sources it is the friendly payment status such as succeeded/pending/failed (ungated).
     """
 
     to_amount: typing.Optional[str] = pydantic.Field(default=None)

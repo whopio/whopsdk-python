@@ -28,6 +28,11 @@ class PaymentBankTransfer(UniversalBaseModel):
     The kind of account receiving the transfer, such as a checking account, in the local system's own vocabulary.
     """
 
+    bank_address: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The receiving bank's address.
+    """
+
     bank_branch: typing.Optional[str] = pydantic.Field(default=None)
     """
     The receiving branch, where the local system routes by branch.
@@ -76,6 +81,11 @@ class PaymentBankTransfer(UniversalBaseModel):
     reference: typing.Optional[str] = pydantic.Field(default=None)
     """
     The reference the buyer must attach to the transfer so it can be matched to this payment.
+    """
+
+    routing_number: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The receiving bank's routing number for US transfers.
     """
 
     secondary_account_number: typing.Optional[str] = pydantic.Field(default=None)

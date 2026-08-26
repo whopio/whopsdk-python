@@ -23,7 +23,7 @@ class PostPayoutMethodCreatedPayloadDataFeeStructure(UniversalBaseModel):
 
     percentage: float = pydantic.Field()
     """
-    Percentage of the withdrawal amount charged as a fee.
+    Percentage of the payout amount charged as a fee.
     """
 
     if IS_PYDANTIC_V2:

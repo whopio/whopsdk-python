@@ -96,7 +96,7 @@ class ListMethodsResponseDataItem(UniversalBaseModel):
 
     quote: typing.Optional[ListMethodsResponseDataItemQuote] = pydantic.Field(default=None)
     """
-    Fee and delivery estimate for withdrawing the requested amount through this method. Null unless an amount was provided, or when the estimate is unavailable.
+    Fee and delivery estimate for paying out the requested amount through this method. Null unless an amount was provided, or when the estimate is unavailable.
     """
 
     status: ListMethodsResponseDataItemStatus = pydantic.Field()

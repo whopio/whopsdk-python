@@ -49,7 +49,7 @@ class RawMethodsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ListMethodsResponseDataItem, ListMethodsResponse]:
         """
-        Lists the bank accounts, wallets, and crypto addresses an account or user can withdraw to, newest first.
+        Lists the bank accounts, wallets, and crypto addresses an account or user can pay out to, newest first.
 
         Parameters
         ----------
@@ -63,7 +63,7 @@ class RawMethodsClient:
             Optional status filter. `created` means saved but unused, `active` means a payout through it succeeded, `broken` means the last payout failed and the method needs fixing.
 
         amount : typing.Optional[float]
-            Optional withdrawal amount in whole currency units, for example `250.00`. When provided, each method includes a quote with the estimated fee, amount received, and delivery date for that amount.
+            Optional payout amount in whole currency units, for example `250.00`. When provided, each method includes a quote with the estimated fee, amount received, and delivery date for that amount.
 
         currency : typing.Optional[str]
             Currency code of the amount, for example `usd`. Only meaningful with amount or include_limits.
@@ -89,7 +89,7 @@ class RawMethodsClient:
         Returns
         -------
         SyncPager[ListMethodsResponseDataItem, ListMethodsResponse]
-            internal stablecoin destinations omitted
+            payout methods listed
         """
         _response = self._client_wrapper.httpx_client.request(
             "payouts/methods",
@@ -203,7 +203,7 @@ class RawMethodsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateMethodsResponse]:
         """
-        Saves a new place an account or user can withdraw to. Sensitive details are vaulted in transit and never stored raw.
+        Saves a new place an account or user can pay out to. Sensitive details are vaulted in transit and never stored raw.
 
         Parameters
         ----------
@@ -234,7 +234,7 @@ class RawMethodsClient:
         Returns
         -------
         HttpResponse[CreateMethodsResponse]
-            a pre-tokenized Basis Theory value passes through unvaulted
+            payout method created
         """
         _response = self._client_wrapper.httpx_client.request(
             "payouts/methods",
@@ -522,7 +522,7 @@ class AsyncRawMethodsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ListMethodsResponseDataItem, ListMethodsResponse]:
         """
-        Lists the bank accounts, wallets, and crypto addresses an account or user can withdraw to, newest first.
+        Lists the bank accounts, wallets, and crypto addresses an account or user can pay out to, newest first.
 
         Parameters
         ----------
@@ -536,7 +536,7 @@ class AsyncRawMethodsClient:
             Optional status filter. `created` means saved but unused, `active` means a payout through it succeeded, `broken` means the last payout failed and the method needs fixing.
 
         amount : typing.Optional[float]
-            Optional withdrawal amount in whole currency units, for example `250.00`. When provided, each method includes a quote with the estimated fee, amount received, and delivery date for that amount.
+            Optional payout amount in whole currency units, for example `250.00`. When provided, each method includes a quote with the estimated fee, amount received, and delivery date for that amount.
 
         currency : typing.Optional[str]
             Currency code of the amount, for example `usd`. Only meaningful with amount or include_limits.
@@ -562,7 +562,7 @@ class AsyncRawMethodsClient:
         Returns
         -------
         AsyncPager[ListMethodsResponseDataItem, ListMethodsResponse]
-            internal stablecoin destinations omitted
+            payout methods listed
         """
         _response = await self._client_wrapper.httpx_client.request(
             "payouts/methods",
@@ -679,7 +679,7 @@ class AsyncRawMethodsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateMethodsResponse]:
         """
-        Saves a new place an account or user can withdraw to. Sensitive details are vaulted in transit and never stored raw.
+        Saves a new place an account or user can pay out to. Sensitive details are vaulted in transit and never stored raw.
 
         Parameters
         ----------
@@ -710,7 +710,7 @@ class AsyncRawMethodsClient:
         Returns
         -------
         AsyncHttpResponse[CreateMethodsResponse]
-            a pre-tokenized Basis Theory value passes through unvaulted
+            payout method created
         """
         _response = await self._client_wrapper.httpx_client.request(
             "payouts/methods",

@@ -27,7 +27,7 @@ class LedgerActivity(UniversalBaseModel):
 
     available_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
-    ISO 8601 timestamp these funds became (or are scheduled to become) withdrawable: the posted time for already-settled funds, or 00:00:00 UTC on the scheduled release date for pending funds. Present only on inflows entering the balance (payments, top-ups, incoming transfers/affiliate); null on withdrawals, refunds, disputes and on-chain rows. The available_after/before filters window on its UTC settlement date.
+    ISO 8601 timestamp these funds became (or are scheduled to become) withdrawable: the posted time for already-settled funds, or 00:00:00 UTC on the scheduled release date for pending funds. Present only on inflows entering the balance (payments, top-ups, incoming transfers/affiliate); null on payouts, refunds, disputes and on-chain rows. The available_after/before filters window on its UTC settlement date.
     """
 
     created_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
@@ -61,9 +61,34 @@ class LedgerActivity(UniversalBaseModel):
     Payment related to this ledger activity. Included when rich resource hydration is enabled and the movement is tied to a payment.
     """
 
+    payment_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Payment ID for any payment-related activity, including refunds and disputes.
+    """
+
+    plan_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    ID of the plan associated with the payment, when applicable.
+    """
+
+    plan_name: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Name of the plan associated with the payment, when applicable.
+    """
+
     posted_at: dt.datetime = pydantic.Field()
     """
     When the activity posted to the ledger.
+    """
+
+    product_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    ID of the product associated with the payment, when applicable.
+    """
+
+    product_name: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Name of the product associated with the payment, when applicable.
     """
 
     resource: typing.Optional[LedgerActivityResource] = pydantic.Field(default=None)
@@ -74,6 +99,21 @@ class LedgerActivity(UniversalBaseModel):
     source: typing.Optional[LedgerActivitySource] = pydantic.Field(default=None)
     """
     Source of this ledger activity.
+    """
+
+    user_email: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Email of the customer associated with the payment. Requires member:email:read.
+    """
+
+    user_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    ID of the customer associated with the payment.
+    """
+
+    user_name: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Display name of the customer associated with the payment.
     """
 
     if IS_PYDANTIC_V2:

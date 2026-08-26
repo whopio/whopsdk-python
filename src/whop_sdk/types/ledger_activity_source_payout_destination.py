@@ -8,7 +8,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 class LedgerActivitySourcePayoutDestination(UniversalBaseModel):
     """
-    Payout destination display info (withdrawal sources only).
+    Payout destination display info (payout sources only).
     """
 
     icon_url: typing.Optional[str] = None

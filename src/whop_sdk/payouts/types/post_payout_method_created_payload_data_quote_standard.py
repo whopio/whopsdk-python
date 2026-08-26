@@ -13,12 +13,12 @@ class PostPayoutMethodCreatedPayloadDataQuoteStandard(UniversalBaseModel):
 
     fee: float = pydantic.Field()
     """
-    Total fee charged, in the withdrawal currency.
+    Total fee charged, in the payout currency.
     """
 
     total_received: float = pydantic.Field()
     """
-    Amount delivered after fees, in the withdrawal currency.
+    Amount delivered after fees, in the payout currency.
     """
 
     if IS_PYDANTIC_V2:

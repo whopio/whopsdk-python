@@ -30,7 +30,6 @@ if typing.TYPE_CHECKING:
     from .cards.client import AsyncCardsClient, CardsClient
     from .chat_channels.client import AsyncChatChannelsClient, ChatChannelsClient
     from .checkout_configurations.client import AsyncCheckoutConfigurationsClient, CheckoutConfigurationsClient
-    from .checkout_sessions.client import AsyncCheckoutSessionsClient, CheckoutSessionsClient
     from .companies.client import AsyncCompaniesClient, CompaniesClient
     from .company_token_transactions.client import AsyncCompanyTokenTransactionsClient, CompanyTokenTransactionsClient
     from .course_chapters.client import AsyncCourseChaptersClient, CourseChaptersClient
@@ -91,7 +90,6 @@ if typing.TYPE_CHECKING:
     from .users.client import AsyncUsersClient, UsersClient
     from .verifications.client import AsyncVerificationsClient, VerificationsClient
     from .webhooks.client import AsyncWebhooksClient, WebhooksClient
-    from .withdrawals.client import AsyncWithdrawalsClient, WithdrawalsClient
 
 
 class Whop:
@@ -144,7 +142,7 @@ class Whop:
     from whop_sdk import Whop
 
     client = Whop(
-        "2026-08-21-1",
+        "2026-08-25-1",
         idempotency_key="YOUR_IDEMPOTENCY_KEY",
         token="YOUR_TOKEN",
     )
@@ -155,7 +153,7 @@ class Whop:
         *,
         base_url: typing.Optional[str] = None,
         environment: WhopEnvironment = WhopEnvironment.DEFAULT,
-        api_version_date: typing.Optional[str] = "2026-08-21-1",
+        api_version_date: typing.Optional[str] = "2026-08-25-1",
         idempotency_key: typing.Optional[str] = None,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         headers: typing.Optional[typing.Dict[str, str]] = None,
@@ -206,7 +204,6 @@ class Whop:
         self._cards: typing.Optional[CardsClient] = None
         self._chat_channels: typing.Optional[ChatChannelsClient] = None
         self._checkout_configurations: typing.Optional[CheckoutConfigurationsClient] = None
-        self._checkout_sessions: typing.Optional[CheckoutSessionsClient] = None
         self._companies: typing.Optional[CompaniesClient] = None
         self._company_token_transactions: typing.Optional[CompanyTokenTransactionsClient] = None
         self._course_chapters: typing.Optional[CourseChaptersClient] = None
@@ -267,7 +264,6 @@ class Whop:
         self._users: typing.Optional[UsersClient] = None
         self._verifications: typing.Optional[VerificationsClient] = None
         self._webhooks: typing.Optional[WebhooksClient] = None
-        self._withdrawals: typing.Optional[WithdrawalsClient] = None
 
     @property
     def access_tokens(self):
@@ -428,14 +424,6 @@ class Whop:
 
             self._checkout_configurations = CheckoutConfigurationsClient(client_wrapper=self._client_wrapper)
         return self._checkout_configurations
-
-    @property
-    def checkout_sessions(self):
-        if self._checkout_sessions is None:
-            from .checkout_sessions.client import CheckoutSessionsClient  # noqa: E402
-
-            self._checkout_sessions = CheckoutSessionsClient(client_wrapper=self._client_wrapper)
-        return self._checkout_sessions
 
     @property
     def companies(self):
@@ -917,14 +905,6 @@ class Whop:
             self._webhooks = WebhooksClient(client_wrapper=self._client_wrapper)
         return self._webhooks
 
-    @property
-    def withdrawals(self):
-        if self._withdrawals is None:
-            from .withdrawals.client import WithdrawalsClient  # noqa: E402
-
-            self._withdrawals = WithdrawalsClient(client_wrapper=self._client_wrapper)
-        return self._withdrawals
-
 
 def _make_default_async_client(
     timeout: typing.Optional[float],
@@ -997,7 +977,7 @@ class AsyncWhop:
     from whop_sdk import AsyncWhop
 
     client = AsyncWhop(
-        "2026-08-21-1",
+        "2026-08-25-1",
         idempotency_key="YOUR_IDEMPOTENCY_KEY",
         token="YOUR_TOKEN",
     )
@@ -1008,7 +988,7 @@ class AsyncWhop:
         *,
         base_url: typing.Optional[str] = None,
         environment: WhopEnvironment = WhopEnvironment.DEFAULT,
-        api_version_date: typing.Optional[str] = "2026-08-21-1",
+        api_version_date: typing.Optional[str] = "2026-08-25-1",
         idempotency_key: typing.Optional[str] = None,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         headers: typing.Optional[typing.Dict[str, str]] = None,
@@ -1059,7 +1039,6 @@ class AsyncWhop:
         self._cards: typing.Optional[AsyncCardsClient] = None
         self._chat_channels: typing.Optional[AsyncChatChannelsClient] = None
         self._checkout_configurations: typing.Optional[AsyncCheckoutConfigurationsClient] = None
-        self._checkout_sessions: typing.Optional[AsyncCheckoutSessionsClient] = None
         self._companies: typing.Optional[AsyncCompaniesClient] = None
         self._company_token_transactions: typing.Optional[AsyncCompanyTokenTransactionsClient] = None
         self._course_chapters: typing.Optional[AsyncCourseChaptersClient] = None
@@ -1120,7 +1099,6 @@ class AsyncWhop:
         self._users: typing.Optional[AsyncUsersClient] = None
         self._verifications: typing.Optional[AsyncVerificationsClient] = None
         self._webhooks: typing.Optional[AsyncWebhooksClient] = None
-        self._withdrawals: typing.Optional[AsyncWithdrawalsClient] = None
 
     @property
     def access_tokens(self):
@@ -1281,14 +1259,6 @@ class AsyncWhop:
 
             self._checkout_configurations = AsyncCheckoutConfigurationsClient(client_wrapper=self._client_wrapper)
         return self._checkout_configurations
-
-    @property
-    def checkout_sessions(self):
-        if self._checkout_sessions is None:
-            from .checkout_sessions.client import AsyncCheckoutSessionsClient  # noqa: E402
-
-            self._checkout_sessions = AsyncCheckoutSessionsClient(client_wrapper=self._client_wrapper)
-        return self._checkout_sessions
 
     @property
     def companies(self):
@@ -1769,14 +1739,6 @@ class AsyncWhop:
 
             self._webhooks = AsyncWebhooksClient(client_wrapper=self._client_wrapper)
         return self._webhooks
-
-    @property
-    def withdrawals(self):
-        if self._withdrawals is None:
-            from .withdrawals.client import AsyncWithdrawalsClient  # noqa: E402
-
-            self._withdrawals = AsyncWithdrawalsClient(client_wrapper=self._client_wrapper)
-        return self._withdrawals
 
 
 def _get_base_url(*, base_url: typing.Optional[str] = None, environment: WhopEnvironment) -> str:

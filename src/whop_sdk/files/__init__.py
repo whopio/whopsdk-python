@@ -6,10 +6,21 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .types import CompleteFilesRequestMultipartPartsItem, CreateFilesRequestVisibility
+    from .types import (
+        CompleteFilesRequestMultipartPartsItem,
+        CreateFilesRequestVisibility,
+        ListFilesRequestDirection,
+        ListFilesRequestOrder,
+        ListFilesResponse,
+        ListFilesResponsePageInfo,
+    )
 _dynamic_imports: typing.Dict[str, str] = {
     "CompleteFilesRequestMultipartPartsItem": ".types",
     "CreateFilesRequestVisibility": ".types",
+    "ListFilesRequestDirection": ".types",
+    "ListFilesRequestOrder": ".types",
+    "ListFilesResponse": ".types",
+    "ListFilesResponsePageInfo": ".types",
 }
 
 
@@ -34,4 +45,11 @@ def __dir__():
     return sorted(lazy_attrs)
 
 
-__all__ = ["CompleteFilesRequestMultipartPartsItem", "CreateFilesRequestVisibility"]
+__all__ = [
+    "CompleteFilesRequestMultipartPartsItem",
+    "CreateFilesRequestVisibility",
+    "ListFilesRequestDirection",
+    "ListFilesRequestOrder",
+    "ListFilesResponse",
+    "ListFilesResponsePageInfo",
+]

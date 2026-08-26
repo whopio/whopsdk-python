@@ -15,7 +15,7 @@ from .list_supported_methods_response_data_item_quotes_item_standard import (
 class ListSupportedMethodsResponseDataItemQuotesItem(UniversalBaseModel):
     amount: float = pydantic.Field()
     """
-    The withdrawal amount the quote is for.
+    The payout amount the quote is for.
     """
 
     currency: str = pydantic.Field()
@@ -30,7 +30,7 @@ class ListSupportedMethodsResponseDataItemQuotesItem(UniversalBaseModel):
 
     exchange_rate: float = pydantic.Field()
     """
-    Exchange rate from the withdrawal currency to the destination currency.
+    Exchange rate from the payout currency to the destination currency.
     """
 
     instant: typing.Optional[ListSupportedMethodsResponseDataItemQuotesItemInstant] = pydantic.Field(default=None)
@@ -40,12 +40,12 @@ class ListSupportedMethodsResponseDataItemQuotesItem(UniversalBaseModel):
 
     max_limit: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Maximum withdrawal amount, in the withdrawal currency.
+    Maximum payout amount, in the payout currency.
     """
 
     min_limit: float = pydantic.Field()
     """
-    Minimum withdrawal amount, in the withdrawal currency.
+    Minimum payout amount, in the payout currency.
     """
 
     standard: typing.Optional[ListSupportedMethodsResponseDataItemQuotesItemStandard] = pydantic.Field(default=None)

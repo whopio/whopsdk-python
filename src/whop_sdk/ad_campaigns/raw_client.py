@@ -35,6 +35,7 @@ from .types.list_ad_campaigns_response import ListAdCampaignsResponse
 from .types.retrieve_ad_campaigns_request_attribution_model import RetrieveAdCampaignsRequestAttributionModel
 from .types.update_ad_campaigns_request_bid_type import UpdateAdCampaignsRequestBidType
 from .types.update_ad_campaigns_request_budget_optimization import UpdateAdCampaignsRequestBudgetOptimization
+from .types.update_ad_campaigns_request_budget_type import UpdateAdCampaignsRequestBudgetType
 from .types.update_ad_campaigns_request_special_ad_categories_item import (
     UpdateAdCampaignsRequestSpecialAdCategoriesItem,
 )
@@ -484,6 +485,7 @@ class RawAdCampaignsClient:
         bid_type: typing.Optional[UpdateAdCampaignsRequestBidType] = OMIT,
         budget_amount: typing.Optional[float] = OMIT,
         budget_optimization: typing.Optional[UpdateAdCampaignsRequestBudgetOptimization] = OMIT,
+        budget_type: typing.Optional[UpdateAdCampaignsRequestBudgetType] = OMIT,
         ends_at: typing.Optional[str] = OMIT,
         special_ad_categories: typing.Optional[typing.Sequence[UpdateAdCampaignsRequestSpecialAdCategoriesItem]] = OMIT,
         starts_at: typing.Optional[str] = OMIT,
@@ -492,7 +494,7 @@ class RawAdCampaignsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[AdCampaign]:
         """
-        Updates an ad campaign's editable fields (title, budget, schedule, bid strategy, special ad categories, and, before launch, budget optimization), and launches a draft campaign by setting status to active. Objective, budget type and desired cost per result are fixed at creation and cannot be changed.
+        Updates an ad campaign's editable fields (title, budget, schedule, bid strategy, special ad categories, and, before launch, budget type and budget optimization), and launches a draft campaign by setting status to active. Objective and desired cost per result are fixed at creation and cannot be changed.
 
         Parameters
         ----------
@@ -503,10 +505,13 @@ class RawAdCampaignsClient:
             How delivery bids in the ad auction: `minimum_cost` gets the most results for the budget, `average_target` holds an average cost per result, `maximum_target` never bids above a cap. Switching to `minimum_cost` clears the cap amounts stored on the campaign's ad groups. Only for campaigns that own the budget.
 
         budget_amount : typing.Optional[float]
-            The campaign budget, in the account's currency. Interpreted as daily or lifetime per the campaign's existing budget type.
+            The campaign budget, in the account's currency. Interpreted as daily or lifetime per the campaign's budget type, including a budget_type sent in the same request.
 
         budget_optimization : typing.Optional[UpdateAdCampaignsRequestBudgetOptimization]
             Which level owns the budget: the whole campaign (`ad_campaign`) or each ad group individually (`ad_group`). Only changeable before the campaign is live on the ad network; switching to `ad_campaign` requires budget_amount in the same request, and switching to `ad_group` clears the campaign budget.
+
+        budget_type : typing.Optional[UpdateAdCampaignsRequestBudgetType]
+            Whether `budget_amount` is spent per day (`daily`) or over the campaign's full run (`lifetime`). Only changeable while the campaign is a draft; send budget_amount in the same request so the amount lands on the new type.
 
         ends_at : typing.Optional[str]
             When the campaign stops delivering, as an ISO 8601 timestamp. Only for campaigns that own the budget.
@@ -538,6 +543,7 @@ class RawAdCampaignsClient:
                 "bid_type": bid_type,
                 "budget_amount": budget_amount,
                 "budget_optimization": budget_optimization,
+                "budget_type": budget_type,
                 "ends_at": ends_at,
                 "special_ad_categories": special_ad_categories,
                 "starts_at": starts_at,
@@ -1276,6 +1282,7 @@ class AsyncRawAdCampaignsClient:
         bid_type: typing.Optional[UpdateAdCampaignsRequestBidType] = OMIT,
         budget_amount: typing.Optional[float] = OMIT,
         budget_optimization: typing.Optional[UpdateAdCampaignsRequestBudgetOptimization] = OMIT,
+        budget_type: typing.Optional[UpdateAdCampaignsRequestBudgetType] = OMIT,
         ends_at: typing.Optional[str] = OMIT,
         special_ad_categories: typing.Optional[typing.Sequence[UpdateAdCampaignsRequestSpecialAdCategoriesItem]] = OMIT,
         starts_at: typing.Optional[str] = OMIT,
@@ -1284,7 +1291,7 @@ class AsyncRawAdCampaignsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[AdCampaign]:
         """
-        Updates an ad campaign's editable fields (title, budget, schedule, bid strategy, special ad categories, and, before launch, budget optimization), and launches a draft campaign by setting status to active. Objective, budget type and desired cost per result are fixed at creation and cannot be changed.
+        Updates an ad campaign's editable fields (title, budget, schedule, bid strategy, special ad categories, and, before launch, budget type and budget optimization), and launches a draft campaign by setting status to active. Objective and desired cost per result are fixed at creation and cannot be changed.
 
         Parameters
         ----------
@@ -1295,10 +1302,13 @@ class AsyncRawAdCampaignsClient:
             How delivery bids in the ad auction: `minimum_cost` gets the most results for the budget, `average_target` holds an average cost per result, `maximum_target` never bids above a cap. Switching to `minimum_cost` clears the cap amounts stored on the campaign's ad groups. Only for campaigns that own the budget.
 
         budget_amount : typing.Optional[float]
-            The campaign budget, in the account's currency. Interpreted as daily or lifetime per the campaign's existing budget type.
+            The campaign budget, in the account's currency. Interpreted as daily or lifetime per the campaign's budget type, including a budget_type sent in the same request.
 
         budget_optimization : typing.Optional[UpdateAdCampaignsRequestBudgetOptimization]
             Which level owns the budget: the whole campaign (`ad_campaign`) or each ad group individually (`ad_group`). Only changeable before the campaign is live on the ad network; switching to `ad_campaign` requires budget_amount in the same request, and switching to `ad_group` clears the campaign budget.
+
+        budget_type : typing.Optional[UpdateAdCampaignsRequestBudgetType]
+            Whether `budget_amount` is spent per day (`daily`) or over the campaign's full run (`lifetime`). Only changeable while the campaign is a draft; send budget_amount in the same request so the amount lands on the new type.
 
         ends_at : typing.Optional[str]
             When the campaign stops delivering, as an ISO 8601 timestamp. Only for campaigns that own the budget.
@@ -1330,6 +1340,7 @@ class AsyncRawAdCampaignsClient:
                 "bid_type": bid_type,
                 "budget_amount": budget_amount,
                 "budget_optimization": budget_optimization,
+                "budget_type": budget_type,
                 "ends_at": ends_at,
                 "special_ad_categories": special_ad_categories,
                 "starts_at": starts_at,

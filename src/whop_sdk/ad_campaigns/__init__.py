@@ -27,6 +27,7 @@ if typing.TYPE_CHECKING:
         RetrieveAdCampaignsRequestAttributionModel,
         UpdateAdCampaignsRequestBidType,
         UpdateAdCampaignsRequestBudgetOptimization,
+        UpdateAdCampaignsRequestBudgetType,
         UpdateAdCampaignsRequestSpecialAdCategoriesItem,
         UpdateAdCampaignsRequestStatus,
     )
@@ -51,6 +52,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrieveAdCampaignsRequestAttributionModel": ".types",
     "UpdateAdCampaignsRequestBidType": ".types",
     "UpdateAdCampaignsRequestBudgetOptimization": ".types",
+    "UpdateAdCampaignsRequestBudgetType": ".types",
     "UpdateAdCampaignsRequestSpecialAdCategoriesItem": ".types",
     "UpdateAdCampaignsRequestStatus": ".types",
 }
@@ -98,6 +100,7 @@ __all__ = [
     "RetrieveAdCampaignsRequestAttributionModel",
     "UpdateAdCampaignsRequestBidType",
     "UpdateAdCampaignsRequestBudgetOptimization",
+    "UpdateAdCampaignsRequestBudgetType",
     "UpdateAdCampaignsRequestSpecialAdCategoriesItem",
     "UpdateAdCampaignsRequestStatus",
 ]

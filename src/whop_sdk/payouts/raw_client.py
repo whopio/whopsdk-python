@@ -20,6 +20,7 @@ from ..errors.forbidden_error import ForbiddenError
 from ..errors.not_found_error import NotFoundError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.v1error_response import V1ErrorResponse
+from .types.cancel_payouts_response import CancelPayoutsResponse
 from .types.create_payouts_request_body import CreatePayoutsRequestBody
 from .types.create_payouts_response import CreatePayoutsResponse
 from .types.list_payouts_request_source import ListPayoutsRequestSource
@@ -101,7 +102,7 @@ class RawPayoutsClient:
         Returns
         -------
         SyncPager[ListPayoutsResponseDataItem, ListPayoutsResponse]
-            payouts filtered by source, payout method, and created window
+            payouts listed
         """
         _response = self._client_wrapper.httpx_client.request(
             "payouts",
@@ -335,7 +336,7 @@ class RawPayoutsClient:
         Returns
         -------
         HttpResponse[RetrievePayoutsResponse]
-            payout found for a user
+            payout found
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payouts/{encode_path_param(id)}",
@@ -396,6 +397,108 @@ class RawPayoutsClient:
                         typing.Any,
                         parse_obj_as(
                             type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def cancel(
+        self,
+        id: str,
+        *,
+        account_id: typing.Optional[str] = None,
+        user_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[CancelPayoutsResponse]:
+        """
+        Cancels a payout that is still in review and returns the funds, fees included, to the balance. A payout can be canceled while its status is `in_review`. A `requested` payout is still being prepared (its funds may be converting) and answers 409 until it reaches review; from `processing` on, the money is on its way and the answer is 409 with error type `not_cancelable`. Canceling a payout that is already canceled succeeds and returns it unchanged.
+
+        Parameters
+        ----------
+        id : str
+            Payout ID, prefixed `wdrl_`, or the `cofr_` payout request ID returned by `POST /payouts` — both cancel the same payout.
+
+        account_id : typing.Optional[str]
+            Owning account ID, prefixed `biz_`. Provide exactly one of `account_id` or `user_id`.
+
+        user_id : typing.Optional[str]
+            Owning user ID, prefixed `user_`. Provide exactly one of `account_id` or `user_id`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[CancelPayoutsResponse]
+            payout canceled and funds returned
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"payouts/{encode_path_param(id)}/cancel",
+            method="POST",
+            params={
+                "account_id": account_id,
+                "user_id": user_id,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    CancelPayoutsResponse,
+                    parse_obj_as(
+                        type_=CancelPayoutsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        V1ErrorResponse,
+                        parse_obj_as(
+                            type_=V1ErrorResponse,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -478,7 +581,7 @@ class AsyncRawPayoutsClient:
         Returns
         -------
         AsyncPager[ListPayoutsResponseDataItem, ListPayoutsResponse]
-            payouts filtered by source, payout method, and created window
+            payouts listed
         """
         _response = await self._client_wrapper.httpx_client.request(
             "payouts",
@@ -715,7 +818,7 @@ class AsyncRawPayoutsClient:
         Returns
         -------
         AsyncHttpResponse[RetrievePayoutsResponse]
-            payout found for a user
+            payout found
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payouts/{encode_path_param(id)}",
@@ -776,6 +879,108 @@ class AsyncRawPayoutsClient:
                         typing.Any,
                         parse_obj_as(
                             type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def cancel(
+        self,
+        id: str,
+        *,
+        account_id: typing.Optional[str] = None,
+        user_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[CancelPayoutsResponse]:
+        """
+        Cancels a payout that is still in review and returns the funds, fees included, to the balance. A payout can be canceled while its status is `in_review`. A `requested` payout is still being prepared (its funds may be converting) and answers 409 until it reaches review; from `processing` on, the money is on its way and the answer is 409 with error type `not_cancelable`. Canceling a payout that is already canceled succeeds and returns it unchanged.
+
+        Parameters
+        ----------
+        id : str
+            Payout ID, prefixed `wdrl_`, or the `cofr_` payout request ID returned by `POST /payouts` — both cancel the same payout.
+
+        account_id : typing.Optional[str]
+            Owning account ID, prefixed `biz_`. Provide exactly one of `account_id` or `user_id`.
+
+        user_id : typing.Optional[str]
+            Owning user ID, prefixed `user_`. Provide exactly one of `account_id` or `user_id`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[CancelPayoutsResponse]
+            payout canceled and funds returned
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"payouts/{encode_path_param(id)}/cancel",
+            method="POST",
+            params={
+                "account_id": account_id,
+                "user_id": user_id,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    CancelPayoutsResponse,
+                    parse_obj_as(
+                        type_=CancelPayoutsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        V1ErrorResponse,
+                        parse_obj_as(
+                            type_=V1ErrorResponse,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
