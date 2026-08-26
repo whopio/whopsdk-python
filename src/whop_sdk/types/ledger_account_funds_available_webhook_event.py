@@ -171,7 +171,7 @@ class DataPayoutAccountDetails(BaseModel):
 
     status: Optional[PayoutAccountCalculatedStatuses] = None
     """
-    The granular calculated statuses reflecting payout account KYC and withdrawal
+    The granular calculated statuses reflecting payout account KYC and payout
     readiness.
     """
 

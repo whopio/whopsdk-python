@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import typing_extensions
 from typing import Union, Optional
 from datetime import datetime
 
@@ -51,6 +52,7 @@ class WithdrawalsResource(SyncAPIResource):
         """
         return WithdrawalsResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     def create(
         self,
         *,
@@ -132,6 +134,7 @@ class WithdrawalsResource(SyncAPIResource):
             cast_to=Withdrawal,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def retrieve(
         self,
         id: str,
@@ -170,6 +173,7 @@ class WithdrawalsResource(SyncAPIResource):
             cast_to=Withdrawal,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def list(
         self,
         *,
@@ -269,6 +273,7 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
         """
         return AsyncWithdrawalsResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     async def create(
         self,
         *,
@@ -350,6 +355,7 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
             cast_to=Withdrawal,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def retrieve(
         self,
         id: str,
@@ -388,6 +394,7 @@ class AsyncWithdrawalsResource(AsyncAPIResource):
             cast_to=Withdrawal,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def list(
         self,
         *,
@@ -469,14 +476,20 @@ class WithdrawalsResourceWithRawResponse:
     def __init__(self, withdrawals: WithdrawalsResource) -> None:
         self._withdrawals = withdrawals
 
-        self.create = to_raw_response_wrapper(
-            withdrawals.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                withdrawals.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.retrieve = to_raw_response_wrapper(
-            withdrawals.retrieve,
+        self.retrieve = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                withdrawals.retrieve,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.list = to_raw_response_wrapper(
-            withdrawals.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                withdrawals.list,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -484,14 +497,20 @@ class AsyncWithdrawalsResourceWithRawResponse:
     def __init__(self, withdrawals: AsyncWithdrawalsResource) -> None:
         self._withdrawals = withdrawals
 
-        self.create = async_to_raw_response_wrapper(
-            withdrawals.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                withdrawals.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.retrieve = async_to_raw_response_wrapper(
-            withdrawals.retrieve,
+        self.retrieve = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                withdrawals.retrieve,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.list = async_to_raw_response_wrapper(
-            withdrawals.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                withdrawals.list,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -499,14 +518,20 @@ class WithdrawalsResourceWithStreamingResponse:
     def __init__(self, withdrawals: WithdrawalsResource) -> None:
         self._withdrawals = withdrawals
 
-        self.create = to_streamed_response_wrapper(
-            withdrawals.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                withdrawals.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.retrieve = to_streamed_response_wrapper(
-            withdrawals.retrieve,
+        self.retrieve = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                withdrawals.retrieve,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.list = to_streamed_response_wrapper(
-            withdrawals.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                withdrawals.list,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -514,12 +539,18 @@ class AsyncWithdrawalsResourceWithStreamingResponse:
     def __init__(self, withdrawals: AsyncWithdrawalsResource) -> None:
         self._withdrawals = withdrawals
 
-        self.create = async_to_streamed_response_wrapper(
-            withdrawals.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                withdrawals.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.retrieve = async_to_streamed_response_wrapper(
-            withdrawals.retrieve,
+        self.retrieve = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                withdrawals.retrieve,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.list = async_to_streamed_response_wrapper(
-            withdrawals.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                withdrawals.list,  # pyright: ignore[reportDeprecated],
+            )
         )
