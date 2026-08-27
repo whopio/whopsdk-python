@@ -40,7 +40,7 @@ class AppCreateParams(TypedDict, total=False):
     route: Optional[str]
     """
     The unique subdomain route where the app's hosted web builds are served, such as
-    'myapp' for myapp.whop.app.
+    'myapp' for myapp.whop.site.
     """
 
 

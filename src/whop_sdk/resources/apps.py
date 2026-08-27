@@ -95,7 +95,7 @@ class AppsResource(SyncAPIResource):
               authorizing the app.
 
           route: The unique subdomain route where the app's hosted web builds are served, such as
-              'myapp' for myapp.whop.app.
+              'myapp' for myapp.whop.site.
 
           extra_headers: Send extra headers
 
@@ -233,7 +233,7 @@ class AppsResource(SyncAPIResource):
           required_scopes: The permission scopes the app will request from users when they install it.
 
           route: The unique subdomain route where the app's hosted web builds are served, such as
-              'myapp' for myapp.whop.app.
+              'myapp' for myapp.whop.site.
 
           secrets: Secrets to add or overwrite on the app, as an object of string values (e.g.
               {"MAIL_API_KEY": "..."}). Keys not included are left untouched. Pass null or an
@@ -452,7 +452,7 @@ class AsyncAppsResource(AsyncAPIResource):
               authorizing the app.
 
           route: The unique subdomain route where the app's hosted web builds are served, such as
-              'myapp' for myapp.whop.app.
+              'myapp' for myapp.whop.site.
 
           extra_headers: Send extra headers
 
@@ -590,7 +590,7 @@ class AsyncAppsResource(AsyncAPIResource):
           required_scopes: The permission scopes the app will request from users when they install it.
 
           route: The unique subdomain route where the app's hosted web builds are served, such as
-              'myapp' for myapp.whop.app.
+              'myapp' for myapp.whop.site.
 
           secrets: Secrets to add or overwrite on the app, as an object of string values (e.g.
               {"MAIL_API_KEY": "..."}). Keys not included are left untouched. Pass null or an
