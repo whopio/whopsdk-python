@@ -177,6 +177,8 @@ from whop_sdk.types import (
     VerificationSucceededWebhookEvent,
     IdentityProfileUpdatedWebhookEvent,
     PayoutAccountStatusUpdatedWebhookEvent,
+    PaymentAuthorizedWebhookEvent,
+    PaymentCanceledWebhookEvent,
     ResolutionCenterCaseCreatedWebhookEvent,
     ResolutionCenterCaseUpdatedWebhookEvent,
     ResolutionCenterCaseDecidedWebhookEvent,

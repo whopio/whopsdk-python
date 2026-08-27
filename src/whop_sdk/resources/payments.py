@@ -64,6 +64,7 @@ class PaymentsResource(SyncAPIResource):
         company_id: str,
         confirmation_token: str,
         plan: payment_create_params.CreatePaymentInputWithPlanAndConfirmationTokenPlan,
+        capture: Optional[bool] | Omit = omit,
         email: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -110,6 +111,9 @@ class PaymentsResource(SyncAPIResource):
               next.
 
           plan: Pass this object to create a new plan for this payment
+
+          capture: Whether to capture the card payment immediately. Pass false to place an
+              authorization hold that must be captured in full within five days.
 
           email: Overrides the buyer email carried on the confirmation token, resolving or
               creating the Whop user the payment belongs to. Ignored when the confirmation
@@ -147,6 +151,7 @@ class PaymentsResource(SyncAPIResource):
         company_id: str,
         member_id: str,
         plan: payment_create_params.CreatePaymentInputWithPlanAndMemberIDPlan,
+        capture: Optional[bool] | Omit = omit,
         email: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -190,6 +195,9 @@ class PaymentsResource(SyncAPIResource):
 
           plan: Pass this object to create a new plan for this payment
 
+          capture: Whether to capture the card payment immediately. Pass false to place an
+              authorization hold that must be captured in full within five days.
+
           email: Overrides the buyer email carried on the confirmation token, resolving or
               creating the Whop user the payment belongs to. Ignored when the confirmation
               token was created by a signed-in buyer, and unless confirmation_token is
@@ -226,6 +234,7 @@ class PaymentsResource(SyncAPIResource):
         company_id: str,
         confirmation_token: str,
         plan_id: str,
+        capture: Optional[bool] | Omit = omit,
         email: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -273,6 +282,9 @@ class PaymentsResource(SyncAPIResource):
 
           plan_id: An ID of an existing plan to use for the payment.
 
+          capture: Whether to capture the card payment immediately. Pass false to place an
+              authorization hold that must be captured in full within five days.
+
           email: Overrides the buyer email carried on the confirmation token, resolving or
               creating the Whop user the payment belongs to. Ignored when the confirmation
               token was created by a signed-in buyer, and unless confirmation_token is
@@ -309,6 +321,7 @@ class PaymentsResource(SyncAPIResource):
         company_id: str,
         member_id: str,
         plan_id: str,
+        capture: Optional[bool] | Omit = omit,
         email: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -351,6 +364,9 @@ class PaymentsResource(SyncAPIResource):
               confirmation_token is provided.
 
           plan_id: An ID of an existing plan to use for the payment.
+
+          capture: Whether to capture the card payment immediately. Pass false to place an
+              authorization hold that must be captured in full within five days.
 
           email: Overrides the buyer email carried on the confirmation token, resolving or
               creating the Whop user the payment belongs to. Ignored when the confirmation
@@ -395,6 +411,7 @@ class PaymentsResource(SyncAPIResource):
         plan: payment_create_params.CreatePaymentInputWithPlanAndConfirmationTokenPlan
         | payment_create_params.CreatePaymentInputWithPlanAndMemberIDPlan
         | Omit = omit,
+        capture: Optional[bool] | Omit = omit,
         email: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -416,6 +433,7 @@ class PaymentsResource(SyncAPIResource):
                     "company_id": company_id,
                     "confirmation_token": confirmation_token,
                     "plan": plan,
+                    "capture": capture,
                     "email": email,
                     "metadata": metadata,
                     "payment_method_id": payment_method_id,
@@ -854,6 +872,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         company_id: str,
         confirmation_token: str,
         plan: payment_create_params.CreatePaymentInputWithPlanAndConfirmationTokenPlan,
+        capture: Optional[bool] | Omit = omit,
         email: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -900,6 +919,9 @@ class AsyncPaymentsResource(AsyncAPIResource):
               next.
 
           plan: Pass this object to create a new plan for this payment
+
+          capture: Whether to capture the card payment immediately. Pass false to place an
+              authorization hold that must be captured in full within five days.
 
           email: Overrides the buyer email carried on the confirmation token, resolving or
               creating the Whop user the payment belongs to. Ignored when the confirmation
@@ -937,6 +959,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         company_id: str,
         member_id: str,
         plan: payment_create_params.CreatePaymentInputWithPlanAndMemberIDPlan,
+        capture: Optional[bool] | Omit = omit,
         email: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -980,6 +1003,9 @@ class AsyncPaymentsResource(AsyncAPIResource):
 
           plan: Pass this object to create a new plan for this payment
 
+          capture: Whether to capture the card payment immediately. Pass false to place an
+              authorization hold that must be captured in full within five days.
+
           email: Overrides the buyer email carried on the confirmation token, resolving or
               creating the Whop user the payment belongs to. Ignored when the confirmation
               token was created by a signed-in buyer, and unless confirmation_token is
@@ -1016,6 +1042,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         company_id: str,
         confirmation_token: str,
         plan_id: str,
+        capture: Optional[bool] | Omit = omit,
         email: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -1063,6 +1090,9 @@ class AsyncPaymentsResource(AsyncAPIResource):
 
           plan_id: An ID of an existing plan to use for the payment.
 
+          capture: Whether to capture the card payment immediately. Pass false to place an
+              authorization hold that must be captured in full within five days.
+
           email: Overrides the buyer email carried on the confirmation token, resolving or
               creating the Whop user the payment belongs to. Ignored when the confirmation
               token was created by a signed-in buyer, and unless confirmation_token is
@@ -1099,6 +1129,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         company_id: str,
         member_id: str,
         plan_id: str,
+        capture: Optional[bool] | Omit = omit,
         email: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -1141,6 +1172,9 @@ class AsyncPaymentsResource(AsyncAPIResource):
               confirmation_token is provided.
 
           plan_id: An ID of an existing plan to use for the payment.
+
+          capture: Whether to capture the card payment immediately. Pass false to place an
+              authorization hold that must be captured in full within five days.
 
           email: Overrides the buyer email carried on the confirmation token, resolving or
               creating the Whop user the payment belongs to. Ignored when the confirmation
@@ -1185,6 +1219,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         plan: payment_create_params.CreatePaymentInputWithPlanAndConfirmationTokenPlan
         | payment_create_params.CreatePaymentInputWithPlanAndMemberIDPlan
         | Omit = omit,
+        capture: Optional[bool] | Omit = omit,
         email: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -1206,6 +1241,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
                     "company_id": company_id,
                     "confirmation_token": confirmation_token,
                     "plan": plan,
+                    "capture": capture,
                     "email": email,
                     "metadata": metadata,
                     "payment_method_id": payment_method_id,

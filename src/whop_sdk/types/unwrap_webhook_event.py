@@ -23,10 +23,12 @@ from .product_created_webhook_event import ProductCreatedWebhookEvent
 from .product_deleted_webhook_event import ProductDeletedWebhookEvent
 from .product_updated_webhook_event import ProductUpdatedWebhookEvent
 from .invoice_past_due_webhook_event import InvoicePastDueWebhookEvent
+from .payment_canceled_webhook_event import PaymentCanceledWebhookEvent
 from .shipment_created_webhook_event import ShipmentCreatedWebhookEvent
 from .shipment_updated_webhook_event import ShipmentUpdatedWebhookEvent
 from .payment_succeeded_webhook_event import PaymentSucceededWebhookEvent
 from .product_published_webhook_event import ProductPublishedWebhookEvent
+from .payment_authorized_webhook_event import PaymentAuthorizedWebhookEvent
 from .product_unpublished_webhook_event import ProductUnpublishedWebhookEvent
 from .chat_message_created_webhook_event import ChatMessageCreatedWebhookEvent
 from .membership_activated_webhook_event import MembershipActivatedWebhookEvent
@@ -84,6 +86,8 @@ UnwrapWebhookEvent: TypeAlias = Annotated[
         VerificationSucceededWebhookEvent,
         IdentityProfileUpdatedWebhookEvent,
         PayoutAccountStatusUpdatedWebhookEvent,
+        PaymentAuthorizedWebhookEvent,
+        PaymentCanceledWebhookEvent,
         ResolutionCenterCaseCreatedWebhookEvent,
         ResolutionCenterCaseUpdatedWebhookEvent,
         ResolutionCenterCaseDecidedWebhookEvent,

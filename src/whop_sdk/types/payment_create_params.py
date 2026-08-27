@@ -40,6 +40,13 @@ class CreatePaymentInputWithPlanAndConfirmationToken(TypedDict, total=False):
     plan: Required[CreatePaymentInputWithPlanAndConfirmationTokenPlan]
     """Pass this object to create a new plan for this payment"""
 
+    capture: Optional[bool]
+    """Whether to capture the card payment immediately.
+
+    Pass false to place an authorization hold that must be captured in full within
+    five days.
+    """
+
     email: Optional[str]
     """
     Overrides the buyer email carried on the confirmation token, resolving or
@@ -212,6 +219,13 @@ class CreatePaymentInputWithPlanAndMemberID(TypedDict, total=False):
 
     plan: Required[CreatePaymentInputWithPlanAndMemberIDPlan]
     """Pass this object to create a new plan for this payment"""
+
+    capture: Optional[bool]
+    """Whether to capture the card payment immediately.
+
+    Pass false to place an authorization hold that must be captured in full within
+    five days.
+    """
 
     email: Optional[str]
     """
@@ -390,6 +404,13 @@ class CreatePaymentInputWithPlanIDAndConfirmationToken(TypedDict, total=False):
     plan_id: Required[str]
     """An ID of an existing plan to use for the payment."""
 
+    capture: Optional[bool]
+    """Whether to capture the card payment immediately.
+
+    Pass false to place an authorization hold that must be captured in full within
+    five days.
+    """
+
     email: Optional[str]
     """
     Overrides the buyer email carried on the confirmation token, resolving or
@@ -437,6 +458,13 @@ class CreatePaymentInputWithPlanIDAndMemberID(TypedDict, total=False):
 
     plan_id: Required[str]
     """An ID of an existing plan to use for the payment."""
+
+    capture: Optional[bool]
+    """Whether to capture the card payment immediately.
+
+    Pass false to place an authorization hold that must be captured in full within
+    five days.
+    """
 
     email: Optional[str]
     """

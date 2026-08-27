@@ -6,6 +6,7 @@ __all__ = ["FriendlyReceiptStatus"]
 
 FriendlyReceiptStatus: TypeAlias = Literal[
     "succeeded",
+    "requires_capture",
     "pending",
     "failed",
     "past_due",

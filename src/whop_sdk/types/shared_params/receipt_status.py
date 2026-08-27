@@ -6,4 +6,6 @@ from typing_extensions import Literal, TypeAlias
 
 __all__ = ["ReceiptStatus"]
 
-ReceiptStatus: TypeAlias = Literal["draft", "open", "paid", "pending", "uncollectible", "unresolved", "void"]
+ReceiptStatus: TypeAlias = Literal[
+    "draft", "open", "authorized", "paid", "pending", "uncollectible", "unresolved", "void"
+]
