@@ -50,6 +50,11 @@ class Membership(UniversalBaseModel):
     Custom key-value pairs stored on the membership, commonly used for software licensing.
     """
 
+    phone_number: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The buyer's phone number recorded for this membership, or `null`. The number collected (or verified) at checkout when the seller's phone collection is on; falls back to the buyer's account number when they have shared one with this seller.
+    """
+
     plan_id: str = pydantic.Field()
     """
     The plan the buyer purchased, prefixed `plan_`.

@@ -18,7 +18,7 @@ class PostPayoutMethodCreatedPayloadDataQuoteStandard(UniversalBaseModel):
 
     total_received: float = pydantic.Field()
     """
-    Amount delivered after fees, in the payout currency.
+    Amount remaining after fees, in the payout currency.
     """
 
     if IS_PYDANTIC_V2:

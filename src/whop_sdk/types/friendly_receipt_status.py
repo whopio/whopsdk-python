@@ -5,6 +5,7 @@ import typing
 FriendlyReceiptStatus = typing.Union[
     typing.Literal[
         "succeeded",
+        "requires_capture",
         "pending",
         "failed",
         "past_due",

@@ -16,12 +16,12 @@ class Export(UniversalBaseModel):
 
     download_url: typing.Optional[str] = pydantic.Field(default=None)
     """
-    A short-lived link to download the finished CSV. `null` until `status` is `completed`, and again once the export has expired.
+    A short-lived link to download the finished file. `null` until `status` is `completed`, and again once the export has expired.
     """
 
     expires_at: str = pydantic.Field()
     """
-    When the CSV is deleted and the export moves to `expired`, as an ISO 8601 timestamp. Exports are retained for 30 days.
+    When the file is deleted and the export moves to `expired`, as an ISO 8601 timestamp. Exports are retained for 30 days.
     """
 
     id: str = pydantic.Field()
@@ -41,7 +41,7 @@ class Export(UniversalBaseModel):
 
     status: ExportStatus = pydantic.Field()
     """
-    `pending` or `processing` while the CSV is generated, `completed` when the download is ready, `failed` if it errored, `expired` once the CSV has been deleted.
+    `pending` or `processing` while the file is generated, `completed` when the download is ready, `failed` if it errored, `expired` once the file has been deleted.
     """
 
     updated_at: str = pydantic.Field()

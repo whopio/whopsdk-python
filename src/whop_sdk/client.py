@@ -49,13 +49,13 @@ if typing.TYPE_CHECKING:
     from .fee_markups.client import AsyncFeeMarkupsClient, FeeMarkupsClient
     from .files.client import AsyncFilesClient, FilesClient
     from .financial_activity.client import AsyncFinancialActivityClient, FinancialActivityClient
+    from .financial_reports.client import AsyncFinancialReportsClient, FinancialReportsClient
     from .forum_posts.client import AsyncForumPostsClient, ForumPostsClient
     from .forums.client import AsyncForumsClient, ForumsClient
     from .identity_profiles.client import AsyncIdentityProfilesClient, IdentityProfilesClient
     from .invoices.client import AsyncInvoicesClient, InvoicesClient
     from .leads.client import AsyncLeadsClient, LeadsClient
     from .ledger_accounts.client import AsyncLedgerAccountsClient, LedgerAccountsClient
-    from .ledgers.client import AsyncLedgersClient, LedgersClient
     from .media.client import AsyncMediaClient, MediaClient
     from .members.client import AsyncMembersClient, MembersClient
     from .memberships.client import AsyncMembershipsClient, MembershipsClient
@@ -142,7 +142,7 @@ class Whop:
     from whop_sdk import Whop
 
     client = Whop(
-        "2026-08-25-1",
+        "2026-08-25-2",
         idempotency_key="YOUR_IDEMPOTENCY_KEY",
         token="YOUR_TOKEN",
     )
@@ -153,7 +153,7 @@ class Whop:
         *,
         base_url: typing.Optional[str] = None,
         environment: WhopEnvironment = WhopEnvironment.DEFAULT,
-        api_version_date: typing.Optional[str] = "2026-08-25-1",
+        api_version_date: typing.Optional[str] = "2026-08-25-2",
         idempotency_key: typing.Optional[str] = None,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         headers: typing.Optional[typing.Dict[str, str]] = None,
@@ -223,7 +223,7 @@ class Whop:
         self._fee_markups: typing.Optional[FeeMarkupsClient] = None
         self._files: typing.Optional[FilesClient] = None
         self._financial_activity: typing.Optional[FinancialActivityClient] = None
-        self._ledgers: typing.Optional[LedgersClient] = None
+        self._financial_reports: typing.Optional[FinancialReportsClient] = None
         self._forum_posts: typing.Optional[ForumPostsClient] = None
         self._forums: typing.Optional[ForumsClient] = None
         self._identity_profiles: typing.Optional[IdentityProfilesClient] = None
@@ -578,12 +578,12 @@ class Whop:
         return self._financial_activity
 
     @property
-    def ledgers(self):
-        if self._ledgers is None:
-            from .ledgers.client import LedgersClient  # noqa: E402
+    def financial_reports(self):
+        if self._financial_reports is None:
+            from .financial_reports.client import FinancialReportsClient  # noqa: E402
 
-            self._ledgers = LedgersClient(client_wrapper=self._client_wrapper)
-        return self._ledgers
+            self._financial_reports = FinancialReportsClient(client_wrapper=self._client_wrapper)
+        return self._financial_reports
 
     @property
     def forum_posts(self):
@@ -977,7 +977,7 @@ class AsyncWhop:
     from whop_sdk import AsyncWhop
 
     client = AsyncWhop(
-        "2026-08-25-1",
+        "2026-08-25-2",
         idempotency_key="YOUR_IDEMPOTENCY_KEY",
         token="YOUR_TOKEN",
     )
@@ -988,7 +988,7 @@ class AsyncWhop:
         *,
         base_url: typing.Optional[str] = None,
         environment: WhopEnvironment = WhopEnvironment.DEFAULT,
-        api_version_date: typing.Optional[str] = "2026-08-25-1",
+        api_version_date: typing.Optional[str] = "2026-08-25-2",
         idempotency_key: typing.Optional[str] = None,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         headers: typing.Optional[typing.Dict[str, str]] = None,
@@ -1058,7 +1058,7 @@ class AsyncWhop:
         self._fee_markups: typing.Optional[AsyncFeeMarkupsClient] = None
         self._files: typing.Optional[AsyncFilesClient] = None
         self._financial_activity: typing.Optional[AsyncFinancialActivityClient] = None
-        self._ledgers: typing.Optional[AsyncLedgersClient] = None
+        self._financial_reports: typing.Optional[AsyncFinancialReportsClient] = None
         self._forum_posts: typing.Optional[AsyncForumPostsClient] = None
         self._forums: typing.Optional[AsyncForumsClient] = None
         self._identity_profiles: typing.Optional[AsyncIdentityProfilesClient] = None
@@ -1413,12 +1413,12 @@ class AsyncWhop:
         return self._financial_activity
 
     @property
-    def ledgers(self):
-        if self._ledgers is None:
-            from .ledgers.client import AsyncLedgersClient  # noqa: E402
+    def financial_reports(self):
+        if self._financial_reports is None:
+            from .financial_reports.client import AsyncFinancialReportsClient  # noqa: E402
 
-            self._ledgers = AsyncLedgersClient(client_wrapper=self._client_wrapper)
-        return self._ledgers
+            self._financial_reports = AsyncFinancialReportsClient(client_wrapper=self._client_wrapper)
+        return self._financial_reports
 
     @property
     def forum_posts(self):

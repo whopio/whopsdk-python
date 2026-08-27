@@ -7,11 +7,13 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
+        ListFinancialActivityRequestDirection,
         ListFinancialActivityRequestLineTypesItem,
         ListFinancialActivityResponse,
         ListFinancialActivityResponsePageInfo,
     )
 _dynamic_imports: typing.Dict[str, str] = {
+    "ListFinancialActivityRequestDirection": ".types",
     "ListFinancialActivityRequestLineTypesItem": ".types",
     "ListFinancialActivityResponse": ".types",
     "ListFinancialActivityResponsePageInfo": ".types",
@@ -40,6 +42,7 @@ def __dir__():
 
 
 __all__ = [
+    "ListFinancialActivityRequestDirection",
     "ListFinancialActivityRequestLineTypesItem",
     "ListFinancialActivityResponse",
     "ListFinancialActivityResponsePageInfo",

@@ -11,6 +11,11 @@ from .payment_status_status import PaymentStatusStatus
 
 
 class PaymentStatus(UniversalBaseModel):
+    capture_expires_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When the card authorization must be captured, as an ISO 8601 timestamp. `null` when this payment was not authorized for later capture.
+    """
+
     id: str = pydantic.Field()
     """
     The payment this status describes, prefixed `pay_`.
@@ -43,7 +48,7 @@ class PaymentStatus(UniversalBaseModel):
 
     status: PaymentStatusStatus = pydantic.Field()
     """
-    How far the payment has got. `requires_confirmation` — nothing attempted yet, or the last attempt failed and can be retried. `requires_action` — the buyer has a step outstanding; see `next_action`. `confirming` — the buyer has done their part and the processor is deciding. `processing` — the money is moving; see `processing_details`. `succeeded` — collected. `canceled` — voided or written off.
+    How far the payment has got. `requires_confirmation` — nothing attempted yet, or the last attempt failed and can be retried. `requires_action` — the buyer has a step outstanding; see `next_action`. `requires_capture` — the card authorization is holding funds and must be captured. `confirming` — the buyer has done their part and the processor is deciding. `processing` — the money is moving; see `processing_details`. `succeeded` — collected. `canceled` — voided or written off.
     """
 
     if IS_PYDANTIC_V2:

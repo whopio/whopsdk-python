@@ -2,4 +2,4 @@
 
 import typing
 
-ListBusinessesRequestTier = typing.Union[typing.Literal["first", "second"], typing.Any]
+ListBusinessesRequestTier = typing.Union[typing.Literal["first", "second", "blueprint"], typing.Any]

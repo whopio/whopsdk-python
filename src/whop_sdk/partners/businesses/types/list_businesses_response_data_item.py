@@ -41,7 +41,7 @@ class ListBusinessesResponseDataItem(UniversalBaseModel):
 
     my_partner_tier: ListBusinessesResponseDataItemMyPartnerTier = pydantic.Field()
     """
-    Which tier the caller earns on for this business: `first` (they referred the owner) or `second` (they referred the first-tier partner).
+    Which tier the caller earns on for this business: `first` (they referred the owner), `second` (they referred the first-tier partner), or `blueprint` (the business deployed a site from their blueprint).
     """
 
     object: ListBusinessesResponseDataItemObject

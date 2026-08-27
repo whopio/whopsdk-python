@@ -8,8 +8,10 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .account_dispute_alert_auto_refund_control import AccountDisputeAlertAutoRefundControl
 from .account_payment_controls_restricted_payment_methods_item import AccountPaymentControlsRestrictedPaymentMethodsItem
+from .account_payment_controls_undated_pending_reason import AccountPaymentControlsUndatedPendingReason
 from .account_reserve_control import AccountReserveControl
 from .account_resolution_center_auto_refund_control import AccountResolutionCenterAutoRefundControl
+from .account_withdrawal_schedule_control import AccountWithdrawalScheduleControl
 
 
 class AccountPaymentControls(UniversalBaseModel):
@@ -66,6 +68,15 @@ class AccountPaymentControls(UniversalBaseModel):
     """
 
     restricted_payment_methods: typing.List[AccountPaymentControlsRestrictedPaymentMethodsItem]
+    undated_pending_reason: typing.Optional[AccountPaymentControlsUndatedPendingReason] = pydantic.Field(default=None)
+    """
+    Why pending funds without a settlement date aren't moving yet, when it's something the merchant can act on. `null` when there's no reason to show (still clearing, or the account is held for a reason that isn't merchant-actionable).
+    """
+
+    withdrawal_schedule: AccountWithdrawalScheduleControl = pydantic.Field()
+    """
+    How the account's balance automatically withdraws.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

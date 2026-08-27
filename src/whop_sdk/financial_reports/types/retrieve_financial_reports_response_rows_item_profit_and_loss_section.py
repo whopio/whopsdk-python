@@ -2,6 +2,6 @@
 
 import typing
 
-GetFinancialReportResponseRowsItemProfitAndLossSection = typing.Union[
+RetrieveFinancialReportsResponseRowsItemProfitAndLossSection = typing.Union[
     typing.Literal["revenue", "cost_of_revenue"], typing.Any
 ]

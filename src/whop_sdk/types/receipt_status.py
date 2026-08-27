@@ -3,5 +3,5 @@
 import typing
 
 ReceiptStatus = typing.Union[
-    typing.Literal["draft", "open", "paid", "pending", "uncollectible", "unresolved", "void"], typing.Any
+    typing.Literal["draft", "open", "authorized", "paid", "pending", "uncollectible", "unresolved", "void"], typing.Any
 ]

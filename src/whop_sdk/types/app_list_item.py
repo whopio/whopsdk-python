@@ -101,7 +101,7 @@ class AppListItem(UniversalBaseModel):
 
     route: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Claimed subdomain route where hosted web builds are served (`myapp` for myapp.whop.app), or `null` if no route is claimed.
+    Claimed subdomain route where hosted web builds are served (`myapp` for myapp.whop.site), or `null` if no route is claimed.
     """
 
     skills_path: typing.Optional[str] = pydantic.Field(default=None)

@@ -156,7 +156,7 @@ class RawExportsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Export]:
         """
-        Starts an asynchronous CSV export of a resource for an account. Returns the export in `pending`; poll `GET /exports/{id}` until `download_url` is set.
+        Starts an asynchronous export of a resource for an account. Returns the export in `pending`; poll `GET /exports/{id}` until `download_url` is set.
 
         Parameters
         ----------
@@ -464,7 +464,7 @@ class AsyncRawExportsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Export]:
         """
-        Starts an asynchronous CSV export of a resource for an account. Returns the export in `pending`; poll `GET /exports/{id}` until `download_url` is set.
+        Starts an asynchronous export of a resource for an account. Returns the export in `pending`; poll `GET /exports/{id}` until `download_url` is set.
 
         Parameters
         ----------

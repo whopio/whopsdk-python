@@ -243,6 +243,11 @@ class AdGroup(UniversalBaseModel):
     Whop pixel-attributed leads, last-click.
     """
 
+    link_clicks: float = pydantic.Field()
+    """
+    Clicks on links in the ad that lead to your destination, as reported by the ad platform. A subset of clicks, which also counts likes, comments, and other interactions with the ad.
+    """
+
     message_apps: typing.Optional[typing.List[AdGroupMessageAppsItem]] = None
     minimum_daily_spend: typing.Optional[float] = pydantic.Field(default=None)
     """

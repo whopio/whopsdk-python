@@ -10,6 +10,7 @@ ListAdsRequestOrder = typing.Union[
         "impressions",
         "reach",
         "clicks",
+        "link_clicks",
         "unique_clicks",
         "frequency",
         "click_through_rate",
