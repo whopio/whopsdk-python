@@ -2,6 +2,6 @@
 
 import typing
 
-GetFinancialReportRequestReportType = typing.Union[
+RetrieveFinancialReportsResponseReportType = typing.Union[
     typing.Literal["balance_summary", "income_statement", "balance_activity"], typing.Any
 ]

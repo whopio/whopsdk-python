@@ -2,7 +2,7 @@
 
 import typing
 
-GetFinancialReportResponseRowsItemLineCategory = typing.Union[
+RetrieveFinancialReportsResponseRowsItemLineCategory = typing.Union[
     typing.Literal[
         "accelerated_settlement_fee",
         "account_settlement",
@@ -171,6 +171,7 @@ GetFinancialReportResponseRowsItemLineCategory = typing.Union[
         "platform_earning_unreconciled_clearing",
         "promo_reversal",
         "psp_accelerated_settlement_fee",
+        "psp_account_debit",
         "psp_account_updater_fee",
         "psp_adjusted_processing_fee",
         "psp_authentication_fee",

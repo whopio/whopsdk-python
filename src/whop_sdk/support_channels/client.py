@@ -91,7 +91,7 @@ class SupportChannelsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -161,7 +161,7 @@ class SupportChannelsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -204,7 +204,7 @@ class SupportChannelsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -292,7 +292,7 @@ class AsyncSupportChannelsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -371,7 +371,7 @@ class AsyncSupportChannelsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -422,7 +422,7 @@ class AsyncSupportChannelsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

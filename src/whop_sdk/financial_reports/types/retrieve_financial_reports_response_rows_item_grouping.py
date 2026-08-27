@@ -2,7 +2,7 @@
 
 import typing
 
-GetFinancialReportResponseRowsItemGrouping = typing.Union[
+RetrieveFinancialReportsResponseRowsItemGrouping = typing.Union[
     typing.Literal[
         "advertising",
         "affiliates_and_revshare",

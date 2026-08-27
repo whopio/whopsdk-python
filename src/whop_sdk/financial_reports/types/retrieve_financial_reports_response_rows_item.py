@@ -4,24 +4,26 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .get_financial_report_response_rows_item_grouping import GetFinancialReportResponseRowsItemGrouping
-from .get_financial_report_response_rows_item_line_category import GetFinancialReportResponseRowsItemLineCategory
-from .get_financial_report_response_rows_item_profit_and_loss_section import (
-    GetFinancialReportResponseRowsItemProfitAndLossSection,
+from .retrieve_financial_reports_response_rows_item_grouping import RetrieveFinancialReportsResponseRowsItemGrouping
+from .retrieve_financial_reports_response_rows_item_line_category import (
+    RetrieveFinancialReportsResponseRowsItemLineCategory,
+)
+from .retrieve_financial_reports_response_rows_item_profit_and_loss_section import (
+    RetrieveFinancialReportsResponseRowsItemProfitAndLossSection,
 )
 
 
-class GetFinancialReportResponseRowsItem(UniversalBaseModel):
+class RetrieveFinancialReportsResponseRowsItem(UniversalBaseModel):
     account_ik_path: typing.Optional[str] = None
     account_name: typing.Optional[str] = None
     account_type: typing.Optional[str] = None
     amount: float
-    grouping: GetFinancialReportResponseRowsItemGrouping = pydantic.Field()
+    grouping: RetrieveFinancialReportsResponseRowsItemGrouping = pydantic.Field()
     """
     The family the row's `line_category` rolls up into. Balance summary rows are always `balance`.
     """
 
-    line_category: GetFinancialReportResponseRowsItemLineCategory = pydantic.Field()
+    line_category: RetrieveFinancialReportsResponseRowsItemLineCategory = pydantic.Field()
     """
     The ledger line category the row aggregates. Balance summary rows carry the balance bucket instead.
     """
@@ -32,8 +34,8 @@ class GetFinancialReportResponseRowsItem(UniversalBaseModel):
     Start of the time bucket this row covers, truncated to `group_by`.
     """
 
-    profit_and_loss_section: typing.Optional[GetFinancialReportResponseRowsItemProfitAndLossSection] = pydantic.Field(
-        default=None
+    profit_and_loss_section: typing.Optional[RetrieveFinancialReportsResponseRowsItemProfitAndLossSection] = (
+        pydantic.Field(default=None)
     )
     """
     Which side of the income statement the category falls on, or `null` when it is not a P&L category.

@@ -19,6 +19,12 @@ if typing.TYPE_CHECKING:
     from .list_fees_payments_response import ListFeesPaymentsResponse
     from .list_fees_payments_response_data_item import ListFeesPaymentsResponseDataItem
     from .list_payments_response import ListPaymentsResponse
+    from .post_payment_authorized_payload import PostPaymentAuthorizedPayload
+    from .post_payment_authorized_payload_api_version import PostPaymentAuthorizedPayloadApiVersion
+    from .post_payment_authorized_payload_type import PostPaymentAuthorizedPayloadType
+    from .post_payment_canceled_payload import PostPaymentCanceledPayload
+    from .post_payment_canceled_payload_api_version import PostPaymentCanceledPayloadApiVersion
+    from .post_payment_canceled_payload_type import PostPaymentCanceledPayloadType
     from .post_payment_created_payload import PostPaymentCreatedPayload
     from .post_payment_created_payload_api_version import PostPaymentCreatedPayloadApiVersion
     from .post_payment_created_payload_type import PostPaymentCreatedPayloadType
@@ -46,6 +52,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListFeesPaymentsResponse": ".list_fees_payments_response",
     "ListFeesPaymentsResponseDataItem": ".list_fees_payments_response_data_item",
     "ListPaymentsResponse": ".list_payments_response",
+    "PostPaymentAuthorizedPayload": ".post_payment_authorized_payload",
+    "PostPaymentAuthorizedPayloadApiVersion": ".post_payment_authorized_payload_api_version",
+    "PostPaymentAuthorizedPayloadType": ".post_payment_authorized_payload_type",
+    "PostPaymentCanceledPayload": ".post_payment_canceled_payload",
+    "PostPaymentCanceledPayloadApiVersion": ".post_payment_canceled_payload_api_version",
+    "PostPaymentCanceledPayloadType": ".post_payment_canceled_payload_type",
     "PostPaymentCreatedPayload": ".post_payment_created_payload",
     "PostPaymentCreatedPayloadApiVersion": ".post_payment_created_payload_api_version",
     "PostPaymentCreatedPayloadType": ".post_payment_created_payload_type",
@@ -97,6 +109,12 @@ __all__ = [
     "ListFeesPaymentsResponse",
     "ListFeesPaymentsResponseDataItem",
     "ListPaymentsResponse",
+    "PostPaymentAuthorizedPayload",
+    "PostPaymentAuthorizedPayloadApiVersion",
+    "PostPaymentAuthorizedPayloadType",
+    "PostPaymentCanceledPayload",
+    "PostPaymentCanceledPayloadApiVersion",
+    "PostPaymentCanceledPayloadType",
     "PostPaymentCreatedPayload",
     "PostPaymentCreatedPayloadApiVersion",
     "PostPaymentCreatedPayloadType",

@@ -188,6 +188,11 @@ class AdCampaign(UniversalBaseModel):
     Whop pixel-attributed leads, last-click.
     """
 
+    link_clicks: float = pydantic.Field()
+    """
+    Clicks on links in the ad that lead to your destination, as reported by the ad platform. A subset of clicks, which also counts likes, comments, and other interactions with the ad.
+    """
+
     objective: typing.Optional[AdCampaignObjective] = pydantic.Field(default=None)
     """
     The goal the campaign optimizes toward.

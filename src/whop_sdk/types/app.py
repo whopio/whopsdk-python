@@ -139,6 +139,11 @@ class App(UniversalBaseModel):
     Full origin URL of the app's proxied domain, for example https://ab1c2d3e4f.apps.whop.com.
     """
 
+    preview_token: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    A short-lived signed pass scoping the caller to this app's gated preview hosts — every build preview and the live dev-server sandbox. Add it to a preview host as the `__whop_preview` query param (or `x-whop-preview-token` header). `null` unless the caller is a team member who can read the app's developer settings.
+    """
+
     product_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     ID of the app's product listing on the Whop app store, or `null` when the app has no associated product.
@@ -164,7 +169,7 @@ class App(UniversalBaseModel):
     required_scopes: typing.List[AppRequiredScopesItem]
     route: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Claimed subdomain route where hosted web builds are served (`myapp` for myapp.whop.app), or `null` if no route is claimed.
+    Claimed subdomain route where hosted web builds are served (`myapp` for myapp.whop.site), or `null` if no route is claimed.
     """
 
     secrets: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)

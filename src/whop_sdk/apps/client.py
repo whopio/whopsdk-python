@@ -57,6 +57,7 @@ class AppsClient:
         account_id: typing.Optional[str] = None,
         app_type: typing.Optional[ListAppsRequestAppType] = None,
         view_type: typing.Optional[ListAppsRequestViewType] = None,
+        verified: typing.Optional[bool] = None,
         verified_apps_only: typing.Optional[bool] = None,
         recommended: typing.Optional[bool] = None,
         query: typing.Optional[str] = None,
@@ -69,7 +70,7 @@ class AppsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[AppListItem, ListAppsResponse]:
         """
-        Lists apps on the Whop platform: the app store's live apps, or — with `account_id` and developer access to that account — every app the account owns. Requires authentication, except for the publicly readable lists: `verified_apps_only=true`, and `app_type=website` with no `account_id`, which returns every live deployed website that Whop has not verified — verified templates are the curated `verified_apps_only=true` list instead.
+        Lists apps on the Whop platform: the app store's live apps, or — with `account_id` and developer access to that account — every app the account owns. Requires authentication except for Whop's public app and website discovery lists. Public website discovery includes built official blueprints (verified apps with a product) and built, live community blueprints that Whop recommends.
 
         Parameters
         ----------
@@ -82,11 +83,14 @@ class AppsClient:
         view_type : typing.Optional[ListAppsRequestViewType]
             Only return apps supporting this view type, such as `dashboard` or `hub`.
 
+        verified : typing.Optional[bool]
+            Only return apps whose Whop verification status matches this value. Omit this filter to include every verification status the caller can see.
+
         verified_apps_only : typing.Optional[bool]
-            Whether to only return apps verified by Whop. Verified website templates — websites with a published web build — are included, even though websites are otherwise left out of app lists.
+            Legacy compatibility filter. Use `verified` for field equality. `true` returns verified apps; clients pinned before `2026-08-25-2` retain the earlier public website discovery behavior.
 
         recommended : typing.Optional[bool]
-            Only return apps Whop recommends (or, with `false`, only those it does not). The community blueprints gallery is the recommended slice of the public website list.
+            Only return apps Whop recommends (or, with `false`, only those it does not), independently of verification status.
 
         query : typing.Optional[str]
             A search string matched against app names.
@@ -122,7 +126,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -137,6 +141,7 @@ class AppsClient:
             account_id=account_id,
             app_type=app_type,
             view_type=view_type,
+            verified=verified,
             verified_apps_only=verified_apps_only,
             recommended=recommended,
             query=query,
@@ -185,7 +190,7 @@ class AppsClient:
             The whitelisted OAuth callback URLs that users are redirected to after authorizing the app.
 
         route : typing.Optional[str]
-            The subdomain route where the app's hosted web builds are served, such as `myapp` for myapp.whop.app.
+            The subdomain route where the app's hosted web builds are served, such as `myapp` for myapp.whop.site.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -200,7 +205,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -255,7 +260,7 @@ class AppsClient:
         from whop_sdk.apps import UpdatePermissionsAppRequestRequestedPermissionsItem
 
         client = Whop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -297,7 +302,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -330,7 +335,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -448,7 +453,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -509,7 +514,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -535,7 +540,7 @@ class AppsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[LogsAppsResponseDataItem, LogsAppsResponse]:
         """
-        Lists a hosted app's server runtime logs, most recent first: console output, uncaught exceptions, and failed-request summaries captured on whop.app hosting. Logs are retained for 7 days.
+        Lists a hosted app's server runtime logs, most recent first: console output, uncaught exceptions, and failed-request summaries captured on whop.site hosting. Logs are retained for 7 days.
 
         Parameters
         ----------
@@ -579,7 +584,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -637,7 +642,7 @@ class AppsClient:
         from whop_sdk.apps import UpdatePermissionsAppsRequestRequestedPermissionsItem
 
         client = Whop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -679,6 +684,7 @@ class AsyncAppsClient:
         account_id: typing.Optional[str] = None,
         app_type: typing.Optional[ListAppsRequestAppType] = None,
         view_type: typing.Optional[ListAppsRequestViewType] = None,
+        verified: typing.Optional[bool] = None,
         verified_apps_only: typing.Optional[bool] = None,
         recommended: typing.Optional[bool] = None,
         query: typing.Optional[str] = None,
@@ -691,7 +697,7 @@ class AsyncAppsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[AppListItem, ListAppsResponse]:
         """
-        Lists apps on the Whop platform: the app store's live apps, or — with `account_id` and developer access to that account — every app the account owns. Requires authentication, except for the publicly readable lists: `verified_apps_only=true`, and `app_type=website` with no `account_id`, which returns every live deployed website that Whop has not verified — verified templates are the curated `verified_apps_only=true` list instead.
+        Lists apps on the Whop platform: the app store's live apps, or — with `account_id` and developer access to that account — every app the account owns. Requires authentication except for Whop's public app and website discovery lists. Public website discovery includes built official blueprints (verified apps with a product) and built, live community blueprints that Whop recommends.
 
         Parameters
         ----------
@@ -704,11 +710,14 @@ class AsyncAppsClient:
         view_type : typing.Optional[ListAppsRequestViewType]
             Only return apps supporting this view type, such as `dashboard` or `hub`.
 
+        verified : typing.Optional[bool]
+            Only return apps whose Whop verification status matches this value. Omit this filter to include every verification status the caller can see.
+
         verified_apps_only : typing.Optional[bool]
-            Whether to only return apps verified by Whop. Verified website templates — websites with a published web build — are included, even though websites are otherwise left out of app lists.
+            Legacy compatibility filter. Use `verified` for field equality. `true` returns verified apps; clients pinned before `2026-08-25-2` retain the earlier public website discovery behavior.
 
         recommended : typing.Optional[bool]
-            Only return apps Whop recommends (or, with `false`, only those it does not). The community blueprints gallery is the recommended slice of the public website list.
+            Only return apps Whop recommends (or, with `false`, only those it does not), independently of verification status.
 
         query : typing.Optional[str]
             A search string matched against app names.
@@ -746,7 +755,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -768,6 +777,7 @@ class AsyncAppsClient:
             account_id=account_id,
             app_type=app_type,
             view_type=view_type,
+            verified=verified,
             verified_apps_only=verified_apps_only,
             recommended=recommended,
             query=query,
@@ -816,7 +826,7 @@ class AsyncAppsClient:
             The whitelisted OAuth callback URLs that users are redirected to after authorizing the app.
 
         route : typing.Optional[str]
-            The subdomain route where the app's hosted web builds are served, such as `myapp` for myapp.whop.app.
+            The subdomain route where the app's hosted web builds are served, such as `myapp` for myapp.whop.site.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -833,7 +843,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -896,7 +906,7 @@ class AsyncAppsClient:
         from whop_sdk.apps import UpdatePermissionsAppRequestRequestedPermissionsItem
 
         client = AsyncWhop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -946,7 +956,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -987,7 +997,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1113,7 +1123,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1182,7 +1192,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1214,7 +1224,7 @@ class AsyncAppsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[LogsAppsResponseDataItem, LogsAppsResponse]:
         """
-        Lists a hosted app's server runtime logs, most recent first: console output, uncaught exceptions, and failed-request summaries captured on whop.app hosting. Logs are retained for 7 days.
+        Lists a hosted app's server runtime logs, most recent first: console output, uncaught exceptions, and failed-request summaries captured on whop.site hosting. Logs are retained for 7 days.
 
         Parameters
         ----------
@@ -1260,7 +1270,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1327,7 +1337,7 @@ class AsyncAppsClient:
         from whop_sdk.apps import UpdatePermissionsAppsRequestRequestedPermissionsItem
 
         client = AsyncWhop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

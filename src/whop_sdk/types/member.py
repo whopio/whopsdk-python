@@ -40,6 +40,11 @@ class Member(UniversalBaseModel):
     When the member last opened the account's content, as an ISO 8601 timestamp. `null` if they never have.
     """
 
+    phone_number: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The member's phone number, or `null`. Their account number when they have shared one with this seller; otherwise the most recent number collected (or verified) at checkout.
+    """
+
     status: MemberStatus = pydantic.Field()
     """
     `joined` while the member is part of the account, `left` after they leave.

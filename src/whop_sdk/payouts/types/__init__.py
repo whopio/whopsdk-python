@@ -36,6 +36,9 @@ if typing.TYPE_CHECKING:
     from .create_payouts_response_source import CreatePayoutsResponseSource
     from .create_payouts_response_speed import CreatePayoutsResponseSpeed
     from .create_payouts_response_status import CreatePayoutsResponseStatus
+    from .create_quote_payouts_request_speed import CreateQuotePayoutsRequestSpeed
+    from .create_quote_payouts_response import CreateQuotePayoutsResponse
+    from .create_quote_payouts_response_object import CreateQuotePayoutsResponseObject
     from .list_payouts_request_source import ListPayoutsRequestSource
     from .list_payouts_request_status import ListPayoutsRequestStatus
     from .list_payouts_response import ListPayoutsResponse
@@ -167,6 +170,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreatePayoutsResponseSource": ".create_payouts_response_source",
     "CreatePayoutsResponseSpeed": ".create_payouts_response_speed",
     "CreatePayoutsResponseStatus": ".create_payouts_response_status",
+    "CreateQuotePayoutsRequestSpeed": ".create_quote_payouts_request_speed",
+    "CreateQuotePayoutsResponse": ".create_quote_payouts_response",
+    "CreateQuotePayoutsResponseObject": ".create_quote_payouts_response_object",
     "ListPayoutsRequestSource": ".list_payouts_request_source",
     "ListPayoutsRequestStatus": ".list_payouts_request_status",
     "ListPayoutsResponse": ".list_payouts_response",
@@ -292,6 +298,9 @@ __all__ = [
     "CreatePayoutsResponseSource",
     "CreatePayoutsResponseSpeed",
     "CreatePayoutsResponseStatus",
+    "CreateQuotePayoutsRequestSpeed",
+    "CreateQuotePayoutsResponse",
+    "CreateQuotePayoutsResponseObject",
     "ListPayoutsRequestSource",
     "ListPayoutsRequestStatus",
     "ListPayoutsResponse",

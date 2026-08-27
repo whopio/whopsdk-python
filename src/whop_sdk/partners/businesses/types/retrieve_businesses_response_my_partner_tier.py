@@ -2,4 +2,4 @@
 
 import typing
 
-RetrieveBusinessesResponseMyPartnerTier = typing.Union[typing.Literal["first", "second"], typing.Any]
+RetrieveBusinessesResponseMyPartnerTier = typing.Union[typing.Literal["first", "second", "blueprint"], typing.Any]

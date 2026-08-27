@@ -228,6 +228,7 @@ class RawAccountsClient:
         self,
         *,
         affiliate_code: typing.Optional[str] = OMIT,
+        blueprint_id: typing.Optional[str] = OMIT,
         country: typing.Optional[str] = OMIT,
         email: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
@@ -241,6 +242,9 @@ class RawAccountsClient:
         ----------
         affiliate_code : typing.Optional[str]
             The username, if any, of the partner who referred this account
+
+        blueprint_id : typing.Optional[str]
+            The blueprint App ID, prefixed `app_`. Creates a hosted website for the account and queues its deployment asynchronously; the Account response does not report deployment completion.
 
         country : typing.Optional[str]
             The ISO 3166-1 alpha-2 country code where the account's business is located (e.g. `US`). Defaults to the parent account's country for connected accounts.
@@ -267,6 +271,7 @@ class RawAccountsClient:
             method="POST",
             json={
                 "affiliate_code": affiliate_code,
+                "blueprint_id": blueprint_id,
                 "country": country,
                 "email": email,
                 "metadata": metadata,
@@ -1228,6 +1233,7 @@ class AsyncRawAccountsClient:
         self,
         *,
         affiliate_code: typing.Optional[str] = OMIT,
+        blueprint_id: typing.Optional[str] = OMIT,
         country: typing.Optional[str] = OMIT,
         email: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
@@ -1241,6 +1247,9 @@ class AsyncRawAccountsClient:
         ----------
         affiliate_code : typing.Optional[str]
             The username, if any, of the partner who referred this account
+
+        blueprint_id : typing.Optional[str]
+            The blueprint App ID, prefixed `app_`. Creates a hosted website for the account and queues its deployment asynchronously; the Account response does not report deployment completion.
 
         country : typing.Optional[str]
             The ISO 3166-1 alpha-2 country code where the account's business is located (e.g. `US`). Defaults to the parent account's country for connected accounts.
@@ -1267,6 +1276,7 @@ class AsyncRawAccountsClient:
             method="POST",
             json={
                 "affiliate_code": affiliate_code,
+                "blueprint_id": blueprint_id,
                 "country": country,
                 "email": email,
                 "metadata": metadata,

@@ -6,10 +6,12 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .list_financial_activity_request_direction import ListFinancialActivityRequestDirection
     from .list_financial_activity_request_line_types_item import ListFinancialActivityRequestLineTypesItem
     from .list_financial_activity_response import ListFinancialActivityResponse
     from .list_financial_activity_response_page_info import ListFinancialActivityResponsePageInfo
 _dynamic_imports: typing.Dict[str, str] = {
+    "ListFinancialActivityRequestDirection": ".list_financial_activity_request_direction",
     "ListFinancialActivityRequestLineTypesItem": ".list_financial_activity_request_line_types_item",
     "ListFinancialActivityResponse": ".list_financial_activity_response",
     "ListFinancialActivityResponsePageInfo": ".list_financial_activity_response_page_info",
@@ -38,6 +40,7 @@ def __dir__():
 
 
 __all__ = [
+    "ListFinancialActivityRequestDirection",
     "ListFinancialActivityRequestLineTypesItem",
     "ListFinancialActivityResponse",
     "ListFinancialActivityResponsePageInfo",

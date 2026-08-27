@@ -97,7 +97,7 @@ class BusinessesClient:
             Filter by the referred user's exact username. Ignored when `referred_user_id` is present.
 
         tier : typing.Optional[ListBusinessesRequestTier]
-            Filter to only first-tier referrals or only second-tier referrals.
+            Filter to referrals from a single tier: first, second, or blueprint.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -112,7 +112,7 @@ class BusinessesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -164,7 +164,7 @@ class BusinessesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -261,7 +261,7 @@ class AsyncBusinessesClient:
             Filter by the referred user's exact username. Ignored when `referred_user_id` is present.
 
         tier : typing.Optional[ListBusinessesRequestTier]
-            Filter to only first-tier referrals or only second-tier referrals.
+            Filter to referrals from a single tier: first, second, or blueprint.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -278,7 +278,7 @@ class AsyncBusinessesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -339,7 +339,7 @@ class AsyncBusinessesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

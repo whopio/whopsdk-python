@@ -83,7 +83,7 @@ class ExportsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -112,7 +112,7 @@ class ExportsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Export:
         """
-        Starts an asynchronous CSV export of a resource for an account. Returns the export in `pending`; poll `GET /exports/{id}` until `download_url` is set.
+        Starts an asynchronous export of a resource for an account. Returns the export in `pending`; poll `GET /exports/{id}` until `download_url` is set.
 
         Parameters
         ----------
@@ -144,7 +144,7 @@ class ExportsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -184,7 +184,7 @@ class ExportsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -264,7 +264,7 @@ class AsyncExportsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -299,7 +299,7 @@ class AsyncExportsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Export:
         """
-        Starts an asynchronous CSV export of a resource for an account. Returns the export in `pending`; poll `GET /exports/{id}` until `download_url` is set.
+        Starts an asynchronous export of a resource for an account. Returns the export in `pending`; poll `GET /exports/{id}` until `download_url` is set.
 
         Parameters
         ----------
@@ -333,7 +333,7 @@ class AsyncExportsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -381,7 +381,7 @@ class AsyncExportsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

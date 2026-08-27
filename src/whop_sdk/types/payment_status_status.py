@@ -3,6 +3,14 @@
 import typing
 
 PaymentStatusStatus = typing.Union[
-    typing.Literal["requires_confirmation", "requires_action", "confirming", "processing", "succeeded", "canceled"],
+    typing.Literal[
+        "requires_confirmation",
+        "requires_action",
+        "requires_capture",
+        "confirming",
+        "processing",
+        "succeeded",
+        "canceled",
+    ],
     typing.Any,
 ]

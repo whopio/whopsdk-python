@@ -23,6 +23,8 @@ from ..types.v1error_response import V1ErrorResponse
 from .types.cancel_payouts_response import CancelPayoutsResponse
 from .types.create_payouts_request_body import CreatePayoutsRequestBody
 from .types.create_payouts_response import CreatePayoutsResponse
+from .types.create_quote_payouts_request_speed import CreateQuotePayoutsRequestSpeed
+from .types.create_quote_payouts_response import CreateQuotePayoutsResponse
 from .types.list_payouts_request_source import ListPayoutsRequestSource
 from .types.list_payouts_request_status import ListPayoutsRequestStatus
 from .types.list_payouts_response import ListPayoutsResponse
@@ -279,6 +281,133 @@ class RawPayoutsClient:
                 )
             if _response.status_code == 404:
                 raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        V1ErrorResponse,
+                        parse_obj_as(
+                            type_=V1ErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def create_quote(
+        self,
+        *,
+        amount: float,
+        payout_method_id: str,
+        account_id: typing.Optional[str] = OMIT,
+        currency: typing.Optional[str] = OMIT,
+        platform_covers_fees: typing.Optional[bool] = OMIT,
+        speed: typing.Optional[CreateQuotePayoutsRequestSpeed] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[CreateQuotePayoutsResponse]:
+        """
+        Creates a short-lived, provider-backed quote for a payout. No funds move until the returned quote_token is submitted to POST /payouts. An Idempotency-Key header is required.
+
+        Parameters
+        ----------
+        amount : float
+            The amount to pay out in the specified currency.
+
+        payout_method_id : str
+            The saved payout method to quote (a potk_ identifier).
+
+        account_id : typing.Optional[str]
+            Account to pay out from, prefixed `biz_`. Provide exactly one of `account_id` or `user_id`.
+
+        currency : typing.Optional[str]
+            The balance currency to pay out.
+
+        platform_covers_fees : typing.Optional[bool]
+            Whether the parent platform covers the payout fee instead of the account being paid out.
+
+        speed : typing.Optional[CreateQuotePayoutsRequestSpeed]
+            How fast the funds should arrive.
+
+        user_id : typing.Optional[str]
+            User to pay out from, prefixed `user_`. Provide exactly one of `account_id` or `user_id`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[CreateQuotePayoutsResponse]
+            payout quote created
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "payouts/quotes",
+            method="POST",
+            json={
+                "account_id": account_id,
+                "amount": amount,
+                "currency": currency,
+                "payout_method_id": payout_method_id,
+                "platform_covers_fees": platform_covers_fees,
+                "speed": speed,
+                "user_id": user_id,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    CreateQuotePayoutsResponse,
+                    parse_obj_as(
+                        type_=CreateQuotePayoutsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -761,6 +890,133 @@ class AsyncRawPayoutsClient:
                 )
             if _response.status_code == 404:
                 raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        V1ErrorResponse,
+                        parse_obj_as(
+                            type_=V1ErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def create_quote(
+        self,
+        *,
+        amount: float,
+        payout_method_id: str,
+        account_id: typing.Optional[str] = OMIT,
+        currency: typing.Optional[str] = OMIT,
+        platform_covers_fees: typing.Optional[bool] = OMIT,
+        speed: typing.Optional[CreateQuotePayoutsRequestSpeed] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[CreateQuotePayoutsResponse]:
+        """
+        Creates a short-lived, provider-backed quote for a payout. No funds move until the returned quote_token is submitted to POST /payouts. An Idempotency-Key header is required.
+
+        Parameters
+        ----------
+        amount : float
+            The amount to pay out in the specified currency.
+
+        payout_method_id : str
+            The saved payout method to quote (a potk_ identifier).
+
+        account_id : typing.Optional[str]
+            Account to pay out from, prefixed `biz_`. Provide exactly one of `account_id` or `user_id`.
+
+        currency : typing.Optional[str]
+            The balance currency to pay out.
+
+        platform_covers_fees : typing.Optional[bool]
+            Whether the parent platform covers the payout fee instead of the account being paid out.
+
+        speed : typing.Optional[CreateQuotePayoutsRequestSpeed]
+            How fast the funds should arrive.
+
+        user_id : typing.Optional[str]
+            User to pay out from, prefixed `user_`. Provide exactly one of `account_id` or `user_id`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[CreateQuotePayoutsResponse]
+            payout quote created
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "payouts/quotes",
+            method="POST",
+            json={
+                "account_id": account_id,
+                "amount": amount,
+                "currency": currency,
+                "payout_method_id": payout_method_id,
+                "platform_covers_fees": platform_covers_fees,
+                "speed": speed,
+                "user_id": user_id,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    CreateQuotePayoutsResponse,
+                    parse_obj_as(
+                        type_=CreateQuotePayoutsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,

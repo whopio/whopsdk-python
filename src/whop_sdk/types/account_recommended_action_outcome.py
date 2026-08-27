@@ -51,7 +51,7 @@ class AccountRecommendedActionOutcome(UniversalBaseModel):
 
     reasoning: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
     """
-    Why the generator proposed this chain, or `null` for seeded chains
+    Why this chain was recommended, or `null` when unavailable
     """
 
     title: str = pydantic.Field()

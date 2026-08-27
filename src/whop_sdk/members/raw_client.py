@@ -201,7 +201,7 @@ class RawMembersClient:
         Returns
         -------
         HttpResponse[Member]
-            member retrieved
+            member phone falls back to the stamped checkout-collected number
         """
         _response = self._client_wrapper.httpx_client.request(
             f"members/{encode_path_param(id)}",
@@ -432,7 +432,7 @@ class AsyncRawMembersClient:
         Returns
         -------
         AsyncHttpResponse[Member]
-            member retrieved
+            member phone falls back to the stamped checkout-collected number
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"members/{encode_path_param(id)}",

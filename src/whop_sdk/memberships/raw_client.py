@@ -330,7 +330,7 @@ class RawMembershipsClient:
         Returns
         -------
         HttpResponse[Membership]
-            membership retrieved
+            membership retrieved with its recorded phone number
         """
         _response = self._client_wrapper.httpx_client.request(
             f"memberships/{encode_path_param(id)}",
@@ -1576,7 +1576,7 @@ class AsyncRawMembershipsClient:
         Returns
         -------
         AsyncHttpResponse[Membership]
-            membership retrieved
+            membership retrieved with its recorded phone number
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"memberships/{encode_path_param(id)}",

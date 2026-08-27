@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .account_recommended_action_chain_step_execution_type import AccountRecommendedActionChainStepExecutionType
 from .account_recommended_action_chain_step_status import AccountRecommendedActionChainStepStatus
 
 
@@ -33,6 +34,11 @@ class AccountRecommendedActionChainStep(UniversalBaseModel):
     Why the step failed, or `null`
     """
 
+    execution_type: AccountRecommendedActionChainStepExecutionType = pydantic.Field()
+    """
+    Whether the client should navigate to the CTA or open the programmatic execution dialog
+    """
+
     input: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
     """
     The filled-in request body for the step's endpoint, or `null` when it was not recorded
@@ -50,7 +56,7 @@ class AccountRecommendedActionChainStep(UniversalBaseModel):
 
     reasoning: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
     """
-    Why the generator filled the step this way, or `null` for seeded chains
+    Why this step was recommended, or `null` when unavailable
     """
 
     status: typing.Optional[AccountRecommendedActionChainStepStatus] = pydantic.Field(default=None)

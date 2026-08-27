@@ -49,11 +49,13 @@ if typing.TYPE_CHECKING:
     from .account_payment_controls_restricted_payment_methods_item import (
         AccountPaymentControlsRestrictedPaymentMethodsItem,
     )
+    from .account_payment_controls_undated_pending_reason import AccountPaymentControlsUndatedPendingReason
     from .account_preferences import AccountPreferences
     from .account_recommended_action import AccountRecommendedAction
     from .account_recommended_action_action import AccountRecommendedActionAction
     from .account_recommended_action_chain import AccountRecommendedActionChain
     from .account_recommended_action_chain_step import AccountRecommendedActionChainStep
+    from .account_recommended_action_chain_step_execution_type import AccountRecommendedActionChainStepExecutionType
     from .account_recommended_action_chain_step_status import AccountRecommendedActionChainStepStatus
     from .account_recommended_action_outcome import AccountRecommendedActionOutcome
     from .account_recommended_action_status import AccountRecommendedActionStatus
@@ -80,6 +82,8 @@ if typing.TYPE_CHECKING:
     from .account_three_ds_level import AccountThreeDsLevel
     from .account_wallet import AccountWallet
     from .account_wallet_network import AccountWalletNetwork
+    from .account_withdrawal_schedule_control import AccountWithdrawalScheduleControl
+    from .account_withdrawal_schedule_control_frequency import AccountWithdrawalScheduleControlFrequency
     from .ad import Ad
     from .ad_call_to_action import AdCallToAction
     from .ad_campaign import AdCampaign
@@ -1275,11 +1279,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AccountParent": ".account_parent",
     "AccountPaymentControls": ".account_payment_controls",
     "AccountPaymentControlsRestrictedPaymentMethodsItem": ".account_payment_controls_restricted_payment_methods_item",
+    "AccountPaymentControlsUndatedPendingReason": ".account_payment_controls_undated_pending_reason",
     "AccountPreferences": ".account_preferences",
     "AccountRecommendedAction": ".account_recommended_action",
     "AccountRecommendedActionAction": ".account_recommended_action_action",
     "AccountRecommendedActionChain": ".account_recommended_action_chain",
     "AccountRecommendedActionChainStep": ".account_recommended_action_chain_step",
+    "AccountRecommendedActionChainStepExecutionType": ".account_recommended_action_chain_step_execution_type",
     "AccountRecommendedActionChainStepStatus": ".account_recommended_action_chain_step_status",
     "AccountRecommendedActionOutcome": ".account_recommended_action_outcome",
     "AccountRecommendedActionStatus": ".account_recommended_action_status",
@@ -1306,6 +1312,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AccountThreeDsLevel": ".account_three_ds_level",
     "AccountWallet": ".account_wallet",
     "AccountWalletNetwork": ".account_wallet_network",
+    "AccountWithdrawalScheduleControl": ".account_withdrawal_schedule_control",
+    "AccountWithdrawalScheduleControlFrequency": ".account_withdrawal_schedule_control_frequency",
     "Ad": ".ad",
     "AdCallToAction": ".ad_call_to_action",
     "AdCampaign": ".ad_campaign",
@@ -2387,11 +2395,13 @@ __all__ = [
     "AccountParent",
     "AccountPaymentControls",
     "AccountPaymentControlsRestrictedPaymentMethodsItem",
+    "AccountPaymentControlsUndatedPendingReason",
     "AccountPreferences",
     "AccountRecommendedAction",
     "AccountRecommendedActionAction",
     "AccountRecommendedActionChain",
     "AccountRecommendedActionChainStep",
+    "AccountRecommendedActionChainStepExecutionType",
     "AccountRecommendedActionChainStepStatus",
     "AccountRecommendedActionOutcome",
     "AccountRecommendedActionStatus",
@@ -2418,6 +2428,8 @@ __all__ = [
     "AccountThreeDsLevel",
     "AccountWallet",
     "AccountWalletNetwork",
+    "AccountWithdrawalScheduleControl",
+    "AccountWithdrawalScheduleControlFrequency",
     "Ad",
     "AdCallToAction",
     "AdCampaign",

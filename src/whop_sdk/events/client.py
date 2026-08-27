@@ -138,7 +138,7 @@ class EventsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -178,6 +178,8 @@ class EventsClient:
         account_id: str,
         event_name: str,
         action_source: typing.Optional[CreateEventsRequestActionSource] = OMIT,
+        app_build_id: typing.Optional[str] = OMIT,
+        app_id: typing.Optional[str] = OMIT,
         context: typing.Optional[CreateEventsRequestContext] = OMIT,
         currency: typing.Optional[CreateEventsRequestCurrency] = OMIT,
         custom_name: typing.Optional[str] = OMIT,
@@ -210,6 +212,12 @@ class EventsClient:
 
         action_source : typing.Optional[CreateEventsRequestActionSource]
             Where the event originated.
+
+        app_build_id : typing.Optional[str]
+            The build of the hosted app that served the page where the event occurred.
+
+        app_id : typing.Optional[str]
+            The hosted app that served the page where the event occurred.
 
         context : typing.Optional[CreateEventsRequestContext]
             Tracking and attribution context.
@@ -269,7 +277,7 @@ class EventsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -282,6 +290,8 @@ class EventsClient:
             account_id=account_id,
             event_name=event_name,
             action_source=action_source,
+            app_build_id=app_build_id,
+            app_id=app_id,
             context=context,
             currency=currency,
             custom_name=custom_name,
@@ -340,7 +350,7 @@ class EventsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -386,7 +396,7 @@ class EventsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -512,7 +522,7 @@ class AsyncEventsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -559,6 +569,8 @@ class AsyncEventsClient:
         account_id: str,
         event_name: str,
         action_source: typing.Optional[CreateEventsRequestActionSource] = OMIT,
+        app_build_id: typing.Optional[str] = OMIT,
+        app_id: typing.Optional[str] = OMIT,
         context: typing.Optional[CreateEventsRequestContext] = OMIT,
         currency: typing.Optional[CreateEventsRequestCurrency] = OMIT,
         custom_name: typing.Optional[str] = OMIT,
@@ -591,6 +603,12 @@ class AsyncEventsClient:
 
         action_source : typing.Optional[CreateEventsRequestActionSource]
             Where the event originated.
+
+        app_build_id : typing.Optional[str]
+            The build of the hosted app that served the page where the event occurred.
+
+        app_id : typing.Optional[str]
+            The hosted app that served the page where the event occurred.
 
         context : typing.Optional[CreateEventsRequestContext]
             Tracking and attribution context.
@@ -652,7 +670,7 @@ class AsyncEventsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -671,6 +689,8 @@ class AsyncEventsClient:
             account_id=account_id,
             event_name=event_name,
             action_source=action_source,
+            app_build_id=app_build_id,
+            app_id=app_id,
             context=context,
             currency=currency,
             custom_name=custom_name,
@@ -731,7 +751,7 @@ class AsyncEventsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -786,7 +806,7 @@ class AsyncEventsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

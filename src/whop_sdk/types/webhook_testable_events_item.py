@@ -55,6 +55,8 @@ WebhookTestableEventsItem = typing.Union[
         "identity_profile.needs_action",
         "identity_profile.updated",
         "payout_account.status_updated",
+        "payment.authorized",
+        "payment.canceled",
         "resolution_center_case.created",
         "resolution_center_case.updated",
         "resolution_center_case.decided",

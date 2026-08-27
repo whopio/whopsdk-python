@@ -4,42 +4,52 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
-from .raw_client import AsyncRawLedgersClient, RawLedgersClient
-from .types.get_financial_report_request_group_by import GetFinancialReportRequestGroupBy
-from .types.get_financial_report_request_report_type import GetFinancialReportRequestReportType
-from .types.get_financial_report_response import GetFinancialReportResponse
+from .raw_client import AsyncRawFinancialReportsClient, RawFinancialReportsClient
+from .types.retrieve_financial_reports_request_direction import RetrieveFinancialReportsRequestDirection
+from .types.retrieve_financial_reports_request_group_by import RetrieveFinancialReportsRequestGroupBy
+from .types.retrieve_financial_reports_request_line_types_item import RetrieveFinancialReportsRequestLineTypesItem
+from .types.retrieve_financial_reports_request_report_type import RetrieveFinancialReportsRequestReportType
+from .types.retrieve_financial_reports_response import RetrieveFinancialReportsResponse
 
 
-class LedgersClient:
+class FinancialReportsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
-        self._raw_client = RawLedgersClient(client_wrapper=client_wrapper)
+        self._raw_client = RawFinancialReportsClient(client_wrapper=client_wrapper)
 
     @property
-    def with_raw_response(self) -> RawLedgersClient:
+    def with_raw_response(self) -> RawFinancialReportsClient:
         """
         Retrieves a raw implementation of this client that returns raw responses.
 
         Returns
         -------
-        RawLedgersClient
+        RawFinancialReportsClient
         """
         return self._raw_client
 
-    def get_financial_report(
+    def retrieve(
         self,
         *,
         account_id: str,
-        report_type: GetFinancialReportRequestReportType,
+        report_type: RetrieveFinancialReportsRequestReportType,
         currency: typing.Optional[str] = None,
         in_currency: typing.Optional[str] = None,
         from_date: typing.Optional[str] = None,
         to_date: typing.Optional[str] = None,
-        group_by: typing.Optional[GetFinancialReportRequestGroupBy] = None,
+        group_by: typing.Optional[RetrieveFinancialReportsRequestGroupBy] = None,
         timezone: typing.Optional[str] = None,
+        line_types: typing.Optional[
+            typing.Union[
+                RetrieveFinancialReportsRequestLineTypesItem,
+                typing.Sequence[RetrieveFinancialReportsRequestLineTypesItem],
+            ]
+        ] = None,
+        direction: typing.Optional[RetrieveFinancialReportsRequestDirection] = None,
         cumulative: typing.Optional[bool] = None,
         scope_account_id: typing.Optional[str] = None,
+        include_payment_fee_breakdown: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> GetFinancialReportResponse:
+    ) -> RetrieveFinancialReportsResponse:
         """
         Returns a financial report — balance activity, income statement, or balance summary — for an account over a date range.
 
@@ -48,7 +58,7 @@ class LedgersClient:
         account_id : str
             The owning account ID (a biz_ identifier), or `global` for a platform-wide report across all ledger accounts (requires internal admin access).
 
-        report_type : GetFinancialReportRequestReportType
+        report_type : RetrieveFinancialReportsRequestReportType
             The type of financial report to generate.
 
         currency : typing.Optional[str]
@@ -63,11 +73,17 @@ class LedgersClient:
         to_date : typing.Optional[str]
             End of the report window as an ISO 8601 timestamp (UTC). Required for platform-wide (global) reports.
 
-        group_by : typing.Optional[GetFinancialReportRequestGroupBy]
+        group_by : typing.Optional[RetrieveFinancialReportsRequestGroupBy]
             Grouping granularity for report rows.
 
         timezone : typing.Optional[str]
             IANA timezone (for example `America/New_York`) used to bucket report periods and to interpret calendar-day boundaries for balance snapshots. Defaults to UTC. from_date/to_date remain exact instants regardless of this setting.
+
+        line_types : typing.Optional[typing.Union[RetrieveFinancialReportsRequestLineTypesItem, typing.Sequence[RetrieveFinancialReportsRequestLineTypesItem]]]
+            Account-level balance activity only: ledger line categories to include.
+
+        direction : typing.Optional[RetrieveFinancialReportsRequestDirection]
+            Account-level balance activity only: include money moving in or money moving out.
 
         cumulative : typing.Optional[bool]
             Platform-wide (global) reports only: when true, return cumulative balances as of to_date (all history, no lower bound) instead of activity within the period.
@@ -75,12 +91,15 @@ class LedgersClient:
         scope_account_id : typing.Optional[str]
             Platform-wide (global) reports only: narrow the report to ledger lines on the ledger account owned by this account ID (a biz_ identifier). Ignored unless account_id is `global`.
 
+        include_payment_fee_breakdown : typing.Optional[bool]
+            Balance activity only: include payment costs grouped by payment method and provider.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        GetFinancialReportResponse
+        RetrieveFinancialReportsResponse
             financial report returned
 
         Examples
@@ -88,16 +107,16 @@ class LedgersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
-        client.ledgers.get_financial_report(
+        client.financial_reports.retrieve(
             account_id="account_id",
             report_type="balance_summary",
         )
         """
-        _response = self._raw_client.get_financial_report(
+        _response = self._raw_client.retrieve(
             account_id=account_id,
             report_type=report_type,
             currency=currency,
@@ -106,43 +125,54 @@ class LedgersClient:
             to_date=to_date,
             group_by=group_by,
             timezone=timezone,
+            line_types=line_types,
+            direction=direction,
             cumulative=cumulative,
             scope_account_id=scope_account_id,
+            include_payment_fee_breakdown=include_payment_fee_breakdown,
             request_options=request_options,
         )
         return _response.data
 
 
-class AsyncLedgersClient:
+class AsyncFinancialReportsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
-        self._raw_client = AsyncRawLedgersClient(client_wrapper=client_wrapper)
+        self._raw_client = AsyncRawFinancialReportsClient(client_wrapper=client_wrapper)
 
     @property
-    def with_raw_response(self) -> AsyncRawLedgersClient:
+    def with_raw_response(self) -> AsyncRawFinancialReportsClient:
         """
         Retrieves a raw implementation of this client that returns raw responses.
 
         Returns
         -------
-        AsyncRawLedgersClient
+        AsyncRawFinancialReportsClient
         """
         return self._raw_client
 
-    async def get_financial_report(
+    async def retrieve(
         self,
         *,
         account_id: str,
-        report_type: GetFinancialReportRequestReportType,
+        report_type: RetrieveFinancialReportsRequestReportType,
         currency: typing.Optional[str] = None,
         in_currency: typing.Optional[str] = None,
         from_date: typing.Optional[str] = None,
         to_date: typing.Optional[str] = None,
-        group_by: typing.Optional[GetFinancialReportRequestGroupBy] = None,
+        group_by: typing.Optional[RetrieveFinancialReportsRequestGroupBy] = None,
         timezone: typing.Optional[str] = None,
+        line_types: typing.Optional[
+            typing.Union[
+                RetrieveFinancialReportsRequestLineTypesItem,
+                typing.Sequence[RetrieveFinancialReportsRequestLineTypesItem],
+            ]
+        ] = None,
+        direction: typing.Optional[RetrieveFinancialReportsRequestDirection] = None,
         cumulative: typing.Optional[bool] = None,
         scope_account_id: typing.Optional[str] = None,
+        include_payment_fee_breakdown: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> GetFinancialReportResponse:
+    ) -> RetrieveFinancialReportsResponse:
         """
         Returns a financial report — balance activity, income statement, or balance summary — for an account over a date range.
 
@@ -151,7 +181,7 @@ class AsyncLedgersClient:
         account_id : str
             The owning account ID (a biz_ identifier), or `global` for a platform-wide report across all ledger accounts (requires internal admin access).
 
-        report_type : GetFinancialReportRequestReportType
+        report_type : RetrieveFinancialReportsRequestReportType
             The type of financial report to generate.
 
         currency : typing.Optional[str]
@@ -166,11 +196,17 @@ class AsyncLedgersClient:
         to_date : typing.Optional[str]
             End of the report window as an ISO 8601 timestamp (UTC). Required for platform-wide (global) reports.
 
-        group_by : typing.Optional[GetFinancialReportRequestGroupBy]
+        group_by : typing.Optional[RetrieveFinancialReportsRequestGroupBy]
             Grouping granularity for report rows.
 
         timezone : typing.Optional[str]
             IANA timezone (for example `America/New_York`) used to bucket report periods and to interpret calendar-day boundaries for balance snapshots. Defaults to UTC. from_date/to_date remain exact instants regardless of this setting.
+
+        line_types : typing.Optional[typing.Union[RetrieveFinancialReportsRequestLineTypesItem, typing.Sequence[RetrieveFinancialReportsRequestLineTypesItem]]]
+            Account-level balance activity only: ledger line categories to include.
+
+        direction : typing.Optional[RetrieveFinancialReportsRequestDirection]
+            Account-level balance activity only: include money moving in or money moving out.
 
         cumulative : typing.Optional[bool]
             Platform-wide (global) reports only: when true, return cumulative balances as of to_date (all history, no lower bound) instead of activity within the period.
@@ -178,12 +214,15 @@ class AsyncLedgersClient:
         scope_account_id : typing.Optional[str]
             Platform-wide (global) reports only: narrow the report to ledger lines on the ledger account owned by this account ID (a biz_ identifier). Ignored unless account_id is `global`.
 
+        include_payment_fee_breakdown : typing.Optional[bool]
+            Balance activity only: include payment costs grouped by payment method and provider.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        GetFinancialReportResponse
+        RetrieveFinancialReportsResponse
             financial report returned
 
         Examples
@@ -193,14 +232,14 @@ class AsyncLedgersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-1",
+            "2026-08-25-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
 
 
         async def main() -> None:
-            await client.ledgers.get_financial_report(
+            await client.financial_reports.retrieve(
                 account_id="account_id",
                 report_type="balance_summary",
             )
@@ -208,7 +247,7 @@ class AsyncLedgersClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.get_financial_report(
+        _response = await self._raw_client.retrieve(
             account_id=account_id,
             report_type=report_type,
             currency=currency,
@@ -217,8 +256,11 @@ class AsyncLedgersClient:
             to_date=to_date,
             group_by=group_by,
             timezone=timezone,
+            line_types=line_types,
+            direction=direction,
             cumulative=cumulative,
             scope_account_id=scope_account_id,
+            include_payment_fee_breakdown=include_payment_fee_breakdown,
             request_options=request_options,
         )
         return _response.data
