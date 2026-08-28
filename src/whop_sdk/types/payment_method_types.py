@@ -42,6 +42,7 @@ PaymentMethodTypes: TypeAlias = Literal[
     "eps",
     "eu_bank_transfer",
     "fpx",
+    "flex_pay",
     "gb_bank_transfer",
     "gcash",
     "giropay",

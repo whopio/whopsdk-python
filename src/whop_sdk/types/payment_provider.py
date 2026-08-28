@@ -15,6 +15,7 @@ PaymentProvider: TypeAlias = Literal[
     "multi_psp",
     "adyen",
     "claritypay",
+    "flex_pay",
     "checkout_dot_com",
     "airwallex",
     "coinflow",
