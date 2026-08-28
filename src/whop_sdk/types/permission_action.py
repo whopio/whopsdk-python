@@ -178,6 +178,7 @@ PermissionAction = typing.Union[
         "referral:basic:read",
         "referral:partner:create",
         "partner:basic:read",
+        "partner:email:read",
         "partner:invite:create",
         "partner:create",
         "stats:read",

@@ -6,6 +6,7 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .retrieve_businesses_response_account import RetrieveBusinessesResponseAccount
+from .retrieve_businesses_response_blueprint_partner import RetrieveBusinessesResponseBlueprintPartner
 from .retrieve_businesses_response_earnings_usd import RetrieveBusinessesResponseEarningsUsd
 from .retrieve_businesses_response_first_tier_partner import RetrieveBusinessesResponseFirstTierPartner
 from .retrieve_businesses_response_my_partner_tier import RetrieveBusinessesResponseMyPartnerTier
@@ -21,6 +22,11 @@ class RetrieveBusinessesResponse(UniversalBaseModel):
     account: typing.Optional[RetrieveBusinessesResponseAccount] = pydantic.Field(default=None)
     """
     Referred account.
+    """
+
+    blueprint_partner: typing.Optional[RetrieveBusinessesResponseBlueprintPartner] = pydantic.Field(default=None)
+    """
+    The partner whose blueprint the business deployed. Null unless this is a blueprint referral.
     """
 
     created_at: dt.datetime = pydantic.Field()

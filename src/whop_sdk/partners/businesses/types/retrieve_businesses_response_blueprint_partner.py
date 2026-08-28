@@ -4,17 +4,14 @@ import typing
 
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .list_businesses_response_data_item_owner_profile_picture import ListBusinessesResponseDataItemOwnerProfilePicture
+from .retrieve_businesses_response_blueprint_partner_profile_picture import (
+    RetrieveBusinessesResponseBlueprintPartnerProfilePicture,
+)
 
 
-class ListBusinessesResponseDataItemOwner(UniversalBaseModel):
+class RetrieveBusinessesResponseBlueprintPartner(UniversalBaseModel):
     """
-    The owner of the referred business.
-    """
-
-    email: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The business owner's email address, so a partner can follow up on a referral they made. Requires the `partner:email:read` scope; `null` without it, or while the account has no reachable address of its own.
+    The partner whose blueprint the business deployed. Null unless this is a blueprint referral.
     """
 
     id: str = pydantic.Field()
@@ -27,7 +24,7 @@ class ListBusinessesResponseDataItemOwner(UniversalBaseModel):
     The user's display name.
     """
 
-    profile_picture: ListBusinessesResponseDataItemOwnerProfilePicture = pydantic.Field()
+    profile_picture: RetrieveBusinessesResponseBlueprintPartnerProfilePicture = pydantic.Field()
     """
     The user's profile picture.
     """

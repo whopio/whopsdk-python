@@ -13,6 +13,10 @@ if typing.TYPE_CHECKING:
     from .list_businesses_response import ListBusinessesResponse
     from .list_businesses_response_data_item import ListBusinessesResponseDataItem
     from .list_businesses_response_data_item_account import ListBusinessesResponseDataItemAccount
+    from .list_businesses_response_data_item_blueprint_partner import ListBusinessesResponseDataItemBlueprintPartner
+    from .list_businesses_response_data_item_blueprint_partner_profile_picture import (
+        ListBusinessesResponseDataItemBlueprintPartnerProfilePicture,
+    )
     from .list_businesses_response_data_item_earnings_usd import ListBusinessesResponseDataItemEarningsUsd
     from .list_businesses_response_data_item_first_tier_partner import ListBusinessesResponseDataItemFirstTierPartner
     from .list_businesses_response_data_item_first_tier_partner_profile_picture import (
@@ -34,6 +38,10 @@ if typing.TYPE_CHECKING:
     from .list_businesses_response_page_info import ListBusinessesResponsePageInfo
     from .retrieve_businesses_response import RetrieveBusinessesResponse
     from .retrieve_businesses_response_account import RetrieveBusinessesResponseAccount
+    from .retrieve_businesses_response_blueprint_partner import RetrieveBusinessesResponseBlueprintPartner
+    from .retrieve_businesses_response_blueprint_partner_profile_picture import (
+        RetrieveBusinessesResponseBlueprintPartnerProfilePicture,
+    )
     from .retrieve_businesses_response_earnings_usd import RetrieveBusinessesResponseEarningsUsd
     from .retrieve_businesses_response_first_tier_partner import RetrieveBusinessesResponseFirstTierPartner
     from .retrieve_businesses_response_first_tier_partner_profile_picture import (
@@ -58,6 +66,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListBusinessesResponse": ".list_businesses_response",
     "ListBusinessesResponseDataItem": ".list_businesses_response_data_item",
     "ListBusinessesResponseDataItemAccount": ".list_businesses_response_data_item_account",
+    "ListBusinessesResponseDataItemBlueprintPartner": ".list_businesses_response_data_item_blueprint_partner",
+    "ListBusinessesResponseDataItemBlueprintPartnerProfilePicture": ".list_businesses_response_data_item_blueprint_partner_profile_picture",
     "ListBusinessesResponseDataItemEarningsUsd": ".list_businesses_response_data_item_earnings_usd",
     "ListBusinessesResponseDataItemFirstTierPartner": ".list_businesses_response_data_item_first_tier_partner",
     "ListBusinessesResponseDataItemFirstTierPartnerProfilePicture": ".list_businesses_response_data_item_first_tier_partner_profile_picture",
@@ -73,6 +83,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListBusinessesResponsePageInfo": ".list_businesses_response_page_info",
     "RetrieveBusinessesResponse": ".retrieve_businesses_response",
     "RetrieveBusinessesResponseAccount": ".retrieve_businesses_response_account",
+    "RetrieveBusinessesResponseBlueprintPartner": ".retrieve_businesses_response_blueprint_partner",
+    "RetrieveBusinessesResponseBlueprintPartnerProfilePicture": ".retrieve_businesses_response_blueprint_partner_profile_picture",
     "RetrieveBusinessesResponseEarningsUsd": ".retrieve_businesses_response_earnings_usd",
     "RetrieveBusinessesResponseFirstTierPartner": ".retrieve_businesses_response_first_tier_partner",
     "RetrieveBusinessesResponseFirstTierPartnerProfilePicture": ".retrieve_businesses_response_first_tier_partner_profile_picture",
@@ -117,6 +129,8 @@ __all__ = [
     "ListBusinessesResponse",
     "ListBusinessesResponseDataItem",
     "ListBusinessesResponseDataItemAccount",
+    "ListBusinessesResponseDataItemBlueprintPartner",
+    "ListBusinessesResponseDataItemBlueprintPartnerProfilePicture",
     "ListBusinessesResponseDataItemEarningsUsd",
     "ListBusinessesResponseDataItemFirstTierPartner",
     "ListBusinessesResponseDataItemFirstTierPartnerProfilePicture",
@@ -132,6 +146,8 @@ __all__ = [
     "ListBusinessesResponsePageInfo",
     "RetrieveBusinessesResponse",
     "RetrieveBusinessesResponseAccount",
+    "RetrieveBusinessesResponseBlueprintPartner",
+    "RetrieveBusinessesResponseBlueprintPartnerProfilePicture",
     "RetrieveBusinessesResponseEarningsUsd",
     "RetrieveBusinessesResponseFirstTierPartner",
     "RetrieveBusinessesResponseFirstTierPartnerProfilePicture",

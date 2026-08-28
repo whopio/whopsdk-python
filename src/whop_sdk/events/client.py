@@ -96,7 +96,7 @@ class EventsClient:
             Full event names to filter by, comma-separated (payment.completed, pixel.lead, pixel.page, pixel.custom:<name>) — the same vocabulary the events / people metrics use.
 
         source : typing.Optional[str]
-            Canonical source path, exact or with a trailing :* prefix (whop:<campaign>:*, ext:meta:*, referrer:<domain>, direct). Restricts the list to conversion targets attributed to that source — the debuggability twin of a metric cell's source parameter.
+            Canonical source path, exact or with a trailing :* prefix (whop:<campaign>:*, ext:meta:*, referrer:<domain>, direct). Restricts the list to conversion targets attributed to that source — the debuggability twin of a metric cell's source parameter. A whop:... source combined with non-conversion event names (event=pixel.page) instead lists the events whose ad click resolved to that entity — the page views an ad drove.
 
         attribution_model : typing.Optional[ListEventsRequestAttributionModel]
             Attribution model for the source filter (defaults to last_touch).
@@ -478,7 +478,7 @@ class AsyncEventsClient:
             Full event names to filter by, comma-separated (payment.completed, pixel.lead, pixel.page, pixel.custom:<name>) — the same vocabulary the events / people metrics use.
 
         source : typing.Optional[str]
-            Canonical source path, exact or with a trailing :* prefix (whop:<campaign>:*, ext:meta:*, referrer:<domain>, direct). Restricts the list to conversion targets attributed to that source — the debuggability twin of a metric cell's source parameter.
+            Canonical source path, exact or with a trailing :* prefix (whop:<campaign>:*, ext:meta:*, referrer:<domain>, direct). Restricts the list to conversion targets attributed to that source — the debuggability twin of a metric cell's source parameter. A whop:... source combined with non-conversion event names (event=pixel.page) instead lists the events whose ad click resolved to that entity — the page views an ad drove.
 
         attribution_model : typing.Optional[ListEventsRequestAttributionModel]
             Attribution model for the source filter (defaults to last_touch).
