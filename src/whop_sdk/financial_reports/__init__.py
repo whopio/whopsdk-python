@@ -20,7 +20,28 @@ if typing.TYPE_CHECKING:
         RetrieveFinancialReportsResponseRowsItemLineCategory,
         RetrieveFinancialReportsResponseRowsItemProfitAndLossSection,
     )
+    from . import breakdown
+    from .breakdown import (
+        RetrieveBreakdownRequestBucket,
+        RetrieveBreakdownRequestDirection,
+        RetrieveBreakdownResponse,
+        RetrieveBreakdownResponseActivityFilters,
+        RetrieveBreakdownResponseActivityFiltersDirection,
+        RetrieveBreakdownResponseBucket,
+        RetrieveBreakdownResponseDirection,
+        RetrieveBreakdownResponseItemsItem,
+        RetrieveBreakdownResponseItemsItemObject,
+    )
 _dynamic_imports: typing.Dict[str, str] = {
+    "RetrieveBreakdownRequestBucket": ".breakdown",
+    "RetrieveBreakdownRequestDirection": ".breakdown",
+    "RetrieveBreakdownResponse": ".breakdown",
+    "RetrieveBreakdownResponseActivityFilters": ".breakdown",
+    "RetrieveBreakdownResponseActivityFiltersDirection": ".breakdown",
+    "RetrieveBreakdownResponseBucket": ".breakdown",
+    "RetrieveBreakdownResponseDirection": ".breakdown",
+    "RetrieveBreakdownResponseItemsItem": ".breakdown",
+    "RetrieveBreakdownResponseItemsItemObject": ".breakdown",
     "RetrieveFinancialReportsRequestDirection": ".types",
     "RetrieveFinancialReportsRequestGroupBy": ".types",
     "RetrieveFinancialReportsRequestLineTypesItem": ".types",
@@ -33,6 +54,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrieveFinancialReportsResponseRowsItemGrouping": ".types",
     "RetrieveFinancialReportsResponseRowsItemLineCategory": ".types",
     "RetrieveFinancialReportsResponseRowsItemProfitAndLossSection": ".types",
+    "breakdown": ".breakdown",
 }
 
 
@@ -58,6 +80,15 @@ def __dir__():
 
 
 __all__ = [
+    "RetrieveBreakdownRequestBucket",
+    "RetrieveBreakdownRequestDirection",
+    "RetrieveBreakdownResponse",
+    "RetrieveBreakdownResponseActivityFilters",
+    "RetrieveBreakdownResponseActivityFiltersDirection",
+    "RetrieveBreakdownResponseBucket",
+    "RetrieveBreakdownResponseDirection",
+    "RetrieveBreakdownResponseItemsItem",
+    "RetrieveBreakdownResponseItemsItemObject",
     "RetrieveFinancialReportsRequestDirection",
     "RetrieveFinancialReportsRequestGroupBy",
     "RetrieveFinancialReportsRequestLineTypesItem",
@@ -70,4 +101,5 @@ __all__ = [
     "RetrieveFinancialReportsResponseRowsItemGrouping",
     "RetrieveFinancialReportsResponseRowsItemLineCategory",
     "RetrieveFinancialReportsResponseRowsItemProfitAndLossSection",
+    "breakdown",
 ]

@@ -12,6 +12,11 @@ from .referred_users_partners_response_data_item_user_profile_picture import (
 class ReferredUsersPartnersResponseDataItemUser(UniversalBaseModel):
     city: typing.Optional[str] = None
     country: typing.Optional[str] = None
+    email: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The referred user's email address, so a partner can follow up with someone they brought onto Whop. Requires the `partner:email:read` scope; `null` without it, or while the account has no reachable address of its own.
+    """
+
     id: str
     name: typing.Optional[str] = None
     profile_picture: typing.Optional[ReferredUsersPartnersResponseDataItemUserProfilePicture] = None

@@ -12,6 +12,11 @@ class RetrieveBusinessesResponseOwner(UniversalBaseModel):
     The owner of the referred business.
     """
 
+    email: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The business owner's email address, so a partner can follow up on a referral they made. Requires the `partner:email:read` scope; `null` without it, or while the account has no reachable address of its own.
+    """
+
     id: str = pydantic.Field()
     """
     User ID, prefixed `user_`.

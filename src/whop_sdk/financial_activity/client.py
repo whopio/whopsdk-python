@@ -39,6 +39,7 @@ class FinancialActivityClient:
             ]
         ] = None,
         direction: typing.Optional[ListFinancialActivityRequestDirection] = None,
+        resource_id: typing.Optional[str] = None,
         currency: typing.Optional[str] = None,
         posted_after: typing.Optional[dt.datetime] = None,
         posted_before: typing.Optional[dt.datetime] = None,
@@ -70,6 +71,9 @@ class FinancialActivityClient:
 
         direction : typing.Optional[ListFinancialActivityRequestDirection]
             Optional direction filter. `money_in` returns positive activity and `money_out` returns negative activity.
+
+        resource_id : typing.Optional[str]
+            Optional prefixed resource ID. Returns activity associated with that resource.
 
         currency : typing.Optional[str]
             Optional currency code filter, for example `usd`.
@@ -118,6 +122,7 @@ class FinancialActivityClient:
             include_resource=include_resource,
             line_types=line_types,
             direction=direction,
+            resource_id=resource_id,
             currency=currency,
             posted_after=posted_after,
             posted_before=posted_before,
@@ -158,6 +163,7 @@ class AsyncFinancialActivityClient:
             ]
         ] = None,
         direction: typing.Optional[ListFinancialActivityRequestDirection] = None,
+        resource_id: typing.Optional[str] = None,
         currency: typing.Optional[str] = None,
         posted_after: typing.Optional[dt.datetime] = None,
         posted_before: typing.Optional[dt.datetime] = None,
@@ -189,6 +195,9 @@ class AsyncFinancialActivityClient:
 
         direction : typing.Optional[ListFinancialActivityRequestDirection]
             Optional direction filter. `money_in` returns positive activity and `money_out` returns negative activity.
+
+        resource_id : typing.Optional[str]
+            Optional prefixed resource ID. Returns activity associated with that resource.
 
         currency : typing.Optional[str]
             Optional currency code filter, for example `usd`.
@@ -245,6 +254,7 @@ class AsyncFinancialActivityClient:
             include_resource=include_resource,
             line_types=line_types,
             direction=direction,
+            resource_id=resource_id,
             currency=currency,
             posted_after=posted_after,
             posted_before=posted_before,

@@ -979,6 +979,7 @@ class RawAccountsClient:
         *,
         identifier: str,
         as_partner: typing.Optional[bool] = OMIT,
+        message: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[TransferOwnershipAccountsResponse]:
         """
@@ -995,6 +996,9 @@ class RawAccountsClient:
         as_partner : typing.Optional[bool]
             If true, the current owner is credited as the account's Whop partner, earning partner commission on its sales. Requires the current owner to already be an enrolled Whop partner. Skipped if the account already has an active partner.
 
+        message : typing.Optional[str]
+            A note from the partner, shown as a quote in the invite email and signed with their name. Requires `as_partner`; sending it on an ordinary transfer is a 400. Omit it and the email sends without a note.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1009,6 +1013,7 @@ class RawAccountsClient:
             json={
                 "as_partner": as_partner,
                 "identifier": identifier,
+                "message": message,
             },
             headers={
                 "content-type": "application/json",
@@ -1986,6 +1991,7 @@ class AsyncRawAccountsClient:
         *,
         identifier: str,
         as_partner: typing.Optional[bool] = OMIT,
+        message: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[TransferOwnershipAccountsResponse]:
         """
@@ -2002,6 +2008,9 @@ class AsyncRawAccountsClient:
         as_partner : typing.Optional[bool]
             If true, the current owner is credited as the account's Whop partner, earning partner commission on its sales. Requires the current owner to already be an enrolled Whop partner. Skipped if the account already has an active partner.
 
+        message : typing.Optional[str]
+            A note from the partner, shown as a quote in the invite email and signed with their name. Requires `as_partner`; sending it on an ordinary transfer is a 400. Omit it and the email sends without a note.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -2016,6 +2025,7 @@ class AsyncRawAccountsClient:
             json={
                 "as_partner": as_partner,
                 "identifier": identifier,
+                "message": message,
             },
             headers={
                 "content-type": "application/json",

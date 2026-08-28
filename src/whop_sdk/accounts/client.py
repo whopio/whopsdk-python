@@ -693,6 +693,7 @@ class AccountsClient:
         *,
         identifier: str,
         as_partner: typing.Optional[bool] = OMIT,
+        message: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TransferOwnershipAccountsResponse:
         """
@@ -708,6 +709,9 @@ class AccountsClient:
 
         as_partner : typing.Optional[bool]
             If true, the current owner is credited as the account's Whop partner, earning partner commission on its sales. Requires the current owner to already be an enrolled Whop partner. Skipped if the account already has an active partner.
+
+        message : typing.Optional[str]
+            A note from the partner, shown as a quote in the invite email and signed with their name. Requires `as_partner`; sending it on an ordinary transfer is a 400. Omit it and the email sends without a note.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -732,7 +736,7 @@ class AccountsClient:
         )
         """
         _response = self._raw_client.transfer_ownership(
-            id, identifier=identifier, as_partner=as_partner, request_options=request_options
+            id, identifier=identifier, as_partner=as_partner, message=message, request_options=request_options
         )
         return _response.data
 
@@ -1448,6 +1452,7 @@ class AsyncAccountsClient:
         *,
         identifier: str,
         as_partner: typing.Optional[bool] = OMIT,
+        message: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TransferOwnershipAccountsResponse:
         """
@@ -1463,6 +1468,9 @@ class AsyncAccountsClient:
 
         as_partner : typing.Optional[bool]
             If true, the current owner is credited as the account's Whop partner, earning partner commission on its sales. Requires the current owner to already be an enrolled Whop partner. Skipped if the account already has an active partner.
+
+        message : typing.Optional[str]
+            A note from the partner, shown as a quote in the invite email and signed with their name. Requires `as_partner`; sending it on an ordinary transfer is a 400. Omit it and the email sends without a note.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1495,7 +1503,7 @@ class AsyncAccountsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.transfer_ownership(
-            id, identifier=identifier, as_partner=as_partner, request_options=request_options
+            id, identifier=identifier, as_partner=as_partner, message=message, request_options=request_options
         )
         return _response.data
 
