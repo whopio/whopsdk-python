@@ -29,6 +29,7 @@ __all__ = [
     "BillingAddress",
     "Company",
     "Dispute",
+    "Fee",
     "FinancingTransaction",
     "Member",
     "Membership",
@@ -152,6 +153,55 @@ class Dispute(BaseModel):
     The current status of the dispute lifecycle, such as needs_response,
     under_review, won, or lost.
     """
+
+
+class Fee(BaseModel):
+    """Represents a fee related to a payment"""
+
+    amount: float
+    """The value or amount to display for the fee."""
+
+    currency: Currency
+    """The currency of the fee."""
+
+    name: str
+    """The label to display for the fee."""
+
+    type: Literal[
+        "stripe_domestic_processing_fee",
+        "stripe_international_processing_fee",
+        "stripe_fixed_processing_fee",
+        "stripe_billing_fee",
+        "stripe_radar_fee",
+        "sales_tax_remittance",
+        "sales_tax_remittance_reversal",
+        "stripe_sales_tax_fee",
+        "whop_processing_fee",
+        "marketplace_affiliate_fee",
+        "affiliate_fee",
+        "crypto_fee",
+        "stripe_standard_processing_fee",
+        "paypal_fee",
+        "stripe_payout_fee",
+        "dispute_fee",
+        "dispute_alert_fee",
+        "apple_processing_fee",
+        "buyer_fee",
+        "sezzle_processing_fee",
+        "splitit_processing_fee",
+        "platform_balance_processing_fee",
+        "payment_processing_percentage_fee",
+        "payment_processing_fixed_fee",
+        "cross_border_percentage_fee",
+        "fx_percentage_fee",
+        "orchestration_percentage_fee",
+        "three_ds_fixed_fee",
+        "billing_percentage_fee",
+        "revshare_percentage_fee",
+        "application_fee",
+        "high_risk_merchant_fee",
+    ]
+    """The specific origin of the fee, if applicable."""
 
 
 class FinancingTransaction(BaseModel):
@@ -818,6 +868,9 @@ class Payment(BaseModel):
 
     failure_message: Optional[str] = None
     """If the payment failed, the reason for the failure."""
+
+    fees: List[Fee]
+    """The fees associated with this specific payment."""
 
     financing_installments_count: Optional[int] = None
     """The number of financing installments for the payment.
