@@ -20,7 +20,10 @@ class RefundListParams(TypedDict, total=False):
     """Returns the elements in the list that come before the specified cursor."""
 
     company_id: str
-    """Filter refunds to only those belonging to this company."""
+    """Filter refunds to those belonging to this company.
+
+    Mutually exclusive with payment_id and user_id: provide exactly one.
+    """
 
     created_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Only return refunds created after this timestamp."""
@@ -38,7 +41,15 @@ class RefundListParams(TypedDict, total=False):
     """Returns the last _n_ elements from the list."""
 
     payment_id: str
-    """Filter refunds to only those associated with this specific payment."""
+    """Filter refunds to those associated with this specific payment.
+
+    Mutually exclusive with company_id and user_id: provide exactly one.
+    """
 
     user_id: str
-    """Filter refunds to only those associated with this specific user."""
+    """Filter refunds to those associated with this specific user.
+
+    Mutually exclusive with payment_id and company_id: provide exactly one. Requires
+    a credential belonging to that user; any other credential receives 'You are not
+    authorized'.
+    """

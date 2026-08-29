@@ -124,7 +124,8 @@ class RefundsResource(SyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          company_id: Filter refunds to only those belonging to this company.
+          company_id: Filter refunds to those belonging to this company. Mutually exclusive with
+              payment_id and user_id: provide exactly one.
 
           created_after: Only return refunds created after this timestamp.
 
@@ -136,9 +137,12 @@ class RefundsResource(SyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          payment_id: Filter refunds to only those associated with this specific payment.
+          payment_id: Filter refunds to those associated with this specific payment. Mutually
+              exclusive with company_id and user_id: provide exactly one.
 
-          user_id: Filter refunds to only those associated with this specific user.
+          user_id: Filter refunds to those associated with this specific user. Mutually exclusive
+              with payment_id and company_id: provide exactly one. Requires a credential
+              belonging to that user; any other credential receives 'You are not authorized'.
 
           extra_headers: Send extra headers
 
@@ -273,7 +277,8 @@ class AsyncRefundsResource(AsyncAPIResource):
 
           before: Returns the elements in the list that come before the specified cursor.
 
-          company_id: Filter refunds to only those belonging to this company.
+          company_id: Filter refunds to those belonging to this company. Mutually exclusive with
+              payment_id and user_id: provide exactly one.
 
           created_after: Only return refunds created after this timestamp.
 
@@ -285,9 +290,12 @@ class AsyncRefundsResource(AsyncAPIResource):
 
           last: Returns the last _n_ elements from the list.
 
-          payment_id: Filter refunds to only those associated with this specific payment.
+          payment_id: Filter refunds to those associated with this specific payment. Mutually
+              exclusive with company_id and user_id: provide exactly one.
 
-          user_id: Filter refunds to only those associated with this specific user.
+          user_id: Filter refunds to those associated with this specific user. Mutually exclusive
+              with payment_id and company_id: provide exactly one. Requires a credential
+              belonging to that user; any other credential receives 'You are not authorized'.
 
           extra_headers: Send extra headers
 

@@ -566,7 +566,9 @@ class PaymentsResource(SyncAPIResource):
 
           first: Returns the first _n_ elements from the list.
 
-          include_free: Whether to include payments with a zero amount.
+          include_free: Whether to include payments with a zero amount. Defaults to false, so
+              zero-amount payments are omitted unless you set this to true — a company whose
+              sales are all free plans returns an empty list without it.
 
           last: Returns the last _n_ elements from the list.
 
@@ -1378,7 +1380,9 @@ class AsyncPaymentsResource(AsyncAPIResource):
 
           first: Returns the first _n_ elements from the list.
 
-          include_free: Whether to include payments with a zero amount.
+          include_free: Whether to include payments with a zero amount. Defaults to false, so
+              zero-amount payments are omitted unless you set this to true — a company whose
+              sales are all free plans returns an empty list without it.
 
           last: Returns the last _n_ elements from the list.
 
