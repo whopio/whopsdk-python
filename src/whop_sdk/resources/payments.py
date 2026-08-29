@@ -78,11 +78,12 @@ class PaymentsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PaymentCreateResponse:
         """
-        Charge an existing member off-session using one of their stored payment methods.
-        You can provide an existing plan, or create a new one in-line. This endpoint
-        will respond with a payment object immediately, but the payment is processed
-        asynchronously in the background. Use webhooks to be notified when the payment
-        succeeds or fails.
+        Charge a buyer on-session with a `confirmation_token` for the method they
+        selected, or charge an existing member off-session using a stored payment
+        method. You can provide an existing plan or create one inline. The endpoint
+        returns a payment immediately, but processing continues asynchronously. Use
+        webhooks to learn whether it succeeds or fails, and poll the payment's status
+        endpoint for any step the buyer must complete.
 
         Required permissions:
 
@@ -165,11 +166,12 @@ class PaymentsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PaymentCreateResponse:
         """
-        Charge an existing member off-session using one of their stored payment methods.
-        You can provide an existing plan, or create a new one in-line. This endpoint
-        will respond with a payment object immediately, but the payment is processed
-        asynchronously in the background. Use webhooks to be notified when the payment
-        succeeds or fails.
+        Charge a buyer on-session with a `confirmation_token` for the method they
+        selected, or charge an existing member off-session using a stored payment
+        method. You can provide an existing plan or create one inline. The endpoint
+        returns a payment immediately, but processing continues asynchronously. Use
+        webhooks to learn whether it succeeds or fails, and poll the payment's status
+        endpoint for any step the buyer must complete.
 
         Required permissions:
 
@@ -248,11 +250,12 @@ class PaymentsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PaymentCreateResponse:
         """
-        Charge an existing member off-session using one of their stored payment methods.
-        You can provide an existing plan, or create a new one in-line. This endpoint
-        will respond with a payment object immediately, but the payment is processed
-        asynchronously in the background. Use webhooks to be notified when the payment
-        succeeds or fails.
+        Charge a buyer on-session with a `confirmation_token` for the method they
+        selected, or charge an existing member off-session using a stored payment
+        method. You can provide an existing plan or create one inline. The endpoint
+        returns a payment immediately, but processing continues asynchronously. Use
+        webhooks to learn whether it succeeds or fails, and poll the payment's status
+        endpoint for any step the buyer must complete.
 
         Required permissions:
 
@@ -335,11 +338,12 @@ class PaymentsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PaymentCreateResponse:
         """
-        Charge an existing member off-session using one of their stored payment methods.
-        You can provide an existing plan, or create a new one in-line. This endpoint
-        will respond with a payment object immediately, but the payment is processed
-        asynchronously in the background. Use webhooks to be notified when the payment
-        succeeds or fails.
+        Charge a buyer on-session with a `confirmation_token` for the method they
+        selected, or charge an existing member off-session using a stored payment
+        method. You can provide an existing plan or create one inline. The endpoint
+        returns a payment immediately, but processing continues asynchronously. Use
+        webhooks to learn whether it succeeds or fails, and poll the payment's status
+        endpoint for any step the buyer must complete.
 
         Required permissions:
 
@@ -886,11 +890,12 @@ class AsyncPaymentsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PaymentCreateResponse:
         """
-        Charge an existing member off-session using one of their stored payment methods.
-        You can provide an existing plan, or create a new one in-line. This endpoint
-        will respond with a payment object immediately, but the payment is processed
-        asynchronously in the background. Use webhooks to be notified when the payment
-        succeeds or fails.
+        Charge a buyer on-session with a `confirmation_token` for the method they
+        selected, or charge an existing member off-session using a stored payment
+        method. You can provide an existing plan or create one inline. The endpoint
+        returns a payment immediately, but processing continues asynchronously. Use
+        webhooks to learn whether it succeeds or fails, and poll the payment's status
+        endpoint for any step the buyer must complete.
 
         Required permissions:
 
@@ -973,11 +978,12 @@ class AsyncPaymentsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PaymentCreateResponse:
         """
-        Charge an existing member off-session using one of their stored payment methods.
-        You can provide an existing plan, or create a new one in-line. This endpoint
-        will respond with a payment object immediately, but the payment is processed
-        asynchronously in the background. Use webhooks to be notified when the payment
-        succeeds or fails.
+        Charge a buyer on-session with a `confirmation_token` for the method they
+        selected, or charge an existing member off-session using a stored payment
+        method. You can provide an existing plan or create one inline. The endpoint
+        returns a payment immediately, but processing continues asynchronously. Use
+        webhooks to learn whether it succeeds or fails, and poll the payment's status
+        endpoint for any step the buyer must complete.
 
         Required permissions:
 
@@ -1056,11 +1062,12 @@ class AsyncPaymentsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PaymentCreateResponse:
         """
-        Charge an existing member off-session using one of their stored payment methods.
-        You can provide an existing plan, or create a new one in-line. This endpoint
-        will respond with a payment object immediately, but the payment is processed
-        asynchronously in the background. Use webhooks to be notified when the payment
-        succeeds or fails.
+        Charge a buyer on-session with a `confirmation_token` for the method they
+        selected, or charge an existing member off-session using a stored payment
+        method. You can provide an existing plan or create one inline. The endpoint
+        returns a payment immediately, but processing continues asynchronously. Use
+        webhooks to learn whether it succeeds or fails, and poll the payment's status
+        endpoint for any step the buyer must complete.
 
         Required permissions:
 
@@ -1143,11 +1150,12 @@ class AsyncPaymentsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PaymentCreateResponse:
         """
-        Charge an existing member off-session using one of their stored payment methods.
-        You can provide an existing plan, or create a new one in-line. This endpoint
-        will respond with a payment object immediately, but the payment is processed
-        asynchronously in the background. Use webhooks to be notified when the payment
-        succeeds or fails.
+        Charge a buyer on-session with a `confirmation_token` for the method they
+        selected, or charge an existing member off-session using a stored payment
+        method. You can provide an existing plan or create one inline. The endpoint
+        returns a payment immediately, but processing continues asynchronously. Use
+        webhooks to learn whether it succeeds or fails, and poll the payment's status
+        endpoint for any step the buyer must complete.
 
         Required permissions:
 
