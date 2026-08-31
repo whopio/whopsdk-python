@@ -12,6 +12,11 @@ class StorefrontAccount(UniversalBaseModel):
     Account ID, prefixed `biz_`.
     """
 
+    logo_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Account logo image URL. `null` when the account has not set one.
+    """
+
     route: str = pydantic.Field()
     """
     Account public route identifier — the `whop.com/{route}` storefront path.

@@ -6,25 +6,25 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class MembershipAccount(UniversalBaseModel):
-    id: str = pydantic.Field()
+class PaymentBillingDetailsPreview(UniversalBaseModel):
+    country: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Account ID, prefixed `biz_`.
-    """
-
-    logo_url: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    Account logo image URL.
+    ISO 3166-1 alpha-2 country code.
     """
 
-    route: str = pydantic.Field()
+    email: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Account public route identifier — the `whop.com/{route}` storefront path.
+    Email supplied when the method was collected.
     """
 
-    title: str = pydantic.Field()
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Account display name.
+    Name on the payment method.
+    """
+
+    postal_code: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Postal or ZIP code.
     """
 
     if IS_PYDANTIC_V2:

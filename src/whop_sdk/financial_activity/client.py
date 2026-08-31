@@ -40,6 +40,7 @@ class FinancialActivityClient:
         ] = None,
         direction: typing.Optional[ListFinancialActivityRequestDirection] = None,
         resource_id: typing.Optional[str] = None,
+        activity_id: typing.Optional[str] = None,
         currency: typing.Optional[str] = None,
         posted_after: typing.Optional[dt.datetime] = None,
         posted_before: typing.Optional[dt.datetime] = None,
@@ -74,6 +75,9 @@ class FinancialActivityClient:
 
         resource_id : typing.Optional[str]
             Optional prefixed resource ID. Returns activity associated with that resource.
+
+        activity_id : typing.Optional[str]
+            Optional ledger activity ID (for example `line_3`). Returns at most that one activity.
 
         currency : typing.Optional[str]
             Optional currency code filter, for example `usd`.
@@ -123,6 +127,7 @@ class FinancialActivityClient:
             line_types=line_types,
             direction=direction,
             resource_id=resource_id,
+            activity_id=activity_id,
             currency=currency,
             posted_after=posted_after,
             posted_before=posted_before,
@@ -164,6 +169,7 @@ class AsyncFinancialActivityClient:
         ] = None,
         direction: typing.Optional[ListFinancialActivityRequestDirection] = None,
         resource_id: typing.Optional[str] = None,
+        activity_id: typing.Optional[str] = None,
         currency: typing.Optional[str] = None,
         posted_after: typing.Optional[dt.datetime] = None,
         posted_before: typing.Optional[dt.datetime] = None,
@@ -198,6 +204,9 @@ class AsyncFinancialActivityClient:
 
         resource_id : typing.Optional[str]
             Optional prefixed resource ID. Returns activity associated with that resource.
+
+        activity_id : typing.Optional[str]
+            Optional ledger activity ID (for example `line_3`). Returns at most that one activity.
 
         currency : typing.Optional[str]
             Optional currency code filter, for example `usd`.
@@ -255,6 +264,7 @@ class AsyncFinancialActivityClient:
             line_types=line_types,
             direction=direction,
             resource_id=resource_id,
+            activity_id=activity_id,
             currency=currency,
             posted_after=posted_after,
             posted_before=posted_before,

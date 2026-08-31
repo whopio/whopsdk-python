@@ -279,8 +279,8 @@ class RawSocialAccountsClient:
         self,
         *,
         platform: ConnectSocialAccountsRequestPlatform,
+        redirect_url: str,
         account_id: typing.Optional[str] = OMIT,
-        redirect_url: typing.Optional[str] = OMIT,
         scopes: typing.Optional[typing.Sequence[ConnectSocialAccountsRequestScopesItem]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ConnectSocialAccountsResponse]:
@@ -290,16 +290,16 @@ class RawSocialAccountsClient:
         Parameters
         ----------
         platform : ConnectSocialAccountsRequestPlatform
-            The platform to connect the social account on. Supported options are `meta_business` and `tiktok`.
+            The platform to connect the social account on. Use `meta_business` to connect Meta Business assets, which is how Facebook Pages and Instagram accounts are connected — there is no separate `instagram` value. Use `tiktok` for TikTok accounts.
+
+        redirect_url : str
+            Where to send the user once they finish connecting their accounts. Any `http` or `https` URL. If the connection fails, the user is redirected with a `social_account_error` query param.
 
         account_id : typing.Optional[str]
             The Account (biz_ identifier) to connect the social account for. An account-scoped API key may omit this to default to its own account.
 
-        redirect_url : typing.Optional[str]
-            The Whop URL to redirect the user to after they finish connecting.
-
         scopes : typing.Optional[typing.Sequence[ConnectSocialAccountsRequestScopesItem]]
-            Capabilities to grant for the connected social account. Use `advertise` when connecting a Meta Business or TikTok account for ads.
+            Capabilities to grant for the connected social account. `advertise` is required for both `meta_business` and `tiktok` connections — it is not conditional on whether you intend to run ads, and omitting it fails the request.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -932,8 +932,8 @@ class AsyncRawSocialAccountsClient:
         self,
         *,
         platform: ConnectSocialAccountsRequestPlatform,
+        redirect_url: str,
         account_id: typing.Optional[str] = OMIT,
-        redirect_url: typing.Optional[str] = OMIT,
         scopes: typing.Optional[typing.Sequence[ConnectSocialAccountsRequestScopesItem]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ConnectSocialAccountsResponse]:
@@ -943,16 +943,16 @@ class AsyncRawSocialAccountsClient:
         Parameters
         ----------
         platform : ConnectSocialAccountsRequestPlatform
-            The platform to connect the social account on. Supported options are `meta_business` and `tiktok`.
+            The platform to connect the social account on. Use `meta_business` to connect Meta Business assets, which is how Facebook Pages and Instagram accounts are connected — there is no separate `instagram` value. Use `tiktok` for TikTok accounts.
+
+        redirect_url : str
+            Where to send the user once they finish connecting their accounts. Any `http` or `https` URL. If the connection fails, the user is redirected with a `social_account_error` query param.
 
         account_id : typing.Optional[str]
             The Account (biz_ identifier) to connect the social account for. An account-scoped API key may omit this to default to its own account.
 
-        redirect_url : typing.Optional[str]
-            The Whop URL to redirect the user to after they finish connecting.
-
         scopes : typing.Optional[typing.Sequence[ConnectSocialAccountsRequestScopesItem]]
-            Capabilities to grant for the connected social account. Use `advertise` when connecting a Meta Business or TikTok account for ads.
+            Capabilities to grant for the connected social account. `advertise` is required for both `meta_business` and `tiktok` connections — it is not conditional on whether you intend to run ads, and omitting it fails the request.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

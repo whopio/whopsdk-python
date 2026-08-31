@@ -405,17 +405,25 @@ class RawMethodsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def update(
-        self, id: str, *, nickname: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        id: str,
+        *,
+        is_default: typing.Optional[bool] = OMIT,
+        nickname: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateMethodsResponse]:
         """
-        Changes the label used to identify a saved payout method.
+        Changes the label used to identify a saved payout method or makes it the account's default payout method.
 
         Parameters
         ----------
         id : str
             Payout method ID, prefixed `potk_`.
 
-        nickname : str
+        is_default : typing.Optional[bool]
+            Set to `true` to make this the account's default payout method. `false` is not accepted.
+
+        nickname : typing.Optional[str]
             New label for the payout method, with at least one non-whitespace character and a maximum of 100 characters.
 
         request_options : typing.Optional[RequestOptions]
@@ -424,12 +432,13 @@ class RawMethodsClient:
         Returns
         -------
         HttpResponse[UpdateMethodsResponse]
-            payout method renamed
+            payout method updated
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payouts/methods/{encode_path_param(id)}",
             method="PATCH",
             json={
+                "is_default": is_default,
                 "nickname": nickname,
             },
             headers={
@@ -881,17 +890,25 @@ class AsyncRawMethodsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def update(
-        self, id: str, *, nickname: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        id: str,
+        *,
+        is_default: typing.Optional[bool] = OMIT,
+        nickname: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateMethodsResponse]:
         """
-        Changes the label used to identify a saved payout method.
+        Changes the label used to identify a saved payout method or makes it the account's default payout method.
 
         Parameters
         ----------
         id : str
             Payout method ID, prefixed `potk_`.
 
-        nickname : str
+        is_default : typing.Optional[bool]
+            Set to `true` to make this the account's default payout method. `false` is not accepted.
+
+        nickname : typing.Optional[str]
             New label for the payout method, with at least one non-whitespace character and a maximum of 100 characters.
 
         request_options : typing.Optional[RequestOptions]
@@ -900,12 +917,13 @@ class AsyncRawMethodsClient:
         Returns
         -------
         AsyncHttpResponse[UpdateMethodsResponse]
-            payout method renamed
+            payout method updated
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payouts/methods/{encode_path_param(id)}",
             method="PATCH",
             json={
+                "is_default": is_default,
                 "nickname": nickname,
             },
             headers={

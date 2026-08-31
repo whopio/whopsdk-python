@@ -96,6 +96,11 @@ class CreateEventsRequestContext(UniversalBaseModel):
     Reddit click ID.
     """
 
+    sc: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Whop SC identifier.
+    """
+
     sccid: typing.Optional[str] = pydantic.Field(default=None)
     """
     Snapchat click ID.

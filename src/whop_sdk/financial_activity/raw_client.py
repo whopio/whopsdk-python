@@ -39,6 +39,7 @@ class RawFinancialActivityClient:
         ] = None,
         direction: typing.Optional[ListFinancialActivityRequestDirection] = None,
         resource_id: typing.Optional[str] = None,
+        activity_id: typing.Optional[str] = None,
         currency: typing.Optional[str] = None,
         posted_after: typing.Optional[dt.datetime] = None,
         posted_before: typing.Optional[dt.datetime] = None,
@@ -73,6 +74,9 @@ class RawFinancialActivityClient:
 
         resource_id : typing.Optional[str]
             Optional prefixed resource ID. Returns activity associated with that resource.
+
+        activity_id : typing.Optional[str]
+            Optional ledger activity ID (for example `line_3`). Returns at most that one activity.
 
         currency : typing.Optional[str]
             Optional currency code filter, for example `usd`.
@@ -114,6 +118,7 @@ class RawFinancialActivityClient:
                 "line_types": line_types,
                 "direction": direction,
                 "resource_id": resource_id,
+                "activity_id": activity_id,
                 "currency": currency,
                 "posted_after": serialize_datetime(posted_after) if posted_after is not None else None,
                 "posted_before": serialize_datetime(posted_before) if posted_before is not None else None,
@@ -206,6 +211,7 @@ class AsyncRawFinancialActivityClient:
         ] = None,
         direction: typing.Optional[ListFinancialActivityRequestDirection] = None,
         resource_id: typing.Optional[str] = None,
+        activity_id: typing.Optional[str] = None,
         currency: typing.Optional[str] = None,
         posted_after: typing.Optional[dt.datetime] = None,
         posted_before: typing.Optional[dt.datetime] = None,
@@ -240,6 +246,9 @@ class AsyncRawFinancialActivityClient:
 
         resource_id : typing.Optional[str]
             Optional prefixed resource ID. Returns activity associated with that resource.
+
+        activity_id : typing.Optional[str]
+            Optional ledger activity ID (for example `line_3`). Returns at most that one activity.
 
         currency : typing.Optional[str]
             Optional currency code filter, for example `usd`.
@@ -281,6 +290,7 @@ class AsyncRawFinancialActivityClient:
                 "line_types": line_types,
                 "direction": direction,
                 "resource_id": resource_id,
+                "activity_id": activity_id,
                 "currency": currency,
                 "posted_after": serialize_datetime(posted_after) if posted_after is not None else None,
                 "posted_before": serialize_datetime(posted_before) if posted_before is not None else None,

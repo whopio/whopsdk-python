@@ -85,7 +85,7 @@ class CardsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateCardsResponse:
         """
-        Issue a virtual card, or apply for card issuing.
+        Issue a virtual card, or apply for card issuing. An account with no application files one here and gets back a `202`; call again to issue the card once it is approved.
 
         Parameters
         ----------
@@ -93,7 +93,7 @@ class CardsClient:
             The owning account ID (a biz_ identifier). Provide this or user_id.
 
         assigned_user_id : typing.Optional[str]
-            The account member (a user_ identifier) to assign the card to. Required for business card issuing accounts.
+            The account member (a user_ identifier) to assign the card to. Required for business card issuing accounts, and whenever a company API key files an account's first card application.
 
         name : typing.Optional[str]
             A display name for the card.
@@ -362,7 +362,7 @@ class AsyncCardsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateCardsResponse:
         """
-        Issue a virtual card, or apply for card issuing.
+        Issue a virtual card, or apply for card issuing. An account with no application files one here and gets back a `202`; call again to issue the card once it is approved.
 
         Parameters
         ----------
@@ -370,7 +370,7 @@ class AsyncCardsClient:
             The owning account ID (a biz_ identifier). Provide this or user_id.
 
         assigned_user_id : typing.Optional[str]
-            The account member (a user_ identifier) to assign the card to. Required for business card issuing accounts.
+            The account member (a user_ identifier) to assign the card to. Required for business card issuing accounts, and whenever a company API key files an account's first card application.
 
         name : typing.Optional[str]
             A display name for the card.

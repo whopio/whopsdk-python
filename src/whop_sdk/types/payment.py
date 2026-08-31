@@ -14,6 +14,7 @@ from .payment_billing_address import PaymentBillingAddress
 from .payment_company import PaymentCompany
 from .payment_decline_codes import PaymentDeclineCodes
 from .payment_disputes_item import PaymentDisputesItem
+from .payment_fees_item import PaymentFeesItem
 from .payment_financing_transactions_item import PaymentFinancingTransactionsItem
 from .payment_member import PaymentMember
 from .payment_membership import PaymentMembership
@@ -126,6 +127,11 @@ class Payment(UniversalBaseModel):
     failure_message: typing.Optional[str] = pydantic.Field(default=None)
     """
     If the payment failed, the reason for the failure.
+    """
+
+    fees: typing.List[PaymentFeesItem] = pydantic.Field()
+    """
+    The fees associated with this specific payment.
     """
 
     financing_installments_count: typing.Optional[int] = pydantic.Field(default=None)

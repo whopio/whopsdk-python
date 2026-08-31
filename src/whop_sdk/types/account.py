@@ -238,12 +238,12 @@ class Account(UniversalBaseModel):
 
     status: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Whether the account can operate on Whop: `active` or `suspended`. Computed on `list`, `retrieve`, and `me`; `null` otherwise.
+    Whether the account can operate on Whop: `active` or `suspended`. Computed on `list`, `retrieve`, `me`, and `suspend`; `null` otherwise.
     """
 
     status_reason: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Why the account was suspended, in language safe to show the account owner. Computed only on `retrieve` and `me`; `null` otherwise, when `status` is not `suspended`, and when the suspension was recorded without a reason.
+    Why the account was suspended, in language safe to show the account owner. Computed on `retrieve`, `me`, and `suspend`; `null` otherwise, when `status` is not `suspended`, and when the suspension was recorded without a reason.
     """
 
     store_page_config: AccountStorePageConfig = pydantic.Field()

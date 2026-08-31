@@ -20,6 +20,7 @@ if typing.TYPE_CHECKING:
     from .affiliates.client import AffiliatesClient, AsyncAffiliatesClient
     from .ai_chats.client import AiChatsClient, AsyncAiChatsClient
     from .api_keys.client import ApiKeysClient, AsyncApiKeysClient
+    from .api_logs.client import ApiLogsClient, AsyncApiLogsClient
     from .app_builds.client import AppBuildsClient, AsyncAppBuildsClient
     from .apps.client import AppsClient, AsyncAppsClient
     from .audiences.client import AsyncAudiencesClient, AudiencesClient
@@ -32,6 +33,7 @@ if typing.TYPE_CHECKING:
     from .checkout_configurations.client import AsyncCheckoutConfigurationsClient, CheckoutConfigurationsClient
     from .companies.client import AsyncCompaniesClient, CompaniesClient
     from .company_token_transactions.client import AsyncCompanyTokenTransactionsClient, CompanyTokenTransactionsClient
+    from .confirmation_tokens.client import AsyncConfirmationTokensClient, ConfirmationTokensClient
     from .course_chapters.client import AsyncCourseChaptersClient, CourseChaptersClient
     from .course_lesson_interactions.client import AsyncCourseLessonInteractionsClient, CourseLessonInteractionsClient
     from .course_lessons.client import AsyncCourseLessonsClient, CourseLessonsClient
@@ -194,6 +196,7 @@ class Whop:
         self._affiliates: typing.Optional[AffiliatesClient] = None
         self._ai_chats: typing.Optional[AiChatsClient] = None
         self._api_keys: typing.Optional[ApiKeysClient] = None
+        self._api_logs: typing.Optional[ApiLogsClient] = None
         self._app_builds: typing.Optional[AppBuildsClient] = None
         self._apps: typing.Optional[AppsClient] = None
         self._audiences: typing.Optional[AudiencesClient] = None
@@ -206,6 +209,7 @@ class Whop:
         self._checkout_configurations: typing.Optional[CheckoutConfigurationsClient] = None
         self._companies: typing.Optional[CompaniesClient] = None
         self._company_token_transactions: typing.Optional[CompanyTokenTransactionsClient] = None
+        self._confirmation_tokens: typing.Optional[ConfirmationTokensClient] = None
         self._course_chapters: typing.Optional[CourseChaptersClient] = None
         self._course_lesson_interactions: typing.Optional[CourseLessonInteractionsClient] = None
         self._course_lessons: typing.Optional[CourseLessonsClient] = None
@@ -346,6 +350,14 @@ class Whop:
         return self._api_keys
 
     @property
+    def api_logs(self):
+        if self._api_logs is None:
+            from .api_logs.client import ApiLogsClient  # noqa: E402
+
+            self._api_logs = ApiLogsClient(client_wrapper=self._client_wrapper)
+        return self._api_logs
+
+    @property
     def app_builds(self):
         if self._app_builds is None:
             from .app_builds.client import AppBuildsClient  # noqa: E402
@@ -440,6 +452,14 @@ class Whop:
 
             self._company_token_transactions = CompanyTokenTransactionsClient(client_wrapper=self._client_wrapper)
         return self._company_token_transactions
+
+    @property
+    def confirmation_tokens(self):
+        if self._confirmation_tokens is None:
+            from .confirmation_tokens.client import ConfirmationTokensClient  # noqa: E402
+
+            self._confirmation_tokens = ConfirmationTokensClient(client_wrapper=self._client_wrapper)
+        return self._confirmation_tokens
 
     @property
     def course_chapters(self):
@@ -1029,6 +1049,7 @@ class AsyncWhop:
         self._affiliates: typing.Optional[AsyncAffiliatesClient] = None
         self._ai_chats: typing.Optional[AsyncAiChatsClient] = None
         self._api_keys: typing.Optional[AsyncApiKeysClient] = None
+        self._api_logs: typing.Optional[AsyncApiLogsClient] = None
         self._app_builds: typing.Optional[AsyncAppBuildsClient] = None
         self._apps: typing.Optional[AsyncAppsClient] = None
         self._audiences: typing.Optional[AsyncAudiencesClient] = None
@@ -1041,6 +1062,7 @@ class AsyncWhop:
         self._checkout_configurations: typing.Optional[AsyncCheckoutConfigurationsClient] = None
         self._companies: typing.Optional[AsyncCompaniesClient] = None
         self._company_token_transactions: typing.Optional[AsyncCompanyTokenTransactionsClient] = None
+        self._confirmation_tokens: typing.Optional[AsyncConfirmationTokensClient] = None
         self._course_chapters: typing.Optional[AsyncCourseChaptersClient] = None
         self._course_lesson_interactions: typing.Optional[AsyncCourseLessonInteractionsClient] = None
         self._course_lessons: typing.Optional[AsyncCourseLessonsClient] = None
@@ -1181,6 +1203,14 @@ class AsyncWhop:
         return self._api_keys
 
     @property
+    def api_logs(self):
+        if self._api_logs is None:
+            from .api_logs.client import AsyncApiLogsClient  # noqa: E402
+
+            self._api_logs = AsyncApiLogsClient(client_wrapper=self._client_wrapper)
+        return self._api_logs
+
+    @property
     def app_builds(self):
         if self._app_builds is None:
             from .app_builds.client import AsyncAppBuildsClient  # noqa: E402
@@ -1275,6 +1305,14 @@ class AsyncWhop:
 
             self._company_token_transactions = AsyncCompanyTokenTransactionsClient(client_wrapper=self._client_wrapper)
         return self._company_token_transactions
+
+    @property
+    def confirmation_tokens(self):
+        if self._confirmation_tokens is None:
+            from .confirmation_tokens.client import AsyncConfirmationTokensClient  # noqa: E402
+
+            self._confirmation_tokens = AsyncConfirmationTokensClient(client_wrapper=self._client_wrapper)
+        return self._confirmation_tokens
 
     @property
     def course_chapters(self):

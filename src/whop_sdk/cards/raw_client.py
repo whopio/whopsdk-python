@@ -145,7 +145,7 @@ class RawCardsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateCardsResponse]:
         """
-        Issue a virtual card, or apply for card issuing.
+        Issue a virtual card, or apply for card issuing. An account with no application files one here and gets back a `202`; call again to issue the card once it is approved.
 
         Parameters
         ----------
@@ -153,7 +153,7 @@ class RawCardsClient:
             The owning account ID (a biz_ identifier). Provide this or user_id.
 
         assigned_user_id : typing.Optional[str]
-            The account member (a user_ identifier) to assign the card to. Required for business card issuing accounts.
+            The account member (a user_ identifier) to assign the card to. Required for business card issuing accounts, and whenever a company API key files an account's first card application.
 
         name : typing.Optional[str]
             A display name for the card.
@@ -608,7 +608,7 @@ class AsyncRawCardsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateCardsResponse]:
         """
-        Issue a virtual card, or apply for card issuing.
+        Issue a virtual card, or apply for card issuing. An account with no application files one here and gets back a `202`; call again to issue the card once it is approved.
 
         Parameters
         ----------
@@ -616,7 +616,7 @@ class AsyncRawCardsClient:
             The owning account ID (a biz_ identifier). Provide this or user_id.
 
         assigned_user_id : typing.Optional[str]
-            The account member (a user_ identifier) to assign the card to. Required for business card issuing accounts.
+            The account member (a user_ identifier) to assign the card to. Required for business card issuing accounts, and whenever a company API key files an account's first card application.
 
         name : typing.Optional[str]
             A display name for the card.

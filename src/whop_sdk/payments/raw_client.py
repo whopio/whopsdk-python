@@ -128,7 +128,7 @@ class RawPaymentsClient:
             Filter payments by their current substatus for more granular filtering.
 
         include_free : typing.Optional[bool]
-            Whether to include payments with a zero amount.
+            Whether to include payments with a zero amount. Defaults to false, so zero-amount payments are omitted unless you set this to true — a company whose sales are all free plans returns an empty list without it.
 
         created_before : typing.Optional[dt.datetime]
             Only return payments created before this timestamp.
@@ -312,7 +312,7 @@ class RawPaymentsClient:
         self, *, request: CreatePaymentsRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[CreatePaymentsResponse]:
         """
-        Charge an existing member off-session using one of their stored payment methods. You can provide an existing plan, or create a new one in-line. This endpoint will respond with a payment object immediately, but the payment is processed asynchronously in the background. Use webhooks to be notified when the payment succeeds or fails.
+        Charge a buyer on-session with a `confirmation_token` for the method they selected, or charge an existing member off-session using a stored payment method. You can provide an existing plan or create one inline. The endpoint returns a payment immediately, but processing continues asynchronously. Use webhooks to learn whether it succeeds or fails, and poll the payment's status endpoint for any step the buyer must complete.
 
         Required permissions:
          - `payment:charge`
@@ -1472,7 +1472,7 @@ class AsyncRawPaymentsClient:
             Filter payments by their current substatus for more granular filtering.
 
         include_free : typing.Optional[bool]
-            Whether to include payments with a zero amount.
+            Whether to include payments with a zero amount. Defaults to false, so zero-amount payments are omitted unless you set this to true — a company whose sales are all free plans returns an empty list without it.
 
         created_before : typing.Optional[dt.datetime]
             Only return payments created before this timestamp.
@@ -1659,7 +1659,7 @@ class AsyncRawPaymentsClient:
         self, *, request: CreatePaymentsRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[CreatePaymentsResponse]:
         """
-        Charge an existing member off-session using one of their stored payment methods. You can provide an existing plan, or create a new one in-line. This endpoint will respond with a payment object immediately, but the payment is processed asynchronously in the background. Use webhooks to be notified when the payment succeeds or fails.
+        Charge a buyer on-session with a `confirmation_token` for the method they selected, or charge an existing member off-session using a stored payment method. You can provide an existing plan or create one inline. The endpoint returns a payment immediately, but processing continues asynchronously. Use webhooks to learn whether it succeeds or fails, and poll the payment's status endpoint for any step the buyer must complete.
 
         Required permissions:
          - `payment:charge`
