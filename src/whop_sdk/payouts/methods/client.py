@@ -225,17 +225,25 @@ class MethodsClient:
         return _response.data
 
     def update(
-        self, id: str, *, nickname: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        id: str,
+        *,
+        is_default: typing.Optional[bool] = OMIT,
+        nickname: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateMethodsResponse:
         """
-        Changes the label used to identify a saved payout method.
+        Changes the label used to identify a saved payout method or makes it the account's default payout method.
 
         Parameters
         ----------
         id : str
             Payout method ID, prefixed `potk_`.
 
-        nickname : str
+        is_default : typing.Optional[bool]
+            Set to `true` to make this the account's default payout method. `false` is not accepted.
+
+        nickname : typing.Optional[str]
             New label for the payout method, with at least one non-whitespace character and a maximum of 100 characters.
 
         request_options : typing.Optional[RequestOptions]
@@ -244,7 +252,7 @@ class MethodsClient:
         Returns
         -------
         UpdateMethodsResponse
-            payout method renamed
+            payout method updated
 
         Examples
         --------
@@ -257,10 +265,11 @@ class MethodsClient:
         )
         client.payouts.methods.update(
             id="id",
-            nickname="Primary checking",
         )
         """
-        _response = self._raw_client.update(id, nickname=nickname, request_options=request_options)
+        _response = self._raw_client.update(
+            id, is_default=is_default, nickname=nickname, request_options=request_options
+        )
         return _response.data
 
 
@@ -499,17 +508,25 @@ class AsyncMethodsClient:
         return _response.data
 
     async def update(
-        self, id: str, *, nickname: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        id: str,
+        *,
+        is_default: typing.Optional[bool] = OMIT,
+        nickname: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateMethodsResponse:
         """
-        Changes the label used to identify a saved payout method.
+        Changes the label used to identify a saved payout method or makes it the account's default payout method.
 
         Parameters
         ----------
         id : str
             Payout method ID, prefixed `potk_`.
 
-        nickname : str
+        is_default : typing.Optional[bool]
+            Set to `true` to make this the account's default payout method. `false` is not accepted.
+
+        nickname : typing.Optional[str]
             New label for the payout method, with at least one non-whitespace character and a maximum of 100 characters.
 
         request_options : typing.Optional[RequestOptions]
@@ -518,7 +535,7 @@ class AsyncMethodsClient:
         Returns
         -------
         UpdateMethodsResponse
-            payout method renamed
+            payout method updated
 
         Examples
         --------
@@ -536,11 +553,12 @@ class AsyncMethodsClient:
         async def main() -> None:
             await client.payouts.methods.update(
                 id="id",
-                nickname="Primary checking",
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.update(id, nickname=nickname, request_options=request_options)
+        _response = await self._raw_client.update(
+            id, is_default=is_default, nickname=nickname, request_options=request_options
+        )
         return _response.data

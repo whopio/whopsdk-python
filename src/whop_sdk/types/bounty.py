@@ -130,6 +130,11 @@ class Bounty(UniversalBaseModel):
     Bounty ID, prefixed `bnty_`.
     """
 
+    min_total_verified_duration_seconds: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Total verified footage a submission must accumulate before it can be submitted, in seconds. Always a whole number of hours. Present only on `data_capture` bounties — it is what `net_reward_amount` pays for, so rate displays divide by it. `null` for every other goal type.
+    """
+
     net_reward_amount: float = pydantic.Field()
     """
     What a worker is quoted per accepted submission after the platform fee, in whole currency units. The exact post-fee figure, at the standard platform fee rate — a worker who locked a different rate, or who arrived through an affiliate link, is paid a different amount.

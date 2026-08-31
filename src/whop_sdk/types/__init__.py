@@ -333,6 +333,8 @@ if typing.TYPE_CHECKING:
     from .company_token_transaction_member import CompanyTokenTransactionMember
     from .company_token_transaction_types import CompanyTokenTransactionTypes
     from .company_token_transaction_user import CompanyTokenTransactionUser
+    from .confirmation_token import ConfirmationToken
+    from .confirmation_token_status import ConfirmationTokenStatus
     from .conversion_event import ConversionEvent
     from .conversion_event_zero import ConversionEventZero
     from .countries import Countries
@@ -623,7 +625,6 @@ if typing.TYPE_CHECKING:
     from .member_statuses import MemberStatuses
     from .members_sortable_columns import MembersSortableColumns
     from .membership import Membership
-    from .membership_account import MembershipAccount
     from .membership_cancellation_modes import MembershipCancellationModes
     from .membership_list_item import MembershipListItem
     from .membership_list_item_company import MembershipListItemCompany
@@ -677,9 +678,11 @@ if typing.TYPE_CHECKING:
     from .payment_bank_transfer import PaymentBankTransfer
     from .payment_bank_transfer_instructions import PaymentBankTransferInstructions
     from .payment_billing_address import PaymentBillingAddress
+    from .payment_billing_details_preview import PaymentBillingDetailsPreview
     from .payment_company import PaymentCompany
     from .payment_decline_codes import PaymentDeclineCodes
     from .payment_disputes_item import PaymentDisputesItem
+    from .payment_fees_item import PaymentFeesItem
     from .payment_financing_transactions_item import PaymentFinancingTransactionsItem
     from .payment_instructions import (
         PaymentInstructions,
@@ -757,6 +760,9 @@ if typing.TYPE_CHECKING:
     from .payment_method_cashapp_payment_method_icons_square_light import (
         PaymentMethodCashappPaymentMethodIconsSquareLight,
     )
+    from .payment_method_display import PaymentMethodDisplay
+    from .payment_method_display_category import PaymentMethodDisplayCategory
+    from .payment_method_display_preview import PaymentMethodDisplayPreview
     from .payment_method_domain import PaymentMethodDomain
     from .payment_method_domain_provider import PaymentMethodDomainProvider
     from .payment_method_domain_status import PaymentMethodDomainStatus
@@ -1555,6 +1561,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CompanyTokenTransactionMember": ".company_token_transaction_member",
     "CompanyTokenTransactionTypes": ".company_token_transaction_types",
     "CompanyTokenTransactionUser": ".company_token_transaction_user",
+    "ConfirmationToken": ".confirmation_token",
+    "ConfirmationTokenStatus": ".confirmation_token_status",
     "ConversionEvent": ".conversion_event",
     "ConversionEventZero": ".conversion_event_zero",
     "Countries": ".countries",
@@ -1831,7 +1839,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MemberStatuses": ".member_statuses",
     "MembersSortableColumns": ".members_sortable_columns",
     "Membership": ".membership",
-    "MembershipAccount": ".membership_account",
     "MembershipCancellationModes": ".membership_cancellation_modes",
     "MembershipListItem": ".membership_list_item",
     "MembershipListItemCompany": ".membership_list_item_company",
@@ -1885,9 +1892,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaymentBankTransfer": ".payment_bank_transfer",
     "PaymentBankTransferInstructions": ".payment_bank_transfer_instructions",
     "PaymentBillingAddress": ".payment_billing_address",
+    "PaymentBillingDetailsPreview": ".payment_billing_details_preview",
     "PaymentCompany": ".payment_company",
     "PaymentDeclineCodes": ".payment_decline_codes",
     "PaymentDisputesItem": ".payment_disputes_item",
+    "PaymentFeesItem": ".payment_fees_item",
     "PaymentFinancingTransactionsItem": ".payment_financing_transactions_item",
     "PaymentInstructions": ".payment_instructions",
     "PaymentInstructions_BankTransfer": ".payment_instructions",
@@ -1949,6 +1958,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaymentMethodCashappPaymentMethodIconsSquare": ".payment_method_cashapp_payment_method_icons_square",
     "PaymentMethodCashappPaymentMethodIconsSquareDark": ".payment_method_cashapp_payment_method_icons_square_dark",
     "PaymentMethodCashappPaymentMethodIconsSquareLight": ".payment_method_cashapp_payment_method_icons_square_light",
+    "PaymentMethodDisplay": ".payment_method_display",
+    "PaymentMethodDisplayCategory": ".payment_method_display_category",
+    "PaymentMethodDisplayPreview": ".payment_method_display_preview",
     "PaymentMethodDomain": ".payment_method_domain",
     "PaymentMethodDomainProvider": ".payment_method_domain_provider",
     "PaymentMethodDomainStatus": ".payment_method_domain_status",
@@ -2671,6 +2683,8 @@ __all__ = [
     "CompanyTokenTransactionMember",
     "CompanyTokenTransactionTypes",
     "CompanyTokenTransactionUser",
+    "ConfirmationToken",
+    "ConfirmationTokenStatus",
     "ConversionEvent",
     "ConversionEventZero",
     "Countries",
@@ -2947,7 +2961,6 @@ __all__ = [
     "MemberStatuses",
     "MembersSortableColumns",
     "Membership",
-    "MembershipAccount",
     "MembershipCancellationModes",
     "MembershipListItem",
     "MembershipListItemCompany",
@@ -3001,9 +3014,11 @@ __all__ = [
     "PaymentBankTransfer",
     "PaymentBankTransferInstructions",
     "PaymentBillingAddress",
+    "PaymentBillingDetailsPreview",
     "PaymentCompany",
     "PaymentDeclineCodes",
     "PaymentDisputesItem",
+    "PaymentFeesItem",
     "PaymentFinancingTransactionsItem",
     "PaymentInstructions",
     "PaymentInstructions_BankTransfer",
@@ -3065,6 +3080,9 @@ __all__ = [
     "PaymentMethodCashappPaymentMethodIconsSquare",
     "PaymentMethodCashappPaymentMethodIconsSquareDark",
     "PaymentMethodCashappPaymentMethodIconsSquareLight",
+    "PaymentMethodDisplay",
+    "PaymentMethodDisplayCategory",
+    "PaymentMethodDisplayPreview",
     "PaymentMethodDomain",
     "PaymentMethodDomainProvider",
     "PaymentMethodDomainStatus",

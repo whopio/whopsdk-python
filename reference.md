@@ -1220,6 +1220,79 @@ client.accounts.form_company(
 </dl>
 </details>
 
+<details><summary><code>client.accounts.<a href="src/whop_sdk/accounts/client.py">suspend</a>(...) -> Account</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Suspends a connected account directly owned by the authenticated platform account. This cannot suspend the platform account itself or an account owned by another platform.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.DEFAULT,
+)
+
+client.accounts.suspend(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Connected account ID, prefixed `biz_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.accounts.<a href="src/whop_sdk/accounts/client.py">transfer_ownership</a>(...) -> TransferOwnershipAccountsResponse</code></summary>
 <dl>
 <dd>
@@ -6466,6 +6539,158 @@ client.api_keys.rotate(
 </dl>
 </details>
 
+## Api Logs
+<details><summary><code>client.api_logs.<a href="src/whop_sdk/api_logs/client.py">list</a>(...) -> ListApiLogsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the requests served by Whop's API with the account's API keys, newest first — every surface (GraphQL, REST, and native /api/v1), reads and failed requests included.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.DEFAULT,
+)
+
+client.api_logs.list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — The account (biz_*) whose API logs to list. Defaults to the authenticated account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[str]` — Only return requests served at or after this ISO 8601 timestamp. Defaults to 7 days before created_before, or 7 days ago.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[str]` — Only return requests served before this ISO 8601 timestamp.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**operation_name:** `typing.Optional[str]` — Only return requests for this operation, matched exactly against the operation_name shown on each log row (for example api/v1/products#create).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**http_method:** `typing.Optional[ListApiLogsRequestHttpMethod]` — Only return requests made with this HTTP method.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[ListApiLogsRequestStatus]` — Only return requests that finished with this status.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**api_key_id:** `typing.Optional[str]` — Only return requests made with this API key (apik_…).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**min_duration_ms:** `typing.Optional[int]` — Only return requests that took at least this many milliseconds.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**max_duration_ms:** `typing.Optional[int]` — Only return requests that took at most this many milliseconds.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first:** `typing.Optional[int]` — Number of logs to return.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Cursor to fetch the page after (from page_info.end_cursor).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## App Builds
 <details><summary><code>client.app_builds.<a href="src/whop_sdk/app_builds/client.py">list</a>(...) -> ListAppBuildsResponse</code></summary>
 <dl>
@@ -6982,7 +7207,7 @@ client.apps.list()
 <dl>
 <dd>
 
-**order:** `typing.Optional[ListAppsRequestOrder]` — The field to sort apps by. Defaults to discoverable_at, showing the most recently published apps first. `template_usage` ranks Whop-verified apps first, then apps with a banner image, then by how many apps were created from each app as a template.
+**order:** `typing.Optional[ListAppsRequestOrder]` — The field to sort apps by. Defaults to discoverable_at, showing the most recently published apps first. `template_usage` ranks Whop-verified apps first, then by how many businesses created apps from each app as a template.
     
 </dd>
 </dl>
@@ -10354,7 +10579,7 @@ client.cards.list()
 <dl>
 <dd>
 
-Issue a virtual card, or apply for card issuing.
+Issue a virtual card, or apply for card issuing. An account with no application files one here and gets back a `202`; call again to issue the card once it is approved.
 </dd>
 </dl>
 </dd>
@@ -10401,7 +10626,7 @@ client.cards.create()
 <dl>
 <dd>
 
-**assigned_user_id:** `typing.Optional[str]` — The account member (a user_ identifier) to assign the card to. Required for business card issuing accounts.
+**assigned_user_id:** `typing.Optional[str]` — The account member (a user_ identifier) to assign the card to. Required for business card issuing accounts, and whenever a company API key files an account's first card application.
     
 </dd>
 </dl>
@@ -12343,6 +12568,223 @@ client.company_token_transactions.retrieve(
 <dd>
 
 **id:** `str` — The unique identifier of the token transaction to retrieve.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Confirmation Tokens
+<details><summary><code>client.confirmation_tokens.<a href="src/whop_sdk/confirmation_tokens/client.py">create</a>(...) -> ConfirmationToken</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Mints a single-use, short-lived confirmation token from what the buyer entered on your collection surface: the payment method payload, billing details, and attested save consent. Public and rate-limited — the account_id in the body scopes the token but does not authenticate. Confirm it with POST /payments from your server.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+from whop_sdk.confirmation_tokens import CreateConfirmationTokensRequestBillingDetails, CreateConfirmationTokensRequestPaymentMethod, CreateConfirmationTokensRequestPaymentMethodCard
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.DEFAULT,
+)
+
+client.confirmation_tokens.create(
+    account_id="biz_xxxxxxxxxxxxxx",
+    billing_details=CreateConfirmationTokensRequestBillingDetails(
+        address={
+            "city": "Austin",
+            "country": "US",
+            "line1": "123 Main St",
+            "postal_code": "78701"
+        },
+        email="buyer@example.com",
+        name="Buyer Name",
+    ),
+    payment_method=CreateConfirmationTokensRequestPaymentMethod(
+        card=CreateConfirmationTokensRequestPaymentMethodCard(
+            brand="visa",
+            last4="4242",
+            token_intent="bt_ti_123",
+        ),
+        category="card",
+        type="card",
+    ),
+    setup_future_usage="off_session",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**account_id:** `str` — The account (biz_) this token is scoped to — the publishable identity.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment_method:** `CreateConfirmationTokensRequestPaymentMethod` — The collected method: `type` names the payment method, `category` names the payload shape, and the category-keyed object carries the payload. Wallets are the exception: their payload rides the type key (`apple_pay` / `google_pay`). Send exactly the one payload arm the category selects — extra arms are rejected. Redirect-flow methods (category `redirect`, `bank_transfer`, `voucher`, and redirect wallets like `cashapp`) collect nothing and send no payload arm.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**billing_details:** `typing.Optional[CreateConfirmationTokensRequestBillingDetails]` — Billing details collected with the method. `email` is always required; cards additionally require `name` and an address with `line1` and `country`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**browser_info:** `typing.Optional[typing.Dict[str, typing.Any]]` — Screen/runtime facts from the buyer's browser (platform, screen dimensions, language, ...) used for authentication ceremonies. Header-derived fields are captured server-side.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**return_url:** `typing.Optional[str]` — Where redirect flows send the buyer, carried onto the confirm that consumes this token.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**setup_future_usage:** `typing.Optional[CreateConfirmationTokensRequestSetupFutureUsage]` — The save-consent state your surface displayed when the buyer confirmed. Confirm may vault only if attested here.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.confirmation_tokens.<a href="src/whop_sdk/confirmation_tokens/client.py">retrieve</a>(...) -> ConfirmationToken</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a token's display-safe preview — never the underlying payment credential. Public and rate-limited: the account_id query param must match the account the token was minted for.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.DEFAULT,
+)
+
+client.confirmation_tokens.retrieve(
+    id="id",
+    account_id="account_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Confirmation token ID, prefixed `ctok_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `str` — The account (biz_) the token was minted for.
     
 </dd>
 </dl>
@@ -19593,6 +20035,14 @@ client.financial_activity.list()
 <dl>
 <dd>
 
+**activity_id:** `typing.Optional[str]` — Optional ledger activity ID (for example `line_3`). Returns at most that one activity.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **currency:** `typing.Optional[str]` — Optional currency code filter, for example `usd`.
     
 </dd>
@@ -26166,7 +26616,7 @@ client.payments.list(
 <dl>
 <dd>
 
-**include_free:** `typing.Optional[bool]` — Whether to include payments with a zero amount.
+**include_free:** `typing.Optional[bool]` — Whether to include payments with a zero amount. Defaults to false, so zero-amount payments are omitted unless you set this to true — a company whose sales are all free plans returns an empty list without it.
     
 </dd>
 </dl>
@@ -26246,7 +26696,7 @@ client.payments.list(
 <dl>
 <dd>
 
-Charge an existing member off-session using one of their stored payment methods. You can provide an existing plan, or create a new one in-line. This endpoint will respond with a payment object immediately, but the payment is processed asynchronously in the background. Use webhooks to be notified when the payment succeeds or fails.
+Charge a buyer on-session with a `confirmation_token` for the method they selected, or charge an existing member off-session using a stored payment method. You can provide an existing plan or create one inline. The endpoint returns a payment immediately, but processing continues asynchronously. Use webhooks to learn whether it succeeds or fails, and poll the payment's status endpoint for any step the buyer must complete.
 
 Required permissions:
  - `payment:charge`
@@ -31529,7 +31979,7 @@ client.refunds.list(
 <dl>
 <dd>
 
-**payment_id:** `typing.Optional[str]` — Filter refunds to only those associated with this specific payment.
+**payment_id:** `typing.Optional[str]` — Filter refunds to those associated with this specific payment. Mutually exclusive with company_id and user_id: provide exactly one.
     
 </dd>
 </dl>
@@ -31537,7 +31987,7 @@ client.refunds.list(
 <dl>
 <dd>
 
-**company_id:** `typing.Optional[str]` — Filter refunds to only those belonging to this company.
+**company_id:** `typing.Optional[str]` — Filter refunds to those belonging to this company. Mutually exclusive with payment_id and user_id: provide exactly one.
     
 </dd>
 </dl>
@@ -31545,7 +31995,7 @@ client.refunds.list(
 <dl>
 <dd>
 
-**user_id:** `typing.Optional[str]` — Filter refunds to only those associated with this specific user.
+**user_id:** `typing.Optional[str]` — Filter refunds to those associated with this specific user. Mutually exclusive with payment_id and company_id: provide exactly one. Requires a credential belonging to that user; any other credential receives 'You are not authorized'.
     
 </dd>
 </dl>
@@ -34115,6 +34565,7 @@ client = Whop(
 
 client.social_accounts.connect(
     platform="meta_business",
+    redirect_url="https://example.com/settings/social-accounts",
 )
 
 ```
@@ -34131,7 +34582,15 @@ client.social_accounts.connect(
 <dl>
 <dd>
 
-**platform:** `ConnectSocialAccountsRequestPlatform` — The platform to connect the social account on. Supported options are `meta_business` and `tiktok`.
+**platform:** `ConnectSocialAccountsRequestPlatform` — The platform to connect the social account on. Use `meta_business` to connect Meta Business assets, which is how Facebook Pages and Instagram accounts are connected — there is no separate `instagram` value. Use `tiktok` for TikTok accounts.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**redirect_url:** `str` — Where to send the user once they finish connecting their accounts. Any `http` or `https` URL. If the connection fails, the user is redirected with a `social_account_error` query param.
     
 </dd>
 </dl>
@@ -34147,15 +34606,7 @@ client.social_accounts.connect(
 <dl>
 <dd>
 
-**redirect_url:** `typing.Optional[str]` — The Whop URL to redirect the user to after they finish connecting.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**scopes:** `typing.Optional[typing.List[ConnectSocialAccountsRequestScopesItem]]` — Capabilities to grant for the connected social account. Use `advertise` when connecting a Meta Business or TikTok account for ads.
+**scopes:** `typing.Optional[typing.List[ConnectSocialAccountsRequestScopesItem]]` — Capabilities to grant for the connected social account. `advertise` is required for both `meta_business` and `tiktok` connections — it is not conditional on whether you intend to run ads, and omitting it fails the request.
     
 </dd>
 </dl>
@@ -41135,7 +41586,7 @@ client.payouts.methods.delete(
 <dl>
 <dd>
 
-Changes the label used to identify a saved payout method.
+Changes the label used to identify a saved payout method or makes it the account's default payout method.
 </dd>
 </dl>
 </dd>
@@ -41160,7 +41611,6 @@ client = Whop(
 
 client.payouts.methods.update(
     id="id",
-    nickname="Primary checking",
 )
 
 ```
@@ -41185,7 +41635,15 @@ client.payouts.methods.update(
 <dl>
 <dd>
 
-**nickname:** `str` — New label for the payout method, with at least one non-whitespace character and a maximum of 100 characters.
+**is_default:** `typing.Optional[bool]` — Set to `true` to make this the account's default payout method. `false` is not accepted.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**nickname:** `typing.Optional[str]` — New label for the payout method, with at least one non-whitespace character and a maximum of 100 characters.
     
 </dd>
 </dl>

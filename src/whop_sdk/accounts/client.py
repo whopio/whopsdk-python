@@ -687,6 +687,39 @@ class AccountsClient:
         )
         return _response.data
 
+    def suspend(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Account:
+        """
+        Suspends a connected account directly owned by the authenticated platform account. This cannot suspend the platform account itself or an account owned by another platform.
+
+        Parameters
+        ----------
+        id : str
+            Connected account ID, prefixed `biz_`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Account
+            Connected account suspended.
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-08-25-2",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.accounts.suspend(
+            id="id",
+        )
+        """
+        _response = self._raw_client.suspend(id, request_options=request_options)
+        return _response.data
+
     def transfer_ownership(
         self,
         id: str,
@@ -1444,6 +1477,47 @@ class AsyncAccountsClient:
             use_registered_agent=use_registered_agent,
             request_options=request_options,
         )
+        return _response.data
+
+    async def suspend(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Account:
+        """
+        Suspends a connected account directly owned by the authenticated platform account. This cannot suspend the platform account itself or an account owned by another platform.
+
+        Parameters
+        ----------
+        id : str
+            Connected account ID, prefixed `biz_`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Account
+            Connected account suspended.
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-08-25-2",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.accounts.suspend(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.suspend(id, request_options=request_options)
         return _response.data
 
     async def transfer_ownership(

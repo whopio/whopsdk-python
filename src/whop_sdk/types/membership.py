@@ -4,13 +4,13 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .membership_account import MembershipAccount
 from .membership_member import MembershipMember
 from .membership_status import MembershipStatus
+from .storefront_account import StorefrontAccount
 
 
 class Membership(UniversalBaseModel):
-    account: MembershipAccount = pydantic.Field()
+    account: StorefrontAccount = pydantic.Field()
     """
     The account (seller) this membership belongs to.
     """

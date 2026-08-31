@@ -149,7 +149,7 @@ class MembersClient:
         Returns
         -------
         Member
-            member phone falls back to the stamped checkout-collected number
+            the stamped number outranks the consented account read
 
         Examples
         --------
@@ -315,7 +315,7 @@ class AsyncMembersClient:
         Returns
         -------
         Member
-            member phone falls back to the stamped checkout-collected number
+            the stamped number outranks the consented account read
 
         Examples
         --------

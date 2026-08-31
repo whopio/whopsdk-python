@@ -73,6 +73,7 @@ PermissionAction = typing.Union[
         "company:transfer_ownership",
         "company:create",
         "company:create_child",
+        "company:suspend_child",
         "company:delete",
         "company:delete_child",
         "company:update_child_fees",
