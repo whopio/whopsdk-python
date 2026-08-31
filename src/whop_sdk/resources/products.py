@@ -2,15 +2,14 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
-from datetime import datetime
+from typing import List, Optional
 from typing_extensions import Literal
 
 import httpx
 
 from ..types import product_list_params, product_create_params, product_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -22,20 +21,19 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.product import Product
-from ..types.shared.direction import Direction
-from ..types.shared.custom_cta import CustomCta
-from ..types.shared.visibility import Visibility
 from ..types.product_delete_response import ProductDeleteResponse
-from ..types.shared.access_pass_type import AccessPassType
 from ..types.shared.product_list_item import ProductListItem
-from ..types.shared.visibility_filter import VisibilityFilter
-from ..types.shared.global_affiliate_status import GlobalAffiliateStatus
 
 __all__ = ["ProductsResource", "AsyncProductsResource"]
 
 
 class ProductsResource(SyncAPIResource):
-    """Products"""
+    """A Product is a digital good or service sold on Whop.
+
+    Products may contain plans for pricing and/or experiences for content delivery.
+
+    Use the Products API to search the public marketplace, list an account's products, retrieve a product, and create, update, or delete products.
+    """
 
     @cached_property
     def with_raw_response(self) -> ProductsResourceWithRawResponse:
@@ -59,26 +57,44 @@ class ProductsResource(SyncAPIResource):
     def create(
         self,
         *,
-        company_id: str,
         title: str,
+        account_id: str | Omit = omit,
         collect_shipping_address: Optional[bool] | Omit = omit,
-        custom_cta: Optional[CustomCta] | Omit = omit,
+        custom_cta: Optional[
+            Literal[
+                "get_access",
+                "join",
+                "order_now",
+                "shop_now",
+                "call_now",
+                "donate_now",
+                "contact_us",
+                "sign_up",
+                "subscribe",
+                "purchase",
+                "get_offer",
+                "apply_now",
+                "complete_order",
+            ]
+        ]
+        | Omit = omit,
         custom_cta_url: Optional[str] | Omit = omit,
         custom_statement_descriptor: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
-        experience_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         global_affiliate_percentage: Optional[float] | Omit = omit,
-        global_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
+        global_affiliate_status: Literal["enabled", "disabled"] | Omit = omit,
         headline: Optional[str] | Omit = omit,
+        labels: Optional[SequenceNotStr[str]] | Omit = omit,
         member_affiliate_percentage: Optional[float] | Omit = omit,
-        member_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        plan_options: Optional[product_create_params.PlanOptions] | Omit = omit,
+        member_affiliate_status: Literal["enabled", "disabled"] | Omit = omit,
+        metadata: Optional[object] | Omit = omit,
         product_tax_code_id: Optional[str] | Omit = omit,
         redirect_purchase_url: Optional[str] | Omit = omit,
         route: Optional[str] | Omit = omit,
         send_welcome_message: Optional[bool] | Omit = omit,
-        visibility: Optional[Visibility] | Omit = omit,
+        visibility: str | Omit = omit,
+        api_version_date: str | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -86,64 +102,50 @@ class ProductsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Product:
-        """Create a new product for a company.
-
-        The product serves as the top-level
-        container for plans and experiences.
-
-        Required permissions:
-
-        - `access_pass:create`
-        - `access_pass:basic:read`
+        """
+        Creates a new product for an account.
 
         Args:
-          company_id: The unique identifier of the company to create this product for.
-
           title: The display name of the product. Maximum 80 characters.
 
-          collect_shipping_address: Whether the checkout flow collects a shipping address from the customer.
+          account_id: The unique identifier of the account to create this product for.
 
-          custom_cta: The different types of custom CTAs that can be selected.
+          collect_shipping_address: Whether to collect a shipping address at checkout.
 
-          custom_cta_url: A URL that the call-to-action button links to instead of the default checkout
-              flow.
+          custom_cta: The call-to-action button label.
 
-          custom_statement_descriptor: A custom text label that appears on the customer's bank statement. Must be 5-22
-              characters, contain at least one letter, and not contain <, >, \\,, ', or "
-              characters.
+          custom_cta_url: A URL the call-to-action button links to.
 
-          description: A written description of the product displayed on its product page.
+          custom_statement_descriptor: Custom bank statement descriptor. Must start with WHOP\\**.
 
-          experience_ids: The unique identifiers of experiences to connect to this product.
+          description: A written description displayed on the product page.
 
-          global_affiliate_percentage: The commission rate as a percentage that affiliates earn through the global
-              affiliate program.
+          global_affiliate_percentage: The commission rate affiliates earn.
 
-          global_affiliate_status: The different statuses of the global affiliate program for a product.
+          global_affiliate_status: The enrollment status in the global affiliate program.
 
-          headline: A short marketing headline displayed prominently on the product page.
+          headline: A short marketing headline for the product page.
 
-          member_affiliate_percentage: The commission rate as a percentage that members earn through the member
-              affiliate program.
+          labels: Labels used to group products into collections. Stored lowercased and
+              de-duplicated. Maximum 20 labels, 50 characters each.
 
-          member_affiliate_status: The different statuses of the global affiliate program for a product.
+          member_affiliate_percentage: The commission rate members earn.
 
-          metadata: Custom key-value pairs to store on the product. Included in webhook payloads for
-              payment and membership events. Max 50 keys, 100 chars per key, 500 chars per
-              string value.
+          member_affiliate_status: The enrollment status in the member affiliate program.
 
-          plan_options: Configuration for an automatically generated plan to attach to this product.
+          metadata: Custom key-value pairs to store on the product.
 
-          product_tax_code_id: The unique identifier of the tax classification code to apply to this product.
+          product_tax_code_id: The unique identifier of the tax classification code. See the available
+              [product categories](https://docs.numeral.com/essentials/product-categories).
 
-          redirect_purchase_url: A URL to redirect the customer to after completing a purchase.
+          redirect_purchase_url: A URL to redirect the customer to after purchase.
 
           route: The URL slug for the product's public link.
 
           send_welcome_message: Whether to send an automated welcome message via support chat when a user joins
               this product. Defaults to true.
 
-          visibility: Visibility of a resource
+          visibility: Whether the product is visible to customers.
 
           extra_headers: Send extra headers
 
@@ -153,25 +155,33 @@ class ProductsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "Api-Version-Date": api_version_date,
+                    "Idempotency-Key": idempotency_key,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._post(
             "/products",
             body=maybe_transform(
                 {
-                    "company_id": company_id,
                     "title": title,
+                    "account_id": account_id,
                     "collect_shipping_address": collect_shipping_address,
                     "custom_cta": custom_cta,
                     "custom_cta_url": custom_cta_url,
                     "custom_statement_descriptor": custom_statement_descriptor,
                     "description": description,
-                    "experience_ids": experience_ids,
                     "global_affiliate_percentage": global_affiliate_percentage,
                     "global_affiliate_status": global_affiliate_status,
                     "headline": headline,
+                    "labels": labels,
                     "member_affiliate_percentage": member_affiliate_percentage,
                     "member_affiliate_status": member_affiliate_status,
                     "metadata": metadata,
-                    "plan_options": plan_options,
                     "product_tax_code_id": product_tax_code_id,
                     "redirect_purchase_url": redirect_purchase_url,
                     "route": route,
@@ -190,6 +200,7 @@ class ProductsResource(SyncAPIResource):
         self,
         id: str,
         *,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -197,12 +208,9 @@ class ProductsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Product:
-        """
-        Retrieves the details of an existing product.
+        """Retrieves a product.
 
-        Required permissions:
-
-        - `access_pass:basic:read`
+        Public — no credentials.
 
         Args:
           extra_headers: Send extra headers
@@ -215,6 +223,7 @@ class ProductsResource(SyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return self._get(
             path_template("/products/{id}", id=id),
             options=make_request_options(
@@ -227,25 +236,16 @@ class ProductsResource(SyncAPIResource):
         self,
         id: str,
         *,
-        collect_shipping_address: Optional[bool] | Omit = omit,
-        custom_cta: Optional[CustomCta] | Omit = omit,
-        custom_cta_url: Optional[str] | Omit = omit,
-        custom_statement_descriptor: Optional[str] | Omit = omit,
+        banner_image: Optional[product_update_params.BannerImage] | Omit = omit,
         description: Optional[str] | Omit = omit,
-        gallery_images: Optional[Iterable[product_update_params.GalleryImage]] | Omit = omit,
-        global_affiliate_percentage: Optional[float] | Omit = omit,
-        global_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
         headline: Optional[str] | Omit = omit,
-        member_affiliate_percentage: Optional[float] | Omit = omit,
-        member_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
+        labels: Optional[SequenceNotStr[str]] | Omit = omit,
+        metadata: Optional[object] | Omit = omit,
         product_tax_code_id: Optional[str] | Omit = omit,
-        redirect_purchase_url: Optional[str] | Omit = omit,
-        route: Optional[str] | Omit = omit,
         send_welcome_message: Optional[bool] | Omit = omit,
-        store_page_config: Optional[product_update_params.StorePageConfig] | Omit = omit,
-        title: Optional[str] | Omit = omit,
-        visibility: Optional[Visibility] | Omit = omit,
+        title: str | Omit = omit,
+        visibility: str | Omit = omit,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -254,59 +254,31 @@ class ProductsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Product:
         """
-        Update a product's title, description, visibility, and other settings.
-
-        Required permissions:
-
-        - `access_pass:update`
-        - `access_pass:basic:read`
+        Updates an existing product.
 
         Args:
-          collect_shipping_address: Whether the checkout flow collects a shipping address from the customer.
+          banner_image: A wide image for the product, shown on the product page and on listing cards.
+              Pass `{ id }` for an existing attachment or `{ direct_upload_id }` for a
+              completed direct upload; `null` removes it.
 
-          custom_cta: The different types of custom CTAs that can be selected.
+          description: A written description displayed on the product page.
 
-          custom_cta_url: A URL that the call-to-action button links to instead of the default checkout
-              flow.
+          headline: A short marketing headline for the product page.
 
-          custom_statement_descriptor: A custom text label that appears on the customer's bank statement. Must be 5-22
-              characters, contain at least one letter, and not contain <, >, \\,, ', or "
-              characters.
+          labels: Labels used to group products into collections. Replaces the existing labels.
+              Send an empty array to clear them.
 
-          description: A written description of the product displayed on its product page.
+          metadata: Custom key-value pairs to store on the product.
 
-          gallery_images: The gallery images for the product.
-
-          global_affiliate_percentage: The commission rate as a percentage that affiliates earn through the global
-              affiliate program.
-
-          global_affiliate_status: The different statuses of the global affiliate program for a product.
-
-          headline: A short marketing headline displayed prominently on the product page.
-
-          member_affiliate_percentage: The commission rate as a percentage that members earn through the member
-              affiliate program.
-
-          member_affiliate_status: The different statuses of the global affiliate program for a product.
-
-          metadata: Custom key-value pairs to store on the product. Included in webhook payloads for
-              payment and membership events. Max 50 keys, 100 chars per key, 500 chars per
-              string value.
-
-          product_tax_code_id: The unique identifier of the tax classification code to apply to this product.
-
-          redirect_purchase_url: A URL to redirect the customer to after completing a purchase.
-
-          route: The URL slug for the product's public link.
+          product_tax_code_id: The unique identifier of the tax classification code. See the available
+              [product categories](https://docs.numeral.com/essentials/product-categories).
 
           send_welcome_message: Whether to send an automated welcome message via support chat when a user joins
               this product.
 
-          store_page_config: Layout and display configuration for this product on the company's store page.
+          title: The display name of the product.
 
-          title: The display name of the product. Maximum 80 characters.
-
-          visibility: Visibility of a resource
+          visibility: Whether the product is visible to customers.
 
           extra_headers: Send extra headers
 
@@ -318,27 +290,18 @@ class ProductsResource(SyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return self._patch(
             path_template("/products/{id}", id=id),
             body=maybe_transform(
                 {
-                    "collect_shipping_address": collect_shipping_address,
-                    "custom_cta": custom_cta,
-                    "custom_cta_url": custom_cta_url,
-                    "custom_statement_descriptor": custom_statement_descriptor,
+                    "banner_image": banner_image,
                     "description": description,
-                    "gallery_images": gallery_images,
-                    "global_affiliate_percentage": global_affiliate_percentage,
-                    "global_affiliate_status": global_affiliate_status,
                     "headline": headline,
-                    "member_affiliate_percentage": member_affiliate_percentage,
-                    "member_affiliate_status": member_affiliate_status,
+                    "labels": labels,
                     "metadata": metadata,
                     "product_tax_code_id": product_tax_code_id,
-                    "redirect_purchase_url": redirect_purchase_url,
-                    "route": route,
                     "send_welcome_message": send_welcome_message,
-                    "store_page_config": store_page_config,
                     "title": title,
                     "visibility": visibility,
                 },
@@ -353,17 +316,24 @@ class ProductsResource(SyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
+        access_pass_types: SequenceNotStr[str] | Omit = omit,
+        account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
-        created_after: Union[str, datetime] | Omit = omit,
-        created_before: Union[str, datetime] | Omit = omit,
-        direction: Direction | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
+        labels: SequenceNotStr[str] | Omit = omit,
         last: int | Omit = omit,
-        order: Literal["active_memberships_count", "created_at", "usd_gmv", "usd_gmv_30_days"] | Omit = omit,
-        product_types: List[AccessPassType] | Omit = omit,
-        visibilities: List[VisibilityFilter] | Omit = omit,
+        marketplace_category_route: str | Omit = omit,
+        order: str | Omit = omit,
+        plan_types: List[Literal["renewal", "one_time"]] | Omit = omit,
+        price_maximum: float | Omit = omit,
+        price_minimum: float | Omit = omit,
+        query: str | Omit = omit,
+        visibilities: SequenceNotStr[str] | Omit = omit,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -371,36 +341,54 @@ class ProductsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[ProductListItem]:
-        """
-        Returns a paginated list of products belonging to a company, with optional
-        filtering by type, visibility, and creation date.
+        """Returns a paginated list of products.
 
-        Required permissions:
-
-        - `access_pass:basic:read`
+        Omit `account_id` to search the public
+        marketplace.
 
         Args:
-          company_id: The unique identifier of the company to list products for.
+          access_pass_types: Filter to only products matching these types.
 
-          after: Returns the elements in the list that come after the specified cursor.
+          account_id: The unique identifier of the account to list products for. Omit to search the
+              public marketplace.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          after: A cursor; returns products after this position.
 
-          created_after: Only return products created after this timestamp.
+          before: A cursor; returns products before this position.
 
-          created_before: Only return products created before this timestamp.
+          created_after: Only return products created after this ISO 8601 timestamp.
+
+          created_before: Only return products created before this ISO 8601 timestamp.
 
           direction: The sort direction for results. Defaults to descending.
 
-          first: Returns the first _n_ elements from the list.
+          first: The number of products to return (default and max 100).
 
-          last: Returns the last _n_ elements from the list.
+          labels: Filter to only products carrying all of these labels. Labels are matched
+              lowercased.
 
-          order: The field to sort results by. Defaults to created_at.
+          last: The number of products to return from the end of the range.
 
-          product_types: Filter to only products matching these type classifications.
+          marketplace_category_route: Only return marketplace products assigned to this category route, such as
+              `trading`.
 
-          visibilities: Filter to only products matching these visibility states.
+          order: The field to sort results by. Account lists default to `created_at`. Marketplace
+              lists default to `discoverable_at` and accept `created_at` or `discoverable_at`.
+              Cannot be combined with `query`.
+
+          plan_types: Filter to products with a buyable plan of these billing models, such as
+              `one_time` or `renewal`.
+
+          price_maximum: Only return products whose advertised buyable plan has a displayed price of at
+              most this amount. Recurring plans use renewal price.
+
+          price_minimum: Only return products whose advertised buyable plan has a displayed price of at
+              least this amount. Recurring plans use renewal price.
+
+          query: Ranked search against product title and headline. Omit to browse by recency.
+
+          visibilities: Filter to only products matching these visibility states. Ignored on the public
+              marketplace list, which only returns visible products.
 
           extra_headers: Send extra headers
 
@@ -410,6 +398,7 @@ class ProductsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return self._get_api_list(
             "/products",
             page=SyncCursorPage[ProductListItem],
@@ -420,16 +409,22 @@ class ProductsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "access_pass_types": access_pass_types,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
                         "first": first,
+                        "labels": labels,
                         "last": last,
+                        "marketplace_category_route": marketplace_category_route,
                         "order": order,
-                        "product_types": product_types,
+                        "plan_types": plan_types,
+                        "price_maximum": price_maximum,
+                        "price_minimum": price_minimum,
+                        "query": query,
                         "visibilities": visibilities,
                     },
                     product_list_params.ProductListParams,
@@ -442,6 +437,7 @@ class ProductsResource(SyncAPIResource):
         self,
         id: str,
         *,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -449,12 +445,10 @@ class ProductsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProductDeleteResponse:
-        """
-        Permanently delete a product and remove it from the company's catalog.
+        """Deletes a product.
 
-        Required permissions:
-
-        - `access_pass:delete`
+        Only products with no memberships, entries, reviews, or
+        invoices can be deleted.
 
         Args:
           extra_headers: Send extra headers
@@ -467,6 +461,7 @@ class ProductsResource(SyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return self._delete(
             path_template("/products/{id}", id=id),
             options=make_request_options(
@@ -477,7 +472,12 @@ class ProductsResource(SyncAPIResource):
 
 
 class AsyncProductsResource(AsyncAPIResource):
-    """Products"""
+    """A Product is a digital good or service sold on Whop.
+
+    Products may contain plans for pricing and/or experiences for content delivery.
+
+    Use the Products API to search the public marketplace, list an account's products, retrieve a product, and create, update, or delete products.
+    """
 
     @cached_property
     def with_raw_response(self) -> AsyncProductsResourceWithRawResponse:
@@ -501,26 +501,44 @@ class AsyncProductsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        company_id: str,
         title: str,
+        account_id: str | Omit = omit,
         collect_shipping_address: Optional[bool] | Omit = omit,
-        custom_cta: Optional[CustomCta] | Omit = omit,
+        custom_cta: Optional[
+            Literal[
+                "get_access",
+                "join",
+                "order_now",
+                "shop_now",
+                "call_now",
+                "donate_now",
+                "contact_us",
+                "sign_up",
+                "subscribe",
+                "purchase",
+                "get_offer",
+                "apply_now",
+                "complete_order",
+            ]
+        ]
+        | Omit = omit,
         custom_cta_url: Optional[str] | Omit = omit,
         custom_statement_descriptor: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
-        experience_ids: Optional[SequenceNotStr[str]] | Omit = omit,
         global_affiliate_percentage: Optional[float] | Omit = omit,
-        global_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
+        global_affiliate_status: Literal["enabled", "disabled"] | Omit = omit,
         headline: Optional[str] | Omit = omit,
+        labels: Optional[SequenceNotStr[str]] | Omit = omit,
         member_affiliate_percentage: Optional[float] | Omit = omit,
-        member_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
-        plan_options: Optional[product_create_params.PlanOptions] | Omit = omit,
+        member_affiliate_status: Literal["enabled", "disabled"] | Omit = omit,
+        metadata: Optional[object] | Omit = omit,
         product_tax_code_id: Optional[str] | Omit = omit,
         redirect_purchase_url: Optional[str] | Omit = omit,
         route: Optional[str] | Omit = omit,
         send_welcome_message: Optional[bool] | Omit = omit,
-        visibility: Optional[Visibility] | Omit = omit,
+        visibility: str | Omit = omit,
+        api_version_date: str | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -528,64 +546,50 @@ class AsyncProductsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Product:
-        """Create a new product for a company.
-
-        The product serves as the top-level
-        container for plans and experiences.
-
-        Required permissions:
-
-        - `access_pass:create`
-        - `access_pass:basic:read`
+        """
+        Creates a new product for an account.
 
         Args:
-          company_id: The unique identifier of the company to create this product for.
-
           title: The display name of the product. Maximum 80 characters.
 
-          collect_shipping_address: Whether the checkout flow collects a shipping address from the customer.
+          account_id: The unique identifier of the account to create this product for.
 
-          custom_cta: The different types of custom CTAs that can be selected.
+          collect_shipping_address: Whether to collect a shipping address at checkout.
 
-          custom_cta_url: A URL that the call-to-action button links to instead of the default checkout
-              flow.
+          custom_cta: The call-to-action button label.
 
-          custom_statement_descriptor: A custom text label that appears on the customer's bank statement. Must be 5-22
-              characters, contain at least one letter, and not contain <, >, \\,, ', or "
-              characters.
+          custom_cta_url: A URL the call-to-action button links to.
 
-          description: A written description of the product displayed on its product page.
+          custom_statement_descriptor: Custom bank statement descriptor. Must start with WHOP\\**.
 
-          experience_ids: The unique identifiers of experiences to connect to this product.
+          description: A written description displayed on the product page.
 
-          global_affiliate_percentage: The commission rate as a percentage that affiliates earn through the global
-              affiliate program.
+          global_affiliate_percentage: The commission rate affiliates earn.
 
-          global_affiliate_status: The different statuses of the global affiliate program for a product.
+          global_affiliate_status: The enrollment status in the global affiliate program.
 
-          headline: A short marketing headline displayed prominently on the product page.
+          headline: A short marketing headline for the product page.
 
-          member_affiliate_percentage: The commission rate as a percentage that members earn through the member
-              affiliate program.
+          labels: Labels used to group products into collections. Stored lowercased and
+              de-duplicated. Maximum 20 labels, 50 characters each.
 
-          member_affiliate_status: The different statuses of the global affiliate program for a product.
+          member_affiliate_percentage: The commission rate members earn.
 
-          metadata: Custom key-value pairs to store on the product. Included in webhook payloads for
-              payment and membership events. Max 50 keys, 100 chars per key, 500 chars per
-              string value.
+          member_affiliate_status: The enrollment status in the member affiliate program.
 
-          plan_options: Configuration for an automatically generated plan to attach to this product.
+          metadata: Custom key-value pairs to store on the product.
 
-          product_tax_code_id: The unique identifier of the tax classification code to apply to this product.
+          product_tax_code_id: The unique identifier of the tax classification code. See the available
+              [product categories](https://docs.numeral.com/essentials/product-categories).
 
-          redirect_purchase_url: A URL to redirect the customer to after completing a purchase.
+          redirect_purchase_url: A URL to redirect the customer to after purchase.
 
           route: The URL slug for the product's public link.
 
           send_welcome_message: Whether to send an automated welcome message via support chat when a user joins
               this product. Defaults to true.
 
-          visibility: Visibility of a resource
+          visibility: Whether the product is visible to customers.
 
           extra_headers: Send extra headers
 
@@ -595,25 +599,33 @@ class AsyncProductsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "Api-Version-Date": api_version_date,
+                    "Idempotency-Key": idempotency_key,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return await self._post(
             "/products",
             body=await async_maybe_transform(
                 {
-                    "company_id": company_id,
                     "title": title,
+                    "account_id": account_id,
                     "collect_shipping_address": collect_shipping_address,
                     "custom_cta": custom_cta,
                     "custom_cta_url": custom_cta_url,
                     "custom_statement_descriptor": custom_statement_descriptor,
                     "description": description,
-                    "experience_ids": experience_ids,
                     "global_affiliate_percentage": global_affiliate_percentage,
                     "global_affiliate_status": global_affiliate_status,
                     "headline": headline,
+                    "labels": labels,
                     "member_affiliate_percentage": member_affiliate_percentage,
                     "member_affiliate_status": member_affiliate_status,
                     "metadata": metadata,
-                    "plan_options": plan_options,
                     "product_tax_code_id": product_tax_code_id,
                     "redirect_purchase_url": redirect_purchase_url,
                     "route": route,
@@ -632,6 +644,7 @@ class AsyncProductsResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -639,12 +652,9 @@ class AsyncProductsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Product:
-        """
-        Retrieves the details of an existing product.
+        """Retrieves a product.
 
-        Required permissions:
-
-        - `access_pass:basic:read`
+        Public — no credentials.
 
         Args:
           extra_headers: Send extra headers
@@ -657,6 +667,7 @@ class AsyncProductsResource(AsyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return await self._get(
             path_template("/products/{id}", id=id),
             options=make_request_options(
@@ -669,25 +680,16 @@ class AsyncProductsResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        collect_shipping_address: Optional[bool] | Omit = omit,
-        custom_cta: Optional[CustomCta] | Omit = omit,
-        custom_cta_url: Optional[str] | Omit = omit,
-        custom_statement_descriptor: Optional[str] | Omit = omit,
+        banner_image: Optional[product_update_params.BannerImage] | Omit = omit,
         description: Optional[str] | Omit = omit,
-        gallery_images: Optional[Iterable[product_update_params.GalleryImage]] | Omit = omit,
-        global_affiliate_percentage: Optional[float] | Omit = omit,
-        global_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
         headline: Optional[str] | Omit = omit,
-        member_affiliate_percentage: Optional[float] | Omit = omit,
-        member_affiliate_status: Optional[GlobalAffiliateStatus] | Omit = omit,
-        metadata: Optional[Dict[str, object]] | Omit = omit,
+        labels: Optional[SequenceNotStr[str]] | Omit = omit,
+        metadata: Optional[object] | Omit = omit,
         product_tax_code_id: Optional[str] | Omit = omit,
-        redirect_purchase_url: Optional[str] | Omit = omit,
-        route: Optional[str] | Omit = omit,
         send_welcome_message: Optional[bool] | Omit = omit,
-        store_page_config: Optional[product_update_params.StorePageConfig] | Omit = omit,
-        title: Optional[str] | Omit = omit,
-        visibility: Optional[Visibility] | Omit = omit,
+        title: str | Omit = omit,
+        visibility: str | Omit = omit,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -696,59 +698,31 @@ class AsyncProductsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Product:
         """
-        Update a product's title, description, visibility, and other settings.
-
-        Required permissions:
-
-        - `access_pass:update`
-        - `access_pass:basic:read`
+        Updates an existing product.
 
         Args:
-          collect_shipping_address: Whether the checkout flow collects a shipping address from the customer.
+          banner_image: A wide image for the product, shown on the product page and on listing cards.
+              Pass `{ id }` for an existing attachment or `{ direct_upload_id }` for a
+              completed direct upload; `null` removes it.
 
-          custom_cta: The different types of custom CTAs that can be selected.
+          description: A written description displayed on the product page.
 
-          custom_cta_url: A URL that the call-to-action button links to instead of the default checkout
-              flow.
+          headline: A short marketing headline for the product page.
 
-          custom_statement_descriptor: A custom text label that appears on the customer's bank statement. Must be 5-22
-              characters, contain at least one letter, and not contain <, >, \\,, ', or "
-              characters.
+          labels: Labels used to group products into collections. Replaces the existing labels.
+              Send an empty array to clear them.
 
-          description: A written description of the product displayed on its product page.
+          metadata: Custom key-value pairs to store on the product.
 
-          gallery_images: The gallery images for the product.
-
-          global_affiliate_percentage: The commission rate as a percentage that affiliates earn through the global
-              affiliate program.
-
-          global_affiliate_status: The different statuses of the global affiliate program for a product.
-
-          headline: A short marketing headline displayed prominently on the product page.
-
-          member_affiliate_percentage: The commission rate as a percentage that members earn through the member
-              affiliate program.
-
-          member_affiliate_status: The different statuses of the global affiliate program for a product.
-
-          metadata: Custom key-value pairs to store on the product. Included in webhook payloads for
-              payment and membership events. Max 50 keys, 100 chars per key, 500 chars per
-              string value.
-
-          product_tax_code_id: The unique identifier of the tax classification code to apply to this product.
-
-          redirect_purchase_url: A URL to redirect the customer to after completing a purchase.
-
-          route: The URL slug for the product's public link.
+          product_tax_code_id: The unique identifier of the tax classification code. See the available
+              [product categories](https://docs.numeral.com/essentials/product-categories).
 
           send_welcome_message: Whether to send an automated welcome message via support chat when a user joins
               this product.
 
-          store_page_config: Layout and display configuration for this product on the company's store page.
+          title: The display name of the product.
 
-          title: The display name of the product. Maximum 80 characters.
-
-          visibility: Visibility of a resource
+          visibility: Whether the product is visible to customers.
 
           extra_headers: Send extra headers
 
@@ -760,27 +734,18 @@ class AsyncProductsResource(AsyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return await self._patch(
             path_template("/products/{id}", id=id),
             body=await async_maybe_transform(
                 {
-                    "collect_shipping_address": collect_shipping_address,
-                    "custom_cta": custom_cta,
-                    "custom_cta_url": custom_cta_url,
-                    "custom_statement_descriptor": custom_statement_descriptor,
+                    "banner_image": banner_image,
                     "description": description,
-                    "gallery_images": gallery_images,
-                    "global_affiliate_percentage": global_affiliate_percentage,
-                    "global_affiliate_status": global_affiliate_status,
                     "headline": headline,
-                    "member_affiliate_percentage": member_affiliate_percentage,
-                    "member_affiliate_status": member_affiliate_status,
+                    "labels": labels,
                     "metadata": metadata,
                     "product_tax_code_id": product_tax_code_id,
-                    "redirect_purchase_url": redirect_purchase_url,
-                    "route": route,
                     "send_welcome_message": send_welcome_message,
-                    "store_page_config": store_page_config,
                     "title": title,
                     "visibility": visibility,
                 },
@@ -795,17 +760,24 @@ class AsyncProductsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
+        access_pass_types: SequenceNotStr[str] | Omit = omit,
+        account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
-        created_after: Union[str, datetime] | Omit = omit,
-        created_before: Union[str, datetime] | Omit = omit,
-        direction: Direction | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
+        labels: SequenceNotStr[str] | Omit = omit,
         last: int | Omit = omit,
-        order: Literal["active_memberships_count", "created_at", "usd_gmv", "usd_gmv_30_days"] | Omit = omit,
-        product_types: List[AccessPassType] | Omit = omit,
-        visibilities: List[VisibilityFilter] | Omit = omit,
+        marketplace_category_route: str | Omit = omit,
+        order: str | Omit = omit,
+        plan_types: List[Literal["renewal", "one_time"]] | Omit = omit,
+        price_maximum: float | Omit = omit,
+        price_minimum: float | Omit = omit,
+        query: str | Omit = omit,
+        visibilities: SequenceNotStr[str] | Omit = omit,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -813,36 +785,54 @@ class AsyncProductsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[ProductListItem, AsyncCursorPage[ProductListItem]]:
-        """
-        Returns a paginated list of products belonging to a company, with optional
-        filtering by type, visibility, and creation date.
+        """Returns a paginated list of products.
 
-        Required permissions:
-
-        - `access_pass:basic:read`
+        Omit `account_id` to search the public
+        marketplace.
 
         Args:
-          company_id: The unique identifier of the company to list products for.
+          access_pass_types: Filter to only products matching these types.
 
-          after: Returns the elements in the list that come after the specified cursor.
+          account_id: The unique identifier of the account to list products for. Omit to search the
+              public marketplace.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          after: A cursor; returns products after this position.
 
-          created_after: Only return products created after this timestamp.
+          before: A cursor; returns products before this position.
 
-          created_before: Only return products created before this timestamp.
+          created_after: Only return products created after this ISO 8601 timestamp.
+
+          created_before: Only return products created before this ISO 8601 timestamp.
 
           direction: The sort direction for results. Defaults to descending.
 
-          first: Returns the first _n_ elements from the list.
+          first: The number of products to return (default and max 100).
 
-          last: Returns the last _n_ elements from the list.
+          labels: Filter to only products carrying all of these labels. Labels are matched
+              lowercased.
 
-          order: The field to sort results by. Defaults to created_at.
+          last: The number of products to return from the end of the range.
 
-          product_types: Filter to only products matching these type classifications.
+          marketplace_category_route: Only return marketplace products assigned to this category route, such as
+              `trading`.
 
-          visibilities: Filter to only products matching these visibility states.
+          order: The field to sort results by. Account lists default to `created_at`. Marketplace
+              lists default to `discoverable_at` and accept `created_at` or `discoverable_at`.
+              Cannot be combined with `query`.
+
+          plan_types: Filter to products with a buyable plan of these billing models, such as
+              `one_time` or `renewal`.
+
+          price_maximum: Only return products whose advertised buyable plan has a displayed price of at
+              most this amount. Recurring plans use renewal price.
+
+          price_minimum: Only return products whose advertised buyable plan has a displayed price of at
+              least this amount. Recurring plans use renewal price.
+
+          query: Ranked search against product title and headline. Omit to browse by recency.
+
+          visibilities: Filter to only products matching these visibility states. Ignored on the public
+              marketplace list, which only returns visible products.
 
           extra_headers: Send extra headers
 
@@ -852,6 +842,7 @@ class AsyncProductsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return self._get_api_list(
             "/products",
             page=AsyncCursorPage[ProductListItem],
@@ -862,16 +853,22 @@ class AsyncProductsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "access_pass_types": access_pass_types,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
                         "first": first,
+                        "labels": labels,
                         "last": last,
+                        "marketplace_category_route": marketplace_category_route,
                         "order": order,
-                        "product_types": product_types,
+                        "plan_types": plan_types,
+                        "price_maximum": price_maximum,
+                        "price_minimum": price_minimum,
+                        "query": query,
                         "visibilities": visibilities,
                     },
                     product_list_params.ProductListParams,
@@ -884,6 +881,7 @@ class AsyncProductsResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -891,12 +889,10 @@ class AsyncProductsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProductDeleteResponse:
-        """
-        Permanently delete a product and remove it from the company's catalog.
+        """Deletes a product.
 
-        Required permissions:
-
-        - `access_pass:delete`
+        Only products with no memberships, entries, reviews, or
+        invoices can be deleted.
 
         Args:
           extra_headers: Send extra headers
@@ -909,6 +905,7 @@ class AsyncProductsResource(AsyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return await self._delete(
             path_template("/products/{id}", id=id),
             options=make_request_options(

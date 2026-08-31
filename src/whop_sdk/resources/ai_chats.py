@@ -29,8 +29,6 @@ __all__ = ["AIChatsResource", "AsyncAIChatsResource"]
 
 
 class AIChatsResource(SyncAPIResource):
-    """Ai chats"""
-
     @cached_property
     def with_raw_response(self) -> AIChatsResourceWithRawResponse:
         """
@@ -303,8 +301,6 @@ class AIChatsResource(SyncAPIResource):
 
 
 class AsyncAIChatsResource(AsyncAPIResource):
-    """Ai chats"""
-
     @cached_property
     def with_raw_response(self) -> AsyncAIChatsResourceWithRawResponse:
         """

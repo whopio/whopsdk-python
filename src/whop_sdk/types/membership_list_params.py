@@ -2,79 +2,68 @@
 
 from __future__ import annotations
 
-from typing import List, Union
-from datetime import datetime
 from typing_extensions import Literal, Annotated, TypedDict
 
-from .._types import SequenceNotStr
 from .._utils import PropertyInfo
-from .cancel_options import CancelOptions
-from .shared.direction import Direction
-from .shared.membership_status import MembershipStatus
 
 __all__ = ["MembershipListParams"]
 
 
 class MembershipListParams(TypedDict, total=False):
+    account_id: str
+    """Narrow to one account (`biz_` tag).
+
+    With read access to the account this lists all of its memberships; without, only
+    the caller's own memberships in it.
+    """
+
     after: str
-    """Returns the elements in the list that come after the specified cursor."""
+    """Cursor to paginate forwards from."""
 
     before: str
-    """Returns the elements in the list that come before the specified cursor."""
+    """Cursor to paginate backwards from."""
 
-    cancel_options: List[CancelOptions]
-    """Filter to only memberships matching these cancellation reasons."""
+    created_after: str
+    """Only memberships created after this ISO 8601 timestamp."""
 
-    cancelation_status: Literal["won_back", "left", "canceling"]
-    """Filter memberships by whether the customer is canceling, left, or was won back."""
+    created_before: str
+    """Only memberships created before this ISO 8601 timestamp."""
 
-    company_id: str
-    """The unique identifier of the company to list memberships for.
-
-    Required when using an API key.
-    """
-
-    created_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-    """Only return memberships created after this timestamp."""
-
-    created_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-    """Only return memberships created before this timestamp."""
-
-    direction: Direction
-    """The sort direction for results. Defaults to descending."""
+    direction: Literal["asc", "desc"]
+    """Sort direction."""
 
     first: int
-    """Returns the first _n_ elements from the list."""
-
-    has_cancelation_reason: bool
-    """
-    Filter memberships by whether they have a structured or free-text cancellation
-    reason.
-    """
-
-    include_text_only_cancelation_reasons: bool
-    """
-    When filtering by the other cancellation option, also include memberships that
-    only have a free-text cancellation reason.
-    """
+    """Number of memberships to return from the start of the window."""
 
     last: int
-    """Returns the last _n_ elements from the list."""
+    """Number of memberships to return from the end of the window."""
 
-    order: Literal["id", "created_at", "status", "canceled_at", "date_joined", "total_spend"]
-    """The field to sort results by. Null uses the default sort order."""
+    order: Literal["created_at"]
+    """Sort field."""
 
-    plan_ids: SequenceNotStr[str]
-    """Filter to only memberships belonging to these plan identifiers."""
+    plan_id: str
+    """Filter to memberships of this plan (`plan_` tag).
 
-    product_ids: SequenceNotStr[str]
-    """Filter to only memberships belonging to these product identifiers."""
+    Repeat as plan_ids[] for several.
+    """
 
-    promo_code_ids: SequenceNotStr[str]
-    """Filter to only memberships that used these promo code identifiers."""
+    product_id: str
+    """Filter to memberships of this product (`prod_` tag).
 
-    statuses: List[MembershipStatus]
-    """Filter to only memberships matching these statuses."""
+    Repeat as product_ids[] for several.
+    """
 
-    user_ids: SequenceNotStr[str]
-    """Filter to only memberships belonging to these user identifiers."""
+    status: Literal["active", "trialing", "past_due", "completed", "canceled", "expired", "canceling", "paused"]
+    """Filter by billing state.
+
+    `canceling` matches active memberships set to cancel at period end; `paused`
+    matches memberships with payment collection paused.
+    """
+
+    user_id: str
+    """Narrow to one user's memberships (`user_` tag, or `me` for the caller).
+
+    A user outside the caller's visible set returns an empty list.
+    """
+
+    api_version_date: Annotated[str, PropertyInfo(alias="Api-Version-Date")]

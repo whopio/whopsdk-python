@@ -2,15 +2,24 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
-from typing_extensions import TypedDict
+from typing_extensions import Annotated, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = ["MembershipUpdateParams"]
 
 
 class MembershipUpdateParams(TypedDict, total=False):
-    metadata: Optional[Dict[str, object]]
-    """A JSON object of key-value pairs to store on the membership.
-
-    Replaces any existing metadata.
+    cancel_at_period_end: bool
     """
+    `true` cancels at the end of the current billing period (the customer keeps
+    access until then); `false` reverses a pending cancellation.
+    """
+
+    metadata: object
+    """Key-value pairs to merge into the membership's metadata.
+
+    Pass an empty object to clear it.
+    """
+
+    api_version_date: Annotated[str, PropertyInfo(alias="Api-Version-Date")]

@@ -21,10 +21,6 @@ class DisputeUpdatedWebhookEvent(BaseModel):
     """The dated API version (Api-Version-Date) the payload is serialized to"""
 
     data: Dispute
-    """
-    A dispute is a chargeback or payment challenge filed against a company,
-    including evidence and response status.
-    """
 
     timestamp: datetime
     """The timestamp in ISO 8601 format that the webhook was sent at on the server"""

@@ -4,12 +4,13 @@ from __future__ import annotations
 
 import json
 from typing import List, Mapping, Optional, cast
+from typing_extensions import Literal
 
 import httpx
 
-from ..types import APIVersion, webhook_list_params, webhook_create_params, webhook_update_params
+from ..types import webhook_list_params, webhook_create_params, webhook_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from .._compat import cached_property
 from .._models import construct_type
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -23,19 +24,14 @@ from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._exceptions import WhopError
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.webhook import Webhook
-from ..types.api_version import APIVersion
-from ..types.webhook_event import WebhookEvent
 from ..types.unwrap_webhook_event import UnwrapWebhookEvent
 from ..types.webhook_list_response import WebhookListResponse
-from ..types.webhook_create_response import WebhookCreateResponse
 from ..types.webhook_delete_response import WebhookDeleteResponse
 
 __all__ = ["WebhooksResource", "AsyncWebhooksResource"]
 
 
 class WebhooksResource(SyncAPIResource):
-    """Webhooks"""
-
     @cached_property
     def with_raw_response(self) -> WebhooksResourceWithRawResponse:
         """
@@ -59,46 +55,160 @@ class WebhooksResource(SyncAPIResource):
         self,
         *,
         url: str,
-        api_version: Optional[APIVersion] | Omit = omit,
-        api_version_date: Optional[str] | Omit = omit,
-        child_resource_events: Optional[bool] | Omit = omit,
-        enabled: Optional[bool] | Omit = omit,
-        events: Optional[List[WebhookEvent]] | Omit = omit,
+        body_api_version_date: Optional[str] | Omit = omit,
+        child_resource_events: bool | Omit = omit,
+        enabled: bool | Omit = omit,
+        events: List[
+            Literal[
+                "account.updated",
+                "invoice.created",
+                "invoice.marked_uncollectible",
+                "invoice.paid",
+                "invoice.past_due",
+                "invoice.voided",
+                "membership.activated",
+                "membership.deactivated",
+                "membership.trial_ending_soon",
+                "entry.created",
+                "entry.approved",
+                "entry.denied",
+                "entry.deleted",
+                "export.completed",
+                "export.failed",
+                "setup_intent.requires_action",
+                "setup_intent.succeeded",
+                "setup_intent.canceled",
+                "ledger_account.funds_available",
+                "swap.completed",
+                "deposit.succeeded",
+                "transfer.created",
+                "transfer.completed",
+                "transfer.failed",
+                "payout.created",
+                "payout.updated",
+                "payout.reversed",
+                "card_transaction.created",
+                "card_transaction.updated",
+                "card_transaction.completed",
+                "card_transaction.declined",
+                "card_transaction.reversed",
+                "card.created",
+                "card.updated",
+                "card.frozen",
+                "card.canceled",
+                "card_application.created",
+                "card_application.updated",
+                "card_application.approved",
+                "card_application.denied",
+                "course_lesson_interaction.completed",
+                "payout_method.created",
+                "verification.succeeded",
+                "identity_profile.approved",
+                "identity_profile.rejected",
+                "identity_profile.needs_action",
+                "identity_profile.updated",
+                "payout_account.status_updated",
+                "payment.authorized",
+                "payment.canceled",
+                "resolution_center_case.created",
+                "resolution_center_case.updated",
+                "resolution_center_case.decided",
+                "product.created",
+                "product.updated",
+                "product.deleted",
+                "product.published",
+                "product.unpublished",
+                "plan.created",
+                "plan.updated",
+                "plan.deleted",
+                "shipment.created",
+                "shipment.updated",
+                "member.created",
+                "ad_campaign.payment_failed",
+                "chat.message.created",
+                "chat.reaction.created",
+                "payment.created",
+                "payment.succeeded",
+                "payment.failed",
+                "payment.pending",
+                "dispute.created",
+                "dispute.updated",
+                "refund.created",
+                "refund.updated",
+                "dispute_alert.created",
+                "membership.cancel_at_period_end_changed",
+                "membership_went_valid",
+                "membership_went_invalid",
+                "membership_metadata_updated",
+                "resolution_created",
+                "resolution_updated",
+                "resolution_decided",
+                "payment_affiliate_reward_created",
+                "membership_experience_claimed",
+                "app_membership_went_valid",
+                "app_membership_went_invalid",
+                "app_payment_created",
+                "app_payment_succeeded",
+                "app_payment_failed",
+                "app_payment_pending",
+                "app_membership_cancel_at_period_end_changed",
+                "payment_created",
+                "payment_succeeded",
+                "payment_failed",
+                "payment_pending",
+                "dispute_created",
+                "dispute_updated",
+                "refund_created",
+                "refund_updated",
+                "dispute_alert_created",
+                "membership_cancel_at_period_end_changed",
+                "membership.went_valid",
+                "membership.went_invalid",
+                "membership.metadata_updated",
+                "resolution.created",
+                "resolution.updated",
+                "resolution.decided",
+                "payment.affiliate_reward_created",
+                "membership.experience_claimed",
+                "app_membership.went_valid",
+                "app_membership.went_invalid",
+                "app_payment.created",
+                "app_payment.succeeded",
+                "app_payment.failed",
+                "app_payment.pending",
+                "app_membership.cancel_at_period_end_changed",
+            ]
+        ]
+        | Omit = omit,
         resource_id: Optional[str] | Omit = omit,
+        header_api_version_date: str | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> WebhookCreateResponse:
+    ) -> Webhook:
         """
-        Creates a new webhook
-
-        Required permissions:
-
-        - `developer:manage_webhook`
+        Creates a webhook endpoint that receives event notifications via HTTP POST.
 
         Args:
           url: The URL to send the webhook to.
 
-          api_version: The different API versions
+          body_api_version_date: The dated API version (Api-Version-Date) to pin this webhook's payloads to. Omit
+              to leave the webhook unpinned, tracking the current payload shape.
 
-          api_version_date:
-              The dated API version (Api-Version-Date) the webhook's payloads are pinned to:
-              events serialize exactly like a REST read at this version (the native serializer
-              where the resource has one). Only applies to v1 webhooks. Omit to leave the
-              webhook unpinned on the legacy payload shape.
+          child_resource_events: Whether to send events for child resources. For example, if the webhook is
+              created for an account, enabling this sends events only from its connected
+              accounts.
 
-          child_resource_events: Whether or not to send events for child resources. For example, if the webhook
-              is created for a Company, enabling this will only send events from the Company's
-              sub-merchants (child companies).
+          enabled: Whether or not the webhook is enabled. Defaults to `true`.
 
-          enabled: Whether or not the webhook is enabled.
+          events: The events to send the webhook for, in dot form (for example
+              `payment.succeeded`).
 
-          events: The events to send the webhook for.
-
-          resource_id: The resource to create the webhook for. By default this will use current company
+          resource_id: The account or app to create the webhook for. Defaults to the current account.
 
           extra_headers: Send extra headers
 
@@ -108,13 +218,21 @@ class WebhooksResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "Api-Version-Date": header_api_version_date,
+                    "Idempotency-Key": idempotency_key,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._post(
             "/webhooks",
             body=maybe_transform(
                 {
                     "url": url,
-                    "api_version": api_version,
-                    "api_version_date": api_version_date,
+                    "body_api_version_date": body_api_version_date,
                     "child_resource_events": child_resource_events,
                     "enabled": enabled,
                     "events": events,
@@ -125,13 +243,14 @@ class WebhooksResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=WebhookCreateResponse,
+            cast_to=Webhook,
         )
 
     def retrieve(
         self,
         id: str,
         *,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -141,10 +260,6 @@ class WebhooksResource(SyncAPIResource):
     ) -> Webhook:
         """
         Retrieves the details of an existing webhook.
-
-        Required permissions:
-
-        - `developer:manage_webhook`
 
         Args:
           extra_headers: Send extra headers
@@ -157,6 +272,7 @@ class WebhooksResource(SyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return self._get(
             path_template("/webhooks/{id}", id=id),
             options=make_request_options(
@@ -169,12 +285,133 @@ class WebhooksResource(SyncAPIResource):
         self,
         id: str,
         *,
-        api_version: Optional[APIVersion] | Omit = omit,
-        api_version_date: Optional[str] | Omit = omit,
-        child_resource_events: Optional[bool] | Omit = omit,
-        enabled: Optional[bool] | Omit = omit,
-        events: Optional[List[WebhookEvent]] | Omit = omit,
-        url: Optional[str] | Omit = omit,
+        body_api_version_date: Optional[str] | Omit = omit,
+        child_resource_events: bool | Omit = omit,
+        enabled: bool | Omit = omit,
+        events: List[
+            Literal[
+                "account.updated",
+                "invoice.created",
+                "invoice.marked_uncollectible",
+                "invoice.paid",
+                "invoice.past_due",
+                "invoice.voided",
+                "membership.activated",
+                "membership.deactivated",
+                "membership.trial_ending_soon",
+                "entry.created",
+                "entry.approved",
+                "entry.denied",
+                "entry.deleted",
+                "export.completed",
+                "export.failed",
+                "setup_intent.requires_action",
+                "setup_intent.succeeded",
+                "setup_intent.canceled",
+                "ledger_account.funds_available",
+                "swap.completed",
+                "deposit.succeeded",
+                "transfer.created",
+                "transfer.completed",
+                "transfer.failed",
+                "payout.created",
+                "payout.updated",
+                "payout.reversed",
+                "card_transaction.created",
+                "card_transaction.updated",
+                "card_transaction.completed",
+                "card_transaction.declined",
+                "card_transaction.reversed",
+                "card.created",
+                "card.updated",
+                "card.frozen",
+                "card.canceled",
+                "card_application.created",
+                "card_application.updated",
+                "card_application.approved",
+                "card_application.denied",
+                "course_lesson_interaction.completed",
+                "payout_method.created",
+                "verification.succeeded",
+                "identity_profile.approved",
+                "identity_profile.rejected",
+                "identity_profile.needs_action",
+                "identity_profile.updated",
+                "payout_account.status_updated",
+                "payment.authorized",
+                "payment.canceled",
+                "resolution_center_case.created",
+                "resolution_center_case.updated",
+                "resolution_center_case.decided",
+                "product.created",
+                "product.updated",
+                "product.deleted",
+                "product.published",
+                "product.unpublished",
+                "plan.created",
+                "plan.updated",
+                "plan.deleted",
+                "shipment.created",
+                "shipment.updated",
+                "member.created",
+                "ad_campaign.payment_failed",
+                "chat.message.created",
+                "chat.reaction.created",
+                "payment.created",
+                "payment.succeeded",
+                "payment.failed",
+                "payment.pending",
+                "dispute.created",
+                "dispute.updated",
+                "refund.created",
+                "refund.updated",
+                "dispute_alert.created",
+                "membership.cancel_at_period_end_changed",
+                "membership_went_valid",
+                "membership_went_invalid",
+                "membership_metadata_updated",
+                "resolution_created",
+                "resolution_updated",
+                "resolution_decided",
+                "payment_affiliate_reward_created",
+                "membership_experience_claimed",
+                "app_membership_went_valid",
+                "app_membership_went_invalid",
+                "app_payment_created",
+                "app_payment_succeeded",
+                "app_payment_failed",
+                "app_payment_pending",
+                "app_membership_cancel_at_period_end_changed",
+                "payment_created",
+                "payment_succeeded",
+                "payment_failed",
+                "payment_pending",
+                "dispute_created",
+                "dispute_updated",
+                "refund_created",
+                "refund_updated",
+                "dispute_alert_created",
+                "membership_cancel_at_period_end_changed",
+                "membership.went_valid",
+                "membership.went_invalid",
+                "membership.metadata_updated",
+                "resolution.created",
+                "resolution.updated",
+                "resolution.decided",
+                "payment.affiliate_reward_created",
+                "membership.experience_claimed",
+                "app_membership.went_valid",
+                "app_membership.went_invalid",
+                "app_payment.created",
+                "app_payment.succeeded",
+                "app_payment.failed",
+                "app_payment.pending",
+                "app_membership.cancel_at_period_end_changed",
+            ]
+        ]
+        | Omit = omit,
+        url: str | Omit = omit,
+        header_api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -183,26 +420,20 @@ class WebhooksResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Webhook:
         """
-        Updates a webhook
-
-        Required permissions:
-
-        - `developer:manage_webhook`
+        Updates a webhook endpoint's URL, subscribed events, pinned payload version, or
+        enabled state.
 
         Args:
-          api_version: The different API versions
-
-          api_version_date:
-              The dated API version (Api-Version-Date) to pin this webhook's payloads to:
-              events serialize exactly like a REST read at this version (the native serializer
-              where the resource has one). Only applies to v1 webhooks. Pass null to unpin,
-              returning to the legacy payload shape.
+          body_api_version_date: The dated API version (Api-Version-Date) to pin this webhook's payloads to. Only
+              valid for `v1` webhooks. Omit to leave the current pin unchanged, or pass `null`
+              to unpin and track the current payload shape.
 
           child_resource_events: Whether or not to send events for child resources.
 
           enabled: Whether or not the webhook is enabled.
 
-          events: The events to send the webhook for.
+          events: The events to send the webhook for, in dot form (for example
+              `payment.succeeded`).
 
           url: The URL to send the webhook to.
 
@@ -216,12 +447,12 @@ class WebhooksResource(SyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Api-Version-Date": header_api_version_date}), **(extra_headers or {})}
         return self._patch(
             path_template("/webhooks/{id}", id=id),
             body=maybe_transform(
                 {
-                    "api_version": api_version,
-                    "api_version_date": api_version_date,
+                    "body_api_version_date": body_api_version_date,
                     "child_resource_events": child_resource_events,
                     "enabled": enabled,
                     "events": events,
@@ -238,12 +469,15 @@ class WebhooksResource(SyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: str | Omit = omit,
         app_id: str | Omit = omit,
         before: str | Omit = omit,
         first: int | Omit = omit,
+        has_failures: bool | Omit = omit,
+        include_app_webhooks: bool | Omit = omit,
         last: int | Omit = omit,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -252,26 +486,29 @@ class WebhooksResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[WebhookListResponse]:
         """
-        Returns a paginated list of webhook endpoints configured for a company, ordered
+        Returns a paginated list of webhook endpoints configured for an account, ordered
         by most recently created.
 
-        Required permissions:
-
-        - `developer:manage_webhook`
-
         Args:
-          company_id: The unique identifier of the company to list webhooks for.
+          account_id: The unique identifier of the account to list webhooks for.
 
-          after: Returns the elements in the list that come after the specified cursor.
+          after: A cursor; returns webhooks after this position.
 
-          app_id: Only return webhooks attached to this app. Omit to list the company's own
+          app_id: Only return webhooks attached to this app. Omit to list the account's own
               webhooks.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          before: A cursor; returns webhooks before this position.
 
-          first: Returns the first _n_ elements from the list.
+          first: The number of webhooks to return (default 20, max 100).
 
-          last: Returns the last _n_ elements from the list.
+          has_failures: Only return webhooks whose endpoint is currently failing — every delivery since
+              the current failure streak began has been rejected. Clears as soon as a delivery
+              succeeds.
+
+          include_app_webhooks: Also return webhooks attached to the account's apps, not just the account's own.
+              Cannot be combined with `app_id`.
+
+          last: The number of webhooks to return from the end of the range.
 
           extra_headers: Send extra headers
 
@@ -281,6 +518,7 @@ class WebhooksResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return self._get_api_list(
             "/webhooks",
             page=SyncCursorPage[WebhookListResponse],
@@ -291,11 +529,13 @@ class WebhooksResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "app_id": app_id,
                         "before": before,
                         "first": first,
+                        "has_failures": has_failures,
+                        "include_app_webhooks": include_app_webhooks,
                         "last": last,
                     },
                     webhook_list_params.WebhookListParams,
@@ -308,6 +548,7 @@ class WebhooksResource(SyncAPIResource):
         self,
         id: str,
         *,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -315,12 +556,10 @@ class WebhooksResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WebhookDeleteResponse:
-        """
-        Deletes a webhook
+        """Permanently deletes a webhook endpoint.
 
-        Required permissions:
-
-        - `developer:manage_webhook`
+        Returns `true` on success, matching the
+        legacy proxy response.
 
         Args:
           extra_headers: Send extra headers
@@ -333,6 +572,7 @@ class WebhooksResource(SyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return self._delete(
             path_template("/webhooks/{id}", id=id),
             options=make_request_options(
@@ -369,8 +609,6 @@ class WebhooksResource(SyncAPIResource):
 
 
 class AsyncWebhooksResource(AsyncAPIResource):
-    """Webhooks"""
-
     @cached_property
     def with_raw_response(self) -> AsyncWebhooksResourceWithRawResponse:
         """
@@ -394,46 +632,160 @@ class AsyncWebhooksResource(AsyncAPIResource):
         self,
         *,
         url: str,
-        api_version: Optional[APIVersion] | Omit = omit,
-        api_version_date: Optional[str] | Omit = omit,
-        child_resource_events: Optional[bool] | Omit = omit,
-        enabled: Optional[bool] | Omit = omit,
-        events: Optional[List[WebhookEvent]] | Omit = omit,
+        body_api_version_date: Optional[str] | Omit = omit,
+        child_resource_events: bool | Omit = omit,
+        enabled: bool | Omit = omit,
+        events: List[
+            Literal[
+                "account.updated",
+                "invoice.created",
+                "invoice.marked_uncollectible",
+                "invoice.paid",
+                "invoice.past_due",
+                "invoice.voided",
+                "membership.activated",
+                "membership.deactivated",
+                "membership.trial_ending_soon",
+                "entry.created",
+                "entry.approved",
+                "entry.denied",
+                "entry.deleted",
+                "export.completed",
+                "export.failed",
+                "setup_intent.requires_action",
+                "setup_intent.succeeded",
+                "setup_intent.canceled",
+                "ledger_account.funds_available",
+                "swap.completed",
+                "deposit.succeeded",
+                "transfer.created",
+                "transfer.completed",
+                "transfer.failed",
+                "payout.created",
+                "payout.updated",
+                "payout.reversed",
+                "card_transaction.created",
+                "card_transaction.updated",
+                "card_transaction.completed",
+                "card_transaction.declined",
+                "card_transaction.reversed",
+                "card.created",
+                "card.updated",
+                "card.frozen",
+                "card.canceled",
+                "card_application.created",
+                "card_application.updated",
+                "card_application.approved",
+                "card_application.denied",
+                "course_lesson_interaction.completed",
+                "payout_method.created",
+                "verification.succeeded",
+                "identity_profile.approved",
+                "identity_profile.rejected",
+                "identity_profile.needs_action",
+                "identity_profile.updated",
+                "payout_account.status_updated",
+                "payment.authorized",
+                "payment.canceled",
+                "resolution_center_case.created",
+                "resolution_center_case.updated",
+                "resolution_center_case.decided",
+                "product.created",
+                "product.updated",
+                "product.deleted",
+                "product.published",
+                "product.unpublished",
+                "plan.created",
+                "plan.updated",
+                "plan.deleted",
+                "shipment.created",
+                "shipment.updated",
+                "member.created",
+                "ad_campaign.payment_failed",
+                "chat.message.created",
+                "chat.reaction.created",
+                "payment.created",
+                "payment.succeeded",
+                "payment.failed",
+                "payment.pending",
+                "dispute.created",
+                "dispute.updated",
+                "refund.created",
+                "refund.updated",
+                "dispute_alert.created",
+                "membership.cancel_at_period_end_changed",
+                "membership_went_valid",
+                "membership_went_invalid",
+                "membership_metadata_updated",
+                "resolution_created",
+                "resolution_updated",
+                "resolution_decided",
+                "payment_affiliate_reward_created",
+                "membership_experience_claimed",
+                "app_membership_went_valid",
+                "app_membership_went_invalid",
+                "app_payment_created",
+                "app_payment_succeeded",
+                "app_payment_failed",
+                "app_payment_pending",
+                "app_membership_cancel_at_period_end_changed",
+                "payment_created",
+                "payment_succeeded",
+                "payment_failed",
+                "payment_pending",
+                "dispute_created",
+                "dispute_updated",
+                "refund_created",
+                "refund_updated",
+                "dispute_alert_created",
+                "membership_cancel_at_period_end_changed",
+                "membership.went_valid",
+                "membership.went_invalid",
+                "membership.metadata_updated",
+                "resolution.created",
+                "resolution.updated",
+                "resolution.decided",
+                "payment.affiliate_reward_created",
+                "membership.experience_claimed",
+                "app_membership.went_valid",
+                "app_membership.went_invalid",
+                "app_payment.created",
+                "app_payment.succeeded",
+                "app_payment.failed",
+                "app_payment.pending",
+                "app_membership.cancel_at_period_end_changed",
+            ]
+        ]
+        | Omit = omit,
         resource_id: Optional[str] | Omit = omit,
+        header_api_version_date: str | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> WebhookCreateResponse:
+    ) -> Webhook:
         """
-        Creates a new webhook
-
-        Required permissions:
-
-        - `developer:manage_webhook`
+        Creates a webhook endpoint that receives event notifications via HTTP POST.
 
         Args:
           url: The URL to send the webhook to.
 
-          api_version: The different API versions
+          body_api_version_date: The dated API version (Api-Version-Date) to pin this webhook's payloads to. Omit
+              to leave the webhook unpinned, tracking the current payload shape.
 
-          api_version_date:
-              The dated API version (Api-Version-Date) the webhook's payloads are pinned to:
-              events serialize exactly like a REST read at this version (the native serializer
-              where the resource has one). Only applies to v1 webhooks. Omit to leave the
-              webhook unpinned on the legacy payload shape.
+          child_resource_events: Whether to send events for child resources. For example, if the webhook is
+              created for an account, enabling this sends events only from its connected
+              accounts.
 
-          child_resource_events: Whether or not to send events for child resources. For example, if the webhook
-              is created for a Company, enabling this will only send events from the Company's
-              sub-merchants (child companies).
+          enabled: Whether or not the webhook is enabled. Defaults to `true`.
 
-          enabled: Whether or not the webhook is enabled.
+          events: The events to send the webhook for, in dot form (for example
+              `payment.succeeded`).
 
-          events: The events to send the webhook for.
-
-          resource_id: The resource to create the webhook for. By default this will use current company
+          resource_id: The account or app to create the webhook for. Defaults to the current account.
 
           extra_headers: Send extra headers
 
@@ -443,13 +795,21 @@ class AsyncWebhooksResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "Api-Version-Date": header_api_version_date,
+                    "Idempotency-Key": idempotency_key,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return await self._post(
             "/webhooks",
             body=await async_maybe_transform(
                 {
                     "url": url,
-                    "api_version": api_version,
-                    "api_version_date": api_version_date,
+                    "body_api_version_date": body_api_version_date,
                     "child_resource_events": child_resource_events,
                     "enabled": enabled,
                     "events": events,
@@ -460,13 +820,14 @@ class AsyncWebhooksResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=WebhookCreateResponse,
+            cast_to=Webhook,
         )
 
     async def retrieve(
         self,
         id: str,
         *,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -476,10 +837,6 @@ class AsyncWebhooksResource(AsyncAPIResource):
     ) -> Webhook:
         """
         Retrieves the details of an existing webhook.
-
-        Required permissions:
-
-        - `developer:manage_webhook`
 
         Args:
           extra_headers: Send extra headers
@@ -492,6 +849,7 @@ class AsyncWebhooksResource(AsyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return await self._get(
             path_template("/webhooks/{id}", id=id),
             options=make_request_options(
@@ -504,12 +862,133 @@ class AsyncWebhooksResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        api_version: Optional[APIVersion] | Omit = omit,
-        api_version_date: Optional[str] | Omit = omit,
-        child_resource_events: Optional[bool] | Omit = omit,
-        enabled: Optional[bool] | Omit = omit,
-        events: Optional[List[WebhookEvent]] | Omit = omit,
-        url: Optional[str] | Omit = omit,
+        body_api_version_date: Optional[str] | Omit = omit,
+        child_resource_events: bool | Omit = omit,
+        enabled: bool | Omit = omit,
+        events: List[
+            Literal[
+                "account.updated",
+                "invoice.created",
+                "invoice.marked_uncollectible",
+                "invoice.paid",
+                "invoice.past_due",
+                "invoice.voided",
+                "membership.activated",
+                "membership.deactivated",
+                "membership.trial_ending_soon",
+                "entry.created",
+                "entry.approved",
+                "entry.denied",
+                "entry.deleted",
+                "export.completed",
+                "export.failed",
+                "setup_intent.requires_action",
+                "setup_intent.succeeded",
+                "setup_intent.canceled",
+                "ledger_account.funds_available",
+                "swap.completed",
+                "deposit.succeeded",
+                "transfer.created",
+                "transfer.completed",
+                "transfer.failed",
+                "payout.created",
+                "payout.updated",
+                "payout.reversed",
+                "card_transaction.created",
+                "card_transaction.updated",
+                "card_transaction.completed",
+                "card_transaction.declined",
+                "card_transaction.reversed",
+                "card.created",
+                "card.updated",
+                "card.frozen",
+                "card.canceled",
+                "card_application.created",
+                "card_application.updated",
+                "card_application.approved",
+                "card_application.denied",
+                "course_lesson_interaction.completed",
+                "payout_method.created",
+                "verification.succeeded",
+                "identity_profile.approved",
+                "identity_profile.rejected",
+                "identity_profile.needs_action",
+                "identity_profile.updated",
+                "payout_account.status_updated",
+                "payment.authorized",
+                "payment.canceled",
+                "resolution_center_case.created",
+                "resolution_center_case.updated",
+                "resolution_center_case.decided",
+                "product.created",
+                "product.updated",
+                "product.deleted",
+                "product.published",
+                "product.unpublished",
+                "plan.created",
+                "plan.updated",
+                "plan.deleted",
+                "shipment.created",
+                "shipment.updated",
+                "member.created",
+                "ad_campaign.payment_failed",
+                "chat.message.created",
+                "chat.reaction.created",
+                "payment.created",
+                "payment.succeeded",
+                "payment.failed",
+                "payment.pending",
+                "dispute.created",
+                "dispute.updated",
+                "refund.created",
+                "refund.updated",
+                "dispute_alert.created",
+                "membership.cancel_at_period_end_changed",
+                "membership_went_valid",
+                "membership_went_invalid",
+                "membership_metadata_updated",
+                "resolution_created",
+                "resolution_updated",
+                "resolution_decided",
+                "payment_affiliate_reward_created",
+                "membership_experience_claimed",
+                "app_membership_went_valid",
+                "app_membership_went_invalid",
+                "app_payment_created",
+                "app_payment_succeeded",
+                "app_payment_failed",
+                "app_payment_pending",
+                "app_membership_cancel_at_period_end_changed",
+                "payment_created",
+                "payment_succeeded",
+                "payment_failed",
+                "payment_pending",
+                "dispute_created",
+                "dispute_updated",
+                "refund_created",
+                "refund_updated",
+                "dispute_alert_created",
+                "membership_cancel_at_period_end_changed",
+                "membership.went_valid",
+                "membership.went_invalid",
+                "membership.metadata_updated",
+                "resolution.created",
+                "resolution.updated",
+                "resolution.decided",
+                "payment.affiliate_reward_created",
+                "membership.experience_claimed",
+                "app_membership.went_valid",
+                "app_membership.went_invalid",
+                "app_payment.created",
+                "app_payment.succeeded",
+                "app_payment.failed",
+                "app_payment.pending",
+                "app_membership.cancel_at_period_end_changed",
+            ]
+        ]
+        | Omit = omit,
+        url: str | Omit = omit,
+        header_api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -518,26 +997,20 @@ class AsyncWebhooksResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Webhook:
         """
-        Updates a webhook
-
-        Required permissions:
-
-        - `developer:manage_webhook`
+        Updates a webhook endpoint's URL, subscribed events, pinned payload version, or
+        enabled state.
 
         Args:
-          api_version: The different API versions
-
-          api_version_date:
-              The dated API version (Api-Version-Date) to pin this webhook's payloads to:
-              events serialize exactly like a REST read at this version (the native serializer
-              where the resource has one). Only applies to v1 webhooks. Pass null to unpin,
-              returning to the legacy payload shape.
+          body_api_version_date: The dated API version (Api-Version-Date) to pin this webhook's payloads to. Only
+              valid for `v1` webhooks. Omit to leave the current pin unchanged, or pass `null`
+              to unpin and track the current payload shape.
 
           child_resource_events: Whether or not to send events for child resources.
 
           enabled: Whether or not the webhook is enabled.
 
-          events: The events to send the webhook for.
+          events: The events to send the webhook for, in dot form (for example
+              `payment.succeeded`).
 
           url: The URL to send the webhook to.
 
@@ -551,12 +1024,12 @@ class AsyncWebhooksResource(AsyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Api-Version-Date": header_api_version_date}), **(extra_headers or {})}
         return await self._patch(
             path_template("/webhooks/{id}", id=id),
             body=await async_maybe_transform(
                 {
-                    "api_version": api_version,
-                    "api_version_date": api_version_date,
+                    "body_api_version_date": body_api_version_date,
                     "child_resource_events": child_resource_events,
                     "enabled": enabled,
                     "events": events,
@@ -573,12 +1046,15 @@ class AsyncWebhooksResource(AsyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: str | Omit = omit,
         app_id: str | Omit = omit,
         before: str | Omit = omit,
         first: int | Omit = omit,
+        has_failures: bool | Omit = omit,
+        include_app_webhooks: bool | Omit = omit,
         last: int | Omit = omit,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -587,26 +1063,29 @@ class AsyncWebhooksResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[WebhookListResponse, AsyncCursorPage[WebhookListResponse]]:
         """
-        Returns a paginated list of webhook endpoints configured for a company, ordered
+        Returns a paginated list of webhook endpoints configured for an account, ordered
         by most recently created.
 
-        Required permissions:
-
-        - `developer:manage_webhook`
-
         Args:
-          company_id: The unique identifier of the company to list webhooks for.
+          account_id: The unique identifier of the account to list webhooks for.
 
-          after: Returns the elements in the list that come after the specified cursor.
+          after: A cursor; returns webhooks after this position.
 
-          app_id: Only return webhooks attached to this app. Omit to list the company's own
+          app_id: Only return webhooks attached to this app. Omit to list the account's own
               webhooks.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          before: A cursor; returns webhooks before this position.
 
-          first: Returns the first _n_ elements from the list.
+          first: The number of webhooks to return (default 20, max 100).
 
-          last: Returns the last _n_ elements from the list.
+          has_failures: Only return webhooks whose endpoint is currently failing — every delivery since
+              the current failure streak began has been rejected. Clears as soon as a delivery
+              succeeds.
+
+          include_app_webhooks: Also return webhooks attached to the account's apps, not just the account's own.
+              Cannot be combined with `app_id`.
+
+          last: The number of webhooks to return from the end of the range.
 
           extra_headers: Send extra headers
 
@@ -616,6 +1095,7 @@ class AsyncWebhooksResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return self._get_api_list(
             "/webhooks",
             page=AsyncCursorPage[WebhookListResponse],
@@ -626,11 +1106,13 @@ class AsyncWebhooksResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "app_id": app_id,
                         "before": before,
                         "first": first,
+                        "has_failures": has_failures,
+                        "include_app_webhooks": include_app_webhooks,
                         "last": last,
                     },
                     webhook_list_params.WebhookListParams,
@@ -643,6 +1125,7 @@ class AsyncWebhooksResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -650,12 +1133,10 @@ class AsyncWebhooksResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WebhookDeleteResponse:
-        """
-        Deletes a webhook
+        """Permanently deletes a webhook endpoint.
 
-        Required permissions:
-
-        - `developer:manage_webhook`
+        Returns `true` on success, matching the
+        legacy proxy response.
 
         Args:
           extra_headers: Send extra headers
@@ -668,6 +1149,7 @@ class AsyncWebhooksResource(AsyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return await self._delete(
             path_template("/webhooks/{id}", id=id),
             options=make_request_options(

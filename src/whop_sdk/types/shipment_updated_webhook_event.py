@@ -21,10 +21,6 @@ class ShipmentUpdatedWebhookEvent(BaseModel):
     """The dated API version (Api-Version-Date) the payload is serialized to"""
 
     data: Shipment
-    """
-    A physical shipment associated with a payment, including carrier details and
-    tracking information.
-    """
 
     timestamp: datetime
     """The timestamp in ISO 8601 format that the webhook was sent at on the server"""

@@ -2,29 +2,46 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
+from typing_extensions import Required, Annotated, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = ["WebhookListParams"]
 
 
 class WebhookListParams(TypedDict, total=False):
-    company_id: Required[str]
-    """The unique identifier of the company to list webhooks for."""
+    account_id: Required[str]
+    """The unique identifier of the account to list webhooks for."""
 
     after: str
-    """Returns the elements in the list that come after the specified cursor."""
+    """A cursor; returns webhooks after this position."""
 
     app_id: str
     """Only return webhooks attached to this app.
 
-    Omit to list the company's own webhooks.
+    Omit to list the account's own webhooks.
     """
 
     before: str
-    """Returns the elements in the list that come before the specified cursor."""
+    """A cursor; returns webhooks before this position."""
 
     first: int
-    """Returns the first _n_ elements from the list."""
+    """The number of webhooks to return (default 20, max 100)."""
+
+    has_failures: bool
+    """
+    Only return webhooks whose endpoint is currently failing — every delivery since
+    the current failure streak began has been rejected. Clears as soon as a delivery
+    succeeds.
+    """
+
+    include_app_webhooks: bool
+    """Also return webhooks attached to the account's apps, not just the account's own.
+
+    Cannot be combined with `app_id`.
+    """
 
     last: int
-    """Returns the last _n_ elements from the list."""
+    """The number of webhooks to return from the end of the range."""
+
+    api_version_date: Annotated[str, PropertyInfo(alias="Api-Version-Date")]

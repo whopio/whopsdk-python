@@ -2,14 +2,14 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Optional
+from typing import Optional
 from typing_extensions import Literal
 
 import httpx
 
-from ..types import AppType, app_list_params, app_create_params, app_update_params
+from ..types import app_list_params, app_create_params, app_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -20,18 +20,21 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.app_type import AppType
 from ..types.shared.app import App
-from ..types.shared.direction import Direction
 from ..types.app_list_response import AppListResponse
-from ..types.shared.app_statuses import AppStatuses
-from ..types.shared.app_view_type import AppViewType
 
 __all__ = ["AppsResource", "AsyncAppsResource"]
 
 
 class AppsResource(SyncAPIResource):
-    """Apps"""
+    """An App is software you build on Whop.
+
+    It can be a hosted web app served at `<route>.whop.site` or an API integration installed as an experience, and it belongs to the account that owns its credentials, settings, builds, and runtime logs.
+
+    Use the Apps API to manage app configuration, deploy an app's working copy and follow the run on the app's `deployment` field, and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
+
+    Apps are also reusable blueprints. List official blueprints with `app_type=website&verified=true&order=template_usage`, or community blueprints with `app_type=website&verified=false&recommended=true&order=template_usage`. Pass the returned App `id` as `blueprint_id` when creating an Account.
+    """
 
     @cached_property
     def with_raw_response(self) -> AppsResourceWithRawResponse:
@@ -55,12 +58,15 @@ class AppsResource(SyncAPIResource):
     def create(
         self,
         *,
-        company_id: str,
         name: str,
+        account_id: str | Omit = omit,
+        app_type: Literal["b2b_app", "b2c_app", "company_app", "component", "website"] | Omit = omit,
         base_url: Optional[str] | Omit = omit,
-        icon: Optional[app_create_params.Icon] | Omit = omit,
-        redirect_uris: Optional[SequenceNotStr[str]] | Omit = omit,
+        icon: app_create_params.Icon | Omit = omit,
+        redirect_uris: SequenceNotStr[str] | Omit = omit,
         route: Optional[str] | Omit = omit,
+        api_version_date: str | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -68,34 +74,31 @@ class AppsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> App:
-        """Register a new app on the Whop developer platform.
+        """Registers a new app on the Whop developer platform.
 
         Apps provide custom
         experiences that can be added to products.
 
-        Required permissions:
-
-        - `developer:create_app`
-        - `developer:manage_api_key`
-        - `developer:basic:read`
-        - `developer:update_app`
-
         Args:
-          company_id: The unique identifier of the company to create the app for, starting with
-              'biz\\__'.
-
           name: The display name for the app, shown to users on the app store and product pages.
 
-          base_url: The base production URL where the app is hosted, such as
-              'https://myapp.example.com'.
+          account_id: The account to create the app for (`biz_` tag). Defaults to the account behind
+              the presented credential.
 
-          icon: The icon image for the app in PNG, JPEG, or GIF format.
+          app_type: The type of app to create. Defaults to `b2c_app`.
+
+          base_url: The base production URL where the app is hosted, such as
+              `https://myapp.example.com`.
+
+          icon: The icon image for the app in PNG, JPEG, or GIF format, referencing an uploaded
+              file: `{ id }` for an existing attachment or `{ direct_upload_id }` for a new
+              direct upload.
 
           redirect_uris: The whitelisted OAuth callback URLs that users are redirected to after
               authorizing the app.
 
-          route: The unique subdomain route where the app's hosted web builds are served, such as
-              'myapp' for myapp.whop.site.
+          route: The subdomain route where the app's hosted web builds are served, such as
+              `myapp` for myapp.whop.site.
 
           extra_headers: Send extra headers
 
@@ -105,12 +108,22 @@ class AppsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "Api-Version-Date": api_version_date,
+                    "Idempotency-Key": idempotency_key,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._post(
             "/apps",
             body=maybe_transform(
                 {
-                    "company_id": company_id,
                     "name": name,
+                    "account_id": account_id,
+                    "app_type": app_type,
                     "base_url": base_url,
                     "icon": icon,
                     "redirect_uris": redirect_uris,
@@ -128,6 +141,7 @@ class AppsResource(SyncAPIResource):
         self,
         id: str,
         *,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -135,14 +149,11 @@ class AppsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> App:
-        """
-        Retrieves the details of an existing app.
+        """Retrieves an app by ID, claimed route, or proxy domain id.
 
-        Required permissions:
-
-        - `developer:manage_api_key`
-        - `developer:basic:read`
-        - `developer:update_app`
+        Credential fields
+        (api_key, default_api_key, secrets) render `null` unless the caller has the
+        corresponding developer permission on the owning account.
 
         Args:
           extra_headers: Send extra headers
@@ -155,6 +166,7 @@ class AppsResource(SyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return self._get(
             path_template("/apps/{id}", id=id),
             options=make_request_options(
@@ -167,23 +179,27 @@ class AppsResource(SyncAPIResource):
         self,
         id: str,
         *,
-        app_store_description: Optional[str] | Omit = omit,
-        app_type: Optional[AppType] | Omit = omit,
+        app_store_description: str | Omit = omit,
+        app_type: Literal["b2b_app", "b2c_app", "company_app", "component", "website"] | Omit = omit,
         base_url: Optional[str] | Omit = omit,
         dashboard_path: Optional[str] | Omit = omit,
-        description: Optional[str] | Omit = omit,
+        description: str | Omit = omit,
         discover_path: Optional[str] | Omit = omit,
         experience_path: Optional[str] | Omit = omit,
-        icon: Optional[app_update_params.Icon] | Omit = omit,
-        name: Optional[str] | Omit = omit,
-        oauth_client_type: Optional[Literal["public", "confidential"]] | Omit = omit,
+        icon: app_update_params.Icon | Omit = omit,
+        name: str | Omit = omit,
+        oauth_client_type: Literal["public", "confidential"] | Omit = omit,
         openapi_path: Optional[str] | Omit = omit,
-        redirect_uris: Optional[SequenceNotStr[str]] | Omit = omit,
-        required_scopes: Optional[List[Literal["read_user"]]] | Omit = omit,
-        route: Optional[str] | Omit = omit,
-        secrets: Optional[Dict[str, object]] | Omit = omit,
+        production_android_build_id: Optional[str] | Omit = omit,
+        production_ios_build_id: Optional[str] | Omit = omit,
+        production_web_build_id: Optional[str] | Omit = omit,
+        redirect_uris: SequenceNotStr[str] | Omit = omit,
+        required_scopes: SequenceNotStr[str] | Omit = omit,
+        route: str | Omit = omit,
+        secrets: object | Omit = omit,
         skills_path: Optional[str] | Omit = omit,
-        status: Optional[AppStatuses] | Omit = omit,
+        status: Literal["live", "unlisted", "hidden"] | Omit = omit,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -191,58 +207,65 @@ class AppsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> App:
-        """
-        Update the settings, metadata, or status of an existing app on the Whop
-        developer platform.
+        """Updates the settings, metadata, or status of an app.
 
-        Required permissions:
-
-        - `developer:update_app`
-        - `developer:manage_api_key`
-        - `developer:basic:read`
+        Fields that are omitted
+        keep their current value.
 
         Args:
           app_store_description: The detailed description shown on the app store's in-depth app view page.
 
-          app_type: The type of end-user an app is built for
+          app_type: The type of end-user the app is built for. Cannot be changed on an app whose
+              type is already `website`.
 
-          base_url: The base production URL where the app is hosted. Pass null to take the app proxy
-              offline.
+          base_url: The base production URL where the app is hosted. Set to `null` to take the app
+              proxy offline.
 
-          dashboard_path: The URL path for the company dashboard view of the app, such as '/dashboard'.
+          dashboard_path: The URL path for the account dashboard view.
 
           description: A short description of the app shown in listings and search results.
 
-          discover_path: The URL path for the discover view of the app, such as '/discover'.
+          discover_path: The URL path for the discover view.
 
-          experience_path: The URL path for the member-facing hub view of the app, such as
-              '/experiences/[experienceId]'.
+          experience_path: The URL path for the member-facing hub view, such as
+              `/experiences/[experienceId]`.
 
-          icon: The icon image for the app, used in listings and navigation.
+          icon: The icon image for the app in PNG, JPEG, or GIF format, referencing an uploaded
+              file: `{ id }` for an existing attachment or `{ direct_upload_id }` for a new
+              direct upload.
 
           name: The display name for the app, shown to users on the app store and product pages.
 
-          oauth_client_type: How this app authenticates at the OAuth token endpoint.
+          oauth_client_type: How the app authenticates at the OAuth token endpoint.
 
-          openapi_path: The URL path to the OpenAPI spec file of the app, such as
-              '/assets/openapi.json'.
+          openapi_path: The URL path to the app's OpenAPI spec file (requires the ai_chat capability).
 
-          redirect_uris: The whitelisted OAuth callback URLs that users are redirected to after
-              authorizing the app
+          production_android_build_id: The app build (`abld_` tag) to serve as the Android production build, or `null`
+              to unassign it. Same rules as `production_web_build_id`.
 
-          required_scopes: The permission scopes the app will request from users when they install it.
+          production_ios_build_id: The app build (`abld_` tag) to serve as the iOS production build, or `null` to
+              unassign it. Same rules as `production_web_build_id`.
 
-          route: The unique subdomain route where the app's hosted web builds are served, such as
-              'myapp' for myapp.whop.site.
+          production_web_build_id: The app build (`abld_` tag) to serve as the web production build, or `null` to
+              unassign it. The build must belong to this app, target web, and be in the draft
+              or approved status; a draft build is queued for approval and takes over once
+              approved. Requires the `developer:manage_builds` scope.
 
-          secrets: Secrets to add or overwrite on the app, as an object of string values (e.g.
-              {"MAIL_API_KEY": "..."}). Keys not included are left untouched. Pass null or an
-              empty string as the value to delete a secret. Secrets are encrypted at rest and
-              injected into the app's hosted server runtime as environment bindings.
+          redirect_uris: The whitelisted OAuth callback URLs users are redirected to after authorizing
+              the app.
 
-          skills_path: The URL path to the skills directory of the app, such as '/assets/skills/'.
+          required_scopes: The OAuth scopes the app requests from users when they install it.
 
-          status: The status of an experience interface
+          route: The subdomain route where the app's hosted web builds are served.
+
+          secrets: Secrets to add or overwrite on the app, as an object of string values. Keys not
+              included are left untouched; pass null or an empty string as the value to delete
+              a secret. Encrypted at rest and injected into the app's hosted server runtime.
+
+          skills_path: The URL path to the app's skills directory (requires the ai_chat capability).
+
+          status: Controls whether the app is published on Whop discovery or accessible only
+              through its direct link. Publishing requires a name, icon, and description.
 
           extra_headers: Send extra headers
 
@@ -254,6 +277,7 @@ class AppsResource(SyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return self._patch(
             path_template("/apps/{id}", id=id),
             body=maybe_transform(
@@ -269,6 +293,9 @@ class AppsResource(SyncAPIResource):
                     "name": name,
                     "oauth_client_type": oauth_client_type,
                     "openapi_path": openapi_path,
+                    "production_android_build_id": production_android_build_id,
+                    "production_ios_build_id": production_ios_build_id,
+                    "production_web_build_id": production_web_build_id,
                     "redirect_uris": redirect_uris,
                     "required_scopes": required_scopes,
                     "route": route,
@@ -287,31 +314,27 @@ class AppsResource(SyncAPIResource):
     def list(
         self,
         *,
+        account_id: str | Omit = omit,
         after: str | Omit = omit,
-        app_type: AppType | Omit = omit,
+        app_type: Literal["b2b_app", "b2c_app", "company_app", "component", "website"] | Omit = omit,
         before: str | Omit = omit,
-        company_id: str | Omit = omit,
-        direction: Direction | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
         order: Literal[
             "created_at",
             "discoverable_at",
+            "template_usage",
             "total_installs_last_30_days",
             "total_installs_last_7_days",
-            "time_spent",
-            "time_spent_last_24_hours",
-            "daily_active_users",
-            "ai_prompt_count",
-            "total_ai_cost_usd",
-            "total_ai_tokens",
-            "last_ai_prompt_at",
-            "ai_average_rating",
         ]
         | Omit = omit,
         query: str | Omit = omit,
+        recommended: bool | Omit = omit,
+        verified: bool | Omit = omit,
         verified_apps_only: bool | Omit = omit,
-        view_type: AppViewType | Omit = omit,
+        view_type: Literal["hub", "discover", "dash", "dashboard", "analytics", "skills", "openapi"] | Omit = omit,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -320,35 +343,46 @@ class AppsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[AppListResponse]:
         """
-        Returns a paginated list of apps on the Whop platform, with optional filtering
-        by company, type, view support, and search query.
+        Lists apps on the Whop platform: the app store's live apps, or — with
+        `account_id` and developer access to that account — every app the account owns.
+        Requires authentication except for Whop's public app and website discovery
+        lists. Public website discovery includes built official blueprints (verified
+        apps with a product) and built, live community blueprints that Whop recommends.
 
         Args:
-          after: Returns the elements in the list that come after the specified cursor.
+          account_id: Only return apps created by this account (`biz_` tag). With developer access to
+              the account this includes its unlisted and hidden apps.
 
-          app_type: Filter apps by the type of end-user they are built for, such as consumer or
-              business.
+          after: A cursor; returns apps after this position.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          app_type: Filter apps by the type of end-user they are built for. Apps of type `website`
+              are left out unless you ask for them by name.
 
-          company_id: Filter apps to only those created by this company, starting with 'biz\\__'.
+          before: A cursor; returns apps before this position.
 
-          direction: The sort direction for results. Accepted values: asc, desc.
+          direction: Sort direction.
 
-          first: Returns the first _n_ elements from the list.
+          first: The number of apps to return (default 20, max 100).
 
-          last: Returns the last _n_ elements from the list.
+          last: The number of apps to return from the end of the range.
 
-          order: The field to sort apps by. Defaults to discoverable_at descending, showing the
-              most recently published apps first.
+          order: The field to sort apps by. Defaults to discoverable_at, showing the most
+              recently published apps first. `template_usage` ranks Whop-verified apps first,
+              then by how many businesses created apps from each app as a template.
 
-          query: A search string to filter apps by name, such as 'chat' or 'analytics'.
+          query: A search string matched against app names.
 
-          verified_apps_only: Whether to only return apps that have been verified by Whop. Useful for
-              populating a featured apps section.
+          recommended: Only return apps Whop recommends (or, with `false`, only those it does not),
+              independently of verification status.
 
-          view_type: Filter apps to only those supporting a specific view type, such as 'dashboard'
-              or 'hub'.
+          verified: Only return apps whose Whop verification status matches this value. Omit this
+              filter to include every verification status the caller can see.
+
+          verified_apps_only: Legacy compatibility filter. Use `verified` for field equality. `true` returns
+              verified apps; clients pinned before `2026-08-25-2` retain the earlier public
+              website discovery behavior.
+
+          view_type: Only return apps supporting this view type, such as `dashboard` or `hub`.
 
           extra_headers: Send extra headers
 
@@ -358,6 +392,7 @@ class AppsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return self._get_api_list(
             "/apps",
             page=SyncCursorPage[AppListResponse],
@@ -368,15 +403,17 @@ class AppsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "after": after,
                         "app_type": app_type,
                         "before": before,
-                        "company_id": company_id,
                         "direction": direction,
                         "first": first,
                         "last": last,
                         "order": order,
                         "query": query,
+                        "recommended": recommended,
+                        "verified": verified,
                         "verified_apps_only": verified_apps_only,
                         "view_type": view_type,
                     },
@@ -388,7 +425,14 @@ class AppsResource(SyncAPIResource):
 
 
 class AsyncAppsResource(AsyncAPIResource):
-    """Apps"""
+    """An App is software you build on Whop.
+
+    It can be a hosted web app served at `<route>.whop.site` or an API integration installed as an experience, and it belongs to the account that owns its credentials, settings, builds, and runtime logs.
+
+    Use the Apps API to manage app configuration, deploy an app's working copy and follow the run on the app's `deployment` field, and, for hosted apps, read server runtime logs for console output, uncaught exceptions, and failed requests. Logs are retained for 7 days and can be filtered by build, level, time window, and message text.
+
+    Apps are also reusable blueprints. List official blueprints with `app_type=website&verified=true&order=template_usage`, or community blueprints with `app_type=website&verified=false&recommended=true&order=template_usage`. Pass the returned App `id` as `blueprint_id` when creating an Account.
+    """
 
     @cached_property
     def with_raw_response(self) -> AsyncAppsResourceWithRawResponse:
@@ -412,12 +456,15 @@ class AsyncAppsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        company_id: str,
         name: str,
+        account_id: str | Omit = omit,
+        app_type: Literal["b2b_app", "b2c_app", "company_app", "component", "website"] | Omit = omit,
         base_url: Optional[str] | Omit = omit,
-        icon: Optional[app_create_params.Icon] | Omit = omit,
-        redirect_uris: Optional[SequenceNotStr[str]] | Omit = omit,
+        icon: app_create_params.Icon | Omit = omit,
+        redirect_uris: SequenceNotStr[str] | Omit = omit,
         route: Optional[str] | Omit = omit,
+        api_version_date: str | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -425,34 +472,31 @@ class AsyncAppsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> App:
-        """Register a new app on the Whop developer platform.
+        """Registers a new app on the Whop developer platform.
 
         Apps provide custom
         experiences that can be added to products.
 
-        Required permissions:
-
-        - `developer:create_app`
-        - `developer:manage_api_key`
-        - `developer:basic:read`
-        - `developer:update_app`
-
         Args:
-          company_id: The unique identifier of the company to create the app for, starting with
-              'biz\\__'.
-
           name: The display name for the app, shown to users on the app store and product pages.
 
-          base_url: The base production URL where the app is hosted, such as
-              'https://myapp.example.com'.
+          account_id: The account to create the app for (`biz_` tag). Defaults to the account behind
+              the presented credential.
 
-          icon: The icon image for the app in PNG, JPEG, or GIF format.
+          app_type: The type of app to create. Defaults to `b2c_app`.
+
+          base_url: The base production URL where the app is hosted, such as
+              `https://myapp.example.com`.
+
+          icon: The icon image for the app in PNG, JPEG, or GIF format, referencing an uploaded
+              file: `{ id }` for an existing attachment or `{ direct_upload_id }` for a new
+              direct upload.
 
           redirect_uris: The whitelisted OAuth callback URLs that users are redirected to after
               authorizing the app.
 
-          route: The unique subdomain route where the app's hosted web builds are served, such as
-              'myapp' for myapp.whop.site.
+          route: The subdomain route where the app's hosted web builds are served, such as
+              `myapp` for myapp.whop.site.
 
           extra_headers: Send extra headers
 
@@ -462,12 +506,22 @@ class AsyncAppsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "Api-Version-Date": api_version_date,
+                    "Idempotency-Key": idempotency_key,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return await self._post(
             "/apps",
             body=await async_maybe_transform(
                 {
-                    "company_id": company_id,
                     "name": name,
+                    "account_id": account_id,
+                    "app_type": app_type,
                     "base_url": base_url,
                     "icon": icon,
                     "redirect_uris": redirect_uris,
@@ -485,6 +539,7 @@ class AsyncAppsResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -492,14 +547,11 @@ class AsyncAppsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> App:
-        """
-        Retrieves the details of an existing app.
+        """Retrieves an app by ID, claimed route, or proxy domain id.
 
-        Required permissions:
-
-        - `developer:manage_api_key`
-        - `developer:basic:read`
-        - `developer:update_app`
+        Credential fields
+        (api_key, default_api_key, secrets) render `null` unless the caller has the
+        corresponding developer permission on the owning account.
 
         Args:
           extra_headers: Send extra headers
@@ -512,6 +564,7 @@ class AsyncAppsResource(AsyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return await self._get(
             path_template("/apps/{id}", id=id),
             options=make_request_options(
@@ -524,23 +577,27 @@ class AsyncAppsResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        app_store_description: Optional[str] | Omit = omit,
-        app_type: Optional[AppType] | Omit = omit,
+        app_store_description: str | Omit = omit,
+        app_type: Literal["b2b_app", "b2c_app", "company_app", "component", "website"] | Omit = omit,
         base_url: Optional[str] | Omit = omit,
         dashboard_path: Optional[str] | Omit = omit,
-        description: Optional[str] | Omit = omit,
+        description: str | Omit = omit,
         discover_path: Optional[str] | Omit = omit,
         experience_path: Optional[str] | Omit = omit,
-        icon: Optional[app_update_params.Icon] | Omit = omit,
-        name: Optional[str] | Omit = omit,
-        oauth_client_type: Optional[Literal["public", "confidential"]] | Omit = omit,
+        icon: app_update_params.Icon | Omit = omit,
+        name: str | Omit = omit,
+        oauth_client_type: Literal["public", "confidential"] | Omit = omit,
         openapi_path: Optional[str] | Omit = omit,
-        redirect_uris: Optional[SequenceNotStr[str]] | Omit = omit,
-        required_scopes: Optional[List[Literal["read_user"]]] | Omit = omit,
-        route: Optional[str] | Omit = omit,
-        secrets: Optional[Dict[str, object]] | Omit = omit,
+        production_android_build_id: Optional[str] | Omit = omit,
+        production_ios_build_id: Optional[str] | Omit = omit,
+        production_web_build_id: Optional[str] | Omit = omit,
+        redirect_uris: SequenceNotStr[str] | Omit = omit,
+        required_scopes: SequenceNotStr[str] | Omit = omit,
+        route: str | Omit = omit,
+        secrets: object | Omit = omit,
         skills_path: Optional[str] | Omit = omit,
-        status: Optional[AppStatuses] | Omit = omit,
+        status: Literal["live", "unlisted", "hidden"] | Omit = omit,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -548,58 +605,65 @@ class AsyncAppsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> App:
-        """
-        Update the settings, metadata, or status of an existing app on the Whop
-        developer platform.
+        """Updates the settings, metadata, or status of an app.
 
-        Required permissions:
-
-        - `developer:update_app`
-        - `developer:manage_api_key`
-        - `developer:basic:read`
+        Fields that are omitted
+        keep their current value.
 
         Args:
           app_store_description: The detailed description shown on the app store's in-depth app view page.
 
-          app_type: The type of end-user an app is built for
+          app_type: The type of end-user the app is built for. Cannot be changed on an app whose
+              type is already `website`.
 
-          base_url: The base production URL where the app is hosted. Pass null to take the app proxy
-              offline.
+          base_url: The base production URL where the app is hosted. Set to `null` to take the app
+              proxy offline.
 
-          dashboard_path: The URL path for the company dashboard view of the app, such as '/dashboard'.
+          dashboard_path: The URL path for the account dashboard view.
 
           description: A short description of the app shown in listings and search results.
 
-          discover_path: The URL path for the discover view of the app, such as '/discover'.
+          discover_path: The URL path for the discover view.
 
-          experience_path: The URL path for the member-facing hub view of the app, such as
-              '/experiences/[experienceId]'.
+          experience_path: The URL path for the member-facing hub view, such as
+              `/experiences/[experienceId]`.
 
-          icon: The icon image for the app, used in listings and navigation.
+          icon: The icon image for the app in PNG, JPEG, or GIF format, referencing an uploaded
+              file: `{ id }` for an existing attachment or `{ direct_upload_id }` for a new
+              direct upload.
 
           name: The display name for the app, shown to users on the app store and product pages.
 
-          oauth_client_type: How this app authenticates at the OAuth token endpoint.
+          oauth_client_type: How the app authenticates at the OAuth token endpoint.
 
-          openapi_path: The URL path to the OpenAPI spec file of the app, such as
-              '/assets/openapi.json'.
+          openapi_path: The URL path to the app's OpenAPI spec file (requires the ai_chat capability).
 
-          redirect_uris: The whitelisted OAuth callback URLs that users are redirected to after
-              authorizing the app
+          production_android_build_id: The app build (`abld_` tag) to serve as the Android production build, or `null`
+              to unassign it. Same rules as `production_web_build_id`.
 
-          required_scopes: The permission scopes the app will request from users when they install it.
+          production_ios_build_id: The app build (`abld_` tag) to serve as the iOS production build, or `null` to
+              unassign it. Same rules as `production_web_build_id`.
 
-          route: The unique subdomain route where the app's hosted web builds are served, such as
-              'myapp' for myapp.whop.site.
+          production_web_build_id: The app build (`abld_` tag) to serve as the web production build, or `null` to
+              unassign it. The build must belong to this app, target web, and be in the draft
+              or approved status; a draft build is queued for approval and takes over once
+              approved. Requires the `developer:manage_builds` scope.
 
-          secrets: Secrets to add or overwrite on the app, as an object of string values (e.g.
-              {"MAIL_API_KEY": "..."}). Keys not included are left untouched. Pass null or an
-              empty string as the value to delete a secret. Secrets are encrypted at rest and
-              injected into the app's hosted server runtime as environment bindings.
+          redirect_uris: The whitelisted OAuth callback URLs users are redirected to after authorizing
+              the app.
 
-          skills_path: The URL path to the skills directory of the app, such as '/assets/skills/'.
+          required_scopes: The OAuth scopes the app requests from users when they install it.
 
-          status: The status of an experience interface
+          route: The subdomain route where the app's hosted web builds are served.
+
+          secrets: Secrets to add or overwrite on the app, as an object of string values. Keys not
+              included are left untouched; pass null or an empty string as the value to delete
+              a secret. Encrypted at rest and injected into the app's hosted server runtime.
+
+          skills_path: The URL path to the app's skills directory (requires the ai_chat capability).
+
+          status: Controls whether the app is published on Whop discovery or accessible only
+              through its direct link. Publishing requires a name, icon, and description.
 
           extra_headers: Send extra headers
 
@@ -611,6 +675,7 @@ class AsyncAppsResource(AsyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return await self._patch(
             path_template("/apps/{id}", id=id),
             body=await async_maybe_transform(
@@ -626,6 +691,9 @@ class AsyncAppsResource(AsyncAPIResource):
                     "name": name,
                     "oauth_client_type": oauth_client_type,
                     "openapi_path": openapi_path,
+                    "production_android_build_id": production_android_build_id,
+                    "production_ios_build_id": production_ios_build_id,
+                    "production_web_build_id": production_web_build_id,
                     "redirect_uris": redirect_uris,
                     "required_scopes": required_scopes,
                     "route": route,
@@ -644,31 +712,27 @@ class AsyncAppsResource(AsyncAPIResource):
     def list(
         self,
         *,
+        account_id: str | Omit = omit,
         after: str | Omit = omit,
-        app_type: AppType | Omit = omit,
+        app_type: Literal["b2b_app", "b2c_app", "company_app", "component", "website"] | Omit = omit,
         before: str | Omit = omit,
-        company_id: str | Omit = omit,
-        direction: Direction | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
         order: Literal[
             "created_at",
             "discoverable_at",
+            "template_usage",
             "total_installs_last_30_days",
             "total_installs_last_7_days",
-            "time_spent",
-            "time_spent_last_24_hours",
-            "daily_active_users",
-            "ai_prompt_count",
-            "total_ai_cost_usd",
-            "total_ai_tokens",
-            "last_ai_prompt_at",
-            "ai_average_rating",
         ]
         | Omit = omit,
         query: str | Omit = omit,
+        recommended: bool | Omit = omit,
+        verified: bool | Omit = omit,
         verified_apps_only: bool | Omit = omit,
-        view_type: AppViewType | Omit = omit,
+        view_type: Literal["hub", "discover", "dash", "dashboard", "analytics", "skills", "openapi"] | Omit = omit,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -677,35 +741,46 @@ class AsyncAppsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[AppListResponse, AsyncCursorPage[AppListResponse]]:
         """
-        Returns a paginated list of apps on the Whop platform, with optional filtering
-        by company, type, view support, and search query.
+        Lists apps on the Whop platform: the app store's live apps, or — with
+        `account_id` and developer access to that account — every app the account owns.
+        Requires authentication except for Whop's public app and website discovery
+        lists. Public website discovery includes built official blueprints (verified
+        apps with a product) and built, live community blueprints that Whop recommends.
 
         Args:
-          after: Returns the elements in the list that come after the specified cursor.
+          account_id: Only return apps created by this account (`biz_` tag). With developer access to
+              the account this includes its unlisted and hidden apps.
 
-          app_type: Filter apps by the type of end-user they are built for, such as consumer or
-              business.
+          after: A cursor; returns apps after this position.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          app_type: Filter apps by the type of end-user they are built for. Apps of type `website`
+              are left out unless you ask for them by name.
 
-          company_id: Filter apps to only those created by this company, starting with 'biz\\__'.
+          before: A cursor; returns apps before this position.
 
-          direction: The sort direction for results. Accepted values: asc, desc.
+          direction: Sort direction.
 
-          first: Returns the first _n_ elements from the list.
+          first: The number of apps to return (default 20, max 100).
 
-          last: Returns the last _n_ elements from the list.
+          last: The number of apps to return from the end of the range.
 
-          order: The field to sort apps by. Defaults to discoverable_at descending, showing the
-              most recently published apps first.
+          order: The field to sort apps by. Defaults to discoverable_at, showing the most
+              recently published apps first. `template_usage` ranks Whop-verified apps first,
+              then by how many businesses created apps from each app as a template.
 
-          query: A search string to filter apps by name, such as 'chat' or 'analytics'.
+          query: A search string matched against app names.
 
-          verified_apps_only: Whether to only return apps that have been verified by Whop. Useful for
-              populating a featured apps section.
+          recommended: Only return apps Whop recommends (or, with `false`, only those it does not),
+              independently of verification status.
 
-          view_type: Filter apps to only those supporting a specific view type, such as 'dashboard'
-              or 'hub'.
+          verified: Only return apps whose Whop verification status matches this value. Omit this
+              filter to include every verification status the caller can see.
+
+          verified_apps_only: Legacy compatibility filter. Use `verified` for field equality. `true` returns
+              verified apps; clients pinned before `2026-08-25-2` retain the earlier public
+              website discovery behavior.
+
+          view_type: Only return apps supporting this view type, such as `dashboard` or `hub`.
 
           extra_headers: Send extra headers
 
@@ -715,6 +790,7 @@ class AsyncAppsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return self._get_api_list(
             "/apps",
             page=AsyncCursorPage[AppListResponse],
@@ -725,15 +801,17 @@ class AsyncAppsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "after": after,
                         "app_type": app_type,
                         "before": before,
-                        "company_id": company_id,
                         "direction": direction,
                         "first": first,
                         "last": last,
                         "order": order,
                         "query": query,
+                        "recommended": recommended,
+                        "verified": verified,
                         "verified_apps_only": verified_apps_only,
                         "view_type": view_type,
                     },

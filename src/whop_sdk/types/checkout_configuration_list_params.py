@@ -2,43 +2,36 @@
 
 from __future__ import annotations
 
-from typing import Union
-from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
-from .shared.direction import Direction
 
 __all__ = ["CheckoutConfigurationListParams"]
 
 
 class CheckoutConfigurationListParams(TypedDict, total=False):
-    company_id: Required[str]
-    """The unique identifier of the company to list checkout configurations for."""
+    account_id: Required[str]
+    """Account ID, prefixed `biz_`."""
 
     after: str
-    """Returns the elements in the list that come after the specified cursor."""
+    """Cursor for the next page of results."""
 
-    before: str
-    """Returns the elements in the list that come before the specified cursor."""
+    created_after: str
+    """Only return checkout configurations created after this ISO 8601 timestamp."""
 
-    created_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-    """Only return checkout configurations created after this timestamp."""
+    created_before: str
+    """Only return checkout configurations created before this ISO 8601 timestamp."""
 
-    created_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-    """Only return checkout configurations created before this timestamp."""
-
-    direction: Direction
-    """The sort direction for ordering results, either ascending or descending."""
+    direction: Literal["asc", "desc"]
+    """Sort direction. Defaults to `desc`."""
 
     first: int
-    """Returns the first _n_ elements from the list."""
+    """Number of checkout configurations to return."""
 
-    last: int
-    """Returns the last _n_ elements from the list."""
+    order: Literal["created_at"]
+    """Field used to sort checkout configurations."""
 
     plan_id: str
-    """
-    Filter checkout configurations to only those associated with this plan
-    identifier.
-    """
+    """Only return checkout configurations for this plan ID, prefixed `plan_`."""
+
+    api_version_date: Annotated[str, PropertyInfo(alias="Api-Version-Date")]

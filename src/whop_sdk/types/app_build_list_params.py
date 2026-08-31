@@ -3,40 +3,39 @@
 from __future__ import annotations
 
 from typing import Union
-from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
-from .shared.app_build_statuses import AppBuildStatuses
-from .shared.app_build_platforms import AppBuildPlatforms
 
 __all__ = ["AppBuildListParams"]
 
 
 class AppBuildListParams(TypedDict, total=False):
     app_id: Required[str]
-    """The unique identifier of the app to list builds for."""
+    """The app to list builds for, prefixed `app_`."""
 
     after: str
-    """Returns the elements in the list that come after the specified cursor."""
+    """A cursor; returns builds after this position."""
 
     before: str
-    """Returns the elements in the list that come before the specified cursor."""
+    """A cursor; returns builds before this position."""
 
-    created_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-    """Only return builds created after this timestamp."""
+    created_after: Union[int, str]
+    """Only return builds created after this ISO 8601 timestamp."""
 
-    created_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-    """Only return builds created before this timestamp."""
+    created_before: Union[int, str]
+    """Only return builds created before this ISO 8601 timestamp."""
 
     first: int
-    """Returns the first _n_ elements from the list."""
+    """The number of builds to return (default 20, max 100)."""
 
     last: int
-    """Returns the last _n_ elements from the list."""
+    """The number of builds to return from the end of the range."""
 
-    platform: AppBuildPlatforms
+    platform: Literal["ios", "android", "web"]
     """Filter builds by target platform."""
 
-    status: AppBuildStatuses
+    status: Literal["draft", "pending", "approved", "rejected"]
     """Filter builds by review status."""
+
+    api_version_date: Annotated[str, PropertyInfo(alias="Api-Version-Date")]

@@ -39,6 +39,7 @@ from whop_sdk.types import (
     Message,
     PageInfo,
     Payment,
+    Plan,
     PlanType,
     Product,
     ProductListItem,
@@ -148,67 +149,89 @@ from whop_sdk.types import (
     APIVersion,
     Webhook,
     WebhookEvent,
-    WebhookCreateResponse,
     WebhookListResponse,
     WebhookDeleteResponse,
+    AccountUpdatedWebhookEvent,
+    AdCampaignPaymentFailedWebhookEvent,
+    CardCanceledWebhookEvent,
+    CardCreatedWebhookEvent,
+    CardFrozenWebhookEvent,
+    CardUpdatedWebhookEvent,
+    CardApplicationApprovedWebhookEvent,
+    CardApplicationCreatedWebhookEvent,
+    CardApplicationDeniedWebhookEvent,
+    CardApplicationUpdatedWebhookEvent,
+    CardTransactionCompletedWebhookEvent,
+    CardTransactionCreatedWebhookEvent,
+    CardTransactionDeclinedWebhookEvent,
+    CardTransactionReversedWebhookEvent,
+    CardTransactionUpdatedWebhookEvent,
+    ChatMessageCreatedWebhookEvent,
+    ChatReactionCreatedWebhookEvent,
+    CourseLessonInteractionCompletedWebhookEvent,
+    DepositSucceededWebhookEvent,
+    DisputeCreatedWebhookEvent,
+    DisputeUpdatedWebhookEvent,
+    DisputeAlertCreatedWebhookEvent,
+    EntryApprovedWebhookEvent,
+    EntryCreatedWebhookEvent,
+    EntryDeletedWebhookEvent,
+    EntryDeniedWebhookEvent,
+    ExportCompletedWebhookEvent,
+    ExportFailedWebhookEvent,
+    IdentityProfileUpdatedWebhookEvent,
     InvoiceCreatedWebhookEvent,
     InvoiceMarkedUncollectibleWebhookEvent,
     InvoicePaidWebhookEvent,
     InvoicePastDueWebhookEvent,
     InvoiceVoidedWebhookEvent,
+    LedgerAccountFundsAvailableWebhookEvent,
+    MemberCreatedWebhookEvent,
     MembershipActivatedWebhookEvent,
+    MembershipCancelAtPeriodEndChangedWebhookEvent,
     MembershipDeactivatedWebhookEvent,
     MembershipTrialEndingSoonWebhookEvent,
-    EntryCreatedWebhookEvent,
-    EntryApprovedWebhookEvent,
-    EntryDeniedWebhookEvent,
-    EntryDeletedWebhookEvent,
-    SetupIntentRequiresActionWebhookEvent,
-    SetupIntentSucceededWebhookEvent,
-    SetupIntentCanceledWebhookEvent,
-    LedgerAccountFundsAvailableWebhookEvent,
-    CardTransactionCreatedWebhookEvent,
-    CardTransactionUpdatedWebhookEvent,
-    CardTransactionCompletedWebhookEvent,
-    CardTransactionDeclinedWebhookEvent,
-    CardTransactionReversedWebhookEvent,
-    CourseLessonInteractionCompletedWebhookEvent,
-    PayoutMethodCreatedWebhookEvent,
-    VerificationSucceededWebhookEvent,
-    IdentityProfileUpdatedWebhookEvent,
-    PayoutAccountStatusUpdatedWebhookEvent,
     PaymentAuthorizedWebhookEvent,
     PaymentCanceledWebhookEvent,
-    ResolutionCenterCaseCreatedWebhookEvent,
-    ResolutionCenterCaseUpdatedWebhookEvent,
-    ResolutionCenterCaseDecidedWebhookEvent,
+    PaymentCreatedWebhookEvent,
+    PaymentFailedWebhookEvent,
+    PaymentPendingWebhookEvent,
+    PaymentSucceededWebhookEvent,
+    PayoutCreatedWebhookEvent,
+    PayoutReversedWebhookEvent,
+    PayoutUpdatedWebhookEvent,
+    PayoutAccountStatusUpdatedWebhookEvent,
+    PayoutMethodCreatedWebhookEvent,
+    PlanCreatedWebhookEvent,
+    PlanDeletedWebhookEvent,
+    PlanUpdatedWebhookEvent,
     ProductCreatedWebhookEvent,
-    ProductUpdatedWebhookEvent,
     ProductDeletedWebhookEvent,
     ProductPublishedWebhookEvent,
     ProductUnpublishedWebhookEvent,
-    ShipmentCreatedWebhookEvent,
-    ShipmentUpdatedWebhookEvent,
-    MemberCreatedWebhookEvent,
-    ChatMessageCreatedWebhookEvent,
-    ChatReactionCreatedWebhookEvent,
-    PaymentCreatedWebhookEvent,
-    PaymentSucceededWebhookEvent,
-    PaymentFailedWebhookEvent,
-    PaymentPendingWebhookEvent,
-    DisputeCreatedWebhookEvent,
-    DisputeUpdatedWebhookEvent,
+    ProductUpdatedWebhookEvent,
     RefundCreatedWebhookEvent,
     RefundUpdatedWebhookEvent,
-    DisputeAlertCreatedWebhookEvent,
-    MembershipCancelAtPeriodEndChangedWebhookEvent,
+    ResolutionCenterCaseCreatedWebhookEvent,
+    ResolutionCenterCaseDecidedWebhookEvent,
+    ResolutionCenterCaseUpdatedWebhookEvent,
+    SetupIntentCanceledWebhookEvent,
+    SetupIntentRequiresActionWebhookEvent,
+    SetupIntentSucceededWebhookEvent,
+    ShipmentCreatedWebhookEvent,
+    ShipmentUpdatedWebhookEvent,
+    SwapCompletedWebhookEvent,
+    TransferCompletedWebhookEvent,
+    TransferCreatedWebhookEvent,
+    TransferFailedWebhookEvent,
+    VerificationSucceededWebhookEvent,
     UnwrapWebhookEvent,
 )
 ```
 
 Methods:
 
-- <code title="post /webhooks">client.webhooks.<a href="./src/whop_sdk/resources/webhooks.py">create</a>(\*\*<a href="src/whop_sdk/types/webhook_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/webhook_create_response.py">WebhookCreateResponse</a></code>
+- <code title="post /webhooks">client.webhooks.<a href="./src/whop_sdk/resources/webhooks.py">create</a>(\*\*<a href="src/whop_sdk/types/webhook_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/webhook.py">Webhook</a></code>
 - <code title="get /webhooks/{id}">client.webhooks.<a href="./src/whop_sdk/resources/webhooks.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/webhook.py">Webhook</a></code>
 - <code title="patch /webhooks/{id}">client.webhooks.<a href="./src/whop_sdk/resources/webhooks.py">update</a>(id, \*\*<a href="src/whop_sdk/types/webhook_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/webhook.py">Webhook</a></code>
 - <code title="get /webhooks">client.webhooks.<a href="./src/whop_sdk/resources/webhooks.py">list</a>(\*\*<a href="src/whop_sdk/types/webhook_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/webhook_list_response.py">SyncCursorPage[WebhookListResponse]</a></code>
@@ -219,8 +242,16 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import CheckoutFont, CheckoutShape
+from whop_sdk.types import CheckoutFont, CheckoutShape, PlanListResponse, PlanDeleteResponse
 ```
+
+Methods:
+
+- <code title="post /plans">client.plans.<a href="./src/whop_sdk/resources/plans.py">create</a>(\*\*<a href="src/whop_sdk/types/plan_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/plan.py">Plan</a></code>
+- <code title="get /plans/{id}">client.plans.<a href="./src/whop_sdk/resources/plans.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/plan.py">Plan</a></code>
+- <code title="patch /plans/{id}">client.plans.<a href="./src/whop_sdk/resources/plans.py">update</a>(id, \*\*<a href="src/whop_sdk/types/plan_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/plan.py">Plan</a></code>
+- <code title="get /plans">client.plans.<a href="./src/whop_sdk/resources/plans.py">list</a>(\*\*<a href="src/whop_sdk/types/plan_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/plan_list_response.py">SyncCursorPage[PlanListResponse]</a></code>
+- <code title="delete /plans/{id}">client.plans.<a href="./src/whop_sdk/resources/plans.py">delete</a>(id) -> <a href="./src/whop_sdk/types/plan_delete_response.py">PlanDeleteResponse</a></code>
 
 # Entries
 
@@ -252,6 +283,20 @@ Methods:
 - <code title="patch /forum_posts/{id}">client.forum_posts.<a href="./src/whop_sdk/resources/forum_posts.py">update</a>(id, \*\*<a href="src/whop_sdk/types/forum_post_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/forum_post.py">ForumPost</a></code>
 - <code title="get /forum_posts">client.forum_posts.<a href="./src/whop_sdk/resources/forum_posts.py">list</a>(\*\*<a href="src/whop_sdk/types/forum_post_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/forum_post_list_response.py">SyncCursorPage[ForumPostListResponse]</a></code>
 
+# Transfers
+
+Types:
+
+```python
+from whop_sdk.types import TransferCreateResponse, TransferRetrieveResponse, TransferListResponse
+```
+
+Methods:
+
+- <code title="post /transfers">client.transfers.<a href="./src/whop_sdk/resources/transfers.py">create</a>(\*\*<a href="src/whop_sdk/types/transfer_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/transfer_create_response.py">TransferCreateResponse</a></code>
+- <code title="get /transfers/{id}">client.transfers.<a href="./src/whop_sdk/resources/transfers.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/transfer_retrieve_response.py">TransferRetrieveResponse</a></code>
+- <code title="get /transfers">client.transfers.<a href="./src/whop_sdk/resources/transfers.py">list</a>(\*\*<a href="src/whop_sdk/types/transfer_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/transfer_list_response.py">SyncCursorPage[TransferListResponse]</a></code>
+
 # LedgerAccounts
 
 Types:
@@ -269,14 +314,14 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import CancelOptions, MembershipListResponse
+from whop_sdk.types import CancelOptions
 ```
 
 Methods:
 
 - <code title="get /memberships/{id}">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/membership.py">Membership</a></code>
 - <code title="patch /memberships/{id}">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">update</a>(id, \*\*<a href="src/whop_sdk/types/membership_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/membership.py">Membership</a></code>
-- <code title="get /memberships">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">list</a>(\*\*<a href="src/whop_sdk/types/membership_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/membership_list_response.py">SyncCursorPage[MembershipListResponse]</a></code>
+- <code title="get /memberships">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">list</a>(\*\*<a href="src/whop_sdk/types/membership_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/membership.py">SyncCursorPage[Membership]</a></code>
 - <code title="post /memberships/{id}/add_free_days">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">add_free_days</a>(id, \*\*<a href="src/whop_sdk/types/membership_add_free_days_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/membership.py">Membership</a></code>
 - <code title="post /memberships/{id}/cancel">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">cancel</a>(id, \*\*<a href="src/whop_sdk/types/membership_cancel_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/membership.py">Membership</a></code>
 - <code title="post /memberships/{id}/pause">client.memberships.<a href="./src/whop_sdk/resources/memberships.py">pause</a>(id, \*\*<a href="src/whop_sdk/types/membership_pause_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/membership.py">Membership</a></code>
@@ -300,45 +345,38 @@ Methods:
 
 # AppBuilds
 
-Types:
-
-```python
-from whop_sdk.types import AppBuildListResponse
-```
-
 Methods:
 
 - <code title="post /app_builds">client.app_builds.<a href="./src/whop_sdk/resources/app_builds.py">create</a>(\*\*<a href="src/whop_sdk/types/app_build_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/app_build.py">AppBuild</a></code>
 - <code title="get /app_builds/{id}">client.app_builds.<a href="./src/whop_sdk/resources/app_builds.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/app_build.py">AppBuild</a></code>
-- <code title="get /app_builds">client.app_builds.<a href="./src/whop_sdk/resources/app_builds.py">list</a>(\*\*<a href="src/whop_sdk/types/app_build_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/app_build_list_response.py">SyncCursorPage[AppBuildListResponse]</a></code>
+- <code title="get /app_builds">client.app_builds.<a href="./src/whop_sdk/resources/app_builds.py">list</a>(\*\*<a href="src/whop_sdk/types/app_build_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/app_build.py">SyncCursorPage[AppBuild]</a></code>
 - <code title="post /app_builds/{id}/promote">client.app_builds.<a href="./src/whop_sdk/resources/app_builds.py">promote</a>(id) -> <a href="./src/whop_sdk/types/shared/app_build.py">AppBuild</a></code>
 
 # Shipments
-
-Types:
-
-```python
-from whop_sdk.types import ShipmentListResponse
-```
 
 Methods:
 
 - <code title="post /shipments">client.shipments.<a href="./src/whop_sdk/resources/shipments.py">create</a>(\*\*<a href="src/whop_sdk/types/shipment_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/shipment.py">Shipment</a></code>
 - <code title="get /shipments/{id}">client.shipments.<a href="./src/whop_sdk/resources/shipments.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/shipment.py">Shipment</a></code>
-- <code title="get /shipments">client.shipments.<a href="./src/whop_sdk/resources/shipments.py">list</a>(\*\*<a href="src/whop_sdk/types/shipment_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/shipment_list_response.py">SyncCursorPage[ShipmentListResponse]</a></code>
+- <code title="get /shipments">client.shipments.<a href="./src/whop_sdk/resources/shipments.py">list</a>(\*\*<a href="src/whop_sdk/types/shipment_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/shipment.py">SyncCursorPage[Shipment]</a></code>
 
 # CheckoutConfigurations
 
 Types:
 
 ```python
-from whop_sdk.types import CheckoutModes, CheckoutConfigurationListResponse
+from whop_sdk.types import (
+    CheckoutModes,
+    CheckoutConfigurationCreateResponse,
+    CheckoutConfigurationRetrieveResponse,
+    CheckoutConfigurationListResponse,
+)
 ```
 
 Methods:
 
-- <code title="post /checkout_configurations">client.checkout_configurations.<a href="./src/whop_sdk/resources/checkout_configurations.py">create</a>(\*\*<a href="src/whop_sdk/types/checkout_configuration_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/checkout_configuration.py">CheckoutConfiguration</a></code>
-- <code title="get /checkout_configurations/{id}">client.checkout_configurations.<a href="./src/whop_sdk/resources/checkout_configurations.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/checkout_configuration.py">CheckoutConfiguration</a></code>
+- <code title="post /checkout_configurations">client.checkout_configurations.<a href="./src/whop_sdk/resources/checkout_configurations.py">create</a>(\*\*<a href="src/whop_sdk/types/checkout_configuration_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/checkout_configuration_create_response.py">CheckoutConfigurationCreateResponse</a></code>
+- <code title="get /checkout_configurations/{id}">client.checkout_configurations.<a href="./src/whop_sdk/resources/checkout_configurations.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/checkout_configuration_retrieve_response.py">CheckoutConfigurationRetrieveResponse</a></code>
 - <code title="get /checkout_configurations">client.checkout_configurations.<a href="./src/whop_sdk/resources/checkout_configurations.py">list</a>(\*\*<a href="src/whop_sdk/types/checkout_configuration_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/checkout_configuration_list_response.py">SyncCursorPage[CheckoutConfigurationListResponse]</a></code>
 
 # Messages
@@ -370,6 +408,21 @@ Methods:
 - <code title="get /chat_channels/{id}">client.chat_channels.<a href="./src/whop_sdk/resources/chat_channels.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/chat_channel.py">ChatChannel</a></code>
 - <code title="patch /chat_channels/{id}">client.chat_channels.<a href="./src/whop_sdk/resources/chat_channels.py">update</a>(id, \*\*<a href="src/whop_sdk/types/chat_channel_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/chat_channel.py">ChatChannel</a></code>
 - <code title="get /chat_channels">client.chat_channels.<a href="./src/whop_sdk/resources/chat_channels.py">list</a>(\*\*<a href="src/whop_sdk/types/chat_channel_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/chat_channel_list_response.py">SyncCursorPage[ChatChannelListResponse]</a></code>
+
+# Users
+
+Types:
+
+```python
+from whop_sdk.types import User, UserCheckAccessResponse
+```
+
+Methods:
+
+- <code title="get /users/{id}">client.users.<a href="./src/whop_sdk/resources/users.py">retrieve</a>(id, \*\*<a href="src/whop_sdk/types/user_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/user.py">User</a></code>
+- <code title="patch /users/{id}">client.users.<a href="./src/whop_sdk/resources/users.py">update</a>(id, \*\*<a href="src/whop_sdk/types/user_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/user.py">User</a></code>
+- <code title="get /users">client.users.<a href="./src/whop_sdk/resources/users.py">list</a>(\*\*<a href="src/whop_sdk/types/user_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/user.py">SyncCursorPage[User]</a></code>
+- <code title="get /users/{id}/access/{resource_id}">client.users.<a href="./src/whop_sdk/resources/users.py">check_access</a>(resource_id, \*, id) -> <a href="./src/whop_sdk/types/user_check_access_response.py">UserCheckAccessResponse</a></code>
 
 # Payments
 
@@ -617,13 +670,13 @@ Methods:
 Types:
 
 ```python
-from whop_sdk.types import Dispute, DisputeStatuses, DisputeListResponse
+from whop_sdk.types import Dispute, DisputeStatuses
 ```
 
 Methods:
 
 - <code title="get /disputes/{id}">client.disputes.<a href="./src/whop_sdk/resources/disputes.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/dispute.py">Dispute</a></code>
-- <code title="get /disputes">client.disputes.<a href="./src/whop_sdk/resources/disputes.py">list</a>(\*\*<a href="src/whop_sdk/types/dispute_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/dispute_list_response.py">SyncCursorPage[DisputeListResponse]</a></code>
+- <code title="get /disputes">client.disputes.<a href="./src/whop_sdk/resources/disputes.py">list</a>(\*\*<a href="src/whop_sdk/types/dispute_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/dispute.py">SyncCursorPage[Dispute]</a></code>
 - <code title="post /disputes/{id}/submit_evidence">client.disputes.<a href="./src/whop_sdk/resources/disputes.py">submit_evidence</a>(id) -> <a href="./src/whop_sdk/types/dispute.py">Dispute</a></code>
 - <code title="post /disputes/{id}/update_evidence">client.disputes.<a href="./src/whop_sdk/resources/disputes.py">update_evidence</a>(id, \*\*<a href="src/whop_sdk/types/dispute_update_evidence_params.py">params</a>) -> <a href="./src/whop_sdk/types/dispute.py">Dispute</a></code>
 
@@ -646,26 +699,6 @@ Methods:
 
 - <code title="get /refunds/{id}">client.refunds.<a href="./src/whop_sdk/resources/refunds.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/refund_retrieve_response.py">RefundRetrieveResponse</a></code>
 - <code title="get /refunds">client.refunds.<a href="./src/whop_sdk/resources/refunds.py">list</a>(\*\*<a href="src/whop_sdk/types/refund_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/refund_list_response.py">SyncCursorPage[RefundListResponse]</a></code>
-
-# Withdrawals
-
-Types:
-
-```python
-from whop_sdk.types import (
-    Withdrawal,
-    WithdrawalFeeTypes,
-    WithdrawalSpeeds,
-    WithdrawalStatus,
-    WithdrawalListResponse,
-)
-```
-
-Methods:
-
-- <code title="post /withdrawals">client.withdrawals.<a href="./src/whop_sdk/resources/withdrawals.py">create</a>(\*\*<a href="src/whop_sdk/types/withdrawal_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/withdrawal.py">Withdrawal</a></code>
-- <code title="get /withdrawals/{id}">client.withdrawals.<a href="./src/whop_sdk/resources/withdrawals.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/withdrawal.py">Withdrawal</a></code>
-- <code title="get /withdrawals">client.withdrawals.<a href="./src/whop_sdk/resources/withdrawals.py">list</a>(\*\*<a href="src/whop_sdk/types/withdrawal_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/withdrawal_list_response.py">SyncCursorPage[WithdrawalListResponse]</a></code>
 
 # AccountLinks
 
@@ -757,7 +790,7 @@ from whop_sdk.types import (
 Methods:
 
 - <code title="get /verifications/{id}">client.verifications.<a href="./src/whop_sdk/resources/verifications.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/verification_retrieve_response.py">VerificationRetrieveResponse</a></code>
-- <code title="get /verifications">client.verifications.<a href="./src/whop_sdk/resources/verifications.py">list</a>(\*\*<a href="src/whop_sdk/types/verification_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/verification_list_response.py">SyncCursorPage[VerificationListResponse]</a></code>
+- <code title="get /verifications">client.verifications.<a href="./src/whop_sdk/resources/verifications.py">list</a>(\*\*<a href="src/whop_sdk/types/verification_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/verification_list_response.py">VerificationListResponse</a></code>
 
 # Leads
 
@@ -979,6 +1012,54 @@ Methods:
 - <code title="post /bounties">client.bounties.<a href="./src/whop_sdk/resources/bounties.py">create</a>(\*\*<a href="src/whop_sdk/types/bounty_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/bounty_create_response.py">BountyCreateResponse</a></code>
 - <code title="get /bounties/{id}">client.bounties.<a href="./src/whop_sdk/resources/bounties.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/bounty_retrieve_response.py">BountyRetrieveResponse</a></code>
 - <code title="get /bounties">client.bounties.<a href="./src/whop_sdk/resources/bounties.py">list</a>(\*\*<a href="src/whop_sdk/types/bounty_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/bounty_list_response.py">SyncCursorPage[BountyListResponse]</a></code>
+
+# AdCampaigns
+
+Types:
+
+```python
+from whop_sdk.types import AdCampaign
+```
+
+Methods:
+
+- <code title="get /ad_campaigns/{id}">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">retrieve</a>(id, \*\*<a href="src/whop_sdk/types/ad_campaign_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_campaign.py">AdCampaign</a></code>
+- <code title="patch /ad_campaigns/{id}">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">update</a>(id, \*\*<a href="src/whop_sdk/types/ad_campaign_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_campaign.py">AdCampaign</a></code>
+- <code title="get /ad_campaigns">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_campaign_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_campaign.py">SyncCursorPage[AdCampaign]</a></code>
+- <code title="post /ad_campaigns/{id}/pause">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">pause</a>(id) -> <a href="./src/whop_sdk/types/ad_campaign.py">AdCampaign</a></code>
+- <code title="post /ad_campaigns/{id}/unpause">client.ad_campaigns.<a href="./src/whop_sdk/resources/ad_campaigns.py">unpause</a>(id) -> <a href="./src/whop_sdk/types/ad_campaign.py">AdCampaign</a></code>
+
+# AdGroups
+
+Types:
+
+```python
+from whop_sdk.types import AdGroup, AdGroupDeleteResponse
+```
+
+Methods:
+
+- <code title="get /ad_groups/{id}">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">retrieve</a>(id, \*\*<a href="src/whop_sdk/types/ad_group_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group.py">AdGroup</a></code>
+- <code title="patch /ad_groups/{id}">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">update</a>(id, \*\*<a href="src/whop_sdk/types/ad_group_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group.py">AdGroup</a></code>
+- <code title="get /ad_groups">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_group_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_group.py">SyncCursorPage[AdGroup]</a></code>
+- <code title="delete /ad_groups/{id}">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">delete</a>(id) -> <a href="./src/whop_sdk/types/ad_group_delete_response.py">AdGroupDeleteResponse</a></code>
+- <code title="post /ad_groups/{id}/pause">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">pause</a>(id) -> <a href="./src/whop_sdk/types/ad_group.py">AdGroup</a></code>
+- <code title="post /ad_groups/{id}/unpause">client.ad_groups.<a href="./src/whop_sdk/resources/ad_groups.py">unpause</a>(id) -> <a href="./src/whop_sdk/types/ad_group.py">AdGroup</a></code>
+
+# Ads
+
+Types:
+
+```python
+from whop_sdk.types import Ad
+```
+
+Methods:
+
+- <code title="get /ads/{id}">client.ads.<a href="./src/whop_sdk/resources/ads.py">retrieve</a>(id, \*\*<a href="src/whop_sdk/types/ad_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad.py">Ad</a></code>
+- <code title="get /ads">client.ads.<a href="./src/whop_sdk/resources/ads.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad.py">SyncCursorPage[Ad]</a></code>
+- <code title="post /ads/{id}/pause">client.ads.<a href="./src/whop_sdk/resources/ads.py">pause</a>(id) -> <a href="./src/whop_sdk/types/ad.py">Ad</a></code>
+- <code title="post /ads/{id}/unpause">client.ads.<a href="./src/whop_sdk/resources/ads.py">unpause</a>(id) -> <a href="./src/whop_sdk/types/ad.py">Ad</a></code>
 
 # AdReports
 

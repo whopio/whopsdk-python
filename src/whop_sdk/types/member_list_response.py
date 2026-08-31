@@ -1,77 +1,90 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Optional
-from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
-from .shared.access_level import AccessLevel
-from .shared.member_statuses import MemberStatuses
-from .shared.member_most_recent_actions import MemberMostRecentActions
 
-__all__ = ["MemberListResponse", "User"]
+__all__ = ["MemberListResponse", "User", "UserProfilePicture"]
+
+
+class UserProfilePicture(BaseModel):
+    """
+    Avatar wrapper; its `url` is always present, using a generated placeholder when the user set no picture.
+    """
+
+    url: str
+    """Avatar image URL.
+
+    Always present — a generated placeholder when the user set no picture.
+    """
 
 
 class User(BaseModel):
-    """The user for this member, if any."""
+    """The user behind this member.
+
+    `null` when the buyer is another business rather than a person.
+    """
 
     id: str
-    """The unique identifier for the company member user."""
-
-    email: Optional[str] = None
-    """The digital mailing address of the user."""
+    """User ID, prefixed `user_`."""
 
     name: Optional[str] = None
-    """The user's full name."""
+    """Display name."""
+
+    profile_picture: UserProfilePicture
+    """
+    Avatar wrapper; its `url` is always present, using a generated placeholder when
+    the user set no picture.
+    """
 
     username: str
-    """The whop username."""
+    """Public username."""
 
 
 class MemberListResponse(BaseModel):
-    """
-    A member represents a user's relationship with a company on Whop, including their access level, status, and spending history.
-    """
-
     id: str
-    """The unique identifier for the company member."""
+    """Member ID, prefixed `mber_`."""
 
-    access_level: AccessLevel
-    """The member's content access level.
-
-    `admin` means their team role grants administrative content access, `customer`
-    means they hold a valid product membership, and `no_access` means they cannot
-    access company content.
+    access_level: Literal["no_access", "admin", "customer"]
+    """
+    What the member can reach on the account: `customer` for paying members, `admin`
+    for team members, `no_access` once every grant has lapsed.
     """
 
-    company_token_balance: float
-    """The member's token balance for this company.
+    account_id: str
+    """The account this member belongs to, prefixed `biz_`."""
 
-    Computed live from the ledger, not from a cache.
+    created_at: str
+    """When the member record was created, as an ISO 8601 timestamp."""
+
+    joined_at: str
+    """When the member first joined the account, as an ISO 8601 timestamp."""
+
+    last_accessed_at: Optional[str] = None
+    """When the member last opened the account's content, as an ISO 8601 timestamp.
+
+    `null` if they never have.
     """
 
-    created_at: datetime
-    """The datetime the company member was created."""
+    phone_number: Optional[str] = None
+    """The member's phone number, or `null`.
 
-    joined_at: datetime
-    """When the member joined the company"""
+    Their account number when they have shared one with this seller; otherwise the
+    most recent number collected (or verified) at checkout.
+    """
 
-    most_recent_action: Optional[MemberMostRecentActions] = None
-    """The different most recent actions a member can have."""
+    status: Literal["joined", "left"]
+    """`joined` while the member is part of the account, `left` after they leave."""
 
-    most_recent_action_at: Optional[datetime] = None
-    """The time for the most recent action, if applicable."""
-
-    phone: Optional[str] = None
-    """The phone number for the member, if available."""
-
-    status: MemberStatuses
-    """The status of the member"""
-
-    updated_at: datetime
-    """The datetime the company member was last updated."""
-
-    usd_total_spent: float
-    """How much money this customer has spent on the company's products and plans"""
+    token_balance: float
+    """
+    The member's current token balance for this account, computed from token
+    transactions.
+    """
 
     user: Optional[User] = None
-    """The user for this member, if any."""
+    """The user behind this member.
+
+    `null` when the buyer is another business rather than a person.
+    """

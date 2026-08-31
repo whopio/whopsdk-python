@@ -10,71 +10,72 @@ __all__ = ["CardTransactionDeclinedWebhookEvent", "Data"]
 
 
 class Data(BaseModel):
-    """A card transaction record."""
-
     id: str
-    """The unique identifier for the card transaction."""
-
-    authorization_method: Optional[str] = None
-    """How the card was presented or authenticated for the purchase."""
+    """Card transaction ID, prefixed `citx_`."""
 
     card_id: str
-    """Represents a unique identifier that is Base64 obfuscated.
+    """The card this transaction was charged to, prefixed `icrd_`."""
 
-    It is often used to refetch an object or as key for a cache. The ID type appears
-    in a JSON response as a String; however, it is not intended to be
-    human-readable. When expected as an input type, any string (such as
-    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
-    ID.
+    cardholder_id: Optional[str] = None
+    """The user the card is assigned to, prefixed `user_`.
+
+    Null when the card has no assigned cardholder.
     """
 
     cashback_usd_amount: Optional[float] = None
-    """The cashback reward amount earned on this transaction, in USD."""
+    """Cashback earned on this transaction as a USD amount.
 
-    created_at: datetime
-    """The datetime the card transaction was created."""
+    Zero for declined or ineligible transactions, and null when cashback has not
+    been computed yet.
+    """
+
+    created_at: str
+    """When the transaction was authorized, as an ISO 8601 timestamp."""
 
     currency: Optional[str] = None
-    """The ISO 4217 currency code for the transaction amount."""
+    """ISO 4217 currency code the merchant charged in."""
 
     declined_reason: Optional[str] = None
-    """The issuer-provided reason the transaction was declined."""
+    """Why the transaction was declined. Null unless `status` is `declined`."""
 
     international: bool
-    """
-    Whether the transaction was made with a merchant outside the card's home
-    country.
-    """
+    """True when the merchant is outside the card's home country."""
 
     local_amount: Optional[float] = None
-    """The transaction amount in the merchant's local currency before conversion."""
-
-    memo: Optional[str] = None
-    """A user-provided note attached to the transaction."""
+    """Amount the merchant charged in their own currency. Pair with `currency`."""
 
     merchant_category: Optional[str] = None
-    """The enriched or raw category label for the merchant."""
+    """
+    Merchant category label, enriched where available and otherwise as the card
+    network reported it.
+    """
 
     merchant_category_code: Optional[str] = None
-    """The four-digit ISO 18245 merchant category code (MCC)."""
+    """Four-digit ISO 18245 merchant category code (MCC)."""
 
     merchant_icon_url: Optional[str] = None
-    """A URL to the enriched merchant logo image."""
+    """URL of the enriched merchant logo. Null when no logo was matched."""
 
     merchant_name: Optional[str] = None
-    """The enriched or raw name of the merchant where the purchase was made."""
+    """
+    Merchant name, enriched where available and otherwise as the card network
+    reported it.
+    """
 
-    posted_at: Optional[datetime] = None
-    """When the transaction was settled by the card network."""
+    posted_at: Optional[str] = None
+    """When the card network settled the transaction, as an ISO 8601 timestamp.
+
+    Null until it settles.
+    """
 
     status: Literal["pending", "completed", "reversed", "declined"]
-    """The current lifecycle status of the transaction."""
+    """Current status of the transaction."""
 
-    transaction_type: str
-    """The type of transaction."""
+    transaction_type: Literal["spend"]
+    """The kind of card transaction. Always `spend` today."""
 
     usd_amount: Optional[float] = None
-    """The transaction amount in USD."""
+    """Amount charged in USD. Negative when the merchant refunded the card."""
 
 
 class CardTransactionDeclinedWebhookEvent(BaseModel):
@@ -88,7 +89,6 @@ class CardTransactionDeclinedWebhookEvent(BaseModel):
     """The dated API version (Api-Version-Date) the payload is serialized to"""
 
     data: Data
-    """A card transaction record."""
 
     timestamp: datetime
     """The timestamp in ISO 8601 format that the webhook was sent at on the server"""

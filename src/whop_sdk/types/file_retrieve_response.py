@@ -1,38 +1,80 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+import builtins
+from typing import List, Optional
+from typing_extensions import Literal
 
 from .._models import BaseModel
-from .upload_status import UploadStatus
-from .file_visibility import FileVisibility
 
-__all__ = ["FileRetrieveResponse"]
+__all__ = ["FileRetrieveResponse", "MultipartUploadURL"]
+
+
+class MultipartUploadURL(BaseModel):
+    """The presigned URL for each part.
+
+    Present only on create, and only for multipart uploads.
+    """
+
+    part_number: int
+    """The 1-based index of this part within the multipart upload."""
+
+    url: str
+    """The presigned URL to PUT this part's bytes to."""
 
 
 class FileRetrieveResponse(BaseModel):
-    """A file that has been uploaded or is pending upload."""
-
     id: str
-    """The unique identifier for the file."""
+    """The file's ID, prefixed `file_`."""
 
     content_type: Optional[str] = None
-    """The MIME type of the uploaded file (e.g., image/jpeg, video/mp4, audio/mpeg)."""
+    """The file's MIME type, e.g. `application/pdf`."""
+
+    created_at: str
+    """When the file was created, as an ISO 8601 timestamp."""
 
     filename: Optional[str] = None
-    """The original filename of the uploaded file, including its file extension."""
+    """The original filename, including its extension."""
 
-    size: Optional[str] = None
-    """The file size in bytes. Null if the file has not finished uploading."""
+    object: str
+    """The type of this object, always `file`."""
 
-    upload_status: UploadStatus
-    """The current upload status of the file (e.g., pending, ready)."""
+    size: Optional[int] = None
+    """The file size in bytes. `null` until the upload has finished."""
+
+    upload_status: Literal["pending", "processing", "ready", "failed"]
+    """Where the file is in its upload lifecycle."""
 
     url: Optional[str] = None
-    """The URL for accessing the file.
-
-    For public files, this is a permanent CDN URL. For private files, this is a
-    signed URL that expires. Null if the file has not finished uploading.
+    """
+    A URL to download the file: a permanent CDN URL for public files, a signed
+    expiring URL for private ones. `null` until the upload has finished.
     """
 
-    visibility: FileVisibility
-    """Whether the file is publicly accessible or requires authentication."""
+    visibility: Literal["public", "private"]
+    """
+    `public` files are served via an unsigned CDN URL; `private` files via a signed,
+    expiring URL.
+    """
+
+    multipart_chunk_size: Optional[int] = None
+    """The byte size each part (except the last) must be.
+
+    Present only on create, and only for multipart uploads.
+    """
+
+    multipart_upload_id: Optional[str] = None
+    """The ID of the multipart upload, passed back to `complete`.
+
+    Present only on create, and only for multipart uploads.
+    """
+
+    multipart_upload_urls: Optional[List[MultipartUploadURL]] = None
+
+    upload_headers: Optional[builtins.object] = None
+    """Headers to send with the upload PUT. Present only on create."""
+
+    upload_url: Optional[str] = None
+    """Presigned URL to PUT the file's bytes to.
+
+    Present only on create, and only for single-part uploads.
+    """

@@ -2,23 +2,23 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
+from typing_extensions import Required, Annotated, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = ["ShipmentCreateParams"]
 
 
 class ShipmentCreateParams(TypedDict, total=False):
-    company_id: Required[str]
-    """
-    The unique identifier of the company to create the shipment for, starting with
-    'biz\\__'.
-    """
-
     payment_id: Required[str]
-    """The unique identifier of the payment to associate the shipment with."""
+    """The payment to attach the shipment to, prefixed `pay_`."""
 
-    tracking_code: Required[str]
-    """
-    The carrier tracking code for the shipment, such as a USPS, UPS, or FedEx
-    tracking number.
-    """
+    tracking_number: Required[str]
+    """The carrier-assigned tracking number."""
+
+    account_id: str
+    """The unique identifier of the account, prefixed `biz_`."""
+
+    api_version_date: Annotated[str, PropertyInfo(alias="Api-Version-Date")]
+
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

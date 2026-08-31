@@ -3,13 +3,12 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import overload
 
 import httpx
 
 from ..types import notification_create_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import required_args, maybe_transform, async_maybe_transform
+from .._utils import maybe_transform, strip_not_given, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -25,7 +24,13 @@ __all__ = ["NotificationsResource", "AsyncNotificationsResource"]
 
 
 class NotificationsResource(SyncAPIResource):
-    """Notifications"""
+    """
+    A Notification is a message delivered to a user — a new post, a payment, a mention. Every notification comes from an experience the user belongs to or a team they are on, and users control what they receive with notification preferences.
+
+    Every notification belongs to a topic: the category it falls under, such as new sales or account activity. Topics carry a default, so a user only needs a preference row where they diverge from it. `GET /notifications/topics` lists the platform's visible topics, and a topic's `id` is what the notification preference endpoints take as `topic_id` — the catalog is the only place those ids come from, so read it rather than hardcoding. Each topic also carries an `identifier` such as `new-follower`, which is stable across environments and is the value to match on in code.
+
+    Use the Notifications API to list the authenticated user's feed, read per-experience unread badges, mark an experience (or everything) as read, send notifications from your app to an experience's users or an account's team, and list the topic catalog.
+    """
 
     @cached_property
     def with_raw_response(self) -> NotificationsResourceWithRawResponse:
@@ -46,140 +51,19 @@ class NotificationsResource(SyncAPIResource):
         """
         return NotificationsResourceWithStreamingResponse(self)
 
-    @overload
-    def create(
-        self,
-        *,
-        company_id: str,
-        content: str,
-        title: str,
-        icon_user_id: Optional[str] | Omit = omit,
-        rest_path: Optional[str] | Omit = omit,
-        subtitle: Optional[str] | Omit = omit,
-        user_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> NotificationCreateResponse:
-        """Send a push notification to users in an experience or company team.
-
-        The
-        notification is processed asynchronously and supports targeting specific users.
-
-        Required permissions:
-
-        - `notification:create`
-
-        Args:
-          company_id: The unique identifier of the company to target. Only team members of this
-              company will receive the notification. Clicking the notification opens your
-              dashboard app view.
-
-          content: The main body text of the notification displayed to the user.
-
-          title: The headline text of the notification, displayed prominently to the user.
-
-          icon_user_id: The unique identifier of a user whose profile picture will be used as the
-              notification icon. Defaults to the experience or company avatar when not
-              provided.
-
-          rest_path: A path segment appended to the generated deep link that opens your app. Use
-              [restPath] in your app path configuration to read this parameter. For example,
-              '/settings/billing'.
-
-          subtitle: An optional secondary line of text displayed below the title in the
-              notification.
-
-          user_ids: An optional list of user IDs to narrow the audience. When provided, only these
-              users receive the notification, provided they are in the targeted experience or
-              company.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
     def create(
         self,
         *,
         content: str,
-        experience_id: str,
         title: str,
-        icon_user_id: Optional[str] | Omit = omit,
-        rest_path: Optional[str] | Omit = omit,
-        subtitle: Optional[str] | Omit = omit,
-        user_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> NotificationCreateResponse:
-        """Send a push notification to users in an experience or company team.
-
-        The
-        notification is processed asynchronously and supports targeting specific users.
-
-        Required permissions:
-
-        - `notification:create`
-
-        Args:
-          content: The main body text of the notification displayed to the user.
-
-          experience_id: The unique identifier of the experience to target. All users with access to this
-              experience will receive the notification. Clicking the notification opens the
-              experience view.
-
-          title: The headline text of the notification, displayed prominently to the user.
-
-          icon_user_id: The unique identifier of a user whose profile picture will be used as the
-              notification icon. Defaults to the experience or company avatar when not
-              provided.
-
-          rest_path: A path segment appended to the generated deep link that opens your app. Use
-              [restPath] in your app path configuration to read this parameter. For example,
-              '/settings/billing'.
-
-          subtitle: An optional secondary line of text displayed below the title in the
-              notification.
-
-          user_ids: An optional list of user IDs to narrow the audience. When provided, only these
-              users receive the notification, provided they are in the targeted experience or
-              company.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @required_args(["company_id", "content", "title"], ["content", "experience_id", "title"])
-    def create(
-        self,
-        *,
-        company_id: str | Omit = omit,
-        content: str,
-        title: str,
-        icon_user_id: Optional[str] | Omit = omit,
-        rest_path: Optional[str] | Omit = omit,
-        subtitle: Optional[str] | Omit = omit,
-        user_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        account_id: str | Omit = omit,
         experience_id: str | Omit = omit,
+        icon_user_id: Optional[str] | Omit = omit,
+        rest_path: Optional[str] | Omit = omit,
+        subtitle: Optional[str] | Omit = omit,
+        user_ids: SequenceNotStr[str] | Omit = omit,
+        api_version_date: str | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -187,18 +71,64 @@ class NotificationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> NotificationCreateResponse:
+        """
+        Queues a notification to every user of an experience or to an account's team,
+        processed asynchronously. Every send is attributed to an app: use an app API
+        key, or a credential acting on behalf of an app. Narrow the audience with
+        `user_ids` to send a mention.
+
+        Args:
+          content: Main body text of the notification.
+
+          title: Headline text of the notification.
+
+          account_id: Account whose team members receive the notification (`biz_` tag). Exactly one of
+              `experience_id` or `account_id` is required.
+
+          experience_id: Experience whose users receive the notification (`exp_` tag). Exactly one of
+              `experience_id` or `account_id` is required.
+
+          icon_user_id: User whose profile picture is used as the notification icon. Defaults to the
+              experience or account avatar.
+
+          rest_path: Path segment appended to the generated deep link that opens your app, for
+              example `/settings/billing`.
+
+          subtitle: Optional secondary line displayed below the title.
+
+          user_ids: Optional `user_` tags narrowing the audience. When provided, only these users
+              are notified (as a mention), provided they are in the targeted experience or
+              account.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "Api-Version-Date": api_version_date,
+                    "Idempotency-Key": idempotency_key,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return self._post(
             "/notifications",
             body=maybe_transform(
                 {
-                    "company_id": company_id,
                     "content": content,
                     "title": title,
+                    "account_id": account_id,
+                    "experience_id": experience_id,
                     "icon_user_id": icon_user_id,
                     "rest_path": rest_path,
                     "subtitle": subtitle,
                     "user_ids": user_ids,
-                    "experience_id": experience_id,
                 },
                 notification_create_params.NotificationCreateParams,
             ),
@@ -210,7 +140,13 @@ class NotificationsResource(SyncAPIResource):
 
 
 class AsyncNotificationsResource(AsyncAPIResource):
-    """Notifications"""
+    """
+    A Notification is a message delivered to a user — a new post, a payment, a mention. Every notification comes from an experience the user belongs to or a team they are on, and users control what they receive with notification preferences.
+
+    Every notification belongs to a topic: the category it falls under, such as new sales or account activity. Topics carry a default, so a user only needs a preference row where they diverge from it. `GET /notifications/topics` lists the platform's visible topics, and a topic's `id` is what the notification preference endpoints take as `topic_id` — the catalog is the only place those ids come from, so read it rather than hardcoding. Each topic also carries an `identifier` such as `new-follower`, which is stable across environments and is the value to match on in code.
+
+    Use the Notifications API to list the authenticated user's feed, read per-experience unread badges, mark an experience (or everything) as read, send notifications from your app to an experience's users or an account's team, and list the topic catalog.
+    """
 
     @cached_property
     def with_raw_response(self) -> AsyncNotificationsResourceWithRawResponse:
@@ -231,140 +167,19 @@ class AsyncNotificationsResource(AsyncAPIResource):
         """
         return AsyncNotificationsResourceWithStreamingResponse(self)
 
-    @overload
-    async def create(
-        self,
-        *,
-        company_id: str,
-        content: str,
-        title: str,
-        icon_user_id: Optional[str] | Omit = omit,
-        rest_path: Optional[str] | Omit = omit,
-        subtitle: Optional[str] | Omit = omit,
-        user_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> NotificationCreateResponse:
-        """Send a push notification to users in an experience or company team.
-
-        The
-        notification is processed asynchronously and supports targeting specific users.
-
-        Required permissions:
-
-        - `notification:create`
-
-        Args:
-          company_id: The unique identifier of the company to target. Only team members of this
-              company will receive the notification. Clicking the notification opens your
-              dashboard app view.
-
-          content: The main body text of the notification displayed to the user.
-
-          title: The headline text of the notification, displayed prominently to the user.
-
-          icon_user_id: The unique identifier of a user whose profile picture will be used as the
-              notification icon. Defaults to the experience or company avatar when not
-              provided.
-
-          rest_path: A path segment appended to the generated deep link that opens your app. Use
-              [restPath] in your app path configuration to read this parameter. For example,
-              '/settings/billing'.
-
-          subtitle: An optional secondary line of text displayed below the title in the
-              notification.
-
-          user_ids: An optional list of user IDs to narrow the audience. When provided, only these
-              users receive the notification, provided they are in the targeted experience or
-              company.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
     async def create(
         self,
         *,
         content: str,
-        experience_id: str,
         title: str,
-        icon_user_id: Optional[str] | Omit = omit,
-        rest_path: Optional[str] | Omit = omit,
-        subtitle: Optional[str] | Omit = omit,
-        user_ids: Optional[SequenceNotStr[str]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> NotificationCreateResponse:
-        """Send a push notification to users in an experience or company team.
-
-        The
-        notification is processed asynchronously and supports targeting specific users.
-
-        Required permissions:
-
-        - `notification:create`
-
-        Args:
-          content: The main body text of the notification displayed to the user.
-
-          experience_id: The unique identifier of the experience to target. All users with access to this
-              experience will receive the notification. Clicking the notification opens the
-              experience view.
-
-          title: The headline text of the notification, displayed prominently to the user.
-
-          icon_user_id: The unique identifier of a user whose profile picture will be used as the
-              notification icon. Defaults to the experience or company avatar when not
-              provided.
-
-          rest_path: A path segment appended to the generated deep link that opens your app. Use
-              [restPath] in your app path configuration to read this parameter. For example,
-              '/settings/billing'.
-
-          subtitle: An optional secondary line of text displayed below the title in the
-              notification.
-
-          user_ids: An optional list of user IDs to narrow the audience. When provided, only these
-              users receive the notification, provided they are in the targeted experience or
-              company.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @required_args(["company_id", "content", "title"], ["content", "experience_id", "title"])
-    async def create(
-        self,
-        *,
-        company_id: str | Omit = omit,
-        content: str,
-        title: str,
-        icon_user_id: Optional[str] | Omit = omit,
-        rest_path: Optional[str] | Omit = omit,
-        subtitle: Optional[str] | Omit = omit,
-        user_ids: Optional[SequenceNotStr[str]] | Omit = omit,
+        account_id: str | Omit = omit,
         experience_id: str | Omit = omit,
+        icon_user_id: Optional[str] | Omit = omit,
+        rest_path: Optional[str] | Omit = omit,
+        subtitle: Optional[str] | Omit = omit,
+        user_ids: SequenceNotStr[str] | Omit = omit,
+        api_version_date: str | Omit = omit,
+        idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -372,18 +187,64 @@ class AsyncNotificationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> NotificationCreateResponse:
+        """
+        Queues a notification to every user of an experience or to an account's team,
+        processed asynchronously. Every send is attributed to an app: use an app API
+        key, or a credential acting on behalf of an app. Narrow the audience with
+        `user_ids` to send a mention.
+
+        Args:
+          content: Main body text of the notification.
+
+          title: Headline text of the notification.
+
+          account_id: Account whose team members receive the notification (`biz_` tag). Exactly one of
+              `experience_id` or `account_id` is required.
+
+          experience_id: Experience whose users receive the notification (`exp_` tag). Exactly one of
+              `experience_id` or `account_id` is required.
+
+          icon_user_id: User whose profile picture is used as the notification icon. Defaults to the
+              experience or account avatar.
+
+          rest_path: Path segment appended to the generated deep link that opens your app, for
+              example `/settings/billing`.
+
+          subtitle: Optional secondary line displayed below the title.
+
+          user_ids: Optional `user_` tags narrowing the audience. When provided, only these users
+              are notified (as a mention), provided they are in the targeted experience or
+              account.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        extra_headers = {
+            **strip_not_given(
+                {
+                    "Api-Version-Date": api_version_date,
+                    "Idempotency-Key": idempotency_key,
+                }
+            ),
+            **(extra_headers or {}),
+        }
         return await self._post(
             "/notifications",
             body=await async_maybe_transform(
                 {
-                    "company_id": company_id,
                     "content": content,
                     "title": title,
+                    "account_id": account_id,
+                    "experience_id": experience_id,
                     "icon_user_id": icon_user_id,
                     "rest_path": rest_path,
                     "subtitle": subtitle,
                     "user_ids": user_ids,
-                    "experience_id": experience_id,
                 },
                 notification_create_params.NotificationCreateParams,
             ),

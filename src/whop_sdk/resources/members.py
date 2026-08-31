@@ -2,15 +2,13 @@
 
 from __future__ import annotations
 
-from typing import List, Union
-from datetime import datetime
 from typing_extensions import Literal
 
 import httpx
 
 from ..types import member_list_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import path_template, maybe_transform
+from .._utils import path_template, maybe_transform, strip_not_given
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -21,18 +19,18 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.shared.direction import Direction
-from ..types.shared.access_level import AccessLevel
 from ..types.member_list_response import MemberListResponse
-from ..types.shared.member_statuses import MemberStatuses
 from ..types.member_retrieve_response import MemberRetrieveResponse
-from ..types.shared.member_most_recent_actions import MemberMostRecentActions
 
 __all__ = ["MembersResource", "AsyncMembersResource"]
 
 
 class MembersResource(SyncAPIResource):
-    """Members"""
+    """
+    A Member is one buyer's relationship with an account — one record per customer regardless of how many memberships they hold. It carries relationship-level state: whether they have joined or left, their access level (`customer`, `admin`, or `no_access`), when they joined, and when they last opened the account's content.
+
+    Use the Members API to list an account's members with filtering by access level, status, join date, and name or username search, and to retrieve a single member. Member rows are created and maintained by the membership lifecycle; to grant or revoke access, work with memberships instead.
+    """
 
     @cached_property
     def with_raw_response(self) -> MembersResourceWithRawResponse:
@@ -57,6 +55,7 @@ class MembersResource(SyncAPIResource):
         self,
         id: str,
         *,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -64,14 +63,10 @@ class MembersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> MemberRetrieveResponse:
-        """
-        Retrieves the details of an existing member.
+        """Retrieves a member by ID.
 
-        Required permissions:
-
-        - `member:basic:read`
-        - `member:email:read`
-        - `member:phone:read`
+        Accessible to the account and to the member's own
+        user.
 
         Args:
           extra_headers: Send extra headers
@@ -84,6 +79,7 @@ class MembersResource(SyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return self._get(
             path_template("/members/{id}", id=id),
             options=make_request_options(
@@ -95,23 +91,20 @@ class MembersResource(SyncAPIResource):
     def list(
         self,
         *,
-        access_level: AccessLevel | Omit = omit,
+        access_level: Literal["no_access", "admin", "customer"] | Omit = omit,
+        account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
-        company_id: str | Omit = omit,
-        created_after: Union[str, datetime] | Omit = omit,
-        created_before: Union[str, datetime] | Omit = omit,
-        direction: Direction | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
-        most_recent_actions: List[MemberMostRecentActions] | Omit = omit,
-        order: Literal["id", "usd_total_spent", "created_at", "joined_at", "most_recent_action"] | Omit = omit,
-        plan_ids: SequenceNotStr[str] | Omit = omit,
-        product_ids: SequenceNotStr[str] | Omit = omit,
-        promo_code_ids: SequenceNotStr[str] | Omit = omit,
+        order: Literal["created_at", "joined_at", "last_accessed_at", "usd_total_spent"] | Omit = omit,
         query: str | Omit = omit,
-        statuses: List[MemberStatuses] | Omit = omit,
+        status: Literal["joined", "left"] | Omit = omit,
         user_ids: SequenceNotStr[str] | Omit = omit,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -119,51 +112,39 @@ class MembersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[MemberListResponse]:
-        """
-        Returns a paginated list of members for a company, with extensive filtering by
-        product, plan, status, access level, and more.
+        """Lists the members of an account.
 
-        Required permissions:
-
-        - `member:basic:read`
-        - `member:email:read`
-        - `member:phone:read`
+        A member is one buyer's relationship with the
+        account, regardless of how many memberships they hold.
 
         Args:
-          access_level: Filter members by their current access level to the product.
+          access_level: Filter by what the member can reach on the account.
 
-          after: Returns the elements in the list that come after the specified cursor.
+          account_id: The account to list members for (`biz_` tag). Defaults to the account the
+              credential acts as.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          after: Cursor to paginate forwards from.
 
-          company_id: The unique identifier of the company to list members for.
+          before: Cursor to paginate backwards from.
 
-          created_after: Only return members created after this timestamp.
+          created_after: Only members who joined after this ISO 8601 timestamp.
 
-          created_before: Only return members created before this timestamp.
+          created_before: Only members who joined before this ISO 8601 timestamp.
 
-          direction: The sort direction for results. Defaults to descending.
+          direction: Sort direction.
 
-          first: Returns the first _n_ elements from the list.
+          first: Number of members to return from the start of the window.
 
-          last: Returns the last _n_ elements from the list.
+          last: Number of members to return from the end of the window.
 
-          most_recent_actions: Filter members by their most recent activity type.
+          order: Sort field.
 
-          order: The column to sort members by, such as creation date or revenue.
+          query: Search members by name or username. An exact email address also matches when the
+              credential holds the member:email:read scope.
 
-          plan_ids: Filter members to only those subscribed to these specific plans.
+          status: Filter by whether the member is still part of the account.
 
-          product_ids: Filter members to only those belonging to these specific products.
-
-          promo_code_ids: Filter members to only those who used these specific promo codes.
-
-          query: Search members by name, username, or email. Email filtering requires the
-              member:email:read permission.
-
-          statuses: Filter members by their current subscription status.
-
-          user_ids: Filter members to only those matching these specific user identifiers.
+          user_ids: Only return members whose users match these `user_` identifiers.
 
           extra_headers: Send extra headers
 
@@ -173,6 +154,7 @@ class MembersResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return self._get_api_list(
             "/members",
             page=SyncCursorPage[MemberListResponse],
@@ -184,21 +166,17 @@ class MembersResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "access_level": access_level,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
-                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
                         "first": first,
                         "last": last,
-                        "most_recent_actions": most_recent_actions,
                         "order": order,
-                        "plan_ids": plan_ids,
-                        "product_ids": product_ids,
-                        "promo_code_ids": promo_code_ids,
                         "query": query,
-                        "statuses": statuses,
+                        "status": status,
                         "user_ids": user_ids,
                     },
                     member_list_params.MemberListParams,
@@ -209,7 +187,11 @@ class MembersResource(SyncAPIResource):
 
 
 class AsyncMembersResource(AsyncAPIResource):
-    """Members"""
+    """
+    A Member is one buyer's relationship with an account — one record per customer regardless of how many memberships they hold. It carries relationship-level state: whether they have joined or left, their access level (`customer`, `admin`, or `no_access`), when they joined, and when they last opened the account's content.
+
+    Use the Members API to list an account's members with filtering by access level, status, join date, and name or username search, and to retrieve a single member. Member rows are created and maintained by the membership lifecycle; to grant or revoke access, work with memberships instead.
+    """
 
     @cached_property
     def with_raw_response(self) -> AsyncMembersResourceWithRawResponse:
@@ -234,6 +216,7 @@ class AsyncMembersResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -241,14 +224,10 @@ class AsyncMembersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> MemberRetrieveResponse:
-        """
-        Retrieves the details of an existing member.
+        """Retrieves a member by ID.
 
-        Required permissions:
-
-        - `member:basic:read`
-        - `member:email:read`
-        - `member:phone:read`
+        Accessible to the account and to the member's own
+        user.
 
         Args:
           extra_headers: Send extra headers
@@ -261,6 +240,7 @@ class AsyncMembersResource(AsyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return await self._get(
             path_template("/members/{id}", id=id),
             options=make_request_options(
@@ -272,23 +252,20 @@ class AsyncMembersResource(AsyncAPIResource):
     def list(
         self,
         *,
-        access_level: AccessLevel | Omit = omit,
+        access_level: Literal["no_access", "admin", "customer"] | Omit = omit,
+        account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
-        company_id: str | Omit = omit,
-        created_after: Union[str, datetime] | Omit = omit,
-        created_before: Union[str, datetime] | Omit = omit,
-        direction: Direction | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
-        most_recent_actions: List[MemberMostRecentActions] | Omit = omit,
-        order: Literal["id", "usd_total_spent", "created_at", "joined_at", "most_recent_action"] | Omit = omit,
-        plan_ids: SequenceNotStr[str] | Omit = omit,
-        product_ids: SequenceNotStr[str] | Omit = omit,
-        promo_code_ids: SequenceNotStr[str] | Omit = omit,
+        order: Literal["created_at", "joined_at", "last_accessed_at", "usd_total_spent"] | Omit = omit,
         query: str | Omit = omit,
-        statuses: List[MemberStatuses] | Omit = omit,
+        status: Literal["joined", "left"] | Omit = omit,
         user_ids: SequenceNotStr[str] | Omit = omit,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -296,51 +273,39 @@ class AsyncMembersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[MemberListResponse, AsyncCursorPage[MemberListResponse]]:
-        """
-        Returns a paginated list of members for a company, with extensive filtering by
-        product, plan, status, access level, and more.
+        """Lists the members of an account.
 
-        Required permissions:
-
-        - `member:basic:read`
-        - `member:email:read`
-        - `member:phone:read`
+        A member is one buyer's relationship with the
+        account, regardless of how many memberships they hold.
 
         Args:
-          access_level: Filter members by their current access level to the product.
+          access_level: Filter by what the member can reach on the account.
 
-          after: Returns the elements in the list that come after the specified cursor.
+          account_id: The account to list members for (`biz_` tag). Defaults to the account the
+              credential acts as.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          after: Cursor to paginate forwards from.
 
-          company_id: The unique identifier of the company to list members for.
+          before: Cursor to paginate backwards from.
 
-          created_after: Only return members created after this timestamp.
+          created_after: Only members who joined after this ISO 8601 timestamp.
 
-          created_before: Only return members created before this timestamp.
+          created_before: Only members who joined before this ISO 8601 timestamp.
 
-          direction: The sort direction for results. Defaults to descending.
+          direction: Sort direction.
 
-          first: Returns the first _n_ elements from the list.
+          first: Number of members to return from the start of the window.
 
-          last: Returns the last _n_ elements from the list.
+          last: Number of members to return from the end of the window.
 
-          most_recent_actions: Filter members by their most recent activity type.
+          order: Sort field.
 
-          order: The column to sort members by, such as creation date or revenue.
+          query: Search members by name or username. An exact email address also matches when the
+              credential holds the member:email:read scope.
 
-          plan_ids: Filter members to only those subscribed to these specific plans.
+          status: Filter by whether the member is still part of the account.
 
-          product_ids: Filter members to only those belonging to these specific products.
-
-          promo_code_ids: Filter members to only those who used these specific promo codes.
-
-          query: Search members by name, username, or email. Email filtering requires the
-              member:email:read permission.
-
-          statuses: Filter members by their current subscription status.
-
-          user_ids: Filter members to only those matching these specific user identifiers.
+          user_ids: Only return members whose users match these `user_` identifiers.
 
           extra_headers: Send extra headers
 
@@ -350,6 +315,7 @@ class AsyncMembersResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return self._get_api_list(
             "/members",
             page=AsyncCursorPage[MemberListResponse],
@@ -361,21 +327,17 @@ class AsyncMembersResource(AsyncAPIResource):
                 query=maybe_transform(
                     {
                         "access_level": access_level,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
-                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
                         "first": first,
                         "last": last,
-                        "most_recent_actions": most_recent_actions,
                         "order": order,
-                        "plan_ids": plan_ids,
-                        "product_ids": product_ids,
-                        "promo_code_ids": promo_code_ids,
                         "query": query,
-                        "statuses": statuses,
+                        "status": status,
                         "user_ids": user_ids,
                     },
                     member_list_params.MemberListParams,

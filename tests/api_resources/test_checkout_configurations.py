@@ -11,10 +11,10 @@ from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
 from whop_sdk.types import (
     CheckoutConfigurationListResponse,
+    CheckoutConfigurationCreateResponse,
+    CheckoutConfigurationRetrieveResponse,
 )
-from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
-from whop_sdk.types.shared import CheckoutConfiguration
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -24,238 +24,77 @@ class TestCheckoutConfigurations:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_create_overload_1(self, client: Whop) -> None:
-        checkout_configuration = client.checkout_configurations.create(
-            plan={
-                "company_id": "biz_xxxxxxxxxxxxxx",
-                "currency": "usd",
-            },
-        )
-        assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
+    def test_method_create(self, client: Whop) -> None:
+        checkout_configuration = client.checkout_configurations.create()
+        assert_matches_type(CheckoutConfigurationCreateResponse, checkout_configuration, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_create_with_all_params_overload_1(self, client: Whop) -> None:
+    def test_method_create_with_all_params(self, client: Whop) -> None:
         checkout_configuration = client.checkout_configurations.create(
+            account_id="biz_xxxxxxxxxxxxxx",
+            affiliate_code="tanyacole",
+            currency="usd",
+            metadata={"booking_source": "front_desk"},
+            mode="payment",
+            payment_method_configuration={
+                "disabled": ["paypal"],
+                "enabled": ["card"],
+                "include_platform_defaults": True,
+            },
             plan={
-                "company_id": "biz_xxxxxxxxxxxxxx",
+                "account_id": "biz_xxxxxxxxxxxxxx",
+                "billing_period": 30,
                 "currency": "usd",
-                "adaptive_pricing_enabled": True,
-                "application_fee_amount": 6.9,
-                "billing_period": 42,
-                "custom_fields": [
-                    {
-                        "field_type": "text",
-                        "name": "name",
-                        "id": "id",
-                        "order": 42,
-                        "placeholder": "placeholder",
-                        "required": True,
-                    }
-                ],
-                "description": "description",
-                "expiration_days": 42,
+                "description": "Two hand washes a month, interior vacuum, and a quarterly sealant top-up.",
+                "expiration_days": 365,
                 "force_create_new_plan": True,
-                "image": {"id": "id"},
-                "initial_price": 6.9,
-                "internal_notes": "internal_notes",
+                "initial_price": 249,
+                "metadata": {"bay": "2"},
                 "override_tax_type": "inclusive",
                 "payment_method_configuration": {
-                    "disabled": ["acss_debit"],
-                    "enabled": ["acss_debit"],
+                    "disabled": ["paypal"],
+                    "enabled": ["card"],
                     "include_platform_defaults": True,
                 },
-                "plan_type": "renewal",
-                "product": {
-                    "external_identifier": "external_identifier",
-                    "title": "title",
-                    "collect_shipping_address": True,
-                    "custom_statement_descriptor": "custom_statement_descriptor",
-                    "description": "description",
-                    "global_affiliate_percentage": 6.9,
-                    "global_affiliate_status": "enabled",
-                    "headline": "headline",
-                    "product_tax_code_id": "ptc_xxxxxxxxxxxxxx",
-                    "redirect_purchase_url": "redirect_purchase_url",
-                    "route": "route",
-                    "visibility": "visible",
-                },
-                "product_id": "prod_xxxxxxxxxxxxx",
+                "plan_type": "one_time",
+                "product_id": "prod_xxxxxxxxxxxxxx",
                 "release_method": "buy_now",
-                "renewal_price": 6.9,
-                "split_pay_required_payments": 42,
-                "stock": 42,
-                "title": "title",
-                "trial_period_days": 42,
+                "renewal_price": 59,
+                "stock": 25,
+                "three_ds_level": "frictionless",
+                "title": "Ceramic Coating — Full Vehicle",
+                "trial_period_days": 7,
+                "unlimited_stock": False,
                 "visibility": "visible",
             },
-            affiliate_code="affiliate_code",
-            checkout_styling={
-                "background_color": "background_color",
-                "border_style": "rounded",
-                "button_color": "button_color",
-                "font_family": "system",
-            },
-            currency="usd",
-            metadata={"foo": "bar"},
-            mode="payment",
-            payment_method_configuration={
-                "disabled": ["acss_debit"],
-                "enabled": ["acss_debit"],
-                "include_platform_defaults": True,
-            },
-            redirect_url="redirect_url",
+            plan_id="plan_xxxxxxxxxxxxx",
+            redirect_url="https://shinetime.example/thanks",
+            three_ds_level="frictionless",
+            api_version_date="2026-08-25-2",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
-        assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
+        assert_matches_type(CheckoutConfigurationCreateResponse, checkout_configuration, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_create_overload_1(self, client: Whop) -> None:
-        response = client.checkout_configurations.with_raw_response.create(
-            plan={
-                "company_id": "biz_xxxxxxxxxxxxxx",
-                "currency": "usd",
-            },
-        )
+    def test_raw_response_create(self, client: Whop) -> None:
+        response = client.checkout_configurations.with_raw_response.create()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         checkout_configuration = response.parse()
-        assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
+        assert_matches_type(CheckoutConfigurationCreateResponse, checkout_configuration, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_create_overload_1(self, client: Whop) -> None:
-        with client.checkout_configurations.with_streaming_response.create(
-            plan={
-                "company_id": "biz_xxxxxxxxxxxxxx",
-                "currency": "usd",
-            },
-        ) as response:
+    def test_streaming_response_create(self, client: Whop) -> None:
+        with client.checkout_configurations.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             checkout_configuration = response.parse()
-            assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_create_overload_2(self, client: Whop) -> None:
-        checkout_configuration = client.checkout_configurations.create(
-            plan_id="plan_xxxxxxxxxxxxx",
-        )
-        assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_create_with_all_params_overload_2(self, client: Whop) -> None:
-        checkout_configuration = client.checkout_configurations.create(
-            plan_id="plan_xxxxxxxxxxxxx",
-            affiliate_code="affiliate_code",
-            checkout_styling={
-                "background_color": "background_color",
-                "border_style": "rounded",
-                "button_color": "button_color",
-                "font_family": "system",
-            },
-            currency="usd",
-            metadata={"foo": "bar"},
-            mode="payment",
-            payment_method_configuration={
-                "disabled": ["acss_debit"],
-                "enabled": ["acss_debit"],
-                "include_platform_defaults": True,
-            },
-            redirect_url="redirect_url",
-        )
-        assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_create_overload_2(self, client: Whop) -> None:
-        response = client.checkout_configurations.with_raw_response.create(
-            plan_id="plan_xxxxxxxxxxxxx",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        checkout_configuration = response.parse()
-        assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_create_overload_2(self, client: Whop) -> None:
-        with client.checkout_configurations.with_streaming_response.create(
-            plan_id="plan_xxxxxxxxxxxxx",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            checkout_configuration = response.parse()
-            assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_create_overload_3(self, client: Whop) -> None:
-        checkout_configuration = client.checkout_configurations.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            mode="setup",
-        )
-        assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_create_with_all_params_overload_3(self, client: Whop) -> None:
-        checkout_configuration = client.checkout_configurations.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            mode="setup",
-            checkout_styling={
-                "background_color": "background_color",
-                "border_style": "rounded",
-                "button_color": "button_color",
-                "font_family": "system",
-            },
-            currency="usd",
-            metadata={"foo": "bar"},
-            payment_method_configuration={
-                "disabled": ["acss_debit"],
-                "enabled": ["acss_debit"],
-                "include_platform_defaults": True,
-            },
-            redirect_url="redirect_url",
-            three_ds_level="mandate_challenge",
-        )
-        assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_create_overload_3(self, client: Whop) -> None:
-        response = client.checkout_configurations.with_raw_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            mode="setup",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        checkout_configuration = response.parse()
-        assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_create_overload_3(self, client: Whop) -> None:
-        with client.checkout_configurations.with_streaming_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            mode="setup",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            checkout_configuration = response.parse()
-            assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
+            assert_matches_type(CheckoutConfigurationCreateResponse, checkout_configuration, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -263,33 +102,42 @@ class TestCheckoutConfigurations:
     @parametrize
     def test_method_retrieve(self, client: Whop) -> None:
         checkout_configuration = client.checkout_configurations.retrieve(
-            "ch_xxxxxxxxxxxxxxx",
+            id="id",
         )
-        assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
+        assert_matches_type(CheckoutConfigurationRetrieveResponse, checkout_configuration, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_retrieve_with_all_params(self, client: Whop) -> None:
+        checkout_configuration = client.checkout_configurations.retrieve(
+            id="id",
+            api_version_date="2026-08-25-2",
+        )
+        assert_matches_type(CheckoutConfigurationRetrieveResponse, checkout_configuration, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.checkout_configurations.with_raw_response.retrieve(
-            "ch_xxxxxxxxxxxxxxx",
+            id="id",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         checkout_configuration = response.parse()
-        assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
+        assert_matches_type(CheckoutConfigurationRetrieveResponse, checkout_configuration, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.checkout_configurations.with_streaming_response.retrieve(
-            "ch_xxxxxxxxxxxxxxx",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             checkout_configuration = response.parse()
-            assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
+            assert_matches_type(CheckoutConfigurationRetrieveResponse, checkout_configuration, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -298,14 +146,14 @@ class TestCheckoutConfigurations:
     def test_path_params_retrieve(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.checkout_configurations.with_raw_response.retrieve(
-                "",
+                id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Whop) -> None:
         checkout_configuration = client.checkout_configurations.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="account_id",
         )
         assert_matches_type(
             SyncCursorPage[CheckoutConfigurationListResponse], checkout_configuration, path=["response"]
@@ -315,15 +163,15 @@ class TestCheckoutConfigurations:
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         checkout_configuration = client.checkout_configurations.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="account_id",
             after="after",
-            before="before",
-            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
-            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
+            created_after="created_after",
+            created_before="created_before",
             direction="asc",
-            first=42,
-            last=42,
-            plan_id="plan_xxxxxxxxxxxxx",
+            first=0,
+            order="created_at",
+            plan_id="plan_id",
+            api_version_date="2026-08-25-2",
         )
         assert_matches_type(
             SyncCursorPage[CheckoutConfigurationListResponse], checkout_configuration, path=["response"]
@@ -333,7 +181,7 @@ class TestCheckoutConfigurations:
     @parametrize
     def test_raw_response_list(self, client: Whop) -> None:
         response = client.checkout_configurations.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="account_id",
         )
 
         assert response.is_closed is True
@@ -347,7 +195,7 @@ class TestCheckoutConfigurations:
     @parametrize
     def test_streaming_response_list(self, client: Whop) -> None:
         with client.checkout_configurations.with_streaming_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="account_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -367,238 +215,77 @@ class TestAsyncCheckoutConfigurations:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_create_overload_1(self, async_client: AsyncWhop) -> None:
-        checkout_configuration = await async_client.checkout_configurations.create(
-            plan={
-                "company_id": "biz_xxxxxxxxxxxxxx",
-                "currency": "usd",
-            },
-        )
-        assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
+    async def test_method_create(self, async_client: AsyncWhop) -> None:
+        checkout_configuration = await async_client.checkout_configurations.create()
+        assert_matches_type(CheckoutConfigurationCreateResponse, checkout_configuration, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_create_with_all_params_overload_1(self, async_client: AsyncWhop) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         checkout_configuration = await async_client.checkout_configurations.create(
+            account_id="biz_xxxxxxxxxxxxxx",
+            affiliate_code="tanyacole",
+            currency="usd",
+            metadata={"booking_source": "front_desk"},
+            mode="payment",
+            payment_method_configuration={
+                "disabled": ["paypal"],
+                "enabled": ["card"],
+                "include_platform_defaults": True,
+            },
             plan={
-                "company_id": "biz_xxxxxxxxxxxxxx",
+                "account_id": "biz_xxxxxxxxxxxxxx",
+                "billing_period": 30,
                 "currency": "usd",
-                "adaptive_pricing_enabled": True,
-                "application_fee_amount": 6.9,
-                "billing_period": 42,
-                "custom_fields": [
-                    {
-                        "field_type": "text",
-                        "name": "name",
-                        "id": "id",
-                        "order": 42,
-                        "placeholder": "placeholder",
-                        "required": True,
-                    }
-                ],
-                "description": "description",
-                "expiration_days": 42,
+                "description": "Two hand washes a month, interior vacuum, and a quarterly sealant top-up.",
+                "expiration_days": 365,
                 "force_create_new_plan": True,
-                "image": {"id": "id"},
-                "initial_price": 6.9,
-                "internal_notes": "internal_notes",
+                "initial_price": 249,
+                "metadata": {"bay": "2"},
                 "override_tax_type": "inclusive",
                 "payment_method_configuration": {
-                    "disabled": ["acss_debit"],
-                    "enabled": ["acss_debit"],
+                    "disabled": ["paypal"],
+                    "enabled": ["card"],
                     "include_platform_defaults": True,
                 },
-                "plan_type": "renewal",
-                "product": {
-                    "external_identifier": "external_identifier",
-                    "title": "title",
-                    "collect_shipping_address": True,
-                    "custom_statement_descriptor": "custom_statement_descriptor",
-                    "description": "description",
-                    "global_affiliate_percentage": 6.9,
-                    "global_affiliate_status": "enabled",
-                    "headline": "headline",
-                    "product_tax_code_id": "ptc_xxxxxxxxxxxxxx",
-                    "redirect_purchase_url": "redirect_purchase_url",
-                    "route": "route",
-                    "visibility": "visible",
-                },
-                "product_id": "prod_xxxxxxxxxxxxx",
+                "plan_type": "one_time",
+                "product_id": "prod_xxxxxxxxxxxxxx",
                 "release_method": "buy_now",
-                "renewal_price": 6.9,
-                "split_pay_required_payments": 42,
-                "stock": 42,
-                "title": "title",
-                "trial_period_days": 42,
+                "renewal_price": 59,
+                "stock": 25,
+                "three_ds_level": "frictionless",
+                "title": "Ceramic Coating — Full Vehicle",
+                "trial_period_days": 7,
+                "unlimited_stock": False,
                 "visibility": "visible",
             },
-            affiliate_code="affiliate_code",
-            checkout_styling={
-                "background_color": "background_color",
-                "border_style": "rounded",
-                "button_color": "button_color",
-                "font_family": "system",
-            },
-            currency="usd",
-            metadata={"foo": "bar"},
-            mode="payment",
-            payment_method_configuration={
-                "disabled": ["acss_debit"],
-                "enabled": ["acss_debit"],
-                "include_platform_defaults": True,
-            },
-            redirect_url="redirect_url",
+            plan_id="plan_xxxxxxxxxxxxx",
+            redirect_url="https://shinetime.example/thanks",
+            three_ds_level="frictionless",
+            api_version_date="2026-08-25-2",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
-        assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
+        assert_matches_type(CheckoutConfigurationCreateResponse, checkout_configuration, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_create_overload_1(self, async_client: AsyncWhop) -> None:
-        response = await async_client.checkout_configurations.with_raw_response.create(
-            plan={
-                "company_id": "biz_xxxxxxxxxxxxxx",
-                "currency": "usd",
-            },
-        )
+    async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
+        response = await async_client.checkout_configurations.with_raw_response.create()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         checkout_configuration = await response.parse()
-        assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
+        assert_matches_type(CheckoutConfigurationCreateResponse, checkout_configuration, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_create_overload_1(self, async_client: AsyncWhop) -> None:
-        async with async_client.checkout_configurations.with_streaming_response.create(
-            plan={
-                "company_id": "biz_xxxxxxxxxxxxxx",
-                "currency": "usd",
-            },
-        ) as response:
+    async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
+        async with async_client.checkout_configurations.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             checkout_configuration = await response.parse()
-            assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_create_overload_2(self, async_client: AsyncWhop) -> None:
-        checkout_configuration = await async_client.checkout_configurations.create(
-            plan_id="plan_xxxxxxxxxxxxx",
-        )
-        assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_create_with_all_params_overload_2(self, async_client: AsyncWhop) -> None:
-        checkout_configuration = await async_client.checkout_configurations.create(
-            plan_id="plan_xxxxxxxxxxxxx",
-            affiliate_code="affiliate_code",
-            checkout_styling={
-                "background_color": "background_color",
-                "border_style": "rounded",
-                "button_color": "button_color",
-                "font_family": "system",
-            },
-            currency="usd",
-            metadata={"foo": "bar"},
-            mode="payment",
-            payment_method_configuration={
-                "disabled": ["acss_debit"],
-                "enabled": ["acss_debit"],
-                "include_platform_defaults": True,
-            },
-            redirect_url="redirect_url",
-        )
-        assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_create_overload_2(self, async_client: AsyncWhop) -> None:
-        response = await async_client.checkout_configurations.with_raw_response.create(
-            plan_id="plan_xxxxxxxxxxxxx",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        checkout_configuration = await response.parse()
-        assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_create_overload_2(self, async_client: AsyncWhop) -> None:
-        async with async_client.checkout_configurations.with_streaming_response.create(
-            plan_id="plan_xxxxxxxxxxxxx",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            checkout_configuration = await response.parse()
-            assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_create_overload_3(self, async_client: AsyncWhop) -> None:
-        checkout_configuration = await async_client.checkout_configurations.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            mode="setup",
-        )
-        assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_create_with_all_params_overload_3(self, async_client: AsyncWhop) -> None:
-        checkout_configuration = await async_client.checkout_configurations.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            mode="setup",
-            checkout_styling={
-                "background_color": "background_color",
-                "border_style": "rounded",
-                "button_color": "button_color",
-                "font_family": "system",
-            },
-            currency="usd",
-            metadata={"foo": "bar"},
-            payment_method_configuration={
-                "disabled": ["acss_debit"],
-                "enabled": ["acss_debit"],
-                "include_platform_defaults": True,
-            },
-            redirect_url="redirect_url",
-            three_ds_level="mandate_challenge",
-        )
-        assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_create_overload_3(self, async_client: AsyncWhop) -> None:
-        response = await async_client.checkout_configurations.with_raw_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            mode="setup",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        checkout_configuration = await response.parse()
-        assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_create_overload_3(self, async_client: AsyncWhop) -> None:
-        async with async_client.checkout_configurations.with_streaming_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            mode="setup",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            checkout_configuration = await response.parse()
-            assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
+            assert_matches_type(CheckoutConfigurationCreateResponse, checkout_configuration, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -606,33 +293,42 @@ class TestAsyncCheckoutConfigurations:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         checkout_configuration = await async_client.checkout_configurations.retrieve(
-            "ch_xxxxxxxxxxxxxxx",
+            id="id",
         )
-        assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
+        assert_matches_type(CheckoutConfigurationRetrieveResponse, checkout_configuration, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
+        checkout_configuration = await async_client.checkout_configurations.retrieve(
+            id="id",
+            api_version_date="2026-08-25-2",
+        )
+        assert_matches_type(CheckoutConfigurationRetrieveResponse, checkout_configuration, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.checkout_configurations.with_raw_response.retrieve(
-            "ch_xxxxxxxxxxxxxxx",
+            id="id",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         checkout_configuration = await response.parse()
-        assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
+        assert_matches_type(CheckoutConfigurationRetrieveResponse, checkout_configuration, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.checkout_configurations.with_streaming_response.retrieve(
-            "ch_xxxxxxxxxxxxxxx",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             checkout_configuration = await response.parse()
-            assert_matches_type(CheckoutConfiguration, checkout_configuration, path=["response"])
+            assert_matches_type(CheckoutConfigurationRetrieveResponse, checkout_configuration, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -641,14 +337,14 @@ class TestAsyncCheckoutConfigurations:
     async def test_path_params_retrieve(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.checkout_configurations.with_raw_response.retrieve(
-                "",
+                id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
         checkout_configuration = await async_client.checkout_configurations.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="account_id",
         )
         assert_matches_type(
             AsyncCursorPage[CheckoutConfigurationListResponse], checkout_configuration, path=["response"]
@@ -658,15 +354,15 @@ class TestAsyncCheckoutConfigurations:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         checkout_configuration = await async_client.checkout_configurations.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="account_id",
             after="after",
-            before="before",
-            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
-            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
+            created_after="created_after",
+            created_before="created_before",
             direction="asc",
-            first=42,
-            last=42,
-            plan_id="plan_xxxxxxxxxxxxx",
+            first=0,
+            order="created_at",
+            plan_id="plan_id",
+            api_version_date="2026-08-25-2",
         )
         assert_matches_type(
             AsyncCursorPage[CheckoutConfigurationListResponse], checkout_configuration, path=["response"]
@@ -676,7 +372,7 @@ class TestAsyncCheckoutConfigurations:
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
         response = await async_client.checkout_configurations.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="account_id",
         )
 
         assert response.is_closed is True
@@ -690,7 +386,7 @@ class TestAsyncCheckoutConfigurations:
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
         async with async_client.checkout_configurations.with_streaming_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="account_id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

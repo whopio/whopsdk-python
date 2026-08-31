@@ -2,14 +2,14 @@
 
 from __future__ import annotations
 
-from typing import List, Union
-from datetime import datetime
+from typing import List
+from typing_extensions import Literal
 
 import httpx
 
 from ..types import resolution_center_case_list_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform
+from .._utils import path_template, maybe_transform, strip_not_given
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -20,8 +20,6 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.shared.direction import Direction
-from ..types.resolution_center_case_status import ResolutionCenterCaseStatus
 from ..types.resolution_center_case_list_response import ResolutionCenterCaseListResponse
 from ..types.resolution_center_case_retrieve_response import ResolutionCenterCaseRetrieveResponse
 
@@ -29,7 +27,11 @@ __all__ = ["ResolutionCenterCasesResource", "AsyncResolutionCenterCasesResource"
 
 
 class ResolutionCenterCasesResource(SyncAPIResource):
-    """Resolution center cases"""
+    """
+    A Resolution Center Case is opened by a buyer when something is wrong with a purchase — an unwanted renewal, an item that never arrived, or a charge they don't recognize. It is the step before a chargeback: the two sides work it out directly, and Whop decides the case if they can't. Each case carries a reason, a status naming which side it is waiting on, a timeline of events, and the actions available to whoever is reading it.
+
+    Use the Resolution Center Cases API from either side: as the buyer, open a case, reply, appeal a decision, or withdraw it; as the merchant, accept it (refunding the payment), deny it, or ask the buyer for more information. Both sides read the same case, page its timeline, and summarize the cases they can see.
+    """
 
     @cached_property
     def with_raw_response(self) -> ResolutionCenterCasesResourceWithRawResponse:
@@ -54,6 +56,7 @@ class ResolutionCenterCasesResource(SyncAPIResource):
         self,
         id: str,
         *,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -62,11 +65,7 @@ class ResolutionCenterCasesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResolutionCenterCaseRetrieveResponse:
         """
-        Retrieves the details of an existing resolution center case.
-
-        Required permissions:
-
-        - `payment:resolution_center_case:read`
+        Retrieves a single resolution center case with its full event timeline.
 
         Args:
           extra_headers: Send extra headers
@@ -79,6 +78,7 @@ class ResolutionCenterCasesResource(SyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return self._get(
             path_template("/resolution_center_cases/{id}", id=id),
             options=make_request_options(
@@ -90,15 +90,29 @@ class ResolutionCenterCasesResource(SyncAPIResource):
     def list(
         self,
         *,
+        account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
-        company_id: str | Omit = omit,
-        created_after: Union[str, datetime] | Omit = omit,
-        created_before: Union[str, datetime] | Omit = omit,
-        direction: Direction | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
-        statuses: List[ResolutionCenterCaseStatus] | Omit = omit,
+        order: Literal["created_at", "response_due_at"] | Omit = omit,
+        outcome: List[Literal["customer_won", "merchant_won", "withdrawn"]] | Omit = omit,
+        reason: List[
+            Literal[
+                "fraudulent",
+                "product_not_received",
+                "not_as_described",
+                "product_unacceptable",
+                "subscription_canceled",
+            ]
+        ]
+        | Omit = omit,
+        status: List[Literal["awaiting_merchant", "awaiting_customer", "under_review", "closed"]] | Omit = omit,
+        user_id: str | Omit = omit,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -106,32 +120,43 @@ class ResolutionCenterCasesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[ResolutionCenterCaseListResponse]:
-        """
-        Returns a paginated list of resolution center cases, with optional filtering by
-        company, status, and creation date.
+        """Lists resolution center cases.
 
-        Required permissions:
-
-        - `payment:resolution_center_case:read`
+        Without `account_id` you get every case you can
+        read — the ones you opened as a buyer and every account you are a team member
+        of; the filters narrow that list.
 
         Args:
-          after: Returns the elements in the list that come after the specified cursor.
+          account_id: Only cases filed against this account (`biz_` tag). With read access to the
+              account this lists its whole queue; without, only the cases you opened against
+              it.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          after: A cursor; returns cases after this position.
 
-          company_id: The unique identifier of the company to list resolution center cases for.
+          before: A cursor; returns cases before this position.
 
-          created_after: Only return cases created after this timestamp.
+          created_after: Only cases created after this ISO 8601 timestamp.
 
-          created_before: Only return cases created before this timestamp.
+          created_before: Only cases created before this ISO 8601 timestamp.
 
-          direction: The sort direction.
+          direction: Sort direction.
 
-          first: Returns the first _n_ elements from the list.
+          first: The number of cases to return (default 20, max 100).
 
-          last: Returns the last _n_ elements from the list.
+          last: The number of cases to return from the end of the range.
 
-          statuses: Filter by resolution center case status.
+          order: The field to sort cases by.
+
+          outcome: Only closed cases that ended these ways. Repeat the parameter to pass several.
+
+          reason: Only cases opened for these reasons. Repeat the parameter to pass several.
+
+          status: Only cases in these statuses. Repeat the parameter to pass several — one
+              paginated list covers all of them.
+
+          user_id: Only cases opened by this customer — a `user_` tag, or `me` for the calling
+              user. It narrows what you can already read, so `me` lists the cases you opened
+              without the ones on accounts you are a team member of.
 
           extra_headers: Send extra headers
 
@@ -141,6 +166,7 @@ class ResolutionCenterCasesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return self._get_api_list(
             "/resolution_center_cases",
             page=SyncCursorPage[ResolutionCenterCaseListResponse],
@@ -151,15 +177,19 @@ class ResolutionCenterCasesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
-                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
                         "first": first,
                         "last": last,
-                        "statuses": statuses,
+                        "order": order,
+                        "outcome": outcome,
+                        "reason": reason,
+                        "status": status,
+                        "user_id": user_id,
                     },
                     resolution_center_case_list_params.ResolutionCenterCaseListParams,
                 ),
@@ -169,7 +199,11 @@ class ResolutionCenterCasesResource(SyncAPIResource):
 
 
 class AsyncResolutionCenterCasesResource(AsyncAPIResource):
-    """Resolution center cases"""
+    """
+    A Resolution Center Case is opened by a buyer when something is wrong with a purchase — an unwanted renewal, an item that never arrived, or a charge they don't recognize. It is the step before a chargeback: the two sides work it out directly, and Whop decides the case if they can't. Each case carries a reason, a status naming which side it is waiting on, a timeline of events, and the actions available to whoever is reading it.
+
+    Use the Resolution Center Cases API from either side: as the buyer, open a case, reply, appeal a decision, or withdraw it; as the merchant, accept it (refunding the payment), deny it, or ask the buyer for more information. Both sides read the same case, page its timeline, and summarize the cases they can see.
+    """
 
     @cached_property
     def with_raw_response(self) -> AsyncResolutionCenterCasesResourceWithRawResponse:
@@ -194,6 +228,7 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -202,11 +237,7 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ResolutionCenterCaseRetrieveResponse:
         """
-        Retrieves the details of an existing resolution center case.
-
-        Required permissions:
-
-        - `payment:resolution_center_case:read`
+        Retrieves a single resolution center case with its full event timeline.
 
         Args:
           extra_headers: Send extra headers
@@ -219,6 +250,7 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return await self._get(
             path_template("/resolution_center_cases/{id}", id=id),
             options=make_request_options(
@@ -230,15 +262,29 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
     def list(
         self,
         *,
+        account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
-        company_id: str | Omit = omit,
-        created_after: Union[str, datetime] | Omit = omit,
-        created_before: Union[str, datetime] | Omit = omit,
-        direction: Direction | Omit = omit,
+        created_after: str | Omit = omit,
+        created_before: str | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
-        statuses: List[ResolutionCenterCaseStatus] | Omit = omit,
+        order: Literal["created_at", "response_due_at"] | Omit = omit,
+        outcome: List[Literal["customer_won", "merchant_won", "withdrawn"]] | Omit = omit,
+        reason: List[
+            Literal[
+                "fraudulent",
+                "product_not_received",
+                "not_as_described",
+                "product_unacceptable",
+                "subscription_canceled",
+            ]
+        ]
+        | Omit = omit,
+        status: List[Literal["awaiting_merchant", "awaiting_customer", "under_review", "closed"]] | Omit = omit,
+        user_id: str | Omit = omit,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -246,32 +292,43 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[ResolutionCenterCaseListResponse, AsyncCursorPage[ResolutionCenterCaseListResponse]]:
-        """
-        Returns a paginated list of resolution center cases, with optional filtering by
-        company, status, and creation date.
+        """Lists resolution center cases.
 
-        Required permissions:
-
-        - `payment:resolution_center_case:read`
+        Without `account_id` you get every case you can
+        read — the ones you opened as a buyer and every account you are a team member
+        of; the filters narrow that list.
 
         Args:
-          after: Returns the elements in the list that come after the specified cursor.
+          account_id: Only cases filed against this account (`biz_` tag). With read access to the
+              account this lists its whole queue; without, only the cases you opened against
+              it.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          after: A cursor; returns cases after this position.
 
-          company_id: The unique identifier of the company to list resolution center cases for.
+          before: A cursor; returns cases before this position.
 
-          created_after: Only return cases created after this timestamp.
+          created_after: Only cases created after this ISO 8601 timestamp.
 
-          created_before: Only return cases created before this timestamp.
+          created_before: Only cases created before this ISO 8601 timestamp.
 
-          direction: The sort direction.
+          direction: Sort direction.
 
-          first: Returns the first _n_ elements from the list.
+          first: The number of cases to return (default 20, max 100).
 
-          last: Returns the last _n_ elements from the list.
+          last: The number of cases to return from the end of the range.
 
-          statuses: Filter by resolution center case status.
+          order: The field to sort cases by.
+
+          outcome: Only closed cases that ended these ways. Repeat the parameter to pass several.
+
+          reason: Only cases opened for these reasons. Repeat the parameter to pass several.
+
+          status: Only cases in these statuses. Repeat the parameter to pass several — one
+              paginated list covers all of them.
+
+          user_id: Only cases opened by this customer — a `user_` tag, or `me` for the calling
+              user. It narrows what you can already read, so `me` lists the cases you opened
+              without the ones on accounts you are a team member of.
 
           extra_headers: Send extra headers
 
@@ -281,6 +338,7 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return self._get_api_list(
             "/resolution_center_cases",
             page=AsyncCursorPage[ResolutionCenterCaseListResponse],
@@ -291,15 +349,19 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
-                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
                         "first": first,
                         "last": last,
-                        "statuses": statuses,
+                        "order": order,
+                        "outcome": outcome,
+                        "reason": reason,
+                        "status": status,
+                        "user_id": user_id,
                     },
                     resolution_center_case_list_params.ResolutionCenterCaseListParams,
                 ),

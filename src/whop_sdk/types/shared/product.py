@@ -1,199 +1,234 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
-from datetime import datetime
+from typing import List, Optional
 from typing_extensions import Literal
 
 from ..._models import BaseModel
-from .custom_cta import CustomCta
-from .visibility import Visibility
-from .global_affiliate_status import GlobalAffiliateStatus
 
-__all__ = ["Product", "Company", "GalleryImage", "OwnerUser", "ProductTaxCode"]
+__all__ = ["Product", "DefaultPlan", "DefaultPlanInitialPrice", "DefaultPlanRenewalPrice", "GalleryImage"]
 
 
-class Company(BaseModel):
-    """The company this product belongs to."""
+class DefaultPlanInitialPrice(BaseModel):
+    """What checkout charges up front.
+
+    `amount` is `"0.00"` when the first charge is free, such as a trial.
+    """
+
+    amount: str
+    """The amount in major units, as an exact decimal string — `"10.00"` is ten
+    dollars.
+
+    A string so no float rounds it in transit.
+    """
+
+    currency: str
+    """Three-letter ISO 4217 currency code, lowercase."""
+
+    decimals: int
+    """
+    How many decimal places the amount CARRIES — the precision the charge itself
+    runs at.
+    """
+
+    display_decimals: int
+    """How many decimal places to SHOW.
+
+    Usually equal to `decimals`, and deliberately not always: COP is charged in
+    centavos but written in whole pesos, so it is `2` and `0`. Format the number in
+    your own locale using this.
+    """
+
+
+class DefaultPlanRenewalPrice(BaseModel):
+    """The recurring charge every `billing_period` days.
+
+    `amount` is `"0.00"` for one-time plans.
+    """
+
+    amount: str
+    """The amount in major units, as an exact decimal string — `"10.00"` is ten
+    dollars.
+
+    A string so no float rounds it in transit.
+    """
+
+    currency: str
+    """Three-letter ISO 4217 currency code, lowercase."""
+
+    decimals: int
+    """
+    How many decimal places the amount CARRIES — the precision the charge itself
+    runs at.
+    """
+
+    display_decimals: int
+    """How many decimal places to SHOW.
+
+    Usually equal to `decimals`, and deliberately not always: COP is charged in
+    centavos but written in whole pesos, so it is `2` and `0`. Format the number in
+    your own locale using this.
+    """
+
+
+class DefaultPlan(BaseModel):
+    """Buyable plan to show and check out with.
+
+    The configured default when that plan is buyable, otherwise the first buyable plan in product-page order. `null` when none is buyable.
+    """
 
     id: str
-    """The unique identifier for the company."""
+    """Plan ID, prefixed `plan_`."""
 
-    route: str
-    """URL slug for the account's store page, e.g. `pickaxe` in whop.com/pickaxe."""
+    billing_period: Optional[float] = None
+    """
+    Number of days between recurring charges, such as 30 for monthly or 365 for
+    annual. `null` for one-time plans.
+    """
 
-    title: str
-    """The display name of the company shown to customers."""
+    expiration_days: Optional[float] = None
+    """Access duration in days for expiration-based plans.
+
+    `null` for plans without an expiration.
+    """
+
+    initial_price: DefaultPlanInitialPrice
+    """What checkout charges up front.
+
+    `amount` is `"0.00"` when the first charge is free, such as a trial.
+    """
+
+    plan_type: Literal["renewal", "one_time"]
+    """Billing model for this plan: `one_time` or `renewal`."""
+
+    renewal_price: DefaultPlanRenewalPrice
+    """The recurring charge every `billing_period` days.
+
+    `amount` is `"0.00"` for one-time plans.
+    """
+
+    title: Optional[str] = None
+    """Plan display name shown to customers. `null` if no title has been set."""
+
+    unlimited_stock: bool
+    """Whether the plan has unlimited stock."""
+
+    visibility: Literal["visible", "hidden", "archived", "quick_link"]
+    """Where this plan can be seen. `visible` plans appear on the product page."""
 
 
 class GalleryImage(BaseModel):
-    """Represents an image attachment"""
+    """Gallery images for this product, ordered by position."""
 
     id: str
-    """Represents a unique identifier that is Base64 obfuscated.
-
-    It is often used to refetch an object or as key for a cache. The ID type appears
-    in a JSON response as a String; however, it is not intended to be
-    human-readable. When expected as an input type, any string (such as
-    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
-    ID.
-    """
+    """Gallery image ID."""
 
     content_type: Optional[str] = None
-    """Uploaded file MIME type, such as image/jpeg, video/mp4, or audio/mpeg."""
+    """Uploaded file MIME type, such as image/jpeg."""
 
     url: Optional[str] = None
-    """A pre-optimized URL for rendering this attachment on the client.
-
-    This should be used for displaying attachments in apps.
-    """
-
-
-class OwnerUser(BaseModel):
-    """The user who owns the company that sells this product."""
-
-    id: str
-    """The unique identifier for the user."""
-
-    name: Optional[str] = None
-    """The user's display name shown on their public profile."""
-
-    username: str
-    """The user's unique username shown on their public profile."""
-
-
-class ProductTaxCode(BaseModel):
-    """
-    The tax classification code applied to purchases of this product for sales tax calculation. Null if no tax code is assigned.
-    """
-
-    id: str
-    """The unique identifier for the product tax code."""
-
-    name: str
-    """Human-readable name of this tax classification, such as 'Digital - SaaS'."""
-
-    product_type: Literal["physical", "digital", "services"]
-    """
-    Broad product category this tax code covers, such as physical goods or digital
-    services.
-    """
+    """Pre-optimized URL for rendering this image on the client."""
 
 
 class Product(BaseModel):
-    """A product is a digital good or service sold on Whop.
-
-    Products contain plans for pricing and experiences for content delivery.
-    """
-
     id: str
-    """The unique identifier for the product."""
+    """Product ID, prefixed `prod_`."""
 
-    company: Company
-    """The company this product belongs to."""
+    account: Optional[object] = None
+    """Account that sells this product."""
 
-    created_at: datetime
-    """The datetime the product was created."""
+    created_at: str
+    """When the product was created, as an ISO 8601 timestamp."""
 
-    custom_cta: CustomCta
+    custom_cta: Optional[
+        Literal[
+            "get_access",
+            "join",
+            "order_now",
+            "shop_now",
+            "call_now",
+            "donate_now",
+            "contact_us",
+            "sign_up",
+            "subscribe",
+            "purchase",
+            "get_offer",
+            "apply_now",
+            "complete_order",
+        ]
+    ] = None
     """Call-to-action button label shown on the product purchase page."""
 
     custom_cta_url: Optional[str] = None
-    """
-    An optional URL that the call-to-action button links to instead of the default
-    checkout flow. Null if no custom URL is set.
-    """
+    """URL the call-to-action button links to instead of checkout."""
 
     custom_statement_descriptor: Optional[str] = None
-    """Custom bank statement descriptor for product purchases.
+    """Custom text label on customer's bank statement."""
 
-    Maximum 22 characters, including required `WHOP*` prefix.
+    default_plan: Optional[DefaultPlan] = None
+    """Buyable plan to show and check out with.
+
+    The configured default when that plan is buyable, otherwise the first buyable
+    plan in product-page order. `null` when none is buyable.
     """
 
     description: Optional[str] = None
-    """
-    A brief summary of what the product offers, displayed on product pages and
-    search results.
-    """
+    """Written description displayed on the product page. `null` if none is set."""
 
     external_identifier: Optional[str] = None
-    """External identifier for the product.
-
-    Providing it on a product creation endpoint updates the existing product with
-    this identifier instead of creating a new one.
-    """
+    """External identifier stored on the product for your own reference."""
 
     gallery_images: List[GalleryImage]
-    """The gallery images for this product, ordered by position."""
 
     global_affiliate_percentage: Optional[float] = None
-    """
-    Marketplace affiliate commission percentage for this product, or `null` if
-    program is inactive.
-    """
+    """Commission rate affiliates earn through the global affiliate program."""
 
-    global_affiliate_status: GlobalAffiliateStatus
-    """
-    The enrollment status of this product in the Whop marketplace global affiliate
-    program.
-    """
+    global_affiliate_status: Optional[Literal["enabled", "disabled"]] = None
+    """Enrollment status in the global affiliate program."""
 
     headline: Optional[str] = None
-    """A short marketing headline displayed prominently on the product's product page."""
+    """Short marketing headline displayed on product page."""
+
+    labels: List[str]
+
+    marketplace_status: Literal["not_available", "pending_review", "live_marketplace"]
+    """Listing state on the whop.com marketplace.
+
+    `pending_review` means submitted and awaiting review; `live_marketplace` means
+    approved and discoverable.
+    """
 
     member_affiliate_percentage: Optional[float] = None
-    """
-    Member referral commission percentage for this product, or `null` if program is
-    inactive.
-    """
+    """Commission rate members earn through the member affiliate program."""
 
-    member_affiliate_status: GlobalAffiliateStatus
-    """The enrollment status of this product in the member affiliate program."""
+    member_affiliate_status: Optional[Literal["enabled", "disabled"]] = None
+    """Enrollment status in the member affiliate program."""
 
-    member_count: int
-    """Active memberships for this product.
+    member_count: float
+    """Active memberships for this product; 0 if public member counts are disabled."""
 
-    Returns `0` if the account has disabled public member counts.
-    """
+    metadata: Optional[object] = None
+    """Custom key-value pairs stored on the product."""
 
-    metadata: Optional[Dict[str, object]] = None
-    """
-    Custom key-value pairs stored on the product and included in payment and
-    membership webhook payloads. Max 50 keys, 100 characters per key, 500 characters
-    per string value.
-    """
+    owner_user: Optional[object] = None
+    """User who owns the account selling this product."""
 
-    owner_user: OwnerUser
-    """The user who owns the company that sells this product."""
+    product_tax_code: Optional[object] = None
+    """Tax classification code for this product, or `null` if no tax code is set."""
 
-    product_tax_code: Optional[ProductTaxCode] = None
-    """
-    The tax classification code applied to purchases of this product for sales tax
-    calculation. Null if no tax code is assigned.
-    """
-
-    published_reviews_count: int
-    """The total number of published customer reviews for this product's company."""
+    published_reviews_count: float
+    """Published customer reviews for this product."""
 
     route: str
-    """URL slug in the product's public link, e.g.
-
-    `pickaxe-analytics` in whop.com/company/pickaxe-analytics.
-    """
+    """URL slug for the product's public link."""
 
     title: str
-    """
-    The display name of the product shown to customers on the product page and in
-    search results.
-    """
+    """Product display name shown to customers."""
 
-    updated_at: datetime
-    """The datetime the product was last updated."""
+    updated_at: str
+    """When the product was last updated, as an ISO 8601 timestamp."""
 
     verified: bool
-    """Whether this company has been verified by Whop's trust and safety team."""
+    """Whether the product has been verified by Whop."""
 
-    visibility: Visibility
-    """Controls whether the product is visible to customers.
-
-    When set to 'hidden', the product is only accessible via direct link.
-    """
+    visibility: Optional[str] = None
+    """Whether the product is publicly visible, hidden, or archived."""

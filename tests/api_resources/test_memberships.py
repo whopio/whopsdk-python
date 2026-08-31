@@ -9,10 +9,6 @@ import pytest
 
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
-from whop_sdk.types import (
-    MembershipListResponse,
-)
-from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 from whop_sdk.types.shared import Membership
 
@@ -26,7 +22,16 @@ class TestMemberships:
     @parametrize
     def test_method_retrieve(self, client: Whop) -> None:
         membership = client.memberships.retrieve(
-            "mem_xxxxxxxxxxxxxx",
+            id="id",
+        )
+        assert_matches_type(Membership, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_retrieve_with_all_params(self, client: Whop) -> None:
+        membership = client.memberships.retrieve(
+            id="id",
+            api_version_date="2026-08-25-2",
         )
         assert_matches_type(Membership, membership, path=["response"])
 
@@ -34,7 +39,7 @@ class TestMemberships:
     @parametrize
     def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.memberships.with_raw_response.retrieve(
-            "mem_xxxxxxxxxxxxxx",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -46,7 +51,7 @@ class TestMemberships:
     @parametrize
     def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.memberships.with_streaming_response.retrieve(
-            "mem_xxxxxxxxxxxxxx",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -61,14 +66,14 @@ class TestMemberships:
     def test_path_params_retrieve(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.memberships.with_raw_response.retrieve(
-                "",
+                id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update(self, client: Whop) -> None:
         membership = client.memberships.update(
-            id="mem_xxxxxxxxxxxxxx",
+            id="id",
         )
         assert_matches_type(Membership, membership, path=["response"])
 
@@ -76,8 +81,10 @@ class TestMemberships:
     @parametrize
     def test_method_update_with_all_params(self, client: Whop) -> None:
         membership = client.memberships.update(
-            id="mem_xxxxxxxxxxxxxx",
-            metadata={"foo": "bar"},
+            id="id",
+            cancel_at_period_end=True,
+            metadata={"seat": "42"},
+            api_version_date="2026-08-25-2",
         )
         assert_matches_type(Membership, membership, path=["response"])
 
@@ -85,7 +92,7 @@ class TestMemberships:
     @parametrize
     def test_raw_response_update(self, client: Whop) -> None:
         response = client.memberships.with_raw_response.update(
-            id="mem_xxxxxxxxxxxxxx",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -97,7 +104,7 @@ class TestMemberships:
     @parametrize
     def test_streaming_response_update(self, client: Whop) -> None:
         with client.memberships.with_streaming_response.update(
-            id="mem_xxxxxxxxxxxxxx",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -119,32 +126,28 @@ class TestMemberships:
     @parametrize
     def test_method_list(self, client: Whop) -> None:
         membership = client.memberships.list()
-        assert_matches_type(SyncCursorPage[MembershipListResponse], membership, path=["response"])
+        assert_matches_type(SyncCursorPage[Membership], membership, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         membership = client.memberships.list(
+            account_id="account_id",
             after="after",
             before="before",
-            cancel_options=["too_expensive"],
-            cancelation_status="won_back",
-            company_id="biz_xxxxxxxxxxxxxx",
-            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
-            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
+            created_after="created_after",
+            created_before="created_before",
             direction="asc",
-            first=42,
-            has_cancelation_reason=True,
-            include_text_only_cancelation_reasons=True,
-            last=42,
-            order="id",
-            plan_ids=["string"],
-            product_ids=["string"],
-            promo_code_ids=["string"],
-            statuses=["trialing"],
-            user_ids=["string"],
+            first=100,
+            last=100,
+            order="created_at",
+            plan_id="plan_id",
+            product_id="product_id",
+            status="active",
+            user_id="user_id",
+            api_version_date="2026-08-25-2",
         )
-        assert_matches_type(SyncCursorPage[MembershipListResponse], membership, path=["response"])
+        assert_matches_type(SyncCursorPage[Membership], membership, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -154,7 +157,7 @@ class TestMemberships:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         membership = response.parse()
-        assert_matches_type(SyncCursorPage[MembershipListResponse], membership, path=["response"])
+        assert_matches_type(SyncCursorPage[Membership], membership, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -164,7 +167,7 @@ class TestMemberships:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             membership = response.parse()
-            assert_matches_type(SyncCursorPage[MembershipListResponse], membership, path=["response"])
+            assert_matches_type(SyncCursorPage[Membership], membership, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -218,7 +221,7 @@ class TestMemberships:
     @parametrize
     def test_method_cancel(self, client: Whop) -> None:
         membership = client.memberships.cancel(
-            id="mem_xxxxxxxxxxxxxx",
+            id="id",
         )
         assert_matches_type(Membership, membership, path=["response"])
 
@@ -226,8 +229,11 @@ class TestMemberships:
     @parametrize
     def test_method_cancel_with_all_params(self, client: Whop) -> None:
         membership = client.memberships.cancel(
-            id="mem_xxxxxxxxxxxxxx",
-            cancellation_mode="at_period_end",
+            id="id",
+            cancel_at_period_end=True,
+            reason="chargeback risk",
+            api_version_date="2026-08-25-2",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Membership, membership, path=["response"])
 
@@ -235,7 +241,7 @@ class TestMemberships:
     @parametrize
     def test_raw_response_cancel(self, client: Whop) -> None:
         response = client.memberships.with_raw_response.cancel(
-            id="mem_xxxxxxxxxxxxxx",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -247,7 +253,7 @@ class TestMemberships:
     @parametrize
     def test_streaming_response_cancel(self, client: Whop) -> None:
         with client.memberships.with_streaming_response.cancel(
-            id="mem_xxxxxxxxxxxxxx",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -269,7 +275,7 @@ class TestMemberships:
     @parametrize
     def test_method_pause(self, client: Whop) -> None:
         membership = client.memberships.pause(
-            id="mem_xxxxxxxxxxxxxx",
+            id="id",
         )
         assert_matches_type(Membership, membership, path=["response"])
 
@@ -277,9 +283,10 @@ class TestMemberships:
     @parametrize
     def test_method_pause_with_all_params(self, client: Whop) -> None:
         membership = client.memberships.pause(
-            id="mem_xxxxxxxxxxxxxx",
-            resumes_at=parse_datetime("2023-12-01T05:00:00.401Z"),
-            void_payments=True,
+            id="id",
+            until="2026-01-01T12:00:00.000Z",
+            api_version_date="2026-08-25-2",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Membership, membership, path=["response"])
 
@@ -287,7 +294,7 @@ class TestMemberships:
     @parametrize
     def test_raw_response_pause(self, client: Whop) -> None:
         response = client.memberships.with_raw_response.pause(
-            id="mem_xxxxxxxxxxxxxx",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -299,7 +306,7 @@ class TestMemberships:
     @parametrize
     def test_streaming_response_pause(self, client: Whop) -> None:
         with client.memberships.with_streaming_response.pause(
-            id="mem_xxxxxxxxxxxxxx",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -321,7 +328,17 @@ class TestMemberships:
     @parametrize
     def test_method_resume(self, client: Whop) -> None:
         membership = client.memberships.resume(
-            "mem_xxxxxxxxxxxxxx",
+            id="id",
+        )
+        assert_matches_type(Membership, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_resume_with_all_params(self, client: Whop) -> None:
+        membership = client.memberships.resume(
+            id="id",
+            api_version_date="2026-08-25-2",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Membership, membership, path=["response"])
 
@@ -329,7 +346,7 @@ class TestMemberships:
     @parametrize
     def test_raw_response_resume(self, client: Whop) -> None:
         response = client.memberships.with_raw_response.resume(
-            "mem_xxxxxxxxxxxxxx",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -341,7 +358,7 @@ class TestMemberships:
     @parametrize
     def test_streaming_response_resume(self, client: Whop) -> None:
         with client.memberships.with_streaming_response.resume(
-            "mem_xxxxxxxxxxxxxx",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -356,7 +373,7 @@ class TestMemberships:
     def test_path_params_resume(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.memberships.with_raw_response.resume(
-                "",
+                id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -411,7 +428,16 @@ class TestAsyncMemberships:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         membership = await async_client.memberships.retrieve(
-            "mem_xxxxxxxxxxxxxx",
+            id="id",
+        )
+        assert_matches_type(Membership, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
+        membership = await async_client.memberships.retrieve(
+            id="id",
+            api_version_date="2026-08-25-2",
         )
         assert_matches_type(Membership, membership, path=["response"])
 
@@ -419,7 +445,7 @@ class TestAsyncMemberships:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.memberships.with_raw_response.retrieve(
-            "mem_xxxxxxxxxxxxxx",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -431,7 +457,7 @@ class TestAsyncMemberships:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.memberships.with_streaming_response.retrieve(
-            "mem_xxxxxxxxxxxxxx",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -446,14 +472,14 @@ class TestAsyncMemberships:
     async def test_path_params_retrieve(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.memberships.with_raw_response.retrieve(
-                "",
+                id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update(self, async_client: AsyncWhop) -> None:
         membership = await async_client.memberships.update(
-            id="mem_xxxxxxxxxxxxxx",
+            id="id",
         )
         assert_matches_type(Membership, membership, path=["response"])
 
@@ -461,8 +487,10 @@ class TestAsyncMemberships:
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         membership = await async_client.memberships.update(
-            id="mem_xxxxxxxxxxxxxx",
-            metadata={"foo": "bar"},
+            id="id",
+            cancel_at_period_end=True,
+            metadata={"seat": "42"},
+            api_version_date="2026-08-25-2",
         )
         assert_matches_type(Membership, membership, path=["response"])
 
@@ -470,7 +498,7 @@ class TestAsyncMemberships:
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncWhop) -> None:
         response = await async_client.memberships.with_raw_response.update(
-            id="mem_xxxxxxxxxxxxxx",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -482,7 +510,7 @@ class TestAsyncMemberships:
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncWhop) -> None:
         async with async_client.memberships.with_streaming_response.update(
-            id="mem_xxxxxxxxxxxxxx",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -504,32 +532,28 @@ class TestAsyncMemberships:
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
         membership = await async_client.memberships.list()
-        assert_matches_type(AsyncCursorPage[MembershipListResponse], membership, path=["response"])
+        assert_matches_type(AsyncCursorPage[Membership], membership, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         membership = await async_client.memberships.list(
+            account_id="account_id",
             after="after",
             before="before",
-            cancel_options=["too_expensive"],
-            cancelation_status="won_back",
-            company_id="biz_xxxxxxxxxxxxxx",
-            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
-            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
+            created_after="created_after",
+            created_before="created_before",
             direction="asc",
-            first=42,
-            has_cancelation_reason=True,
-            include_text_only_cancelation_reasons=True,
-            last=42,
-            order="id",
-            plan_ids=["string"],
-            product_ids=["string"],
-            promo_code_ids=["string"],
-            statuses=["trialing"],
-            user_ids=["string"],
+            first=100,
+            last=100,
+            order="created_at",
+            plan_id="plan_id",
+            product_id="product_id",
+            status="active",
+            user_id="user_id",
+            api_version_date="2026-08-25-2",
         )
-        assert_matches_type(AsyncCursorPage[MembershipListResponse], membership, path=["response"])
+        assert_matches_type(AsyncCursorPage[Membership], membership, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -539,7 +563,7 @@ class TestAsyncMemberships:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         membership = await response.parse()
-        assert_matches_type(AsyncCursorPage[MembershipListResponse], membership, path=["response"])
+        assert_matches_type(AsyncCursorPage[Membership], membership, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -549,7 +573,7 @@ class TestAsyncMemberships:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             membership = await response.parse()
-            assert_matches_type(AsyncCursorPage[MembershipListResponse], membership, path=["response"])
+            assert_matches_type(AsyncCursorPage[Membership], membership, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -603,7 +627,7 @@ class TestAsyncMemberships:
     @parametrize
     async def test_method_cancel(self, async_client: AsyncWhop) -> None:
         membership = await async_client.memberships.cancel(
-            id="mem_xxxxxxxxxxxxxx",
+            id="id",
         )
         assert_matches_type(Membership, membership, path=["response"])
 
@@ -611,8 +635,11 @@ class TestAsyncMemberships:
     @parametrize
     async def test_method_cancel_with_all_params(self, async_client: AsyncWhop) -> None:
         membership = await async_client.memberships.cancel(
-            id="mem_xxxxxxxxxxxxxx",
-            cancellation_mode="at_period_end",
+            id="id",
+            cancel_at_period_end=True,
+            reason="chargeback risk",
+            api_version_date="2026-08-25-2",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Membership, membership, path=["response"])
 
@@ -620,7 +647,7 @@ class TestAsyncMemberships:
     @parametrize
     async def test_raw_response_cancel(self, async_client: AsyncWhop) -> None:
         response = await async_client.memberships.with_raw_response.cancel(
-            id="mem_xxxxxxxxxxxxxx",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -632,7 +659,7 @@ class TestAsyncMemberships:
     @parametrize
     async def test_streaming_response_cancel(self, async_client: AsyncWhop) -> None:
         async with async_client.memberships.with_streaming_response.cancel(
-            id="mem_xxxxxxxxxxxxxx",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -654,7 +681,7 @@ class TestAsyncMemberships:
     @parametrize
     async def test_method_pause(self, async_client: AsyncWhop) -> None:
         membership = await async_client.memberships.pause(
-            id="mem_xxxxxxxxxxxxxx",
+            id="id",
         )
         assert_matches_type(Membership, membership, path=["response"])
 
@@ -662,9 +689,10 @@ class TestAsyncMemberships:
     @parametrize
     async def test_method_pause_with_all_params(self, async_client: AsyncWhop) -> None:
         membership = await async_client.memberships.pause(
-            id="mem_xxxxxxxxxxxxxx",
-            resumes_at=parse_datetime("2023-12-01T05:00:00.401Z"),
-            void_payments=True,
+            id="id",
+            until="2026-01-01T12:00:00.000Z",
+            api_version_date="2026-08-25-2",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Membership, membership, path=["response"])
 
@@ -672,7 +700,7 @@ class TestAsyncMemberships:
     @parametrize
     async def test_raw_response_pause(self, async_client: AsyncWhop) -> None:
         response = await async_client.memberships.with_raw_response.pause(
-            id="mem_xxxxxxxxxxxxxx",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -684,7 +712,7 @@ class TestAsyncMemberships:
     @parametrize
     async def test_streaming_response_pause(self, async_client: AsyncWhop) -> None:
         async with async_client.memberships.with_streaming_response.pause(
-            id="mem_xxxxxxxxxxxxxx",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -706,7 +734,17 @@ class TestAsyncMemberships:
     @parametrize
     async def test_method_resume(self, async_client: AsyncWhop) -> None:
         membership = await async_client.memberships.resume(
-            "mem_xxxxxxxxxxxxxx",
+            id="id",
+        )
+        assert_matches_type(Membership, membership, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_resume_with_all_params(self, async_client: AsyncWhop) -> None:
+        membership = await async_client.memberships.resume(
+            id="id",
+            api_version_date="2026-08-25-2",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Membership, membership, path=["response"])
 
@@ -714,7 +752,7 @@ class TestAsyncMemberships:
     @parametrize
     async def test_raw_response_resume(self, async_client: AsyncWhop) -> None:
         response = await async_client.memberships.with_raw_response.resume(
-            "mem_xxxxxxxxxxxxxx",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -726,7 +764,7 @@ class TestAsyncMemberships:
     @parametrize
     async def test_streaming_response_resume(self, async_client: AsyncWhop) -> None:
         async with async_client.memberships.with_streaming_response.resume(
-            "mem_xxxxxxxxxxxxxx",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -741,7 +779,7 @@ class TestAsyncMemberships:
     async def test_path_params_resume(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.memberships.with_raw_response.resume(
-                "",
+                id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")

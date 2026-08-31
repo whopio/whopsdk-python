@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
+from typing_extensions import Literal
+
 import httpx
 
 from ..types import verification_list_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform
+from .._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -15,8 +17,7 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..pagination import SyncCursorPage, AsyncCursorPage
-from .._base_client import AsyncPaginator, make_request_options
+from .._base_client import make_request_options
 from ..types.verification_list_response import VerificationListResponse
 from ..types.verification_retrieve_response import VerificationRetrieveResponse
 
@@ -24,7 +25,12 @@ __all__ = ["VerificationsResource", "AsyncVerificationsResource"]
 
 
 class VerificationsResource(SyncAPIResource):
-    """Verifications"""
+    """A Verification represents a legal identity for a person or business.
+
+    Accounts and users complete verification when Whop needs to confirm who they are before enabling payouts or compliance-sensitive workflows.
+
+    Use the Verifications API to start or resume a hosted verification session, check review status, and submit requested details or documents. If `requested_information` contains items, submit answers with [Update Verification](/api-reference/beta/verifications/update-verification).
+    """
 
     @cached_property
     def with_raw_response(self) -> VerificationsResourceWithRawResponse:
@@ -49,6 +55,7 @@ class VerificationsResource(SyncAPIResource):
         self,
         id: str,
         *,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -57,11 +64,8 @@ class VerificationsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VerificationRetrieveResponse:
         """
-        Retrieves the details of an existing verification.
-
-        Required permissions:
-
-        - `payout:account:read`
+        Returns verifications for an account, including their status and any required
+        actions.
 
         Args:
           extra_headers: Send extra headers
@@ -74,6 +78,7 @@ class VerificationsResource(SyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return self._get(
             path_template("/verifications/{id}", id=id),
             options=make_request_options(
@@ -85,36 +90,28 @@ class VerificationsResource(SyncAPIResource):
     def list(
         self,
         *,
-        payout_account_id: str,
-        after: str | Omit = omit,
-        before: str | Omit = omit,
-        first: int | Omit = omit,
-        last: int | Omit = omit,
+        account_id: str,
+        direction: Literal["asc", "desc"] | Omit = omit,
+        order: Literal["updated_at", "created_at"] | Omit = omit,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[VerificationListResponse]:
+    ) -> VerificationListResponse:
         """
-        Returns a list of identity verifications for a payout account, ordered by most
-        recent first.
-
-        Required permissions:
-
-        - `payout:account:read`
+        Returns verifications for an account, including their status and any required
+        actions.
 
         Args:
-          payout_account_id: The unique identifier of the payout account to list verifications for.
+          account_id: Account or user ID whose verifications you want to list. Use a `biz_` account
+              ID, or the caller's `user_` ID for personal verifications.
 
-          after: Returns the elements in the list that come after the specified cursor.
+          direction: Sort direction for returned verifications.
 
-          before: Returns the elements in the list that come before the specified cursor.
-
-          first: Returns the first _n_ elements from the list.
-
-          last: Returns the last _n_ elements from the list.
+          order: Field used to sort returned verifications.
 
           extra_headers: Send extra headers
 
@@ -124,9 +121,9 @@ class VerificationsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get_api_list(
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
+        return self._get(
             "/verifications",
-            page=SyncCursorPage[VerificationListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -134,21 +131,24 @@ class VerificationsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "payout_account_id": payout_account_id,
-                        "after": after,
-                        "before": before,
-                        "first": first,
-                        "last": last,
+                        "account_id": account_id,
+                        "direction": direction,
+                        "order": order,
                     },
                     verification_list_params.VerificationListParams,
                 ),
             ),
-            model=VerificationListResponse,
+            cast_to=VerificationListResponse,
         )
 
 
 class AsyncVerificationsResource(AsyncAPIResource):
-    """Verifications"""
+    """A Verification represents a legal identity for a person or business.
+
+    Accounts and users complete verification when Whop needs to confirm who they are before enabling payouts or compliance-sensitive workflows.
+
+    Use the Verifications API to start or resume a hosted verification session, check review status, and submit requested details or documents. If `requested_information` contains items, submit answers with [Update Verification](/api-reference/beta/verifications/update-verification).
+    """
 
     @cached_property
     def with_raw_response(self) -> AsyncVerificationsResourceWithRawResponse:
@@ -173,6 +173,7 @@ class AsyncVerificationsResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -181,11 +182,8 @@ class AsyncVerificationsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> VerificationRetrieveResponse:
         """
-        Retrieves the details of an existing verification.
-
-        Required permissions:
-
-        - `payout:account:read`
+        Returns verifications for an account, including their status and any required
+        actions.
 
         Args:
           extra_headers: Send extra headers
@@ -198,6 +196,7 @@ class AsyncVerificationsResource(AsyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return await self._get(
             path_template("/verifications/{id}", id=id),
             options=make_request_options(
@@ -206,39 +205,31 @@ class AsyncVerificationsResource(AsyncAPIResource):
             cast_to=VerificationRetrieveResponse,
         )
 
-    def list(
+    async def list(
         self,
         *,
-        payout_account_id: str,
-        after: str | Omit = omit,
-        before: str | Omit = omit,
-        first: int | Omit = omit,
-        last: int | Omit = omit,
+        account_id: str,
+        direction: Literal["asc", "desc"] | Omit = omit,
+        order: Literal["updated_at", "created_at"] | Omit = omit,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[VerificationListResponse, AsyncCursorPage[VerificationListResponse]]:
+    ) -> VerificationListResponse:
         """
-        Returns a list of identity verifications for a payout account, ordered by most
-        recent first.
-
-        Required permissions:
-
-        - `payout:account:read`
+        Returns verifications for an account, including their status and any required
+        actions.
 
         Args:
-          payout_account_id: The unique identifier of the payout account to list verifications for.
+          account_id: Account or user ID whose verifications you want to list. Use a `biz_` account
+              ID, or the caller's `user_` ID for personal verifications.
 
-          after: Returns the elements in the list that come after the specified cursor.
+          direction: Sort direction for returned verifications.
 
-          before: Returns the elements in the list that come before the specified cursor.
-
-          first: Returns the first _n_ elements from the list.
-
-          last: Returns the last _n_ elements from the list.
+          order: Field used to sort returned verifications.
 
           extra_headers: Send extra headers
 
@@ -248,26 +239,24 @@ class AsyncVerificationsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get_api_list(
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
+        return await self._get(
             "/verifications",
-            page=AsyncCursorPage[VerificationListResponse],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
+                query=await async_maybe_transform(
                     {
-                        "payout_account_id": payout_account_id,
-                        "after": after,
-                        "before": before,
-                        "first": first,
-                        "last": last,
+                        "account_id": account_id,
+                        "direction": direction,
+                        "order": order,
                     },
                     verification_list_params.VerificationListParams,
                 ),
             ),
-            model=VerificationListResponse,
+            cast_to=VerificationListResponse,
         )
 
 

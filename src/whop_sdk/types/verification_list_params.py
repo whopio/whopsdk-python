@@ -2,23 +2,24 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = ["VerificationListParams"]
 
 
 class VerificationListParams(TypedDict, total=False):
-    payout_account_id: Required[str]
-    """The unique identifier of the payout account to list verifications for."""
+    account_id: Required[str]
+    """Account or user ID whose verifications you want to list.
 
-    after: str
-    """Returns the elements in the list that come after the specified cursor."""
+    Use a `biz_` account ID, or the caller's `user_` ID for personal verifications.
+    """
 
-    before: str
-    """Returns the elements in the list that come before the specified cursor."""
+    direction: Literal["asc", "desc"]
+    """Sort direction for returned verifications."""
 
-    first: int
-    """Returns the first _n_ elements from the list."""
+    order: Literal["updated_at", "created_at"]
+    """Field used to sort returned verifications."""
 
-    last: int
-    """Returns the last _n_ elements from the list."""
+    api_version_date: Annotated[str, PropertyInfo(alias="Api-Version-Date")]

@@ -2,104 +2,142 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
-from datetime import datetime
+from typing import Optional
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
-from .shared.currency import Currency
 
-__all__ = ["BountyCreateParams"]
+__all__ = ["BountyCreateParams", "CaptureSpec"]
 
 
 class BountyCreateParams(TypedDict, total=False):
-    base_unit_amount: Required[float]
-    """The amount paid to each approved submission.
+    description: Required[str]
+    """Full task instructions shown to workers."""
 
-    The total bounty pool funded is this amount times accepted_submissions_limit,
-    and must be at least 5 in the bounty's currency.
+    gross_reward_amount: Required[float]
+    """
+    Gross bounty-pool amount (USD) escrowed per accepted submission, in whole
+    dollars. Platform fees and affiliate shares are paid from this amount.
     """
 
-    currency: Required[Currency]
-    """The currency for the bounty pool funding amount."""
-
-    description: Required[str]
-    """The description of the bounty."""
-
     title: Required[str]
-    """The title of the bounty."""
+    """Short name of the task shown to workers."""
 
     accepted_submissions_limit: Optional[int]
-    """The number of submissions that can be approved before the bounty closes.
+    """Number of submissions that can be accepted (winner slots).
 
-    Defaults to 1. The total pool (base_unit_amount times this limit) must be at
-    least 5 in the bounty's currency.
+    Defaults to 1. The escrowed total is `gross_reward_amount` times this limit and
+    must be at least $5.
+    """
+
+    accepted_submissions_per_user_limit: Optional[int]
+    """How many winner slots one worker can win.
+
+    Defaults to `1`. Wins plus proofs awaiting review never exceed this number, and
+    a worker runs one attempt at a time. Cannot exceed `accepted_submissions_limit`.
+    """
+
+    account_id: Optional[str]
+    """Account whose balance funds the bounty pool (`biz_` tag).
+
+    Defaults to the caller's personal balance. Requires permission to move the
+    account's funds.
     """
 
     allowed_country_codes: Optional[SequenceNotStr[str]]
-    """The ISO3166 country codes where this bounty should be visible.
+    """Countries whose residents can work the bounty, as ISO 3166 alpha-2 codes.
 
-    Empty means globally visible.
+    Empty means worldwide.
     """
 
-    business_goal_type: Optional[
-        Literal[
-            "clipping",
-            "post_engagement",
-            "owned_account_growth",
-            "ugc_content",
-            "local_activation",
-            "data_capture",
-            "other",
-        ]
+    business_goal_type: Literal[
+        "clipping",
+        "post_engagement",
+        "owned_account_growth",
+        "ugc_content",
+        "local_activation",
+        "data_capture",
+        "other",
     ]
-    """What the poster is trying to accomplish with a workforce bounty.
+    """What the poster wants the work to achieve, declared once here."""
 
-    Used for product taxonomy and analytics, separate from the bounty's
-    implementation type.
+    capture_spec: CaptureSpec
+    """Per-bounty overrides of the served capture contract.
+
+    Only accepted when `business_goal_type` is `data_capture`; omitted fields keep
+    the platform defaults, and the resulting contract is echoed back as
+    `capture_spec` on the bounty.
     """
 
     experience_id: Optional[str]
-    """An optional experience to scope the bounty to."""
+    """Experience to host the bounty in (`exp_` tag).
 
-    minimum_total_verified_clip_duration_seconds: Optional[int]
-    """
-    Data capture bounties only: the minimum total server-verified clip duration in
-    seconds. Defaults to 3600 and must be a whole number of hours between 1 and 12.
-    """
-
-    origin_account_id: Optional[str]
-    """The user (user*\\**) or company (biz*\\**) tag whose balance funds this bounty pool.
-
-    Defaults to the requester's personal balance when omitted. The requester must be
-    the user themself or an owner/admin of the company.
+    Any visibility — public for an open bounty, private for an invited one. Required
+    unless account_id is set, in which case the bounty anchors in that account's
+    public forum.
     """
 
-    post_markdown_content: Optional[str]
-    """Optional markdown body for the anchor forum post.
+    frequency: Literal["once", "hourly", "daily", "weekly", "monthly"]
+    """How often the schedule creates a new bounty.
 
-    Falls back to the bounty description when omitted.
+    Each occurrence is a separate bounty. Defaults to `once`; only applies with
+    `publish_at`.
     """
 
-    post_title: Optional[str]
-    """Optional title for the anchor forum post.
+    publish_at: Optional[str]
+    """ISO 8601 time to publish the bounty.
 
-    Falls back to the bounty title when omitted.
+    When set, the bounty is created as a hidden draft and funded + published at this
+    time instead of immediately.
     """
 
-    scheduled_frequency: Optional[Literal["once", "hourly", "daily", "weekly", "monthly"]]
-    """How often a scheduled bounty republishes a new bounty."""
+    publish_at_timezone: Optional[str]
+    """IANA timezone for recurring occurrences. Required when publish_at is set."""
 
-    scheduled_publish_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
-    """When to publish the bounty.
+    api_version_date: Annotated[str, PropertyInfo(alias="Api-Version-Date")]
 
-    When provided, the bounty is created as a hidden draft and published at this
-    time instead of immediately. Must be in the future.
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
+
+
+class CaptureSpec(TypedDict, total=False):
+    """Per-bounty overrides of the served capture contract.
+
+    Only accepted when `business_goal_type` is `data_capture`; omitted fields keep the platform defaults, and the resulting contract is echoed back as `capture_spec` on the bounty.
     """
 
-    scheduled_timezone: Optional[str]
-    """The IANA timezone used for recurring occurrences.
+    bitrate_target_mbps: int
+    """Average bitrate the recorder encodes at, in megabits per second.
 
-    Required when scheduled_publish_at is provided.
+    Must sit within the served floor and ceiling.
+    """
+
+    embed_camera_metadata: bool
+    """
+    Whether the recorder also writes camera make and model into the video
+    container's metadata.
+    """
+
+    frame_gap_tolerance_ms: int
+    """
+    Longest stall between consecutive frames a clip may contain before the client
+    rejects it, in milliseconds. Unlike the recording fields this one can also be
+    tuned after the bounty is created, since it bounds what is accepted rather than
+    how footage is captured.
+    """
+
+    min_clip_duration_seconds: int
+    """Minimum length of a single clip, in seconds."""
+
+    min_total_verified_duration_seconds: int
+    """
+    Total verified footage a submission must accumulate across all its clips before
+    it can be submitted, in seconds. Must be a whole number of hours between 1
+    and 12. Editable after create, until someone starts an attempt.
+    """
+
+    stabilization_mode: Literal["off", "on", "any"]
+    """How the recorder configures video stabilization.
+
+    `off` preserves raw motion for pose extraction.
     """

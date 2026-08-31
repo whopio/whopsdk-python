@@ -21,10 +21,6 @@ class ProductCreatedWebhookEvent(BaseModel):
     """The dated API version (Api-Version-Date) the payload is serialized to"""
 
     data: Product
-    """A product is a digital good or service sold on Whop.
-
-    Products contain plans for pricing and experiences for content delivery.
-    """
 
     timestamp: datetime
     """The timestamp in ISO 8601 format that the webhook was sent at on the server"""

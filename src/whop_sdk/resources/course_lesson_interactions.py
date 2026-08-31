@@ -24,8 +24,6 @@ __all__ = ["CourseLessonInteractionsResource", "AsyncCourseLessonInteractionsRes
 
 
 class CourseLessonInteractionsResource(SyncAPIResource):
-    """Course lesson interactions"""
-
     @cached_property
     def with_raw_response(self) -> CourseLessonInteractionsResourceWithRawResponse:
         """
@@ -162,8 +160,6 @@ class CourseLessonInteractionsResource(SyncAPIResource):
 
 
 class AsyncCourseLessonInteractionsResource(AsyncAPIResource):
-    """Course lesson interactions"""
-
     @cached_property
     def with_raw_response(self) -> AsyncCourseLessonInteractionsResourceWithRawResponse:
         """

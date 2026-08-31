@@ -1,126 +1,420 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
-from datetime import datetime
+import builtins
+from typing import List, Optional
+from typing_extensions import Literal
 
 from .._models import BaseModel
-from .card_brands import CardBrands
-from .billing_reasons import BillingReasons
-from .shared.currency import Currency
-from .dispute_statuses import DisputeStatuses
-from .payment_method_types import PaymentMethodTypes
-from .shared.membership_status import MembershipStatus
 
 __all__ = [
     "Dispute",
-    "CancellationPolicyAttachment",
-    "Company",
-    "CustomerCommunicationAttachment",
+    "Buyer",
+    "Evidence",
+    "EvidenceCancellationPolicyAttachment",
+    "EvidenceCustomerCommunicationAttachment",
+    "EvidenceDocument",
+    "EvidenceDocumentMultipartUploadURL",
+    "EvidenceRefundPolicyAttachment",
+    "EvidenceUncategorizedAttachment",
+    "GeneratedResponseAttachment",
+    "IssuerComment",
     "Payment",
-    "PaymentMember",
-    "PaymentMembership",
     "PaymentPaymentInstrument",
+    "PaymentPaymentInstrumentCard",
     "PaymentPaymentInstrumentIcons",
+    "PaymentPaymentInstrumentIconsCard",
+    "PaymentPaymentInstrumentIconsCardDark",
+    "PaymentPaymentInstrumentIconsCardLight",
     "PaymentPaymentInstrumentIconsSquare",
     "PaymentPaymentInstrumentIconsSquareDark",
     "PaymentPaymentInstrumentIconsSquareLight",
-    "PaymentUser",
-    "Plan",
-    "Product",
-    "RefundPolicyAttachment",
-    "UncategorizedAttachment",
 ]
 
 
-class CancellationPolicyAttachment(BaseModel):
-    """The cancellation policy document uploaded as dispute evidence.
+class Buyer(BaseModel):
+    """The customer who filed the dispute."""
 
-    Null if no cancellation policy has been provided.
+    email: Optional[str] = None
+    """The customer's email address.
+
+    Requires the `member:email:read` scope; `null` without it.
     """
 
-    id: str
-    """Represents a unique identifier that is Base64 obfuscated.
+    member_id: Optional[str] = None
+    """The customer's member row on the account, prefixed `mem_`."""
 
-    It is often used to refetch an object or as key for a cache. The ID type appears
-    in a JSON response as a String; however, it is not intended to be
-    human-readable. When expected as an input type, any string (such as
-    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
-    ID.
+    name: Optional[str] = None
+    """The customer's display name."""
+
+    user_id: Optional[str] = None
+    """The customer's user ID, prefixed `user_`. `null` for a guest checkout."""
+
+    username: Optional[str] = None
+    """The customer's Whop username."""
+
+
+class EvidenceCancellationPolicyAttachment(BaseModel):
+    """The cancellation policy document.
+
+    Falls back to Whop's platform policy when the seller has not uploaded their own.
     """
 
-    content_type: Optional[str] = None
-    """Uploaded file MIME type, such as image/jpeg, video/mp4, or audio/mpeg."""
+    id: Optional[str] = None
+    """The attachment's ID.
 
-    filename: Optional[str] = None
-    """The original filename of the uploaded attachment, including its file extension."""
-
-    url: Optional[str] = None
-    """A pre-optimized URL for rendering this attachment on the client.
-
-    This should be used for displaying attachments in apps.
-    """
-
-
-class Company(BaseModel):
-    """The company that the dispute was filed against."""
-
-    id: str
-    """The unique identifier for the company."""
-
-    title: str
-    """The written name of the company."""
-
-
-class CustomerCommunicationAttachment(BaseModel):
-    """
-    Evidence of customer communication or product usage, uploaded as a dispute attachment. Null if not provided.
-    """
-
-    id: str
-    """Represents a unique identifier that is Base64 obfuscated.
-
-    It is often used to refetch an object or as key for a cache. The ID type appears
-    in a JSON response as a String; however, it is not intended to be
-    human-readable. When expected as an input type, any string (such as
-    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
-    ID.
+    `null` for a Whop-hosted policy, which is not an uploaded file.
     """
 
     content_type: Optional[str] = None
-    """Uploaded file MIME type, such as image/jpeg, video/mp4, or audio/mpeg."""
+    """The uploaded file's MIME type."""
 
     filename: Optional[str] = None
-    """The original filename of the uploaded attachment, including its file extension."""
+    """The uploaded file's name."""
+
+    platform: bool
+    """
+    Whether this is Whop's own hosted policy, standing in because the seller
+    uploaded none. Sending it back on a PATCH changes nothing.
+    """
 
     url: Optional[str] = None
-    """A pre-optimized URL for rendering this attachment on the client.
+    """A URL to download the attachment."""
 
-    This should be used for displaying attachments in apps.
+
+class EvidenceCustomerCommunicationAttachment(BaseModel):
+    """Correspondence with the customer, or proof they used the product."""
+
+    id: Optional[str] = None
+    """The attachment's ID.
+
+    `null` for a Whop-hosted policy, which is not an uploaded file.
+    """
+
+    content_type: Optional[str] = None
+    """The uploaded file's MIME type."""
+
+    filename: Optional[str] = None
+    """The uploaded file's name."""
+
+    platform: bool
+    """
+    Whether this is Whop's own hosted policy, standing in because the seller
+    uploaded none. Sending it back on a PATCH changes nothing.
+    """
+
+    url: Optional[str] = None
+    """A URL to download the attachment."""
+
+
+class EvidenceDocumentMultipartUploadURL(BaseModel):
+    """The presigned URL for each part.
+
+    Present only on create, and only for multipart uploads.
+    """
+
+    part_number: int
+    """The 1-based index of this part within the multipart upload."""
+
+    url: str
+    """The presigned URL to PUT this part's bytes to."""
+
+
+class EvidenceDocument(BaseModel):
+    """
+    Additional evidence documents uploaded through `POST /disputes/{id}/upload_evidence`, beyond the four fixed slots. Each rides into the submitted packet under its `document_type`.
+    """
+
+    id: str
+    """The file's ID, prefixed `file_`."""
+
+    content_type: Optional[Literal["application/pdf", "application/json", "image/jpeg", "image/png", "image/webp"]] = (
+        None
+    )
+    """The uploaded file's MIME type.
+
+    Uploads are restricted to the types the processor accepts.
+    """
+
+    created_at: str
+    """When the file was created, as an ISO 8601 timestamp."""
+
+    document_type: Literal[
+        "return_policy",
+        "shipping_policy",
+        "physical_fulfillment",
+        "customer_order_history",
+        "product_image",
+        "prior_transactions",
+        "customer_session",
+        "digital_fulfillment",
+        "subscription",
+    ]
+    """What kind of evidence the document is."""
+
+    filename: Optional[str] = None
+    """The original filename, including its extension."""
+
+    object: str
+    """The type of this object, always `file`."""
+
+    size: Optional[int] = None
+    """The file size in bytes. `null` until the upload has finished."""
+
+    upload_status: Literal["pending", "processing", "ready", "failed"]
+    """Where the file is in its upload lifecycle."""
+
+    url: Optional[str] = None
+    """
+    A URL to download the file: a permanent CDN URL for public files, a signed
+    expiring URL for private ones. `null` until the upload has finished.
+    """
+
+    visibility: Literal["public", "private"]
+    """
+    `public` files are served via an unsigned CDN URL; `private` files via a signed,
+    expiring URL.
+    """
+
+    multipart_chunk_size: Optional[int] = None
+    """The byte size each part (except the last) must be.
+
+    Present only on create, and only for multipart uploads.
+    """
+
+    multipart_upload_id: Optional[str] = None
+    """The ID of the multipart upload, passed back to `complete`.
+
+    Present only on create, and only for multipart uploads.
+    """
+
+    multipart_upload_urls: Optional[List[EvidenceDocumentMultipartUploadURL]] = None
+
+    upload_headers: Optional[builtins.object] = None
+    """Headers to send with the upload PUT. Present only on create."""
+
+    upload_url: Optional[str] = None
+    """Presigned URL to PUT the file's bytes to.
+
+    Present only on create, and only for single-part uploads.
     """
 
 
-class PaymentMember(BaseModel):
-    """The member attached to this payment."""
+class EvidenceRefundPolicyAttachment(BaseModel):
+    """The refund policy document.
 
-    id: str
-    """The unique identifier for the company member."""
+    Falls back to Whop's platform policy when the seller has not uploaded their own.
+    """
 
-    phone: Optional[str] = None
-    """The phone number for the member, if available."""
+    id: Optional[str] = None
+    """The attachment's ID.
+
+    `null` for a Whop-hosted policy, which is not an uploaded file.
+    """
+
+    content_type: Optional[str] = None
+    """The uploaded file's MIME type."""
+
+    filename: Optional[str] = None
+    """The uploaded file's name."""
+
+    platform: bool
+    """
+    Whether this is Whop's own hosted policy, standing in because the seller
+    uploaded none. Sending it back on a PATCH changes nothing.
+    """
+
+    url: Optional[str] = None
+    """A URL to download the attachment."""
 
 
-class PaymentMembership(BaseModel):
-    """The membership attached to this payment."""
+class EvidenceUncategorizedAttachment(BaseModel):
+    """Supporting evidence that does not fit the other categories."""
 
-    id: str
-    """The unique identifier for the membership."""
+    id: Optional[str] = None
+    """The attachment's ID.
 
-    status: MembershipStatus
-    """The state of the membership."""
+    `null` for a Whop-hosted policy, which is not an uploaded file.
+    """
+
+    content_type: Optional[str] = None
+    """The uploaded file's MIME type."""
+
+    filename: Optional[str] = None
+    """The uploaded file's name."""
+
+    platform: bool
+    """
+    Whether this is Whop's own hosted policy, standing in because the seller
+    uploaded none. Sending it back on a PATCH changes nothing.
+    """
+
+    url: Optional[str] = None
+    """A URL to download the attachment."""
+
+
+class Evidence(BaseModel):
+    """The evidence packet sent to the processor to contest the dispute."""
+
+    access_activity_log: Optional[str] = None
+    """
+    Log of the customer's access to the product, such as sign-in or download
+    activity.
+    """
+
+    billing_address: Optional[str] = None
+    """The billing address the customer provided at checkout."""
+
+    cancellation_policy_attachment: Optional[EvidenceCancellationPolicyAttachment] = None
+    """The cancellation policy document.
+
+    Falls back to Whop's platform policy when the seller has not uploaded their own.
+    """
+
+    cancellation_policy_disclosure: Optional[str] = None
+    """How the cancellation policy was shown to the customer before purchase."""
+
+    customer_communication_attachment: Optional[EvidenceCustomerCommunicationAttachment] = None
+    """Correspondence with the customer, or proof they used the product."""
+
+    customer_email_address: Optional[str] = None
+    """The email address the customer used at checkout."""
+
+    customer_name: Optional[str] = None
+    """The customer's name as given at checkout."""
+
+    documents: List[EvidenceDocument]
+
+    notes: Optional[str] = None
+    """Any additional context for the processor reviewing the dispute."""
+
+    product_description: Optional[str] = None
+    """What the customer purchased, in the seller's own words."""
+
+    refund_policy_attachment: Optional[EvidenceRefundPolicyAttachment] = None
+    """The refund policy document.
+
+    Falls back to Whop's platform policy when the seller has not uploaded their own.
+    """
+
+    refund_policy_disclosure: Optional[str] = None
+    """How the refund policy was shown to the customer before purchase."""
+
+    refund_refusal_explanation: Optional[str] = None
+    """Why a refund was refused, when one was requested and denied."""
+
+    service_date: Optional[str] = None
+    """When the product or service was delivered."""
+
+    uncategorized_attachment: Optional[EvidenceUncategorizedAttachment] = None
+    """Supporting evidence that does not fit the other categories."""
+
+
+class GeneratedResponseAttachment(BaseModel):
+    """
+    The AI-generated representment document filed with the processor on the seller's behalf, once ready. Null until generation completes, and for disputes not using Whop Dispute Fighter.
+    """
+
+    id: Optional[str] = None
+    """The attachment's ID.
+
+    `null` for a Whop-hosted policy, which is not an uploaded file.
+    """
+
+    content_type: Optional[str] = None
+    """The uploaded file's MIME type."""
+
+    filename: Optional[str] = None
+    """The uploaded file's name."""
+
+    platform: bool
+    """
+    Whether this is Whop's own hosted policy, standing in because the seller
+    uploaded none. Sending it back on a PATCH changes nothing.
+    """
+
+    url: Optional[str] = None
+    """A URL to download the attachment."""
+
+
+class IssuerComment(BaseModel):
+    """What the card issuer said when filing the dispute.
+
+    Only populated when the issuer provides them, and listed in the order they were received.
+    """
+
+    received_at: Optional[str] = None
+    """When the comment was received, as an ISO 8601 timestamp."""
+
+    text: str
+    """What the issuer wrote, as received."""
+
+
+class PaymentPaymentInstrumentCard(BaseModel):
+    """Card payments only: the card's network and last four."""
+
+    brand: str
+    """
+    The network identifier (`visa`, `amex`, …), matching `card.networks` entries and
+    saved card payment methods.
+    """
+
+    last4: Optional[str] = None
+    """The card's last four digits, when captured."""
+
+
+class PaymentPaymentInstrumentIconsCardDark(BaseModel):
+    """The colorway for dark surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class PaymentPaymentInstrumentIconsCardLight(BaseModel):
+    """The colorway for light surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class PaymentPaymentInstrumentIconsCard(BaseModel):
+    """The credit-card-proportioned tile (48x30)."""
+
+    dark: PaymentPaymentInstrumentIconsCardDark
+    """The colorway for dark surfaces."""
+
+    light: PaymentPaymentInstrumentIconsCardLight
+    """The colorway for light surfaces."""
 
 
 class PaymentPaymentInstrumentIconsSquareDark(BaseModel):
     """The colorway for dark surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
 
     svg: str
     """The vector file. Prefer this everywhere SVG renders."""
@@ -128,6 +422,15 @@ class PaymentPaymentInstrumentIconsSquareDark(BaseModel):
 
 class PaymentPaymentInstrumentIconsSquareLight(BaseModel):
     """The colorway for light surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
 
     svg: str
     """The vector file. Prefer this everywhere SVG renders."""
@@ -148,14 +451,20 @@ class PaymentPaymentInstrumentIcons(BaseModel):
     The standard icon set: square and card shapes, each in light and dark colorways.
     """
 
+    card: PaymentPaymentInstrumentIconsCard
+    """The credit-card-proportioned tile (48x30)."""
+
     square: PaymentPaymentInstrumentIconsSquare
     """The square tile (32x32)."""
 
 
 class PaymentPaymentInstrument(BaseModel):
     """
-    The instrument this payment was made with, shaped for display: the method type, a buyer-facing name, the standard icon set, and the card facts when it was a card. Null when the receipt names no payment method.
+    The instrument this payment was made with, shaped for display: the method type, a buyer-facing name, the standard icon set, and the card facts when it was a card. Null when the payment names no method.
     """
+
+    card: Optional[PaymentPaymentInstrumentCard] = None
+    """Card payments only: the card's network and last four."""
 
     display_name: str
     """
@@ -168,7 +477,7 @@ class PaymentPaymentInstrument(BaseModel):
     The standard icon set: square and card shapes, each in light and dark colorways.
     """
 
-    installment_count: Optional[int] = None
+    installment_count: Optional[float] = None
     """Installment methods only: how many payments the charge splits into.
 
     Data, not copy — compose and translate the label client-side.
@@ -178,316 +487,144 @@ class PaymentPaymentInstrument(BaseModel):
     """The payment method type identifier, e.g. `card`, `klarna`, `apple_pay`."""
 
 
-class PaymentUser(BaseModel):
-    """The user that made this payment."""
-
-    id: str
-    """The unique identifier for the user."""
-
-    email: Optional[str] = None
-    """The user's email address.
-
-    Requires the member:email:read permission to access. Null if not authorized.
-    """
-
-    name: Optional[str] = None
-    """The user's display name shown on their public profile."""
-
-    username: str
-    """The user's unique username shown on their public profile."""
-
-
 class Payment(BaseModel):
-    """The original payment that was disputed."""
+    """The payment being disputed."""
 
     id: str
-    """The unique identifier for the payment."""
+    """Payment ID, prefixed `pay_`."""
 
-    billing_reason: Optional[BillingReasons] = None
-    """The reason why a specific payment was billed"""
+    amount: Optional[float] = None
+    """What the customer was charged, in whole units of the payment's currency."""
 
-    card_brand: Optional[CardBrands] = None
-    """Possible card brands that a payment token can have"""
+    card_brand: Optional[str] = None
+    """Card brand, when the customer paid by card."""
 
     card_last4: Optional[str] = None
-    """The last four digits of the card used to make this payment.
+    """Last four digits of the card, when the customer paid by card."""
 
-    Null if the payment was not made with a card.
-    """
+    created_at: str
+    """When the payment was made, as an ISO 8601 timestamp."""
 
-    created_at: datetime
-    """The datetime the payment was created."""
+    currency: Optional[str] = None
+    """Three-letter ISO currency code of the payment.
 
-    currency: Currency
-    """The three-letter ISO currency code for this payment (e.g., 'usd', 'eur')."""
-
-    dispute_alerted_at: Optional[datetime] = None
-    """When an alert came in that this transaction will be disputed"""
-
-    member: Optional[PaymentMember] = None
-    """The member attached to this payment."""
-
-    membership: Optional[PaymentMembership] = None
-    """The membership attached to this payment."""
-
-    paid_at: Optional[datetime] = None
-    """The time at which this payment was successfully collected.
-
-    Null if the payment has not yet succeeded. As a Unix timestamp.
+    Can differ from the dispute's currency when the processor settles in another
+    currency.
     """
 
     payment_instrument: Optional[PaymentPaymentInstrument] = None
     """
     The instrument this payment was made with, shaped for display: the method type,
     a buyer-facing name, the standard icon set, and the card facts when it was a
-    card. Null when the receipt names no payment method.
+    card. Null when the payment names no method.
     """
 
-    payment_method_type: Optional[PaymentMethodTypes] = None
-    """The different types of payment methods that can be used."""
+    payment_method_type: Optional[str] = None
+    """How the customer paid, such as `card` or `paypal`."""
 
-    subtotal: Optional[float] = None
-    """The subtotal to show to the creator (excluding buyer fees)."""
-
-    total: Optional[float] = None
-    """The total to show to the creator (excluding buyer fees)."""
-
-    usd_total: Optional[float] = None
-    """The total in USD to show to the creator (excluding buyer fees)."""
-
-    user: Optional[PaymentUser] = None
-    """The user that made this payment."""
-
-
-class Plan(BaseModel):
-    """The plan associated with the disputed payment.
-
-    Null if the dispute is not linked to a specific plan.
-    """
-
-    id: str
-    """The unique identifier for the plan."""
-
-
-class Product(BaseModel):
-    """The product associated with the disputed payment.
-
-    Null if the dispute is not linked to a specific product.
-    """
-
-    id: str
-    """The unique identifier for the product."""
-
-    title: str
-    """
-    The display name of the product shown to customers on the product page and in
-    search results.
-    """
-
-
-class RefundPolicyAttachment(BaseModel):
-    """The refund policy document uploaded as dispute evidence.
-
-    Null if no refund policy has been provided.
-    """
-
-    id: str
-    """Represents a unique identifier that is Base64 obfuscated.
-
-    It is often used to refetch an object or as key for a cache. The ID type appears
-    in a JSON response as a String; however, it is not intended to be
-    human-readable. When expected as an input type, any string (such as
-    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
-    ID.
-    """
-
-    content_type: Optional[str] = None
-    """Uploaded file MIME type, such as image/jpeg, video/mp4, or audio/mpeg."""
-
-    filename: Optional[str] = None
-    """The original filename of the uploaded attachment, including its file extension."""
-
-    url: Optional[str] = None
-    """A pre-optimized URL for rendering this attachment on the client.
-
-    This should be used for displaying attachments in apps.
-    """
-
-
-class UncategorizedAttachment(BaseModel):
-    """An additional attachment that does not fit into the standard evidence categories.
-
-    Null if not provided.
-    """
-
-    id: str
-    """Represents a unique identifier that is Base64 obfuscated.
-
-    It is often used to refetch an object or as key for a cache. The ID type appears
-    in a JSON response as a String; however, it is not intended to be
-    human-readable. When expected as an input type, any string (such as
-    `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an
-    ID.
-    """
-
-    content_type: Optional[str] = None
-    """Uploaded file MIME type, such as image/jpeg, video/mp4, or audio/mpeg."""
-
-    filename: Optional[str] = None
-    """The original filename of the uploaded attachment, including its file extension."""
-
-    url: Optional[str] = None
-    """A pre-optimized URL for rendering this attachment on the client.
-
-    This should be used for displaying attachments in apps.
-    """
+    payment_processor: Optional[str] = None
+    """The processor that handled the payment, such as `stripe`."""
 
 
 class Dispute(BaseModel):
-    """
-    A dispute is a chargeback or payment challenge filed against a company, including evidence and response status.
-    """
-
     id: str
-    """The unique identifier for the dispute."""
+    """Dispute ID, prefixed `dspt_`."""
 
-    access_activity_log: Optional[str] = None
-    """
-    A log of IP-based access activity for the customer on Whop, submitted as
-    evidence in the dispute.
-    """
+    account_id: Optional[str] = None
+    """The account the dispute was filed against, prefixed `biz_`."""
 
     amount: float
-    """The disputed amount in the specified currency, formatted as a decimal."""
+    """The disputed amount, in whole units of `currency`."""
 
-    billing_address: Optional[str] = None
-    """
-    The customer's billing address from their payment details, submitted as evidence
-    in the dispute.
-    """
+    buyer: Optional[Buyer] = None
+    """The customer who filed the dispute."""
 
-    cancellation_policy_attachment: Optional[CancellationPolicyAttachment] = None
-    """The cancellation policy document uploaded as dispute evidence.
+    created_at: str
+    """When the dispute was opened, as an ISO 8601 timestamp."""
 
-    Null if no cancellation policy has been provided.
-    """
+    currency: str
+    """Three-letter ISO currency code of the disputed amount."""
 
-    cancellation_policy_disclosure: Optional[str] = None
-    """
-    A text disclosure describing the company's cancellation policy, submitted as
-    dispute evidence.
-    """
+    evidence: Evidence
+    """The evidence packet sent to the processor to contest the dispute."""
 
-    company: Optional[Company] = None
-    """The company that the dispute was filed against."""
+    evidence_due_at: Optional[str] = None
+    """The deadline to submit evidence, as an ISO 8601 timestamp.
 
-    created_at: Optional[datetime] = None
-    """The datetime the dispute was created."""
-
-    currency: Currency
-    """The three-letter ISO currency code for the disputed amount."""
-
-    customer_communication_attachment: Optional[CustomerCommunicationAttachment] = None
-    """
-    Evidence of customer communication or product usage, uploaded as a dispute
-    attachment. Null if not provided.
+    Whop reserves the last 24 hours before the processor's own cutoff to forward the
+    submission.
     """
 
-    customer_email_address: Optional[str] = None
+    evidence_editable: bool
+    """Whether `evidence` can still be changed and submitted."""
+
+    evidence_locked_reason: Optional[Literal["submitted", "response_window_closed", "not_contestable"]] = None
+    """Why evidence can no longer be edited. `null` while `evidence_editable` is true."""
+
+    evidence_submitted_at: Optional[str] = None
+    """When the evidence was submitted to the processor, as an ISO 8601 timestamp."""
+
+    generated_response_attachment: Optional[GeneratedResponseAttachment] = None
     """
-    The customer's email address from their payment details, included in the
-    evidence packet sent to the payment processor. Editable before submission.
+    The AI-generated representment document filed with the processor on the seller's
+    behalf, once ready. Null until generation completes, and for disputes not using
+    Whop Dispute Fighter.
     """
 
-    customer_name: Optional[str] = None
-    """
-    The customer's full name from their payment details, included in the evidence
-    packet sent to the payment processor. Editable before submission.
+    inquiry: bool
+    """Whether this is a pre-dispute inquiry rather than a formal chargeback.
+
+    Inquiries follow the same lifecycle but move no funds unless one escalates.
     """
 
-    editable: Optional[bool] = None
-    """Whether the dispute evidence can still be edited and submitted."""
-
-    needs_response_by: Optional[datetime] = None
-    """The deadline by which dispute evidence must be submitted.
-
-    Null if no response deadline is set.
-    """
-
-    notes: Optional[str] = None
-    """
-    Additional freeform notes submitted by the company as part of the dispute
-    evidence.
-    """
+    issuer_comments: List[IssuerComment]
 
     payment: Optional[Payment] = None
-    """The original payment that was disputed."""
+    """The payment being disputed."""
 
-    plan: Optional[Plan] = None
-    """The plan associated with the disputed payment.
+    plan_id: Optional[str] = None
+    """The plan the disputed payment was made on, prefixed `plan_`."""
 
-    Null if the dispute is not linked to a specific plan.
+    product_id: Optional[str] = None
+    """The product the disputed payment was for, prefixed `prod_`."""
+
+    rapid_dispute_resolution: bool
+    """Whether Visa Rapid Dispute Resolution settled this automatically.
+
+    These refund the customer without an evidence round.
     """
 
-    product: Optional[Product] = None
-    """The product associated with the disputed payment.
+    reason: Literal[
+        "fraudulent",
+        "unrecognized",
+        "declined_authorization",
+        "product_not_received",
+        "product_unacceptable",
+        "subscription_canceled",
+        "credit_not_processed",
+        "duplicate",
+        "processing_error",
+        "documentation_request",
+        "bank_cannot_process",
+        "other",
+    ]
+    """Why the customer says they are disputing, normalized across card networks.
 
-    Null if the dispute is not linked to a specific product.
+    `other` covers a code Whop has not categorized yet — read `reason_code` for the
+    raw value.
     """
-
-    product_description: Optional[str] = None
-    """
-    A description of the product or service provided, submitted as dispute evidence.
-    """
-
-    reason: Optional[str] = None
-    """A human-readable reason for the dispute."""
 
     reason_code: Optional[str] = None
-    """The card network reason code for the dispute.
+    """The raw card-network or processor reason code, such as `10.4`."""
 
-    Null when the payment processor did not provide one.
-    """
+    status: Literal["needs_response", "under_review", "won", "lost", "closed"]
+    """Where the dispute stands.
 
-    refund_policy_attachment: Optional[RefundPolicyAttachment] = None
-    """The refund policy document uploaded as dispute evidence.
-
-    Null if no refund policy has been provided.
-    """
-
-    refund_policy_disclosure: Optional[str] = None
-    """
-    A text disclosure describing the company's refund policy, submitted as dispute
-    evidence.
+    `needs_response` is awaiting evidence, `under_review` is with the processor,
+    `won` returned the funds to the seller, `lost` returned them to the customer,
+    and `closed` ended without a ruling. A dispute past its `evidence_due_at`
+    reports `under_review` — the window to respond has closed.
     """
 
-    refund_refusal_explanation: Optional[str] = None
-    """
-    An explanation from the company for why a refund was refused, submitted as
-    dispute evidence.
-    """
-
-    service_date: Optional[str] = None
-    """
-    The date when the product or service was delivered to the customer, submitted as
-    dispute evidence.
-    """
-
-    status: DisputeStatuses
-    """
-    The current status of the dispute lifecycle, such as needs_response,
-    under_review, won, or lost.
-    """
-
-    uncategorized_attachment: Optional[UncategorizedAttachment] = None
-    """An additional attachment that does not fit into the standard evidence
-    categories.
-
-    Null if not provided.
-    """
-
-    visa_rdr: bool
-    """
-    Whether the dispute was automatically resolved through Visa Rapid Dispute
-    Resolution (RDR).
-    """
+    updated_at: str
+    """When the dispute was last changed, as an ISO 8601 timestamp."""

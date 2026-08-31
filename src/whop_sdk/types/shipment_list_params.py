@@ -2,29 +2,61 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
+
+from .._types import SequenceNotStr
+from .._utils import PropertyInfo
 
 __all__ = ["ShipmentListParams"]
 
 
 class ShipmentListParams(TypedDict, total=False):
+    account_id: str
+    """The account to list shipments for. Defaults to the acting account."""
+
     after: str
-    """Returns the elements in the list that come after the specified cursor."""
+    """A cursor; returns shipments after this position."""
 
     before: str
-    """Returns the elements in the list that come before the specified cursor."""
+    """A cursor; returns shipments before this position."""
 
-    company_id: str
-    """Filter shipments to only those belonging to this company."""
+    created_after: str
+    """Return shipments created after this ISO 8601 timestamp."""
+
+    created_before: str
+    """Return shipments created before this ISO 8601 timestamp."""
+
+    direction: Literal["asc", "desc"]
+    """The sort direction."""
 
     first: int
-    """Returns the first _n_ elements from the list."""
+    """The number of shipments to return."""
 
     last: int
-    """Returns the last _n_ elements from the list."""
+    """The number of shipments to return from the end of the range."""
 
-    payment_id: str
-    """Filter shipments to only those associated with this specific payment."""
+    order: Literal["created_at"]
+    """The field to sort by."""
 
-    user_id: str
-    """Filter shipments to only those for this specific user."""
+    payment_id: SequenceNotStr[str]
+    """Only shipments fulfilling these payments, each prefixed `pay_`.
+
+    Repeat the parameter to pass several, up to 100 per request — one paginated list
+    covers all of them.
+    """
+
+    status: Literal[
+        "unknown",
+        "pre_transit",
+        "in_transit",
+        "out_for_delivery",
+        "delivered",
+        "available_for_pickup",
+        "return_to_sender",
+        "failure",
+        "cancelled",
+        "error",
+    ]
+    """Filter to shipments with this delivery status."""
+
+    api_version_date: Annotated[str, PropertyInfo(alias="Api-Version-Date")]

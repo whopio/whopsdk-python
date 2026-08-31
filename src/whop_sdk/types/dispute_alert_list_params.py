@@ -2,37 +2,53 @@
 
 from __future__ import annotations
 
-from typing import Union
-from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
 
 from .._utils import PropertyInfo
-from .shared.direction import Direction
 
 __all__ = ["DisputeAlertListParams"]
 
 
 class DisputeAlertListParams(TypedDict, total=False):
-    company_id: Required[str]
-    """The unique identifier of the company to list dispute alerts for."""
+    account_id: str
+    """Only alerts on this account's payments (`biz_` tag).
+
+    Omit it to cover every account you can read.
+    """
 
     after: str
-    """Returns the elements in the list that come after the specified cursor."""
+    """A cursor; returns alerts after this position."""
 
     before: str
-    """Returns the elements in the list that come before the specified cursor."""
+    """A cursor; returns alerts before this position."""
 
-    created_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-    """Only return dispute alerts created after this timestamp."""
+    created_after: str
+    """Only alerts Whop received after this ISO 8601 timestamp."""
 
-    created_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-    """Only return dispute alerts created before this timestamp."""
+    created_before: str
+    """Only alerts Whop received before this ISO 8601 timestamp."""
 
-    direction: Direction
-    """The sort direction for ordering results, either ascending or descending."""
+    direction: Literal["asc", "desc"]
+    """Sort direction."""
 
     first: int
-    """Returns the first _n_ elements from the list."""
+    """The number of alerts to return (default 20, max 100)."""
 
     last: int
-    """Returns the last _n_ elements from the list."""
+    """The number of alerts to return from the end of the range."""
+
+    order: Literal["created_at", "reported_at", "amount"]
+    """The field to sort alerts by."""
+
+    payment_id: str
+    """Only alerts on this payment (`pay_` tag). A payment can carry several."""
+
+    type: Literal["early_fraud_warning", "dispute_alert", "rapid_dispute_resolution"]
+    """Only alerts of this kind.
+
+    `early_fraud_warning` for issuer fraud reports, `dispute_alert` for pre-dispute
+    notices, `rapid_dispute_resolution` for Visa RDR cases the network already
+    closed.
+    """
+
+    api_version_date: Annotated[str, PropertyInfo(alias="Api-Version-Date")]

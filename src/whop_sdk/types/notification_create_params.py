@@ -2,102 +2,56 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
-from typing_extensions import Required, TypeAlias, TypedDict
+from typing import Optional
+from typing_extensions import Required, Annotated, TypedDict
 
 from .._types import SequenceNotStr
+from .._utils import PropertyInfo
 
-__all__ = [
-    "NotificationCreateParams",
-    "SendNotificationV2InputWithCompanyID",
-    "SendNotificationV2InputWithExperienceID",
-]
+__all__ = ["NotificationCreateParams"]
 
 
-class SendNotificationV2InputWithCompanyID(TypedDict, total=False):
-    company_id: Required[str]
-    """The unique identifier of the company to target.
-
-    Only team members of this company will receive the notification. Clicking the
-    notification opens your dashboard app view.
-    """
-
+class NotificationCreateParams(TypedDict, total=False):
     content: Required[str]
-    """The main body text of the notification displayed to the user."""
+    """Main body text of the notification."""
 
     title: Required[str]
-    """The headline text of the notification, displayed prominently to the user."""
+    """Headline text of the notification."""
+
+    account_id: str
+    """Account whose team members receive the notification (`biz_` tag).
+
+    Exactly one of `experience_id` or `account_id` is required.
+    """
+
+    experience_id: str
+    """Experience whose users receive the notification (`exp_` tag).
+
+    Exactly one of `experience_id` or `account_id` is required.
+    """
 
     icon_user_id: Optional[str]
-    """
-    The unique identifier of a user whose profile picture will be used as the
-    notification icon. Defaults to the experience or company avatar when not
-    provided.
+    """User whose profile picture is used as the notification icon.
+
+    Defaults to the experience or account avatar.
     """
 
     rest_path: Optional[str]
-    """A path segment appended to the generated deep link that opens your app.
-
-    Use [restPath] in your app path configuration to read this parameter. For
-    example, '/settings/billing'.
+    """
+    Path segment appended to the generated deep link that opens your app, for
+    example `/settings/billing`.
     """
 
     subtitle: Optional[str]
-    """
-    An optional secondary line of text displayed below the title in the
-    notification.
-    """
+    """Optional secondary line displayed below the title."""
 
-    user_ids: Optional[SequenceNotStr[str]]
-    """An optional list of user IDs to narrow the audience.
+    user_ids: SequenceNotStr[str]
+    """Optional `user_` tags narrowing the audience.
 
-    When provided, only these users receive the notification, provided they are in
-    the targeted experience or company.
+    When provided, only these users are notified (as a mention), provided they are
+    in the targeted experience or account.
     """
 
+    api_version_date: Annotated[str, PropertyInfo(alias="Api-Version-Date")]
 
-class SendNotificationV2InputWithExperienceID(TypedDict, total=False):
-    content: Required[str]
-    """The main body text of the notification displayed to the user."""
-
-    experience_id: Required[str]
-    """The unique identifier of the experience to target.
-
-    All users with access to this experience will receive the notification. Clicking
-    the notification opens the experience view.
-    """
-
-    title: Required[str]
-    """The headline text of the notification, displayed prominently to the user."""
-
-    icon_user_id: Optional[str]
-    """
-    The unique identifier of a user whose profile picture will be used as the
-    notification icon. Defaults to the experience or company avatar when not
-    provided.
-    """
-
-    rest_path: Optional[str]
-    """A path segment appended to the generated deep link that opens your app.
-
-    Use [restPath] in your app path configuration to read this parameter. For
-    example, '/settings/billing'.
-    """
-
-    subtitle: Optional[str]
-    """
-    An optional secondary line of text displayed below the title in the
-    notification.
-    """
-
-    user_ids: Optional[SequenceNotStr[str]]
-    """An optional list of user IDs to narrow the audience.
-
-    When provided, only these users receive the notification, provided they are in
-    the targeted experience or company.
-    """
-
-
-NotificationCreateParams: TypeAlias = Union[
-    SendNotificationV2InputWithCompanyID, SendNotificationV2InputWithExperienceID
-]
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

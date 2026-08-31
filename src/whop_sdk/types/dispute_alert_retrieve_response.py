@@ -1,167 +1,99 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Optional
-from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
-from .card_brands import CardBrands
-from .billing_reasons import BillingReasons
-from .shared.currency import Currency
-from .dispute_statuses import DisputeStatuses
-from .dispute_alert_type import DisputeAlertType
-from .payment_method_types import PaymentMethodTypes
-from .shared.membership_status import MembershipStatus
 
-__all__ = ["DisputeAlertRetrieveResponse", "Dispute", "Payment", "PaymentMember", "PaymentMembership", "PaymentUser"]
-
-
-class Dispute(BaseModel):
-    """The dispute associated with the dispute alert."""
-
-    id: str
-    """The unique identifier for the dispute."""
-
-    amount: float
-    """The disputed amount in the specified currency, formatted as a decimal."""
-
-    created_at: Optional[datetime] = None
-    """The datetime the dispute was created."""
-
-    currency: Currency
-    """The three-letter ISO currency code for the disputed amount."""
-
-    reason: Optional[str] = None
-    """A human-readable reason for the dispute."""
-
-    status: DisputeStatuses
-    """
-    The current status of the dispute lifecycle, such as needs_response,
-    under_review, won, or lost.
-    """
-
-
-class PaymentMember(BaseModel):
-    """The member attached to this payment."""
-
-    id: str
-    """The unique identifier for the company member."""
-
-    phone: Optional[str] = None
-    """The phone number for the member, if available."""
-
-
-class PaymentMembership(BaseModel):
-    """The membership attached to this payment."""
-
-    id: str
-    """The unique identifier for the membership."""
-
-    status: MembershipStatus
-    """The state of the membership."""
-
-
-class PaymentUser(BaseModel):
-    """The user that made this payment."""
-
-    id: str
-    """The unique identifier for the user."""
-
-    email: Optional[str] = None
-    """The user's email address.
-
-    Requires the member:email:read permission to access. Null if not authorized.
-    """
-
-    name: Optional[str] = None
-    """The user's display name shown on their public profile."""
-
-    username: str
-    """The user's unique username shown on their public profile."""
-
-
-class Payment(BaseModel):
-    """The payment associated with the dispute alert."""
-
-    id: str
-    """The unique identifier for the payment."""
-
-    billing_reason: Optional[BillingReasons] = None
-    """The reason why a specific payment was billed"""
-
-    card_brand: Optional[CardBrands] = None
-    """Possible card brands that a payment token can have"""
-
-    card_last4: Optional[str] = None
-    """The last four digits of the card used to make this payment.
-
-    Null if the payment was not made with a card.
-    """
-
-    created_at: datetime
-    """The datetime the payment was created."""
-
-    currency: Currency
-    """The three-letter ISO currency code for this payment (e.g., 'usd', 'eur')."""
-
-    dispute_alerted_at: Optional[datetime] = None
-    """When an alert came in that this transaction will be disputed"""
-
-    member: Optional[PaymentMember] = None
-    """The member attached to this payment."""
-
-    membership: Optional[PaymentMembership] = None
-    """The membership attached to this payment."""
-
-    paid_at: Optional[datetime] = None
-    """The time at which this payment was successfully collected.
-
-    Null if the payment has not yet succeeded. As a Unix timestamp.
-    """
-
-    payment_method_type: Optional[PaymentMethodTypes] = None
-    """The different types of payment methods that can be used."""
-
-    subtotal: Optional[float] = None
-    """The subtotal to show to the creator (excluding buyer fees)."""
-
-    total: Optional[float] = None
-    """The total to show to the creator (excluding buyer fees)."""
-
-    usd_total: Optional[float] = None
-    """The total in USD to show to the creator (excluding buyer fees)."""
-
-    user: Optional[PaymentUser] = None
-    """The user that made this payment."""
+__all__ = ["DisputeAlertRetrieveResponse"]
 
 
 class DisputeAlertRetrieveResponse(BaseModel):
-    """
-    A dispute alert represents an early warning notification from a payment processor about a potential dispute or chargeback.
-    """
-
     id: str
-    """The unique identifier of the dispute alert."""
+    """Dispute alert ID, prefixed `dspa_`."""
 
-    alert_type: DisputeAlertType
-    """The type of the dispute alert."""
+    account_id: Optional[str] = None
+    """The account the alerted payment belongs to, prefixed `biz_`.
+
+    `null` while the alert is unmatched.
+    """
+
+    actionable: bool
+    """Whether refunding the payment can still avoid a chargeback.
+
+    `false` once the payment has been disputed or fully refunded, or when the alert
+    could not be matched to a payment — `not_actionable_reason` says which.
+    """
 
     amount: float
-    """The alerted amount in the specified currency."""
+    """The alerted amount, in whole units of `currency`.
 
-    charge_for_alert: bool
-    """Whether this alert incurs a charge."""
+    This is what the issuer reported, which can differ from the payment's own
+    amount.
+    """
 
-    created_at: datetime
-    """The time the dispute alert was created."""
+    card_brand: Optional[str] = None
+    """
+    The card network as reported by the issuer, lowercased, such as `visa` or
+    `mastercard`. `unknown` when the report carries neither a network nor a
+    recognizable BIN.
+    """
 
-    currency: Currency
-    """The three-letter ISO currency code for the alerted amount."""
+    created_at: str
+    """When Whop received the alert, as an ISO 8601 timestamp."""
 
-    dispute: Optional[Dispute] = None
-    """The dispute associated with the dispute alert."""
+    currency: str
+    """Three-letter ISO currency code of the alerted amount."""
 
-    payment: Optional[Payment] = None
-    """The payment associated with the dispute alert."""
+    fee_charged: bool
+    """Whether Whop charged the account an alert fee for this one.
 
-    transaction_date: Optional[datetime] = None
-    """The date of the original transaction."""
+    Always `false` for `early_fraud_warning`, which Whop is not billed for and never
+    passes on.
+    """
+
+    issuer: Optional[str] = None
+    """Name of the bank that issued the card and filed the report."""
+
+    not_actionable_reason: Optional[
+        Literal["network_resolved", "payment_unmatched", "payment_not_captured", "payment_disputed", "payment_refunded"]
+    ] = None
+    """Why refunding can no longer avoid a chargeback.
+
+    `network_resolved` when a Visa RDR already closed the case, `payment_unmatched`
+    when no payment matched, `payment_not_captured` when it never captured money,
+    `payment_disputed` once the payment carries a dispute, `payment_refunded` once
+    fully refunded. `null` while `actionable` is true.
+    """
+
+    payment_id: Optional[str] = None
+    """The payment the issuer reported, prefixed `pay_`.
+
+    `null` when Whop could not match the report to a payment.
+    """
+
+    product_id: Optional[str] = None
+    """The product the alerted payment was for, prefixed `prod_`."""
+
+    reported_at: str
+    """When the issuer filed the report, as an ISO 8601 timestamp.
+
+    Earlier than `created_at`, which is when Whop received it.
+    """
+
+    transaction_at: Optional[str] = None
+    """When the reported transaction was made, as an ISO 8601 timestamp."""
+
+    type: Literal["early_fraud_warning", "dispute_alert", "rapid_dispute_resolution"]
+    """What the issuer sent.
+
+    `early_fraud_warning` is a fraud report on a settled payment (Visa TC40 /
+    Mastercard SAFE) — refunding still avoids the chargeback, and Whop never charges
+    a fee for one. `dispute_alert` is a pre-dispute notice from the issuer's alert
+    network, which Whop pays for and passes on as a fee. `rapid_dispute_resolution`
+    is a Visa RDR case the network already closed by refunding the payment — nothing
+    is left to act on.
+    """
+
+    updated_at: str
+    """When the alert was last changed, as an ISO 8601 timestamp."""
