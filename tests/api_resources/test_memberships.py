@@ -31,7 +31,7 @@ class TestMemberships:
     def test_method_retrieve_with_all_params(self, client: Whop) -> None:
         membership = client.memberships.retrieve(
             id="id",
-            api_version_date="2026-08-25-2",
+            api_version_date="2026-08-31",
         )
         assert_matches_type(Membership, membership, path=["response"])
 
@@ -84,7 +84,7 @@ class TestMemberships:
             id="id",
             cancel_at_period_end=True,
             metadata={"seat": "42"},
-            api_version_date="2026-08-25-2",
+            api_version_date="2026-08-31",
         )
         assert_matches_type(Membership, membership, path=["response"])
 
@@ -145,7 +145,7 @@ class TestMemberships:
             product_id="product_id",
             status="active",
             user_id="user_id",
-            api_version_date="2026-08-25-2",
+            api_version_date="2026-08-31",
         )
         assert_matches_type(SyncCursorPage[Membership], membership, path=["response"])
 
@@ -232,7 +232,7 @@ class TestMemberships:
             id="id",
             cancel_at_period_end=True,
             reason="chargeback risk",
-            api_version_date="2026-08-25-2",
+            api_version_date="2026-08-31",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Membership, membership, path=["response"])
@@ -285,7 +285,7 @@ class TestMemberships:
         membership = client.memberships.pause(
             id="id",
             until="2026-01-01T12:00:00.000Z",
-            api_version_date="2026-08-25-2",
+            api_version_date="2026-08-31",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Membership, membership, path=["response"])
@@ -337,7 +337,7 @@ class TestMemberships:
     def test_method_resume_with_all_params(self, client: Whop) -> None:
         membership = client.memberships.resume(
             id="id",
-            api_version_date="2026-08-25-2",
+            api_version_date="2026-08-31",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Membership, membership, path=["response"])
@@ -437,7 +437,7 @@ class TestAsyncMemberships:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
         membership = await async_client.memberships.retrieve(
             id="id",
-            api_version_date="2026-08-25-2",
+            api_version_date="2026-08-31",
         )
         assert_matches_type(Membership, membership, path=["response"])
 
@@ -490,7 +490,7 @@ class TestAsyncMemberships:
             id="id",
             cancel_at_period_end=True,
             metadata={"seat": "42"},
-            api_version_date="2026-08-25-2",
+            api_version_date="2026-08-31",
         )
         assert_matches_type(Membership, membership, path=["response"])
 
@@ -551,7 +551,7 @@ class TestAsyncMemberships:
             product_id="product_id",
             status="active",
             user_id="user_id",
-            api_version_date="2026-08-25-2",
+            api_version_date="2026-08-31",
         )
         assert_matches_type(AsyncCursorPage[Membership], membership, path=["response"])
 
@@ -638,7 +638,7 @@ class TestAsyncMemberships:
             id="id",
             cancel_at_period_end=True,
             reason="chargeback risk",
-            api_version_date="2026-08-25-2",
+            api_version_date="2026-08-31",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Membership, membership, path=["response"])
@@ -691,7 +691,7 @@ class TestAsyncMemberships:
         membership = await async_client.memberships.pause(
             id="id",
             until="2026-01-01T12:00:00.000Z",
-            api_version_date="2026-08-25-2",
+            api_version_date="2026-08-31",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Membership, membership, path=["response"])
@@ -743,7 +743,7 @@ class TestAsyncMemberships:
     async def test_method_resume_with_all_params(self, async_client: AsyncWhop) -> None:
         membership = await async_client.memberships.resume(
             id="id",
-            api_version_date="2026-08-25-2",
+            api_version_date="2026-08-31",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Membership, membership, path=["response"])

@@ -38,7 +38,7 @@ class TestNotifications:
             rest_path="/bookings/upcoming",
             subtitle="Tuesday 9:00 AM, Bay 2",
             user_ids=["user_xxxxxxxxxxxxxx"],
-            api_version_date="2026-08-25-2",
+            api_version_date="2026-08-31",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(NotificationCreateResponse, notification, path=["response"])
@@ -98,7 +98,7 @@ class TestAsyncNotifications:
             rest_path="/bookings/upcoming",
             subtitle="Tuesday 9:00 AM, Bay 2",
             user_ids=["user_xxxxxxxxxxxxxx"],
-            api_version_date="2026-08-25-2",
+            api_version_date="2026-08-31",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(NotificationCreateResponse, notification, path=["response"])

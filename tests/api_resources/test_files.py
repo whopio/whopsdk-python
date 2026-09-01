@@ -33,7 +33,7 @@ class TestFiles:
             byte_size=15728640,
             multipart=True,
             visibility="public",
-            api_version_date="2026-08-25-2",
+            api_version_date="2026-08-31",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(FileCreateResponse, file, path=["response"])
@@ -77,7 +77,7 @@ class TestFiles:
     def test_method_retrieve_with_all_params(self, client: Whop) -> None:
         file = client.files.retrieve(
             id="id",
-            api_version_date="2026-08-25-2",
+            api_version_date="2026-08-31",
         )
         assert_matches_type(FileRetrieveResponse, file, path=["response"])
 
@@ -137,7 +137,7 @@ class TestAsyncFiles:
             byte_size=15728640,
             multipart=True,
             visibility="public",
-            api_version_date="2026-08-25-2",
+            api_version_date="2026-08-31",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(FileCreateResponse, file, path=["response"])
@@ -181,7 +181,7 @@ class TestAsyncFiles:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
         file = await async_client.files.retrieve(
             id="id",
-            api_version_date="2026-08-25-2",
+            api_version_date="2026-08-31",
         )
         assert_matches_type(FileRetrieveResponse, file, path=["response"])
 
