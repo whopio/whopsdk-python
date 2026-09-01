@@ -94,6 +94,14 @@ class DataQuote(BaseModel):
     unavailable for the account, or the amount does not cover the fee.
     """
 
+    instant_unavailable_reason: Optional[Literal["minimum_crypto_sales_not_met"]] = None
+    """Why instant delivery is unavailable for this method.
+
+    `minimum_crypto_sales_not_met` means the account has not reached the total sales
+    required for instant cryptocurrency payouts. `null` when this restriction does
+    not apply.
+    """
+
     max_limit: Optional[float] = None
     """Maximum payout amount for this method, in the payout currency."""
 
