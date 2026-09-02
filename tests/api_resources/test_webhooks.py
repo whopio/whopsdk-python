@@ -42,7 +42,7 @@ class TestWebhooks:
             enabled=True,
             events=["payment.succeeded"],
             resource_id="biz_xxxxxxxxxxxxxx",
-            header_api_version_date="2026-08-31",
+            header_api_version_date="2026-09-02",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Webhook, webhook, path=["response"])
@@ -86,7 +86,7 @@ class TestWebhooks:
     def test_method_retrieve_with_all_params(self, client: Whop) -> None:
         webhook = client.webhooks.retrieve(
             id="id",
-            api_version_date="2026-08-31",
+            api_version_date="2026-09-02",
         )
         assert_matches_type(Webhook, webhook, path=["response"])
 
@@ -142,7 +142,7 @@ class TestWebhooks:
             enabled=False,
             events=["payment.failed"],
             url="https://example.com/shine-time/whop-updated",
-            header_api_version_date="2026-08-31",
+            header_api_version_date="2026-09-02",
         )
         assert_matches_type(Webhook, webhook, path=["response"])
 
@@ -200,7 +200,7 @@ class TestWebhooks:
             has_failures=True,
             include_app_webhooks=True,
             last=0,
-            api_version_date="2026-08-31",
+            api_version_date="2026-09-02",
         )
         assert_matches_type(SyncCursorPage[WebhookListResponse], webhook, path=["response"])
 
@@ -243,7 +243,7 @@ class TestWebhooks:
     def test_method_delete_with_all_params(self, client: Whop) -> None:
         webhook = client.webhooks.delete(
             id="id",
-            api_version_date="2026-08-31",
+            api_version_date="2026-09-02",
         )
         assert_matches_type(WebhookDeleteResponse, webhook, path=["response"])
 
@@ -344,7 +344,7 @@ class TestAsyncWebhooks:
             enabled=True,
             events=["payment.succeeded"],
             resource_id="biz_xxxxxxxxxxxxxx",
-            header_api_version_date="2026-08-31",
+            header_api_version_date="2026-09-02",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Webhook, webhook, path=["response"])
@@ -388,7 +388,7 @@ class TestAsyncWebhooks:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
         webhook = await async_client.webhooks.retrieve(
             id="id",
-            api_version_date="2026-08-31",
+            api_version_date="2026-09-02",
         )
         assert_matches_type(Webhook, webhook, path=["response"])
 
@@ -444,7 +444,7 @@ class TestAsyncWebhooks:
             enabled=False,
             events=["payment.failed"],
             url="https://example.com/shine-time/whop-updated",
-            header_api_version_date="2026-08-31",
+            header_api_version_date="2026-09-02",
         )
         assert_matches_type(Webhook, webhook, path=["response"])
 
@@ -502,7 +502,7 @@ class TestAsyncWebhooks:
             has_failures=True,
             include_app_webhooks=True,
             last=0,
-            api_version_date="2026-08-31",
+            api_version_date="2026-09-02",
         )
         assert_matches_type(AsyncCursorPage[WebhookListResponse], webhook, path=["response"])
 
@@ -545,7 +545,7 @@ class TestAsyncWebhooks:
     async def test_method_delete_with_all_params(self, async_client: AsyncWhop) -> None:
         webhook = await async_client.webhooks.delete(
             id="id",
-            api_version_date="2026-08-31",
+            api_version_date="2026-09-02",
         )
         assert_matches_type(WebhookDeleteResponse, webhook, path=["response"])
 

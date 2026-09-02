@@ -14,7 +14,6 @@ from whop_sdk.types import (
     ChatChannel,
     CheckoutConfiguration,
     CollectionMethod,
-    Company,
     CourseLessonInteraction,
     CourseLessonInteractionListItem,
     Currency,
@@ -123,22 +122,6 @@ Methods:
 - <code title="patch /products/{id}">client.products.<a href="./src/whop_sdk/resources/products.py">update</a>(id, \*\*<a href="src/whop_sdk/types/product_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/product.py">Product</a></code>
 - <code title="get /products">client.products.<a href="./src/whop_sdk/resources/products.py">list</a>(\*\*<a href="src/whop_sdk/types/product_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/product_list_item.py">SyncCursorPage[ProductListItem]</a></code>
 - <code title="delete /products/{id}">client.products.<a href="./src/whop_sdk/resources/products.py">delete</a>(id) -> <a href="./src/whop_sdk/types/product_delete_response.py">ProductDeleteResponse</a></code>
-
-# Companies
-
-Types:
-
-```python
-from whop_sdk.types import SocialLinkWebsites, CompanyListResponse, CompanyCreateAPIKeyResponse
-```
-
-Methods:
-
-- <code title="post /companies">client.companies.<a href="./src/whop_sdk/resources/companies.py">create</a>(\*\*<a href="src/whop_sdk/types/company_create_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/company.py">Company</a></code>
-- <code title="get /companies/{id}">client.companies.<a href="./src/whop_sdk/resources/companies.py">retrieve</a>(id) -> <a href="./src/whop_sdk/types/shared/company.py">Company</a></code>
-- <code title="patch /companies/{id}">client.companies.<a href="./src/whop_sdk/resources/companies.py">update</a>(id, \*\*<a href="src/whop_sdk/types/company_update_params.py">params</a>) -> <a href="./src/whop_sdk/types/shared/company.py">Company</a></code>
-- <code title="get /companies">client.companies.<a href="./src/whop_sdk/resources/companies.py">list</a>(\*\*<a href="src/whop_sdk/types/company_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/company_list_response.py">SyncCursorPage[CompanyListResponse]</a></code>
-- <code title="post /companies/{parent_company_id}/api_keys">client.companies.<a href="./src/whop_sdk/resources/companies.py">create_api_key</a>(parent_company_id, \*\*<a href="src/whop_sdk/types/company_create_api_key_params.py">params</a>) -> <a href="./src/whop_sdk/types/company_create_api_key_response.py">CompanyCreateAPIKeyResponse</a></code>
 
 # Webhooks
 
@@ -1060,15 +1043,3 @@ Methods:
 - <code title="get /ads">client.ads.<a href="./src/whop_sdk/resources/ads.py">list</a>(\*\*<a href="src/whop_sdk/types/ad_list_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad.py">SyncCursorPage[Ad]</a></code>
 - <code title="post /ads/{id}/pause">client.ads.<a href="./src/whop_sdk/resources/ads.py">pause</a>(id) -> <a href="./src/whop_sdk/types/ad.py">Ad</a></code>
 - <code title="post /ads/{id}/unpause">client.ads.<a href="./src/whop_sdk/resources/ads.py">unpause</a>(id) -> <a href="./src/whop_sdk/types/ad.py">Ad</a></code>
-
-# AdReports
-
-Types:
-
-```python
-from whop_sdk.types import Granularities, ResultLabelKeys, AdReportRetrieveResponse
-```
-
-Methods:
-
-- <code title="get /ad_reports">client.ad_reports.<a href="./src/whop_sdk/resources/ad_reports.py">retrieve</a>(\*\*<a href="src/whop_sdk/types/ad_report_retrieve_params.py">params</a>) -> <a href="./src/whop_sdk/types/ad_report_retrieve_response.py">AdReportRetrieveResponse</a></code>

@@ -83,7 +83,7 @@ class TestPlans:
             trial_period_days=7,
             unlimited_stock=False,
             visibility="visible",
-            api_version_date="2026-08-31",
+            api_version_date="2026-09-02",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Plan, plan, path=["response"])
@@ -123,7 +123,7 @@ class TestPlans:
     def test_method_retrieve_with_all_params(self, client: Whop) -> None:
         plan = client.plans.retrieve(
             id="id",
-            api_version_date="2026-08-31",
+            api_version_date="2026-09-02",
         )
         assert_matches_type(Plan, plan, path=["response"])
 
@@ -226,7 +226,7 @@ class TestPlans:
             trial_period_days=7,
             unlimited_stock=False,
             visibility="visible",
-            api_version_date="2026-08-31",
+            api_version_date="2026-09-02",
         )
         assert_matches_type(Plan, plan, path=["response"])
 
@@ -287,7 +287,7 @@ class TestPlans:
             product_ids=["prod_xxxxxxxxxxxxxx"],
             release_methods=["buy_now"],
             visibilities=["visible"],
-            api_version_date="2026-08-31",
+            api_version_date="2026-09-02",
         )
         assert_matches_type(SyncCursorPage[PlanListResponse], plan, path=["response"])
 
@@ -326,7 +326,7 @@ class TestPlans:
     def test_method_delete_with_all_params(self, client: Whop) -> None:
         plan = client.plans.delete(
             id="id",
-            api_version_date="2026-08-31",
+            api_version_date="2026-09-02",
         )
         assert_matches_type(PlanDeleteResponse, plan, path=["response"])
 
@@ -431,7 +431,7 @@ class TestAsyncPlans:
             trial_period_days=7,
             unlimited_stock=False,
             visibility="visible",
-            api_version_date="2026-08-31",
+            api_version_date="2026-09-02",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Plan, plan, path=["response"])
@@ -471,7 +471,7 @@ class TestAsyncPlans:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
         plan = await async_client.plans.retrieve(
             id="id",
-            api_version_date="2026-08-31",
+            api_version_date="2026-09-02",
         )
         assert_matches_type(Plan, plan, path=["response"])
 
@@ -574,7 +574,7 @@ class TestAsyncPlans:
             trial_period_days=7,
             unlimited_stock=False,
             visibility="visible",
-            api_version_date="2026-08-31",
+            api_version_date="2026-09-02",
         )
         assert_matches_type(Plan, plan, path=["response"])
 
@@ -635,7 +635,7 @@ class TestAsyncPlans:
             product_ids=["prod_xxxxxxxxxxxxxx"],
             release_methods=["buy_now"],
             visibilities=["visible"],
-            api_version_date="2026-08-31",
+            api_version_date="2026-09-02",
         )
         assert_matches_type(AsyncCursorPage[PlanListResponse], plan, path=["response"])
 
@@ -674,7 +674,7 @@ class TestAsyncPlans:
     async def test_method_delete_with_all_params(self, async_client: AsyncWhop) -> None:
         plan = await async_client.plans.delete(
             id="id",
-            api_version_date="2026-08-31",
+            api_version_date="2026-09-02",
         )
         assert_matches_type(PlanDeleteResponse, plan, path=["response"])
 

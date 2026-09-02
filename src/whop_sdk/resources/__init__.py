@@ -176,14 +176,6 @@ from .ad_groups import (
     AdGroupsResourceWithStreamingResponse,
     AsyncAdGroupsResourceWithStreamingResponse,
 )
-from .companies import (
-    CompaniesResource,
-    AsyncCompaniesResource,
-    CompaniesResourceWithRawResponse,
-    AsyncCompaniesResourceWithRawResponse,
-    CompaniesResourceWithStreamingResponse,
-    AsyncCompaniesResourceWithStreamingResponse,
-)
 from .reactions import (
     ReactionsResource,
     AsyncReactionsResource,
@@ -207,14 +199,6 @@ from .transfers import (
     AsyncTransfersResourceWithRawResponse,
     TransfersResourceWithStreamingResponse,
     AsyncTransfersResourceWithStreamingResponse,
-)
-from .ad_reports import (
-    AdReportsResource,
-    AsyncAdReportsResource,
-    AdReportsResourceWithRawResponse,
-    AsyncAdReportsResourceWithRawResponse,
-    AdReportsResourceWithStreamingResponse,
-    AsyncAdReportsResourceWithStreamingResponse,
 )
 from .affiliates import (
     AffiliatesResource,
@@ -482,12 +466,6 @@ __all__ = [
     "AsyncProductsResourceWithRawResponse",
     "ProductsResourceWithStreamingResponse",
     "AsyncProductsResourceWithStreamingResponse",
-    "CompaniesResource",
-    "AsyncCompaniesResource",
-    "CompaniesResourceWithRawResponse",
-    "AsyncCompaniesResourceWithRawResponse",
-    "CompaniesResourceWithStreamingResponse",
-    "AsyncCompaniesResourceWithStreamingResponse",
     "WebhooksResource",
     "AsyncWebhooksResource",
     "WebhooksResourceWithRawResponse",
@@ -794,10 +772,4 @@ __all__ = [
     "AsyncAdsResourceWithRawResponse",
     "AdsResourceWithStreamingResponse",
     "AsyncAdsResourceWithStreamingResponse",
-    "AdReportsResource",
-    "AsyncAdReportsResource",
-    "AdReportsResourceWithRawResponse",
-    "AsyncAdReportsResourceWithRawResponse",
-    "AdReportsResourceWithStreamingResponse",
-    "AsyncAdReportsResourceWithStreamingResponse",
 ]

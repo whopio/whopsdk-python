@@ -58,11 +58,9 @@ if TYPE_CHECKING:
         products,
         webhooks,
         ad_groups,
-        companies,
         reactions,
         shipments,
         transfers,
-        ad_reports,
         affiliates,
         app_builds,
         dm_members,
@@ -116,11 +114,9 @@ if TYPE_CHECKING:
     from .resources.products import ProductsResource, AsyncProductsResource
     from .resources.webhooks import WebhooksResource, AsyncWebhooksResource
     from .resources.ad_groups import AdGroupsResource, AsyncAdGroupsResource
-    from .resources.companies import CompaniesResource, AsyncCompaniesResource
     from .resources.reactions import ReactionsResource, AsyncReactionsResource
     from .resources.shipments import ShipmentsResource, AsyncShipmentsResource
     from .resources.transfers import TransfersResource, AsyncTransfersResource
-    from .resources.ad_reports import AdReportsResource, AsyncAdReportsResource
     from .resources.app_builds import AppBuildsResource, AsyncAppBuildsResource
     from .resources.dm_members import DmMembersResource, AsyncDmMembersResource
     from .resources.dm_channels import DmChannelsResource, AsyncDmChannelsResource
@@ -277,12 +273,6 @@ class Whop(SyncAPIClient):
         from .resources.products import ProductsResource
 
         return ProductsResource(self)
-
-    @cached_property
-    def companies(self) -> CompaniesResource:
-        from .resources.companies import CompaniesResource
-
-        return CompaniesResource(self)
 
     @cached_property
     def webhooks(self) -> WebhooksResource:
@@ -697,12 +687,6 @@ class Whop(SyncAPIClient):
         return AdsResource(self)
 
     @cached_property
-    def ad_reports(self) -> AdReportsResource:
-        from .resources.ad_reports import AdReportsResource
-
-        return AdReportsResource(self)
-
-    @cached_property
     def with_raw_response(self) -> WhopWithRawResponse:
         return WhopWithRawResponse(self)
 
@@ -936,12 +920,6 @@ class AsyncWhop(AsyncAPIClient):
         from .resources.products import AsyncProductsResource
 
         return AsyncProductsResource(self)
-
-    @cached_property
-    def companies(self) -> AsyncCompaniesResource:
-        from .resources.companies import AsyncCompaniesResource
-
-        return AsyncCompaniesResource(self)
 
     @cached_property
     def webhooks(self) -> AsyncWebhooksResource:
@@ -1356,12 +1334,6 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncAdsResource(self)
 
     @cached_property
-    def ad_reports(self) -> AsyncAdReportsResource:
-        from .resources.ad_reports import AsyncAdReportsResource
-
-        return AsyncAdReportsResource(self)
-
-    @cached_property
     def with_raw_response(self) -> AsyncWhopWithRawResponse:
         return AsyncWhopWithRawResponse(self)
 
@@ -1522,12 +1494,6 @@ class WhopWithRawResponse:
         from .resources.products import ProductsResourceWithRawResponse
 
         return ProductsResourceWithRawResponse(self._client.products)
-
-    @cached_property
-    def companies(self) -> companies.CompaniesResourceWithRawResponse:
-        from .resources.companies import CompaniesResourceWithRawResponse
-
-        return CompaniesResourceWithRawResponse(self._client.companies)
 
     @cached_property
     def webhooks(self) -> webhooks.WebhooksResourceWithRawResponse:
@@ -1941,12 +1907,6 @@ class WhopWithRawResponse:
 
         return AdsResourceWithRawResponse(self._client.ads)
 
-    @cached_property
-    def ad_reports(self) -> ad_reports.AdReportsResourceWithRawResponse:
-        from .resources.ad_reports import AdReportsResourceWithRawResponse
-
-        return AdReportsResourceWithRawResponse(self._client.ad_reports)
-
 
 class AsyncWhopWithRawResponse:
     _client: AsyncWhop
@@ -1993,12 +1953,6 @@ class AsyncWhopWithRawResponse:
         from .resources.products import AsyncProductsResourceWithRawResponse
 
         return AsyncProductsResourceWithRawResponse(self._client.products)
-
-    @cached_property
-    def companies(self) -> companies.AsyncCompaniesResourceWithRawResponse:
-        from .resources.companies import AsyncCompaniesResourceWithRawResponse
-
-        return AsyncCompaniesResourceWithRawResponse(self._client.companies)
 
     @cached_property
     def webhooks(self) -> webhooks.AsyncWebhooksResourceWithRawResponse:
@@ -2414,12 +2368,6 @@ class AsyncWhopWithRawResponse:
 
         return AsyncAdsResourceWithRawResponse(self._client.ads)
 
-    @cached_property
-    def ad_reports(self) -> ad_reports.AsyncAdReportsResourceWithRawResponse:
-        from .resources.ad_reports import AsyncAdReportsResourceWithRawResponse
-
-        return AsyncAdReportsResourceWithRawResponse(self._client.ad_reports)
-
 
 class WhopWithStreamedResponse:
     _client: Whop
@@ -2466,12 +2414,6 @@ class WhopWithStreamedResponse:
         from .resources.products import ProductsResourceWithStreamingResponse
 
         return ProductsResourceWithStreamingResponse(self._client.products)
-
-    @cached_property
-    def companies(self) -> companies.CompaniesResourceWithStreamingResponse:
-        from .resources.companies import CompaniesResourceWithStreamingResponse
-
-        return CompaniesResourceWithStreamingResponse(self._client.companies)
 
     @cached_property
     def webhooks(self) -> webhooks.WebhooksResourceWithStreamingResponse:
@@ -2887,12 +2829,6 @@ class WhopWithStreamedResponse:
 
         return AdsResourceWithStreamingResponse(self._client.ads)
 
-    @cached_property
-    def ad_reports(self) -> ad_reports.AdReportsResourceWithStreamingResponse:
-        from .resources.ad_reports import AdReportsResourceWithStreamingResponse
-
-        return AdReportsResourceWithStreamingResponse(self._client.ad_reports)
-
 
 class AsyncWhopWithStreamedResponse:
     _client: AsyncWhop
@@ -2939,12 +2875,6 @@ class AsyncWhopWithStreamedResponse:
         from .resources.products import AsyncProductsResourceWithStreamingResponse
 
         return AsyncProductsResourceWithStreamingResponse(self._client.products)
-
-    @cached_property
-    def companies(self) -> companies.AsyncCompaniesResourceWithStreamingResponse:
-        from .resources.companies import AsyncCompaniesResourceWithStreamingResponse
-
-        return AsyncCompaniesResourceWithStreamingResponse(self._client.companies)
 
     @cached_property
     def webhooks(self) -> webhooks.AsyncWebhooksResourceWithStreamingResponse:
@@ -3363,12 +3293,6 @@ class AsyncWhopWithStreamedResponse:
         from .resources.ads import AsyncAdsResourceWithStreamingResponse
 
         return AsyncAdsResourceWithStreamingResponse(self._client.ads)
-
-    @cached_property
-    def ad_reports(self) -> ad_reports.AsyncAdReportsResourceWithStreamingResponse:
-        from .resources.ad_reports import AsyncAdReportsResourceWithStreamingResponse
-
-        return AsyncAdReportsResourceWithStreamingResponse(self._client.ad_reports)
 
 
 Client = Whop

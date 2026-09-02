@@ -30,7 +30,7 @@ class TestVerifications:
     def test_method_retrieve_with_all_params(self, client: Whop) -> None:
         verification = client.verifications.retrieve(
             id="id",
-            api_version_date="2026-08-31",
+            api_version_date="2026-09-02",
         )
         assert_matches_type(VerificationRetrieveResponse, verification, path=["response"])
 
@@ -83,7 +83,7 @@ class TestVerifications:
             account_id="account_id",
             direction="asc",
             order="updated_at",
-            api_version_date="2026-08-31",
+            api_version_date="2026-09-02",
         )
         assert_matches_type(VerificationListResponse, verification, path=["response"])
 
@@ -132,7 +132,7 @@ class TestAsyncVerifications:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
         verification = await async_client.verifications.retrieve(
             id="id",
-            api_version_date="2026-08-31",
+            api_version_date="2026-09-02",
         )
         assert_matches_type(VerificationRetrieveResponse, verification, path=["response"])
 
@@ -185,7 +185,7 @@ class TestAsyncVerifications:
             account_id="account_id",
             direction="asc",
             order="updated_at",
-            api_version_date="2026-08-31",
+            api_version_date="2026-09-02",
         )
         assert_matches_type(VerificationListResponse, verification, path=["response"])
 
