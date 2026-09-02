@@ -23,6 +23,7 @@ __all__ = [
     "LeadFormQuestionOption",
     "LeadFormQuestionOptionLogic",
     "MessagingConfig",
+    "Music",
 ]
 
 
@@ -285,6 +286,22 @@ class MessagingConfig(BaseModel):
 
     message: Optional[str] = None
     """Greeting shown when the conversation opens."""
+
+
+class Music(BaseModel):
+    """The advertiser-uploaded MP3 a TikTok carousel ad plays.
+
+    TikTok-only; `null` elsewhere and for non-carousel ads.
+    """
+
+    id: str
+    """The music attachment's file id."""
+
+    name: Optional[str] = None
+    """The uploaded file's name."""
+
+    url: Optional[str] = None
+    """CDN url of the MP3."""
 
 
 class Ad(BaseModel):
@@ -685,4 +702,10 @@ class Ad(BaseModel):
     """Whether the ad can appear alongside other advertisers' ads in the same unit.
 
     Defaults to true.
+    """
+
+    music: Optional[Music] = None
+    """The advertiser-uploaded MP3 a TikTok carousel ad plays.
+
+    TikTok-only; `null` elsewhere and for non-carousel ads.
     """
