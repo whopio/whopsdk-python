@@ -184,6 +184,12 @@ class Data(BaseModel):
     speed: Literal["standard", "instant"]
     """Payout delivery speed."""
 
+    statement_descriptor: Optional[str] = None
+    """
+    Text that appears on the recipient's bank statement, or `null` if no descriptor
+    was set. When set, 5-22 alphanumeric characters (A-Z, a-z, 0-9).
+    """
+
     status: Literal["requested", "in_review", "processing", "completed", "reversed", "canceled", "failed", "denied"]
     """Current payout status."""
 
