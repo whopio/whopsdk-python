@@ -646,6 +646,7 @@ class Data(BaseModel):
         "misc_purchase",
         "misc_refund",
         "misc_reversal",
+        "onboarding_reward",
         "onchain_deposit",
         "onchain_swap_source",
         "onchain_swap_target",
@@ -724,6 +725,15 @@ class Data(BaseModel):
 
     source: Optional[DataSource] = None
     """Source of this ledger activity."""
+
+    usd_amount: Optional[str] = None
+    """Dollar value of this movement as a decimal string, signed like `amount`.
+
+    Converted from the posted amount at the rate that was live when the line posted
+    — the same pricing the wallet balance chart and the financial reports use — so a
+    crypto row carries its dollar value too. `null` for a currency Whop holds no
+    exchange rate for.
+    """
 
     account: Optional[DataAccount] = None
     """The viewer account that owns this row's ledger.
