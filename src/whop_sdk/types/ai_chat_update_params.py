@@ -11,9 +11,9 @@ __all__ = ["AIChatUpdateParams"]
 
 
 class AIChatUpdateParams(TypedDict, total=False):
-    current_company_id: Optional[str]
+    current_account_id: Optional[str]
     """
-    The unique identifier of the company to set as context for the AI chat (e.g.,
+    The unique identifier of the account to set as context for the AI chat (e.g.,
     "biz_XXXXX").
     """
 

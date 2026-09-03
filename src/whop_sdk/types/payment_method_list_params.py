@@ -86,7 +86,7 @@ class PaymentMethodListParams(TypedDict, total=False):
     member_id: str
     """The unique identifier of the member to list payment methods for.
 
-    Omit this and company_id to list your own saved payment methods.
+    Omit this and account_id to list your own saved payment methods.
     """
 
     payment_method_types: List[PaymentMethodTypes]

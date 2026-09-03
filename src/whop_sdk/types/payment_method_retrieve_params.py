@@ -18,6 +18,6 @@ class PaymentMethodRetrieveParams(TypedDict, total=False):
     member_id: str
     """The unique identifier of the member.
 
-    Provide either this or company_id, not both. Omit both to address your own saved
+    Provide either this or account_id, not both. Omit both to address your own saved
     payment methods.
     """

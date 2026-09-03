@@ -52,7 +52,7 @@ class AIChatsResource(SyncAPIResource):
         self,
         *,
         message_text: str,
-        current_company_id: Optional[str] | Omit = omit,
+        current_account_id: Optional[str] | Omit = omit,
         message_attachments: Optional[Iterable[ai_chat_create_params.MessageAttachment]] | Omit = omit,
         message_source: Optional[Literal["manual", "suggestion", "link"]] | Omit = omit,
         suggestion_type: Optional[str] | Omit = omit,
@@ -74,7 +74,7 @@ class AIChatsResource(SyncAPIResource):
         Args:
           message_text: The text content of the first message to send to the AI agent.
 
-          current_company_id: The unique identifier of the company to set as context for the AI chat (e.g.,
+          current_account_id: The unique identifier of the account to set as context for the AI chat (e.g.,
               "biz_XXXXX").
 
           message_attachments: A list of previously uploaded file attachments to include with the first
@@ -100,7 +100,7 @@ class AIChatsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "message_text": message_text,
-                    "current_company_id": current_company_id,
+                    "current_account_id": current_account_id,
                     "message_attachments": message_attachments,
                     "message_source": message_source,
                     "suggestion_type": suggestion_type,
@@ -151,7 +151,7 @@ class AIChatsResource(SyncAPIResource):
         self,
         id: str,
         *,
-        current_company_id: Optional[str] | Omit = omit,
+        current_account_id: Optional[str] | Omit = omit,
         notification_preference: Optional[NotificationPreferences] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -162,7 +162,7 @@ class AIChatsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AIChat:
         """
-        Update an AI chat's title, notification preferences, or associated company
+        Update an AI chat's title, notification preferences, or associated account
         context.
 
         Required permissions:
@@ -170,7 +170,7 @@ class AIChatsResource(SyncAPIResource):
         - `ai_chat:update`
 
         Args:
-          current_company_id: The unique identifier of the company to set as context for the AI chat (e.g.,
+          current_account_id: The unique identifier of the account to set as context for the AI chat (e.g.,
               "biz_XXXXX").
 
           notification_preference: The notification preference for an AI chat
@@ -191,7 +191,7 @@ class AIChatsResource(SyncAPIResource):
             path_template("/ai_chats/{id}", id=id),
             body=maybe_transform(
                 {
-                    "current_company_id": current_company_id,
+                    "current_account_id": current_account_id,
                     "notification_preference": notification_preference,
                     "title": title,
                 },
@@ -324,7 +324,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
         self,
         *,
         message_text: str,
-        current_company_id: Optional[str] | Omit = omit,
+        current_account_id: Optional[str] | Omit = omit,
         message_attachments: Optional[Iterable[ai_chat_create_params.MessageAttachment]] | Omit = omit,
         message_source: Optional[Literal["manual", "suggestion", "link"]] | Omit = omit,
         suggestion_type: Optional[str] | Omit = omit,
@@ -346,7 +346,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
         Args:
           message_text: The text content of the first message to send to the AI agent.
 
-          current_company_id: The unique identifier of the company to set as context for the AI chat (e.g.,
+          current_account_id: The unique identifier of the account to set as context for the AI chat (e.g.,
               "biz_XXXXX").
 
           message_attachments: A list of previously uploaded file attachments to include with the first
@@ -372,7 +372,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "message_text": message_text,
-                    "current_company_id": current_company_id,
+                    "current_account_id": current_account_id,
                     "message_attachments": message_attachments,
                     "message_source": message_source,
                     "suggestion_type": suggestion_type,
@@ -423,7 +423,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        current_company_id: Optional[str] | Omit = omit,
+        current_account_id: Optional[str] | Omit = omit,
         notification_preference: Optional[NotificationPreferences] | Omit = omit,
         title: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -434,7 +434,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AIChat:
         """
-        Update an AI chat's title, notification preferences, or associated company
+        Update an AI chat's title, notification preferences, or associated account
         context.
 
         Required permissions:
@@ -442,7 +442,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
         - `ai_chat:update`
 
         Args:
-          current_company_id: The unique identifier of the company to set as context for the AI chat (e.g.,
+          current_account_id: The unique identifier of the account to set as context for the AI chat (e.g.,
               "biz_XXXXX").
 
           notification_preference: The notification preference for an AI chat
@@ -463,7 +463,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
             path_template("/ai_chats/{id}", id=id),
             body=await async_maybe_transform(
                 {
-                    "current_company_id": current_company_id,
+                    "current_account_id": current_account_id,
                     "notification_preference": notification_preference,
                     "title": title,
                 },

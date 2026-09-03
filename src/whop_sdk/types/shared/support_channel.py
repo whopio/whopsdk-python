@@ -32,10 +32,10 @@ class SupportChannel(BaseModel):
     id: str
     """The unique identifier for the entity"""
 
-    company_id: Optional[str] = None
-    """The unique identifier of the company associated with this channel.
+    account_id: Optional[str] = None
+    """The unique identifier of the account associated with this channel.
 
-    Null if this is not a support or company-scoped conversation.
+    Null if this is not a support or account-scoped conversation.
     """
 
     custom_name: Optional[str] = None

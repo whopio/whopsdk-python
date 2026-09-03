@@ -35,7 +35,7 @@ class TestAIChats:
     def test_method_create_with_all_params(self, client: Whop) -> None:
         ai_chat = client.ai_chats.create(
             message_text="message_text",
-            current_company_id="current_company_id",
+            current_account_id="current_account_id",
             message_attachments=[{"id": "id"}],
             message_source="manual",
             suggestion_type="suggestion_type",
@@ -124,7 +124,7 @@ class TestAIChats:
     def test_method_update_with_all_params(self, client: Whop) -> None:
         ai_chat = client.ai_chats.update(
             id="aich_xxxxxxxxxxxxx",
-            current_company_id="current_company_id",
+            current_account_id="current_account_id",
             notification_preference="all",
             title="title",
         )
@@ -265,7 +265,7 @@ class TestAsyncAIChats:
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         ai_chat = await async_client.ai_chats.create(
             message_text="message_text",
-            current_company_id="current_company_id",
+            current_account_id="current_account_id",
             message_attachments=[{"id": "id"}],
             message_source="manual",
             suggestion_type="suggestion_type",
@@ -354,7 +354,7 @@ class TestAsyncAIChats:
     async def test_method_update_with_all_params(self, async_client: AsyncWhop) -> None:
         ai_chat = await async_client.ai_chats.update(
             id="aich_xxxxxxxxxxxxx",
-            current_company_id="current_company_id",
+            current_account_id="current_account_id",
             notification_preference="all",
             title="title",
         )

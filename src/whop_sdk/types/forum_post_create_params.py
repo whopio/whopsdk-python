@@ -15,8 +15,8 @@ class ForumPostCreateParams(TypedDict, total=False):
     experience_id: Required[str]
     """The unique identifier of the experience to create this post in.
 
-    For example, 'exp_xxxxx'. Pass 'public' along with company_id to automatically
-    use the company's public forum.
+    For example, 'exp_xxxxx'. Pass 'public' along with account_id to automatically
+    use the account's public forum.
     """
 
     account_id: Optional[str]
