@@ -21,6 +21,7 @@ from ..errors.too_many_requests_error import TooManyRequestsError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.dispute import Dispute
+from ..types.dispute_legacy import DisputeLegacy
 from ..types.v1error_response import V1ErrorResponse
 from .types.list_disputes_request_direction import ListDisputesRequestDirection
 from .types.list_disputes_request_order import ListDisputesRequestOrder
@@ -549,7 +550,7 @@ class RawDisputesClient:
 
     def submit_evidence_dispute(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[Dispute]:
+    ) -> HttpResponse[DisputeLegacy]:
         """
         Submit a payment dispute to the payment processor for review. Once submitted, no further edits can be made.
 
@@ -573,7 +574,7 @@ class RawDisputesClient:
 
         Returns
         -------
-        HttpResponse[Dispute]
+        HttpResponse[DisputeLegacy]
             A successful response
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -584,9 +585,9 @@ class RawDisputesClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    Dispute,
+                    DisputeLegacy,
                     parse_obj_as(
-                        type_=Dispute,  # type: ignore
+                        type_=DisputeLegacy,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -700,7 +701,7 @@ class RawDisputesClient:
         service_date: typing.Optional[str] = OMIT,
         uncategorized_attachment: typing.Optional[UpdateEvidenceDisputeRequestUncategorizedAttachment] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[Dispute]:
+    ) -> HttpResponse[DisputeLegacy]:
         """
         Update a dispute with evidence data to attempt to win the dispute.
 
@@ -766,7 +767,7 @@ class RawDisputesClient:
 
         Returns
         -------
-        HttpResponse[Dispute]
+        HttpResponse[DisputeLegacy]
             A successful response
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -813,9 +814,9 @@ class RawDisputesClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    Dispute,
+                    DisputeLegacy,
                     parse_obj_as(
-                        type_=Dispute,  # type: ignore
+                        type_=DisputeLegacy,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1519,7 +1520,7 @@ class AsyncRawDisputesClient:
 
     async def submit_evidence_dispute(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[Dispute]:
+    ) -> AsyncHttpResponse[DisputeLegacy]:
         """
         Submit a payment dispute to the payment processor for review. Once submitted, no further edits can be made.
 
@@ -1543,7 +1544,7 @@ class AsyncRawDisputesClient:
 
         Returns
         -------
-        AsyncHttpResponse[Dispute]
+        AsyncHttpResponse[DisputeLegacy]
             A successful response
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -1554,9 +1555,9 @@ class AsyncRawDisputesClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    Dispute,
+                    DisputeLegacy,
                     parse_obj_as(
-                        type_=Dispute,  # type: ignore
+                        type_=DisputeLegacy,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1670,7 +1671,7 @@ class AsyncRawDisputesClient:
         service_date: typing.Optional[str] = OMIT,
         uncategorized_attachment: typing.Optional[UpdateEvidenceDisputeRequestUncategorizedAttachment] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[Dispute]:
+    ) -> AsyncHttpResponse[DisputeLegacy]:
         """
         Update a dispute with evidence data to attempt to win the dispute.
 
@@ -1736,7 +1737,7 @@ class AsyncRawDisputesClient:
 
         Returns
         -------
-        AsyncHttpResponse[Dispute]
+        AsyncHttpResponse[DisputeLegacy]
             A successful response
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -1783,9 +1784,9 @@ class AsyncRawDisputesClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    Dispute,
+                    DisputeLegacy,
                     parse_obj_as(
-                        type_=Dispute,  # type: ignore
+                        type_=DisputeLegacy,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

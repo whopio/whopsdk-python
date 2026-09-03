@@ -20,8 +20,7 @@ if typing.TYPE_CHECKING:
     from .cancel_payouts_response_source import CancelPayoutsResponseSource
     from .cancel_payouts_response_speed import CancelPayoutsResponseSpeed
     from .cancel_payouts_response_status import CancelPayoutsResponseStatus
-    from .create_payouts_request_body import CreatePayoutsRequestBody
-    from .create_payouts_request_body_speed import CreatePayoutsRequestBodySpeed
+    from .create_payouts_request_speed import CreatePayoutsRequestSpeed
     from .create_payouts_response import CreatePayoutsResponse
     from .create_payouts_response_failure import CreatePayoutsResponseFailure
     from .create_payouts_response_fee_paid_by import CreatePayoutsResponseFeePaidBy
@@ -87,6 +86,9 @@ if typing.TYPE_CHECKING:
     from .post_payout_method_created_payload_data_object import PostPayoutMethodCreatedPayloadDataObject
     from .post_payout_method_created_payload_data_quote import PostPayoutMethodCreatedPayloadDataQuote
     from .post_payout_method_created_payload_data_quote_instant import PostPayoutMethodCreatedPayloadDataQuoteInstant
+    from .post_payout_method_created_payload_data_quote_instant_unavailable_reason import (
+        PostPayoutMethodCreatedPayloadDataQuoteInstantUnavailableReason,
+    )
     from .post_payout_method_created_payload_data_quote_standard import PostPayoutMethodCreatedPayloadDataQuoteStandard
     from .post_payout_method_created_payload_data_status import PostPayoutMethodCreatedPayloadDataStatus
     from .post_payout_method_created_payload_data_supported_payout_method import (
@@ -158,8 +160,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CancelPayoutsResponseSource": ".cancel_payouts_response_source",
     "CancelPayoutsResponseSpeed": ".cancel_payouts_response_speed",
     "CancelPayoutsResponseStatus": ".cancel_payouts_response_status",
-    "CreatePayoutsRequestBody": ".create_payouts_request_body",
-    "CreatePayoutsRequestBodySpeed": ".create_payouts_request_body_speed",
+    "CreatePayoutsRequestSpeed": ".create_payouts_request_speed",
     "CreatePayoutsResponse": ".create_payouts_response",
     "CreatePayoutsResponseFailure": ".create_payouts_response_failure",
     "CreatePayoutsResponseFeePaidBy": ".create_payouts_response_fee_paid_by",
@@ -209,6 +210,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostPayoutMethodCreatedPayloadDataObject": ".post_payout_method_created_payload_data_object",
     "PostPayoutMethodCreatedPayloadDataQuote": ".post_payout_method_created_payload_data_quote",
     "PostPayoutMethodCreatedPayloadDataQuoteInstant": ".post_payout_method_created_payload_data_quote_instant",
+    "PostPayoutMethodCreatedPayloadDataQuoteInstantUnavailableReason": ".post_payout_method_created_payload_data_quote_instant_unavailable_reason",
     "PostPayoutMethodCreatedPayloadDataQuoteStandard": ".post_payout_method_created_payload_data_quote_standard",
     "PostPayoutMethodCreatedPayloadDataStatus": ".post_payout_method_created_payload_data_status",
     "PostPayoutMethodCreatedPayloadDataSupportedPayoutMethod": ".post_payout_method_created_payload_data_supported_payout_method",
@@ -286,8 +288,7 @@ __all__ = [
     "CancelPayoutsResponseSource",
     "CancelPayoutsResponseSpeed",
     "CancelPayoutsResponseStatus",
-    "CreatePayoutsRequestBody",
-    "CreatePayoutsRequestBodySpeed",
+    "CreatePayoutsRequestSpeed",
     "CreatePayoutsResponse",
     "CreatePayoutsResponseFailure",
     "CreatePayoutsResponseFeePaidBy",
@@ -337,6 +338,7 @@ __all__ = [
     "PostPayoutMethodCreatedPayloadDataObject",
     "PostPayoutMethodCreatedPayloadDataQuote",
     "PostPayoutMethodCreatedPayloadDataQuoteInstant",
+    "PostPayoutMethodCreatedPayloadDataQuoteInstantUnavailableReason",
     "PostPayoutMethodCreatedPayloadDataQuoteStandard",
     "PostPayoutMethodCreatedPayloadDataStatus",
     "PostPayoutMethodCreatedPayloadDataSupportedPayoutMethod",

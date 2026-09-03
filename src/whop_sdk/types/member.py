@@ -50,6 +50,11 @@ class Member(UniversalBaseModel):
     `joined` while the member is part of the account, `left` after they leave.
     """
 
+    token_balance: float = pydantic.Field()
+    """
+    The member's current token balance for this account, computed from token transactions.
+    """
+
     user: typing.Optional[UserSummary] = pydantic.Field(default=None)
     """
     The user behind this member. `null` when the buyer is another business rather than a person.

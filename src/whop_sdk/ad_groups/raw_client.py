@@ -291,7 +291,7 @@ class RawAdGroupsClient:
             Device platforms and operating systems to target.
 
         dynamic_creative : typing.Optional[bool]
-            Let the ad platform automatically mix and match this ad group's creatives and copy to find the best-performing combinations. Set at creation; can't be changed afterward.
+            Whether the ad platform automatically mixes and matches this ad group's creatives and copy to find the best-performing combinations. Meta has deprecated it and rejects `true`; ad groups already using it keep it, and it can't be changed afterward.
 
         ends_at : typing.Optional[str]
             When the ad group stops delivering, as an ISO 8601 timestamp. Omit to run until paused.
@@ -1455,7 +1455,7 @@ class AsyncRawAdGroupsClient:
             Device platforms and operating systems to target.
 
         dynamic_creative : typing.Optional[bool]
-            Let the ad platform automatically mix and match this ad group's creatives and copy to find the best-performing combinations. Set at creation; can't be changed afterward.
+            Whether the ad platform automatically mixes and matches this ad group's creatives and copy to find the best-performing combinations. Meta has deprecated it and rejects `true`; ad groups already using it keep it, and it can't be changed afterward.
 
         ends_at : typing.Optional[str]
             When the ad group stops delivering, as an ISO 8601 timestamp. Omit to run until paused.

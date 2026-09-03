@@ -96,6 +96,11 @@ class LedgerActivity(UniversalBaseModel):
     Source of this ledger activity.
     """
 
+    usd_amount: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Dollar value of this movement as a decimal string, signed like `amount`. Converted from the posted amount at the rate that was live when the line posted — the same pricing the wallet balance chart and the financial reports use — so a crypto row carries its dollar value too. `null` for a currency Whop holds no exchange rate for.
+    """
+
     user_email: typing.Optional[str] = pydantic.Field(default=None)
     """
     Email of the customer associated with the payment. Requires member:email:read.

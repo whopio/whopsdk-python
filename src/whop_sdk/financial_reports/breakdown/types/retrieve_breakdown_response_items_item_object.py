@@ -3,5 +3,8 @@
 import typing
 
 RetrieveBreakdownResponseItemsItemObject = typing.Union[
-    typing.Literal["user", "account", "merchant", "payout_destination", "balance"], typing.Any
+    typing.Literal[
+        "user", "account", "merchant", "payout_destination", "balance", "withdrawal_adjustment", "ad_campaign"
+    ],
+    typing.Any,
 ]

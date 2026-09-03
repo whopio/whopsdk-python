@@ -116,6 +116,11 @@ class CancelPayoutsResponse(UniversalBaseModel):
     Payout delivery speed.
     """
 
+    statement_descriptor: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Text that appears on the recipient's bank statement, or `null` if no descriptor was set. When set, 5-22 alphanumeric characters (A-Z, a-z, 0-9).
+    """
+
     status: CancelPayoutsResponseStatus = pydantic.Field()
     """
     Current payout status.

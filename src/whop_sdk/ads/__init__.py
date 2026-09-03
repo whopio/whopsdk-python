@@ -25,6 +25,7 @@ if typing.TYPE_CHECKING:
         CreateAdsRequestLeadFormQuestionsItemOptionsItemLogicAction,
         CreateAdsRequestLeadFormQuestionsItemType,
         CreateAdsRequestMessagingConfig,
+        CreateAdsRequestMusic,
         CreateAdsRequestPostSource,
         CreateAdsRequestSocialAccountsItem,
         DeleteAdsResponse,
@@ -54,6 +55,7 @@ if typing.TYPE_CHECKING:
         UpdateAdsRequestLeadFormQuestionsItemOptionsItemLogicAction,
         UpdateAdsRequestLeadFormQuestionsItemType,
         UpdateAdsRequestMessagingConfig,
+        UpdateAdsRequestMusic,
         UpdateAdsRequestPostSource,
         UpdateAdsRequestSocialAccountsItem,
     )
@@ -76,6 +78,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateAdsRequestLeadFormQuestionsItemOptionsItemLogicAction": ".types",
     "CreateAdsRequestLeadFormQuestionsItemType": ".types",
     "CreateAdsRequestMessagingConfig": ".types",
+    "CreateAdsRequestMusic": ".types",
     "CreateAdsRequestPostSource": ".types",
     "CreateAdsRequestSocialAccountsItem": ".types",
     "DeleteAdsResponse": ".types",
@@ -105,6 +108,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateAdsRequestLeadFormQuestionsItemOptionsItemLogicAction": ".types",
     "UpdateAdsRequestLeadFormQuestionsItemType": ".types",
     "UpdateAdsRequestMessagingConfig": ".types",
+    "UpdateAdsRequestMusic": ".types",
     "UpdateAdsRequestPostSource": ".types",
     "UpdateAdsRequestSocialAccountsItem": ".types",
 }
@@ -150,6 +154,7 @@ __all__ = [
     "CreateAdsRequestLeadFormQuestionsItemOptionsItemLogicAction",
     "CreateAdsRequestLeadFormQuestionsItemType",
     "CreateAdsRequestMessagingConfig",
+    "CreateAdsRequestMusic",
     "CreateAdsRequestPostSource",
     "CreateAdsRequestSocialAccountsItem",
     "DeleteAdsResponse",
@@ -179,6 +184,7 @@ __all__ = [
     "UpdateAdsRequestLeadFormQuestionsItemOptionsItemLogicAction",
     "UpdateAdsRequestLeadFormQuestionsItemType",
     "UpdateAdsRequestMessagingConfig",
+    "UpdateAdsRequestMusic",
     "UpdateAdsRequestPostSource",
     "UpdateAdsRequestSocialAccountsItem",
 ]

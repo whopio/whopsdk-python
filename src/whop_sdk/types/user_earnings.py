@@ -18,6 +18,11 @@ class UserEarnings(UniversalBaseModel):
     Gross income from accounts the user owns or is owner-authorized on.
     """
 
+    partners: UserEarningsAmount = pydantic.Field()
+    """
+    Partner commissions posted to the user's wallet. Pending Partner payouts are excluded until they post; later reversals do not reduce gross income.
+    """
+
     personal: UserEarningsAmount = pydantic.Field()
     """
     Gross income from the user's personal wallet.

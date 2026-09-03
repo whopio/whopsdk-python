@@ -34,6 +34,7 @@ class RawMembersClient:
         account_id: typing.Optional[str] = None,
         access_level: typing.Optional[ListMembersRequestAccessLevel] = None,
         status: typing.Optional[ListMembersRequestStatus] = None,
+        user_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         query: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
@@ -58,6 +59,9 @@ class RawMembersClient:
 
         status : typing.Optional[ListMembersRequestStatus]
             Filter by whether the member is still part of the account.
+
+        user_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return members whose users match these `user_` identifiers.
 
         query : typing.Optional[str]
             Search members by name or username. An exact email address also matches when the credential holds the member:email:read scope.
@@ -101,6 +105,7 @@ class RawMembersClient:
                 "account_id": account_id,
                 "access_level": access_level,
                 "status": status,
+                "user_ids": user_ids,
                 "query": query,
                 "created_after": created_after,
                 "created_before": created_before,
@@ -132,6 +137,7 @@ class RawMembersClient:
                         account_id=account_id,
                         access_level=access_level,
                         status=status,
+                        user_ids=user_ids,
                         query=query,
                         created_after=created_after,
                         created_before=created_before,
@@ -260,6 +266,7 @@ class AsyncRawMembersClient:
         account_id: typing.Optional[str] = None,
         access_level: typing.Optional[ListMembersRequestAccessLevel] = None,
         status: typing.Optional[ListMembersRequestStatus] = None,
+        user_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         query: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
@@ -284,6 +291,9 @@ class AsyncRawMembersClient:
 
         status : typing.Optional[ListMembersRequestStatus]
             Filter by whether the member is still part of the account.
+
+        user_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return members whose users match these `user_` identifiers.
 
         query : typing.Optional[str]
             Search members by name or username. An exact email address also matches when the credential holds the member:email:read scope.
@@ -327,6 +337,7 @@ class AsyncRawMembersClient:
                 "account_id": account_id,
                 "access_level": access_level,
                 "status": status,
+                "user_ids": user_ids,
                 "query": query,
                 "created_after": created_after,
                 "created_before": created_before,
@@ -360,6 +371,7 @@ class AsyncRawMembersClient:
                             account_id=account_id,
                             access_level=access_level,
                             status=status,
+                            user_ids=user_ids,
                             query=query,
                             created_after=created_after,
                             created_before=created_before,

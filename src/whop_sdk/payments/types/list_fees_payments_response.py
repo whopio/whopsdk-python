@@ -4,24 +4,13 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ...types.page_info import PageInfo
-from .list_fees_payments_response_data_item import ListFeesPaymentsResponseDataItem
+from ...types.payment_fee import PaymentFee
+from .list_fees_payments_response_page_info import ListFeesPaymentsResponsePageInfo
 
 
 class ListFeesPaymentsResponse(UniversalBaseModel):
-    """
-    The connection type for Fee.
-    """
-
-    data: typing.List[ListFeesPaymentsResponseDataItem] = pydantic.Field()
-    """
-    A list of nodes.
-    """
-
-    page_info: PageInfo = pydantic.Field()
-    """
-    Information to aid in pagination.
-    """
+    data: typing.List[PaymentFee]
+    page_info: ListFeesPaymentsResponsePageInfo
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

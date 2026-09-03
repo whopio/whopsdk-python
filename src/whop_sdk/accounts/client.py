@@ -140,7 +140,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -215,7 +215,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -251,7 +251,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -282,7 +282,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -474,7 +474,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -561,7 +561,7 @@ class AccountsClient:
             High-level business category, from the Whop business taxonomy. Valid values are listed on [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary).
 
         formation_state : FormCompanyAccountsRequestFormationState
-            Two-letter code of the US state (or `DC`) to form the company in.
+            Two-letter code of the US state (or `DC`) to form the company in. We recommend `WY` because Wyoming formations are completed the same day.
 
         founders : typing.Sequence[FormCompanyAccountsRequestFoundersItem]
             The company's founders. Exactly one must be marked `is_primary` — the responsible party for the filing.
@@ -615,7 +615,7 @@ class AccountsClient:
         )
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -636,7 +636,7 @@ class AccountsClient:
             entity_suffix="LLC",
             entity_type="llc",
             expedite_ein=True,
-            formation_state="TX",
+            formation_state="WY",
             founders=[
                 FormCompanyAccountsRequestFoundersItem(
                     address=FormCompanyAccountsRequestFoundersItemAddress(
@@ -709,7 +709,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -759,7 +759,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -885,7 +885,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -969,7 +969,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1013,7 +1013,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1052,7 +1052,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1252,7 +1252,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1345,7 +1345,7 @@ class AsyncAccountsClient:
             High-level business category, from the Whop business taxonomy. Valid values are listed on [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary).
 
         formation_state : FormCompanyAccountsRequestFormationState
-            Two-letter code of the US state (or `DC`) to form the company in.
+            Two-letter code of the US state (or `DC`) to form the company in. We recommend `WY` because Wyoming formations are completed the same day.
 
         founders : typing.Sequence[FormCompanyAccountsRequestFoundersItem]
             The company's founders. Exactly one must be marked `is_primary` — the responsible party for the filing.
@@ -1401,7 +1401,7 @@ class AsyncAccountsClient:
         )
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1425,7 +1425,7 @@ class AsyncAccountsClient:
                 entity_suffix="LLC",
                 entity_type="llc",
                 expedite_ein=True,
-                formation_state="TX",
+                formation_state="WY",
                 founders=[
                     FormCompanyAccountsRequestFoundersItem(
                         address=FormCompanyAccountsRequestFoundersItemAddress(
@@ -1503,7 +1503,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1561,7 +1561,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

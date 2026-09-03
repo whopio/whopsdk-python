@@ -42,6 +42,7 @@ class MembersClient:
         account_id: typing.Optional[str] = None,
         access_level: typing.Optional[ListMembersRequestAccessLevel] = None,
         status: typing.Optional[ListMembersRequestStatus] = None,
+        user_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         query: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
@@ -66,6 +67,9 @@ class MembersClient:
 
         status : typing.Optional[ListMembersRequestStatus]
             Filter by whether the member is still part of the account.
+
+        user_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return members whose users match these `user_` identifiers.
 
         query : typing.Optional[str]
             Search members by name or username. An exact email address also matches when the credential holds the member:email:read scope.
@@ -107,11 +111,13 @@ class MembersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
-        response = client.members.list()
+        response = client.members.list(
+            user_ids=["user_xxxxxxxxxxxxxx"],
+        )
         for item in response:
             yield item
         # alternatively, you can paginate page-by-page
@@ -122,6 +128,7 @@ class MembersClient:
             account_id=account_id,
             access_level=access_level,
             status=status,
+            user_ids=user_ids,
             query=query,
             created_after=created_after,
             created_before=created_before,
@@ -156,7 +163,7 @@ class MembersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -199,6 +206,7 @@ class AsyncMembersClient:
         account_id: typing.Optional[str] = None,
         access_level: typing.Optional[ListMembersRequestAccessLevel] = None,
         status: typing.Optional[ListMembersRequestStatus] = None,
+        user_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         query: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
@@ -223,6 +231,9 @@ class AsyncMembersClient:
 
         status : typing.Optional[ListMembersRequestStatus]
             Filter by whether the member is still part of the account.
+
+        user_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return members whose users match these `user_` identifiers.
 
         query : typing.Optional[str]
             Search members by name or username. An exact email address also matches when the credential holds the member:email:read scope.
@@ -266,14 +277,16 @@ class AsyncMembersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
 
 
         async def main() -> None:
-            response = await client.members.list()
+            response = await client.members.list(
+                user_ids=["user_xxxxxxxxxxxxxx"],
+            )
             async for item in response:
                 yield item
 
@@ -288,6 +301,7 @@ class AsyncMembersClient:
             account_id=account_id,
             access_level=access_level,
             status=status,
+            user_ids=user_ids,
             query=query,
             created_after=created_after,
             created_before=created_before,
@@ -324,7 +338,7 @@ class AsyncMembersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

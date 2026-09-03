@@ -9,6 +9,10 @@ from ...types.account_recommended_action_chain import AccountRecommendedActionCh
 
 class ListRecommendedActionsResponse(UniversalBaseModel):
     data: typing.List[AccountRecommendedActionChain]
+    generation_pending: bool = pydantic.Field()
+    """
+    Whether generation was queued because the account has no available action chains yet.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

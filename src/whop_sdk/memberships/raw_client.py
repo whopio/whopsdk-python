@@ -21,6 +21,7 @@ from ..errors.too_many_requests_error import TooManyRequestsError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.membership import Membership
+from ..types.membership_legacy import MembershipLegacy
 from ..types.v1error_response import V1ErrorResponse
 from .types.invite_memberships_request_body import InviteMembershipsRequestBody
 from .types.invite_memberships_response import InviteMembershipsResponse
@@ -464,7 +465,7 @@ class RawMembershipsClient:
 
     def add_free_days_membership(
         self, id: str, *, free_days: int, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[Membership]:
+    ) -> HttpResponse[MembershipLegacy]:
         """
         Add free days to extend a membership's current billing period, expiration date, or Stripe trial.
 
@@ -486,7 +487,7 @@ class RawMembershipsClient:
 
         Returns
         -------
-        HttpResponse[Membership]
+        HttpResponse[MembershipLegacy]
             A successful response
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -504,9 +505,9 @@ class RawMembershipsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    Membership,
+                    MembershipLegacy,
                     parse_obj_as(
-                        type_=Membership,  # type: ignore
+                        type_=MembershipLegacy,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -940,7 +941,7 @@ class RawMembershipsClient:
 
     def resync_access_membership(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[Membership]:
+    ) -> HttpResponse[MembershipLegacy]:
         """
         Re-run access fulfillment for a membership. Recomputes the member's content access on Whop, re-validates their Discord link (re-adding them to the server and re-assigning roles if needed), and re-fulfills TradingView indicator access. Telegram access is invite-based and cannot be resynced here. The outcome is written to the membership's logs.
 
@@ -959,7 +960,7 @@ class RawMembershipsClient:
 
         Returns
         -------
-        HttpResponse[Membership]
+        HttpResponse[MembershipLegacy]
             A successful response
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -970,9 +971,9 @@ class RawMembershipsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    Membership,
+                    MembershipLegacy,
                     parse_obj_as(
-                        type_=Membership,  # type: ignore
+                        type_=MembershipLegacy,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1152,7 +1153,7 @@ class RawMembershipsClient:
 
     def uncancel_membership(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[Membership]:
+    ) -> HttpResponse[MembershipLegacy]:
         """
         Reverse a pending cancellation for a membership that was scheduled to cancel at period end.
 
@@ -1171,7 +1172,7 @@ class RawMembershipsClient:
 
         Returns
         -------
-        HttpResponse[Membership]
+        HttpResponse[MembershipLegacy]
             A successful response
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -1182,9 +1183,9 @@ class RawMembershipsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    Membership,
+                    MembershipLegacy,
                     parse_obj_as(
-                        type_=Membership,  # type: ignore
+                        type_=MembershipLegacy,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1710,7 +1711,7 @@ class AsyncRawMembershipsClient:
 
     async def add_free_days_membership(
         self, id: str, *, free_days: int, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[Membership]:
+    ) -> AsyncHttpResponse[MembershipLegacy]:
         """
         Add free days to extend a membership's current billing period, expiration date, or Stripe trial.
 
@@ -1732,7 +1733,7 @@ class AsyncRawMembershipsClient:
 
         Returns
         -------
-        AsyncHttpResponse[Membership]
+        AsyncHttpResponse[MembershipLegacy]
             A successful response
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -1750,9 +1751,9 @@ class AsyncRawMembershipsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    Membership,
+                    MembershipLegacy,
                     parse_obj_as(
-                        type_=Membership,  # type: ignore
+                        type_=MembershipLegacy,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -2188,7 +2189,7 @@ class AsyncRawMembershipsClient:
 
     async def resync_access_membership(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[Membership]:
+    ) -> AsyncHttpResponse[MembershipLegacy]:
         """
         Re-run access fulfillment for a membership. Recomputes the member's content access on Whop, re-validates their Discord link (re-adding them to the server and re-assigning roles if needed), and re-fulfills TradingView indicator access. Telegram access is invite-based and cannot be resynced here. The outcome is written to the membership's logs.
 
@@ -2207,7 +2208,7 @@ class AsyncRawMembershipsClient:
 
         Returns
         -------
-        AsyncHttpResponse[Membership]
+        AsyncHttpResponse[MembershipLegacy]
             A successful response
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -2218,9 +2219,9 @@ class AsyncRawMembershipsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    Membership,
+                    MembershipLegacy,
                     parse_obj_as(
-                        type_=Membership,  # type: ignore
+                        type_=MembershipLegacy,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -2400,7 +2401,7 @@ class AsyncRawMembershipsClient:
 
     async def uncancel_membership(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[Membership]:
+    ) -> AsyncHttpResponse[MembershipLegacy]:
         """
         Reverse a pending cancellation for a membership that was scheduled to cancel at period end.
 
@@ -2419,7 +2420,7 @@ class AsyncRawMembershipsClient:
 
         Returns
         -------
-        AsyncHttpResponse[Membership]
+        AsyncHttpResponse[MembershipLegacy]
             A successful response
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -2430,9 +2431,9 @@ class AsyncRawMembershipsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    Membership,
+                    MembershipLegacy,
                     parse_obj_as(
-                        type_=Membership,  # type: ignore
+                        type_=MembershipLegacy,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

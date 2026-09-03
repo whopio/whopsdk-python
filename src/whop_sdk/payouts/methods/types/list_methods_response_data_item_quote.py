@@ -5,6 +5,9 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .list_methods_response_data_item_quote_instant import ListMethodsResponseDataItemQuoteInstant
+from .list_methods_response_data_item_quote_instant_unavailable_reason import (
+    ListMethodsResponseDataItemQuoteInstantUnavailableReason,
+)
 from .list_methods_response_data_item_quote_standard import ListMethodsResponseDataItemQuoteStandard
 
 
@@ -31,6 +34,13 @@ class ListMethodsResponseDataItemQuote(UniversalBaseModel):
     instant: typing.Optional[ListMethodsResponseDataItemQuoteInstant] = pydantic.Field(default=None)
     """
     Instant-delivery estimate. Null if the method does not support instant delivery, instant delivery is unavailable for the account, or the amount does not cover the fee.
+    """
+
+    instant_unavailable_reason: typing.Optional[ListMethodsResponseDataItemQuoteInstantUnavailableReason] = (
+        pydantic.Field(default=None)
+    )
+    """
+    Why instant delivery is unavailable for this method. `minimum_crypto_sales_not_met` means the account has not reached the total sales required for instant cryptocurrency payouts. `null` when this restriction does not apply.
     """
 
     max_limit: typing.Optional[float] = pydantic.Field(default=None)

@@ -5,7 +5,7 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ...types.payment import Payment
+from ...types.payment_legacy import PaymentLegacy
 from .post_payment_failed_payload_api_version import PostPaymentFailedPayloadApiVersion
 from .post_payment_failed_payload_type import PostPaymentFailedPayloadType
 
@@ -26,7 +26,7 @@ class PostPaymentFailedPayload(UniversalBaseModel):
     The dated API version (Api-Version-Date) the payload is serialized to
     """
 
-    data: Payment
+    data: PaymentLegacy
     id: str = pydantic.Field()
     """
     A unique ID for every single webhook request

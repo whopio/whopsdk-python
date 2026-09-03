@@ -3,5 +3,8 @@
 import typing
 
 RetrieveBreakdownResponseBucket = typing.Union[
-    typing.Literal["transfers", "payments", "card_spend", "withdrawals", "swaps"], typing.Any
+    typing.Literal[
+        "transfers", "payments", "refunds", "ads", "card_spend", "card_authorization_releases", "withdrawals", "swaps"
+    ],
+    typing.Any,
 ]
