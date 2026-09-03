@@ -12,7 +12,7 @@
 <dl>
 <dd>
 
-Create a short-lived access token for authenticating API requests. When using API key authentication, provide company_id or user_id. When using OAuth, the user is derived from the token. Use this token with Whop's web and mobile embedded components.
+Create a short-lived access token for authenticating API requests. When using API key authentication, provide account_id or user_id. When using OAuth, the user is derived from the token. Use this token with Whop's web and mobile embedded components.
 </dd>
 </dl>
 </dd>
@@ -5443,7 +5443,7 @@ client.ai_chats.create(
 <dl>
 <dd>
 
-**current_company_id:** `typing.Optional[str]` — The unique identifier of the company to set as context for the AI chat (e.g., "biz_XXXXX").
+**current_account_id:** `typing.Optional[str]` — The unique identifier of the account to set as context for the AI chat (e.g., "biz_XXXXX").
     
 </dd>
 </dl>
@@ -5656,7 +5656,7 @@ client.ai_chats.delete(
 <dl>
 <dd>
 
-Update an AI chat's title, notification preferences, or associated company context.
+Update an AI chat's title, notification preferences, or associated account context.
 
 Required permissions:
  - `ai_chat:update`
@@ -5708,7 +5708,7 @@ client.ai_chats.update(
 <dl>
 <dd>
 
-**current_company_id:** `typing.Optional[str]` — The unique identifier of the company to set as context for the AI chat (e.g., "biz_XXXXX").
+**current_account_id:** `typing.Optional[str]` — The unique identifier of the account to set as context for the AI chat (e.g., "biz_XXXXX").
     
 </dd>
 </dl>
@@ -19676,7 +19676,7 @@ client.forum_posts.list(
 <dl>
 <dd>
 
-Create a new forum post or comment within an experience. Supports text content, attachments, polls, paywalling, and pinning. Pass experience_id 'public' with a company_id to post to a company's public forum.
+Create a new forum post or comment within an experience. Supports text content, attachments, polls, paywalling, and pinning. Pass experience_id 'public' with an account_id to post to an account's public forum.
 
 Required permissions:
  - `forum:post:create`
@@ -19720,7 +19720,7 @@ client.forum_posts.create(
 <dl>
 <dd>
 
-**experience_id:** `str` — The unique identifier of the experience to create this post in. For example, 'exp_xxxxx'. Pass 'public' along with company_id to automatically use the company's public forum.
+**experience_id:** `str` — The unique identifier of the experience to create this post in. For example, 'exp_xxxxx'. Pass 'public' along with account_id to automatically use the account's public forum.
     
 </dd>
 </dl>
@@ -20350,7 +20350,7 @@ client.forums.update(
 <dl>
 <dd>
 
-Returns a paginated list of identity profiles. When company_id is provided, lists IPs currently linked to that company's ledger. When omitted, lists IPs linked to any ledger the actor can read (including child companies under a parent).
+Returns a paginated list of identity profiles. When account_id is provided, lists IPs currently linked to that account's ledger. When omitted, lists IPs linked to any ledger the actor can read (including child accounts under a parent).
 
 Required permissions:
  - `identity:read`
@@ -25404,7 +25404,7 @@ client.payment_methods.list(
 <dl>
 <dd>
 
-**member_id:** `typing.Optional[str]` — The unique identifier of the member to list payment methods for. Omit this and company_id to list your own saved payment methods.
+**member_id:** `typing.Optional[str]` — The unique identifier of the member to list payment methods for. Omit this and account_id to list your own saved payment methods.
     
 </dd>
 </dl>
@@ -25524,7 +25524,7 @@ client.payment_methods.list(
 <dl>
 <dd>
 
-Retrieves the details of an existing payment method. Addresses a member's wallet when member_id or company_id is given, otherwise your own.
+Retrieves the details of an existing payment method. Addresses a member's wallet when member_id or account_id is given, otherwise your own.
 
 Required permissions:
  - `member:payment_methods:read`
@@ -25578,7 +25578,7 @@ client.payment_methods.retrieve(
 <dl>
 <dd>
 
-**member_id:** `typing.Optional[str]` — The unique identifier of the member. Provide either this or company_id, not both. Omit both to address your own saved payment methods.
+**member_id:** `typing.Optional[str]` — The unique identifier of the member. Provide either this or account_id, not both. Omit both to address your own saved payment methods.
     
 </dd>
 </dl>
@@ -25672,7 +25672,7 @@ client.payment_methods.delete_payment_method(
 <dl>
 <dd>
 
-**member_id:** `typing.Optional[str]` — The unique identifier of the member. Provide either this or company_id, not both. Omit both to address your own saved payment methods.
+**member_id:** `typing.Optional[str]` — The unique identifier of the member. Provide either this or account_id, not both. Omit both to address your own saved payment methods.
     
 </dd>
 </dl>

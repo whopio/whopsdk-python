@@ -17,14 +17,14 @@ class CheckoutConfigurationListItem(UniversalBaseModel):
     A checkout configuration is a reusable configuration for a checkout, including the plan, affiliate, and custom metadata. Payments and memberships created from a checkout session inherit its metadata.
     """
 
+    account_id: str = pydantic.Field()
+    """
+    The ID of the account to use for the checkout configuration
+    """
+
     affiliate_code: typing.Optional[str] = pydantic.Field(default=None)
     """
     The affiliate code to use for the checkout configuration
-    """
-
-    company_id: str = pydantic.Field()
-    """
-    The ID of the company to use for the checkout configuration
     """
 
     currency: typing.Optional[Currencies] = pydantic.Field(default=None)

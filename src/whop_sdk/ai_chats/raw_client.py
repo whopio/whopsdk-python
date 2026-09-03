@@ -199,7 +199,7 @@ class RawAiChatsClient:
         self,
         *,
         message_text: str,
-        current_company_id: typing.Optional[str] = OMIT,
+        current_account_id: typing.Optional[str] = OMIT,
         message_attachments: typing.Optional[typing.Sequence[CreateAiChatsRequestMessageAttachmentsItem]] = OMIT,
         message_source: typing.Optional[AiChatMessageSourceTypes] = OMIT,
         suggestion_type: typing.Optional[str] = OMIT,
@@ -217,8 +217,8 @@ class RawAiChatsClient:
         message_text : str
             The text content of the first message to send to the AI agent.
 
-        current_company_id : typing.Optional[str]
-            The unique identifier of the company to set as context for the AI chat (e.g., "biz_XXXXX").
+        current_account_id : typing.Optional[str]
+            The unique identifier of the account to set as context for the AI chat (e.g., "biz_XXXXX").
 
         message_attachments : typing.Optional[typing.Sequence[CreateAiChatsRequestMessageAttachmentsItem]]
             A list of previously uploaded file attachments to include with the first message.
@@ -244,7 +244,7 @@ class RawAiChatsClient:
             "ai_chats",
             method="POST",
             json={
-                "current_company_id": current_company_id,
+                "current_account_id": current_account_id,
                 "message_attachments": convert_and_respect_annotation_metadata(
                     object_=message_attachments,
                     annotation=typing.Optional[typing.Sequence[CreateAiChatsRequestMessageAttachmentsItem]],
@@ -600,13 +600,13 @@ class RawAiChatsClient:
         self,
         id: str,
         *,
-        current_company_id: typing.Optional[str] = OMIT,
+        current_account_id: typing.Optional[str] = OMIT,
         notification_preference: typing.Optional[AiChatNotificationPreferences] = OMIT,
         title: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[AiChat]:
         """
-        Update an AI chat's title, notification preferences, or associated company context.
+        Update an AI chat's title, notification preferences, or associated account context.
 
         Required permissions:
          - `ai_chat:update`
@@ -616,8 +616,8 @@ class RawAiChatsClient:
         id : str
             The unique identifier of the AI chat to update (e.g., "ai_chat_XXXXX").
 
-        current_company_id : typing.Optional[str]
-            The unique identifier of the company to set as context for the AI chat (e.g., "biz_XXXXX").
+        current_account_id : typing.Optional[str]
+            The unique identifier of the account to set as context for the AI chat (e.g., "biz_XXXXX").
 
         notification_preference : typing.Optional[AiChatNotificationPreferences]
             The notification preference for the AI chat.
@@ -637,7 +637,7 @@ class RawAiChatsClient:
             f"ai_chats/{encode_path_param(id)}",
             method="PATCH",
             json={
-                "current_company_id": current_company_id,
+                "current_account_id": current_account_id,
                 "notification_preference": notification_preference,
                 "title": title,
             },
@@ -915,7 +915,7 @@ class AsyncRawAiChatsClient:
         self,
         *,
         message_text: str,
-        current_company_id: typing.Optional[str] = OMIT,
+        current_account_id: typing.Optional[str] = OMIT,
         message_attachments: typing.Optional[typing.Sequence[CreateAiChatsRequestMessageAttachmentsItem]] = OMIT,
         message_source: typing.Optional[AiChatMessageSourceTypes] = OMIT,
         suggestion_type: typing.Optional[str] = OMIT,
@@ -933,8 +933,8 @@ class AsyncRawAiChatsClient:
         message_text : str
             The text content of the first message to send to the AI agent.
 
-        current_company_id : typing.Optional[str]
-            The unique identifier of the company to set as context for the AI chat (e.g., "biz_XXXXX").
+        current_account_id : typing.Optional[str]
+            The unique identifier of the account to set as context for the AI chat (e.g., "biz_XXXXX").
 
         message_attachments : typing.Optional[typing.Sequence[CreateAiChatsRequestMessageAttachmentsItem]]
             A list of previously uploaded file attachments to include with the first message.
@@ -960,7 +960,7 @@ class AsyncRawAiChatsClient:
             "ai_chats",
             method="POST",
             json={
-                "current_company_id": current_company_id,
+                "current_account_id": current_account_id,
                 "message_attachments": convert_and_respect_annotation_metadata(
                     object_=message_attachments,
                     annotation=typing.Optional[typing.Sequence[CreateAiChatsRequestMessageAttachmentsItem]],
@@ -1320,13 +1320,13 @@ class AsyncRawAiChatsClient:
         self,
         id: str,
         *,
-        current_company_id: typing.Optional[str] = OMIT,
+        current_account_id: typing.Optional[str] = OMIT,
         notification_preference: typing.Optional[AiChatNotificationPreferences] = OMIT,
         title: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[AiChat]:
         """
-        Update an AI chat's title, notification preferences, or associated company context.
+        Update an AI chat's title, notification preferences, or associated account context.
 
         Required permissions:
          - `ai_chat:update`
@@ -1336,8 +1336,8 @@ class AsyncRawAiChatsClient:
         id : str
             The unique identifier of the AI chat to update (e.g., "ai_chat_XXXXX").
 
-        current_company_id : typing.Optional[str]
-            The unique identifier of the company to set as context for the AI chat (e.g., "biz_XXXXX").
+        current_account_id : typing.Optional[str]
+            The unique identifier of the account to set as context for the AI chat (e.g., "biz_XXXXX").
 
         notification_preference : typing.Optional[AiChatNotificationPreferences]
             The notification preference for the AI chat.
@@ -1357,7 +1357,7 @@ class AsyncRawAiChatsClient:
             f"ai_chats/{encode_path_param(id)}",
             method="PATCH",
             json={
-                "current_company_id": current_company_id,
+                "current_account_id": current_account_id,
                 "notification_preference": notification_preference,
                 "title": title,
             },
