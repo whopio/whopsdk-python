@@ -355,6 +355,9 @@ class DataSource(BaseModel):
     from_currency: Optional[str] = None
     """Lowercase currency code converted from (swap sources only)."""
 
+    notes: Optional[str] = None
+    """Memo attached to the transfer source, or null when none was provided."""
+
     payer_name: Optional[str] = None
     """
     Name of the entity processing the payout (payout sources only; requires

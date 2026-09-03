@@ -35,7 +35,7 @@ class TestDisputes:
     def test_method_retrieve_with_all_params(self, client: Whop) -> None:
         dispute = client.disputes.retrieve(
             id="id",
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
         )
         assert_matches_type(Dispute, dispute, path=["response"])
 
@@ -94,7 +94,7 @@ class TestDisputes:
             last=0,
             order="created_at",
             status=["needs_response"],
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
         )
         assert_matches_type(SyncCursorPage[Dispute], dispute, path=["response"])
 
@@ -245,7 +245,7 @@ class TestAsyncDisputes:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
         dispute = await async_client.disputes.retrieve(
             id="id",
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
         )
         assert_matches_type(Dispute, dispute, path=["response"])
 
@@ -304,7 +304,7 @@ class TestAsyncDisputes:
             last=0,
             order="created_at",
             status=["needs_response"],
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
         )
         assert_matches_type(AsyncCursorPage[Dispute], dispute, path=["response"])
 

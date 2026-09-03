@@ -46,7 +46,7 @@ class TestTransfers:
             notes="Refund for the rescheduled interior detail",
             redeemable_count=3,
             type="wallet_send",
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(TransferCreateResponse, transfer, path=["response"])
@@ -92,7 +92,7 @@ class TestTransfers:
     def test_method_retrieve_with_all_params(self, client: Whop) -> None:
         transfer = client.transfers.retrieve(
             id="id",
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
         )
         assert_matches_type(TransferRetrieveResponse, transfer, path=["response"])
 
@@ -150,7 +150,7 @@ class TestTransfers:
             last=50,
             order="created_at",
             origin_id="origin_id",
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
         )
         assert_matches_type(SyncCursorPage[TransferListResponse], transfer, path=["response"])
 
@@ -205,7 +205,7 @@ class TestAsyncTransfers:
             notes="Refund for the rescheduled interior detail",
             redeemable_count=3,
             type="wallet_send",
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(TransferCreateResponse, transfer, path=["response"])
@@ -251,7 +251,7 @@ class TestAsyncTransfers:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
         transfer = await async_client.transfers.retrieve(
             id="id",
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
         )
         assert_matches_type(TransferRetrieveResponse, transfer, path=["response"])
 
@@ -309,7 +309,7 @@ class TestAsyncTransfers:
             last=50,
             order="created_at",
             origin_id="origin_id",
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
         )
         assert_matches_type(AsyncCursorPage[TransferListResponse], transfer, path=["response"])
 

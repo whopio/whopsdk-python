@@ -34,7 +34,7 @@ class TestResolutionCenterCases:
     def test_method_retrieve_with_all_params(self, client: Whop) -> None:
         resolution_center_case = client.resolution_center_cases.retrieve(
             id="id",
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
         )
         assert_matches_type(ResolutionCenterCaseRetrieveResponse, resolution_center_case, path=["response"])
 
@@ -95,7 +95,7 @@ class TestResolutionCenterCases:
             reason=["fraudulent"],
             status=["awaiting_merchant"],
             user_id="user_id",
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
         )
         assert_matches_type(SyncCursorPage[ResolutionCenterCaseListResponse], resolution_center_case, path=["response"])
 
@@ -142,7 +142,7 @@ class TestAsyncResolutionCenterCases:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
         resolution_center_case = await async_client.resolution_center_cases.retrieve(
             id="id",
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
         )
         assert_matches_type(ResolutionCenterCaseRetrieveResponse, resolution_center_case, path=["response"])
 
@@ -205,7 +205,7 @@ class TestAsyncResolutionCenterCases:
             reason=["fraudulent"],
             status=["awaiting_merchant"],
             user_id="user_id",
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
         )
         assert_matches_type(
             AsyncCursorPage[ResolutionCenterCaseListResponse], resolution_center_case, path=["response"]

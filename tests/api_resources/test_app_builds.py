@@ -45,7 +45,7 @@ class TestAppBuilds:
                 "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             },
             supported_app_view_types=["hub"],
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(AppBuild, app_build, path=["response"])
@@ -93,7 +93,7 @@ class TestAppBuilds:
     def test_method_retrieve_with_all_params(self, client: Whop) -> None:
         app_build = client.app_builds.retrieve(
             id="id",
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
         )
         assert_matches_type(AppBuild, app_build, path=["response"])
 
@@ -152,7 +152,7 @@ class TestAppBuilds:
             last=0,
             platform="ios",
             status="draft",
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
         )
         assert_matches_type(SyncCursorPage[AppBuild], app_build, path=["response"])
 
@@ -195,7 +195,7 @@ class TestAppBuilds:
     def test_method_promote_with_all_params(self, client: Whop) -> None:
         app_build = client.app_builds.promote(
             id="id",
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(AppBuild, app_build, path=["response"])
@@ -267,7 +267,7 @@ class TestAsyncAppBuilds:
                 "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             },
             supported_app_view_types=["hub"],
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(AppBuild, app_build, path=["response"])
@@ -315,7 +315,7 @@ class TestAsyncAppBuilds:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
         app_build = await async_client.app_builds.retrieve(
             id="id",
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
         )
         assert_matches_type(AppBuild, app_build, path=["response"])
 
@@ -374,7 +374,7 @@ class TestAsyncAppBuilds:
             last=0,
             platform="ios",
             status="draft",
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
         )
         assert_matches_type(AsyncCursorPage[AppBuild], app_build, path=["response"])
 
@@ -417,7 +417,7 @@ class TestAsyncAppBuilds:
     async def test_method_promote_with_all_params(self, async_client: AsyncWhop) -> None:
         app_build = await async_client.app_builds.promote(
             id="id",
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(AppBuild, app_build, path=["response"])

@@ -56,7 +56,7 @@ class TestPromoCodes:
             product_id="prod_xxxxxxxxxxxxxx",
             stock=200,
             unlimited_stock=False,
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(PromoCode, promo_code, path=["response"])
@@ -112,7 +112,7 @@ class TestPromoCodes:
     def test_method_retrieve_with_all_params(self, client: Whop) -> None:
         promo_code = client.promo_codes.retrieve(
             id="id",
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
         )
         assert_matches_type(PromoCode, promo_code, path=["response"])
 
@@ -174,7 +174,7 @@ class TestPromoCodes:
             plan_ids=["plan_xxxxxxxxxxxxxx"],
             product_ids=["prod_xxxxxxxxxxxxxx"],
             status="active",
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
         )
         assert_matches_type(SyncCursorPage[PromoCodeListResponse], promo_code, path=["response"])
 
@@ -217,7 +217,7 @@ class TestPromoCodes:
     def test_method_delete_with_all_params(self, client: Whop) -> None:
         promo_code = client.promo_codes.delete(
             id="id",
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
         )
         assert_matches_type(PromoCodeDeleteResponse, promo_code, path=["response"])
 
@@ -294,7 +294,7 @@ class TestAsyncPromoCodes:
             product_id="prod_xxxxxxxxxxxxxx",
             stock=200,
             unlimited_stock=False,
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(PromoCode, promo_code, path=["response"])
@@ -350,7 +350,7 @@ class TestAsyncPromoCodes:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
         promo_code = await async_client.promo_codes.retrieve(
             id="id",
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
         )
         assert_matches_type(PromoCode, promo_code, path=["response"])
 
@@ -412,7 +412,7 @@ class TestAsyncPromoCodes:
             plan_ids=["plan_xxxxxxxxxxxxxx"],
             product_ids=["prod_xxxxxxxxxxxxxx"],
             status="active",
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
         )
         assert_matches_type(AsyncCursorPage[PromoCodeListResponse], promo_code, path=["response"])
 
@@ -455,7 +455,7 @@ class TestAsyncPromoCodes:
     async def test_method_delete_with_all_params(self, async_client: AsyncWhop) -> None:
         promo_code = await async_client.promo_codes.delete(
             id="id",
-            api_version_date="2026-09-02-1",
+            api_version_date="2026-09-02-2",
         )
         assert_matches_type(PromoCodeDeleteResponse, promo_code, path=["response"])
 
