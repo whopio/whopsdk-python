@@ -36,7 +36,7 @@ class DmChannelsClient:
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
-        company_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[DmChannelListItem, ListDmChannelsResponse]:
         """
@@ -59,7 +59,7 @@ class DmChannelsClient:
         last : typing.Optional[int]
             Returns the last _n_ elements from the list.
 
-        company_id : typing.Optional[str]
+        account_id : typing.Optional[str]
             The unique identifier of a company to filter DM channels by. Only returns channels scoped to this company.
 
         request_options : typing.Optional[RequestOptions]
@@ -75,14 +75,14 @@ class DmChannelsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         response = client.dm_channels.list(
             first=42,
             last=42,
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         for item in response:
             yield item
@@ -91,14 +91,14 @@ class DmChannelsClient:
             yield page
         """
         return self._raw_client.list(
-            after=after, before=before, first=first, last=last, company_id=company_id, request_options=request_options
+            after=after, before=before, first=first, last=last, account_id=account_id, request_options=request_options
         )
 
     def create(
         self,
         *,
         with_user_ids: typing.Sequence[str],
-        company_id: typing.Optional[str] = OMIT,
+        account_id: typing.Optional[str] = OMIT,
         custom_name: typing.Optional[str] = OMIT,
         notifications_enabled: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -114,7 +114,7 @@ class DmChannelsClient:
         with_user_ids : typing.Sequence[str]
             The list of user identifiers to include in the DM channel. Each entry can be an email, username, or user ID (e.g. 'user_xxxxx').
 
-        company_id : typing.Optional[str]
+        account_id : typing.Optional[str]
             The unique identifier of the company to scope this DM channel to. When set, the channel is visible only within that company context.
 
         custom_name : typing.Optional[str]
@@ -136,7 +136,7 @@ class DmChannelsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -146,7 +146,7 @@ class DmChannelsClient:
         """
         _response = self._raw_client.create(
             with_user_ids=with_user_ids,
-            company_id=company_id,
+            account_id=account_id,
             custom_name=custom_name,
             notifications_enabled=notifications_enabled,
             request_options=request_options,
@@ -179,7 +179,7 @@ class DmChannelsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -216,7 +216,7 @@ class DmChannelsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -262,7 +262,7 @@ class DmChannelsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -296,7 +296,7 @@ class AsyncDmChannelsClient:
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
-        company_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[DmChannelListItem, ListDmChannelsResponse]:
         """
@@ -319,7 +319,7 @@ class AsyncDmChannelsClient:
         last : typing.Optional[int]
             Returns the last _n_ elements from the list.
 
-        company_id : typing.Optional[str]
+        account_id : typing.Optional[str]
             The unique identifier of a company to filter DM channels by. Only returns channels scoped to this company.
 
         request_options : typing.Optional[RequestOptions]
@@ -337,7 +337,7 @@ class AsyncDmChannelsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -347,7 +347,7 @@ class AsyncDmChannelsClient:
             response = await client.dm_channels.list(
                 first=42,
                 last=42,
-                company_id="biz_xxxxxxxxxxxxxx",
+                account_id="biz_xxxxxxxxxxxxxx",
             )
             async for item in response:
                 yield item
@@ -360,14 +360,14 @@ class AsyncDmChannelsClient:
         asyncio.run(main())
         """
         return await self._raw_client.list(
-            after=after, before=before, first=first, last=last, company_id=company_id, request_options=request_options
+            after=after, before=before, first=first, last=last, account_id=account_id, request_options=request_options
         )
 
     async def create(
         self,
         *,
         with_user_ids: typing.Sequence[str],
-        company_id: typing.Optional[str] = OMIT,
+        account_id: typing.Optional[str] = OMIT,
         custom_name: typing.Optional[str] = OMIT,
         notifications_enabled: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -383,7 +383,7 @@ class AsyncDmChannelsClient:
         with_user_ids : typing.Sequence[str]
             The list of user identifiers to include in the DM channel. Each entry can be an email, username, or user ID (e.g. 'user_xxxxx').
 
-        company_id : typing.Optional[str]
+        account_id : typing.Optional[str]
             The unique identifier of the company to scope this DM channel to. When set, the channel is visible only within that company context.
 
         custom_name : typing.Optional[str]
@@ -407,7 +407,7 @@ class AsyncDmChannelsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -423,7 +423,7 @@ class AsyncDmChannelsClient:
         """
         _response = await self._raw_client.create(
             with_user_ids=with_user_ids,
-            company_id=company_id,
+            account_id=account_id,
             custom_name=custom_name,
             notifications_enabled=notifications_enabled,
             request_options=request_options,
@@ -458,7 +458,7 @@ class AsyncDmChannelsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -503,7 +503,7 @@ class AsyncDmChannelsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -557,7 +557,7 @@ class AsyncDmChannelsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

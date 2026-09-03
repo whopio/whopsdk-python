@@ -36,7 +36,7 @@ class RawLeadsClient:
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -57,7 +57,7 @@ class RawLeadsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list leads for.
 
         after : typing.Optional[str]
@@ -97,10 +97,10 @@ class RawLeadsClient:
                 "before": before,
                 "first": first,
                 "last": last,
-                "company_id": company_id,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "product_ids": product_ids,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -120,7 +120,7 @@ class RawLeadsClient:
                     _parsed_next = _parsed_response.page_info.end_cursor
                     _has_next = _parsed_next is not None and _parsed_next != ""
                     _get_next = lambda: self.list(
-                        company_id=company_id,
+                        account_id=account_id,
                         after=_parsed_next,
                         before=before,
                         first=first,
@@ -220,7 +220,7 @@ class RawLeadsClient:
     def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         product_id: typing.Optional[str] = OMIT,
         referrer: typing.Optional[str] = OMIT,
@@ -238,7 +238,7 @@ class RawLeadsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to create the lead for, starting with 'biz_'.
 
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
@@ -265,7 +265,7 @@ class RawLeadsClient:
             "leads",
             method="POST",
             json={
-                "company_id": company_id,
+                "account_id": account_id,
                 "metadata": metadata,
                 "product_id": product_id,
                 "referrer": referrer,
@@ -650,7 +650,7 @@ class AsyncRawLeadsClient:
     async def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -671,7 +671,7 @@ class AsyncRawLeadsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list leads for.
 
         after : typing.Optional[str]
@@ -711,10 +711,10 @@ class AsyncRawLeadsClient:
                 "before": before,
                 "first": first,
                 "last": last,
-                "company_id": company_id,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "product_ids": product_ids,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -736,7 +736,7 @@ class AsyncRawLeadsClient:
 
                     async def _get_next():
                         return await self.list(
-                            company_id=company_id,
+                            account_id=account_id,
                             after=_parsed_next,
                             before=before,
                             first=first,
@@ -837,7 +837,7 @@ class AsyncRawLeadsClient:
     async def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         product_id: typing.Optional[str] = OMIT,
         referrer: typing.Optional[str] = OMIT,
@@ -855,7 +855,7 @@ class AsyncRawLeadsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to create the lead for, starting with 'biz_'.
 
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
@@ -882,7 +882,7 @@ class AsyncRawLeadsClient:
             "leads",
             method="POST",
             json={
-                "company_id": company_id,
+                "account_id": account_id,
                 "metadata": metadata,
                 "product_id": product_id,
                 "referrer": referrer,

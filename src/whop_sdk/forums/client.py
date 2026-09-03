@@ -36,7 +36,7 @@ class ForumsClient:
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -52,7 +52,7 @@ class ForumsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list forums for.
 
         after : typing.Optional[str]
@@ -83,15 +83,15 @@ class ForumsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         response = client.forums.list(
             first=42,
             last=42,
-            company_id="biz_xxxxxxxxxxxxxx",
             product_id="prod_xxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         for item in response:
             yield item
@@ -100,7 +100,7 @@ class ForumsClient:
             yield page
         """
         return self._raw_client.list(
-            company_id=company_id,
+            account_id=account_id,
             after=after,
             before=before,
             first=first,
@@ -134,7 +134,7 @@ class ForumsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -195,7 +195,7 @@ class ForumsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -233,7 +233,7 @@ class AsyncForumsClient:
     async def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -249,7 +249,7 @@ class AsyncForumsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list forums for.
 
         after : typing.Optional[str]
@@ -282,7 +282,7 @@ class AsyncForumsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -292,8 +292,8 @@ class AsyncForumsClient:
             response = await client.forums.list(
                 first=42,
                 last=42,
-                company_id="biz_xxxxxxxxxxxxxx",
                 product_id="prod_xxxxxxxxxxxxx",
+                account_id="biz_xxxxxxxxxxxxxx",
             )
             async for item in response:
                 yield item
@@ -306,7 +306,7 @@ class AsyncForumsClient:
         asyncio.run(main())
         """
         return await self._raw_client.list(
-            company_id=company_id,
+            account_id=account_id,
             after=after,
             before=before,
             first=first,
@@ -342,7 +342,7 @@ class AsyncForumsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -411,7 +411,7 @@ class AsyncForumsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

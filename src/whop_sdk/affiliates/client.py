@@ -41,7 +41,7 @@ class AffiliatesClient:
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -60,7 +60,7 @@ class AffiliatesClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list affiliates for.
 
         after : typing.Optional[str]
@@ -97,14 +97,14 @@ class AffiliatesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         response = client.affiliates.list(
             first=42,
             last=42,
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         for item in response:
             yield item
@@ -113,7 +113,7 @@ class AffiliatesClient:
             yield page
         """
         return self._raw_client.list(
-            company_id=company_id,
+            account_id=account_id,
             after=after,
             before=before,
             first=first,
@@ -126,7 +126,7 @@ class AffiliatesClient:
         )
 
     def create(
-        self, *, company_id: str, user_identifier: str, request_options: typing.Optional[RequestOptions] = None
+        self, *, account_id: str, user_identifier: str, request_options: typing.Optional[RequestOptions] = None
     ) -> Affiliate:
         """
         Creates or finds an affiliate for a company and user.
@@ -136,7 +136,7 @@ class AffiliatesClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The ID of the company to create the affiliate for.
 
         user_identifier : str
@@ -155,17 +155,17 @@ class AffiliatesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.affiliates.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             user_identifier="user_identifier",
         )
         """
         _response = self._raw_client.create(
-            company_id=company_id, user_identifier=user_identifier, request_options=request_options
+            account_id=account_id, user_identifier=user_identifier, request_options=request_options
         )
         return _response.data
 
@@ -194,7 +194,7 @@ class AffiliatesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -230,7 +230,7 @@ class AffiliatesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -266,7 +266,7 @@ class AffiliatesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -306,7 +306,7 @@ class AsyncAffiliatesClient:
     async def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -325,7 +325,7 @@ class AsyncAffiliatesClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list affiliates for.
 
         after : typing.Optional[str]
@@ -364,7 +364,7 @@ class AsyncAffiliatesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -374,7 +374,7 @@ class AsyncAffiliatesClient:
             response = await client.affiliates.list(
                 first=42,
                 last=42,
-                company_id="biz_xxxxxxxxxxxxxx",
+                account_id="biz_xxxxxxxxxxxxxx",
             )
             async for item in response:
                 yield item
@@ -387,7 +387,7 @@ class AsyncAffiliatesClient:
         asyncio.run(main())
         """
         return await self._raw_client.list(
-            company_id=company_id,
+            account_id=account_id,
             after=after,
             before=before,
             first=first,
@@ -400,7 +400,7 @@ class AsyncAffiliatesClient:
         )
 
     async def create(
-        self, *, company_id: str, user_identifier: str, request_options: typing.Optional[RequestOptions] = None
+        self, *, account_id: str, user_identifier: str, request_options: typing.Optional[RequestOptions] = None
     ) -> Affiliate:
         """
         Creates or finds an affiliate for a company and user.
@@ -410,7 +410,7 @@ class AsyncAffiliatesClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The ID of the company to create the affiliate for.
 
         user_identifier : str
@@ -431,7 +431,7 @@ class AsyncAffiliatesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -439,7 +439,7 @@ class AsyncAffiliatesClient:
 
         async def main() -> None:
             await client.affiliates.create(
-                company_id="biz_xxxxxxxxxxxxxx",
+                account_id="biz_xxxxxxxxxxxxxx",
                 user_identifier="user_identifier",
             )
 
@@ -447,7 +447,7 @@ class AsyncAffiliatesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.create(
-            company_id=company_id, user_identifier=user_identifier, request_options=request_options
+            account_id=account_id, user_identifier=user_identifier, request_options=request_options
         )
         return _response.data
 
@@ -478,7 +478,7 @@ class AsyncAffiliatesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -522,7 +522,7 @@ class AsyncAffiliatesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -566,7 +566,7 @@ class AsyncAffiliatesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

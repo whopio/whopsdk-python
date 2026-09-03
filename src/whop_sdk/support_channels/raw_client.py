@@ -41,11 +41,11 @@ class RawSupportChannelsClient:
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
-        company_id: typing.Optional[str] = None,
         view: typing.Optional[SupportChannelView] = None,
         open: typing.Optional[bool] = None,
         direction: typing.Optional[Direction] = None,
         order: typing.Optional[MessageChannelOrder] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[SupportChannelListItem, ListSupportChannelsResponse]:
         """
@@ -68,9 +68,6 @@ class RawSupportChannelsClient:
         last : typing.Optional[int]
             Returns the last _n_ elements from the list.
 
-        company_id : typing.Optional[str]
-            The unique identifier of the company to list support channels for. Includes channels of child companies. When omitted, returns support channels across all companies the user has access to.
-
         view : typing.Optional[SupportChannelView]
 
         open : typing.Optional[bool]
@@ -79,6 +76,9 @@ class RawSupportChannelsClient:
         direction : typing.Optional[Direction]
 
         order : typing.Optional[MessageChannelOrder]
+
+        account_id : typing.Optional[str]
+            The unique identifier of the company to list support channels for. Includes channels of child companies. When omitted, returns support channels across all companies the user has access to.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -96,11 +96,11 @@ class RawSupportChannelsClient:
                 "before": before,
                 "first": first,
                 "last": last,
-                "company_id": company_id,
                 "view": view,
                 "open": open,
                 "direction": direction,
                 "order": order,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -124,11 +124,11 @@ class RawSupportChannelsClient:
                         before=before,
                         first=first,
                         last=last,
-                        company_id=company_id,
                         view=view,
                         open=open,
                         direction=direction,
                         order=order,
+                        account_id=account_id,
                         request_options=request_options,
                     )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
@@ -221,7 +221,7 @@ class RawSupportChannelsClient:
     def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         user_id: str,
         custom_name: typing.Optional[str] = OMIT,
         notifications_enabled: typing.Optional[bool] = OMIT,
@@ -235,7 +235,7 @@ class RawSupportChannelsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to create the support channel in.
 
         user_id : str
@@ -259,7 +259,7 @@ class RawSupportChannelsClient:
             "support_channels",
             method="POST",
             json={
-                "company_id": company_id,
+                "account_id": account_id,
                 "custom_name": custom_name,
                 "notifications_enabled": notifications_enabled,
                 "user_id": user_id,
@@ -501,11 +501,11 @@ class AsyncRawSupportChannelsClient:
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
-        company_id: typing.Optional[str] = None,
         view: typing.Optional[SupportChannelView] = None,
         open: typing.Optional[bool] = None,
         direction: typing.Optional[Direction] = None,
         order: typing.Optional[MessageChannelOrder] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[SupportChannelListItem, ListSupportChannelsResponse]:
         """
@@ -528,9 +528,6 @@ class AsyncRawSupportChannelsClient:
         last : typing.Optional[int]
             Returns the last _n_ elements from the list.
 
-        company_id : typing.Optional[str]
-            The unique identifier of the company to list support channels for. Includes channels of child companies. When omitted, returns support channels across all companies the user has access to.
-
         view : typing.Optional[SupportChannelView]
 
         open : typing.Optional[bool]
@@ -539,6 +536,9 @@ class AsyncRawSupportChannelsClient:
         direction : typing.Optional[Direction]
 
         order : typing.Optional[MessageChannelOrder]
+
+        account_id : typing.Optional[str]
+            The unique identifier of the company to list support channels for. Includes channels of child companies. When omitted, returns support channels across all companies the user has access to.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -556,11 +556,11 @@ class AsyncRawSupportChannelsClient:
                 "before": before,
                 "first": first,
                 "last": last,
-                "company_id": company_id,
                 "view": view,
                 "open": open,
                 "direction": direction,
                 "order": order,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -586,11 +586,11 @@ class AsyncRawSupportChannelsClient:
                             before=before,
                             first=first,
                             last=last,
-                            company_id=company_id,
                             view=view,
                             open=open,
                             direction=direction,
                             order=order,
+                            account_id=account_id,
                             request_options=request_options,
                         )
 
@@ -684,7 +684,7 @@ class AsyncRawSupportChannelsClient:
     async def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         user_id: str,
         custom_name: typing.Optional[str] = OMIT,
         notifications_enabled: typing.Optional[bool] = OMIT,
@@ -698,7 +698,7 @@ class AsyncRawSupportChannelsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to create the support channel in.
 
         user_id : str
@@ -722,7 +722,7 @@ class AsyncRawSupportChannelsClient:
             "support_channels",
             method="POST",
             json={
-                "company_id": company_id,
+                "account_id": account_id,
                 "custom_name": custom_name,
                 "notifications_enabled": notifications_enabled,
                 "user_id": user_id,

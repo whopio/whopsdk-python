@@ -33,7 +33,7 @@ class LeadsClient:
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -54,7 +54,7 @@ class LeadsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list leads for.
 
         after : typing.Optional[str]
@@ -93,20 +93,20 @@ class LeadsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         response = client.leads.list(
             first=42,
             last=42,
-            company_id="biz_xxxxxxxxxxxxxx",
             created_after=datetime.datetime.fromisoformat(
                 "2023-12-01 05:00:00+00:00",
             ),
             created_before=datetime.datetime.fromisoformat(
                 "2023-12-01 05:00:00+00:00",
             ),
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         for item in response:
             yield item
@@ -115,7 +115,7 @@ class LeadsClient:
             yield page
         """
         return self._raw_client.list(
-            company_id=company_id,
+            account_id=account_id,
             after=after,
             before=before,
             first=first,
@@ -129,7 +129,7 @@ class LeadsClient:
     def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         product_id: typing.Optional[str] = OMIT,
         referrer: typing.Optional[str] = OMIT,
@@ -147,7 +147,7 @@ class LeadsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to create the lead for, starting with 'biz_'.
 
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
@@ -175,16 +175,16 @@ class LeadsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.leads.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         """
         _response = self._raw_client.create(
-            company_id=company_id,
+            account_id=account_id,
             metadata=metadata,
             product_id=product_id,
             referrer=referrer,
@@ -221,7 +221,7 @@ class LeadsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -273,7 +273,7 @@ class LeadsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -303,7 +303,7 @@ class AsyncLeadsClient:
     async def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -324,7 +324,7 @@ class AsyncLeadsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list leads for.
 
         after : typing.Optional[str]
@@ -364,7 +364,7 @@ class AsyncLeadsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -374,13 +374,13 @@ class AsyncLeadsClient:
             response = await client.leads.list(
                 first=42,
                 last=42,
-                company_id="biz_xxxxxxxxxxxxxx",
                 created_after=datetime.datetime.fromisoformat(
                     "2023-12-01 05:00:00+00:00",
                 ),
                 created_before=datetime.datetime.fromisoformat(
                     "2023-12-01 05:00:00+00:00",
                 ),
+                account_id="biz_xxxxxxxxxxxxxx",
             )
             async for item in response:
                 yield item
@@ -393,7 +393,7 @@ class AsyncLeadsClient:
         asyncio.run(main())
         """
         return await self._raw_client.list(
-            company_id=company_id,
+            account_id=account_id,
             after=after,
             before=before,
             first=first,
@@ -407,7 +407,7 @@ class AsyncLeadsClient:
     async def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         product_id: typing.Optional[str] = OMIT,
         referrer: typing.Optional[str] = OMIT,
@@ -425,7 +425,7 @@ class AsyncLeadsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to create the lead for, starting with 'biz_'.
 
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
@@ -455,7 +455,7 @@ class AsyncLeadsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -463,14 +463,14 @@ class AsyncLeadsClient:
 
         async def main() -> None:
             await client.leads.create(
-                company_id="biz_xxxxxxxxxxxxxx",
+                account_id="biz_xxxxxxxxxxxxxx",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._raw_client.create(
-            company_id=company_id,
+            account_id=account_id,
             metadata=metadata,
             product_id=product_id,
             referrer=referrer,
@@ -509,7 +509,7 @@ class AsyncLeadsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -569,7 +569,7 @@ class AsyncLeadsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

@@ -51,7 +51,7 @@ class StatsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -64,8 +64,8 @@ class StatsClient:
         self,
         *,
         resource: typing.Optional[str] = None,
-        company_id: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> DescribeStatsResponse:
         """
@@ -79,11 +79,11 @@ class StatsClient:
         resource : typing.Optional[str]
             Resource path using : as separator (e.g., 'receipts', 'payments:membership', 'receipts:gross_revenue').
 
-        company_id : typing.Optional[str]
-            Scope query to a specific company.
-
         user_id : typing.Optional[str]
             Scope query to a specific user.
+
+        account_id : typing.Optional[str]
+            Scope query to a specific company.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -98,17 +98,17 @@ class StatsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.stats.describe_stats(
-            company_id="biz_xxxxxxxxxxxxxx",
             user_id="user_xxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         """
         _response = self._raw_client.describe_stats(
-            resource=resource, company_id=company_id, user_id=user_id, request_options=request_options
+            resource=resource, user_id=user_id, account_id=account_id, request_options=request_options
         )
         return _response.data
 
@@ -122,8 +122,8 @@ class StatsClient:
         time_zone: typing.Optional[str] = None,
         from_: typing.Optional[dt.datetime] = None,
         to: typing.Optional[dt.datetime] = None,
-        company_id: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> MetricStatsResponse:
         """
@@ -155,11 +155,11 @@ class StatsClient:
         to : typing.Optional[dt.datetime]
             End of time range (unix timestamp).
 
-        company_id : typing.Optional[str]
-            Scope query to a specific company.
-
         user_id : typing.Optional[str]
             Scope query to a specific user.
+
+        account_id : typing.Optional[str]
+            Scope query to a specific company.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -176,7 +176,7 @@ class StatsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -188,8 +188,8 @@ class StatsClient:
             to=datetime.datetime.fromisoformat(
                 "2023-12-01 05:00:00+00:00",
             ),
-            company_id="biz_xxxxxxxxxxxxxx",
             user_id="user_xxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         """
         _response = self._raw_client.metric_stats(
@@ -200,8 +200,8 @@ class StatsClient:
             time_zone=time_zone,
             from_=from_,
             to=to,
-            company_id=company_id,
             user_id=user_id,
+            account_id=account_id,
             request_options=request_options,
         )
         return _response.data
@@ -216,8 +216,8 @@ class StatsClient:
         cursor: typing.Optional[str] = None,
         sort: typing.Optional[str] = None,
         sort_direction: typing.Optional[Direction] = None,
-        company_id: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RawStatsResponse:
         """
@@ -248,11 +248,11 @@ class StatsClient:
 
         sort_direction : typing.Optional[Direction]
 
-        company_id : typing.Optional[str]
-            Scope query to a specific company.
-
         user_id : typing.Optional[str]
             Scope query to a specific user.
+
+        account_id : typing.Optional[str]
+            Scope query to a specific company.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -269,7 +269,7 @@ class StatsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -282,8 +282,8 @@ class StatsClient:
                 "2023-12-01 05:00:00+00:00",
             ),
             limit=42,
-            company_id="biz_xxxxxxxxxxxxxx",
             user_id="user_xxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         """
         _response = self._raw_client.raw_stats(
@@ -294,8 +294,8 @@ class StatsClient:
             cursor=cursor,
             sort=sort,
             sort_direction=sort_direction,
-            company_id=company_id,
             user_id=user_id,
+            account_id=account_id,
             request_options=request_options,
         )
         return _response.data
@@ -463,7 +463,7 @@ class StatsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -553,7 +553,7 @@ class AsyncStatsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -572,8 +572,8 @@ class AsyncStatsClient:
         self,
         *,
         resource: typing.Optional[str] = None,
-        company_id: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> DescribeStatsResponse:
         """
@@ -587,11 +587,11 @@ class AsyncStatsClient:
         resource : typing.Optional[str]
             Resource path using : as separator (e.g., 'receipts', 'payments:membership', 'receipts:gross_revenue').
 
-        company_id : typing.Optional[str]
-            Scope query to a specific company.
-
         user_id : typing.Optional[str]
             Scope query to a specific user.
+
+        account_id : typing.Optional[str]
+            Scope query to a specific company.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -608,7 +608,7 @@ class AsyncStatsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -616,15 +616,15 @@ class AsyncStatsClient:
 
         async def main() -> None:
             await client.stats.describe_stats(
-                company_id="biz_xxxxxxxxxxxxxx",
                 user_id="user_xxxxxxxxxxxxx",
+                account_id="biz_xxxxxxxxxxxxxx",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._raw_client.describe_stats(
-            resource=resource, company_id=company_id, user_id=user_id, request_options=request_options
+            resource=resource, user_id=user_id, account_id=account_id, request_options=request_options
         )
         return _response.data
 
@@ -638,8 +638,8 @@ class AsyncStatsClient:
         time_zone: typing.Optional[str] = None,
         from_: typing.Optional[dt.datetime] = None,
         to: typing.Optional[dt.datetime] = None,
-        company_id: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> MetricStatsResponse:
         """
@@ -671,11 +671,11 @@ class AsyncStatsClient:
         to : typing.Optional[dt.datetime]
             End of time range (unix timestamp).
 
-        company_id : typing.Optional[str]
-            Scope query to a specific company.
-
         user_id : typing.Optional[str]
             Scope query to a specific user.
+
+        account_id : typing.Optional[str]
+            Scope query to a specific company.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -693,7 +693,7 @@ class AsyncStatsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -708,8 +708,8 @@ class AsyncStatsClient:
                 to=datetime.datetime.fromisoformat(
                     "2023-12-01 05:00:00+00:00",
                 ),
-                company_id="biz_xxxxxxxxxxxxxx",
                 user_id="user_xxxxxxxxxxxxx",
+                account_id="biz_xxxxxxxxxxxxxx",
             )
 
 
@@ -723,8 +723,8 @@ class AsyncStatsClient:
             time_zone=time_zone,
             from_=from_,
             to=to,
-            company_id=company_id,
             user_id=user_id,
+            account_id=account_id,
             request_options=request_options,
         )
         return _response.data
@@ -739,8 +739,8 @@ class AsyncStatsClient:
         cursor: typing.Optional[str] = None,
         sort: typing.Optional[str] = None,
         sort_direction: typing.Optional[Direction] = None,
-        company_id: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RawStatsResponse:
         """
@@ -771,11 +771,11 @@ class AsyncStatsClient:
 
         sort_direction : typing.Optional[Direction]
 
-        company_id : typing.Optional[str]
-            Scope query to a specific company.
-
         user_id : typing.Optional[str]
             Scope query to a specific user.
+
+        account_id : typing.Optional[str]
+            Scope query to a specific company.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -793,7 +793,7 @@ class AsyncStatsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -809,8 +809,8 @@ class AsyncStatsClient:
                     "2023-12-01 05:00:00+00:00",
                 ),
                 limit=42,
-                company_id="biz_xxxxxxxxxxxxxx",
                 user_id="user_xxxxxxxxxxxxx",
+                account_id="biz_xxxxxxxxxxxxxx",
             )
 
 
@@ -824,8 +824,8 @@ class AsyncStatsClient:
             cursor=cursor,
             sort=sort,
             sort_direction=sort_direction,
-            company_id=company_id,
             user_id=user_id,
+            account_id=account_id,
             request_options=request_options,
         )
         return _response.data
@@ -995,7 +995,7 @@ class AsyncStatsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

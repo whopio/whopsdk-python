@@ -42,7 +42,7 @@ class CoursesClient:
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
         experience_id: typing.Optional[str] = None,
-        company_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[CourseListItem, ListCoursesResponse]:
         """
@@ -68,7 +68,7 @@ class CoursesClient:
         experience_id : typing.Optional[str]
             The unique identifier of the experience to list courses for.
 
-        company_id : typing.Optional[str]
+        account_id : typing.Optional[str]
             The unique identifier of the company to list courses for.
 
         request_options : typing.Optional[RequestOptions]
@@ -84,7 +84,7 @@ class CoursesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -92,7 +92,7 @@ class CoursesClient:
             first=42,
             last=42,
             experience_id="exp_xxxxxxxxxxxxxx",
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         for item in response:
             yield item
@@ -106,7 +106,7 @@ class CoursesClient:
             first=first,
             last=last,
             experience_id=experience_id,
-            company_id=company_id,
+            account_id=account_id,
             request_options=request_options,
         )
 
@@ -168,7 +168,7 @@ class CoursesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -215,7 +215,7 @@ class CoursesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -251,7 +251,7 @@ class CoursesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -332,7 +332,7 @@ class CoursesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -380,7 +380,7 @@ class AsyncCoursesClient:
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
         experience_id: typing.Optional[str] = None,
-        company_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[CourseListItem, ListCoursesResponse]:
         """
@@ -406,7 +406,7 @@ class AsyncCoursesClient:
         experience_id : typing.Optional[str]
             The unique identifier of the experience to list courses for.
 
-        company_id : typing.Optional[str]
+        account_id : typing.Optional[str]
             The unique identifier of the company to list courses for.
 
         request_options : typing.Optional[RequestOptions]
@@ -424,7 +424,7 @@ class AsyncCoursesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -435,7 +435,7 @@ class AsyncCoursesClient:
                 first=42,
                 last=42,
                 experience_id="exp_xxxxxxxxxxxxxx",
-                company_id="biz_xxxxxxxxxxxxxx",
+                account_id="biz_xxxxxxxxxxxxxx",
             )
             async for item in response:
                 yield item
@@ -453,7 +453,7 @@ class AsyncCoursesClient:
             first=first,
             last=last,
             experience_id=experience_id,
-            company_id=company_id,
+            account_id=account_id,
             request_options=request_options,
         )
 
@@ -517,7 +517,7 @@ class AsyncCoursesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -572,7 +572,7 @@ class AsyncCoursesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -616,7 +616,7 @@ class AsyncCoursesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -705,7 +705,7 @@ class AsyncCoursesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

@@ -38,7 +38,7 @@ class RawDmChannelsClient:
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
-        company_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[DmChannelListItem, ListDmChannelsResponse]:
         """
@@ -61,7 +61,7 @@ class RawDmChannelsClient:
         last : typing.Optional[int]
             Returns the last _n_ elements from the list.
 
-        company_id : typing.Optional[str]
+        account_id : typing.Optional[str]
             The unique identifier of a company to filter DM channels by. Only returns channels scoped to this company.
 
         request_options : typing.Optional[RequestOptions]
@@ -80,7 +80,7 @@ class RawDmChannelsClient:
                 "before": before,
                 "first": first,
                 "last": last,
-                "company_id": company_id,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -104,7 +104,7 @@ class RawDmChannelsClient:
                         before=before,
                         first=first,
                         last=last,
-                        company_id=company_id,
+                        account_id=account_id,
                         request_options=request_options,
                     )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
@@ -198,7 +198,7 @@ class RawDmChannelsClient:
         self,
         *,
         with_user_ids: typing.Sequence[str],
-        company_id: typing.Optional[str] = OMIT,
+        account_id: typing.Optional[str] = OMIT,
         custom_name: typing.Optional[str] = OMIT,
         notifications_enabled: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -214,7 +214,7 @@ class RawDmChannelsClient:
         with_user_ids : typing.Sequence[str]
             The list of user identifiers to include in the DM channel. Each entry can be an email, username, or user ID (e.g. 'user_xxxxx').
 
-        company_id : typing.Optional[str]
+        account_id : typing.Optional[str]
             The unique identifier of the company to scope this DM channel to. When set, the channel is visible only within that company context.
 
         custom_name : typing.Optional[str]
@@ -235,7 +235,7 @@ class RawDmChannelsClient:
             "dm_channels",
             method="POST",
             json={
-                "company_id": company_id,
+                "account_id": account_id,
                 "custom_name": custom_name,
                 "notifications_enabled": notifications_enabled,
                 "with_user_ids": with_user_ids,
@@ -736,7 +736,7 @@ class AsyncRawDmChannelsClient:
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
-        company_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[DmChannelListItem, ListDmChannelsResponse]:
         """
@@ -759,7 +759,7 @@ class AsyncRawDmChannelsClient:
         last : typing.Optional[int]
             Returns the last _n_ elements from the list.
 
-        company_id : typing.Optional[str]
+        account_id : typing.Optional[str]
             The unique identifier of a company to filter DM channels by. Only returns channels scoped to this company.
 
         request_options : typing.Optional[RequestOptions]
@@ -778,7 +778,7 @@ class AsyncRawDmChannelsClient:
                 "before": before,
                 "first": first,
                 "last": last,
-                "company_id": company_id,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -804,7 +804,7 @@ class AsyncRawDmChannelsClient:
                             before=before,
                             first=first,
                             last=last,
-                            company_id=company_id,
+                            account_id=account_id,
                             request_options=request_options,
                         )
 
@@ -899,7 +899,7 @@ class AsyncRawDmChannelsClient:
         self,
         *,
         with_user_ids: typing.Sequence[str],
-        company_id: typing.Optional[str] = OMIT,
+        account_id: typing.Optional[str] = OMIT,
         custom_name: typing.Optional[str] = OMIT,
         notifications_enabled: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -915,7 +915,7 @@ class AsyncRawDmChannelsClient:
         with_user_ids : typing.Sequence[str]
             The list of user identifiers to include in the DM channel. Each entry can be an email, username, or user ID (e.g. 'user_xxxxx').
 
-        company_id : typing.Optional[str]
+        account_id : typing.Optional[str]
             The unique identifier of the company to scope this DM channel to. When set, the channel is visible only within that company context.
 
         custom_name : typing.Optional[str]
@@ -936,7 +936,7 @@ class AsyncRawDmChannelsClient:
             "dm_channels",
             method="POST",
             json={
-                "company_id": company_id,
+                "account_id": account_id,
                 "custom_name": custom_name,
                 "notifications_enabled": notifications_enabled,
                 "with_user_ids": with_user_ids,

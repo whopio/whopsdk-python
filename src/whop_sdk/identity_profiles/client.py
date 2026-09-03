@@ -39,9 +39,9 @@ class IdentityProfilesClient:
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
-        company_id: typing.Optional[str] = None,
         profile_type: typing.Optional[IdentityProfileKinds] = None,
         status: typing.Optional[IdentityProfileStatuses] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[IdentityProfileListItem, ListIdentityProfileResponse]:
         """
@@ -64,12 +64,12 @@ class IdentityProfilesClient:
         last : typing.Optional[int]
             Returns the last _n_ elements from the list.
 
-        company_id : typing.Optional[str]
-            The unique identifier of the company to filter to. When omitted, returns IPs across all ledgers the actor can read.
-
         profile_type : typing.Optional[IdentityProfileKinds]
 
         status : typing.Optional[IdentityProfileStatuses]
+
+        account_id : typing.Optional[str]
+            The unique identifier of the company to filter to. When omitted, returns IPs across all ledgers the actor can read.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -84,14 +84,14 @@ class IdentityProfilesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         response = client.identity_profiles.list_identity_profile(
             first=42,
             last=42,
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         for item in response:
             yield item
@@ -104,9 +104,9 @@ class IdentityProfilesClient:
             before=before,
             first=first,
             last=last,
-            company_id=company_id,
             profile_type=profile_type,
             status=status,
+            account_id=account_id,
             request_options=request_options,
         )
 
@@ -137,7 +137,7 @@ class IdentityProfilesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -175,7 +175,7 @@ class IdentityProfilesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -235,7 +235,7 @@ class IdentityProfilesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -277,9 +277,9 @@ class AsyncIdentityProfilesClient:
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
-        company_id: typing.Optional[str] = None,
         profile_type: typing.Optional[IdentityProfileKinds] = None,
         status: typing.Optional[IdentityProfileStatuses] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[IdentityProfileListItem, ListIdentityProfileResponse]:
         """
@@ -302,12 +302,12 @@ class AsyncIdentityProfilesClient:
         last : typing.Optional[int]
             Returns the last _n_ elements from the list.
 
-        company_id : typing.Optional[str]
-            The unique identifier of the company to filter to. When omitted, returns IPs across all ledgers the actor can read.
-
         profile_type : typing.Optional[IdentityProfileKinds]
 
         status : typing.Optional[IdentityProfileStatuses]
+
+        account_id : typing.Optional[str]
+            The unique identifier of the company to filter to. When omitted, returns IPs across all ledgers the actor can read.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -324,7 +324,7 @@ class AsyncIdentityProfilesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -334,7 +334,7 @@ class AsyncIdentityProfilesClient:
             response = await client.identity_profiles.list_identity_profile(
                 first=42,
                 last=42,
-                company_id="biz_xxxxxxxxxxxxxx",
+                account_id="biz_xxxxxxxxxxxxxx",
             )
             async for item in response:
                 yield item
@@ -351,9 +351,9 @@ class AsyncIdentityProfilesClient:
             before=before,
             first=first,
             last=last,
-            company_id=company_id,
             profile_type=profile_type,
             status=status,
+            account_id=account_id,
             request_options=request_options,
         )
 
@@ -386,7 +386,7 @@ class AsyncIdentityProfilesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -432,7 +432,7 @@ class AsyncIdentityProfilesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -500,7 +500,7 @@ class AsyncIdentityProfilesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

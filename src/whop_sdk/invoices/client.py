@@ -45,7 +45,6 @@ class InvoicesClient:
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
-        company_id: typing.Optional[str] = None,
         direction: typing.Optional[Direction] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         collection_methods: typing.Optional[
@@ -55,6 +54,7 @@ class InvoicesClient:
         order: typing.Optional[InvoicesSortableColumns] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[InvoiceListItem, ListInvoicesResponse]:
         """
@@ -77,9 +77,6 @@ class InvoicesClient:
         last : typing.Optional[int]
             Returns the last _n_ elements from the list.
 
-        company_id : typing.Optional[str]
-            The unique identifier of the company to list invoices for.
-
         direction : typing.Optional[Direction]
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
@@ -99,6 +96,9 @@ class InvoicesClient:
         created_after : typing.Optional[dt.datetime]
             Only return invoices created after this timestamp.
 
+        account_id : typing.Optional[str]
+            The unique identifier of the company to list invoices for.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -114,20 +114,20 @@ class InvoicesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         response = client.invoices.list(
             first=42,
             last=42,
-            company_id="biz_xxxxxxxxxxxxxx",
             created_before=datetime.datetime.fromisoformat(
                 "2023-12-01 05:00:00+00:00",
             ),
             created_after=datetime.datetime.fromisoformat(
                 "2023-12-01 05:00:00+00:00",
             ),
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         for item in response:
             yield item
@@ -140,7 +140,6 @@ class InvoicesClient:
             before=before,
             first=first,
             last=last,
-            company_id=company_id,
             direction=direction,
             product_ids=product_ids,
             collection_methods=collection_methods,
@@ -148,6 +147,7 @@ class InvoicesClient:
             order=order,
             created_before=created_before,
             created_after=created_after,
+            account_id=account_id,
             request_options=request_options,
         )
 
@@ -185,14 +185,14 @@ class InvoicesClient:
         )
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.invoices.create(
             request=CreateInvoicesRequestProduct(
+                account_id="biz_xxxxxxxxxxxxxx",
                 collection_method="send_invoice",
-                company_id="biz_xxxxxxxxxxxxxx",
                 plan=CreateInvoicesRequestProductPlan(),
                 product=CreateInvoicesRequestProductProduct(
                     title="title",
@@ -231,7 +231,7 @@ class InvoicesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -267,7 +267,7 @@ class InvoicesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -367,7 +367,7 @@ class InvoicesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -420,7 +420,7 @@ class InvoicesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -456,7 +456,7 @@ class InvoicesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -492,7 +492,7 @@ class InvoicesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -528,7 +528,7 @@ class InvoicesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -562,7 +562,6 @@ class AsyncInvoicesClient:
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
-        company_id: typing.Optional[str] = None,
         direction: typing.Optional[Direction] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         collection_methods: typing.Optional[
@@ -572,6 +571,7 @@ class AsyncInvoicesClient:
         order: typing.Optional[InvoicesSortableColumns] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[InvoiceListItem, ListInvoicesResponse]:
         """
@@ -594,9 +594,6 @@ class AsyncInvoicesClient:
         last : typing.Optional[int]
             Returns the last _n_ elements from the list.
 
-        company_id : typing.Optional[str]
-            The unique identifier of the company to list invoices for.
-
         direction : typing.Optional[Direction]
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
@@ -616,6 +613,9 @@ class AsyncInvoicesClient:
         created_after : typing.Optional[dt.datetime]
             Only return invoices created after this timestamp.
 
+        account_id : typing.Optional[str]
+            The unique identifier of the company to list invoices for.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -632,7 +632,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -642,13 +642,13 @@ class AsyncInvoicesClient:
             response = await client.invoices.list(
                 first=42,
                 last=42,
-                company_id="biz_xxxxxxxxxxxxxx",
                 created_before=datetime.datetime.fromisoformat(
                     "2023-12-01 05:00:00+00:00",
                 ),
                 created_after=datetime.datetime.fromisoformat(
                     "2023-12-01 05:00:00+00:00",
                 ),
+                account_id="biz_xxxxxxxxxxxxxx",
             )
             async for item in response:
                 yield item
@@ -665,7 +665,6 @@ class AsyncInvoicesClient:
             before=before,
             first=first,
             last=last,
-            company_id=company_id,
             direction=direction,
             product_ids=product_ids,
             collection_methods=collection_methods,
@@ -673,6 +672,7 @@ class AsyncInvoicesClient:
             order=order,
             created_before=created_before,
             created_after=created_after,
+            account_id=account_id,
             request_options=request_options,
         )
 
@@ -712,7 +712,7 @@ class AsyncInvoicesClient:
         )
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -721,8 +721,8 @@ class AsyncInvoicesClient:
         async def main() -> None:
             await client.invoices.create(
                 request=CreateInvoicesRequestProduct(
+                    account_id="biz_xxxxxxxxxxxxxx",
                     collection_method="send_invoice",
-                    company_id="biz_xxxxxxxxxxxxxx",
                     plan=CreateInvoicesRequestProductPlan(),
                     product=CreateInvoicesRequestProductProduct(
                         title="title",
@@ -766,7 +766,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -810,7 +810,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -918,7 +918,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -979,7 +979,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1023,7 +1023,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1067,7 +1067,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1111,7 +1111,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

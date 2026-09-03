@@ -41,6 +41,7 @@ class FinancialActivityClient:
         direction: typing.Optional[ListFinancialActivityRequestDirection] = None,
         resource_id: typing.Optional[str] = None,
         activity_id: typing.Optional[str] = None,
+        exclude_internal_movements: typing.Optional[bool] = None,
         currency: typing.Optional[str] = None,
         posted_after: typing.Optional[dt.datetime] = None,
         posted_before: typing.Optional[dt.datetime] = None,
@@ -79,6 +80,9 @@ class FinancialActivityClient:
         activity_id : typing.Optional[str]
             Optional ledger activity ID (for example `line_3`). Returns at most that one activity.
 
+        exclude_internal_movements : typing.Optional[bool]
+            Whether to exclude balance reservations and balanced movements between the account's own balances.
+
         currency : typing.Optional[str]
             Optional currency code filter, for example `usd`.
 
@@ -113,7 +117,7 @@ class FinancialActivityClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -128,6 +132,7 @@ class FinancialActivityClient:
             direction=direction,
             resource_id=resource_id,
             activity_id=activity_id,
+            exclude_internal_movements=exclude_internal_movements,
             currency=currency,
             posted_after=posted_after,
             posted_before=posted_before,
@@ -170,6 +175,7 @@ class AsyncFinancialActivityClient:
         direction: typing.Optional[ListFinancialActivityRequestDirection] = None,
         resource_id: typing.Optional[str] = None,
         activity_id: typing.Optional[str] = None,
+        exclude_internal_movements: typing.Optional[bool] = None,
         currency: typing.Optional[str] = None,
         posted_after: typing.Optional[dt.datetime] = None,
         posted_before: typing.Optional[dt.datetime] = None,
@@ -208,6 +214,9 @@ class AsyncFinancialActivityClient:
         activity_id : typing.Optional[str]
             Optional ledger activity ID (for example `line_3`). Returns at most that one activity.
 
+        exclude_internal_movements : typing.Optional[bool]
+            Whether to exclude balance reservations and balanced movements between the account's own balances.
+
         currency : typing.Optional[str]
             Optional currency code filter, for example `usd`.
 
@@ -244,7 +253,7 @@ class AsyncFinancialActivityClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -265,6 +274,7 @@ class AsyncFinancialActivityClient:
             direction=direction,
             resource_id=resource_id,
             activity_id=activity_id,
+            exclude_internal_movements=exclude_internal_movements,
             currency=currency,
             posted_after=posted_after,
             posted_before=posted_before,

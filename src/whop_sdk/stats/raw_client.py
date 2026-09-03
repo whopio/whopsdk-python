@@ -88,8 +88,8 @@ class RawStatsClient:
         self,
         *,
         resource: typing.Optional[str] = None,
-        company_id: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[DescribeStatsResponse]:
         """
@@ -103,11 +103,11 @@ class RawStatsClient:
         resource : typing.Optional[str]
             Resource path using : as separator (e.g., 'receipts', 'payments:membership', 'receipts:gross_revenue').
 
-        company_id : typing.Optional[str]
-            Scope query to a specific company.
-
         user_id : typing.Optional[str]
             Scope query to a specific user.
+
+        account_id : typing.Optional[str]
+            Scope query to a specific company.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -122,8 +122,8 @@ class RawStatsClient:
             method="GET",
             params={
                 "resource": resource,
-                "company_id": company_id,
                 "user_id": user_id,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -233,8 +233,8 @@ class RawStatsClient:
         time_zone: typing.Optional[str] = None,
         from_: typing.Optional[dt.datetime] = None,
         to: typing.Optional[dt.datetime] = None,
-        company_id: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[MetricStatsResponse]:
         """
@@ -266,11 +266,11 @@ class RawStatsClient:
         to : typing.Optional[dt.datetime]
             End of time range (unix timestamp).
 
-        company_id : typing.Optional[str]
-            Scope query to a specific company.
-
         user_id : typing.Optional[str]
             Scope query to a specific user.
+
+        account_id : typing.Optional[str]
+            Scope query to a specific company.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -291,8 +291,8 @@ class RawStatsClient:
                 "time_zone": time_zone,
                 "from": serialize_datetime(from_) if from_ is not None else None,
                 "to": serialize_datetime(to) if to is not None else None,
-                "company_id": company_id,
                 "user_id": user_id,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -402,8 +402,8 @@ class RawStatsClient:
         cursor: typing.Optional[str] = None,
         sort: typing.Optional[str] = None,
         sort_direction: typing.Optional[Direction] = None,
-        company_id: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[RawStatsResponse]:
         """
@@ -434,11 +434,11 @@ class RawStatsClient:
 
         sort_direction : typing.Optional[Direction]
 
-        company_id : typing.Optional[str]
-            Scope query to a specific company.
-
         user_id : typing.Optional[str]
             Scope query to a specific user.
+
+        account_id : typing.Optional[str]
+            Scope query to a specific company.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -459,8 +459,8 @@ class RawStatsClient:
                 "cursor": cursor,
                 "sort": sort,
                 "sort_direction": sort_direction,
-                "company_id": company_id,
                 "user_id": user_id,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -882,8 +882,8 @@ class AsyncRawStatsClient:
         self,
         *,
         resource: typing.Optional[str] = None,
-        company_id: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[DescribeStatsResponse]:
         """
@@ -897,11 +897,11 @@ class AsyncRawStatsClient:
         resource : typing.Optional[str]
             Resource path using : as separator (e.g., 'receipts', 'payments:membership', 'receipts:gross_revenue').
 
-        company_id : typing.Optional[str]
-            Scope query to a specific company.
-
         user_id : typing.Optional[str]
             Scope query to a specific user.
+
+        account_id : typing.Optional[str]
+            Scope query to a specific company.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -916,8 +916,8 @@ class AsyncRawStatsClient:
             method="GET",
             params={
                 "resource": resource,
-                "company_id": company_id,
                 "user_id": user_id,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -1027,8 +1027,8 @@ class AsyncRawStatsClient:
         time_zone: typing.Optional[str] = None,
         from_: typing.Optional[dt.datetime] = None,
         to: typing.Optional[dt.datetime] = None,
-        company_id: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[MetricStatsResponse]:
         """
@@ -1060,11 +1060,11 @@ class AsyncRawStatsClient:
         to : typing.Optional[dt.datetime]
             End of time range (unix timestamp).
 
-        company_id : typing.Optional[str]
-            Scope query to a specific company.
-
         user_id : typing.Optional[str]
             Scope query to a specific user.
+
+        account_id : typing.Optional[str]
+            Scope query to a specific company.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1085,8 +1085,8 @@ class AsyncRawStatsClient:
                 "time_zone": time_zone,
                 "from": serialize_datetime(from_) if from_ is not None else None,
                 "to": serialize_datetime(to) if to is not None else None,
-                "company_id": company_id,
                 "user_id": user_id,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -1196,8 +1196,8 @@ class AsyncRawStatsClient:
         cursor: typing.Optional[str] = None,
         sort: typing.Optional[str] = None,
         sort_direction: typing.Optional[Direction] = None,
-        company_id: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[RawStatsResponse]:
         """
@@ -1228,11 +1228,11 @@ class AsyncRawStatsClient:
 
         sort_direction : typing.Optional[Direction]
 
-        company_id : typing.Optional[str]
-            Scope query to a specific company.
-
         user_id : typing.Optional[str]
             Scope query to a specific user.
+
+        account_id : typing.Optional[str]
+            Scope query to a specific company.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1253,8 +1253,8 @@ class AsyncRawStatsClient:
                 "cursor": cursor,
                 "sort": sort,
                 "sort_direction": sort_direction,
-                "company_id": company_id,
                 "user_id": user_id,
+                "account_id": account_id,
             },
             request_options=request_options,
         )

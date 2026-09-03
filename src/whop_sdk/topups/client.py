@@ -30,8 +30,8 @@ class TopupsClient:
     def create(
         self,
         *,
+        account_id: str,
         amount: float,
-        company_id: str,
         currency: Currencies,
         payment_method_id: str,
         request_options: typing.Optional[RequestOptions] = None,
@@ -44,11 +44,11 @@ class TopupsClient:
 
         Parameters
         ----------
+        account_id : str
+            The unique identifier of the company to add funds to, starting with 'biz_'.
+
         amount : float
             The amount to add to the balance in the specified currency. For example, 50.00 for $50.00 USD.
-
-        company_id : str
-            The unique identifier of the company to add funds to, starting with 'biz_'.
 
         currency : Currencies
             The currency for the top-up amount, such as 'usd'.
@@ -69,20 +69,20 @@ class TopupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.topups.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             currency="usd",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
         )
         """
         _response = self._raw_client.create(
+            account_id=account_id,
             amount=amount,
-            company_id=company_id,
             currency=currency,
             payment_method_id=payment_method_id,
             request_options=request_options,
@@ -108,8 +108,8 @@ class AsyncTopupsClient:
     async def create(
         self,
         *,
+        account_id: str,
         amount: float,
-        company_id: str,
         currency: Currencies,
         payment_method_id: str,
         request_options: typing.Optional[RequestOptions] = None,
@@ -122,11 +122,11 @@ class AsyncTopupsClient:
 
         Parameters
         ----------
+        account_id : str
+            The unique identifier of the company to add funds to, starting with 'biz_'.
+
         amount : float
             The amount to add to the balance in the specified currency. For example, 50.00 for $50.00 USD.
-
-        company_id : str
-            The unique identifier of the company to add funds to, starting with 'biz_'.
 
         currency : Currencies
             The currency for the top-up amount, such as 'usd'.
@@ -149,7 +149,7 @@ class AsyncTopupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -157,8 +157,8 @@ class AsyncTopupsClient:
 
         async def main() -> None:
             await client.topups.create(
+                account_id="biz_xxxxxxxxxxxxxx",
                 amount=6.9,
-                company_id="biz_xxxxxxxxxxxxxx",
                 currency="usd",
                 payment_method_id="pmt_xxxxxxxxxxxxxx",
             )
@@ -167,8 +167,8 @@ class AsyncTopupsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.create(
+            account_id=account_id,
             amount=amount,
-            company_id=company_id,
             currency=currency,
             payment_method_id=payment_method_id,
             request_options=request_options,

@@ -4,7 +4,15 @@ import typing
 
 RetrieveBreakdownRequestBucket = typing.Union[
     typing.Literal[
-        "transfers", "payments", "refunds", "ads", "card_spend", "card_authorization_releases", "withdrawals", "swaps"
+        "transfers",
+        "payments",
+        "refunds",
+        "ads",
+        "application_fees",
+        "card_spend",
+        "card_authorization_releases",
+        "withdrawals",
+        "swaps",
     ],
     typing.Any,
 ]

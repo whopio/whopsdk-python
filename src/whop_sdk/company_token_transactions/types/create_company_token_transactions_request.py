@@ -15,8 +15,8 @@ class CreateCompanyTokenTransactionsRequest_Transfer(UniversalBaseModel):
     """
 
     transaction_type: typing.Literal["transfer"] = "transfer"
+    account_id: str
     amount: float
-    company_id: str
     description: typing.Optional[str] = None
     destination_user_id: str
     idempotency_key: typing.Optional[str] = None
@@ -38,8 +38,8 @@ class CreateCompanyTokenTransactionsRequest_Add(UniversalBaseModel):
     """
 
     transaction_type: typing.Literal["add"] = "add"
+    account_id: str
     amount: float
-    company_id: str
     description: typing.Optional[str] = None
     idempotency_key: typing.Optional[str] = None
     user_id: str
@@ -60,8 +60,8 @@ class CreateCompanyTokenTransactionsRequest_Subtract(UniversalBaseModel):
     """
 
     transaction_type: typing.Literal["subtract"] = "subtract"
+    account_id: str
     amount: float
-    company_id: str
     description: typing.Optional[str] = None
     idempotency_key: typing.Optional[str] = None
     user_id: str

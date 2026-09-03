@@ -40,11 +40,11 @@ class AuthorizedUsersClient:
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
-        company_id: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
         role: typing.Optional[AuthorizedUserRoles] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[AuthorizedUserListItem, ListAuthorizedUsersResponse]:
         """
@@ -68,9 +68,6 @@ class AuthorizedUsersClient:
         last : typing.Optional[int]
             Returns the last _n_ elements from the list.
 
-        company_id : typing.Optional[str]
-            The unique identifier of the company to list authorized users for.
-
         user_id : typing.Optional[str]
             Filter results to a specific user to check if they are an authorized team member.
 
@@ -81,6 +78,9 @@ class AuthorizedUsersClient:
 
         created_after : typing.Optional[dt.datetime]
             Only return authorized users created after this timestamp.
+
+        account_id : typing.Optional[str]
+            The unique identifier of the company to list authorized users for.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -97,14 +97,13 @@ class AuthorizedUsersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         response = client.authorized_users.list(
             first=42,
             last=42,
-            company_id="biz_xxxxxxxxxxxxxx",
             user_id="user_xxxxxxxxxxxxx",
             created_before=datetime.datetime.fromisoformat(
                 "2023-12-01 05:00:00+00:00",
@@ -112,6 +111,7 @@ class AuthorizedUsersClient:
             created_after=datetime.datetime.fromisoformat(
                 "2023-12-01 05:00:00+00:00",
             ),
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         for item in response:
             yield item
@@ -124,18 +124,18 @@ class AuthorizedUsersClient:
             before=before,
             first=first,
             last=last,
-            company_id=company_id,
             user_id=user_id,
             role=role,
             created_before=created_before,
             created_after=created_after,
+            account_id=account_id,
             request_options=request_options,
         )
 
     def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         role: GrantableAuthorizedUserRoles,
         user_id: str,
         elevation: typing.Optional[CreateAuthorizedUsersRequestElevation] = OMIT,
@@ -151,7 +151,7 @@ class AuthorizedUsersClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The ID of the company to add the authorized user to.
 
         role : GrantableAuthorizedUserRoles
@@ -179,18 +179,18 @@ class AuthorizedUsersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.authorized_users.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             role="owner",
             user_id="user_xxxxxxxxxxxxx",
         )
         """
         _response = self._raw_client.create(
-            company_id=company_id,
+            account_id=account_id,
             role=role,
             user_id=user_id,
             elevation=elevation,
@@ -225,7 +225,7 @@ class AuthorizedUsersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -240,7 +240,7 @@ class AuthorizedUsersClient:
         self,
         id: str,
         *,
-        company_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> bool:
         """
@@ -254,7 +254,7 @@ class AuthorizedUsersClient:
         id : str
             The ID of the authorized user or user to remove.
 
-        company_id : typing.Optional[str]
+        account_id : typing.Optional[str]
             The ID of the company the authorized user belongs to. Optional if the authorized user ID is provided.
 
         request_options : typing.Optional[RequestOptions]
@@ -270,16 +270,16 @@ class AuthorizedUsersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.authorized_users.delete(
             id="ausr_xxxxxxxxxxxxx",
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         """
-        _response = self._raw_client.delete(id, company_id=company_id, request_options=request_options)
+        _response = self._raw_client.delete(id, account_id=account_id, request_options=request_options)
         return _response.data
 
 
@@ -305,11 +305,11 @@ class AsyncAuthorizedUsersClient:
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
-        company_id: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
         role: typing.Optional[AuthorizedUserRoles] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[AuthorizedUserListItem, ListAuthorizedUsersResponse]:
         """
@@ -333,9 +333,6 @@ class AsyncAuthorizedUsersClient:
         last : typing.Optional[int]
             Returns the last _n_ elements from the list.
 
-        company_id : typing.Optional[str]
-            The unique identifier of the company to list authorized users for.
-
         user_id : typing.Optional[str]
             Filter results to a specific user to check if they are an authorized team member.
 
@@ -346,6 +343,9 @@ class AsyncAuthorizedUsersClient:
 
         created_after : typing.Optional[dt.datetime]
             Only return authorized users created after this timestamp.
+
+        account_id : typing.Optional[str]
+            The unique identifier of the company to list authorized users for.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -363,7 +363,7 @@ class AsyncAuthorizedUsersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -373,7 +373,6 @@ class AsyncAuthorizedUsersClient:
             response = await client.authorized_users.list(
                 first=42,
                 last=42,
-                company_id="biz_xxxxxxxxxxxxxx",
                 user_id="user_xxxxxxxxxxxxx",
                 created_before=datetime.datetime.fromisoformat(
                     "2023-12-01 05:00:00+00:00",
@@ -381,6 +380,7 @@ class AsyncAuthorizedUsersClient:
                 created_after=datetime.datetime.fromisoformat(
                     "2023-12-01 05:00:00+00:00",
                 ),
+                account_id="biz_xxxxxxxxxxxxxx",
             )
             async for item in response:
                 yield item
@@ -397,18 +397,18 @@ class AsyncAuthorizedUsersClient:
             before=before,
             first=first,
             last=last,
-            company_id=company_id,
             user_id=user_id,
             role=role,
             created_before=created_before,
             created_after=created_after,
+            account_id=account_id,
             request_options=request_options,
         )
 
     async def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         role: GrantableAuthorizedUserRoles,
         user_id: str,
         elevation: typing.Optional[CreateAuthorizedUsersRequestElevation] = OMIT,
@@ -424,7 +424,7 @@ class AsyncAuthorizedUsersClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The ID of the company to add the authorized user to.
 
         role : GrantableAuthorizedUserRoles
@@ -454,7 +454,7 @@ class AsyncAuthorizedUsersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -462,7 +462,7 @@ class AsyncAuthorizedUsersClient:
 
         async def main() -> None:
             await client.authorized_users.create(
-                company_id="biz_xxxxxxxxxxxxxx",
+                account_id="biz_xxxxxxxxxxxxxx",
                 role="owner",
                 user_id="user_xxxxxxxxxxxxx",
             )
@@ -471,7 +471,7 @@ class AsyncAuthorizedUsersClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.create(
-            company_id=company_id,
+            account_id=account_id,
             role=role,
             user_id=user_id,
             elevation=elevation,
@@ -508,7 +508,7 @@ class AsyncAuthorizedUsersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -529,7 +529,7 @@ class AsyncAuthorizedUsersClient:
         self,
         id: str,
         *,
-        company_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> bool:
         """
@@ -543,7 +543,7 @@ class AsyncAuthorizedUsersClient:
         id : str
             The ID of the authorized user or user to remove.
 
-        company_id : typing.Optional[str]
+        account_id : typing.Optional[str]
             The ID of the company the authorized user belongs to. Optional if the authorized user ID is provided.
 
         request_options : typing.Optional[RequestOptions]
@@ -561,7 +561,7 @@ class AsyncAuthorizedUsersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -570,11 +570,11 @@ class AsyncAuthorizedUsersClient:
         async def main() -> None:
             await client.authorized_users.delete(
                 id="ausr_xxxxxxxxxxxxx",
-                company_id="biz_xxxxxxxxxxxxxx",
+                account_id="biz_xxxxxxxxxxxxxx",
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.delete(id, company_id=company_id, request_options=request_options)
+        _response = await self._raw_client.delete(id, account_id=account_id, request_options=request_options)
         return _response.data

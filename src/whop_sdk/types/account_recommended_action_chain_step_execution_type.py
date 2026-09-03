@@ -2,4 +2,6 @@
 
 import typing
 
-AccountRecommendedActionChainStepExecutionType = typing.Union[typing.Literal["redirect", "programatic"], typing.Any]
+AccountRecommendedActionChainStepExecutionType = typing.Union[
+    typing.Literal["redirect", "programatic", "whop_ai"], typing.Any
+]

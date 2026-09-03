@@ -29,7 +29,7 @@ class PayoutMethodsClient:
     def list_payout_method(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -44,7 +44,7 @@ class PayoutMethodsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list payout methods for.
 
         after : typing.Optional[str]
@@ -72,14 +72,14 @@ class PayoutMethodsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         response = client.payout_methods.list_payout_method(
             first=42,
             last=42,
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         for item in response:
             yield item
@@ -88,7 +88,7 @@ class PayoutMethodsClient:
             yield page
         """
         return self._raw_client.list_payout_method(
-            company_id=company_id, after=after, before=before, first=first, last=last, request_options=request_options
+            account_id=account_id, after=after, before=before, first=first, last=last, request_options=request_options
         )
 
     def retrieve_payout_method(
@@ -118,7 +118,7 @@ class PayoutMethodsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -148,7 +148,7 @@ class AsyncPayoutMethodsClient:
     async def list_payout_method(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -163,7 +163,7 @@ class AsyncPayoutMethodsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list payout methods for.
 
         after : typing.Optional[str]
@@ -193,7 +193,7 @@ class AsyncPayoutMethodsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -203,7 +203,7 @@ class AsyncPayoutMethodsClient:
             response = await client.payout_methods.list_payout_method(
                 first=42,
                 last=42,
-                company_id="biz_xxxxxxxxxxxxxx",
+                account_id="biz_xxxxxxxxxxxxxx",
             )
             async for item in response:
                 yield item
@@ -216,7 +216,7 @@ class AsyncPayoutMethodsClient:
         asyncio.run(main())
         """
         return await self._raw_client.list_payout_method(
-            company_id=company_id, after=after, before=before, first=first, last=last, request_options=request_options
+            account_id=account_id, after=after, before=before, first=first, last=last, request_options=request_options
         )
 
     async def retrieve_payout_method(
@@ -248,7 +248,7 @@ class AsyncPayoutMethodsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

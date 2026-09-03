@@ -36,7 +36,7 @@ class AccountRecommendedActionChainStep(UniversalBaseModel):
 
     execution_type: AccountRecommendedActionChainStepExecutionType = pydantic.Field()
     """
-    Whether the client should navigate to the CTA or open the programmatic execution dialog
+    Whether the client should navigate to the CTA, open the programmatic execution dialog, or run the CTA as a Whop AI prompt
     """
 
     input: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)

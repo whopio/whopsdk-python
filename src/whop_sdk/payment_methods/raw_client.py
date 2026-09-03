@@ -43,7 +43,6 @@ class RawPaymentMethodsClient:
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
         member_id: typing.Optional[str] = None,
-        company_id: typing.Optional[str] = None,
         direction: typing.Optional[Direction] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
@@ -56,6 +55,7 @@ class RawPaymentMethodsClient:
         has_payer_document: typing.Optional[bool] = None,
         expired: typing.Optional[bool] = None,
         broken: typing.Optional[bool] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[PaymentMethodListItem, ListPaymentMethodsResponse]:
         """
@@ -80,9 +80,6 @@ class RawPaymentMethodsClient:
 
         member_id : typing.Optional[str]
             The unique identifier of the member to list payment methods for. Omit this and company_id to list your own saved payment methods.
-
-        company_id : typing.Optional[str]
-            The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
 
         direction : typing.Optional[Direction]
 
@@ -112,6 +109,9 @@ class RawPaymentMethodsClient:
         broken : typing.Optional[bool]
             Filter by whether the stored credential has permanently stopped charging, such as a vault entry its provider closed.
 
+        account_id : typing.Optional[str]
+            The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -129,7 +129,6 @@ class RawPaymentMethodsClient:
                 "first": first,
                 "last": last,
                 "member_id": member_id,
-                "company_id": company_id,
                 "direction": direction,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -140,6 +139,7 @@ class RawPaymentMethodsClient:
                 "has_payer_document": has_payer_document,
                 "expired": expired,
                 "broken": broken,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -164,7 +164,6 @@ class RawPaymentMethodsClient:
                         first=first,
                         last=last,
                         member_id=member_id,
-                        company_id=company_id,
                         direction=direction,
                         created_before=created_before,
                         created_after=created_after,
@@ -175,6 +174,7 @@ class RawPaymentMethodsClient:
                         has_payer_document=has_payer_document,
                         expired=expired,
                         broken=broken,
+                        account_id=account_id,
                         request_options=request_options,
                     )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
@@ -268,8 +268,8 @@ class RawPaymentMethodsClient:
         self,
         id: str,
         *,
-        company_id: typing.Optional[str] = None,
         member_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PaymentMethod]:
         """
@@ -283,11 +283,11 @@ class RawPaymentMethodsClient:
         id : str
             The unique identifier of the payment method.
 
-        company_id : typing.Optional[str]
-            The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
-
         member_id : typing.Optional[str]
             The unique identifier of the member. Provide either this or company_id, not both. Omit both to address your own saved payment methods.
+
+        account_id : typing.Optional[str]
+            The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -301,8 +301,8 @@ class RawPaymentMethodsClient:
             f"payment_methods/{encode_path_param(id)}",
             method="GET",
             params={
-                "company_id": company_id,
                 "member_id": member_id,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -406,8 +406,8 @@ class RawPaymentMethodsClient:
         self,
         id: str,
         *,
-        company_id: typing.Optional[str] = None,
         member_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[bool]:
         """
@@ -421,11 +421,11 @@ class RawPaymentMethodsClient:
         id : str
             The unique identifier of the payment method to delete.
 
-        company_id : typing.Optional[str]
-            The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
-
         member_id : typing.Optional[str]
             The unique identifier of the member. Provide either this or company_id, not both. Omit both to address your own saved payment methods.
+
+        account_id : typing.Optional[str]
+            The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -439,8 +439,8 @@ class RawPaymentMethodsClient:
             f"payment_methods/{encode_path_param(id)}",
             method="DELETE",
             params={
-                "company_id": company_id,
                 "member_id": member_id,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -553,7 +553,6 @@ class AsyncRawPaymentMethodsClient:
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
         member_id: typing.Optional[str] = None,
-        company_id: typing.Optional[str] = None,
         direction: typing.Optional[Direction] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
@@ -566,6 +565,7 @@ class AsyncRawPaymentMethodsClient:
         has_payer_document: typing.Optional[bool] = None,
         expired: typing.Optional[bool] = None,
         broken: typing.Optional[bool] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[PaymentMethodListItem, ListPaymentMethodsResponse]:
         """
@@ -590,9 +590,6 @@ class AsyncRawPaymentMethodsClient:
 
         member_id : typing.Optional[str]
             The unique identifier of the member to list payment methods for. Omit this and company_id to list your own saved payment methods.
-
-        company_id : typing.Optional[str]
-            The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
 
         direction : typing.Optional[Direction]
 
@@ -622,6 +619,9 @@ class AsyncRawPaymentMethodsClient:
         broken : typing.Optional[bool]
             Filter by whether the stored credential has permanently stopped charging, such as a vault entry its provider closed.
 
+        account_id : typing.Optional[str]
+            The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -639,7 +639,6 @@ class AsyncRawPaymentMethodsClient:
                 "first": first,
                 "last": last,
                 "member_id": member_id,
-                "company_id": company_id,
                 "direction": direction,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
@@ -650,6 +649,7 @@ class AsyncRawPaymentMethodsClient:
                 "has_payer_document": has_payer_document,
                 "expired": expired,
                 "broken": broken,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -676,7 +676,6 @@ class AsyncRawPaymentMethodsClient:
                             first=first,
                             last=last,
                             member_id=member_id,
-                            company_id=company_id,
                             direction=direction,
                             created_before=created_before,
                             created_after=created_after,
@@ -687,6 +686,7 @@ class AsyncRawPaymentMethodsClient:
                             has_payer_document=has_payer_document,
                             expired=expired,
                             broken=broken,
+                            account_id=account_id,
                             request_options=request_options,
                         )
 
@@ -781,8 +781,8 @@ class AsyncRawPaymentMethodsClient:
         self,
         id: str,
         *,
-        company_id: typing.Optional[str] = None,
         member_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PaymentMethod]:
         """
@@ -796,11 +796,11 @@ class AsyncRawPaymentMethodsClient:
         id : str
             The unique identifier of the payment method.
 
-        company_id : typing.Optional[str]
-            The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
-
         member_id : typing.Optional[str]
             The unique identifier of the member. Provide either this or company_id, not both. Omit both to address your own saved payment methods.
+
+        account_id : typing.Optional[str]
+            The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -814,8 +814,8 @@ class AsyncRawPaymentMethodsClient:
             f"payment_methods/{encode_path_param(id)}",
             method="GET",
             params={
-                "company_id": company_id,
                 "member_id": member_id,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -919,8 +919,8 @@ class AsyncRawPaymentMethodsClient:
         self,
         id: str,
         *,
-        company_id: typing.Optional[str] = None,
         member_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[bool]:
         """
@@ -934,11 +934,11 @@ class AsyncRawPaymentMethodsClient:
         id : str
             The unique identifier of the payment method to delete.
 
-        company_id : typing.Optional[str]
-            The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
-
         member_id : typing.Optional[str]
             The unique identifier of the member. Provide either this or company_id, not both. Omit both to address your own saved payment methods.
+
+        account_id : typing.Optional[str]
+            The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -952,8 +952,8 @@ class AsyncRawPaymentMethodsClient:
             f"payment_methods/{encode_path_param(id)}",
             method="DELETE",
             params={
-                "company_id": company_id,
                 "member_id": member_id,
+                "account_id": account_id,
             },
             request_options=request_options,
         )

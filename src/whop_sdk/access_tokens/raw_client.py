@@ -31,7 +31,7 @@ class RawAccessTokensClient:
     def create(
         self,
         *,
-        company_id: typing.Optional[str] = OMIT,
+        account_id: typing.Optional[str] = OMIT,
         expires_at: typing.Optional[dt.datetime] = OMIT,
         scoped_actions: typing.Optional[typing.Sequence[str]] = OMIT,
         user_id: typing.Optional[str] = OMIT,
@@ -42,7 +42,7 @@ class RawAccessTokensClient:
 
         Parameters
         ----------
-        company_id : typing.Optional[str]
+        account_id : typing.Optional[str]
             The unique identifier of the company to generate the token for, starting with 'biz_'. The API key must have permission to access this company.
 
         expires_at : typing.Optional[dt.datetime]
@@ -66,7 +66,7 @@ class RawAccessTokensClient:
             "access_tokens",
             method="POST",
             json={
-                "company_id": company_id,
+                "account_id": account_id,
                 "expires_at": expires_at,
                 "scoped_actions": scoped_actions,
                 "user_id": user_id,
@@ -181,7 +181,7 @@ class AsyncRawAccessTokensClient:
     async def create(
         self,
         *,
-        company_id: typing.Optional[str] = OMIT,
+        account_id: typing.Optional[str] = OMIT,
         expires_at: typing.Optional[dt.datetime] = OMIT,
         scoped_actions: typing.Optional[typing.Sequence[str]] = OMIT,
         user_id: typing.Optional[str] = OMIT,
@@ -192,7 +192,7 @@ class AsyncRawAccessTokensClient:
 
         Parameters
         ----------
-        company_id : typing.Optional[str]
+        account_id : typing.Optional[str]
             The unique identifier of the company to generate the token for, starting with 'biz_'. The API key must have permission to access this company.
 
         expires_at : typing.Optional[dt.datetime]
@@ -216,7 +216,7 @@ class AsyncRawAccessTokensClient:
             "access_tokens",
             method="POST",
             json={
-                "company_id": company_id,
+                "account_id": account_id,
                 "expires_at": expires_at,
                 "scoped_actions": scoped_actions,
                 "user_id": user_id,

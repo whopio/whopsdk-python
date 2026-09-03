@@ -11,7 +11,7 @@ from .create_deposits_response_object import CreateDepositsResponseObject
 class CreateDepositsResponse(UniversalBaseModel):
     account_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Account ID of the destination owner. Null for raw wallet address destinations.
+    Account ID of the destination owner.
     """
 
     amount: typing.Optional[str] = pydantic.Field(default=None)
@@ -22,11 +22,6 @@ class CreateDepositsResponse(UniversalBaseModel):
     hosted_url: typing.Optional[str] = pydantic.Field(default=None)
     """
     URL of the hosted deposit page. Only present for business destinations.
-    """
-
-    metadata: typing.Dict[str, typing.Any] = pydantic.Field()
-    """
-    Metadata from the request.
     """
 
     methods: CreateDepositsResponseMethods = pydantic.Field()

@@ -31,7 +31,7 @@ class RawAccountLinksClient:
     def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         refresh_url: str,
         return_url: str,
         use_case: AccountLinkUseCases,
@@ -42,7 +42,7 @@ class RawAccountLinksClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to generate the link for, starting with 'biz_'. Must be a sub-merchant of the API key's company.
 
         refresh_url : str
@@ -66,7 +66,7 @@ class RawAccountLinksClient:
             "account_links",
             method="POST",
             json={
-                "company_id": company_id,
+                "account_id": account_id,
                 "refresh_url": refresh_url,
                 "return_url": return_url,
                 "use_case": use_case,
@@ -181,7 +181,7 @@ class AsyncRawAccountLinksClient:
     async def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         refresh_url: str,
         return_url: str,
         use_case: AccountLinkUseCases,
@@ -192,7 +192,7 @@ class AsyncRawAccountLinksClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to generate the link for, starting with 'biz_'. Must be a sub-merchant of the API key's company.
 
         refresh_url : str
@@ -216,7 +216,7 @@ class AsyncRawAccountLinksClient:
             "account_links",
             method="POST",
             json={
-                "company_id": company_id,
+                "account_id": account_id,
                 "refresh_url": refresh_url,
                 "return_url": return_url,
                 "use_case": use_case,

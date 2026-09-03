@@ -33,7 +33,7 @@ class FeeMarkupsClient:
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -48,7 +48,7 @@ class FeeMarkupsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list fee markups for. Pass a platform account identifier to retrieve platform default markups.
 
         after : typing.Optional[str]
@@ -76,14 +76,14 @@ class FeeMarkupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         response = client.fee_markups.list(
             first=42,
             last=42,
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         for item in response:
             yield item
@@ -92,13 +92,13 @@ class FeeMarkupsClient:
             yield page
         """
         return self._raw_client.list(
-            company_id=company_id, after=after, before=before, first=first, last=last, request_options=request_options
+            account_id=account_id, after=after, before=before, first=first, last=last, request_options=request_options
         )
 
     def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         fee_type: FeeMarkupTypes,
         fixed_fee_usd: typing.Optional[float] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
@@ -114,7 +114,7 @@ class FeeMarkupsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to create or update the fee markup for.
 
         fee_type : FeeMarkupTypes
@@ -145,17 +145,17 @@ class FeeMarkupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.fee_markups.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             fee_type="crypto_withdrawal_markup",
         )
         """
         _response = self._raw_client.create(
-            company_id=company_id,
+            account_id=account_id,
             fee_type=fee_type,
             fixed_fee_usd=fixed_fee_usd,
             metadata=metadata,
@@ -190,7 +190,7 @@ class FeeMarkupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -220,7 +220,7 @@ class AsyncFeeMarkupsClient:
     async def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -235,7 +235,7 @@ class AsyncFeeMarkupsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list fee markups for. Pass a platform account identifier to retrieve platform default markups.
 
         after : typing.Optional[str]
@@ -265,7 +265,7 @@ class AsyncFeeMarkupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -275,7 +275,7 @@ class AsyncFeeMarkupsClient:
             response = await client.fee_markups.list(
                 first=42,
                 last=42,
-                company_id="biz_xxxxxxxxxxxxxx",
+                account_id="biz_xxxxxxxxxxxxxx",
             )
             async for item in response:
                 yield item
@@ -288,13 +288,13 @@ class AsyncFeeMarkupsClient:
         asyncio.run(main())
         """
         return await self._raw_client.list(
-            company_id=company_id, after=after, before=before, first=first, last=last, request_options=request_options
+            account_id=account_id, after=after, before=before, first=first, last=last, request_options=request_options
         )
 
     async def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         fee_type: FeeMarkupTypes,
         fixed_fee_usd: typing.Optional[float] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
@@ -310,7 +310,7 @@ class AsyncFeeMarkupsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to create or update the fee markup for.
 
         fee_type : FeeMarkupTypes
@@ -343,7 +343,7 @@ class AsyncFeeMarkupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -351,7 +351,7 @@ class AsyncFeeMarkupsClient:
 
         async def main() -> None:
             await client.fee_markups.create(
-                company_id="biz_xxxxxxxxxxxxxx",
+                account_id="biz_xxxxxxxxxxxxxx",
                 fee_type="crypto_withdrawal_markup",
             )
 
@@ -359,7 +359,7 @@ class AsyncFeeMarkupsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.create(
-            company_id=company_id,
+            account_id=account_id,
             fee_type=fee_type,
             fixed_fee_usd=fixed_fee_usd,
             metadata=metadata,
@@ -396,7 +396,7 @@ class AsyncFeeMarkupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

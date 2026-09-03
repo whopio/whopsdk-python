@@ -37,7 +37,7 @@ class RawAffiliatesClient:
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -56,7 +56,7 @@ class RawAffiliatesClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list affiliates for.
 
         after : typing.Optional[str]
@@ -96,11 +96,11 @@ class RawAffiliatesClient:
                 "before": before,
                 "first": first,
                 "last": last,
-                "company_id": company_id,
                 "direction": direction,
                 "order": order,
                 "query": query,
                 "status": status,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -120,7 +120,7 @@ class RawAffiliatesClient:
                     _parsed_next = _parsed_response.page_info.end_cursor
                     _has_next = _parsed_next is not None and _parsed_next != ""
                     _get_next = lambda: self.list(
-                        company_id=company_id,
+                        account_id=account_id,
                         after=_parsed_next,
                         before=before,
                         first=first,
@@ -219,7 +219,7 @@ class RawAffiliatesClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def create(
-        self, *, company_id: str, user_identifier: str, request_options: typing.Optional[RequestOptions] = None
+        self, *, account_id: str, user_identifier: str, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[Affiliate]:
         """
         Creates or finds an affiliate for a company and user.
@@ -229,7 +229,7 @@ class RawAffiliatesClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The ID of the company to create the affiliate for.
 
         user_identifier : str
@@ -247,7 +247,7 @@ class RawAffiliatesClient:
             "affiliates",
             method="POST",
             json={
-                "company_id": company_id,
+                "account_id": account_id,
                 "user_identifier": user_identifier,
             },
             headers={
@@ -723,7 +723,7 @@ class AsyncRawAffiliatesClient:
     async def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -742,7 +742,7 @@ class AsyncRawAffiliatesClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list affiliates for.
 
         after : typing.Optional[str]
@@ -782,11 +782,11 @@ class AsyncRawAffiliatesClient:
                 "before": before,
                 "first": first,
                 "last": last,
-                "company_id": company_id,
                 "direction": direction,
                 "order": order,
                 "query": query,
                 "status": status,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -808,7 +808,7 @@ class AsyncRawAffiliatesClient:
 
                     async def _get_next():
                         return await self.list(
-                            company_id=company_id,
+                            account_id=account_id,
                             after=_parsed_next,
                             before=before,
                             first=first,
@@ -908,7 +908,7 @@ class AsyncRawAffiliatesClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def create(
-        self, *, company_id: str, user_identifier: str, request_options: typing.Optional[RequestOptions] = None
+        self, *, account_id: str, user_identifier: str, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[Affiliate]:
         """
         Creates or finds an affiliate for a company and user.
@@ -918,7 +918,7 @@ class AsyncRawAffiliatesClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The ID of the company to create the affiliate for.
 
         user_identifier : str
@@ -936,7 +936,7 @@ class AsyncRawAffiliatesClient:
             "affiliates",
             method="POST",
             json={
-                "company_id": company_id,
+                "account_id": account_id,
                 "user_identifier": user_identifier,
             },
             headers={

@@ -45,7 +45,7 @@ class RawCoursesClient:
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
         experience_id: typing.Optional[str] = None,
-        company_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[CourseListItem, ListCoursesResponse]:
         """
@@ -71,7 +71,7 @@ class RawCoursesClient:
         experience_id : typing.Optional[str]
             The unique identifier of the experience to list courses for.
 
-        company_id : typing.Optional[str]
+        account_id : typing.Optional[str]
             The unique identifier of the company to list courses for.
 
         request_options : typing.Optional[RequestOptions]
@@ -91,7 +91,7 @@ class RawCoursesClient:
                 "first": first,
                 "last": last,
                 "experience_id": experience_id,
-                "company_id": company_id,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -116,7 +116,7 @@ class RawCoursesClient:
                         first=first,
                         last=last,
                         experience_id=experience_id,
-                        company_id=company_id,
+                        account_id=account_id,
                         request_options=request_options,
                     )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
@@ -819,7 +819,7 @@ class AsyncRawCoursesClient:
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
         experience_id: typing.Optional[str] = None,
-        company_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[CourseListItem, ListCoursesResponse]:
         """
@@ -845,7 +845,7 @@ class AsyncRawCoursesClient:
         experience_id : typing.Optional[str]
             The unique identifier of the experience to list courses for.
 
-        company_id : typing.Optional[str]
+        account_id : typing.Optional[str]
             The unique identifier of the company to list courses for.
 
         request_options : typing.Optional[RequestOptions]
@@ -865,7 +865,7 @@ class AsyncRawCoursesClient:
                 "first": first,
                 "last": last,
                 "experience_id": experience_id,
-                "company_id": company_id,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -892,7 +892,7 @@ class AsyncRawCoursesClient:
                             first=first,
                             last=last,
                             experience_id=experience_id,
-                            company_id=company_id,
+                            account_id=account_id,
                             request_options=request_options,
                         )
 

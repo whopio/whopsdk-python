@@ -44,11 +44,11 @@ class RawAuthorizedUsersClient:
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
-        company_id: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
         role: typing.Optional[AuthorizedUserRoles] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[AuthorizedUserListItem, ListAuthorizedUsersResponse]:
         """
@@ -72,9 +72,6 @@ class RawAuthorizedUsersClient:
         last : typing.Optional[int]
             Returns the last _n_ elements from the list.
 
-        company_id : typing.Optional[str]
-            The unique identifier of the company to list authorized users for.
-
         user_id : typing.Optional[str]
             Filter results to a specific user to check if they are an authorized team member.
 
@@ -85,6 +82,9 @@ class RawAuthorizedUsersClient:
 
         created_after : typing.Optional[dt.datetime]
             Only return authorized users created after this timestamp.
+
+        account_id : typing.Optional[str]
+            The unique identifier of the company to list authorized users for.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -102,11 +102,11 @@ class RawAuthorizedUsersClient:
                 "before": before,
                 "first": first,
                 "last": last,
-                "company_id": company_id,
                 "user_id": user_id,
                 "role": role,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -130,11 +130,11 @@ class RawAuthorizedUsersClient:
                         before=before,
                         first=first,
                         last=last,
-                        company_id=company_id,
                         user_id=user_id,
                         role=role,
                         created_before=created_before,
                         created_after=created_after,
+                        account_id=account_id,
                         request_options=request_options,
                     )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
@@ -227,7 +227,7 @@ class RawAuthorizedUsersClient:
     def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         role: GrantableAuthorizedUserRoles,
         user_id: str,
         elevation: typing.Optional[CreateAuthorizedUsersRequestElevation] = OMIT,
@@ -243,7 +243,7 @@ class RawAuthorizedUsersClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The ID of the company to add the authorized user to.
 
         role : GrantableAuthorizedUserRoles
@@ -270,7 +270,7 @@ class RawAuthorizedUsersClient:
             "authorized_users",
             method="POST",
             json={
-                "company_id": company_id,
+                "account_id": account_id,
                 "elevation": convert_and_respect_annotation_metadata(
                     object_=elevation,
                     annotation=typing.Optional[CreateAuthorizedUsersRequestElevation],
@@ -510,7 +510,7 @@ class RawAuthorizedUsersClient:
         self,
         id: str,
         *,
-        company_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[bool]:
         """
@@ -524,7 +524,7 @@ class RawAuthorizedUsersClient:
         id : str
             The ID of the authorized user or user to remove.
 
-        company_id : typing.Optional[str]
+        account_id : typing.Optional[str]
             The ID of the company the authorized user belongs to. Optional if the authorized user ID is provided.
 
         request_options : typing.Optional[RequestOptions]
@@ -539,7 +539,7 @@ class RawAuthorizedUsersClient:
             f"authorized_users/{encode_path_param(id)}",
             method="DELETE",
             params={
-                "company_id": company_id,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -651,11 +651,11 @@ class AsyncRawAuthorizedUsersClient:
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
-        company_id: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
         role: typing.Optional[AuthorizedUserRoles] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[AuthorizedUserListItem, ListAuthorizedUsersResponse]:
         """
@@ -679,9 +679,6 @@ class AsyncRawAuthorizedUsersClient:
         last : typing.Optional[int]
             Returns the last _n_ elements from the list.
 
-        company_id : typing.Optional[str]
-            The unique identifier of the company to list authorized users for.
-
         user_id : typing.Optional[str]
             Filter results to a specific user to check if they are an authorized team member.
 
@@ -692,6 +689,9 @@ class AsyncRawAuthorizedUsersClient:
 
         created_after : typing.Optional[dt.datetime]
             Only return authorized users created after this timestamp.
+
+        account_id : typing.Optional[str]
+            The unique identifier of the company to list authorized users for.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -709,11 +709,11 @@ class AsyncRawAuthorizedUsersClient:
                 "before": before,
                 "first": first,
                 "last": last,
-                "company_id": company_id,
                 "user_id": user_id,
                 "role": role,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -739,11 +739,11 @@ class AsyncRawAuthorizedUsersClient:
                             before=before,
                             first=first,
                             last=last,
-                            company_id=company_id,
                             user_id=user_id,
                             role=role,
                             created_before=created_before,
                             created_after=created_after,
+                            account_id=account_id,
                             request_options=request_options,
                         )
 
@@ -837,7 +837,7 @@ class AsyncRawAuthorizedUsersClient:
     async def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         role: GrantableAuthorizedUserRoles,
         user_id: str,
         elevation: typing.Optional[CreateAuthorizedUsersRequestElevation] = OMIT,
@@ -853,7 +853,7 @@ class AsyncRawAuthorizedUsersClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The ID of the company to add the authorized user to.
 
         role : GrantableAuthorizedUserRoles
@@ -880,7 +880,7 @@ class AsyncRawAuthorizedUsersClient:
             "authorized_users",
             method="POST",
             json={
-                "company_id": company_id,
+                "account_id": account_id,
                 "elevation": convert_and_respect_annotation_metadata(
                     object_=elevation,
                     annotation=typing.Optional[CreateAuthorizedUsersRequestElevation],
@@ -1120,7 +1120,7 @@ class AsyncRawAuthorizedUsersClient:
         self,
         id: str,
         *,
-        company_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[bool]:
         """
@@ -1134,7 +1134,7 @@ class AsyncRawAuthorizedUsersClient:
         id : str
             The ID of the authorized user or user to remove.
 
-        company_id : typing.Optional[str]
+        account_id : typing.Optional[str]
             The ID of the company the authorized user belongs to. Optional if the authorized user ID is provided.
 
         request_options : typing.Optional[RequestOptions]
@@ -1149,7 +1149,7 @@ class AsyncRawAuthorizedUsersClient:
             f"authorized_users/{encode_path_param(id)}",
             method="DELETE",
             params={
-                "company_id": company_id,
+                "account_id": account_id,
             },
             request_options=request_options,
         )

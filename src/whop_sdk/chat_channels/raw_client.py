@@ -36,7 +36,7 @@ class RawChatChannelsClient:
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -52,7 +52,7 @@ class RawChatChannelsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list chat channels for.
 
         after : typing.Optional[str]
@@ -86,8 +86,8 @@ class RawChatChannelsClient:
                 "before": before,
                 "first": first,
                 "last": last,
-                "company_id": company_id,
                 "product_id": product_id,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -107,7 +107,7 @@ class RawChatChannelsClient:
                     _parsed_next = _parsed_response.page_info.end_cursor
                     _has_next = _parsed_next is not None and _parsed_next != ""
                     _get_next = lambda: self.list(
-                        company_id=company_id,
+                        account_id=account_id,
                         after=_parsed_next,
                         before=before,
                         first=first,
@@ -495,7 +495,7 @@ class AsyncRawChatChannelsClient:
     async def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -511,7 +511,7 @@ class AsyncRawChatChannelsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list chat channels for.
 
         after : typing.Optional[str]
@@ -545,8 +545,8 @@ class AsyncRawChatChannelsClient:
                 "before": before,
                 "first": first,
                 "last": last,
-                "company_id": company_id,
                 "product_id": product_id,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -568,7 +568,7 @@ class AsyncRawChatChannelsClient:
 
                     async def _get_next():
                         return await self.list(
-                            company_id=company_id,
+                            account_id=account_id,
                             after=_parsed_next,
                             before=before,
                             first=first,

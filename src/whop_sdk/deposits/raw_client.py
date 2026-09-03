@@ -9,12 +9,9 @@ from ..core.http_response import AsyncHttpResponse, HttpResponse
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
-from ..core.serialization import convert_and_respect_annotation_metadata
 from ..errors.bad_request_error import BadRequestError
 from ..errors.conflict_error import ConflictError
 from ..types.v1error_response import V1ErrorResponse
-from .types.create_deposits_request_destination import CreateDepositsRequestDestination
-from .types.create_deposits_request_network import CreateDepositsRequestNetwork
 from .types.create_deposits_response import CreateDepositsResponse
 from pydantic import ValidationError
 
@@ -29,10 +26,8 @@ class RawDepositsClient:
     def create(
         self,
         *,
-        destination: CreateDepositsRequestDestination,
+        destination: str,
         amount: typing.Optional[float] = OMIT,
-        metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
-        network: typing.Optional[CreateDepositsRequestNetwork] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateDepositsResponse]:
         """
@@ -40,17 +35,11 @@ class RawDepositsClient:
 
         Parameters
         ----------
-        destination : CreateDepositsRequestDestination
-            Destination account ID or wallet address. Object form is supported for compatibility. Any business resolves by its account ID without authentication; a user account resolves only for that same authenticated user.
+        destination : str
+            Account ID to fund, `biz_` or `user_`. Any business resolves without authentication; a user account resolves only for that same authenticated user.
 
         amount : typing.Optional[float]
             Amount to prefill on hosted deposit page.
-
-        metadata : typing.Optional[typing.Dict[str, typing.Any]]
-            Metadata to include with the deposit response.
-
-        network : typing.Optional[CreateDepositsRequestNetwork]
-            Destination network override. Defaults to the destination wallet's own network.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -65,11 +54,7 @@ class RawDepositsClient:
             method="POST",
             json={
                 "amount": amount,
-                "destination": convert_and_respect_annotation_metadata(
-                    object_=destination, annotation=CreateDepositsRequestDestination, direction="write"
-                ),
-                "metadata": metadata,
-                "network": network,
+                "destination": destination,
             },
             headers={
                 "content-type": "application/json",
@@ -126,10 +111,8 @@ class AsyncRawDepositsClient:
     async def create(
         self,
         *,
-        destination: CreateDepositsRequestDestination,
+        destination: str,
         amount: typing.Optional[float] = OMIT,
-        metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
-        network: typing.Optional[CreateDepositsRequestNetwork] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateDepositsResponse]:
         """
@@ -137,17 +120,11 @@ class AsyncRawDepositsClient:
 
         Parameters
         ----------
-        destination : CreateDepositsRequestDestination
-            Destination account ID or wallet address. Object form is supported for compatibility. Any business resolves by its account ID without authentication; a user account resolves only for that same authenticated user.
+        destination : str
+            Account ID to fund, `biz_` or `user_`. Any business resolves without authentication; a user account resolves only for that same authenticated user.
 
         amount : typing.Optional[float]
             Amount to prefill on hosted deposit page.
-
-        metadata : typing.Optional[typing.Dict[str, typing.Any]]
-            Metadata to include with the deposit response.
-
-        network : typing.Optional[CreateDepositsRequestNetwork]
-            Destination network override. Defaults to the destination wallet's own network.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -162,11 +139,7 @@ class AsyncRawDepositsClient:
             method="POST",
             json={
                 "amount": amount,
-                "destination": convert_and_respect_annotation_metadata(
-                    object_=destination, annotation=CreateDepositsRequestDestination, direction="write"
-                ),
-                "metadata": metadata,
-                "network": network,
+                "destination": destination,
             },
             headers={
                 "content-type": "application/json",
