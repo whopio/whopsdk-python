@@ -63,6 +63,9 @@ class TransfersResource(SyncAPIResource):
         currency: str | Omit = omit,
         destination_id: str | Omit = omit,
         expires_at: Union[str, datetime, None] | Omit = omit,
+        feed_id: Optional[str] | Omit = omit,
+        feed_type: Optional[Literal["dms_feed", "chat_feed", "forum_feed", "livestream_feed", "universal_post", "user"]]
+        | Omit = omit,
         idempotence_key: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         notes: Optional[str] | Omit = omit,
@@ -94,6 +97,12 @@ class TransfersResource(SyncAPIResource):
 
           expires_at: claim_link only. Link expiry as an ISO 8601 timestamp. Defaults to 24 hours from
               creation.
+
+          feed_id: Ledger transfers only. The feed the transfer was initiated from. Given with
+              `feed_type`, the payment receipt posts into that feed instead of a direct
+              message.
+
+          feed_type: Ledger transfers only. The type of the feed named by `feed_id`.
 
           idempotence_key: Ledger transfers and wallet sends. A unique key that makes retries safe.
               Retrying with the same key returns the original transfer, or attaches to the
@@ -141,6 +150,8 @@ class TransfersResource(SyncAPIResource):
                         "currency": currency,
                         "destination_id": destination_id,
                         "expires_at": expires_at,
+                        "feed_id": feed_id,
+                        "feed_type": feed_type,
                         "idempotence_key": idempotence_key,
                         "metadata": metadata,
                         "notes": notes,
@@ -310,6 +321,9 @@ class AsyncTransfersResource(AsyncAPIResource):
         currency: str | Omit = omit,
         destination_id: str | Omit = omit,
         expires_at: Union[str, datetime, None] | Omit = omit,
+        feed_id: Optional[str] | Omit = omit,
+        feed_type: Optional[Literal["dms_feed", "chat_feed", "forum_feed", "livestream_feed", "universal_post", "user"]]
+        | Omit = omit,
         idempotence_key: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         notes: Optional[str] | Omit = omit,
@@ -341,6 +355,12 @@ class AsyncTransfersResource(AsyncAPIResource):
 
           expires_at: claim_link only. Link expiry as an ISO 8601 timestamp. Defaults to 24 hours from
               creation.
+
+          feed_id: Ledger transfers only. The feed the transfer was initiated from. Given with
+              `feed_type`, the payment receipt posts into that feed instead of a direct
+              message.
+
+          feed_type: Ledger transfers only. The type of the feed named by `feed_id`.
 
           idempotence_key: Ledger transfers and wallet sends. A unique key that makes retries safe.
               Retrying with the same key returns the original transfer, or attaches to the
@@ -388,6 +408,8 @@ class AsyncTransfersResource(AsyncAPIResource):
                         "currency": currency,
                         "destination_id": destination_id,
                         "expires_at": expires_at,
+                        "feed_id": feed_id,
+                        "feed_type": feed_type,
                         "idempotence_key": idempotence_key,
                         "metadata": metadata,
                         "notes": notes,

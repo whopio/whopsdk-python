@@ -37,6 +37,16 @@ class TransferCreateParams(TypedDict, total=False):
     Link expiry as an ISO 8601 timestamp. Defaults to 24 hours from creation.
     """
 
+    feed_id: Optional[str]
+    """Ledger transfers only.
+
+    The feed the transfer was initiated from. Given with `feed_type`, the payment
+    receipt posts into that feed instead of a direct message.
+    """
+
+    feed_type: Optional[Literal["dms_feed", "chat_feed", "forum_feed", "livestream_feed", "universal_post", "user"]]
+    """Ledger transfers only. The type of the feed named by `feed_id`."""
+
     idempotence_key: Optional[str]
     """Ledger transfers and wallet sends.
 
