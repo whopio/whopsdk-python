@@ -15,6 +15,13 @@ __all__ = ["PaymentMethodListParams"]
 
 
 class PaymentMethodListParams(TypedDict, total=False):
+    account_id: str
+    """The unique identifier of the company.
+
+    Provide either this or member_id, not both. Omit both to address your own saved
+    payment methods.
+    """
+
     after: str
     """Returns the elements in the list that come after the specified cursor."""
 
@@ -38,13 +45,6 @@ class PaymentMethodListParams(TypedDict, total=False):
 
     A card whose funding could not be determined is excluded, and payment methods
     that are not cards are unaffected.
-    """
-
-    company_id: str
-    """The unique identifier of the company.
-
-    Provide either this or member_id, not both. Omit both to address your own saved
-    payment methods.
     """
 
     created_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]

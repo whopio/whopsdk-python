@@ -254,9 +254,9 @@ class CoursesResource(SyncAPIResource):
     def list(
         self,
         *,
+        account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
-        company_id: str | Omit = omit,
         experience_id: str | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
@@ -276,11 +276,11 @@ class CoursesResource(SyncAPIResource):
         - `courses:read`
 
         Args:
+          account_id: The unique identifier of the company to list courses for.
+
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
-
-          company_id: The unique identifier of the company to list courses for.
 
           experience_id: The unique identifier of the experience to list courses for.
 
@@ -306,9 +306,9 @@ class CoursesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
-                        "company_id": company_id,
                         "experience_id": experience_id,
                         "first": first,
                         "last": last,
@@ -584,9 +584,9 @@ class AsyncCoursesResource(AsyncAPIResource):
     def list(
         self,
         *,
+        account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
-        company_id: str | Omit = omit,
         experience_id: str | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
@@ -606,11 +606,11 @@ class AsyncCoursesResource(AsyncAPIResource):
         - `courses:read`
 
         Args:
+          account_id: The unique identifier of the company to list courses for.
+
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
-
-          company_id: The unique identifier of the company to list courses for.
 
           experience_id: The unique identifier of the experience to list courses for.
 
@@ -636,9 +636,9 @@ class AsyncCoursesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
-                        "company_id": company_id,
                         "experience_id": experience_id,
                         "first": first,
                         "last": last,

@@ -8,7 +8,7 @@ __all__ = ["AffiliateCreateParams"]
 
 
 class AffiliateCreateParams(TypedDict, total=False):
-    company_id: Required[str]
+    account_id: Required[str]
     """The ID of the company to create the affiliate for."""
 
     user_identifier: Required[str]

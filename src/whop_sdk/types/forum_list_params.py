@@ -8,7 +8,7 @@ __all__ = ["ForumListParams"]
 
 
 class ForumListParams(TypedDict, total=False):
-    company_id: Required[str]
+    account_id: Required[str]
     """The unique identifier of the company to list forums for."""
 
     after: str

@@ -29,8 +29,8 @@ class TestInvoices:
     @parametrize
     def test_method_create_overload_1(self, client: Whop) -> None:
         invoice = client.invoices.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
             plan={},
             product={"title": "title"},
         )
@@ -40,8 +40,8 @@ class TestInvoices:
     @parametrize
     def test_method_create_with_all_params_overload_1(self, client: Whop) -> None:
         invoice = client.invoices.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
             plan={
                 "adaptive_pricing_enabled": True,
                 "billing_period": 42,
@@ -115,8 +115,8 @@ class TestInvoices:
     @parametrize
     def test_raw_response_create_overload_1(self, client: Whop) -> None:
         response = client.invoices.with_raw_response.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
             plan={},
             product={"title": "title"},
         )
@@ -130,8 +130,8 @@ class TestInvoices:
     @parametrize
     def test_streaming_response_create_overload_1(self, client: Whop) -> None:
         with client.invoices.with_streaming_response.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
             plan={},
             product={"title": "title"},
         ) as response:
@@ -147,8 +147,8 @@ class TestInvoices:
     @parametrize
     def test_method_create_overload_2(self, client: Whop) -> None:
         invoice = client.invoices.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
             plan={},
             product_id="prod_xxxxxxxxxxxxx",
         )
@@ -158,8 +158,8 @@ class TestInvoices:
     @parametrize
     def test_method_create_with_all_params_overload_2(self, client: Whop) -> None:
         invoice = client.invoices.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
             plan={
                 "adaptive_pricing_enabled": True,
                 "billing_period": 42,
@@ -230,8 +230,8 @@ class TestInvoices:
     @parametrize
     def test_raw_response_create_overload_2(self, client: Whop) -> None:
         response = client.invoices.with_raw_response.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
             plan={},
             product_id="prod_xxxxxxxxxxxxx",
         )
@@ -245,8 +245,8 @@ class TestInvoices:
     @parametrize
     def test_streaming_response_create_overload_2(self, client: Whop) -> None:
         with client.invoices.with_streaming_response.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
             plan={},
             product_id="prod_xxxxxxxxxxxxx",
         ) as response:
@@ -422,10 +422,10 @@ class TestInvoices:
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         invoice = client.invoices.list(
+            account_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
             collection_methods=["send_invoice"],
-            company_id="biz_xxxxxxxxxxxxxx",
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
             created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             direction="asc",
@@ -637,8 +637,8 @@ class TestAsyncInvoices:
     @parametrize
     async def test_method_create_overload_1(self, async_client: AsyncWhop) -> None:
         invoice = await async_client.invoices.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
             plan={},
             product={"title": "title"},
         )
@@ -648,8 +648,8 @@ class TestAsyncInvoices:
     @parametrize
     async def test_method_create_with_all_params_overload_1(self, async_client: AsyncWhop) -> None:
         invoice = await async_client.invoices.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
             plan={
                 "adaptive_pricing_enabled": True,
                 "billing_period": 42,
@@ -723,8 +723,8 @@ class TestAsyncInvoices:
     @parametrize
     async def test_raw_response_create_overload_1(self, async_client: AsyncWhop) -> None:
         response = await async_client.invoices.with_raw_response.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
             plan={},
             product={"title": "title"},
         )
@@ -738,8 +738,8 @@ class TestAsyncInvoices:
     @parametrize
     async def test_streaming_response_create_overload_1(self, async_client: AsyncWhop) -> None:
         async with async_client.invoices.with_streaming_response.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
             plan={},
             product={"title": "title"},
         ) as response:
@@ -755,8 +755,8 @@ class TestAsyncInvoices:
     @parametrize
     async def test_method_create_overload_2(self, async_client: AsyncWhop) -> None:
         invoice = await async_client.invoices.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
             plan={},
             product_id="prod_xxxxxxxxxxxxx",
         )
@@ -766,8 +766,8 @@ class TestAsyncInvoices:
     @parametrize
     async def test_method_create_with_all_params_overload_2(self, async_client: AsyncWhop) -> None:
         invoice = await async_client.invoices.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
             plan={
                 "adaptive_pricing_enabled": True,
                 "billing_period": 42,
@@ -838,8 +838,8 @@ class TestAsyncInvoices:
     @parametrize
     async def test_raw_response_create_overload_2(self, async_client: AsyncWhop) -> None:
         response = await async_client.invoices.with_raw_response.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
             plan={},
             product_id="prod_xxxxxxxxxxxxx",
         )
@@ -853,8 +853,8 @@ class TestAsyncInvoices:
     @parametrize
     async def test_streaming_response_create_overload_2(self, async_client: AsyncWhop) -> None:
         async with async_client.invoices.with_streaming_response.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             collection_method="send_invoice",
-            company_id="biz_xxxxxxxxxxxxxx",
             plan={},
             product_id="prod_xxxxxxxxxxxxx",
         ) as response:
@@ -1030,10 +1030,10 @@ class TestAsyncInvoices:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         invoice = await async_client.invoices.list(
+            account_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
             collection_methods=["send_invoice"],
-            company_id="biz_xxxxxxxxxxxxxx",
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
             created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             direction="asc",

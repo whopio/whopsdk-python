@@ -10,7 +10,7 @@ __all__ = ["CompanyTokenTransactionListParams"]
 
 
 class CompanyTokenTransactionListParams(TypedDict, total=False):
-    company_id: Required[str]
+    account_id: Required[str]
     """The unique identifier of the company to list token transactions for."""
 
     after: str

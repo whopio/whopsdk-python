@@ -27,7 +27,7 @@ class TestAuthorizedUsers:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         authorized_user = client.authorized_users.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             role="owner",
             user_id="user_xxxxxxxxxxxxx",
         )
@@ -37,7 +37,7 @@ class TestAuthorizedUsers:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         authorized_user = client.authorized_users.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             role="owner",
             user_id="user_xxxxxxxxxxxxx",
             elevation={
@@ -57,7 +57,7 @@ class TestAuthorizedUsers:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.authorized_users.with_raw_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             role="owner",
             user_id="user_xxxxxxxxxxxxx",
         )
@@ -71,7 +71,7 @@ class TestAuthorizedUsers:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.authorized_users.with_streaming_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             role="owner",
             user_id="user_xxxxxxxxxxxxx",
         ) as response:
@@ -135,9 +135,9 @@ class TestAuthorizedUsers:
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         authorized_user = client.authorized_users.list(
+            account_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
-            company_id="biz_xxxxxxxxxxxxxx",
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
             created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             first=42,
@@ -182,7 +182,7 @@ class TestAuthorizedUsers:
     def test_method_delete_with_all_params(self, client: Whop) -> None:
         authorized_user = client.authorized_users.delete(
             id="ausr_xxxxxxxxxxxxx",
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(AuthorizedUserDeleteResponse, authorized_user, path=["response"])
 
@@ -230,7 +230,7 @@ class TestAsyncAuthorizedUsers:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         authorized_user = await async_client.authorized_users.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             role="owner",
             user_id="user_xxxxxxxxxxxxx",
         )
@@ -240,7 +240,7 @@ class TestAsyncAuthorizedUsers:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         authorized_user = await async_client.authorized_users.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             role="owner",
             user_id="user_xxxxxxxxxxxxx",
             elevation={
@@ -260,7 +260,7 @@ class TestAsyncAuthorizedUsers:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.authorized_users.with_raw_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             role="owner",
             user_id="user_xxxxxxxxxxxxx",
         )
@@ -274,7 +274,7 @@ class TestAsyncAuthorizedUsers:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.authorized_users.with_streaming_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             role="owner",
             user_id="user_xxxxxxxxxxxxx",
         ) as response:
@@ -338,9 +338,9 @@ class TestAsyncAuthorizedUsers:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         authorized_user = await async_client.authorized_users.list(
+            account_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
-            company_id="biz_xxxxxxxxxxxxxx",
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
             created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             first=42,
@@ -385,7 +385,7 @@ class TestAsyncAuthorizedUsers:
     async def test_method_delete_with_all_params(self, async_client: AsyncWhop) -> None:
         authorized_user = await async_client.authorized_users.delete(
             id="ausr_xxxxxxxxxxxxx",
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(AuthorizedUserDeleteResponse, authorized_user, path=["response"])
 

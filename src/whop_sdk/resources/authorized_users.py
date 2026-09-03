@@ -52,7 +52,7 @@ class AuthorizedUsersResource(SyncAPIResource):
     def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         role: Literal["owner", "admin", "sales_manager", "moderator", "advertiser"],
         user_id: str,
         elevation: Optional[authorized_user_create_params.Elevation] | Omit = omit,
@@ -73,7 +73,7 @@ class AuthorizedUsersResource(SyncAPIResource):
         - `member:email:read`
 
         Args:
-          company_id: The ID of the company to add the authorized user to.
+          account_id: The ID of the company to add the authorized user to.
 
           role:
               The role to assign to the authorized user within the company. Supported roles:
@@ -97,7 +97,7 @@ class AuthorizedUsersResource(SyncAPIResource):
             "/authorized_users",
             body=maybe_transform(
                 {
-                    "company_id": company_id,
+                    "account_id": account_id,
                     "role": role,
                     "user_id": user_id,
                     "elevation": elevation,
@@ -152,9 +152,9 @@ class AuthorizedUsersResource(SyncAPIResource):
     def list(
         self,
         *,
+        account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
-        company_id: str | Omit = omit,
         created_after: Union[str, datetime] | Omit = omit,
         created_before: Union[str, datetime] | Omit = omit,
         first: int | Omit = omit,
@@ -178,11 +178,11 @@ class AuthorizedUsersResource(SyncAPIResource):
         - `member:email:read`
 
         Args:
+          account_id: The unique identifier of the company to list authorized users for.
+
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
-
-          company_id: The unique identifier of the company to list authorized users for.
 
           created_after: Only return authorized users created after this timestamp.
 
@@ -215,9 +215,9 @@ class AuthorizedUsersResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
-                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "first": first,
@@ -235,7 +235,7 @@ class AuthorizedUsersResource(SyncAPIResource):
         self,
         id: str,
         *,
-        company_id: str | Omit = omit,
+        account_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -251,7 +251,7 @@ class AuthorizedUsersResource(SyncAPIResource):
         - `authorized_user:delete`
 
         Args:
-          company_id: The ID of the company the authorized user belongs to. Optional if the authorized
+          account_id: The ID of the company the authorized user belongs to. Optional if the authorized
               user ID is provided.
 
           extra_headers: Send extra headers
@@ -272,7 +272,7 @@ class AuthorizedUsersResource(SyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=maybe_transform(
-                    {"company_id": company_id}, authorized_user_delete_params.AuthorizedUserDeleteParams
+                    {"account_id": account_id}, authorized_user_delete_params.AuthorizedUserDeleteParams
                 ),
             ),
             cast_to=AuthorizedUserDeleteResponse,
@@ -302,7 +302,7 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         role: Literal["owner", "admin", "sales_manager", "moderator", "advertiser"],
         user_id: str,
         elevation: Optional[authorized_user_create_params.Elevation] | Omit = omit,
@@ -323,7 +323,7 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
         - `member:email:read`
 
         Args:
-          company_id: The ID of the company to add the authorized user to.
+          account_id: The ID of the company to add the authorized user to.
 
           role:
               The role to assign to the authorized user within the company. Supported roles:
@@ -347,7 +347,7 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
             "/authorized_users",
             body=await async_maybe_transform(
                 {
-                    "company_id": company_id,
+                    "account_id": account_id,
                     "role": role,
                     "user_id": user_id,
                     "elevation": elevation,
@@ -402,9 +402,9 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
     def list(
         self,
         *,
+        account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
-        company_id: str | Omit = omit,
         created_after: Union[str, datetime] | Omit = omit,
         created_before: Union[str, datetime] | Omit = omit,
         first: int | Omit = omit,
@@ -428,11 +428,11 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
         - `member:email:read`
 
         Args:
+          account_id: The unique identifier of the company to list authorized users for.
+
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
-
-          company_id: The unique identifier of the company to list authorized users for.
 
           created_after: Only return authorized users created after this timestamp.
 
@@ -465,9 +465,9 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
-                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "first": first,
@@ -485,7 +485,7 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        company_id: str | Omit = omit,
+        account_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -501,7 +501,7 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
         - `authorized_user:delete`
 
         Args:
-          company_id: The ID of the company the authorized user belongs to. Optional if the authorized
+          account_id: The ID of the company the authorized user belongs to. Optional if the authorized
               user ID is provided.
 
           extra_headers: Send extra headers
@@ -522,7 +522,7 @@ class AsyncAuthorizedUsersResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"company_id": company_id}, authorized_user_delete_params.AuthorizedUserDeleteParams
+                    {"account_id": account_id}, authorized_user_delete_params.AuthorizedUserDeleteParams
                 ),
             ),
             cast_to=AuthorizedUserDeleteResponse,

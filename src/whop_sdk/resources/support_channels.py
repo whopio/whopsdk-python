@@ -50,7 +50,7 @@ class SupportChannelsResource(SyncAPIResource):
     def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         user_id: str,
         custom_name: Optional[str] | Omit = omit,
         notifications_enabled: Optional[bool] | Omit = omit,
@@ -71,7 +71,7 @@ class SupportChannelsResource(SyncAPIResource):
         - `support_chat:create`
 
         Args:
-          company_id: The unique identifier of the company to create the support channel in.
+          account_id: The unique identifier of the company to create the support channel in.
 
           user_id: The user ID (e.g. 'user_xxxxx') or username of the customer to open a support
               channel for.
@@ -93,7 +93,7 @@ class SupportChannelsResource(SyncAPIResource):
             "/support_channels",
             body=maybe_transform(
                 {
-                    "company_id": company_id,
+                    "account_id": account_id,
                     "user_id": user_id,
                     "custom_name": custom_name,
                     "notifications_enabled": notifications_enabled,
@@ -146,9 +146,9 @@ class SupportChannelsResource(SyncAPIResource):
     def list(
         self,
         *,
+        account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
-        company_id: str | Omit = omit,
         direction: Direction | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
@@ -171,13 +171,13 @@ class SupportChannelsResource(SyncAPIResource):
         - `support_chat:read`
 
         Args:
+          account_id: The unique identifier of the company to list support channels for. Includes
+              channels of child companies. When omitted, returns support channels across all
+              companies the user has access to.
+
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
-
-          company_id: The unique identifier of the company to list support channels for. Includes
-              channels of child companies. When omitted, returns support channels across all
-              companies the user has access to.
 
           direction: The sort direction for the results. Use 'asc' for oldest first or 'desc' for
               newest first.
@@ -214,9 +214,9 @@ class SupportChannelsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
-                        "company_id": company_id,
                         "direction": direction,
                         "first": first,
                         "last": last,
@@ -254,7 +254,7 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         user_id: str,
         custom_name: Optional[str] | Omit = omit,
         notifications_enabled: Optional[bool] | Omit = omit,
@@ -275,7 +275,7 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
         - `support_chat:create`
 
         Args:
-          company_id: The unique identifier of the company to create the support channel in.
+          account_id: The unique identifier of the company to create the support channel in.
 
           user_id: The user ID (e.g. 'user_xxxxx') or username of the customer to open a support
               channel for.
@@ -297,7 +297,7 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
             "/support_channels",
             body=await async_maybe_transform(
                 {
-                    "company_id": company_id,
+                    "account_id": account_id,
                     "user_id": user_id,
                     "custom_name": custom_name,
                     "notifications_enabled": notifications_enabled,
@@ -350,9 +350,9 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
     def list(
         self,
         *,
+        account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
-        company_id: str | Omit = omit,
         direction: Direction | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
@@ -375,13 +375,13 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
         - `support_chat:read`
 
         Args:
+          account_id: The unique identifier of the company to list support channels for. Includes
+              channels of child companies. When omitted, returns support channels across all
+              companies the user has access to.
+
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
-
-          company_id: The unique identifier of the company to list support channels for. Includes
-              channels of child companies. When omitted, returns support channels across all
-              companies the user has access to.
 
           direction: The sort direction for the results. Use 'asc' for oldest first or 'desc' for
               newest first.
@@ -418,9 +418,9 @@ class AsyncSupportChannelsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
-                        "company_id": company_id,
                         "direction": direction,
                         "first": first,
                         "last": last,

@@ -66,7 +66,7 @@ class TestEntries:
     @parametrize
     def test_method_list(self, client: Whop) -> None:
         entry = client.entries.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(SyncCursorPage[EntryListResponse], entry, path=["response"])
 
@@ -74,7 +74,7 @@ class TestEntries:
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         entry = client.entries.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
@@ -93,7 +93,7 @@ class TestEntries:
     @parametrize
     def test_raw_response_list(self, client: Whop) -> None:
         response = client.entries.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -105,7 +105,7 @@ class TestEntries:
     @parametrize
     def test_streaming_response_list(self, client: Whop) -> None:
         with client.entries.with_streaming_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -251,7 +251,7 @@ class TestAsyncEntries:
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
         entry = await async_client.entries.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(AsyncCursorPage[EntryListResponse], entry, path=["response"])
 
@@ -259,7 +259,7 @@ class TestAsyncEntries:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         entry = await async_client.entries.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
@@ -278,7 +278,7 @@ class TestAsyncEntries:
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
         response = await async_client.entries.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -290,7 +290,7 @@ class TestAsyncEntries:
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
         async with async_client.entries.with_streaming_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

@@ -21,8 +21,8 @@ class TestTopups:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         topup = client.topups.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             currency="usd",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
         )
@@ -32,8 +32,8 @@ class TestTopups:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.topups.with_raw_response.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             currency="usd",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
         )
@@ -47,8 +47,8 @@ class TestTopups:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.topups.with_streaming_response.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             currency="usd",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
         ) as response:
@@ -70,8 +70,8 @@ class TestAsyncTopups:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         topup = await async_client.topups.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             currency="usd",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
         )
@@ -81,8 +81,8 @@ class TestAsyncTopups:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.topups.with_raw_response.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             currency="usd",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
         )
@@ -96,8 +96,8 @@ class TestAsyncTopups:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.topups.with_streaming_response.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             currency="usd",
             payment_method_id="pmt_xxxxxxxxxxxxxx",
         ) as response:

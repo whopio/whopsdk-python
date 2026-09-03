@@ -58,8 +58,8 @@ class ExperiencesResource(SyncAPIResource):
     def create(
         self,
         *,
+        account_id: str,
         app_id: str,
-        company_id: str,
         is_public: Optional[bool] | Omit = omit,
         logo: Optional[experience_create_params.Logo] | Omit = omit,
         name: Optional[str] | Omit = omit,
@@ -78,9 +78,9 @@ class ExperiencesResource(SyncAPIResource):
         - `experience:create`
 
         Args:
-          app_id: The unique identifier of the app that powers this experience.
+          account_id: The unique identifier of the company to create this experience for.
 
-          company_id: The unique identifier of the company to create this experience for.
+          app_id: The unique identifier of the app that powers this experience.
 
           is_public: Whether the experience is publicly accessible without a membership.
 
@@ -105,8 +105,8 @@ class ExperiencesResource(SyncAPIResource):
             "/experiences",
             body=maybe_transform(
                 {
+                    "account_id": account_id,
                     "app_id": app_id,
-                    "company_id": company_id,
                     "is_public": is_public,
                     "logo": logo,
                     "name": name,
@@ -226,7 +226,7 @@ class ExperiencesResource(SyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: str | Omit = omit,
         app_id: str | Omit = omit,
         before: str | Omit = omit,
@@ -247,7 +247,7 @@ class ExperiencesResource(SyncAPIResource):
         filtering by product and app.
 
         Args:
-          company_id: The unique identifier of the company to list experiences for.
+          account_id: The unique identifier of the company to list experiences for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -283,7 +283,7 @@ class ExperiencesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "app_id": app_id,
                         "before": before,
@@ -490,8 +490,8 @@ class AsyncExperiencesResource(AsyncAPIResource):
     async def create(
         self,
         *,
+        account_id: str,
         app_id: str,
-        company_id: str,
         is_public: Optional[bool] | Omit = omit,
         logo: Optional[experience_create_params.Logo] | Omit = omit,
         name: Optional[str] | Omit = omit,
@@ -510,9 +510,9 @@ class AsyncExperiencesResource(AsyncAPIResource):
         - `experience:create`
 
         Args:
-          app_id: The unique identifier of the app that powers this experience.
+          account_id: The unique identifier of the company to create this experience for.
 
-          company_id: The unique identifier of the company to create this experience for.
+          app_id: The unique identifier of the app that powers this experience.
 
           is_public: Whether the experience is publicly accessible without a membership.
 
@@ -537,8 +537,8 @@ class AsyncExperiencesResource(AsyncAPIResource):
             "/experiences",
             body=await async_maybe_transform(
                 {
+                    "account_id": account_id,
                     "app_id": app_id,
-                    "company_id": company_id,
                     "is_public": is_public,
                     "logo": logo,
                     "name": name,
@@ -658,7 +658,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: str | Omit = omit,
         app_id: str | Omit = omit,
         before: str | Omit = omit,
@@ -679,7 +679,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
         filtering by product and app.
 
         Args:
-          company_id: The unique identifier of the company to list experiences for.
+          account_id: The unique identifier of the company to list experiences for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -715,7 +715,7 @@ class AsyncExperiencesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "app_id": app_id,
                         "before": before,

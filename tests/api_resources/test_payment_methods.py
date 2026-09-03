@@ -35,7 +35,7 @@ class TestPaymentMethods:
     def test_method_retrieve_with_all_params(self, client: Whop) -> None:
         payment_method = client.payment_methods.retrieve(
             id="payt_xxxxxxxxxxxxx",
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             member_id="mber_xxxxxxxxxxxxx",
         )
         assert_matches_type(PaymentMethodRetrieveResponse, payment_method, path=["response"])
@@ -84,12 +84,12 @@ class TestPaymentMethods:
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         payment_method = client.payment_methods.list(
+            account_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
             broken=True,
             card_brands=["mastercard"],
             card_funding_types=["credit"],
-            company_id="biz_xxxxxxxxxxxxxx",
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
             created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             direction="asc",
@@ -144,7 +144,7 @@ class TestAsyncPaymentMethods:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
         payment_method = await async_client.payment_methods.retrieve(
             id="payt_xxxxxxxxxxxxx",
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             member_id="mber_xxxxxxxxxxxxx",
         )
         assert_matches_type(PaymentMethodRetrieveResponse, payment_method, path=["response"])
@@ -193,12 +193,12 @@ class TestAsyncPaymentMethods:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         payment_method = await async_client.payment_methods.list(
+            account_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
             broken=True,
             card_brands=["mastercard"],
             card_funding_types=["credit"],
-            company_id="biz_xxxxxxxxxxxxxx",
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
             created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
             direction="asc",

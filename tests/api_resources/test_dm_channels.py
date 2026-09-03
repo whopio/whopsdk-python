@@ -35,7 +35,7 @@ class TestDmChannels:
     def test_method_create_with_all_params(self, client: Whop) -> None:
         dm_channel = client.dm_channels.create(
             with_user_ids=["string"],
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             custom_name="custom_name",
             notifications_enabled=True,
         )
@@ -170,9 +170,9 @@ class TestDmChannels:
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         dm_channel = client.dm_channels.list(
+            account_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
-            company_id="biz_xxxxxxxxxxxxxx",
             first=42,
             last=42,
         )
@@ -261,7 +261,7 @@ class TestAsyncDmChannels:
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         dm_channel = await async_client.dm_channels.create(
             with_user_ids=["string"],
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             custom_name="custom_name",
             notifications_enabled=True,
         )
@@ -396,9 +396,9 @@ class TestAsyncDmChannels:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         dm_channel = await async_client.dm_channels.list(
+            account_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
-            company_id="biz_xxxxxxxxxxxxxx",
             first=42,
             last=42,
         )

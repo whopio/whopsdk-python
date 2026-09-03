@@ -14,14 +14,14 @@ __all__ = [
 
 
 class CreateCompanyTokenTransactionInputTransactionTypeTransfer(TypedDict, total=False):
-    amount: Required[float]
-    """The positive number of tokens to transact. For example, 100.0 for 100 tokens."""
-
-    company_id: Required[str]
+    account_id: Required[str]
     """
     The unique identifier of the company to create the transaction in, starting with
     'biz\\__'.
     """
+
+    amount: Required[float]
+    """The positive number of tokens to transact. For example, 100.0 for 100 tokens."""
 
     destination_user_id: Required[str]
     """The unique identifier of the user receiving the tokens.
@@ -48,14 +48,14 @@ class CreateCompanyTokenTransactionInputTransactionTypeTransfer(TypedDict, total
 
 
 class CreateCompanyTokenTransactionInputTransactionTypeAdd(TypedDict, total=False):
-    amount: Required[float]
-    """The positive number of tokens to transact. For example, 100.0 for 100 tokens."""
-
-    company_id: Required[str]
+    account_id: Required[str]
     """
     The unique identifier of the company to create the transaction in, starting with
     'biz\\__'.
     """
+
+    amount: Required[float]
+    """The positive number of tokens to transact. For example, 100.0 for 100 tokens."""
 
     transaction_type: Required[Literal["add"]]
 
@@ -76,14 +76,14 @@ class CreateCompanyTokenTransactionInputTransactionTypeAdd(TypedDict, total=Fals
 
 
 class CreateCompanyTokenTransactionInputTransactionTypeSubtract(TypedDict, total=False):
-    amount: Required[float]
-    """The positive number of tokens to transact. For example, 100.0 for 100 tokens."""
-
-    company_id: Required[str]
+    account_id: Required[str]
     """
     The unique identifier of the company to create the transaction in, starting with
     'biz\\__'.
     """
+
+    amount: Required[float]
+    """The positive number of tokens to transact. For example, 100.0 for 100 tokens."""
 
     transaction_type: Required[Literal["subtract"]]
 

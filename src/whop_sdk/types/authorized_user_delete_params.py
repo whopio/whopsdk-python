@@ -8,7 +8,7 @@ __all__ = ["AuthorizedUserDeleteParams"]
 
 
 class AuthorizedUserDeleteParams(TypedDict, total=False):
-    company_id: str
+    account_id: str
     """The ID of the company the authorized user belongs to.
 
     Optional if the authorized user ID is provided.

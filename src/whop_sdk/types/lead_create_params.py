@@ -9,7 +9,7 @@ __all__ = ["LeadCreateParams"]
 
 
 class LeadCreateParams(TypedDict, total=False):
-    company_id: Required[str]
+    account_id: Required[str]
     """
     The unique identifier of the company to create the lead for, starting with
     'biz\\__'.

@@ -13,14 +13,14 @@ __all__ = ["AuthorizedUserListParams"]
 
 
 class AuthorizedUserListParams(TypedDict, total=False):
+    account_id: str
+    """The unique identifier of the company to list authorized users for."""
+
     after: str
     """Returns the elements in the list that come after the specified cursor."""
 
     before: str
     """Returns the elements in the list that come before the specified cursor."""
-
-    company_id: str
-    """The unique identifier of the company to list authorized users for."""
 
     created_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Only return authorized users created after this timestamp."""

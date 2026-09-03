@@ -49,7 +49,7 @@ class LeadsResource(SyncAPIResource):
     def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         product_id: Optional[str] | Omit = omit,
         referrer: Optional[str] | Omit = omit,
@@ -73,7 +73,7 @@ class LeadsResource(SyncAPIResource):
         - `member:basic:read`
 
         Args:
-          company_id: The unique identifier of the company to create the lead for, starting with
+          account_id: The unique identifier of the company to create the lead for, starting with
               'biz\\__'.
 
           metadata: A JSON object of custom metadata to attach to the lead for tracking purposes.
@@ -99,7 +99,7 @@ class LeadsResource(SyncAPIResource):
             "/leads",
             body=maybe_transform(
                 {
-                    "company_id": company_id,
+                    "account_id": account_id,
                     "metadata": metadata,
                     "product_id": product_id,
                     "referrer": referrer,
@@ -210,7 +210,7 @@ class LeadsResource(SyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: str | Omit = omit,
         before: str | Omit = omit,
         created_after: Union[str, datetime] | Omit = omit,
@@ -237,7 +237,7 @@ class LeadsResource(SyncAPIResource):
         - `member:basic:read`
 
         Args:
-          company_id: The unique identifier of the company to list leads for.
+          account_id: The unique identifier of the company to list leads for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -271,7 +271,7 @@ class LeadsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "created_after": created_after,
@@ -310,7 +310,7 @@ class AsyncLeadsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         metadata: Optional[Dict[str, object]] | Omit = omit,
         product_id: Optional[str] | Omit = omit,
         referrer: Optional[str] | Omit = omit,
@@ -334,7 +334,7 @@ class AsyncLeadsResource(AsyncAPIResource):
         - `member:basic:read`
 
         Args:
-          company_id: The unique identifier of the company to create the lead for, starting with
+          account_id: The unique identifier of the company to create the lead for, starting with
               'biz\\__'.
 
           metadata: A JSON object of custom metadata to attach to the lead for tracking purposes.
@@ -360,7 +360,7 @@ class AsyncLeadsResource(AsyncAPIResource):
             "/leads",
             body=await async_maybe_transform(
                 {
-                    "company_id": company_id,
+                    "account_id": account_id,
                     "metadata": metadata,
                     "product_id": product_id,
                     "referrer": referrer,
@@ -471,7 +471,7 @@ class AsyncLeadsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: str | Omit = omit,
         before: str | Omit = omit,
         created_after: Union[str, datetime] | Omit = omit,
@@ -498,7 +498,7 @@ class AsyncLeadsResource(AsyncAPIResource):
         - `member:basic:read`
 
         Args:
-          company_id: The unique identifier of the company to list leads for.
+          account_id: The unique identifier of the company to list leads for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -532,7 +532,7 @@ class AsyncLeadsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "created_after": created_after,

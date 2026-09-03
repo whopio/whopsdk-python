@@ -8,7 +8,7 @@ __all__ = ["AccountLinkCreateParams"]
 
 
 class AccountLinkCreateParams(TypedDict, total=False):
-    company_id: Required[str]
+    account_id: Required[str]
     """
     The unique identifier of the company to generate the link for, starting with
     'biz\\__'. Must be a sub-merchant of the API key's company.

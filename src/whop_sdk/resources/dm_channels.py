@@ -50,7 +50,7 @@ class DmChannelsResource(SyncAPIResource):
         self,
         *,
         with_user_ids: SequenceNotStr[str],
-        company_id: Optional[str] | Omit = omit,
+        account_id: Optional[str] | Omit = omit,
         custom_name: Optional[str] | Omit = omit,
         notifications_enabled: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -72,7 +72,7 @@ class DmChannelsResource(SyncAPIResource):
           with_user_ids: The list of user identifiers to include in the DM channel. Each entry can be an
               email, username, or user ID (e.g. 'user_xxxxx').
 
-          company_id: The unique identifier of the company to scope this DM channel to. When set, the
+          account_id: The unique identifier of the company to scope this DM channel to. When set, the
               channel is visible only within that company context.
 
           custom_name: A custom display name for the DM channel. For example, 'Project Discussion'.
@@ -93,7 +93,7 @@ class DmChannelsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "with_user_ids": with_user_ids,
-                    "company_id": company_id,
+                    "account_id": account_id,
                     "custom_name": custom_name,
                     "notifications_enabled": notifications_enabled,
                 },
@@ -190,9 +190,9 @@ class DmChannelsResource(SyncAPIResource):
     def list(
         self,
         *,
+        account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
-        company_id: str | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -211,12 +211,12 @@ class DmChannelsResource(SyncAPIResource):
         - `dms:read`
 
         Args:
+          account_id: The unique identifier of a company to filter DM channels by. Only returns
+              channels scoped to this company.
+
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
-
-          company_id: The unique identifier of a company to filter DM channels by. Only returns
-              channels scoped to this company.
 
           first: Returns the first _n_ elements from the list.
 
@@ -240,9 +240,9 @@ class DmChannelsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
-                        "company_id": company_id,
                         "first": first,
                         "last": last,
                     },
@@ -317,7 +317,7 @@ class AsyncDmChannelsResource(AsyncAPIResource):
         self,
         *,
         with_user_ids: SequenceNotStr[str],
-        company_id: Optional[str] | Omit = omit,
+        account_id: Optional[str] | Omit = omit,
         custom_name: Optional[str] | Omit = omit,
         notifications_enabled: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -339,7 +339,7 @@ class AsyncDmChannelsResource(AsyncAPIResource):
           with_user_ids: The list of user identifiers to include in the DM channel. Each entry can be an
               email, username, or user ID (e.g. 'user_xxxxx').
 
-          company_id: The unique identifier of the company to scope this DM channel to. When set, the
+          account_id: The unique identifier of the company to scope this DM channel to. When set, the
               channel is visible only within that company context.
 
           custom_name: A custom display name for the DM channel. For example, 'Project Discussion'.
@@ -360,7 +360,7 @@ class AsyncDmChannelsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "with_user_ids": with_user_ids,
-                    "company_id": company_id,
+                    "account_id": account_id,
                     "custom_name": custom_name,
                     "notifications_enabled": notifications_enabled,
                 },
@@ -459,9 +459,9 @@ class AsyncDmChannelsResource(AsyncAPIResource):
     def list(
         self,
         *,
+        account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
-        company_id: str | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -480,12 +480,12 @@ class AsyncDmChannelsResource(AsyncAPIResource):
         - `dms:read`
 
         Args:
+          account_id: The unique identifier of a company to filter DM channels by. Only returns
+              channels scoped to this company.
+
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
-
-          company_id: The unique identifier of a company to filter DM channels by. Only returns
-              channels scoped to this company.
 
           first: Returns the first _n_ elements from the list.
 
@@ -509,9 +509,9 @@ class AsyncDmChannelsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
-                        "company_id": company_id,
                         "first": first,
                         "last": last,
                     },

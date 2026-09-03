@@ -25,7 +25,7 @@ class TestSupportChannels:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         support_channel = client.support_channels.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             user_id="user_xxxxxxxxxxxxx",
         )
         assert_matches_type(SupportChannel, support_channel, path=["response"])
@@ -34,7 +34,7 @@ class TestSupportChannels:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         support_channel = client.support_channels.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             user_id="user_xxxxxxxxxxxxx",
             custom_name="custom_name",
             notifications_enabled=True,
@@ -45,7 +45,7 @@ class TestSupportChannels:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.support_channels.with_raw_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             user_id="user_xxxxxxxxxxxxx",
         )
 
@@ -58,7 +58,7 @@ class TestSupportChannels:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.support_channels.with_streaming_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             user_id="user_xxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
@@ -121,9 +121,9 @@ class TestSupportChannels:
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         support_channel = client.support_channels.list(
+            account_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
-            company_id="biz_xxxxxxxxxxxxxx",
             direction="asc",
             first=42,
             last=42,
@@ -165,7 +165,7 @@ class TestAsyncSupportChannels:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         support_channel = await async_client.support_channels.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             user_id="user_xxxxxxxxxxxxx",
         )
         assert_matches_type(SupportChannel, support_channel, path=["response"])
@@ -174,7 +174,7 @@ class TestAsyncSupportChannels:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         support_channel = await async_client.support_channels.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             user_id="user_xxxxxxxxxxxxx",
             custom_name="custom_name",
             notifications_enabled=True,
@@ -185,7 +185,7 @@ class TestAsyncSupportChannels:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.support_channels.with_raw_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             user_id="user_xxxxxxxxxxxxx",
         )
 
@@ -198,7 +198,7 @@ class TestAsyncSupportChannels:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.support_channels.with_streaming_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             user_id="user_xxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
@@ -261,9 +261,9 @@ class TestAsyncSupportChannels:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         support_channel = await async_client.support_channels.list(
+            account_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
-            company_id="biz_xxxxxxxxxxxxxx",
             direction="asc",
             first=42,
             last=42,

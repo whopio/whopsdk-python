@@ -28,7 +28,7 @@ class TestAccessTokens:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         access_token = client.access_tokens.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             expires_at=parse_datetime("2023-12-01T05:00:00.401Z"),
             scoped_actions=["string"],
             user_id="user_xxxxxxxxxxxxx",
@@ -73,7 +73,7 @@ class TestAsyncAccessTokens:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         access_token = await async_client.access_tokens.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             expires_at=parse_datetime("2023-12-01T05:00:00.401Z"),
             scoped_actions=["string"],
             user_id="user_xxxxxxxxxxxxx",

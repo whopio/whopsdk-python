@@ -46,7 +46,7 @@ class AccountLinksResource(SyncAPIResource):
     def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         refresh_url: str,
         return_url: str,
         use_case: Literal["account_onboarding", "payouts_portal"],
@@ -62,7 +62,7 @@ class AccountLinksResource(SyncAPIResource):
         hosted payouts dashboard or the KYC onboarding flow.
 
         Args:
-          company_id: The unique identifier of the company to generate the link for, starting with
+          account_id: The unique identifier of the company to generate the link for, starting with
               'biz\\__'. Must be a sub-merchant of the API key's company.
 
           refresh_url: The URL to redirect the user to if the session expires and needs to be
@@ -86,7 +86,7 @@ class AccountLinksResource(SyncAPIResource):
             "/account_links",
             body=maybe_transform(
                 {
-                    "company_id": company_id,
+                    "account_id": account_id,
                     "refresh_url": refresh_url,
                     "return_url": return_url,
                     "use_case": use_case,
@@ -123,7 +123,7 @@ class AsyncAccountLinksResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         refresh_url: str,
         return_url: str,
         use_case: Literal["account_onboarding", "payouts_portal"],
@@ -139,7 +139,7 @@ class AsyncAccountLinksResource(AsyncAPIResource):
         hosted payouts dashboard or the KYC onboarding flow.
 
         Args:
-          company_id: The unique identifier of the company to generate the link for, starting with
+          account_id: The unique identifier of the company to generate the link for, starting with
               'biz\\__'. Must be a sub-merchant of the API key's company.
 
           refresh_url: The URL to redirect the user to if the session expires and needs to be
@@ -163,7 +163,7 @@ class AsyncAccountLinksResource(AsyncAPIResource):
             "/account_links",
             body=await async_maybe_transform(
                 {
-                    "company_id": company_id,
+                    "account_id": account_id,
                     "refresh_url": refresh_url,
                     "return_url": return_url,
                     "use_case": use_case,

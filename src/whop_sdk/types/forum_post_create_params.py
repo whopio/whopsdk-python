@@ -19,14 +19,14 @@ class ForumPostCreateParams(TypedDict, total=False):
     use the company's public forum.
     """
 
-    attachments: Optional[Iterable[Attachment]]
-    """A list of file attachments to include with the post, such as images or videos."""
-
-    company_id: Optional[str]
+    account_id: Optional[str]
     """The unique identifier of the company whose public forum to post in.
 
     Required when experience_id is 'public'. For example, 'biz_xxxxx'.
     """
+
+    attachments: Optional[Iterable[Attachment]]
+    """A list of file attachments to include with the post, such as images or videos."""
 
     content: Optional[str]
     """The main body of the post in Markdown format.

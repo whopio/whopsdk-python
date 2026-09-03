@@ -11,7 +11,7 @@ __all__ = ["AffiliateListParams"]
 
 
 class AffiliateListParams(TypedDict, total=False):
-    company_id: Required[str]
+    account_id: Required[str]
     """The unique identifier of the company to list affiliates for."""
 
     after: str

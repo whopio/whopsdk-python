@@ -8,7 +8,7 @@ __all__ = ["ChatChannelListParams"]
 
 
 class ChatChannelListParams(TypedDict, total=False):
-    company_id: Required[str]
+    account_id: Required[str]
     """The unique identifier of the company to list chat channels for."""
 
     after: str

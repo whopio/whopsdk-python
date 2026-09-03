@@ -8,7 +8,7 @@ __all__ = ["PayoutMethodListParams"]
 
 
 class PayoutMethodListParams(TypedDict, total=False):
-    company_id: Required[str]
+    account_id: Required[str]
     """The unique identifier of the company to list payout methods for."""
 
     after: str

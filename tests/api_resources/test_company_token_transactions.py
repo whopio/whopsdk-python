@@ -25,8 +25,8 @@ class TestCompanyTokenTransactions:
     @parametrize
     def test_method_create_overload_1(self, client: Whop) -> None:
         company_token_transaction = client.company_token_transactions.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             destination_user_id="destination_user_id",
             transaction_type="transfer",
             user_id="user_xxxxxxxxxxxxx",
@@ -37,8 +37,8 @@ class TestCompanyTokenTransactions:
     @parametrize
     def test_method_create_with_all_params_overload_1(self, client: Whop) -> None:
         company_token_transaction = client.company_token_transactions.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             destination_user_id="destination_user_id",
             transaction_type="transfer",
             user_id="user_xxxxxxxxxxxxx",
@@ -51,8 +51,8 @@ class TestCompanyTokenTransactions:
     @parametrize
     def test_raw_response_create_overload_1(self, client: Whop) -> None:
         response = client.company_token_transactions.with_raw_response.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             destination_user_id="destination_user_id",
             transaction_type="transfer",
             user_id="user_xxxxxxxxxxxxx",
@@ -67,8 +67,8 @@ class TestCompanyTokenTransactions:
     @parametrize
     def test_streaming_response_create_overload_1(self, client: Whop) -> None:
         with client.company_token_transactions.with_streaming_response.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             destination_user_id="destination_user_id",
             transaction_type="transfer",
             user_id="user_xxxxxxxxxxxxx",
@@ -85,8 +85,8 @@ class TestCompanyTokenTransactions:
     @parametrize
     def test_method_create_overload_2(self, client: Whop) -> None:
         company_token_transaction = client.company_token_transactions.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             transaction_type="add",
             user_id="user_xxxxxxxxxxxxx",
         )
@@ -96,8 +96,8 @@ class TestCompanyTokenTransactions:
     @parametrize
     def test_method_create_with_all_params_overload_2(self, client: Whop) -> None:
         company_token_transaction = client.company_token_transactions.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             transaction_type="add",
             user_id="user_xxxxxxxxxxxxx",
             description="description",
@@ -109,8 +109,8 @@ class TestCompanyTokenTransactions:
     @parametrize
     def test_raw_response_create_overload_2(self, client: Whop) -> None:
         response = client.company_token_transactions.with_raw_response.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             transaction_type="add",
             user_id="user_xxxxxxxxxxxxx",
         )
@@ -124,8 +124,8 @@ class TestCompanyTokenTransactions:
     @parametrize
     def test_streaming_response_create_overload_2(self, client: Whop) -> None:
         with client.company_token_transactions.with_streaming_response.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             transaction_type="add",
             user_id="user_xxxxxxxxxxxxx",
         ) as response:
@@ -141,8 +141,8 @@ class TestCompanyTokenTransactions:
     @parametrize
     def test_method_create_overload_3(self, client: Whop) -> None:
         company_token_transaction = client.company_token_transactions.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             transaction_type="subtract",
             user_id="user_xxxxxxxxxxxxx",
         )
@@ -152,8 +152,8 @@ class TestCompanyTokenTransactions:
     @parametrize
     def test_method_create_with_all_params_overload_3(self, client: Whop) -> None:
         company_token_transaction = client.company_token_transactions.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             transaction_type="subtract",
             user_id="user_xxxxxxxxxxxxx",
             description="description",
@@ -165,8 +165,8 @@ class TestCompanyTokenTransactions:
     @parametrize
     def test_raw_response_create_overload_3(self, client: Whop) -> None:
         response = client.company_token_transactions.with_raw_response.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             transaction_type="subtract",
             user_id="user_xxxxxxxxxxxxx",
         )
@@ -180,8 +180,8 @@ class TestCompanyTokenTransactions:
     @parametrize
     def test_streaming_response_create_overload_3(self, client: Whop) -> None:
         with client.company_token_transactions.with_streaming_response.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             transaction_type="subtract",
             user_id="user_xxxxxxxxxxxxx",
         ) as response:
@@ -239,7 +239,7 @@ class TestCompanyTokenTransactions:
     @parametrize
     def test_method_list(self, client: Whop) -> None:
         company_token_transaction = client.company_token_transactions.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(
             SyncCursorPage[CompanyTokenTransactionListResponse], company_token_transaction, path=["response"]
@@ -249,7 +249,7 @@ class TestCompanyTokenTransactions:
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         company_token_transaction = client.company_token_transactions.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
             first=42,
@@ -265,7 +265,7 @@ class TestCompanyTokenTransactions:
     @parametrize
     def test_raw_response_list(self, client: Whop) -> None:
         response = client.company_token_transactions.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -279,7 +279,7 @@ class TestCompanyTokenTransactions:
     @parametrize
     def test_streaming_response_list(self, client: Whop) -> None:
         with client.company_token_transactions.with_streaming_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -301,8 +301,8 @@ class TestAsyncCompanyTokenTransactions:
     @parametrize
     async def test_method_create_overload_1(self, async_client: AsyncWhop) -> None:
         company_token_transaction = await async_client.company_token_transactions.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             destination_user_id="destination_user_id",
             transaction_type="transfer",
             user_id="user_xxxxxxxxxxxxx",
@@ -313,8 +313,8 @@ class TestAsyncCompanyTokenTransactions:
     @parametrize
     async def test_method_create_with_all_params_overload_1(self, async_client: AsyncWhop) -> None:
         company_token_transaction = await async_client.company_token_transactions.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             destination_user_id="destination_user_id",
             transaction_type="transfer",
             user_id="user_xxxxxxxxxxxxx",
@@ -327,8 +327,8 @@ class TestAsyncCompanyTokenTransactions:
     @parametrize
     async def test_raw_response_create_overload_1(self, async_client: AsyncWhop) -> None:
         response = await async_client.company_token_transactions.with_raw_response.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             destination_user_id="destination_user_id",
             transaction_type="transfer",
             user_id="user_xxxxxxxxxxxxx",
@@ -343,8 +343,8 @@ class TestAsyncCompanyTokenTransactions:
     @parametrize
     async def test_streaming_response_create_overload_1(self, async_client: AsyncWhop) -> None:
         async with async_client.company_token_transactions.with_streaming_response.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             destination_user_id="destination_user_id",
             transaction_type="transfer",
             user_id="user_xxxxxxxxxxxxx",
@@ -361,8 +361,8 @@ class TestAsyncCompanyTokenTransactions:
     @parametrize
     async def test_method_create_overload_2(self, async_client: AsyncWhop) -> None:
         company_token_transaction = await async_client.company_token_transactions.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             transaction_type="add",
             user_id="user_xxxxxxxxxxxxx",
         )
@@ -372,8 +372,8 @@ class TestAsyncCompanyTokenTransactions:
     @parametrize
     async def test_method_create_with_all_params_overload_2(self, async_client: AsyncWhop) -> None:
         company_token_transaction = await async_client.company_token_transactions.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             transaction_type="add",
             user_id="user_xxxxxxxxxxxxx",
             description="description",
@@ -385,8 +385,8 @@ class TestAsyncCompanyTokenTransactions:
     @parametrize
     async def test_raw_response_create_overload_2(self, async_client: AsyncWhop) -> None:
         response = await async_client.company_token_transactions.with_raw_response.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             transaction_type="add",
             user_id="user_xxxxxxxxxxxxx",
         )
@@ -400,8 +400,8 @@ class TestAsyncCompanyTokenTransactions:
     @parametrize
     async def test_streaming_response_create_overload_2(self, async_client: AsyncWhop) -> None:
         async with async_client.company_token_transactions.with_streaming_response.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             transaction_type="add",
             user_id="user_xxxxxxxxxxxxx",
         ) as response:
@@ -417,8 +417,8 @@ class TestAsyncCompanyTokenTransactions:
     @parametrize
     async def test_method_create_overload_3(self, async_client: AsyncWhop) -> None:
         company_token_transaction = await async_client.company_token_transactions.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             transaction_type="subtract",
             user_id="user_xxxxxxxxxxxxx",
         )
@@ -428,8 +428,8 @@ class TestAsyncCompanyTokenTransactions:
     @parametrize
     async def test_method_create_with_all_params_overload_3(self, async_client: AsyncWhop) -> None:
         company_token_transaction = await async_client.company_token_transactions.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             transaction_type="subtract",
             user_id="user_xxxxxxxxxxxxx",
             description="description",
@@ -441,8 +441,8 @@ class TestAsyncCompanyTokenTransactions:
     @parametrize
     async def test_raw_response_create_overload_3(self, async_client: AsyncWhop) -> None:
         response = await async_client.company_token_transactions.with_raw_response.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             transaction_type="subtract",
             user_id="user_xxxxxxxxxxxxx",
         )
@@ -456,8 +456,8 @@ class TestAsyncCompanyTokenTransactions:
     @parametrize
     async def test_streaming_response_create_overload_3(self, async_client: AsyncWhop) -> None:
         async with async_client.company_token_transactions.with_streaming_response.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             amount=6.9,
-            company_id="biz_xxxxxxxxxxxxxx",
             transaction_type="subtract",
             user_id="user_xxxxxxxxxxxxx",
         ) as response:
@@ -515,7 +515,7 @@ class TestAsyncCompanyTokenTransactions:
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
         company_token_transaction = await async_client.company_token_transactions.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(
             AsyncCursorPage[CompanyTokenTransactionListResponse], company_token_transaction, path=["response"]
@@ -525,7 +525,7 @@ class TestAsyncCompanyTokenTransactions:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         company_token_transaction = await async_client.company_token_transactions.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
             first=42,
@@ -541,7 +541,7 @@ class TestAsyncCompanyTokenTransactions:
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
         response = await async_client.company_token_transactions.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -555,7 +555,7 @@ class TestAsyncCompanyTokenTransactions:
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
         async with async_client.company_token_transactions.with_streaming_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

@@ -50,7 +50,7 @@ class FeeMarkupsResource(SyncAPIResource):
     def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         fee_type: FeeMarkupType,
         fixed_fee_usd: Optional[float] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
@@ -73,7 +73,7 @@ class FeeMarkupsResource(SyncAPIResource):
         - `company:update_child_fees`
 
         Args:
-          company_id: The unique identifier of the company to create or update the fee markup for.
+          account_id: The unique identifier of the company to create or update the fee markup for.
 
           fee_type: The type of fee this markup applies to, such as processing or platform fees.
 
@@ -97,7 +97,7 @@ class FeeMarkupsResource(SyncAPIResource):
             "/fee_markups",
             body=maybe_transform(
                 {
-                    "company_id": company_id,
+                    "account_id": account_id,
                     "fee_type": fee_type,
                     "fixed_fee_usd": fixed_fee_usd,
                     "metadata": metadata,
@@ -115,7 +115,7 @@ class FeeMarkupsResource(SyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: str | Omit = omit,
         before: str | Omit = omit,
         first: int | Omit = omit,
@@ -137,7 +137,7 @@ class FeeMarkupsResource(SyncAPIResource):
         - `company:update_child_fees`
 
         Args:
-          company_id: The unique identifier of the company to list fee markups for. Pass a platform
+          account_id: The unique identifier of the company to list fee markups for. Pass a platform
               account identifier to retrieve platform default markups.
 
           after: Returns the elements in the list that come after the specified cursor.
@@ -166,7 +166,7 @@ class FeeMarkupsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "first": first,
@@ -241,7 +241,7 @@ class AsyncFeeMarkupsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         fee_type: FeeMarkupType,
         fixed_fee_usd: Optional[float] | Omit = omit,
         metadata: Optional[Dict[str, object]] | Omit = omit,
@@ -264,7 +264,7 @@ class AsyncFeeMarkupsResource(AsyncAPIResource):
         - `company:update_child_fees`
 
         Args:
-          company_id: The unique identifier of the company to create or update the fee markup for.
+          account_id: The unique identifier of the company to create or update the fee markup for.
 
           fee_type: The type of fee this markup applies to, such as processing or platform fees.
 
@@ -288,7 +288,7 @@ class AsyncFeeMarkupsResource(AsyncAPIResource):
             "/fee_markups",
             body=await async_maybe_transform(
                 {
-                    "company_id": company_id,
+                    "account_id": account_id,
                     "fee_type": fee_type,
                     "fixed_fee_usd": fixed_fee_usd,
                     "metadata": metadata,
@@ -306,7 +306,7 @@ class AsyncFeeMarkupsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: str | Omit = omit,
         before: str | Omit = omit,
         first: int | Omit = omit,
@@ -328,7 +328,7 @@ class AsyncFeeMarkupsResource(AsyncAPIResource):
         - `company:update_child_fees`
 
         Args:
-          company_id: The unique identifier of the company to list fee markups for. Pass a platform
+          account_id: The unique identifier of the company to list fee markups for. Pass a platform
               account identifier to retrieve platform default markups.
 
           after: Returns the elements in the list that come after the specified cursor.
@@ -357,7 +357,7 @@ class AsyncFeeMarkupsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "first": first,

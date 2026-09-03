@@ -64,7 +64,7 @@ class AffiliatesResource(SyncAPIResource):
     def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         user_identifier: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -81,7 +81,7 @@ class AffiliatesResource(SyncAPIResource):
         - `affiliate:create`
 
         Args:
-          company_id: The ID of the company to create the affiliate for.
+          account_id: The ID of the company to create the affiliate for.
 
           user_identifier: The user identifier (username, email, user ID, or Discord ID).
 
@@ -97,7 +97,7 @@ class AffiliatesResource(SyncAPIResource):
             "/affiliates",
             body=maybe_transform(
                 {
-                    "company_id": company_id,
+                    "account_id": account_id,
                     "user_identifier": user_identifier,
                 },
                 affiliate_create_params.AffiliateCreateParams,
@@ -148,7 +148,7 @@ class AffiliatesResource(SyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: str | Omit = omit,
         before: str | Omit = omit,
         direction: Direction | Omit = omit,
@@ -173,7 +173,7 @@ class AffiliatesResource(SyncAPIResource):
         - `affiliate:basic:read`
 
         Args:
-          company_id: The unique identifier of the company to list affiliates for.
+          account_id: The unique identifier of the company to list affiliates for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -209,7 +209,7 @@ class AffiliatesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "direction": direction,
@@ -327,7 +327,7 @@ class AsyncAffiliatesResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         user_identifier: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -344,7 +344,7 @@ class AsyncAffiliatesResource(AsyncAPIResource):
         - `affiliate:create`
 
         Args:
-          company_id: The ID of the company to create the affiliate for.
+          account_id: The ID of the company to create the affiliate for.
 
           user_identifier: The user identifier (username, email, user ID, or Discord ID).
 
@@ -360,7 +360,7 @@ class AsyncAffiliatesResource(AsyncAPIResource):
             "/affiliates",
             body=await async_maybe_transform(
                 {
-                    "company_id": company_id,
+                    "account_id": account_id,
                     "user_identifier": user_identifier,
                 },
                 affiliate_create_params.AffiliateCreateParams,
@@ -411,7 +411,7 @@ class AsyncAffiliatesResource(AsyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: str | Omit = omit,
         before: str | Omit = omit,
         direction: Direction | Omit = omit,
@@ -436,7 +436,7 @@ class AsyncAffiliatesResource(AsyncAPIResource):
         - `affiliate:basic:read`
 
         Args:
-          company_id: The unique identifier of the company to list affiliates for.
+          account_id: The unique identifier of the company to list affiliates for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -472,7 +472,7 @@ class AsyncAffiliatesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "direction": direction,

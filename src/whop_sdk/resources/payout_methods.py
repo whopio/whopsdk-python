@@ -83,7 +83,7 @@ class PayoutMethodsResource(SyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: str | Omit = omit,
         before: str | Omit = omit,
         first: int | Omit = omit,
@@ -104,7 +104,7 @@ class PayoutMethodsResource(SyncAPIResource):
         - `payout:destination:read`
 
         Args:
-          company_id: The unique identifier of the company to list payout methods for.
+          account_id: The unique identifier of the company to list payout methods for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -132,7 +132,7 @@ class PayoutMethodsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "first": first,
@@ -205,7 +205,7 @@ class AsyncPayoutMethodsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: str | Omit = omit,
         before: str | Omit = omit,
         first: int | Omit = omit,
@@ -226,7 +226,7 @@ class AsyncPayoutMethodsResource(AsyncAPIResource):
         - `payout:destination:read`
 
         Args:
-          company_id: The unique identifier of the company to list payout methods for.
+          account_id: The unique identifier of the company to list payout methods for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -254,7 +254,7 @@ class AsyncPayoutMethodsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "first": first,

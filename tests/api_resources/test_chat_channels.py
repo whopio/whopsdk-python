@@ -121,7 +121,7 @@ class TestChatChannels:
     @parametrize
     def test_method_list(self, client: Whop) -> None:
         chat_channel = client.chat_channels.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(SyncCursorPage[ChatChannelListResponse], chat_channel, path=["response"])
 
@@ -129,7 +129,7 @@ class TestChatChannels:
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         chat_channel = client.chat_channels.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
             first=42,
@@ -142,7 +142,7 @@ class TestChatChannels:
     @parametrize
     def test_raw_response_list(self, client: Whop) -> None:
         response = client.chat_channels.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -154,7 +154,7 @@ class TestChatChannels:
     @parametrize
     def test_streaming_response_list(self, client: Whop) -> None:
         with client.chat_channels.with_streaming_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -272,7 +272,7 @@ class TestAsyncChatChannels:
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
         chat_channel = await async_client.chat_channels.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(AsyncCursorPage[ChatChannelListResponse], chat_channel, path=["response"])
 
@@ -280,7 +280,7 @@ class TestAsyncChatChannels:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         chat_channel = await async_client.chat_channels.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
             first=42,
@@ -293,7 +293,7 @@ class TestAsyncChatChannels:
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
         response = await async_client.chat_channels.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -305,7 +305,7 @@ class TestAsyncChatChannels:
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
         async with async_client.chat_channels.with_streaming_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

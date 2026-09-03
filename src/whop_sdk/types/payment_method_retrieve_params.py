@@ -8,7 +8,7 @@ __all__ = ["PaymentMethodRetrieveParams"]
 
 
 class PaymentMethodRetrieveParams(TypedDict, total=False):
-    company_id: str
+    account_id: str
     """The unique identifier of the company.
 
     Provide either this or member_id, not both. Omit both to address your own saved

@@ -58,8 +58,8 @@ class InvoicesResource(SyncAPIResource):
     def create(
         self,
         *,
+        account_id: str,
         collection_method: CollectionMethod,
-        company_id: str,
         plan: invoice_create_params.CreateInvoiceInputWithProductPlan,
         product: invoice_create_params.CreateInvoiceInputWithProductProduct,
         automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
@@ -95,10 +95,10 @@ class InvoicesResource(SyncAPIResource):
         - `payment:basic:read`
 
         Args:
+          account_id: The unique identifier of the company to create this invoice for.
+
           collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
               payment method, or send_invoice to email the customer.
-
-          company_id: The unique identifier of the company to create this invoice for.
 
           plan: The plan attributes defining the price, currency, and billing interval for this
               invoice.
@@ -161,8 +161,8 @@ class InvoicesResource(SyncAPIResource):
     def create(
         self,
         *,
+        account_id: str,
         collection_method: CollectionMethod,
-        company_id: str,
         plan: invoice_create_params.CreateInvoiceInputWithProductIDPlan,
         product_id: str,
         automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
@@ -198,10 +198,10 @@ class InvoicesResource(SyncAPIResource):
         - `payment:basic:read`
 
         Args:
+          account_id: The unique identifier of the company to create this invoice for.
+
           collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
               payment method, or send_invoice to email the customer.
-
-          company_id: The unique identifier of the company to create this invoice for.
 
           plan: The plan attributes defining the price, currency, and billing interval for this
               invoice.
@@ -260,14 +260,14 @@ class InvoicesResource(SyncAPIResource):
         ...
 
     @required_args(
-        ["collection_method", "company_id", "plan", "product"],
-        ["collection_method", "company_id", "plan", "product_id"],
+        ["account_id", "collection_method", "plan", "product"],
+        ["account_id", "collection_method", "plan", "product_id"],
     )
     def create(
         self,
         *,
+        account_id: str,
         collection_method: CollectionMethod,
-        company_id: str,
         plan: invoice_create_params.CreateInvoiceInputWithProductPlan
         | invoice_create_params.CreateInvoiceInputWithProductIDPlan,
         product: invoice_create_params.CreateInvoiceInputWithProductProduct | Omit = omit,
@@ -300,8 +300,8 @@ class InvoicesResource(SyncAPIResource):
             "/invoices",
             body=maybe_transform(
                 {
+                    "account_id": account_id,
                     "collection_method": collection_method,
-                    "company_id": company_id,
                     "plan": plan,
                     "product": product,
                     "automatically_finalizes_at": automatically_finalizes_at,
@@ -478,10 +478,10 @@ class InvoicesResource(SyncAPIResource):
     def list(
         self,
         *,
+        account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
         collection_methods: List[CollectionMethod] | Omit = omit,
-        company_id: str | Omit = omit,
         created_after: Union[str, datetime] | Omit = omit,
         created_before: Union[str, datetime] | Omit = omit,
         direction: Direction | Omit = omit,
@@ -506,13 +506,13 @@ class InvoicesResource(SyncAPIResource):
         - `invoice:basic:read`
 
         Args:
+          account_id: The unique identifier of the company to list invoices for.
+
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
           collection_methods: Filter invoices by their collection method.
-
-          company_id: The unique identifier of the company to list invoices for.
 
           created_after: Only return invoices created after this timestamp.
 
@@ -549,10 +549,10 @@ class InvoicesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "collection_methods": collection_methods,
-                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
@@ -743,8 +743,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
     async def create(
         self,
         *,
+        account_id: str,
         collection_method: CollectionMethod,
-        company_id: str,
         plan: invoice_create_params.CreateInvoiceInputWithProductPlan,
         product: invoice_create_params.CreateInvoiceInputWithProductProduct,
         automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
@@ -780,10 +780,10 @@ class AsyncInvoicesResource(AsyncAPIResource):
         - `payment:basic:read`
 
         Args:
+          account_id: The unique identifier of the company to create this invoice for.
+
           collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
               payment method, or send_invoice to email the customer.
-
-          company_id: The unique identifier of the company to create this invoice for.
 
           plan: The plan attributes defining the price, currency, and billing interval for this
               invoice.
@@ -846,8 +846,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
     async def create(
         self,
         *,
+        account_id: str,
         collection_method: CollectionMethod,
-        company_id: str,
         plan: invoice_create_params.CreateInvoiceInputWithProductIDPlan,
         product_id: str,
         automatically_finalizes_at: Union[str, datetime, None] | Omit = omit,
@@ -883,10 +883,10 @@ class AsyncInvoicesResource(AsyncAPIResource):
         - `payment:basic:read`
 
         Args:
+          account_id: The unique identifier of the company to create this invoice for.
+
           collection_method: How the invoice should be collected. Use charge_automatically to charge a stored
               payment method, or send_invoice to email the customer.
-
-          company_id: The unique identifier of the company to create this invoice for.
 
           plan: The plan attributes defining the price, currency, and billing interval for this
               invoice.
@@ -945,14 +945,14 @@ class AsyncInvoicesResource(AsyncAPIResource):
         ...
 
     @required_args(
-        ["collection_method", "company_id", "plan", "product"],
-        ["collection_method", "company_id", "plan", "product_id"],
+        ["account_id", "collection_method", "plan", "product"],
+        ["account_id", "collection_method", "plan", "product_id"],
     )
     async def create(
         self,
         *,
+        account_id: str,
         collection_method: CollectionMethod,
-        company_id: str,
         plan: invoice_create_params.CreateInvoiceInputWithProductPlan
         | invoice_create_params.CreateInvoiceInputWithProductIDPlan,
         product: invoice_create_params.CreateInvoiceInputWithProductProduct | Omit = omit,
@@ -985,8 +985,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
             "/invoices",
             body=await async_maybe_transform(
                 {
+                    "account_id": account_id,
                     "collection_method": collection_method,
-                    "company_id": company_id,
                     "plan": plan,
                     "product": product,
                     "automatically_finalizes_at": automatically_finalizes_at,
@@ -1163,10 +1163,10 @@ class AsyncInvoicesResource(AsyncAPIResource):
     def list(
         self,
         *,
+        account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
         collection_methods: List[CollectionMethod] | Omit = omit,
-        company_id: str | Omit = omit,
         created_after: Union[str, datetime] | Omit = omit,
         created_before: Union[str, datetime] | Omit = omit,
         direction: Direction | Omit = omit,
@@ -1191,13 +1191,13 @@ class AsyncInvoicesResource(AsyncAPIResource):
         - `invoice:basic:read`
 
         Args:
+          account_id: The unique identifier of the company to list invoices for.
+
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
 
           collection_methods: Filter invoices by their collection method.
-
-          company_id: The unique identifier of the company to list invoices for.
 
           created_after: Only return invoices created after this timestamp.
 
@@ -1234,10 +1234,10 @@ class AsyncInvoicesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "collection_methods": collection_methods,
-                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,

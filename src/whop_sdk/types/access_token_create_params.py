@@ -13,7 +13,7 @@ __all__ = ["AccessTokenCreateParams"]
 
 
 class AccessTokenCreateParams(TypedDict, total=False):
-    company_id: Optional[str]
+    account_id: Optional[str]
     """
     The unique identifier of the company to generate the token for, starting with
     'biz\\__'. The API key must have permission to access this company.

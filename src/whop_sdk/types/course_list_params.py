@@ -8,14 +8,14 @@ __all__ = ["CourseListParams"]
 
 
 class CourseListParams(TypedDict, total=False):
+    account_id: str
+    """The unique identifier of the company to list courses for."""
+
     after: str
     """Returns the elements in the list that come after the specified cursor."""
 
     before: str
     """Returns the elements in the list that come before the specified cursor."""
-
-    company_id: str
-    """The unique identifier of the company to list courses for."""
 
     experience_id: str
     """The unique identifier of the experience to list courses for."""

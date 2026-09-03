@@ -17,7 +17,7 @@ class DmChannelCreateParams(TypedDict, total=False):
     Each entry can be an email, username, or user ID (e.g. 'user_xxxxx').
     """
 
-    company_id: Optional[str]
+    account_id: Optional[str]
     """The unique identifier of the company to scope this DM channel to.
 
     When set, the channel is visible only within that company context.

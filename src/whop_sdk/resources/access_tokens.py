@@ -47,7 +47,7 @@ class AccessTokensResource(SyncAPIResource):
     def create(
         self,
         *,
-        company_id: Optional[str] | Omit = omit,
+        account_id: Optional[str] | Omit = omit,
         expires_at: Union[str, datetime, None] | Omit = omit,
         scoped_actions: Optional[SequenceNotStr[str]] | Omit = omit,
         user_id: Optional[str] | Omit = omit,
@@ -66,7 +66,7 @@ class AccessTokensResource(SyncAPIResource):
         embedded components.
 
         Args:
-          company_id: The unique identifier of the company to generate the token for, starting with
+          account_id: The unique identifier of the company to generate the token for, starting with
               'biz\\__'. The API key must have permission to access this company.
 
           expires_at: The expiration timestamp for the access token. Defaults to 1 hour from now, with
@@ -91,7 +91,7 @@ class AccessTokensResource(SyncAPIResource):
             "/access_tokens",
             body=maybe_transform(
                 {
-                    "company_id": company_id,
+                    "account_id": account_id,
                     "expires_at": expires_at,
                     "scoped_actions": scoped_actions,
                     "user_id": user_id,
@@ -128,7 +128,7 @@ class AsyncAccessTokensResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        company_id: Optional[str] | Omit = omit,
+        account_id: Optional[str] | Omit = omit,
         expires_at: Union[str, datetime, None] | Omit = omit,
         scoped_actions: Optional[SequenceNotStr[str]] | Omit = omit,
         user_id: Optional[str] | Omit = omit,
@@ -147,7 +147,7 @@ class AsyncAccessTokensResource(AsyncAPIResource):
         embedded components.
 
         Args:
-          company_id: The unique identifier of the company to generate the token for, starting with
+          account_id: The unique identifier of the company to generate the token for, starting with
               'biz\\__'. The API key must have permission to access this company.
 
           expires_at: The expiration timestamp for the access token. Defaults to 1 hour from now, with
@@ -172,7 +172,7 @@ class AsyncAccessTokensResource(AsyncAPIResource):
             "/access_tokens",
             body=await async_maybe_transform(
                 {
-                    "company_id": company_id,
+                    "account_id": account_id,
                     "expires_at": expires_at,
                     "scoped_actions": scoped_actions,
                     "user_id": user_id,

@@ -34,15 +34,15 @@ __all__ = [
 
 
 class CreateInvoiceInputWithProduct(TypedDict, total=False):
+    account_id: Required[str]
+    """The unique identifier of the company to create this invoice for."""
+
     collection_method: Required[CollectionMethod]
     """How the invoice should be collected.
 
     Use charge_automatically to charge a stored payment method, or send_invoice to
     email the customer.
     """
-
-    company_id: Required[str]
-    """The unique identifier of the company to create this invoice for."""
 
     plan: Required[CreateInvoiceInputWithProductPlan]
     """
@@ -332,15 +332,15 @@ class CreateInvoiceInputWithProductLineItem(TypedDict, total=False):
 
 
 class CreateInvoiceInputWithProductID(TypedDict, total=False):
+    account_id: Required[str]
+    """The unique identifier of the company to create this invoice for."""
+
     collection_method: Required[CollectionMethod]
     """How the invoice should be collected.
 
     Use charge_automatically to charge a stored payment method, or send_invoice to
     email the customer.
     """
-
-    company_id: Required[str]
-    """The unique identifier of the company to create this invoice for."""
 
     plan: Required[CreateInvoiceInputWithProductIDPlan]
     """

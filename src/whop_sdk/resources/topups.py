@@ -45,8 +45,8 @@ class TopupsResource(SyncAPIResource):
     def create(
         self,
         *,
+        account_id: str,
         amount: float,
-        company_id: str,
         currency: Currency,
         payment_method_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -65,10 +65,10 @@ class TopupsResource(SyncAPIResource):
         - `payment:charge`
 
         Args:
+          account_id: The unique identifier of the company to add funds to, starting with 'biz\\__'.
+
           amount: The amount to add to the balance in the specified currency. For example, 50.00
               for $50.00 USD.
-
-          company_id: The unique identifier of the company to add funds to, starting with 'biz\\__'.
 
           currency: The currency for the top-up amount, such as 'usd'.
 
@@ -86,8 +86,8 @@ class TopupsResource(SyncAPIResource):
             "/topups",
             body=maybe_transform(
                 {
+                    "account_id": account_id,
                     "amount": amount,
-                    "company_id": company_id,
                     "currency": currency,
                     "payment_method_id": payment_method_id,
                 },
@@ -123,8 +123,8 @@ class AsyncTopupsResource(AsyncAPIResource):
     async def create(
         self,
         *,
+        account_id: str,
         amount: float,
-        company_id: str,
         currency: Currency,
         payment_method_id: str,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -143,10 +143,10 @@ class AsyncTopupsResource(AsyncAPIResource):
         - `payment:charge`
 
         Args:
+          account_id: The unique identifier of the company to add funds to, starting with 'biz\\__'.
+
           amount: The amount to add to the balance in the specified currency. For example, 50.00
               for $50.00 USD.
-
-          company_id: The unique identifier of the company to add funds to, starting with 'biz\\__'.
 
           currency: The currency for the top-up amount, such as 'usd'.
 
@@ -164,8 +164,8 @@ class AsyncTopupsResource(AsyncAPIResource):
             "/topups",
             body=await async_maybe_transform(
                 {
+                    "account_id": account_id,
                     "amount": amount,
-                    "company_id": company_id,
                     "currency": currency,
                     "payment_method_id": payment_method_id,
                 },

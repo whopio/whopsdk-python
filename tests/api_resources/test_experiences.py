@@ -27,8 +27,8 @@ class TestExperiences:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         experience = client.experiences.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             app_id="app_xxxxxxxxxxxxxx",
-            company_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(Experience, experience, path=["response"])
 
@@ -36,8 +36,8 @@ class TestExperiences:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         experience = client.experiences.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             app_id="app_xxxxxxxxxxxxxx",
-            company_id="biz_xxxxxxxxxxxxxx",
             is_public=True,
             logo={"id": "id"},
             name="name",
@@ -50,8 +50,8 @@ class TestExperiences:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.experiences.with_raw_response.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             app_id="app_xxxxxxxxxxxxxx",
-            company_id="biz_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -63,8 +63,8 @@ class TestExperiences:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.experiences.with_streaming_response.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             app_id="app_xxxxxxxxxxxxxx",
-            company_id="biz_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -177,7 +177,7 @@ class TestExperiences:
     @parametrize
     def test_method_list(self, client: Whop) -> None:
         experience = client.experiences.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(SyncCursorPage[ExperienceListResponse], experience, path=["response"])
 
@@ -185,7 +185,7 @@ class TestExperiences:
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         experience = client.experiences.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             after="after",
             app_id="app_xxxxxxxxxxxxxx",
             before="before",
@@ -201,7 +201,7 @@ class TestExperiences:
     @parametrize
     def test_raw_response_list(self, client: Whop) -> None:
         response = client.experiences.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -213,7 +213,7 @@ class TestExperiences:
     @parametrize
     def test_streaming_response_list(self, client: Whop) -> None:
         with client.experiences.with_streaming_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -418,8 +418,8 @@ class TestAsyncExperiences:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         experience = await async_client.experiences.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             app_id="app_xxxxxxxxxxxxxx",
-            company_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(Experience, experience, path=["response"])
 
@@ -427,8 +427,8 @@ class TestAsyncExperiences:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         experience = await async_client.experiences.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             app_id="app_xxxxxxxxxxxxxx",
-            company_id="biz_xxxxxxxxxxxxxx",
             is_public=True,
             logo={"id": "id"},
             name="name",
@@ -441,8 +441,8 @@ class TestAsyncExperiences:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.experiences.with_raw_response.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             app_id="app_xxxxxxxxxxxxxx",
-            company_id="biz_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -454,8 +454,8 @@ class TestAsyncExperiences:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.experiences.with_streaming_response.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             app_id="app_xxxxxxxxxxxxxx",
-            company_id="biz_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -568,7 +568,7 @@ class TestAsyncExperiences:
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
         experience = await async_client.experiences.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(AsyncCursorPage[ExperienceListResponse], experience, path=["response"])
 
@@ -576,7 +576,7 @@ class TestAsyncExperiences:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         experience = await async_client.experiences.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             after="after",
             app_id="app_xxxxxxxxxxxxxx",
             before="before",
@@ -592,7 +592,7 @@ class TestAsyncExperiences:
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
         response = await async_client.experiences.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -604,7 +604,7 @@ class TestAsyncExperiences:
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
         async with async_client.experiences.with_streaming_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

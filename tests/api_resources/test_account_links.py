@@ -21,7 +21,7 @@ class TestAccountLinks:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         account_link = client.account_links.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             refresh_url="refresh_url",
             return_url="return_url",
             use_case="account_onboarding",
@@ -32,7 +32,7 @@ class TestAccountLinks:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.account_links.with_raw_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             refresh_url="refresh_url",
             return_url="return_url",
             use_case="account_onboarding",
@@ -47,7 +47,7 @@ class TestAccountLinks:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.account_links.with_streaming_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             refresh_url="refresh_url",
             return_url="return_url",
             use_case="account_onboarding",
@@ -70,7 +70,7 @@ class TestAsyncAccountLinks:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         account_link = await async_client.account_links.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             refresh_url="refresh_url",
             return_url="return_url",
             use_case="account_onboarding",
@@ -81,7 +81,7 @@ class TestAsyncAccountLinks:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.account_links.with_raw_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             refresh_url="refresh_url",
             return_url="return_url",
             use_case="account_onboarding",
@@ -96,7 +96,7 @@ class TestAsyncAccountLinks:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.account_links.with_streaming_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             refresh_url="refresh_url",
             return_url="return_url",
             use_case="account_onboarding",

@@ -9,11 +9,11 @@ __all__ = ["ExperienceCreateParams", "Logo"]
 
 
 class ExperienceCreateParams(TypedDict, total=False):
+    account_id: Required[str]
+    """The unique identifier of the company to create this experience for."""
+
     app_id: Required[str]
     """The unique identifier of the app that powers this experience."""
-
-    company_id: Required[str]
-    """The unique identifier of the company to create this experience for."""
 
     is_public: Optional[bool]
     """Whether the experience is publicly accessible without a membership."""

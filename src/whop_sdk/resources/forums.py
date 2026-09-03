@@ -153,7 +153,7 @@ class ForumsResource(SyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: str | Omit = omit,
         before: str | Omit = omit,
         first: int | Omit = omit,
@@ -175,7 +175,7 @@ class ForumsResource(SyncAPIResource):
         - `forum:read`
 
         Args:
-          company_id: The unique identifier of the company to list forums for.
+          account_id: The unique identifier of the company to list forums for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -206,7 +206,7 @@ class ForumsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "first": first,
@@ -345,7 +345,7 @@ class AsyncForumsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: str | Omit = omit,
         before: str | Omit = omit,
         first: int | Omit = omit,
@@ -367,7 +367,7 @@ class AsyncForumsResource(AsyncAPIResource):
         - `forum:read`
 
         Args:
-          company_id: The unique identifier of the company to list forums for.
+          account_id: The unique identifier of the company to list forums for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -398,7 +398,7 @@ class AsyncForumsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "first": first,

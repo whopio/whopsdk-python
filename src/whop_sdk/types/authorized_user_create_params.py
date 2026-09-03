@@ -9,7 +9,7 @@ __all__ = ["AuthorizedUserCreateParams", "Elevation"]
 
 
 class AuthorizedUserCreateParams(TypedDict, total=False):
-    company_id: Required[str]
+    account_id: Required[str]
     """The ID of the company to add the authorized user to."""
 
     role: Required[Literal["owner", "admin", "sales_manager", "moderator", "advertiser"]]

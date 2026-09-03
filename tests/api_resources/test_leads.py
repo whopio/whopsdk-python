@@ -23,7 +23,7 @@ class TestLeads:
     @parametrize
     def test_method_create(self, client: Whop) -> None:
         lead = client.leads.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(Lead, lead, path=["response"])
 
@@ -31,7 +31,7 @@ class TestLeads:
     @parametrize
     def test_method_create_with_all_params(self, client: Whop) -> None:
         lead = client.leads.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             metadata={"foo": "bar"},
             product_id="prod_xxxxxxxxxxxxx",
             referrer="referrer",
@@ -43,7 +43,7 @@ class TestLeads:
     @parametrize
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.leads.with_raw_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -55,7 +55,7 @@ class TestLeads:
     @parametrize
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.leads.with_streaming_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -163,7 +163,7 @@ class TestLeads:
     @parametrize
     def test_method_list(self, client: Whop) -> None:
         lead = client.leads.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(SyncCursorPage[LeadListResponse], lead, path=["response"])
 
@@ -171,7 +171,7 @@ class TestLeads:
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         lead = client.leads.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
@@ -186,7 +186,7 @@ class TestLeads:
     @parametrize
     def test_raw_response_list(self, client: Whop) -> None:
         response = client.leads.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -198,7 +198,7 @@ class TestLeads:
     @parametrize
     def test_streaming_response_list(self, client: Whop) -> None:
         with client.leads.with_streaming_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -218,7 +218,7 @@ class TestAsyncLeads:
     @parametrize
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         lead = await async_client.leads.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(Lead, lead, path=["response"])
 
@@ -226,7 +226,7 @@ class TestAsyncLeads:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         lead = await async_client.leads.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             metadata={"foo": "bar"},
             product_id="prod_xxxxxxxxxxxxx",
             referrer="referrer",
@@ -238,7 +238,7 @@ class TestAsyncLeads:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.leads.with_raw_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -250,7 +250,7 @@ class TestAsyncLeads:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.leads.with_streaming_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -358,7 +358,7 @@ class TestAsyncLeads:
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
         lead = await async_client.leads.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(AsyncCursorPage[LeadListResponse], lead, path=["response"])
 
@@ -366,7 +366,7 @@ class TestAsyncLeads:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         lead = await async_client.leads.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
             created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
@@ -381,7 +381,7 @@ class TestAsyncLeads:
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
         response = await async_client.leads.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -393,7 +393,7 @@ class TestAsyncLeads:
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
         async with async_client.leads.with_streaming_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

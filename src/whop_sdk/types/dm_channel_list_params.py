@@ -8,17 +8,17 @@ __all__ = ["DmChannelListParams"]
 
 
 class DmChannelListParams(TypedDict, total=False):
+    account_id: str
+    """The unique identifier of a company to filter DM channels by.
+
+    Only returns channels scoped to this company.
+    """
+
     after: str
     """Returns the elements in the list that come after the specified cursor."""
 
     before: str
     """Returns the elements in the list that come before the specified cursor."""
-
-    company_id: str
-    """The unique identifier of a company to filter DM channels by.
-
-    Only returns channels scoped to this company.
-    """
 
     first: int
     """Returns the first _n_ elements from the list."""

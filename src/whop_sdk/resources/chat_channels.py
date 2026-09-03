@@ -156,7 +156,7 @@ class ChatChannelsResource(SyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: str | Omit = omit,
         before: str | Omit = omit,
         first: int | Omit = omit,
@@ -178,7 +178,7 @@ class ChatChannelsResource(SyncAPIResource):
         - `chat:read`
 
         Args:
-          company_id: The unique identifier of the company to list chat channels for.
+          account_id: The unique identifier of the company to list chat channels for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -209,7 +209,7 @@ class ChatChannelsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "first": first,
@@ -352,7 +352,7 @@ class AsyncChatChannelsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: str | Omit = omit,
         before: str | Omit = omit,
         first: int | Omit = omit,
@@ -374,7 +374,7 @@ class AsyncChatChannelsResource(AsyncAPIResource):
         - `chat:read`
 
         Args:
-          company_id: The unique identifier of the company to list chat channels for.
+          account_id: The unique identifier of the company to list chat channels for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -405,7 +405,7 @@ class AsyncChatChannelsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "first": first,

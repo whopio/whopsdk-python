@@ -15,7 +15,7 @@ __all__ = ["EntryListParams"]
 
 
 class EntryListParams(TypedDict, total=False):
-    company_id: Required[str]
+    account_id: Required[str]
     """The unique identifier of the company to list waitlist entries for."""
 
     after: str

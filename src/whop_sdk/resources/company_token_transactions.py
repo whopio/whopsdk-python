@@ -55,8 +55,8 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
     def create(
         self,
         *,
+        account_id: str,
         amount: float,
-        company_id: str,
         destination_user_id: str,
         transaction_type: Literal["transfer"],
         user_id: str,
@@ -80,10 +80,10 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
         - `company:basic:read`
 
         Args:
-          amount: The positive number of tokens to transact. For example, 100.0 for 100 tokens.
-
-          company_id: The unique identifier of the company to create the transaction in, starting with
+          account_id: The unique identifier of the company to create the transaction in, starting with
               'biz\\__'.
+
+          amount: The positive number of tokens to transact. For example, 100.0 for 100 tokens.
 
           destination_user_id: The unique identifier of the user receiving the tokens. Required when the
               transaction type is 'transfer'.
@@ -110,8 +110,8 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
     def create(
         self,
         *,
+        account_id: str,
         amount: float,
-        company_id: str,
         transaction_type: Literal["add"],
         user_id: str,
         description: Optional[str] | Omit = omit,
@@ -134,10 +134,10 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
         - `company:basic:read`
 
         Args:
-          amount: The positive number of tokens to transact. For example, 100.0 for 100 tokens.
-
-          company_id: The unique identifier of the company to create the transaction in, starting with
+          account_id: The unique identifier of the company to create the transaction in, starting with
               'biz\\__'.
+
+          amount: The positive number of tokens to transact. For example, 100.0 for 100 tokens.
 
           user_id: The unique identifier of the user whose token balance will be affected, starting
               with 'user\\__'.
@@ -161,8 +161,8 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
     def create(
         self,
         *,
+        account_id: str,
         amount: float,
-        company_id: str,
         transaction_type: Literal["subtract"],
         user_id: str,
         description: Optional[str] | Omit = omit,
@@ -185,10 +185,10 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
         - `company:basic:read`
 
         Args:
-          amount: The positive number of tokens to transact. For example, 100.0 for 100 tokens.
-
-          company_id: The unique identifier of the company to create the transaction in, starting with
+          account_id: The unique identifier of the company to create the transaction in, starting with
               'biz\\__'.
+
+          amount: The positive number of tokens to transact. For example, 100.0 for 100 tokens.
 
           user_id: The unique identifier of the user whose token balance will be affected, starting
               with 'user\\__'.
@@ -209,14 +209,14 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
         ...
 
     @required_args(
-        ["amount", "company_id", "destination_user_id", "transaction_type", "user_id"],
-        ["amount", "company_id", "transaction_type", "user_id"],
+        ["account_id", "amount", "destination_user_id", "transaction_type", "user_id"],
+        ["account_id", "amount", "transaction_type", "user_id"],
     )
     def create(
         self,
         *,
+        account_id: str,
         amount: float,
-        company_id: str,
         destination_user_id: str | Omit = omit,
         transaction_type: Literal["transfer"] | Literal["add"] | Literal["subtract"],
         user_id: str,
@@ -233,8 +233,8 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
             "/company_token_transactions",
             body=maybe_transform(
                 {
+                    "account_id": account_id,
                     "amount": amount,
-                    "company_id": company_id,
                     "destination_user_id": destination_user_id,
                     "transaction_type": transaction_type,
                     "user_id": user_id,
@@ -291,7 +291,7 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: str | Omit = omit,
         before: str | Omit = omit,
         first: int | Omit = omit,
@@ -317,7 +317,7 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
         - `company:basic:read`
 
         Args:
-          company_id: The unique identifier of the company to list token transactions for.
+          account_id: The unique identifier of the company to list token transactions for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -349,7 +349,7 @@ class CompanyTokenTransactionsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "first": first,
@@ -388,8 +388,8 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
     async def create(
         self,
         *,
+        account_id: str,
         amount: float,
-        company_id: str,
         destination_user_id: str,
         transaction_type: Literal["transfer"],
         user_id: str,
@@ -413,10 +413,10 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
         - `company:basic:read`
 
         Args:
-          amount: The positive number of tokens to transact. For example, 100.0 for 100 tokens.
-
-          company_id: The unique identifier of the company to create the transaction in, starting with
+          account_id: The unique identifier of the company to create the transaction in, starting with
               'biz\\__'.
+
+          amount: The positive number of tokens to transact. For example, 100.0 for 100 tokens.
 
           destination_user_id: The unique identifier of the user receiving the tokens. Required when the
               transaction type is 'transfer'.
@@ -443,8 +443,8 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
     async def create(
         self,
         *,
+        account_id: str,
         amount: float,
-        company_id: str,
         transaction_type: Literal["add"],
         user_id: str,
         description: Optional[str] | Omit = omit,
@@ -467,10 +467,10 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
         - `company:basic:read`
 
         Args:
-          amount: The positive number of tokens to transact. For example, 100.0 for 100 tokens.
-
-          company_id: The unique identifier of the company to create the transaction in, starting with
+          account_id: The unique identifier of the company to create the transaction in, starting with
               'biz\\__'.
+
+          amount: The positive number of tokens to transact. For example, 100.0 for 100 tokens.
 
           user_id: The unique identifier of the user whose token balance will be affected, starting
               with 'user\\__'.
@@ -494,8 +494,8 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
     async def create(
         self,
         *,
+        account_id: str,
         amount: float,
-        company_id: str,
         transaction_type: Literal["subtract"],
         user_id: str,
         description: Optional[str] | Omit = omit,
@@ -518,10 +518,10 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
         - `company:basic:read`
 
         Args:
-          amount: The positive number of tokens to transact. For example, 100.0 for 100 tokens.
-
-          company_id: The unique identifier of the company to create the transaction in, starting with
+          account_id: The unique identifier of the company to create the transaction in, starting with
               'biz\\__'.
+
+          amount: The positive number of tokens to transact. For example, 100.0 for 100 tokens.
 
           user_id: The unique identifier of the user whose token balance will be affected, starting
               with 'user\\__'.
@@ -542,14 +542,14 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
         ...
 
     @required_args(
-        ["amount", "company_id", "destination_user_id", "transaction_type", "user_id"],
-        ["amount", "company_id", "transaction_type", "user_id"],
+        ["account_id", "amount", "destination_user_id", "transaction_type", "user_id"],
+        ["account_id", "amount", "transaction_type", "user_id"],
     )
     async def create(
         self,
         *,
+        account_id: str,
         amount: float,
-        company_id: str,
         destination_user_id: str | Omit = omit,
         transaction_type: Literal["transfer"] | Literal["add"] | Literal["subtract"],
         user_id: str,
@@ -566,8 +566,8 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
             "/company_token_transactions",
             body=await async_maybe_transform(
                 {
+                    "account_id": account_id,
                     "amount": amount,
-                    "company_id": company_id,
                     "destination_user_id": destination_user_id,
                     "transaction_type": transaction_type,
                     "user_id": user_id,
@@ -624,7 +624,7 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: str | Omit = omit,
         before: str | Omit = omit,
         first: int | Omit = omit,
@@ -650,7 +650,7 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
         - `company:basic:read`
 
         Args:
-          company_id: The unique identifier of the company to list token transactions for.
+          account_id: The unique identifier of the company to list token transactions for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -682,7 +682,7 @@ class AsyncCompanyTokenTransactionsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "first": first,

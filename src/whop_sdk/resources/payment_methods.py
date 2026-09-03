@@ -54,7 +54,7 @@ class PaymentMethodsResource(SyncAPIResource):
         self,
         id: str,
         *,
-        company_id: str | Omit = omit,
+        account_id: str | Omit = omit,
         member_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -73,7 +73,7 @@ class PaymentMethodsResource(SyncAPIResource):
         - `member:payment_methods:read`
 
         Args:
-          company_id: The unique identifier of the company. Provide either this or member_id, not
+          account_id: The unique identifier of the company. Provide either this or member_id, not
               both. Omit both to address your own saved payment methods.
 
           member_id: The unique identifier of the member. Provide either this or company_id, not
@@ -100,7 +100,7 @@ class PaymentMethodsResource(SyncAPIResource):
                     timeout=timeout,
                     query=maybe_transform(
                         {
-                            "company_id": company_id,
+                            "account_id": account_id,
                             "member_id": member_id,
                         },
                         payment_method_retrieve_params.PaymentMethodRetrieveParams,
@@ -115,12 +115,12 @@ class PaymentMethodsResource(SyncAPIResource):
     def list(
         self,
         *,
+        account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
         broken: bool | Omit = omit,
         card_brands: List[CardBrands] | Omit = omit,
         card_funding_types: List[Literal["credit", "debit", "prepaid"]] | Omit = omit,
-        company_id: str | Omit = omit,
         created_after: Union[str, datetime] | Omit = omit,
         created_before: Union[str, datetime] | Omit = omit,
         direction: Direction | Omit = omit,
@@ -149,6 +149,9 @@ class PaymentMethodsResource(SyncAPIResource):
         - `member:payment_methods:read`
 
         Args:
+          account_id: The unique identifier of the company. Provide either this or member_id, not
+              both. Omit both to address your own saved payment methods.
+
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
@@ -161,9 +164,6 @@ class PaymentMethodsResource(SyncAPIResource):
 
           card_funding_types: Only return cards funded this way. A card whose funding could not be determined
               is excluded, and payment methods that are not cards are unaffected.
-
-          company_id: The unique identifier of the company. Provide either this or member_id, not
-              both. Omit both to address your own saved payment methods.
 
           created_after: Only return payment methods created after this timestamp.
 
@@ -211,12 +211,12 @@ class PaymentMethodsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "broken": broken,
                         "card_brands": card_brands,
                         "card_funding_types": card_funding_types,
-                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
@@ -261,7 +261,7 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        company_id: str | Omit = omit,
+        account_id: str | Omit = omit,
         member_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -280,7 +280,7 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
         - `member:payment_methods:read`
 
         Args:
-          company_id: The unique identifier of the company. Provide either this or member_id, not
+          account_id: The unique identifier of the company. Provide either this or member_id, not
               both. Omit both to address your own saved payment methods.
 
           member_id: The unique identifier of the member. Provide either this or company_id, not
@@ -307,7 +307,7 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
                     timeout=timeout,
                     query=await async_maybe_transform(
                         {
-                            "company_id": company_id,
+                            "account_id": account_id,
                             "member_id": member_id,
                         },
                         payment_method_retrieve_params.PaymentMethodRetrieveParams,
@@ -322,12 +322,12 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
     def list(
         self,
         *,
+        account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
         broken: bool | Omit = omit,
         card_brands: List[CardBrands] | Omit = omit,
         card_funding_types: List[Literal["credit", "debit", "prepaid"]] | Omit = omit,
-        company_id: str | Omit = omit,
         created_after: Union[str, datetime] | Omit = omit,
         created_before: Union[str, datetime] | Omit = omit,
         direction: Direction | Omit = omit,
@@ -356,6 +356,9 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
         - `member:payment_methods:read`
 
         Args:
+          account_id: The unique identifier of the company. Provide either this or member_id, not
+              both. Omit both to address your own saved payment methods.
+
           after: Returns the elements in the list that come after the specified cursor.
 
           before: Returns the elements in the list that come before the specified cursor.
@@ -368,9 +371,6 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
 
           card_funding_types: Only return cards funded this way. A card whose funding could not be determined
               is excluded, and payment methods that are not cards are unaffected.
-
-          company_id: The unique identifier of the company. Provide either this or member_id, not
-              both. Omit both to address your own saved payment methods.
 
           created_after: Only return payment methods created after this timestamp.
 
@@ -418,12 +418,12 @@ class AsyncPaymentMethodsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "broken": broken,
                         "card_brands": card_brands,
                         "card_funding_types": card_funding_types,
-                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,

@@ -64,7 +64,7 @@ class TestPayoutMethods:
     @parametrize
     def test_method_list(self, client: Whop) -> None:
         payout_method = client.payout_methods.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(SyncCursorPage[PayoutMethodListResponse], payout_method, path=["response"])
 
@@ -72,7 +72,7 @@ class TestPayoutMethods:
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         payout_method = client.payout_methods.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
             first=42,
@@ -84,7 +84,7 @@ class TestPayoutMethods:
     @parametrize
     def test_raw_response_list(self, client: Whop) -> None:
         response = client.payout_methods.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -96,7 +96,7 @@ class TestPayoutMethods:
     @parametrize
     def test_streaming_response_list(self, client: Whop) -> None:
         with client.payout_methods.with_streaming_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -158,7 +158,7 @@ class TestAsyncPayoutMethods:
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
         payout_method = await async_client.payout_methods.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         assert_matches_type(AsyncCursorPage[PayoutMethodListResponse], payout_method, path=["response"])
 
@@ -166,7 +166,7 @@ class TestAsyncPayoutMethods:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         payout_method = await async_client.payout_methods.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
             first=42,
@@ -178,7 +178,7 @@ class TestAsyncPayoutMethods:
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncWhop) -> None:
         response = await async_client.payout_methods.with_raw_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -190,7 +190,7 @@ class TestAsyncPayoutMethods:
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWhop) -> None:
         async with async_client.payout_methods.with_streaming_response.list(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

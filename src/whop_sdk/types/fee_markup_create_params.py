@@ -11,7 +11,7 @@ __all__ = ["FeeMarkupCreateParams"]
 
 
 class FeeMarkupCreateParams(TypedDict, total=False):
-    company_id: Required[str]
+    account_id: Required[str]
     """The unique identifier of the company to create or update the fee markup for."""
 
     fee_type: Required[FeeMarkupType]

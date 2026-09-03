@@ -10,18 +10,18 @@ __all__ = ["SupportChannelListParams"]
 
 
 class SupportChannelListParams(TypedDict, total=False):
-    after: str
-    """Returns the elements in the list that come after the specified cursor."""
-
-    before: str
-    """Returns the elements in the list that come before the specified cursor."""
-
-    company_id: str
+    account_id: str
     """The unique identifier of the company to list support channels for.
 
     Includes channels of child companies. When omitted, returns support channels
     across all companies the user has access to.
     """
+
+    after: str
+    """Returns the elements in the list that come after the specified cursor."""
+
+    before: str
+    """Returns the elements in the list that come before the specified cursor."""
 
     direction: Direction
     """The sort direction for the results.

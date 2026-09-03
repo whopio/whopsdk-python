@@ -12,7 +12,7 @@ __all__ = ["ExperienceListParams"]
 
 
 class ExperienceListParams(TypedDict, total=False):
-    company_id: Required[str]
+    account_id: Required[str]
     """The unique identifier of the company to list experiences for."""
 
     after: str

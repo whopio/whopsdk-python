@@ -91,7 +91,7 @@ class EntriesResource(SyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: str | Omit = omit,
         before: str | Omit = omit,
         created_after: Union[str, datetime] | Omit = omit,
@@ -120,7 +120,7 @@ class EntriesResource(SyncAPIResource):
         - `member:email:read`
 
         Args:
-          company_id: The unique identifier of the company to list waitlist entries for.
+          account_id: The unique identifier of the company to list waitlist entries for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -162,7 +162,7 @@ class EntriesResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "created_after": created_after,
@@ -321,7 +321,7 @@ class AsyncEntriesResource(AsyncAPIResource):
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: str | Omit = omit,
         before: str | Omit = omit,
         created_after: Union[str, datetime] | Omit = omit,
@@ -350,7 +350,7 @@ class AsyncEntriesResource(AsyncAPIResource):
         - `member:email:read`
 
         Args:
-          company_id: The unique identifier of the company to list waitlist entries for.
+          account_id: The unique identifier of the company to list waitlist entries for.
 
           after: Returns the elements in the list that come after the specified cursor.
 
@@ -392,7 +392,7 @@ class AsyncEntriesResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "company_id": company_id,
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
                         "created_after": created_after,

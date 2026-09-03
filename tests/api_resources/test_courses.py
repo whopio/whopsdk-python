@@ -200,9 +200,9 @@ class TestCourses:
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         course = client.courses.list(
+            account_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
-            company_id="biz_xxxxxxxxxxxxxx",
             experience_id="exp_xxxxxxxxxxxxxx",
             first=42,
             last=42,
@@ -457,9 +457,9 @@ class TestAsyncCourses:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         course = await async_client.courses.list(
+            account_id="biz_xxxxxxxxxxxxxx",
             after="after",
             before="before",
-            company_id="biz_xxxxxxxxxxxxxx",
             experience_id="exp_xxxxxxxxxxxxxx",
             first=42,
             last=42,

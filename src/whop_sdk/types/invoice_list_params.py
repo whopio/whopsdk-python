@@ -16,6 +16,9 @@ __all__ = ["InvoiceListParams"]
 
 
 class InvoiceListParams(TypedDict, total=False):
+    account_id: str
+    """The unique identifier of the company to list invoices for."""
+
     after: str
     """Returns the elements in the list that come after the specified cursor."""
 
@@ -24,9 +27,6 @@ class InvoiceListParams(TypedDict, total=False):
 
     collection_methods: List[CollectionMethod]
     """Filter invoices by their collection method."""
-
-    company_id: str
-    """The unique identifier of the company to list invoices for."""
 
     created_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Only return invoices created after this timestamp."""
