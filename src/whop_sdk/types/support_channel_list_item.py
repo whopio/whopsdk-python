@@ -13,9 +13,9 @@ class SupportChannelListItem(UniversalBaseModel):
     A messaging channel that can be a one-on-one DM, group chat, company support conversation, or platform-level direct message.
     """
 
-    company_id: typing.Optional[str] = pydantic.Field(default=None)
+    account_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The unique identifier of the company associated with this channel. Null if this is not a support or company-scoped conversation.
+    The unique identifier of the account associated with this channel. Null if this is not a support or account-scoped conversation.
     """
 
     custom_name: typing.Optional[str] = pydantic.Field(default=None)

@@ -45,7 +45,7 @@ class IdentityProfilesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[IdentityProfileListItem, ListIdentityProfileResponse]:
         """
-        Returns a paginated list of identity profiles. When company_id is provided, lists IPs currently linked to that company's ledger. When omitted, lists IPs linked to any ledger the actor can read (including child companies under a parent).
+        Returns a paginated list of identity profiles. When account_id is provided, lists IPs currently linked to that account's ledger. When omitted, lists IPs linked to any ledger the actor can read (including child accounts under a parent).
 
         Required permissions:
          - `identity:read`
@@ -283,7 +283,7 @@ class AsyncIdentityProfilesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[IdentityProfileListItem, ListIdentityProfileResponse]:
         """
-        Returns a paginated list of identity profiles. When company_id is provided, lists IPs currently linked to that company's ledger. When omitted, lists IPs linked to any ledger the actor can read (including child companies under a parent).
+        Returns a paginated list of identity profiles. When account_id is provided, lists IPs currently linked to that account's ledger. When omitted, lists IPs linked to any ledger the actor can read (including child accounts under a parent).
 
         Required permissions:
          - `identity:read`

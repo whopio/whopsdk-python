@@ -138,7 +138,7 @@ class ForumPostsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ForumPost:
         """
-        Create a new forum post or comment within an experience. Supports text content, attachments, polls, paywalling, and pinning. Pass experience_id 'public' with a company_id to post to a company's public forum.
+        Create a new forum post or comment within an experience. Supports text content, attachments, polls, paywalling, and pinning. Pass experience_id 'public' with an account_id to post to an account's public forum.
 
         Required permissions:
          - `forum:post:create`
@@ -146,7 +146,7 @@ class ForumPostsClient:
         Parameters
         ----------
         experience_id : str
-            The unique identifier of the experience to create this post in. For example, 'exp_xxxxx'. Pass 'public' along with company_id to automatically use the company's public forum.
+            The unique identifier of the experience to create this post in. For example, 'exp_xxxxx'. Pass 'public' along with account_id to automatically use the account's public forum.
 
         account_id : typing.Optional[str]
             The unique identifier of the company whose public forum to post in. Required when experience_id is 'public'. For example, 'biz_xxxxx'.
@@ -454,7 +454,7 @@ class AsyncForumPostsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ForumPost:
         """
-        Create a new forum post or comment within an experience. Supports text content, attachments, polls, paywalling, and pinning. Pass experience_id 'public' with a company_id to post to a company's public forum.
+        Create a new forum post or comment within an experience. Supports text content, attachments, polls, paywalling, and pinning. Pass experience_id 'public' with an account_id to post to an account's public forum.
 
         Required permissions:
          - `forum:post:create`
@@ -462,7 +462,7 @@ class AsyncForumPostsClient:
         Parameters
         ----------
         experience_id : str
-            The unique identifier of the experience to create this post in. For example, 'exp_xxxxx'. Pass 'public' along with company_id to automatically use the company's public forum.
+            The unique identifier of the experience to create this post in. For example, 'exp_xxxxx'. Pass 'public' along with account_id to automatically use the account's public forum.
 
         account_id : typing.Optional[str]
             The unique identifier of the company whose public forum to post in. Required when experience_id is 'public'. For example, 'biz_xxxxx'.
