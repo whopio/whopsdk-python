@@ -745,6 +745,7 @@ class DataRequiredAction(BaseModel):
     action: Literal[
         "deposit_funds",
         "submit_information_request",
+        "update_automatic_withdrawal_method",
         "reauthorize_payout_methods",
         "update_payout_profile",
         "card_usage_review",

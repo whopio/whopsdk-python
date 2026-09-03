@@ -715,6 +715,11 @@ class Data(BaseModel):
         "withdrawal_reclassification",
         "withdrawal_reversal",
         "withdrawal_topup_adjustment",
+        "deposit",
+        "wallet_transfer_incoming",
+        "wallet_transfer_outgoing",
+        "swap_source",
+        "swap_target",
     ]
     """The ledger line category this activity was posted under."""
 
