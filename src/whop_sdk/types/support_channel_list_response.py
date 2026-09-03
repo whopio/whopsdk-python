@@ -38,6 +38,12 @@ class SupportChannelListResponse(BaseModel):
     Null if this is not a support or account-scoped conversation.
     """
 
+    company_id: Optional[str] = None
+    """The unique identifier of the account associated with this channel.
+
+    Null if this is not a support or account-scoped conversation.
+    """
+
     custom_name: Optional[str] = None
     """A custom display name assigned to this channel by the user.
 
