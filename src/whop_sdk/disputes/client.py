@@ -6,6 +6,7 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
 from ..types.dispute import Dispute
+from ..types.dispute_legacy import DisputeLegacy
 from .raw_client import AsyncRawDisputesClient, RawDisputesClient
 from .types.list_disputes_request_direction import ListDisputesRequestDirection
 from .types.list_disputes_request_order import ListDisputesRequestOrder
@@ -117,7 +118,7 @@ class DisputesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -194,7 +195,7 @@ class DisputesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -233,7 +234,7 @@ class DisputesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -275,7 +276,7 @@ class DisputesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -308,7 +309,7 @@ class DisputesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -319,7 +320,9 @@ class DisputesClient:
         _response = self._raw_client.submit(id, request_options=request_options)
         return _response.data
 
-    def submit_evidence_dispute(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Dispute:
+    def submit_evidence_dispute(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> DisputeLegacy:
         """
         Submit a payment dispute to the payment processor for review. Once submitted, no further edits can be made.
 
@@ -343,7 +346,7 @@ class DisputesClient:
 
         Returns
         -------
-        Dispute
+        DisputeLegacy
             A successful response
 
         Examples
@@ -351,7 +354,7 @@ class DisputesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -385,7 +388,7 @@ class DisputesClient:
         service_date: typing.Optional[str] = OMIT,
         uncategorized_attachment: typing.Optional[UpdateEvidenceDisputeRequestUncategorizedAttachment] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> Dispute:
+    ) -> DisputeLegacy:
         """
         Update a dispute with evidence data to attempt to win the dispute.
 
@@ -451,7 +454,7 @@ class DisputesClient:
 
         Returns
         -------
-        Dispute
+        DisputeLegacy
             A successful response
 
         Examples
@@ -459,7 +462,7 @@ class DisputesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -519,7 +522,7 @@ class DisputesClient:
         from whop_sdk.disputes import UploadEvidenceDisputesRequestDocumentsItem
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -622,7 +625,7 @@ class AsyncDisputesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -708,7 +711,7 @@ class AsyncDisputesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -755,7 +758,7 @@ class AsyncDisputesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -805,7 +808,7 @@ class AsyncDisputesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -846,7 +849,7 @@ class AsyncDisputesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -865,7 +868,7 @@ class AsyncDisputesClient:
 
     async def submit_evidence_dispute(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> Dispute:
+    ) -> DisputeLegacy:
         """
         Submit a payment dispute to the payment processor for review. Once submitted, no further edits can be made.
 
@@ -889,7 +892,7 @@ class AsyncDisputesClient:
 
         Returns
         -------
-        Dispute
+        DisputeLegacy
             A successful response
 
         Examples
@@ -899,7 +902,7 @@ class AsyncDisputesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -939,7 +942,7 @@ class AsyncDisputesClient:
         service_date: typing.Optional[str] = OMIT,
         uncategorized_attachment: typing.Optional[UpdateEvidenceDisputeRequestUncategorizedAttachment] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> Dispute:
+    ) -> DisputeLegacy:
         """
         Update a dispute with evidence data to attempt to win the dispute.
 
@@ -1005,7 +1008,7 @@ class AsyncDisputesClient:
 
         Returns
         -------
-        Dispute
+        DisputeLegacy
             A successful response
 
         Examples
@@ -1015,7 +1018,7 @@ class AsyncDisputesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1083,7 +1086,7 @@ class AsyncDisputesClient:
         from whop_sdk.disputes import UploadEvidenceDisputesRequestDocumentsItem
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

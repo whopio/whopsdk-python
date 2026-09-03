@@ -41,7 +41,7 @@ class User(UniversalBaseModel):
 
     earnings_usd: typing.Optional[UserEarnings] = pydantic.Field(default=None)
     """
-    The user's gross USD income over time. Populated only on single-user self reads for callers with balance-read scope; `null` otherwise.
+    The user's gross USD income over time, including a Partner commission breakdown. Populated only on single-user self reads for callers with balance-read scope; `null` otherwise.
     """
 
     email: typing.Optional[str] = pydantic.Field(default=None)

@@ -6,6 +6,7 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
 from ..types.membership import Membership
+from ..types.membership_legacy import MembershipLegacy
 from .raw_client import AsyncRawMembershipsClient, RawMembershipsClient
 from .types.invite_memberships_request_body import InviteMembershipsRequestBody
 from .types.invite_memberships_response import InviteMembershipsResponse
@@ -109,7 +110,7 @@ class MembershipsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -161,7 +162,7 @@ class MembershipsClient:
         from whop_sdk.memberships import InviteMembershipsRequestBodyUserId
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -197,7 +198,7 @@ class MembershipsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -243,7 +244,7 @@ class MembershipsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -258,7 +259,7 @@ class MembershipsClient:
 
     def add_free_days_membership(
         self, id: str, *, free_days: int, request_options: typing.Optional[RequestOptions] = None
-    ) -> Membership:
+    ) -> MembershipLegacy:
         """
         Add free days to extend a membership's current billing period, expiration date, or Stripe trial.
 
@@ -280,7 +281,7 @@ class MembershipsClient:
 
         Returns
         -------
-        Membership
+        MembershipLegacy
             A successful response
 
         Examples
@@ -288,7 +289,7 @@ class MembershipsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -335,7 +336,7 @@ class MembershipsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -373,7 +374,7 @@ class MembershipsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -412,7 +413,7 @@ class MembershipsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -445,7 +446,7 @@ class MembershipsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -458,7 +459,7 @@ class MembershipsClient:
 
     def resync_access_membership(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> Membership:
+    ) -> MembershipLegacy:
         """
         Re-run access fulfillment for a membership. Recomputes the member's content access on Whop, re-validates their Discord link (re-adding them to the server and re-assigning roles if needed), and re-fulfills TradingView indicator access. Telegram access is invite-based and cannot be resynced here. The outcome is written to the membership's logs.
 
@@ -477,7 +478,7 @@ class MembershipsClient:
 
         Returns
         -------
-        Membership
+        MembershipLegacy
             A successful response
 
         Examples
@@ -485,7 +486,7 @@ class MembershipsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -520,7 +521,7 @@ class MembershipsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -531,7 +532,9 @@ class MembershipsClient:
         _response = self._raw_client.transfer(id, request_options=request_options)
         return _response.data
 
-    def uncancel_membership(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Membership:
+    def uncancel_membership(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> MembershipLegacy:
         """
         Reverse a pending cancellation for a membership that was scheduled to cancel at period end.
 
@@ -550,7 +553,7 @@ class MembershipsClient:
 
         Returns
         -------
-        Membership
+        MembershipLegacy
             A successful response
 
         Examples
@@ -558,7 +561,7 @@ class MembershipsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -662,7 +665,7 @@ class AsyncMembershipsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -723,7 +726,7 @@ class AsyncMembershipsClient:
         from whop_sdk.memberships import InviteMembershipsRequestBodyUserId
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -767,7 +770,7 @@ class AsyncMembershipsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -821,7 +824,7 @@ class AsyncMembershipsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -842,7 +845,7 @@ class AsyncMembershipsClient:
 
     async def add_free_days_membership(
         self, id: str, *, free_days: int, request_options: typing.Optional[RequestOptions] = None
-    ) -> Membership:
+    ) -> MembershipLegacy:
         """
         Add free days to extend a membership's current billing period, expiration date, or Stripe trial.
 
@@ -864,7 +867,7 @@ class AsyncMembershipsClient:
 
         Returns
         -------
-        Membership
+        MembershipLegacy
             A successful response
 
         Examples
@@ -874,7 +877,7 @@ class AsyncMembershipsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -931,7 +934,7 @@ class AsyncMembershipsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -979,7 +982,7 @@ class AsyncMembershipsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1026,7 +1029,7 @@ class AsyncMembershipsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1067,7 +1070,7 @@ class AsyncMembershipsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1086,7 +1089,7 @@ class AsyncMembershipsClient:
 
     async def resync_access_membership(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> Membership:
+    ) -> MembershipLegacy:
         """
         Re-run access fulfillment for a membership. Recomputes the member's content access on Whop, re-validates their Discord link (re-adding them to the server and re-assigning roles if needed), and re-fulfills TradingView indicator access. Telegram access is invite-based and cannot be resynced here. The outcome is written to the membership's logs.
 
@@ -1105,7 +1108,7 @@ class AsyncMembershipsClient:
 
         Returns
         -------
-        Membership
+        MembershipLegacy
             A successful response
 
         Examples
@@ -1115,7 +1118,7 @@ class AsyncMembershipsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1158,7 +1161,7 @@ class AsyncMembershipsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1177,7 +1180,7 @@ class AsyncMembershipsClient:
 
     async def uncancel_membership(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> Membership:
+    ) -> MembershipLegacy:
         """
         Reverse a pending cancellation for a membership that was scheduled to cancel at period end.
 
@@ -1196,7 +1199,7 @@ class AsyncMembershipsClient:
 
         Returns
         -------
-        Membership
+        MembershipLegacy
             A successful response
 
         Examples
@@ -1206,7 +1209,7 @@ class AsyncMembershipsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

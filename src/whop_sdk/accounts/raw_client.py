@@ -823,7 +823,7 @@ class RawAccountsClient:
             High-level business category, from the Whop business taxonomy. Valid values are listed on [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary).
 
         formation_state : FormCompanyAccountsRequestFormationState
-            Two-letter code of the US state (or `DC`) to form the company in.
+            Two-letter code of the US state (or `DC`) to form the company in. We recommend `WY` because Wyoming formations are completed the same day.
 
         founders : typing.Sequence[FormCompanyAccountsRequestFoundersItem]
             The company's founders. Exactly one must be marked `is_primary` — the responsible party for the filing.
@@ -1920,7 +1920,7 @@ class AsyncRawAccountsClient:
             High-level business category, from the Whop business taxonomy. Valid values are listed on [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary).
 
         formation_state : FormCompanyAccountsRequestFormationState
-            Two-letter code of the US state (or `DC`) to form the company in.
+            Two-letter code of the US state (or `DC`) to form the company in. We recommend `WY` because Wyoming formations are completed the same day.
 
         founders : typing.Sequence[FormCompanyAccountsRequestFoundersItem]
             The company's founders. Exactly one must be marked `is_primary` — the responsible party for the filing.

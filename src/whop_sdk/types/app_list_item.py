@@ -99,6 +99,7 @@ class AppListItem(UniversalBaseModel):
     Full origin URL of the app's proxied domain, for example https://ab1c2d3e4f.apps.whop.com.
     """
 
+    previous_hosted_urls: typing.List[str]
     route: typing.Optional[str] = pydantic.Field(default=None)
     """
     Claimed subdomain route where hosted web builds are served (`myapp` for myapp.whop.site), or `null` if no route is claimed.

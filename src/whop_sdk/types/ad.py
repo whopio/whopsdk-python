@@ -10,6 +10,7 @@ from .ad_delivery_status import AdDeliveryStatus
 from .ad_entity_reference import AdEntityReference
 from .ad_lead_form import AdLeadForm
 from .ad_messaging_config import AdMessagingConfig
+from .ad_music import AdMusic
 from .ad_platform_issue import AdPlatformIssue
 from .ad_post_source import AdPostSource
 from .ad_result_event import AdResultEvent
@@ -214,6 +215,11 @@ class Ad(UniversalBaseModel):
     multi_advertiser_ads: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether the ad can appear alongside other advertisers' ads in the same unit. Defaults to true.
+    """
+
+    music: typing.Optional[AdMusic] = pydantic.Field(default=None)
+    """
+    The advertiser-uploaded MP3 a TikTok carousel ad plays. TikTok-only; `null` elsewhere and for non-carousel ads.
     """
 
     post_id: typing.Optional[str] = pydantic.Field(default=None)

@@ -4,11 +4,22 @@ import typing
 
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .list_methods_response_limits_standard_error_code import ListMethodsResponseLimitsStandardErrorCode
 
 
 class ListMethodsResponseLimitsStandard(UniversalBaseModel):
     """
     Caps for standard-speed payouts, which draw on settled funds only.
+    """
+
+    error_code: typing.Optional[ListMethodsResponseLimitsStandardErrorCode] = pydantic.Field(default=None)
+    """
+    Why a standard payout cannot move funds right now, or null when the cap is above 0.
+    """
+
+    error_message: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Human-readable form of error_code, or null when a standard payout can move funds.
     """
 
     max_amount: float = pydantic.Field()

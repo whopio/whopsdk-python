@@ -9,23 +9,29 @@ if typing.TYPE_CHECKING:
     from .types import (
         RetrieveBreakdownRequestBucket,
         RetrieveBreakdownRequestDirection,
+        RetrieveBreakdownRequestGroupBy,
         RetrieveBreakdownResponse,
         RetrieveBreakdownResponseActivityFilters,
         RetrieveBreakdownResponseActivityFiltersDirection,
         RetrieveBreakdownResponseBucket,
         RetrieveBreakdownResponseDirection,
         RetrieveBreakdownResponseItemsItem,
+        RetrieveBreakdownResponseItemsItemAvatar,
+        RetrieveBreakdownResponseItemsItemAvatarShape,
         RetrieveBreakdownResponseItemsItemObject,
     )
 _dynamic_imports: typing.Dict[str, str] = {
     "RetrieveBreakdownRequestBucket": ".types",
     "RetrieveBreakdownRequestDirection": ".types",
+    "RetrieveBreakdownRequestGroupBy": ".types",
     "RetrieveBreakdownResponse": ".types",
     "RetrieveBreakdownResponseActivityFilters": ".types",
     "RetrieveBreakdownResponseActivityFiltersDirection": ".types",
     "RetrieveBreakdownResponseBucket": ".types",
     "RetrieveBreakdownResponseDirection": ".types",
     "RetrieveBreakdownResponseItemsItem": ".types",
+    "RetrieveBreakdownResponseItemsItemAvatar": ".types",
+    "RetrieveBreakdownResponseItemsItemAvatarShape": ".types",
     "RetrieveBreakdownResponseItemsItemObject": ".types",
 }
 
@@ -54,11 +60,14 @@ def __dir__():
 __all__ = [
     "RetrieveBreakdownRequestBucket",
     "RetrieveBreakdownRequestDirection",
+    "RetrieveBreakdownRequestGroupBy",
     "RetrieveBreakdownResponse",
     "RetrieveBreakdownResponseActivityFilters",
     "RetrieveBreakdownResponseActivityFiltersDirection",
     "RetrieveBreakdownResponseBucket",
     "RetrieveBreakdownResponseDirection",
     "RetrieveBreakdownResponseItemsItem",
+    "RetrieveBreakdownResponseItemsItemAvatar",
+    "RetrieveBreakdownResponseItemsItemAvatarShape",
     "RetrieveBreakdownResponseItemsItemObject",
 ]

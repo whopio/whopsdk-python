@@ -8,6 +8,7 @@ from importlib import import_module
 if typing.TYPE_CHECKING:
     from .retrieve_breakdown_request_bucket import RetrieveBreakdownRequestBucket
     from .retrieve_breakdown_request_direction import RetrieveBreakdownRequestDirection
+    from .retrieve_breakdown_request_group_by import RetrieveBreakdownRequestGroupBy
     from .retrieve_breakdown_response import RetrieveBreakdownResponse
     from .retrieve_breakdown_response_activity_filters import RetrieveBreakdownResponseActivityFilters
     from .retrieve_breakdown_response_activity_filters_direction import (
@@ -16,16 +17,21 @@ if typing.TYPE_CHECKING:
     from .retrieve_breakdown_response_bucket import RetrieveBreakdownResponseBucket
     from .retrieve_breakdown_response_direction import RetrieveBreakdownResponseDirection
     from .retrieve_breakdown_response_items_item import RetrieveBreakdownResponseItemsItem
+    from .retrieve_breakdown_response_items_item_avatar import RetrieveBreakdownResponseItemsItemAvatar
+    from .retrieve_breakdown_response_items_item_avatar_shape import RetrieveBreakdownResponseItemsItemAvatarShape
     from .retrieve_breakdown_response_items_item_object import RetrieveBreakdownResponseItemsItemObject
 _dynamic_imports: typing.Dict[str, str] = {
     "RetrieveBreakdownRequestBucket": ".retrieve_breakdown_request_bucket",
     "RetrieveBreakdownRequestDirection": ".retrieve_breakdown_request_direction",
+    "RetrieveBreakdownRequestGroupBy": ".retrieve_breakdown_request_group_by",
     "RetrieveBreakdownResponse": ".retrieve_breakdown_response",
     "RetrieveBreakdownResponseActivityFilters": ".retrieve_breakdown_response_activity_filters",
     "RetrieveBreakdownResponseActivityFiltersDirection": ".retrieve_breakdown_response_activity_filters_direction",
     "RetrieveBreakdownResponseBucket": ".retrieve_breakdown_response_bucket",
     "RetrieveBreakdownResponseDirection": ".retrieve_breakdown_response_direction",
     "RetrieveBreakdownResponseItemsItem": ".retrieve_breakdown_response_items_item",
+    "RetrieveBreakdownResponseItemsItemAvatar": ".retrieve_breakdown_response_items_item_avatar",
+    "RetrieveBreakdownResponseItemsItemAvatarShape": ".retrieve_breakdown_response_items_item_avatar_shape",
     "RetrieveBreakdownResponseItemsItemObject": ".retrieve_breakdown_response_items_item_object",
 }
 
@@ -54,11 +60,14 @@ def __dir__():
 __all__ = [
     "RetrieveBreakdownRequestBucket",
     "RetrieveBreakdownRequestDirection",
+    "RetrieveBreakdownRequestGroupBy",
     "RetrieveBreakdownResponse",
     "RetrieveBreakdownResponseActivityFilters",
     "RetrieveBreakdownResponseActivityFiltersDirection",
     "RetrieveBreakdownResponseBucket",
     "RetrieveBreakdownResponseDirection",
     "RetrieveBreakdownResponseItemsItem",
+    "RetrieveBreakdownResponseItemsItemAvatar",
+    "RetrieveBreakdownResponseItemsItemAvatarShape",
     "RetrieveBreakdownResponseItemsItemObject",
 ]

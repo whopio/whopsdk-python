@@ -6,10 +6,10 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
-from ..types.direction import Direction
 from ..types.refund import Refund
-from ..types.refund_list_item import RefundListItem
 from .raw_client import AsyncRawRefundsClient, RawRefundsClient
+from .types.list_refunds_request_direction import ListRefundsRequestDirection
+from .types.list_refunds_request_order import ListRefundsRequestOrder
 from .types.list_refunds_response import ListRefundsResponse
 
 
@@ -31,87 +31,75 @@ class RefundsClient:
     def list(
         self,
         *,
-        after: typing.Optional[str] = None,
-        before: typing.Optional[str] = None,
-        first: typing.Optional[int] = None,
-        last: typing.Optional[int] = None,
+        account_id: typing.Optional[str] = None,
         payment_id: typing.Optional[str] = None,
-        company_id: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
-        direction: typing.Optional[Direction] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
+        order: typing.Optional[ListRefundsRequestOrder] = None,
+        direction: typing.Optional[ListRefundsRequestDirection] = None,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        last: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> SyncPager[RefundListItem, ListRefundsResponse]:
+    ) -> SyncPager[Refund, ListRefundsResponse]:
         """
-        Returns a paginated list of refunds, with optional filtering by payment, company, user, and creation date.
-
-        Required permissions:
-         - `payment:basic:read`
+        Lists refunds, newest first. Without filters this is every refund the caller can read; narrow it to one payment with `payment_id`, one account with `account_id`, or one buyer with `user_id`.
 
         Parameters
         ----------
-        after : typing.Optional[str]
-            Returns the elements in the list that come after the specified cursor.
-
-        before : typing.Optional[str]
-            Returns the elements in the list that come before the specified cursor.
-
-        first : typing.Optional[int]
-            Returns the first _n_ elements from the list.
-
-        last : typing.Optional[int]
-            Returns the last _n_ elements from the list.
+        account_id : typing.Optional[str]
+            Only refunds issued by this account, prefixed `biz_`.
 
         payment_id : typing.Optional[str]
-            Filter refunds to those associated with this specific payment. Mutually exclusive with company_id and user_id: provide exactly one.
-
-        company_id : typing.Optional[str]
-            Filter refunds to those belonging to this company. Mutually exclusive with payment_id and user_id: provide exactly one.
+            Only refunds of this payment, prefixed `pay_`.
 
         user_id : typing.Optional[str]
-            Filter refunds to those associated with this specific user. Mutually exclusive with payment_id and company_id: provide exactly one. Requires a credential belonging to that user; any other credential receives 'You are not authorized'.
-
-        direction : typing.Optional[Direction]
+            Only refunds to this buyer, prefixed `user_`.
 
         created_before : typing.Optional[dt.datetime]
-            Only return refunds created before this timestamp.
+            Only refunds requested before this ISO 8601 timestamp.
 
         created_after : typing.Optional[dt.datetime]
-            Only return refunds created after this timestamp.
+            Only refunds requested after this ISO 8601 timestamp.
+
+        order : typing.Optional[ListRefundsRequestOrder]
+            The field to sort by.
+
+        direction : typing.Optional[ListRefundsRequestDirection]
+            The sort direction.
+
+        first : typing.Optional[int]
+            The number of refunds to return.
+
+        after : typing.Optional[str]
+            A cursor; returns refunds after this position.
+
+        last : typing.Optional[int]
+            The number of refunds to return from the end of the range.
+
+        before : typing.Optional[str]
+            A cursor; returns refunds before this position.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        SyncPager[RefundListItem, ListRefundsResponse]
-            A successful response
+        SyncPager[Refund, ListRefundsResponse]
+            refunds listed
 
         Examples
         --------
-        import datetime
-
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
-        response = client.refunds.list(
-            first=42,
-            last=42,
-            payment_id="pay_xxxxxxxxxxxxxx",
-            company_id="biz_xxxxxxxxxxxxxx",
-            user_id="user_xxxxxxxxxxxxx",
-            created_before=datetime.datetime.fromisoformat(
-                "2023-12-01 05:00:00+00:00",
-            ),
-            created_after=datetime.datetime.fromisoformat(
-                "2023-12-01 05:00:00+00:00",
-            ),
-        )
+        response = client.refunds.list()
         for item in response:
             yield item
         # alternatively, you can paginate page-by-page
@@ -119,35 +107,28 @@ class RefundsClient:
             yield page
         """
         return self._raw_client.list(
-            after=after,
-            before=before,
-            first=first,
-            last=last,
+            account_id=account_id,
             payment_id=payment_id,
-            company_id=company_id,
             user_id=user_id,
-            direction=direction,
             created_before=created_before,
             created_after=created_after,
+            order=order,
+            direction=direction,
+            first=first,
+            after=after,
+            last=last,
+            before=before,
             request_options=request_options,
         )
 
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Refund:
         """
-        Retrieves the details of an existing refund.
-
-        Required permissions:
-         - `payment:basic:read`
-         - `plan:basic:read`
-         - `access_pass:basic:read`
-         - `member:email:read`
-         - `member:basic:read`
-         - `member:phone:read`
+        Returns one refund.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the refund.
+            The refund to retrieve, prefixed `rf_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -155,19 +136,19 @@ class RefundsClient:
         Returns
         -------
         Refund
-            A successful response
+            refund retrieved
 
         Examples
         --------
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.refunds.retrieve(
-            id="rf_xxxxxxxxxxxxxxx",
+            id="id",
         )
         """
         _response = self._raw_client.retrieve(id, request_options=request_options)
@@ -192,91 +173,80 @@ class AsyncRefundsClient:
     async def list(
         self,
         *,
-        after: typing.Optional[str] = None,
-        before: typing.Optional[str] = None,
-        first: typing.Optional[int] = None,
-        last: typing.Optional[int] = None,
+        account_id: typing.Optional[str] = None,
         payment_id: typing.Optional[str] = None,
-        company_id: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
-        direction: typing.Optional[Direction] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
+        order: typing.Optional[ListRefundsRequestOrder] = None,
+        direction: typing.Optional[ListRefundsRequestDirection] = None,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        last: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncPager[RefundListItem, ListRefundsResponse]:
+    ) -> AsyncPager[Refund, ListRefundsResponse]:
         """
-        Returns a paginated list of refunds, with optional filtering by payment, company, user, and creation date.
-
-        Required permissions:
-         - `payment:basic:read`
+        Lists refunds, newest first. Without filters this is every refund the caller can read; narrow it to one payment with `payment_id`, one account with `account_id`, or one buyer with `user_id`.
 
         Parameters
         ----------
-        after : typing.Optional[str]
-            Returns the elements in the list that come after the specified cursor.
-
-        before : typing.Optional[str]
-            Returns the elements in the list that come before the specified cursor.
-
-        first : typing.Optional[int]
-            Returns the first _n_ elements from the list.
-
-        last : typing.Optional[int]
-            Returns the last _n_ elements from the list.
+        account_id : typing.Optional[str]
+            Only refunds issued by this account, prefixed `biz_`.
 
         payment_id : typing.Optional[str]
-            Filter refunds to those associated with this specific payment. Mutually exclusive with company_id and user_id: provide exactly one.
-
-        company_id : typing.Optional[str]
-            Filter refunds to those belonging to this company. Mutually exclusive with payment_id and user_id: provide exactly one.
+            Only refunds of this payment, prefixed `pay_`.
 
         user_id : typing.Optional[str]
-            Filter refunds to those associated with this specific user. Mutually exclusive with payment_id and company_id: provide exactly one. Requires a credential belonging to that user; any other credential receives 'You are not authorized'.
-
-        direction : typing.Optional[Direction]
+            Only refunds to this buyer, prefixed `user_`.
 
         created_before : typing.Optional[dt.datetime]
-            Only return refunds created before this timestamp.
+            Only refunds requested before this ISO 8601 timestamp.
 
         created_after : typing.Optional[dt.datetime]
-            Only return refunds created after this timestamp.
+            Only refunds requested after this ISO 8601 timestamp.
+
+        order : typing.Optional[ListRefundsRequestOrder]
+            The field to sort by.
+
+        direction : typing.Optional[ListRefundsRequestDirection]
+            The sort direction.
+
+        first : typing.Optional[int]
+            The number of refunds to return.
+
+        after : typing.Optional[str]
+            A cursor; returns refunds after this position.
+
+        last : typing.Optional[int]
+            The number of refunds to return from the end of the range.
+
+        before : typing.Optional[str]
+            A cursor; returns refunds before this position.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncPager[RefundListItem, ListRefundsResponse]
-            A successful response
+        AsyncPager[Refund, ListRefundsResponse]
+            refunds listed
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
 
 
         async def main() -> None:
-            response = await client.refunds.list(
-                first=42,
-                last=42,
-                payment_id="pay_xxxxxxxxxxxxxx",
-                company_id="biz_xxxxxxxxxxxxxx",
-                user_id="user_xxxxxxxxxxxxx",
-                created_before=datetime.datetime.fromisoformat(
-                    "2023-12-01 05:00:00+00:00",
-                ),
-                created_after=datetime.datetime.fromisoformat(
-                    "2023-12-01 05:00:00+00:00",
-                ),
-            )
+            response = await client.refunds.list()
             async for item in response:
                 yield item
 
@@ -288,35 +258,28 @@ class AsyncRefundsClient:
         asyncio.run(main())
         """
         return await self._raw_client.list(
-            after=after,
-            before=before,
-            first=first,
-            last=last,
+            account_id=account_id,
             payment_id=payment_id,
-            company_id=company_id,
             user_id=user_id,
-            direction=direction,
             created_before=created_before,
             created_after=created_after,
+            order=order,
+            direction=direction,
+            first=first,
+            after=after,
+            last=last,
+            before=before,
             request_options=request_options,
         )
 
     async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Refund:
         """
-        Retrieves the details of an existing refund.
-
-        Required permissions:
-         - `payment:basic:read`
-         - `plan:basic:read`
-         - `access_pass:basic:read`
-         - `member:email:read`
-         - `member:basic:read`
-         - `member:phone:read`
+        Returns one refund.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the refund.
+            The refund to retrieve, prefixed `rf_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -324,7 +287,7 @@ class AsyncRefundsClient:
         Returns
         -------
         Refund
-            A successful response
+            refund retrieved
 
         Examples
         --------
@@ -333,7 +296,7 @@ class AsyncRefundsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-08-25-2",
+            "2026-09-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -341,7 +304,7 @@ class AsyncRefundsClient:
 
         async def main() -> None:
             await client.refunds.retrieve(
-                id="rf_xxxxxxxxxxxxxxx",
+                id="id",
             )
 
 

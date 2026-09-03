@@ -144,6 +144,7 @@ class App(UniversalBaseModel):
     A short-lived signed pass scoping the caller to this app's gated preview hosts — every build preview and the live dev-server sandbox. Add it to a preview host as the `__whop_preview` query param (or `x-whop-preview-token` header). `null` unless the caller is a team member who can read the app's developer settings.
     """
 
+    previous_hosted_urls: typing.List[str]
     product_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     ID of the app's product listing on the Whop app store, or `null` when the app has no associated product.

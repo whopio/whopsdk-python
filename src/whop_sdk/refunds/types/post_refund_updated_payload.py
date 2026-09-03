@@ -5,7 +5,7 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ...types.refund import Refund
+from ...types.refund_legacy import RefundLegacy
 from .post_refund_updated_payload_api_version import PostRefundUpdatedPayloadApiVersion
 from .post_refund_updated_payload_type import PostRefundUpdatedPayloadType
 
@@ -26,7 +26,7 @@ class PostRefundUpdatedPayload(UniversalBaseModel):
     The dated API version (Api-Version-Date) the payload is serialized to
     """
 
-    data: Refund
+    data: RefundLegacy
     id: str = pydantic.Field()
     """
     A unique ID for every single webhook request

@@ -4,24 +4,13 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ...types.page_info import PageInfo
-from ...types.refund_list_item import RefundListItem
+from ...types.refund import Refund
+from .list_refunds_response_page_info import ListRefundsResponsePageInfo
 
 
 class ListRefundsResponse(UniversalBaseModel):
-    """
-    The connection type for Refund.
-    """
-
-    data: typing.List[RefundListItem] = pydantic.Field()
-    """
-    A list of nodes.
-    """
-
-    page_info: PageInfo = pydantic.Field()
-    """
-    Information to aid in pagination.
-    """
+    data: typing.List[Refund]
+    page_info: ListRefundsResponsePageInfo
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

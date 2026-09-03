@@ -7,28 +7,24 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class PaymentVerificationChecks(UniversalBaseModel):
-    """
-    The issuer's address and card security code check results for this payment. Null when the processor returned none.
-    """
-
     address_line1: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Whether the billing street address the customer entered matched the address the issuer has on file.
+    Whether the billing street address the customer entered matched the issuer's records.
     """
 
     card_holder_name: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Whether the cardholder name the customer entered matched the name the issuer has on file.
+    Whether the cardholder name matched the issuer's records.
     """
 
     card_security_code: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Whether the CVV / CVC the customer entered matched the card.
+    Whether the CVV / CVC matched the card.
     """
 
     zip_code: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Whether the billing postal code the customer entered matched the postal code the issuer has on file.
+    Whether the billing postal code matched the issuer's records.
     """
 
     if IS_PYDANTIC_V2:

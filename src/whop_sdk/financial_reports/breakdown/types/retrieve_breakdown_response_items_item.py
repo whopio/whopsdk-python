@@ -5,11 +5,17 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ....types.money import Money
+from .retrieve_breakdown_response_items_item_avatar import RetrieveBreakdownResponseItemsItemAvatar
 from .retrieve_breakdown_response_items_item_object import RetrieveBreakdownResponseItemsItemObject
 
 
 class RetrieveBreakdownResponseItemsItem(UniversalBaseModel):
     amount: Money
+    avatar: typing.Optional[RetrieveBreakdownResponseItemsItemAvatar] = pydantic.Field(default=None)
+    """
+    How to draw the row's icon. `null` when the row has nothing to show (balances, adjustments, ad campaigns), so clients render no icon rather than a placeholder.
+    """
+
     image_url: typing.Optional[str] = None
     key: str = pydantic.Field()
     """

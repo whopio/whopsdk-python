@@ -48,6 +48,11 @@ class LedgerAccount(UniversalBaseModel):
     The payout account associated with the LedgerAccount, if any.
     """
 
+    payout_quote_required: bool = pydantic.Field()
+    """
+    Whether a payout from this account must be confirmed against a provider-backed quote first. When true, create a quote with POST /payouts/quotes and send its quote_token when creating the payout.
+    """
+
     settlement_time_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The settlement batch most recently posted to this account's available balance, at midnight UTC. Every payment settling in that batch carries the same `settlement_time_at`.

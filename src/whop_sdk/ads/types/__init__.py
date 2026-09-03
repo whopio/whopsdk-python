@@ -32,6 +32,7 @@ if typing.TYPE_CHECKING:
     )
     from .create_ads_request_lead_form_questions_item_type import CreateAdsRequestLeadFormQuestionsItemType
     from .create_ads_request_messaging_config import CreateAdsRequestMessagingConfig
+    from .create_ads_request_music import CreateAdsRequestMusic
     from .create_ads_request_post_source import CreateAdsRequestPostSource
     from .create_ads_request_social_accounts_item import CreateAdsRequestSocialAccountsItem
     from .delete_ads_response import DeleteAdsResponse
@@ -69,6 +70,7 @@ if typing.TYPE_CHECKING:
     )
     from .update_ads_request_lead_form_questions_item_type import UpdateAdsRequestLeadFormQuestionsItemType
     from .update_ads_request_messaging_config import UpdateAdsRequestMessagingConfig
+    from .update_ads_request_music import UpdateAdsRequestMusic
     from .update_ads_request_post_source import UpdateAdsRequestPostSource
     from .update_ads_request_social_accounts_item import UpdateAdsRequestSocialAccountsItem
 _dynamic_imports: typing.Dict[str, str] = {
@@ -90,6 +92,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateAdsRequestLeadFormQuestionsItemOptionsItemLogicAction": ".create_ads_request_lead_form_questions_item_options_item_logic_action",
     "CreateAdsRequestLeadFormQuestionsItemType": ".create_ads_request_lead_form_questions_item_type",
     "CreateAdsRequestMessagingConfig": ".create_ads_request_messaging_config",
+    "CreateAdsRequestMusic": ".create_ads_request_music",
     "CreateAdsRequestPostSource": ".create_ads_request_post_source",
     "CreateAdsRequestSocialAccountsItem": ".create_ads_request_social_accounts_item",
     "DeleteAdsResponse": ".delete_ads_response",
@@ -119,6 +122,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateAdsRequestLeadFormQuestionsItemOptionsItemLogicAction": ".update_ads_request_lead_form_questions_item_options_item_logic_action",
     "UpdateAdsRequestLeadFormQuestionsItemType": ".update_ads_request_lead_form_questions_item_type",
     "UpdateAdsRequestMessagingConfig": ".update_ads_request_messaging_config",
+    "UpdateAdsRequestMusic": ".update_ads_request_music",
     "UpdateAdsRequestPostSource": ".update_ads_request_post_source",
     "UpdateAdsRequestSocialAccountsItem": ".update_ads_request_social_accounts_item",
 }
@@ -164,6 +168,7 @@ __all__ = [
     "CreateAdsRequestLeadFormQuestionsItemOptionsItemLogicAction",
     "CreateAdsRequestLeadFormQuestionsItemType",
     "CreateAdsRequestMessagingConfig",
+    "CreateAdsRequestMusic",
     "CreateAdsRequestPostSource",
     "CreateAdsRequestSocialAccountsItem",
     "DeleteAdsResponse",
@@ -193,6 +198,7 @@ __all__ = [
     "UpdateAdsRequestLeadFormQuestionsItemOptionsItemLogicAction",
     "UpdateAdsRequestLeadFormQuestionsItemType",
     "UpdateAdsRequestMessagingConfig",
+    "UpdateAdsRequestMusic",
     "UpdateAdsRequestPostSource",
     "UpdateAdsRequestSocialAccountsItem",
 ]

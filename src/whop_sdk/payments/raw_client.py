@@ -13,31 +13,20 @@ from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
-from ..core.serialization import convert_and_respect_annotation_metadata
 from ..errors.bad_request_error import BadRequestError
 from ..errors.conflict_error import ConflictError
 from ..errors.forbidden_error import ForbiddenError
-from ..errors.internal_server_error import InternalServerError
 from ..errors.not_found_error import NotFoundError
-from ..errors.too_many_requests_error import TooManyRequestsError
 from ..errors.unauthorized_error import UnauthorizedError
-from ..errors.unprocessable_entity_error import UnprocessableEntityError
-from ..types.billing_reasons import BillingReasons
-from ..types.currencies import Currencies
-from ..types.direction import Direction
-from ..types.friendly_receipt_status import FriendlyReceiptStatus
 from ..types.payment import Payment
-from ..types.payment_list_item import PaymentListItem
 from ..types.payment_status import PaymentStatus
-from ..types.receipt_status import ReceiptStatus
-from ..types.receipt_v2order import ReceiptV2Order
 from ..types.v1error_response import V1ErrorResponse
-from .types.create_payments_request import CreatePaymentsRequest
-from .types.create_payments_response import CreatePaymentsResponse
 from .types.list_fees_payments_response import ListFeesPaymentsResponse
-from .types.list_fees_payments_response_data_item import ListFeesPaymentsResponseDataItem
+from .types.list_payments_request_billing_reason import ListPaymentsRequestBillingReason
+from .types.list_payments_request_direction import ListPaymentsRequestDirection
+from .types.list_payments_request_order import ListPaymentsRequestOrder
+from .types.list_payments_request_status import ListPaymentsRequestStatus
 from .types.list_payments_response import ListPaymentsResponse
-from .types.retrieve_payments_response import RetrievePaymentsResponse
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -51,135 +40,115 @@ class RawPaymentsClient:
     def list(
         self,
         *,
-        after: typing.Optional[str] = None,
-        before: typing.Optional[str] = None,
-        first: typing.Optional[int] = None,
-        last: typing.Optional[int] = None,
-        company_id: typing.Optional[str] = None,
-        direction: typing.Optional[Direction] = None,
-        order: typing.Optional[ReceiptV2Order] = None,
-        product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        billing_reasons: typing.Optional[typing.Union[BillingReasons, typing.Sequence[BillingReasons]]] = None,
-        currencies: typing.Optional[typing.Union[Currencies, typing.Sequence[Currencies]]] = None,
-        plan_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        statuses: typing.Optional[typing.Union[ReceiptStatus, typing.Sequence[ReceiptStatus]]] = None,
-        substatuses: typing.Optional[
-            typing.Union[FriendlyReceiptStatus, typing.Sequence[FriendlyReceiptStatus]]
-        ] = None,
-        include_free: typing.Optional[bool] = None,
+        account_id: typing.Optional[str] = None,
+        status: typing.Optional[ListPaymentsRequestStatus] = None,
+        billing_reason: typing.Optional[ListPaymentsRequestBillingReason] = None,
+        currency: typing.Optional[str] = None,
+        user_id: typing.Optional[str] = None,
+        query: typing.Optional[str] = None,
+        member_id: typing.Optional[str] = None,
+        membership_id: typing.Optional[str] = None,
+        product_id: typing.Optional[str] = None,
+        plan_id: typing.Optional[str] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
-        updated_before: typing.Optional[dt.datetime] = None,
-        updated_after: typing.Optional[dt.datetime] = None,
-        query: typing.Optional[str] = None,
-        checkout_configuration_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        order: typing.Optional[ListPaymentsRequestOrder] = None,
+        direction: typing.Optional[ListPaymentsRequestDirection] = None,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        last: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> SyncPager[PaymentListItem, ListPaymentsResponse]:
+    ) -> SyncPager[Payment, ListPaymentsResponse]:
         """
-        Returns a paginated list of payments for the actor in context, with optional filtering by product, plan, status, billing reason, currency, and creation date.
-
-        Required permissions:
-         - `payment:basic:read`
-         - `plan:basic:read`
-         - `access_pass:basic:read`
-         - `member:email:read`
-         - `member:basic:read`
-         - `member:phone:read`
-         - `promo_code:basic:read`
-         - `shipment:basic:read`
+        Lists payments, newest first. Without filters this is every payment the caller can read: a company credential's own account, or for a user every account they can read payments for. Filters narrow by account, buyer, product, plan, membership, status, billing reason, currency, and creation window. Filtering by `billing_reason=subscription_cycle` also matches renewals recorded as `subscription_update`. `settlement_time_at` is null on list rows — retrieve the payment for it.
 
         Parameters
         ----------
-        after : typing.Optional[str]
-            Returns the elements in the list that come after the specified cursor.
+        account_id : typing.Optional[str]
+            Only payments charged by this account, prefixed `biz_`.
 
-        before : typing.Optional[str]
-            Returns the elements in the list that come before the specified cursor.
+        status : typing.Optional[ListPaymentsRequestStatus]
+            Only payments in this lifecycle state.
 
-        first : typing.Optional[int]
-            Returns the first _n_ elements from the list.
+        billing_reason : typing.Optional[ListPaymentsRequestBillingReason]
+            Only payments charged for this reason.
 
-        last : typing.Optional[int]
-            Returns the last _n_ elements from the list.
+        currency : typing.Optional[str]
+            Only payments presented in this three-letter currency, such as `usd`.
 
-        company_id : typing.Optional[str]
-            The unique identifier of the company to list payments for.
-
-        direction : typing.Optional[Direction]
-
-        order : typing.Optional[ReceiptV2Order]
-
-        product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Filter payments to only those associated with these specific product identifiers.
-
-        billing_reasons : typing.Optional[typing.Union[BillingReasons, typing.Sequence[BillingReasons]]]
-            Filter payments by their billing reason.
-
-        currencies : typing.Optional[typing.Union[Currencies, typing.Sequence[Currencies]]]
-            Filter payments by their currency code.
-
-        plan_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Filter payments to only those associated with these specific plan identifiers.
-
-        statuses : typing.Optional[typing.Union[ReceiptStatus, typing.Sequence[ReceiptStatus]]]
-            Filter payments by their current status.
-
-        substatuses : typing.Optional[typing.Union[FriendlyReceiptStatus, typing.Sequence[FriendlyReceiptStatus]]]
-            Filter payments by their current substatus for more granular filtering.
-
-        include_free : typing.Optional[bool]
-            Whether to include payments with a zero amount. Defaults to false, so zero-amount payments are omitted unless you set this to true — a company whose sales are all free plans returns an empty list without it.
-
-        created_before : typing.Optional[dt.datetime]
-            Only return payments created before this timestamp.
-
-        created_after : typing.Optional[dt.datetime]
-            Only return payments created after this timestamp.
-
-        updated_before : typing.Optional[dt.datetime]
-            Only return payments last updated before this timestamp.
-
-        updated_after : typing.Optional[dt.datetime]
-            Only return payments last updated after this timestamp.
+        user_id : typing.Optional[str]
+            Only payments made by this buyer, prefixed `user_`.
 
         query : typing.Optional[str]
             Search payments by user ID, membership ID, user email, name, or username. Email filtering requires the member:email:read permission.
 
-        checkout_configuration_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Only return payments from these checkout configurations.
+        member_id : typing.Optional[str]
+            Only payments made by this member, prefixed `mber_`.
+
+        membership_id : typing.Optional[str]
+            Only payments billed under this membership, prefixed `mem_`.
+
+        product_id : typing.Optional[str]
+            Only payments for this product, prefixed `prod_`.
+
+        plan_id : typing.Optional[str]
+            Only payments priced by this plan, prefixed `plan_`.
+
+        created_before : typing.Optional[dt.datetime]
+            Only payments created before this ISO 8601 timestamp.
+
+        created_after : typing.Optional[dt.datetime]
+            Only payments created after this ISO 8601 timestamp.
+
+        order : typing.Optional[ListPaymentsRequestOrder]
+            The field to sort by.
+
+        direction : typing.Optional[ListPaymentsRequestDirection]
+            The sort direction.
+
+        first : typing.Optional[int]
+            The number of payments to return.
+
+        after : typing.Optional[str]
+            A cursor; returns payments after this position.
+
+        last : typing.Optional[int]
+            The number of payments to return from the end of the range.
+
+        before : typing.Optional[str]
+            A cursor; returns payments before this position.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        SyncPager[PaymentListItem, ListPaymentsResponse]
-            A successful response
+        SyncPager[Payment, ListPaymentsResponse]
+            payments listed
         """
         _response = self._client_wrapper.httpx_client.request(
             "payments",
             method="GET",
             params={
-                "after": after,
-                "before": before,
-                "first": first,
-                "last": last,
-                "company_id": company_id,
-                "direction": direction,
-                "order": order,
-                "product_ids": product_ids,
-                "billing_reasons": billing_reasons,
-                "currencies": currencies,
-                "plan_ids": plan_ids,
-                "statuses": statuses,
-                "substatuses": substatuses,
-                "include_free": include_free,
+                "account_id": account_id,
+                "status": status,
+                "billing_reason": billing_reason,
+                "currency": currency,
+                "user_id": user_id,
+                "query": query,
+                "member_id": member_id,
+                "membership_id": membership_id,
+                "product_id": product_id,
+                "plan_id": plan_id,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "updated_before": serialize_datetime(updated_before) if updated_before is not None else None,
-                "updated_after": serialize_datetime(updated_after) if updated_after is not None else None,
-                "query": query,
-                "checkout_configuration_ids": checkout_configuration_ids,
+                "order": order,
+                "direction": direction,
+                "first": first,
+                "after": after,
+                "last": last,
+                "before": before,
             },
             request_options=request_options,
         )
@@ -199,26 +168,24 @@ class RawPaymentsClient:
                     _parsed_next = _parsed_response.page_info.end_cursor
                     _has_next = _parsed_next is not None and _parsed_next != ""
                     _get_next = lambda: self.list(
-                        after=_parsed_next,
-                        before=before,
-                        first=first,
-                        last=last,
-                        company_id=company_id,
-                        direction=direction,
-                        order=order,
-                        product_ids=product_ids,
-                        billing_reasons=billing_reasons,
-                        currencies=currencies,
-                        plan_ids=plan_ids,
-                        statuses=statuses,
-                        substatuses=substatuses,
-                        include_free=include_free,
+                        account_id=account_id,
+                        status=status,
+                        billing_reason=billing_reason,
+                        currency=currency,
+                        user_id=user_id,
+                        query=query,
+                        member_id=member_id,
+                        membership_id=membership_id,
+                        product_id=product_id,
+                        plan_id=plan_id,
                         created_before=created_before,
                         created_after=created_after,
-                        updated_before=updated_before,
-                        updated_after=updated_after,
-                        query=query,
-                        checkout_configuration_ids=checkout_configuration_ids,
+                        order=order,
+                        direction=direction,
+                        first=first,
+                        after=_parsed_next,
+                        last=last,
+                        before=before,
                         request_options=request_options,
                     )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
@@ -244,61 +211,6 @@ class RawPaymentsClient:
                         ),
                     ),
                 )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -309,44 +221,78 @@ class RawPaymentsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def create(
-        self, *, request: CreatePaymentsRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[CreatePaymentsResponse]:
+        self,
+        *,
+        account_id: str,
+        plan_id: str,
+        capture: typing.Optional[bool] = OMIT,
+        confirmation_token: typing.Optional[str] = OMIT,
+        email: typing.Optional[str] = OMIT,
+        member_id: typing.Optional[str] = OMIT,
+        metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
+        payment_method_id: typing.Optional[str] = OMIT,
+        promo_code_id: typing.Optional[str] = OMIT,
+        return_url: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[Payment]:
         """
-        Charge a buyer on-session with a `confirmation_token` for the method they selected, or charge an existing member off-session using a stored payment method. You can provide an existing plan or create one inline. The endpoint returns a payment immediately, but processing continues asynchronously. Use webhooks to learn whether it succeeds or fails, and poll the payment's status endpoint for any step the buyer must complete.
-
-        Required permissions:
-         - `payment:charge`
-         - `plan:create`
-         - `access_pass:create`
-         - `access_pass:update`
-         - `plan:basic:read`
-         - `access_pass:basic:read`
-         - `member:email:read`
-         - `member:basic:read`
-         - `member:phone:read`
-         - `promo_code:basic:read`
-         - `shipment:basic:read`
-         - `payment:dispute:read`
-         - `payment:resolution_center_case:read`
+        Charges a buyer for a plan. Pass a payment method already on file (`member_id` and `payment_method_id`), or a `confirmation_token` describing a method the buyer just supplied. Collection runs in the background: the response is the payment as created, not its outcome — poll Retrieve status for how far it has got and, for a confirmation-token payment, what the buyer must still do. `plan_id` names the plan to charge for.
 
         Parameters
         ----------
-        request : CreatePaymentsRequest
+        account_id : str
+            The account to charge for, prefixed `biz_`.
+
+        plan_id : str
+            The plan to charge for, prefixed `plan_`. It must belong to the account.
+
+        capture : typing.Optional[bool]
+            Whether to capture a card payment immediately. Defaults to true. Pass false to place an authorization hold that must be captured in full within five days via the capture endpoint.
+
+        confirmation_token : typing.Optional[str]
+            A confirmation token describing a payment method the buyer just supplied. Provide this instead of `member_id` and `payment_method_id`; the buyer is resolved from the token's billing email, or from `email`. The buyer may still have a step to complete — poll the payment's status for what to do next.
+
+        email : typing.Optional[str]
+            Overrides the buyer email carried on the confirmation token, resolving or creating the user the payment belongs to. Ignored unless `confirmation_token` is provided, and when the token was created by a signed-in buyer.
+
+        member_id : typing.Optional[str]
+            The member to charge, prefixed `mber_`. Required with `payment_method_id` unless `confirmation_token` is provided.
+
+        metadata : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Custom metadata to attach to the payment.
+
+        payment_method_id : typing.Optional[str]
+            The stored payment method to charge, prefixed `payt_`. It must belong to the member. Required unless `confirmation_token` is provided.
+
+        promo_code_id : typing.Optional[str]
+            An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the plan.
+
+        return_url : typing.Optional[str]
+            Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters. Ignored unless `confirmation_token` is provided.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[CreatePaymentsResponse]
-            A successful response
+        HttpResponse[Payment]
+            payment created from a stored payment method
         """
         _response = self._client_wrapper.httpx_client.request(
             "payments",
             method="POST",
-            json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=CreatePaymentsRequest, direction="write"
-            ),
+            json={
+                "account_id": account_id,
+                "capture": capture,
+                "confirmation_token": confirmation_token,
+                "email": email,
+                "member_id": member_id,
+                "metadata": metadata,
+                "payment_method_id": payment_method_id,
+                "plan_id": plan_id,
+                "promo_code_id": promo_code_id,
+                "return_url": return_url,
+            },
             headers={
                 "content-type": "application/json",
             },
@@ -356,9 +302,9 @@ class RawPaymentsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    CreatePaymentsResponse,
+                    Payment,
                     parse_obj_as(
-                        type_=CreatePaymentsResponse,  # type: ignore
+                        type_=Payment,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -407,35 +353,13 @@ class RawPaymentsClient:
                         ),
                     ),
                 )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
+            if _response.status_code == 409:
+                raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        V1ErrorResponse,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=V1ErrorResponse,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -449,36 +373,22 @@ class RawPaymentsClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def retrieve(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[RetrievePaymentsResponse]:
+    def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[Payment]:
         """
-        Retrieves the details of an existing payment.
-
-        Required permissions:
-         - `payment:basic:read`
-         - `plan:basic:read`
-         - `access_pass:basic:read`
-         - `member:email:read`
-         - `member:basic:read`
-         - `member:phone:read`
-         - `promo_code:basic:read`
-         - `shipment:basic:read`
-         - `payment:dispute:read`
-         - `payment:resolution_center_case:read`
+        Returns one payment. Related records are ids — resolve a plan, membership, member or shipment on its own endpoint, and list this payment's refunds, disputes or Resolution Center cases with `?payment_id=`.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the payment.
+            The payment to retrieve, prefixed `pay_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        HttpResponse[RetrievePaymentsResponse]
-            A successful response
+        HttpResponse[Payment]
+            payment retrieved
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(id)}",
@@ -488,24 +398,13 @@ class RawPaymentsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    RetrievePaymentsResponse,
+                    Payment,
                     parse_obj_as(
-                        type_=RetrievePaymentsResponse,  # type: ignore
+                        type_=Payment,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
@@ -530,39 +429,6 @@ class RawPaymentsClient:
                 )
             if _response.status_code == 404:
                 raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -669,92 +535,39 @@ class RawPaymentsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def list_fees(
-        self,
-        id: str,
-        *,
-        after: typing.Optional[str] = None,
-        before: typing.Optional[str] = None,
-        first: typing.Optional[int] = None,
-        last: typing.Optional[int] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> SyncPager[ListFeesPaymentsResponseDataItem, ListFeesPaymentsResponse]:
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[ListFeesPaymentsResponse]:
         """
-        Returns the list of fees associated with a specific payment, including platform fees and processing fees.
-
-        Required permissions:
-         - `payment:basic:read`
+        Returns the fee breakdown of one payment — Whop's fee, processing, affiliate and other lines — each in the currency it was collected in and converted to the payment's settlement currency. The list is complete in one page.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the payment to list fees for.
-
-        after : typing.Optional[str]
-            Returns the elements in the list that come after the specified cursor.
-
-        before : typing.Optional[str]
-            Returns the elements in the list that come before the specified cursor.
-
-        first : typing.Optional[int]
-            Returns the first _n_ elements from the list.
-
-        last : typing.Optional[int]
-            Returns the last _n_ elements from the list.
+            The payment whose fees to list, prefixed `pay_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        SyncPager[ListFeesPaymentsResponseDataItem, ListFeesPaymentsResponse]
-            A successful response
+        HttpResponse[ListFeesPaymentsResponse]
+            fees listed
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(id)}/fees",
             method="GET",
-            params={
-                "after": after,
-                "before": before,
-                "first": first,
-                "last": last,
-            },
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
-                _parsed_response = typing.cast(
+                _data = typing.cast(
                     ListFeesPaymentsResponse,
                     parse_obj_as(
                         type_=ListFeesPaymentsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                _items = _parsed_response.data
-                _has_next = False
-                _get_next = None
-                if _parsed_response.page_info is not None:
-                    _parsed_next = _parsed_response.page_info.end_cursor
-                    _has_next = _parsed_next is not None and _parsed_next != ""
-                    _get_next = lambda: self.list_fees(
-                        id,
-                        after=_parsed_next,
-                        before=before,
-                        first=first,
-                        last=last,
-                        request_options=request_options,
-                    )
-                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
+                return HttpResponse(response=_response, data=_data)
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
@@ -766,52 +579,8 @@ class RawPaymentsClient:
                         ),
                     ),
                 )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             if _response.status_code == 404:
                 raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -838,24 +607,12 @@ class RawPaymentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Payment]:
         """
-        Issue a full or partial refund for a payment. The refund is processed through the original payment processor and the membership status is updated accordingly.
-
-        Required permissions:
-         - `payment:manage`
-         - `plan:basic:read`
-         - `access_pass:basic:read`
-         - `member:email:read`
-         - `member:basic:read`
-         - `member:phone:read`
-         - `promo_code:basic:read`
-         - `shipment:basic:read`
-         - `payment:dispute:read`
-         - `payment:resolution_center_case:read`
+        Issues a full or partial refund for a payment. The refund is processed through the original payment processor and the membership status is updated accordingly.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the payment to refund.
+            The payment to refund, prefixed `pay_`.
 
         partial_amount : typing.Optional[float]
             The amount to refund. For multi-currency payments, this is in the charge currency (what the buyer paid). For single-currency, this is in the payment currency. If omitted, the full payment amount is refunded.
@@ -866,7 +623,7 @@ class RawPaymentsClient:
         Returns
         -------
         HttpResponse[Payment]
-            A successful response
+            payment refunded
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(id)}/refund",
@@ -934,35 +691,13 @@ class RawPaymentsClient:
                         ),
                     ),
                 )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
+            if _response.status_code == 409:
+                raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        V1ErrorResponse,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=V1ErrorResponse,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -978,24 +713,12 @@ class RawPaymentsClient:
 
     def retry(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[Payment]:
         """
-        Retry a failed or pending payment. This re-attempts the charge using the original payment method and plan details.
-
-        Required permissions:
-         - `payment:manage`
-         - `plan:basic:read`
-         - `access_pass:basic:read`
-         - `member:email:read`
-         - `member:basic:read`
-         - `member:phone:read`
-         - `promo_code:basic:read`
-         - `shipment:basic:read`
-         - `payment:dispute:read`
-         - `payment:resolution_center_case:read`
+        Retries a failed or pending payment. This re-attempts the charge using the original payment method and plan details.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the payment to retry.
+            The payment to retry, prefixed `pay_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1003,7 +726,7 @@ class RawPaymentsClient:
         Returns
         -------
         HttpResponse[Payment]
-            A successful response
+            payment retried
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(id)}/retry",
@@ -1020,30 +743,8 @@ class RawPaymentsClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1064,35 +765,13 @@ class RawPaymentsClient:
                         ),
                     ),
                 )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
+            if _response.status_code == 409:
+                raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        V1ErrorResponse,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=V1ErrorResponse,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1108,24 +787,12 @@ class RawPaymentsClient:
 
     def void(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[Payment]:
         """
-        Void a payment that has not yet been settled. Voiding cancels the payment before it is captured by the payment processor.
-
-        Required permissions:
-         - `payment:manage`
-         - `plan:basic:read`
-         - `access_pass:basic:read`
-         - `member:email:read`
-         - `member:basic:read`
-         - `member:phone:read`
-         - `promo_code:basic:read`
-         - `shipment:basic:read`
-         - `payment:dispute:read`
-         - `payment:resolution_center_case:read`
+        Voids a payment that has not yet been settled. Voiding cancels the payment before it is captured by the payment processor.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the payment to void.
+            The payment to void, prefixed `pay_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1133,7 +800,7 @@ class RawPaymentsClient:
         Returns
         -------
         HttpResponse[Payment]
-            A successful response
+            payment voided
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(id)}/void",
@@ -1150,30 +817,8 @@ class RawPaymentsClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1194,35 +839,13 @@ class RawPaymentsClient:
                         ),
                     ),
                 )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
+            if _response.status_code == 409:
+                raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        V1ErrorResponse,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=V1ErrorResponse,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1395,135 +1018,115 @@ class AsyncRawPaymentsClient:
     async def list(
         self,
         *,
-        after: typing.Optional[str] = None,
-        before: typing.Optional[str] = None,
-        first: typing.Optional[int] = None,
-        last: typing.Optional[int] = None,
-        company_id: typing.Optional[str] = None,
-        direction: typing.Optional[Direction] = None,
-        order: typing.Optional[ReceiptV2Order] = None,
-        product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        billing_reasons: typing.Optional[typing.Union[BillingReasons, typing.Sequence[BillingReasons]]] = None,
-        currencies: typing.Optional[typing.Union[Currencies, typing.Sequence[Currencies]]] = None,
-        plan_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        statuses: typing.Optional[typing.Union[ReceiptStatus, typing.Sequence[ReceiptStatus]]] = None,
-        substatuses: typing.Optional[
-            typing.Union[FriendlyReceiptStatus, typing.Sequence[FriendlyReceiptStatus]]
-        ] = None,
-        include_free: typing.Optional[bool] = None,
+        account_id: typing.Optional[str] = None,
+        status: typing.Optional[ListPaymentsRequestStatus] = None,
+        billing_reason: typing.Optional[ListPaymentsRequestBillingReason] = None,
+        currency: typing.Optional[str] = None,
+        user_id: typing.Optional[str] = None,
+        query: typing.Optional[str] = None,
+        member_id: typing.Optional[str] = None,
+        membership_id: typing.Optional[str] = None,
+        product_id: typing.Optional[str] = None,
+        plan_id: typing.Optional[str] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
-        updated_before: typing.Optional[dt.datetime] = None,
-        updated_after: typing.Optional[dt.datetime] = None,
-        query: typing.Optional[str] = None,
-        checkout_configuration_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        order: typing.Optional[ListPaymentsRequestOrder] = None,
+        direction: typing.Optional[ListPaymentsRequestDirection] = None,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        last: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncPager[PaymentListItem, ListPaymentsResponse]:
+    ) -> AsyncPager[Payment, ListPaymentsResponse]:
         """
-        Returns a paginated list of payments for the actor in context, with optional filtering by product, plan, status, billing reason, currency, and creation date.
-
-        Required permissions:
-         - `payment:basic:read`
-         - `plan:basic:read`
-         - `access_pass:basic:read`
-         - `member:email:read`
-         - `member:basic:read`
-         - `member:phone:read`
-         - `promo_code:basic:read`
-         - `shipment:basic:read`
+        Lists payments, newest first. Without filters this is every payment the caller can read: a company credential's own account, or for a user every account they can read payments for. Filters narrow by account, buyer, product, plan, membership, status, billing reason, currency, and creation window. Filtering by `billing_reason=subscription_cycle` also matches renewals recorded as `subscription_update`. `settlement_time_at` is null on list rows — retrieve the payment for it.
 
         Parameters
         ----------
-        after : typing.Optional[str]
-            Returns the elements in the list that come after the specified cursor.
+        account_id : typing.Optional[str]
+            Only payments charged by this account, prefixed `biz_`.
 
-        before : typing.Optional[str]
-            Returns the elements in the list that come before the specified cursor.
+        status : typing.Optional[ListPaymentsRequestStatus]
+            Only payments in this lifecycle state.
 
-        first : typing.Optional[int]
-            Returns the first _n_ elements from the list.
+        billing_reason : typing.Optional[ListPaymentsRequestBillingReason]
+            Only payments charged for this reason.
 
-        last : typing.Optional[int]
-            Returns the last _n_ elements from the list.
+        currency : typing.Optional[str]
+            Only payments presented in this three-letter currency, such as `usd`.
 
-        company_id : typing.Optional[str]
-            The unique identifier of the company to list payments for.
-
-        direction : typing.Optional[Direction]
-
-        order : typing.Optional[ReceiptV2Order]
-
-        product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Filter payments to only those associated with these specific product identifiers.
-
-        billing_reasons : typing.Optional[typing.Union[BillingReasons, typing.Sequence[BillingReasons]]]
-            Filter payments by their billing reason.
-
-        currencies : typing.Optional[typing.Union[Currencies, typing.Sequence[Currencies]]]
-            Filter payments by their currency code.
-
-        plan_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Filter payments to only those associated with these specific plan identifiers.
-
-        statuses : typing.Optional[typing.Union[ReceiptStatus, typing.Sequence[ReceiptStatus]]]
-            Filter payments by their current status.
-
-        substatuses : typing.Optional[typing.Union[FriendlyReceiptStatus, typing.Sequence[FriendlyReceiptStatus]]]
-            Filter payments by their current substatus for more granular filtering.
-
-        include_free : typing.Optional[bool]
-            Whether to include payments with a zero amount. Defaults to false, so zero-amount payments are omitted unless you set this to true — a company whose sales are all free plans returns an empty list without it.
-
-        created_before : typing.Optional[dt.datetime]
-            Only return payments created before this timestamp.
-
-        created_after : typing.Optional[dt.datetime]
-            Only return payments created after this timestamp.
-
-        updated_before : typing.Optional[dt.datetime]
-            Only return payments last updated before this timestamp.
-
-        updated_after : typing.Optional[dt.datetime]
-            Only return payments last updated after this timestamp.
+        user_id : typing.Optional[str]
+            Only payments made by this buyer, prefixed `user_`.
 
         query : typing.Optional[str]
             Search payments by user ID, membership ID, user email, name, or username. Email filtering requires the member:email:read permission.
 
-        checkout_configuration_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Only return payments from these checkout configurations.
+        member_id : typing.Optional[str]
+            Only payments made by this member, prefixed `mber_`.
+
+        membership_id : typing.Optional[str]
+            Only payments billed under this membership, prefixed `mem_`.
+
+        product_id : typing.Optional[str]
+            Only payments for this product, prefixed `prod_`.
+
+        plan_id : typing.Optional[str]
+            Only payments priced by this plan, prefixed `plan_`.
+
+        created_before : typing.Optional[dt.datetime]
+            Only payments created before this ISO 8601 timestamp.
+
+        created_after : typing.Optional[dt.datetime]
+            Only payments created after this ISO 8601 timestamp.
+
+        order : typing.Optional[ListPaymentsRequestOrder]
+            The field to sort by.
+
+        direction : typing.Optional[ListPaymentsRequestDirection]
+            The sort direction.
+
+        first : typing.Optional[int]
+            The number of payments to return.
+
+        after : typing.Optional[str]
+            A cursor; returns payments after this position.
+
+        last : typing.Optional[int]
+            The number of payments to return from the end of the range.
+
+        before : typing.Optional[str]
+            A cursor; returns payments before this position.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncPager[PaymentListItem, ListPaymentsResponse]
-            A successful response
+        AsyncPager[Payment, ListPaymentsResponse]
+            payments listed
         """
         _response = await self._client_wrapper.httpx_client.request(
             "payments",
             method="GET",
             params={
-                "after": after,
-                "before": before,
-                "first": first,
-                "last": last,
-                "company_id": company_id,
-                "direction": direction,
-                "order": order,
-                "product_ids": product_ids,
-                "billing_reasons": billing_reasons,
-                "currencies": currencies,
-                "plan_ids": plan_ids,
-                "statuses": statuses,
-                "substatuses": substatuses,
-                "include_free": include_free,
+                "account_id": account_id,
+                "status": status,
+                "billing_reason": billing_reason,
+                "currency": currency,
+                "user_id": user_id,
+                "query": query,
+                "member_id": member_id,
+                "membership_id": membership_id,
+                "product_id": product_id,
+                "plan_id": plan_id,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "updated_before": serialize_datetime(updated_before) if updated_before is not None else None,
-                "updated_after": serialize_datetime(updated_after) if updated_after is not None else None,
-                "query": query,
-                "checkout_configuration_ids": checkout_configuration_ids,
+                "order": order,
+                "direction": direction,
+                "first": first,
+                "after": after,
+                "last": last,
+                "before": before,
             },
             request_options=request_options,
         )
@@ -1545,26 +1148,24 @@ class AsyncRawPaymentsClient:
 
                     async def _get_next():
                         return await self.list(
-                            after=_parsed_next,
-                            before=before,
-                            first=first,
-                            last=last,
-                            company_id=company_id,
-                            direction=direction,
-                            order=order,
-                            product_ids=product_ids,
-                            billing_reasons=billing_reasons,
-                            currencies=currencies,
-                            plan_ids=plan_ids,
-                            statuses=statuses,
-                            substatuses=substatuses,
-                            include_free=include_free,
+                            account_id=account_id,
+                            status=status,
+                            billing_reason=billing_reason,
+                            currency=currency,
+                            user_id=user_id,
+                            query=query,
+                            member_id=member_id,
+                            membership_id=membership_id,
+                            product_id=product_id,
+                            plan_id=plan_id,
                             created_before=created_before,
                             created_after=created_after,
-                            updated_before=updated_before,
-                            updated_after=updated_after,
-                            query=query,
-                            checkout_configuration_ids=checkout_configuration_ids,
+                            order=order,
+                            direction=direction,
+                            first=first,
+                            after=_parsed_next,
+                            last=last,
+                            before=before,
                             request_options=request_options,
                         )
 
@@ -1591,61 +1192,6 @@ class AsyncRawPaymentsClient:
                         ),
                     ),
                 )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -1656,44 +1202,78 @@ class AsyncRawPaymentsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def create(
-        self, *, request: CreatePaymentsRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[CreatePaymentsResponse]:
+        self,
+        *,
+        account_id: str,
+        plan_id: str,
+        capture: typing.Optional[bool] = OMIT,
+        confirmation_token: typing.Optional[str] = OMIT,
+        email: typing.Optional[str] = OMIT,
+        member_id: typing.Optional[str] = OMIT,
+        metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
+        payment_method_id: typing.Optional[str] = OMIT,
+        promo_code_id: typing.Optional[str] = OMIT,
+        return_url: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[Payment]:
         """
-        Charge a buyer on-session with a `confirmation_token` for the method they selected, or charge an existing member off-session using a stored payment method. You can provide an existing plan or create one inline. The endpoint returns a payment immediately, but processing continues asynchronously. Use webhooks to learn whether it succeeds or fails, and poll the payment's status endpoint for any step the buyer must complete.
-
-        Required permissions:
-         - `payment:charge`
-         - `plan:create`
-         - `access_pass:create`
-         - `access_pass:update`
-         - `plan:basic:read`
-         - `access_pass:basic:read`
-         - `member:email:read`
-         - `member:basic:read`
-         - `member:phone:read`
-         - `promo_code:basic:read`
-         - `shipment:basic:read`
-         - `payment:dispute:read`
-         - `payment:resolution_center_case:read`
+        Charges a buyer for a plan. Pass a payment method already on file (`member_id` and `payment_method_id`), or a `confirmation_token` describing a method the buyer just supplied. Collection runs in the background: the response is the payment as created, not its outcome — poll Retrieve status for how far it has got and, for a confirmation-token payment, what the buyer must still do. `plan_id` names the plan to charge for.
 
         Parameters
         ----------
-        request : CreatePaymentsRequest
+        account_id : str
+            The account to charge for, prefixed `biz_`.
+
+        plan_id : str
+            The plan to charge for, prefixed `plan_`. It must belong to the account.
+
+        capture : typing.Optional[bool]
+            Whether to capture a card payment immediately. Defaults to true. Pass false to place an authorization hold that must be captured in full within five days via the capture endpoint.
+
+        confirmation_token : typing.Optional[str]
+            A confirmation token describing a payment method the buyer just supplied. Provide this instead of `member_id` and `payment_method_id`; the buyer is resolved from the token's billing email, or from `email`. The buyer may still have a step to complete — poll the payment's status for what to do next.
+
+        email : typing.Optional[str]
+            Overrides the buyer email carried on the confirmation token, resolving or creating the user the payment belongs to. Ignored unless `confirmation_token` is provided, and when the token was created by a signed-in buyer.
+
+        member_id : typing.Optional[str]
+            The member to charge, prefixed `mber_`. Required with `payment_method_id` unless `confirmation_token` is provided.
+
+        metadata : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Custom metadata to attach to the payment.
+
+        payment_method_id : typing.Optional[str]
+            The stored payment method to charge, prefixed `payt_`. It must belong to the member. Required unless `confirmation_token` is provided.
+
+        promo_code_id : typing.Optional[str]
+            An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the plan.
+
+        return_url : typing.Optional[str]
+            Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters. Ignored unless `confirmation_token` is provided.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[CreatePaymentsResponse]
-            A successful response
+        AsyncHttpResponse[Payment]
+            payment created from a stored payment method
         """
         _response = await self._client_wrapper.httpx_client.request(
             "payments",
             method="POST",
-            json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=CreatePaymentsRequest, direction="write"
-            ),
+            json={
+                "account_id": account_id,
+                "capture": capture,
+                "confirmation_token": confirmation_token,
+                "email": email,
+                "member_id": member_id,
+                "metadata": metadata,
+                "payment_method_id": payment_method_id,
+                "plan_id": plan_id,
+                "promo_code_id": promo_code_id,
+                "return_url": return_url,
+            },
             headers={
                 "content-type": "application/json",
             },
@@ -1703,9 +1283,9 @@ class AsyncRawPaymentsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    CreatePaymentsResponse,
+                    Payment,
                     parse_obj_as(
-                        type_=CreatePaymentsResponse,  # type: ignore
+                        type_=Payment,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1754,35 +1334,13 @@ class AsyncRawPaymentsClient:
                         ),
                     ),
                 )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
+            if _response.status_code == 409:
+                raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        V1ErrorResponse,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=V1ErrorResponse,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1798,34 +1356,22 @@ class AsyncRawPaymentsClient:
 
     async def retrieve(
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[RetrievePaymentsResponse]:
+    ) -> AsyncHttpResponse[Payment]:
         """
-        Retrieves the details of an existing payment.
-
-        Required permissions:
-         - `payment:basic:read`
-         - `plan:basic:read`
-         - `access_pass:basic:read`
-         - `member:email:read`
-         - `member:basic:read`
-         - `member:phone:read`
-         - `promo_code:basic:read`
-         - `shipment:basic:read`
-         - `payment:dispute:read`
-         - `payment:resolution_center_case:read`
+        Returns one payment. Related records are ids — resolve a plan, membership, member or shipment on its own endpoint, and list this payment's refunds, disputes or Resolution Center cases with `?payment_id=`.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the payment.
+            The payment to retrieve, prefixed `pay_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncHttpResponse[RetrievePaymentsResponse]
-            A successful response
+        AsyncHttpResponse[Payment]
+            payment retrieved
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(id)}",
@@ -1835,24 +1381,13 @@ class AsyncRawPaymentsClient:
         try:
             if 200 <= _response.status_code < 300:
                 _data = typing.cast(
-                    RetrievePaymentsResponse,
+                    Payment,
                     parse_obj_as(
-                        type_=RetrievePaymentsResponse,  # type: ignore
+                        type_=Payment,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
@@ -1877,39 +1412,6 @@ class AsyncRawPaymentsClient:
                 )
             if _response.status_code == 404:
                 raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -2016,95 +1518,39 @@ class AsyncRawPaymentsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def list_fees(
-        self,
-        id: str,
-        *,
-        after: typing.Optional[str] = None,
-        before: typing.Optional[str] = None,
-        first: typing.Optional[int] = None,
-        last: typing.Optional[int] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncPager[ListFeesPaymentsResponseDataItem, ListFeesPaymentsResponse]:
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[ListFeesPaymentsResponse]:
         """
-        Returns the list of fees associated with a specific payment, including platform fees and processing fees.
-
-        Required permissions:
-         - `payment:basic:read`
+        Returns the fee breakdown of one payment — Whop's fee, processing, affiliate and other lines — each in the currency it was collected in and converted to the payment's settlement currency. The list is complete in one page.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the payment to list fees for.
-
-        after : typing.Optional[str]
-            Returns the elements in the list that come after the specified cursor.
-
-        before : typing.Optional[str]
-            Returns the elements in the list that come before the specified cursor.
-
-        first : typing.Optional[int]
-            Returns the first _n_ elements from the list.
-
-        last : typing.Optional[int]
-            Returns the last _n_ elements from the list.
+            The payment whose fees to list, prefixed `pay_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncPager[ListFeesPaymentsResponseDataItem, ListFeesPaymentsResponse]
-            A successful response
+        AsyncHttpResponse[ListFeesPaymentsResponse]
+            fees listed
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(id)}/fees",
             method="GET",
-            params={
-                "after": after,
-                "before": before,
-                "first": first,
-                "last": last,
-            },
             request_options=request_options,
         )
         try:
             if 200 <= _response.status_code < 300:
-                _parsed_response = typing.cast(
+                _data = typing.cast(
                     ListFeesPaymentsResponse,
                     parse_obj_as(
                         type_=ListFeesPaymentsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                _items = _parsed_response.data
-                _has_next = False
-                _get_next = None
-                if _parsed_response.page_info is not None:
-                    _parsed_next = _parsed_response.page_info.end_cursor
-                    _has_next = _parsed_next is not None and _parsed_next != ""
-
-                    async def _get_next():
-                        return await self.list_fees(
-                            id,
-                            after=_parsed_next,
-                            before=before,
-                            first=first,
-                            last=last,
-                            request_options=request_options,
-                        )
-
-                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
+                return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
@@ -2116,52 +1562,8 @@ class AsyncRawPaymentsClient:
                         ),
                     ),
                 )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             if _response.status_code == 404:
                 raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -2188,24 +1590,12 @@ class AsyncRawPaymentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Payment]:
         """
-        Issue a full or partial refund for a payment. The refund is processed through the original payment processor and the membership status is updated accordingly.
-
-        Required permissions:
-         - `payment:manage`
-         - `plan:basic:read`
-         - `access_pass:basic:read`
-         - `member:email:read`
-         - `member:basic:read`
-         - `member:phone:read`
-         - `promo_code:basic:read`
-         - `shipment:basic:read`
-         - `payment:dispute:read`
-         - `payment:resolution_center_case:read`
+        Issues a full or partial refund for a payment. The refund is processed through the original payment processor and the membership status is updated accordingly.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the payment to refund.
+            The payment to refund, prefixed `pay_`.
 
         partial_amount : typing.Optional[float]
             The amount to refund. For multi-currency payments, this is in the charge currency (what the buyer paid). For single-currency, this is in the payment currency. If omitted, the full payment amount is refunded.
@@ -2216,7 +1606,7 @@ class AsyncRawPaymentsClient:
         Returns
         -------
         AsyncHttpResponse[Payment]
-            A successful response
+            payment refunded
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(id)}/refund",
@@ -2284,35 +1674,13 @@ class AsyncRawPaymentsClient:
                         ),
                     ),
                 )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
+            if _response.status_code == 409:
+                raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        V1ErrorResponse,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=V1ErrorResponse,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2330,24 +1698,12 @@ class AsyncRawPaymentsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[Payment]:
         """
-        Retry a failed or pending payment. This re-attempts the charge using the original payment method and plan details.
-
-        Required permissions:
-         - `payment:manage`
-         - `plan:basic:read`
-         - `access_pass:basic:read`
-         - `member:email:read`
-         - `member:basic:read`
-         - `member:phone:read`
-         - `promo_code:basic:read`
-         - `shipment:basic:read`
-         - `payment:dispute:read`
-         - `payment:resolution_center_case:read`
+        Retries a failed or pending payment. This re-attempts the charge using the original payment method and plan details.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the payment to retry.
+            The payment to retry, prefixed `pay_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2355,7 +1711,7 @@ class AsyncRawPaymentsClient:
         Returns
         -------
         AsyncHttpResponse[Payment]
-            A successful response
+            payment retried
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(id)}/retry",
@@ -2372,30 +1728,8 @@ class AsyncRawPaymentsClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -2416,35 +1750,13 @@ class AsyncRawPaymentsClient:
                         ),
                     ),
                 )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
+            if _response.status_code == 409:
+                raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        V1ErrorResponse,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=V1ErrorResponse,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -2462,24 +1774,12 @@ class AsyncRawPaymentsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[Payment]:
         """
-        Void a payment that has not yet been settled. Voiding cancels the payment before it is captured by the payment processor.
-
-        Required permissions:
-         - `payment:manage`
-         - `plan:basic:read`
-         - `access_pass:basic:read`
-         - `member:email:read`
-         - `member:basic:read`
-         - `member:phone:read`
-         - `promo_code:basic:read`
-         - `shipment:basic:read`
-         - `payment:dispute:read`
-         - `payment:resolution_center_case:read`
+        Voids a payment that has not yet been settled. Voiding cancels the payment before it is captured by the payment processor.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the payment to void.
+            The payment to void, prefixed `pay_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2487,7 +1787,7 @@ class AsyncRawPaymentsClient:
         Returns
         -------
         AsyncHttpResponse[Payment]
-            A successful response
+            payment voided
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(id)}/void",
@@ -2504,30 +1804,8 @@ class AsyncRawPaymentsClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -2548,35 +1826,13 @@ class AsyncRawPaymentsClient:
                         ),
                     ),
                 )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
+            if _response.status_code == 409:
+                raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        typing.Any,
+                        V1ErrorResponse,
                         parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
+                            type_=V1ErrorResponse,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
