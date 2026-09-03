@@ -1,232 +1,146 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Optional
-from datetime import datetime
+from typing import Optional
+from typing_extensions import Literal
 
 from .._models import BaseModel
-from .card_brands import CardBrands
-from .refund_status import RefundStatus
-from .billing_reasons import BillingReasons
-from .shared.currency import Currency
-from .payment_provider import PaymentProvider
-from .payment_method_types import PaymentMethodTypes
-from .receipt_tax_behavior import ReceiptTaxBehavior
-from .refund_reference_type import RefundReferenceType
-from .refund_reference_status import RefundReferenceStatus
-from .shared.membership_status import MembershipStatus
 
-__all__ = [
-    "RefundRetrieveResponse",
-    "Payment",
-    "PaymentMember",
-    "PaymentMembership",
-    "PaymentPlan",
-    "PaymentProduct",
-    "PaymentUser",
-]
+__all__ = ["RefundRetrieveResponse", "Amount", "OriginalAmount"]
 
 
-class PaymentMember(BaseModel):
-    """The member attached to this payment."""
+class Amount(BaseModel):
+    """
+    The refunded amount as it settled, in the payment's settlement currency, so pages of refunds net against the payment's `refunded_amount`. Converted at the rate in force when the refund was issued, not the payment's original rate. Null only when no exchange rate is recorded for a legacy multi-currency payment.
+    """
 
-    id: str
-    """The unique identifier for the company member."""
+    amount: str
+    """The amount in major units, as an exact decimal string — `"10.00"` is ten
+    dollars.
 
-    phone: Optional[str] = None
-    """The phone number for the member, if available."""
+    A string so no float rounds it in transit.
+    """
 
+    currency: str
+    """Three-letter ISO 4217 currency code, lowercase."""
 
-class PaymentMembership(BaseModel):
-    """The membership attached to this payment."""
+    decimals: int
+    """
+    How many decimal places the amount CARRIES — the precision the charge itself
+    runs at.
+    """
 
-    id: str
-    """The unique identifier for the membership."""
+    display_decimals: int
+    """How many decimal places to SHOW.
 
-    status: MembershipStatus
-    """The state of the membership."""
-
-
-class PaymentPlan(BaseModel):
-    """The plan attached to this payment."""
-
-    id: str
-    """The unique identifier for the plan."""
-
-    metadata: Optional[Dict[str, object]] = None
-    """Custom key-value pairs stored on the plan.
-
-    Included in webhook payloads for payment and membership events. Max 50 keys, 100
-    chars per key, 500 chars per string value. The reserved keys `custom_cta` and
-    `custom_cta_url`, when set, override the product's checkout call to action for
-    this plan.
+    Usually equal to `decimals`, and deliberately not always: COP is charged in
+    centavos but written in whole pesos, so it is `2` and `0`. Format the number in
+    your own locale using this.
     """
 
 
-class PaymentProduct(BaseModel):
-    """The product this payment was made for"""
+class OriginalAmount(BaseModel):
+    """The refunded amount in the currency the processor moved."""
 
-    id: str
-    """The unique identifier for the product."""
+    amount: str
+    """The amount in major units, as an exact decimal string — `"10.00"` is ten
+    dollars.
 
-    metadata: Optional[Dict[str, object]] = None
-    """
-    Custom key-value pairs stored on the product and included in payment and
-    membership webhook payloads. Max 50 keys, 100 characters per key, 500 characters
-    per string value.
+    A string so no float rounds it in transit.
     """
 
+    currency: str
+    """Three-letter ISO 4217 currency code, lowercase."""
 
-class PaymentUser(BaseModel):
-    """The user that made this payment."""
-
-    id: str
-    """The unique identifier for the user."""
-
-    email: Optional[str] = None
-    """The user's email address.
-
-    Requires the member:email:read permission to access. Null if not authorized.
+    decimals: int
+    """
+    How many decimal places the amount CARRIES — the precision the charge itself
+    runs at.
     """
 
-    name: Optional[str] = None
-    """The user's display name shown on their public profile."""
+    display_decimals: int
+    """How many decimal places to SHOW.
 
-    username: str
-    """The user's unique username shown on their public profile."""
-
-
-class Payment(BaseModel):
-    """The original payment that this refund was issued against.
-
-    Null if the payment is no longer available.
+    Usually equal to `decimals`, and deliberately not always: COP is charged in
+    centavos but written in whole pesos, so it is `2` and `0`. Format the number in
+    your own locale using this.
     """
-
-    id: str
-    """The unique identifier for the payment."""
-
-    billing_reason: Optional[BillingReasons] = None
-    """The reason why a specific payment was billed"""
-
-    card_brand: Optional[CardBrands] = None
-    """Possible card brands that a payment token can have"""
-
-    card_last4: Optional[str] = None
-    """The last four digits of the card used to make this payment.
-
-    Null if the payment was not made with a card.
-    """
-
-    created_at: datetime
-    """The datetime the payment was created."""
-
-    currency: Currency
-    """The three-letter ISO currency code for this payment (e.g., 'usd', 'eur')."""
-
-    dispute_alerted_at: Optional[datetime] = None
-    """When an alert came in that this transaction will be disputed"""
-
-    member: Optional[PaymentMember] = None
-    """The member attached to this payment."""
-
-    membership: Optional[PaymentMembership] = None
-    """The membership attached to this payment."""
-
-    metadata: Optional[Dict[str, object]] = None
-    """The custom metadata stored on this payment.
-
-    This will be copied over to the checkout configuration for which this payment
-    was made
-    """
-
-    paid_at: Optional[datetime] = None
-    """The time at which this payment was successfully collected.
-
-    Null if the payment has not yet succeeded. As a Unix timestamp.
-    """
-
-    payment_method_type: Optional[PaymentMethodTypes] = None
-    """The different types of payment methods that can be used."""
-
-    plan: Optional[PaymentPlan] = None
-    """The plan attached to this payment."""
-
-    product: Optional[PaymentProduct] = None
-    """The product this payment was made for"""
-
-    subtotal: Optional[float] = None
-    """The subtotal to show to the creator (excluding buyer fees)."""
-
-    tax_amount: Optional[float] = None
-    """The calculated amount of the sales/VAT tax (if applicable)."""
-
-    tax_behavior: Optional[ReceiptTaxBehavior] = None
-    """
-    The type of tax inclusivity applied to the receipt, for determining whether the
-    tax is included in the final price, or paid on top.
-    """
-
-    tax_refunded_amount: Optional[float] = None
-    """The amount of tax that has been refunded (if applicable)."""
-
-    total: Optional[float] = None
-    """The total to show to the creator (excluding buyer fees)."""
-
-    usd_total: Optional[float] = None
-    """The total in USD to show to the creator (excluding buyer fees)."""
-
-    user: Optional[PaymentUser] = None
-    """The user that made this payment."""
 
 
 class RefundRetrieveResponse(BaseModel):
-    """
-    A refund represents a full or partial reversal of a payment, including the amount, status, and payment provider.
-    """
-
     id: str
-    """The unique identifier for the refund."""
+    """Refund ID, prefixed `rf_`."""
 
-    amount: float
+    account_id: Optional[str] = None
+    """The account that issued the refund, prefixed `biz_`."""
+
+    amount: Optional[Amount] = None
     """
-    The refunded amount as a decimal in the specified currency, such as 10.43 for
-    $10.43 USD.
-    """
-
-    created_at: datetime
-    """The datetime the refund was created."""
-
-    currency: Currency
-    """The three-letter ISO currency code for the refunded amount."""
-
-    payment: Optional[Payment] = None
-    """The original payment that this refund was issued against.
-
-    Null if the payment is no longer available.
+    The refunded amount as it settled, in the payment's settlement currency, so
+    pages of refunds net against the payment's `refunded_amount`. Converted at the
+    rate in force when the refund was issued, not the payment's original rate. Null
+    only when no exchange rate is recorded for a legacy multi-currency payment.
     """
 
-    provider: PaymentProvider
-    """The payment provider that processed the refund."""
+    created_at: str
+    """When the refund was requested, as an ISO 8601 timestamp."""
 
-    provider_created_at: Optional[datetime] = None
-    """The timestamp when the refund was created in the payment provider's system.
+    failure_message: Optional[str] = None
+    """The provider's own explanation of the failure, or null."""
 
-    Null if not available from the provider.
+    failure_reason: Optional[
+        Literal[
+            "bank_declined",
+            "expired_or_canceled_card",
+            "lost_or_stolen_card",
+            "insufficient_funds",
+            "charge_disputed",
+            "not_refundable",
+            "merchant_request",
+            "unknown",
+        ]
+    ] = None
+    """Why the refund failed, normalized across providers.
+
+    Null unless the refund failed or was canceled.
     """
 
-    reference_status: Optional[RefundReferenceStatus] = None
-    """The status of the refund reference."""
+    original_amount: OriginalAmount
+    """The refunded amount in the currency the processor moved."""
 
-    reference_type: Optional[RefundReferenceType] = None
-    """The type of refund reference that was made available by the payment provider."""
+    payment_id: str
+    """The payment this refund reverses, prefixed `pay_`."""
+
+    provider: str
+    """The payment provider that processed the refund, such as `paypal` or `coinbase`."""
+
+    provider_created_at: Optional[str] = None
+    """When the provider created the refund, as an ISO 8601 timestamp."""
+
+    reason: Optional[Literal["duplicate", "fraudulent", "requested_by_customer", "expired_uncaptured_charge"]] = None
+    """Why the refund was issued, when recorded."""
+
+    reference_status: Optional[Literal["available", "pending", "unavailable"]] = None
+    """Whether a banking-network tracking reference is available for this refund."""
+
+    reference_type: Optional[
+        Literal["acquirer_reference_number", "retrieval_reference_number", "system_trace_audit_number"]
+    ] = None
+    """The kind of tracking reference, such as an acquirer reference number."""
 
     reference_value: Optional[str] = None
+    """The tracking reference the buyer's bank can trace the refund by."""
+
+    status: Literal["pending", "requires_action", "succeeded", "failed", "canceled"]
     """
-    The tracking reference value from the payment processor, used to trace the
-    refund through banking networks. Null if no reference was provided.
+    Where the refund stands with the processor: `pending`, `requires_action`,
+    `succeeded`, `failed`, or `canceled`.
     """
 
-    status: RefundStatus
+    updated_at: str
+    """When the refund last changed, as an ISO 8601 timestamp."""
+
+    visa_rdr: bool
     """
-    The current processing status of the refund, such as pending, succeeded, or
-    failed.
+    True when the card network initiated the refund through Rapid Dispute
+    Resolution.
     """

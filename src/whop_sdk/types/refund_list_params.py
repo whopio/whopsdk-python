@@ -4,52 +4,45 @@ from __future__ import annotations
 
 from typing import Union
 from datetime import datetime
-from typing_extensions import Annotated, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
 
 from .._utils import PropertyInfo
-from .shared.direction import Direction
 
 __all__ = ["RefundListParams"]
 
 
 class RefundListParams(TypedDict, total=False):
+    account_id: str
+    """Only refunds issued by this account, prefixed `biz_`."""
+
     after: str
-    """Returns the elements in the list that come after the specified cursor."""
+    """A cursor; returns refunds after this position."""
 
     before: str
-    """Returns the elements in the list that come before the specified cursor."""
-
-    company_id: str
-    """Filter refunds to those belonging to this company.
-
-    Mutually exclusive with payment_id and user_id: provide exactly one.
-    """
+    """A cursor; returns refunds before this position."""
 
     created_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-    """Only return refunds created after this timestamp."""
+    """Only refunds requested after this ISO 8601 timestamp."""
 
     created_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-    """Only return refunds created before this timestamp."""
+    """Only refunds requested before this ISO 8601 timestamp."""
 
-    direction: Direction
-    """The sort direction for ordering results, either ascending or descending."""
+    direction: Literal["asc", "desc"]
+    """The sort direction."""
 
     first: int
-    """Returns the first _n_ elements from the list."""
+    """The number of refunds to return."""
 
     last: int
-    """Returns the last _n_ elements from the list."""
+    """The number of refunds to return from the end of the range."""
+
+    order: Literal["created_at"]
+    """The field to sort by."""
 
     payment_id: str
-    """Filter refunds to those associated with this specific payment.
-
-    Mutually exclusive with company_id and user_id: provide exactly one.
-    """
+    """Only refunds of this payment, prefixed `pay_`."""
 
     user_id: str
-    """Filter refunds to those associated with this specific user.
+    """Only refunds to this buyer, prefixed `user_`."""
 
-    Mutually exclusive with payment_id and company_id: provide exactly one. Requires
-    a credential belonging to that user; any other credential receives 'You are not
-    authorized'.
-    """
+    api_version_date: Annotated[str, PropertyInfo(alias="Api-Version-Date")]

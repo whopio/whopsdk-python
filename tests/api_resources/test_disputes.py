@@ -9,7 +9,11 @@ import pytest
 
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
-from whop_sdk.types import Dispute
+from whop_sdk.types import (
+    Dispute,
+    DisputeSubmitEvidenceResponse,
+    DisputeUpdateEvidenceResponse,
+)
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -31,7 +35,7 @@ class TestDisputes:
     def test_method_retrieve_with_all_params(self, client: Whop) -> None:
         dispute = client.disputes.retrieve(
             id="id",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(Dispute, dispute, path=["response"])
 
@@ -90,7 +94,7 @@ class TestDisputes:
             last=0,
             order="created_at",
             status=["needs_response"],
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(SyncCursorPage[Dispute], dispute, path=["response"])
 
@@ -122,7 +126,7 @@ class TestDisputes:
         dispute = client.disputes.submit_evidence(
             "dspt_xxxxxxxxxxxxx",
         )
-        assert_matches_type(Dispute, dispute, path=["response"])
+        assert_matches_type(DisputeSubmitEvidenceResponse, dispute, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -134,7 +138,7 @@ class TestDisputes:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         dispute = response.parse()
-        assert_matches_type(Dispute, dispute, path=["response"])
+        assert_matches_type(DisputeSubmitEvidenceResponse, dispute, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -146,7 +150,7 @@ class TestDisputes:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             dispute = response.parse()
-            assert_matches_type(Dispute, dispute, path=["response"])
+            assert_matches_type(DisputeSubmitEvidenceResponse, dispute, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -164,7 +168,7 @@ class TestDisputes:
         dispute = client.disputes.update_evidence(
             id="dspt_xxxxxxxxxxxxx",
         )
-        assert_matches_type(Dispute, dispute, path=["response"])
+        assert_matches_type(DisputeUpdateEvidenceResponse, dispute, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -186,7 +190,7 @@ class TestDisputes:
             service_date="service_date",
             uncategorized_attachment={"id": "id"},
         )
-        assert_matches_type(Dispute, dispute, path=["response"])
+        assert_matches_type(DisputeUpdateEvidenceResponse, dispute, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -198,7 +202,7 @@ class TestDisputes:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         dispute = response.parse()
-        assert_matches_type(Dispute, dispute, path=["response"])
+        assert_matches_type(DisputeUpdateEvidenceResponse, dispute, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -210,7 +214,7 @@ class TestDisputes:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             dispute = response.parse()
-            assert_matches_type(Dispute, dispute, path=["response"])
+            assert_matches_type(DisputeUpdateEvidenceResponse, dispute, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -241,7 +245,7 @@ class TestAsyncDisputes:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
         dispute = await async_client.disputes.retrieve(
             id="id",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(Dispute, dispute, path=["response"])
 
@@ -300,7 +304,7 @@ class TestAsyncDisputes:
             last=0,
             order="created_at",
             status=["needs_response"],
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(AsyncCursorPage[Dispute], dispute, path=["response"])
 
@@ -332,7 +336,7 @@ class TestAsyncDisputes:
         dispute = await async_client.disputes.submit_evidence(
             "dspt_xxxxxxxxxxxxx",
         )
-        assert_matches_type(Dispute, dispute, path=["response"])
+        assert_matches_type(DisputeSubmitEvidenceResponse, dispute, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -344,7 +348,7 @@ class TestAsyncDisputes:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         dispute = await response.parse()
-        assert_matches_type(Dispute, dispute, path=["response"])
+        assert_matches_type(DisputeSubmitEvidenceResponse, dispute, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -356,7 +360,7 @@ class TestAsyncDisputes:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             dispute = await response.parse()
-            assert_matches_type(Dispute, dispute, path=["response"])
+            assert_matches_type(DisputeSubmitEvidenceResponse, dispute, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -374,7 +378,7 @@ class TestAsyncDisputes:
         dispute = await async_client.disputes.update_evidence(
             id="dspt_xxxxxxxxxxxxx",
         )
-        assert_matches_type(Dispute, dispute, path=["response"])
+        assert_matches_type(DisputeUpdateEvidenceResponse, dispute, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -396,7 +400,7 @@ class TestAsyncDisputes:
             service_date="service_date",
             uncategorized_attachment={"id": "id"},
         )
-        assert_matches_type(Dispute, dispute, path=["response"])
+        assert_matches_type(DisputeUpdateEvidenceResponse, dispute, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -408,7 +412,7 @@ class TestAsyncDisputes:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         dispute = await response.parse()
-        assert_matches_type(Dispute, dispute, path=["response"])
+        assert_matches_type(DisputeUpdateEvidenceResponse, dispute, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -420,7 +424,7 @@ class TestAsyncDisputes:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             dispute = await response.parse()
-            assert_matches_type(Dispute, dispute, path=["response"])
+            assert_matches_type(DisputeUpdateEvidenceResponse, dispute, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

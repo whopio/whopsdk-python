@@ -21,6 +21,8 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.dispute import Dispute
+from ..types.dispute_submit_evidence_response import DisputeSubmitEvidenceResponse
+from ..types.dispute_update_evidence_response import DisputeUpdateEvidenceResponse
 
 __all__ = ["DisputesResource", "AsyncDisputesResource"]
 
@@ -185,7 +187,7 @@ class DisputesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Dispute:
+    ) -> DisputeSubmitEvidenceResponse:
         """Submit a payment dispute to the payment processor for review.
 
         Once submitted, no
@@ -218,7 +220,7 @@ class DisputesResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Dispute,
+            cast_to=DisputeSubmitEvidenceResponse,
         )
 
     def update_evidence(
@@ -247,7 +249,7 @@ class DisputesResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Dispute:
+    ) -> DisputeUpdateEvidenceResponse:
         """
         Update a dispute with evidence data to attempt to win the dispute.
 
@@ -326,7 +328,7 @@ class DisputesResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Dispute,
+            cast_to=DisputeUpdateEvidenceResponse,
         )
 
 
@@ -490,7 +492,7 @@ class AsyncDisputesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Dispute:
+    ) -> DisputeSubmitEvidenceResponse:
         """Submit a payment dispute to the payment processor for review.
 
         Once submitted, no
@@ -523,7 +525,7 @@ class AsyncDisputesResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Dispute,
+            cast_to=DisputeSubmitEvidenceResponse,
         )
 
     async def update_evidence(
@@ -552,7 +554,7 @@ class AsyncDisputesResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Dispute:
+    ) -> DisputeUpdateEvidenceResponse:
         """
         Update a dispute with evidence data to attempt to win the dispute.
 
@@ -631,7 +633,7 @@ class AsyncDisputesResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Dispute,
+            cast_to=DisputeUpdateEvidenceResponse,
         )
 
 

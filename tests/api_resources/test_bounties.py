@@ -56,7 +56,7 @@ class TestBounties:
             frequency="weekly",
             publish_at="2026-01-01T12:00:00.000Z",
             publish_at_timezone="America/Chicago",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(BountyCreateResponse, bounty, path=["response"])
@@ -104,7 +104,7 @@ class TestBounties:
     def test_method_retrieve_with_all_params(self, client: Whop) -> None:
         bounty = client.bounties.retrieve(
             id="id",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(BountyRetrieveResponse, bounty, path=["response"])
 
@@ -167,7 +167,7 @@ class TestBounties:
             query="query",
             status="scheduled",
             user_id="user_id",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(SyncCursorPage[BountyListResponse], bounty, path=["response"])
 
@@ -233,7 +233,7 @@ class TestAsyncBounties:
             frequency="weekly",
             publish_at="2026-01-01T12:00:00.000Z",
             publish_at_timezone="America/Chicago",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(BountyCreateResponse, bounty, path=["response"])
@@ -281,7 +281,7 @@ class TestAsyncBounties:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
         bounty = await async_client.bounties.retrieve(
             id="id",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(BountyRetrieveResponse, bounty, path=["response"])
 
@@ -344,7 +344,7 @@ class TestAsyncBounties:
             query="query",
             status="scheduled",
             user_id="user_id",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(AsyncCursorPage[BountyListResponse], bounty, path=["response"])
 

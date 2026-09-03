@@ -26,6 +26,8 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.membership import Membership
+from ..types.membership_uncancel_response import MembershipUncancelResponse
+from ..types.membership_add_free_days_response import MembershipAddFreeDaysResponse
 
 __all__ = ["MembershipsResource", "AsyncMembershipsResource"]
 
@@ -258,7 +260,7 @@ class MembershipsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Membership:
+    ) -> MembershipAddFreeDaysResponse:
         """
         Add free days to extend a membership's current billing period, expiration date,
         or Stripe trial.
@@ -289,7 +291,7 @@ class MembershipsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Membership,
+            cast_to=MembershipAddFreeDaysResponse,
         )
 
     def cancel(
@@ -461,7 +463,7 @@ class MembershipsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Membership:
+    ) -> MembershipUncancelResponse:
         """
         Reverse a pending cancellation for a membership that was scheduled to cancel at
         period end.
@@ -488,7 +490,7 @@ class MembershipsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Membership,
+            cast_to=MembershipUncancelResponse,
         )
 
 
@@ -720,7 +722,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Membership:
+    ) -> MembershipAddFreeDaysResponse:
         """
         Add free days to extend a membership's current billing period, expiration date,
         or Stripe trial.
@@ -753,7 +755,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Membership,
+            cast_to=MembershipAddFreeDaysResponse,
         )
 
     async def cancel(
@@ -925,7 +927,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> Membership:
+    ) -> MembershipUncancelResponse:
         """
         Reverse a pending cancellation for a membership that was scheduled to cancel at
         period end.
@@ -952,7 +954,7 @@ class AsyncMembershipsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Membership,
+            cast_to=MembershipUncancelResponse,
         )
 
 

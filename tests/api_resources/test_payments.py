@@ -9,12 +9,7 @@ import pytest
 
 from whop_sdk import Whop, AsyncWhop
 from tests.utils import assert_matches_type
-from whop_sdk.types import (
-    PaymentListResponse,
-    PaymentCreateResponse,
-    PaymentListFeesResponse,
-    PaymentRetrieveResponse,
-)
+from whop_sdk.types import PaymentListFeesResponse
 from whop_sdk._utils import parse_datetime
 from whop_sdk.pagination import SyncCursorPage, AsyncCursorPage
 from whop_sdk.types.shared import Payment
@@ -27,283 +22,57 @@ class TestPayments:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_create_overload_1(self, client: Whop) -> None:
+    def test_method_create(self, client: Whop) -> None:
         payment = client.payments.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            confirmation_token="confirmation_token",
-            plan={"currency": "usd"},
+            account_id="biz_xxxxxxxxxxxxxx",
+            plan_id="plan_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
+        assert_matches_type(Payment, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_create_with_all_params_overload_1(self, client: Whop) -> None:
+    def test_method_create_with_all_params(self, client: Whop) -> None:
         payment = client.payments.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            confirmation_token="confirmation_token",
-            plan={
-                "currency": "usd",
-                "application_fee_amount": 6.9,
-                "billing_period": 42,
-                "description": "description",
-                "expiration_days": 42,
-                "force_create_new_plan": True,
-                "initial_price": 6.9,
-                "internal_notes": "internal_notes",
-                "plan_type": "renewal",
-                "product": {
-                    "external_identifier": "external_identifier",
-                    "title": "title",
-                    "collect_shipping_address": True,
-                    "custom_statement_descriptor": "custom_statement_descriptor",
-                    "description": "description",
-                    "global_affiliate_percentage": 6.9,
-                    "global_affiliate_status": "enabled",
-                    "headline": "headline",
-                    "product_tax_code_id": "ptc_xxxxxxxxxxxxxx",
-                    "redirect_purchase_url": "redirect_purchase_url",
-                    "route": "route",
-                    "visibility": "visible",
-                },
-                "product_id": "prod_xxxxxxxxxxxxx",
-                "renewal_price": 6.9,
-                "title": "title",
-                "trial_period_days": 42,
-                "visibility": "visible",
-            },
-            capture=True,
-            email="buyer@example.com",
-            metadata={"foo": "bar"},
-            payment_method_id="pmt_xxxxxxxxxxxxxx",
-            promo_code_id="promo_xxxxxxxxxxxx",
-            return_url="https://example.com/path",
+            account_id="biz_xxxxxxxxxxxxxx",
+            plan_id="plan_xxxxxxxxxxxxxx",
+            capture=False,
+            confirmation_token="ctok_xxxxxxxxxxxxxx",
+            email="dana@shinetime.example",
+            member_id="mber_xxxxxxxxxxxxxx",
+            metadata={"order_ref": "SHINE-4417"},
+            payment_method_id="payt_xxxxxxxxxxxxxx",
+            promo_code_id="promo_xxxxxxxxxxxxxx",
+            return_url="https://shinetime.example/checkout/done",
+            api_version_date="2026-09-02-1",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
-        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
+        assert_matches_type(Payment, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_create_overload_1(self, client: Whop) -> None:
+    def test_raw_response_create(self, client: Whop) -> None:
         response = client.payments.with_raw_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            confirmation_token="confirmation_token",
-            plan={"currency": "usd"},
+            account_id="biz_xxxxxxxxxxxxxx",
+            plan_id="plan_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         payment = response.parse()
-        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
+        assert_matches_type(Payment, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_create_overload_1(self, client: Whop) -> None:
+    def test_streaming_response_create(self, client: Whop) -> None:
         with client.payments.with_streaming_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            confirmation_token="confirmation_token",
-            plan={"currency": "usd"},
+            account_id="biz_xxxxxxxxxxxxxx",
+            plan_id="plan_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             payment = response.parse()
-            assert_matches_type(PaymentCreateResponse, payment, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_create_overload_2(self, client: Whop) -> None:
-        payment = client.payments.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            member_id="mber_xxxxxxxxxxxxx",
-            plan={"currency": "usd"},
-        )
-        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_create_with_all_params_overload_2(self, client: Whop) -> None:
-        payment = client.payments.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            member_id="mber_xxxxxxxxxxxxx",
-            plan={
-                "currency": "usd",
-                "application_fee_amount": 6.9,
-                "billing_period": 42,
-                "description": "description",
-                "expiration_days": 42,
-                "force_create_new_plan": True,
-                "initial_price": 6.9,
-                "internal_notes": "internal_notes",
-                "plan_type": "renewal",
-                "product": {
-                    "external_identifier": "external_identifier",
-                    "title": "title",
-                    "collect_shipping_address": True,
-                    "custom_statement_descriptor": "custom_statement_descriptor",
-                    "description": "description",
-                    "global_affiliate_percentage": 6.9,
-                    "global_affiliate_status": "enabled",
-                    "headline": "headline",
-                    "product_tax_code_id": "ptc_xxxxxxxxxxxxxx",
-                    "redirect_purchase_url": "redirect_purchase_url",
-                    "route": "route",
-                    "visibility": "visible",
-                },
-                "product_id": "prod_xxxxxxxxxxxxx",
-                "renewal_price": 6.9,
-                "title": "title",
-                "trial_period_days": 42,
-                "visibility": "visible",
-            },
-            capture=True,
-            email="buyer@example.com",
-            metadata={"foo": "bar"},
-            payment_method_id="pmt_xxxxxxxxxxxxxx",
-            promo_code_id="promo_xxxxxxxxxxxx",
-            return_url="https://example.com/path",
-        )
-        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_create_overload_2(self, client: Whop) -> None:
-        response = client.payments.with_raw_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            member_id="mber_xxxxxxxxxxxxx",
-            plan={"currency": "usd"},
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        payment = response.parse()
-        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_create_overload_2(self, client: Whop) -> None:
-        with client.payments.with_streaming_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            member_id="mber_xxxxxxxxxxxxx",
-            plan={"currency": "usd"},
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            payment = response.parse()
-            assert_matches_type(PaymentCreateResponse, payment, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_create_overload_3(self, client: Whop) -> None:
-        payment = client.payments.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            confirmation_token="confirmation_token",
-            plan_id="plan_xxxxxxxxxxxxx",
-        )
-        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_create_with_all_params_overload_3(self, client: Whop) -> None:
-        payment = client.payments.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            confirmation_token="confirmation_token",
-            plan_id="plan_xxxxxxxxxxxxx",
-            capture=True,
-            email="buyer@example.com",
-            metadata={"foo": "bar"},
-            payment_method_id="pmt_xxxxxxxxxxxxxx",
-            promo_code_id="promo_xxxxxxxxxxxx",
-            return_url="https://example.com/path",
-        )
-        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_create_overload_3(self, client: Whop) -> None:
-        response = client.payments.with_raw_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            confirmation_token="confirmation_token",
-            plan_id="plan_xxxxxxxxxxxxx",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        payment = response.parse()
-        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_create_overload_3(self, client: Whop) -> None:
-        with client.payments.with_streaming_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            confirmation_token="confirmation_token",
-            plan_id="plan_xxxxxxxxxxxxx",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            payment = response.parse()
-            assert_matches_type(PaymentCreateResponse, payment, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_create_overload_4(self, client: Whop) -> None:
-        payment = client.payments.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            member_id="mber_xxxxxxxxxxxxx",
-            plan_id="plan_xxxxxxxxxxxxx",
-        )
-        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_create_with_all_params_overload_4(self, client: Whop) -> None:
-        payment = client.payments.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            member_id="mber_xxxxxxxxxxxxx",
-            plan_id="plan_xxxxxxxxxxxxx",
-            capture=True,
-            email="buyer@example.com",
-            metadata={"foo": "bar"},
-            payment_method_id="pmt_xxxxxxxxxxxxxx",
-            promo_code_id="promo_xxxxxxxxxxxx",
-            return_url="https://example.com/path",
-        )
-        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_create_overload_4(self, client: Whop) -> None:
-        response = client.payments.with_raw_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            member_id="mber_xxxxxxxxxxxxx",
-            plan_id="plan_xxxxxxxxxxxxx",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        payment = response.parse()
-        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_create_overload_4(self, client: Whop) -> None:
-        with client.payments.with_streaming_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            member_id="mber_xxxxxxxxxxxxx",
-            plan_id="plan_xxxxxxxxxxxxx",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            payment = response.parse()
-            assert_matches_type(PaymentCreateResponse, payment, path=["response"])
+            assert_matches_type(Payment, payment, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -311,33 +80,42 @@ class TestPayments:
     @parametrize
     def test_method_retrieve(self, client: Whop) -> None:
         payment = client.payments.retrieve(
-            "pay_xxxxxxxxxxxxxx",
+            id="id",
         )
-        assert_matches_type(PaymentRetrieveResponse, payment, path=["response"])
+        assert_matches_type(Payment, payment, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_retrieve_with_all_params(self, client: Whop) -> None:
+        payment = client.payments.retrieve(
+            id="id",
+            api_version_date="2026-09-02-1",
+        )
+        assert_matches_type(Payment, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Whop) -> None:
         response = client.payments.with_raw_response.retrieve(
-            "pay_xxxxxxxxxxxxxx",
+            id="id",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         payment = response.parse()
-        assert_matches_type(PaymentRetrieveResponse, payment, path=["response"])
+        assert_matches_type(Payment, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: Whop) -> None:
         with client.payments.with_streaming_response.retrieve(
-            "pay_xxxxxxxxxxxxxx",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             payment = response.parse()
-            assert_matches_type(PaymentRetrieveResponse, payment, path=["response"])
+            assert_matches_type(Payment, payment, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -346,41 +124,40 @@ class TestPayments:
     def test_path_params_retrieve(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.payments.with_raw_response.retrieve(
-                "",
+                id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Whop) -> None:
         payment = client.payments.list()
-        assert_matches_type(SyncCursorPage[PaymentListResponse], payment, path=["response"])
+        assert_matches_type(SyncCursorPage[Payment], payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Whop) -> None:
         payment = client.payments.list(
+            account_id="account_id",
             after="after",
             before="before",
-            billing_reasons=["subscription_create"],
-            checkout_configuration_ids=["string"],
-            company_id="biz_xxxxxxxxxxxxxx",
-            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
-            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
-            currencies=["usd"],
+            billing_reason="subscription_create",
+            created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+            currency="currency",
             direction="asc",
-            first=42,
-            include_free=True,
-            last=42,
-            order="final_amount",
-            plan_ids=["string"],
-            product_ids=["string"],
+            first=0,
+            last=0,
+            member_id="member_id",
+            membership_id="membership_id",
+            order="created_at",
+            plan_id="plan_id",
+            product_id="product_id",
             query="query",
-            statuses=["draft"],
-            substatuses=["succeeded"],
-            updated_after=parse_datetime("2023-12-01T05:00:00.401Z"),
-            updated_before=parse_datetime("2023-12-01T05:00:00.401Z"),
+            status="open",
+            user_id="user_id",
+            api_version_date="2026-09-02-1",
         )
-        assert_matches_type(SyncCursorPage[PaymentListResponse], payment, path=["response"])
+        assert_matches_type(SyncCursorPage[Payment], payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -390,7 +167,7 @@ class TestPayments:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         payment = response.parse()
-        assert_matches_type(SyncCursorPage[PaymentListResponse], payment, path=["response"])
+        assert_matches_type(SyncCursorPage[Payment], payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -400,7 +177,7 @@ class TestPayments:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             payment = response.parse()
-            assert_matches_type(SyncCursorPage[PaymentListResponse], payment, path=["response"])
+            assert_matches_type(SyncCursorPage[Payment], payment, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -408,45 +185,42 @@ class TestPayments:
     @parametrize
     def test_method_list_fees(self, client: Whop) -> None:
         payment = client.payments.list_fees(
-            id="pay_xxxxxxxxxxxxxx",
+            id="id",
         )
-        assert_matches_type(SyncCursorPage[PaymentListFeesResponse], payment, path=["response"])
+        assert_matches_type(PaymentListFeesResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_fees_with_all_params(self, client: Whop) -> None:
         payment = client.payments.list_fees(
-            id="pay_xxxxxxxxxxxxxx",
-            after="after",
-            before="before",
-            first=42,
-            last=42,
+            id="id",
+            api_version_date="2026-09-02-1",
         )
-        assert_matches_type(SyncCursorPage[PaymentListFeesResponse], payment, path=["response"])
+        assert_matches_type(PaymentListFeesResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list_fees(self, client: Whop) -> None:
         response = client.payments.with_raw_response.list_fees(
-            id="pay_xxxxxxxxxxxxxx",
+            id="id",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         payment = response.parse()
-        assert_matches_type(SyncCursorPage[PaymentListFeesResponse], payment, path=["response"])
+        assert_matches_type(PaymentListFeesResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list_fees(self, client: Whop) -> None:
         with client.payments.with_streaming_response.list_fees(
-            id="pay_xxxxxxxxxxxxxx",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             payment = response.parse()
-            assert_matches_type(SyncCursorPage[PaymentListFeesResponse], payment, path=["response"])
+            assert_matches_type(PaymentListFeesResponse, payment, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -462,7 +236,7 @@ class TestPayments:
     @parametrize
     def test_method_refund(self, client: Whop) -> None:
         payment = client.payments.refund(
-            id="pay_xxxxxxxxxxxxxx",
+            id="id",
         )
         assert_matches_type(Payment, payment, path=["response"])
 
@@ -470,8 +244,10 @@ class TestPayments:
     @parametrize
     def test_method_refund_with_all_params(self, client: Whop) -> None:
         payment = client.payments.refund(
-            id="pay_xxxxxxxxxxxxxx",
-            partial_amount=6.9,
+            id="id",
+            partial_amount=49,
+            api_version_date="2026-09-02-1",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Payment, payment, path=["response"])
 
@@ -479,7 +255,7 @@ class TestPayments:
     @parametrize
     def test_raw_response_refund(self, client: Whop) -> None:
         response = client.payments.with_raw_response.refund(
-            id="pay_xxxxxxxxxxxxxx",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -491,7 +267,7 @@ class TestPayments:
     @parametrize
     def test_streaming_response_refund(self, client: Whop) -> None:
         with client.payments.with_streaming_response.refund(
-            id="pay_xxxxxxxxxxxxxx",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -513,7 +289,17 @@ class TestPayments:
     @parametrize
     def test_method_retry(self, client: Whop) -> None:
         payment = client.payments.retry(
-            "pay_xxxxxxxxxxxxxx",
+            id="id",
+        )
+        assert_matches_type(Payment, payment, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_retry_with_all_params(self, client: Whop) -> None:
+        payment = client.payments.retry(
+            id="id",
+            api_version_date="2026-09-02-1",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Payment, payment, path=["response"])
 
@@ -521,7 +307,7 @@ class TestPayments:
     @parametrize
     def test_raw_response_retry(self, client: Whop) -> None:
         response = client.payments.with_raw_response.retry(
-            "pay_xxxxxxxxxxxxxx",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -533,7 +319,7 @@ class TestPayments:
     @parametrize
     def test_streaming_response_retry(self, client: Whop) -> None:
         with client.payments.with_streaming_response.retry(
-            "pay_xxxxxxxxxxxxxx",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -548,14 +334,24 @@ class TestPayments:
     def test_path_params_retry(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.payments.with_raw_response.retry(
-                "",
+                id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_void(self, client: Whop) -> None:
         payment = client.payments.void(
-            "pay_xxxxxxxxxxxxxx",
+            id="id",
+        )
+        assert_matches_type(Payment, payment, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_void_with_all_params(self, client: Whop) -> None:
+        payment = client.payments.void(
+            id="id",
+            api_version_date="2026-09-02-1",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Payment, payment, path=["response"])
 
@@ -563,7 +359,7 @@ class TestPayments:
     @parametrize
     def test_raw_response_void(self, client: Whop) -> None:
         response = client.payments.with_raw_response.void(
-            "pay_xxxxxxxxxxxxxx",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -575,7 +371,7 @@ class TestPayments:
     @parametrize
     def test_streaming_response_void(self, client: Whop) -> None:
         with client.payments.with_streaming_response.void(
-            "pay_xxxxxxxxxxxxxx",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -590,7 +386,7 @@ class TestPayments:
     def test_path_params_void(self, client: Whop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.payments.with_raw_response.void(
-                "",
+                id="",
             )
 
 
@@ -601,283 +397,57 @@ class TestAsyncPayments:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_create_overload_1(self, async_client: AsyncWhop) -> None:
+    async def test_method_create(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            confirmation_token="confirmation_token",
-            plan={"currency": "usd"},
+            account_id="biz_xxxxxxxxxxxxxx",
+            plan_id="plan_xxxxxxxxxxxxxx",
         )
-        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
+        assert_matches_type(Payment, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_create_with_all_params_overload_1(self, async_client: AsyncWhop) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            confirmation_token="confirmation_token",
-            plan={
-                "currency": "usd",
-                "application_fee_amount": 6.9,
-                "billing_period": 42,
-                "description": "description",
-                "expiration_days": 42,
-                "force_create_new_plan": True,
-                "initial_price": 6.9,
-                "internal_notes": "internal_notes",
-                "plan_type": "renewal",
-                "product": {
-                    "external_identifier": "external_identifier",
-                    "title": "title",
-                    "collect_shipping_address": True,
-                    "custom_statement_descriptor": "custom_statement_descriptor",
-                    "description": "description",
-                    "global_affiliate_percentage": 6.9,
-                    "global_affiliate_status": "enabled",
-                    "headline": "headline",
-                    "product_tax_code_id": "ptc_xxxxxxxxxxxxxx",
-                    "redirect_purchase_url": "redirect_purchase_url",
-                    "route": "route",
-                    "visibility": "visible",
-                },
-                "product_id": "prod_xxxxxxxxxxxxx",
-                "renewal_price": 6.9,
-                "title": "title",
-                "trial_period_days": 42,
-                "visibility": "visible",
-            },
-            capture=True,
-            email="buyer@example.com",
-            metadata={"foo": "bar"},
-            payment_method_id="pmt_xxxxxxxxxxxxxx",
-            promo_code_id="promo_xxxxxxxxxxxx",
-            return_url="https://example.com/path",
+            account_id="biz_xxxxxxxxxxxxxx",
+            plan_id="plan_xxxxxxxxxxxxxx",
+            capture=False,
+            confirmation_token="ctok_xxxxxxxxxxxxxx",
+            email="dana@shinetime.example",
+            member_id="mber_xxxxxxxxxxxxxx",
+            metadata={"order_ref": "SHINE-4417"},
+            payment_method_id="payt_xxxxxxxxxxxxxx",
+            promo_code_id="promo_xxxxxxxxxxxxxx",
+            return_url="https://shinetime.example/checkout/done",
+            api_version_date="2026-09-02-1",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
-        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
+        assert_matches_type(Payment, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_create_overload_1(self, async_client: AsyncWhop) -> None:
+    async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.payments.with_raw_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            confirmation_token="confirmation_token",
-            plan={"currency": "usd"},
+            account_id="biz_xxxxxxxxxxxxxx",
+            plan_id="plan_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         payment = await response.parse()
-        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
+        assert_matches_type(Payment, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_create_overload_1(self, async_client: AsyncWhop) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.payments.with_streaming_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            confirmation_token="confirmation_token",
-            plan={"currency": "usd"},
+            account_id="biz_xxxxxxxxxxxxxx",
+            plan_id="plan_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             payment = await response.parse()
-            assert_matches_type(PaymentCreateResponse, payment, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_create_overload_2(self, async_client: AsyncWhop) -> None:
-        payment = await async_client.payments.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            member_id="mber_xxxxxxxxxxxxx",
-            plan={"currency": "usd"},
-        )
-        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_create_with_all_params_overload_2(self, async_client: AsyncWhop) -> None:
-        payment = await async_client.payments.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            member_id="mber_xxxxxxxxxxxxx",
-            plan={
-                "currency": "usd",
-                "application_fee_amount": 6.9,
-                "billing_period": 42,
-                "description": "description",
-                "expiration_days": 42,
-                "force_create_new_plan": True,
-                "initial_price": 6.9,
-                "internal_notes": "internal_notes",
-                "plan_type": "renewal",
-                "product": {
-                    "external_identifier": "external_identifier",
-                    "title": "title",
-                    "collect_shipping_address": True,
-                    "custom_statement_descriptor": "custom_statement_descriptor",
-                    "description": "description",
-                    "global_affiliate_percentage": 6.9,
-                    "global_affiliate_status": "enabled",
-                    "headline": "headline",
-                    "product_tax_code_id": "ptc_xxxxxxxxxxxxxx",
-                    "redirect_purchase_url": "redirect_purchase_url",
-                    "route": "route",
-                    "visibility": "visible",
-                },
-                "product_id": "prod_xxxxxxxxxxxxx",
-                "renewal_price": 6.9,
-                "title": "title",
-                "trial_period_days": 42,
-                "visibility": "visible",
-            },
-            capture=True,
-            email="buyer@example.com",
-            metadata={"foo": "bar"},
-            payment_method_id="pmt_xxxxxxxxxxxxxx",
-            promo_code_id="promo_xxxxxxxxxxxx",
-            return_url="https://example.com/path",
-        )
-        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_create_overload_2(self, async_client: AsyncWhop) -> None:
-        response = await async_client.payments.with_raw_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            member_id="mber_xxxxxxxxxxxxx",
-            plan={"currency": "usd"},
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        payment = await response.parse()
-        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_create_overload_2(self, async_client: AsyncWhop) -> None:
-        async with async_client.payments.with_streaming_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            member_id="mber_xxxxxxxxxxxxx",
-            plan={"currency": "usd"},
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            payment = await response.parse()
-            assert_matches_type(PaymentCreateResponse, payment, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_create_overload_3(self, async_client: AsyncWhop) -> None:
-        payment = await async_client.payments.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            confirmation_token="confirmation_token",
-            plan_id="plan_xxxxxxxxxxxxx",
-        )
-        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_create_with_all_params_overload_3(self, async_client: AsyncWhop) -> None:
-        payment = await async_client.payments.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            confirmation_token="confirmation_token",
-            plan_id="plan_xxxxxxxxxxxxx",
-            capture=True,
-            email="buyer@example.com",
-            metadata={"foo": "bar"},
-            payment_method_id="pmt_xxxxxxxxxxxxxx",
-            promo_code_id="promo_xxxxxxxxxxxx",
-            return_url="https://example.com/path",
-        )
-        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_create_overload_3(self, async_client: AsyncWhop) -> None:
-        response = await async_client.payments.with_raw_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            confirmation_token="confirmation_token",
-            plan_id="plan_xxxxxxxxxxxxx",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        payment = await response.parse()
-        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_create_overload_3(self, async_client: AsyncWhop) -> None:
-        async with async_client.payments.with_streaming_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            confirmation_token="confirmation_token",
-            plan_id="plan_xxxxxxxxxxxxx",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            payment = await response.parse()
-            assert_matches_type(PaymentCreateResponse, payment, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_create_overload_4(self, async_client: AsyncWhop) -> None:
-        payment = await async_client.payments.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            member_id="mber_xxxxxxxxxxxxx",
-            plan_id="plan_xxxxxxxxxxxxx",
-        )
-        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_create_with_all_params_overload_4(self, async_client: AsyncWhop) -> None:
-        payment = await async_client.payments.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            member_id="mber_xxxxxxxxxxxxx",
-            plan_id="plan_xxxxxxxxxxxxx",
-            capture=True,
-            email="buyer@example.com",
-            metadata={"foo": "bar"},
-            payment_method_id="pmt_xxxxxxxxxxxxxx",
-            promo_code_id="promo_xxxxxxxxxxxx",
-            return_url="https://example.com/path",
-        )
-        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_create_overload_4(self, async_client: AsyncWhop) -> None:
-        response = await async_client.payments.with_raw_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            member_id="mber_xxxxxxxxxxxxx",
-            plan_id="plan_xxxxxxxxxxxxx",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        payment = await response.parse()
-        assert_matches_type(PaymentCreateResponse, payment, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_create_overload_4(self, async_client: AsyncWhop) -> None:
-        async with async_client.payments.with_streaming_response.create(
-            company_id="biz_xxxxxxxxxxxxxx",
-            member_id="mber_xxxxxxxxxxxxx",
-            plan_id="plan_xxxxxxxxxxxxx",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            payment = await response.parse()
-            assert_matches_type(PaymentCreateResponse, payment, path=["response"])
+            assert_matches_type(Payment, payment, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -885,33 +455,42 @@ class TestAsyncPayments:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.retrieve(
-            "pay_xxxxxxxxxxxxxx",
+            id="id",
         )
-        assert_matches_type(PaymentRetrieveResponse, payment, path=["response"])
+        assert_matches_type(Payment, payment, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
+        payment = await async_client.payments.retrieve(
+            id="id",
+            api_version_date="2026-09-02-1",
+        )
+        assert_matches_type(Payment, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncWhop) -> None:
         response = await async_client.payments.with_raw_response.retrieve(
-            "pay_xxxxxxxxxxxxxx",
+            id="id",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         payment = await response.parse()
-        assert_matches_type(PaymentRetrieveResponse, payment, path=["response"])
+        assert_matches_type(Payment, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncWhop) -> None:
         async with async_client.payments.with_streaming_response.retrieve(
-            "pay_xxxxxxxxxxxxxx",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             payment = await response.parse()
-            assert_matches_type(PaymentRetrieveResponse, payment, path=["response"])
+            assert_matches_type(Payment, payment, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -920,41 +499,40 @@ class TestAsyncPayments:
     async def test_path_params_retrieve(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.payments.with_raw_response.retrieve(
-                "",
+                id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.list()
-        assert_matches_type(AsyncCursorPage[PaymentListResponse], payment, path=["response"])
+        assert_matches_type(AsyncCursorPage[Payment], payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.list(
+            account_id="account_id",
             after="after",
             before="before",
-            billing_reasons=["subscription_create"],
-            checkout_configuration_ids=["string"],
-            company_id="biz_xxxxxxxxxxxxxx",
-            created_after=parse_datetime("2023-12-01T05:00:00.401Z"),
-            created_before=parse_datetime("2023-12-01T05:00:00.401Z"),
-            currencies=["usd"],
+            billing_reason="subscription_create",
+            created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+            currency="currency",
             direction="asc",
-            first=42,
-            include_free=True,
-            last=42,
-            order="final_amount",
-            plan_ids=["string"],
-            product_ids=["string"],
+            first=0,
+            last=0,
+            member_id="member_id",
+            membership_id="membership_id",
+            order="created_at",
+            plan_id="plan_id",
+            product_id="product_id",
             query="query",
-            statuses=["draft"],
-            substatuses=["succeeded"],
-            updated_after=parse_datetime("2023-12-01T05:00:00.401Z"),
-            updated_before=parse_datetime("2023-12-01T05:00:00.401Z"),
+            status="open",
+            user_id="user_id",
+            api_version_date="2026-09-02-1",
         )
-        assert_matches_type(AsyncCursorPage[PaymentListResponse], payment, path=["response"])
+        assert_matches_type(AsyncCursorPage[Payment], payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -964,7 +542,7 @@ class TestAsyncPayments:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         payment = await response.parse()
-        assert_matches_type(AsyncCursorPage[PaymentListResponse], payment, path=["response"])
+        assert_matches_type(AsyncCursorPage[Payment], payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -974,7 +552,7 @@ class TestAsyncPayments:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             payment = await response.parse()
-            assert_matches_type(AsyncCursorPage[PaymentListResponse], payment, path=["response"])
+            assert_matches_type(AsyncCursorPage[Payment], payment, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -982,45 +560,42 @@ class TestAsyncPayments:
     @parametrize
     async def test_method_list_fees(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.list_fees(
-            id="pay_xxxxxxxxxxxxxx",
+            id="id",
         )
-        assert_matches_type(AsyncCursorPage[PaymentListFeesResponse], payment, path=["response"])
+        assert_matches_type(PaymentListFeesResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_fees_with_all_params(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.list_fees(
-            id="pay_xxxxxxxxxxxxxx",
-            after="after",
-            before="before",
-            first=42,
-            last=42,
+            id="id",
+            api_version_date="2026-09-02-1",
         )
-        assert_matches_type(AsyncCursorPage[PaymentListFeesResponse], payment, path=["response"])
+        assert_matches_type(PaymentListFeesResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list_fees(self, async_client: AsyncWhop) -> None:
         response = await async_client.payments.with_raw_response.list_fees(
-            id="pay_xxxxxxxxxxxxxx",
+            id="id",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         payment = await response.parse()
-        assert_matches_type(AsyncCursorPage[PaymentListFeesResponse], payment, path=["response"])
+        assert_matches_type(PaymentListFeesResponse, payment, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list_fees(self, async_client: AsyncWhop) -> None:
         async with async_client.payments.with_streaming_response.list_fees(
-            id="pay_xxxxxxxxxxxxxx",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             payment = await response.parse()
-            assert_matches_type(AsyncCursorPage[PaymentListFeesResponse], payment, path=["response"])
+            assert_matches_type(PaymentListFeesResponse, payment, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1036,7 +611,7 @@ class TestAsyncPayments:
     @parametrize
     async def test_method_refund(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.refund(
-            id="pay_xxxxxxxxxxxxxx",
+            id="id",
         )
         assert_matches_type(Payment, payment, path=["response"])
 
@@ -1044,8 +619,10 @@ class TestAsyncPayments:
     @parametrize
     async def test_method_refund_with_all_params(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.refund(
-            id="pay_xxxxxxxxxxxxxx",
-            partial_amount=6.9,
+            id="id",
+            partial_amount=49,
+            api_version_date="2026-09-02-1",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Payment, payment, path=["response"])
 
@@ -1053,7 +630,7 @@ class TestAsyncPayments:
     @parametrize
     async def test_raw_response_refund(self, async_client: AsyncWhop) -> None:
         response = await async_client.payments.with_raw_response.refund(
-            id="pay_xxxxxxxxxxxxxx",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -1065,7 +642,7 @@ class TestAsyncPayments:
     @parametrize
     async def test_streaming_response_refund(self, async_client: AsyncWhop) -> None:
         async with async_client.payments.with_streaming_response.refund(
-            id="pay_xxxxxxxxxxxxxx",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1087,7 +664,17 @@ class TestAsyncPayments:
     @parametrize
     async def test_method_retry(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.retry(
-            "pay_xxxxxxxxxxxxxx",
+            id="id",
+        )
+        assert_matches_type(Payment, payment, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_retry_with_all_params(self, async_client: AsyncWhop) -> None:
+        payment = await async_client.payments.retry(
+            id="id",
+            api_version_date="2026-09-02-1",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Payment, payment, path=["response"])
 
@@ -1095,7 +682,7 @@ class TestAsyncPayments:
     @parametrize
     async def test_raw_response_retry(self, async_client: AsyncWhop) -> None:
         response = await async_client.payments.with_raw_response.retry(
-            "pay_xxxxxxxxxxxxxx",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -1107,7 +694,7 @@ class TestAsyncPayments:
     @parametrize
     async def test_streaming_response_retry(self, async_client: AsyncWhop) -> None:
         async with async_client.payments.with_streaming_response.retry(
-            "pay_xxxxxxxxxxxxxx",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1122,14 +709,24 @@ class TestAsyncPayments:
     async def test_path_params_retry(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.payments.with_raw_response.retry(
-                "",
+                id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_void(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.void(
-            "pay_xxxxxxxxxxxxxx",
+            id="id",
+        )
+        assert_matches_type(Payment, payment, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_void_with_all_params(self, async_client: AsyncWhop) -> None:
+        payment = await async_client.payments.void(
+            id="id",
+            api_version_date="2026-09-02-1",
+            idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Payment, payment, path=["response"])
 
@@ -1137,7 +734,7 @@ class TestAsyncPayments:
     @parametrize
     async def test_raw_response_void(self, async_client: AsyncWhop) -> None:
         response = await async_client.payments.with_raw_response.void(
-            "pay_xxxxxxxxxxxxxx",
+            id="id",
         )
 
         assert response.is_closed is True
@@ -1149,7 +746,7 @@ class TestAsyncPayments:
     @parametrize
     async def test_streaming_response_void(self, async_client: AsyncWhop) -> None:
         async with async_client.payments.with_streaming_response.void(
-            "pay_xxxxxxxxxxxxxx",
+            id="id",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1164,5 +761,5 @@ class TestAsyncPayments:
     async def test_path_params_void(self, async_client: AsyncWhop) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.payments.with_raw_response.void(
-                "",
+                id="",
             )

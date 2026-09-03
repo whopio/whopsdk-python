@@ -221,6 +221,13 @@ class Data(BaseModel):
     payout_account_details: Optional[DataPayoutAccountDetails] = None
     """The payout account associated with the LedgerAccount, if any."""
 
+    payout_quote_required: bool
+    """
+    Whether a payout from this account must be confirmed against a provider-backed
+    quote first. When true, create a quote with POST /payouts/quotes and send its
+    quote_token when creating the payout.
+    """
+
     settlement_time_at: Optional[datetime] = None
     """
     The settlement batch most recently posted to this account's available balance,

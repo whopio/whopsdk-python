@@ -35,7 +35,7 @@ class TestAds:
             stats_from="stats_from",
             stats_to="stats_to",
             time_zone="time_zone",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(Ad, ad, path=["response"])
 
@@ -102,7 +102,7 @@ class TestAds:
             stats_to="stats_to",
             status="active",
             time_zone="time_zone",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(SyncCursorPage[Ad], ad, path=["response"])
 
@@ -141,7 +141,7 @@ class TestAds:
     def test_method_pause_with_all_params(self, client: Whop) -> None:
         ad = client.ads.pause(
             id="id",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Ad, ad, path=["response"])
@@ -193,7 +193,7 @@ class TestAds:
     def test_method_unpause_with_all_params(self, client: Whop) -> None:
         ad = client.ads.unpause(
             id="id",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Ad, ad, path=["response"])
@@ -255,7 +255,7 @@ class TestAsyncAds:
             stats_from="stats_from",
             stats_to="stats_to",
             time_zone="time_zone",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(Ad, ad, path=["response"])
 
@@ -322,7 +322,7 @@ class TestAsyncAds:
             stats_to="stats_to",
             status="active",
             time_zone="time_zone",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(AsyncCursorPage[Ad], ad, path=["response"])
 
@@ -361,7 +361,7 @@ class TestAsyncAds:
     async def test_method_pause_with_all_params(self, async_client: AsyncWhop) -> None:
         ad = await async_client.ads.pause(
             id="id",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Ad, ad, path=["response"])
@@ -413,7 +413,7 @@ class TestAsyncAds:
     async def test_method_unpause_with_all_params(self, async_client: AsyncWhop) -> None:
         ad = await async_client.ads.unpause(
             id="id",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Ad, ad, path=["response"])

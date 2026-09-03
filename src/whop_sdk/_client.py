@@ -512,6 +512,12 @@ class Whop(SyncAPIClient):
 
     @cached_property
     def refunds(self) -> RefundsResource:
+        """A Refund is one reversal of a payment, full or partial.
+
+        Refunds are issued with `POST /payments/{id}/refund`; this resource is the record of each one — how much moved, through which provider, and where it stands (`pending`, `succeeded`, `failed`).
+
+        List a payment's refunds with `?payment_id=`, or every refund an account issued with `?account_id=`. `amount` is stated in the payment's settlement currency so it nets against the payment's `total`; `original_amount` is what the processor moved.
+        """
         from .resources.refunds import RefundsResource
 
         return RefundsResource(self)
@@ -1159,6 +1165,12 @@ class AsyncWhop(AsyncAPIClient):
 
     @cached_property
     def refunds(self) -> AsyncRefundsResource:
+        """A Refund is one reversal of a payment, full or partial.
+
+        Refunds are issued with `POST /payments/{id}/refund`; this resource is the record of each one — how much moved, through which provider, and where it stands (`pending`, `succeeded`, `failed`).
+
+        List a payment's refunds with `?payment_id=`, or every refund an account issued with `?account_id=`. `amount` is stated in the payment's settlement currency so it nets against the payment's `total`; `original_amount` is what the processor moved.
+        """
         from .resources.refunds import AsyncRefundsResource
 
         return AsyncRefundsResource(self)
@@ -1733,6 +1745,12 @@ class WhopWithRawResponse:
 
     @cached_property
     def refunds(self) -> refunds.RefundsResourceWithRawResponse:
+        """A Refund is one reversal of a payment, full or partial.
+
+        Refunds are issued with `POST /payments/{id}/refund`; this resource is the record of each one — how much moved, through which provider, and where it stands (`pending`, `succeeded`, `failed`).
+
+        List a payment's refunds with `?payment_id=`, or every refund an account issued with `?account_id=`. `amount` is stated in the payment's settlement currency so it nets against the payment's `total`; `original_amount` is what the processor moved.
+        """
         from .resources.refunds import RefundsResourceWithRawResponse
 
         return RefundsResourceWithRawResponse(self._client.refunds)
@@ -2192,6 +2210,12 @@ class AsyncWhopWithRawResponse:
 
     @cached_property
     def refunds(self) -> refunds.AsyncRefundsResourceWithRawResponse:
+        """A Refund is one reversal of a payment, full or partial.
+
+        Refunds are issued with `POST /payments/{id}/refund`; this resource is the record of each one — how much moved, through which provider, and where it stands (`pending`, `succeeded`, `failed`).
+
+        List a payment's refunds with `?payment_id=`, or every refund an account issued with `?account_id=`. `amount` is stated in the payment's settlement currency so it nets against the payment's `total`; `original_amount` is what the processor moved.
+        """
         from .resources.refunds import AsyncRefundsResourceWithRawResponse
 
         return AsyncRefundsResourceWithRawResponse(self._client.refunds)
@@ -2653,6 +2677,12 @@ class WhopWithStreamedResponse:
 
     @cached_property
     def refunds(self) -> refunds.RefundsResourceWithStreamingResponse:
+        """A Refund is one reversal of a payment, full or partial.
+
+        Refunds are issued with `POST /payments/{id}/refund`; this resource is the record of each one — how much moved, through which provider, and where it stands (`pending`, `succeeded`, `failed`).
+
+        List a payment's refunds with `?payment_id=`, or every refund an account issued with `?account_id=`. `amount` is stated in the payment's settlement currency so it nets against the payment's `total`; `original_amount` is what the processor moved.
+        """
         from .resources.refunds import RefundsResourceWithStreamingResponse
 
         return RefundsResourceWithStreamingResponse(self._client.refunds)
@@ -3116,6 +3146,12 @@ class AsyncWhopWithStreamedResponse:
 
     @cached_property
     def refunds(self) -> refunds.AsyncRefundsResourceWithStreamingResponse:
+        """A Refund is one reversal of a payment, full or partial.
+
+        Refunds are issued with `POST /payments/{id}/refund`; this resource is the record of each one — how much moved, through which provider, and where it stands (`pending`, `succeeded`, `failed`).
+
+        List a payment's refunds with `?payment_id=`, or every refund an account issued with `?account_id=`. `amount` is stated in the payment's settlement currency so it nets against the payment's `total`; `original_amount` is what the processor moved.
+        """
         from .resources.refunds import AsyncRefundsResourceWithStreamingResponse
 
         return AsyncRefundsResourceWithStreamingResponse(self._client.refunds)

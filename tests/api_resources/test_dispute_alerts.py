@@ -31,7 +31,7 @@ class TestDisputeAlerts:
     def test_method_retrieve_with_all_params(self, client: Whop) -> None:
         dispute_alert = client.dispute_alerts.retrieve(
             id="id",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(DisputeAlertRetrieveResponse, dispute_alert, path=["response"])
 
@@ -90,7 +90,7 @@ class TestDisputeAlerts:
             order="created_at",
             payment_id="payment_id",
             type="early_fraud_warning",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(SyncCursorPage[DisputeAlertListResponse], dispute_alert, path=["response"])
 
@@ -135,7 +135,7 @@ class TestAsyncDisputeAlerts:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
         dispute_alert = await async_client.dispute_alerts.retrieve(
             id="id",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(DisputeAlertRetrieveResponse, dispute_alert, path=["response"])
 
@@ -194,7 +194,7 @@ class TestAsyncDisputeAlerts:
             order="created_at",
             payment_id="payment_id",
             type="early_fraud_warning",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(AsyncCursorPage[DisputeAlertListResponse], dispute_alert, path=["response"])
 

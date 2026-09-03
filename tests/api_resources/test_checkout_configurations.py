@@ -71,7 +71,7 @@ class TestCheckoutConfigurations:
             plan_id="plan_xxxxxxxxxxxxx",
             redirect_url="https://shinetime.example/thanks",
             three_ds_level="frictionless",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(CheckoutConfigurationCreateResponse, checkout_configuration, path=["response"])
@@ -111,7 +111,7 @@ class TestCheckoutConfigurations:
     def test_method_retrieve_with_all_params(self, client: Whop) -> None:
         checkout_configuration = client.checkout_configurations.retrieve(
             id="id",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(CheckoutConfigurationRetrieveResponse, checkout_configuration, path=["response"])
 
@@ -171,7 +171,7 @@ class TestCheckoutConfigurations:
             first=0,
             order="created_at",
             plan_id="plan_id",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(
             SyncCursorPage[CheckoutConfigurationListResponse], checkout_configuration, path=["response"]
@@ -262,7 +262,7 @@ class TestAsyncCheckoutConfigurations:
             plan_id="plan_xxxxxxxxxxxxx",
             redirect_url="https://shinetime.example/thanks",
             three_ds_level="frictionless",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(CheckoutConfigurationCreateResponse, checkout_configuration, path=["response"])
@@ -302,7 +302,7 @@ class TestAsyncCheckoutConfigurations:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
         checkout_configuration = await async_client.checkout_configurations.retrieve(
             id="id",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(CheckoutConfigurationRetrieveResponse, checkout_configuration, path=["response"])
 
@@ -362,7 +362,7 @@ class TestAsyncCheckoutConfigurations:
             first=0,
             order="created_at",
             plan_id="plan_id",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(
             AsyncCursorPage[CheckoutConfigurationListResponse], checkout_configuration, path=["response"]

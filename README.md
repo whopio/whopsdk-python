@@ -41,9 +41,7 @@ client = Whop(
     api_key=os.environ.get("WHOP_API_KEY"),  # This is the default and can be omitted
 )
 
-page = client.payments.list(
-    company_id="biz_xxxxxxxxxxxxxx",
-)
+page = client.payments.list()
 print(page.data)
 ```
 
@@ -67,9 +65,7 @@ client = AsyncWhop(
 
 
 async def main() -> None:
-    page = await client.payments.list(
-        company_id="biz_xxxxxxxxxxxxxx",
-    )
+    page = await client.payments.list()
     print(page.data)
 
 
@@ -103,9 +99,7 @@ async def main() -> None:
         api_key=os.environ.get("WHOP_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
-        page = await client.payments.list(
-            company_id="biz_xxxxxxxxxxxxxx",
-        )
+        page = await client.payments.list()
         print(page.data)
 
 
@@ -134,9 +128,7 @@ client = Whop()
 
 all_payments = []
 # Automatically fetches more pages as needed.
-for payment in client.payments.list(
-    company_id="biz_xxxxxxxxxxxxxx",
-):
+for payment in client.payments.list():
     # Do something with payment here
     all_payments.append(payment)
 print(all_payments)
@@ -154,9 +146,7 @@ client = AsyncWhop()
 async def main() -> None:
     all_payments = []
     # Iterate through items across all pages, issuing requests as needed.
-    async for payment in client.payments.list(
-        company_id="biz_xxxxxxxxxxxxxx",
-    ):
+    async for payment in client.payments.list():
         all_payments.append(payment)
     print(all_payments)
 
@@ -167,9 +157,7 @@ asyncio.run(main())
 Alternatively, you can use the `.has_next_page()`, `.next_page_info()`, or `.get_next_page()` methods for more granular control working with pages:
 
 ```python
-first_page = await client.payments.list(
-    company_id="biz_xxxxxxxxxxxxxx",
-)
+first_page = await client.payments.list()
 if first_page.has_next_page():
     print(f"will fetch next page using these details: {first_page.next_page_info()}")
     next_page = await first_page.get_next_page()
@@ -181,9 +169,7 @@ if first_page.has_next_page():
 Or just work directly with the returned data:
 
 ```python
-first_page = await client.payments.list(
-    company_id="biz_xxxxxxxxxxxxxx",
-)
+first_page = await client.payments.list()
 
 print(f"next page cursor: {first_page.page_info.end_cursor}")  # => "next page cursor: ..."
 for payment in first_page.data:
@@ -224,9 +210,7 @@ from whop_sdk import Whop
 client = Whop()
 
 try:
-    client.payments.list(
-        company_id="biz_xxxxxxxxxxxxxx",
-    )
+    client.payments.list()
 except whop_sdk.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
@@ -269,9 +253,7 @@ client = Whop(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).payments.list(
-    company_id="biz_xxxxxxxxxxxxxx",
-)
+client.with_options(max_retries=5).payments.list()
 ```
 
 ### Timeouts
@@ -294,9 +276,7 @@ client = Whop(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).payments.list(
-    company_id="biz_xxxxxxxxxxxxxx",
-)
+client.with_options(timeout=5.0).payments.list()
 ```
 
 On timeout, an `APITimeoutError` is thrown.
@@ -337,9 +317,7 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from whop_sdk import Whop
 
 client = Whop()
-response = client.payments.with_raw_response.list(
-    company_id="biz_xxxxxxxxxxxxxx",
-)
+response = client.payments.with_raw_response.list()
 print(response.headers.get('X-My-Header'))
 
 payment = response.parse()  # get the object that `payments.list()` would have returned
@@ -357,9 +335,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.payments.with_streaming_response.list(
-    company_id="biz_xxxxxxxxxxxxxx",
-) as response:
+with client.payments.with_streaming_response.list() as response:
     print(response.headers.get("X-My-Header"))
 
     for line in response.iter_lines():

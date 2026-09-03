@@ -4,12 +4,13 @@ from __future__ import annotations
 
 from typing import Union
 from datetime import datetime
+from typing_extensions import Literal
 
 import httpx
 
 from ..types import refund_list_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform
+from .._utils import path_template, maybe_transform, strip_not_given
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -20,7 +21,6 @@ from .._response import (
 )
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.shared.direction import Direction
 from ..types.refund_list_response import RefundListResponse
 from ..types.refund_retrieve_response import RefundRetrieveResponse
 
@@ -28,6 +28,13 @@ __all__ = ["RefundsResource", "AsyncRefundsResource"]
 
 
 class RefundsResource(SyncAPIResource):
+    """A Refund is one reversal of a payment, full or partial.
+
+    Refunds are issued with `POST /payments/{id}/refund`; this resource is the record of each one — how much moved, through which provider, and where it stands (`pending`, `succeeded`, `failed`).
+
+    List a payment's refunds with `?payment_id=`, or every refund an account issued with `?account_id=`. `amount` is stated in the payment's settlement currency so it nets against the payment's `total`; `original_amount` is what the processor moved.
+    """
+
     @cached_property
     def with_raw_response(self) -> RefundsResourceWithRawResponse:
         """
@@ -51,6 +58,7 @@ class RefundsResource(SyncAPIResource):
         self,
         id: str,
         *,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -59,16 +67,7 @@ class RefundsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RefundRetrieveResponse:
         """
-        Retrieves the details of an existing refund.
-
-        Required permissions:
-
-        - `payment:basic:read`
-        - `plan:basic:read`
-        - `access_pass:basic:read`
-        - `member:email:read`
-        - `member:basic:read`
-        - `member:phone:read`
+        Returns one refund.
 
         Args:
           extra_headers: Send extra headers
@@ -81,6 +80,7 @@ class RefundsResource(SyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return self._get(
             path_template("/refunds/{id}", id=id),
             options=make_request_options(
@@ -92,16 +92,18 @@ class RefundsResource(SyncAPIResource):
     def list(
         self,
         *,
+        account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
-        company_id: str | Omit = omit,
         created_after: Union[str, datetime] | Omit = omit,
         created_before: Union[str, datetime] | Omit = omit,
-        direction: Direction | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
+        order: Literal["created_at"] | Omit = omit,
         payment_id: str | Omit = omit,
         user_id: str | Omit = omit,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -109,38 +111,34 @@ class RefundsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[RefundListResponse]:
-        """
-        Returns a paginated list of refunds, with optional filtering by payment,
-        company, user, and creation date.
+        """Lists refunds, newest first.
 
-        Required permissions:
-
-        - `payment:basic:read`
+        Without filters this is every refund the caller can
+        read; narrow it to one payment with `payment_id`, one account with `account_id`,
+        or one buyer with `user_id`.
 
         Args:
-          after: Returns the elements in the list that come after the specified cursor.
+          account_id: Only refunds issued by this account, prefixed `biz_`.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          after: A cursor; returns refunds after this position.
 
-          company_id: Filter refunds to those belonging to this company. Mutually exclusive with
-              payment_id and user_id: provide exactly one.
+          before: A cursor; returns refunds before this position.
 
-          created_after: Only return refunds created after this timestamp.
+          created_after: Only refunds requested after this ISO 8601 timestamp.
 
-          created_before: Only return refunds created before this timestamp.
+          created_before: Only refunds requested before this ISO 8601 timestamp.
 
-          direction: The sort direction for ordering results, either ascending or descending.
+          direction: The sort direction.
 
-          first: Returns the first _n_ elements from the list.
+          first: The number of refunds to return.
 
-          last: Returns the last _n_ elements from the list.
+          last: The number of refunds to return from the end of the range.
 
-          payment_id: Filter refunds to those associated with this specific payment. Mutually
-              exclusive with company_id and user_id: provide exactly one.
+          order: The field to sort by.
 
-          user_id: Filter refunds to those associated with this specific user. Mutually exclusive
-              with payment_id and company_id: provide exactly one. Requires a credential
-              belonging to that user; any other credential receives 'You are not authorized'.
+          payment_id: Only refunds of this payment, prefixed `pay_`.
+
+          user_id: Only refunds to this buyer, prefixed `user_`.
 
           extra_headers: Send extra headers
 
@@ -150,6 +148,7 @@ class RefundsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return self._get_api_list(
             "/refunds",
             page=SyncCursorPage[RefundListResponse],
@@ -160,14 +159,15 @@ class RefundsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
-                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
                         "first": first,
                         "last": last,
+                        "order": order,
                         "payment_id": payment_id,
                         "user_id": user_id,
                     },
@@ -179,6 +179,13 @@ class RefundsResource(SyncAPIResource):
 
 
 class AsyncRefundsResource(AsyncAPIResource):
+    """A Refund is one reversal of a payment, full or partial.
+
+    Refunds are issued with `POST /payments/{id}/refund`; this resource is the record of each one — how much moved, through which provider, and where it stands (`pending`, `succeeded`, `failed`).
+
+    List a payment's refunds with `?payment_id=`, or every refund an account issued with `?account_id=`. `amount` is stated in the payment's settlement currency so it nets against the payment's `total`; `original_amount` is what the processor moved.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncRefundsResourceWithRawResponse:
         """
@@ -202,6 +209,7 @@ class AsyncRefundsResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -210,16 +218,7 @@ class AsyncRefundsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RefundRetrieveResponse:
         """
-        Retrieves the details of an existing refund.
-
-        Required permissions:
-
-        - `payment:basic:read`
-        - `plan:basic:read`
-        - `access_pass:basic:read`
-        - `member:email:read`
-        - `member:basic:read`
-        - `member:phone:read`
+        Returns one refund.
 
         Args:
           extra_headers: Send extra headers
@@ -232,6 +231,7 @@ class AsyncRefundsResource(AsyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return await self._get(
             path_template("/refunds/{id}", id=id),
             options=make_request_options(
@@ -243,16 +243,18 @@ class AsyncRefundsResource(AsyncAPIResource):
     def list(
         self,
         *,
+        account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
-        company_id: str | Omit = omit,
         created_after: Union[str, datetime] | Omit = omit,
         created_before: Union[str, datetime] | Omit = omit,
-        direction: Direction | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
+        order: Literal["created_at"] | Omit = omit,
         payment_id: str | Omit = omit,
         user_id: str | Omit = omit,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -260,38 +262,34 @@ class AsyncRefundsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[RefundListResponse, AsyncCursorPage[RefundListResponse]]:
-        """
-        Returns a paginated list of refunds, with optional filtering by payment,
-        company, user, and creation date.
+        """Lists refunds, newest first.
 
-        Required permissions:
-
-        - `payment:basic:read`
+        Without filters this is every refund the caller can
+        read; narrow it to one payment with `payment_id`, one account with `account_id`,
+        or one buyer with `user_id`.
 
         Args:
-          after: Returns the elements in the list that come after the specified cursor.
+          account_id: Only refunds issued by this account, prefixed `biz_`.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          after: A cursor; returns refunds after this position.
 
-          company_id: Filter refunds to those belonging to this company. Mutually exclusive with
-              payment_id and user_id: provide exactly one.
+          before: A cursor; returns refunds before this position.
 
-          created_after: Only return refunds created after this timestamp.
+          created_after: Only refunds requested after this ISO 8601 timestamp.
 
-          created_before: Only return refunds created before this timestamp.
+          created_before: Only refunds requested before this ISO 8601 timestamp.
 
-          direction: The sort direction for ordering results, either ascending or descending.
+          direction: The sort direction.
 
-          first: Returns the first _n_ elements from the list.
+          first: The number of refunds to return.
 
-          last: Returns the last _n_ elements from the list.
+          last: The number of refunds to return from the end of the range.
 
-          payment_id: Filter refunds to those associated with this specific payment. Mutually
-              exclusive with company_id and user_id: provide exactly one.
+          order: The field to sort by.
 
-          user_id: Filter refunds to those associated with this specific user. Mutually exclusive
-              with payment_id and company_id: provide exactly one. Requires a credential
-              belonging to that user; any other credential receives 'You are not authorized'.
+          payment_id: Only refunds of this payment, prefixed `pay_`.
+
+          user_id: Only refunds to this buyer, prefixed `user_`.
 
           extra_headers: Send extra headers
 
@@ -301,6 +299,7 @@ class AsyncRefundsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return self._get_api_list(
             "/refunds",
             page=AsyncCursorPage[RefundListResponse],
@@ -311,14 +310,15 @@ class AsyncRefundsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "account_id": account_id,
                         "after": after,
                         "before": before,
-                        "company_id": company_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "direction": direction,
                         "first": first,
                         "last": last,
+                        "order": order,
                         "payment_id": payment_id,
                         "user_id": user_id,
                     },

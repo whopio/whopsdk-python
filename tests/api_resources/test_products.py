@@ -53,7 +53,7 @@ class TestProducts:
             route="interior-deep-clean",
             send_welcome_message=True,
             visibility="visible",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Product, product, path=["response"])
@@ -97,7 +97,7 @@ class TestProducts:
     def test_method_retrieve_with_all_params(self, client: Whop) -> None:
         product = client.products.retrieve(
             id="id",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(Product, product, path=["response"])
 
@@ -163,7 +163,7 @@ class TestProducts:
             send_welcome_message=True,
             title="Interior Deep Clean",
             visibility="visible",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(Product, product, path=["response"])
 
@@ -228,7 +228,7 @@ class TestProducts:
             price_minimum=0,
             query="query",
             visibilities=["visible"],
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(SyncCursorPage[ProductListItem], product, path=["response"])
 
@@ -267,7 +267,7 @@ class TestProducts:
     def test_method_delete_with_all_params(self, client: Whop) -> None:
         product = client.products.delete(
             id="id",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(ProductDeleteResponse, product, path=["response"])
 
@@ -345,7 +345,7 @@ class TestAsyncProducts:
             route="interior-deep-clean",
             send_welcome_message=True,
             visibility="visible",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Product, product, path=["response"])
@@ -389,7 +389,7 @@ class TestAsyncProducts:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
         product = await async_client.products.retrieve(
             id="id",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(Product, product, path=["response"])
 
@@ -455,7 +455,7 @@ class TestAsyncProducts:
             send_welcome_message=True,
             title="Interior Deep Clean",
             visibility="visible",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(Product, product, path=["response"])
 
@@ -520,7 +520,7 @@ class TestAsyncProducts:
             price_minimum=0,
             query="query",
             visibilities=["visible"],
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(AsyncCursorPage[ProductListItem], product, path=["response"])
 
@@ -559,7 +559,7 @@ class TestAsyncProducts:
     async def test_method_delete_with_all_params(self, async_client: AsyncWhop) -> None:
         product = await async_client.products.delete(
             id="id",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(ProductDeleteResponse, product, path=["response"])
 

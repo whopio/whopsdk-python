@@ -440,6 +440,8 @@ class App(BaseModel):
     unless the caller is a team member who can read the app's developer settings.
     """
 
+    previous_hosted_urls: List[str]
+
     product_id: Optional[str] = None
     """
     ID of the app's product listing on the Whop app store, or `null` when the app

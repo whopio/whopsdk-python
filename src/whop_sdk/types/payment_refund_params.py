@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import TypedDict
+from typing_extensions import Annotated, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = ["PaymentRefundParams"]
 
@@ -16,3 +18,7 @@ class PaymentRefundParams(TypedDict, total=False):
     paid). For single-currency, this is in the payment currency. If omitted, the
     full payment amount is refunded.
     """
+
+    api_version_date: Annotated[str, PropertyInfo(alias="Api-Version-Date")]
+
+    idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]

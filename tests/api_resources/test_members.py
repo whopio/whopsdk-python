@@ -31,7 +31,7 @@ class TestMembers:
     def test_method_retrieve_with_all_params(self, client: Whop) -> None:
         member = client.members.retrieve(
             id="id",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(MemberRetrieveResponse, member, path=["response"])
 
@@ -92,7 +92,7 @@ class TestMembers:
             query="query",
             status="joined",
             user_ids=["user_xxxxxxxxxxxxxx"],
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(SyncCursorPage[MemberListResponse], member, path=["response"])
 
@@ -137,7 +137,7 @@ class TestAsyncMembers:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
         member = await async_client.members.retrieve(
             id="id",
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(MemberRetrieveResponse, member, path=["response"])
 
@@ -198,7 +198,7 @@ class TestAsyncMembers:
             query="query",
             status="joined",
             user_ids=["user_xxxxxxxxxxxxxx"],
-            api_version_date="2026-09-02",
+            api_version_date="2026-09-02-1",
         )
         assert_matches_type(AsyncCursorPage[MemberListResponse], member, path=["response"])
 

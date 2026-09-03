@@ -1,38 +1,20 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
-from datetime import datetime
+from typing import Optional
 from typing_extensions import Literal
 
 from .currency import Currency
 from ..._models import BaseModel
-from .promo_type import PromoType
-from ..card_brands import CardBrands
-from ..refund_status import RefundStatus
 from .receipt_status import ReceiptStatus
-from .shipment_status import ShipmentStatus
 from ..billing_reasons import BillingReasons
-from ..dispute_statuses import DisputeStatuses
-from .membership_status import MembershipStatus
 from ..payment_method_types import PaymentMethodTypes
 from ..receipt_tax_behavior import ReceiptTaxBehavior
 from .friendly_receipt_status import FriendlyReceiptStatus
-from ..resolution_center_case_status import ResolutionCenterCaseStatus
-from ..resolution_center_case_issue_type import ResolutionCenterCaseIssueType
-from ..resolution_center_case_customer_response import ResolutionCenterCaseCustomerResponse
-from ..resolution_center_case_merchant_response import ResolutionCenterCaseMerchantResponse
-from ..resolution_center_case_platform_response import ResolutionCenterCasePlatformResponse
 
 __all__ = [
     "Payment",
-    "ApplicationFee",
+    "AmountAfterFees",
     "BillingAddress",
-    "Company",
-    "Dispute",
-    "Fee",
-    "FinancingTransaction",
-    "Member",
-    "Membership",
     "PaymentInstrument",
     "PaymentInstrumentCard",
     "PaymentInstrumentIcons",
@@ -42,233 +24,70 @@ __all__ = [
     "PaymentInstrumentIconsSquare",
     "PaymentInstrumentIconsSquareDark",
     "PaymentInstrumentIconsSquareLight",
-    "PaymentMethod",
-    "PaymentMethodCard",
-    "Plan",
-    "Product",
-    "PromoCode",
-    "Refund",
-    "Resolution",
-    "Shipment",
+    "RefundedAmount",
     "ShippingAddress",
+    "Subtotal",
+    "TaxAmount",
+    "TaxRefundedAmount",
+    "Total",
+    "UsdTotal",
     "User",
+    "UserProfilePicture",
     "VerificationChecks",
 ]
 
 
-class ApplicationFee(BaseModel):
-    """The application fee charged on this payment."""
+class AmountAfterFees(BaseModel):
+    """What the account keeps: the total less Whop's fees."""
 
-    id: str
-    """The unique identifier for the application fee."""
+    amount: str
+    """The amount in major units, as an exact decimal string — `"10.00"` is ten
+    dollars.
 
-    amount: float
-    """The application fee amount."""
+    A string so no float rounds it in transit.
+    """
 
-    amount_captured: float
-    """The amount of the application fee that has been captured."""
+    currency: str
+    """Three-letter ISO 4217 currency code, lowercase."""
 
-    amount_refunded: float
-    """The amount of the application fee that has been refunded."""
+    decimals: int
+    """
+    How many decimal places the amount CARRIES — the precision the charge itself
+    runs at.
+    """
 
-    created_at: datetime
-    """The datetime the application fee was created."""
+    display_decimals: int
+    """How many decimal places to SHOW.
 
-    currency: Currency
-    """The currency of the application fee."""
+    Usually equal to `decimals`, and deliberately not always: COP is charged in
+    centavos but written in whole pesos, so it is `2` and `0`. Format the number in
+    your own locale using this.
+    """
 
 
 class BillingAddress(BaseModel):
-    """The address of the user who made the payment."""
+    """The billing address the buyer entered, or null."""
 
     city: Optional[str] = None
-    """The city of the address."""
+    """The city."""
 
     country: Optional[str] = None
-    """The country of the address."""
+    """The ISO 3166-1 alpha-2 country code."""
 
     line1: Optional[str] = None
-    """The line 1 of the address."""
+    """The first street address line."""
 
     line2: Optional[str] = None
-    """The line 2 of the address."""
+    """The second street address line."""
 
     name: Optional[str] = None
-    """The name of the customer."""
+    """The name on the address."""
 
     postal_code: Optional[str] = None
-    """The postal code of the address."""
+    """The postal or ZIP code."""
 
     state: Optional[str] = None
-    """The state of the address."""
-
-
-class Company(BaseModel):
-    """The company for the payment."""
-
-    id: str
-    """The unique identifier for the company."""
-
-    route: str
-    """The slug/route of the company on the Whop site."""
-
-    title: str
-    """The written name of the company."""
-
-
-class Dispute(BaseModel):
-    """
-    A dispute is a chargeback or payment challenge filed against a company, including evidence and response status.
-    """
-
-    id: str
-    """The unique identifier for the dispute."""
-
-    amount: float
-    """The disputed amount in the specified currency, formatted as a decimal."""
-
-    currency: Currency
-    """The three-letter ISO currency code for the disputed amount."""
-
-    editable: Optional[bool] = None
-    """Whether the dispute evidence can still be edited and submitted."""
-
-    needs_response_by: Optional[datetime] = None
-    """The deadline by which dispute evidence must be submitted.
-
-    Null if no response deadline is set.
-    """
-
-    notes: Optional[str] = None
-    """
-    Additional freeform notes submitted by the company as part of the dispute
-    evidence.
-    """
-
-    reason: Optional[str] = None
-    """A human-readable reason for the dispute."""
-
-    status: DisputeStatuses
-    """
-    The current status of the dispute lifecycle, such as needs_response,
-    under_review, won, or lost.
-    """
-
-
-class Fee(BaseModel):
-    """Represents a fee related to a payment"""
-
-    amount: float
-    """The value or amount to display for the fee."""
-
-    currency: Currency
-    """The currency of the fee."""
-
-    name: str
-    """The label to display for the fee."""
-
-    type: Literal[
-        "stripe_domestic_processing_fee",
-        "stripe_international_processing_fee",
-        "stripe_fixed_processing_fee",
-        "stripe_billing_fee",
-        "stripe_radar_fee",
-        "sales_tax_remittance",
-        "sales_tax_remittance_reversal",
-        "stripe_sales_tax_fee",
-        "whop_processing_fee",
-        "marketplace_affiliate_fee",
-        "affiliate_fee",
-        "crypto_fee",
-        "stripe_standard_processing_fee",
-        "paypal_fee",
-        "stripe_payout_fee",
-        "dispute_fee",
-        "dispute_alert_fee",
-        "apple_processing_fee",
-        "buyer_fee",
-        "sezzle_processing_fee",
-        "splitit_processing_fee",
-        "platform_balance_processing_fee",
-        "payment_processing_percentage_fee",
-        "payment_processing_fixed_fee",
-        "cross_border_percentage_fee",
-        "fx_percentage_fee",
-        "orchestration_percentage_fee",
-        "three_ds_fixed_fee",
-        "billing_percentage_fee",
-        "revshare_percentage_fee",
-        "application_fee",
-        "high_risk_merchant_fee",
-    ]
-    """The specific origin of the fee, if applicable."""
-
-
-class FinancingTransaction(BaseModel):
-    """A payment transaction."""
-
-    id: str
-    """The unique identifier for the payment transaction."""
-
-    amount: float
-    """The amount of the payment transaction."""
-
-    created_at: datetime
-    """The date and time the payment transaction was created."""
-
-    status: Literal[
-        "succeeded",
-        "declined",
-        "error",
-        "pending",
-        "created",
-        "expired",
-        "won",
-        "rejected",
-        "lost",
-        "prevented",
-        "canceled",
-    ]
-    """The status of the payment transaction."""
-
-    transaction_type: Literal[
-        "purchase",
-        "authorize",
-        "capture",
-        "refund",
-        "canceled",
-        "verify",
-        "chargeback",
-        "pre_chargeback",
-        "three_d_secure",
-        "fraud_screening",
-        "authorization",
-        "installment",
-    ]
-    """The type of the payment transaction."""
-
-
-class Member(BaseModel):
-    """The member attached to this payment."""
-
-    id: str
-    """The unique identifier for the company member."""
-
-    phone: Optional[str] = None
-    """The phone number for the member, if available."""
-
-
-class Membership(BaseModel):
-    """The membership attached to this payment."""
-
-    id: str
-    """The unique identifier for the membership."""
-
-    phone_number: Optional[str] = None
-    """The phone number associated with this membership."""
-
-    status: MembershipStatus
-    """The state of the membership."""
+    """The state, province or region."""
 
 
 class PaymentInstrumentCard(BaseModel):
@@ -382,7 +201,7 @@ class PaymentInstrumentIcons(BaseModel):
 
 class PaymentInstrument(BaseModel):
     """
-    The instrument this payment was made with, shaped for display: the method type, a buyer-facing name, the standard icon set, and the card facts when it was a card. Null when the receipt names no payment method.
+    The instrument shaped for display: a buyer-facing name, the standard icon set, and the card's brand and last four when it was a card.
     """
 
     card: Optional[PaymentInstrumentCard] = None
@@ -399,7 +218,7 @@ class PaymentInstrument(BaseModel):
     The standard icon set: square and card shapes, each in light and dark colorways.
     """
 
-    installment_count: Optional[int] = None
+    installment_count: Optional[float] = None
     """Installment methods only: how many payments the charge splits into.
 
     Data, not copy — compose and translate the label client-side.
@@ -409,361 +228,304 @@ class PaymentInstrument(BaseModel):
     """The payment method type identifier, e.g. `card`, `klarna`, `apple_pay`."""
 
 
-class PaymentMethodCard(BaseModel):
+class RefundedAmount(BaseModel):
     """
-    The card data associated with the payment method, if its a debit or credit card.
-    """
-
-    brand: Optional[CardBrands] = None
-    """Possible card brands that a payment token can have"""
-
-    exp_month: Optional[int] = None
-    """The two-digit expiration month of the card (1-12). Null if not available."""
-
-    exp_year: Optional[int] = None
-    """The two-digit expiration year of the card (e.g., 27 for 2027).
-
-    Null if not available.
+    How much has been refunded so far, as it settled — refunds convert at the rate in force when each one was issued, not the payment's original rate.
     """
 
-    fingerprint: Optional[str] = None
-    """A stable identifier for the underlying card.
+    amount: str
+    """The amount in major units, as an exact decimal string — `"10.00"` is ten
+    dollars.
 
-    Two payment methods with the same fingerprint are the same card. Null if not
-    available.
+    A string so no float rounds it in transit.
     """
 
-    last4: Optional[str] = None
-    """The last four digits of the card number. Null if not available."""
+    currency: str
+    """Three-letter ISO 4217 currency code, lowercase."""
 
-
-class PaymentMethod(BaseModel):
-    """The tokenized payment method reference used for this payment.
-
-    Null if no token was used.
+    decimals: int
+    """
+    How many decimal places the amount CARRIES — the precision the charge itself
+    runs at.
     """
 
-    id: str
-    """The unique identifier for the payment token."""
+    display_decimals: int
+    """How many decimal places to SHOW.
 
-    card: Optional[PaymentMethodCard] = None
+    Usually equal to `decimals`, and deliberately not always: COP is charged in
+    centavos but written in whole pesos, so it is `2` and `0`. Format the number in
+    your own locale using this.
     """
-    The card data associated with the payment method, if its a debit or credit card.
-    """
-
-    created_at: datetime
-    """The datetime the payment token was created."""
-
-    payment_method_type: PaymentMethodTypes
-    """The payment method type of the payment method"""
-
-
-class Plan(BaseModel):
-    """The plan attached to this payment."""
-
-    id: str
-    """The unique identifier for the plan."""
-
-    internal_notes: Optional[str] = None
-    """A personal description or notes section for the business."""
-
-    metadata: Optional[Dict[str, object]] = None
-    """Custom key-value pairs stored on the plan.
-
-    Included in webhook payloads for payment and membership events. Max 50 keys, 100
-    chars per key, 500 chars per string value. The reserved keys `custom_cta` and
-    `custom_cta_url`, when set, override the product's checkout call to action for
-    this plan.
-    """
-
-
-class Product(BaseModel):
-    """The product this payment was made for"""
-
-    id: str
-    """The unique identifier for the product."""
-
-    metadata: Optional[Dict[str, object]] = None
-    """
-    Custom key-value pairs stored on the product and included in payment and
-    membership webhook payloads. Max 50 keys, 100 characters per key, 500 characters
-    per string value.
-    """
-
-    route: str
-    """URL slug in the product's public link, e.g.
-
-    `pickaxe-analytics` in whop.com/company/pickaxe-analytics.
-    """
-
-    title: str
-    """
-    The display name of the product shown to customers on the product page and in
-    search results.
-    """
-
-
-class PromoCode(BaseModel):
-    """The promo code used for this payment."""
-
-    id: str
-    """The unique identifier for the promo code."""
-
-    amount_off: float
-    """The discount amount.
-
-    Interpretation depends on promo_type: if 'percentage', this is the percentage
-    (e.g., 20 means 20% off); if 'flat_amount', this is dollars off (e.g., 10.00
-    means $10.00 off).
-    """
-
-    base_currency: Currency
-    """The monetary currency of the promo code."""
-
-    code: Optional[str] = None
-    """The specific code used to apply the promo at checkout."""
-
-    number_of_intervals: Optional[int] = None
-    """The number of months the promo is applied for."""
-
-    promo_type: PromoType
-    """The type (% or flat amount) of the promo."""
-
-
-class Refund(BaseModel):
-    """
-    A refund represents a full or partial reversal of a payment, including the amount, status, and payment provider.
-    """
-
-    id: str
-    """The unique identifier for the refund."""
-
-    amount: float
-    """
-    The refunded amount as a decimal in the specified currency, such as 10.43 for
-    $10.43 USD.
-    """
-
-    created_at: datetime
-    """The datetime the refund was created."""
-
-    currency: Currency
-    """The three-letter ISO currency code for the refunded amount."""
-
-    status: RefundStatus
-    """
-    The current processing status of the refund, such as pending, succeeded, or
-    failed.
-    """
-
-
-class Resolution(BaseModel):
-    """
-    A resolution center case is a dispute or support case between a user and a company, tracking the issue, status, and outcome.
-    """
-
-    id: str
-    """The unique identifier for the resolution."""
-
-    customer_appealed: bool
-    """Whether the customer has filed an appeal after the initial resolution decision."""
-
-    customer_response_actions: List[ResolutionCenterCaseCustomerResponse]
-    """The list of actions currently available to the customer."""
-
-    due_date: Optional[datetime] = None
-    """The deadline by which the next response is required.
-
-    Null if no deadline is currently active. As a Unix timestamp.
-    """
-
-    issue: ResolutionCenterCaseIssueType
-    """The category of the dispute."""
-
-    merchant_appealed: bool
-    """Whether the merchant has filed an appeal after the initial resolution decision."""
-
-    merchant_response_actions: List[ResolutionCenterCaseMerchantResponse]
-    """The list of actions currently available to the merchant."""
-
-    platform_response_actions: List[ResolutionCenterCasePlatformResponse]
-    """
-    The list of actions currently available to the Whop platform for moderating this
-    resolution.
-    """
-
-    status: ResolutionCenterCaseStatus
-    """
-    The current status of the resolution case, indicating which party needs to
-    respond or if the case is closed.
-    """
-
-
-class Shipment(BaseModel):
-    """The shipment attached to this payment."""
-
-    id: str
-    """The unique identifier for the shipment."""
-
-    carrier: Optional[str] = None
-    """The shipping carrier detected for this shipment.
-
-    Null until a tracking update identifies it.
-    """
-
-    status: ShipmentStatus
-    """The current delivery status of this shipment."""
-
-    tracking_number: str
-    """The carrier-assigned tracking number used to look up shipment progress."""
-
-    tracking_url: str
-    """A customer-facing URL to track this shipment's progress."""
 
 
 class ShippingAddress(BaseModel):
-    """The shipping address provided by the customer for physical goods.
-
-    Null if no shipping address was collected.
-    """
+    """The shipping address for physical goods, or null."""
 
     city: Optional[str] = None
-    """The city of the address."""
+    """The city."""
 
     country: Optional[str] = None
-    """The country of the address."""
+    """The ISO 3166-1 alpha-2 country code."""
 
     line1: Optional[str] = None
-    """The line 1 of the address."""
+    """The first street address line."""
 
     line2: Optional[str] = None
-    """The line 2 of the address."""
+    """The second street address line."""
 
     name: Optional[str] = None
-    """The name of the customer."""
+    """The name on the address."""
 
     postal_code: Optional[str] = None
-    """The postal code of the address."""
+    """The postal or ZIP code."""
 
     state: Optional[str] = None
-    """The state of the address."""
+    """The state, province or region."""
+
+
+class Subtotal(BaseModel):
+    """The price before discounts, tax and fees."""
+
+    amount: str
+    """The amount in major units, as an exact decimal string — `"10.00"` is ten
+    dollars.
+
+    A string so no float rounds it in transit.
+    """
+
+    currency: str
+    """Three-letter ISO 4217 currency code, lowercase."""
+
+    decimals: int
+    """
+    How many decimal places the amount CARRIES — the precision the charge itself
+    runs at.
+    """
+
+    display_decimals: int
+    """How many decimal places to SHOW.
+
+    Usually equal to `decimals`, and deliberately not always: COP is charged in
+    centavos but written in whole pesos, so it is `2` and `0`. Format the number in
+    your own locale using this.
+    """
+
+
+class TaxAmount(BaseModel):
+    """The sales tax or VAT collected. Null when no tax applied."""
+
+    amount: str
+    """The amount in major units, as an exact decimal string — `"10.00"` is ten
+    dollars.
+
+    A string so no float rounds it in transit.
+    """
+
+    currency: str
+    """Three-letter ISO 4217 currency code, lowercase."""
+
+    decimals: int
+    """
+    How many decimal places the amount CARRIES — the precision the charge itself
+    runs at.
+    """
+
+    display_decimals: int
+    """How many decimal places to SHOW.
+
+    Usually equal to `decimals`, and deliberately not always: COP is charged in
+    centavos but written in whole pesos, so it is `2` and `0`. Format the number in
+    your own locale using this.
+    """
+
+
+class TaxRefundedAmount(BaseModel):
+    """How much of the collected tax has been returned to the buyer so far.
+
+    Zero when the payment carried no tax, or when nothing has been refunded.
+    """
+
+    amount: str
+    """The amount in major units, as an exact decimal string — `"10.00"` is ten
+    dollars.
+
+    A string so no float rounds it in transit.
+    """
+
+    currency: str
+    """Three-letter ISO 4217 currency code, lowercase."""
+
+    decimals: int
+    """
+    How many decimal places the amount CARRIES — the precision the charge itself
+    runs at.
+    """
+
+    display_decimals: int
+    """How many decimal places to SHOW.
+
+    Usually equal to `decimals`, and deliberately not always: COP is charged in
+    centavos but written in whole pesos, so it is `2` and `0`. Format the number in
+    your own locale using this.
+    """
+
+
+class Total(BaseModel):
+    """The account-facing total: the price after discounts, plus any tax added on top.
+
+    Excludes buyer fees, which the buyer pays above this amount — so this is not necessarily what the buyer's statement shows.
+    """
+
+    amount: str
+    """The amount in major units, as an exact decimal string — `"10.00"` is ten
+    dollars.
+
+    A string so no float rounds it in transit.
+    """
+
+    currency: str
+    """Three-letter ISO 4217 currency code, lowercase."""
+
+    decimals: int
+    """
+    How many decimal places the amount CARRIES — the precision the charge itself
+    runs at.
+    """
+
+    display_decimals: int
+    """How many decimal places to SHOW.
+
+    Usually equal to `decimals`, and deliberately not always: COP is charged in
+    centavos but written in whole pesos, so it is `2` and `0`. Format the number in
+    your own locale using this.
+    """
+
+
+class UsdTotal(BaseModel):
+    """
+    The total converted to USD at the time of the charge, for reporting across currencies. Excludes the adaptive pricing FX markup, which the account does not keep.
+    """
+
+    amount: str
+    """The amount in major units, as an exact decimal string — `"10.00"` is ten
+    dollars.
+
+    A string so no float rounds it in transit.
+    """
+
+    currency: str
+    """Three-letter ISO 4217 currency code, lowercase."""
+
+    decimals: int
+    """
+    How many decimal places the amount CARRIES — the precision the charge itself
+    runs at.
+    """
+
+    display_decimals: int
+    """How many decimal places to SHOW.
+
+    Usually equal to `decimals`, and deliberately not always: COP is charged in
+    centavos but written in whole pesos, so it is `2` and `0`. Format the number in
+    your own locale using this.
+    """
+
+
+class UserProfilePicture(BaseModel):
+    """
+    Avatar wrapper; its `url` is always present, using a generated placeholder when the user set no picture.
+    """
+
+    url: str
+    """Avatar image URL.
+
+    Always present — a generated placeholder when the user set no picture.
+    """
 
 
 class User(BaseModel):
-    """The user that made this payment."""
+    """The buyer. Null when the payment belongs to a company buyer rather than a user."""
 
     id: str
-    """The unique identifier for the user."""
-
-    email: Optional[str] = None
-    """The user's email address.
-
-    Requires the member:email:read permission to access. Null if not authorized.
-    """
+    """User ID, prefixed `user_`."""
 
     name: Optional[str] = None
-    """The user's display name shown on their public profile."""
+    """Display name."""
+
+    profile_picture: UserProfilePicture
+    """
+    Avatar wrapper; its `url` is always present, using a generated placeholder when
+    the user set no picture.
+    """
 
     username: str
-    """The user's unique username shown on their public profile."""
+    """Public username."""
 
 
 class VerificationChecks(BaseModel):
-    """The issuer's address and card security code check results for this payment.
-
-    Null when the processor returned none.
+    """
+    The issuer's address and security code check results, or null when the processor returned none.
     """
 
     address_line1: Optional[str] = None
     """
-    Whether the billing street address the customer entered matched the address the
-    issuer has on file.
+    Whether the billing street address the customer entered matched the issuer's
+    records.
     """
 
     card_holder_name: Optional[str] = None
-    """
-    Whether the cardholder name the customer entered matched the name the issuer has
-    on file.
-    """
+    """Whether the cardholder name matched the issuer's records."""
 
     card_security_code: Optional[str] = None
-    """Whether the CVV / CVC the customer entered matched the card."""
+    """Whether the CVV / CVC matched the card."""
 
     zip_code: Optional[str] = None
-    """
-    Whether the billing postal code the customer entered matched the postal code the
-    issuer has on file.
-    """
+    """Whether the billing postal code matched the issuer's records."""
 
 
 class Payment(BaseModel):
-    """A payment represents a completed or attempted charge.
-
-    Payments track the amount, status, currency, and payment method used.
-    """
-
     id: str
-    """The unique identifier for the payment."""
+    """Payment ID, prefixed `pay_`."""
 
-    amount_after_fees: float
-    """How much the payment is for after fees"""
+    account_id: Optional[str] = None
+    """The account that received the payment, prefixed `biz_`."""
 
-    application_fee: Optional[ApplicationFee] = None
-    """The application fee charged on this payment."""
+    amount_after_fees: AmountAfterFees
+    """What the account keeps: the total less Whop's fees."""
 
     auto_refunded: bool
-    """Whether this payment was auto refunded or not"""
+    """
+    True when Whop refunded the payment automatically, for example on a dispute
+    alert.
+    """
 
     billing_address: Optional[BillingAddress] = None
-    """The address of the user who made the payment."""
+    """The billing address the buyer entered, or null."""
 
     billing_reason: Optional[BillingReasons] = None
     """The reason why a specific payment was billed"""
 
-    card_brand: Optional[CardBrands] = None
-    """Possible card brands that a payment token can have"""
-
-    card_exp_month: Optional[int] = None
-    """The expiration month (1-12) of the card used for this payment.
-
-    Falls back to the declined card on failed payments with no saved card. Null when
-    the payment was not made with a card or the expiry is unavailable.
-    """
-
-    card_exp_year: Optional[int] = None
-    """The four-digit expiration year of the card used for this payment.
-
-    Falls back to the declined card on failed payments with no saved card. Null when
-    the payment was not made with a card or the expiry is unavailable.
-    """
-
-    card_last4: Optional[str] = None
-    """The last four digits of the card used to make this payment.
-
-    Null if the payment was not made with a card.
-    """
-
     checkout_configuration_id: Optional[str] = None
-    """The ID of the checkout session/configuration that produced this payment, if any.
+    """The checkout configuration the buyer paid through, prefixed `ch_`, or null."""
 
-    Use this to map payments back to the checkout configuration that created them.
+    client_secret: Optional[str] = None
+    """
+    The credential a buyer's surface presents to poll this payment and set its
+    return URL. Only on payments created from a confirmation token, and always null
+    in list responses — retrieve the payment for it.
     """
 
-    company: Optional[Company] = None
-    """The company for the payment."""
-
-    created_at: datetime
-    """The datetime the payment was created."""
+    created_at: str
+    """When the payment was created, as an ISO 8601 timestamp."""
 
     currency: Currency
-    """The three-letter ISO currency code for this payment (e.g., 'usd', 'eur')."""
+    """The currency the payment settles in, lowercase ISO 4217.
+
+    Every money field below is stated in it unless it says otherwise.
+    """
 
     customer_phone: Optional[str] = None
-    """
-    Phone number the customer provided at checkout, or their verified phone number
-    when your checkout requires phone verification. `null` when no phone number was
-    collected.
-    """
+    """The phone number the buyer gave at checkout, when one was collected."""
 
     decline_code: Optional[
         Literal[
@@ -857,180 +619,140 @@ class Payment(BaseModel):
     ] = None
     """The reason a payment was declined."""
 
-    dispute_alerted_at: Optional[datetime] = None
-    """When an alert came in that this transaction will be disputed"""
-
-    disputes: Optional[List[Dispute]] = None
-    """The disputes attached to this payment.
-
-    Null if the actor in context does not have the payment:dispute:read permission.
-    """
+    dispute_alerted_at: Optional[str] = None
+    """When an issuer warned that this payment will be disputed, or null."""
 
     failure_message: Optional[str] = None
-    """If the payment failed, the reason for the failure."""
+    """Why the most recent attempt failed, in plain words, or null."""
 
-    fees: List[Fee]
-    """The fees associated with this specific payment."""
+    financing_installments_count: Optional[float] = None
+    """For installment methods, how many payments the charge splits into."""
 
-    financing_installments_count: Optional[int] = None
-    """The number of financing installments for the payment.
+    last_payment_attempt_at: Optional[str] = None
+    """When the most recent charge attempt ran, or null."""
 
-    Present if the payment is a financing payment (e.g. Splitit, Klarna, etc.).
+    member_id: Optional[str] = None
+    """The buyer's member record on the account, prefixed `mber_`.
+
+    Null without the member:basic:read permission.
     """
 
-    financing_transactions: List[FinancingTransaction]
-    """The financing transactions attached to this payment.
+    membership_id: Optional[str] = None
+    """The membership this payment is billed against, prefixed `mem_`.
 
-    Present if the payment is a financing payment (e.g. Splitit, Klarna, etc.).
+    Null for one-off purchases or without the member:basic:read permission.
     """
 
-    last_payment_attempt: Optional[datetime] = None
-    """The time of the last payment attempt."""
-
-    member: Optional[Member] = None
-    """The member attached to this payment."""
-
-    membership: Optional[Membership] = None
-    """The membership attached to this payment."""
-
-    metadata: Optional[Dict[str, object]] = None
-    """The custom metadata stored on this payment.
-
-    This will be copied over to the checkout configuration for which this payment
-    was made
-    """
+    metadata: Optional[object] = None
+    """Your own key-value data attached when the payment was created."""
 
     needs_tracking: Optional[bool] = None
     """
-    Whether this payment is holding funds until the order ships and has no tracking
-    number yet.
+    True when funds are held until the order ships and no tracking number has been
+    added yet. Null without the shipment:basic:read permission.
     """
 
-    next_payment_attempt: Optional[datetime] = None
-    """The time of the next schedule payment retry."""
+    next_payment_attempt_at: Optional[str] = None
+    """When the next automatic retry is scheduled, or null."""
 
-    paid_at: Optional[datetime] = None
-    """The time at which this payment was successfully collected.
-
-    Null if the payment has not yet succeeded. As a Unix timestamp.
-    """
+    paid_at: Optional[str] = None
+    """When the money was collected, or null while it has not been."""
 
     payment_instrument: Optional[PaymentInstrument] = None
     """
-    The instrument this payment was made with, shaped for display: the method type,
-    a buyer-facing name, the standard icon set, and the card facts when it was a
-    card. Null when the receipt names no payment method.
+    The instrument shaped for display: a buyer-facing name, the standard icon set,
+    and the card's brand and last four when it was a card.
     """
 
-    payment_method: Optional[PaymentMethod] = None
-    """The tokenized payment method reference used for this payment.
+    payment_method_id: Optional[str] = None
+    """The stored payment method that was charged, prefixed `payt_`.
 
-    Null if no token was used.
+    Null when the method was not saved.
     """
 
     payment_method_type: Optional[PaymentMethodTypes] = None
     """The different types of payment methods that can be used."""
 
-    payments_failed: Optional[int] = None
-    """The number of failed payment attempts for the payment."""
+    payments_failed: float
+    """How many charge attempts have failed on this payment."""
 
-    plan: Optional[Plan] = None
-    """The plan attached to this payment."""
+    plan_id: Optional[str] = None
+    """The plan that was charged, prefixed `plan_`."""
 
-    product: Optional[Product] = None
-    """The product this payment was made for"""
+    product_id: Optional[str] = None
+    """The product the plan belongs to, prefixed `prod_`.
 
-    promo_code: Optional[PromoCode] = None
-    """The promo code used for this payment."""
+    Null for a plan with no product.
+    """
+
+    promo_code_id: Optional[str] = None
+    """The promo code applied at checkout, prefixed `promo_`, or null."""
 
     refundable: bool
     """
-    True only for payments that are `paid`, have not been fully refunded, and were
-    processed by a payment processor that allows refunds.
+    True when the payment is `paid`, not yet fully refunded, and its processor
+    supports refunds.
     """
 
-    refunded_amount: Optional[float] = None
-    """The payment refund amount(if applicable)."""
-
-    refunded_at: Optional[datetime] = None
-    """When the payment was refunded (if applicable)."""
-
-    refunds: List[Refund]
+    refunded_amount: Optional[RefundedAmount] = None
     """
-    The refunds issued against this payment, newest first, including failed and
-    canceled refund attempts. Limited to the 100 most recent.
+    How much has been refunded so far, as it settled — refunds convert at the rate
+    in force when each one was issued, not the payment's original rate.
     """
 
-    resolutions: Optional[List[Resolution]] = None
-    """The resolution center cases opened by the customer on this payment.
-
-    Null if the actor in context does not have the
-    payment:resolution_center_case:read permission.
-    """
+    refunded_at: Optional[str] = None
+    """When the payment was refunded, or null."""
 
     retryable: bool
     """
-    True when the payment status is `open` and its membership is in one of the
-    retry-eligible states (`active`, `trialing`, `completed`, or `past_due`), or
-    when it is a failed initial billing-engine payment on a `drafted` membership
-    with an unlimited-stock plan; otherwise false. Used to decide if Whop can
-    attempt the charge again.
+    True when the payment is `open` and Whop can attempt the charge again — see
+    `POST /payments/{id}/retry`.
     """
 
-    risk_score: Optional[int] = None
+    risk_score: Optional[float] = None
     """
-    Whop's in-house fraud risk score for this payment, from 0 (lowest risk) to 100
-    (highest risk). Null when the payment has not been scored or scoring has not yet
-    completed.
-    """
-
-    risk_signals: Optional[Dict[str, object]] = None
-    """
-    A curated set of factors behind the risk score, grouped by category (business
-    transaction history, buyer, device). Each entry has a key, human-readable label,
-    category, and value. Null when there is no risk assessment for this payment.
+    Whop's fraud risk score from 0 (lowest) to 100 (highest), or null when the
+    payment was not scored.
     """
 
-    settlement_amount: float
-    """
-    The total amount charged to the customer for this payment, including taxes and
-    after any discounts. In the currency specified by the currency field.
-    """
+    risk_signals: Optional[object] = None
+    """The factors behind `risk_score`, grouped by category, or null."""
 
-    settlement_currency: Currency
-    """The three-letter ISO currency code for this payment (e.g., 'usd', 'eur')."""
+    settlement_time_at: Optional[str] = None
+    """When the funds post to the account's available balance, at midnight UTC.
 
-    settlement_exchange_rate: Optional[float] = None
-    """Deprecated. Always returns null."""
-
-    settlement_time_at: Optional[datetime] = None
-    """
-    When this payment's funds post to the company's available balance, at midnight
-    UTC. Known at payment time and never changes. The
-    `ledger_account.funds_available` webhook carries the same `settlement_time_at`
-    when that batch posts — match them to know these funds are now withdrawable.
+    The `ledger_account.funds_available` webhook carries the same value. Null until
+    the payment is paid, and always null in list responses — retrieve the payment
+    for it.
     """
 
-    shipment: Optional[Shipment] = None
-    """The shipment attached to this payment."""
+    shipment_id: Optional[str] = None
+    """The shipment fulfilling this payment, prefixed `ship_`.
+
+    Null when nothing ships or without the shipment:basic:read permission.
+    """
 
     shipping_address: Optional[ShippingAddress] = None
-    """The shipping address provided by the customer for physical goods.
+    """The shipping address for physical goods, or null."""
 
-    Null if no shipping address was collected.
+    status: ReceiptStatus
+    """
+    The lifecycle state of the charge: `open` while collection is outstanding,
+    `paid` once the money moved, `pending` while a settlement rail clears,
+    `void`/`uncollectible` when it ended without collecting.
     """
 
-    status: Optional[ReceiptStatus] = None
-    """The status of a receipt"""
-
     substatus: FriendlyReceiptStatus
-    """The friendly status of the payment."""
+    """
+    The dashboard's finer-grained reading of the payment, folding in refunds,
+    disputes and Resolution Center cases.
+    """
 
-    subtotal: Optional[float] = None
-    """The subtotal to show to the creator (excluding buyer fees)."""
+    subtotal: Optional[Subtotal] = None
+    """The price before discounts, tax and fees."""
 
-    tax_amount: Optional[float] = None
-    """The calculated amount of the sales/VAT tax (if applicable)."""
+    tax_amount: Optional[TaxAmount] = None
+    """The sales tax or VAT collected. Null when no tax applied."""
 
     tax_behavior: Optional[ReceiptTaxBehavior] = None
     """
@@ -1038,32 +760,43 @@ class Payment(BaseModel):
     tax is included in the final price, or paid on top.
     """
 
-    tax_refunded_amount: Optional[float] = None
-    """The amount of tax that has been refunded (if applicable)."""
+    tax_refunded_amount: TaxRefundedAmount
+    """How much of the collected tax has been returned to the buyer so far.
+
+    Zero when the payment carried no tax, or when nothing has been refunded.
+    """
 
     three_ds_verified: bool
-    """Whether 3D Secure authentication was completed for this payment."""
+    """True when the buyer completed 3D Secure for this payment."""
 
-    total: Optional[float] = None
-    """The total to show to the creator (excluding buyer fees)."""
+    total: Optional[Total] = None
+    """The account-facing total: the price after discounts, plus any tax added on top.
 
-    updated_at: datetime
-    """The datetime the payment was last updated."""
+    Excludes buyer fees, which the buyer pays above this amount — so this is not
+    necessarily what the buyer's statement shows.
+    """
 
-    usd_total: Optional[float] = None
-    """The total in USD to show to the creator (excluding buyer fees)."""
+    updated_at: str
+    """When the payment last changed, as an ISO 8601 timestamp."""
+
+    usd_total: Optional[UsdTotal] = None
+    """
+    The total converted to USD at the time of the charge, for reporting across
+    currencies. Excludes the adaptive pricing FX markup, which the account does not
+    keep.
+    """
 
     user: Optional[User] = None
-    """The user that made this payment."""
+    """The buyer. Null when the payment belongs to a company buyer rather than a user."""
 
     verification_checks: Optional[VerificationChecks] = None
-    """The issuer's address and card security code check results for this payment.
-
-    Null when the processor returned none.
+    """
+    The issuer's address and security code check results, or null when the processor
+    returned none.
     """
 
     voidable: bool
     """
-    True when the payment is tied to a membership in `past_due`, the payment status
-    is `open`, and the processor allows voiding payments; otherwise false.
+    True when the payment is `open` on a past-due membership and its processor
+    supports voiding — see `POST /payments/{id}/void`.
     """

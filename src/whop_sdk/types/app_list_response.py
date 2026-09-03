@@ -122,6 +122,8 @@ class AppListResponse(BaseModel):
     https://ab1c2d3e4f.apps.whop.com.
     """
 
+    previous_hosted_urls: List[str]
+
     route: Optional[str] = None
     """
     Claimed subdomain route where hosted web builds are served (`myapp` for
