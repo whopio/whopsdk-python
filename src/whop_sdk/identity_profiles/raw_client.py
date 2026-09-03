@@ -41,9 +41,9 @@ class RawIdentityProfilesClient:
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
-        company_id: typing.Optional[str] = None,
         profile_type: typing.Optional[IdentityProfileKinds] = None,
         status: typing.Optional[IdentityProfileStatuses] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[IdentityProfileListItem, ListIdentityProfileResponse]:
         """
@@ -66,12 +66,12 @@ class RawIdentityProfilesClient:
         last : typing.Optional[int]
             Returns the last _n_ elements from the list.
 
-        company_id : typing.Optional[str]
-            The unique identifier of the company to filter to. When omitted, returns IPs across all ledgers the actor can read.
-
         profile_type : typing.Optional[IdentityProfileKinds]
 
         status : typing.Optional[IdentityProfileStatuses]
+
+        account_id : typing.Optional[str]
+            The unique identifier of the company to filter to. When omitted, returns IPs across all ledgers the actor can read.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -89,9 +89,9 @@ class RawIdentityProfilesClient:
                 "before": before,
                 "first": first,
                 "last": last,
-                "company_id": company_id,
                 "profile_type": profile_type,
                 "status": status,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -115,9 +115,9 @@ class RawIdentityProfilesClient:
                         before=before,
                         first=first,
                         last=last,
-                        company_id=company_id,
                         profile_type=profile_type,
                         status=status,
+                        account_id=account_id,
                         request_options=request_options,
                     )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
@@ -630,9 +630,9 @@ class AsyncRawIdentityProfilesClient:
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
-        company_id: typing.Optional[str] = None,
         profile_type: typing.Optional[IdentityProfileKinds] = None,
         status: typing.Optional[IdentityProfileStatuses] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[IdentityProfileListItem, ListIdentityProfileResponse]:
         """
@@ -655,12 +655,12 @@ class AsyncRawIdentityProfilesClient:
         last : typing.Optional[int]
             Returns the last _n_ elements from the list.
 
-        company_id : typing.Optional[str]
-            The unique identifier of the company to filter to. When omitted, returns IPs across all ledgers the actor can read.
-
         profile_type : typing.Optional[IdentityProfileKinds]
 
         status : typing.Optional[IdentityProfileStatuses]
+
+        account_id : typing.Optional[str]
+            The unique identifier of the company to filter to. When omitted, returns IPs across all ledgers the actor can read.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -678,9 +678,9 @@ class AsyncRawIdentityProfilesClient:
                 "before": before,
                 "first": first,
                 "last": last,
-                "company_id": company_id,
                 "profile_type": profile_type,
                 "status": status,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -706,9 +706,9 @@ class AsyncRawIdentityProfilesClient:
                             before=before,
                             first=first,
                             last=last,
-                            company_id=company_id,
                             profile_type=profile_type,
                             status=status,
+                            account_id=account_id,
                             request_options=request_options,
                         )
 

@@ -39,7 +39,7 @@ class RawForumsClient:
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -55,7 +55,7 @@ class RawForumsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list forums for.
 
         after : typing.Optional[str]
@@ -89,8 +89,8 @@ class RawForumsClient:
                 "before": before,
                 "first": first,
                 "last": last,
-                "company_id": company_id,
                 "product_id": product_id,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -110,7 +110,7 @@ class RawForumsClient:
                     _parsed_next = _parsed_response.page_info.end_cursor
                     _has_next = _parsed_next is not None and _parsed_next != ""
                     _get_next = lambda: self.list(
-                        company_id=company_id,
+                        account_id=account_id,
                         after=_parsed_next,
                         before=before,
                         first=first,
@@ -493,7 +493,7 @@ class AsyncRawForumsClient:
     async def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -509,7 +509,7 @@ class AsyncRawForumsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list forums for.
 
         after : typing.Optional[str]
@@ -543,8 +543,8 @@ class AsyncRawForumsClient:
                 "before": before,
                 "first": first,
                 "last": last,
-                "company_id": company_id,
                 "product_id": product_id,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -566,7 +566,7 @@ class AsyncRawForumsClient:
 
                     async def _get_next():
                         return await self.list(
-                            company_id=company_id,
+                            account_id=account_id,
                             after=_parsed_next,
                             before=before,
                             first=first,

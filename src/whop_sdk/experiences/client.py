@@ -36,7 +36,7 @@ class ExperiencesClient:
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -52,7 +52,7 @@ class ExperiencesClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list experiences for.
 
         after : typing.Optional[str]
@@ -94,14 +94,13 @@ class ExperiencesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         response = client.experiences.list(
             first=42,
             last=42,
-            company_id="biz_xxxxxxxxxxxxxx",
             product_id="prod_xxxxxxxxxxxxx",
             app_id="app_xxxxxxxxxxxxxx",
             created_before=datetime.datetime.fromisoformat(
@@ -110,6 +109,7 @@ class ExperiencesClient:
             created_after=datetime.datetime.fromisoformat(
                 "2023-12-01 05:00:00+00:00",
             ),
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         for item in response:
             yield item
@@ -118,7 +118,7 @@ class ExperiencesClient:
             yield page
         """
         return self._raw_client.list(
-            company_id=company_id,
+            account_id=account_id,
             after=after,
             before=before,
             first=first,
@@ -133,8 +133,8 @@ class ExperiencesClient:
     def create(
         self,
         *,
+        account_id: str,
         app_id: str,
-        company_id: str,
         is_public: typing.Optional[bool] = OMIT,
         logo: typing.Optional[CreateExperiencesRequestLogo] = OMIT,
         name: typing.Optional[str] = OMIT,
@@ -148,11 +148,11 @@ class ExperiencesClient:
 
         Parameters
         ----------
+        account_id : str
+            The unique identifier of the company to create this experience for.
+
         app_id : str
             The unique identifier of the app that powers this experience.
-
-        company_id : str
-            The unique identifier of the company to create this experience for.
 
         is_public : typing.Optional[bool]
             Whether the experience is publicly accessible without a membership.
@@ -182,18 +182,18 @@ class ExperiencesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.experiences.create(
+            account_id="biz_xxxxxxxxxxxxxx",
             app_id="app_xxxxxxxxxxxxxx",
-            company_id="biz_xxxxxxxxxxxxxx",
         )
         """
         _response = self._raw_client.create(
+            account_id=account_id,
             app_id=app_id,
-            company_id=company_id,
             is_public=is_public,
             logo=logo,
             name=name,
@@ -225,7 +225,7 @@ class ExperiencesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -259,7 +259,7 @@ class ExperiencesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -326,7 +326,7 @@ class ExperiencesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -377,7 +377,7 @@ class ExperiencesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -419,7 +419,7 @@ class ExperiencesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -464,7 +464,7 @@ class ExperiencesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -494,7 +494,7 @@ class AsyncExperiencesClient:
     async def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -510,7 +510,7 @@ class AsyncExperiencesClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list experiences for.
 
         after : typing.Optional[str]
@@ -553,7 +553,7 @@ class AsyncExperiencesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -563,7 +563,6 @@ class AsyncExperiencesClient:
             response = await client.experiences.list(
                 first=42,
                 last=42,
-                company_id="biz_xxxxxxxxxxxxxx",
                 product_id="prod_xxxxxxxxxxxxx",
                 app_id="app_xxxxxxxxxxxxxx",
                 created_before=datetime.datetime.fromisoformat(
@@ -572,6 +571,7 @@ class AsyncExperiencesClient:
                 created_after=datetime.datetime.fromisoformat(
                     "2023-12-01 05:00:00+00:00",
                 ),
+                account_id="biz_xxxxxxxxxxxxxx",
             )
             async for item in response:
                 yield item
@@ -584,7 +584,7 @@ class AsyncExperiencesClient:
         asyncio.run(main())
         """
         return await self._raw_client.list(
-            company_id=company_id,
+            account_id=account_id,
             after=after,
             before=before,
             first=first,
@@ -599,8 +599,8 @@ class AsyncExperiencesClient:
     async def create(
         self,
         *,
+        account_id: str,
         app_id: str,
-        company_id: str,
         is_public: typing.Optional[bool] = OMIT,
         logo: typing.Optional[CreateExperiencesRequestLogo] = OMIT,
         name: typing.Optional[str] = OMIT,
@@ -614,11 +614,11 @@ class AsyncExperiencesClient:
 
         Parameters
         ----------
+        account_id : str
+            The unique identifier of the company to create this experience for.
+
         app_id : str
             The unique identifier of the app that powers this experience.
-
-        company_id : str
-            The unique identifier of the company to create this experience for.
 
         is_public : typing.Optional[bool]
             Whether the experience is publicly accessible without a membership.
@@ -650,7 +650,7 @@ class AsyncExperiencesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -658,16 +658,16 @@ class AsyncExperiencesClient:
 
         async def main() -> None:
             await client.experiences.create(
+                account_id="biz_xxxxxxxxxxxxxx",
                 app_id="app_xxxxxxxxxxxxxx",
-                company_id="biz_xxxxxxxxxxxxxx",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._raw_client.create(
+            account_id=account_id,
             app_id=app_id,
-            company_id=company_id,
             is_public=is_public,
             logo=logo,
             name=name,
@@ -701,7 +701,7 @@ class AsyncExperiencesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -743,7 +743,7 @@ class AsyncExperiencesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -818,7 +818,7 @@ class AsyncExperiencesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -877,7 +877,7 @@ class AsyncExperiencesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -927,7 +927,7 @@ class AsyncExperiencesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -980,7 +980,7 @@ class AsyncExperiencesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

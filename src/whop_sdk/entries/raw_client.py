@@ -37,7 +37,7 @@ class RawEntriesClient:
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -60,7 +60,7 @@ class RawEntriesClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list waitlist entries for.
 
         after : typing.Optional[str]
@@ -110,7 +110,6 @@ class RawEntriesClient:
                 "before": before,
                 "first": first,
                 "last": last,
-                "company_id": company_id,
                 "direction": direction,
                 "order": order,
                 "product_ids": product_ids,
@@ -118,6 +117,7 @@ class RawEntriesClient:
                 "statuses": statuses,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -137,7 +137,7 @@ class RawEntriesClient:
                     _parsed_next = _parsed_response.page_info.end_cursor
                     _has_next = _parsed_next is not None and _parsed_next != ""
                     _get_next = lambda: self.list(
-                        company_id=company_id,
+                        account_id=account_id,
                         after=_parsed_next,
                         before=before,
                         first=first,
@@ -614,7 +614,7 @@ class AsyncRawEntriesClient:
     async def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -637,7 +637,7 @@ class AsyncRawEntriesClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list waitlist entries for.
 
         after : typing.Optional[str]
@@ -687,7 +687,6 @@ class AsyncRawEntriesClient:
                 "before": before,
                 "first": first,
                 "last": last,
-                "company_id": company_id,
                 "direction": direction,
                 "order": order,
                 "product_ids": product_ids,
@@ -695,6 +694,7 @@ class AsyncRawEntriesClient:
                 "statuses": statuses,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -716,7 +716,7 @@ class AsyncRawEntriesClient:
 
                     async def _get_next():
                         return await self.list(
-                            company_id=company_id,
+                            account_id=account_id,
                             after=_parsed_next,
                             before=before,
                             first=first,

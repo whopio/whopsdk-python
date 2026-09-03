@@ -30,7 +30,7 @@ class AccessTokensClient:
     def create(
         self,
         *,
-        company_id: typing.Optional[str] = OMIT,
+        account_id: typing.Optional[str] = OMIT,
         expires_at: typing.Optional[dt.datetime] = OMIT,
         scoped_actions: typing.Optional[typing.Sequence[str]] = OMIT,
         user_id: typing.Optional[str] = OMIT,
@@ -41,7 +41,7 @@ class AccessTokensClient:
 
         Parameters
         ----------
-        company_id : typing.Optional[str]
+        account_id : typing.Optional[str]
             The unique identifier of the company to generate the token for, starting with 'biz_'. The API key must have permission to access this company.
 
         expires_at : typing.Optional[dt.datetime]
@@ -66,14 +66,14 @@ class AccessTokensClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.access_tokens.create()
         """
         _response = self._raw_client.create(
-            company_id=company_id,
+            account_id=account_id,
             expires_at=expires_at,
             scoped_actions=scoped_actions,
             user_id=user_id,
@@ -100,7 +100,7 @@ class AsyncAccessTokensClient:
     async def create(
         self,
         *,
-        company_id: typing.Optional[str] = OMIT,
+        account_id: typing.Optional[str] = OMIT,
         expires_at: typing.Optional[dt.datetime] = OMIT,
         scoped_actions: typing.Optional[typing.Sequence[str]] = OMIT,
         user_id: typing.Optional[str] = OMIT,
@@ -111,7 +111,7 @@ class AsyncAccessTokensClient:
 
         Parameters
         ----------
-        company_id : typing.Optional[str]
+        account_id : typing.Optional[str]
             The unique identifier of the company to generate the token for, starting with 'biz_'. The API key must have permission to access this company.
 
         expires_at : typing.Optional[dt.datetime]
@@ -138,7 +138,7 @@ class AsyncAccessTokensClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -151,7 +151,7 @@ class AsyncAccessTokensClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.create(
-            company_id=company_id,
+            account_id=account_id,
             expires_at=expires_at,
             scoped_actions=scoped_actions,
             user_id=user_id,

@@ -51,7 +51,7 @@ client.access_tokens.create()
 <dl>
 <dd>
 
-**company_id:** `typing.Optional[str]` — The unique identifier of the company to generate the token for, starting with 'biz_'. The API key must have permission to access this company.
+**account_id:** `typing.Optional[str]` — The unique identifier of the company to generate the token for, starting with 'biz_'. The API key must have permission to access this company.
     
 </dd>
 </dl>
@@ -132,7 +132,7 @@ client = Whop(
 )
 
 client.account_links.create(
-    company_id="biz_xxxxxxxxxxxxxx",
+    account_id="biz_xxxxxxxxxxxxxx",
     refresh_url="refresh_url",
     return_url="return_url",
     use_case="account_onboarding",
@@ -152,7 +152,7 @@ client.account_links.create(
 <dl>
 <dd>
 
-**company_id:** `str` — The unique identifier of the company to generate the link for, starting with 'biz_'. Must be a sub-merchant of the API key's company.
+**account_id:** `str` — The unique identifier of the company to generate the link for, starting with 'biz_'. Must be a sub-merchant of the API key's company.
     
 </dd>
 </dl>
@@ -4858,7 +4858,7 @@ client = Whop(
 client.affiliates.list(
     first=42,
     last=42,
-    company_id="biz_xxxxxxxxxxxxxx",
+    account_id="biz_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -4875,7 +4875,7 @@ client.affiliates.list(
 <dl>
 <dd>
 
-**company_id:** `str` — The unique identifier of the company to list affiliates for.
+**account_id:** `str` — The unique identifier of the company to list affiliates for.
     
 </dd>
 </dl>
@@ -4998,7 +4998,7 @@ client = Whop(
 )
 
 client.affiliates.create(
-    company_id="biz_xxxxxxxxxxxxxx",
+    account_id="biz_xxxxxxxxxxxxxx",
     user_identifier="user_identifier",
 )
 
@@ -5016,7 +5016,7 @@ client.affiliates.create(
 <dl>
 <dd>
 
-**company_id:** `str` — The ID of the company to create the affiliate for.
+**account_id:** `str` — The ID of the company to create the affiliate for.
     
 </dd>
 </dl>
@@ -8585,10 +8585,10 @@ client = Whop(
 client.authorized_users.list(
     first=42,
     last=42,
-    company_id="biz_xxxxxxxxxxxxxx",
     user_id="user_xxxxxxxxxxxxx",
     created_before=datetime.datetime.fromisoformat("2023-12-01T05:00:00+00:00"),
     created_after=datetime.datetime.fromisoformat("2023-12-01T05:00:00+00:00"),
+    account_id="biz_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -8637,14 +8637,6 @@ client.authorized_users.list(
 <dl>
 <dd>
 
-**company_id:** `typing.Optional[str]` — The unique identifier of the company to list authorized users for.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **user_id:** `typing.Optional[str]` — Filter results to a specific user to check if they are an authorized team member.
     
 </dd>
@@ -8670,6 +8662,14 @@ client.authorized_users.list(
 <dd>
 
 **created_after:** `typing.Optional[datetime.datetime]` — Only return authorized users created after this timestamp.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — The unique identifier of the company to list authorized users for.
     
 </dd>
 </dl>
@@ -8729,7 +8729,7 @@ client = Whop(
 )
 
 client.authorized_users.create(
-    company_id="biz_xxxxxxxxxxxxxx",
+    account_id="biz_xxxxxxxxxxxxxx",
     role="owner",
     user_id="user_xxxxxxxxxxxxx",
 )
@@ -8748,7 +8748,7 @@ client.authorized_users.create(
 <dl>
 <dd>
 
-**company_id:** `str` — The ID of the company to add the authorized user to.
+**account_id:** `str` — The ID of the company to add the authorized user to.
     
 </dd>
 </dl>
@@ -8917,7 +8917,7 @@ client = Whop(
 
 client.authorized_users.delete(
     id="ausr_xxxxxxxxxxxxx",
-    company_id="biz_xxxxxxxxxxxxxx",
+    account_id="biz_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -8942,7 +8942,7 @@ client.authorized_users.delete(
 <dl>
 <dd>
 
-**company_id:** `typing.Optional[str]` — The ID of the company the authorized user belongs to. Optional if the authorized user ID is provided.
+**account_id:** `typing.Optional[str]` — The ID of the company the authorized user belongs to. Optional if the authorized user ID is provided.
     
 </dd>
 </dl>
@@ -10850,8 +10850,8 @@ client = Whop(
 client.chat_channels.list(
     first=42,
     last=42,
-    company_id="biz_xxxxxxxxxxxxxx",
     product_id="prod_xxxxxxxxxxxxx",
+    account_id="biz_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -10868,7 +10868,7 @@ client.chat_channels.list(
 <dl>
 <dd>
 
-**company_id:** `str` — The unique identifier of the company to list chat channels for.
+**account_id:** `str` — The unique identifier of the company to list chat channels for.
     
 </dd>
 </dl>
@@ -11594,8 +11594,8 @@ client = Whop(
 client.company_token_transactions.list(
     first=42,
     last=42,
-    company_id="biz_xxxxxxxxxxxxxx",
     user_id="user_xxxxxxxxxxxxx",
+    account_id="biz_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -11612,7 +11612,7 @@ client.company_token_transactions.list(
 <dl>
 <dd>
 
-**company_id:** `str` — The unique identifier of the company to list token transactions for.
+**account_id:** `str` — The unique identifier of the company to list token transactions for.
     
 </dd>
 </dl>
@@ -11723,8 +11723,8 @@ client = Whop(
 
 client.company_token_transactions.create(
     request=CreateCompanyTokenTransactionsRequest_Transfer(
+        account_id="biz_xxxxxxxxxxxxxx",
         amount=6.9,
-        company_id="biz_xxxxxxxxxxxxxx",
         destination_user_id="destination_user_id",
         user_id="user_xxxxxxxxxxxxx",
     ),
@@ -13772,7 +13772,7 @@ client.courses.list(
     first=42,
     last=42,
     experience_id="exp_xxxxxxxxxxxxxx",
-    company_id="biz_xxxxxxxxxxxxxx",
+    account_id="biz_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -13829,7 +13829,7 @@ client.courses.list(
 <dl>
 <dd>
 
-**company_id:** `typing.Optional[str]` — The unique identifier of the company to list courses for.
+**account_id:** `typing.Optional[str]` — The unique identifier of the company to list courses for.
     
 </dd>
 </dl>
@@ -14327,7 +14327,7 @@ client = Whop(
 )
 
 client.deposits.create(
-    destination="destination",
+    destination="biz_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -14344,7 +14344,7 @@ client.deposits.create(
 <dl>
 <dd>
 
-**destination:** `CreateDepositsRequestDestination` — Destination account ID or wallet address. Object form is supported for compatibility. Any business resolves by its account ID without authentication; a user account resolves only for that same authenticated user.
+**destination:** `str` — Account ID to fund, `biz_` or `user_`. Any business resolves without authentication; a user account resolves only for that same authenticated user.
     
 </dd>
 </dl>
@@ -14353,22 +14353,6 @@ client.deposits.create(
 <dd>
 
 **amount:** `typing.Optional[float]` — Amount to prefill on hosted deposit page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**metadata:** `typing.Optional[typing.Dict[str, typing.Any]]` — Metadata to include with the deposit response.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**network:** `typing.Optional[CreateDepositsRequestNetwork]` — Destination network override. Defaults to the destination wallet's own network.
     
 </dd>
 </dl>
@@ -15510,7 +15494,7 @@ client = Whop(
 client.dm_channels.list(
     first=42,
     last=42,
-    company_id="biz_xxxxxxxxxxxxxx",
+    account_id="biz_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -15559,7 +15543,7 @@ client.dm_channels.list(
 <dl>
 <dd>
 
-**company_id:** `typing.Optional[str]` — The unique identifier of a company to filter DM channels by. Only returns channels scoped to this company.
+**account_id:** `typing.Optional[str]` — The unique identifier of a company to filter DM channels by. Only returns channels scoped to this company.
     
 </dd>
 </dl>
@@ -15645,7 +15629,7 @@ client.dm_channels.create(
 <dl>
 <dd>
 
-**company_id:** `typing.Optional[str]` — The unique identifier of the company to scope this DM channel to. When set, the channel is visible only within that company context.
+**account_id:** `typing.Optional[str]` — The unique identifier of the company to scope this DM channel to. When set, the channel is visible only within that company context.
     
 </dd>
 </dl>
@@ -16409,9 +16393,9 @@ client = Whop(
 client.entries.list(
     first=42,
     last=42,
-    company_id="biz_xxxxxxxxxxxxxx",
     created_before=datetime.datetime.fromisoformat("2023-12-01T05:00:00+00:00"),
     created_after=datetime.datetime.fromisoformat("2023-12-01T05:00:00+00:00"),
+    account_id="biz_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -16428,7 +16412,7 @@ client.entries.list(
 <dl>
 <dd>
 
-**company_id:** `str` — The unique identifier of the company to list waitlist entries for.
+**account_id:** `str` — The unique identifier of the company to list waitlist entries for.
     
 </dd>
 </dl>
@@ -17427,11 +17411,11 @@ client = Whop(
 client.experiences.list(
     first=42,
     last=42,
-    company_id="biz_xxxxxxxxxxxxxx",
     product_id="prod_xxxxxxxxxxxxx",
     app_id="app_xxxxxxxxxxxxxx",
     created_before=datetime.datetime.fromisoformat("2023-12-01T05:00:00+00:00"),
     created_after=datetime.datetime.fromisoformat("2023-12-01T05:00:00+00:00"),
+    account_id="biz_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -17448,7 +17432,7 @@ client.experiences.list(
 <dl>
 <dd>
 
-**company_id:** `str` — The unique identifier of the company to list experiences for.
+**account_id:** `str` — The unique identifier of the company to list experiences for.
     
 </dd>
 </dl>
@@ -17569,8 +17553,8 @@ client = Whop(
 )
 
 client.experiences.create(
+    account_id="biz_xxxxxxxxxxxxxx",
     app_id="app_xxxxxxxxxxxxxx",
-    company_id="biz_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -17587,7 +17571,7 @@ client.experiences.create(
 <dl>
 <dd>
 
-**app_id:** `str` — The unique identifier of the app that powers this experience.
+**account_id:** `str` — The unique identifier of the company to create this experience for.
     
 </dd>
 </dl>
@@ -17595,7 +17579,7 @@ client.experiences.create(
 <dl>
 <dd>
 
-**company_id:** `str` — The unique identifier of the company to create this experience for.
+**app_id:** `str` — The unique identifier of the app that powers this experience.
     
 </dd>
 </dl>
@@ -18529,7 +18513,7 @@ client = Whop(
 client.fee_markups.list(
     first=42,
     last=42,
-    company_id="biz_xxxxxxxxxxxxxx",
+    account_id="biz_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -18546,7 +18530,7 @@ client.fee_markups.list(
 <dl>
 <dd>
 
-**company_id:** `str` — The unique identifier of the company to list fee markups for. Pass a platform account identifier to retrieve platform default markups.
+**account_id:** `str` — The unique identifier of the company to list fee markups for. Pass a platform account identifier to retrieve platform default markups.
     
 </dd>
 </dl>
@@ -18637,7 +18621,7 @@ client = Whop(
 )
 
 client.fee_markups.create(
-    company_id="biz_xxxxxxxxxxxxxx",
+    account_id="biz_xxxxxxxxxxxxxx",
     fee_type="crypto_withdrawal_markup",
 )
 
@@ -18655,7 +18639,7 @@ client.fee_markups.create(
 <dl>
 <dd>
 
-**company_id:** `str` — The unique identifier of the company to create or update the fee markup for.
+**account_id:** `str` — The unique identifier of the company to create or update the fee markup for.
     
 </dd>
 </dl>
@@ -19298,6 +19282,14 @@ client.financial_activity.list()
 <dl>
 <dd>
 
+**exclude_internal_movements:** `typing.Optional[bool]` — Whether to exclude balance reservations and balanced movements between the account's own balances.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **currency:** `typing.Optional[str]` — Optional currency code filter, for example `usd`.
     
 </dd>
@@ -19736,7 +19728,7 @@ client.forum_posts.create(
 <dl>
 <dd>
 
-**attachments:** `typing.Optional[typing.List[CreateForumPostsRequestAttachmentsItem]]` — A list of file attachments to include with the post, such as images or videos.
+**account_id:** `typing.Optional[str]` — The unique identifier of the company whose public forum to post in. Required when experience_id is 'public'. For example, 'biz_xxxxx'.
     
 </dd>
 </dl>
@@ -19744,7 +19736,7 @@ client.forum_posts.create(
 <dl>
 <dd>
 
-**company_id:** `typing.Optional[str]` — The unique identifier of the company whose public forum to post in. Required when experience_id is 'public'. For example, 'biz_xxxxx'.
+**attachments:** `typing.Optional[typing.List[CreateForumPostsRequestAttachmentsItem]]` — A list of file attachments to include with the post, such as images or videos.
     
 </dd>
 </dl>
@@ -20075,8 +20067,8 @@ client = Whop(
 client.forums.list(
     first=42,
     last=42,
-    company_id="biz_xxxxxxxxxxxxxx",
     product_id="prod_xxxxxxxxxxxxx",
+    account_id="biz_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -20093,7 +20085,7 @@ client.forums.list(
 <dl>
 <dd>
 
-**company_id:** `str` — The unique identifier of the company to list forums for.
+**account_id:** `str` — The unique identifier of the company to list forums for.
     
 </dd>
 </dl>
@@ -20387,7 +20379,7 @@ client = Whop(
 client.identity_profiles.list_identity_profile(
     first=42,
     last=42,
-    company_id="biz_xxxxxxxxxxxxxx",
+    account_id="biz_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -20436,14 +20428,6 @@ client.identity_profiles.list_identity_profile(
 <dl>
 <dd>
 
-**company_id:** `typing.Optional[str]` — The unique identifier of the company to filter to. When omitted, returns IPs across all ledgers the actor can read.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **profile_type:** `typing.Optional[IdentityProfileKinds]` 
     
 </dd>
@@ -20453,6 +20437,14 @@ client.identity_profiles.list_identity_profile(
 <dd>
 
 **status:** `typing.Optional[IdentityProfileStatuses]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — The unique identifier of the company to filter to. When omitted, returns IPs across all ledgers the actor can read.
     
 </dd>
 </dl>
@@ -20783,9 +20775,9 @@ client = Whop(
 client.invoices.list(
     first=42,
     last=42,
-    company_id="biz_xxxxxxxxxxxxxx",
     created_before=datetime.datetime.fromisoformat("2023-12-01T05:00:00+00:00"),
     created_after=datetime.datetime.fromisoformat("2023-12-01T05:00:00+00:00"),
+    account_id="biz_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -20827,14 +20819,6 @@ client.invoices.list(
 <dd>
 
 **last:** `typing.Optional[int]` — Returns the last _n_ elements from the list.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**company_id:** `typing.Optional[str]` — The unique identifier of the company to list invoices for.
     
 </dd>
 </dl>
@@ -20898,6 +20882,14 @@ client.invoices.list(
 <dl>
 <dd>
 
+**account_id:** `typing.Optional[str]` — The unique identifier of the company to list invoices for.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -20954,8 +20946,8 @@ client = Whop(
 
 client.invoices.create(
     request=CreateInvoicesRequestProduct(
+        account_id="biz_xxxxxxxxxxxxxx",
         collection_method="send_invoice",
-        company_id="biz_xxxxxxxxxxxxxx",
         plan=CreateInvoicesRequestProductPlan(),
         product=CreateInvoicesRequestProductProduct(
             title="title",
@@ -21693,9 +21685,9 @@ client = Whop(
 client.leads.list(
     first=42,
     last=42,
-    company_id="biz_xxxxxxxxxxxxxx",
     created_after=datetime.datetime.fromisoformat("2023-12-01T05:00:00+00:00"),
     created_before=datetime.datetime.fromisoformat("2023-12-01T05:00:00+00:00"),
+    account_id="biz_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -21712,7 +21704,7 @@ client.leads.list(
 <dl>
 <dd>
 
-**company_id:** `str` — The unique identifier of the company to list leads for.
+**account_id:** `str` — The unique identifier of the company to list leads for.
     
 </dd>
 </dl>
@@ -21830,7 +21822,7 @@ client = Whop(
 )
 
 client.leads.create(
-    company_id="biz_xxxxxxxxxxxxxx",
+    account_id="biz_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -21847,7 +21839,7 @@ client.leads.create(
 <dl>
 <dd>
 
-**company_id:** `str` — The unique identifier of the company to create the lead for, starting with 'biz_'.
+**account_id:** `str` — The unique identifier of the company to create the lead for, starting with 'biz_'.
     
 </dd>
 </dl>
@@ -25361,9 +25353,9 @@ client.payment_methods.list(
     first=42,
     last=42,
     member_id="mber_xxxxxxxxxxxxx",
-    company_id="biz_xxxxxxxxxxxxxx",
     created_before=datetime.datetime.fromisoformat("2023-12-01T05:00:00+00:00"),
     created_after=datetime.datetime.fromisoformat("2023-12-01T05:00:00+00:00"),
+    account_id="biz_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -25413,14 +25405,6 @@ client.payment_methods.list(
 <dd>
 
 **member_id:** `typing.Optional[str]` — The unique identifier of the member to list payment methods for. Omit this and company_id to list your own saved payment methods.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**company_id:** `typing.Optional[str]` — The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
     
 </dd>
 </dl>
@@ -25508,6 +25492,14 @@ client.payment_methods.list(
 <dl>
 <dd>
 
+**account_id:** `typing.Optional[str]` — The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -25560,8 +25552,8 @@ client = Whop(
 
 client.payment_methods.retrieve(
     id="payt_xxxxxxxxxxxxx",
-    company_id="biz_xxxxxxxxxxxxxx",
     member_id="mber_xxxxxxxxxxxxx",
+    account_id="biz_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -25586,7 +25578,7 @@ client.payment_methods.retrieve(
 <dl>
 <dd>
 
-**company_id:** `typing.Optional[str]` — The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
+**member_id:** `typing.Optional[str]` — The unique identifier of the member. Provide either this or company_id, not both. Omit both to address your own saved payment methods.
     
 </dd>
 </dl>
@@ -25594,7 +25586,7 @@ client.payment_methods.retrieve(
 <dl>
 <dd>
 
-**member_id:** `typing.Optional[str]` — The unique identifier of the member. Provide either this or company_id, not both. Omit both to address your own saved payment methods.
+**account_id:** `typing.Optional[str]` — The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
     
 </dd>
 </dl>
@@ -25654,8 +25646,8 @@ client = Whop(
 
 client.payment_methods.delete_payment_method(
     id="payt_xxxxxxxxxxxxx",
-    company_id="biz_xxxxxxxxxxxxxx",
     member_id="mber_xxxxxxxxxxxxx",
+    account_id="biz_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -25680,7 +25672,7 @@ client.payment_methods.delete_payment_method(
 <dl>
 <dd>
 
-**company_id:** `typing.Optional[str]` — The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
+**member_id:** `typing.Optional[str]` — The unique identifier of the member. Provide either this or company_id, not both. Omit both to address your own saved payment methods.
     
 </dd>
 </dl>
@@ -25688,7 +25680,7 @@ client.payment_methods.delete_payment_method(
 <dl>
 <dd>
 
-**member_id:** `typing.Optional[str]` — The unique identifier of the member. Provide either this or company_id, not both. Omit both to address your own saved payment methods.
+**account_id:** `typing.Optional[str]` — The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
     
 </dd>
 </dl>
@@ -26782,7 +26774,7 @@ client = Whop(
 client.payout_methods.list_payout_method(
     first=42,
     last=42,
-    company_id="biz_xxxxxxxxxxxxxx",
+    account_id="biz_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -26799,7 +26791,7 @@ client.payout_methods.list_payout_method(
 <dl>
 <dd>
 
-**company_id:** `str` — The unique identifier of the company to list payout methods for.
+**account_id:** `str` — The unique identifier of the company to list payout methods for.
     
 </dd>
 </dl>
@@ -32767,9 +32759,9 @@ client = Whop(
 client.setup_intents.list(
     first=42,
     last=42,
-    company_id="biz_xxxxxxxxxxxxxx",
     created_before=datetime.datetime.fromisoformat("2023-12-01T05:00:00+00:00"),
     created_after=datetime.datetime.fromisoformat("2023-12-01T05:00:00+00:00"),
+    account_id="biz_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -32786,7 +32778,7 @@ client.setup_intents.list(
 <dl>
 <dd>
 
-**company_id:** `str` — The unique identifier of the company to list setup intents for.
+**account_id:** `str` — The unique identifier of the company to list setup intents for.
     
 </dd>
 </dl>
@@ -32905,7 +32897,7 @@ client = Whop(
 
 client.setup_intents.create(
     request=CreateSetupIntentsRequestConfirmationToken(
-        company_id="biz_xxxxxxxxxxxxxx",
+        account_id="biz_xxxxxxxxxxxxxx",
         confirmation_token="ctok_xxxxxxxxxxxxxx",
     ),
 )
@@ -34289,8 +34281,8 @@ client = Whop(
 )
 
 client.stats.describe_stats(
-    company_id="biz_xxxxxxxxxxxxxx",
     user_id="user_xxxxxxxxxxxxx",
+    account_id="biz_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -34315,7 +34307,7 @@ client.stats.describe_stats(
 <dl>
 <dd>
 
-**company_id:** `typing.Optional[str]` — Scope query to a specific company.
+**user_id:** `typing.Optional[str]` — Scope query to a specific user.
     
 </dd>
 </dl>
@@ -34323,7 +34315,7 @@ client.stats.describe_stats(
 <dl>
 <dd>
 
-**user_id:** `typing.Optional[str]` — Scope query to a specific user.
+**account_id:** `typing.Optional[str]` — Scope query to a specific company.
     
 </dd>
 </dl>
@@ -34386,8 +34378,8 @@ client.stats.metric_stats(
     resource="resource",
     from_=datetime.datetime.fromisoformat("2023-12-01T05:00:00+00:00"),
     to=datetime.datetime.fromisoformat("2023-12-01T05:00:00+00:00"),
-    company_id="biz_xxxxxxxxxxxxxx",
     user_id="user_xxxxxxxxxxxxx",
+    account_id="biz_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -34460,7 +34452,7 @@ client.stats.metric_stats(
 <dl>
 <dd>
 
-**company_id:** `typing.Optional[str]` — Scope query to a specific company.
+**user_id:** `typing.Optional[str]` — Scope query to a specific user.
     
 </dd>
 </dl>
@@ -34468,7 +34460,7 @@ client.stats.metric_stats(
 <dl>
 <dd>
 
-**user_id:** `typing.Optional[str]` — Scope query to a specific user.
+**account_id:** `typing.Optional[str]` — Scope query to a specific company.
     
 </dd>
 </dl>
@@ -34532,8 +34524,8 @@ client.stats.raw_stats(
     from_=datetime.datetime.fromisoformat("2023-12-01T05:00:00+00:00"),
     to=datetime.datetime.fromisoformat("2023-12-01T05:00:00+00:00"),
     limit=42,
-    company_id="biz_xxxxxxxxxxxxxx",
     user_id="user_xxxxxxxxxxxxx",
+    account_id="biz_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -34606,7 +34598,7 @@ client.stats.raw_stats(
 <dl>
 <dd>
 
-**company_id:** `typing.Optional[str]` — Scope query to a specific company.
+**user_id:** `typing.Optional[str]` — Scope query to a specific user.
     
 </dd>
 </dl>
@@ -34614,7 +34606,7 @@ client.stats.raw_stats(
 <dl>
 <dd>
 
-**user_id:** `typing.Optional[str]` — Scope query to a specific user.
+**account_id:** `typing.Optional[str]` — Scope query to a specific company.
     
 </dd>
 </dl>
@@ -35032,7 +35024,7 @@ client = Whop(
 client.support_channels.list(
     first=42,
     last=42,
-    company_id="biz_xxxxxxxxxxxxxx",
+    account_id="biz_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -35081,14 +35073,6 @@ client.support_channels.list(
 <dl>
 <dd>
 
-**company_id:** `typing.Optional[str]` — The unique identifier of the company to list support channels for. Includes channels of child companies. When omitted, returns support channels across all companies the user has access to.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **view:** `typing.Optional[SupportChannelView]` 
     
 </dd>
@@ -35114,6 +35098,14 @@ client.support_channels.list(
 <dd>
 
 **order:** `typing.Optional[MessageChannelOrder]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — The unique identifier of the company to list support channels for. Includes channels of child companies. When omitted, returns support channels across all companies the user has access to.
     
 </dd>
 </dl>
@@ -35172,7 +35164,7 @@ client = Whop(
 )
 
 client.support_channels.create(
-    company_id="biz_xxxxxxxxxxxxxx",
+    account_id="biz_xxxxxxxxxxxxxx",
     user_id="user_xxxxxxxxxxxxx",
 )
 
@@ -35190,7 +35182,7 @@ client.support_channels.create(
 <dl>
 <dd>
 
-**company_id:** `str` — The unique identifier of the company to create the support channel in.
+**account_id:** `str` — The unique identifier of the company to create the support channel in.
     
 </dd>
 </dl>
@@ -36255,8 +36247,8 @@ client = Whop(
 )
 
 client.topups.create(
+    account_id="biz_xxxxxxxxxxxxxx",
     amount=6.9,
-    company_id="biz_xxxxxxxxxxxxxx",
     currency="usd",
     payment_method_id="pmt_xxxxxxxxxxxxxx",
 )
@@ -36275,7 +36267,7 @@ client.topups.create(
 <dl>
 <dd>
 
-**amount:** `float` — The amount to add to the balance in the specified currency. For example, 50.00 for $50.00 USD.
+**account_id:** `str` — The unique identifier of the company to add funds to, starting with 'biz_'.
     
 </dd>
 </dl>
@@ -36283,7 +36275,7 @@ client.topups.create(
 <dl>
 <dd>
 
-**company_id:** `str` — The unique identifier of the company to add funds to, starting with 'biz_'.
+**amount:** `float` — The amount to add to the balance in the specified currency. For example, 50.00 for $50.00 USD.
     
 </dd>
 </dl>

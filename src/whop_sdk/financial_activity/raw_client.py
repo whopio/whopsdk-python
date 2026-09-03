@@ -40,6 +40,7 @@ class RawFinancialActivityClient:
         direction: typing.Optional[ListFinancialActivityRequestDirection] = None,
         resource_id: typing.Optional[str] = None,
         activity_id: typing.Optional[str] = None,
+        exclude_internal_movements: typing.Optional[bool] = None,
         currency: typing.Optional[str] = None,
         posted_after: typing.Optional[dt.datetime] = None,
         posted_before: typing.Optional[dt.datetime] = None,
@@ -77,6 +78,9 @@ class RawFinancialActivityClient:
 
         activity_id : typing.Optional[str]
             Optional ledger activity ID (for example `line_3`). Returns at most that one activity.
+
+        exclude_internal_movements : typing.Optional[bool]
+            Whether to exclude balance reservations and balanced movements between the account's own balances.
 
         currency : typing.Optional[str]
             Optional currency code filter, for example `usd`.
@@ -119,6 +123,7 @@ class RawFinancialActivityClient:
                 "direction": direction,
                 "resource_id": resource_id,
                 "activity_id": activity_id,
+                "exclude_internal_movements": exclude_internal_movements,
                 "currency": currency,
                 "posted_after": serialize_datetime(posted_after) if posted_after is not None else None,
                 "posted_before": serialize_datetime(posted_before) if posted_before is not None else None,
@@ -212,6 +217,7 @@ class AsyncRawFinancialActivityClient:
         direction: typing.Optional[ListFinancialActivityRequestDirection] = None,
         resource_id: typing.Optional[str] = None,
         activity_id: typing.Optional[str] = None,
+        exclude_internal_movements: typing.Optional[bool] = None,
         currency: typing.Optional[str] = None,
         posted_after: typing.Optional[dt.datetime] = None,
         posted_before: typing.Optional[dt.datetime] = None,
@@ -249,6 +255,9 @@ class AsyncRawFinancialActivityClient:
 
         activity_id : typing.Optional[str]
             Optional ledger activity ID (for example `line_3`). Returns at most that one activity.
+
+        exclude_internal_movements : typing.Optional[bool]
+            Whether to exclude balance reservations and balanced movements between the account's own balances.
 
         currency : typing.Optional[str]
             Optional currency code filter, for example `usd`.
@@ -291,6 +300,7 @@ class AsyncRawFinancialActivityClient:
                 "direction": direction,
                 "resource_id": resource_id,
                 "activity_id": activity_id,
+                "exclude_internal_movements": exclude_internal_movements,
                 "currency": currency,
                 "posted_after": serialize_datetime(posted_after) if posted_after is not None else None,
                 "posted_before": serialize_datetime(posted_before) if posted_before is not None else None,

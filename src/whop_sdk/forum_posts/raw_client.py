@@ -222,8 +222,8 @@ class RawForumPostsClient:
         self,
         *,
         experience_id: str,
+        account_id: typing.Optional[str] = OMIT,
         attachments: typing.Optional[typing.Sequence[CreateForumPostsRequestAttachmentsItem]] = OMIT,
-        company_id: typing.Optional[str] = OMIT,
         content: typing.Optional[str] = OMIT,
         is_mention: typing.Optional[bool] = OMIT,
         parent_id: typing.Optional[str] = OMIT,
@@ -247,11 +247,11 @@ class RawForumPostsClient:
         experience_id : str
             The unique identifier of the experience to create this post in. For example, 'exp_xxxxx'. Pass 'public' along with company_id to automatically use the company's public forum.
 
+        account_id : typing.Optional[str]
+            The unique identifier of the company whose public forum to post in. Required when experience_id is 'public'. For example, 'biz_xxxxx'.
+
         attachments : typing.Optional[typing.Sequence[CreateForumPostsRequestAttachmentsItem]]
             A list of file attachments to include with the post, such as images or videos.
-
-        company_id : typing.Optional[str]
-            The unique identifier of the company whose public forum to post in. Required when experience_id is 'public'. For example, 'biz_xxxxx'.
 
         content : typing.Optional[str]
             The main body of the post in Markdown format. For example, 'Check out this **update**'. Hidden if the post is paywalled and the viewer has not purchased access.
@@ -295,12 +295,12 @@ class RawForumPostsClient:
             "forum_posts",
             method="POST",
             json={
+                "account_id": account_id,
                 "attachments": convert_and_respect_annotation_metadata(
                     object_=attachments,
                     annotation=typing.Optional[typing.Sequence[CreateForumPostsRequestAttachmentsItem]],
                     direction="write",
                 ),
-                "company_id": company_id,
                 "content": content,
                 "experience_id": experience_id,
                 "is_mention": is_mention,
@@ -889,8 +889,8 @@ class AsyncRawForumPostsClient:
         self,
         *,
         experience_id: str,
+        account_id: typing.Optional[str] = OMIT,
         attachments: typing.Optional[typing.Sequence[CreateForumPostsRequestAttachmentsItem]] = OMIT,
-        company_id: typing.Optional[str] = OMIT,
         content: typing.Optional[str] = OMIT,
         is_mention: typing.Optional[bool] = OMIT,
         parent_id: typing.Optional[str] = OMIT,
@@ -914,11 +914,11 @@ class AsyncRawForumPostsClient:
         experience_id : str
             The unique identifier of the experience to create this post in. For example, 'exp_xxxxx'. Pass 'public' along with company_id to automatically use the company's public forum.
 
+        account_id : typing.Optional[str]
+            The unique identifier of the company whose public forum to post in. Required when experience_id is 'public'. For example, 'biz_xxxxx'.
+
         attachments : typing.Optional[typing.Sequence[CreateForumPostsRequestAttachmentsItem]]
             A list of file attachments to include with the post, such as images or videos.
-
-        company_id : typing.Optional[str]
-            The unique identifier of the company whose public forum to post in. Required when experience_id is 'public'. For example, 'biz_xxxxx'.
 
         content : typing.Optional[str]
             The main body of the post in Markdown format. For example, 'Check out this **update**'. Hidden if the post is paywalled and the viewer has not purchased access.
@@ -962,12 +962,12 @@ class AsyncRawForumPostsClient:
             "forum_posts",
             method="POST",
             json={
+                "account_id": account_id,
                 "attachments": convert_and_respect_annotation_metadata(
                     object_=attachments,
                     annotation=typing.Optional[typing.Sequence[CreateForumPostsRequestAttachmentsItem]],
                     direction="write",
                 ),
-                "company_id": company_id,
                 "content": content,
                 "experience_id": experience_id,
                 "is_mention": is_mention,

@@ -34,7 +34,7 @@ class EntriesClient:
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -57,7 +57,7 @@ class EntriesClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list waitlist entries for.
 
         after : typing.Optional[str]
@@ -106,20 +106,20 @@ class EntriesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         response = client.entries.list(
             first=42,
             last=42,
-            company_id="biz_xxxxxxxxxxxxxx",
             created_before=datetime.datetime.fromisoformat(
                 "2023-12-01 05:00:00+00:00",
             ),
             created_after=datetime.datetime.fromisoformat(
                 "2023-12-01 05:00:00+00:00",
             ),
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         for item in response:
             yield item
@@ -128,7 +128,7 @@ class EntriesClient:
             yield page
         """
         return self._raw_client.list(
-            company_id=company_id,
+            account_id=account_id,
             after=after,
             before=before,
             first=first,
@@ -169,7 +169,7 @@ class EntriesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -205,7 +205,7 @@ class EntriesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -243,7 +243,7 @@ class EntriesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -273,7 +273,7 @@ class AsyncEntriesClient:
     async def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -296,7 +296,7 @@ class AsyncEntriesClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list waitlist entries for.
 
         after : typing.Optional[str]
@@ -346,7 +346,7 @@ class AsyncEntriesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -356,13 +356,13 @@ class AsyncEntriesClient:
             response = await client.entries.list(
                 first=42,
                 last=42,
-                company_id="biz_xxxxxxxxxxxxxx",
                 created_before=datetime.datetime.fromisoformat(
                     "2023-12-01 05:00:00+00:00",
                 ),
                 created_after=datetime.datetime.fromisoformat(
                     "2023-12-01 05:00:00+00:00",
                 ),
+                account_id="biz_xxxxxxxxxxxxxx",
             )
             async for item in response:
                 yield item
@@ -375,7 +375,7 @@ class AsyncEntriesClient:
         asyncio.run(main())
         """
         return await self._raw_client.list(
-            company_id=company_id,
+            account_id=account_id,
             after=after,
             before=before,
             first=first,
@@ -418,7 +418,7 @@ class AsyncEntriesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -464,7 +464,7 @@ class AsyncEntriesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -510,7 +510,7 @@ class AsyncEntriesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

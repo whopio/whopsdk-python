@@ -39,11 +39,11 @@ class SupportChannelsClient:
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
-        company_id: typing.Optional[str] = None,
         view: typing.Optional[SupportChannelView] = None,
         open: typing.Optional[bool] = None,
         direction: typing.Optional[Direction] = None,
         order: typing.Optional[MessageChannelOrder] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[SupportChannelListItem, ListSupportChannelsResponse]:
         """
@@ -66,9 +66,6 @@ class SupportChannelsClient:
         last : typing.Optional[int]
             Returns the last _n_ elements from the list.
 
-        company_id : typing.Optional[str]
-            The unique identifier of the company to list support channels for. Includes channels of child companies. When omitted, returns support channels across all companies the user has access to.
-
         view : typing.Optional[SupportChannelView]
 
         open : typing.Optional[bool]
@@ -77,6 +74,9 @@ class SupportChannelsClient:
         direction : typing.Optional[Direction]
 
         order : typing.Optional[MessageChannelOrder]
+
+        account_id : typing.Optional[str]
+            The unique identifier of the company to list support channels for. Includes channels of child companies. When omitted, returns support channels across all companies the user has access to.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -91,14 +91,14 @@ class SupportChannelsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         response = client.support_channels.list(
             first=42,
             last=42,
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         for item in response:
             yield item
@@ -111,18 +111,18 @@ class SupportChannelsClient:
             before=before,
             first=first,
             last=last,
-            company_id=company_id,
             view=view,
             open=open,
             direction=direction,
             order=order,
+            account_id=account_id,
             request_options=request_options,
         )
 
     def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         user_id: str,
         custom_name: typing.Optional[str] = OMIT,
         notifications_enabled: typing.Optional[bool] = OMIT,
@@ -136,7 +136,7 @@ class SupportChannelsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to create the support channel in.
 
         user_id : str
@@ -161,17 +161,17 @@ class SupportChannelsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.support_channels.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             user_id="user_xxxxxxxxxxxxx",
         )
         """
         _response = self._raw_client.create(
-            company_id=company_id,
+            account_id=account_id,
             user_id=user_id,
             custom_name=custom_name,
             notifications_enabled=notifications_enabled,
@@ -204,7 +204,7 @@ class SupportChannelsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -238,11 +238,11 @@ class AsyncSupportChannelsClient:
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
-        company_id: typing.Optional[str] = None,
         view: typing.Optional[SupportChannelView] = None,
         open: typing.Optional[bool] = None,
         direction: typing.Optional[Direction] = None,
         order: typing.Optional[MessageChannelOrder] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[SupportChannelListItem, ListSupportChannelsResponse]:
         """
@@ -265,9 +265,6 @@ class AsyncSupportChannelsClient:
         last : typing.Optional[int]
             Returns the last _n_ elements from the list.
 
-        company_id : typing.Optional[str]
-            The unique identifier of the company to list support channels for. Includes channels of child companies. When omitted, returns support channels across all companies the user has access to.
-
         view : typing.Optional[SupportChannelView]
 
         open : typing.Optional[bool]
@@ -276,6 +273,9 @@ class AsyncSupportChannelsClient:
         direction : typing.Optional[Direction]
 
         order : typing.Optional[MessageChannelOrder]
+
+        account_id : typing.Optional[str]
+            The unique identifier of the company to list support channels for. Includes channels of child companies. When omitted, returns support channels across all companies the user has access to.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -292,7 +292,7 @@ class AsyncSupportChannelsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -302,7 +302,7 @@ class AsyncSupportChannelsClient:
             response = await client.support_channels.list(
                 first=42,
                 last=42,
-                company_id="biz_xxxxxxxxxxxxxx",
+                account_id="biz_xxxxxxxxxxxxxx",
             )
             async for item in response:
                 yield item
@@ -319,18 +319,18 @@ class AsyncSupportChannelsClient:
             before=before,
             first=first,
             last=last,
-            company_id=company_id,
             view=view,
             open=open,
             direction=direction,
             order=order,
+            account_id=account_id,
             request_options=request_options,
         )
 
     async def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         user_id: str,
         custom_name: typing.Optional[str] = OMIT,
         notifications_enabled: typing.Optional[bool] = OMIT,
@@ -344,7 +344,7 @@ class AsyncSupportChannelsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to create the support channel in.
 
         user_id : str
@@ -371,7 +371,7 @@ class AsyncSupportChannelsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -379,7 +379,7 @@ class AsyncSupportChannelsClient:
 
         async def main() -> None:
             await client.support_channels.create(
-                company_id="biz_xxxxxxxxxxxxxx",
+                account_id="biz_xxxxxxxxxxxxxx",
                 user_id="user_xxxxxxxxxxxxx",
             )
 
@@ -387,7 +387,7 @@ class AsyncSupportChannelsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.create(
-            company_id=company_id,
+            account_id=account_id,
             user_id=user_id,
             custom_name=custom_name,
             notifications_enabled=notifications_enabled,
@@ -422,7 +422,7 @@ class AsyncSupportChannelsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

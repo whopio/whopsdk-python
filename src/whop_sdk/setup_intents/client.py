@@ -37,7 +37,7 @@ class SetupIntentsClient:
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -57,7 +57,7 @@ class SetupIntentsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list setup intents for.
 
         after : typing.Optional[str]
@@ -95,20 +95,20 @@ class SetupIntentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         response = client.setup_intents.list(
             first=42,
             last=42,
-            company_id="biz_xxxxxxxxxxxxxx",
             created_before=datetime.datetime.fromisoformat(
                 "2023-12-01 05:00:00+00:00",
             ),
             created_after=datetime.datetime.fromisoformat(
                 "2023-12-01 05:00:00+00:00",
             ),
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         for item in response:
             yield item
@@ -117,7 +117,7 @@ class SetupIntentsClient:
             yield page
         """
         return self._raw_client.list(
-            company_id=company_id,
+            account_id=account_id,
             after=after,
             before=before,
             first=first,
@@ -157,13 +157,13 @@ class SetupIntentsClient:
         from whop_sdk.setup_intents import CreateSetupIntentsRequestConfirmationToken
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.setup_intents.create(
             request=CreateSetupIntentsRequestConfirmationToken(
-                company_id="biz_xxxxxxxxxxxxxx",
+                account_id="biz_xxxxxxxxxxxxxx",
                 confirmation_token="ctok_xxxxxxxxxxxxxx",
             ),
         )
@@ -198,7 +198,7 @@ class SetupIntentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -236,7 +236,7 @@ class SetupIntentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -274,7 +274,7 @@ class SetupIntentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -304,7 +304,7 @@ class AsyncSetupIntentsClient:
     async def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -324,7 +324,7 @@ class AsyncSetupIntentsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list setup intents for.
 
         after : typing.Optional[str]
@@ -363,7 +363,7 @@ class AsyncSetupIntentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -373,13 +373,13 @@ class AsyncSetupIntentsClient:
             response = await client.setup_intents.list(
                 first=42,
                 last=42,
-                company_id="biz_xxxxxxxxxxxxxx",
                 created_before=datetime.datetime.fromisoformat(
                     "2023-12-01 05:00:00+00:00",
                 ),
                 created_after=datetime.datetime.fromisoformat(
                     "2023-12-01 05:00:00+00:00",
                 ),
+                account_id="biz_xxxxxxxxxxxxxx",
             )
             async for item in response:
                 yield item
@@ -392,7 +392,7 @@ class AsyncSetupIntentsClient:
         asyncio.run(main())
         """
         return await self._raw_client.list(
-            company_id=company_id,
+            account_id=account_id,
             after=after,
             before=before,
             first=first,
@@ -434,7 +434,7 @@ class AsyncSetupIntentsClient:
         from whop_sdk.setup_intents import CreateSetupIntentsRequestConfirmationToken
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -443,7 +443,7 @@ class AsyncSetupIntentsClient:
         async def main() -> None:
             await client.setup_intents.create(
                 request=CreateSetupIntentsRequestConfirmationToken(
-                    company_id="biz_xxxxxxxxxxxxxx",
+                    account_id="biz_xxxxxxxxxxxxxx",
                     confirmation_token="ctok_xxxxxxxxxxxxxx",
                 ),
             )
@@ -483,7 +483,7 @@ class AsyncSetupIntentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -529,7 +529,7 @@ class AsyncSetupIntentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -575,7 +575,7 @@ class AsyncSetupIntentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

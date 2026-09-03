@@ -37,7 +37,7 @@ class RawCompanyTokenTransactionsClient:
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -56,7 +56,7 @@ class RawCompanyTokenTransactionsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list token transactions for.
 
         after : typing.Optional[str]
@@ -92,9 +92,9 @@ class RawCompanyTokenTransactionsClient:
                 "before": before,
                 "first": first,
                 "last": last,
-                "company_id": company_id,
                 "user_id": user_id,
                 "transaction_type": transaction_type,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -114,7 +114,7 @@ class RawCompanyTokenTransactionsClient:
                     _parsed_next = _parsed_response.page_info.end_cursor
                     _has_next = _parsed_next is not None and _parsed_next != ""
                     _get_next = lambda: self.list(
-                        company_id=company_id,
+                        account_id=account_id,
                         after=_parsed_next,
                         before=before,
                         first=first,
@@ -474,7 +474,7 @@ class AsyncRawCompanyTokenTransactionsClient:
     async def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -493,7 +493,7 @@ class AsyncRawCompanyTokenTransactionsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list token transactions for.
 
         after : typing.Optional[str]
@@ -529,9 +529,9 @@ class AsyncRawCompanyTokenTransactionsClient:
                 "before": before,
                 "first": first,
                 "last": last,
-                "company_id": company_id,
                 "user_id": user_id,
                 "transaction_type": transaction_type,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -553,7 +553,7 @@ class AsyncRawCompanyTokenTransactionsClient:
 
                     async def _get_next():
                         return await self.list(
-                            company_id=company_id,
+                            account_id=account_id,
                             after=_parsed_next,
                             before=before,
                             first=first,

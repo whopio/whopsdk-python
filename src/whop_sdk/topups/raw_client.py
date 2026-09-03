@@ -31,8 +31,8 @@ class RawTopupsClient:
     def create(
         self,
         *,
+        account_id: str,
         amount: float,
-        company_id: str,
         currency: Currencies,
         payment_method_id: str,
         request_options: typing.Optional[RequestOptions] = None,
@@ -45,11 +45,11 @@ class RawTopupsClient:
 
         Parameters
         ----------
+        account_id : str
+            The unique identifier of the company to add funds to, starting with 'biz_'.
+
         amount : float
             The amount to add to the balance in the specified currency. For example, 50.00 for $50.00 USD.
-
-        company_id : str
-            The unique identifier of the company to add funds to, starting with 'biz_'.
 
         currency : Currencies
             The currency for the top-up amount, such as 'usd'.
@@ -69,8 +69,8 @@ class RawTopupsClient:
             "topups",
             method="POST",
             json={
+                "account_id": account_id,
                 "amount": amount,
-                "company_id": company_id,
                 "currency": currency,
                 "payment_method_id": payment_method_id,
             },
@@ -184,8 +184,8 @@ class AsyncRawTopupsClient:
     async def create(
         self,
         *,
+        account_id: str,
         amount: float,
-        company_id: str,
         currency: Currencies,
         payment_method_id: str,
         request_options: typing.Optional[RequestOptions] = None,
@@ -198,11 +198,11 @@ class AsyncRawTopupsClient:
 
         Parameters
         ----------
+        account_id : str
+            The unique identifier of the company to add funds to, starting with 'biz_'.
+
         amount : float
             The amount to add to the balance in the specified currency. For example, 50.00 for $50.00 USD.
-
-        company_id : str
-            The unique identifier of the company to add funds to, starting with 'biz_'.
 
         currency : Currencies
             The currency for the top-up amount, such as 'usd'.
@@ -222,8 +222,8 @@ class AsyncRawTopupsClient:
             "topups",
             method="POST",
             json={
+                "account_id": account_id,
                 "amount": amount,
-                "company_id": company_id,
                 "currency": currency,
                 "payment_method_id": payment_method_id,
             },

@@ -35,7 +35,7 @@ class RawFeeMarkupsClient:
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -50,7 +50,7 @@ class RawFeeMarkupsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list fee markups for. Pass a platform account identifier to retrieve platform default markups.
 
         after : typing.Optional[str]
@@ -81,7 +81,7 @@ class RawFeeMarkupsClient:
                 "before": before,
                 "first": first,
                 "last": last,
-                "company_id": company_id,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -101,7 +101,7 @@ class RawFeeMarkupsClient:
                     _parsed_next = _parsed_response.page_info.end_cursor
                     _has_next = _parsed_next is not None and _parsed_next != ""
                     _get_next = lambda: self.list(
-                        company_id=company_id,
+                        account_id=account_id,
                         after=_parsed_next,
                         before=before,
                         first=first,
@@ -198,7 +198,7 @@ class RawFeeMarkupsClient:
     def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         fee_type: FeeMarkupTypes,
         fixed_fee_usd: typing.Optional[float] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
@@ -214,7 +214,7 @@ class RawFeeMarkupsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to create or update the fee markup for.
 
         fee_type : FeeMarkupTypes
@@ -244,7 +244,7 @@ class RawFeeMarkupsClient:
             "fee_markups",
             method="POST",
             json={
-                "company_id": company_id,
+                "account_id": account_id,
                 "fee_type": fee_type,
                 "fixed_fee_usd": fixed_fee_usd,
                 "metadata": metadata,
@@ -482,7 +482,7 @@ class AsyncRawFeeMarkupsClient:
     async def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -497,7 +497,7 @@ class AsyncRawFeeMarkupsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list fee markups for. Pass a platform account identifier to retrieve platform default markups.
 
         after : typing.Optional[str]
@@ -528,7 +528,7 @@ class AsyncRawFeeMarkupsClient:
                 "before": before,
                 "first": first,
                 "last": last,
-                "company_id": company_id,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -550,7 +550,7 @@ class AsyncRawFeeMarkupsClient:
 
                     async def _get_next():
                         return await self.list(
-                            company_id=company_id,
+                            account_id=account_id,
                             after=_parsed_next,
                             before=before,
                             first=first,
@@ -648,7 +648,7 @@ class AsyncRawFeeMarkupsClient:
     async def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         fee_type: FeeMarkupTypes,
         fixed_fee_usd: typing.Optional[float] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
@@ -664,7 +664,7 @@ class AsyncRawFeeMarkupsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to create or update the fee markup for.
 
         fee_type : FeeMarkupTypes
@@ -694,7 +694,7 @@ class AsyncRawFeeMarkupsClient:
             "fee_markups",
             method="POST",
             json={
-                "company_id": company_id,
+                "account_id": account_id,
                 "fee_type": fee_type,
                 "fixed_fee_usd": fixed_fee_usd,
                 "metadata": metadata,

@@ -49,7 +49,6 @@ class RawInvoicesClient:
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
-        company_id: typing.Optional[str] = None,
         direction: typing.Optional[Direction] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         collection_methods: typing.Optional[
@@ -59,6 +58,7 @@ class RawInvoicesClient:
         order: typing.Optional[InvoicesSortableColumns] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[InvoiceListItem, ListInvoicesResponse]:
         """
@@ -81,9 +81,6 @@ class RawInvoicesClient:
         last : typing.Optional[int]
             Returns the last _n_ elements from the list.
 
-        company_id : typing.Optional[str]
-            The unique identifier of the company to list invoices for.
-
         direction : typing.Optional[Direction]
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
@@ -103,6 +100,9 @@ class RawInvoicesClient:
         created_after : typing.Optional[dt.datetime]
             Only return invoices created after this timestamp.
 
+        account_id : typing.Optional[str]
+            The unique identifier of the company to list invoices for.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -119,7 +119,6 @@ class RawInvoicesClient:
                 "before": before,
                 "first": first,
                 "last": last,
-                "company_id": company_id,
                 "direction": direction,
                 "product_ids": product_ids,
                 "collection_methods": collection_methods,
@@ -127,6 +126,7 @@ class RawInvoicesClient:
                 "order": order,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -150,7 +150,6 @@ class RawInvoicesClient:
                         before=before,
                         first=first,
                         last=last,
-                        company_id=company_id,
                         direction=direction,
                         product_ids=product_ids,
                         collection_methods=collection_methods,
@@ -158,6 +157,7 @@ class RawInvoicesClient:
                         order=order,
                         created_before=created_before,
                         created_after=created_after,
+                        account_id=account_id,
                         request_options=request_options,
                     )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
@@ -1337,7 +1337,6 @@ class AsyncRawInvoicesClient:
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
-        company_id: typing.Optional[str] = None,
         direction: typing.Optional[Direction] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         collection_methods: typing.Optional[
@@ -1347,6 +1346,7 @@ class AsyncRawInvoicesClient:
         order: typing.Optional[InvoicesSortableColumns] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[InvoiceListItem, ListInvoicesResponse]:
         """
@@ -1369,9 +1369,6 @@ class AsyncRawInvoicesClient:
         last : typing.Optional[int]
             Returns the last _n_ elements from the list.
 
-        company_id : typing.Optional[str]
-            The unique identifier of the company to list invoices for.
-
         direction : typing.Optional[Direction]
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
@@ -1391,6 +1388,9 @@ class AsyncRawInvoicesClient:
         created_after : typing.Optional[dt.datetime]
             Only return invoices created after this timestamp.
 
+        account_id : typing.Optional[str]
+            The unique identifier of the company to list invoices for.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1407,7 +1407,6 @@ class AsyncRawInvoicesClient:
                 "before": before,
                 "first": first,
                 "last": last,
-                "company_id": company_id,
                 "direction": direction,
                 "product_ids": product_ids,
                 "collection_methods": collection_methods,
@@ -1415,6 +1414,7 @@ class AsyncRawInvoicesClient:
                 "order": order,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -1440,7 +1440,6 @@ class AsyncRawInvoicesClient:
                             before=before,
                             first=first,
                             last=last,
-                            company_id=company_id,
                             direction=direction,
                             product_ids=product_ids,
                             collection_methods=collection_methods,
@@ -1448,6 +1447,7 @@ class AsyncRawInvoicesClient:
                             order=order,
                             created_before=created_before,
                             created_after=created_after,
+                            account_id=account_id,
                             request_options=request_options,
                         )
 

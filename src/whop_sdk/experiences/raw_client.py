@@ -40,7 +40,7 @@ class RawExperiencesClient:
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -56,7 +56,7 @@ class RawExperiencesClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list experiences for.
 
         after : typing.Optional[str]
@@ -99,11 +99,11 @@ class RawExperiencesClient:
                 "before": before,
                 "first": first,
                 "last": last,
-                "company_id": company_id,
                 "product_id": product_id,
                 "app_id": app_id,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -123,7 +123,7 @@ class RawExperiencesClient:
                     _parsed_next = _parsed_response.page_info.end_cursor
                     _has_next = _parsed_next is not None and _parsed_next != ""
                     _get_next = lambda: self.list(
-                        company_id=company_id,
+                        account_id=account_id,
                         after=_parsed_next,
                         before=before,
                         first=first,
@@ -224,8 +224,8 @@ class RawExperiencesClient:
     def create(
         self,
         *,
+        account_id: str,
         app_id: str,
-        company_id: str,
         is_public: typing.Optional[bool] = OMIT,
         logo: typing.Optional[CreateExperiencesRequestLogo] = OMIT,
         name: typing.Optional[str] = OMIT,
@@ -239,11 +239,11 @@ class RawExperiencesClient:
 
         Parameters
         ----------
+        account_id : str
+            The unique identifier of the company to create this experience for.
+
         app_id : str
             The unique identifier of the app that powers this experience.
-
-        company_id : str
-            The unique identifier of the company to create this experience for.
 
         is_public : typing.Optional[bool]
             Whether the experience is publicly accessible without a membership.
@@ -272,8 +272,8 @@ class RawExperiencesClient:
             "experiences",
             method="POST",
             json={
+                "account_id": account_id,
                 "app_id": app_id,
-                "company_id": company_id,
                 "is_public": is_public,
                 "logo": convert_and_respect_annotation_metadata(
                     object_=logo, annotation=typing.Optional[CreateExperiencesRequestLogo], direction="write"
@@ -1198,7 +1198,7 @@ class AsyncRawExperiencesClient:
     async def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -1214,7 +1214,7 @@ class AsyncRawExperiencesClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list experiences for.
 
         after : typing.Optional[str]
@@ -1257,11 +1257,11 @@ class AsyncRawExperiencesClient:
                 "before": before,
                 "first": first,
                 "last": last,
-                "company_id": company_id,
                 "product_id": product_id,
                 "app_id": app_id,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -1283,7 +1283,7 @@ class AsyncRawExperiencesClient:
 
                     async def _get_next():
                         return await self.list(
-                            company_id=company_id,
+                            account_id=account_id,
                             after=_parsed_next,
                             before=before,
                             first=first,
@@ -1385,8 +1385,8 @@ class AsyncRawExperiencesClient:
     async def create(
         self,
         *,
+        account_id: str,
         app_id: str,
-        company_id: str,
         is_public: typing.Optional[bool] = OMIT,
         logo: typing.Optional[CreateExperiencesRequestLogo] = OMIT,
         name: typing.Optional[str] = OMIT,
@@ -1400,11 +1400,11 @@ class AsyncRawExperiencesClient:
 
         Parameters
         ----------
+        account_id : str
+            The unique identifier of the company to create this experience for.
+
         app_id : str
             The unique identifier of the app that powers this experience.
-
-        company_id : str
-            The unique identifier of the company to create this experience for.
 
         is_public : typing.Optional[bool]
             Whether the experience is publicly accessible without a membership.
@@ -1433,8 +1433,8 @@ class AsyncRawExperiencesClient:
             "experiences",
             method="POST",
             json={
+                "account_id": account_id,
                 "app_id": app_id,
-                "company_id": company_id,
                 "is_public": is_public,
                 "logo": convert_and_respect_annotation_metadata(
                     object_=logo, annotation=typing.Optional[CreateExperiencesRequestLogo], direction="write"

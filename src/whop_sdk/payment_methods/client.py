@@ -40,7 +40,6 @@ class PaymentMethodsClient:
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
         member_id: typing.Optional[str] = None,
-        company_id: typing.Optional[str] = None,
         direction: typing.Optional[Direction] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
@@ -53,6 +52,7 @@ class PaymentMethodsClient:
         has_payer_document: typing.Optional[bool] = None,
         expired: typing.Optional[bool] = None,
         broken: typing.Optional[bool] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[PaymentMethodListItem, ListPaymentMethodsResponse]:
         """
@@ -77,9 +77,6 @@ class PaymentMethodsClient:
 
         member_id : typing.Optional[str]
             The unique identifier of the member to list payment methods for. Omit this and company_id to list your own saved payment methods.
-
-        company_id : typing.Optional[str]
-            The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
 
         direction : typing.Optional[Direction]
 
@@ -109,6 +106,9 @@ class PaymentMethodsClient:
         broken : typing.Optional[bool]
             Filter by whether the stored credential has permanently stopped charging, such as a vault entry its provider closed.
 
+        account_id : typing.Optional[str]
+            The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -124,7 +124,7 @@ class PaymentMethodsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -132,13 +132,13 @@ class PaymentMethodsClient:
             first=42,
             last=42,
             member_id="mber_xxxxxxxxxxxxx",
-            company_id="biz_xxxxxxxxxxxxxx",
             created_before=datetime.datetime.fromisoformat(
                 "2023-12-01 05:00:00+00:00",
             ),
             created_after=datetime.datetime.fromisoformat(
                 "2023-12-01 05:00:00+00:00",
             ),
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         for item in response:
             yield item
@@ -152,7 +152,6 @@ class PaymentMethodsClient:
             first=first,
             last=last,
             member_id=member_id,
-            company_id=company_id,
             direction=direction,
             created_before=created_before,
             created_after=created_after,
@@ -163,6 +162,7 @@ class PaymentMethodsClient:
             has_payer_document=has_payer_document,
             expired=expired,
             broken=broken,
+            account_id=account_id,
             request_options=request_options,
         )
 
@@ -170,8 +170,8 @@ class PaymentMethodsClient:
         self,
         id: str,
         *,
-        company_id: typing.Optional[str] = None,
         member_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """
@@ -185,11 +185,11 @@ class PaymentMethodsClient:
         id : str
             The unique identifier of the payment method.
 
-        company_id : typing.Optional[str]
-            The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
-
         member_id : typing.Optional[str]
             The unique identifier of the member. Provide either this or company_id, not both. Omit both to address your own saved payment methods.
+
+        account_id : typing.Optional[str]
+            The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -204,18 +204,18 @@ class PaymentMethodsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.payment_methods.retrieve(
             id="payt_xxxxxxxxxxxxx",
-            company_id="biz_xxxxxxxxxxxxxx",
             member_id="mber_xxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         """
         _response = self._raw_client.retrieve(
-            id, company_id=company_id, member_id=member_id, request_options=request_options
+            id, member_id=member_id, account_id=account_id, request_options=request_options
         )
         return _response.data
 
@@ -223,8 +223,8 @@ class PaymentMethodsClient:
         self,
         id: str,
         *,
-        company_id: typing.Optional[str] = None,
         member_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> bool:
         """
@@ -238,11 +238,11 @@ class PaymentMethodsClient:
         id : str
             The unique identifier of the payment method to delete.
 
-        company_id : typing.Optional[str]
-            The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
-
         member_id : typing.Optional[str]
             The unique identifier of the member. Provide either this or company_id, not both. Omit both to address your own saved payment methods.
+
+        account_id : typing.Optional[str]
+            The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -257,18 +257,18 @@ class PaymentMethodsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.payment_methods.delete_payment_method(
             id="payt_xxxxxxxxxxxxx",
-            company_id="biz_xxxxxxxxxxxxxx",
             member_id="mber_xxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         """
         _response = self._raw_client.delete_payment_method(
-            id, company_id=company_id, member_id=member_id, request_options=request_options
+            id, member_id=member_id, account_id=account_id, request_options=request_options
         )
         return _response.data
 
@@ -296,7 +296,6 @@ class AsyncPaymentMethodsClient:
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
         member_id: typing.Optional[str] = None,
-        company_id: typing.Optional[str] = None,
         direction: typing.Optional[Direction] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
@@ -309,6 +308,7 @@ class AsyncPaymentMethodsClient:
         has_payer_document: typing.Optional[bool] = None,
         expired: typing.Optional[bool] = None,
         broken: typing.Optional[bool] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[PaymentMethodListItem, ListPaymentMethodsResponse]:
         """
@@ -333,9 +333,6 @@ class AsyncPaymentMethodsClient:
 
         member_id : typing.Optional[str]
             The unique identifier of the member to list payment methods for. Omit this and company_id to list your own saved payment methods.
-
-        company_id : typing.Optional[str]
-            The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
 
         direction : typing.Optional[Direction]
 
@@ -365,6 +362,9 @@ class AsyncPaymentMethodsClient:
         broken : typing.Optional[bool]
             Filter by whether the stored credential has permanently stopped charging, such as a vault entry its provider closed.
 
+        account_id : typing.Optional[str]
+            The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -381,7 +381,7 @@ class AsyncPaymentMethodsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -392,13 +392,13 @@ class AsyncPaymentMethodsClient:
                 first=42,
                 last=42,
                 member_id="mber_xxxxxxxxxxxxx",
-                company_id="biz_xxxxxxxxxxxxxx",
                 created_before=datetime.datetime.fromisoformat(
                     "2023-12-01 05:00:00+00:00",
                 ),
                 created_after=datetime.datetime.fromisoformat(
                     "2023-12-01 05:00:00+00:00",
                 ),
+                account_id="biz_xxxxxxxxxxxxxx",
             )
             async for item in response:
                 yield item
@@ -416,7 +416,6 @@ class AsyncPaymentMethodsClient:
             first=first,
             last=last,
             member_id=member_id,
-            company_id=company_id,
             direction=direction,
             created_before=created_before,
             created_after=created_after,
@@ -427,6 +426,7 @@ class AsyncPaymentMethodsClient:
             has_payer_document=has_payer_document,
             expired=expired,
             broken=broken,
+            account_id=account_id,
             request_options=request_options,
         )
 
@@ -434,8 +434,8 @@ class AsyncPaymentMethodsClient:
         self,
         id: str,
         *,
-        company_id: typing.Optional[str] = None,
         member_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """
@@ -449,11 +449,11 @@ class AsyncPaymentMethodsClient:
         id : str
             The unique identifier of the payment method.
 
-        company_id : typing.Optional[str]
-            The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
-
         member_id : typing.Optional[str]
             The unique identifier of the member. Provide either this or company_id, not both. Omit both to address your own saved payment methods.
+
+        account_id : typing.Optional[str]
+            The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -470,7 +470,7 @@ class AsyncPaymentMethodsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -479,15 +479,15 @@ class AsyncPaymentMethodsClient:
         async def main() -> None:
             await client.payment_methods.retrieve(
                 id="payt_xxxxxxxxxxxxx",
-                company_id="biz_xxxxxxxxxxxxxx",
                 member_id="mber_xxxxxxxxxxxxx",
+                account_id="biz_xxxxxxxxxxxxxx",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._raw_client.retrieve(
-            id, company_id=company_id, member_id=member_id, request_options=request_options
+            id, member_id=member_id, account_id=account_id, request_options=request_options
         )
         return _response.data
 
@@ -495,8 +495,8 @@ class AsyncPaymentMethodsClient:
         self,
         id: str,
         *,
-        company_id: typing.Optional[str] = None,
         member_id: typing.Optional[str] = None,
+        account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> bool:
         """
@@ -510,11 +510,11 @@ class AsyncPaymentMethodsClient:
         id : str
             The unique identifier of the payment method to delete.
 
-        company_id : typing.Optional[str]
-            The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
-
         member_id : typing.Optional[str]
             The unique identifier of the member. Provide either this or company_id, not both. Omit both to address your own saved payment methods.
+
+        account_id : typing.Optional[str]
+            The unique identifier of the company. Provide either this or member_id, not both. Omit both to address your own saved payment methods.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -531,7 +531,7 @@ class AsyncPaymentMethodsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -540,14 +540,14 @@ class AsyncPaymentMethodsClient:
         async def main() -> None:
             await client.payment_methods.delete_payment_method(
                 id="payt_xxxxxxxxxxxxx",
-                company_id="biz_xxxxxxxxxxxxxx",
                 member_id="mber_xxxxxxxxxxxxx",
+                account_id="biz_xxxxxxxxxxxxxx",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._raw_client.delete_payment_method(
-            id, company_id=company_id, member_id=member_id, request_options=request_options
+            id, member_id=member_id, account_id=account_id, request_options=request_options
         )
         return _response.data

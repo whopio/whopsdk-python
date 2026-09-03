@@ -34,7 +34,7 @@ class CompanyTokenTransactionsClient:
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -53,7 +53,7 @@ class CompanyTokenTransactionsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list token transactions for.
 
         after : typing.Optional[str]
@@ -86,15 +86,15 @@ class CompanyTokenTransactionsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         response = client.company_token_transactions.list(
             first=42,
             last=42,
-            company_id="biz_xxxxxxxxxxxxxx",
             user_id="user_xxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
         )
         for item in response:
             yield item
@@ -103,7 +103,7 @@ class CompanyTokenTransactionsClient:
             yield page
         """
         return self._raw_client.list(
-            company_id=company_id,
+            account_id=account_id,
             after=after,
             before=before,
             first=first,
@@ -144,14 +144,14 @@ class CompanyTokenTransactionsClient:
         )
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.company_token_transactions.create(
             request=CreateCompanyTokenTransactionsRequest_Transfer(
+                account_id="biz_xxxxxxxxxxxxxx",
                 amount=6.9,
-                company_id="biz_xxxxxxxxxxxxxx",
                 destination_user_id="destination_user_id",
                 user_id="user_xxxxxxxxxxxxx",
             ),
@@ -187,7 +187,7 @@ class CompanyTokenTransactionsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -217,7 +217,7 @@ class AsyncCompanyTokenTransactionsClient:
     async def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -236,7 +236,7 @@ class AsyncCompanyTokenTransactionsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list token transactions for.
 
         after : typing.Optional[str]
@@ -271,7 +271,7 @@ class AsyncCompanyTokenTransactionsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -281,8 +281,8 @@ class AsyncCompanyTokenTransactionsClient:
             response = await client.company_token_transactions.list(
                 first=42,
                 last=42,
-                company_id="biz_xxxxxxxxxxxxxx",
                 user_id="user_xxxxxxxxxxxxx",
+                account_id="biz_xxxxxxxxxxxxxx",
             )
             async for item in response:
                 yield item
@@ -295,7 +295,7 @@ class AsyncCompanyTokenTransactionsClient:
         asyncio.run(main())
         """
         return await self._raw_client.list(
-            company_id=company_id,
+            account_id=account_id,
             after=after,
             before=before,
             first=first,
@@ -338,7 +338,7 @@ class AsyncCompanyTokenTransactionsClient:
         )
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -347,8 +347,8 @@ class AsyncCompanyTokenTransactionsClient:
         async def main() -> None:
             await client.company_token_transactions.create(
                 request=CreateCompanyTokenTransactionsRequest_Transfer(
+                    account_id="biz_xxxxxxxxxxxxxx",
                     amount=6.9,
-                    company_id="biz_xxxxxxxxxxxxxx",
                     destination_user_id="destination_user_id",
                     user_id="user_xxxxxxxxxxxxx",
                 ),
@@ -391,7 +391,7 @@ class AsyncCompanyTokenTransactionsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

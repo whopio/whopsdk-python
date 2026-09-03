@@ -41,7 +41,7 @@ class RawSetupIntentsClient:
     def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -61,7 +61,7 @@ class RawSetupIntentsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list setup intents for.
 
         after : typing.Optional[str]
@@ -100,10 +100,10 @@ class RawSetupIntentsClient:
                 "before": before,
                 "first": first,
                 "last": last,
-                "company_id": company_id,
                 "direction": direction,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -123,7 +123,7 @@ class RawSetupIntentsClient:
                     _parsed_next = _parsed_response.page_info.end_cursor
                     _has_next = _parsed_next is not None and _parsed_next != ""
                     _get_next = lambda: self.list(
-                        company_id=company_id,
+                        account_id=account_id,
                         after=_parsed_next,
                         before=before,
                         first=first,
@@ -646,7 +646,7 @@ class AsyncRawSetupIntentsClient:
     async def list(
         self,
         *,
-        company_id: str,
+        account_id: str,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -666,7 +666,7 @@ class AsyncRawSetupIntentsClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to list setup intents for.
 
         after : typing.Optional[str]
@@ -705,10 +705,10 @@ class AsyncRawSetupIntentsClient:
                 "before": before,
                 "first": first,
                 "last": last,
-                "company_id": company_id,
                 "direction": direction,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "account_id": account_id,
             },
             request_options=request_options,
         )
@@ -730,7 +730,7 @@ class AsyncRawSetupIntentsClient:
 
                     async def _get_next():
                         return await self.list(
-                            company_id=company_id,
+                            account_id=account_id,
                             after=_parsed_next,
                             before=before,
                             first=first,

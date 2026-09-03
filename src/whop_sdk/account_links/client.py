@@ -30,7 +30,7 @@ class AccountLinksClient:
     def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         refresh_url: str,
         return_url: str,
         use_case: AccountLinkUseCases,
@@ -41,7 +41,7 @@ class AccountLinksClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to generate the link for, starting with 'biz_'. Must be a sub-merchant of the API key's company.
 
         refresh_url : str
@@ -66,19 +66,19 @@ class AccountLinksClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.account_links.create(
-            company_id="biz_xxxxxxxxxxxxxx",
+            account_id="biz_xxxxxxxxxxxxxx",
             refresh_url="refresh_url",
             return_url="return_url",
             use_case="account_onboarding",
         )
         """
         _response = self._raw_client.create(
-            company_id=company_id,
+            account_id=account_id,
             refresh_url=refresh_url,
             return_url=return_url,
             use_case=use_case,
@@ -105,7 +105,7 @@ class AsyncAccountLinksClient:
     async def create(
         self,
         *,
-        company_id: str,
+        account_id: str,
         refresh_url: str,
         return_url: str,
         use_case: AccountLinkUseCases,
@@ -116,7 +116,7 @@ class AsyncAccountLinksClient:
 
         Parameters
         ----------
-        company_id : str
+        account_id : str
             The unique identifier of the company to generate the link for, starting with 'biz_'. Must be a sub-merchant of the API key's company.
 
         refresh_url : str
@@ -143,7 +143,7 @@ class AsyncAccountLinksClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -151,7 +151,7 @@ class AsyncAccountLinksClient:
 
         async def main() -> None:
             await client.account_links.create(
-                company_id="biz_xxxxxxxxxxxxxx",
+                account_id="biz_xxxxxxxxxxxxxx",
                 refresh_url="refresh_url",
                 return_url="return_url",
                 use_case="account_onboarding",
@@ -161,7 +161,7 @@ class AsyncAccountLinksClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.create(
-            company_id=company_id,
+            account_id=account_id,
             refresh_url=refresh_url,
             return_url=return_url,
             use_case=use_case,

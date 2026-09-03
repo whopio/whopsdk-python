@@ -5,8 +5,6 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from .raw_client import AsyncRawDepositsClient, RawDepositsClient
-from .types.create_deposits_request_destination import CreateDepositsRequestDestination
-from .types.create_deposits_request_network import CreateDepositsRequestNetwork
 from .types.create_deposits_response import CreateDepositsResponse
 
 # this is used as the default value for optional parameters
@@ -31,10 +29,8 @@ class DepositsClient:
     def create(
         self,
         *,
-        destination: CreateDepositsRequestDestination,
+        destination: str,
         amount: typing.Optional[float] = OMIT,
-        metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
-        network: typing.Optional[CreateDepositsRequestNetwork] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateDepositsResponse:
         """
@@ -42,17 +38,11 @@ class DepositsClient:
 
         Parameters
         ----------
-        destination : CreateDepositsRequestDestination
-            Destination account ID or wallet address. Object form is supported for compatibility. Any business resolves by its account ID without authentication; a user account resolves only for that same authenticated user.
+        destination : str
+            Account ID to fund, `biz_` or `user_`. Any business resolves without authentication; a user account resolves only for that same authenticated user.
 
         amount : typing.Optional[float]
             Amount to prefill on hosted deposit page.
-
-        metadata : typing.Optional[typing.Dict[str, typing.Any]]
-            Metadata to include with the deposit response.
-
-        network : typing.Optional[CreateDepositsRequestNetwork]
-            Destination network override. Defaults to the destination wallet's own network.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -67,17 +57,15 @@ class DepositsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.deposits.create(
-            destination="destination",
+            destination="biz_xxxxxxxxxxxxxx",
         )
         """
-        _response = self._raw_client.create(
-            destination=destination, amount=amount, metadata=metadata, network=network, request_options=request_options
-        )
+        _response = self._raw_client.create(destination=destination, amount=amount, request_options=request_options)
         return _response.data
 
 
@@ -99,10 +87,8 @@ class AsyncDepositsClient:
     async def create(
         self,
         *,
-        destination: CreateDepositsRequestDestination,
+        destination: str,
         amount: typing.Optional[float] = OMIT,
-        metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
-        network: typing.Optional[CreateDepositsRequestNetwork] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateDepositsResponse:
         """
@@ -110,17 +96,11 @@ class AsyncDepositsClient:
 
         Parameters
         ----------
-        destination : CreateDepositsRequestDestination
-            Destination account ID or wallet address. Object form is supported for compatibility. Any business resolves by its account ID without authentication; a user account resolves only for that same authenticated user.
+        destination : str
+            Account ID to fund, `biz_` or `user_`. Any business resolves without authentication; a user account resolves only for that same authenticated user.
 
         amount : typing.Optional[float]
             Amount to prefill on hosted deposit page.
-
-        metadata : typing.Optional[typing.Dict[str, typing.Any]]
-            Metadata to include with the deposit response.
-
-        network : typing.Optional[CreateDepositsRequestNetwork]
-            Destination network override. Defaults to the destination wallet's own network.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -137,7 +117,7 @@ class AsyncDepositsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-1",
+            "2026-09-02-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -145,13 +125,13 @@ class AsyncDepositsClient:
 
         async def main() -> None:
             await client.deposits.create(
-                destination="destination",
+                destination="biz_xxxxxxxxxxxxxx",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._raw_client.create(
-            destination=destination, amount=amount, metadata=metadata, network=network, request_options=request_options
+            destination=destination, amount=amount, request_options=request_options
         )
         return _response.data
