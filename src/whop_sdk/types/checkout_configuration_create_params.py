@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Optional
 from typing_extensions import Literal, Annotated, TypedDict
 
+from .._types import SequenceNotStr
 from .._utils import PropertyInfo
-from .payment_method_types import PaymentMethodTypes
 
 __all__ = ["CheckoutConfigurationCreateParams", "PaymentMethodConfiguration", "Plan", "PlanPaymentMethodConfiguration"]
 
@@ -62,17 +62,11 @@ class PaymentMethodConfiguration(TypedDict, total=False):
     `null` uses the plan or platform defaults.
     """
 
-    disabled: List[PaymentMethodTypes]
-    """
-    Payment method types explicitly disabled for checkout — the `type` values from
-    the payment method types catalogue.
-    """
+    disabled: SequenceNotStr[str]
+    """Payment methods explicitly disabled for checkout."""
 
-    enabled: List[PaymentMethodTypes]
-    """
-    Payment method types explicitly enabled for checkout — the `type` values from
-    the payment method types catalogue.
-    """
+    enabled: SequenceNotStr[str]
+    """Payment methods explicitly enabled for checkout."""
 
     include_platform_defaults: bool
     """Whether platform default payment methods are included."""
@@ -81,17 +75,11 @@ class PaymentMethodConfiguration(TypedDict, total=False):
 class PlanPaymentMethodConfiguration(TypedDict, total=False):
     """Payment method overrides for the inline plan. `null` uses platform defaults."""
 
-    disabled: List[PaymentMethodTypes]
-    """
-    Payment method types explicitly disabled for this plan — the `type` values from
-    the payment method types catalogue.
-    """
+    disabled: SequenceNotStr[str]
+    """Payment methods explicitly disabled for this plan."""
 
-    enabled: List[PaymentMethodTypes]
-    """
-    Payment method types explicitly enabled for this plan — the `type` values from
-    the payment method types catalogue.
-    """
+    enabled: SequenceNotStr[str]
+    """Payment methods explicitly enabled for this plan."""
 
     include_platform_defaults: bool
     """Whether platform default payment methods are included."""
