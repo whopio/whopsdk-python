@@ -97,8 +97,8 @@ class PlansResource(SyncAPIResource):
         price, and availability for customers.
 
         Args:
-          account_id: The unique identifier of the account to create this plan for. Defaults to the
-              caller's account.
+          account_id: The unique identifier of the account to create this plan for. Required when
+              authenticating as a user; an account API key supplies its own account.
 
           adaptive_pricing_enabled: Whether this plan accepts local currency payments via adaptive pricing.
 
@@ -609,8 +609,8 @@ class AsyncPlansResource(AsyncAPIResource):
         price, and availability for customers.
 
         Args:
-          account_id: The unique identifier of the account to create this plan for. Defaults to the
-              caller's account.
+          account_id: The unique identifier of the account to create this plan for. Required when
+              authenticating as a user; an account API key supplies its own account.
 
           adaptive_pricing_enabled: Whether this plan accepts local currency payments via adaptive pricing.
 

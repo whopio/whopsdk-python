@@ -15,7 +15,8 @@ class PlanCreateParams(TypedDict, total=False):
     account_id: str
     """The unique identifier of the account to create this plan for.
 
-    Defaults to the caller's account.
+    Required when authenticating as a user; an account API key supplies its own
+    account.
     """
 
     adaptive_pricing_enabled: Optional[bool]
