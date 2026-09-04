@@ -6,7 +6,7 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["ResolutionCenterCaseUpdatedWebhookEvent", "Data", "DataAccount", "DataBuyer", "DataPayment"]
+__all__ = ["ResolutionCenterCaseUpdatedWebhookEvent", "Data", "DataAccount", "DataBuyer", "DataLineItem", "DataPayment"]
 
 
 class DataAccount(BaseModel):
@@ -39,6 +39,37 @@ class DataBuyer(BaseModel):
 
     username: Optional[str] = None
     """The customer's Whop username."""
+
+
+class DataLineItem(BaseModel):
+    """Everything the disputed payment charged for, in purchase order.
+
+    `product_id` and `plan_id` name the first of these; a cart's later items appear only here. A payment made before items were recorded lists the single item its plan implies. Empty when the payment is not linked to a plan.
+    """
+
+    id: Optional[str] = None
+    """Line item ID, prefixed `li_`.
+
+    Null when the payment predates item snapshots and the item is read from the
+    payment's plan.
+    """
+
+    label: Optional[str] = None
+    """The item's name as shown at checkout — the product title, else the plan title."""
+
+    plan_id: Optional[str] = None
+    """The plan bought, prefixed `plan_`. Null when the plan has since been deleted."""
+
+    product_id: Optional[str] = None
+    """The product the plan belongs to, prefixed `prod_`.
+
+    On a payment that predates item snapshots this falls back to the plan's product,
+    so it can be set where the case's own `product_id` is null. Null for a plan with
+    no product.
+    """
+
+    quantity: float
+    """How many units were bought."""
 
 
 class DataPayment(BaseModel):
@@ -89,6 +120,8 @@ class Data(BaseModel):
     Whether Whop is involved — either reviewing the case, or waiting on the side
     named by `status` for something it asked for while reviewing.
     """
+
+    line_items: List[DataLineItem]
 
     outcome: Optional[Literal["customer_won", "merchant_won", "withdrawn"]] = None
     """Who prevailed on the claim.
