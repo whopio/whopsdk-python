@@ -47,7 +47,11 @@ class PlanCreateParams(TypedDict, total=False):
     """An image displayed on the product page to represent this plan."""
 
     initial_price: Optional[float]
-    """Initial amount charged in the plan's currency, e.g. 10.43 for $10.43."""
+    """Initial amount charged in the plan's currency, e.g.
+
+    10.43 for $10.43. A paid fiat plan charges at least 1.00 in its currency; use 0
+    for free.
+    """
 
     internal_notes: Optional[str]
     """Private notes visible only to the account owner. Not shown to customers."""
@@ -84,7 +88,7 @@ class PlanCreateParams(TypedDict, total=False):
     renewal_price: Optional[float]
     """
     The amount charged each billing period for recurring plans, in the plan's
-    currency.
+    currency. A paid fiat plan charges at least 1.00 in its currency.
     """
 
     split_pay_required_payments: Optional[int]

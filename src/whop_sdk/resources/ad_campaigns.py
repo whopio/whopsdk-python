@@ -391,8 +391,9 @@ class AdCampaignsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdCampaign:
-        """
-        Resumes a paused ad campaign.
+        """Resumes a paused ad campaign.
+
+        Requires an ads payment method on the account.
 
         Args:
           extra_headers: Send extra headers
@@ -789,8 +790,9 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AdCampaign:
-        """
-        Resumes a paused ad campaign.
+        """Resumes a paused ad campaign.
+
+        Requires an ads payment method on the account.
 
         Args:
           extra_headers: Send extra headers

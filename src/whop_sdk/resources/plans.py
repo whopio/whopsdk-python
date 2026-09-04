@@ -117,7 +117,8 @@ class PlansResource(SyncAPIResource):
 
           image: An image displayed on the product page to represent this plan.
 
-          initial_price: Initial amount charged in the plan's currency, e.g. 10.43 for $10.43.
+          initial_price: Initial amount charged in the plan's currency, e.g. 10.43 for $10.43. A paid
+              fiat plan charges at least 1.00 in its currency; use 0 for free.
 
           internal_notes: Private notes visible only to the account owner. Not shown to customers.
 
@@ -140,7 +141,7 @@ class PlansResource(SyncAPIResource):
           release_method: Sales method for this plan.
 
           renewal_price: The amount charged each billing period for recurring plans, in the plan's
-              currency.
+              currency. A paid fiat plan charges at least 1.00 in its currency.
 
           split_pay_required_payments: Installment payments required before the subscription pauses.
 
@@ -313,7 +314,8 @@ class PlansResource(SyncAPIResource):
 
           image: An image displayed on the product page to represent this plan.
 
-          initial_price: Initial amount charged in the plan's currency, e.g. 10.43 for $10.43.
+          initial_price: Initial amount charged in the plan's currency, e.g. 10.43 for $10.43. A paid
+              fiat plan charges at least 1.00 in its currency; use 0 for free.
 
           internal_notes: Private notes visible only to the account owner. Not shown to customers.
 
@@ -334,7 +336,7 @@ class PlansResource(SyncAPIResource):
           release_method: Sales method for this plan.
 
           renewal_price: The amount charged each billing period for recurring plans, in the plan's
-              currency.
+              currency. A paid fiat plan charges at least 1.00 in its currency.
 
           stock: The maximum number of units available for purchase. Ignored when unlimited_stock
               is true.
@@ -629,7 +631,8 @@ class AsyncPlansResource(AsyncAPIResource):
 
           image: An image displayed on the product page to represent this plan.
 
-          initial_price: Initial amount charged in the plan's currency, e.g. 10.43 for $10.43.
+          initial_price: Initial amount charged in the plan's currency, e.g. 10.43 for $10.43. A paid
+              fiat plan charges at least 1.00 in its currency; use 0 for free.
 
           internal_notes: Private notes visible only to the account owner. Not shown to customers.
 
@@ -652,7 +655,7 @@ class AsyncPlansResource(AsyncAPIResource):
           release_method: Sales method for this plan.
 
           renewal_price: The amount charged each billing period for recurring plans, in the plan's
-              currency.
+              currency. A paid fiat plan charges at least 1.00 in its currency.
 
           split_pay_required_payments: Installment payments required before the subscription pauses.
 
@@ -825,7 +828,8 @@ class AsyncPlansResource(AsyncAPIResource):
 
           image: An image displayed on the product page to represent this plan.
 
-          initial_price: Initial amount charged in the plan's currency, e.g. 10.43 for $10.43.
+          initial_price: Initial amount charged in the plan's currency, e.g. 10.43 for $10.43. A paid
+              fiat plan charges at least 1.00 in its currency; use 0 for free.
 
           internal_notes: Private notes visible only to the account owner. Not shown to customers.
 
@@ -846,7 +850,7 @@ class AsyncPlansResource(AsyncAPIResource):
           release_method: Sales method for this plan.
 
           renewal_price: The amount charged each billing period for recurring plans, in the plan's
-              currency.
+              currency. A paid fiat plan charges at least 1.00 in its currency.
 
           stock: The maximum number of units available for purchase. Ignored when unlimited_stock
               is true.
