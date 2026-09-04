@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
+from typing import List, Iterable, Optional
 from typing_extensions import Literal, Annotated, TypedDict
 
-from .._types import SequenceNotStr
 from .._utils import PropertyInfo
+from .payment_method_types import PaymentMethodTypes
 
 __all__ = ["PlanCreateParams", "CustomField", "Image", "PaymentMethodConfiguration"]
 
@@ -154,8 +154,16 @@ class PaymentMethodConfiguration(TypedDict, total=False):
     When not provided, the account's defaults apply.
     """
 
-    disabled: SequenceNotStr[str]
+    disabled: List[PaymentMethodTypes]
+    """
+    Payment method types explicitly disabled for this plan — the `type` values from
+    the payment method types catalogue.
+    """
 
-    enabled: SequenceNotStr[str]
+    enabled: List[PaymentMethodTypes]
+    """
+    Payment method types explicitly enabled for this plan — the `type` values from
+    the payment method types catalogue.
+    """
 
     include_platform_defaults: bool
