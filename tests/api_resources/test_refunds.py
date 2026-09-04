@@ -32,7 +32,7 @@ class TestRefunds:
     def test_method_retrieve_with_all_params(self, client: Whop) -> None:
         refund = client.refunds.retrieve(
             id="id",
-            api_version_date="2026-09-02-2",
+            api_version_date="2026-09-04",
         )
         assert_matches_type(RefundRetrieveResponse, refund, path=["response"])
 
@@ -91,7 +91,7 @@ class TestRefunds:
             order="created_at",
             payment_id="payment_id",
             user_id="user_id",
-            api_version_date="2026-09-02-2",
+            api_version_date="2026-09-04",
         )
         assert_matches_type(SyncCursorPage[RefundListResponse], refund, path=["response"])
 
@@ -136,7 +136,7 @@ class TestAsyncRefunds:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
         refund = await async_client.refunds.retrieve(
             id="id",
-            api_version_date="2026-09-02-2",
+            api_version_date="2026-09-04",
         )
         assert_matches_type(RefundRetrieveResponse, refund, path=["response"])
 
@@ -195,7 +195,7 @@ class TestAsyncRefunds:
             order="created_at",
             payment_id="payment_id",
             user_id="user_id",
-            api_version_date="2026-09-02-2",
+            api_version_date="2026-09-04",
         )
         assert_matches_type(AsyncCursorPage[RefundListResponse], refund, path=["response"])
 

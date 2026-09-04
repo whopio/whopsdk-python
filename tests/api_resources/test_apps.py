@@ -41,7 +41,7 @@ class TestApps:
             },
             redirect_uris=["https://booking.shinetime.example/oauth/callback"],
             route="shine-time-booking-site",
-            api_version_date="2026-09-02-2",
+            api_version_date="2026-09-04",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(App, app, path=["response"])
@@ -85,7 +85,7 @@ class TestApps:
     def test_method_retrieve_with_all_params(self, client: Whop) -> None:
         app = client.apps.retrieve(
             id="id",
-            api_version_date="2026-09-02-2",
+            api_version_date="2026-09-04",
         )
         assert_matches_type(App, app, path=["response"])
 
@@ -159,7 +159,7 @@ class TestApps:
             secrets={"BOOKING_CALENDAR_ID": "cal_9f21"},
             skills_path="/skills",
             status="unlisted",
-            api_version_date="2026-09-02-2",
+            api_version_date="2026-09-04",
         )
         assert_matches_type(App, app, path=["response"])
 
@@ -220,7 +220,7 @@ class TestApps:
             verified=True,
             verified_apps_only=True,
             view_type="hub",
-            api_version_date="2026-09-02-2",
+            api_version_date="2026-09-04",
         )
         assert_matches_type(SyncCursorPage[AppListResponse], app, path=["response"])
 
@@ -274,7 +274,7 @@ class TestAsyncApps:
             },
             redirect_uris=["https://booking.shinetime.example/oauth/callback"],
             route="shine-time-booking-site",
-            api_version_date="2026-09-02-2",
+            api_version_date="2026-09-04",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(App, app, path=["response"])
@@ -318,7 +318,7 @@ class TestAsyncApps:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
         app = await async_client.apps.retrieve(
             id="id",
-            api_version_date="2026-09-02-2",
+            api_version_date="2026-09-04",
         )
         assert_matches_type(App, app, path=["response"])
 
@@ -392,7 +392,7 @@ class TestAsyncApps:
             secrets={"BOOKING_CALENDAR_ID": "cal_9f21"},
             skills_path="/skills",
             status="unlisted",
-            api_version_date="2026-09-02-2",
+            api_version_date="2026-09-04",
         )
         assert_matches_type(App, app, path=["response"])
 
@@ -453,7 +453,7 @@ class TestAsyncApps:
             verified=True,
             verified_apps_only=True,
             view_type="hub",
-            api_version_date="2026-09-02-2",
+            api_version_date="2026-09-04",
         )
         assert_matches_type(AsyncCursorPage[AppListResponse], app, path=["response"])
 

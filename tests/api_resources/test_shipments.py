@@ -34,7 +34,7 @@ class TestShipments:
             payment_id="pay_xxxxxxxxxxxxxx",
             tracking_number="1Z999AA10123456784",
             account_id="biz_xxxxxxxxxxxxxx",
-            api_version_date="2026-09-02-2",
+            api_version_date="2026-09-04",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Shipment, shipment, path=["response"])
@@ -80,7 +80,7 @@ class TestShipments:
     def test_method_retrieve_with_all_params(self, client: Whop) -> None:
         shipment = client.shipments.retrieve(
             id="id",
-            api_version_date="2026-09-02-2",
+            api_version_date="2026-09-04",
         )
         assert_matches_type(Shipment, shipment, path=["response"])
 
@@ -139,7 +139,7 @@ class TestShipments:
             order="created_at",
             payment_id=["pay_xxxxxxxxxxxxxx"],
             status="unknown",
-            api_version_date="2026-09-02-2",
+            api_version_date="2026-09-04",
         )
         assert_matches_type(SyncCursorPage[Shipment], shipment, path=["response"])
 
@@ -187,7 +187,7 @@ class TestAsyncShipments:
             payment_id="pay_xxxxxxxxxxxxxx",
             tracking_number="1Z999AA10123456784",
             account_id="biz_xxxxxxxxxxxxxx",
-            api_version_date="2026-09-02-2",
+            api_version_date="2026-09-04",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Shipment, shipment, path=["response"])
@@ -233,7 +233,7 @@ class TestAsyncShipments:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
         shipment = await async_client.shipments.retrieve(
             id="id",
-            api_version_date="2026-09-02-2",
+            api_version_date="2026-09-04",
         )
         assert_matches_type(Shipment, shipment, path=["response"])
 
@@ -292,7 +292,7 @@ class TestAsyncShipments:
             order="created_at",
             payment_id=["pay_xxxxxxxxxxxxxx"],
             status="unknown",
-            api_version_date="2026-09-02-2",
+            api_version_date="2026-09-04",
         )
         assert_matches_type(AsyncCursorPage[Shipment], shipment, path=["response"])
 

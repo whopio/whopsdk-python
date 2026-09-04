@@ -35,7 +35,7 @@ class TestAdCampaigns:
             stats_from="stats_from",
             stats_to="stats_to",
             time_zone="time_zone",
-            api_version_date="2026-09-02-2",
+            api_version_date="2026-09-04",
         )
         assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
@@ -95,7 +95,7 @@ class TestAdCampaigns:
             starts_at="2026-01-01T12:00:00.000Z",
             status="active",
             title="Now hiring mobile detailers — Austin & Round Rock",
-            api_version_date="2026-09-02-2",
+            api_version_date="2026-09-04",
         )
         assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
@@ -158,7 +158,7 @@ class TestAdCampaigns:
             stats_to="stats_to",
             status="draft",
             time_zone="time_zone",
-            api_version_date="2026-09-02-2",
+            api_version_date="2026-09-04",
         )
         assert_matches_type(SyncCursorPage[AdCampaign], ad_campaign, path=["response"])
 
@@ -197,7 +197,7 @@ class TestAdCampaigns:
     def test_method_pause_with_all_params(self, client: Whop) -> None:
         ad_campaign = client.ad_campaigns.pause(
             id="id",
-            api_version_date="2026-09-02-2",
+            api_version_date="2026-09-04",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(AdCampaign, ad_campaign, path=["response"])
@@ -249,7 +249,7 @@ class TestAdCampaigns:
     def test_method_unpause_with_all_params(self, client: Whop) -> None:
         ad_campaign = client.ad_campaigns.unpause(
             id="id",
-            api_version_date="2026-09-02-2",
+            api_version_date="2026-09-04",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(AdCampaign, ad_campaign, path=["response"])
@@ -311,7 +311,7 @@ class TestAsyncAdCampaigns:
             stats_from="stats_from",
             stats_to="stats_to",
             time_zone="time_zone",
-            api_version_date="2026-09-02-2",
+            api_version_date="2026-09-04",
         )
         assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
@@ -371,7 +371,7 @@ class TestAsyncAdCampaigns:
             starts_at="2026-01-01T12:00:00.000Z",
             status="active",
             title="Now hiring mobile detailers — Austin & Round Rock",
-            api_version_date="2026-09-02-2",
+            api_version_date="2026-09-04",
         )
         assert_matches_type(AdCampaign, ad_campaign, path=["response"])
 
@@ -434,7 +434,7 @@ class TestAsyncAdCampaigns:
             stats_to="stats_to",
             status="draft",
             time_zone="time_zone",
-            api_version_date="2026-09-02-2",
+            api_version_date="2026-09-04",
         )
         assert_matches_type(AsyncCursorPage[AdCampaign], ad_campaign, path=["response"])
 
@@ -473,7 +473,7 @@ class TestAsyncAdCampaigns:
     async def test_method_pause_with_all_params(self, async_client: AsyncWhop) -> None:
         ad_campaign = await async_client.ad_campaigns.pause(
             id="id",
-            api_version_date="2026-09-02-2",
+            api_version_date="2026-09-04",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(AdCampaign, ad_campaign, path=["response"])
@@ -525,7 +525,7 @@ class TestAsyncAdCampaigns:
     async def test_method_unpause_with_all_params(self, async_client: AsyncWhop) -> None:
         ad_campaign = await async_client.ad_campaigns.unpause(
             id="id",
-            api_version_date="2026-09-02-2",
+            api_version_date="2026-09-04",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(AdCampaign, ad_campaign, path=["response"])
