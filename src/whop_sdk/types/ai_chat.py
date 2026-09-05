@@ -2,6 +2,7 @@
 
 from typing import Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from .._models import BaseModel
 from .notification_preferences import NotificationPreferences
@@ -23,6 +24,12 @@ class AIChat(BaseModel):
 
     id: str
     """The unique identifier for the ai chat."""
+
+    agent_identifier: Literal["general", "support"]
+    """The AI agent that handles this chat.
+
+    Set when the chat is created and fixed for its lifetime.
+    """
 
     blended_token_usage: str
     """The total number of tokens consumed across all messages in this conversation."""

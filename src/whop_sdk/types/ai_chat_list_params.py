@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict
+from typing_extensions import Literal, TypedDict
 
 __all__ = ["AIChatListParams"]
 
@@ -10,6 +10,9 @@ __all__ = ["AIChatListParams"]
 class AIChatListParams(TypedDict, total=False):
     after: str
     """Returns the elements in the list that come after the specified cursor."""
+
+    agent_identifier: Literal["general", "support"]
+    """Only return chats handled by this agent."""
 
     before: str
     """Returns the elements in the list that come before the specified cursor."""

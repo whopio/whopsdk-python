@@ -52,6 +52,7 @@ class AIChatsResource(SyncAPIResource):
         self,
         *,
         message_text: str,
+        agent_identifier: Optional[Literal["general", "support"]] | Omit = omit,
         current_account_id: Optional[str] | Omit = omit,
         message_attachments: Optional[Iterable[ai_chat_create_params.MessageAttachment]] | Omit = omit,
         message_source: Optional[Literal["manual", "suggestion", "link"]] | Omit = omit,
@@ -73,6 +74,8 @@ class AIChatsResource(SyncAPIResource):
 
         Args:
           message_text: The text content of the first message to send to the AI agent.
+
+          agent_identifier: The AI agent that handles an AI chat.
 
           current_account_id: The unique identifier of the account to set as context for the AI chat (e.g.,
               "biz_XXXXX").
@@ -100,6 +103,7 @@ class AIChatsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "message_text": message_text,
+                    "agent_identifier": agent_identifier,
                     "current_account_id": current_account_id,
                     "message_attachments": message_attachments,
                     "message_source": message_source,
@@ -207,6 +211,7 @@ class AIChatsResource(SyncAPIResource):
         self,
         *,
         after: str | Omit = omit,
+        agent_identifier: Literal["general", "support"] | Omit = omit,
         before: str | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
@@ -223,6 +228,8 @@ class AIChatsResource(SyncAPIResource):
 
         Args:
           after: Returns the elements in the list that come after the specified cursor.
+
+          agent_identifier: Only return chats handled by this agent.
 
           before: Returns the elements in the list that come before the specified cursor.
 
@@ -251,6 +258,7 @@ class AIChatsResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "after": after,
+                        "agent_identifier": agent_identifier,
                         "before": before,
                         "first": first,
                         "last": last,
@@ -324,6 +332,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
         self,
         *,
         message_text: str,
+        agent_identifier: Optional[Literal["general", "support"]] | Omit = omit,
         current_account_id: Optional[str] | Omit = omit,
         message_attachments: Optional[Iterable[ai_chat_create_params.MessageAttachment]] | Omit = omit,
         message_source: Optional[Literal["manual", "suggestion", "link"]] | Omit = omit,
@@ -345,6 +354,8 @@ class AsyncAIChatsResource(AsyncAPIResource):
 
         Args:
           message_text: The text content of the first message to send to the AI agent.
+
+          agent_identifier: The AI agent that handles an AI chat.
 
           current_account_id: The unique identifier of the account to set as context for the AI chat (e.g.,
               "biz_XXXXX").
@@ -372,6 +383,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "message_text": message_text,
+                    "agent_identifier": agent_identifier,
                     "current_account_id": current_account_id,
                     "message_attachments": message_attachments,
                     "message_source": message_source,
@@ -479,6 +491,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
         self,
         *,
         after: str | Omit = omit,
+        agent_identifier: Literal["general", "support"] | Omit = omit,
         before: str | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
@@ -495,6 +508,8 @@ class AsyncAIChatsResource(AsyncAPIResource):
 
         Args:
           after: Returns the elements in the list that come after the specified cursor.
+
+          agent_identifier: Only return chats handled by this agent.
 
           before: Returns the elements in the list that come before the specified cursor.
 
@@ -523,6 +538,7 @@ class AsyncAIChatsResource(AsyncAPIResource):
                 query=maybe_transform(
                     {
                         "after": after,
+                        "agent_identifier": agent_identifier,
                         "before": before,
                         "first": first,
                         "last": last,

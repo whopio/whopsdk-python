@@ -12,6 +12,9 @@ class AIChatCreateParams(TypedDict, total=False):
     message_text: Required[str]
     """The text content of the first message to send to the AI agent."""
 
+    agent_identifier: Optional[Literal["general", "support"]]
+    """The AI agent that handles an AI chat."""
+
     current_account_id: Optional[str]
     """
     The unique identifier of the account to set as context for the AI chat (e.g.,

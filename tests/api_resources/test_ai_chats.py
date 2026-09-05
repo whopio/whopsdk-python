@@ -35,6 +35,7 @@ class TestAIChats:
     def test_method_create_with_all_params(self, client: Whop) -> None:
         ai_chat = client.ai_chats.create(
             message_text="message_text",
+            agent_identifier="general",
             current_account_id="current_account_id",
             message_attachments=[{"id": "id"}],
             message_source="manual",
@@ -175,6 +176,7 @@ class TestAIChats:
     def test_method_list_with_all_params(self, client: Whop) -> None:
         ai_chat = client.ai_chats.list(
             after="after",
+            agent_identifier="general",
             before="before",
             first=42,
             last=42,
@@ -265,6 +267,7 @@ class TestAsyncAIChats:
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         ai_chat = await async_client.ai_chats.create(
             message_text="message_text",
+            agent_identifier="general",
             current_account_id="current_account_id",
             message_attachments=[{"id": "id"}],
             message_source="manual",
@@ -405,6 +408,7 @@ class TestAsyncAIChats:
     async def test_method_list_with_all_params(self, async_client: AsyncWhop) -> None:
         ai_chat = await async_client.ai_chats.list(
             after="after",
+            agent_identifier="general",
             before="before",
             first=42,
             last=42,
