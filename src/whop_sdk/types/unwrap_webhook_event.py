@@ -4,6 +4,7 @@ from typing import Union
 from typing_extensions import Annotated, TypeAlias
 
 from .._utils import PropertyInfo
+from .ad_updated_webhook_event import AdUpdatedWebhookEvent
 from .card_frozen_webhook_event import CardFrozenWebhookEvent
 from .card_created_webhook_event import CardCreatedWebhookEvent
 from .card_updated_webhook_event import CardUpdatedWebhookEvent
@@ -47,6 +48,7 @@ from .payment_succeeded_webhook_event import PaymentSucceededWebhookEvent
 from .product_published_webhook_event import ProductPublishedWebhookEvent
 from .payment_authorized_webhook_event import PaymentAuthorizedWebhookEvent
 from .transfer_completed_webhook_event import TransferCompletedWebhookEvent
+from .ad_campaign_updated_webhook_event import AdCampaignUpdatedWebhookEvent
 from .product_unpublished_webhook_event import ProductUnpublishedWebhookEvent
 from .chat_message_created_webhook_event import ChatMessageCreatedWebhookEvent
 from .membership_activated_webhook_event import MembershipActivatedWebhookEvent
@@ -84,7 +86,9 @@ __all__ = ["UnwrapWebhookEvent"]
 UnwrapWebhookEvent: TypeAlias = Annotated[
     Union[
         AccountUpdatedWebhookEvent,
+        AdUpdatedWebhookEvent,
         AdCampaignPaymentFailedWebhookEvent,
+        AdCampaignUpdatedWebhookEvent,
         CardCanceledWebhookEvent,
         CardCreatedWebhookEvent,
         CardFrozenWebhookEvent,

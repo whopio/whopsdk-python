@@ -6,7 +6,7 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["AdCampaignPaymentFailedWebhookEvent", "Data", "DataIssue"]
+__all__ = ["AdCampaignUpdatedWebhookEvent", "Data", "DataIssue"]
 
 
 class DataIssue(BaseModel):
@@ -115,7 +115,7 @@ class Data(BaseModel):
     """
 
 
-class AdCampaignPaymentFailedWebhookEvent(BaseModel):
+class AdCampaignUpdatedWebhookEvent(BaseModel):
     id: str
     """A unique ID for every single webhook request"""
 
@@ -130,7 +130,7 @@ class AdCampaignPaymentFailedWebhookEvent(BaseModel):
     timestamp: datetime
     """The timestamp in ISO 8601 format that the webhook was sent at on the server"""
 
-    type: Literal["ad_campaign.payment_failed"]
+    type: Literal["ad_campaign.updated"]
     """The webhook event type"""
 
     account_id: Optional[str] = None
