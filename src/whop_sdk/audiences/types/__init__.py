@@ -8,6 +8,9 @@ from importlib import import_module
 if typing.TYPE_CHECKING:
     from .create_audiences_request_audience_type import CreateAudiencesRequestAudienceType
     from .create_audiences_request_column_mapping import CreateAudiencesRequestColumnMapping
+    from .create_audiences_request_engagement import CreateAudiencesRequestEngagement
+    from .create_audiences_request_engagement_platform import CreateAudiencesRequestEngagementPlatform
+    from .create_audiences_request_source_type import CreateAudiencesRequestSourceType
     from .create_audiences_response import CreateAudiencesResponse
     from .create_audiences_response_data import CreateAudiencesResponseData
     from .delete_audiences_response import DeleteAudiencesResponse
@@ -18,6 +21,9 @@ if typing.TYPE_CHECKING:
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateAudiencesRequestAudienceType": ".create_audiences_request_audience_type",
     "CreateAudiencesRequestColumnMapping": ".create_audiences_request_column_mapping",
+    "CreateAudiencesRequestEngagement": ".create_audiences_request_engagement",
+    "CreateAudiencesRequestEngagementPlatform": ".create_audiences_request_engagement_platform",
+    "CreateAudiencesRequestSourceType": ".create_audiences_request_source_type",
     "CreateAudiencesResponse": ".create_audiences_response",
     "CreateAudiencesResponseData": ".create_audiences_response_data",
     "DeleteAudiencesResponse": ".delete_audiences_response",
@@ -52,6 +58,9 @@ def __dir__():
 __all__ = [
     "CreateAudiencesRequestAudienceType",
     "CreateAudiencesRequestColumnMapping",
+    "CreateAudiencesRequestEngagement",
+    "CreateAudiencesRequestEngagementPlatform",
+    "CreateAudiencesRequestSourceType",
     "CreateAudiencesResponse",
     "CreateAudiencesResponseData",
     "DeleteAudiencesResponse",

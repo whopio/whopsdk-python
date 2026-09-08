@@ -3,17 +3,13 @@
 import typing
 
 import pydantic
-from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class UpdateEvidenceDisputeRequestRefundPolicyAttachment(UniversalBaseModel):
-    """
-    A file upload containing the company's refund policy document.
-    """
-
+class RecommendedAction(UniversalBaseModel):
     id: str = pydantic.Field()
     """
-    The ID of an existing file object.
+    Recommended action ID, prefixed `reca_`
     """
 
     if IS_PYDANTIC_V2:

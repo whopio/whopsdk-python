@@ -188,6 +188,7 @@ if typing.TYPE_CHECKING:
     from .affiliate_user import AffiliateUser
     from .affiliates_sortable_columns import AffiliatesSortableColumns
     from .ai_chat import AiChat
+    from .ai_chat_agent_identifiers import AiChatAgentIdentifiers
     from .ai_chat_list_item import AiChatListItem
     from .ai_chat_list_item_user import AiChatListItemUser
     from .ai_chat_message_source_types import AiChatMessageSourceTypes
@@ -237,6 +238,23 @@ if typing.TYPE_CHECKING:
     from .app_view_types import AppViewTypes
     from .audience import Audience
     from .audience_audience_type import AudienceAudienceType
+    from .audience_engagement import AudienceEngagement
+    from .audience_engagement_facebook_page_rule import AudienceEngagementFacebookPageRule
+    from .audience_engagement_facebook_page_rule_event import AudienceEngagementFacebookPageRuleEvent
+    from .audience_engagement_instagram_profile_rule import AudienceEngagementInstagramProfileRule
+    from .audience_engagement_instagram_profile_rule_event import AudienceEngagementInstagramProfileRuleEvent
+    from .audience_engagement_lead_form_rule import AudienceEngagementLeadFormRule
+    from .audience_engagement_lead_form_rule_event import AudienceEngagementLeadFormRuleEvent
+    from .audience_engagement_platform import AudienceEngagementPlatform
+    from .audience_engagement_rule import (
+        AudienceEngagementRule,
+        AudienceEngagementRule_FacebookPage,
+        AudienceEngagementRule_InstagramProfile,
+        AudienceEngagementRule_LeadForm,
+        AudienceEngagementRule_Video,
+    )
+    from .audience_engagement_video_rule import AudienceEngagementVideoRule
+    from .audience_engagement_video_rule_event import AudienceEngagementVideoRuleEvent
     from .audience_match_rate import AudienceMatchRate
     from .audience_match_rate_platform import AudienceMatchRatePlatform
     from .audience_match_rate_status import AudienceMatchRateStatus
@@ -693,6 +711,10 @@ if typing.TYPE_CHECKING:
     from .notification_topic_summary_topic_type import NotificationTopicSummaryTopicType
     from .notification_topic_topic_type import NotificationTopicTopicType
     from .oauth_grant import OauthGrant
+    from .onboarding_reward import OnboardingReward
+    from .onboarding_reward_qualification_income_source import OnboardingRewardQualificationIncomeSource
+    from .onboarding_reward_reward_type import OnboardingRewardRewardType
+    from .onboarding_reward_status import OnboardingRewardStatus
     from .page_info import PageInfo
     from .pagination import Pagination
     from .passkey import Passkey
@@ -1108,6 +1130,7 @@ if typing.TYPE_CHECKING:
     from .receipt_status import ReceiptStatus
     from .receipt_tax_behaviors import ReceiptTaxBehaviors
     from .receipt_v2order import ReceiptV2Order
+    from .recommended_action import RecommendedAction
     from .recommended_action_execution import RecommendedActionExecution
     from .recommended_action_execution_status import RecommendedActionExecutionStatus
     from .refund import Refund
@@ -1157,6 +1180,7 @@ if typing.TYPE_CHECKING:
     from .resolution_event import ResolutionEvent
     from .resolution_event_action import ResolutionEventAction
     from .resolution_event_reporter_type import ResolutionEventReporterType
+    from .resolution_line_item import ResolutionLineItem
     from .resolution_payment import ResolutionPayment
     from .review import Review
     from .review_attachments_item import ReviewAttachmentsItem
@@ -1463,6 +1487,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AffiliateUser": ".affiliate_user",
     "AffiliatesSortableColumns": ".affiliates_sortable_columns",
     "AiChat": ".ai_chat",
+    "AiChatAgentIdentifiers": ".ai_chat_agent_identifiers",
     "AiChatListItem": ".ai_chat_list_item",
     "AiChatListItemUser": ".ai_chat_list_item_user",
     "AiChatMessageSourceTypes": ".ai_chat_message_source_types",
@@ -1512,6 +1537,21 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AppViewTypes": ".app_view_types",
     "Audience": ".audience",
     "AudienceAudienceType": ".audience_audience_type",
+    "AudienceEngagement": ".audience_engagement",
+    "AudienceEngagementFacebookPageRule": ".audience_engagement_facebook_page_rule",
+    "AudienceEngagementFacebookPageRuleEvent": ".audience_engagement_facebook_page_rule_event",
+    "AudienceEngagementInstagramProfileRule": ".audience_engagement_instagram_profile_rule",
+    "AudienceEngagementInstagramProfileRuleEvent": ".audience_engagement_instagram_profile_rule_event",
+    "AudienceEngagementLeadFormRule": ".audience_engagement_lead_form_rule",
+    "AudienceEngagementLeadFormRuleEvent": ".audience_engagement_lead_form_rule_event",
+    "AudienceEngagementPlatform": ".audience_engagement_platform",
+    "AudienceEngagementRule": ".audience_engagement_rule",
+    "AudienceEngagementRule_FacebookPage": ".audience_engagement_rule",
+    "AudienceEngagementRule_InstagramProfile": ".audience_engagement_rule",
+    "AudienceEngagementRule_LeadForm": ".audience_engagement_rule",
+    "AudienceEngagementRule_Video": ".audience_engagement_rule",
+    "AudienceEngagementVideoRule": ".audience_engagement_video_rule",
+    "AudienceEngagementVideoRuleEvent": ".audience_engagement_video_rule_event",
     "AudienceMatchRate": ".audience_match_rate",
     "AudienceMatchRatePlatform": ".audience_match_rate_platform",
     "AudienceMatchRateStatus": ".audience_match_rate_status",
@@ -1948,6 +1988,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "NotificationTopicSummaryTopicType": ".notification_topic_summary_topic_type",
     "NotificationTopicTopicType": ".notification_topic_topic_type",
     "OauthGrant": ".oauth_grant",
+    "OnboardingReward": ".onboarding_reward",
+    "OnboardingRewardQualificationIncomeSource": ".onboarding_reward_qualification_income_source",
+    "OnboardingRewardRewardType": ".onboarding_reward_reward_type",
+    "OnboardingRewardStatus": ".onboarding_reward_status",
     "PageInfo": ".page_info",
     "Pagination": ".pagination",
     "Passkey": ".passkey",
@@ -2249,6 +2293,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ReceiptStatus": ".receipt_status",
     "ReceiptTaxBehaviors": ".receipt_tax_behaviors",
     "ReceiptV2Order": ".receipt_v2order",
+    "RecommendedAction": ".recommended_action",
     "RecommendedActionExecution": ".recommended_action_execution",
     "RecommendedActionExecutionStatus": ".recommended_action_execution_status",
     "Refund": ".refund",
@@ -2298,6 +2343,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ResolutionEvent": ".resolution_event",
     "ResolutionEventAction": ".resolution_event_action",
     "ResolutionEventReporterType": ".resolution_event_reporter_type",
+    "ResolutionLineItem": ".resolution_line_item",
     "ResolutionPayment": ".resolution_payment",
     "Review": ".review",
     "ReviewAttachmentsItem": ".review_attachments_item",
@@ -2626,6 +2672,7 @@ __all__ = [
     "AffiliateUser",
     "AffiliatesSortableColumns",
     "AiChat",
+    "AiChatAgentIdentifiers",
     "AiChatListItem",
     "AiChatListItemUser",
     "AiChatMessageSourceTypes",
@@ -2675,6 +2722,21 @@ __all__ = [
     "AppViewTypes",
     "Audience",
     "AudienceAudienceType",
+    "AudienceEngagement",
+    "AudienceEngagementFacebookPageRule",
+    "AudienceEngagementFacebookPageRuleEvent",
+    "AudienceEngagementInstagramProfileRule",
+    "AudienceEngagementInstagramProfileRuleEvent",
+    "AudienceEngagementLeadFormRule",
+    "AudienceEngagementLeadFormRuleEvent",
+    "AudienceEngagementPlatform",
+    "AudienceEngagementRule",
+    "AudienceEngagementRule_FacebookPage",
+    "AudienceEngagementRule_InstagramProfile",
+    "AudienceEngagementRule_LeadForm",
+    "AudienceEngagementRule_Video",
+    "AudienceEngagementVideoRule",
+    "AudienceEngagementVideoRuleEvent",
     "AudienceMatchRate",
     "AudienceMatchRatePlatform",
     "AudienceMatchRateStatus",
@@ -3111,6 +3173,10 @@ __all__ = [
     "NotificationTopicSummaryTopicType",
     "NotificationTopicTopicType",
     "OauthGrant",
+    "OnboardingReward",
+    "OnboardingRewardQualificationIncomeSource",
+    "OnboardingRewardRewardType",
+    "OnboardingRewardStatus",
     "PageInfo",
     "Pagination",
     "Passkey",
@@ -3412,6 +3478,7 @@ __all__ = [
     "ReceiptStatus",
     "ReceiptTaxBehaviors",
     "ReceiptV2Order",
+    "RecommendedAction",
     "RecommendedActionExecution",
     "RecommendedActionExecutionStatus",
     "Refund",
@@ -3461,6 +3528,7 @@ __all__ = [
     "ResolutionEvent",
     "ResolutionEventAction",
     "ResolutionEventReporterType",
+    "ResolutionLineItem",
     "ResolutionPayment",
     "Review",
     "ReviewAttachmentsItem",

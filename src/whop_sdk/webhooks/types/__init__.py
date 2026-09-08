@@ -8,9 +8,6 @@ from importlib import import_module
 if typing.TYPE_CHECKING:
     from .create_webhooks_request_events_item import CreateWebhooksRequestEventsItem
     from .delete_webhooks_response import DeleteWebhooksResponse
-    from .deliveries_webhook_response import DeliveriesWebhookResponse
-    from .deliveries_webhook_response_data_item import DeliveriesWebhookResponseDataItem
-    from .deliveries_webhook_response_page_info import DeliveriesWebhookResponsePageInfo
     from .list_deliveries_webhooks_response import ListDeliveriesWebhooksResponse
     from .list_deliveries_webhooks_response_page_info import ListDeliveriesWebhooksResponsePageInfo
     from .list_webhooks_response import ListWebhooksResponse
@@ -22,9 +19,6 @@ if typing.TYPE_CHECKING:
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateWebhooksRequestEventsItem": ".create_webhooks_request_events_item",
     "DeleteWebhooksResponse": ".delete_webhooks_response",
-    "DeliveriesWebhookResponse": ".deliveries_webhook_response",
-    "DeliveriesWebhookResponseDataItem": ".deliveries_webhook_response_data_item",
-    "DeliveriesWebhookResponsePageInfo": ".deliveries_webhook_response_page_info",
     "ListDeliveriesWebhooksResponse": ".list_deliveries_webhooks_response",
     "ListDeliveriesWebhooksResponsePageInfo": ".list_deliveries_webhooks_response_page_info",
     "ListWebhooksResponse": ".list_webhooks_response",
@@ -60,9 +54,6 @@ def __dir__():
 __all__ = [
     "CreateWebhooksRequestEventsItem",
     "DeleteWebhooksResponse",
-    "DeliveriesWebhookResponse",
-    "DeliveriesWebhookResponseDataItem",
-    "DeliveriesWebhookResponsePageInfo",
     "ListDeliveriesWebhooksResponse",
     "ListDeliveriesWebhooksResponsePageInfo",
     "ListWebhooksResponse",

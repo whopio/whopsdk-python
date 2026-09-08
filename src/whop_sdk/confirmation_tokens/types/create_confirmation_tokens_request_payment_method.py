@@ -23,6 +23,9 @@ from .create_confirmation_tokens_request_payment_method_google_pay import (
 from .create_confirmation_tokens_request_payment_method_payer_document import (
     CreateConfirmationTokensRequestPaymentMethodPayerDocument,
 )
+from .create_confirmation_tokens_request_payment_method_redirect import (
+    CreateConfirmationTokensRequestPaymentMethodRedirect,
+)
 from .create_confirmation_tokens_request_payment_method_saved import CreateConfirmationTokensRequestPaymentMethodSaved
 
 
@@ -66,6 +69,11 @@ class CreateConfirmationTokensRequestPaymentMethod(UniversalBaseModel):
     )
     """
     The buyer's identity document when the charge currency has a payer_document_requirements entry for this method, such as ARS card, MODO, or Rapipago. This is independent of the method category.
+    """
+
+    redirect: typing.Optional[CreateConfirmationTokensRequestPaymentMethodRedirect] = pydantic.Field(default=None)
+    """
+    Category `redirect` only. Empty unless the method declares redirect-specific fields.
     """
 
     saved: typing.Optional[CreateConfirmationTokensRequestPaymentMethodSaved] = pydantic.Field(default=None)

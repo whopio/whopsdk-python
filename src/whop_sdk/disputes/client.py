@@ -6,7 +6,6 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
 from ..types.dispute import Dispute
-from ..types.dispute_legacy import DisputeLegacy
 from .raw_client import AsyncRawDisputesClient, RawDisputesClient
 from .types.list_disputes_request_direction import ListDisputesRequestDirection
 from .types.list_disputes_request_order import ListDisputesRequestOrder
@@ -16,18 +15,6 @@ from .types.summary_disputes_request_groups_item import SummaryDisputesRequestGr
 from .types.summary_disputes_request_status_item import SummaryDisputesRequestStatusItem
 from .types.summary_disputes_response import SummaryDisputesResponse
 from .types.update_disputes_request_evidence import UpdateDisputesRequestEvidence
-from .types.update_evidence_dispute_request_cancellation_policy_attachment import (
-    UpdateEvidenceDisputeRequestCancellationPolicyAttachment,
-)
-from .types.update_evidence_dispute_request_customer_communication_attachment import (
-    UpdateEvidenceDisputeRequestCustomerCommunicationAttachment,
-)
-from .types.update_evidence_dispute_request_refund_policy_attachment import (
-    UpdateEvidenceDisputeRequestRefundPolicyAttachment,
-)
-from .types.update_evidence_dispute_request_uncategorized_attachment import (
-    UpdateEvidenceDisputeRequestUncategorizedAttachment,
-)
 from .types.upload_evidence_disputes_request_documents_item import UploadEvidenceDisputesRequestDocumentsItem
 
 # this is used as the default value for optional parameters
@@ -118,7 +105,7 @@ class DisputesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -195,7 +182,7 @@ class DisputesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -234,7 +221,7 @@ class DisputesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -276,7 +263,7 @@ class DisputesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -309,7 +296,7 @@ class DisputesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -318,176 +305,6 @@ class DisputesClient:
         )
         """
         _response = self._raw_client.submit(id, request_options=request_options)
-        return _response.data
-
-    def submit_evidence_dispute(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> DisputeLegacy:
-        """
-        Submit a payment dispute to the payment processor for review. Once submitted, no further edits can be made.
-
-        Required permissions:
-         - `payment:dispute`
-         - `plan:basic:read`
-         - `access_pass:basic:read`
-         - `company:basic:read`
-         - `payment:basic:read`
-         - `member:email:read`
-         - `member:basic:read`
-         - `member:phone:read`
-
-        Parameters
-        ----------
-        id : str
-            The unique identifier of the dispute to submit to the payment processor for review.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        DisputeLegacy
-            A successful response
-
-        Examples
-        --------
-        from whop_sdk import Whop
-
-        client = Whop(
-            "2026-09-02-2",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-        client.disputes.submit_evidence_dispute(
-            id="dspt_xxxxxxxxxxxxx",
-        )
-        """
-        _response = self._raw_client.submit_evidence_dispute(id, request_options=request_options)
-        return _response.data
-
-    def update_evidence_dispute(
-        self,
-        id: str,
-        *,
-        access_activity_log: typing.Optional[str] = OMIT,
-        billing_address: typing.Optional[str] = OMIT,
-        cancellation_policy_attachment: typing.Optional[
-            UpdateEvidenceDisputeRequestCancellationPolicyAttachment
-        ] = OMIT,
-        cancellation_policy_disclosure: typing.Optional[str] = OMIT,
-        customer_communication_attachment: typing.Optional[
-            UpdateEvidenceDisputeRequestCustomerCommunicationAttachment
-        ] = OMIT,
-        customer_email_address: typing.Optional[str] = OMIT,
-        customer_name: typing.Optional[str] = OMIT,
-        notes: typing.Optional[str] = OMIT,
-        product_description: typing.Optional[str] = OMIT,
-        refund_policy_attachment: typing.Optional[UpdateEvidenceDisputeRequestRefundPolicyAttachment] = OMIT,
-        refund_policy_disclosure: typing.Optional[str] = OMIT,
-        refund_refusal_explanation: typing.Optional[str] = OMIT,
-        service_date: typing.Optional[str] = OMIT,
-        uncategorized_attachment: typing.Optional[UpdateEvidenceDisputeRequestUncategorizedAttachment] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> DisputeLegacy:
-        """
-        Update a dispute with evidence data to attempt to win the dispute.
-
-        Required permissions:
-         - `payment:dispute`
-         - `plan:basic:read`
-         - `access_pass:basic:read`
-         - `company:basic:read`
-         - `payment:basic:read`
-         - `member:email:read`
-         - `member:basic:read`
-         - `member:phone:read`
-
-        Parameters
-        ----------
-        id : str
-            The unique identifier of the dispute to update.
-
-        access_activity_log : typing.Optional[str]
-            An IP access activity log showing the customer used the service.
-
-        billing_address : typing.Optional[str]
-            The billing address associated with the customer's payment method.
-
-        cancellation_policy_attachment : typing.Optional[UpdateEvidenceDisputeRequestCancellationPolicyAttachment]
-            A file upload containing the company's cancellation policy document.
-
-        cancellation_policy_disclosure : typing.Optional[str]
-            The company's cancellation policy text to submit as evidence.
-
-        customer_communication_attachment : typing.Optional[UpdateEvidenceDisputeRequestCustomerCommunicationAttachment]
-            A file upload containing evidence of customer communication. Must be a JPEG, PNG, GIF, or PDF.
-
-        customer_email_address : typing.Optional[str]
-            The email address of the customer associated with the disputed payment.
-
-        customer_name : typing.Optional[str]
-            The full name of the customer associated with the disputed payment.
-
-        notes : typing.Optional[str]
-            Additional notes or context to submit as part of the dispute evidence.
-
-        product_description : typing.Optional[str]
-            A description of the product or service that was provided to the customer.
-
-        refund_policy_attachment : typing.Optional[UpdateEvidenceDisputeRequestRefundPolicyAttachment]
-            A file upload containing the company's refund policy document.
-
-        refund_policy_disclosure : typing.Optional[str]
-            The company's refund policy text to submit as evidence.
-
-        refund_refusal_explanation : typing.Optional[str]
-            An explanation of why the refund request was refused.
-
-        service_date : typing.Optional[str]
-            The date when the product or service was delivered to the customer.
-
-        uncategorized_attachment : typing.Optional[UpdateEvidenceDisputeRequestUncategorizedAttachment]
-            A file upload for evidence that does not fit into the other categories.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        DisputeLegacy
-            A successful response
-
-        Examples
-        --------
-        from whop_sdk import Whop
-
-        client = Whop(
-            "2026-09-02-2",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-        client.disputes.update_evidence_dispute(
-            id="dspt_xxxxxxxxxxxxx",
-        )
-        """
-        _response = self._raw_client.update_evidence_dispute(
-            id,
-            access_activity_log=access_activity_log,
-            billing_address=billing_address,
-            cancellation_policy_attachment=cancellation_policy_attachment,
-            cancellation_policy_disclosure=cancellation_policy_disclosure,
-            customer_communication_attachment=customer_communication_attachment,
-            customer_email_address=customer_email_address,
-            customer_name=customer_name,
-            notes=notes,
-            product_description=product_description,
-            refund_policy_attachment=refund_policy_attachment,
-            refund_policy_disclosure=refund_policy_disclosure,
-            refund_refusal_explanation=refund_refusal_explanation,
-            service_date=service_date,
-            uncategorized_attachment=uncategorized_attachment,
-            request_options=request_options,
-        )
         return _response.data
 
     def upload_evidence(
@@ -522,7 +339,7 @@ class DisputesClient:
         from whop_sdk.disputes import UploadEvidenceDisputesRequestDocumentsItem
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -625,7 +442,7 @@ class AsyncDisputesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -711,7 +528,7 @@ class AsyncDisputesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -758,7 +575,7 @@ class AsyncDisputesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -808,7 +625,7 @@ class AsyncDisputesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -849,7 +666,7 @@ class AsyncDisputesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -864,192 +681,6 @@ class AsyncDisputesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.submit(id, request_options=request_options)
-        return _response.data
-
-    async def submit_evidence_dispute(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> DisputeLegacy:
-        """
-        Submit a payment dispute to the payment processor for review. Once submitted, no further edits can be made.
-
-        Required permissions:
-         - `payment:dispute`
-         - `plan:basic:read`
-         - `access_pass:basic:read`
-         - `company:basic:read`
-         - `payment:basic:read`
-         - `member:email:read`
-         - `member:basic:read`
-         - `member:phone:read`
-
-        Parameters
-        ----------
-        id : str
-            The unique identifier of the dispute to submit to the payment processor for review.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        DisputeLegacy
-            A successful response
-
-        Examples
-        --------
-        import asyncio
-
-        from whop_sdk import AsyncWhop
-
-        client = AsyncWhop(
-            "2026-09-02-2",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.disputes.submit_evidence_dispute(
-                id="dspt_xxxxxxxxxxxxx",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.submit_evidence_dispute(id, request_options=request_options)
-        return _response.data
-
-    async def update_evidence_dispute(
-        self,
-        id: str,
-        *,
-        access_activity_log: typing.Optional[str] = OMIT,
-        billing_address: typing.Optional[str] = OMIT,
-        cancellation_policy_attachment: typing.Optional[
-            UpdateEvidenceDisputeRequestCancellationPolicyAttachment
-        ] = OMIT,
-        cancellation_policy_disclosure: typing.Optional[str] = OMIT,
-        customer_communication_attachment: typing.Optional[
-            UpdateEvidenceDisputeRequestCustomerCommunicationAttachment
-        ] = OMIT,
-        customer_email_address: typing.Optional[str] = OMIT,
-        customer_name: typing.Optional[str] = OMIT,
-        notes: typing.Optional[str] = OMIT,
-        product_description: typing.Optional[str] = OMIT,
-        refund_policy_attachment: typing.Optional[UpdateEvidenceDisputeRequestRefundPolicyAttachment] = OMIT,
-        refund_policy_disclosure: typing.Optional[str] = OMIT,
-        refund_refusal_explanation: typing.Optional[str] = OMIT,
-        service_date: typing.Optional[str] = OMIT,
-        uncategorized_attachment: typing.Optional[UpdateEvidenceDisputeRequestUncategorizedAttachment] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> DisputeLegacy:
-        """
-        Update a dispute with evidence data to attempt to win the dispute.
-
-        Required permissions:
-         - `payment:dispute`
-         - `plan:basic:read`
-         - `access_pass:basic:read`
-         - `company:basic:read`
-         - `payment:basic:read`
-         - `member:email:read`
-         - `member:basic:read`
-         - `member:phone:read`
-
-        Parameters
-        ----------
-        id : str
-            The unique identifier of the dispute to update.
-
-        access_activity_log : typing.Optional[str]
-            An IP access activity log showing the customer used the service.
-
-        billing_address : typing.Optional[str]
-            The billing address associated with the customer's payment method.
-
-        cancellation_policy_attachment : typing.Optional[UpdateEvidenceDisputeRequestCancellationPolicyAttachment]
-            A file upload containing the company's cancellation policy document.
-
-        cancellation_policy_disclosure : typing.Optional[str]
-            The company's cancellation policy text to submit as evidence.
-
-        customer_communication_attachment : typing.Optional[UpdateEvidenceDisputeRequestCustomerCommunicationAttachment]
-            A file upload containing evidence of customer communication. Must be a JPEG, PNG, GIF, or PDF.
-
-        customer_email_address : typing.Optional[str]
-            The email address of the customer associated with the disputed payment.
-
-        customer_name : typing.Optional[str]
-            The full name of the customer associated with the disputed payment.
-
-        notes : typing.Optional[str]
-            Additional notes or context to submit as part of the dispute evidence.
-
-        product_description : typing.Optional[str]
-            A description of the product or service that was provided to the customer.
-
-        refund_policy_attachment : typing.Optional[UpdateEvidenceDisputeRequestRefundPolicyAttachment]
-            A file upload containing the company's refund policy document.
-
-        refund_policy_disclosure : typing.Optional[str]
-            The company's refund policy text to submit as evidence.
-
-        refund_refusal_explanation : typing.Optional[str]
-            An explanation of why the refund request was refused.
-
-        service_date : typing.Optional[str]
-            The date when the product or service was delivered to the customer.
-
-        uncategorized_attachment : typing.Optional[UpdateEvidenceDisputeRequestUncategorizedAttachment]
-            A file upload for evidence that does not fit into the other categories.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        DisputeLegacy
-            A successful response
-
-        Examples
-        --------
-        import asyncio
-
-        from whop_sdk import AsyncWhop
-
-        client = AsyncWhop(
-            "2026-09-02-2",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.disputes.update_evidence_dispute(
-                id="dspt_xxxxxxxxxxxxx",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.update_evidence_dispute(
-            id,
-            access_activity_log=access_activity_log,
-            billing_address=billing_address,
-            cancellation_policy_attachment=cancellation_policy_attachment,
-            cancellation_policy_disclosure=cancellation_policy_disclosure,
-            customer_communication_attachment=customer_communication_attachment,
-            customer_email_address=customer_email_address,
-            customer_name=customer_name,
-            notes=notes,
-            product_description=product_description,
-            refund_policy_attachment=refund_policy_attachment,
-            refund_policy_disclosure=refund_policy_disclosure,
-            refund_refusal_explanation=refund_refusal_explanation,
-            service_date=service_date,
-            uncategorized_attachment=uncategorized_attachment,
-            request_options=request_options,
-        )
         return _response.data
 
     async def upload_evidence(
@@ -1086,7 +717,7 @@ class AsyncDisputesClient:
         from whop_sdk.disputes import UploadEvidenceDisputesRequestDocumentsItem
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

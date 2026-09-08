@@ -3,5 +3,5 @@
 import typing
 
 ListEventsResponseDataItemRelatedAudienceSourceType = typing.Union[
-    typing.Literal["csv_upload", "people_filter"], typing.Any
+    typing.Literal["csv_upload", "people_filter", "engagement"], typing.Any
 ]

@@ -14,6 +14,7 @@ class CreateConfirmationTokensRequestBillingDetails(UniversalBaseModel):
     address: typing.Optional[typing.Dict[str, typing.Any]] = None
     email: str
     name: typing.Optional[str] = None
+    phone: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

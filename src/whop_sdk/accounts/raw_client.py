@@ -232,6 +232,7 @@ class RawAccountsClient:
         country: typing.Optional[str] = OMIT,
         email: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
+        send_customer_emails: typing.Optional[bool] = OMIT,
         title: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Account]:
@@ -255,6 +256,9 @@ class RawAccountsClient:
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
             Arbitrary key/value metadata to store on the account.
 
+        send_customer_emails : typing.Optional[bool]
+            Whether Whop sends transactional emails to customers on behalf of the connected account.
+
         title : typing.Optional[str]
             The display name of the account. Defaults to `metadata.external_id` or the owner's email when omitted.
 
@@ -275,6 +279,7 @@ class RawAccountsClient:
                 "country": country,
                 "email": email,
                 "metadata": metadata,
+                "send_customer_emails": send_customer_emails,
                 "title": title,
             },
             headers={
@@ -1327,6 +1332,7 @@ class AsyncRawAccountsClient:
         country: typing.Optional[str] = OMIT,
         email: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
+        send_customer_emails: typing.Optional[bool] = OMIT,
         title: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Account]:
@@ -1350,6 +1356,9 @@ class AsyncRawAccountsClient:
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
             Arbitrary key/value metadata to store on the account.
 
+        send_customer_emails : typing.Optional[bool]
+            Whether Whop sends transactional emails to customers on behalf of the connected account.
+
         title : typing.Optional[str]
             The display name of the account. Defaults to `metadata.external_id` or the owner's email when omitted.
 
@@ -1370,6 +1379,7 @@ class AsyncRawAccountsClient:
                 "country": country,
                 "email": email,
                 "metadata": metadata,
+                "send_customer_emails": send_customer_emails,
                 "title": title,
             },
             headers={

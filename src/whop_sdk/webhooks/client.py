@@ -11,8 +11,6 @@ from ..types.webhook_list_item import WebhookListItem
 from .raw_client import AsyncRawWebhooksClient, RawWebhooksClient
 from .types.create_webhooks_request_events_item import CreateWebhooksRequestEventsItem
 from .types.delete_webhooks_response import DeleteWebhooksResponse
-from .types.deliveries_webhook_response import DeliveriesWebhookResponse
-from .types.deliveries_webhook_response_data_item import DeliveriesWebhookResponseDataItem
 from .types.list_deliveries_webhooks_response import ListDeliveriesWebhooksResponse
 from .types.list_webhooks_response import ListWebhooksResponse
 from .types.replay_delivery_webhooks_response import ReplayDeliveryWebhooksResponse
@@ -94,7 +92,7 @@ class WebhooksClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -166,7 +164,7 @@ class WebhooksClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -207,7 +205,7 @@ class WebhooksClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -240,7 +238,7 @@ class WebhooksClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -298,7 +296,7 @@ class WebhooksClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -352,7 +350,7 @@ class WebhooksClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -402,7 +400,7 @@ class WebhooksClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -463,7 +461,7 @@ class WebhooksClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -510,7 +508,7 @@ class WebhooksClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -521,71 +519,6 @@ class WebhooksClient:
         """
         _response = self._raw_client.test(id, event=event, request_options=request_options)
         return _response.data
-
-    def deliveries_webhook(
-        self,
-        webhook_id: str,
-        *,
-        after: typing.Optional[str] = None,
-        before: typing.Optional[str] = None,
-        first: typing.Optional[int] = None,
-        last: typing.Optional[int] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> SyncPager[DeliveriesWebhookResponseDataItem, DeliveriesWebhookResponse]:
-        """
-        Returns a paginated list of delivery attempts for a webhook, ordered by most recent first. Includes the request payload, response body, response code, and timing for each attempt.
-
-        Required permissions:
-         - `developer:manage_webhook`
-
-        Parameters
-        ----------
-        webhook_id : str
-            The unique identifier of the webhook to list deliveries for.
-
-        after : typing.Optional[str]
-            Returns the elements in the list that come after the specified cursor.
-
-        before : typing.Optional[str]
-            Returns the elements in the list that come before the specified cursor.
-
-        first : typing.Optional[int]
-            Returns the first _n_ elements from the list.
-
-        last : typing.Optional[int]
-            Returns the last _n_ elements from the list.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        SyncPager[DeliveriesWebhookResponseDataItem, DeliveriesWebhookResponse]
-            A successful response
-
-        Examples
-        --------
-        from whop_sdk import Whop
-
-        client = Whop(
-            "2026-09-02-2",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-        response = client.webhooks.deliveries_webhook(
-            webhook_id="webhook_id",
-            first=42,
-            last=42,
-        )
-        for item in response:
-            yield item
-        # alternatively, you can paginate page-by-page
-        for page in response.iter_pages():
-            yield page
-        """
-        return self._raw_client.deliveries_webhook(
-            webhook_id, after=after, before=before, first=first, last=last, request_options=request_options
-        )
 
 
 class AsyncWebhooksClient:
@@ -660,7 +593,7 @@ class AsyncWebhooksClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -741,7 +674,7 @@ class AsyncWebhooksClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -790,7 +723,7 @@ class AsyncWebhooksClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -833,7 +766,7 @@ class AsyncWebhooksClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -899,7 +832,7 @@ class AsyncWebhooksClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -961,7 +894,7 @@ class AsyncWebhooksClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1020,7 +953,7 @@ class AsyncWebhooksClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1089,7 +1022,7 @@ class AsyncWebhooksClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1144,7 +1077,7 @@ class AsyncWebhooksClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1161,77 +1094,3 @@ class AsyncWebhooksClient:
         """
         _response = await self._raw_client.test(id, event=event, request_options=request_options)
         return _response.data
-
-    async def deliveries_webhook(
-        self,
-        webhook_id: str,
-        *,
-        after: typing.Optional[str] = None,
-        before: typing.Optional[str] = None,
-        first: typing.Optional[int] = None,
-        last: typing.Optional[int] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncPager[DeliveriesWebhookResponseDataItem, DeliveriesWebhookResponse]:
-        """
-        Returns a paginated list of delivery attempts for a webhook, ordered by most recent first. Includes the request payload, response body, response code, and timing for each attempt.
-
-        Required permissions:
-         - `developer:manage_webhook`
-
-        Parameters
-        ----------
-        webhook_id : str
-            The unique identifier of the webhook to list deliveries for.
-
-        after : typing.Optional[str]
-            Returns the elements in the list that come after the specified cursor.
-
-        before : typing.Optional[str]
-            Returns the elements in the list that come before the specified cursor.
-
-        first : typing.Optional[int]
-            Returns the first _n_ elements from the list.
-
-        last : typing.Optional[int]
-            Returns the last _n_ elements from the list.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncPager[DeliveriesWebhookResponseDataItem, DeliveriesWebhookResponse]
-            A successful response
-
-        Examples
-        --------
-        import asyncio
-
-        from whop_sdk import AsyncWhop
-
-        client = AsyncWhop(
-            "2026-09-02-2",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            response = await client.webhooks.deliveries_webhook(
-                webhook_id="webhook_id",
-                first=42,
-                last=42,
-            )
-            async for item in response:
-                yield item
-
-            # alternatively, you can paginate page-by-page
-            async for page in response.iter_pages():
-                yield page
-
-
-        asyncio.run(main())
-        """
-        return await self._raw_client.deliveries_webhook(
-            webhook_id, after=after, before=before, first=first, last=last, request_options=request_options
-        )

@@ -27,6 +27,11 @@ class CheckoutConfigurationListItem(UniversalBaseModel):
     The affiliate code to use for the checkout configuration
     """
 
+    company_id: str = pydantic.Field()
+    """
+    The ID of the account to use for the checkout configuration
+    """
+
     currency: typing.Optional[Currencies] = pydantic.Field(default=None)
     """
     The currency to use for the configuration when in 'setup' mode. This is used to target which currency specific payment methods are available. If not provided, it will default to 'usd' when in setup mode.

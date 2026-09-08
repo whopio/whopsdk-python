@@ -116,6 +116,7 @@ if typing.TYPE_CHECKING:
     from .retrieve_cards_response_status import RetrieveCardsResponseStatus
     from .retrieve_cards_response_type import RetrieveCardsResponseType
     from .update_cards_request_billing import UpdateCardsRequestBilling
+    from .update_cards_request_cardholder import UpdateCardsRequestCardholder
     from .update_cards_request_spend_limit_frequency import UpdateCardsRequestSpendLimitFrequency
     from .update_cards_response import UpdateCardsResponse
     from .update_cards_response_billing import UpdateCardsResponseBilling
@@ -236,6 +237,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrieveCardsResponseStatus": ".retrieve_cards_response_status",
     "RetrieveCardsResponseType": ".retrieve_cards_response_type",
     "UpdateCardsRequestBilling": ".update_cards_request_billing",
+    "UpdateCardsRequestCardholder": ".update_cards_request_cardholder",
     "UpdateCardsRequestSpendLimitFrequency": ".update_cards_request_spend_limit_frequency",
     "UpdateCardsResponse": ".update_cards_response",
     "UpdateCardsResponseBilling": ".update_cards_response_billing",
@@ -380,6 +382,7 @@ __all__ = [
     "RetrieveCardsResponseStatus",
     "RetrieveCardsResponseType",
     "UpdateCardsRequestBilling",
+    "UpdateCardsRequestCardholder",
     "UpdateCardsRequestSpendLimitFrequency",
     "UpdateCardsResponse",
     "UpdateCardsResponseBilling",

@@ -164,6 +164,11 @@ class Payment(UniversalBaseModel):
     The promo code applied at checkout, prefixed `promo_`, or null.
     """
 
+    recovery_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Whop-hosted URL where the buyer can sign in and complete 3D Secure for a failed subscription renewal. Null when recovery is unavailable, you lack `member:basic:read`, or in list responses. Retrieve the payment for it.
+    """
+
     refundable: bool = pydantic.Field()
     """
     True when the payment is `paid`, not yet fully refunded, and its processor supports refunds.

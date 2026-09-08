@@ -17,6 +17,7 @@ if typing.TYPE_CHECKING:
         CreateConfirmationTokensRequestPaymentMethodGooglePay,
         CreateConfirmationTokensRequestPaymentMethodPayerDocument,
         CreateConfirmationTokensRequestPaymentMethodPayerDocumentType,
+        CreateConfirmationTokensRequestPaymentMethodRedirect,
         CreateConfirmationTokensRequestPaymentMethodSaved,
         CreateConfirmationTokensRequestSetupFutureUsage,
     )
@@ -31,6 +32,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateConfirmationTokensRequestPaymentMethodGooglePay": ".types",
     "CreateConfirmationTokensRequestPaymentMethodPayerDocument": ".types",
     "CreateConfirmationTokensRequestPaymentMethodPayerDocumentType": ".types",
+    "CreateConfirmationTokensRequestPaymentMethodRedirect": ".types",
     "CreateConfirmationTokensRequestPaymentMethodSaved": ".types",
     "CreateConfirmationTokensRequestSetupFutureUsage": ".types",
 }
@@ -68,6 +70,7 @@ __all__ = [
     "CreateConfirmationTokensRequestPaymentMethodGooglePay",
     "CreateConfirmationTokensRequestPaymentMethodPayerDocument",
     "CreateConfirmationTokensRequestPaymentMethodPayerDocumentType",
+    "CreateConfirmationTokensRequestPaymentMethodRedirect",
     "CreateConfirmationTokensRequestPaymentMethodSaved",
     "CreateConfirmationTokensRequestSetupFutureUsage",
 ]

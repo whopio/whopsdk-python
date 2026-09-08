@@ -234,7 +234,7 @@ class RawPlansClient:
         Parameters
         ----------
         account_id : typing.Optional[str]
-            The unique identifier of the account to create this plan for. Defaults to the caller's account.
+            The unique identifier of the account to create this plan for. Required when authenticating as a user; an account API key supplies its own account.
 
         adaptive_pricing_enabled : typing.Optional[bool]
             Whether this plan accepts local currency payments via adaptive pricing.
@@ -261,7 +261,7 @@ class RawPlansClient:
             An image displayed on the product page to represent this plan.
 
         initial_price : typing.Optional[float]
-            Initial amount charged in the plan's currency, e.g. 10.43 for $10.43.
+            Initial amount charged in the plan's currency, e.g. 10.43 for $10.43. A paid fiat plan charges at least 1.00 in its currency; use 0 for free.
 
         internal_notes : typing.Optional[str]
             Private notes visible only to the account owner. Not shown to customers.
@@ -285,7 +285,7 @@ class RawPlansClient:
             Sales method for this plan.
 
         renewal_price : typing.Optional[float]
-            The amount charged each billing period for recurring plans, in the plan's currency.
+            The amount charged each billing period for recurring plans, in the plan's currency. A paid fiat plan charges at least 1.00 in its currency.
 
         split_pay_required_payments : typing.Optional[int]
             Installment payments required before the subscription pauses.
@@ -591,7 +591,7 @@ class RawPlansClient:
             An image displayed on the product page to represent this plan.
 
         initial_price : typing.Optional[float]
-            Initial amount charged in the plan's currency, e.g. 10.43 for $10.43.
+            Initial amount charged in the plan's currency, e.g. 10.43 for $10.43. A paid fiat plan charges at least 1.00 in its currency; use 0 for free.
 
         internal_notes : typing.Optional[str]
             Private notes visible only to the account owner. Not shown to customers.
@@ -612,7 +612,7 @@ class RawPlansClient:
             Sales method for this plan.
 
         renewal_price : typing.Optional[float]
-            The amount charged each billing period for recurring plans, in the plan's currency.
+            The amount charged each billing period for recurring plans, in the plan's currency. A paid fiat plan charges at least 1.00 in its currency.
 
         stock : typing.Optional[int]
             The maximum number of units available for purchase. Ignored when unlimited_stock is true.
@@ -1048,7 +1048,7 @@ class AsyncRawPlansClient:
         Parameters
         ----------
         account_id : typing.Optional[str]
-            The unique identifier of the account to create this plan for. Defaults to the caller's account.
+            The unique identifier of the account to create this plan for. Required when authenticating as a user; an account API key supplies its own account.
 
         adaptive_pricing_enabled : typing.Optional[bool]
             Whether this plan accepts local currency payments via adaptive pricing.
@@ -1075,7 +1075,7 @@ class AsyncRawPlansClient:
             An image displayed on the product page to represent this plan.
 
         initial_price : typing.Optional[float]
-            Initial amount charged in the plan's currency, e.g. 10.43 for $10.43.
+            Initial amount charged in the plan's currency, e.g. 10.43 for $10.43. A paid fiat plan charges at least 1.00 in its currency; use 0 for free.
 
         internal_notes : typing.Optional[str]
             Private notes visible only to the account owner. Not shown to customers.
@@ -1099,7 +1099,7 @@ class AsyncRawPlansClient:
             Sales method for this plan.
 
         renewal_price : typing.Optional[float]
-            The amount charged each billing period for recurring plans, in the plan's currency.
+            The amount charged each billing period for recurring plans, in the plan's currency. A paid fiat plan charges at least 1.00 in its currency.
 
         split_pay_required_payments : typing.Optional[int]
             Installment payments required before the subscription pauses.
@@ -1407,7 +1407,7 @@ class AsyncRawPlansClient:
             An image displayed on the product page to represent this plan.
 
         initial_price : typing.Optional[float]
-            Initial amount charged in the plan's currency, e.g. 10.43 for $10.43.
+            Initial amount charged in the plan's currency, e.g. 10.43 for $10.43. A paid fiat plan charges at least 1.00 in its currency; use 0 for free.
 
         internal_notes : typing.Optional[str]
             Private notes visible only to the account owner. Not shown to customers.
@@ -1428,7 +1428,7 @@ class AsyncRawPlansClient:
             Sales method for this plan.
 
         renewal_price : typing.Optional[float]
-            The amount charged each billing period for recurring plans, in the plan's currency.
+            The amount charged each billing period for recurring plans, in the plan's currency. A paid fiat plan charges at least 1.00 in its currency.
 
         stock : typing.Optional[int]
             The maximum number of units available for purchase. Ignored when unlimited_stock is true.

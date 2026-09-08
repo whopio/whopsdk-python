@@ -20,7 +20,7 @@ class CreateDepositsResponseMethods(UniversalBaseModel):
 
     crypto: typing.List[CreateDepositsResponseMethodsCryptoItem] = pydantic.Field()
     """
-    Crypto networks available for this deposit, each with its on-chain deposit address and the tokens accepted on that network.
+    Crypto networks available for this deposit, each with its on-chain deposit address and the tokens accepted on that network. Crypto deposits require a $10 minimum.
     """
 
     if IS_PYDANTIC_V2:

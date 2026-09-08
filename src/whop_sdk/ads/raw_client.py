@@ -263,7 +263,7 @@ class RawAdsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Ad]:
         """
-        Creates an ad in an ad group.
+        Creates an ad in an ad group. Any campaign status other than `draft` launches the campaign, which requires an ads payment method on the account.
 
         Parameters
         ----------
@@ -1124,7 +1124,7 @@ class AsyncRawAdsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Ad]:
         """
-        Creates an ad in an ad group.
+        Creates an ad in an ad group. Any campaign status other than `draft` launches the campaign, which requires an ads payment method on the account.
 
         Parameters
         ----------

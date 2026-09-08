@@ -2,4 +2,4 @@
 
 import typing
 
-ListAudiencesRequestSourceType = typing.Union[typing.Literal["csv_upload", "people_filter"], typing.Any]
+ListAudiencesRequestSourceType = typing.Union[typing.Literal["csv_upload", "people_filter", "engagement"], typing.Any]

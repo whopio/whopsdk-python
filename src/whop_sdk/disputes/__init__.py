@@ -28,10 +28,6 @@ if typing.TYPE_CHECKING:
         UpdateDisputesRequestEvidenceCustomerCommunicationAttachment,
         UpdateDisputesRequestEvidenceRefundPolicyAttachment,
         UpdateDisputesRequestEvidenceUncategorizedAttachment,
-        UpdateEvidenceDisputeRequestCancellationPolicyAttachment,
-        UpdateEvidenceDisputeRequestCustomerCommunicationAttachment,
-        UpdateEvidenceDisputeRequestRefundPolicyAttachment,
-        UpdateEvidenceDisputeRequestUncategorizedAttachment,
         UploadEvidenceDisputesRequestDocumentsItem,
         UploadEvidenceDisputesRequestDocumentsItemDocumentType,
     )
@@ -57,10 +53,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateDisputesRequestEvidenceCustomerCommunicationAttachment": ".types",
     "UpdateDisputesRequestEvidenceRefundPolicyAttachment": ".types",
     "UpdateDisputesRequestEvidenceUncategorizedAttachment": ".types",
-    "UpdateEvidenceDisputeRequestCancellationPolicyAttachment": ".types",
-    "UpdateEvidenceDisputeRequestCustomerCommunicationAttachment": ".types",
-    "UpdateEvidenceDisputeRequestRefundPolicyAttachment": ".types",
-    "UpdateEvidenceDisputeRequestUncategorizedAttachment": ".types",
     "UploadEvidenceDisputesRequestDocumentsItem": ".types",
     "UploadEvidenceDisputesRequestDocumentsItemDocumentType": ".types",
 }
@@ -109,10 +101,6 @@ __all__ = [
     "UpdateDisputesRequestEvidenceCustomerCommunicationAttachment",
     "UpdateDisputesRequestEvidenceRefundPolicyAttachment",
     "UpdateDisputesRequestEvidenceUncategorizedAttachment",
-    "UpdateEvidenceDisputeRequestCancellationPolicyAttachment",
-    "UpdateEvidenceDisputeRequestCustomerCommunicationAttachment",
-    "UpdateEvidenceDisputeRequestRefundPolicyAttachment",
-    "UpdateEvidenceDisputeRequestUncategorizedAttachment",
     "UploadEvidenceDisputesRequestDocumentsItem",
     "UploadEvidenceDisputesRequestDocumentsItemDocumentType",
 ]

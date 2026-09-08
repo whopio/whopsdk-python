@@ -34,7 +34,7 @@ class DepositsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateDepositsResponse:
         """
-        Retrieve the deposit methods for an account, including crypto and bank transfer.
+        Retrieve the deposit methods for an account, including crypto and bank transfer. Crypto deposits require a $10 minimum.
 
         Parameters
         ----------
@@ -42,7 +42,7 @@ class DepositsClient:
             Account ID to fund, `biz_` or `user_`. Any business resolves without authentication; a user account resolves only for that same authenticated user.
 
         amount : typing.Optional[float]
-            Amount to prefill on hosted deposit page.
+            Amount to prefill on hosted deposit page. Crypto deposits require a $10 minimum.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -57,7 +57,7 @@ class DepositsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -92,7 +92,7 @@ class AsyncDepositsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateDepositsResponse:
         """
-        Retrieve the deposit methods for an account, including crypto and bank transfer.
+        Retrieve the deposit methods for an account, including crypto and bank transfer. Crypto deposits require a $10 minimum.
 
         Parameters
         ----------
@@ -100,7 +100,7 @@ class AsyncDepositsClient:
             Account ID to fund, `biz_` or `user_`. Any business resolves without authentication; a user account resolves only for that same authenticated user.
 
         amount : typing.Optional[float]
-            Amount to prefill on hosted deposit page.
+            Amount to prefill on hosted deposit page. Crypto deposits require a $10 minimum.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -117,7 +117,7 @@ class AsyncDepositsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

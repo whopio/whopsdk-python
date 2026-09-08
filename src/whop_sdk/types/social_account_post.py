@@ -14,6 +14,11 @@ class SocialAccountPost(UniversalBaseModel):
     The post's call-to-action button, for example shop_now (Facebook only; null for Instagram and TikTok).
     """
 
+    caption: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The text accompanying the post, when available.
+    """
+
     destination_url: typing.Optional[str] = pydantic.Field(default=None)
     """
     The URL the post's call-to-action drives to (Facebook only; null for Instagram and TikTok).
@@ -38,6 +43,11 @@ class SocialAccountPost(UniversalBaseModel):
     thumbnail_url: typing.Optional[str] = pydantic.Field(default=None)
     """
     Poster image for video posts (always set for TikTok, which is video-only); null for image posts, where media_url is already the image.
+    """
+
+    video_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The platform video identifier for engagement audience rules. Null for non-video posts or when unavailable. Facebook video identifiers differ from post identifiers.
     """
 
     if IS_PYDANTIC_V2:

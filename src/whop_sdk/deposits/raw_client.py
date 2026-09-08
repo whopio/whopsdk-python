@@ -31,7 +31,7 @@ class RawDepositsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateDepositsResponse]:
         """
-        Retrieve the deposit methods for an account, including crypto and bank transfer.
+        Retrieve the deposit methods for an account, including crypto and bank transfer. Crypto deposits require a $10 minimum.
 
         Parameters
         ----------
@@ -39,7 +39,7 @@ class RawDepositsClient:
             Account ID to fund, `biz_` or `user_`. Any business resolves without authentication; a user account resolves only for that same authenticated user.
 
         amount : typing.Optional[float]
-            Amount to prefill on hosted deposit page.
+            Amount to prefill on hosted deposit page. Crypto deposits require a $10 minimum.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -116,7 +116,7 @@ class AsyncRawDepositsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateDepositsResponse]:
         """
-        Retrieve the deposit methods for an account, including crypto and bank transfer.
+        Retrieve the deposit methods for an account, including crypto and bank transfer. Crypto deposits require a $10 minimum.
 
         Parameters
         ----------
@@ -124,7 +124,7 @@ class AsyncRawDepositsClient:
             Account ID to fund, `biz_` or `user_`. Any business resolves without authentication; a user account resolves only for that same authenticated user.
 
         amount : typing.Optional[float]
-            Amount to prefill on hosted deposit page.
+            Amount to prefill on hosted deposit page. Crypto deposits require a $10 minimum.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

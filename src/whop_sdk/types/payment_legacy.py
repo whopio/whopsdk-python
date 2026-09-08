@@ -219,6 +219,11 @@ class PaymentLegacy(UniversalBaseModel):
     The promo code used for this payment.
     """
 
+    recovery_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Whop-hosted URL where the buyer can sign in and complete 3D Secure for a failed subscription renewal. `null` when recovery is unavailable or you lack `member:basic:read`.
+    """
+
     refundable: bool = pydantic.Field()
     """
     True only for payments that are `paid`, have not been fully refunded, and were processed by a payment processor that allows refunds.
