@@ -623,7 +623,7 @@ class RawProductsClient:
 
     def publish(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[Product]:
         """
-        Submits a product to the whop.com marketplace for review. The product moves to `pending_review`; a Whop reviewer approves it before it goes live.
+        Submits a product to the whop.com marketplace for review. The product moves to `pending_review`; a Whop reviewer approves it before it goes live. Requires a logo, a headline, and at least one gallery image or video; the request fails naming whichever is missing.
 
         Parameters
         ----------
@@ -1367,7 +1367,7 @@ class AsyncRawProductsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[Product]:
         """
-        Submits a product to the whop.com marketplace for review. The product moves to `pending_review`; a Whop reviewer approves it before it goes live.
+        Submits a product to the whop.com marketplace for review. The product moves to `pending_review`; a Whop reviewer approves it before it goes live. Requires a logo, a headline, and at least one gallery image or video; the request fails naming whichever is missing.
 
         Parameters
         ----------

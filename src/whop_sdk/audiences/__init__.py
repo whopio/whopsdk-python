@@ -9,6 +9,9 @@ if typing.TYPE_CHECKING:
     from .types import (
         CreateAudiencesRequestAudienceType,
         CreateAudiencesRequestColumnMapping,
+        CreateAudiencesRequestEngagement,
+        CreateAudiencesRequestEngagementPlatform,
+        CreateAudiencesRequestSourceType,
         CreateAudiencesResponse,
         CreateAudiencesResponseData,
         DeleteAudiencesResponse,
@@ -20,6 +23,9 @@ if typing.TYPE_CHECKING:
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateAudiencesRequestAudienceType": ".types",
     "CreateAudiencesRequestColumnMapping": ".types",
+    "CreateAudiencesRequestEngagement": ".types",
+    "CreateAudiencesRequestEngagementPlatform": ".types",
+    "CreateAudiencesRequestSourceType": ".types",
     "CreateAudiencesResponse": ".types",
     "CreateAudiencesResponseData": ".types",
     "DeleteAudiencesResponse": ".types",
@@ -54,6 +60,9 @@ def __dir__():
 __all__ = [
     "CreateAudiencesRequestAudienceType",
     "CreateAudiencesRequestColumnMapping",
+    "CreateAudiencesRequestEngagement",
+    "CreateAudiencesRequestEngagementPlatform",
+    "CreateAudiencesRequestSourceType",
     "CreateAudiencesResponse",
     "CreateAudiencesResponseData",
     "DeleteAudiencesResponse",

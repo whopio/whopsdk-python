@@ -140,7 +140,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -176,6 +176,7 @@ class AccountsClient:
         country: typing.Optional[str] = OMIT,
         email: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
+        send_customer_emails: typing.Optional[bool] = OMIT,
         title: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Account:
@@ -199,6 +200,9 @@ class AccountsClient:
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
             Arbitrary key/value metadata to store on the account.
 
+        send_customer_emails : typing.Optional[bool]
+            Whether Whop sends transactional emails to customers on behalf of the connected account.
+
         title : typing.Optional[str]
             The display name of the account. Defaults to `metadata.external_id` or the owner's email when omitted.
 
@@ -215,7 +219,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -227,6 +231,7 @@ class AccountsClient:
             country=country,
             email=email,
             metadata=metadata,
+            send_customer_emails=send_customer_emails,
             title=title,
             request_options=request_options,
         )
@@ -251,7 +256,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -282,7 +287,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -474,7 +479,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -615,7 +620,7 @@ class AccountsClient:
         )
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -709,7 +714,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -759,7 +764,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -885,7 +890,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -928,6 +933,7 @@ class AsyncAccountsClient:
         country: typing.Optional[str] = OMIT,
         email: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
+        send_customer_emails: typing.Optional[bool] = OMIT,
         title: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Account:
@@ -951,6 +957,9 @@ class AsyncAccountsClient:
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
             Arbitrary key/value metadata to store on the account.
 
+        send_customer_emails : typing.Optional[bool]
+            Whether Whop sends transactional emails to customers on behalf of the connected account.
+
         title : typing.Optional[str]
             The display name of the account. Defaults to `metadata.external_id` or the owner's email when omitted.
 
@@ -969,7 +978,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -987,6 +996,7 @@ class AsyncAccountsClient:
             country=country,
             email=email,
             metadata=metadata,
+            send_customer_emails=send_customer_emails,
             title=title,
             request_options=request_options,
         )
@@ -1013,7 +1023,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1052,7 +1062,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1252,7 +1262,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1401,7 +1411,7 @@ class AsyncAccountsClient:
         )
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1503,7 +1513,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1561,7 +1571,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

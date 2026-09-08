@@ -6,6 +6,7 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .create_transfers_request_feed_type import CreateTransfersRequestFeedType
     from .create_transfers_request_type import CreateTransfersRequestType
     from .create_transfers_response import (
         CreateTransfersResponse,
@@ -139,6 +140,7 @@ if typing.TYPE_CHECKING:
     from .retrieve_transfers_response_origin_user import RetrieveTransfersResponseOriginUser
     from .retrieve_transfers_response_status import RetrieveTransfersResponseStatus
 _dynamic_imports: typing.Dict[str, str] = {
+    "CreateTransfersRequestFeedType": ".create_transfers_request_feed_type",
     "CreateTransfersRequestType": ".create_transfers_request_type",
     "CreateTransfersResponse": ".create_transfers_response",
     "CreateTransfersResponseClaimLink": ".create_transfers_response_claim_link",
@@ -268,6 +270,7 @@ def __dir__():
 
 
 __all__ = [
+    "CreateTransfersRequestFeedType",
     "CreateTransfersRequestType",
     "CreateTransfersResponse",
     "CreateTransfersResponseClaimLink",

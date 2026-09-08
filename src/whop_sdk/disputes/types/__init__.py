@@ -35,18 +35,6 @@ if typing.TYPE_CHECKING:
     from .update_disputes_request_evidence_uncategorized_attachment import (
         UpdateDisputesRequestEvidenceUncategorizedAttachment,
     )
-    from .update_evidence_dispute_request_cancellation_policy_attachment import (
-        UpdateEvidenceDisputeRequestCancellationPolicyAttachment,
-    )
-    from .update_evidence_dispute_request_customer_communication_attachment import (
-        UpdateEvidenceDisputeRequestCustomerCommunicationAttachment,
-    )
-    from .update_evidence_dispute_request_refund_policy_attachment import (
-        UpdateEvidenceDisputeRequestRefundPolicyAttachment,
-    )
-    from .update_evidence_dispute_request_uncategorized_attachment import (
-        UpdateEvidenceDisputeRequestUncategorizedAttachment,
-    )
     from .upload_evidence_disputes_request_documents_item import UploadEvidenceDisputesRequestDocumentsItem
     from .upload_evidence_disputes_request_documents_item_document_type import (
         UploadEvidenceDisputesRequestDocumentsItemDocumentType,
@@ -73,10 +61,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateDisputesRequestEvidenceCustomerCommunicationAttachment": ".update_disputes_request_evidence_customer_communication_attachment",
     "UpdateDisputesRequestEvidenceRefundPolicyAttachment": ".update_disputes_request_evidence_refund_policy_attachment",
     "UpdateDisputesRequestEvidenceUncategorizedAttachment": ".update_disputes_request_evidence_uncategorized_attachment",
-    "UpdateEvidenceDisputeRequestCancellationPolicyAttachment": ".update_evidence_dispute_request_cancellation_policy_attachment",
-    "UpdateEvidenceDisputeRequestCustomerCommunicationAttachment": ".update_evidence_dispute_request_customer_communication_attachment",
-    "UpdateEvidenceDisputeRequestRefundPolicyAttachment": ".update_evidence_dispute_request_refund_policy_attachment",
-    "UpdateEvidenceDisputeRequestUncategorizedAttachment": ".update_evidence_dispute_request_uncategorized_attachment",
     "UploadEvidenceDisputesRequestDocumentsItem": ".upload_evidence_disputes_request_documents_item",
     "UploadEvidenceDisputesRequestDocumentsItemDocumentType": ".upload_evidence_disputes_request_documents_item_document_type",
 }
@@ -125,10 +109,6 @@ __all__ = [
     "UpdateDisputesRequestEvidenceCustomerCommunicationAttachment",
     "UpdateDisputesRequestEvidenceRefundPolicyAttachment",
     "UpdateDisputesRequestEvidenceUncategorizedAttachment",
-    "UpdateEvidenceDisputeRequestCancellationPolicyAttachment",
-    "UpdateEvidenceDisputeRequestCustomerCommunicationAttachment",
-    "UpdateEvidenceDisputeRequestRefundPolicyAttachment",
-    "UpdateEvidenceDisputeRequestUncategorizedAttachment",
     "UploadEvidenceDisputesRequestDocumentsItem",
     "UploadEvidenceDisputesRequestDocumentsItemDocumentType",
 ]

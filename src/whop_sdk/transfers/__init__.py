@@ -7,6 +7,7 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
+        CreateTransfersRequestFeedType,
         CreateTransfersRequestType,
         CreateTransfersResponse,
         CreateTransfersResponseClaimLink,
@@ -113,6 +114,7 @@ if typing.TYPE_CHECKING:
         RetrieveTransfersResponseStatus,
     )
 _dynamic_imports: typing.Dict[str, str] = {
+    "CreateTransfersRequestFeedType": ".types",
     "CreateTransfersRequestType": ".types",
     "CreateTransfersResponse": ".types",
     "CreateTransfersResponseClaimLink": ".types",
@@ -242,6 +244,7 @@ def __dir__():
 
 
 __all__ = [
+    "CreateTransfersRequestFeedType",
     "CreateTransfersRequestType",
     "CreateTransfersResponse",
     "CreateTransfersResponseClaimLink",

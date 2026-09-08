@@ -9,9 +9,6 @@ if typing.TYPE_CHECKING:
     from .types import (
         CreateWebhooksRequestEventsItem,
         DeleteWebhooksResponse,
-        DeliveriesWebhookResponse,
-        DeliveriesWebhookResponseDataItem,
-        DeliveriesWebhookResponsePageInfo,
         ListDeliveriesWebhooksResponse,
         ListDeliveriesWebhooksResponsePageInfo,
         ListWebhooksResponse,
@@ -24,9 +21,6 @@ if typing.TYPE_CHECKING:
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateWebhooksRequestEventsItem": ".types",
     "DeleteWebhooksResponse": ".types",
-    "DeliveriesWebhookResponse": ".types",
-    "DeliveriesWebhookResponseDataItem": ".types",
-    "DeliveriesWebhookResponsePageInfo": ".types",
     "ListDeliveriesWebhooksResponse": ".types",
     "ListDeliveriesWebhooksResponsePageInfo": ".types",
     "ListWebhooksResponse": ".types",
@@ -62,9 +56,6 @@ def __dir__():
 __all__ = [
     "CreateWebhooksRequestEventsItem",
     "DeleteWebhooksResponse",
-    "DeliveriesWebhookResponse",
-    "DeliveriesWebhookResponseDataItem",
-    "DeliveriesWebhookResponsePageInfo",
     "ListDeliveriesWebhooksResponse",
     "ListDeliveriesWebhooksResponsePageInfo",
     "ListWebhooksResponse",

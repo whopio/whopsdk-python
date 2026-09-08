@@ -22,6 +22,7 @@ from .types.create_cards_response import CreateCardsResponse
 from .types.list_cards_response import ListCardsResponse
 from .types.retrieve_cards_response import RetrieveCardsResponse
 from .types.update_cards_request_billing import UpdateCardsRequestBilling
+from .types.update_cards_request_cardholder import UpdateCardsRequestCardholder
 from .types.update_cards_request_spend_limit_frequency import UpdateCardsRequestSpendLimitFrequency
 from .types.update_cards_response import UpdateCardsResponse
 from pydantic import ValidationError
@@ -346,6 +347,7 @@ class RawCardsClient:
         account_id: typing.Optional[str] = OMIT,
         billing: typing.Optional[UpdateCardsRequestBilling] = OMIT,
         canceled: typing.Optional[bool] = OMIT,
+        cardholder: typing.Optional[UpdateCardsRequestCardholder] = OMIT,
         frozen: typing.Optional[bool] = OMIT,
         name: typing.Optional[str] = OMIT,
         pin: typing.Optional[str] = OMIT,
@@ -368,10 +370,13 @@ class RawCardsClient:
             The owning account ID (a biz_ identifier). Provide this or user_id.
 
         billing : typing.Optional[UpdateCardsRequestBilling]
-            New billing address. Requires line1, city, region, postal_code, and country_code. On an invited card, passing billing alone (as the invited user) completes onboarding and starts card provisioning.
+            The billing address. On an issued card this replaces the card's billing address and region is also required. On an invited card, sending it as the invited user completes onboarding and starts card provisioning.
 
         canceled : typing.Optional[bool]
             Pass `true` to permanently cancel the card. A canceled card cannot be uncanceled. Cannot be combined with other fields.
+
+        cardholder : typing.Optional[UpdateCardsRequestCardholder]
+            Details for the invited cardholder, accepted only while completing onboarding on an invited card. The legal name comes from an approved identity verification when the invited user has one, and from these fields when they do not.
 
         frozen : typing.Optional[bool]
             Pass `true` to freeze the card, `false` to unfreeze it. The assigned cardholder may freeze their own card without the payout:account:update scope.
@@ -414,6 +419,9 @@ class RawCardsClient:
                     object_=billing, annotation=UpdateCardsRequestBilling, direction="write"
                 ),
                 "canceled": canceled,
+                "cardholder": convert_and_respect_annotation_metadata(
+                    object_=cardholder, annotation=UpdateCardsRequestCardholder, direction="write"
+                ),
                 "frozen": frozen,
                 "name": name,
                 "pin": pin,
@@ -809,6 +817,7 @@ class AsyncRawCardsClient:
         account_id: typing.Optional[str] = OMIT,
         billing: typing.Optional[UpdateCardsRequestBilling] = OMIT,
         canceled: typing.Optional[bool] = OMIT,
+        cardholder: typing.Optional[UpdateCardsRequestCardholder] = OMIT,
         frozen: typing.Optional[bool] = OMIT,
         name: typing.Optional[str] = OMIT,
         pin: typing.Optional[str] = OMIT,
@@ -831,10 +840,13 @@ class AsyncRawCardsClient:
             The owning account ID (a biz_ identifier). Provide this or user_id.
 
         billing : typing.Optional[UpdateCardsRequestBilling]
-            New billing address. Requires line1, city, region, postal_code, and country_code. On an invited card, passing billing alone (as the invited user) completes onboarding and starts card provisioning.
+            The billing address. On an issued card this replaces the card's billing address and region is also required. On an invited card, sending it as the invited user completes onboarding and starts card provisioning.
 
         canceled : typing.Optional[bool]
             Pass `true` to permanently cancel the card. A canceled card cannot be uncanceled. Cannot be combined with other fields.
+
+        cardholder : typing.Optional[UpdateCardsRequestCardholder]
+            Details for the invited cardholder, accepted only while completing onboarding on an invited card. The legal name comes from an approved identity verification when the invited user has one, and from these fields when they do not.
 
         frozen : typing.Optional[bool]
             Pass `true` to freeze the card, `false` to unfreeze it. The assigned cardholder may freeze their own card without the payout:account:update scope.
@@ -877,6 +889,9 @@ class AsyncRawCardsClient:
                     object_=billing, annotation=UpdateCardsRequestBilling, direction="write"
                 ),
                 "canceled": canceled,
+                "cardholder": convert_and_respect_annotation_metadata(
+                    object_=cardholder, annotation=UpdateCardsRequestCardholder, direction="write"
+                ),
                 "frozen": frozen,
                 "name": name,
                 "pin": pin,

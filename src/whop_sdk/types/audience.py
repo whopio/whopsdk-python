@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .audience_audience_type import AudienceAudienceType
+from .audience_engagement import AudienceEngagement
 from .audience_match_rate import AudienceMatchRate
 from .audience_source_type import AudienceSourceType
 from .audience_status import AudienceStatus
@@ -13,17 +14,22 @@ from .audience_status import AudienceStatus
 class Audience(UniversalBaseModel):
     audience_type: AudienceAudienceType = pydantic.Field()
     """
-    `custom` = a customer list (uploaded, or built from saved People filters); `lookalike` = Meta lookalike built from a custom audience.
+    Whether the audience targets a defined group of people or people similar to an existing audience.
     """
 
     auto_refresh: bool = pydantic.Field()
     """
-    Whether membership keeps updating. `true` rebuilds it from the saved filters twice a day, so people join and leave as they start and stop matching. `false` keeps whoever matched when it was built and never rebuilds. Always `false` for uploaded lists and lookalikes.
+    Whether Whop rebuilds membership from saved People filters twice a day. When `false`, People audiences keep the members matched at creation. Always `false` for uploaded lists, lookalikes, and engagement audiences. Engagement membership is maintained by Meta.
     """
 
     created_at: str = pydantic.Field()
     """
     When the audience was created, as an ISO 8601 timestamp.
+    """
+
+    engagement: typing.Optional[AudienceEngagement] = pydantic.Field(default=None)
+    """
+    Social engagement rules maintained by the ad platform. `null` for other audience sources.
     """
 
     error_message: typing.Optional[str] = pydantic.Field(default=None)
@@ -33,7 +39,7 @@ class Audience(UniversalBaseModel):
 
     filters: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
     """
-    For audiences built from People filters: the filters that define membership, keyed exactly as `GET /people` accepts them — for example `{"os": "iOS", "country": "US"}`. `null` for uploaded lists and lookalikes.
+    Saved Whop People filters that define membership, using the same keys as `GET /people`. `null` for uploaded lists, engagement audiences, and lookalikes.
     """
 
     id: str = pydantic.Field()
@@ -59,7 +65,7 @@ class Audience(UniversalBaseModel):
     match_rates: typing.List[AudienceMatchRate]
     matched_rows: float = pydantic.Field()
     """
-    Members successfully uploaded to connected ad accounts. Always 0 for lookalikes.
+    Members successfully uploaded to connected ad accounts. Always 0 for lookalikes and engagement audiences.
     """
 
     name: str = pydantic.Field()
@@ -70,7 +76,7 @@ class Audience(UniversalBaseModel):
     platform_audience_ids: typing.List[str]
     processed_rows: float = pydantic.Field()
     """
-    Members processed from the source so far. Always 0 for lookalikes.
+    Members processed from the source so far. Always 0 for lookalikes and engagement audiences.
     """
 
     progress_percent: float = pydantic.Field()
@@ -85,17 +91,17 @@ class Audience(UniversalBaseModel):
 
     source_type: AudienceSourceType = pydantic.Field()
     """
-    Where members come from. `csv_upload` = an uploaded customer list; `people_filter` = built from saved People filters. See `auto_refresh` for whether a `people_filter` audience keeps updating.
+    Membership source: an uploaded CSV, Whop People filters, or social engagement.
     """
 
     status: AudienceStatus = pydantic.Field()
     """
-    Current state of the audience import. `syncing` means Whop is sending matched rows to connected ad accounts. When status is `partial` or `failed`, `error_message` explains what went wrong.
+    Current state of audience creation. For engagement audiences, `ready` means the rules were created on Meta; membership may still be populating. `syncing` means Whop is sending matched rows to connected ad accounts. When status is `partial` or `failed`, `error_message` explains what went wrong.
     """
 
     total_rows: float = pydantic.Field()
     """
-    Total members detected in the source — CSV rows for uploaded lists, matching people for automatic audiences. Always 0 for lookalikes.
+    Total members detected in the source — CSV rows for uploaded lists, matching people for automatic audiences. Always 0 for lookalikes and engagement audiences.
     """
 
     updated_at: str = pydantic.Field()

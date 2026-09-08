@@ -6,14 +6,9 @@ import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class UpdateEvidenceDisputeRequestUncategorizedAttachment(UniversalBaseModel):
+class CreateConfirmationTokensRequestPaymentMethodRedirect(UniversalBaseModel):
     """
-    A file upload for evidence that does not fit into the other categories.
-    """
-
-    id: str = pydantic.Field()
-    """
-    The ID of an existing file object.
+    Category `redirect` only. Empty unless the method declares redirect-specific fields.
     """
 
     if IS_PYDANTIC_V2:

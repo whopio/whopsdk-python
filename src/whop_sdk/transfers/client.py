@@ -7,6 +7,7 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
 from .raw_client import AsyncRawTransfersClient, RawTransfersClient
+from .types.create_transfers_request_feed_type import CreateTransfersRequestFeedType
 from .types.create_transfers_request_type import CreateTransfersRequestType
 from .types.create_transfers_response import CreateTransfersResponse
 from .types.list_recipients_transfers_response import ListRecipientsTransfersResponse
@@ -99,7 +100,7 @@ class TransfersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -132,6 +133,8 @@ class TransfersClient:
         currency: typing.Optional[str] = OMIT,
         destination_id: typing.Optional[str] = OMIT,
         expires_at: typing.Optional[dt.datetime] = OMIT,
+        feed_id: typing.Optional[str] = OMIT,
+        feed_type: typing.Optional[CreateTransfersRequestFeedType] = OMIT,
         idempotence_key: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         notes: typing.Optional[str] = OMIT,
@@ -158,6 +161,12 @@ class TransfersClient:
 
         expires_at : typing.Optional[dt.datetime]
             claim_link only. Link expiry as an ISO 8601 timestamp. Defaults to 24 hours from creation.
+
+        feed_id : typing.Optional[str]
+            Ledger transfers only. The feed the transfer was initiated from. Given with `feed_type`, the payment receipt posts into that feed instead of a direct message.
+
+        feed_type : typing.Optional[CreateTransfersRequestFeedType]
+            Ledger transfers only. The type of the feed named by `feed_id`.
 
         idempotence_key : typing.Optional[str]
             Ledger transfers and wallet sends. A unique key that makes retries safe. Retrying with the same key returns the original transfer, or attaches to the original wallet send, instead of moving money twice.
@@ -187,7 +196,7 @@ class TransfersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -202,6 +211,8 @@ class TransfersClient:
             currency=currency,
             destination_id=destination_id,
             expires_at=expires_at,
+            feed_id=feed_id,
+            feed_type=feed_type,
             idempotence_key=idempotence_key,
             metadata=metadata,
             notes=notes,
@@ -250,7 +261,7 @@ class TransfersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -291,7 +302,7 @@ class TransfersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -383,7 +394,7 @@ class AsyncTransfersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -423,6 +434,8 @@ class AsyncTransfersClient:
         currency: typing.Optional[str] = OMIT,
         destination_id: typing.Optional[str] = OMIT,
         expires_at: typing.Optional[dt.datetime] = OMIT,
+        feed_id: typing.Optional[str] = OMIT,
+        feed_type: typing.Optional[CreateTransfersRequestFeedType] = OMIT,
         idempotence_key: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         notes: typing.Optional[str] = OMIT,
@@ -449,6 +462,12 @@ class AsyncTransfersClient:
 
         expires_at : typing.Optional[dt.datetime]
             claim_link only. Link expiry as an ISO 8601 timestamp. Defaults to 24 hours from creation.
+
+        feed_id : typing.Optional[str]
+            Ledger transfers only. The feed the transfer was initiated from. Given with `feed_type`, the payment receipt posts into that feed instead of a direct message.
+
+        feed_type : typing.Optional[CreateTransfersRequestFeedType]
+            Ledger transfers only. The type of the feed named by `feed_id`.
 
         idempotence_key : typing.Optional[str]
             Ledger transfers and wallet sends. A unique key that makes retries safe. Retrying with the same key returns the original transfer, or attaches to the original wallet send, instead of moving money twice.
@@ -480,7 +499,7 @@ class AsyncTransfersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -501,6 +520,8 @@ class AsyncTransfersClient:
             currency=currency,
             destination_id=destination_id,
             expires_at=expires_at,
+            feed_id=feed_id,
+            feed_type=feed_type,
             idempotence_key=idempotence_key,
             metadata=metadata,
             notes=notes,
@@ -551,7 +572,7 @@ class AsyncTransfersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -601,7 +622,7 @@ class AsyncTransfersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

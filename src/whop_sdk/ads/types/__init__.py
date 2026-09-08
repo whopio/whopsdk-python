@@ -43,6 +43,14 @@ if typing.TYPE_CHECKING:
     from .list_ads_request_status import ListAdsRequestStatus
     from .list_ads_response import ListAdsResponse
     from .list_ads_response_page_info import ListAdsResponsePageInfo
+    from .post_ad_updated_payload import PostAdUpdatedPayload
+    from .post_ad_updated_payload_api_version import PostAdUpdatedPayloadApiVersion
+    from .post_ad_updated_payload_data import PostAdUpdatedPayloadData
+    from .post_ad_updated_payload_data_call_to_action import PostAdUpdatedPayloadDataCallToAction
+    from .post_ad_updated_payload_data_delivery_status import PostAdUpdatedPayloadDataDeliveryStatus
+    from .post_ad_updated_payload_data_post_source import PostAdUpdatedPayloadDataPostSource
+    from .post_ad_updated_payload_data_status import PostAdUpdatedPayloadDataStatus
+    from .post_ad_updated_payload_type import PostAdUpdatedPayloadType
     from .retrieve_ads_request_attribution_model import RetrieveAdsRequestAttributionModel
     from .update_ads_request_call_to_action import UpdateAdsRequestCallToAction
     from .update_ads_request_creatives_item import UpdateAdsRequestCreativesItem
@@ -103,6 +111,14 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListAdsRequestStatus": ".list_ads_request_status",
     "ListAdsResponse": ".list_ads_response",
     "ListAdsResponsePageInfo": ".list_ads_response_page_info",
+    "PostAdUpdatedPayload": ".post_ad_updated_payload",
+    "PostAdUpdatedPayloadApiVersion": ".post_ad_updated_payload_api_version",
+    "PostAdUpdatedPayloadData": ".post_ad_updated_payload_data",
+    "PostAdUpdatedPayloadDataCallToAction": ".post_ad_updated_payload_data_call_to_action",
+    "PostAdUpdatedPayloadDataDeliveryStatus": ".post_ad_updated_payload_data_delivery_status",
+    "PostAdUpdatedPayloadDataPostSource": ".post_ad_updated_payload_data_post_source",
+    "PostAdUpdatedPayloadDataStatus": ".post_ad_updated_payload_data_status",
+    "PostAdUpdatedPayloadType": ".post_ad_updated_payload_type",
     "RetrieveAdsRequestAttributionModel": ".retrieve_ads_request_attribution_model",
     "UpdateAdsRequestCallToAction": ".update_ads_request_call_to_action",
     "UpdateAdsRequestCreativesItem": ".update_ads_request_creatives_item",
@@ -179,6 +195,14 @@ __all__ = [
     "ListAdsRequestStatus",
     "ListAdsResponse",
     "ListAdsResponsePageInfo",
+    "PostAdUpdatedPayload",
+    "PostAdUpdatedPayloadApiVersion",
+    "PostAdUpdatedPayloadData",
+    "PostAdUpdatedPayloadDataCallToAction",
+    "PostAdUpdatedPayloadDataDeliveryStatus",
+    "PostAdUpdatedPayloadDataPostSource",
+    "PostAdUpdatedPayloadDataStatus",
+    "PostAdUpdatedPayloadType",
     "RetrieveAdsRequestAttributionModel",
     "UpdateAdsRequestCallToAction",
     "UpdateAdsRequestCreativesItem",

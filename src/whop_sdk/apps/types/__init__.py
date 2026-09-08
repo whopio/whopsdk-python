@@ -25,9 +25,6 @@ if typing.TYPE_CHECKING:
     from .update_apps_request_icon import UpdateAppsRequestIcon
     from .update_apps_request_oauth_client_type import UpdateAppsRequestOauthClientType
     from .update_apps_request_status import UpdateAppsRequestStatus
-    from .update_permissions_app_request_requested_permissions_item import (
-        UpdatePermissionsAppRequestRequestedPermissionsItem,
-    )
     from .update_permissions_apps_request_requested_permissions_item import (
         UpdatePermissionsAppsRequestRequestedPermissionsItem,
     )
@@ -51,7 +48,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateAppsRequestIcon": ".update_apps_request_icon",
     "UpdateAppsRequestOauthClientType": ".update_apps_request_oauth_client_type",
     "UpdateAppsRequestStatus": ".update_apps_request_status",
-    "UpdatePermissionsAppRequestRequestedPermissionsItem": ".update_permissions_app_request_requested_permissions_item",
     "UpdatePermissionsAppsRequestRequestedPermissionsItem": ".update_permissions_apps_request_requested_permissions_item",
 }
 
@@ -97,6 +93,5 @@ __all__ = [
     "UpdateAppsRequestIcon",
     "UpdateAppsRequestOauthClientType",
     "UpdateAppsRequestStatus",
-    "UpdatePermissionsAppRequestRequestedPermissionsItem",
     "UpdatePermissionsAppsRequestRequestedPermissionsItem",
 ]

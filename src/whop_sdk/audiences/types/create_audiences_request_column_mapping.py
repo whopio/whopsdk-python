@@ -8,7 +8,7 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 class CreateAudiencesRequestColumnMapping(UniversalBaseModel):
     """
-    Custom audiences only. Maps supported identity fields to CSV column headers. Map at least one of `email` or `phone`.
+    CSV audiences only. Maps supported identity fields to CSV column headers. Map at least one of `email` or `phone`.
     """
 
     country: typing.Optional[str] = pydantic.Field(default=None)

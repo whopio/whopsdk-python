@@ -3,7 +3,9 @@
 import typing
 
 import pydantic
+import typing_extensions
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ....core.serialization import FieldMetadata
 
 
 class ListBusinessesResponseDataItemVolumeUsd(UniversalBaseModel):
@@ -15,6 +17,18 @@ class ListBusinessesResponseDataItemVolumeUsd(UniversalBaseModel):
     awaiting_settlement: str = pydantic.Field()
     """
     GMV awaiting settlement (commission not yet computed), in USD.
+    """
+
+    last30d: typing_extensions.Annotated[
+        str,
+        FieldMetadata(alias="last_30d"),
+        pydantic.Field(
+            alias="last_30d",
+            description="Credited GMV from the trailing 30 days (awaiting_settlement + settled), in USD.",
+        ),
+    ]
+    """
+    Credited GMV from the trailing 30 days (awaiting_settlement + settled), in USD.
     """
 
     settled: str = pydantic.Field()

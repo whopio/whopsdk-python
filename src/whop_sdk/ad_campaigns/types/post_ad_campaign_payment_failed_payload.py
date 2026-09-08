@@ -5,8 +5,8 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ...types.ad_campaign import AdCampaign
 from .post_ad_campaign_payment_failed_payload_api_version import PostAdCampaignPaymentFailedPayloadApiVersion
+from .post_ad_campaign_payment_failed_payload_data import PostAdCampaignPaymentFailedPayloadData
 from .post_ad_campaign_payment_failed_payload_type import PostAdCampaignPaymentFailedPayloadType
 
 
@@ -26,7 +26,7 @@ class PostAdCampaignPaymentFailedPayload(UniversalBaseModel):
     The dated API version (Api-Version-Date) the payload is serialized to
     """
 
-    data: AdCampaign
+    data: PostAdCampaignPaymentFailedPayloadData
     id: str = pydantic.Field()
     """
     A unique ID for every single webhook request

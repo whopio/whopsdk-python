@@ -26,7 +26,6 @@ if typing.TYPE_CHECKING:
         UpdateAppsRequestIcon,
         UpdateAppsRequestOauthClientType,
         UpdateAppsRequestStatus,
-        UpdatePermissionsAppRequestRequestedPermissionsItem,
         UpdatePermissionsAppsRequestRequestedPermissionsItem,
     )
 _dynamic_imports: typing.Dict[str, str] = {
@@ -49,7 +48,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateAppsRequestIcon": ".types",
     "UpdateAppsRequestOauthClientType": ".types",
     "UpdateAppsRequestStatus": ".types",
-    "UpdatePermissionsAppRequestRequestedPermissionsItem": ".types",
     "UpdatePermissionsAppsRequestRequestedPermissionsItem": ".types",
 }
 
@@ -95,6 +93,5 @@ __all__ = [
     "UpdateAppsRequestIcon",
     "UpdateAppsRequestOauthClientType",
     "UpdateAppsRequestStatus",
-    "UpdatePermissionsAppRequestRequestedPermissionsItem",
     "UpdatePermissionsAppsRequestRequestedPermissionsItem",
 ]

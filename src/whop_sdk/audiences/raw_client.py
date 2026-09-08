@@ -12,12 +12,15 @@ from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..core.serialization import convert_and_respect_annotation_metadata
+from ..errors.bad_request_error import BadRequestError
 from ..errors.conflict_error import ConflictError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.audience import Audience
 from ..types.v1error_response import V1ErrorResponse
 from .types.create_audiences_request_audience_type import CreateAudiencesRequestAudienceType
 from .types.create_audiences_request_column_mapping import CreateAudiencesRequestColumnMapping
+from .types.create_audiences_request_engagement import CreateAudiencesRequestEngagement
+from .types.create_audiences_request_source_type import CreateAudiencesRequestSourceType
 from .types.create_audiences_response import CreateAudiencesResponse
 from .types.delete_audiences_response import DeleteAudiencesResponse
 from .types.list_audiences_request_audience_type import ListAudiencesRequestAudienceType
@@ -45,7 +48,7 @@ class RawAudiencesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Audience, ListAudiencesResponse]:
         """
-        Lists uploaded customer-list audiences for an account. Pass `audience_id` to return a specific audience.
+        List custom and lookalike audiences for an account. Pass `audience_id` to return a specific audience.
 
         Parameters
         ----------
@@ -56,10 +59,10 @@ class RawAudiencesClient:
             Audience ID, prefixed `adaud_`, used to filter the response to one audience.
 
         audience_type : typing.Optional[ListAudiencesRequestAudienceType]
-            Filter by audience type: `custom` (uploaded lists) or `lookalike`.
+            Filter by custom or lookalike audiences.
 
         source_type : typing.Optional[ListAudiencesRequestSourceType]
-            Filter by member source: `csv_upload` (uploaded lists) or `people_filter` (automatic audiences built from saved People filters).
+            Filter by uploaded customer lists, Whop People filters, or social engagement.
 
         first : typing.Optional[int]
             Number of audiences to return. Defaults to 20; maximum 100.
@@ -141,15 +144,17 @@ class RawAudiencesClient:
         auto_refresh: typing.Optional[bool] = OMIT,
         column_mapping: typing.Optional[CreateAudiencesRequestColumnMapping] = OMIT,
         count: typing.Optional[int] = OMIT,
+        engagement: typing.Optional[CreateAudiencesRequestEngagement] = OMIT,
         file_id: typing.Optional[str] = OMIT,
         filters: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         name: typing.Optional[str] = OMIT,
         percentage: typing.Optional[int] = OMIT,
         source_audience_id: typing.Optional[str] = OMIT,
+        source_type: typing.Optional[CreateAudiencesRequestSourceType] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateAudiencesResponse]:
         """
-        Creates an audience. Default (`audience_type` omitted or `custom`): creates one audience from an uploaded customer identity CSV file (`name`, `column_mapping`, and `file_id` required) and starts processing it; responds with the audience object. With `filters`: creates an audience from saved People filters (`name` required) — membership is built from the account's People data, and `auto_refresh` decides whether it keeps tracking the filters or keeps whoever matched at creation. With `audience_type: lookalike`: creates a ladder of Meta lookalike audiences from an existing ready custom audience (`source_audience_id`, `count`, and `percentage` required) — `count` equal similarity bands slicing the top `percentage`% (3 audiences at 6% = 0–2%, 2–4%, 4–6%), each returned as its own audience in a `{ data: [...] }` envelope.
+        Create an audience from a customer list, your account's Whop People data, or engagement with videos, lead forms, Instagram profiles, or Facebook pages. Create lookalike audiences to reach people similar to an existing audience. Processing runs asynchronously. Custom creation returns one audience; lookalike creation returns the requested similarity bands in `data`.
 
         Parameters
         ----------
@@ -157,19 +162,22 @@ class RawAudiencesClient:
             Account ID, prefixed `biz_`.
 
         audience_type : typing.Optional[CreateAudiencesRequestAudienceType]
-            What to create. Defaults to `custom` (CSV upload).
+            Audience type. Defaults to `custom`.
 
         auto_refresh : typing.Optional[bool]
             Filter audiences only, and set only at creation. `true` (the default) rebuilds membership from the filters twice a day. `false` keeps whoever matched at creation and never rebuilds.
 
         column_mapping : typing.Optional[CreateAudiencesRequestColumnMapping]
-            Custom audiences only. Maps supported identity fields to CSV column headers. Map at least one of `email` or `phone`.
+            CSV audiences only. Maps supported identity fields to CSV column headers. Map at least one of `email` or `phone`.
 
         count : typing.Optional[int]
             Lookalikes only. Number of lookalike audiences to create (1–6).
 
+        engagement : typing.Optional[CreateAudiencesRequestEngagement]
+            Rules for membership based on social engagement. Requires a connected social account with advertising access.
+
         file_id : typing.Optional[str]
-            Custom audiences only. The uploaded customer CSV — a file id (`file_...`) returned by `POST /files`.
+            CSV audiences only. The uploaded customer CSV — a file id (`file_...`) returned by `POST /files`.
 
         filters : typing.Optional[typing.Dict[str, typing.Any]]
             Filter audiences only. The People filters that define membership, keyed exactly as `GET /people` accepts them — for example `{"os": "iOS", "country": "US"}`. Date filters must be rolling windows — `first_seen_within_days` or `last_seen_within_days` — so the audience re-anchors on every refresh; fixed dates such as `first_seen_after` are rejected. Source values are canonical source paths (`whop:<campaign>:<group>:<ad>`, `ext:<platform>:...`, `referrer:<domain>`, `direct`), exact or with a trailing `:*` wildcard.
@@ -178,10 +186,13 @@ class RawAudiencesClient:
             Audience display name. Required for custom audiences; lookalike names are generated from the source audience.
 
         percentage : typing.Optional[int]
-            Lookalikes only. Total similarity reach as a whole percent (1–20), sliced evenly across `count` — must be divisible by `count`.
+            Lookalikes only. Total similarity reach as a whole percent (1–20), sliced evenly across `count` — must be divisible by `count`. For example, 3 audiences at 6% creates 0–2%, 2–4%, and 4–6% bands.
 
         source_audience_id : typing.Optional[str]
-            Lookalikes only. The ready custom audience (`adaud_`) to build from; it needs at least 100 matched people.
+            Lookalikes only. The ready custom audience (`adaud_`) to build from; uploaded and People audiences need at least 100 matched people. Meta validates engagement audience eligibility when creating the lookalike.
+
+        source_type : typing.Optional[CreateAudiencesRequestSourceType]
+            Custom audience source. Inferred from `engagement`, then `filters`, otherwise defaults to `csv_upload`. Supply only the fields for the selected source.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -189,7 +200,7 @@ class RawAudiencesClient:
         Returns
         -------
         HttpResponse[CreateAudiencesResponse]
-            Audience created — the audience object for custom audiences, or `{ data: [...] }` for lookalike ladders.
+            Audience created. Custom creation returns one audience; lookalike creation returns an array in `data`.
         """
         _response = self._client_wrapper.httpx_client.request(
             "audiences",
@@ -202,11 +213,15 @@ class RawAudiencesClient:
                     object_=column_mapping, annotation=CreateAudiencesRequestColumnMapping, direction="write"
                 ),
                 "count": count,
+                "engagement": convert_and_respect_annotation_metadata(
+                    object_=engagement, annotation=CreateAudiencesRequestEngagement, direction="write"
+                ),
                 "file_id": file_id,
                 "filters": filters,
                 "name": name,
                 "percentage": percentage,
                 "source_audience_id": source_audience_id,
+                "source_type": source_type,
             },
             headers={
                 "content-type": "application/json",
@@ -224,6 +239,17 @@ class RawAudiencesClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
@@ -463,7 +489,7 @@ class AsyncRawAudiencesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Audience, ListAudiencesResponse]:
         """
-        Lists uploaded customer-list audiences for an account. Pass `audience_id` to return a specific audience.
+        List custom and lookalike audiences for an account. Pass `audience_id` to return a specific audience.
 
         Parameters
         ----------
@@ -474,10 +500,10 @@ class AsyncRawAudiencesClient:
             Audience ID, prefixed `adaud_`, used to filter the response to one audience.
 
         audience_type : typing.Optional[ListAudiencesRequestAudienceType]
-            Filter by audience type: `custom` (uploaded lists) or `lookalike`.
+            Filter by custom or lookalike audiences.
 
         source_type : typing.Optional[ListAudiencesRequestSourceType]
-            Filter by member source: `csv_upload` (uploaded lists) or `people_filter` (automatic audiences built from saved People filters).
+            Filter by uploaded customer lists, Whop People filters, or social engagement.
 
         first : typing.Optional[int]
             Number of audiences to return. Defaults to 20; maximum 100.
@@ -562,15 +588,17 @@ class AsyncRawAudiencesClient:
         auto_refresh: typing.Optional[bool] = OMIT,
         column_mapping: typing.Optional[CreateAudiencesRequestColumnMapping] = OMIT,
         count: typing.Optional[int] = OMIT,
+        engagement: typing.Optional[CreateAudiencesRequestEngagement] = OMIT,
         file_id: typing.Optional[str] = OMIT,
         filters: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         name: typing.Optional[str] = OMIT,
         percentage: typing.Optional[int] = OMIT,
         source_audience_id: typing.Optional[str] = OMIT,
+        source_type: typing.Optional[CreateAudiencesRequestSourceType] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateAudiencesResponse]:
         """
-        Creates an audience. Default (`audience_type` omitted or `custom`): creates one audience from an uploaded customer identity CSV file (`name`, `column_mapping`, and `file_id` required) and starts processing it; responds with the audience object. With `filters`: creates an audience from saved People filters (`name` required) — membership is built from the account's People data, and `auto_refresh` decides whether it keeps tracking the filters or keeps whoever matched at creation. With `audience_type: lookalike`: creates a ladder of Meta lookalike audiences from an existing ready custom audience (`source_audience_id`, `count`, and `percentage` required) — `count` equal similarity bands slicing the top `percentage`% (3 audiences at 6% = 0–2%, 2–4%, 4–6%), each returned as its own audience in a `{ data: [...] }` envelope.
+        Create an audience from a customer list, your account's Whop People data, or engagement with videos, lead forms, Instagram profiles, or Facebook pages. Create lookalike audiences to reach people similar to an existing audience. Processing runs asynchronously. Custom creation returns one audience; lookalike creation returns the requested similarity bands in `data`.
 
         Parameters
         ----------
@@ -578,19 +606,22 @@ class AsyncRawAudiencesClient:
             Account ID, prefixed `biz_`.
 
         audience_type : typing.Optional[CreateAudiencesRequestAudienceType]
-            What to create. Defaults to `custom` (CSV upload).
+            Audience type. Defaults to `custom`.
 
         auto_refresh : typing.Optional[bool]
             Filter audiences only, and set only at creation. `true` (the default) rebuilds membership from the filters twice a day. `false` keeps whoever matched at creation and never rebuilds.
 
         column_mapping : typing.Optional[CreateAudiencesRequestColumnMapping]
-            Custom audiences only. Maps supported identity fields to CSV column headers. Map at least one of `email` or `phone`.
+            CSV audiences only. Maps supported identity fields to CSV column headers. Map at least one of `email` or `phone`.
 
         count : typing.Optional[int]
             Lookalikes only. Number of lookalike audiences to create (1–6).
 
+        engagement : typing.Optional[CreateAudiencesRequestEngagement]
+            Rules for membership based on social engagement. Requires a connected social account with advertising access.
+
         file_id : typing.Optional[str]
-            Custom audiences only. The uploaded customer CSV — a file id (`file_...`) returned by `POST /files`.
+            CSV audiences only. The uploaded customer CSV — a file id (`file_...`) returned by `POST /files`.
 
         filters : typing.Optional[typing.Dict[str, typing.Any]]
             Filter audiences only. The People filters that define membership, keyed exactly as `GET /people` accepts them — for example `{"os": "iOS", "country": "US"}`. Date filters must be rolling windows — `first_seen_within_days` or `last_seen_within_days` — so the audience re-anchors on every refresh; fixed dates such as `first_seen_after` are rejected. Source values are canonical source paths (`whop:<campaign>:<group>:<ad>`, `ext:<platform>:...`, `referrer:<domain>`, `direct`), exact or with a trailing `:*` wildcard.
@@ -599,10 +630,13 @@ class AsyncRawAudiencesClient:
             Audience display name. Required for custom audiences; lookalike names are generated from the source audience.
 
         percentage : typing.Optional[int]
-            Lookalikes only. Total similarity reach as a whole percent (1–20), sliced evenly across `count` — must be divisible by `count`.
+            Lookalikes only. Total similarity reach as a whole percent (1–20), sliced evenly across `count` — must be divisible by `count`. For example, 3 audiences at 6% creates 0–2%, 2–4%, and 4–6% bands.
 
         source_audience_id : typing.Optional[str]
-            Lookalikes only. The ready custom audience (`adaud_`) to build from; it needs at least 100 matched people.
+            Lookalikes only. The ready custom audience (`adaud_`) to build from; uploaded and People audiences need at least 100 matched people. Meta validates engagement audience eligibility when creating the lookalike.
+
+        source_type : typing.Optional[CreateAudiencesRequestSourceType]
+            Custom audience source. Inferred from `engagement`, then `filters`, otherwise defaults to `csv_upload`. Supply only the fields for the selected source.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -610,7 +644,7 @@ class AsyncRawAudiencesClient:
         Returns
         -------
         AsyncHttpResponse[CreateAudiencesResponse]
-            Audience created — the audience object for custom audiences, or `{ data: [...] }` for lookalike ladders.
+            Audience created. Custom creation returns one audience; lookalike creation returns an array in `data`.
         """
         _response = await self._client_wrapper.httpx_client.request(
             "audiences",
@@ -623,11 +657,15 @@ class AsyncRawAudiencesClient:
                     object_=column_mapping, annotation=CreateAudiencesRequestColumnMapping, direction="write"
                 ),
                 "count": count,
+                "engagement": convert_and_respect_annotation_metadata(
+                    object_=engagement, annotation=CreateAudiencesRequestEngagement, direction="write"
+                ),
                 "file_id": file_id,
                 "filters": filters,
                 "name": name,
                 "percentage": percentage,
                 "source_audience_id": source_audience_id,
+                "source_type": source_type,
             },
             headers={
                 "content-type": "application/json",
@@ -645,6 +683,17 @@ class AsyncRawAudiencesClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),

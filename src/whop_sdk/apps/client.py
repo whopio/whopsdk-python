@@ -25,9 +25,6 @@ from .types.update_apps_request_app_type import UpdateAppsRequestAppType
 from .types.update_apps_request_icon import UpdateAppsRequestIcon
 from .types.update_apps_request_oauth_client_type import UpdateAppsRequestOauthClientType
 from .types.update_apps_request_status import UpdateAppsRequestStatus
-from .types.update_permissions_app_request_requested_permissions_item import (
-    UpdatePermissionsAppRequestRequestedPermissionsItem,
-)
 from .types.update_permissions_apps_request_requested_permissions_item import (
     UpdatePermissionsAppsRequestRequestedPermissionsItem,
 )
@@ -126,7 +123,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -205,7 +202,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -222,61 +219,6 @@ class AppsClient:
             redirect_uris=redirect_uris,
             route=route,
             request_options=request_options,
-        )
-        return _response.data
-
-    def update_permissions_app(
-        self,
-        app_id: str,
-        *,
-        requested_permissions: typing.Sequence[UpdatePermissionsAppRequestRequestedPermissionsItem],
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> bool:
-        """
-        Updates the permission requirements for an app
-
-        Required permissions:
-         - `developer:update_app_authorization`
-
-        Parameters
-        ----------
-        app_id : str
-            The ID of the app the permission requirements are being updated for
-
-        requested_permissions : typing.Sequence[UpdatePermissionsAppRequestRequestedPermissionsItem]
-            The permissions that the app will request off of users when a user installs the app.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        bool
-            A successful response
-
-        Examples
-        --------
-        from whop_sdk import Whop
-        from whop_sdk.apps import UpdatePermissionsAppRequestRequestedPermissionsItem
-
-        client = Whop(
-            "2026-09-02-2",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-        client.apps.update_permissions_app(
-            app_id="app_id",
-            requested_permissions=[
-                UpdatePermissionsAppRequestRequestedPermissionsItem(
-                    action="action",
-                    is_required=True,
-                    justification="justification",
-                )
-            ],
-        )
-        """
-        _response = self._raw_client.update_permissions_app(
-            app_id, requested_permissions=requested_permissions, request_options=request_options
         )
         return _response.data
 
@@ -302,7 +244,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -335,7 +277,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -453,7 +395,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -514,7 +456,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -584,7 +526,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -642,7 +584,7 @@ class AppsClient:
         from whop_sdk.apps import UpdatePermissionsAppsRequestRequestedPermissionsItem
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -755,7 +697,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -843,7 +785,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -866,69 +808,6 @@ class AsyncAppsClient:
             redirect_uris=redirect_uris,
             route=route,
             request_options=request_options,
-        )
-        return _response.data
-
-    async def update_permissions_app(
-        self,
-        app_id: str,
-        *,
-        requested_permissions: typing.Sequence[UpdatePermissionsAppRequestRequestedPermissionsItem],
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> bool:
-        """
-        Updates the permission requirements for an app
-
-        Required permissions:
-         - `developer:update_app_authorization`
-
-        Parameters
-        ----------
-        app_id : str
-            The ID of the app the permission requirements are being updated for
-
-        requested_permissions : typing.Sequence[UpdatePermissionsAppRequestRequestedPermissionsItem]
-            The permissions that the app will request off of users when a user installs the app.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        bool
-            A successful response
-
-        Examples
-        --------
-        import asyncio
-
-        from whop_sdk import AsyncWhop
-        from whop_sdk.apps import UpdatePermissionsAppRequestRequestedPermissionsItem
-
-        client = AsyncWhop(
-            "2026-09-02-2",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.apps.update_permissions_app(
-                app_id="app_id",
-                requested_permissions=[
-                    UpdatePermissionsAppRequestRequestedPermissionsItem(
-                        action="action",
-                        is_required=True,
-                        justification="justification",
-                    )
-                ],
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.update_permissions_app(
-            app_id, requested_permissions=requested_permissions, request_options=request_options
         )
         return _response.data
 
@@ -956,7 +835,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -997,7 +876,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1123,7 +1002,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1192,7 +1071,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1270,7 +1149,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1337,7 +1216,7 @@ class AsyncAppsClient:
         from whop_sdk.apps import UpdatePermissionsAppsRequestRequestedPermissionsItem
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

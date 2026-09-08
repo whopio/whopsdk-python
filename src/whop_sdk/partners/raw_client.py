@@ -13,7 +13,9 @@ from ..core.request_options import RequestOptions
 from ..errors.bad_request_error import BadRequestError
 from ..errors.conflict_error import ConflictError
 from ..errors.forbidden_error import ForbiddenError
+from ..errors.not_found_error import NotFoundError
 from ..errors.unauthorized_error import UnauthorizedError
+from ..types.onboarding_reward import OnboardingReward
 from ..types.v1error_response import V1ErrorResponse
 from .types.create_partners_response import CreatePartnersResponse
 from .types.leaderboard_partners_request_period import LeaderboardPartnersRequestPeriod
@@ -142,6 +144,67 @@ class RawPartnersClient:
                 return HttpResponse(response=_response, data=_data)
             if _response.status_code == 400:
                 raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def retrieve_link(
+        self, *, partner_username: str, reward_slug: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[OnboardingReward]:
+        """
+        Resolves the public reward terms and whether redemption capacity remains. Immediate rewards claim capacity at business creation; qualified rewards claim it when the business reaches the threshold.
+
+        Parameters
+        ----------
+        partner_username : str
+            Username from the partner link's `a` query parameter.
+
+        reward_slug : str
+            Reward slug from the partner link's `reward` query parameter.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[OnboardingReward]
+            reward link verified
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "partners/links",
+            method="GET",
+            params={
+                "partner_username": partner_username,
+                "reward_slug": reward_slug,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    OnboardingReward,
+                    parse_obj_as(
+                        type_=OnboardingReward,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -380,6 +443,67 @@ class AsyncRawPartnersClient:
                 return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 400:
                 raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def retrieve_link(
+        self, *, partner_username: str, reward_slug: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[OnboardingReward]:
+        """
+        Resolves the public reward terms and whether redemption capacity remains. Immediate rewards claim capacity at business creation; qualified rewards claim it when the business reaches the threshold.
+
+        Parameters
+        ----------
+        partner_username : str
+            Username from the partner link's `a` query parameter.
+
+        reward_slug : str
+            Reward slug from the partner link's `reward` query parameter.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[OnboardingReward]
+            reward link verified
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "partners/links",
+            method="GET",
+            params={
+                "partner_username": partner_username,
+                "reward_slug": reward_slug,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    OnboardingReward,
+                    parse_obj_as(
+                        type_=OnboardingReward,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,

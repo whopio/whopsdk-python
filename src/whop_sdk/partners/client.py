@@ -7,6 +7,7 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
+from ..types.onboarding_reward import OnboardingReward
 from .raw_client import AsyncRawPartnersClient, RawPartnersClient
 from .types.create_partners_response import CreatePartnersResponse
 from .types.leaderboard_partners_request_period import LeaderboardPartnersRequestPeriod
@@ -54,7 +55,7 @@ class PartnersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -90,13 +91,54 @@ class PartnersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.partners.leaderboard()
         """
         _response = self._raw_client.leaderboard(period=period, request_options=request_options)
+        return _response.data
+
+    def retrieve_link(
+        self, *, partner_username: str, reward_slug: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> OnboardingReward:
+        """
+        Resolves the public reward terms and whether redemption capacity remains. Immediate rewards claim capacity at business creation; qualified rewards claim it when the business reaches the threshold.
+
+        Parameters
+        ----------
+        partner_username : str
+            Username from the partner link's `a` query parameter.
+
+        reward_slug : str
+            Reward slug from the partner link's `reward` query parameter.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        OnboardingReward
+            reward link verified
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-09-06",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.partners.retrieve_link(
+            partner_username="partner_username",
+            reward_slug="reward_slug",
+        )
+        """
+        _response = self._raw_client.retrieve_link(
+            partner_username=partner_username, reward_slug=reward_slug, request_options=request_options
+        )
         return _response.data
 
     def referred_users(
@@ -146,7 +188,7 @@ class PartnersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -214,7 +256,7 @@ class AsyncPartnersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -258,7 +300,7 @@ class AsyncPartnersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -271,6 +313,55 @@ class AsyncPartnersClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.leaderboard(period=period, request_options=request_options)
+        return _response.data
+
+    async def retrieve_link(
+        self, *, partner_username: str, reward_slug: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> OnboardingReward:
+        """
+        Resolves the public reward terms and whether redemption capacity remains. Immediate rewards claim capacity at business creation; qualified rewards claim it when the business reaches the threshold.
+
+        Parameters
+        ----------
+        partner_username : str
+            Username from the partner link's `a` query parameter.
+
+        reward_slug : str
+            Reward slug from the partner link's `reward` query parameter.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        OnboardingReward
+            reward link verified
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-09-06",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.partners.retrieve_link(
+                partner_username="partner_username",
+                reward_slug="reward_slug",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.retrieve_link(
+            partner_username=partner_username, reward_slug=reward_slug, request_options=request_options
+        )
         return _response.data
 
     async def referred_users(
@@ -322,7 +413,7 @@ class AsyncPartnersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

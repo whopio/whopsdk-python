@@ -5,6 +5,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .ai_chat_agent_identifiers import AiChatAgentIdentifiers
 from .ai_chat_notification_preferences import AiChatNotificationPreferences
 from .ai_chat_user import AiChatUser
 
@@ -12,6 +13,11 @@ from .ai_chat_user import AiChatUser
 class AiChat(UniversalBaseModel):
     """
     An AI-powered chat conversation belonging to a user, with optional scheduled automation.
+    """
+
+    agent_identifier: AiChatAgentIdentifiers = pydantic.Field()
+    """
+    The AI agent that handles this chat. Set when the chat is created and fixed for its lifetime.
     """
 
     blended_token_usage: str = pydantic.Field()

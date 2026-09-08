@@ -20,6 +20,7 @@ from ..errors.too_many_requests_error import TooManyRequestsError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.ai_chat import AiChat
+from ..types.ai_chat_agent_identifiers import AiChatAgentIdentifiers
 from ..types.ai_chat_list_item import AiChatListItem
 from ..types.ai_chat_message_source_types import AiChatMessageSourceTypes
 from ..types.ai_chat_notification_preferences import AiChatNotificationPreferences
@@ -42,6 +43,7 @@ class RawAiChatsClient:
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
+        agent_identifier: typing.Optional[AiChatAgentIdentifiers] = None,
         only_active_crons: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[AiChatListItem, ListAiChatsResponse]:
@@ -62,6 +64,8 @@ class RawAiChatsClient:
         last : typing.Optional[int]
             Returns the last _n_ elements from the list.
 
+        agent_identifier : typing.Optional[AiChatAgentIdentifiers]
+
         only_active_crons : typing.Optional[bool]
             When true, returns only chats with an active cron schedule
 
@@ -81,6 +85,7 @@ class RawAiChatsClient:
                 "before": before,
                 "first": first,
                 "last": last,
+                "agent_identifier": agent_identifier,
                 "only_active_crons": only_active_crons,
             },
             request_options=request_options,
@@ -105,6 +110,7 @@ class RawAiChatsClient:
                         before=before,
                         first=first,
                         last=last,
+                        agent_identifier=agent_identifier,
                         only_active_crons=only_active_crons,
                         request_options=request_options,
                     )
@@ -199,6 +205,7 @@ class RawAiChatsClient:
         self,
         *,
         message_text: str,
+        agent_identifier: typing.Optional[AiChatAgentIdentifiers] = OMIT,
         current_account_id: typing.Optional[str] = OMIT,
         message_attachments: typing.Optional[typing.Sequence[CreateAiChatsRequestMessageAttachmentsItem]] = OMIT,
         message_source: typing.Optional[AiChatMessageSourceTypes] = OMIT,
@@ -216,6 +223,9 @@ class RawAiChatsClient:
         ----------
         message_text : str
             The text content of the first message to send to the AI agent.
+
+        agent_identifier : typing.Optional[AiChatAgentIdentifiers]
+            The AI agent that handles the chat. Defaults to `support`.
 
         current_account_id : typing.Optional[str]
             The unique identifier of the account to set as context for the AI chat (e.g., "biz_XXXXX").
@@ -244,6 +254,7 @@ class RawAiChatsClient:
             "ai_chats",
             method="POST",
             json={
+                "agent_identifier": agent_identifier,
                 "current_account_id": current_account_id,
                 "message_attachments": convert_and_respect_annotation_metadata(
                     object_=message_attachments,
@@ -755,6 +766,7 @@ class AsyncRawAiChatsClient:
         before: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         last: typing.Optional[int] = None,
+        agent_identifier: typing.Optional[AiChatAgentIdentifiers] = None,
         only_active_crons: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[AiChatListItem, ListAiChatsResponse]:
@@ -775,6 +787,8 @@ class AsyncRawAiChatsClient:
         last : typing.Optional[int]
             Returns the last _n_ elements from the list.
 
+        agent_identifier : typing.Optional[AiChatAgentIdentifiers]
+
         only_active_crons : typing.Optional[bool]
             When true, returns only chats with an active cron schedule
 
@@ -794,6 +808,7 @@ class AsyncRawAiChatsClient:
                 "before": before,
                 "first": first,
                 "last": last,
+                "agent_identifier": agent_identifier,
                 "only_active_crons": only_active_crons,
             },
             request_options=request_options,
@@ -820,6 +835,7 @@ class AsyncRawAiChatsClient:
                             before=before,
                             first=first,
                             last=last,
+                            agent_identifier=agent_identifier,
                             only_active_crons=only_active_crons,
                             request_options=request_options,
                         )
@@ -915,6 +931,7 @@ class AsyncRawAiChatsClient:
         self,
         *,
         message_text: str,
+        agent_identifier: typing.Optional[AiChatAgentIdentifiers] = OMIT,
         current_account_id: typing.Optional[str] = OMIT,
         message_attachments: typing.Optional[typing.Sequence[CreateAiChatsRequestMessageAttachmentsItem]] = OMIT,
         message_source: typing.Optional[AiChatMessageSourceTypes] = OMIT,
@@ -932,6 +949,9 @@ class AsyncRawAiChatsClient:
         ----------
         message_text : str
             The text content of the first message to send to the AI agent.
+
+        agent_identifier : typing.Optional[AiChatAgentIdentifiers]
+            The AI agent that handles the chat. Defaults to `support`.
 
         current_account_id : typing.Optional[str]
             The unique identifier of the account to set as context for the AI chat (e.g., "biz_XXXXX").
@@ -960,6 +980,7 @@ class AsyncRawAiChatsClient:
             "ai_chats",
             method="POST",
             json={
+                "agent_identifier": agent_identifier,
                 "current_account_id": current_account_id,
                 "message_attachments": convert_and_respect_annotation_metadata(
                     object_=message_attachments,

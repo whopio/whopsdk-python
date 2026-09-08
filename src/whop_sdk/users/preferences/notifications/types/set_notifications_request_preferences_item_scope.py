@@ -19,7 +19,7 @@ class SetNotificationsRequestPreferencesItemScope(UniversalBaseModel):
 
     channel: typing.Optional[SetNotificationsRequestPreferencesItemScopeChannel] = pydantic.Field(default=None)
     """
-    Delivery channel the preference applies to. Required when setting a topic override.
+    Delivery channel the preference applies to. Omit it (or pass `null`) to apply the preference to every channel.
     """
 
     experience_id: typing.Optional[str] = pydantic.Field(default=None)

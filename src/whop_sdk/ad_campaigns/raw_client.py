@@ -789,7 +789,7 @@ class RawAdCampaignsClient:
 
     def unpause(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[AdCampaign]:
         """
-        Resumes a paused ad campaign.
+        Resumes a paused ad campaign. Requires an ads payment method on the account.
 
         Parameters
         ----------
@@ -1590,7 +1590,7 @@ class AsyncRawAdCampaignsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[AdCampaign]:
         """
-        Resumes a paused ad campaign.
+        Resumes a paused ad campaign. Requires an ads payment method on the account.
 
         Parameters
         ----------

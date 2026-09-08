@@ -105,7 +105,7 @@ class PaymentMethodDomainsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -148,7 +148,7 @@ class PaymentMethodDomainsClient:
             Hostname to register (e.g. `checkout.shinetime.example`).
 
         account_id : typing.Optional[str]
-            Account to register the domain for (`biz_` tag). Defaults to the caller's account.
+            Account to register the domain for (`biz_` tag). Required when authenticating as a user; an account API key supplies its own account.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -163,7 +163,7 @@ class PaymentMethodDomainsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -196,7 +196,7 @@ class PaymentMethodDomainsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -231,7 +231,7 @@ class PaymentMethodDomainsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -264,7 +264,7 @@ class PaymentMethodDomainsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -364,7 +364,7 @@ class AsyncPaymentMethodDomainsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -414,7 +414,7 @@ class AsyncPaymentMethodDomainsClient:
             Hostname to register (e.g. `checkout.shinetime.example`).
 
         account_id : typing.Optional[str]
-            Account to register the domain for (`biz_` tag). Defaults to the caller's account.
+            Account to register the domain for (`biz_` tag). Required when authenticating as a user; an account API key supplies its own account.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -431,7 +431,7 @@ class AsyncPaymentMethodDomainsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -476,7 +476,7 @@ class AsyncPaymentMethodDomainsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -519,7 +519,7 @@ class AsyncPaymentMethodDomainsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -560,7 +560,7 @@ class AsyncPaymentMethodDomainsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

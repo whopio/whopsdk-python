@@ -455,6 +455,14 @@ client.accounts.create()
 <dl>
 <dd>
 
+**send_customer_emails:** `typing.Optional[bool]` — Whether Whop sends transactional emails to customers on behalf of the connected account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **title:** `typing.Optional[str]` — The display name of the account. Defaults to `metadata.external_id` or the owner's email when omitted.
     
 </dd>
@@ -2308,7 +2316,7 @@ client.ad_campaigns.retry_payment(
 <dl>
 <dd>
 
-Resumes a paused ad campaign.
+Resumes a paused ad campaign. Requires an ads payment method on the account.
 </dd>
 </dl>
 </dd>
@@ -3999,7 +4007,7 @@ client.ads.list(
 <dl>
 <dd>
 
-Creates an ad in an ad group.
+Creates an ad in an ad group. Any campaign status other than `draft` launches the campaign, which requires an ads payment method on the account.
 </dd>
 </dl>
 </dd>
@@ -5359,6 +5367,14 @@ client.ai_chats.list(
 <dl>
 <dd>
 
+**agent_identifier:** `typing.Optional[AiChatAgentIdentifiers]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **only_active_crons:** `typing.Optional[bool]` — When true, returns only chats with an active cron schedule
     
 </dd>
@@ -5436,6 +5452,14 @@ client.ai_chats.create(
 <dd>
 
 **message_text:** `str` — The text content of the first message to send to the AI agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**agent_identifier:** `typing.Optional[AiChatAgentIdentifiers]` — The AI agent that handles the chat. Defaults to `support`.
     
 </dd>
 </dl>
@@ -7260,98 +7284,6 @@ client.apps.create(
 </dl>
 </details>
 
-<details><summary><code>client.apps.<a href="src/whop_sdk/apps/client.py">update_permissions_app</a>(...) -> bool</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates the permission requirements for an app
-
-Required permissions:
- - `developer:update_app_authorization`
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from whop_sdk import Whop
-from whop_sdk.environment import WhopEnvironment
-from whop_sdk.apps import UpdatePermissionsAppRequestRequestedPermissionsItem
-
-client = Whop(
-    token="<token>",
-    environment=WhopEnvironment.DEFAULT,
-)
-
-client.apps.update_permissions_app(
-    app_id="app_id",
-    requested_permissions=[
-        UpdatePermissionsAppRequestRequestedPermissionsItem(
-            action="action",
-            is_required=True,
-            justification="justification",
-        )
-    ],
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**app_id:** `str` — The ID of the app the permission requirements are being updated for
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requested_permissions:** `typing.List[UpdatePermissionsAppRequestRequestedPermissionsItem]` — The permissions that the app will request off of users when a user installs the app.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.apps.<a href="src/whop_sdk/apps/client.py">retrieve</a>(...) -> App</code></summary>
 <dl>
 <dd>
@@ -8051,7 +7983,7 @@ client.apps.update_permissions(
 <dl>
 <dd>
 
-Lists uploaded customer-list audiences for an account. Pass `audience_id` to return a specific audience.
+List custom and lookalike audiences for an account. Pass `audience_id` to return a specific audience.
 </dd>
 </dl>
 </dd>
@@ -8108,7 +8040,7 @@ client.audiences.list(
 <dl>
 <dd>
 
-**audience_type:** `typing.Optional[ListAudiencesRequestAudienceType]` — Filter by audience type: `custom` (uploaded lists) or `lookalike`.
+**audience_type:** `typing.Optional[ListAudiencesRequestAudienceType]` — Filter by custom or lookalike audiences.
     
 </dd>
 </dl>
@@ -8116,7 +8048,7 @@ client.audiences.list(
 <dl>
 <dd>
 
-**source_type:** `typing.Optional[ListAudiencesRequestSourceType]` — Filter by member source: `csv_upload` (uploaded lists) or `people_filter` (automatic audiences built from saved People filters).
+**source_type:** `typing.Optional[ListAudiencesRequestSourceType]` — Filter by uploaded customer lists, Whop People filters, or social engagement.
     
 </dd>
 </dl>
@@ -8164,7 +8096,7 @@ client.audiences.list(
 <dl>
 <dd>
 
-Creates an audience. Default (`audience_type` omitted or `custom`): creates one audience from an uploaded customer identity CSV file (`name`, `column_mapping`, and `file_id` required) and starts processing it; responds with the audience object. With `filters`: creates an audience from saved People filters (`name` required) — membership is built from the account's People data, and `auto_refresh` decides whether it keeps tracking the filters or keeps whoever matched at creation. With `audience_type: lookalike`: creates a ladder of Meta lookalike audiences from an existing ready custom audience (`source_audience_id`, `count`, and `percentage` required) — `count` equal similarity bands slicing the top `percentage`% (3 audiences at 6% = 0–2%, 2–4%, 4–6%), each returned as its own audience in a `{ data: [...] }` envelope.
+Create an audience from a customer list, your account's Whop People data, or engagement with videos, lead forms, Instagram profiles, or Facebook pages. Create lookalike audiences to reach people similar to an existing audience. Processing runs asynchronously. Custom creation returns one audience; lookalike creation returns the requested similarity bands in `data`.
 </dd>
 </dl>
 </dd>
@@ -8179,8 +8111,9 @@ Creates an audience. Default (`audience_type` omitted or `custom`): creates one 
 <dd>
 
 ```python
-from whop_sdk import Whop
+from whop_sdk import Whop, AudienceEngagementRule_FacebookPage
 from whop_sdk.environment import WhopEnvironment
+from whop_sdk.audiences import CreateAudiencesRequestEngagement
 
 client = Whop(
     token="<token>",
@@ -8189,6 +8122,18 @@ client = Whop(
 
 client.audiences.create(
     account_id="biz_xxxxxxxxxxxxxx",
+    engagement=CreateAudiencesRequestEngagement(
+        include=[
+            AudienceEngagementRule_FacebookPage(
+                event="engaged",
+                retention_days=30,
+                social_account_id="sacc_xxxxxxxxxxxxxx",
+            )
+        ],
+        platform="meta",
+    ),
+    name="Page engagers",
+    source_type="engagement",
 )
 
 ```
@@ -8213,7 +8158,7 @@ client.audiences.create(
 <dl>
 <dd>
 
-**audience_type:** `typing.Optional[CreateAudiencesRequestAudienceType]` — What to create. Defaults to `custom` (CSV upload).
+**audience_type:** `typing.Optional[CreateAudiencesRequestAudienceType]` — Audience type. Defaults to `custom`.
     
 </dd>
 </dl>
@@ -8229,7 +8174,7 @@ client.audiences.create(
 <dl>
 <dd>
 
-**column_mapping:** `typing.Optional[CreateAudiencesRequestColumnMapping]` — Custom audiences only. Maps supported identity fields to CSV column headers. Map at least one of `email` or `phone`.
+**column_mapping:** `typing.Optional[CreateAudiencesRequestColumnMapping]` — CSV audiences only. Maps supported identity fields to CSV column headers. Map at least one of `email` or `phone`.
     
 </dd>
 </dl>
@@ -8245,7 +8190,15 @@ client.audiences.create(
 <dl>
 <dd>
 
-**file_id:** `typing.Optional[str]` — Custom audiences only. The uploaded customer CSV — a file id (`file_...`) returned by `POST /files`.
+**engagement:** `typing.Optional[CreateAudiencesRequestEngagement]` — Rules for membership based on social engagement. Requires a connected social account with advertising access.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**file_id:** `typing.Optional[str]` — CSV audiences only. The uploaded customer CSV — a file id (`file_...`) returned by `POST /files`.
     
 </dd>
 </dl>
@@ -8269,7 +8222,7 @@ client.audiences.create(
 <dl>
 <dd>
 
-**percentage:** `typing.Optional[int]` — Lookalikes only. Total similarity reach as a whole percent (1–20), sliced evenly across `count` — must be divisible by `count`.
+**percentage:** `typing.Optional[int]` — Lookalikes only. Total similarity reach as a whole percent (1–20), sliced evenly across `count` — must be divisible by `count`. For example, 3 audiences at 6% creates 0–2%, 2–4%, and 4–6% bands.
     
 </dd>
 </dl>
@@ -8277,7 +8230,15 @@ client.audiences.create(
 <dl>
 <dd>
 
-**source_audience_id:** `typing.Optional[str]` — Lookalikes only. The ready custom audience (`adaud_`) to build from; it needs at least 100 matched people.
+**source_audience_id:** `typing.Optional[str]` — Lookalikes only. The ready custom audience (`adaud_`) to build from; uploaded and People audiences need at least 100 matched people. Meta validates engagement audience eligibility when creating the lookalike.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**source_type:** `typing.Optional[CreateAudiencesRequestSourceType]` — Custom audience source. Inferred from `engagement`, then `filters`, otherwise defaults to `csv_upload`. Supply only the fields for the selected source.
     
 </dd>
 </dl>
@@ -10716,7 +10677,7 @@ client.cards.update(
 <dl>
 <dd>
 
-**billing:** `typing.Optional[UpdateCardsRequestBilling]` — New billing address. Requires line1, city, region, postal_code, and country_code. On an invited card, passing billing alone (as the invited user) completes onboarding and starts card provisioning.
+**billing:** `typing.Optional[UpdateCardsRequestBilling]` — The billing address. On an issued card this replaces the card's billing address and region is also required. On an invited card, sending it as the invited user completes onboarding and starts card provisioning.
     
 </dd>
 </dl>
@@ -10725,6 +10686,14 @@ client.cards.update(
 <dd>
 
 **canceled:** `typing.Optional[bool]` — Pass `true` to permanently cancel the card. A canceled card cannot be uncanceled. Cannot be combined with other fields.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cardholder:** `typing.Optional[UpdateCardsRequestCardholder]` — Details for the invited cardholder, accepted only while completing onboarding on an invited card. The legal name comes from an approved identity verification when the invited user has one, and from these fields when they do not.
     
 </dd>
 </dl>
@@ -14303,7 +14272,7 @@ client.courses.update(
 <dl>
 <dd>
 
-Retrieve the deposit methods for an account, including crypto and bank transfer.
+Retrieve the deposit methods for an account, including crypto and bank transfer. Crypto deposits require a $10 minimum.
 </dd>
 </dl>
 </dd>
@@ -14352,7 +14321,7 @@ client.deposits.create(
 <dl>
 <dd>
 
-**amount:** `typing.Optional[float]` — Amount to prefill on hosted deposit page.
+**amount:** `typing.Optional[float]` — Amount to prefill on hosted deposit page. Crypto deposits require a $10 minimum.
     
 </dd>
 </dl>
@@ -15068,284 +15037,6 @@ client.disputes.submit(
 <dd>
 
 **id:** `str` — The dispute ID (`dspt_` tag).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.disputes.<a href="src/whop_sdk/disputes/client.py">submit_evidence_dispute</a>(...) -> DisputeLegacy</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Submit a payment dispute to the payment processor for review. Once submitted, no further edits can be made.
-
-Required permissions:
- - `payment:dispute`
- - `plan:basic:read`
- - `access_pass:basic:read`
- - `company:basic:read`
- - `payment:basic:read`
- - `member:email:read`
- - `member:basic:read`
- - `member:phone:read`
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from whop_sdk import Whop
-from whop_sdk.environment import WhopEnvironment
-
-client = Whop(
-    token="<token>",
-    environment=WhopEnvironment.DEFAULT,
-)
-
-client.disputes.submit_evidence_dispute(
-    id="dspt_xxxxxxxxxxxxx",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — The unique identifier of the dispute to submit to the payment processor for review.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.disputes.<a href="src/whop_sdk/disputes/client.py">update_evidence_dispute</a>(...) -> DisputeLegacy</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Update a dispute with evidence data to attempt to win the dispute.
-
-Required permissions:
- - `payment:dispute`
- - `plan:basic:read`
- - `access_pass:basic:read`
- - `company:basic:read`
- - `payment:basic:read`
- - `member:email:read`
- - `member:basic:read`
- - `member:phone:read`
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from whop_sdk import Whop
-from whop_sdk.environment import WhopEnvironment
-
-client = Whop(
-    token="<token>",
-    environment=WhopEnvironment.DEFAULT,
-)
-
-client.disputes.update_evidence_dispute(
-    id="dspt_xxxxxxxxxxxxx",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — The unique identifier of the dispute to update.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**access_activity_log:** `typing.Optional[str]` — An IP access activity log showing the customer used the service.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**billing_address:** `typing.Optional[str]` — The billing address associated with the customer's payment method.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cancellation_policy_attachment:** `typing.Optional[UpdateEvidenceDisputeRequestCancellationPolicyAttachment]` — A file upload containing the company's cancellation policy document.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**cancellation_policy_disclosure:** `typing.Optional[str]` — The company's cancellation policy text to submit as evidence.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**customer_communication_attachment:** `typing.Optional[UpdateEvidenceDisputeRequestCustomerCommunicationAttachment]` — A file upload containing evidence of customer communication. Must be a JPEG, PNG, GIF, or PDF.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**customer_email_address:** `typing.Optional[str]` — The email address of the customer associated with the disputed payment.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**customer_name:** `typing.Optional[str]` — The full name of the customer associated with the disputed payment.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**notes:** `typing.Optional[str]` — Additional notes or context to submit as part of the dispute evidence.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**product_description:** `typing.Optional[str]` — A description of the product or service that was provided to the customer.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**refund_policy_attachment:** `typing.Optional[UpdateEvidenceDisputeRequestRefundPolicyAttachment]` — A file upload containing the company's refund policy document.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**refund_policy_disclosure:** `typing.Optional[str]` — The company's refund policy text to submit as evidence.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**refund_refusal_explanation:** `typing.Optional[str]` — An explanation of why the refund request was refused.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**service_date:** `typing.Optional[str]` — The date when the product or service was delivered to the customer.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**uncategorized_attachment:** `typing.Optional[UpdateEvidenceDisputeRequestUncategorizedAttachment]` — A file upload for evidence that does not fit into the other categories.
     
 </dd>
 </dl>
@@ -22983,93 +22674,6 @@ client.memberships.update(
 </dl>
 </details>
 
-<details><summary><code>client.memberships.<a href="src/whop_sdk/memberships/client.py">add_free_days_membership</a>(...) -> MembershipLegacy</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Add free days to extend a membership's current billing period, expiration date, or Stripe trial.
-
-Required permissions:
- - `member:manage`
- - `member:email:read`
- - `member:basic:read`
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from whop_sdk import Whop
-from whop_sdk.environment import WhopEnvironment
-
-client = Whop(
-    token="<token>",
-    environment=WhopEnvironment.DEFAULT,
-)
-
-client.memberships.add_free_days_membership(
-    id="mem_xxxxxxxxxxxxxx",
-    free_days=42,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — The unique identifier of the membership.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**free_days:** `int` — The number of free days to add (1-1095). Extends the billing period, expiration date, or Stripe trial depending on plan type.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.memberships.<a href="src/whop_sdk/memberships/client.py">cancel</a>(...) -> Membership</code></summary>
 <dl>
 <dd>
@@ -23395,7 +22999,7 @@ client.memberships.resume(
 </dl>
 </details>
 
-<details><summary><code>client.memberships.<a href="src/whop_sdk/memberships/client.py">resync_access_membership</a>(...) -> MembershipLegacy</code></summary>
+<details><summary><code>client.memberships.<a href="src/whop_sdk/memberships/client.py">resync_access</a>(...) -> Membership</code></summary>
 <dl>
 <dd>
 
@@ -23407,12 +23011,7 @@ client.memberships.resume(
 <dl>
 <dd>
 
-Re-run access fulfillment for a membership. Recomputes the member's content access on Whop, re-validates their Discord link (re-adding them to the server and re-assigning roles if needed), and re-fulfills TradingView indicator access. Telegram access is invite-based and cannot be resynced here. The outcome is written to the membership's logs.
-
-Required permissions:
- - `membership:resync_access`
- - `member:email:read`
- - `member:basic:read`
+Re-runs access fulfillment for a membership: recomputes the member's content access on Whop, re-validates their Discord link (re-adding them to the server and re-assigning roles if needed), and re-fulfills TradingView indicator access. Telegram access is invite-based and is not resynced. The work runs in the background and the outcome is written to the membership's logs.
 </dd>
 </dl>
 </dd>
@@ -23435,8 +23034,8 @@ client = Whop(
     environment=WhopEnvironment.DEFAULT,
 )
 
-client.memberships.resync_access_membership(
-    id="mem_xxxxxxxxxxxxxx",
+client.memberships.resync_access(
+    id="id",
 )
 
 ```
@@ -23453,7 +23052,7 @@ client.memberships.resync_access_membership(
 <dl>
 <dd>
 
-**id:** `str` — The unique identifier of the membership to resync access for.
+**id:** `str` — Membership ID (`mem_` tag).
     
 </dd>
 </dl>
@@ -23527,84 +23126,6 @@ client.memberships.transfer(
 <dd>
 
 **id:** `str` — Membership ID (`mem_` tag).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.memberships.<a href="src/whop_sdk/memberships/client.py">uncancel_membership</a>(...) -> MembershipLegacy</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Reverse a pending cancellation for a membership that was scheduled to cancel at period end.
-
-Required permissions:
- - `member:manage`
- - `member:email:read`
- - `member:basic:read`
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from whop_sdk import Whop
-from whop_sdk.environment import WhopEnvironment
-
-client = Whop(
-    token="<token>",
-    environment=WhopEnvironment.DEFAULT,
-)
-
-client.memberships.uncancel_membership(
-    id="mem_xxxxxxxxxxxxxx",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — The unique identifier of the membership to uncancel.
     
 </dd>
 </dl>
@@ -24738,6 +24259,88 @@ client.partners.leaderboard()
 </dl>
 </details>
 
+<details><summary><code>client.partners.<a href="src/whop_sdk/partners/client.py">retrieve_link</a>(...) -> OnboardingReward</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Resolves the public reward terms and whether redemption capacity remains. Immediate rewards claim capacity at business creation; qualified rewards claim it when the business reaches the threshold.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.DEFAULT,
+)
+
+client.partners.retrieve_link(
+    partner_username="partner_username",
+    reward_slug="reward_slug",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**partner_username:** `str` — Username from the partner link's `a` query parameter.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**reward_slug:** `str` — Reward slug from the partner link's `reward` query parameter.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.partners.<a href="src/whop_sdk/partners/client.py">referred_users</a>(...) -> ReferredUsersPartnersResponse</code></summary>
 <dl>
 <dd>
@@ -25070,7 +24673,7 @@ client.payment_method_domains.create(
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[str]` — Account to register the domain for (`biz_` tag). Defaults to the caller's account.
+**account_id:** `typing.Optional[str]` — Account to register the domain for (`biz_` tag). Required when authenticating as a user; an account API key supplies its own account.
     
 </dd>
 </dl>
@@ -26481,6 +26084,79 @@ client.payments.void(
 <dd>
 
 **id:** `str` — The payment to void, prefixed `pay_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.payments.<a href="src/whop_sdk/payments/client.py">resume</a>(...) -> PaymentStatus</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Starts a fresh on-session attempt with the saved card for a subscription renewal that is waiting on the customer to authenticate; the bank's step then arrives in `next_action` on the following status reads. Only the payment's own customer may call it — with the payment's `client_secret` or their own session — and it is a no-op for any payment that is not a parked renewal.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.DEFAULT,
+)
+
+client.payments.resume(
+    payment_id="payment_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**payment_id:** `str` — The unique identifier of the payment.
     
 </dd>
 </dl>
@@ -28223,7 +27899,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[str]` — The unique identifier of the account to create this plan for. Defaults to the caller's account.
+**account_id:** `typing.Optional[str]` — The unique identifier of the account to create this plan for. Required when authenticating as a user; an account API key supplies its own account.
     
 </dd>
 </dl>
@@ -28295,7 +27971,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**initial_price:** `typing.Optional[float]` — Initial amount charged in the plan's currency, e.g. 10.43 for $10.43.
+**initial_price:** `typing.Optional[float]` — Initial amount charged in the plan's currency, e.g. 10.43 for $10.43. A paid fiat plan charges at least 1.00 in its currency; use 0 for free.
     
 </dd>
 </dl>
@@ -28359,7 +28035,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**renewal_price:** `typing.Optional[float]` — The amount charged each billing period for recurring plans, in the plan's currency.
+**renewal_price:** `typing.Optional[float]` — The amount charged each billing period for recurring plans, in the plan's currency. A paid fiat plan charges at least 1.00 in its currency.
     
 </dd>
 </dl>
@@ -28722,7 +28398,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**initial_price:** `typing.Optional[float]` — Initial amount charged in the plan's currency, e.g. 10.43 for $10.43.
+**initial_price:** `typing.Optional[float]` — Initial amount charged in the plan's currency, e.g. 10.43 for $10.43. A paid fiat plan charges at least 1.00 in its currency; use 0 for free.
     
 </dd>
 </dl>
@@ -28778,7 +28454,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**renewal_price:** `typing.Optional[float]` — The amount charged each billing period for recurring plans, in the plan's currency.
+**renewal_price:** `typing.Optional[float]` — The amount charged each billing period for recurring plans, in the plan's currency. A paid fiat plan charges at least 1.00 in its currency.
     
 </dd>
 </dl>
@@ -29691,7 +29367,7 @@ client.products.update(
 <dl>
 <dd>
 
-Submits a product to the whop.com marketplace for review. The product moves to `pending_review`; a Whop reviewer approves it before it goes live.
+Submits a product to the whop.com marketplace for review. The product moves to `pending_review`; a Whop reviewer approves it before it goes live. Requires a logo, a headline, and at least one gallery image or video; the request fails naming whichever is missing.
 </dd>
 </dl>
 </dd>
@@ -36549,6 +36225,22 @@ client.transfers.create(
 <dl>
 <dd>
 
+**feed_id:** `typing.Optional[str]` — Ledger transfers only. The feed the transfer was initiated from. Given with `feed_type`, the payment receipt posts into that feed instead of a direct message.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**feed_type:** `typing.Optional[CreateTransfersRequestFeedType]` — Ledger transfers only. The type of the feed named by `feed_id`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **idempotence_key:** `typing.Optional[str]` — Ledger transfers and wallet sends. A unique key that makes retries safe. Retrying with the same key returns the original transfer, or attaches to the original wallet send, instead of moving money twice.
     
 </dd>
@@ -38681,116 +38373,6 @@ client.webhooks.test(
 <dd>
 
 **event:** `str` — The event to test the webhook for, in dot form (for example `payment.succeeded`).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.webhooks.<a href="src/whop_sdk/webhooks/client.py">deliveries_webhook</a>(...) -> DeliveriesWebhookResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a paginated list of delivery attempts for a webhook, ordered by most recent first. Includes the request payload, response body, response code, and timing for each attempt.
-
-Required permissions:
- - `developer:manage_webhook`
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from whop_sdk import Whop
-from whop_sdk.environment import WhopEnvironment
-
-client = Whop(
-    token="<token>",
-    environment=WhopEnvironment.DEFAULT,
-)
-
-client.webhooks.deliveries_webhook(
-    webhook_id="webhook_id",
-    first=42,
-    last=42,
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**webhook_id:** `str` — The unique identifier of the webhook to list deliveries for.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**after:** `typing.Optional[str]` — Returns the elements in the list that come after the specified cursor.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**before:** `typing.Optional[str]` — Returns the elements in the list that come before the specified cursor.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**first:** `typing.Optional[int]` — Returns the first _n_ elements from the list.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**last:** `typing.Optional[int]` — Returns the last _n_ elements from the list.
     
 </dd>
 </dl>
@@ -41937,7 +41519,7 @@ client.users.preferences.update()
 
 Sets the authenticated user's notification preferences. Each preference is addressed by `scope`, not by id, so a scope read back from either list endpoint can be sent straight here.
 
-A scope naming an experience with no topic sets that experience's level, and accepts all three levels. Any other scope sets a topic override, which is binary — `all` or `nothing` — and requires a `channel`.
+A scope naming an experience with no topic sets that experience's level, and accepts all three levels. Any other scope sets a topic override, which is binary — `all` or `nothing`. A topic override with no `channel` applies to every delivery channel.
 
 `level: null` clears the preference. Preferences are stored as overrides, so clearing one means the scope inherits its default again rather than being switched off.
 

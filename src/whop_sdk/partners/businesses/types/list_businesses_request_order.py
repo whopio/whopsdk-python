@@ -4,7 +4,13 @@ import typing
 
 ListBusinessesRequestOrder = typing.Union[
     typing.Literal[
-        "created_at", "referral_started_at", "referral_expires_at", "payout_percentage", "volume_usd", "earnings_usd"
+        "created_at",
+        "referral_started_at",
+        "referral_expires_at",
+        "payout_percentage",
+        "volume_usd",
+        "volume_30d_usd",
+        "earnings_usd",
     ],
     typing.Any,
 ]

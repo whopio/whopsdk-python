@@ -130,7 +130,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -226,7 +226,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -272,7 +272,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -305,7 +305,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -340,7 +340,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -382,7 +382,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -415,7 +415,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -448,7 +448,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -457,6 +457,39 @@ class PaymentsClient:
         )
         """
         _response = self._raw_client.void(id, request_options=request_options)
+        return _response.data
+
+    def resume(self, payment_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> PaymentStatus:
+        """
+        Starts a fresh on-session attempt with the saved card for a subscription renewal that is waiting on the customer to authenticate; the bank's step then arrives in `next_action` on the following status reads. Only the payment's own customer may call it — with the payment's `client_secret` or their own session — and it is a no-op for any payment that is not a parked renewal.
+
+        Parameters
+        ----------
+        payment_id : str
+            The unique identifier of the payment.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaymentStatus
+            Resume requested
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-09-06",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.payments.resume(
+            payment_id="payment_id",
+        )
+        """
+        _response = self._raw_client.resume(payment_id, request_options=request_options)
         return _response.data
 
     def update_return_url(
@@ -486,7 +519,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -524,7 +557,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -648,7 +681,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -753,7 +786,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -807,7 +840,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -848,7 +881,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -891,7 +924,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -941,7 +974,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -982,7 +1015,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1023,7 +1056,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1038,6 +1071,49 @@ class AsyncPaymentsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.void(id, request_options=request_options)
+        return _response.data
+
+    async def resume(
+        self, payment_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> PaymentStatus:
+        """
+        Starts a fresh on-session attempt with the saved card for a subscription renewal that is waiting on the customer to authenticate; the bank's step then arrives in `next_action` on the following status reads. Only the payment's own customer may call it — with the payment's `client_secret` or their own session — and it is a no-op for any payment that is not a parked renewal.
+
+        Parameters
+        ----------
+        payment_id : str
+            The unique identifier of the payment.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaymentStatus
+            Resume requested
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-09-06",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.payments.resume(
+                payment_id="payment_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.resume(payment_id, request_options=request_options)
         return _response.data
 
     async def update_return_url(
@@ -1069,7 +1145,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1115,7 +1191,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-02-2",
+            "2026-09-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

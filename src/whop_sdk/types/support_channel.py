@@ -18,6 +18,11 @@ class SupportChannel(UniversalBaseModel):
     The unique identifier of the account associated with this channel. Null if this is not a support or account-scoped conversation.
     """
 
+    company_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The unique identifier of the account associated with this channel. Null if this is not a support or account-scoped conversation.
+    """
+
     custom_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     A custom display name assigned to this channel by the user. Null if no custom name has been set.

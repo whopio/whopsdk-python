@@ -18,6 +18,7 @@ from ..errors.forbidden_error import ForbiddenError
 from ..errors.not_found_error import NotFoundError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.v1error_response import V1ErrorResponse
+from .types.create_transfers_request_feed_type import CreateTransfersRequestFeedType
 from .types.create_transfers_request_type import CreateTransfersRequestType
 from .types.create_transfers_response import CreateTransfersResponse
 from .types.list_recipients_transfers_response import ListRecipientsTransfersResponse
@@ -169,6 +170,8 @@ class RawTransfersClient:
         currency: typing.Optional[str] = OMIT,
         destination_id: typing.Optional[str] = OMIT,
         expires_at: typing.Optional[dt.datetime] = OMIT,
+        feed_id: typing.Optional[str] = OMIT,
+        feed_type: typing.Optional[CreateTransfersRequestFeedType] = OMIT,
         idempotence_key: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         notes: typing.Optional[str] = OMIT,
@@ -195,6 +198,12 @@ class RawTransfersClient:
 
         expires_at : typing.Optional[dt.datetime]
             claim_link only. Link expiry as an ISO 8601 timestamp. Defaults to 24 hours from creation.
+
+        feed_id : typing.Optional[str]
+            Ledger transfers only. The feed the transfer was initiated from. Given with `feed_type`, the payment receipt posts into that feed instead of a direct message.
+
+        feed_type : typing.Optional[CreateTransfersRequestFeedType]
+            Ledger transfers only. The type of the feed named by `feed_id`.
 
         idempotence_key : typing.Optional[str]
             Ledger transfers and wallet sends. A unique key that makes retries safe. Retrying with the same key returns the original transfer, or attaches to the original wallet send, instead of moving money twice.
@@ -227,6 +236,8 @@ class RawTransfersClient:
                 "currency": currency,
                 "destination_id": destination_id,
                 "expires_at": expires_at,
+                "feed_id": feed_id,
+                "feed_type": feed_type,
                 "idempotence_key": idempotence_key,
                 "metadata": metadata,
                 "notes": notes,
@@ -618,6 +629,8 @@ class AsyncRawTransfersClient:
         currency: typing.Optional[str] = OMIT,
         destination_id: typing.Optional[str] = OMIT,
         expires_at: typing.Optional[dt.datetime] = OMIT,
+        feed_id: typing.Optional[str] = OMIT,
+        feed_type: typing.Optional[CreateTransfersRequestFeedType] = OMIT,
         idempotence_key: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         notes: typing.Optional[str] = OMIT,
@@ -644,6 +657,12 @@ class AsyncRawTransfersClient:
 
         expires_at : typing.Optional[dt.datetime]
             claim_link only. Link expiry as an ISO 8601 timestamp. Defaults to 24 hours from creation.
+
+        feed_id : typing.Optional[str]
+            Ledger transfers only. The feed the transfer was initiated from. Given with `feed_type`, the payment receipt posts into that feed instead of a direct message.
+
+        feed_type : typing.Optional[CreateTransfersRequestFeedType]
+            Ledger transfers only. The type of the feed named by `feed_id`.
 
         idempotence_key : typing.Optional[str]
             Ledger transfers and wallet sends. A unique key that makes retries safe. Retrying with the same key returns the original transfer, or attaches to the original wallet send, instead of moving money twice.
@@ -676,6 +695,8 @@ class AsyncRawTransfersClient:
                 "currency": currency,
                 "destination_id": destination_id,
                 "expires_at": expires_at,
+                "feed_id": feed_id,
+                "feed_type": feed_type,
                 "idempotence_key": idempotence_key,
                 "metadata": metadata,
                 "notes": notes,

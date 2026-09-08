@@ -30,6 +30,9 @@ if typing.TYPE_CHECKING:
     from .create_confirmation_tokens_request_payment_method_payer_document_type import (
         CreateConfirmationTokensRequestPaymentMethodPayerDocumentType,
     )
+    from .create_confirmation_tokens_request_payment_method_redirect import (
+        CreateConfirmationTokensRequestPaymentMethodRedirect,
+    )
     from .create_confirmation_tokens_request_payment_method_saved import (
         CreateConfirmationTokensRequestPaymentMethodSaved,
     )
@@ -45,6 +48,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateConfirmationTokensRequestPaymentMethodGooglePay": ".create_confirmation_tokens_request_payment_method_google_pay",
     "CreateConfirmationTokensRequestPaymentMethodPayerDocument": ".create_confirmation_tokens_request_payment_method_payer_document",
     "CreateConfirmationTokensRequestPaymentMethodPayerDocumentType": ".create_confirmation_tokens_request_payment_method_payer_document_type",
+    "CreateConfirmationTokensRequestPaymentMethodRedirect": ".create_confirmation_tokens_request_payment_method_redirect",
     "CreateConfirmationTokensRequestPaymentMethodSaved": ".create_confirmation_tokens_request_payment_method_saved",
     "CreateConfirmationTokensRequestSetupFutureUsage": ".create_confirmation_tokens_request_setup_future_usage",
 }
@@ -82,6 +86,7 @@ __all__ = [
     "CreateConfirmationTokensRequestPaymentMethodGooglePay",
     "CreateConfirmationTokensRequestPaymentMethodPayerDocument",
     "CreateConfirmationTokensRequestPaymentMethodPayerDocumentType",
+    "CreateConfirmationTokensRequestPaymentMethodRedirect",
     "CreateConfirmationTokensRequestPaymentMethodSaved",
     "CreateConfirmationTokensRequestSetupFutureUsage",
 ]

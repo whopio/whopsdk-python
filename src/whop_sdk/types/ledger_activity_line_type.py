@@ -132,6 +132,11 @@ LedgerActivityLineType = typing.Union[
         "withdrawal_reclassification",
         "withdrawal_reversal",
         "withdrawal_topup_adjustment",
+        "deposit",
+        "wallet_transfer_incoming",
+        "wallet_transfer_outgoing",
+        "swap_source",
+        "swap_target",
     ],
     typing.Any,
 ]

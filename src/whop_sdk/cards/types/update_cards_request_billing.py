@@ -8,7 +8,7 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 class UpdateCardsRequestBilling(UniversalBaseModel):
     """
-    New billing address. Requires line1, city, region, postal_code, and country_code. On an invited card, passing billing alone (as the invited user) completes onboarding and starts card provisioning.
+    The billing address. On an issued card this replaces the card's billing address and region is also required. On an invited card, sending it as the invited user completes onboarding and starts card provisioning.
     """
 
     city: str = pydantic.Field()
@@ -36,9 +36,9 @@ class UpdateCardsRequestBilling(UniversalBaseModel):
     Billing postal code.
     """
 
-    region: str = pydantic.Field()
+    region: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Billing region or state.
+    Billing region or state. Required when updating an issued card's billing address.
     """
 
     if IS_PYDANTIC_V2:
