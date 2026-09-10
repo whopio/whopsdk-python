@@ -4,6 +4,8 @@ import typing
 
 PermissionAction = typing.Union[
     typing.Literal[
+        "experiment:manage",
+        "experiment:read",
         "ai_prompt:create",
         "access_pass:basic:export",
         "access_pass:basic:read",

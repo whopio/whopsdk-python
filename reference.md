@@ -18578,6 +18578,867 @@ client.experiences.duplicate(
 </dl>
 </details>
 
+## Experiments
+<details><summary><code>client.experiments.<a href="src/whop_sdk/experiments/client.py">list</a>(...) -> ListExperimentsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists experiments for one account with experiment:read permission. Omit account_id or pass internal to list internal experiments, which requires Whop internal access.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.DEFAULT,
+)
+
+client.experiments.list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — Owning account ID. Omit or pass internal for Whop internal experiments; internal access is required.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**related_resource:** `typing.Optional[ExperimentResourceReference]` — Filter by related resource; requires account_id.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[ListExperimentsRequestStatus]` — Only experiments with this status.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first:** `typing.Optional[int]` — The number of experiments to return (default 20, max 100).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — A cursor; returns experiments after this position.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last:** `typing.Optional[int]` — The number of experiments to return from the end of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — A cursor; returns experiments before this position.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[ListExperimentsRequestOrder]` — The field to sort experiments by.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**direction:** `typing.Optional[ListExperimentsRequestDirection]` — Sort direction.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.experiments.<a href="src/whop_sdk/experiments/client.py">create</a>(...) -> Experiment</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a draft experiment for the specified account. Use internal for a Whop platform experiment.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.DEFAULT,
+)
+
+client.experiments.create(
+    account_id="internal",
+    flag_key="checkout_redesign_v2",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**account_id:** `str` — Owning account tag or internal. Required; ownership cannot change.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**flag_key:** `str` — Developer-chosen handle referenced from code, used in evaluation and results calls. Interchangeable with the returned `expt_` id anywhere the API takes an experiment identifier.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**bucket_by:** `typing.Optional[CreateExperimentsRequestBucketBy]` — Randomization unit, and the only identity the assignment is keyed on — evaluation fails rather than falling back to another. `user` (default) uses `subject[user_id]` for account experiments and the signed-in user for internal experiments; `account` uses `subject[account_id]`, so every user of an account gets the same arm; `anonymous` uses the anonymous id and survives sign-in. Fixed after creation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**control:** `typing.Optional[CreateExperimentsRequestControl]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**feature_flag_only:** `typing.Optional[bool]` — When `true`, creates a binary feature flag rather than a full experiment. Feature flags expose the same evaluation API but do not collect metric results. Defaults to `false`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**hypothesis:** `typing.Optional[str]` — Required for full experiments; rejected on feature flags. Structure it as "If we [change] for [cohort], then [measurable behavior] will [increase/decrease], resulting in [business outcome], because [evidence]. Created by [name]." Evidence should be something real — a baseline number, a funnel breakdown — not a guess, and [name] is you, not something to leave blank.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — Human-readable display name. Defaults to `flag_key` when omitted.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**related_resource:** `typing.Optional[ExperimentResourceReference]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**targeting_rules:** `typing.Optional[typing.List[CreateExperimentsRequestTargetingRulesItem]]` — Rules that determine which subjects qualify for the experiment.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variants:** `typing.Optional[typing.List[CreateExperimentsRequestVariantsItem]]` — Treatment arms to create. Users outside every arm form the implicit `control` group. Required unless `feature_flag_only` is `true`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.experiments.<a href="src/whop_sdk/experiments/client.py">exposures</a>(...) -> ExposuresExperimentsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Evaluates and records an exposure without requiring authentication. When credentials resolve, their authentication method, API key ID, and signed-in user ID are recorded on the exposure event. Pass subject for bucketing identity and account_id for experiment ownership.
+
+Pass `flag_key` to check a single flag, or omit it to fetch active flags in the account and related resource scope. Internal anonymous callers may use the `x-whop-anonymous-id` header or `ajs_anonymous_id` cookie; explicit `subject[anonymous_id]` takes precedence.
+
+Assignments use exactly the configured `bucket_by`: `subject[user_id]`, `subject[account_id]`, or `subject[anonymous_id]`. Internal user experiments derive identity from the signed-in session. Missing the required identity fails single evaluation and omits the experiment from batch evaluation. Subjects outside all treatment ranges receive control.
+
+Pass `subject[account_id]` to enable account-level targeting rules. Pass `properties` as a JSON object to supply the values that `property` targeting conditions match against.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.DEFAULT,
+)
+
+client.experiments.exposures()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**subject:** `typing.Optional[ExposuresExperimentsRequestSubject]` — Bucketing subject. Ownership is the top-level account_id. Account experiments accept caller-supplied subject IDs; internal experiments derive the user from the session.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**related_resource:** `typing.Optional[ExperimentResourceReference]` — Restricts batch evaluation to this related resource; omitted batches contain only unbound experiments.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**flag_key:** `typing.Optional[str]` — Flag or experiment to evaluate — the flag_key handle or the `expt_` id. Omit to return all flags the caller qualifies for.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — Owning account ID or internal. Required when evaluating by flag_key or in a batch; optional for an expt_ ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**properties:** `typing.Optional[str]` — JSON-encoded scalar values that property targeting conditions match against. Numeric and boolean strings are coerced. Nested query keys such as properties[plan]=pro remain accepted for existing callers. For internal experiments, is_internal_user is derived from the session and cannot be overridden.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.experiments.<a href="src/whop_sdk/experiments/client.py">retrieve</a>(...) -> Experiment</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a single experiment or feature flag by its `expt_` id or flag_key handle. Requires the corresponding experiment permission on the owning account, or Whop internal access for internal experiments.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.DEFAULT,
+)
+
+client.experiments.retrieve(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The experiment identifier — the `expt_` id or the flag_key handle.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — Owning account or internal. Required when id is a flag key; optional for an expt_ ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.experiments.<a href="src/whop_sdk/experiments/client.py">update</a>(...) -> Experiment</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the targeting rules, treatment allocation, metrics, or hypothesis of an existing experiment or feature flag. Weights and metrics can only grow, so enrolled users never change arms and an existing metric is never dropped. Lifecycle moves through the transition endpoints (`activate`, `pause`, `end`), never through this update. Requires the corresponding experiment permission on the owning account, or Whop internal access for internal experiments.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.DEFAULT,
+)
+
+client.experiments.update(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The experiment identifier — the `expt_` id or the flag_key handle.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — Owning account or internal. Required when id is a flag key; optional for an expt_ ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**control:** `typing.Optional[UpdateExperimentsRequestControl]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**hypothesis:** `typing.Optional[str]` — Omit to leave unchanged. Send an empty string to clear it. Not accepted on feature flags. When setting it, structure it as "If we [change] for [cohort], then [measurable behavior] will [increase/decrease], resulting in [business outcome], because [evidence]. Created by [name]." same as on create.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**related_resource:** `typing.Optional[ExperimentResourceReference]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**targeting_rules:** `typing.Optional[typing.List[UpdateExperimentsRequestTargetingRulesItem]]` — Replace the targeting rules with this set. Omit to leave unchanged.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variants:** `typing.Optional[typing.List[UpdateExperimentsRequestVariantsItem]]` — Grow treatment allocation. Pass every existing treatment with an equal-or-higher weight; append new names to add arms. Weights never decrease and arms are never removed. Omit to leave unchanged.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.experiments.<a href="src/whop_sdk/experiments/client.py">activate</a>(...) -> Experiment</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Starts (or resumes) an experiment or feature flag so evaluation begins serving it. Activating a draft stamps `started_at`; resuming a paused experiment keeps the original start. Only drafts and paused experiments can be activated. Requires the corresponding experiment permission on the owning account, or Whop internal access for internal experiments.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.DEFAULT,
+)
+
+client.experiments.activate(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The experiment identifier — the `expt_` id or the flag_key handle.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — Owning account or internal. Required when id is a flag key; optional for an expt_ ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**duration_days:** `typing.Optional[int]` — Reporting window length in days. Omit to use the default. This does not automatically end the experiment.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.experiments.<a href="src/whop_sdk/experiments/client.py">end</a>(...) -> Experiment</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Concludes the experiment and records required `findings`. Pass `winning_arm` to serve the winning treatment to everyone; omit it when control won. Ended experiments cannot restart, but may be ended again to correct the winner. Requires experiment:manage on the account, or internal access for platform experiments.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.DEFAULT,
+)
+
+client.experiments.end(
+    id="id",
+    findings="Treatment lifted signups 12%, shipping it to everyone.",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The experiment identifier — the `expt_` id or the flag_key handle.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**findings:** `str` — What you learned and why you chose this outcome. Required.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — Owning account or internal. Required when id is a flag key; optional for an expt_ ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**winning_arm:** `typing.Optional[str]` — The treatment that won. Setting it rolls that arm out: every later evaluation returns it to every caller, ignoring targeting and allocation, and exposures stop being recorded. Omit it when control won — an ended experiment with no winning arm evaluates to `control` for everyone, so ending again without one also reverts a rollout recorded by mistake. Not accepted on feature flags, which evaluate to disabled once ended.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.experiments.<a href="src/whop_sdk/experiments/client.py">pause</a>(...) -> Experiment</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Pauses an active experiment or feature flag: evaluation stops serving it and exposures stop flowing. Assignments are keyed on stable identity, so users return to their original arm when the experiment resumes. Requires the corresponding experiment permission on the owning account, or Whop internal access for internal experiments.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.DEFAULT,
+)
+
+client.experiments.pause(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The experiment identifier — the `expt_` id or the flag_key handle.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — Owning account or internal. Required when id is a flag key; optional for an expt_ ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Exports
 <details><summary><code>client.exports.<a href="src/whop_sdk/exports/client.py">list</a>(...) -> ListExportsResponse</code></summary>
 <dl>
