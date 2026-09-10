@@ -64,6 +64,11 @@ class Payment(UniversalBaseModel):
     The currency the payment settles in, lowercase ISO 4217. Every money field below is stated in it unless it says otherwise.
     """
 
+    customer_email: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The buyer's email address. Null without `member:email:read` on the account or when the buyer has no assigned email.
+    """
+
     customer_phone: typing.Optional[str] = pydantic.Field(default=None)
     """
     The phone number the buyer gave at checkout, when one was collected.
@@ -152,6 +157,11 @@ class Payment(UniversalBaseModel):
     plan_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The plan that was charged, prefixed `plan_`.
+    """
+
+    presentment_total: typing.Optional[Money] = pydantic.Field(default=None)
+    """
+    The account-facing total in the currency presented to the buyer, before conversion into the settlement currency. Excludes buyer fees.
     """
 
     product_id: typing.Optional[str] = pydantic.Field(default=None)
