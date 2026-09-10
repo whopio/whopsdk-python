@@ -55,7 +55,7 @@ class PreferencesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-06",
+            "2026-09-09",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -75,6 +75,7 @@ class PreferencesClient:
         ads_scheduling_timezone: typing.Optional[str] = OMIT,
         ads_triple_whale_integration: typing.Optional[UpdatePreferencesRequestAdsTripleWhaleIntegration] = OMIT,
         cards_auto_top_up: typing.Optional[bool] = OMIT,
+        cards_notifications: typing.Optional[bool] = OMIT,
         dispute_fighter_enabled: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdatePreferencesResponse:
@@ -101,6 +102,9 @@ class PreferencesClient:
         cards_auto_top_up : typing.Optional[bool]
             Whether incoming funds are automatically moved to the account's cards balance. Requires a cards balance on the account.
 
+        cards_notifications : typing.Optional[bool]
+            Whether Whop Card notifications reach this account's team. Set it to `false` to stop every card email and push notification for the account — application status, verification and action-required alerts, card-ready alerts, declines, large charges, and cashback summaries. Cardholder onboarding invitations still send, because they carry the only link an invited cardholder can onboard with. Requesting a card is rejected while notifications are off, since the request reaches nobody. Cards on personal accounts are unaffected. Requires a cards balance on the account.
+
         dispute_fighter_enabled : typing.Optional[bool]
             Whether Whop assembles and files the evidence response when this account's payments are disputed. Off by default; enabling it also opts the account into the success fee charged only on disputes it wins.
 
@@ -117,7 +121,7 @@ class PreferencesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-06",
+            "2026-09-09",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -132,6 +136,7 @@ class PreferencesClient:
             ads_scheduling_timezone=ads_scheduling_timezone,
             ads_triple_whale_integration=ads_triple_whale_integration,
             cards_auto_top_up=cards_auto_top_up,
+            cards_notifications=cards_notifications,
             dispute_fighter_enabled=dispute_fighter_enabled,
             request_options=request_options,
         )
@@ -179,7 +184,7 @@ class AsyncPreferencesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-06",
+            "2026-09-09",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -205,6 +210,7 @@ class AsyncPreferencesClient:
         ads_scheduling_timezone: typing.Optional[str] = OMIT,
         ads_triple_whale_integration: typing.Optional[UpdatePreferencesRequestAdsTripleWhaleIntegration] = OMIT,
         cards_auto_top_up: typing.Optional[bool] = OMIT,
+        cards_notifications: typing.Optional[bool] = OMIT,
         dispute_fighter_enabled: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdatePreferencesResponse:
@@ -231,6 +237,9 @@ class AsyncPreferencesClient:
         cards_auto_top_up : typing.Optional[bool]
             Whether incoming funds are automatically moved to the account's cards balance. Requires a cards balance on the account.
 
+        cards_notifications : typing.Optional[bool]
+            Whether Whop Card notifications reach this account's team. Set it to `false` to stop every card email and push notification for the account — application status, verification and action-required alerts, card-ready alerts, declines, large charges, and cashback summaries. Cardholder onboarding invitations still send, because they carry the only link an invited cardholder can onboard with. Requesting a card is rejected while notifications are off, since the request reaches nobody. Cards on personal accounts are unaffected. Requires a cards balance on the account.
+
         dispute_fighter_enabled : typing.Optional[bool]
             Whether Whop assembles and files the evidence response when this account's payments are disputed. Off by default; enabling it also opts the account into the success fee charged only on disputes it wins.
 
@@ -249,7 +258,7 @@ class AsyncPreferencesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-06",
+            "2026-09-09",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -270,6 +279,7 @@ class AsyncPreferencesClient:
             ads_scheduling_timezone=ads_scheduling_timezone,
             ads_triple_whale_integration=ads_triple_whale_integration,
             cards_auto_top_up=cards_auto_top_up,
+            cards_notifications=cards_notifications,
             dispute_fighter_enabled=dispute_fighter_enabled,
             request_options=request_options,
         )

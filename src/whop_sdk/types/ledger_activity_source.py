@@ -57,7 +57,7 @@ class LedgerActivitySource(UniversalBaseModel):
     id: str
     notes: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Memo attached to the transfer source, or null when none was provided.
+    Memo attached to the transfer or payout source, or null when none was provided (on payout sources requires payout:withdrawal:read).
     """
 
     object: str

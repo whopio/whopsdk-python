@@ -7,6 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .account_parent import AccountParent
 from .app_banner_image import AppBannerImage
 from .app_creator import AppCreator
+from .app_domain import AppDomain
 from .app_icon import AppIcon
 from .app_list_item_app_type import AppListItemAppType
 from .app_list_item_status import AppListItemStatus
@@ -64,6 +65,7 @@ class AppListItem(UniversalBaseModel):
     Subdomain identifier for the app's proxied URL, forming https://{domain_id}.apps.whop.com.
     """
 
+    domains: typing.Optional[typing.List[AppDomain]] = None
     experience_path: typing.Optional[str] = pydantic.Field(default=None)
     """
     URL path for the member-facing hub view, or `null` when not configured.

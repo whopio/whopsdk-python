@@ -171,6 +171,8 @@ RetrieveFinancialReportsResponseRowsItemLineCategory = typing.Union[
         "platform_earning",
         "platform_earning_settlement",
         "platform_earning_unreconciled_clearing",
+        "platform_markup_fee",
+        "platform_markup_fee_payout",
         "promo_reversal",
         "psp_accelerated_settlement_fee",
         "psp_account_debit",

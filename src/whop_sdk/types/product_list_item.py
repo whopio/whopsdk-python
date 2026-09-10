@@ -14,6 +14,11 @@ class ProductListItem(UniversalBaseModel):
     Account that sells this product.
     """
 
+    average_review_rating: float = pydantic.Field()
+    """
+    Average star rating across published reviews for this product, from `1.0` to `5.0`. Returns `0.0` when no published-review rating is available.
+    """
+
     created_at: str = pydantic.Field()
     """
     When the product was created, as an ISO 8601 timestamp.

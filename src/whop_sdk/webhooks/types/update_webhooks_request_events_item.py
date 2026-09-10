@@ -5,6 +5,8 @@ import typing
 UpdateWebhooksRequestEventsItem = typing.Union[
     typing.Literal[
         "account.updated",
+        "account.financing_approved",
+        "account.financing_denied",
         "invoice.created",
         "invoice.marked_uncollectible",
         "invoice.paid",

@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .account_summary import AccountSummary
 from .payment_last_payment_error import PaymentLastPaymentError
 from .payment_next_action import PaymentNextAction
 from .payment_processing_details import PaymentProcessingDetails
@@ -11,6 +12,11 @@ from .payment_status_status import PaymentStatusStatus
 
 
 class PaymentStatus(UniversalBaseModel):
+    account: typing.Optional[AccountSummary] = pydantic.Field(default=None)
+    """
+    The account receiving this payment, or `null` when the payment has no associated account.
+    """
+
     capture_expires_at: typing.Optional[str] = pydantic.Field(default=None)
     """
     When the card authorization must be captured, as an ISO 8601 timestamp. `null` when this payment was not authorized for later capture.
@@ -38,7 +44,7 @@ class PaymentStatus(UniversalBaseModel):
 
     processing_details: typing.Optional[PaymentProcessingDetails] = pydantic.Field(default=None)
     """
-    Present while `status` is `processing` on a settlement rail, otherwise `null`.
+    Present while `status` is `processing` on a settlement rail, otherwise `null`. A `processing` status without it has not been decided yet — keep polling.
     """
 
     return_url: typing.Optional[str] = pydantic.Field(default=None)
@@ -48,7 +54,7 @@ class PaymentStatus(UniversalBaseModel):
 
     status: PaymentStatusStatus = pydantic.Field()
     """
-    How far the payment has got. `requires_confirmation` — nothing attempted yet, or the last attempt failed and can be retried. `requires_action` — the buyer has a step outstanding; see `next_action`. `requires_capture` — the card authorization is holding funds and must be captured. `confirming` — the buyer has done their part and the processor is deciding. `processing` — the money is moving; see `processing_details`. `succeeded` — collected. `canceled` — voided or written off.
+    How far the payment has got. `requires_confirmation` — nothing attempted yet, or the last attempt failed and can be retried. `requires_action` — the buyer has a step outstanding; see `next_action`. `requires_capture` — the card authorization is holding funds and must be captured. `confirming` — the buyer has done their part and the processor is deciding. `processing` — with `processing_details`, the money is moving; without them, the charge is still being decided and the status should be read again. `succeeded` — collected. `canceled` — voided or written off.
     """
 
     if IS_PYDANTIC_V2:

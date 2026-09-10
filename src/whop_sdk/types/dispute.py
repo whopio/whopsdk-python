@@ -12,6 +12,7 @@ from .dispute_issuer_comment import DisputeIssuerComment
 from .dispute_payment import DisputePayment
 from .dispute_reason import DisputeReason
 from .dispute_status import DisputeStatus
+from .receipt_line_item import ReceiptLineItem
 
 
 class Dispute(UniversalBaseModel):
@@ -81,6 +82,7 @@ class Dispute(UniversalBaseModel):
     """
 
     issuer_comments: typing.List[DisputeIssuerComment]
+    line_items: typing.List[ReceiptLineItem]
     payment: typing.Optional[DisputePayment] = pydantic.Field(default=None)
     """
     The payment being disputed.
@@ -103,12 +105,12 @@ class Dispute(UniversalBaseModel):
 
     reason: DisputeReason = pydantic.Field()
     """
-    Why the customer says they are disputing, normalized across card networks. `other` covers a code Whop has not categorized yet — read `reason_code` for the raw value.
+    Why the customer says they are disputing, normalized across processors and card networks. `other` covers a processor reason Whop has not categorized yet.
     """
 
     reason_code: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The raw card-network or processor reason code, such as `10.4`.
+    The raw card-network or processor reason code, such as `10.4`. Informational only — `reason` is not derived from it.
     """
 
     status: DisputeStatus = pydantic.Field()

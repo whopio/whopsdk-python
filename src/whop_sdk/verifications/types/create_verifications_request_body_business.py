@@ -72,6 +72,11 @@ class CreateVerificationsRequestBodyBusiness(UniversalBaseModel):
     The government-issued ID number of the person being verified — the individual for a KYC verification, or the business representative for a KYB verification — as appropriate for their country. Examples are a Social Security Number (SSN) in the US, or a Social Insurance Number in Canada.
     """
 
+    verification_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    ID of an `approved` verification to reuse on this account instead of verifying the person again, for example `idpf_XXXXXXXX`. The verification becomes this account's current one for its kind — replacing whichever verification of that kind the account already has, and carrying its payout account across — and the response is that same verification, unchanged. Only the signed-in Whop user who started the original verification can reuse it: API keys, OAuth tokens, and onboarding links are refused. `kind` is the only other field it accepts, and must match the reused verification. An account whose verification was denied or is still under review cannot reuse one.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:
