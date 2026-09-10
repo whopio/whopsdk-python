@@ -12,6 +12,7 @@ FeeMarkupTypes = typing.Union[
         "transfer_markup",
         "crypto_deposit_markup",
         "bank_deposit_markup",
+        "crypto_swap_markup",
     ],
     typing.Any,
 ]
