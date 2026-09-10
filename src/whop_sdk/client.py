@@ -28,6 +28,7 @@ if typing.TYPE_CHECKING:
     from .bounty_submissions.client import AsyncBountySubmissionsClient, BountySubmissionsClient
     from .card_transactions.client import AsyncCardTransactionsClient, CardTransactionsClient
     from .cards.client import AsyncCardsClient, CardsClient
+    from .cashback_rules.client import AsyncCashbackRulesClient, CashbackRulesClient
     from .chat_channels.client import AsyncChatChannelsClient, ChatChannelsClient
     from .checkout_configurations.client import AsyncCheckoutConfigurationsClient, CheckoutConfigurationsClient
     from .company_token_transactions.client import AsyncCompanyTokenTransactionsClient, CompanyTokenTransactionsClient
@@ -203,6 +204,7 @@ class Whop:
         self._bounty_submissions: typing.Optional[BountySubmissionsClient] = None
         self._card_transactions: typing.Optional[CardTransactionsClient] = None
         self._cards: typing.Optional[CardsClient] = None
+        self._cashback_rules: typing.Optional[CashbackRulesClient] = None
         self._chat_channels: typing.Optional[ChatChannelsClient] = None
         self._checkout_configurations: typing.Optional[CheckoutConfigurationsClient] = None
         self._company_token_transactions: typing.Optional[CompanyTokenTransactionsClient] = None
@@ -410,6 +412,14 @@ class Whop:
 
             self._cards = CardsClient(client_wrapper=self._client_wrapper)
         return self._cards
+
+    @property
+    def cashback_rules(self):
+        if self._cashback_rules is None:
+            from .cashback_rules.client import CashbackRulesClient  # noqa: E402
+
+            self._cashback_rules = CashbackRulesClient(client_wrapper=self._client_wrapper)
+        return self._cashback_rules
 
     @property
     def chat_channels(self):
@@ -1047,6 +1057,7 @@ class AsyncWhop:
         self._bounty_submissions: typing.Optional[AsyncBountySubmissionsClient] = None
         self._card_transactions: typing.Optional[AsyncCardTransactionsClient] = None
         self._cards: typing.Optional[AsyncCardsClient] = None
+        self._cashback_rules: typing.Optional[AsyncCashbackRulesClient] = None
         self._chat_channels: typing.Optional[AsyncChatChannelsClient] = None
         self._checkout_configurations: typing.Optional[AsyncCheckoutConfigurationsClient] = None
         self._company_token_transactions: typing.Optional[AsyncCompanyTokenTransactionsClient] = None
@@ -1254,6 +1265,14 @@ class AsyncWhop:
 
             self._cards = AsyncCardsClient(client_wrapper=self._client_wrapper)
         return self._cards
+
+    @property
+    def cashback_rules(self):
+        if self._cashback_rules is None:
+            from .cashback_rules.client import AsyncCashbackRulesClient  # noqa: E402
+
+            self._cashback_rules = AsyncCashbackRulesClient(client_wrapper=self._client_wrapper)
+        return self._cashback_rules
 
     @property
     def chat_channels(self):
