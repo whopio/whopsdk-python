@@ -7,6 +7,13 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
+        CreatePaymentsRequestPlan,
+        CreatePaymentsRequestPlanCurrency,
+        CreatePaymentsRequestPlanPlanType,
+        CreatePaymentsRequestPlanProduct,
+        CreatePaymentsRequestPlanProductGlobalAffiliateStatus,
+        CreatePaymentsRequestPlanProductVisibility,
+        CreatePaymentsRequestPlanVisibility,
         ListFeesPaymentsResponse,
         ListFeesPaymentsResponsePageInfo,
         ListPaymentsRequestBillingReason,
@@ -35,6 +42,13 @@ if typing.TYPE_CHECKING:
         PostPaymentSucceededPayloadType,
     )
 _dynamic_imports: typing.Dict[str, str] = {
+    "CreatePaymentsRequestPlan": ".types",
+    "CreatePaymentsRequestPlanCurrency": ".types",
+    "CreatePaymentsRequestPlanPlanType": ".types",
+    "CreatePaymentsRequestPlanProduct": ".types",
+    "CreatePaymentsRequestPlanProductGlobalAffiliateStatus": ".types",
+    "CreatePaymentsRequestPlanProductVisibility": ".types",
+    "CreatePaymentsRequestPlanVisibility": ".types",
     "ListFeesPaymentsResponse": ".types",
     "ListFeesPaymentsResponsePageInfo": ".types",
     "ListPaymentsRequestBillingReason": ".types",
@@ -86,6 +100,13 @@ def __dir__():
 
 
 __all__ = [
+    "CreatePaymentsRequestPlan",
+    "CreatePaymentsRequestPlanCurrency",
+    "CreatePaymentsRequestPlanPlanType",
+    "CreatePaymentsRequestPlanProduct",
+    "CreatePaymentsRequestPlanProductGlobalAffiliateStatus",
+    "CreatePaymentsRequestPlanProductVisibility",
+    "CreatePaymentsRequestPlanVisibility",
     "ListFeesPaymentsResponse",
     "ListFeesPaymentsResponsePageInfo",
     "ListPaymentsRequestBillingReason",

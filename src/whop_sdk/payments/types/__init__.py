@@ -6,6 +6,15 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .create_payments_request_plan import CreatePaymentsRequestPlan
+    from .create_payments_request_plan_currency import CreatePaymentsRequestPlanCurrency
+    from .create_payments_request_plan_plan_type import CreatePaymentsRequestPlanPlanType
+    from .create_payments_request_plan_product import CreatePaymentsRequestPlanProduct
+    from .create_payments_request_plan_product_global_affiliate_status import (
+        CreatePaymentsRequestPlanProductGlobalAffiliateStatus,
+    )
+    from .create_payments_request_plan_product_visibility import CreatePaymentsRequestPlanProductVisibility
+    from .create_payments_request_plan_visibility import CreatePaymentsRequestPlanVisibility
     from .list_fees_payments_response import ListFeesPaymentsResponse
     from .list_fees_payments_response_page_info import ListFeesPaymentsResponsePageInfo
     from .list_payments_request_billing_reason import ListPaymentsRequestBillingReason
@@ -33,6 +42,13 @@ if typing.TYPE_CHECKING:
     from .post_payment_succeeded_payload_api_version import PostPaymentSucceededPayloadApiVersion
     from .post_payment_succeeded_payload_type import PostPaymentSucceededPayloadType
 _dynamic_imports: typing.Dict[str, str] = {
+    "CreatePaymentsRequestPlan": ".create_payments_request_plan",
+    "CreatePaymentsRequestPlanCurrency": ".create_payments_request_plan_currency",
+    "CreatePaymentsRequestPlanPlanType": ".create_payments_request_plan_plan_type",
+    "CreatePaymentsRequestPlanProduct": ".create_payments_request_plan_product",
+    "CreatePaymentsRequestPlanProductGlobalAffiliateStatus": ".create_payments_request_plan_product_global_affiliate_status",
+    "CreatePaymentsRequestPlanProductVisibility": ".create_payments_request_plan_product_visibility",
+    "CreatePaymentsRequestPlanVisibility": ".create_payments_request_plan_visibility",
     "ListFeesPaymentsResponse": ".list_fees_payments_response",
     "ListFeesPaymentsResponsePageInfo": ".list_fees_payments_response_page_info",
     "ListPaymentsRequestBillingReason": ".list_payments_request_billing_reason",
@@ -84,6 +100,13 @@ def __dir__():
 
 
 __all__ = [
+    "CreatePaymentsRequestPlan",
+    "CreatePaymentsRequestPlanCurrency",
+    "CreatePaymentsRequestPlanPlanType",
+    "CreatePaymentsRequestPlanProduct",
+    "CreatePaymentsRequestPlanProductGlobalAffiliateStatus",
+    "CreatePaymentsRequestPlanProductVisibility",
+    "CreatePaymentsRequestPlanVisibility",
     "ListFeesPaymentsResponse",
     "ListFeesPaymentsResponsePageInfo",
     "ListPaymentsRequestBillingReason",
