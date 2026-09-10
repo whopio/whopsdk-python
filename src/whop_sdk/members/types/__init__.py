@@ -15,6 +15,9 @@ if typing.TYPE_CHECKING:
     from .post_member_created_payload import PostMemberCreatedPayload
     from .post_member_created_payload_api_version import PostMemberCreatedPayloadApiVersion
     from .post_member_created_payload_type import PostMemberCreatedPayloadType
+    from .post_member_updated_payload import PostMemberUpdatedPayload
+    from .post_member_updated_payload_api_version import PostMemberUpdatedPayloadApiVersion
+    from .post_member_updated_payload_type import PostMemberUpdatedPayloadType
 _dynamic_imports: typing.Dict[str, str] = {
     "ListMembersRequestAccessLevel": ".list_members_request_access_level",
     "ListMembersRequestDirection": ".list_members_request_direction",
@@ -25,6 +28,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostMemberCreatedPayload": ".post_member_created_payload",
     "PostMemberCreatedPayloadApiVersion": ".post_member_created_payload_api_version",
     "PostMemberCreatedPayloadType": ".post_member_created_payload_type",
+    "PostMemberUpdatedPayload": ".post_member_updated_payload",
+    "PostMemberUpdatedPayloadApiVersion": ".post_member_updated_payload_api_version",
+    "PostMemberUpdatedPayloadType": ".post_member_updated_payload_type",
 }
 
 
@@ -59,4 +65,7 @@ __all__ = [
     "PostMemberCreatedPayload",
     "PostMemberCreatedPayloadApiVersion",
     "PostMemberCreatedPayloadType",
+    "PostMemberUpdatedPayload",
+    "PostMemberUpdatedPayloadApiVersion",
+    "PostMemberUpdatedPayloadType",
 ]

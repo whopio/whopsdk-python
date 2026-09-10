@@ -16,6 +16,9 @@ if typing.TYPE_CHECKING:
         PostMemberCreatedPayload,
         PostMemberCreatedPayloadApiVersion,
         PostMemberCreatedPayloadType,
+        PostMemberUpdatedPayload,
+        PostMemberUpdatedPayloadApiVersion,
+        PostMemberUpdatedPayloadType,
     )
     from . import logs
     from .logs import (
@@ -38,6 +41,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostMemberCreatedPayload": ".types",
     "PostMemberCreatedPayloadApiVersion": ".types",
     "PostMemberCreatedPayloadType": ".types",
+    "PostMemberUpdatedPayload": ".types",
+    "PostMemberUpdatedPayloadApiVersion": ".types",
+    "PostMemberUpdatedPayloadType": ".types",
     "logs": ".logs",
 }
 
@@ -77,5 +83,8 @@ __all__ = [
     "PostMemberCreatedPayload",
     "PostMemberCreatedPayloadApiVersion",
     "PostMemberCreatedPayloadType",
+    "PostMemberUpdatedPayload",
+    "PostMemberUpdatedPayloadApiVersion",
+    "PostMemberUpdatedPayloadType",
     "logs",
 ]
