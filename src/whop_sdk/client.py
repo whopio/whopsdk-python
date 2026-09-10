@@ -47,6 +47,7 @@ if typing.TYPE_CHECKING:
     from .entries.client import AsyncEntriesClient, EntriesClient
     from .events.client import AsyncEventsClient, EventsClient
     from .experiences.client import AsyncExperiencesClient, ExperiencesClient
+    from .experiments.client import AsyncExperimentsClient, ExperimentsClient
     from .exports.client import AsyncExportsClient, ExportsClient
     from .fee_markups.client import AsyncFeeMarkupsClient, FeeMarkupsClient
     from .files.client import AsyncFilesClient, FilesClient
@@ -144,7 +145,7 @@ class Whop:
     from whop_sdk import Whop
 
     client = Whop(
-        "2026-09-09",
+        "2026-09-09-1",
         idempotency_key="YOUR_IDEMPOTENCY_KEY",
         token="YOUR_TOKEN",
     )
@@ -155,7 +156,7 @@ class Whop:
         *,
         base_url: typing.Optional[str] = None,
         environment: WhopEnvironment = WhopEnvironment.DEFAULT,
-        api_version_date: typing.Optional[str] = "2026-09-09",
+        api_version_date: typing.Optional[str] = "2026-09-09-1",
         idempotency_key: typing.Optional[str] = None,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         headers: typing.Optional[typing.Dict[str, str]] = None,
@@ -223,6 +224,7 @@ class Whop:
         self._entries: typing.Optional[EntriesClient] = None
         self._events: typing.Optional[EventsClient] = None
         self._experiences: typing.Optional[ExperiencesClient] = None
+        self._experiments: typing.Optional[ExperimentsClient] = None
         self._exports: typing.Optional[ExportsClient] = None
         self._fee_markups: typing.Optional[FeeMarkupsClient] = None
         self._files: typing.Optional[FilesClient] = None
@@ -564,6 +566,14 @@ class Whop:
 
             self._experiences = ExperiencesClient(client_wrapper=self._client_wrapper)
         return self._experiences
+
+    @property
+    def experiments(self):
+        if self._experiments is None:
+            from .experiments.client import ExperimentsClient  # noqa: E402
+
+            self._experiments = ExperimentsClient(client_wrapper=self._client_wrapper)
+        return self._experiments
 
     @property
     def exports(self):
@@ -997,7 +1007,7 @@ class AsyncWhop:
     from whop_sdk import AsyncWhop
 
     client = AsyncWhop(
-        "2026-09-09",
+        "2026-09-09-1",
         idempotency_key="YOUR_IDEMPOTENCY_KEY",
         token="YOUR_TOKEN",
     )
@@ -1008,7 +1018,7 @@ class AsyncWhop:
         *,
         base_url: typing.Optional[str] = None,
         environment: WhopEnvironment = WhopEnvironment.DEFAULT,
-        api_version_date: typing.Optional[str] = "2026-09-09",
+        api_version_date: typing.Optional[str] = "2026-09-09-1",
         idempotency_key: typing.Optional[str] = None,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         headers: typing.Optional[typing.Dict[str, str]] = None,
@@ -1076,6 +1086,7 @@ class AsyncWhop:
         self._entries: typing.Optional[AsyncEntriesClient] = None
         self._events: typing.Optional[AsyncEventsClient] = None
         self._experiences: typing.Optional[AsyncExperiencesClient] = None
+        self._experiments: typing.Optional[AsyncExperimentsClient] = None
         self._exports: typing.Optional[AsyncExportsClient] = None
         self._fee_markups: typing.Optional[AsyncFeeMarkupsClient] = None
         self._files: typing.Optional[AsyncFilesClient] = None
@@ -1417,6 +1428,14 @@ class AsyncWhop:
 
             self._experiences = AsyncExperiencesClient(client_wrapper=self._client_wrapper)
         return self._experiences
+
+    @property
+    def experiments(self):
+        if self._experiments is None:
+            from .experiments.client import AsyncExperimentsClient  # noqa: E402
+
+            self._experiments = AsyncExperimentsClient(client_wrapper=self._client_wrapper)
+        return self._experiments
 
     @property
     def exports(self):
