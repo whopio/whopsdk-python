@@ -9,6 +9,7 @@ from ..core.request_options import RequestOptions
 from ..types.payment import Payment
 from ..types.payment_status import PaymentStatus
 from .raw_client import AsyncRawPaymentsClient, RawPaymentsClient
+from .types.create_payments_request_plan import CreatePaymentsRequestPlan
 from .types.list_fees_payments_response import ListFeesPaymentsResponse
 from .types.list_payments_request_billing_reason import ListPaymentsRequestBillingReason
 from .types.list_payments_request_direction import ListPaymentsRequestDirection
@@ -167,28 +168,26 @@ class PaymentsClient:
         self,
         *,
         account_id: str,
-        plan_id: str,
         capture: typing.Optional[bool] = OMIT,
         confirmation_token: typing.Optional[str] = OMIT,
         email: typing.Optional[str] = OMIT,
         member_id: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
+        plan: typing.Optional[CreatePaymentsRequestPlan] = OMIT,
+        plan_id: typing.Optional[str] = OMIT,
         promo_code_id: typing.Optional[str] = OMIT,
         return_url: typing.Optional[str] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Payment:
         """
-        Charges a buyer for a plan. Pass a payment method already on file (`member_id` and `payment_method_id`), or a `confirmation_token` describing a method the buyer just supplied. Collection runs in the background: the response is the payment as created, not its outcome — poll Retrieve status for how far it has got and, for a confirmation-token payment, what the buyer must still do. `plan_id` names the plan to charge for.
+        Charges a buyer for a plan. Pass a payment method already on file (`member_id` and `payment_method_id`), or a `confirmation_token` describing a method the buyer just supplied. Collection runs in the background: the response is the payment as created, not its outcome — poll Retrieve status for how far it has got and, for a confirmation-token payment, what the buyer must still do. Pass `plan_id` for an existing plan or `plan` to find or create one inline.
 
         Parameters
         ----------
         account_id : str
             The account to charge for, prefixed `biz_`.
-
-        plan_id : str
-            The plan to charge for, prefixed `plan_`. It must belong to the account.
 
         capture : typing.Optional[bool]
             Whether to capture a card payment immediately. Defaults to true. Pass false to place an authorization hold that must be captured in full within five days via the capture endpoint.
@@ -207,6 +206,12 @@ class PaymentsClient:
 
         payment_method_id : typing.Optional[str]
             The stored payment method to charge, prefixed `payt_`. It must belong to the member. Required unless `confirmation_token` is provided.
+
+        plan : typing.Optional[CreatePaymentsRequestPlan]
+            Find or create a plan for this payment. Mutually exclusive with `plan_id`. Creating a plan requires plan:create; creating or updating a product requires the corresponding product permission.
+
+        plan_id : typing.Optional[str]
+            The plan to charge for, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan`.
 
         promo_code_id : typing.Optional[str]
             An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the plan.
@@ -236,18 +241,18 @@ class PaymentsClient:
         )
         client.payments.create(
             account_id="biz_xxxxxxxxxxxxxx",
-            plan_id="plan_xxxxxxxxxxxxxx",
         )
         """
         _response = self._raw_client.create(
             account_id=account_id,
-            plan_id=plan_id,
             capture=capture,
             confirmation_token=confirmation_token,
             email=email,
             member_id=member_id,
             metadata=metadata,
             payment_method_id=payment_method_id,
+            plan=plan,
+            plan_id=plan_id,
             promo_code_id=promo_code_id,
             return_url=return_url,
             statement_descriptor=statement_descriptor,
@@ -730,28 +735,26 @@ class AsyncPaymentsClient:
         self,
         *,
         account_id: str,
-        plan_id: str,
         capture: typing.Optional[bool] = OMIT,
         confirmation_token: typing.Optional[str] = OMIT,
         email: typing.Optional[str] = OMIT,
         member_id: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
+        plan: typing.Optional[CreatePaymentsRequestPlan] = OMIT,
+        plan_id: typing.Optional[str] = OMIT,
         promo_code_id: typing.Optional[str] = OMIT,
         return_url: typing.Optional[str] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Payment:
         """
-        Charges a buyer for a plan. Pass a payment method already on file (`member_id` and `payment_method_id`), or a `confirmation_token` describing a method the buyer just supplied. Collection runs in the background: the response is the payment as created, not its outcome — poll Retrieve status for how far it has got and, for a confirmation-token payment, what the buyer must still do. `plan_id` names the plan to charge for.
+        Charges a buyer for a plan. Pass a payment method already on file (`member_id` and `payment_method_id`), or a `confirmation_token` describing a method the buyer just supplied. Collection runs in the background: the response is the payment as created, not its outcome — poll Retrieve status for how far it has got and, for a confirmation-token payment, what the buyer must still do. Pass `plan_id` for an existing plan or `plan` to find or create one inline.
 
         Parameters
         ----------
         account_id : str
             The account to charge for, prefixed `biz_`.
-
-        plan_id : str
-            The plan to charge for, prefixed `plan_`. It must belong to the account.
 
         capture : typing.Optional[bool]
             Whether to capture a card payment immediately. Defaults to true. Pass false to place an authorization hold that must be captured in full within five days via the capture endpoint.
@@ -770,6 +773,12 @@ class AsyncPaymentsClient:
 
         payment_method_id : typing.Optional[str]
             The stored payment method to charge, prefixed `payt_`. It must belong to the member. Required unless `confirmation_token` is provided.
+
+        plan : typing.Optional[CreatePaymentsRequestPlan]
+            Find or create a plan for this payment. Mutually exclusive with `plan_id`. Creating a plan requires plan:create; creating or updating a product requires the corresponding product permission.
+
+        plan_id : typing.Optional[str]
+            The plan to charge for, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan`.
 
         promo_code_id : typing.Optional[str]
             An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the plan.
@@ -804,7 +813,6 @@ class AsyncPaymentsClient:
         async def main() -> None:
             await client.payments.create(
                 account_id="biz_xxxxxxxxxxxxxx",
-                plan_id="plan_xxxxxxxxxxxxxx",
             )
 
 
@@ -812,13 +820,14 @@ class AsyncPaymentsClient:
         """
         _response = await self._raw_client.create(
             account_id=account_id,
-            plan_id=plan_id,
             capture=capture,
             confirmation_token=confirmation_token,
             email=email,
             member_id=member_id,
             metadata=metadata,
             payment_method_id=payment_method_id,
+            plan=plan,
+            plan_id=plan_id,
             promo_code_id=promo_code_id,
             return_url=return_url,
             statement_descriptor=statement_descriptor,

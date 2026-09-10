@@ -26237,7 +26237,7 @@ client.payments.list()
 <dl>
 <dd>
 
-Charges a buyer for a plan. Pass a payment method already on file (`member_id` and `payment_method_id`), or a `confirmation_token` describing a method the buyer just supplied. Collection runs in the background: the response is the payment as created, not its outcome — poll Retrieve status for how far it has got and, for a confirmation-token payment, what the buyer must still do. `plan_id` names the plan to charge for.
+Charges a buyer for a plan. Pass a payment method already on file (`member_id` and `payment_method_id`), or a `confirmation_token` describing a method the buyer just supplied. Collection runs in the background: the response is the payment as created, not its outcome — poll Retrieve status for how far it has got and, for a confirmation-token payment, what the buyer must still do. Pass `plan_id` for an existing plan or `plan` to find or create one inline.
 </dd>
 </dl>
 </dd>
@@ -26262,7 +26262,6 @@ client = Whop(
 
 client.payments.create(
     account_id="biz_xxxxxxxxxxxxxx",
-    plan_id="plan_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -26280,14 +26279,6 @@ client.payments.create(
 <dd>
 
 **account_id:** `str` — The account to charge for, prefixed `biz_`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**plan_id:** `str` — The plan to charge for, prefixed `plan_`. It must belong to the account.
     
 </dd>
 </dl>
@@ -26336,6 +26327,22 @@ client.payments.create(
 <dd>
 
 **payment_method_id:** `typing.Optional[str]` — The stored payment method to charge, prefixed `payt_`. It must belong to the member. Required unless `confirmation_token` is provided.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**plan:** `typing.Optional[CreatePaymentsRequestPlan]` — Find or create a plan for this payment. Mutually exclusive with `plan_id`. Creating a plan requires plan:create; creating or updating a product requires the corresponding product permission.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**plan_id:** `typing.Optional[str]` — The plan to charge for, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan`.
     
 </dd>
 </dl>
