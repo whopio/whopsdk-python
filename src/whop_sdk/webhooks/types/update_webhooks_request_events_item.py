@@ -70,6 +70,7 @@ UpdateWebhooksRequestEventsItem = typing.Union[
         "shipment.created",
         "shipment.updated",
         "member.created",
+        "member.updated",
         "ad_campaign.payment_failed",
         "ad_campaign.updated",
         "ad.updated",

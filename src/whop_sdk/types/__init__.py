@@ -45,6 +45,7 @@ if typing.TYPE_CHECKING:
     from .account_onboarding_type import AccountOnboardingType
     from .account_opengraph_image_variant import AccountOpengraphImageVariant
     from .account_parent import AccountParent
+    from .account_parent_fees_value import AccountParentFeesValue
     from .account_payment_controls import AccountPaymentControls
     from .account_payment_controls_restricted_payment_methods_item import (
         AccountPaymentControlsRestrictedPaymentMethodsItem,
@@ -1361,6 +1362,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AccountOnboardingType": ".account_onboarding_type",
     "AccountOpengraphImageVariant": ".account_opengraph_image_variant",
     "AccountParent": ".account_parent",
+    "AccountParentFeesValue": ".account_parent_fees_value",
     "AccountPaymentControls": ".account_payment_controls",
     "AccountPaymentControlsRestrictedPaymentMethodsItem": ".account_payment_controls_restricted_payment_methods_item",
     "AccountPaymentControlsUndatedPendingReason": ".account_payment_controls_undated_pending_reason",
@@ -2555,6 +2557,7 @@ __all__ = [
     "AccountOnboardingType",
     "AccountOpengraphImageVariant",
     "AccountParent",
+    "AccountParentFeesValue",
     "AccountPaymentControls",
     "AccountPaymentControlsRestrictedPaymentMethodsItem",
     "AccountPaymentControlsUndatedPendingReason",
