@@ -14,6 +14,7 @@ RetrieveBreakdownRequestBucket = typing.Union[
         "withdrawals",
         "withdrawal_markup",
         "swaps",
+        "card_loads",
     ],
     typing.Any,
 ]
