@@ -12,6 +12,11 @@ class PaymentInstrumentCard(UniversalBaseModel):
     The network identifier (`visa`, `amex`, …), matching `card.networks` entries and saved card payment methods.
     """
 
+    issuer_identification_number: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The issuer identification number, also called the BIN: the card's leading six or eight digits, which identify the issuing bank. Null when the processor did not report it.
+    """
+
     last4: typing.Optional[str] = pydantic.Field(default=None)
     """
     The card's last four digits, when captured.

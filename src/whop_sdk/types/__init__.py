@@ -216,6 +216,8 @@ if typing.TYPE_CHECKING:
     from .app_deployment import AppDeployment
     from .app_deployment_phase import AppDeploymentPhase
     from .app_deployment_status import AppDeploymentStatus
+    from .app_domain import AppDomain
+    from .app_domain_status import AppDomainStatus
     from .app_elements_used_item import AppElementsUsedItem
     from .app_icon import AppIcon
     from .app_list_item import AppListItem
@@ -478,6 +480,12 @@ if typing.TYPE_CHECKING:
     from .dms_feed_member_notification_preferences import DmsFeedMemberNotificationPreferences
     from .dms_feed_member_statuses import DmsFeedMemberStatuses
     from .dms_post_types import DmsPostTypes
+    from .domain import Domain
+    from .domain_dns_record import DomainDnsRecord
+    from .domain_dns_record_type import DomainDnsRecordType
+    from .domain_dns_status import DomainDnsStatus
+    from .domain_issue import DomainIssue
+    from .domain_status import DomainStatus
     from .embed_types import EmbedTypes
     from .entries_sortable_columns import EntriesSortableColumns
     from .entry import Entry
@@ -1127,6 +1135,7 @@ if typing.TYPE_CHECKING:
     from .reaction_list_item import ReactionListItem
     from .reaction_list_item_user import ReactionListItemUser
     from .reaction_user import ReactionUser
+    from .receipt_line_item import ReceiptLineItem
     from .receipt_status import ReceiptStatus
     from .receipt_tax_behaviors import ReceiptTaxBehaviors
     from .receipt_v2order import ReceiptV2Order
@@ -1180,7 +1189,6 @@ if typing.TYPE_CHECKING:
     from .resolution_event import ResolutionEvent
     from .resolution_event_action import ResolutionEventAction
     from .resolution_event_reporter_type import ResolutionEventReporterType
-    from .resolution_line_item import ResolutionLineItem
     from .resolution_payment import ResolutionPayment
     from .review import Review
     from .review_attachments_item import ReviewAttachmentsItem
@@ -1515,6 +1523,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AppDeployment": ".app_deployment",
     "AppDeploymentPhase": ".app_deployment_phase",
     "AppDeploymentStatus": ".app_deployment_status",
+    "AppDomain": ".app_domain",
+    "AppDomainStatus": ".app_domain_status",
     "AppElementsUsedItem": ".app_elements_used_item",
     "AppIcon": ".app_icon",
     "AppListItem": ".app_list_item",
@@ -1759,6 +1769,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DmsFeedMemberNotificationPreferences": ".dms_feed_member_notification_preferences",
     "DmsFeedMemberStatuses": ".dms_feed_member_statuses",
     "DmsPostTypes": ".dms_post_types",
+    "Domain": ".domain",
+    "DomainDnsRecord": ".domain_dns_record",
+    "DomainDnsRecordType": ".domain_dns_record_type",
+    "DomainDnsStatus": ".domain_dns_status",
+    "DomainIssue": ".domain_issue",
+    "DomainStatus": ".domain_status",
     "EmbedTypes": ".embed_types",
     "EntriesSortableColumns": ".entries_sortable_columns",
     "Entry": ".entry",
@@ -2290,6 +2306,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ReactionListItem": ".reaction_list_item",
     "ReactionListItemUser": ".reaction_list_item_user",
     "ReactionUser": ".reaction_user",
+    "ReceiptLineItem": ".receipt_line_item",
     "ReceiptStatus": ".receipt_status",
     "ReceiptTaxBehaviors": ".receipt_tax_behaviors",
     "ReceiptV2Order": ".receipt_v2order",
@@ -2343,7 +2360,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ResolutionEvent": ".resolution_event",
     "ResolutionEventAction": ".resolution_event_action",
     "ResolutionEventReporterType": ".resolution_event_reporter_type",
-    "ResolutionLineItem": ".resolution_line_item",
     "ResolutionPayment": ".resolution_payment",
     "Review": ".review",
     "ReviewAttachmentsItem": ".review_attachments_item",
@@ -2700,6 +2716,8 @@ __all__ = [
     "AppDeployment",
     "AppDeploymentPhase",
     "AppDeploymentStatus",
+    "AppDomain",
+    "AppDomainStatus",
     "AppElementsUsedItem",
     "AppIcon",
     "AppListItem",
@@ -2944,6 +2962,12 @@ __all__ = [
     "DmsFeedMemberNotificationPreferences",
     "DmsFeedMemberStatuses",
     "DmsPostTypes",
+    "Domain",
+    "DomainDnsRecord",
+    "DomainDnsRecordType",
+    "DomainDnsStatus",
+    "DomainIssue",
+    "DomainStatus",
     "EmbedTypes",
     "EntriesSortableColumns",
     "Entry",
@@ -3475,6 +3499,7 @@ __all__ = [
     "ReactionListItem",
     "ReactionListItemUser",
     "ReactionUser",
+    "ReceiptLineItem",
     "ReceiptStatus",
     "ReceiptTaxBehaviors",
     "ReceiptV2Order",
@@ -3528,7 +3553,6 @@ __all__ = [
     "ResolutionEvent",
     "ResolutionEventAction",
     "ResolutionEventReporterType",
-    "ResolutionLineItem",
     "ResolutionPayment",
     "Review",
     "ReviewAttachmentsItem",

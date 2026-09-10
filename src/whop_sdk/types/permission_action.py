@@ -250,6 +250,7 @@ PermissionAction = typing.Union[
         "notification:create",
         "user:balance:read",
         "user:email:read",
+        "user:payment:charge",
         "user:staff:read",
         "oauth:token_exchange",
         "openid",

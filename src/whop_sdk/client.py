@@ -42,6 +42,7 @@ if typing.TYPE_CHECKING:
     from .disputes.client import AsyncDisputesClient, DisputesClient
     from .dm_channels.client import AsyncDmChannelsClient, DmChannelsClient
     from .dm_members.client import AsyncDmMembersClient, DmMembersClient
+    from .domains.client import AsyncDomainsClient, DomainsClient
     from .entries.client import AsyncEntriesClient, EntriesClient
     from .events.client import AsyncEventsClient, EventsClient
     from .experiences.client import AsyncExperiencesClient, ExperiencesClient
@@ -142,7 +143,7 @@ class Whop:
     from whop_sdk import Whop
 
     client = Whop(
-        "2026-09-06",
+        "2026-09-09",
         idempotency_key="YOUR_IDEMPOTENCY_KEY",
         token="YOUR_TOKEN",
     )
@@ -153,7 +154,7 @@ class Whop:
         *,
         base_url: typing.Optional[str] = None,
         environment: WhopEnvironment = WhopEnvironment.DEFAULT,
-        api_version_date: typing.Optional[str] = "2026-09-06",
+        api_version_date: typing.Optional[str] = "2026-09-09",
         idempotency_key: typing.Optional[str] = None,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         headers: typing.Optional[typing.Dict[str, str]] = None,
@@ -216,6 +217,7 @@ class Whop:
         self._disputes: typing.Optional[DisputesClient] = None
         self._dm_channels: typing.Optional[DmChannelsClient] = None
         self._dm_members: typing.Optional[DmMembersClient] = None
+        self._domains: typing.Optional[DomainsClient] = None
         self._entries: typing.Optional[EntriesClient] = None
         self._events: typing.Optional[EventsClient] = None
         self._experiences: typing.Optional[ExperiencesClient] = None
@@ -520,6 +522,14 @@ class Whop:
 
             self._dm_members = DmMembersClient(client_wrapper=self._client_wrapper)
         return self._dm_members
+
+    @property
+    def domains(self):
+        if self._domains is None:
+            from .domains.client import DomainsClient  # noqa: E402
+
+            self._domains = DomainsClient(client_wrapper=self._client_wrapper)
+        return self._domains
 
     @property
     def entries(self):
@@ -977,7 +987,7 @@ class AsyncWhop:
     from whop_sdk import AsyncWhop
 
     client = AsyncWhop(
-        "2026-09-06",
+        "2026-09-09",
         idempotency_key="YOUR_IDEMPOTENCY_KEY",
         token="YOUR_TOKEN",
     )
@@ -988,7 +998,7 @@ class AsyncWhop:
         *,
         base_url: typing.Optional[str] = None,
         environment: WhopEnvironment = WhopEnvironment.DEFAULT,
-        api_version_date: typing.Optional[str] = "2026-09-06",
+        api_version_date: typing.Optional[str] = "2026-09-09",
         idempotency_key: typing.Optional[str] = None,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         headers: typing.Optional[typing.Dict[str, str]] = None,
@@ -1051,6 +1061,7 @@ class AsyncWhop:
         self._disputes: typing.Optional[AsyncDisputesClient] = None
         self._dm_channels: typing.Optional[AsyncDmChannelsClient] = None
         self._dm_members: typing.Optional[AsyncDmMembersClient] = None
+        self._domains: typing.Optional[AsyncDomainsClient] = None
         self._entries: typing.Optional[AsyncEntriesClient] = None
         self._events: typing.Optional[AsyncEventsClient] = None
         self._experiences: typing.Optional[AsyncExperiencesClient] = None
@@ -1355,6 +1366,14 @@ class AsyncWhop:
 
             self._dm_members = AsyncDmMembersClient(client_wrapper=self._client_wrapper)
         return self._dm_members
+
+    @property
+    def domains(self):
+        if self._domains is None:
+            from .domains.client import AsyncDomainsClient  # noqa: E402
+
+            self._domains = AsyncDomainsClient(client_wrapper=self._client_wrapper)
+        return self._domains
 
     @property
     def entries(self):

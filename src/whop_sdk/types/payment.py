@@ -131,7 +131,7 @@ class Payment(UniversalBaseModel):
 
     payment_instrument: typing.Optional[PaymentInstrument] = pydantic.Field(default=None)
     """
-    The instrument shaped for display: a buyer-facing name, the standard icon set, and the card's brand and last four when it was a card.
+    The instrument shaped for display: a buyer-facing name, the standard icon set, and the card's brand, last four and issuer identification number when it was a card.
     """
 
     payment_method_id: typing.Optional[str] = pydantic.Field(default=None)
@@ -271,7 +271,7 @@ class Payment(UniversalBaseModel):
 
     verification_checks: typing.Optional[PaymentVerificationChecks] = pydantic.Field(default=None)
     """
-    The issuer's address and security code check results, or null when the processor returned none.
+    The Address Verification Service (AVS), cardholder name, and Card Verification Value (CVV/CVC) results, or null when the processor returned none.
     """
 
     voidable: bool = pydantic.Field()

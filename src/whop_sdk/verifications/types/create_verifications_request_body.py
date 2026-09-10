@@ -31,6 +31,7 @@ class CreateVerificationsRequestBody_Individual(UniversalBaseModel):
     phone: typing.Optional[str] = None
     share_token: typing.Optional[str] = None
     tax_identification_number: typing.Optional[str] = None
+    verification_id: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
@@ -56,6 +57,7 @@ class CreateVerificationsRequestBody_Business(UniversalBaseModel):
     place_of_incorporation: typing.Optional[str] = None
     share_token: typing.Optional[str] = None
     tax_identification_number: typing.Optional[str] = None
+    verification_id: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

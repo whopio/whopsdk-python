@@ -102,6 +102,8 @@ LedgerActivityLineType = typing.Union[
         "platform_balance_transfer_outgoing",
         "platform_covered_dispute",
         "platform_earning",
+        "platform_markup_fee",
+        "platform_markup_fee_payout",
         "promo_reversal",
         "referral_bonus",
         "resolution_center_refund",

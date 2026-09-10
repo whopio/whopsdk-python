@@ -233,6 +233,7 @@ class RawPaymentsClient:
         payment_method_id: typing.Optional[str] = OMIT,
         promo_code_id: typing.Optional[str] = OMIT,
         return_url: typing.Optional[str] = OMIT,
+        statement_descriptor: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Payment]:
         """
@@ -270,6 +271,9 @@ class RawPaymentsClient:
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters. Ignored unless `confirmation_token` is provided.
 
+        statement_descriptor : typing.Optional[str]
+            Overrides the text on the buyer's card statement for this payment only. Takes precedence over the product's and account's custom descriptors, and changes neither. Must start with `WHOP*`, be 5-22 characters, contain at least one letter, and use only Latin letters, numbers, spaces, underscores, hyphens, or asterisks.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -292,6 +296,7 @@ class RawPaymentsClient:
                 "plan_id": plan_id,
                 "promo_code_id": promo_code_id,
                 "return_url": return_url,
+                "statement_descriptor": statement_descriptor,
             },
             headers={
                 "content-type": "application/json",
@@ -1312,6 +1317,7 @@ class AsyncRawPaymentsClient:
         payment_method_id: typing.Optional[str] = OMIT,
         promo_code_id: typing.Optional[str] = OMIT,
         return_url: typing.Optional[str] = OMIT,
+        statement_descriptor: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Payment]:
         """
@@ -1349,6 +1355,9 @@ class AsyncRawPaymentsClient:
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters. Ignored unless `confirmation_token` is provided.
 
+        statement_descriptor : typing.Optional[str]
+            Overrides the text on the buyer's card statement for this payment only. Takes precedence over the product's and account's custom descriptors, and changes neither. Must start with `WHOP*`, be 5-22 characters, contain at least one letter, and use only Latin letters, numbers, spaces, underscores, hyphens, or asterisks.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1371,6 +1380,7 @@ class AsyncRawPaymentsClient:
                 "plan_id": plan_id,
                 "promo_code_id": promo_code_id,
                 "return_url": return_url,
+                "statement_descriptor": statement_descriptor,
             },
             headers={
                 "content-type": "application/json",

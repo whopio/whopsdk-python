@@ -47,12 +47,12 @@ class SocialAccount(UniversalBaseModel):
     scopes: typing.List[str]
     url: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The URL where the social account can be accessed on the platform. Null while a Whop-owned page is still being provisioned.
+    The URL where the social account can be accessed on the platform. Null while a Whop-owned account is still being provisioned.
     """
 
     username: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The username of the social account on the platform. Null while a Whop-owned page is still being provisioned.
+    The username of the social account on the platform. Null while a Whop-owned account is still being provisioned.
     """
 
     verified: bool = pydantic.Field()

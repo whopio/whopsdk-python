@@ -9,7 +9,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 class PaymentVerificationChecks(UniversalBaseModel):
     address_line1: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Whether the billing street address the customer entered matched the issuer's records.
+    The Address Verification Service (AVS) result for the billing street address.
     """
 
     card_holder_name: typing.Optional[str] = pydantic.Field(default=None)
@@ -19,12 +19,12 @@ class PaymentVerificationChecks(UniversalBaseModel):
 
     card_security_code: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Whether the CVV / CVC matched the card.
+    The Card Verification Value (CVV/CVC) result.
     """
 
     zip_code: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Whether the billing postal code matched the issuer's records.
+    The Address Verification Service (AVS) result for the billing postal code.
     """
 
     if IS_PYDANTIC_V2:

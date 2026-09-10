@@ -4,9 +4,10 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .money import Money
 
 
-class ResolutionLineItem(UniversalBaseModel):
+class ReceiptLineItem(UniversalBaseModel):
     id: typing.Optional[str] = pydantic.Field(default=None)
     """
     Line item ID, prefixed `li_`. Null when the payment predates item snapshots and the item is read from the payment's plan.
@@ -22,14 +23,29 @@ class ResolutionLineItem(UniversalBaseModel):
     The plan bought, prefixed `plan_`. Null when the plan has since been deleted.
     """
 
+    plan_title: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The plan's current title, or `null` when the plan has been deleted or has no title.
+    """
+
     product_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The product the plan belongs to, prefixed `prod_`. On a payment that predates item snapshots this falls back to the plan's product, so it can be set where the case's own `product_id` is null. Null for a plan with no product.
+    The product the plan belongs to, prefixed `prod_`. On a payment that predates item snapshots this falls back to the plan's product, so it can be set where the parent's own `product_id` is null. Null for a plan with no product.
+    """
+
+    product_title: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The product's current title, or `null` when the item has no product.
     """
 
     quantity: float = pydantic.Field()
     """
     How many units were bought.
+    """
+
+    subtotal: typing.Optional[Money] = pydantic.Field(default=None)
+    """
+    The recorded amount for this item's full quantity, before discounts, tax, and fees, in its purchase currency. This is not the amount being contested. Returns `null` when no item amount was recorded.
     """
 
     if IS_PYDANTIC_V2:
