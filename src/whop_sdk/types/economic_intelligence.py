@@ -6,7 +6,6 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .economic_intelligence_execution_type import EconomicIntelligenceExecutionType
 from .economic_intelligence_status import EconomicIntelligenceStatus
-from .money import Money
 
 
 class EconomicIntelligence(UniversalBaseModel):
@@ -35,24 +34,9 @@ class EconomicIntelligence(UniversalBaseModel):
     How the card runs. `whop_ai` means `prompt` is sent to Whop AI, which carries out every step.
     """
 
-    expected_delta: typing.Optional[Money] = pydantic.Field(default=None)
-    """
-    Expected change in that ledger line over the evaluation window, in USD, negative when the action reduces it, or `null`
-    """
-
-    expected_ledger_line: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The ledger line the action is expected to move, or `null` when the card carries no expectation
-    """
-
     id: str = pydantic.Field()
     """
     Economic intelligence ID, prefixed `reca_`
-    """
-
-    inference_version: str = pydantic.Field()
-    """
-    The engine that generated the card, e.g. `whop-ai-v5`
     """
 
     input: typing.Optional[str] = pydantic.Field(default=None)
