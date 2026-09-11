@@ -30,7 +30,7 @@ class ChatChannelUpdateParams(TypedDict, total=False):
     user_posts_cooldown_seconds: Optional[int]
     """
     The minimum number of seconds a user must wait between sending messages in this
-    chat channel.
+    chat channel. Pass null or 0 to remove the cooldown.
     """
 
     who_can_post: Optional[WhoCanPost]

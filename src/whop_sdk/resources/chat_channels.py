@@ -118,7 +118,7 @@ class ChatChannelsResource(SyncAPIResource):
               channel. For example, ['spam', 'scam'].
 
           user_posts_cooldown_seconds: The minimum number of seconds a user must wait between sending messages in this
-              chat channel.
+              chat channel. Pass null or 0 to remove the cooldown.
 
           who_can_post: Who can post on a chat feed
 
@@ -314,7 +314,7 @@ class AsyncChatChannelsResource(AsyncAPIResource):
               channel. For example, ['spam', 'scam'].
 
           user_posts_cooldown_seconds: The minimum number of seconds a user must wait between sending messages in this
-              chat channel.
+              chat channel. Pass null or 0 to remove the cooldown.
 
           who_can_post: Who can post on a chat feed
 
