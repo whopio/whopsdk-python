@@ -6,7 +6,15 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["ResolutionCenterCaseDecidedWebhookEvent", "Data", "DataAccount", "DataBuyer", "DataLineItem", "DataPayment"]
+__all__ = [
+    "ResolutionCenterCaseDecidedWebhookEvent",
+    "Data",
+    "DataAccount",
+    "DataBuyer",
+    "DataLineItem",
+    "DataLineItemSubtotal",
+    "DataPayment",
+]
 
 
 class DataAccount(BaseModel):
@@ -41,6 +49,36 @@ class DataBuyer(BaseModel):
     """The customer's Whop username."""
 
 
+class DataLineItemSubtotal(BaseModel):
+    """
+    The recorded amount for this item's full quantity, before discounts, tax, and fees, in its purchase currency. This is not the amount being contested. Returns `null` when no item amount was recorded.
+    """
+
+    amount: str
+    """The amount in major units, as an exact decimal string — `"10.00"` is ten
+    dollars.
+
+    A string so no float rounds it in transit.
+    """
+
+    currency: str
+    """Three-letter ISO 4217 currency code, lowercase."""
+
+    decimals: int
+    """
+    How many decimal places the amount CARRIES — the precision the charge itself
+    runs at.
+    """
+
+    display_decimals: int
+    """How many decimal places to SHOW.
+
+    Usually equal to `decimals`, and deliberately not always: COP is charged in
+    centavos but written in whole pesos, so it is `2` and `0`. Format the number in
+    your own locale using this.
+    """
+
+
 class DataLineItem(BaseModel):
     """Everything the disputed payment charged for, in purchase order.
 
@@ -60,16 +98,32 @@ class DataLineItem(BaseModel):
     plan_id: Optional[str] = None
     """The plan bought, prefixed `plan_`. Null when the plan has since been deleted."""
 
+    plan_title: Optional[str] = None
+    """
+    The plan's current title, or `null` when the plan has been deleted or has no
+    title.
+    """
+
     product_id: Optional[str] = None
     """The product the plan belongs to, prefixed `prod_`.
 
     On a payment that predates item snapshots this falls back to the plan's product,
-    so it can be set where the case's own `product_id` is null. Null for a plan with
-    no product.
+    so it can be set where the parent's own `product_id` is null. Null for a plan
+    with no product.
     """
+
+    product_title: Optional[str] = None
+    """The product's current title, or `null` when the item has no product."""
 
     quantity: float
     """How many units were bought."""
+
+    subtotal: Optional[DataLineItemSubtotal] = None
+    """
+    The recorded amount for this item's full quantity, before discounts, tax, and
+    fees, in its purchase currency. This is not the amount being contested. Returns
+    `null` when no item amount was recorded.
+    """
 
 
 class DataPayment(BaseModel):

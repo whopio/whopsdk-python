@@ -149,11 +149,12 @@ class AppsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> App:
-        """Retrieves an app by ID, claimed route, or proxy domain id.
-
-        Credential fields
-        (api_key, default_api_key, secrets) render `null` unless the caller has the
-        corresponding developer permission on the owning account.
+        """
+        Retrieves an app by ID, claimed route, active verified custom hostname, or proxy
+        domain id. Custom hostnames return 404 for inactive assignments, suspended
+        accounts, or deleted apps. Credential fields (api_key, default_api_key, secrets)
+        render `null` unless the caller has the corresponding developer permission on
+        the owning account.
 
         Args:
           extra_headers: Send extra headers
@@ -547,11 +548,12 @@ class AsyncAppsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> App:
-        """Retrieves an app by ID, claimed route, or proxy domain id.
-
-        Credential fields
-        (api_key, default_api_key, secrets) render `null` unless the caller has the
-        corresponding developer permission on the owning account.
+        """
+        Retrieves an app by ID, claimed route, active verified custom hostname, or proxy
+        domain id. Custom hostnames return 404 for inactive assignments, suspended
+        accounts, or deleted apps. Credential fields (api_key, default_api_key, secrets)
+        render `null` unless the caller has the corresponding developer permission on
+        the owning account.
 
         Args:
           extra_headers: Send extra headers

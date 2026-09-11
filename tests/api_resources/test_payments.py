@@ -25,7 +25,6 @@ class TestPayments:
     def test_method_create(self, client: Whop) -> None:
         payment = client.payments.create(
             account_id="biz_xxxxxxxxxxxxxx",
-            plan_id="plan_xxxxxxxxxxxxxx",
         )
         assert_matches_type(Payment, payment, path=["response"])
 
@@ -34,16 +33,47 @@ class TestPayments:
     def test_method_create_with_all_params(self, client: Whop) -> None:
         payment = client.payments.create(
             account_id="biz_xxxxxxxxxxxxxx",
-            plan_id="plan_xxxxxxxxxxxxxx",
             capture=False,
             confirmation_token="ctok_xxxxxxxxxxxxxx",
             email="dana@shinetime.example",
             member_id="mber_xxxxxxxxxxxxxx",
             metadata={"order_ref": "SHINE-4417"},
             payment_method_id="payt_xxxxxxxxxxxxxx",
+            plan={
+                "currency": "usd",
+                "application_fee_amount": 2,
+                "billing_period": 0,
+                "description": "description",
+                "expiration_days": 0,
+                "force_create_new_plan": True,
+                "initial_price": 20,
+                "internal_notes": "internal_notes",
+                "plan_type": "one_time",
+                "product": {
+                    "external_identifier": "versioned-product",
+                    "title": "Inline product",
+                    "collect_shipping_address": True,
+                    "custom_statement_descriptor": "WHOP*INLINE",
+                    "description": "Updated description",
+                    "global_affiliate_percentage": 0,
+                    "global_affiliate_status": "enabled",
+                    "headline": "Product headline",
+                    "product_tax_code_id": "product_tax_code_id",
+                    "redirect_purchase_url": "https://example.com/thanks",
+                    "route": "route",
+                    "visibility": "visible",
+                },
+                "product_id": "prod_xxxxxxxxxxxxxx",
+                "renewal_price": 0,
+                "title": "title",
+                "trial_period_days": 0,
+                "visibility": "visible",
+            },
+            plan_id="plan_xxxxxxxxxxxxxx",
             promo_code_id="promo_xxxxxxxxxxxxxx",
             return_url="https://shinetime.example/checkout/done",
-            api_version_date="2026-09-06",
+            statement_descriptor="WHOP*SHINETIME",
+            api_version_date="2026-09-11",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Payment, payment, path=["response"])
@@ -53,7 +83,6 @@ class TestPayments:
     def test_raw_response_create(self, client: Whop) -> None:
         response = client.payments.with_raw_response.create(
             account_id="biz_xxxxxxxxxxxxxx",
-            plan_id="plan_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -66,7 +95,6 @@ class TestPayments:
     def test_streaming_response_create(self, client: Whop) -> None:
         with client.payments.with_streaming_response.create(
             account_id="biz_xxxxxxxxxxxxxx",
-            plan_id="plan_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -89,7 +117,7 @@ class TestPayments:
     def test_method_retrieve_with_all_params(self, client: Whop) -> None:
         payment = client.payments.retrieve(
             id="id",
-            api_version_date="2026-09-06",
+            api_version_date="2026-09-11",
         )
         assert_matches_type(Payment, payment, path=["response"])
 
@@ -155,7 +183,7 @@ class TestPayments:
             query="query",
             status="open",
             user_id="user_id",
-            api_version_date="2026-09-06",
+            api_version_date="2026-09-11",
         )
         assert_matches_type(SyncCursorPage[Payment], payment, path=["response"])
 
@@ -194,7 +222,7 @@ class TestPayments:
     def test_method_list_fees_with_all_params(self, client: Whop) -> None:
         payment = client.payments.list_fees(
             id="id",
-            api_version_date="2026-09-06",
+            api_version_date="2026-09-11",
         )
         assert_matches_type(PaymentListFeesResponse, payment, path=["response"])
 
@@ -246,7 +274,7 @@ class TestPayments:
         payment = client.payments.refund(
             id="id",
             partial_amount=49,
-            api_version_date="2026-09-06",
+            api_version_date="2026-09-11",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Payment, payment, path=["response"])
@@ -298,7 +326,7 @@ class TestPayments:
     def test_method_retry_with_all_params(self, client: Whop) -> None:
         payment = client.payments.retry(
             id="id",
-            api_version_date="2026-09-06",
+            api_version_date="2026-09-11",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Payment, payment, path=["response"])
@@ -350,7 +378,7 @@ class TestPayments:
     def test_method_void_with_all_params(self, client: Whop) -> None:
         payment = client.payments.void(
             id="id",
-            api_version_date="2026-09-06",
+            api_version_date="2026-09-11",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Payment, payment, path=["response"])
@@ -400,7 +428,6 @@ class TestAsyncPayments:
     async def test_method_create(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.create(
             account_id="biz_xxxxxxxxxxxxxx",
-            plan_id="plan_xxxxxxxxxxxxxx",
         )
         assert_matches_type(Payment, payment, path=["response"])
 
@@ -409,16 +436,47 @@ class TestAsyncPayments:
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.create(
             account_id="biz_xxxxxxxxxxxxxx",
-            plan_id="plan_xxxxxxxxxxxxxx",
             capture=False,
             confirmation_token="ctok_xxxxxxxxxxxxxx",
             email="dana@shinetime.example",
             member_id="mber_xxxxxxxxxxxxxx",
             metadata={"order_ref": "SHINE-4417"},
             payment_method_id="payt_xxxxxxxxxxxxxx",
+            plan={
+                "currency": "usd",
+                "application_fee_amount": 2,
+                "billing_period": 0,
+                "description": "description",
+                "expiration_days": 0,
+                "force_create_new_plan": True,
+                "initial_price": 20,
+                "internal_notes": "internal_notes",
+                "plan_type": "one_time",
+                "product": {
+                    "external_identifier": "versioned-product",
+                    "title": "Inline product",
+                    "collect_shipping_address": True,
+                    "custom_statement_descriptor": "WHOP*INLINE",
+                    "description": "Updated description",
+                    "global_affiliate_percentage": 0,
+                    "global_affiliate_status": "enabled",
+                    "headline": "Product headline",
+                    "product_tax_code_id": "product_tax_code_id",
+                    "redirect_purchase_url": "https://example.com/thanks",
+                    "route": "route",
+                    "visibility": "visible",
+                },
+                "product_id": "prod_xxxxxxxxxxxxxx",
+                "renewal_price": 0,
+                "title": "title",
+                "trial_period_days": 0,
+                "visibility": "visible",
+            },
+            plan_id="plan_xxxxxxxxxxxxxx",
             promo_code_id="promo_xxxxxxxxxxxxxx",
             return_url="https://shinetime.example/checkout/done",
-            api_version_date="2026-09-06",
+            statement_descriptor="WHOP*SHINETIME",
+            api_version_date="2026-09-11",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Payment, payment, path=["response"])
@@ -428,7 +486,6 @@ class TestAsyncPayments:
     async def test_raw_response_create(self, async_client: AsyncWhop) -> None:
         response = await async_client.payments.with_raw_response.create(
             account_id="biz_xxxxxxxxxxxxxx",
-            plan_id="plan_xxxxxxxxxxxxxx",
         )
 
         assert response.is_closed is True
@@ -441,7 +498,6 @@ class TestAsyncPayments:
     async def test_streaming_response_create(self, async_client: AsyncWhop) -> None:
         async with async_client.payments.with_streaming_response.create(
             account_id="biz_xxxxxxxxxxxxxx",
-            plan_id="plan_xxxxxxxxxxxxxx",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -464,7 +520,7 @@ class TestAsyncPayments:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.retrieve(
             id="id",
-            api_version_date="2026-09-06",
+            api_version_date="2026-09-11",
         )
         assert_matches_type(Payment, payment, path=["response"])
 
@@ -530,7 +586,7 @@ class TestAsyncPayments:
             query="query",
             status="open",
             user_id="user_id",
-            api_version_date="2026-09-06",
+            api_version_date="2026-09-11",
         )
         assert_matches_type(AsyncCursorPage[Payment], payment, path=["response"])
 
@@ -569,7 +625,7 @@ class TestAsyncPayments:
     async def test_method_list_fees_with_all_params(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.list_fees(
             id="id",
-            api_version_date="2026-09-06",
+            api_version_date="2026-09-11",
         )
         assert_matches_type(PaymentListFeesResponse, payment, path=["response"])
 
@@ -621,7 +677,7 @@ class TestAsyncPayments:
         payment = await async_client.payments.refund(
             id="id",
             partial_amount=49,
-            api_version_date="2026-09-06",
+            api_version_date="2026-09-11",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Payment, payment, path=["response"])
@@ -673,7 +729,7 @@ class TestAsyncPayments:
     async def test_method_retry_with_all_params(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.retry(
             id="id",
-            api_version_date="2026-09-06",
+            api_version_date="2026-09-11",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Payment, payment, path=["response"])
@@ -725,7 +781,7 @@ class TestAsyncPayments:
     async def test_method_void_with_all_params(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.void(
             id="id",
-            api_version_date="2026-09-06",
+            api_version_date="2026-09-11",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(Payment, payment, path=["response"])

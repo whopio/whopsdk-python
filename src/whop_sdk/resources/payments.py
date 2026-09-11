@@ -58,15 +58,17 @@ class PaymentsResource(SyncAPIResource):
         self,
         *,
         account_id: str,
-        plan_id: str,
         capture: Optional[bool] | Omit = omit,
         confirmation_token: Optional[str] | Omit = omit,
         email: Optional[str] | Omit = omit,
         member_id: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
+        plan: payment_create_params.Plan | Omit = omit,
+        plan_id: str | Omit = omit,
         promo_code_id: Optional[str] | Omit = omit,
         return_url: Optional[str] | Omit = omit,
+        statement_descriptor: Optional[str] | Omit = omit,
         api_version_date: str | Omit = omit,
         idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -82,13 +84,11 @@ class PaymentsResource(SyncAPIResource):
         and `payment_method_id`), or a `confirmation_token` describing a method the
         buyer just supplied. Collection runs in the background: the response is the
         payment as created, not its outcome — poll Retrieve status for how far it has
-        got and, for a confirmation-token payment, what the buyer must still do.
-        `plan_id` names the plan to charge for.
+        got and, for a confirmation-token payment, what the buyer must still do. Pass
+        `plan_id` for an existing plan or `plan` to find or create one inline.
 
         Args:
           account_id: The account to charge for, prefixed `biz_`.
-
-          plan_id: The plan to charge for, prefixed `plan_`. It must belong to the account.
 
           capture: Whether to capture a card payment immediately. Defaults to true. Pass false to
               place an authorization hold that must be captured in full within five days via
@@ -111,12 +111,25 @@ class PaymentsResource(SyncAPIResource):
           payment_method_id: The stored payment method to charge, prefixed `payt_`. It must belong to the
               member. Required unless `confirmation_token` is provided.
 
+          plan: Find or create a plan for this payment. Mutually exclusive with `plan_id`.
+              Creating a plan requires plan:create; creating or updating a product requires
+              the corresponding product permission.
+
+          plan_id: The plan to charge for, prefixed `plan_`. It must belong to the account.
+              Mutually exclusive with `plan`.
+
           promo_code_id: An active promo code to apply, prefixed `promo_`. It must belong to the account
               and be valid for the plan.
 
           return_url: Where the buyer continues after completing an off-site step. An absolute https
               URL without credentials, at most 2,048 characters. Ignored unless
               `confirmation_token` is provided.
+
+          statement_descriptor: Overrides the text on the buyer's card statement for this payment only. Takes
+              precedence over the product's and account's custom descriptors, and changes
+              neither. Must start with `WHOP*`, be 5-22 characters, contain at least one
+              letter, and use only Latin letters, numbers, spaces, underscores, hyphens, or
+              asterisks.
 
           extra_headers: Send extra headers
 
@@ -140,15 +153,17 @@ class PaymentsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "account_id": account_id,
-                    "plan_id": plan_id,
                     "capture": capture,
                     "confirmation_token": confirmation_token,
                     "email": email,
                     "member_id": member_id,
                     "metadata": metadata,
                     "payment_method_id": payment_method_id,
+                    "plan": plan,
+                    "plan_id": plan_id,
                     "promo_code_id": promo_code_id,
                     "return_url": return_url,
+                    "statement_descriptor": statement_descriptor,
                 },
                 payment_create_params.PaymentCreateParams,
             ),
@@ -533,15 +548,17 @@ class AsyncPaymentsResource(AsyncAPIResource):
         self,
         *,
         account_id: str,
-        plan_id: str,
         capture: Optional[bool] | Omit = omit,
         confirmation_token: Optional[str] | Omit = omit,
         email: Optional[str] | Omit = omit,
         member_id: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
+        plan: payment_create_params.Plan | Omit = omit,
+        plan_id: str | Omit = omit,
         promo_code_id: Optional[str] | Omit = omit,
         return_url: Optional[str] | Omit = omit,
+        statement_descriptor: Optional[str] | Omit = omit,
         api_version_date: str | Omit = omit,
         idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -557,13 +574,11 @@ class AsyncPaymentsResource(AsyncAPIResource):
         and `payment_method_id`), or a `confirmation_token` describing a method the
         buyer just supplied. Collection runs in the background: the response is the
         payment as created, not its outcome — poll Retrieve status for how far it has
-        got and, for a confirmation-token payment, what the buyer must still do.
-        `plan_id` names the plan to charge for.
+        got and, for a confirmation-token payment, what the buyer must still do. Pass
+        `plan_id` for an existing plan or `plan` to find or create one inline.
 
         Args:
           account_id: The account to charge for, prefixed `biz_`.
-
-          plan_id: The plan to charge for, prefixed `plan_`. It must belong to the account.
 
           capture: Whether to capture a card payment immediately. Defaults to true. Pass false to
               place an authorization hold that must be captured in full within five days via
@@ -586,12 +601,25 @@ class AsyncPaymentsResource(AsyncAPIResource):
           payment_method_id: The stored payment method to charge, prefixed `payt_`. It must belong to the
               member. Required unless `confirmation_token` is provided.
 
+          plan: Find or create a plan for this payment. Mutually exclusive with `plan_id`.
+              Creating a plan requires plan:create; creating or updating a product requires
+              the corresponding product permission.
+
+          plan_id: The plan to charge for, prefixed `plan_`. It must belong to the account.
+              Mutually exclusive with `plan`.
+
           promo_code_id: An active promo code to apply, prefixed `promo_`. It must belong to the account
               and be valid for the plan.
 
           return_url: Where the buyer continues after completing an off-site step. An absolute https
               URL without credentials, at most 2,048 characters. Ignored unless
               `confirmation_token` is provided.
+
+          statement_descriptor: Overrides the text on the buyer's card statement for this payment only. Takes
+              precedence over the product's and account's custom descriptors, and changes
+              neither. Must start with `WHOP*`, be 5-22 characters, contain at least one
+              letter, and use only Latin letters, numbers, spaces, underscores, hyphens, or
+              asterisks.
 
           extra_headers: Send extra headers
 
@@ -615,15 +643,17 @@ class AsyncPaymentsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "account_id": account_id,
-                    "plan_id": plan_id,
                     "capture": capture,
                     "confirmation_token": confirmation_token,
                     "email": email,
                     "member_id": member_id,
                     "metadata": metadata,
                     "payment_method_id": payment_method_id,
+                    "plan": plan,
+                    "plan_id": plan_id,
                     "promo_code_id": promo_code_id,
                     "return_url": return_url,
+                    "statement_descriptor": statement_descriptor,
                 },
                 payment_create_params.PaymentCreateParams,
             ),

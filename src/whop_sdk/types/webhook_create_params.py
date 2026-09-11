@@ -33,6 +33,8 @@ class WebhookCreateParams(TypedDict, total=False):
     events: List[
         Literal[
             "account.updated",
+            "account.financing_approved",
+            "account.financing_denied",
             "invoice.created",
             "invoice.marked_uncollectible",
             "invoice.paid",
@@ -96,6 +98,7 @@ class WebhookCreateParams(TypedDict, total=False):
             "shipment.created",
             "shipment.updated",
             "member.created",
+            "member.updated",
             "ad_campaign.payment_failed",
             "ad_campaign.updated",
             "ad.updated",

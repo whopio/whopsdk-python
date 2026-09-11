@@ -302,6 +302,7 @@ from .course_student_list_response import CourseStudentListResponse as CourseStu
 from .entry_approved_webhook_event import EntryApprovedWebhookEvent as EntryApprovedWebhookEvent
 from .invoice_voided_webhook_event import InvoiceVoidedWebhookEvent as InvoiceVoidedWebhookEvent
 from .member_created_webhook_event import MemberCreatedWebhookEvent as MemberCreatedWebhookEvent
+from .member_updated_webhook_event import MemberUpdatedWebhookEvent as MemberUpdatedWebhookEvent
 from .notification_create_response import NotificationCreateResponse as NotificationCreateResponse
 from .payment_failed_webhook_event import PaymentFailedWebhookEvent as PaymentFailedWebhookEvent
 from .payment_method_list_response import PaymentMethodListResponse as PaymentMethodListResponse
@@ -378,6 +379,9 @@ from .company_token_transaction_list_params import (
 from .course_lesson_interaction_list_params import (
     CourseLessonInteractionListParams as CourseLessonInteractionListParams,
 )
+from .account_financing_denied_webhook_event import (
+    AccountFinancingDeniedWebhookEvent as AccountFinancingDeniedWebhookEvent,
+)
 from .card_application_created_webhook_event import (
     CardApplicationCreatedWebhookEvent as CardApplicationCreatedWebhookEvent,
 )
@@ -416,6 +420,9 @@ from .company_token_transaction_list_response import (
 )
 from .dm_feed_member_notification_preferences import (
     DmFeedMemberNotificationPreferences as DmFeedMemberNotificationPreferences,
+)
+from .account_financing_approved_webhook_event import (
+    AccountFinancingApprovedWebhookEvent as AccountFinancingApprovedWebhookEvent,
 )
 from .ad_campaign_payment_failed_webhook_event import (
     AdCampaignPaymentFailedWebhookEvent as AdCampaignPaymentFailedWebhookEvent,

@@ -6,6 +6,8 @@ __all__ = ["WebhookEvent"]
 
 WebhookEvent: TypeAlias = Literal[
     "account.updated",
+    "account.financing_approved",
+    "account.financing_denied",
     "invoice.created",
     "invoice.marked_uncollectible",
     "invoice.paid",
@@ -72,6 +74,7 @@ WebhookEvent: TypeAlias = Literal[
     "shipment.created",
     "shipment.updated",
     "member.created",
+    "member.updated",
     "ad_campaign.payment_failed",
     "ad_campaign.updated",
     "ad.updated",

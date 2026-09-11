@@ -1,11 +1,19 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import Dict, List, Optional
 from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["AppListResponse", "Account", "BannerImage", "Creator", "Icon"]
+__all__ = ["AppListResponse", "Account", "AccountFees", "BannerImage", "Creator", "Domain", "Icon"]
+
+
+class AccountFees(BaseModel):
+    fixed_fee_usd: float
+    """Fixed markup in US dollars per transaction."""
+
+    percentage_fee: float
+    """Percentage of the transaction charged as markup."""
 
 
 class Account(BaseModel):
@@ -22,6 +30,14 @@ class Account(BaseModel):
 
     title: str
     """Account display name."""
+
+    fees: Optional[Dict[str, AccountFees]] = None
+    """
+    Markup rates this parent charges the connected account being read, keyed by fee
+    type (for example `crypto_deposit_markup`), each with `percentage_fee` and
+    `fixed_fee_usd`. Resolved with the connected account's own overrides winning
+    over the platform default.
+    """
 
 
 class BannerImage(BaseModel):
@@ -42,6 +58,22 @@ class Creator(BaseModel):
 
     username: str
     """Public username."""
+
+
+class Domain(BaseModel):
+    """Custom domain claims and assignments for this app, excluding removed domains.
+
+    Empty when none exist; `null` when the caller lacks the account's `developer:basic:read` permission.
+    """
+
+    id: str
+    """Domain ID, prefixed `dom_`."""
+
+    domain: str
+    """Normalized hostname assigned to this app."""
+
+    status: Literal["pending_verification", "provisioning", "active", "action_required", "deleting", "removed"]
+    """Domain lifecycle status, matching the domain resource."""
 
 
 class Icon(BaseModel):
@@ -97,6 +129,8 @@ class AppListResponse(BaseModel):
     Subdomain identifier for the app's proxied URL, forming
     https://{domain_id}.apps.whop.com.
     """
+
+    domains: Optional[List[Domain]] = None
 
     experience_path: Optional[str] = None
     """URL path for the member-facing hub view, or `null` when not configured."""

@@ -10,7 +10,7 @@ from pydantic import Field as FieldInfo
 from .._models import BaseModel
 
 __all__ = [
-    "AccountUpdatedWebhookEvent",
+    "AccountFinancingApprovedWebhookEvent",
     "Data",
     "DataBalance",
     "DataBalanceBreakdown",
@@ -1434,7 +1434,7 @@ class Data(BaseModel):
     """Account primary crypto wallet, or `null` if none has been provisioned."""
 
 
-class AccountUpdatedWebhookEvent(BaseModel):
+class AccountFinancingApprovedWebhookEvent(BaseModel):
     id: str
     """A unique ID for every single webhook request"""
 
@@ -1449,7 +1449,7 @@ class AccountUpdatedWebhookEvent(BaseModel):
     timestamp: datetime
     """The timestamp in ISO 8601 format that the webhook was sent at on the server"""
 
-    type: Literal["account.updated"]
+    type: Literal["account.financing_approved"]
     """The webhook event type"""
 
     account_id: Optional[str] = None

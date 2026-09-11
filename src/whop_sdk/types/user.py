@@ -396,13 +396,13 @@ class SocialAccount(BaseModel):
     url: Optional[str] = None
     """The URL where the social account can be accessed on the platform.
 
-    Null while a Whop-owned page is still being provisioned.
+    Null while a Whop-owned account is still being provisioned.
     """
 
     username: Optional[str] = None
     """The username of the social account on the platform.
 
-    Null while a Whop-owned page is still being provisioned.
+    Null while a Whop-owned account is still being provisioned.
     """
 
     verified: bool

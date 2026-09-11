@@ -24,6 +24,7 @@ __all__ = [
     "PaymentInstrumentIconsSquare",
     "PaymentInstrumentIconsSquareDark",
     "PaymentInstrumentIconsSquareLight",
+    "PresentmentTotal",
     "RefundedAmount",
     "ShippingAddress",
     "Subtotal",
@@ -91,12 +92,21 @@ class BillingAddress(BaseModel):
 
 
 class PaymentInstrumentCard(BaseModel):
-    """Card payments only: the card's network and last four."""
+    """
+    Card payments only: the card's network, last four, and issuer identification number.
+    """
 
     brand: str
     """
     The network identifier (`visa`, `amex`, …), matching `card.networks` entries and
     saved card payment methods.
+    """
+
+    issuer_identification_number: Optional[str] = None
+    """
+    The issuer identification number, also called the BIN: the card's leading six or
+    eight digits, which identify the issuing bank. Null when the processor did not
+    report it.
     """
 
     last4: Optional[str] = None
@@ -201,11 +211,14 @@ class PaymentInstrumentIcons(BaseModel):
 
 class PaymentInstrument(BaseModel):
     """
-    The instrument shaped for display: a buyer-facing name, the standard icon set, and the card's brand and last four when it was a card.
+    The instrument shaped for display: a buyer-facing name, the standard icon set, and the card's brand, last four and issuer identification number when it was a card.
     """
 
     card: Optional[PaymentInstrumentCard] = None
-    """Card payments only: the card's network and last four."""
+    """
+    Card payments only: the card's network, last four, and issuer identification
+    number.
+    """
 
     display_name: str
     """
@@ -226,6 +239,36 @@ class PaymentInstrument(BaseModel):
 
     payment_method_type: str
     """The payment method type identifier, e.g. `card`, `klarna`, `apple_pay`."""
+
+
+class PresentmentTotal(BaseModel):
+    """
+    The account-facing total in the currency presented to the buyer, before conversion into the settlement currency. Excludes buyer fees.
+    """
+
+    amount: str
+    """The amount in major units, as an exact decimal string — `"10.00"` is ten
+    dollars.
+
+    A string so no float rounds it in transit.
+    """
+
+    currency: str
+    """Three-letter ISO 4217 currency code, lowercase."""
+
+    decimals: int
+    """
+    How many decimal places the amount CARRIES — the precision the charge itself
+    runs at.
+    """
+
+    display_decimals: int
+    """How many decimal places to SHOW.
+
+    Usually equal to `decimals`, and deliberately not always: COP is charged in
+    centavos but written in whole pesos, so it is `2` and `0`. Format the number in
+    your own locale using this.
+    """
 
 
 class RefundedAmount(BaseModel):
@@ -464,23 +507,20 @@ class User(BaseModel):
 
 class VerificationChecks(BaseModel):
     """
-    The issuer's address and security code check results, or null when the processor returned none.
+    The Address Verification Service (AVS), cardholder name, and Card Verification Value (CVV/CVC) results, or null when the processor returned none.
     """
 
     address_line1: Optional[str] = None
-    """
-    Whether the billing street address the customer entered matched the issuer's
-    records.
-    """
+    """The Address Verification Service (AVS) result for the billing street address."""
 
     card_holder_name: Optional[str] = None
     """Whether the cardholder name matched the issuer's records."""
 
     card_security_code: Optional[str] = None
-    """Whether the CVV / CVC matched the card."""
+    """The Card Verification Value (CVV/CVC) result."""
 
     zip_code: Optional[str] = None
-    """Whether the billing postal code matched the issuer's records."""
+    """The Address Verification Service (AVS) result for the billing postal code."""
 
 
 class Payment(BaseModel):
@@ -522,6 +562,13 @@ class Payment(BaseModel):
     """The currency the payment settles in, lowercase ISO 4217.
 
     Every money field below is stated in it unless it says otherwise.
+    """
+
+    customer_email: Optional[str] = None
+    """The buyer's email address.
+
+    Null without `member:email:read` on the account or when the buyer has no
+    assigned email.
     """
 
     customer_phone: Optional[str] = None
@@ -661,7 +708,8 @@ class Payment(BaseModel):
     payment_instrument: Optional[PaymentInstrument] = None
     """
     The instrument shaped for display: a buyer-facing name, the standard icon set,
-    and the card's brand and last four when it was a card.
+    and the card's brand, last four and issuer identification number when it was a
+    card.
     """
 
     payment_method_id: Optional[str] = None
@@ -679,6 +727,12 @@ class Payment(BaseModel):
     plan_id: Optional[str] = None
     """The plan that was charged, prefixed `plan_`."""
 
+    presentment_total: Optional[PresentmentTotal] = None
+    """
+    The account-facing total in the currency presented to the buyer, before
+    conversion into the settlement currency. Excludes buyer fees.
+    """
+
     product_id: Optional[str] = None
     """The product the plan belongs to, prefixed `prod_`.
 
@@ -687,6 +741,13 @@ class Payment(BaseModel):
 
     promo_code_id: Optional[str] = None
     """The promo code applied at checkout, prefixed `promo_`, or null."""
+
+    recovery_url: Optional[str] = None
+    """
+    Whop-hosted URL where the buyer can sign in and complete 3D Secure for a failed
+    subscription renewal. Null when recovery is unavailable, you lack
+    `member:basic:read`, or in list responses. Retrieve the payment for it.
+    """
 
     refundable: bool
     """
@@ -791,8 +852,8 @@ class Payment(BaseModel):
 
     verification_checks: Optional[VerificationChecks] = None
     """
-    The issuer's address and security code check results, or null when the processor
-    returned none.
+    The Address Verification Service (AVS), cardholder name, and Card Verification
+    Value (CVV/CVC) results, or null when the processor returned none.
     """
 
     voidable: bool

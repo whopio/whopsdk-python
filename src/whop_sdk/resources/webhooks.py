@@ -61,6 +61,8 @@ class WebhooksResource(SyncAPIResource):
         events: List[
             Literal[
                 "account.updated",
+                "account.financing_approved",
+                "account.financing_denied",
                 "invoice.created",
                 "invoice.marked_uncollectible",
                 "invoice.paid",
@@ -124,6 +126,7 @@ class WebhooksResource(SyncAPIResource):
                 "shipment.created",
                 "shipment.updated",
                 "member.created",
+                "member.updated",
                 "ad_campaign.payment_failed",
                 "ad_campaign.updated",
                 "ad.updated",
@@ -293,6 +296,8 @@ class WebhooksResource(SyncAPIResource):
         events: List[
             Literal[
                 "account.updated",
+                "account.financing_approved",
+                "account.financing_denied",
                 "invoice.created",
                 "invoice.marked_uncollectible",
                 "invoice.paid",
@@ -356,6 +361,7 @@ class WebhooksResource(SyncAPIResource):
                 "shipment.created",
                 "shipment.updated",
                 "member.created",
+                "member.updated",
                 "ad_campaign.payment_failed",
                 "ad_campaign.updated",
                 "ad.updated",
@@ -642,6 +648,8 @@ class AsyncWebhooksResource(AsyncAPIResource):
         events: List[
             Literal[
                 "account.updated",
+                "account.financing_approved",
+                "account.financing_denied",
                 "invoice.created",
                 "invoice.marked_uncollectible",
                 "invoice.paid",
@@ -705,6 +713,7 @@ class AsyncWebhooksResource(AsyncAPIResource):
                 "shipment.created",
                 "shipment.updated",
                 "member.created",
+                "member.updated",
                 "ad_campaign.payment_failed",
                 "ad_campaign.updated",
                 "ad.updated",
@@ -874,6 +883,8 @@ class AsyncWebhooksResource(AsyncAPIResource):
         events: List[
             Literal[
                 "account.updated",
+                "account.financing_approved",
+                "account.financing_denied",
                 "invoice.created",
                 "invoice.marked_uncollectible",
                 "invoice.paid",
@@ -937,6 +948,7 @@ class AsyncWebhooksResource(AsyncAPIResource):
                 "shipment.created",
                 "shipment.updated",
                 "member.created",
+                "member.updated",
                 "ad_campaign.payment_failed",
                 "ad_campaign.updated",
                 "ad.updated",

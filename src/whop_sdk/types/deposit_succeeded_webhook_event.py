@@ -356,7 +356,10 @@ class DataSource(BaseModel):
     """Lowercase currency code converted from (swap sources only)."""
 
     notes: Optional[str] = None
-    """Memo attached to the transfer source, or null when none was provided."""
+    """
+    Memo attached to the transfer or payout source, or null when none was provided
+    (on payout sources requires payout:withdrawal:read).
+    """
 
     payer_name: Optional[str] = None
     """
@@ -685,6 +688,8 @@ class Data(BaseModel):
         "platform_balance_transfer_outgoing",
         "platform_covered_dispute",
         "platform_earning",
+        "platform_markup_fee",
+        "platform_markup_fee_payout",
         "promo_reversal",
         "referral_bonus",
         "resolution_center_refund",

@@ -20,6 +20,7 @@ from .export_failed_webhook_event import ExportFailedWebhookEvent
 from .entry_approved_webhook_event import EntryApprovedWebhookEvent
 from .invoice_voided_webhook_event import InvoiceVoidedWebhookEvent
 from .member_created_webhook_event import MemberCreatedWebhookEvent
+from .member_updated_webhook_event import MemberUpdatedWebhookEvent
 from .payment_failed_webhook_event import PaymentFailedWebhookEvent
 from .payout_created_webhook_event import PayoutCreatedWebhookEvent
 from .payout_updated_webhook_event import PayoutUpdatedWebhookEvent
@@ -60,6 +61,7 @@ from .membership_deactivated_webhook_event import MembershipDeactivatedWebhookEv
 from .setup_intent_succeeded_webhook_event import SetupIntentSucceededWebhookEvent
 from .verification_succeeded_webhook_event import VerificationSucceededWebhookEvent
 from .card_application_denied_webhook_event import CardApplicationDeniedWebhookEvent
+from .account_financing_denied_webhook_event import AccountFinancingDeniedWebhookEvent
 from .card_application_created_webhook_event import CardApplicationCreatedWebhookEvent
 from .card_application_updated_webhook_event import CardApplicationUpdatedWebhookEvent
 from .card_transaction_created_webhook_event import CardTransactionCreatedWebhookEvent
@@ -68,6 +70,7 @@ from .identity_profile_updated_webhook_event import IdentityProfileUpdatedWebhoo
 from .card_application_approved_webhook_event import CardApplicationApprovedWebhookEvent
 from .card_transaction_declined_webhook_event import CardTransactionDeclinedWebhookEvent
 from .card_transaction_reversed_webhook_event import CardTransactionReversedWebhookEvent
+from .account_financing_approved_webhook_event import AccountFinancingApprovedWebhookEvent
 from .ad_campaign_payment_failed_webhook_event import AdCampaignPaymentFailedWebhookEvent
 from .card_transaction_completed_webhook_event import CardTransactionCompletedWebhookEvent
 from .invoice_marked_uncollectible_webhook_event import InvoiceMarkedUncollectibleWebhookEvent
@@ -85,6 +88,8 @@ __all__ = ["UnwrapWebhookEvent"]
 
 UnwrapWebhookEvent: TypeAlias = Annotated[
     Union[
+        AccountFinancingApprovedWebhookEvent,
+        AccountFinancingDeniedWebhookEvent,
         AccountUpdatedWebhookEvent,
         AdUpdatedWebhookEvent,
         AdCampaignPaymentFailedWebhookEvent,
@@ -123,6 +128,7 @@ UnwrapWebhookEvent: TypeAlias = Annotated[
         InvoiceVoidedWebhookEvent,
         LedgerAccountFundsAvailableWebhookEvent,
         MemberCreatedWebhookEvent,
+        MemberUpdatedWebhookEvent,
         MembershipActivatedWebhookEvent,
         MembershipCancelAtPeriodEndChangedWebhookEvent,
         MembershipDeactivatedWebhookEvent,
