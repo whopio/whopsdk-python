@@ -40,7 +40,12 @@ class PaymentBankTransfer(UniversalBaseModel):
 
     bank_code: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The receiving bank's code in the local clearing system.
+    The code that identifies the receiving bank — its code in the local clearing system, or its SWIFT/BIC on a transfer that crosses borders.
+    """
+
+    bank_code_label: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    What to call `bank_code` when showing it, in the scheme's own terms — `SWIFT / BIC` on an international wire, for example.
     """
 
     bank_name: typing.Optional[str] = pydantic.Field(default=None)
