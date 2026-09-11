@@ -10,11 +10,6 @@ from .list_economic_intelligence_response_page_info import ListEconomicIntellige
 
 class ListEconomicIntelligenceResponse(UniversalBaseModel):
     data: typing.List[EconomicIntelligence]
-    generation_pending: bool = pydantic.Field()
-    """
-    Whether a generation is running because the account has no ready recommendations.
-    """
-
     page_info: ListEconomicIntelligenceResponsePageInfo
 
     if IS_PYDANTIC_V2:
