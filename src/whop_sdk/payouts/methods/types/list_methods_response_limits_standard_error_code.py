@@ -11,6 +11,7 @@ ListMethodsResponseLimitsStandardErrorCode = typing.Union[
         "kyc_completed",
         "rmi_clear",
         "identity_rfi_clear",
+        "guardian_id_clear",
         "ecommerce_fulfillment_connected",
         "block_move_money_out",
         "block_move_money_out_set_by_parent",
