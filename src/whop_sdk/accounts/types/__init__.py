@@ -32,9 +32,7 @@ if typing.TYPE_CHECKING:
     from .transfer_ownership_accounts_response import TransferOwnershipAccountsResponse
     from .update_accounts_request_banner_image import UpdateAccountsRequestBannerImage
     from .update_accounts_request_business_address import UpdateAccountsRequestBusinessAddress
-    from .update_accounts_request_business_type import UpdateAccountsRequestBusinessType
     from .update_accounts_request_home_preferences_item import UpdateAccountsRequestHomePreferencesItem
-    from .update_accounts_request_industry_group import UpdateAccountsRequestIndustryGroup
     from .update_accounts_request_logo import UpdateAccountsRequestLogo
     from .update_accounts_request_onboarding_type import UpdateAccountsRequestOnboardingType
     from .update_accounts_request_opengraph_image import UpdateAccountsRequestOpengraphImage
@@ -82,9 +80,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "TransferOwnershipAccountsResponse": ".transfer_ownership_accounts_response",
     "UpdateAccountsRequestBannerImage": ".update_accounts_request_banner_image",
     "UpdateAccountsRequestBusinessAddress": ".update_accounts_request_business_address",
-    "UpdateAccountsRequestBusinessType": ".update_accounts_request_business_type",
     "UpdateAccountsRequestHomePreferencesItem": ".update_accounts_request_home_preferences_item",
-    "UpdateAccountsRequestIndustryGroup": ".update_accounts_request_industry_group",
     "UpdateAccountsRequestLogo": ".update_accounts_request_logo",
     "UpdateAccountsRequestOnboardingType": ".update_accounts_request_onboarding_type",
     "UpdateAccountsRequestOpengraphImage": ".update_accounts_request_opengraph_image",
@@ -150,9 +146,7 @@ __all__ = [
     "TransferOwnershipAccountsResponse",
     "UpdateAccountsRequestBannerImage",
     "UpdateAccountsRequestBusinessAddress",
-    "UpdateAccountsRequestBusinessType",
     "UpdateAccountsRequestHomePreferencesItem",
-    "UpdateAccountsRequestIndustryGroup",
     "UpdateAccountsRequestLogo",
     "UpdateAccountsRequestOnboardingType",
     "UpdateAccountsRequestOpengraphImage",
