@@ -177,6 +177,67 @@ class CashbackRulesClient:
             request_options=request_options,
         )
 
+    def update(
+        self,
+        id: str,
+        *,
+        description: typing.Optional[str] = OMIT,
+        expires_at: typing.Optional[dt.datetime] = OMIT,
+        merchant_category_code: typing.Optional[str] = OMIT,
+        merchant_name: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> CashbackRule:
+        """
+        Updates a cashback rule funded by the authenticated platform account. Requires payout:transfer_funds. Only merchant_name, merchant_category_code, description, and expires_at can change; starts_at, rate_bps, funding_account_id, and scoped_account_id are immutable. Omitted fields stay unchanged. Scheduled, active, and expired rules can be updated; discarded rules cannot. Updating a rule does not transfer funds.
+
+        Parameters
+        ----------
+        id : str
+            ID of the cashback rule, prefixed cicbr_.
+
+        description : typing.Optional[str]
+            Description of the rule. Set null to clear it.
+
+        expires_at : typing.Optional[dt.datetime]
+            Exclusive end as an ISO 8601 timestamp, strictly later than the original starts_at. May be in the past to end an active rule. Set null to remove the expiration.
+
+        merchant_category_code : typing.Optional[str]
+            Four-digit MCC, including leading zeros. Must match together with merchant_name.
+
+        merchant_name : typing.Optional[str]
+            Raw merchant name reported by the card provider. Must contain a non-whitespace character. Matched with the MCC; not a substring or wildcard.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CashbackRule
+            cashback rule updated
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-09-09-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.cashback_rules.update(
+            id="id",
+        )
+        """
+        _response = self._raw_client.update(
+            id,
+            description=description,
+            expires_at=expires_at,
+            merchant_category_code=merchant_category_code,
+            merchant_name=merchant_name,
+            request_options=request_options,
+        )
+        return _response.data
+
 
 class AsyncCashbackRulesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -354,3 +415,72 @@ class AsyncCashbackRulesClient:
             direction=direction,
             request_options=request_options,
         )
+
+    async def update(
+        self,
+        id: str,
+        *,
+        description: typing.Optional[str] = OMIT,
+        expires_at: typing.Optional[dt.datetime] = OMIT,
+        merchant_category_code: typing.Optional[str] = OMIT,
+        merchant_name: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> CashbackRule:
+        """
+        Updates a cashback rule funded by the authenticated platform account. Requires payout:transfer_funds. Only merchant_name, merchant_category_code, description, and expires_at can change; starts_at, rate_bps, funding_account_id, and scoped_account_id are immutable. Omitted fields stay unchanged. Scheduled, active, and expired rules can be updated; discarded rules cannot. Updating a rule does not transfer funds.
+
+        Parameters
+        ----------
+        id : str
+            ID of the cashback rule, prefixed cicbr_.
+
+        description : typing.Optional[str]
+            Description of the rule. Set null to clear it.
+
+        expires_at : typing.Optional[dt.datetime]
+            Exclusive end as an ISO 8601 timestamp, strictly later than the original starts_at. May be in the past to end an active rule. Set null to remove the expiration.
+
+        merchant_category_code : typing.Optional[str]
+            Four-digit MCC, including leading zeros. Must match together with merchant_name.
+
+        merchant_name : typing.Optional[str]
+            Raw merchant name reported by the card provider. Must contain a non-whitespace character. Matched with the MCC; not a substring or wildcard.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CashbackRule
+            cashback rule updated
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-09-09-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.cashback_rules.update(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.update(
+            id,
+            description=description,
+            expires_at=expires_at,
+            merchant_category_code=merchant_category_code,
+            merchant_name=merchant_name,
+            request_options=request_options,
+        )
+        return _response.data
