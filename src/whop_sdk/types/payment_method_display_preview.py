@@ -9,17 +9,17 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 class PaymentMethodDisplayPreview(UniversalBaseModel):
     brand: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Lowercase card brand, e.g. `visa`. Absent when the method carries no brand.
+    Lowercase card brand, such as `visa` or `mastercard`.
     """
 
     fingerprint: typing.Optional[str] = pydantic.Field(default=None)
     """
-    A stable identifier for the collected card. Matches the `fingerprint` on any payment method saved from this token. Absent when the method is not a card or no fingerprint was returned.
+    Uniquely identifies this particular card number. Matches the `fingerprint` on any payment method saved from this token, so you can recognize a card across attempts. For a wallet, this identifies the network token rather than the underlying card.
     """
 
     last4: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Last four digits of the instrument. Absent when the method carries none.
+    The last four digits of the card.
     """
 
     if IS_PYDANTIC_V2:
