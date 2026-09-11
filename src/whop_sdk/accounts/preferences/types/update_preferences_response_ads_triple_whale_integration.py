@@ -11,7 +11,7 @@ from .update_preferences_response_ads_triple_whale_integration_status import (
 
 class UpdatePreferencesResponseAdsTripleWhaleIntegration(UniversalBaseModel):
     """
-    The account's Triple Whale integration, which pushes Whop ad spend to Triple Whale's Data-In API so it reports as a `whop` channel.
+    The account's Triple Whale integration, which pushes Whop ad spend to Triple Whale's Data-In API so it reports as a `whop` channel. Available to any Triple Whale customer — Shopify, WooCommerce, a custom checkout, or no connected store — by setting `shop_domain` explicitly; Shopify merchants may instead rely on a connected store's domain. Requires the `ad_campaign:create` scope. Once connected, ad click-through URLs Whop serves carry `tw_source=whop` and `tw_adid=<ad id>` query parameters so Triple Whale's pixel attributes conversions back to the originating ad — no destination URL changes are needed.
     """
 
     masked_api_key: typing.Optional[str] = pydantic.Field(default=None)
@@ -21,12 +21,12 @@ class UpdatePreferencesResponseAdsTripleWhaleIntegration(UniversalBaseModel):
 
     shop_domain: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The connected Shopify store domain spend is reported for, such as `acme.myshopify.com`. `null` when no store is connected.
+    The shop domain spend is reported for, such as `acme.myshopify.com` or a custom domain for a non-Shopify store. This is the explicit `shop_domain` if one was set, otherwise a connected Shopify store's domain. `null` when neither is present.
     """
 
     status: UpdatePreferencesResponseAdsTripleWhaleIntegrationStatus = pydantic.Field()
     """
-    Where the integration stands. `requires_shopify_store` means no Shopify store is connected — Triple Whale keys records by Shopify shop, so no spend is reported until one is.
+    Where the integration stands. `requires_shop_domain` means no shop domain is configured — set `shop_domain` explicitly, or connect a Shopify store, before spend can be reported.
     """
 
     if IS_PYDANTIC_V2:

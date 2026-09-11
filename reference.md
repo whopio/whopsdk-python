@@ -40051,7 +40051,7 @@ client.accounts.preferences.retrieve(
 <dl>
 <dd>
 
-Updates the account's preferences. Each top-level key present in the body is replaced as a whole; omitted keys are left untouched. `ads_triple_whale_integration` takes the Data-In API key to connect with, or `null` to disconnect. `ads_payment_methods` always requires a `primary` entry. `backup` is optional and any pairing is allowed — two cards, `card`+`platform_balance`, or a single method — so a card-only advertiser can fund ads without a platform balance. The `primary` and `backup` must be different sources. A `platform_balance` entry may omit `id` to use the account's default Whop balance. Configuring a `card` requires a user token; account API keys can set up platform-balance billing only.
+Updates the account's preferences. Each top-level key present in the body is replaced as a whole; omitted keys are left untouched. `ads_triple_whale_integration` takes the Data-In API key to connect with, or `null` to disconnect, plus an optional `shop_domain`. `ads_payment_methods` always requires a `primary` entry. `backup` is optional and any pairing is allowed — two cards, `card`+`platform_balance`, or a single method — so a card-only advertiser can fund ads without a platform balance. The `primary` and `backup` must be different sources. A `platform_balance` entry may omit `id` to use the account's default Whop balance. Configuring a `card` requires a user token; account API keys can set up platform-balance billing only.
 </dd>
 </dl>
 </dd>
@@ -40124,7 +40124,7 @@ client.accounts.preferences.update(
 <dl>
 <dd>
 
-**ads_triple_whale_integration:** `typing.Optional[UpdatePreferencesRequestAdsTripleWhaleIntegration]` — Connects or disconnects the Triple Whale integration. Requires a connected Shopify store, since Triple Whale keys spend records by Shopify shop.
+**ads_triple_whale_integration:** `typing.Optional[UpdatePreferencesRequestAdsTripleWhaleIntegration]` — Connects or disconnects the Triple Whale integration. Requires the `ad_campaign:create` scope. Connecting requires a shop domain to report spend against — either an explicit `shop_domain` (required for any merchant without a connected Shopify store, e.g. WooCommerce, a custom checkout, or a white-label platform's merchant) or a Shopify store connected on the Fulfillment page.
     
 </dd>
 </dl>

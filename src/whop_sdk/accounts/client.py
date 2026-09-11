@@ -138,7 +138,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-11",
+            "2026-09-11-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -217,7 +217,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-11",
+            "2026-09-11-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -254,7 +254,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-11",
+            "2026-09-11-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -285,7 +285,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-11",
+            "2026-09-11-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -477,7 +477,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-11",
+            "2026-09-11-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -618,7 +618,7 @@ class AccountsClient:
         )
 
         client = Whop(
-            "2026-09-11",
+            "2026-09-11-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -712,7 +712,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-11",
+            "2026-09-11-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -762,7 +762,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-11",
+            "2026-09-11-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -888,7 +888,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-11",
+            "2026-09-11-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -976,7 +976,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-11",
+            "2026-09-11-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1021,7 +1021,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-11",
+            "2026-09-11-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1060,7 +1060,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-11",
+            "2026-09-11-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1260,7 +1260,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-11",
+            "2026-09-11-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1409,7 +1409,7 @@ class AsyncAccountsClient:
         )
 
         client = AsyncWhop(
-            "2026-09-11",
+            "2026-09-11-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1511,7 +1511,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-11",
+            "2026-09-11-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1569,7 +1569,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-11",
+            "2026-09-11-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

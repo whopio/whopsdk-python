@@ -3,5 +3,5 @@
 import typing
 
 UpdatePreferencesResponseAdsTripleWhaleIntegrationStatus = typing.Union[
-    typing.Literal["connected", "not_connected", "requires_shopify_store"], typing.Any
+    typing.Literal["connected", "not_connected", "requires_shop_domain"], typing.Any
 ]
