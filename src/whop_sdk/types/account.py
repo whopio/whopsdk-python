@@ -90,6 +90,11 @@ class Account(UniversalBaseModel):
     Account promotional description.
     """
 
+    economic_intelligence: bool = pydantic.Field()
+    """
+    Whether economic intelligence is enabled for the account.
+    """
+
     email: typing.Optional[str] = pydantic.Field(default=None)
     """
     Account owner email address.
