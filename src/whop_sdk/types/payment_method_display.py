@@ -11,12 +11,12 @@ from .payment_method_display_preview import PaymentMethodDisplayPreview
 class PaymentMethodDisplay(UniversalBaseModel):
     bank_debit: typing.Optional[PaymentMethodDisplayPreview] = pydantic.Field(default=None)
     """
-    Present when the category is `bank_debit`. Carries the account's last four when the linking provider surfaced it.
+    Present when the category is `bank_debit`. Empty until the account is charged.
     """
 
     card: typing.Optional[PaymentMethodDisplayPreview] = pydantic.Field(default=None)
     """
-    Present when the category is `card`. What the collection surface displayed — the token has not been charged, so this is the buyer's claim, not the vault's record.
+    Details of the card, when the category is `card`.
     """
 
     category: PaymentMethodDisplayCategory = pydantic.Field()
@@ -36,7 +36,7 @@ class PaymentMethodDisplay(UniversalBaseModel):
 
     saved: typing.Optional[PaymentMethodDisplayPreview] = pydantic.Field(default=None)
     """
-    Present when the category is `saved` and the stored method is a card. Unlike the other previews this is the vault's own record, not a claim from the collection surface. Absent for a balance, which has no instrument.
+    Details of the stored card, when the category is `saved`. Absent for a balance.
     """
 
     type: str = pydantic.Field()
@@ -46,7 +46,7 @@ class PaymentMethodDisplay(UniversalBaseModel):
 
     wallet: typing.Optional[PaymentMethodDisplayPreview] = pydantic.Field(default=None)
     """
-    Present when the category is `wallet`. Carries the backing card's brand and last four when the wallet surfaced them.
+    Details of the network token the wallet supplied, when the category is `wallet`.
     """
 
     if IS_PYDANTIC_V2:
