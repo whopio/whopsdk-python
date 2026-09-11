@@ -12,6 +12,11 @@ class PaymentMethodDisplayPreview(UniversalBaseModel):
     Lowercase card brand, e.g. `visa`. Absent when the method carries no brand.
     """
 
+    fingerprint: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    A stable identifier for the collected card. Matches the `fingerprint` on any payment method saved from this token. Absent when the method is not a card or no fingerprint was returned.
+    """
+
     last4: typing.Optional[str] = pydantic.Field(default=None)
     """
     Last four digits of the instrument. Absent when the method carries none.
