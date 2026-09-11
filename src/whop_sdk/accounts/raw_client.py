@@ -35,9 +35,7 @@ from .types.list_accounts_response import ListAccountsResponse
 from .types.transfer_ownership_accounts_response import TransferOwnershipAccountsResponse
 from .types.update_accounts_request_banner_image import UpdateAccountsRequestBannerImage
 from .types.update_accounts_request_business_address import UpdateAccountsRequestBusinessAddress
-from .types.update_accounts_request_business_type import UpdateAccountsRequestBusinessType
 from .types.update_accounts_request_home_preferences_item import UpdateAccountsRequestHomePreferencesItem
-from .types.update_accounts_request_industry_group import UpdateAccountsRequestIndustryGroup
 from .types.update_accounts_request_logo import UpdateAccountsRequestLogo
 from .types.update_accounts_request_onboarding_type import UpdateAccountsRequestOnboardingType
 from .types.update_accounts_request_opengraph_image import UpdateAccountsRequestOpengraphImage
@@ -494,13 +492,13 @@ class RawAccountsClient:
         banner_image: typing.Optional[UpdateAccountsRequestBannerImage] = OMIT,
         business_address: typing.Optional[UpdateAccountsRequestBusinessAddress] = OMIT,
         business_name: typing.Optional[str] = OMIT,
-        business_type: typing.Optional[UpdateAccountsRequestBusinessType] = OMIT,
+        business_type: typing.Optional[str] = OMIT,
         collect_vat_id: typing.Optional[bool] = OMIT,
         country: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         featured_affiliate_product_id: typing.Optional[str] = OMIT,
         home_preferences: typing.Optional[typing.Sequence[UpdateAccountsRequestHomePreferencesItem]] = OMIT,
-        industry_group: typing.Optional[UpdateAccountsRequestIndustryGroup] = OMIT,
+        industry_group: typing.Optional[str] = OMIT,
         industry_type: typing.Optional[str] = OMIT,
         invoice_prefix: typing.Optional[str] = OMIT,
         logo: typing.Optional[UpdateAccountsRequestLogo] = OMIT,
@@ -554,7 +552,7 @@ class RawAccountsClient:
         business_name : typing.Optional[str]
             The legal business name used with the account's tax address.
 
-        business_type : typing.Optional[UpdateAccountsRequestBusinessType]
+        business_type : typing.Optional[str]
             High-level business category for the account. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
 
         collect_vat_id : typing.Optional[bool]
@@ -572,7 +570,7 @@ class RawAccountsClient:
         home_preferences : typing.Optional[typing.Sequence[UpdateAccountsRequestHomePreferencesItem]]
             Public account home page preferences.
 
-        industry_group : typing.Optional[UpdateAccountsRequestIndustryGroup]
+        industry_group : typing.Optional[str]
             Account industry group. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
 
         industry_type : typing.Optional[str]
@@ -1596,13 +1594,13 @@ class AsyncRawAccountsClient:
         banner_image: typing.Optional[UpdateAccountsRequestBannerImage] = OMIT,
         business_address: typing.Optional[UpdateAccountsRequestBusinessAddress] = OMIT,
         business_name: typing.Optional[str] = OMIT,
-        business_type: typing.Optional[UpdateAccountsRequestBusinessType] = OMIT,
+        business_type: typing.Optional[str] = OMIT,
         collect_vat_id: typing.Optional[bool] = OMIT,
         country: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
         featured_affiliate_product_id: typing.Optional[str] = OMIT,
         home_preferences: typing.Optional[typing.Sequence[UpdateAccountsRequestHomePreferencesItem]] = OMIT,
-        industry_group: typing.Optional[UpdateAccountsRequestIndustryGroup] = OMIT,
+        industry_group: typing.Optional[str] = OMIT,
         industry_type: typing.Optional[str] = OMIT,
         invoice_prefix: typing.Optional[str] = OMIT,
         logo: typing.Optional[UpdateAccountsRequestLogo] = OMIT,
@@ -1656,7 +1654,7 @@ class AsyncRawAccountsClient:
         business_name : typing.Optional[str]
             The legal business name used with the account's tax address.
 
-        business_type : typing.Optional[UpdateAccountsRequestBusinessType]
+        business_type : typing.Optional[str]
             High-level business category for the account. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
 
         collect_vat_id : typing.Optional[bool]
@@ -1674,7 +1672,7 @@ class AsyncRawAccountsClient:
         home_preferences : typing.Optional[typing.Sequence[UpdateAccountsRequestHomePreferencesItem]]
             Public account home page preferences.
 
-        industry_group : typing.Optional[UpdateAccountsRequestIndustryGroup]
+        industry_group : typing.Optional[str]
             Account industry group. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
 
         industry_type : typing.Optional[str]

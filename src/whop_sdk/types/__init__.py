@@ -14,7 +14,6 @@ if typing.TYPE_CHECKING:
     from .account_balance_breakdown import AccountBalanceBreakdown
     from .account_balance_settlement import AccountBalanceSettlement
     from .account_balance_token import AccountBalanceToken
-    from .account_business_type import AccountBusinessType
     from .account_capabilities import AccountCapabilities
     from .account_capabilities_accept_bank_payments import AccountCapabilitiesAcceptBankPayments
     from .account_capabilities_accept_bnpl_payments import AccountCapabilitiesAcceptBnplPayments
@@ -39,7 +38,6 @@ if typing.TYPE_CHECKING:
     from .account_company_formation_status import AccountCompanyFormationStatus
     from .account_dispute_alert_auto_refund_control import AccountDisputeAlertAutoRefundControl
     from .account_home_preferences_item import AccountHomePreferencesItem
-    from .account_industry_group import AccountIndustryGroup
     from .account_link import AccountLink
     from .account_link_use_cases import AccountLinkUseCases
     from .account_onboarding_type import AccountOnboardingType
@@ -1348,7 +1346,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AccountBalanceBreakdown": ".account_balance_breakdown",
     "AccountBalanceSettlement": ".account_balance_settlement",
     "AccountBalanceToken": ".account_balance_token",
-    "AccountBusinessType": ".account_business_type",
     "AccountCapabilities": ".account_capabilities",
     "AccountCapabilitiesAcceptBankPayments": ".account_capabilities_accept_bank_payments",
     "AccountCapabilitiesAcceptBnplPayments": ".account_capabilities_accept_bnpl_payments",
@@ -1373,7 +1370,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AccountCompanyFormationStatus": ".account_company_formation_status",
     "AccountDisputeAlertAutoRefundControl": ".account_dispute_alert_auto_refund_control",
     "AccountHomePreferencesItem": ".account_home_preferences_item",
-    "AccountIndustryGroup": ".account_industry_group",
     "AccountLink": ".account_link",
     "AccountLinkUseCases": ".account_link_use_cases",
     "AccountOnboardingType": ".account_onboarding_type",
@@ -2558,7 +2554,6 @@ __all__ = [
     "AccountBalanceBreakdown",
     "AccountBalanceSettlement",
     "AccountBalanceToken",
-    "AccountBusinessType",
     "AccountCapabilities",
     "AccountCapabilitiesAcceptBankPayments",
     "AccountCapabilitiesAcceptBnplPayments",
@@ -2583,7 +2578,6 @@ __all__ = [
     "AccountCompanyFormationStatus",
     "AccountDisputeAlertAutoRefundControl",
     "AccountHomePreferencesItem",
-    "AccountIndustryGroup",
     "AccountLink",
     "AccountLinkUseCases",
     "AccountOnboardingType",

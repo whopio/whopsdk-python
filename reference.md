@@ -720,7 +720,7 @@ client.accounts.update(
 <dl>
 <dd>
 
-**business_type:** `typing.Optional[UpdateAccountsRequestBusinessType]` — High-level business category for the account. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
+**business_type:** `typing.Optional[str]` — High-level business category for the account. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
     
 </dd>
 </dl>
@@ -768,7 +768,7 @@ client.accounts.update(
 <dl>
 <dd>
 
-**industry_group:** `typing.Optional[UpdateAccountsRequestIndustryGroup]` — Account industry group. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
+**industry_group:** `typing.Optional[str]` — Account industry group. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
     
 </dd>
 </dl>

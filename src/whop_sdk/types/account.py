@@ -7,12 +7,10 @@ import typing_extensions
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ..core.serialization import FieldMetadata
 from .account_balance_token import AccountBalanceToken
-from .account_business_type import AccountBusinessType
 from .account_capabilities import AccountCapabilities
 from .account_cards import AccountCards
 from .account_company_formation import AccountCompanyFormation
 from .account_home_preferences_item import AccountHomePreferencesItem
-from .account_industry_group import AccountIndustryGroup
 from .account_onboarding_type import AccountOnboardingType
 from .account_opengraph_image_variant import AccountOpengraphImageVariant
 from .account_parent import AccountParent
@@ -47,7 +45,7 @@ class Account(UniversalBaseModel):
     The account's legal business name used with its tax address.
     """
 
-    business_type: typing.Optional[AccountBusinessType] = pydantic.Field(default=None)
+    business_type: typing.Optional[str] = pydantic.Field(default=None)
     """
     High-level business category for the account. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
     """
@@ -108,7 +106,7 @@ class Account(UniversalBaseModel):
     Account ID, prefixed `biz_`.
     """
 
-    industry_group: typing.Optional[AccountIndustryGroup] = pydantic.Field(default=None)
+    industry_group: typing.Optional[str] = pydantic.Field(default=None)
     """
     Account industry group. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
     """
