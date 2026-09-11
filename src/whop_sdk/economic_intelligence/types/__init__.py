@@ -6,15 +6,13 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .list_executions_recommended_actions_response import ListExecutionsRecommendedActionsResponse
-    from .list_recommended_actions_response import ListRecommendedActionsResponse
-    from .run_recommended_actions_response import RunRecommendedActionsResponse
-    from .run_recommended_actions_response_execution import RunRecommendedActionsResponseExecution
+    from .list_economic_intelligence_request_status import ListEconomicIntelligenceRequestStatus
+    from .list_economic_intelligence_response import ListEconomicIntelligenceResponse
+    from .list_economic_intelligence_response_page_info import ListEconomicIntelligenceResponsePageInfo
 _dynamic_imports: typing.Dict[str, str] = {
-    "ListExecutionsRecommendedActionsResponse": ".list_executions_recommended_actions_response",
-    "ListRecommendedActionsResponse": ".list_recommended_actions_response",
-    "RunRecommendedActionsResponse": ".run_recommended_actions_response",
-    "RunRecommendedActionsResponseExecution": ".run_recommended_actions_response_execution",
+    "ListEconomicIntelligenceRequestStatus": ".list_economic_intelligence_request_status",
+    "ListEconomicIntelligenceResponse": ".list_economic_intelligence_response",
+    "ListEconomicIntelligenceResponsePageInfo": ".list_economic_intelligence_response_page_info",
 }
 
 
@@ -40,8 +38,7 @@ def __dir__():
 
 
 __all__ = [
-    "ListExecutionsRecommendedActionsResponse",
-    "ListRecommendedActionsResponse",
-    "RunRecommendedActionsResponse",
-    "RunRecommendedActionsResponseExecution",
+    "ListEconomicIntelligenceRequestStatus",
+    "ListEconomicIntelligenceResponse",
+    "ListEconomicIntelligenceResponsePageInfo",
 ]

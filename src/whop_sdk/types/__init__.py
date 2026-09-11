@@ -52,11 +52,6 @@ if typing.TYPE_CHECKING:
     from .account_preferences import AccountPreferences
     from .account_recommended_action import AccountRecommendedAction
     from .account_recommended_action_action import AccountRecommendedActionAction
-    from .account_recommended_action_chain import AccountRecommendedActionChain
-    from .account_recommended_action_chain_step import AccountRecommendedActionChainStep
-    from .account_recommended_action_chain_step_execution_type import AccountRecommendedActionChainStepExecutionType
-    from .account_recommended_action_chain_step_status import AccountRecommendedActionChainStepStatus
-    from .account_recommended_action_outcome import AccountRecommendedActionOutcome
     from .account_recommended_action_status import AccountRecommendedActionStatus
     from .account_required_action import AccountRequiredAction
     from .account_required_action_action import AccountRequiredActionAction
@@ -486,6 +481,9 @@ if typing.TYPE_CHECKING:
     from .domain_dns_status import DomainDnsStatus
     from .domain_issue import DomainIssue
     from .domain_status import DomainStatus
+    from .economic_intelligence import EconomicIntelligence
+    from .economic_intelligence_execution_type import EconomicIntelligenceExecutionType
+    from .economic_intelligence_status import EconomicIntelligenceStatus
     from .embed_types import EmbedTypes
     from .entries_sortable_columns import EntriesSortableColumns
     from .entry import Entry
@@ -1156,9 +1154,6 @@ if typing.TYPE_CHECKING:
     from .receipt_status import ReceiptStatus
     from .receipt_tax_behaviors import ReceiptTaxBehaviors
     from .receipt_v2order import ReceiptV2Order
-    from .recommended_action import RecommendedAction
-    from .recommended_action_execution import RecommendedActionExecution
-    from .recommended_action_execution_status import RecommendedActionExecutionStatus
     from .refund import Refund
     from .refund_failure_reason import RefundFailureReason
     from .refund_legacy import RefundLegacy
@@ -1382,11 +1377,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AccountPreferences": ".account_preferences",
     "AccountRecommendedAction": ".account_recommended_action",
     "AccountRecommendedActionAction": ".account_recommended_action_action",
-    "AccountRecommendedActionChain": ".account_recommended_action_chain",
-    "AccountRecommendedActionChainStep": ".account_recommended_action_chain_step",
-    "AccountRecommendedActionChainStepExecutionType": ".account_recommended_action_chain_step_execution_type",
-    "AccountRecommendedActionChainStepStatus": ".account_recommended_action_chain_step_status",
-    "AccountRecommendedActionOutcome": ".account_recommended_action_outcome",
     "AccountRecommendedActionStatus": ".account_recommended_action_status",
     "AccountRequiredAction": ".account_required_action",
     "AccountRequiredActionAction": ".account_required_action_action",
@@ -1792,6 +1782,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DomainDnsStatus": ".domain_dns_status",
     "DomainIssue": ".domain_issue",
     "DomainStatus": ".domain_status",
+    "EconomicIntelligence": ".economic_intelligence",
+    "EconomicIntelligenceExecutionType": ".economic_intelligence_execution_type",
+    "EconomicIntelligenceStatus": ".economic_intelligence_status",
     "EmbedTypes": ".embed_types",
     "EntriesSortableColumns": ".entries_sortable_columns",
     "Entry": ".entry",
@@ -2342,9 +2335,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ReceiptStatus": ".receipt_status",
     "ReceiptTaxBehaviors": ".receipt_tax_behaviors",
     "ReceiptV2Order": ".receipt_v2order",
-    "RecommendedAction": ".recommended_action",
-    "RecommendedActionExecution": ".recommended_action_execution",
-    "RecommendedActionExecutionStatus": ".recommended_action_execution_status",
     "Refund": ".refund",
     "RefundFailureReason": ".refund_failure_reason",
     "RefundLegacy": ".refund_legacy",
@@ -2590,11 +2580,6 @@ __all__ = [
     "AccountPreferences",
     "AccountRecommendedAction",
     "AccountRecommendedActionAction",
-    "AccountRecommendedActionChain",
-    "AccountRecommendedActionChainStep",
-    "AccountRecommendedActionChainStepExecutionType",
-    "AccountRecommendedActionChainStepStatus",
-    "AccountRecommendedActionOutcome",
     "AccountRecommendedActionStatus",
     "AccountRequiredAction",
     "AccountRequiredActionAction",
@@ -3000,6 +2985,9 @@ __all__ = [
     "DomainDnsStatus",
     "DomainIssue",
     "DomainStatus",
+    "EconomicIntelligence",
+    "EconomicIntelligenceExecutionType",
+    "EconomicIntelligenceStatus",
     "EmbedTypes",
     "EntriesSortableColumns",
     "Entry",
@@ -3550,9 +3538,6 @@ __all__ = [
     "ReceiptStatus",
     "ReceiptTaxBehaviors",
     "ReceiptV2Order",
-    "RecommendedAction",
-    "RecommendedActionExecution",
-    "RecommendedActionExecutionStatus",
     "Refund",
     "RefundFailureReason",
     "RefundLegacy",

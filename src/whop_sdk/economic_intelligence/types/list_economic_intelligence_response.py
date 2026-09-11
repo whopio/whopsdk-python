@@ -4,15 +4,18 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ...types.account_recommended_action_chain import AccountRecommendedActionChain
+from ...types.economic_intelligence import EconomicIntelligence
+from .list_economic_intelligence_response_page_info import ListEconomicIntelligenceResponsePageInfo
 
 
-class ListRecommendedActionsResponse(UniversalBaseModel):
-    data: typing.List[AccountRecommendedActionChain]
+class ListEconomicIntelligenceResponse(UniversalBaseModel):
+    data: typing.List[EconomicIntelligence]
     generation_pending: bool = pydantic.Field()
     """
-    Whether generation was queued because the account has no available action chains yet.
+    Whether a generation is running because the account has no ready recommendations.
     """
+
+    page_info: ListEconomicIntelligenceResponsePageInfo
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
