@@ -107,6 +107,7 @@ class RawPreferencesClient:
         cards_auto_top_up: typing.Optional[bool] = OMIT,
         cards_notifications: typing.Optional[bool] = OMIT,
         dispute_fighter_enabled: typing.Optional[bool] = OMIT,
+        economic_intelligence: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdatePreferencesResponse]:
         """
@@ -138,6 +139,9 @@ class RawPreferencesClient:
         dispute_fighter_enabled : typing.Optional[bool]
             Whether Whop assembles and files the evidence response when this account's payments are disputed. Off by default; enabling it also opts the account into the success fee charged only on disputes it wins.
 
+        economic_intelligence : typing.Optional[bool]
+            Whether economic intelligence is enabled for the account. Requires company:update permission and an existing ledger account.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -163,6 +167,7 @@ class RawPreferencesClient:
                 "cards_auto_top_up": cards_auto_top_up,
                 "cards_notifications": cards_notifications,
                 "dispute_fighter_enabled": dispute_fighter_enabled,
+                "economic_intelligence": economic_intelligence,
             },
             headers={
                 "content-type": "application/json",
@@ -314,6 +319,7 @@ class AsyncRawPreferencesClient:
         cards_auto_top_up: typing.Optional[bool] = OMIT,
         cards_notifications: typing.Optional[bool] = OMIT,
         dispute_fighter_enabled: typing.Optional[bool] = OMIT,
+        economic_intelligence: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdatePreferencesResponse]:
         """
@@ -345,6 +351,9 @@ class AsyncRawPreferencesClient:
         dispute_fighter_enabled : typing.Optional[bool]
             Whether Whop assembles and files the evidence response when this account's payments are disputed. Off by default; enabling it also opts the account into the success fee charged only on disputes it wins.
 
+        economic_intelligence : typing.Optional[bool]
+            Whether economic intelligence is enabled for the account. Requires company:update permission and an existing ledger account.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -370,6 +379,7 @@ class AsyncRawPreferencesClient:
                 "cards_auto_top_up": cards_auto_top_up,
                 "cards_notifications": cards_notifications,
                 "dispute_fighter_enabled": dispute_fighter_enabled,
+                "economic_intelligence": economic_intelligence,
             },
             headers={
                 "content-type": "application/json",

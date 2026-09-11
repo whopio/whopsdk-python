@@ -40156,6 +40156,14 @@ client.accounts.preferences.update(
 <dl>
 <dd>
 
+**economic_intelligence:** `typing.Optional[bool]` — Whether economic intelligence is enabled for the account. Requires company:update permission and an existing ledger account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
