@@ -11403,7 +11403,7 @@ client.chat_channels.update(
 <dl>
 <dd>
 
-**user_posts_cooldown_seconds:** `typing.Optional[int]` — The minimum number of seconds a user must wait between sending messages in this chat channel.
+**user_posts_cooldown_seconds:** `typing.Optional[int]` — The minimum number of seconds a user must wait between sending messages in this chat channel. Pass null or 0 to remove the cooldown.
     
 </dd>
 </dl>

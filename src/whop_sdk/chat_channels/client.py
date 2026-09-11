@@ -176,7 +176,7 @@ class ChatChannelsClient:
             A list of words that are automatically blocked from messages in this chat channel. For example, ['spam', 'scam'].
 
         user_posts_cooldown_seconds : typing.Optional[int]
-            The minimum number of seconds a user must wait between sending messages in this chat channel.
+            The minimum number of seconds a user must wait between sending messages in this chat channel. Pass null or 0 to remove the cooldown.
 
         who_can_post : typing.Optional[WhoCanPostTypes]
             Controls which roles are allowed to send messages in this chat channel.
@@ -395,7 +395,7 @@ class AsyncChatChannelsClient:
             A list of words that are automatically blocked from messages in this chat channel. For example, ['spam', 'scam'].
 
         user_posts_cooldown_seconds : typing.Optional[int]
-            The minimum number of seconds a user must wait between sending messages in this chat channel.
+            The minimum number of seconds a user must wait between sending messages in this chat channel. Pass null or 0 to remove the cooldown.
 
         who_can_post : typing.Optional[WhoCanPostTypes]
             Controls which roles are allowed to send messages in this chat channel.
