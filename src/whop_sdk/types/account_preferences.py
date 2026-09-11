@@ -29,7 +29,7 @@ class AccountPreferences(UniversalBaseModel):
 
     ads_triple_whale_integration: typing.Dict[str, typing.Any] = pydantic.Field()
     """
-    The account's Triple Whale integration, which pushes Whop ad spend to Triple Whale's Data-In API so it reports as a `whop` channel. `status` is `connected`, `not_connected`, or `requires_shopify_store` (Triple Whale keys records by Shopify shop, so spend only flows while a store is connected). `masked_api_key` shows the leading characters of the stored key; the full key is never returned. `shop_domain` is the Shopify store spend is reported for.
+    The account's Triple Whale integration, which pushes Whop ad spend to Triple Whale's Data-In API so it reports as a `whop` channel, and tags ad click-through URLs with `tw_source`/`tw_adid` so Triple Whale's pixel attributes conversions back to the right ad. `status` is `connected`, `not_connected`, or `requires_shop_domain` (Triple Whale keys records by shop, so spend only flows once one is set — either explicitly via `shop_domain`, which every non-Shopify merchant needs, or by connecting a Shopify store). `masked_api_key` shows the leading characters of the stored key; the full key is never returned. `shop_domain` is the shop spend is reported for: the explicit value, or (if unset) a connected Shopify store's domain.
     """
 
     cards_auto_top_up: bool = pydantic.Field()
