@@ -4,12 +4,13 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .run_recommended_actions_response_execution import RunRecommendedActionsResponseExecution
 
 
-class RunRecommendedActionsResponse(UniversalBaseModel):
-    chain_id: str
-    execution: RunRecommendedActionsResponseExecution
+class ListEconomicIntelligenceResponsePageInfo(UniversalBaseModel):
+    end_cursor: typing.Optional[str] = None
+    has_next_page: bool
+    has_previous_page: bool
+    start_cursor: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

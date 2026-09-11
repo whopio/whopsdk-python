@@ -44,6 +44,7 @@ if typing.TYPE_CHECKING:
     from .dm_channels.client import AsyncDmChannelsClient, DmChannelsClient
     from .dm_members.client import AsyncDmMembersClient, DmMembersClient
     from .domains.client import AsyncDomainsClient, DomainsClient
+    from .economic_intelligence.client import AsyncEconomicIntelligenceClient, EconomicIntelligenceClient
     from .entries.client import AsyncEntriesClient, EntriesClient
     from .events.client import AsyncEventsClient, EventsClient
     from .experiences.client import AsyncExperiencesClient, ExperiencesClient
@@ -77,7 +78,6 @@ if typing.TYPE_CHECKING:
     from .products.client import AsyncProductsClient, ProductsClient
     from .promo_codes.client import AsyncPromoCodesClient, PromoCodesClient
     from .reactions.client import AsyncReactionsClient, ReactionsClient
-    from .recommended_actions.client import AsyncRecommendedActionsClient, RecommendedActionsClient
     from .refunds.client import AsyncRefundsClient, RefundsClient
     from .resolution_center_cases.client import AsyncResolutionCenterCasesClient, ResolutionCenterCasesClient
     from .reviews.client import AsyncReviewsClient, ReviewsClient
@@ -221,6 +221,7 @@ class Whop:
         self._dm_channels: typing.Optional[DmChannelsClient] = None
         self._dm_members: typing.Optional[DmMembersClient] = None
         self._domains: typing.Optional[DomainsClient] = None
+        self._economic_intelligence: typing.Optional[EconomicIntelligenceClient] = None
         self._entries: typing.Optional[EntriesClient] = None
         self._events: typing.Optional[EventsClient] = None
         self._experiences: typing.Optional[ExperiencesClient] = None
@@ -254,7 +255,6 @@ class Whop:
         self._products: typing.Optional[ProductsClient] = None
         self._promo_codes: typing.Optional[PromoCodesClient] = None
         self._reactions: typing.Optional[ReactionsClient] = None
-        self._recommended_actions: typing.Optional[RecommendedActionsClient] = None
         self._refunds: typing.Optional[RefundsClient] = None
         self._resolution_center_cases: typing.Optional[ResolutionCenterCasesClient] = None
         self._reviews: typing.Optional[ReviewsClient] = None
@@ -544,6 +544,14 @@ class Whop:
         return self._domains
 
     @property
+    def economic_intelligence(self):
+        if self._economic_intelligence is None:
+            from .economic_intelligence.client import EconomicIntelligenceClient  # noqa: E402
+
+            self._economic_intelligence = EconomicIntelligenceClient(client_wrapper=self._client_wrapper)
+        return self._economic_intelligence
+
+    @property
     def entries(self):
         if self._entries is None:
             from .entries.client import EntriesClient  # noqa: E402
@@ -806,14 +814,6 @@ class Whop:
 
             self._reactions = ReactionsClient(client_wrapper=self._client_wrapper)
         return self._reactions
-
-    @property
-    def recommended_actions(self):
-        if self._recommended_actions is None:
-            from .recommended_actions.client import RecommendedActionsClient  # noqa: E402
-
-            self._recommended_actions = RecommendedActionsClient(client_wrapper=self._client_wrapper)
-        return self._recommended_actions
 
     @property
     def refunds(self):
@@ -1083,6 +1083,7 @@ class AsyncWhop:
         self._dm_channels: typing.Optional[AsyncDmChannelsClient] = None
         self._dm_members: typing.Optional[AsyncDmMembersClient] = None
         self._domains: typing.Optional[AsyncDomainsClient] = None
+        self._economic_intelligence: typing.Optional[AsyncEconomicIntelligenceClient] = None
         self._entries: typing.Optional[AsyncEntriesClient] = None
         self._events: typing.Optional[AsyncEventsClient] = None
         self._experiences: typing.Optional[AsyncExperiencesClient] = None
@@ -1116,7 +1117,6 @@ class AsyncWhop:
         self._products: typing.Optional[AsyncProductsClient] = None
         self._promo_codes: typing.Optional[AsyncPromoCodesClient] = None
         self._reactions: typing.Optional[AsyncReactionsClient] = None
-        self._recommended_actions: typing.Optional[AsyncRecommendedActionsClient] = None
         self._refunds: typing.Optional[AsyncRefundsClient] = None
         self._resolution_center_cases: typing.Optional[AsyncResolutionCenterCasesClient] = None
         self._reviews: typing.Optional[AsyncReviewsClient] = None
@@ -1406,6 +1406,14 @@ class AsyncWhop:
         return self._domains
 
     @property
+    def economic_intelligence(self):
+        if self._economic_intelligence is None:
+            from .economic_intelligence.client import AsyncEconomicIntelligenceClient  # noqa: E402
+
+            self._economic_intelligence = AsyncEconomicIntelligenceClient(client_wrapper=self._client_wrapper)
+        return self._economic_intelligence
+
+    @property
     def entries(self):
         if self._entries is None:
             from .entries.client import AsyncEntriesClient  # noqa: E402
@@ -1668,14 +1676,6 @@ class AsyncWhop:
 
             self._reactions = AsyncReactionsClient(client_wrapper=self._client_wrapper)
         return self._reactions
-
-    @property
-    def recommended_actions(self):
-        if self._recommended_actions is None:
-            from .recommended_actions.client import AsyncRecommendedActionsClient  # noqa: E402
-
-            self._recommended_actions = AsyncRecommendedActionsClient(client_wrapper=self._client_wrapper)
-        return self._recommended_actions
 
     @property
     def refunds(self):

@@ -7,16 +7,14 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
-        ListExecutionsRecommendedActionsResponse,
-        ListRecommendedActionsResponse,
-        RunRecommendedActionsResponse,
-        RunRecommendedActionsResponseExecution,
+        ListEconomicIntelligenceRequestStatus,
+        ListEconomicIntelligenceResponse,
+        ListEconomicIntelligenceResponsePageInfo,
     )
 _dynamic_imports: typing.Dict[str, str] = {
-    "ListExecutionsRecommendedActionsResponse": ".types",
-    "ListRecommendedActionsResponse": ".types",
-    "RunRecommendedActionsResponse": ".types",
-    "RunRecommendedActionsResponseExecution": ".types",
+    "ListEconomicIntelligenceRequestStatus": ".types",
+    "ListEconomicIntelligenceResponse": ".types",
+    "ListEconomicIntelligenceResponsePageInfo": ".types",
 }
 
 
@@ -42,8 +40,7 @@ def __dir__():
 
 
 __all__ = [
-    "ListExecutionsRecommendedActionsResponse",
-    "ListRecommendedActionsResponse",
-    "RunRecommendedActionsResponse",
-    "RunRecommendedActionsResponseExecution",
+    "ListEconomicIntelligenceRequestStatus",
+    "ListEconomicIntelligenceResponse",
+    "ListEconomicIntelligenceResponsePageInfo",
 ]

@@ -183,7 +183,7 @@ class Account(UniversalBaseModel):
 
     recommended_actions: typing.Optional[typing.List[AccountRecommendedAction]] = pydantic.Field(default=None)
     """
-    DEPRECATED: Use the `GET /recommended_actions?account_id={account_id}` endpoint instead.
+    DEPRECATED: Use the `GET /economic_intelligence?account_id={account_id}` endpoint instead.
     """
 
     require2fa: typing_extensions.Annotated[
