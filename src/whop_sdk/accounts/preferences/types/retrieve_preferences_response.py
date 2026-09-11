@@ -52,6 +52,11 @@ class RetrievePreferencesResponse(UniversalBaseModel):
     Whether Whop assembles and files the evidence response when this account's payments are disputed. Off by default; enabling it also opts the account into the success fee charged only on disputes it wins.
     """
 
+    economic_intelligence: bool = pydantic.Field()
+    """
+    Whether economic intelligence is enabled for the account.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:
