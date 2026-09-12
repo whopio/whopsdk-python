@@ -9,6 +9,16 @@ if typing.TYPE_CHECKING:
     from .retrieve_preferences_response import RetrievePreferencesResponse
     from .retrieve_preferences_response_ads_agreement import RetrievePreferencesResponseAdsAgreement
     from .retrieve_preferences_response_ads_agreement_status import RetrievePreferencesResponseAdsAgreementStatus
+    from .retrieve_preferences_response_ads_certifications_item import RetrievePreferencesResponseAdsCertificationsItem
+    from .retrieve_preferences_response_ads_certifications_item_business_type import (
+        RetrievePreferencesResponseAdsCertificationsItemBusinessType,
+    )
+    from .retrieve_preferences_response_ads_certifications_item_certification_type import (
+        RetrievePreferencesResponseAdsCertificationsItemCertificationType,
+    )
+    from .retrieve_preferences_response_ads_certifications_item_status import (
+        RetrievePreferencesResponseAdsCertificationsItemStatus,
+    )
     from .retrieve_preferences_response_ads_payment_methods import RetrievePreferencesResponseAdsPaymentMethods
     from .retrieve_preferences_response_ads_payment_methods_backup import (
         RetrievePreferencesResponseAdsPaymentMethodsBackup,
@@ -28,6 +38,10 @@ if typing.TYPE_CHECKING:
     from .retrieve_preferences_response_ads_triple_whale_integration_status import (
         RetrievePreferencesResponseAdsTripleWhaleIntegrationStatus,
     )
+    from .update_preferences_request_ads_certifications_value import UpdatePreferencesRequestAdsCertificationsValue
+    from .update_preferences_request_ads_certifications_value_status import (
+        UpdatePreferencesRequestAdsCertificationsValueStatus,
+    )
     from .update_preferences_request_ads_payment_methods import UpdatePreferencesRequestAdsPaymentMethods
     from .update_preferences_request_ads_payment_methods_backup import UpdatePreferencesRequestAdsPaymentMethodsBackup
     from .update_preferences_request_ads_payment_methods_backup_type import (
@@ -43,6 +57,16 @@ if typing.TYPE_CHECKING:
     from .update_preferences_response import UpdatePreferencesResponse
     from .update_preferences_response_ads_agreement import UpdatePreferencesResponseAdsAgreement
     from .update_preferences_response_ads_agreement_status import UpdatePreferencesResponseAdsAgreementStatus
+    from .update_preferences_response_ads_certifications_item import UpdatePreferencesResponseAdsCertificationsItem
+    from .update_preferences_response_ads_certifications_item_business_type import (
+        UpdatePreferencesResponseAdsCertificationsItemBusinessType,
+    )
+    from .update_preferences_response_ads_certifications_item_certification_type import (
+        UpdatePreferencesResponseAdsCertificationsItemCertificationType,
+    )
+    from .update_preferences_response_ads_certifications_item_status import (
+        UpdatePreferencesResponseAdsCertificationsItemStatus,
+    )
     from .update_preferences_response_ads_payment_methods import UpdatePreferencesResponseAdsPaymentMethods
     from .update_preferences_response_ads_payment_methods_backup import UpdatePreferencesResponseAdsPaymentMethodsBackup
     from .update_preferences_response_ads_payment_methods_backup_type import (
@@ -64,6 +88,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrievePreferencesResponse": ".retrieve_preferences_response",
     "RetrievePreferencesResponseAdsAgreement": ".retrieve_preferences_response_ads_agreement",
     "RetrievePreferencesResponseAdsAgreementStatus": ".retrieve_preferences_response_ads_agreement_status",
+    "RetrievePreferencesResponseAdsCertificationsItem": ".retrieve_preferences_response_ads_certifications_item",
+    "RetrievePreferencesResponseAdsCertificationsItemBusinessType": ".retrieve_preferences_response_ads_certifications_item_business_type",
+    "RetrievePreferencesResponseAdsCertificationsItemCertificationType": ".retrieve_preferences_response_ads_certifications_item_certification_type",
+    "RetrievePreferencesResponseAdsCertificationsItemStatus": ".retrieve_preferences_response_ads_certifications_item_status",
     "RetrievePreferencesResponseAdsPaymentMethods": ".retrieve_preferences_response_ads_payment_methods",
     "RetrievePreferencesResponseAdsPaymentMethodsBackup": ".retrieve_preferences_response_ads_payment_methods_backup",
     "RetrievePreferencesResponseAdsPaymentMethodsBackupType": ".retrieve_preferences_response_ads_payment_methods_backup_type",
@@ -71,6 +99,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrievePreferencesResponseAdsPaymentMethodsPrimaryType": ".retrieve_preferences_response_ads_payment_methods_primary_type",
     "RetrievePreferencesResponseAdsTripleWhaleIntegration": ".retrieve_preferences_response_ads_triple_whale_integration",
     "RetrievePreferencesResponseAdsTripleWhaleIntegrationStatus": ".retrieve_preferences_response_ads_triple_whale_integration_status",
+    "UpdatePreferencesRequestAdsCertificationsValue": ".update_preferences_request_ads_certifications_value",
+    "UpdatePreferencesRequestAdsCertificationsValueStatus": ".update_preferences_request_ads_certifications_value_status",
     "UpdatePreferencesRequestAdsPaymentMethods": ".update_preferences_request_ads_payment_methods",
     "UpdatePreferencesRequestAdsPaymentMethodsBackup": ".update_preferences_request_ads_payment_methods_backup",
     "UpdatePreferencesRequestAdsPaymentMethodsBackupType": ".update_preferences_request_ads_payment_methods_backup_type",
@@ -80,6 +110,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatePreferencesResponse": ".update_preferences_response",
     "UpdatePreferencesResponseAdsAgreement": ".update_preferences_response_ads_agreement",
     "UpdatePreferencesResponseAdsAgreementStatus": ".update_preferences_response_ads_agreement_status",
+    "UpdatePreferencesResponseAdsCertificationsItem": ".update_preferences_response_ads_certifications_item",
+    "UpdatePreferencesResponseAdsCertificationsItemBusinessType": ".update_preferences_response_ads_certifications_item_business_type",
+    "UpdatePreferencesResponseAdsCertificationsItemCertificationType": ".update_preferences_response_ads_certifications_item_certification_type",
+    "UpdatePreferencesResponseAdsCertificationsItemStatus": ".update_preferences_response_ads_certifications_item_status",
     "UpdatePreferencesResponseAdsPaymentMethods": ".update_preferences_response_ads_payment_methods",
     "UpdatePreferencesResponseAdsPaymentMethodsBackup": ".update_preferences_response_ads_payment_methods_backup",
     "UpdatePreferencesResponseAdsPaymentMethodsBackupType": ".update_preferences_response_ads_payment_methods_backup_type",
@@ -115,6 +149,10 @@ __all__ = [
     "RetrievePreferencesResponse",
     "RetrievePreferencesResponseAdsAgreement",
     "RetrievePreferencesResponseAdsAgreementStatus",
+    "RetrievePreferencesResponseAdsCertificationsItem",
+    "RetrievePreferencesResponseAdsCertificationsItemBusinessType",
+    "RetrievePreferencesResponseAdsCertificationsItemCertificationType",
+    "RetrievePreferencesResponseAdsCertificationsItemStatus",
     "RetrievePreferencesResponseAdsPaymentMethods",
     "RetrievePreferencesResponseAdsPaymentMethodsBackup",
     "RetrievePreferencesResponseAdsPaymentMethodsBackupType",
@@ -122,6 +160,8 @@ __all__ = [
     "RetrievePreferencesResponseAdsPaymentMethodsPrimaryType",
     "RetrievePreferencesResponseAdsTripleWhaleIntegration",
     "RetrievePreferencesResponseAdsTripleWhaleIntegrationStatus",
+    "UpdatePreferencesRequestAdsCertificationsValue",
+    "UpdatePreferencesRequestAdsCertificationsValueStatus",
     "UpdatePreferencesRequestAdsPaymentMethods",
     "UpdatePreferencesRequestAdsPaymentMethodsBackup",
     "UpdatePreferencesRequestAdsPaymentMethodsBackupType",
@@ -131,6 +171,10 @@ __all__ = [
     "UpdatePreferencesResponse",
     "UpdatePreferencesResponseAdsAgreement",
     "UpdatePreferencesResponseAdsAgreementStatus",
+    "UpdatePreferencesResponseAdsCertificationsItem",
+    "UpdatePreferencesResponseAdsCertificationsItemBusinessType",
+    "UpdatePreferencesResponseAdsCertificationsItemCertificationType",
+    "UpdatePreferencesResponseAdsCertificationsItemStatus",
     "UpdatePreferencesResponseAdsPaymentMethods",
     "UpdatePreferencesResponseAdsPaymentMethodsBackup",
     "UpdatePreferencesResponseAdsPaymentMethodsBackupType",

@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .retrieve_preferences_response_ads_agreement import RetrievePreferencesResponseAdsAgreement
+from .retrieve_preferences_response_ads_certifications_item import RetrievePreferencesResponseAdsCertificationsItem
 from .retrieve_preferences_response_ads_payment_methods import RetrievePreferencesResponseAdsPaymentMethods
 from .retrieve_preferences_response_ads_triple_whale_integration import (
     RetrievePreferencesResponseAdsTripleWhaleIntegration,
@@ -15,6 +16,11 @@ class RetrievePreferencesResponse(UniversalBaseModel):
     ads_agreement: RetrievePreferencesResponseAdsAgreement = pydantic.Field()
     """
     The account's Whop Ads services and payment authorization agreement. While `pending_signature`, campaign launch is blocked; sign by answering `requested_information` via `PATCH /verifications/{id}`.
+    """
+
+    ads_certifications: typing.List[RetrievePreferencesResponseAdsCertificationsItem] = pydantic.Field()
+    """
+    The account's advertising certifications, one entry per certification type Whop offers. Start an application by setting a type's `status` to `pending_information` via `PATCH`, then answer the fields it requests via `GET`/`PATCH /verifications/{id}`.
     """
 
     ads_payment_methods: typing.Optional[RetrievePreferencesResponseAdsPaymentMethods] = pydantic.Field(default=None)
