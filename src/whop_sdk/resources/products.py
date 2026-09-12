@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import List, Iterable, Optional
 from typing_extensions import Literal
 
 import httpx
@@ -81,6 +81,7 @@ class ProductsResource(SyncAPIResource):
         custom_cta_url: Optional[str] | Omit = omit,
         custom_statement_descriptor: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        gallery_images: Optional[Iterable[product_create_params.GalleryImage]] | Omit = omit,
         global_affiliate_percentage: Optional[float] | Omit = omit,
         global_affiliate_status: Literal["enabled", "disabled"] | Omit = omit,
         headline: Optional[str] | Omit = omit,
@@ -119,6 +120,10 @@ class ProductsResource(SyncAPIResource):
           custom_statement_descriptor: Custom bank statement descriptor. Must start with WHOP\\**.
 
           description: A written description displayed on the product page.
+
+          gallery_images: Images or videos displayed in the product gallery, in display order. Replaces
+              the existing gallery. Send an empty array to clear it; omit or pass null to
+              leave it unchanged. A banner image does not populate the gallery.
 
           global_affiliate_percentage: The commission rate affiliates earn.
 
@@ -175,6 +180,7 @@ class ProductsResource(SyncAPIResource):
                     "custom_cta_url": custom_cta_url,
                     "custom_statement_descriptor": custom_statement_descriptor,
                     "description": description,
+                    "gallery_images": gallery_images,
                     "global_affiliate_percentage": global_affiliate_percentage,
                     "global_affiliate_status": global_affiliate_status,
                     "headline": headline,
@@ -238,6 +244,7 @@ class ProductsResource(SyncAPIResource):
         *,
         banner_image: Optional[product_update_params.BannerImage] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        gallery_images: Optional[Iterable[product_update_params.GalleryImage]] | Omit = omit,
         headline: Optional[str] | Omit = omit,
         labels: Optional[SequenceNotStr[str]] | Omit = omit,
         metadata: Optional[object] | Omit = omit,
@@ -262,6 +269,10 @@ class ProductsResource(SyncAPIResource):
               completed direct upload; `null` removes it.
 
           description: A written description displayed on the product page.
+
+          gallery_images: Images or videos displayed in the product gallery, in display order. Replaces
+              the existing gallery. Send an empty array to clear it; omit or pass null to
+              leave it unchanged. A banner image does not populate the gallery.
 
           headline: A short marketing headline for the product page.
 
@@ -297,6 +308,7 @@ class ProductsResource(SyncAPIResource):
                 {
                     "banner_image": banner_image,
                     "description": description,
+                    "gallery_images": gallery_images,
                     "headline": headline,
                     "labels": labels,
                     "metadata": metadata,
@@ -525,6 +537,7 @@ class AsyncProductsResource(AsyncAPIResource):
         custom_cta_url: Optional[str] | Omit = omit,
         custom_statement_descriptor: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        gallery_images: Optional[Iterable[product_create_params.GalleryImage]] | Omit = omit,
         global_affiliate_percentage: Optional[float] | Omit = omit,
         global_affiliate_status: Literal["enabled", "disabled"] | Omit = omit,
         headline: Optional[str] | Omit = omit,
@@ -563,6 +576,10 @@ class AsyncProductsResource(AsyncAPIResource):
           custom_statement_descriptor: Custom bank statement descriptor. Must start with WHOP\\**.
 
           description: A written description displayed on the product page.
+
+          gallery_images: Images or videos displayed in the product gallery, in display order. Replaces
+              the existing gallery. Send an empty array to clear it; omit or pass null to
+              leave it unchanged. A banner image does not populate the gallery.
 
           global_affiliate_percentage: The commission rate affiliates earn.
 
@@ -619,6 +636,7 @@ class AsyncProductsResource(AsyncAPIResource):
                     "custom_cta_url": custom_cta_url,
                     "custom_statement_descriptor": custom_statement_descriptor,
                     "description": description,
+                    "gallery_images": gallery_images,
                     "global_affiliate_percentage": global_affiliate_percentage,
                     "global_affiliate_status": global_affiliate_status,
                     "headline": headline,
@@ -682,6 +700,7 @@ class AsyncProductsResource(AsyncAPIResource):
         *,
         banner_image: Optional[product_update_params.BannerImage] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        gallery_images: Optional[Iterable[product_update_params.GalleryImage]] | Omit = omit,
         headline: Optional[str] | Omit = omit,
         labels: Optional[SequenceNotStr[str]] | Omit = omit,
         metadata: Optional[object] | Omit = omit,
@@ -706,6 +725,10 @@ class AsyncProductsResource(AsyncAPIResource):
               completed direct upload; `null` removes it.
 
           description: A written description displayed on the product page.
+
+          gallery_images: Images or videos displayed in the product gallery, in display order. Replaces
+              the existing gallery. Send an empty array to clear it; omit or pass null to
+              leave it unchanged. A banner image does not populate the gallery.
 
           headline: A short marketing headline for the product page.
 
@@ -741,6 +764,7 @@ class AsyncProductsResource(AsyncAPIResource):
                 {
                     "banner_image": banner_image,
                     "description": description,
+                    "gallery_images": gallery_images,
                     "headline": headline,
                     "labels": labels,
                     "metadata": metadata,

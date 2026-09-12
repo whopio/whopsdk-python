@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Iterable, Optional
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 
-__all__ = ["ProductCreateParams"]
+__all__ = ["ProductCreateParams", "GalleryImage"]
 
 
 class ProductCreateParams(TypedDict, total=False):
@@ -48,6 +48,13 @@ class ProductCreateParams(TypedDict, total=False):
 
     description: Optional[str]
     """A written description displayed on the product page."""
+
+    gallery_images: Optional[Iterable[GalleryImage]]
+    """Images or videos displayed in the product gallery, in display order.
+
+    Replaces the existing gallery. Send an empty array to clear it; omit or pass
+    null to leave it unchanged. A banner image does not populate the gallery.
+    """
 
     global_affiliate_percentage: Optional[float]
     """The commission rate affiliates earn."""
@@ -98,3 +105,11 @@ class ProductCreateParams(TypedDict, total=False):
     api_version_date: Annotated[str, PropertyInfo(alias="Api-Version-Date")]
 
     idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
+
+
+class GalleryImage(TypedDict, total=False):
+    id: str
+    """The tag of an already-uploaded attachment."""
+
+    direct_upload_id: str
+    """The signed ID of a completed direct upload, as an alternative to id."""

@@ -313,7 +313,10 @@ class DataSourcePayoutDestination(BaseModel):
 
 
 class DataSource(BaseModel):
-    """Source of this ledger activity."""
+    """Source of this ledger activity.
+
+    Platform markup fees use object platform_fee and the ledger activity ID.
+    """
 
     id: str
 
@@ -347,6 +350,14 @@ class DataSource(BaseModel):
     """
     Estimated arrival as an ISO 8601 timestamp (payout sources only; requires
     payout:withdrawal:read).
+    """
+
+    fee_kind: Optional[Literal["payout", "transfer", "deposit", "swap", "card_spend"]] = None
+    """
+    Action that generated a platform markup fee: deposit, swap, transfer,
+    card_spend, or payout. Present for platform_markup_fee and
+    platform_markup_fee_payout, including when include_resource is false. Null when
+    the originating action is unavailable; omitted on other source types.
     """
 
     from_amount: Optional[str] = None
@@ -737,7 +748,10 @@ class Data(BaseModel):
     """Resource associated with this ledger activity."""
 
     source: Optional[DataSource] = None
-    """Source of this ledger activity."""
+    """Source of this ledger activity.
+
+    Platform markup fees use object platform_fee and the ledger activity ID.
+    """
 
     usd_amount: Optional[str] = None
     """Dollar value of this movement as a decimal string, signed like `amount`.

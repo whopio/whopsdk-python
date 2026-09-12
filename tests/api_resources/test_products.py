@@ -38,6 +38,12 @@ class TestProducts:
             custom_cta_url="https://shinetime.example/book",
             custom_statement_descriptor="WHOP*SHINETIME",
             description="Full interior extraction, leather conditioning, and an ozone odor treatment.",
+            gallery_images=[
+                {
+                    "id": "file_xxxxxxxxxxxxxx",
+                    "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                }
+            ],
             global_affiliate_percentage=10,
             global_affiliate_status="enabled",
             headline="Steam, shampoo, and odor removal in one visit",
@@ -153,6 +159,12 @@ class TestProducts:
                 "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             },
             description="Full interior extraction, leather conditioning, and an ozone odor treatment.",
+            gallery_images=[
+                {
+                    "id": "file_xxxxxxxxxxxxxx",
+                    "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                }
+            ],
             headline="Steam, shampoo, and odor removal in one visit",
             labels=["string"],
             metadata={
@@ -330,6 +342,12 @@ class TestAsyncProducts:
             custom_cta_url="https://shinetime.example/book",
             custom_statement_descriptor="WHOP*SHINETIME",
             description="Full interior extraction, leather conditioning, and an ozone odor treatment.",
+            gallery_images=[
+                {
+                    "id": "file_xxxxxxxxxxxxxx",
+                    "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                }
+            ],
             global_affiliate_percentage=10,
             global_affiliate_status="enabled",
             headline="Steam, shampoo, and odor removal in one visit",
@@ -445,6 +463,12 @@ class TestAsyncProducts:
                 "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             },
             description="Full interior extraction, leather conditioning, and an ozone odor treatment.",
+            gallery_images=[
+                {
+                    "id": "file_xxxxxxxxxxxxxx",
+                    "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                }
+            ],
             headline="Steam, shampoo, and odor removal in one visit",
             labels=["string"],
             metadata={

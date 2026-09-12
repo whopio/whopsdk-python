@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Iterable, Optional
 from typing_extensions import Annotated, TypedDict
 
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 
-__all__ = ["ProductUpdateParams", "BannerImage"]
+__all__ = ["ProductUpdateParams", "BannerImage", "GalleryImage"]
 
 
 class ProductUpdateParams(TypedDict, total=False):
@@ -21,6 +21,13 @@ class ProductUpdateParams(TypedDict, total=False):
 
     description: Optional[str]
     """A written description displayed on the product page."""
+
+    gallery_images: Optional[Iterable[GalleryImage]]
+    """Images or videos displayed in the product gallery, in display order.
+
+    Replaces the existing gallery. Send an empty array to clear it; omit or pass
+    null to leave it unchanged. A banner image does not populate the gallery.
+    """
 
     headline: Optional[str]
     """A short marketing headline for the product page."""
@@ -67,3 +74,11 @@ class BannerImage(TypedDict, total=False):
 
     direct_upload_id: str
     """The signed id of a completed direct upload."""
+
+
+class GalleryImage(TypedDict, total=False):
+    id: str
+    """The tag of an already-uploaded attachment."""
+
+    direct_upload_id: str
+    """The signed ID of a completed direct upload, as an alternative to id."""
