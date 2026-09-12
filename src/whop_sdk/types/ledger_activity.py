@@ -93,7 +93,7 @@ class LedgerActivity(UniversalBaseModel):
 
     source: typing.Optional[LedgerActivitySource] = pydantic.Field(default=None)
     """
-    Source of this ledger activity.
+    Source of this ledger activity. Platform markup fees use object platform_fee and the ledger activity ID.
     """
 
     usd_amount: typing.Optional[str] = pydantic.Field(default=None)
