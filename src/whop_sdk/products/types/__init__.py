@@ -7,6 +7,7 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .create_products_request_custom_cta import CreateProductsRequestCustomCta
+    from .create_products_request_gallery_images_item import CreateProductsRequestGalleryImagesItem
     from .create_products_request_global_affiliate_status import CreateProductsRequestGlobalAffiliateStatus
     from .create_products_request_member_affiliate_status import CreateProductsRequestMemberAffiliateStatus
     from .delete_products_response import DeleteProductsResponse
@@ -30,8 +31,10 @@ if typing.TYPE_CHECKING:
     from .post_product_updated_payload_api_version import PostProductUpdatedPayloadApiVersion
     from .post_product_updated_payload_type import PostProductUpdatedPayloadType
     from .update_products_request_banner_image import UpdateProductsRequestBannerImage
+    from .update_products_request_gallery_images_item import UpdateProductsRequestGalleryImagesItem
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateProductsRequestCustomCta": ".create_products_request_custom_cta",
+    "CreateProductsRequestGalleryImagesItem": ".create_products_request_gallery_images_item",
     "CreateProductsRequestGlobalAffiliateStatus": ".create_products_request_global_affiliate_status",
     "CreateProductsRequestMemberAffiliateStatus": ".create_products_request_member_affiliate_status",
     "DeleteProductsResponse": ".delete_products_response",
@@ -55,6 +58,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostProductUpdatedPayloadApiVersion": ".post_product_updated_payload_api_version",
     "PostProductUpdatedPayloadType": ".post_product_updated_payload_type",
     "UpdateProductsRequestBannerImage": ".update_products_request_banner_image",
+    "UpdateProductsRequestGalleryImagesItem": ".update_products_request_gallery_images_item",
 }
 
 
@@ -81,6 +85,7 @@ def __dir__():
 
 __all__ = [
     "CreateProductsRequestCustomCta",
+    "CreateProductsRequestGalleryImagesItem",
     "CreateProductsRequestGlobalAffiliateStatus",
     "CreateProductsRequestMemberAffiliateStatus",
     "DeleteProductsResponse",
@@ -104,4 +109,5 @@ __all__ = [
     "PostProductUpdatedPayloadApiVersion",
     "PostProductUpdatedPayloadType",
     "UpdateProductsRequestBannerImage",
+    "UpdateProductsRequestGalleryImagesItem",
 ]

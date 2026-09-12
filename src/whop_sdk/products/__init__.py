@@ -8,6 +8,7 @@ from importlib import import_module
 if typing.TYPE_CHECKING:
     from .types import (
         CreateProductsRequestCustomCta,
+        CreateProductsRequestGalleryImagesItem,
         CreateProductsRequestGlobalAffiliateStatus,
         CreateProductsRequestMemberAffiliateStatus,
         DeleteProductsResponse,
@@ -31,9 +32,11 @@ if typing.TYPE_CHECKING:
         PostProductUpdatedPayloadApiVersion,
         PostProductUpdatedPayloadType,
         UpdateProductsRequestBannerImage,
+        UpdateProductsRequestGalleryImagesItem,
     )
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateProductsRequestCustomCta": ".types",
+    "CreateProductsRequestGalleryImagesItem": ".types",
     "CreateProductsRequestGlobalAffiliateStatus": ".types",
     "CreateProductsRequestMemberAffiliateStatus": ".types",
     "DeleteProductsResponse": ".types",
@@ -57,6 +60,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostProductUpdatedPayloadApiVersion": ".types",
     "PostProductUpdatedPayloadType": ".types",
     "UpdateProductsRequestBannerImage": ".types",
+    "UpdateProductsRequestGalleryImagesItem": ".types",
 }
 
 
@@ -83,6 +87,7 @@ def __dir__():
 
 __all__ = [
     "CreateProductsRequestCustomCta",
+    "CreateProductsRequestGalleryImagesItem",
     "CreateProductsRequestGlobalAffiliateStatus",
     "CreateProductsRequestMemberAffiliateStatus",
     "DeleteProductsResponse",
@@ -106,4 +111,5 @@ __all__ = [
     "PostProductUpdatedPayloadApiVersion",
     "PostProductUpdatedPayloadType",
     "UpdateProductsRequestBannerImage",
+    "UpdateProductsRequestGalleryImagesItem",
 ]

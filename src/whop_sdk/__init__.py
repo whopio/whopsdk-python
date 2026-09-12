@@ -2374,6 +2374,7 @@ if typing.TYPE_CHECKING:
     )
     from .products import (
         CreateProductsRequestCustomCta,
+        CreateProductsRequestGalleryImagesItem,
         CreateProductsRequestGlobalAffiliateStatus,
         CreateProductsRequestMemberAffiliateStatus,
         DeleteProductsResponse,
@@ -2397,6 +2398,7 @@ if typing.TYPE_CHECKING:
         PostProductUpdatedPayloadApiVersion,
         PostProductUpdatedPayloadType,
         UpdateProductsRequestBannerImage,
+        UpdateProductsRequestGalleryImagesItem,
     )
     from .promo_codes import (
         CreatePromoCodesRequestBaseCurrency,
@@ -3359,6 +3361,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreatePlansRequestPaymentMethodConfiguration": ".plans",
     "CreatePlansRequestThreeDsLevel": ".plans",
     "CreateProductsRequestCustomCta": ".products",
+    "CreateProductsRequestGalleryImagesItem": ".products",
     "CreateProductsRequestGlobalAffiliateStatus": ".products",
     "CreateProductsRequestMemberAffiliateStatus": ".products",
     "CreatePromoCodesRequestBaseCurrency": ".promo_codes",
@@ -5275,6 +5278,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatePlansRequestPaymentMethodConfiguration": ".plans",
     "UpdatePlansRequestThreeDsLevel": ".plans",
     "UpdateProductsRequestBannerImage": ".products",
+    "UpdateProductsRequestGalleryImagesItem": ".products",
     "UpdateTeamMembersRequestRole": ".team_members",
     "UpdateUsersRequestBanner": ".users",
     "UpdateUsersRequestProfilePicture": ".users",
@@ -6036,6 +6040,7 @@ __all__ = [
     "CreatePlansRequestPaymentMethodConfiguration",
     "CreatePlansRequestThreeDsLevel",
     "CreateProductsRequestCustomCta",
+    "CreateProductsRequestGalleryImagesItem",
     "CreateProductsRequestGlobalAffiliateStatus",
     "CreateProductsRequestMemberAffiliateStatus",
     "CreatePromoCodesRequestBaseCurrency",
@@ -7952,6 +7957,7 @@ __all__ = [
     "UpdatePlansRequestPaymentMethodConfiguration",
     "UpdatePlansRequestThreeDsLevel",
     "UpdateProductsRequestBannerImage",
+    "UpdateProductsRequestGalleryImagesItem",
     "UpdateTeamMembersRequestRole",
     "UpdateUsersRequestBanner",
     "UpdateUsersRequestProfilePicture",

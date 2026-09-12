@@ -9,6 +9,7 @@ from ..types.product import Product
 from ..types.product_list_item import ProductListItem
 from .raw_client import AsyncRawProductsClient, RawProductsClient
 from .types.create_products_request_custom_cta import CreateProductsRequestCustomCta
+from .types.create_products_request_gallery_images_item import CreateProductsRequestGalleryImagesItem
 from .types.create_products_request_global_affiliate_status import CreateProductsRequestGlobalAffiliateStatus
 from .types.create_products_request_member_affiliate_status import CreateProductsRequestMemberAffiliateStatus
 from .types.delete_products_response import DeleteProductsResponse
@@ -16,6 +17,7 @@ from .types.list_products_request_direction import ListProductsRequestDirection
 from .types.list_products_request_plan_types_item import ListProductsRequestPlanTypesItem
 from .types.list_products_response import ListProductsResponse
 from .types.update_products_request_banner_image import UpdateProductsRequestBannerImage
+from .types.update_products_request_gallery_images_item import UpdateProductsRequestGalleryImagesItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -174,6 +176,7 @@ class ProductsClient:
         custom_cta_url: typing.Optional[str] = OMIT,
         custom_statement_descriptor: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
+        gallery_images: typing.Optional[typing.Sequence[CreateProductsRequestGalleryImagesItem]] = OMIT,
         global_affiliate_percentage: typing.Optional[float] = OMIT,
         global_affiliate_status: typing.Optional[CreateProductsRequestGlobalAffiliateStatus] = OMIT,
         headline: typing.Optional[str] = OMIT,
@@ -213,6 +216,9 @@ class ProductsClient:
 
         description : typing.Optional[str]
             A written description displayed on the product page.
+
+        gallery_images : typing.Optional[typing.Sequence[CreateProductsRequestGalleryImagesItem]]
+            Images or videos displayed in the product gallery, in display order. Replaces the existing gallery. Send an empty array to clear it; omit or pass null to leave it unchanged. A banner image does not populate the gallery.
 
         global_affiliate_percentage : typing.Optional[float]
             The commission rate affiliates earn.
@@ -279,6 +285,7 @@ class ProductsClient:
             custom_cta_url=custom_cta_url,
             custom_statement_descriptor=custom_statement_descriptor,
             description=description,
+            gallery_images=gallery_images,
             global_affiliate_percentage=global_affiliate_percentage,
             global_affiliate_status=global_affiliate_status,
             headline=headline,
@@ -367,6 +374,7 @@ class ProductsClient:
         *,
         banner_image: typing.Optional[UpdateProductsRequestBannerImage] = OMIT,
         description: typing.Optional[str] = OMIT,
+        gallery_images: typing.Optional[typing.Sequence[UpdateProductsRequestGalleryImagesItem]] = OMIT,
         headline: typing.Optional[str] = OMIT,
         labels: typing.Optional[typing.Sequence[str]] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
@@ -389,6 +397,9 @@ class ProductsClient:
 
         description : typing.Optional[str]
             A written description displayed on the product page.
+
+        gallery_images : typing.Optional[typing.Sequence[UpdateProductsRequestGalleryImagesItem]]
+            Images or videos displayed in the product gallery, in display order. Replaces the existing gallery. Send an empty array to clear it; omit or pass null to leave it unchanged. A banner image does not populate the gallery.
 
         headline : typing.Optional[str]
             A short marketing headline for the product page.
@@ -436,6 +447,7 @@ class ProductsClient:
             id,
             banner_image=banner_image,
             description=description,
+            gallery_images=gallery_images,
             headline=headline,
             labels=labels,
             metadata=metadata,
@@ -676,6 +688,7 @@ class AsyncProductsClient:
         custom_cta_url: typing.Optional[str] = OMIT,
         custom_statement_descriptor: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
+        gallery_images: typing.Optional[typing.Sequence[CreateProductsRequestGalleryImagesItem]] = OMIT,
         global_affiliate_percentage: typing.Optional[float] = OMIT,
         global_affiliate_status: typing.Optional[CreateProductsRequestGlobalAffiliateStatus] = OMIT,
         headline: typing.Optional[str] = OMIT,
@@ -715,6 +728,9 @@ class AsyncProductsClient:
 
         description : typing.Optional[str]
             A written description displayed on the product page.
+
+        gallery_images : typing.Optional[typing.Sequence[CreateProductsRequestGalleryImagesItem]]
+            Images or videos displayed in the product gallery, in display order. Replaces the existing gallery. Send an empty array to clear it; omit or pass null to leave it unchanged. A banner image does not populate the gallery.
 
         global_affiliate_percentage : typing.Optional[float]
             The commission rate affiliates earn.
@@ -789,6 +805,7 @@ class AsyncProductsClient:
             custom_cta_url=custom_cta_url,
             custom_statement_descriptor=custom_statement_descriptor,
             description=description,
+            gallery_images=gallery_images,
             global_affiliate_percentage=global_affiliate_percentage,
             global_affiliate_status=global_affiliate_status,
             headline=headline,
@@ -895,6 +912,7 @@ class AsyncProductsClient:
         *,
         banner_image: typing.Optional[UpdateProductsRequestBannerImage] = OMIT,
         description: typing.Optional[str] = OMIT,
+        gallery_images: typing.Optional[typing.Sequence[UpdateProductsRequestGalleryImagesItem]] = OMIT,
         headline: typing.Optional[str] = OMIT,
         labels: typing.Optional[typing.Sequence[str]] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
@@ -917,6 +935,9 @@ class AsyncProductsClient:
 
         description : typing.Optional[str]
             A written description displayed on the product page.
+
+        gallery_images : typing.Optional[typing.Sequence[UpdateProductsRequestGalleryImagesItem]]
+            Images or videos displayed in the product gallery, in display order. Replaces the existing gallery. Send an empty array to clear it; omit or pass null to leave it unchanged. A banner image does not populate the gallery.
 
         headline : typing.Optional[str]
             A short marketing headline for the product page.
@@ -972,6 +993,7 @@ class AsyncProductsClient:
             id,
             banner_image=banner_image,
             description=description,
+            gallery_images=gallery_images,
             headline=headline,
             labels=labels,
             metadata=metadata,

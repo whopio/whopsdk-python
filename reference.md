@@ -30844,6 +30844,14 @@ client.products.create(
 <dl>
 <dd>
 
+**gallery_images:** `typing.Optional[typing.List[CreateProductsRequestGalleryImagesItem]]` — Images or videos displayed in the product gallery, in display order. Replaces the existing gallery. Send an empty array to clear it; omit or pass null to leave it unchanged. A banner image does not populate the gallery.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **global_affiliate_percentage:** `typing.Optional[float]` — The commission rate affiliates earn.
     
 </dd>
@@ -31168,6 +31176,14 @@ client.products.update(
 <dd>
 
 **description:** `typing.Optional[str]` — A written description displayed on the product page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**gallery_images:** `typing.Optional[typing.List[UpdateProductsRequestGalleryImagesItem]]` — Images or videos displayed in the product gallery, in display order. Replaces the existing gallery. Send an empty array to clear it; omit or pass null to leave it unchanged. A banner image does not populate the gallery.
     
 </dd>
 </dl>
