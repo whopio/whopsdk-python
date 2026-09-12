@@ -6,6 +6,7 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
 from .raw_client import AsyncRawPreferencesClient, RawPreferencesClient
 from .types.retrieve_preferences_response import RetrievePreferencesResponse
+from .types.update_preferences_request_ads_certifications_value import UpdatePreferencesRequestAdsCertificationsValue
 from .types.update_preferences_request_ads_payment_methods import UpdatePreferencesRequestAdsPaymentMethods
 from .types.update_preferences_request_ads_triple_whale_integration import (
     UpdatePreferencesRequestAdsTripleWhaleIntegration,
@@ -70,6 +71,7 @@ class PreferencesClient:
         self,
         account_id: str,
         *,
+        ads_certifications: typing.Optional[typing.Dict[str, UpdatePreferencesRequestAdsCertificationsValue]] = OMIT,
         ads_payment_methods: typing.Optional[UpdatePreferencesRequestAdsPaymentMethods] = OMIT,
         ads_reporting_currency: typing.Optional[str] = OMIT,
         ads_scheduling_timezone: typing.Optional[str] = OMIT,
@@ -87,6 +89,9 @@ class PreferencesClient:
         ----------
         account_id : str
             Account ID, prefixed `biz_`.
+
+        ads_certifications : typing.Optional[typing.Dict[str, UpdatePreferencesRequestAdsCertificationsValue]]
+            Opens an advertising certification application. Keyed by certification type (`prescription_drug_ads`); set the entry's `status` to `pending_information` to start, then answer the requested fields via `PATCH /verifications/{id}`. Only one application per type can be open at a time; every other status is set by Whop's review.
 
         ads_payment_methods : typing.Optional[UpdatePreferencesRequestAdsPaymentMethods]
             How the account pays for Whop Ads spend. `primary` is charged first; `backup` covers the charge when the primary fails.
@@ -135,6 +140,7 @@ class PreferencesClient:
         """
         _response = self._raw_client.update(
             account_id,
+            ads_certifications=ads_certifications,
             ads_payment_methods=ads_payment_methods,
             ads_reporting_currency=ads_reporting_currency,
             ads_scheduling_timezone=ads_scheduling_timezone,
@@ -210,6 +216,7 @@ class AsyncPreferencesClient:
         self,
         account_id: str,
         *,
+        ads_certifications: typing.Optional[typing.Dict[str, UpdatePreferencesRequestAdsCertificationsValue]] = OMIT,
         ads_payment_methods: typing.Optional[UpdatePreferencesRequestAdsPaymentMethods] = OMIT,
         ads_reporting_currency: typing.Optional[str] = OMIT,
         ads_scheduling_timezone: typing.Optional[str] = OMIT,
@@ -227,6 +234,9 @@ class AsyncPreferencesClient:
         ----------
         account_id : str
             Account ID, prefixed `biz_`.
+
+        ads_certifications : typing.Optional[typing.Dict[str, UpdatePreferencesRequestAdsCertificationsValue]]
+            Opens an advertising certification application. Keyed by certification type (`prescription_drug_ads`); set the entry's `status` to `pending_information` to start, then answer the requested fields via `PATCH /verifications/{id}`. Only one application per type can be open at a time; every other status is set by Whop's review.
 
         ads_payment_methods : typing.Optional[UpdatePreferencesRequestAdsPaymentMethods]
             How the account pays for Whop Ads spend. `primary` is charged first; `backup` covers the charge when the primary fails.
@@ -283,6 +293,7 @@ class AsyncPreferencesClient:
         """
         _response = await self._raw_client.update(
             account_id,
+            ads_certifications=ads_certifications,
             ads_payment_methods=ads_payment_methods,
             ads_reporting_currency=ads_reporting_currency,
             ads_scheduling_timezone=ads_scheduling_timezone,

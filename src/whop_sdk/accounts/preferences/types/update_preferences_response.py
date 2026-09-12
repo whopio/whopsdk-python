@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .update_preferences_response_ads_agreement import UpdatePreferencesResponseAdsAgreement
+from .update_preferences_response_ads_certifications_item import UpdatePreferencesResponseAdsCertificationsItem
 from .update_preferences_response_ads_payment_methods import UpdatePreferencesResponseAdsPaymentMethods
 from .update_preferences_response_ads_triple_whale_integration import UpdatePreferencesResponseAdsTripleWhaleIntegration
 
@@ -13,6 +14,11 @@ class UpdatePreferencesResponse(UniversalBaseModel):
     ads_agreement: UpdatePreferencesResponseAdsAgreement = pydantic.Field()
     """
     The account's Whop Ads services and payment authorization agreement. While `pending_signature`, campaign launch is blocked; sign by answering `requested_information` via `PATCH /verifications/{id}`.
+    """
+
+    ads_certifications: typing.List[UpdatePreferencesResponseAdsCertificationsItem] = pydantic.Field()
+    """
+    The account's advertising certifications, one entry per certification type Whop offers. Start an application by setting a type's `status` to `pending_information` via `PATCH`, then answer the fields it requests via `GET`/`PATCH /verifications/{id}`.
     """
 
     ads_payment_methods: typing.Optional[UpdatePreferencesResponseAdsPaymentMethods] = pydantic.Field(default=None)
