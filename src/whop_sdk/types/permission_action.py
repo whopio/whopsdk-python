@@ -212,6 +212,7 @@ PermissionAction = typing.Union[
         "webhook_receive:ledger_accounts",
         "webhook_receive:accounts",
         "webhook_receive:deposits",
+        "webhook_receive:financial_activity",
         "webhook_receive:transfers",
         "webhook_receive:card_transactions",
         "webhook_receive:cards",

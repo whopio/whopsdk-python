@@ -4,6 +4,7 @@ import typing
 
 RetrieveFinancialReportsRequestLineTypesItem = typing.Union[
     typing.Literal[
+        "account_settlement",
         "ad_budget_release",
         "ad_campaign_budget",
         "ad_publisher_payout",
