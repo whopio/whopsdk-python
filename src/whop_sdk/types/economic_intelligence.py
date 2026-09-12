@@ -4,7 +4,6 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .economic_intelligence_execution_type import EconomicIntelligenceExecutionType
 from .economic_intelligence_status import EconomicIntelligenceStatus
 
 
@@ -27,11 +26,6 @@ class EconomicIntelligence(UniversalBaseModel):
     executed_at: typing.Optional[str] = pydantic.Field(default=None)
     """
     When the card was run, as an ISO 8601 timestamp, or `null`
-    """
-
-    execution_type: EconomicIntelligenceExecutionType = pydantic.Field()
-    """
-    How the card runs. `whop_ai` means `prompt` is sent to Whop AI, which carries out every step.
     """
 
     id: str = pydantic.Field()
