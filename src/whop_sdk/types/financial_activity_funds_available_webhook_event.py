@@ -10,7 +10,7 @@ from pydantic import Field as FieldInfo
 from .._models import BaseModel
 
 __all__ = [
-    "DepositSucceededWebhookEvent",
+    "FinancialActivityFundsAvailableWebhookEvent",
     "Data",
     "DataCurrency",
     "DataResource",
@@ -810,7 +810,7 @@ class Data(BaseModel):
     """Display name of the customer associated with the payment."""
 
 
-class DepositSucceededWebhookEvent(BaseModel):
+class FinancialActivityFundsAvailableWebhookEvent(BaseModel):
     id: str
     """A unique ID for every single webhook request"""
 
@@ -825,7 +825,7 @@ class DepositSucceededWebhookEvent(BaseModel):
     timestamp: datetime
     """The timestamp in ISO 8601 format that the webhook was sent at on the server"""
 
-    type: Literal["deposit.succeeded"]
+    type: Literal["financial_activity.funds_available"]
     """The webhook event type"""
 
     account_id: Optional[str] = None

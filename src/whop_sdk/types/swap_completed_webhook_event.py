@@ -601,6 +601,7 @@ class Data(BaseModel):
     """Currency for this ledger activity."""
 
     line_type: Literal[
+        "account_settlement",
         "ad_budget_release",
         "ad_campaign_budget",
         "ad_publisher_payout",

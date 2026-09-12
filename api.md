@@ -166,6 +166,7 @@ from whop_sdk.types import (
     EntryDeniedWebhookEvent,
     ExportCompletedWebhookEvent,
     ExportFailedWebhookEvent,
+    FinancialActivityFundsAvailableWebhookEvent,
     IdentityProfileUpdatedWebhookEvent,
     InvoiceCreatedWebhookEvent,
     InvoiceMarkedUncollectibleWebhookEvent,

@@ -81,6 +81,7 @@ from .ledger_account_funds_available_webhook_event import LedgerAccountFundsAvai
 from .resolution_center_case_created_webhook_event import ResolutionCenterCaseCreatedWebhookEvent
 from .resolution_center_case_decided_webhook_event import ResolutionCenterCaseDecidedWebhookEvent
 from .resolution_center_case_updated_webhook_event import ResolutionCenterCaseUpdatedWebhookEvent
+from .financial_activity_funds_available_webhook_event import FinancialActivityFundsAvailableWebhookEvent
 from .course_lesson_interaction_completed_webhook_event import CourseLessonInteractionCompletedWebhookEvent
 from .membership_cancel_at_period_end_changed_webhook_event import MembershipCancelAtPeriodEndChangedWebhookEvent
 
@@ -120,6 +121,7 @@ UnwrapWebhookEvent: TypeAlias = Annotated[
         EntryDeniedWebhookEvent,
         ExportCompletedWebhookEvent,
         ExportFailedWebhookEvent,
+        FinancialActivityFundsAvailableWebhookEvent,
         IdentityProfileUpdatedWebhookEvent,
         InvoiceCreatedWebhookEvent,
         InvoiceMarkedUncollectibleWebhookEvent,

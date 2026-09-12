@@ -82,6 +82,7 @@ class WebhookListResponse(BaseModel):
             "ledger_account.funds_available",
             "swap.completed",
             "deposit.succeeded",
+            "financial_activity.funds_available",
             "transfer.created",
             "transfer.completed",
             "transfer.failed",

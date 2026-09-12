@@ -475,6 +475,9 @@ from .resolution_center_case_decided_webhook_event import (
 from .resolution_center_case_updated_webhook_event import (
     ResolutionCenterCaseUpdatedWebhookEvent as ResolutionCenterCaseUpdatedWebhookEvent,
 )
+from .financial_activity_funds_available_webhook_event import (
+    FinancialActivityFundsAvailableWebhookEvent as FinancialActivityFundsAvailableWebhookEvent,
+)
 from .course_lesson_interaction_completed_webhook_event import (
     CourseLessonInteractionCompletedWebhookEvent as CourseLessonInteractionCompletedWebhookEvent,
 )
