@@ -41476,6 +41476,14 @@ client.partners.businesses.list()
 <dl>
 <dd>
 
+**business_prefix_query:** `typing.Optional[str]` — Case-insensitive business-name prefix, or an exact `biz_` account ID. Surrounding whitespace is ignored; blank values apply no filter.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>

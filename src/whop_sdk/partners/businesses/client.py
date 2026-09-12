@@ -53,6 +53,7 @@ class BusinessesClient:
         referred_user_id: typing.Optional[str] = None,
         referred_username: typing.Optional[str] = None,
         tier: typing.Optional[ListBusinessesRequestTier] = None,
+        business_prefix_query: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ListBusinessesResponseDataItem, ListBusinessesResponse]:
         """
@@ -99,6 +100,9 @@ class BusinessesClient:
         tier : typing.Optional[ListBusinessesRequestTier]
             Filter to referrals from a single tier: first, second, or blueprint.
 
+        business_prefix_query : typing.Optional[str]
+            Case-insensitive business-name prefix, or an exact `biz_` account ID. Surrounding whitespace is ignored; blank values apply no filter.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -137,6 +141,7 @@ class BusinessesClient:
             referred_user_id=referred_user_id,
             referred_username=referred_username,
             tier=tier,
+            business_prefix_query=business_prefix_query,
             request_options=request_options,
         )
 
@@ -217,6 +222,7 @@ class AsyncBusinessesClient:
         referred_user_id: typing.Optional[str] = None,
         referred_username: typing.Optional[str] = None,
         tier: typing.Optional[ListBusinessesRequestTier] = None,
+        business_prefix_query: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ListBusinessesResponseDataItem, ListBusinessesResponse]:
         """
@@ -262,6 +268,9 @@ class AsyncBusinessesClient:
 
         tier : typing.Optional[ListBusinessesRequestTier]
             Filter to referrals from a single tier: first, second, or blueprint.
+
+        business_prefix_query : typing.Optional[str]
+            Case-insensitive business-name prefix, or an exact `biz_` account ID. Surrounding whitespace is ignored; blank values apply no filter.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -310,6 +319,7 @@ class AsyncBusinessesClient:
             referred_user_id=referred_user_id,
             referred_username=referred_username,
             tier=tier,
+            business_prefix_query=business_prefix_query,
             request_options=request_options,
         )
 
