@@ -176,7 +176,7 @@ class Payment(UniversalBaseModel):
 
     recovery_url: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Whop-hosted URL where the buyer can sign in and complete 3D Secure for a failed subscription renewal. Null when recovery is unavailable, you lack `member:basic:read`, or in list responses. Retrieve the payment for it.
+    Whop-hosted URL where the buyer can sign in and complete 3D Secure for an off-session charge the bank challenged — a subscription renewal or a saved-card payment. Null when recovery is unavailable, you lack `member:basic:read`, or in list responses. Retrieve the payment for it.
     """
 
     refundable: bool = pydantic.Field()
