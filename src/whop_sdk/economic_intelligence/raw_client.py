@@ -69,7 +69,7 @@ class RawEconomicIntelligenceClient:
         Returns
         -------
         SyncPager[EconomicIntelligence, ListEconomicIntelligenceResponse]
-            empty for a connected (child) account
+            recommendations listed
         """
         _response = self._client_wrapper.httpx_client.request(
             "economic_intelligence",
@@ -298,7 +298,7 @@ class AsyncRawEconomicIntelligenceClient:
         Returns
         -------
         AsyncPager[EconomicIntelligence, ListEconomicIntelligenceResponse]
-            empty for a connected (child) account
+            recommendations listed
         """
         _response = await self._client_wrapper.httpx_client.request(
             "economic_intelligence",
