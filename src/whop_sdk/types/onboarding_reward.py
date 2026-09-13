@@ -32,6 +32,11 @@ class OnboardingReward(UniversalBaseModel):
     Partner whose link attributed this reward.
     """
 
+    partner_reward_amount: typing.Optional[Money] = pydantic.Field(default=None)
+    """
+    What the partner earns when a referred business qualifies for this reward. Null when the reward pays the business only.
+    """
+
     qualification_amount: typing.Optional[Money] = pydantic.Field(default=None)
     """
     Required qualifying volume. Null for an immediate reward.

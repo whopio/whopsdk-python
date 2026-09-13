@@ -5,17 +5,17 @@ import typing
 
 import pydantic
 from .....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .list_earnings_response_data_item_resource_created_at_object import (
-    ListEarningsResponseDataItemResourceCreatedAtObject,
+from .list_earnings_response_data_item_resource_currency_object import (
+    ListEarningsResponseDataItemResourceCurrencyObject,
 )
 
 
-class ListEarningsResponseDataItemResourceCreatedAt(UniversalBaseModel):
+class ListEarningsResponseDataItemResourceCurrency(UniversalBaseModel):
     created_at: dt.datetime
     currency: typing.Optional[str] = None
     id: str
     merchant_name: typing.Optional[str] = None
-    object: ListEarningsResponseDataItemResourceCreatedAtObject
+    object: ListEarningsResponseDataItemResourceCurrencyObject
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
