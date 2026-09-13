@@ -69,7 +69,7 @@ class EconomicIntelligenceClient:
         Returns
         -------
         SyncPager[EconomicIntelligence, ListEconomicIntelligenceResponse]
-            empty for a connected (child) account
+            recommendations listed
 
         Examples
         --------
@@ -195,7 +195,7 @@ class AsyncEconomicIntelligenceClient:
         Returns
         -------
         AsyncPager[EconomicIntelligence, ListEconomicIntelligenceResponse]
-            empty for a connected (child) account
+            recommendations listed
 
         Examples
         --------
