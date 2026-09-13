@@ -345,7 +345,7 @@ class PlansClient:
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> DeletePlansResponse:
         """
-        Permanently delete a plan from a product. Existing memberships on this plan will not be affected.
+        Delete a plan from a product. It stops selling immediately; existing memberships on this plan will not be affected.
 
         Parameters
         ----------
@@ -947,7 +947,7 @@ class AsyncPlansClient:
 
     async def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> DeletePlansResponse:
         """
-        Permanently delete a plan from a product. Existing memberships on this plan will not be affected.
+        Delete a plan from a product. It stops selling immediately; existing memberships on this plan will not be affected.
 
         Parameters
         ----------

@@ -470,7 +470,7 @@ class RawPlansClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[DeletePlansResponse]:
         """
-        Permanently delete a plan from a product. Existing memberships on this plan will not be affected.
+        Delete a plan from a product. It stops selling immediately; existing memberships on this plan will not be affected.
 
         Parameters
         ----------
@@ -1286,7 +1286,7 @@ class AsyncRawPlansClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[DeletePlansResponse]:
         """
-        Permanently delete a plan from a product. Existing memberships on this plan will not be affected.
+        Delete a plan from a product. It stops selling immediately; existing memberships on this plan will not be affected.
 
         Parameters
         ----------
