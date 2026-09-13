@@ -31,7 +31,7 @@ class RawDepositsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateDepositsResponse]:
         """
-        Retrieve the deposit methods for an account, including crypto and bank transfer. Crypto deposits require a $10 minimum.
+        Retrieve the deposit methods for an account, including crypto and bank transfer. Bitcoin deposits are converted by Relay directly to USDT on Plasma in the destination account's wallet. Crypto deposits require a $10 minimum.
 
         Parameters
         ----------
@@ -116,7 +116,7 @@ class AsyncRawDepositsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateDepositsResponse]:
         """
-        Retrieve the deposit methods for an account, including crypto and bank transfer. Crypto deposits require a $10 minimum.
+        Retrieve the deposit methods for an account, including crypto and bank transfer. Bitcoin deposits are converted by Relay directly to USDT on Plasma in the destination account's wallet. Crypto deposits require a $10 minimum.
 
         Parameters
         ----------

@@ -6,6 +6,7 @@ CreateDepositsResponseMethodsCryptoItemSupportedCurrenciesItemName = typing.Unio
     typing.Literal[
         "ARB",
         "BNB",
+        "BTC",
         "ETH",
         "EURC",
         "HYPE",
