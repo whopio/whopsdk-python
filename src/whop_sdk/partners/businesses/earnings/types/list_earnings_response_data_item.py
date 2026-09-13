@@ -41,7 +41,7 @@ class ListEarningsResponseDataItem(UniversalBaseModel):
     id: typing.Optional[str] = None
     income_source: ListEarningsResponseDataItemIncomeSource = pydantic.Field()
     """
-    Which income source the commission is on: product-sales gross profit, Whop Ads spend billed to the business, platform balance transfer fees, or Whop Card interchange.
+    Which income source the commission is on: product-sales gross profit, Whop Ads spend billed to the business, platform balance transfer fees, Whop Card interchange, or a fixed onboarding reward paid to the partner when a referred business qualifies.
     """
 
     object: ListEarningsResponseDataItemObject
