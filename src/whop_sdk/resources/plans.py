@@ -515,10 +515,10 @@ class PlansResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PlanDeleteResponse:
-        """Permanently delete a plan from a product.
+        """Delete a plan from a product.
 
-        Existing memberships on this plan will
-        not be affected.
+        It stops selling immediately; existing memberships
+        on this plan will not be affected.
 
         Args:
           extra_headers: Send extra headers
@@ -1029,10 +1029,10 @@ class AsyncPlansResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PlanDeleteResponse:
-        """Permanently delete a plan from a product.
+        """Delete a plan from a product.
 
-        Existing memberships on this plan will
-        not be affected.
+        It stops selling immediately; existing memberships
+        on this plan will not be affected.
 
         Args:
           extra_headers: Send extra headers
