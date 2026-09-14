@@ -118,6 +118,7 @@ PaymentMethodTypes: TypeAlias = Literal[
     "sunbit",
     "swish",
     "tamara",
+    "touch_n_go",
     "twint",
     "upi",
     "us_bank_account",
