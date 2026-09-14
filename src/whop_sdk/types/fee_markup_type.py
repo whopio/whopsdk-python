@@ -14,4 +14,5 @@ FeeMarkupType: TypeAlias = Literal[
     "crypto_deposit_markup",
     "bank_deposit_markup",
     "crypto_swap_markup",
+    "payment_markup",
 ]
