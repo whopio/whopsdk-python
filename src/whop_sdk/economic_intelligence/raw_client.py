@@ -6,6 +6,7 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
+from ..core.jsonable_encoder import encode_path_param
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
@@ -19,6 +20,7 @@ from ..types.economic_intelligence import EconomicIntelligence
 from ..types.v1error_response import V1ErrorResponse
 from .types.list_economic_intelligence_request_status import ListEconomicIntelligenceRequestStatus
 from .types.list_economic_intelligence_response import ListEconomicIntelligenceResponse
+from .types.update_economic_intelligence_request_status import UpdateEconomicIntelligenceRequestStatus
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -162,7 +164,7 @@ class RawEconomicIntelligenceClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def run(
+    def create(
         self,
         *,
         input: str,
@@ -224,6 +226,114 @@ class RawEconomicIntelligenceClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        V1ErrorResponse,
+                        parse_obj_as(
+                            type_=V1ErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def update(
+        self,
+        id: str,
+        *,
+        status: UpdateEconomicIntelligenceRequestStatus,
+        account_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[EconomicIntelligence]:
+        """
+        Retires a `ready` recommendation the owner no longer wants by setting its status to `superseded`. It leaves the ready list and stays in the account's history.
+
+        Parameters
+        ----------
+        id : str
+            Recommendation ID, prefixed `reca_`.
+
+        status : UpdateEconomicIntelligenceRequestStatus
+            The status to move the recommendation to. Only `superseded` is accepted.
+
+        account_id : typing.Optional[str]
+            Account ID, prefixed `biz_`. Defaults to the API key's own account.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[EconomicIntelligence]
+            recommendation superseded
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"economic_intelligence/{encode_path_param(id)}",
+            method="PATCH",
+            params={
+                "account_id": account_id,
+            },
+            json={
+                "status": status,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    EconomicIntelligence,
+                    parse_obj_as(
+                        type_=EconomicIntelligence,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -394,7 +504,7 @@ class AsyncRawEconomicIntelligenceClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def run(
+    async def create(
         self,
         *,
         input: str,
@@ -456,6 +566,114 @@ class AsyncRawEconomicIntelligenceClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        V1ErrorResponse,
+                        parse_obj_as(
+                            type_=V1ErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def update(
+        self,
+        id: str,
+        *,
+        status: UpdateEconomicIntelligenceRequestStatus,
+        account_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[EconomicIntelligence]:
+        """
+        Retires a `ready` recommendation the owner no longer wants by setting its status to `superseded`. It leaves the ready list and stays in the account's history.
+
+        Parameters
+        ----------
+        id : str
+            Recommendation ID, prefixed `reca_`.
+
+        status : UpdateEconomicIntelligenceRequestStatus
+            The status to move the recommendation to. Only `superseded` is accepted.
+
+        account_id : typing.Optional[str]
+            Account ID, prefixed `biz_`. Defaults to the API key's own account.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[EconomicIntelligence]
+            recommendation superseded
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"economic_intelligence/{encode_path_param(id)}",
+            method="PATCH",
+            params={
+                "account_id": account_id,
+            },
+            json={
+                "status": status,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    EconomicIntelligence,
+                    parse_obj_as(
+                        type_=EconomicIntelligence,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,

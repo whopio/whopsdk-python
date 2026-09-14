@@ -9,6 +9,7 @@ from ..types.economic_intelligence import EconomicIntelligence
 from .raw_client import AsyncRawEconomicIntelligenceClient, RawEconomicIntelligenceClient
 from .types.list_economic_intelligence_request_status import ListEconomicIntelligenceRequestStatus
 from .types.list_economic_intelligence_response import ListEconomicIntelligenceResponse
+from .types.update_economic_intelligence_request_status import UpdateEconomicIntelligenceRequestStatus
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -97,7 +98,7 @@ class EconomicIntelligenceClient:
             request_options=request_options,
         )
 
-    def run(
+    def create(
         self,
         *,
         input: str,
@@ -132,11 +133,58 @@ class EconomicIntelligenceClient:
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
-        client.economic_intelligence.run(
-            input="get more repeat buyers for my taurine supplement",
+        client.economic_intelligence.create(
+            input="I sell $79 customized gym straps. The number of purchases per day fell from 84 to 66 since June and my ads cost per signup doubled to $38. Half the leads never open the checkout. I want to win back churned visitors and lift conversion without cutting the price, and I can spend up to $500 this month on it.",
         )
         """
-        _response = self._raw_client.run(input=input, account_id=account_id, request_options=request_options)
+        _response = self._raw_client.create(input=input, account_id=account_id, request_options=request_options)
+        return _response.data
+
+    def update(
+        self,
+        id: str,
+        *,
+        status: UpdateEconomicIntelligenceRequestStatus,
+        account_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> EconomicIntelligence:
+        """
+        Retires a `ready` recommendation the owner no longer wants by setting its status to `superseded`. It leaves the ready list and stays in the account's history.
+
+        Parameters
+        ----------
+        id : str
+            Recommendation ID, prefixed `reca_`.
+
+        status : UpdateEconomicIntelligenceRequestStatus
+            The status to move the recommendation to. Only `superseded` is accepted.
+
+        account_id : typing.Optional[str]
+            Account ID, prefixed `biz_`. Defaults to the API key's own account.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        EconomicIntelligence
+            recommendation superseded
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-09-11-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.economic_intelligence.update(
+            id="id",
+            status="superseded",
+        )
+        """
+        _response = self._raw_client.update(id, status=status, account_id=account_id, request_options=request_options)
         return _response.data
 
 
@@ -232,7 +280,7 @@ class AsyncEconomicIntelligenceClient:
             request_options=request_options,
         )
 
-    async def run(
+    async def create(
         self,
         *,
         input: str,
@@ -272,12 +320,69 @@ class AsyncEconomicIntelligenceClient:
 
 
         async def main() -> None:
-            await client.economic_intelligence.run(
-                input="get more repeat buyers for my taurine supplement",
+            await client.economic_intelligence.create(
+                input="I sell $79 customized gym straps. The number of purchases per day fell from 84 to 66 since June and my ads cost per signup doubled to $38. Half the leads never open the checkout. I want to win back churned visitors and lift conversion without cutting the price, and I can spend up to $500 this month on it.",
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.run(input=input, account_id=account_id, request_options=request_options)
+        _response = await self._raw_client.create(input=input, account_id=account_id, request_options=request_options)
+        return _response.data
+
+    async def update(
+        self,
+        id: str,
+        *,
+        status: UpdateEconomicIntelligenceRequestStatus,
+        account_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> EconomicIntelligence:
+        """
+        Retires a `ready` recommendation the owner no longer wants by setting its status to `superseded`. It leaves the ready list and stays in the account's history.
+
+        Parameters
+        ----------
+        id : str
+            Recommendation ID, prefixed `reca_`.
+
+        status : UpdateEconomicIntelligenceRequestStatus
+            The status to move the recommendation to. Only `superseded` is accepted.
+
+        account_id : typing.Optional[str]
+            Account ID, prefixed `biz_`. Defaults to the API key's own account.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        EconomicIntelligence
+            recommendation superseded
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-09-11-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.economic_intelligence.update(
+                id="id",
+                status="superseded",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.update(
+            id, status=status, account_id=account_id, request_options=request_options
+        )
         return _response.data
