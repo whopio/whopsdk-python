@@ -232,6 +232,7 @@ class RawAccountsClient:
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         send_customer_emails: typing.Optional[bool] = OMIT,
         title: typing.Optional[str] = OMIT,
+        website: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Account]:
         """
@@ -260,6 +261,9 @@ class RawAccountsClient:
         title : typing.Optional[str]
             The display name of the account. Defaults to `metadata.external_id` or the owner's email when omitted.
 
+        website : typing.Optional[str]
+            The account's business website, as an `http` or `https` URL of at most 255 characters. Also added to the account's `social_links` as a `website` entry.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -279,6 +283,7 @@ class RawAccountsClient:
                 "metadata": metadata,
                 "send_customer_emails": send_customer_emails,
                 "title": title,
+                "website": website,
             },
             headers={
                 "content-type": "application/json",
@@ -527,6 +532,7 @@ class RawAccountsClient:
         three_ds_level: typing.Optional[UpdateAccountsRequestThreeDsLevel] = OMIT,
         title: typing.Optional[str] = OMIT,
         use_logo_as_opengraph_image_fallback: typing.Optional[bool] = OMIT,
+        website: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Account]:
         """
@@ -651,6 +657,9 @@ class RawAccountsClient:
         use_logo_as_opengraph_image_fallback : typing.Optional[bool]
             Whether the account uses its logo as the fallback Open Graph image.
 
+        website : typing.Optional[str]
+            The account's business website, as an `http` or `https` URL of at most 255 characters. Also added to the account's `social_links` as a `website` entry. Pass `null` to clear the website; existing social links are left unchanged.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -721,6 +730,7 @@ class RawAccountsClient:
                 "three_ds_level": three_ds_level,
                 "title": title,
                 "use_logo_as_opengraph_image_fallback": use_logo_as_opengraph_image_fallback,
+                "website": website,
             },
             headers={
                 "content-type": "application/json",
@@ -1332,6 +1342,7 @@ class AsyncRawAccountsClient:
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         send_customer_emails: typing.Optional[bool] = OMIT,
         title: typing.Optional[str] = OMIT,
+        website: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Account]:
         """
@@ -1360,6 +1371,9 @@ class AsyncRawAccountsClient:
         title : typing.Optional[str]
             The display name of the account. Defaults to `metadata.external_id` or the owner's email when omitted.
 
+        website : typing.Optional[str]
+            The account's business website, as an `http` or `https` URL of at most 255 characters. Also added to the account's `social_links` as a `website` entry.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1379,6 +1393,7 @@ class AsyncRawAccountsClient:
                 "metadata": metadata,
                 "send_customer_emails": send_customer_emails,
                 "title": title,
+                "website": website,
             },
             headers={
                 "content-type": "application/json",
@@ -1629,6 +1644,7 @@ class AsyncRawAccountsClient:
         three_ds_level: typing.Optional[UpdateAccountsRequestThreeDsLevel] = OMIT,
         title: typing.Optional[str] = OMIT,
         use_logo_as_opengraph_image_fallback: typing.Optional[bool] = OMIT,
+        website: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Account]:
         """
@@ -1753,6 +1769,9 @@ class AsyncRawAccountsClient:
         use_logo_as_opengraph_image_fallback : typing.Optional[bool]
             Whether the account uses its logo as the fallback Open Graph image.
 
+        website : typing.Optional[str]
+            The account's business website, as an `http` or `https` URL of at most 255 characters. Also added to the account's `social_links` as a `website` entry. Pass `null` to clear the website; existing social links are left unchanged.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1823,6 +1842,7 @@ class AsyncRawAccountsClient:
                 "three_ds_level": three_ds_level,
                 "title": title,
                 "use_logo_as_opengraph_image_fallback": use_logo_as_opengraph_image_fallback,
+                "website": website,
             },
             headers={
                 "content-type": "application/json",

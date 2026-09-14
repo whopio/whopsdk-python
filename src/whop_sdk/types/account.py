@@ -316,6 +316,11 @@ class Account(UniversalBaseModel):
     Account primary crypto wallet, or `null` if none has been provisioned.
     """
 
+    website: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The account's business website URL, or `null` if none has been provided. Setting it also adds a `website` entry to `social_links`.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

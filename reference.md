@@ -471,6 +471,14 @@ client.accounts.create()
 <dl>
 <dd>
 
+**website:** `typing.Optional[str]` — The account's business website, as an `http` or `https` URL of at most 255 characters. Also added to the account's `social_links` as a `website` entry.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -977,6 +985,14 @@ client.accounts.update(
 <dd>
 
 **use_logo_as_opengraph_image_fallback:** `typing.Optional[bool]` — Whether the account uses its logo as the fallback Open Graph image.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**website:** `typing.Optional[str]` — The account's business website, as an `http` or `https` URL of at most 255 characters. Also added to the account's `social_links` as a `website` entry. Pass `null` to clear the website; existing social links are left unchanged.
     
 </dd>
 </dl>
