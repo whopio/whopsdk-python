@@ -59,6 +59,7 @@ class UsersResource(SyncAPIResource):
         *,
         account_id: str | Omit = omit,
         from_: str | Omit = omit,
+        include_balance: bool | Omit = omit,
         include_balance_history: bool | Omit = omit,
         interval: Literal["hour", "day", "week", "month"] | Omit = omit,
         time_zone: str | Omit = omit,
@@ -87,6 +88,10 @@ class UsersResource(SyncAPIResource):
 
           from_: Balance-history window start, ISO 8601 date or datetime. Defaults to 30 days
               ago. Only used with `include_balance_history`.
+
+          include_balance: Compute live wallet and owned-account balances on the self view (default true).
+              Set false for identity-only reads. Ignored when the id is not `me` or the caller
+              lacks balance-read scope.
 
           include_balance_history: Also compute your balance history (opt-in; runs a heavier query). Only applies
               when the id is `me`; ignored for callers without balance-read scope.
@@ -122,6 +127,7 @@ class UsersResource(SyncAPIResource):
                     {
                         "account_id": account_id,
                         "from_": from_,
+                        "include_balance": include_balance,
                         "include_balance_history": include_balance_history,
                         "interval": interval,
                         "time_zone": time_zone,
@@ -328,6 +334,7 @@ class AsyncUsersResource(AsyncAPIResource):
         *,
         account_id: str | Omit = omit,
         from_: str | Omit = omit,
+        include_balance: bool | Omit = omit,
         include_balance_history: bool | Omit = omit,
         interval: Literal["hour", "day", "week", "month"] | Omit = omit,
         time_zone: str | Omit = omit,
@@ -356,6 +363,10 @@ class AsyncUsersResource(AsyncAPIResource):
 
           from_: Balance-history window start, ISO 8601 date or datetime. Defaults to 30 days
               ago. Only used with `include_balance_history`.
+
+          include_balance: Compute live wallet and owned-account balances on the self view (default true).
+              Set false for identity-only reads. Ignored when the id is not `me` or the caller
+              lacks balance-read scope.
 
           include_balance_history: Also compute your balance history (opt-in; runs a heavier query). Only applies
               when the id is `me`; ignored for callers without balance-read scope.
@@ -391,6 +402,7 @@ class AsyncUsersResource(AsyncAPIResource):
                     {
                         "account_id": account_id,
                         "from_": from_,
+                        "include_balance": include_balance,
                         "include_balance_history": include_balance_history,
                         "interval": interval,
                         "time_zone": time_zone,

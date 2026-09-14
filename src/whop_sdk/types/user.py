@@ -154,7 +154,7 @@ class BalanceCrypto(BaseModel):
 
 class Balance(BaseModel):
     """
-    The user's balance: personal cash + crypto + in-flight treasury deposits, plus account balances for accounts they own. Computed only on the self view (retrieved with the reserved id `me`) for callers with balance-read scope; `null` otherwise.
+    The user's balance: personal cash + crypto + in-flight treasury deposits, plus account balances for accounts they own. Computed only on the self view (retrieved with the reserved id `me`) for callers with balance-read scope; `null` otherwise, or when `include_balance=false`.
     """
 
     businesses: List[BalanceBusiness]
@@ -440,7 +440,7 @@ class User(BaseModel):
     The user's balance: personal cash + crypto + in-flight treasury deposits, plus
     account balances for accounts they own. Computed only on the self view
     (retrieved with the reserved id `me`) for callers with balance-read scope;
-    `null` otherwise.
+    `null` otherwise, or when `include_balance=false`.
     """
 
     balance_history: Optional[BalanceHistory] = None

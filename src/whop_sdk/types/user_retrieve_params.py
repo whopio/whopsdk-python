@@ -22,6 +22,13 @@ class UserRetrieveParams(TypedDict, total=False):
     Defaults to 30 days ago. Only used with `include_balance_history`.
     """
 
+    include_balance: bool
+    """Compute live wallet and owned-account balances on the self view (default true).
+
+    Set false for identity-only reads. Ignored when the id is not `me` or the caller
+    lacks balance-read scope.
+    """
+
     include_balance_history: bool
     """Also compute your balance history (opt-in; runs a heavier query).
 
