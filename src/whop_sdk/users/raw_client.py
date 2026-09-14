@@ -134,6 +134,7 @@ class RawUsersClient:
         self,
         *,
         account_id: typing.Optional[str] = None,
+        include_balance: typing.Optional[bool] = None,
         include_balance_history: typing.Optional[bool] = None,
         from_: typing.Optional[str] = None,
         to: typing.Optional[str] = None,
@@ -148,6 +149,9 @@ class RawUsersClient:
         ----------
         account_id : typing.Optional[str]
             When set, returns your account-specific profile overrides for this account.
+
+        include_balance : typing.Optional[bool]
+            Compute live wallet and owned-account balances (default true). Set false for identity-only reads. Ignored for callers without balance-read scope.
 
         include_balance_history : typing.Optional[bool]
             Also compute your balance history (opt-in; runs a heavier query). Ignored for callers without balance-read scope.
@@ -177,6 +181,7 @@ class RawUsersClient:
             method="GET",
             params={
                 "account_id": account_id,
+                "include_balance": include_balance,
                 "include_balance_history": include_balance_history,
                 "from": from_,
                 "to": to,
@@ -310,6 +315,7 @@ class RawUsersClient:
         id: str,
         *,
         account_id: typing.Optional[str] = None,
+        include_balance: typing.Optional[bool] = None,
         include_balance_history: typing.Optional[bool] = None,
         from_: typing.Optional[str] = None,
         to: typing.Optional[str] = None,
@@ -327,6 +333,9 @@ class RawUsersClient:
 
         account_id : typing.Optional[str]
             When set, returns the user's account-specific profile overrides for this account.
+
+        include_balance : typing.Optional[bool]
+            Compute live wallet and owned-account balances on the self view (default true). Set false for identity-only reads. Ignored when the id is not `me` or the caller lacks balance-read scope.
 
         include_balance_history : typing.Optional[bool]
             Also compute your balance history (opt-in; runs a heavier query). Only applies when the id is `me`; ignored for callers without balance-read scope.
@@ -356,6 +365,7 @@ class RawUsersClient:
             method="GET",
             params={
                 "account_id": account_id,
+                "include_balance": include_balance,
                 "include_balance_history": include_balance_history,
                 "from": from_,
                 "to": to,
@@ -694,6 +704,7 @@ class AsyncRawUsersClient:
         self,
         *,
         account_id: typing.Optional[str] = None,
+        include_balance: typing.Optional[bool] = None,
         include_balance_history: typing.Optional[bool] = None,
         from_: typing.Optional[str] = None,
         to: typing.Optional[str] = None,
@@ -708,6 +719,9 @@ class AsyncRawUsersClient:
         ----------
         account_id : typing.Optional[str]
             When set, returns your account-specific profile overrides for this account.
+
+        include_balance : typing.Optional[bool]
+            Compute live wallet and owned-account balances (default true). Set false for identity-only reads. Ignored for callers without balance-read scope.
 
         include_balance_history : typing.Optional[bool]
             Also compute your balance history (opt-in; runs a heavier query). Ignored for callers without balance-read scope.
@@ -737,6 +751,7 @@ class AsyncRawUsersClient:
             method="GET",
             params={
                 "account_id": account_id,
+                "include_balance": include_balance,
                 "include_balance_history": include_balance_history,
                 "from": from_,
                 "to": to,
@@ -870,6 +885,7 @@ class AsyncRawUsersClient:
         id: str,
         *,
         account_id: typing.Optional[str] = None,
+        include_balance: typing.Optional[bool] = None,
         include_balance_history: typing.Optional[bool] = None,
         from_: typing.Optional[str] = None,
         to: typing.Optional[str] = None,
@@ -887,6 +903,9 @@ class AsyncRawUsersClient:
 
         account_id : typing.Optional[str]
             When set, returns the user's account-specific profile overrides for this account.
+
+        include_balance : typing.Optional[bool]
+            Compute live wallet and owned-account balances on the self view (default true). Set false for identity-only reads. Ignored when the id is not `me` or the caller lacks balance-read scope.
 
         include_balance_history : typing.Optional[bool]
             Also compute your balance history (opt-in; runs a heavier query). Only applies when the id is `me`; ignored for callers without balance-read scope.
@@ -916,6 +935,7 @@ class AsyncRawUsersClient:
             method="GET",
             params={
                 "account_id": account_id,
+                "include_balance": include_balance,
                 "include_balance_history": include_balance_history,
                 "from": from_,
                 "to": to,

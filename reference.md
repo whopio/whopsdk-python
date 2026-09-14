@@ -38215,6 +38215,14 @@ client.users.me()
 <dl>
 <dd>
 
+**include_balance:** `typing.Optional[bool]` — Compute live wallet and owned-account balances (default true). Set false for identity-only reads. Ignored for callers without balance-read scope.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **include_balance_history:** `typing.Optional[bool]` — Also compute your balance history (opt-in; runs a heavier query). Ignored for callers without balance-read scope.
     
 </dd>
@@ -38440,6 +38448,14 @@ client.users.retrieve(
 <dd>
 
 **account_id:** `typing.Optional[str]` — When set, returns the user's account-specific profile overrides for this account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_balance:** `typing.Optional[bool]` — Compute live wallet and owned-account balances on the self view (default true). Set false for identity-only reads. Ignored when the id is not `me` or the caller lacks balance-read scope.
     
 </dd>
 </dl>
