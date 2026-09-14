@@ -16971,7 +16971,7 @@ client.economic_intelligence.list()
 </dl>
 </details>
 
-<details><summary><code>client.economic_intelligence.<a href="src/whop_sdk/economic_intelligence/client.py">run</a>(...) -> EconomicIntelligence</code></summary>
+<details><summary><code>client.economic_intelligence.<a href="src/whop_sdk/economic_intelligence/client.py">create</a>(...) -> EconomicIntelligence</code></summary>
 <dl>
 <dd>
 
@@ -17006,8 +17006,8 @@ client = Whop(
     environment=WhopEnvironment.DEFAULT,
 )
 
-client.economic_intelligence.run(
-    input="get more repeat buyers for my taurine supplement",
+client.economic_intelligence.create(
+    input="I sell $79 customized gym straps. The number of purchases per day fell from 84 to 66 since June and my ads cost per signup doubled to $38. Half the leads never open the checkout. I want to win back churned visitors and lift conversion without cutting the price, and I can spend up to $500 this month on it.",
 )
 
 ```
@@ -17025,6 +17025,96 @@ client.economic_intelligence.run(
 <dd>
 
 **input:** `str` — What the owner wants, in their own words. Up to 1000 characters.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — Account ID, prefixed `biz_`. Defaults to the API key's own account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.economic_intelligence.<a href="src/whop_sdk/economic_intelligence/client.py">update</a>(...) -> EconomicIntelligence</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retires a `ready` recommendation the owner no longer wants by setting its status to `superseded`. It leaves the ready list and stays in the account's history.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.DEFAULT,
+)
+
+client.economic_intelligence.update(
+    id="id",
+    status="superseded",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Recommendation ID, prefixed `reca_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `UpdateEconomicIntelligenceRequestStatus` — The status to move the recommendation to. Only `superseded` is accepted.
     
 </dd>
 </dl>
