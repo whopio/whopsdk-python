@@ -1433,6 +1433,12 @@ class Data(BaseModel):
     wallet: Optional[DataWallet] = None
     """Account primary crypto wallet, or `null` if none has been provisioned."""
 
+    website: Optional[str] = None
+    """The account's business website URL, or `null` if none has been provided.
+
+    Setting it also adds a `website` entry to `social_links`.
+    """
+
 
 class AccountFinancingDeniedWebhookEvent(BaseModel):
     id: str
