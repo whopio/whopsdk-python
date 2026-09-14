@@ -31,6 +31,8 @@ RetrieveFinancialReportsRequestLineTypesItem = typing.Union[
         "card_spend_refund",
         "card_unload_deposit",
         "card_unload_transfer",
+        "cashback",
+        "cashback_funding",
         "company_referral",
         "connected_account_negative_balance",
         "cross_border_percentage_fee",
