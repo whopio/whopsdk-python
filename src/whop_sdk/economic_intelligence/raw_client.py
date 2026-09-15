@@ -43,7 +43,7 @@ class RawEconomicIntelligenceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[EconomicIntelligence, ListEconomicIntelligenceResponse]:
         """
-        Lists all recommended actions Economic Intelligence has generated for the account, newest first. Filter with `status=ready` for actions that are current.
+        Lists recommended actions and in-progress requests for the account, newest first. Unsuccessful generation requests are omitted. Filter with `status=ready` for current actions. For callers with company:update permission, listing automatically queues generation when no actions are ready or in progress, with a ten-minute cooldown after an unsuccessful request from the current pipeline version.
 
         Parameters
         ----------
@@ -172,7 +172,7 @@ class RawEconomicIntelligenceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[EconomicIntelligence]:
         """
-        Harnesses Economic Intelligence to generate recommended actions that lead the business down the most optimal path to the next dollar. Returns a `queued` recommendation right away. Poll the list endpoint until it is `ready` or `failed`.
+        Harnesses Economic Intelligence to generate recommended actions that lead the business down the most optimal path to the next dollar. Returns a `queued` recommendation right away. Poll the list endpoint until it is `ready` or disappears.
 
         Parameters
         ----------
@@ -385,7 +385,7 @@ class AsyncRawEconomicIntelligenceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[EconomicIntelligence, ListEconomicIntelligenceResponse]:
         """
-        Lists all recommended actions Economic Intelligence has generated for the account, newest first. Filter with `status=ready` for actions that are current.
+        Lists recommended actions and in-progress requests for the account, newest first. Unsuccessful generation requests are omitted. Filter with `status=ready` for current actions. For callers with company:update permission, listing automatically queues generation when no actions are ready or in progress, with a ten-minute cooldown after an unsuccessful request from the current pipeline version.
 
         Parameters
         ----------
@@ -517,7 +517,7 @@ class AsyncRawEconomicIntelligenceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[EconomicIntelligence]:
         """
-        Harnesses Economic Intelligence to generate recommended actions that lead the business down the most optimal path to the next dollar. Returns a `queued` recommendation right away. Poll the list endpoint until it is `ready` or `failed`.
+        Harnesses Economic Intelligence to generate recommended actions that lead the business down the most optimal path to the next dollar. Returns a `queued` recommendation right away. Poll the list endpoint until it is `ready` or disappears.
 
         Parameters
         ----------
