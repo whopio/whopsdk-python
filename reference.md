@@ -17080,7 +17080,7 @@ client.economic_intelligence.create(
 <dl>
 <dd>
 
-Retires a `ready` recommendation the owner no longer wants by setting its status to `superseded`. It leaves the ready list and stays in the account's history.
+Records approval with `executed`, or retires an unwanted recommendation with `superseded`. Both replenish the ready inventory. Supplying a rejection reason also allows retiring an executed recommendation.
 </dd>
 </dl>
 </dd>
@@ -17105,7 +17105,7 @@ client = Whop(
 
 client.economic_intelligence.update(
     id="id",
-    status="superseded",
+    status="executed",
 )
 
 ```
@@ -17130,7 +17130,7 @@ client.economic_intelligence.update(
 <dl>
 <dd>
 
-**status:** `UpdateEconomicIntelligenceRequestStatus` — The status to move the recommendation to. Only `superseded` is accepted.
+**status:** `UpdateEconomicIntelligenceRequestStatus` — Use `executed` after approval to start the action, or `superseded` to reject it.
     
 </dd>
 </dl>
@@ -17139,6 +17139,14 @@ client.economic_intelligence.update(
 <dd>
 
 **account_id:** `typing.Optional[str]` — Account ID, prefixed `biz_`. Defaults to the API key's own account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**reason:** `typing.Optional[str]` — Why the recommendation was rejected. Used as feedback when replenishing recommendations.
     
 </dd>
 </dl>

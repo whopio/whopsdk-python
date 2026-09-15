@@ -261,10 +261,11 @@ class RawEconomicIntelligenceClient:
         *,
         status: UpdateEconomicIntelligenceRequestStatus,
         account_id: typing.Optional[str] = None,
+        reason: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[EconomicIntelligence]:
         """
-        Retires a `ready` recommendation the owner no longer wants by setting its status to `superseded`. It leaves the ready list and stays in the account's history.
+        Records approval with `executed`, or retires an unwanted recommendation with `superseded`. Both replenish the ready inventory. Supplying a rejection reason also allows retiring an executed recommendation.
 
         Parameters
         ----------
@@ -272,10 +273,13 @@ class RawEconomicIntelligenceClient:
             Recommendation ID, prefixed `reca_`.
 
         status : UpdateEconomicIntelligenceRequestStatus
-            The status to move the recommendation to. Only `superseded` is accepted.
+            Use `executed` after approval to start the action, or `superseded` to reject it.
 
         account_id : typing.Optional[str]
             Account ID, prefixed `biz_`. Defaults to the API key's own account.
+
+        reason : typing.Optional[str]
+            Why the recommendation was rejected. Used as feedback when replenishing recommendations.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -292,6 +296,7 @@ class RawEconomicIntelligenceClient:
                 "account_id": account_id,
             },
             json={
+                "reason": reason,
                 "status": status,
             },
             headers={
@@ -601,10 +606,11 @@ class AsyncRawEconomicIntelligenceClient:
         *,
         status: UpdateEconomicIntelligenceRequestStatus,
         account_id: typing.Optional[str] = None,
+        reason: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[EconomicIntelligence]:
         """
-        Retires a `ready` recommendation the owner no longer wants by setting its status to `superseded`. It leaves the ready list and stays in the account's history.
+        Records approval with `executed`, or retires an unwanted recommendation with `superseded`. Both replenish the ready inventory. Supplying a rejection reason also allows retiring an executed recommendation.
 
         Parameters
         ----------
@@ -612,10 +618,13 @@ class AsyncRawEconomicIntelligenceClient:
             Recommendation ID, prefixed `reca_`.
 
         status : UpdateEconomicIntelligenceRequestStatus
-            The status to move the recommendation to. Only `superseded` is accepted.
+            Use `executed` after approval to start the action, or `superseded` to reject it.
 
         account_id : typing.Optional[str]
             Account ID, prefixed `biz_`. Defaults to the API key's own account.
+
+        reason : typing.Optional[str]
+            Why the recommendation was rejected. Used as feedback when replenishing recommendations.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -632,6 +641,7 @@ class AsyncRawEconomicIntelligenceClient:
                 "account_id": account_id,
             },
             json={
+                "reason": reason,
                 "status": status,
             },
             headers={
