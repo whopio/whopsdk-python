@@ -7,7 +7,7 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
-from ..types.onboarding_reward import OnboardingReward
+from ..types.partner import Partner
 from .raw_client import AsyncRawPartnersClient, RawPartnersClient
 from .types.create_partners_response import CreatePartnersResponse
 from .types.leaderboard_partners_request_period import LeaderboardPartnersRequestPeriod
@@ -17,6 +17,7 @@ from .types.referred_users_partners_response_data_item import ReferredUsersPartn
 
 if typing.TYPE_CHECKING:
     from .businesses.client import AsyncBusinessesClient, BusinessesClient
+    from .links.client import AsyncLinksClient, LinksClient
 
 
 class PartnersClient:
@@ -24,6 +25,7 @@ class PartnersClient:
         self._raw_client = RawPartnersClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._businesses: typing.Optional[BusinessesClient] = None
+        self._links: typing.Optional[LinksClient] = None
 
     @property
     def with_raw_response(self) -> RawPartnersClient:
@@ -100,47 +102,6 @@ class PartnersClient:
         _response = self._raw_client.leaderboard(period=period, request_options=request_options)
         return _response.data
 
-    def retrieve_link(
-        self, *, partner_username: str, reward_slug: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> OnboardingReward:
-        """
-        Resolves the public reward terms and whether redemption capacity remains. Immediate rewards claim capacity at business creation; qualified rewards claim it when the business reaches the threshold.
-
-        Parameters
-        ----------
-        partner_username : str
-            Username from the partner link's `a` query parameter.
-
-        reward_slug : str
-            Reward slug from the partner link's `reward` query parameter.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        OnboardingReward
-            reward link verified
-
-        Examples
-        --------
-        from whop_sdk import Whop
-
-        client = Whop(
-            "2026-09-13",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-        client.partners.retrieve_link(
-            partner_username="partner_username",
-            reward_slug="reward_slug",
-        )
-        """
-        _response = self._raw_client.retrieve_link(
-            partner_username=partner_username, reward_slug=reward_slug, request_options=request_options
-        )
-        return _response.data
-
     def referred_users(
         self,
         *,
@@ -209,6 +170,39 @@ class PartnersClient:
             request_options=request_options,
         )
 
+    def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Partner:
+        """
+        Retrieves the authenticated user's public profile, enrollment date, active direct business referral count, and default payout rates. Use me or the authenticated user's own user ID; other users are not accessible. Users who have not enrolled have a null joined_at. Retrieve referral URLs and promotion links from GET /partners/links.
+
+        Parameters
+        ----------
+        id : str
+            The authenticated partner's user ID, prefixed user_, or me. Other users' profiles are not accessible.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Partner
+            partner retrieved
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-09-13",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.partners.retrieve(
+            id="me",
+        )
+        """
+        _response = self._raw_client.retrieve(id, request_options=request_options)
+        return _response.data
+
     @property
     def businesses(self):
         if self._businesses is None:
@@ -217,12 +211,21 @@ class PartnersClient:
             self._businesses = BusinessesClient(client_wrapper=self._client_wrapper)
         return self._businesses
 
+    @property
+    def links(self):
+        if self._links is None:
+            from .links.client import LinksClient  # noqa: E402
+
+            self._links = LinksClient(client_wrapper=self._client_wrapper)
+        return self._links
+
 
 class AsyncPartnersClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._raw_client = AsyncRawPartnersClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._businesses: typing.Optional[AsyncBusinessesClient] = None
+        self._links: typing.Optional[AsyncLinksClient] = None
 
     @property
     def with_raw_response(self) -> AsyncRawPartnersClient:
@@ -315,55 +318,6 @@ class AsyncPartnersClient:
         _response = await self._raw_client.leaderboard(period=period, request_options=request_options)
         return _response.data
 
-    async def retrieve_link(
-        self, *, partner_username: str, reward_slug: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> OnboardingReward:
-        """
-        Resolves the public reward terms and whether redemption capacity remains. Immediate rewards claim capacity at business creation; qualified rewards claim it when the business reaches the threshold.
-
-        Parameters
-        ----------
-        partner_username : str
-            Username from the partner link's `a` query parameter.
-
-        reward_slug : str
-            Reward slug from the partner link's `reward` query parameter.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        OnboardingReward
-            reward link verified
-
-        Examples
-        --------
-        import asyncio
-
-        from whop_sdk import AsyncWhop
-
-        client = AsyncWhop(
-            "2026-09-13",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.partners.retrieve_link(
-                partner_username="partner_username",
-                reward_slug="reward_slug",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.retrieve_link(
-            partner_username=partner_username, reward_slug=reward_slug, request_options=request_options
-        )
-        return _response.data
-
     async def referred_users(
         self,
         *,
@@ -441,6 +395,47 @@ class AsyncPartnersClient:
             request_options=request_options,
         )
 
+    async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Partner:
+        """
+        Retrieves the authenticated user's public profile, enrollment date, active direct business referral count, and default payout rates. Use me or the authenticated user's own user ID; other users are not accessible. Users who have not enrolled have a null joined_at. Retrieve referral URLs and promotion links from GET /partners/links.
+
+        Parameters
+        ----------
+        id : str
+            The authenticated partner's user ID, prefixed user_, or me. Other users' profiles are not accessible.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Partner
+            partner retrieved
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-09-13",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.partners.retrieve(
+                id="me",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.retrieve(id, request_options=request_options)
+        return _response.data
+
     @property
     def businesses(self):
         if self._businesses is None:
@@ -448,3 +443,11 @@ class AsyncPartnersClient:
 
             self._businesses = AsyncBusinessesClient(client_wrapper=self._client_wrapper)
         return self._businesses
+
+    @property
+    def links(self):
+        if self._links is None:
+            from .links.client import AsyncLinksClient  # noqa: E402
+
+            self._links = AsyncLinksClient(client_wrapper=self._client_wrapper)
+        return self._links
