@@ -100,8 +100,16 @@ class PlanCreateParams(TypedDict, total=False):
     Ignored when unlimited_stock is true.
     """
 
-    three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]]
-    """3D Secure behavior for this plan. Send `null` to inherit the account default."""
+    three_ds_level: Optional[Literal["mandate_challenge", "mandate_if_required", "frictionless_if_required"]]
+    """3D Secure behavior for supported on-session card payments.
+
+    `mandate_challenge` requires a 3DS challenge before payment processing;
+    `mandate_if_required` mandates a challenge only when the payment processor
+    requires it; `frictionless_if_required` uses the regular frictionless 3DS flow.
+    Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge`
+    is selected. Risk and authentication recovery requirements can override the
+    preference. Send `null` to inherit the account default.
+    """
 
     title: Optional[str]
     """The display name of the plan shown to customers on the product page."""

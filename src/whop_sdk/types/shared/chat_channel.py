@@ -37,7 +37,10 @@ class ChatChannel(BaseModel):
     """Whether URL links are blocked from being posted in this chat."""
 
     banned_words: List[str]
-    """A list of words that are automatically filtered from messages in this chat."""
+    """A list of words that are automatically filtered from messages in this chat.
+
+    Empty unless the caller has permission to moderate this chat.
+    """
 
     experience: Experience
     """The experience this chat feed is attached to."""

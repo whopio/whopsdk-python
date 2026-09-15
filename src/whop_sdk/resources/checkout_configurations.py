@@ -67,7 +67,8 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         plan: Optional[checkout_configuration_create_params.Plan] | Omit = omit,
         plan_id: Optional[str] | Omit = omit,
         redirect_url: Optional[str] | Omit = omit,
-        three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] | Omit = omit,
+        three_ds_level: Optional[Literal["mandate_challenge", "mandate_if_required", "frictionless_if_required"]]
+        | Omit = omit,
         api_version_date: str | Omit = omit,
         idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -102,7 +103,14 @@ class CheckoutConfigurationsResource(SyncAPIResource):
 
           redirect_url: URL customers are sent to after checkout.
 
-          three_ds_level: 3D Secure behavior for this checkout.
+          three_ds_level: 3D Secure behavior for supported on-session card payments. `mandate_challenge`
+              requires a 3DS challenge before payment processing; `mandate_if_required`
+              mandates a challenge only when the payment processor requires it;
+              `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of
+              $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected.
+              Risk and authentication recovery requirements can override the preference.
+              Applies in setup mode; `null` uses frictionless 3DS. Payment mode uses the plan
+              policy.
 
           extra_headers: Send extra headers
 
@@ -296,7 +304,8 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         plan: Optional[checkout_configuration_create_params.Plan] | Omit = omit,
         plan_id: Optional[str] | Omit = omit,
         redirect_url: Optional[str] | Omit = omit,
-        three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] | Omit = omit,
+        three_ds_level: Optional[Literal["mandate_challenge", "mandate_if_required", "frictionless_if_required"]]
+        | Omit = omit,
         api_version_date: str | Omit = omit,
         idempotency_key: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -331,7 +340,14 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
 
           redirect_url: URL customers are sent to after checkout.
 
-          three_ds_level: 3D Secure behavior for this checkout.
+          three_ds_level: 3D Secure behavior for supported on-session card payments. `mandate_challenge`
+              requires a 3DS challenge before payment processing; `mandate_if_required`
+              mandates a challenge only when the payment processor requires it;
+              `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of
+              $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected.
+              Risk and authentication recovery requirements can override the preference.
+              Applies in setup mode; `null` uses frictionless 3DS. Payment mode uses the plan
+              policy.
 
           extra_headers: Send extra headers
 

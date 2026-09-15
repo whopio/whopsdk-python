@@ -48,8 +48,17 @@ class CheckoutConfigurationCreateParams(TypedDict, total=False):
     redirect_url: Optional[str]
     """URL customers are sent to after checkout."""
 
-    three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]]
-    """3D Secure behavior for this checkout."""
+    three_ds_level: Optional[Literal["mandate_challenge", "mandate_if_required", "frictionless_if_required"]]
+    """3D Secure behavior for supported on-session card payments.
+
+    `mandate_challenge` requires a 3DS challenge before payment processing;
+    `mandate_if_required` mandates a challenge only when the payment processor
+    requires it; `frictionless_if_required` uses the regular frictionless 3DS flow.
+    Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge`
+    is selected. Risk and authentication recovery requirements can override the
+    preference. Applies in setup mode; `null` uses frictionless 3DS. Payment mode
+    uses the plan policy.
+    """
 
     api_version_date: Annotated[str, PropertyInfo(alias="Api-Version-Date")]
 
@@ -139,8 +148,16 @@ class Plan(TypedDict, total=False):
     stock: Optional[int]
     """Units available for purchase."""
 
-    three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]]
-    """3D Secure behavior for the inline plan, or `null` to use the account default."""
+    three_ds_level: Optional[Literal["mandate_challenge", "mandate_if_required", "frictionless_if_required"]]
+    """3D Secure behavior for supported on-session card payments.
+
+    `mandate_challenge` requires a 3DS challenge before payment processing;
+    `mandate_if_required` mandates a challenge only when the payment processor
+    requires it; `frictionless_if_required` uses the regular frictionless 3DS flow.
+    Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge`
+    is selected. Risk and authentication recovery requirements can override the
+    preference. `null` inherits the account default.
+    """
 
     title: Optional[str]
     """Plan display name shown to customers."""

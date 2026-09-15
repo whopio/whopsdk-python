@@ -77,7 +77,8 @@ class PlansResource(SyncAPIResource):
         renewal_price: Optional[float] | Omit = omit,
         split_pay_required_payments: Optional[int] | Omit = omit,
         stock: Optional[int] | Omit = omit,
-        three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] | Omit = omit,
+        three_ds_level: Optional[Literal["mandate_challenge", "mandate_if_required", "frictionless_if_required"]]
+        | Omit = omit,
         title: Optional[str] | Omit = omit,
         trial_period_days: Optional[int] | Omit = omit,
         unlimited_stock: Optional[bool] | Omit = omit,
@@ -148,7 +149,13 @@ class PlansResource(SyncAPIResource):
           stock: The maximum number of units available for purchase. Ignored when unlimited_stock
               is true.
 
-          three_ds_level: 3D Secure behavior for this plan. Send `null` to inherit the account default.
+          three_ds_level: 3D Secure behavior for supported on-session card payments. `mandate_challenge`
+              requires a 3DS challenge before payment processing; `mandate_if_required`
+              mandates a challenge only when the payment processor requires it;
+              `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of
+              $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected.
+              Risk and authentication recovery requirements can override the preference. Send
+              `null` to inherit the account default.
 
           title: The display name of the plan shown to customers on the product page.
 
@@ -273,7 +280,8 @@ class PlansResource(SyncAPIResource):
         stock: Optional[int] | Omit = omit,
         strike_through_initial_price: Optional[float] | Omit = omit,
         strike_through_renewal_price: Optional[float] | Omit = omit,
-        three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] | Omit = omit,
+        three_ds_level: Optional[Literal["mandate_challenge", "mandate_if_required", "frictionless_if_required"]]
+        | Omit = omit,
         title: Optional[str] | Omit = omit,
         trial_period_days: Optional[int] | Omit = omit,
         unlimited_stock: Optional[bool] | Omit = omit,
@@ -345,7 +353,13 @@ class PlansResource(SyncAPIResource):
 
           strike_through_renewal_price: A comparison price displayed with a strikethrough for the renewal price.
 
-          three_ds_level: 3D Secure behavior for this plan. Send `null` to inherit the account default.
+          three_ds_level: 3D Secure behavior for supported on-session card payments. `mandate_challenge`
+              requires a 3DS challenge before payment processing; `mandate_if_required`
+              mandates a challenge only when the payment processor requires it;
+              `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of
+              $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected.
+              Risk and authentication recovery requirements can override the preference. Send
+              `null` to inherit the account default.
 
           title: The display name of the plan shown to customers on the product page.
 
@@ -593,7 +607,8 @@ class AsyncPlansResource(AsyncAPIResource):
         renewal_price: Optional[float] | Omit = omit,
         split_pay_required_payments: Optional[int] | Omit = omit,
         stock: Optional[int] | Omit = omit,
-        three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] | Omit = omit,
+        three_ds_level: Optional[Literal["mandate_challenge", "mandate_if_required", "frictionless_if_required"]]
+        | Omit = omit,
         title: Optional[str] | Omit = omit,
         trial_period_days: Optional[int] | Omit = omit,
         unlimited_stock: Optional[bool] | Omit = omit,
@@ -664,7 +679,13 @@ class AsyncPlansResource(AsyncAPIResource):
           stock: The maximum number of units available for purchase. Ignored when unlimited_stock
               is true.
 
-          three_ds_level: 3D Secure behavior for this plan. Send `null` to inherit the account default.
+          three_ds_level: 3D Secure behavior for supported on-session card payments. `mandate_challenge`
+              requires a 3DS challenge before payment processing; `mandate_if_required`
+              mandates a challenge only when the payment processor requires it;
+              `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of
+              $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected.
+              Risk and authentication recovery requirements can override the preference. Send
+              `null` to inherit the account default.
 
           title: The display name of the plan shown to customers on the product page.
 
@@ -789,7 +810,8 @@ class AsyncPlansResource(AsyncAPIResource):
         stock: Optional[int] | Omit = omit,
         strike_through_initial_price: Optional[float] | Omit = omit,
         strike_through_renewal_price: Optional[float] | Omit = omit,
-        three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] | Omit = omit,
+        three_ds_level: Optional[Literal["mandate_challenge", "mandate_if_required", "frictionless_if_required"]]
+        | Omit = omit,
         title: Optional[str] | Omit = omit,
         trial_period_days: Optional[int] | Omit = omit,
         unlimited_stock: Optional[bool] | Omit = omit,
@@ -861,7 +883,13 @@ class AsyncPlansResource(AsyncAPIResource):
 
           strike_through_renewal_price: A comparison price displayed with a strikethrough for the renewal price.
 
-          three_ds_level: 3D Secure behavior for this plan. Send `null` to inherit the account default.
+          three_ds_level: 3D Secure behavior for supported on-session card payments. `mandate_challenge`
+              requires a 3DS challenge before payment processing; `mandate_if_required`
+              mandates a challenge only when the payment processor requires it;
+              `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of
+              $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected.
+              Risk and authentication recovery requirements can override the preference. Send
+              `null` to inherit the account default.
 
           title: The display name of the plan shown to customers on the product page.
 

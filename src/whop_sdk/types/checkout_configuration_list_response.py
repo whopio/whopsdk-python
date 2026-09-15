@@ -77,8 +77,16 @@ class Plan(BaseModel):
     renewal_price: float
     """Recurring price charged each billing period."""
 
-    three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] = None
-    """3D Secure behavior for this plan, or `null` to use the account default."""
+    three_ds_level: Optional[Literal["mandate_challenge", "mandate_if_required", "frictionless_if_required"]] = None
+    """3D Secure behavior for supported on-session card payments.
+
+    `mandate_challenge` requires a 3DS challenge before payment processing;
+    `mandate_if_required` mandates a challenge only when the payment processor
+    requires it; `frictionless_if_required` uses the regular frictionless 3DS flow.
+    Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge`
+    is selected. Risk and authentication recovery requirements can override the
+    preference. `null` inherits the account default.
+    """
 
     trial_period_days: Optional[int] = None
     """Free trial days before the first renewal charge."""
@@ -149,5 +157,14 @@ class CheckoutConfigurationListResponse(BaseModel):
     configured.
     """
 
-    three_ds_level: Optional[Literal["mandate_challenge", "frictionless"]] = None
-    """3D Secure behavior for this checkout, or `null` to use the account default."""
+    three_ds_level: Optional[Literal["mandate_challenge", "mandate_if_required", "frictionless_if_required"]] = None
+    """3D Secure behavior for supported on-session card payments.
+
+    `mandate_challenge` requires a 3DS challenge before payment processing;
+    `mandate_if_required` mandates a challenge only when the payment processor
+    requires it; `frictionless_if_required` uses the regular frictionless 3DS flow.
+    Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge`
+    is selected. Risk and authentication recovery requirements can override the
+    preference. Applies in setup mode; `null` uses frictionless 3DS. Payment mode
+    uses the plan policy.
+    """
