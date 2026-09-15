@@ -3,5 +3,5 @@
 import typing
 
 ListEconomicIntelligenceRequestStatus = typing.Union[
-    typing.Literal["queued", "pending", "ready", "executed", "superseded", "failed"], typing.Any
+    typing.Literal["queued", "pending", "ready", "executed", "superseded"], typing.Any
 ]

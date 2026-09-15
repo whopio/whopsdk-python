@@ -50,7 +50,7 @@ class EconomicIntelligence(UniversalBaseModel):
 
     status: EconomicIntelligenceStatus = pydantic.Field()
     """
-    `queued` once requested and not yet picked up; `pending` while the engine is generating; `ready` when the card is written and the owner can run it; `executed` once it was run; `superseded` when a newer card of the same action type replaced it; `failed` when the engine had nothing to recommend for the request
+    `queued` once requested and not yet picked up; `pending` while the engine is generating; `ready` when the card is written and the owner can run it; `executed` once it was run; `superseded` when a newer card of the same action type replaced it
     """
 
     superseded_at: typing.Optional[str] = pydantic.Field(default=None)
