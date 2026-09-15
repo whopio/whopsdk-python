@@ -6,6 +6,7 @@ AuthorizedUserRoles = typing.Union[
     typing.Literal[
         "owner",
         "admin",
+        "partner",
         "sales_manager",
         "moderator",
         "advertiser",

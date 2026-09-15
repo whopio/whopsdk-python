@@ -223,7 +223,7 @@ class RawTeamMembersClient:
             Account ID, prefixed `biz_`.
 
         role : CreateTeamMembersRequestRole
-            The system role to grant.
+            The system role to grant. Partners must pass all certification quizzes.
 
         email : typing.Optional[str]
             Email address to invite. Mutually exclusive with `user_id`. If the email already belongs to a Whop account it is treated the same as passing that account's `user_id`; otherwise a pending invite is created for the email.
@@ -446,7 +446,7 @@ class RawTeamMembersClient:
             Team member ID — `ausr_` for accepted members, `ausri_` for pending invites.
 
         role : UpdateTeamMembersRequestRole
-            The system role to grant.
+            The system role to grant. Partners must pass all certification quizzes.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -704,7 +704,7 @@ class AsyncRawTeamMembersClient:
             Account ID, prefixed `biz_`.
 
         role : CreateTeamMembersRequestRole
-            The system role to grant.
+            The system role to grant. Partners must pass all certification quizzes.
 
         email : typing.Optional[str]
             Email address to invite. Mutually exclusive with `user_id`. If the email already belongs to a Whop account it is treated the same as passing that account's `user_id`; otherwise a pending invite is created for the email.
@@ -929,7 +929,7 @@ class AsyncRawTeamMembersClient:
             Team member ID — `ausr_` for accepted members, `ausri_` for pending invites.
 
         role : UpdateTeamMembersRequestRole
-            The system role to grant.
+            The system role to grant. Partners must pass all certification quizzes.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

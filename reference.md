@@ -36930,7 +36930,7 @@ client.team_members.create(
 <dl>
 <dd>
 
-**role:** `CreateTeamMembersRequestRole` — The system role to grant.
+**role:** `CreateTeamMembersRequestRole` — The system role to grant. Partners must pass all certification quizzes.
     
 </dd>
 </dl>
@@ -37174,7 +37174,7 @@ client.team_members.update(
 <dl>
 <dd>
 
-**role:** `UpdateTeamMembersRequestRole` — The system role to grant.
+**role:** `UpdateTeamMembersRequestRole` — The system role to grant. Partners must pass all certification quizzes.
     
 </dd>
 </dl>

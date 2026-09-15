@@ -10,7 +10,7 @@ from .account_company_formation_signature_request_status import AccountCompanyFo
 class AccountCompanyFormationSignatureRequest(UniversalBaseModel):
     expires_at: typing.Optional[str] = pydantic.Field(default=None)
     """
-    When the signing URL expires, as an ISO 8601 timestamp. Present while `status` is `pending`.
+    When the signing URL expires, as an ISO 8601 timestamp. Present only when the signing URL is included.
     """
 
     status: AccountCompanyFormationSignatureRequestStatus = pydantic.Field()
@@ -20,7 +20,7 @@ class AccountCompanyFormationSignatureRequest(UniversalBaseModel):
 
     url: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Hosted signing URL where the founder completes the form. Present while `status` is `pending`.
+    Hosted signing URL where the founder completes the form. Present while `status` is `pending` and the caller has `incorporation:write`. Omitted from webhooks.
     """
 
     if IS_PYDANTIC_V2:
