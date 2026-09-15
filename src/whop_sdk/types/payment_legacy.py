@@ -261,7 +261,7 @@ class PaymentLegacy(UniversalBaseModel):
 
     risk_signals: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
     """
-    A curated set of factors behind the risk score, grouped by category (business transaction history, buyer, device). Each entry has a key, human-readable label, category, and value. Null when there is no risk assessment for this payment.
+    Deprecated. Always null.
     """
 
     settlement_amount: float = pydantic.Field()
