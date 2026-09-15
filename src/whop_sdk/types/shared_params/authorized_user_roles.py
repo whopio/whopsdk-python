@@ -9,6 +9,7 @@ __all__ = ["AuthorizedUserRoles"]
 AuthorizedUserRoles: TypeAlias = Literal[
     "owner",
     "admin",
+    "partner",
     "sales_manager",
     "moderator",
     "advertiser",

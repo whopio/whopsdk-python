@@ -239,13 +239,14 @@ class DataCompanyFormationSignaturesForm8821(BaseModel):
     expires_at: Optional[str] = None
     """When the signing URL expires, as an ISO 8601 timestamp.
 
-    Present while `status` is `pending`.
+    Present only when the signing URL is included.
     """
 
     url: Optional[str] = None
     """Hosted signing URL where the founder completes the form.
 
-    Present while `status` is `pending`.
+    Present while `status` is `pending` and the caller has `incorporation:write`.
+    Omitted from webhooks.
     """
 
 
@@ -264,13 +265,14 @@ class DataCompanyFormationSignaturesSs4(BaseModel):
     expires_at: Optional[str] = None
     """When the signing URL expires, as an ISO 8601 timestamp.
 
-    Present while `status` is `pending`.
+    Present only when the signing URL is included.
     """
 
     url: Optional[str] = None
     """Hosted signing URL where the founder completes the form.
 
-    Present while `status` is `pending`.
+    Present while `status` is `pending` and the caller has `incorporation:write`.
+    Omitted from webhooks.
     """
 
 
