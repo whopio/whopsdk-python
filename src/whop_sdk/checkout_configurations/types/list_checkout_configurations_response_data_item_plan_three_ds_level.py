@@ -3,5 +3,5 @@
 import typing
 
 ListCheckoutConfigurationsResponseDataItemPlanThreeDsLevel = typing.Union[
-    typing.Literal["mandate_challenge", "frictionless"], typing.Any
+    typing.Literal["mandate_challenge", "mandate_if_required", "frictionless_if_required"], typing.Any
 ]

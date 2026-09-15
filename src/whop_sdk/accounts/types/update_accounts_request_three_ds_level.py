@@ -2,4 +2,6 @@
 
 import typing
 
-UpdateAccountsRequestThreeDsLevel = typing.Union[typing.Literal["mandate_challenge"], typing.Any]
+UpdateAccountsRequestThreeDsLevel = typing.Union[
+    typing.Literal["mandate_challenge", "mandate_if_required", "frictionless_if_required"], typing.Any
+]

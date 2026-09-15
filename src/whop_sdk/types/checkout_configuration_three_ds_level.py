@@ -2,4 +2,6 @@
 
 import typing
 
-CheckoutConfigurationThreeDsLevel = typing.Union[typing.Literal["mandate_challenge", "frictionless"], typing.Any]
+CheckoutConfigurationThreeDsLevel = typing.Union[
+    typing.Literal["mandate_challenge", "mandate_if_required", "frictionless_if_required"], typing.Any
+]

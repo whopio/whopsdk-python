@@ -278,7 +278,7 @@ class Account(UniversalBaseModel):
 
     three_ds_level: typing.Optional[AccountThreeDsLevel] = pydantic.Field(default=None)
     """
-    Account-level 3D Secure behavior. `mandate_challenge` requires cardholder verification on supported card payments; `null` uses the standard checkout flow.
+    3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. `null` uses the standard checkout flow.
     """
 
     title: str = pydantic.Field()
