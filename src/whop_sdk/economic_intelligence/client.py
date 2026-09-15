@@ -42,7 +42,7 @@ class EconomicIntelligenceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[EconomicIntelligence, ListEconomicIntelligenceResponse]:
         """
-        Lists recommended actions and in-progress requests for the account, newest first. Unsuccessful generation requests are omitted. Filter with `status=ready` for current actions. For callers with company:update permission, listing automatically queues generation when no actions are ready or in progress, with a ten-minute cooldown after an unsuccessful request from the current pipeline version.
+        Lists an account's recommendations and generation requests, newest first.
 
         Parameters
         ----------
@@ -50,19 +50,19 @@ class EconomicIntelligenceClient:
             Account ID, prefixed `biz_`. Defaults to the API key's own account.
 
         status : typing.Optional[ListEconomicIntelligenceRequestStatus]
-            Only recommendations in this state. `ready` for the cards the owner can run now.
+            Filter recommendations by their current status.
 
         first : typing.Optional[int]
-            The number of recommendations to return (default 20, max 100).
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            A cursor; returns recommendations after this position.
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         last : typing.Optional[int]
-            The number of recommendations to return from the end of the range.
+            Number of results to return from the end of the range.
 
         before : typing.Optional[str]
-            A cursor; returns recommendations before this position.
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -106,7 +106,7 @@ class EconomicIntelligenceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> EconomicIntelligence:
         """
-        Harnesses Economic Intelligence to generate recommended actions that lead the business down the most optimal path to the next dollar. Returns a `queued` recommendation right away. Poll the list endpoint until it is `ready` or disappears.
+        Generates a recommendation based on your input. Returns immediately; poll the list endpoint until its `status` is `ready`.
 
         Parameters
         ----------
@@ -150,7 +150,7 @@ class EconomicIntelligenceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> EconomicIntelligence:
         """
-        Records approval with `executed`, or retires an unwanted recommendation with `superseded`. Both replenish the ready inventory. Supplying a rejection reason also allows retiring an executed recommendation.
+        Approves or rejects a recommendation and requests replacements.
 
         Parameters
         ----------
@@ -158,7 +158,7 @@ class EconomicIntelligenceClient:
             Recommendation ID, prefixed `reca_`.
 
         status : UpdateEconomicIntelligenceRequestStatus
-            Use `executed` after approval to start the action, or `superseded` to reject it.
+            Use `executed` to record approval, or `superseded` to reject the recommendation.
 
         account_id : typing.Optional[str]
             Account ID, prefixed `biz_`. Defaults to the API key's own account.
@@ -221,7 +221,7 @@ class AsyncEconomicIntelligenceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[EconomicIntelligence, ListEconomicIntelligenceResponse]:
         """
-        Lists recommended actions and in-progress requests for the account, newest first. Unsuccessful generation requests are omitted. Filter with `status=ready` for current actions. For callers with company:update permission, listing automatically queues generation when no actions are ready or in progress, with a ten-minute cooldown after an unsuccessful request from the current pipeline version.
+        Lists an account's recommendations and generation requests, newest first.
 
         Parameters
         ----------
@@ -229,19 +229,19 @@ class AsyncEconomicIntelligenceClient:
             Account ID, prefixed `biz_`. Defaults to the API key's own account.
 
         status : typing.Optional[ListEconomicIntelligenceRequestStatus]
-            Only recommendations in this state. `ready` for the cards the owner can run now.
+            Filter recommendations by their current status.
 
         first : typing.Optional[int]
-            The number of recommendations to return (default 20, max 100).
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            A cursor; returns recommendations after this position.
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         last : typing.Optional[int]
-            The number of recommendations to return from the end of the range.
+            Number of results to return from the end of the range.
 
         before : typing.Optional[str]
-            A cursor; returns recommendations before this position.
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -294,7 +294,7 @@ class AsyncEconomicIntelligenceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> EconomicIntelligence:
         """
-        Harnesses Economic Intelligence to generate recommended actions that lead the business down the most optimal path to the next dollar. Returns a `queued` recommendation right away. Poll the list endpoint until it is `ready` or disappears.
+        Generates a recommendation based on your input. Returns immediately; poll the list endpoint until its `status` is `ready`.
 
         Parameters
         ----------
@@ -346,7 +346,7 @@ class AsyncEconomicIntelligenceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> EconomicIntelligence:
         """
-        Records approval with `executed`, or retires an unwanted recommendation with `superseded`. Both replenish the ready inventory. Supplying a rejection reason also allows retiring an executed recommendation.
+        Approves or rejects a recommendation and requests replacements.
 
         Parameters
         ----------
@@ -354,7 +354,7 @@ class AsyncEconomicIntelligenceClient:
             Recommendation ID, prefixed `reca_`.
 
         status : UpdateEconomicIntelligenceRequestStatus
-            Use `executed` after approval to start the action, or `superseded` to reject it.
+            Use `executed` to record approval, or `superseded` to reject the recommendation.
 
         account_id : typing.Optional[str]
             Account ID, prefixed `biz_`. Defaults to the API key's own account.

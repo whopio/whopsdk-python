@@ -51,16 +51,16 @@ class RawPasskeysClient:
         Parameters
         ----------
         first : typing.Optional[int]
-            The number of passkeys to return (default 20, max 100).
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            A cursor; returns passkeys after this position.
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         last : typing.Optional[int]
-            The number of passkeys to return from the end of the range.
+            Number of results to return from the end of the range.
 
         before : typing.Optional[str]
-            A cursor; returns passkeys before this position.
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         order : typing.Optional[ListPasskeysRequestOrder]
             The field to sort passkeys by.
@@ -514,16 +514,16 @@ class AsyncRawPasskeysClient:
         Parameters
         ----------
         first : typing.Optional[int]
-            The number of passkeys to return (default 20, max 100).
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            A cursor; returns passkeys after this position.
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         last : typing.Optional[int]
-            The number of passkeys to return from the end of the range.
+            Number of results to return from the end of the range.
 
         before : typing.Optional[str]
-            A cursor; returns passkeys before this position.
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         order : typing.Optional[ListPasskeysRequestOrder]
             The field to sort passkeys by.

@@ -59,10 +59,10 @@ class TopicsClient:
             Only return preferences scoped to this notification topic (`topic_` tag).
 
         first : typing.Optional[int]
-            The number of preferences to return.
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            A cursor; returns preferences after this position.
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -148,10 +148,10 @@ class AsyncTopicsClient:
             Only return preferences scoped to this notification topic (`topic_` tag).
 
         first : typing.Optional[int]
-            The number of preferences to return.
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            A cursor; returns preferences after this position.
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

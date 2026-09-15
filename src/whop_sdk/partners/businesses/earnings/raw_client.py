@@ -57,12 +57,16 @@ class RawEarningsClient:
             Filter to earnings from these income sources. Repeat the parameter for each one (income_source=sales&income_source=ad_spend).
 
         first : typing.Optional[int]
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         last : typing.Optional[int]
+            Number of results to return from the end of the range.
 
         before : typing.Optional[str]
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         order : typing.Optional[ListEarningsRequestOrder]
             The field to sort earnings by.
@@ -189,12 +193,16 @@ class AsyncRawEarningsClient:
             Filter to earnings from these income sources. Repeat the parameter for each one (income_source=sales&income_source=ad_spend).
 
         first : typing.Optional[int]
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         last : typing.Optional[int]
+            Number of results to return from the end of the range.
 
         before : typing.Optional[str]
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         order : typing.Optional[ListEarningsRequestOrder]
             The field to sort earnings by.

@@ -43,10 +43,10 @@ class TopicsClient:
             Only return topics of this scope: `user` (member notifications) or `account_team` (team notifications).
 
         first : typing.Optional[int]
-            The number of topics to return (default 20, max 100).
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            A cursor; returns topics after this position.
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -107,10 +107,10 @@ class AsyncTopicsClient:
             Only return topics of this scope: `user` (member notifications) or `account_team` (team notifications).
 
         first : typing.Optional[int]
-            The number of topics to return (default 20, max 100).
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            A cursor; returns topics after this position.
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

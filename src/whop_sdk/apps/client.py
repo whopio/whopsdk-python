@@ -99,16 +99,16 @@ class AppsClient:
             Sort direction.
 
         first : typing.Optional[int]
-            The number of apps to return (default 20, max 100).
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            A cursor; returns apps after this position.
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         last : typing.Optional[int]
-            The number of apps to return from the end of the range.
+            Number of results to return from the end of the range.
 
         before : typing.Optional[str]
-            A cursor; returns apps before this position.
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -505,13 +505,13 @@ class AppsClient:
             End of the time window as an ISO 8601 timestamp. Defaults to now.
 
         first : typing.Optional[int]
-            The number of log lines to return (max 500).
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            A cursor for fetching logs after a previous page.
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         before : typing.Optional[str]
-            A cursor for fetching logs before a later page.
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -671,16 +671,16 @@ class AsyncAppsClient:
             Sort direction.
 
         first : typing.Optional[int]
-            The number of apps to return (default 20, max 100).
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            A cursor; returns apps after this position.
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         last : typing.Optional[int]
-            The number of apps to return from the end of the range.
+            Number of results to return from the end of the range.
 
         before : typing.Optional[str]
-            A cursor; returns apps before this position.
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1126,13 +1126,13 @@ class AsyncAppsClient:
             End of the time window as an ISO 8601 timestamp. Defaults to now.
 
         first : typing.Optional[int]
-            The number of log lines to return (max 500).
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            A cursor for fetching logs after a previous page.
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         before : typing.Optional[str]
-            A cursor for fetching logs before a later page.
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
