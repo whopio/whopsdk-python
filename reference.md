@@ -19283,6 +19283,8 @@ Pass `flag_key` to check a single flag, or omit it to fetch active flags in the 
 Assignments use exactly the configured `bucket_by`: `subject[user_id]`, `subject[account_id]`, or `subject[anonymous_id]`. Internal user experiments derive identity from the signed-in session. Missing the required identity fails single evaluation and omits the experiment from batch evaluation. Subjects outside all treatment ranges receive control.
 
 Pass `subject[account_id]` to enable account-level targeting rules. Pass `properties` as a JSON object to supply the values that `property` targeting conditions match against.
+
+Pass `log_exposure=false` to read an assignment without recording an exposure, for a client that caches assignments up front and records the exposure when the arm is actually rendered. Omitted records the exposure, so pinned callers are unchanged.
 </dd>
 </dl>
 </dd>
@@ -19354,6 +19356,14 @@ client.experiments.exposures()
 <dd>
 
 **properties:** `typing.Optional[str]` — JSON-encoded scalar values that property targeting conditions match against. Numeric and boolean strings are coerced. Nested query keys such as properties[plan]=pro remain accepted for existing callers. For internal experiments, is_internal_user is derived from the session and cannot be overridden.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**log_exposure:** `typing.Optional[bool]` — Set false to evaluate without recording an exposure. Omitted records it.
     
 </dd>
 </dl>
@@ -26238,88 +26248,6 @@ client.partners.leaderboard()
 </dl>
 </details>
 
-<details><summary><code>client.partners.<a href="src/whop_sdk/partners/client.py">retrieve_link</a>(...) -> OnboardingReward</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Resolves the public reward terms and whether redemption capacity remains. Immediate rewards claim capacity at business creation; qualified rewards claim it when the business reaches the threshold.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from whop_sdk import Whop
-from whop_sdk.environment import WhopEnvironment
-
-client = Whop(
-    token="<token>",
-    environment=WhopEnvironment.DEFAULT,
-)
-
-client.partners.retrieve_link(
-    partner_username="partner_username",
-    reward_slug="reward_slug",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**partner_username:** `str` — Username from the partner link's `a` query parameter.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**reward_slug:** `str` — Reward slug from the partner link's `reward` query parameter.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.partners.<a href="src/whop_sdk/partners/client.py">referred_users</a>(...) -> ReferredUsersPartnersResponse</code></summary>
 <dl>
 <dd>
@@ -26412,6 +26340,79 @@ client.partners.referred_users()
 <dd>
 
 **before:** `typing.Optional[str]` — Cursor to fetch the page before (from page_info.start_cursor).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.partners.<a href="src/whop_sdk/partners/client.py">retrieve</a>(...) -> Partner</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves the authenticated user's public profile, enrollment date, active direct business referral count, and default payout rates. Use me or the authenticated user's own user ID; other users are not accessible. Users who have not enrolled have a null joined_at. Retrieve referral URLs and promotion links from GET /partners/links.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.DEFAULT,
+)
+
+client.partners.retrieve(
+    id="me",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The authenticated partner's user ID, prefixed user_, or me. Other users' profiles are not accessible.
     
 </dd>
 </dl>
@@ -41296,6 +41297,110 @@ client.partners.businesses.retrieve(
 <dd>
 
 **id:** `str` — The partner business ID (a coma_ identifier).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Partners Links
+<details><summary><code>client.partners.links.<a href="src/whop_sdk/partners/links/client.py">list</a>(...) -> ListLinksResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the authenticated user's standard referral URL and a page of their balance reward links, newest first. Expired and fully claimed rewards are included by default; deleted rewards are excluded. Filter status to narrow the promotion links. Users do not need to be enrolled to retrieve their links.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.DEFAULT,
+)
+
+client.partners.links.list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[typing.Union[ListLinksRequestStatusItem, typing.Sequence[ListLinksRequestStatusItem]]]` — Filter promotion links by availability. Repeat the status parameter for multiple values.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first:** `typing.Optional[int]` — Number of promotion links to return from the start of the window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Cursor to fetch the page after (from page_info.end_cursor).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last:** `typing.Optional[int]` — Number of promotion links to return from the end of the window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Cursor to fetch the page before (from page_info.start_cursor).
     
 </dd>
 </dl>

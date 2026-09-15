@@ -717,12 +717,19 @@ if typing.TYPE_CHECKING:
     from .notification_topic_summary_topic_type import NotificationTopicSummaryTopicType
     from .notification_topic_topic_type import NotificationTopicTopicType
     from .oauth_grant import OauthGrant
-    from .onboarding_reward import OnboardingReward
-    from .onboarding_reward_qualification_income_source import OnboardingRewardQualificationIncomeSource
-    from .onboarding_reward_reward_type import OnboardingRewardRewardType
-    from .onboarding_reward_status import OnboardingRewardStatus
     from .page_info import PageInfo
     from .pagination import Pagination
+    from .partner import Partner
+    from .partner_payout_duration import PartnerPayoutDuration
+    from .partner_payout_duration_unit import PartnerPayoutDurationUnit
+    from .partner_payout_rate import PartnerPayoutRate
+    from .partner_payout_rate_income_source import PartnerPayoutRateIncomeSource
+    from .partner_payout_tier import PartnerPayoutTier
+    from .partner_payout_tier_tier import PartnerPayoutTierTier
+    from .partner_reward_link import PartnerRewardLink
+    from .partner_reward_link_qualification_income_source import PartnerRewardLinkQualificationIncomeSource
+    from .partner_reward_link_reward_type import PartnerRewardLinkRewardType
+    from .partner_reward_link_status import PartnerRewardLinkStatus
     from .passkey import Passkey
     from .payment import Payment
     from .payment_address import PaymentAddress
@@ -1999,12 +2006,19 @@ _dynamic_imports: typing.Dict[str, str] = {
     "NotificationTopicSummaryTopicType": ".notification_topic_summary_topic_type",
     "NotificationTopicTopicType": ".notification_topic_topic_type",
     "OauthGrant": ".oauth_grant",
-    "OnboardingReward": ".onboarding_reward",
-    "OnboardingRewardQualificationIncomeSource": ".onboarding_reward_qualification_income_source",
-    "OnboardingRewardRewardType": ".onboarding_reward_reward_type",
-    "OnboardingRewardStatus": ".onboarding_reward_status",
     "PageInfo": ".page_info",
     "Pagination": ".pagination",
+    "Partner": ".partner",
+    "PartnerPayoutDuration": ".partner_payout_duration",
+    "PartnerPayoutDurationUnit": ".partner_payout_duration_unit",
+    "PartnerPayoutRate": ".partner_payout_rate",
+    "PartnerPayoutRateIncomeSource": ".partner_payout_rate_income_source",
+    "PartnerPayoutTier": ".partner_payout_tier",
+    "PartnerPayoutTierTier": ".partner_payout_tier_tier",
+    "PartnerRewardLink": ".partner_reward_link",
+    "PartnerRewardLinkQualificationIncomeSource": ".partner_reward_link_qualification_income_source",
+    "PartnerRewardLinkRewardType": ".partner_reward_link_reward_type",
+    "PartnerRewardLinkStatus": ".partner_reward_link_status",
     "Passkey": ".passkey",
     "Payment": ".payment",
     "PaymentAddress": ".payment_address",
@@ -3189,12 +3203,19 @@ __all__ = [
     "NotificationTopicSummaryTopicType",
     "NotificationTopicTopicType",
     "OauthGrant",
-    "OnboardingReward",
-    "OnboardingRewardQualificationIncomeSource",
-    "OnboardingRewardRewardType",
-    "OnboardingRewardStatus",
     "PageInfo",
     "Pagination",
+    "Partner",
+    "PartnerPayoutDuration",
+    "PartnerPayoutDurationUnit",
+    "PartnerPayoutRate",
+    "PartnerPayoutRateIncomeSource",
+    "PartnerPayoutTier",
+    "PartnerPayoutTierTier",
+    "PartnerRewardLink",
+    "PartnerRewardLinkQualificationIncomeSource",
+    "PartnerRewardLinkRewardType",
+    "PartnerRewardLinkStatus",
     "Passkey",
     "Payment",
     "PaymentAddress",

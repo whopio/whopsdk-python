@@ -5,13 +5,12 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .money import Money
-from .onboarding_reward_qualification_income_source import OnboardingRewardQualificationIncomeSource
-from .onboarding_reward_reward_type import OnboardingRewardRewardType
-from .onboarding_reward_status import OnboardingRewardStatus
-from .user_summary import UserSummary
+from .partner_reward_link_qualification_income_source import PartnerRewardLinkQualificationIncomeSource
+from .partner_reward_link_reward_type import PartnerRewardLinkRewardType
+from .partner_reward_link_status import PartnerRewardLinkStatus
 
 
-class OnboardingReward(UniversalBaseModel):
+class PartnerRewardLink(UniversalBaseModel):
     expires_at: typing.Optional[str] = pydantic.Field(default=None)
     """
     When the reward stops accepting new claims and qualifying volume, as an ISO 8601 timestamp. Null when it does not expire.
@@ -27,9 +26,9 @@ class OnboardingReward(UniversalBaseModel):
     How many businesses can earn this reward in total. Null when unlimited.
     """
 
-    partner: UserSummary = pydantic.Field()
+    name: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Partner whose link attributed this reward.
+    Promotion name used in the reward link. Null when the reward has no slug.
     """
 
     partner_reward_amount: typing.Optional[Money] = pydantic.Field(default=None)
@@ -42,44 +41,34 @@ class OnboardingReward(UniversalBaseModel):
     Required qualifying volume. Null for an immediate reward.
     """
 
-    qualification_income_source: typing.Optional[OnboardingRewardQualificationIncomeSource] = pydantic.Field(
+    qualification_income_source: typing.Optional[PartnerRewardLinkQualificationIncomeSource] = pydantic.Field(
         default=None
     )
     """
     Income source whose volume qualifies the business. Null for an immediate reward.
     """
 
-    qualification_met: typing.Optional[bool] = pydantic.Field(default=None)
+    redemptions: int = pydantic.Field()
     """
-    Whether the attributed business met the requirement. Null before a business claims the link.
-    """
-
-    qualification_progress: typing.Optional[Money] = pydantic.Field(default=None)
-    """
-    Qualifying volume accumulated by the attributed business. Null before a business claims the link and for immediate rewards.
+    Number of businesses that have claimed this reward. Rewards with a qualification count when the reward is granted; immediate rewards count when the business is attributed.
     """
 
-    remaining_redemptions: typing.Optional[int] = pydantic.Field(default=None)
+    referral_url: typing.Optional[str] = pydantic.Field(default=None)
     """
-    How many rewards are still unclaimed. For rewards with a qualification, a business claims one only when it meets the requirement, so this can reach zero while other businesses are still working toward it. Null when unlimited.
-    """
-
-    reward_amount: Money = pydantic.Field()
-    """
-    Reward value delivered after qualification.
+    Shareable partner URL that applies this promotion to a referred business. Null when the reward has no slug.
     """
 
-    reward_type: OnboardingRewardRewardType = pydantic.Field()
+    referred_business_reward_amount: Money = pydantic.Field()
+    """
+    Reward value delivered to the referred business after qualification.
+    """
+
+    reward_type: PartnerRewardLinkRewardType = pydantic.Field()
     """
     How the reward is delivered.
     """
 
-    rewarded: typing.Optional[bool] = pydantic.Field(default=None)
-    """
-    Whether the reward was credited to the attributed business. Null before a business claims the link.
-    """
-
-    status: OnboardingRewardStatus = pydantic.Field()
+    status: PartnerRewardLinkStatus = pydantic.Field()
     """
     Whether the reward can still be claimed: `available`, `fully_claimed`, `expired`, or `unavailable`.
     """

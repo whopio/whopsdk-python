@@ -217,6 +217,7 @@ class ExperimentsClient:
         flag_key: typing.Optional[str] = None,
         account_id: typing.Optional[str] = None,
         properties: typing.Optional[str] = None,
+        log_exposure: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ExposuresExperimentsResponse:
         """
@@ -227,6 +228,8 @@ class ExperimentsClient:
         Assignments use exactly the configured `bucket_by`: `subject[user_id]`, `subject[account_id]`, or `subject[anonymous_id]`. Internal user experiments derive identity from the signed-in session. Missing the required identity fails single evaluation and omits the experiment from batch evaluation. Subjects outside all treatment ranges receive control.
 
         Pass `subject[account_id]` to enable account-level targeting rules. Pass `properties` as a JSON object to supply the values that `property` targeting conditions match against.
+
+        Pass `log_exposure=false` to read an assignment without recording an exposure, for a client that caches assignments up front and records the exposure when the arm is actually rendered. Omitted records the exposure, so pinned callers are unchanged.
 
         Parameters
         ----------
@@ -244,6 +247,9 @@ class ExperimentsClient:
 
         properties : typing.Optional[str]
             JSON-encoded scalar values that property targeting conditions match against. Numeric and boolean strings are coerced. Nested query keys such as properties[plan]=pro remain accepted for existing callers. For internal experiments, is_internal_user is derived from the session and cannot be overridden.
+
+        log_exposure : typing.Optional[bool]
+            Set false to evaluate without recording an exposure. Omitted records it.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -270,6 +276,7 @@ class ExperimentsClient:
             flag_key=flag_key,
             account_id=account_id,
             properties=properties,
+            log_exposure=log_exposure,
             request_options=request_options,
         )
         return _response.data
@@ -737,6 +744,7 @@ class AsyncExperimentsClient:
         flag_key: typing.Optional[str] = None,
         account_id: typing.Optional[str] = None,
         properties: typing.Optional[str] = None,
+        log_exposure: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ExposuresExperimentsResponse:
         """
@@ -747,6 +755,8 @@ class AsyncExperimentsClient:
         Assignments use exactly the configured `bucket_by`: `subject[user_id]`, `subject[account_id]`, or `subject[anonymous_id]`. Internal user experiments derive identity from the signed-in session. Missing the required identity fails single evaluation and omits the experiment from batch evaluation. Subjects outside all treatment ranges receive control.
 
         Pass `subject[account_id]` to enable account-level targeting rules. Pass `properties` as a JSON object to supply the values that `property` targeting conditions match against.
+
+        Pass `log_exposure=false` to read an assignment without recording an exposure, for a client that caches assignments up front and records the exposure when the arm is actually rendered. Omitted records the exposure, so pinned callers are unchanged.
 
         Parameters
         ----------
@@ -764,6 +774,9 @@ class AsyncExperimentsClient:
 
         properties : typing.Optional[str]
             JSON-encoded scalar values that property targeting conditions match against. Numeric and boolean strings are coerced. Nested query keys such as properties[plan]=pro remain accepted for existing callers. For internal experiments, is_internal_user is derived from the session and cannot be overridden.
+
+        log_exposure : typing.Optional[bool]
+            Set false to evaluate without recording an exposure. Omitted records it.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -798,6 +811,7 @@ class AsyncExperimentsClient:
             flag_key=flag_key,
             account_id=account_id,
             properties=properties,
+            log_exposure=log_exposure,
             request_options=request_options,
         )
         return _response.data

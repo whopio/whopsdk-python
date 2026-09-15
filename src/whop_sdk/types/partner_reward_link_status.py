@@ -2,6 +2,6 @@
 
 import typing
 
-OnboardingRewardStatus = typing.Union[
+PartnerRewardLinkStatus = typing.Union[
     typing.Literal["available", "fully_claimed", "expired", "unavailable"], typing.Any
 ]
