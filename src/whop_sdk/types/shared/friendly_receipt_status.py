@@ -9,6 +9,7 @@ FriendlyReceiptStatus: TypeAlias = Literal[
     "requires_capture",
     "pending",
     "failed",
+    "blocked",
     "past_due",
     "canceled",
     "price_too_low",
