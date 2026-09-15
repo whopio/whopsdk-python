@@ -26,7 +26,7 @@ class ChatChannel(UniversalBaseModel):
 
     banned_words: typing.List[str] = pydantic.Field()
     """
-    A list of words that are automatically filtered from messages in this chat.
+    A list of words that are automatically filtered from messages in this chat. Empty unless the caller has permission to moderate this chat.
     """
 
     experience: ChatChannelExperience = pydantic.Field()
