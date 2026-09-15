@@ -354,18 +354,20 @@ class AppsResource(SyncAPIResource):
           account_id: Only return apps created by this account (`biz_` tag). With developer access to
               the account this includes its unlisted and hidden apps.
 
-          after: A cursor; returns apps after this position.
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
           app_type: Filter apps by the type of end-user they are built for. Apps of type `website`
               are left out unless you ask for them by name.
 
-          before: A cursor; returns apps before this position.
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           direction: Sort direction.
 
-          first: The number of apps to return (default 20, max 100).
+          first: Number of results to return from the start of the range.
 
-          last: The number of apps to return from the end of the range.
+          last: Number of results to return from the end of the range.
 
           order: The field to sort apps by. Defaults to discoverable_at, showing the most
               recently published apps first. `template_usage` ranks Whop-verified apps first,
@@ -753,18 +755,20 @@ class AsyncAppsResource(AsyncAPIResource):
           account_id: Only return apps created by this account (`biz_` tag). With developer access to
               the account this includes its unlisted and hidden apps.
 
-          after: A cursor; returns apps after this position.
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
           app_type: Filter apps by the type of end-user they are built for. Apps of type `website`
               are left out unless you ask for them by name.
 
-          before: A cursor; returns apps before this position.
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           direction: Sort direction.
 
-          first: The number of apps to return (default 20, max 100).
+          first: Number of results to return from the start of the range.
 
-          last: The number of apps to return from the end of the range.
+          last: Number of results to return from the end of the range.
 
           order: The field to sort apps by. Defaults to discoverable_at, showing the most
               recently published apps first. `template_usage` ranks Whop-verified apps first,

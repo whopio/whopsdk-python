@@ -281,9 +281,11 @@ class PromoCodesResource(SyncAPIResource):
         Args:
           account_id: Account whose promo codes are listed (`biz_` tag).
 
-          after: Cursor to paginate forwards from.
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
-          before: Cursor to paginate backwards from.
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           created_after: Only promo codes created after this ISO 8601 timestamp.
 
@@ -291,9 +293,9 @@ class PromoCodesResource(SyncAPIResource):
 
           direction: Sort direction.
 
-          first: Number of promo codes to return from the start of the window.
+          first: Number of results to return from the start of the range.
 
-          last: Number of promo codes to return from the end of the window.
+          last: Number of results to return from the end of the range.
 
           order: Sort field.
 
@@ -630,9 +632,11 @@ class AsyncPromoCodesResource(AsyncAPIResource):
         Args:
           account_id: Account whose promo codes are listed (`biz_` tag).
 
-          after: Cursor to paginate forwards from.
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
-          before: Cursor to paginate backwards from.
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           created_after: Only promo codes created after this ISO 8601 timestamp.
 
@@ -640,9 +644,9 @@ class AsyncPromoCodesResource(AsyncAPIResource):
 
           direction: Sort direction.
 
-          first: Number of promo codes to return from the start of the window.
+          first: Number of results to return from the start of the range.
 
-          last: Number of promo codes to return from the end of the window.
+          last: Number of results to return from the end of the range.
 
           order: Sort field.
 

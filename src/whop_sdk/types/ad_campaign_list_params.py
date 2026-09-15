@@ -17,7 +17,10 @@ class AdCampaignListParams(TypedDict, total=False):
     """
 
     after: str
-    """Cursor to fetch the page after (from page_info.end_cursor)."""
+    """Return results after this cursor.
+
+    Use `page_info.end_cursor` from the previous response to fetch the next page.
+    """
 
     attribution_model: Literal["last_touch", "first_touch"]
     """Attribution model the conversion stats count under (defaults to last_touch).
@@ -28,7 +31,11 @@ class AdCampaignListParams(TypedDict, total=False):
     """
 
     before: str
-    """Cursor to fetch the page before (from page_info.start_cursor)."""
+    """Return results before this cursor.
+
+    Use `page_info.start_cursor` from the previous response to fetch the previous
+    page.
+    """
 
     created_after: str
     """Only return campaigns created after this timestamp."""
@@ -40,10 +47,10 @@ class AdCampaignListParams(TypedDict, total=False):
     """The sort direction. Defaults to desc."""
 
     first: int
-    """The number of campaigns to return."""
+    """Number of results to return from the start of the range."""
 
     last: int
-    """The number of campaigns to return from the end of the range."""
+    """Number of results to return from the end of the range."""
 
     order: Literal[
         "created_at",

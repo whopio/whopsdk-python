@@ -438,9 +438,11 @@ class PlansResource(SyncAPIResource):
           account_id: The unique identifier of the account to list plans for. Required unless
               `product_ids` is provided for a public product-plan read.
 
-          after: A cursor; returns plans after this position.
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
-          before: A cursor; returns plans before this position.
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           created_after: Only return plans created after this timestamp.
 
@@ -448,9 +450,9 @@ class PlansResource(SyncAPIResource):
 
           direction: The sort direction for results. Defaults to descending.
 
-          first: The number of plans to return (default and max 100).
+          first: Number of results to return from the start of the range.
 
-          last: The number of plans to return from the end of the range.
+          last: Number of results to return from the end of the range.
 
           order: The field to sort results by. Defaults to created_at.
 
@@ -952,9 +954,11 @@ class AsyncPlansResource(AsyncAPIResource):
           account_id: The unique identifier of the account to list plans for. Required unless
               `product_ids` is provided for a public product-plan read.
 
-          after: A cursor; returns plans after this position.
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
-          before: A cursor; returns plans before this position.
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           created_after: Only return plans created after this timestamp.
 
@@ -962,9 +966,9 @@ class AsyncPlansResource(AsyncAPIResource):
 
           direction: The sort direction for results. Defaults to descending.
 
-          first: The number of plans to return (default and max 100).
+          first: Number of results to return from the start of the range.
 
-          last: The number of plans to return from the end of the range.
+          last: Number of results to return from the end of the range.
 
           order: The field to sort results by. Defaults to created_at.
 

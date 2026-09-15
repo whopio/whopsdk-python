@@ -225,13 +225,16 @@ class TransfersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncCursorPage[TransferListResponse]:
-        """
-        Lists an account's transfers.
+        """Lists an account's transfers.
 
         Args:
-          after: Cursor to fetch the page after (from page_info.end_cursor).
+          after: Return results after this cursor.
 
-          before: Cursor to fetch the page before (from page_info.start_cursor).
+        Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
+
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           created_after: Only transfers created strictly after this ISO 8601 timestamp.
 
@@ -241,9 +244,9 @@ class TransfersResource(SyncAPIResource):
 
           direction: Sort direction. Defaults to desc.
 
-          first: Number of transfers to return from the start of the window.
+          first: Number of results to return from the start of the range.
 
-          last: Number of transfers to return from the end of the window.
+          last: Number of results to return from the end of the range.
 
           order: Sort column. Defaults to created_at.
 
@@ -483,13 +486,16 @@ class AsyncTransfersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[TransferListResponse, AsyncCursorPage[TransferListResponse]]:
-        """
-        Lists an account's transfers.
+        """Lists an account's transfers.
 
         Args:
-          after: Cursor to fetch the page after (from page_info.end_cursor).
+          after: Return results after this cursor.
 
-          before: Cursor to fetch the page before (from page_info.start_cursor).
+        Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
+
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           created_after: Only transfers created strictly after this ISO 8601 timestamp.
 
@@ -499,9 +505,9 @@ class AsyncTransfersResource(AsyncAPIResource):
 
           direction: Sort direction. Defaults to desc.
 
-          first: Number of transfers to return from the start of the window.
+          first: Number of results to return from the start of the range.
 
-          last: Number of transfers to return from the end of the window.
+          last: Number of results to return from the end of the range.
 
           order: Sort column. Defaults to created_at.
 

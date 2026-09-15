@@ -174,9 +174,11 @@ class MembershipsResource(SyncAPIResource):
           account_id: Narrow to one account (`biz_` tag). With read access to the account this lists
               all of its memberships; without, only the caller's own memberships in it.
 
-          after: Cursor to paginate forwards from.
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
-          before: Cursor to paginate backwards from.
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           created_after: Only memberships created after this ISO 8601 timestamp.
 
@@ -184,9 +186,9 @@ class MembershipsResource(SyncAPIResource):
 
           direction: Sort direction.
 
-          first: Number of memberships to return from the start of the window.
+          first: Number of results to return from the start of the range.
 
-          last: Number of memberships to return from the end of the window.
+          last: Number of results to return from the end of the range.
 
           order: Sort field.
 
@@ -551,9 +553,11 @@ class AsyncMembershipsResource(AsyncAPIResource):
           account_id: Narrow to one account (`biz_` tag). With read access to the account this lists
               all of its memberships; without, only the caller's own memberships in it.
 
-          after: Cursor to paginate forwards from.
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
-          before: Cursor to paginate backwards from.
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           created_after: Only memberships created after this ISO 8601 timestamp.
 
@@ -561,9 +565,9 @@ class AsyncMembershipsResource(AsyncAPIResource):
 
           direction: Sort direction.
 
-          first: Number of memberships to return from the start of the window.
+          first: Number of results to return from the start of the range.
 
-          last: Number of memberships to return from the end of the window.
+          last: Number of results to return from the end of the range.
 
           order: Sort field.
 

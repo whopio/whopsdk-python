@@ -131,9 +131,11 @@ class ResolutionCenterCasesResource(SyncAPIResource):
               account this lists its whole queue; without, only the cases you opened against
               it.
 
-          after: A cursor; returns cases after this position.
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
-          before: A cursor; returns cases before this position.
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           created_after: Only cases created after this ISO 8601 timestamp.
 
@@ -141,9 +143,9 @@ class ResolutionCenterCasesResource(SyncAPIResource):
 
           direction: Sort direction.
 
-          first: The number of cases to return (default 20, max 100).
+          first: Number of results to return from the start of the range.
 
-          last: The number of cases to return from the end of the range.
+          last: Number of results to return from the end of the range.
 
           order: The field to sort cases by.
 
@@ -303,9 +305,11 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
               account this lists its whole queue; without, only the cases you opened against
               it.
 
-          after: A cursor; returns cases after this position.
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
-          before: A cursor; returns cases before this position.
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           created_after: Only cases created after this ISO 8601 timestamp.
 
@@ -313,9 +317,9 @@ class AsyncResolutionCenterCasesResource(AsyncAPIResource):
 
           direction: Sort direction.
 
-          first: The number of cases to return (default 20, max 100).
+          first: Number of results to return from the start of the range.
 
-          last: The number of cases to return from the end of the range.
+          last: Number of results to return from the end of the range.
 
           order: The field to sort cases by.
 

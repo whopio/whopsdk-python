@@ -380,14 +380,16 @@ class AdGroupsResource(SyncAPIResource):
           ad_campaign_ids: Filter to ad groups in these campaigns (max 100). Repeat the parameter for each
               id (ad_campaign_ids=a&ad_campaign_ids=b).
 
-          after: Cursor to fetch the page after (from page_info.end_cursor).
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
           attribution_model: Attribution model the conversion stats count under (defaults to last_touch).
               Under both models a journey with any whop ad touch attributes to whop; the model
               picks which whop touch credits the entity and which non-whop source wins
               otherwise.
 
-          before: Cursor to fetch the page before (from page_info.start_cursor).
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           created_after: Only return ad groups created after this timestamp.
 
@@ -395,9 +397,9 @@ class AdGroupsResource(SyncAPIResource):
 
           direction: The sort direction. Defaults to desc.
 
-          first: The number of ad groups to return.
+          first: Number of results to return from the start of the range.
 
-          last: The number of ad groups to return from the end of the range.
+          last: Number of results to return from the end of the range.
 
           order: The field to sort by. Defaults to created_at. Stat columns (spend, impressions,
               …) rank over the stats_from/stats_to window across the whole list, not just the
@@ -937,14 +939,16 @@ class AsyncAdGroupsResource(AsyncAPIResource):
           ad_campaign_ids: Filter to ad groups in these campaigns (max 100). Repeat the parameter for each
               id (ad_campaign_ids=a&ad_campaign_ids=b).
 
-          after: Cursor to fetch the page after (from page_info.end_cursor).
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
           attribution_model: Attribution model the conversion stats count under (defaults to last_touch).
               Under both models a journey with any whop ad touch attributes to whop; the model
               picks which whop touch credits the entity and which non-whop source wins
               otherwise.
 
-          before: Cursor to fetch the page before (from page_info.start_cursor).
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           created_after: Only return ad groups created after this timestamp.
 
@@ -952,9 +956,9 @@ class AsyncAdGroupsResource(AsyncAPIResource):
 
           direction: The sort direction. Defaults to desc.
 
-          first: The number of ad groups to return.
+          first: Number of results to return from the start of the range.
 
-          last: The number of ad groups to return from the end of the range.
+          last: Number of results to return from the end of the range.
 
           order: The field to sort by. Defaults to created_at. Stat columns (spend, impressions,
               …) rank over the stats_from/stats_to window across the whole list, not just the

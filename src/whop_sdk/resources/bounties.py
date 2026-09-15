@@ -261,9 +261,11 @@ class BountiesResource(SyncAPIResource):
           account_id: Scope the list to this account (`biz_` tag). Requires read access to the
               account; account API keys may pass their own account or a connected account.
 
-          after: Cursor to paginate forwards from.
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
-          before: Cursor to paginate backwards from.
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           business_goal_type: Filter by the poster's declared goal. Bounties created before the goal taxonomy
               carry no goal and never match this filter.
@@ -280,9 +282,9 @@ class BountiesResource(SyncAPIResource):
           experience_id: Only bounties posted to this forum experience, prefixed `exp_`. An unknown
               experience, or one outside the caller's scope, matches nothing.
 
-          first: Number of bounties to return from the start of the window.
+          first: Number of results to return from the start of the range.
 
-          last: Number of bounties to return from the end of the window.
+          last: Number of results to return from the end of the range.
 
           order: Sort field.
 
@@ -569,9 +571,11 @@ class AsyncBountiesResource(AsyncAPIResource):
           account_id: Scope the list to this account (`biz_` tag). Requires read access to the
               account; account API keys may pass their own account or a connected account.
 
-          after: Cursor to paginate forwards from.
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
-          before: Cursor to paginate backwards from.
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           business_goal_type: Filter by the poster's declared goal. Bounties created before the goal taxonomy
               carry no goal and never match this filter.
@@ -588,9 +592,9 @@ class AsyncBountiesResource(AsyncAPIResource):
           experience_id: Only bounties posted to this forum experience, prefixed `exp_`. An unknown
               experience, or one outside the caller's scope, matches nothing.
 
-          first: Number of bounties to return from the start of the window.
+          first: Number of results to return from the start of the range.
 
-          last: Number of bounties to return from the end of the window.
+          last: Number of results to return from the end of the range.
 
           order: Sort field.
 

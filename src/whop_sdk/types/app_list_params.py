@@ -17,7 +17,10 @@ class AppListParams(TypedDict, total=False):
     """
 
     after: str
-    """A cursor; returns apps after this position."""
+    """Return results after this cursor.
+
+    Use `page_info.end_cursor` from the previous response to fetch the next page.
+    """
 
     app_type: Literal["b2b_app", "b2c_app", "company_app", "component", "website"]
     """Filter apps by the type of end-user they are built for.
@@ -26,16 +29,20 @@ class AppListParams(TypedDict, total=False):
     """
 
     before: str
-    """A cursor; returns apps before this position."""
+    """Return results before this cursor.
+
+    Use `page_info.start_cursor` from the previous response to fetch the previous
+    page.
+    """
 
     direction: Literal["asc", "desc"]
     """Sort direction."""
 
     first: int
-    """The number of apps to return (default 20, max 100)."""
+    """Number of results to return from the start of the range."""
 
     last: int
-    """The number of apps to return from the end of the range."""
+    """Number of results to return from the end of the range."""
 
     order: Literal[
         "created_at", "discoverable_at", "template_usage", "total_installs_last_30_days", "total_installs_last_7_days"

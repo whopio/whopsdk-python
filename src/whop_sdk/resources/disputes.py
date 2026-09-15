@@ -115,9 +115,11 @@ class DisputesResource(SyncAPIResource):
           account_id: Only disputes filed against this account (`biz_` tag). Omit it to cover every
               account you can read.
 
-          after: A cursor; returns disputes after this position.
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
-          before: A cursor; returns disputes before this position.
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           created_after: Only disputes opened after this ISO 8601 timestamp.
 
@@ -127,9 +129,9 @@ class DisputesResource(SyncAPIResource):
 
           direction: Sort direction.
 
-          first: The number of disputes to return (default 20, max 100).
+          first: Number of results to return from the start of the range.
 
-          last: The number of disputes to return from the end of the range.
+          last: Number of results to return from the end of the range.
 
           order: The field to sort disputes by.
 
@@ -266,9 +268,11 @@ class AsyncDisputesResource(AsyncAPIResource):
           account_id: Only disputes filed against this account (`biz_` tag). Omit it to cover every
               account you can read.
 
-          after: A cursor; returns disputes after this position.
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
-          before: A cursor; returns disputes before this position.
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           created_after: Only disputes opened after this ISO 8601 timestamp.
 
@@ -278,9 +282,9 @@ class AsyncDisputesResource(AsyncAPIResource):
 
           direction: Sort direction.
 
-          first: The number of disputes to return (default 20, max 100).
+          first: Number of results to return from the start of the range.
 
-          last: The number of disputes to return from the end of the range.
+          last: Number of results to return from the end of the range.
 
           order: The field to sort disputes by.
 

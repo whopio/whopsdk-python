@@ -196,10 +196,10 @@ class TestWebhooks:
             after="after",
             app_id="app_id",
             before="before",
-            first=0,
+            first=100,
             has_failures=True,
             include_app_webhooks=True,
-            last=0,
+            last=100,
             api_version_date="2026-09-13",
         )
         assert_matches_type(SyncCursorPage[WebhookListResponse], webhook, path=["response"])
@@ -498,10 +498,10 @@ class TestAsyncWebhooks:
             after="after",
             app_id="app_id",
             before="before",
-            first=0,
+            first=100,
             has_failures=True,
             include_app_webhooks=True,
-            last=0,
+            last=100,
             api_version_date="2026-09-13",
         )
         assert_matches_type(AsyncCursorPage[WebhookListResponse], webhook, path=["response"])

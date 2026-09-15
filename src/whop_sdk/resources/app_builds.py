@@ -198,17 +198,19 @@ class AppBuildsResource(SyncAPIResource):
         Args:
           app_id: The app to list builds for, prefixed `app_`.
 
-          after: A cursor; returns builds after this position.
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
-          before: A cursor; returns builds before this position.
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           created_after: Only return builds created after this ISO 8601 timestamp.
 
           created_before: Only return builds created before this ISO 8601 timestamp.
 
-          first: The number of builds to return (default 20, max 100).
+          first: Number of results to return from the start of the range.
 
-          last: The number of builds to return from the end of the range.
+          last: Number of results to return from the end of the range.
 
           platform: Filter builds by target platform.
 
@@ -468,17 +470,19 @@ class AsyncAppBuildsResource(AsyncAPIResource):
         Args:
           app_id: The app to list builds for, prefixed `app_`.
 
-          after: A cursor; returns builds after this position.
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
-          before: A cursor; returns builds before this position.
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           created_after: Only return builds created after this ISO 8601 timestamp.
 
           created_before: Only return builds created before this ISO 8601 timestamp.
 
-          first: The number of builds to return (default 20, max 100).
+          first: Number of results to return from the start of the range.
 
-          last: The number of builds to return from the end of the range.
+          last: Number of results to return from the end of the range.
 
           platform: Filter builds by target platform.
 

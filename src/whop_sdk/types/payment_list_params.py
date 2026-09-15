@@ -16,10 +16,17 @@ class PaymentListParams(TypedDict, total=False):
     """Only payments charged by this account, prefixed `biz_`."""
 
     after: str
-    """A cursor; returns payments after this position."""
+    """Return results after this cursor.
+
+    Use `page_info.end_cursor` from the previous response to fetch the next page.
+    """
 
     before: str
-    """A cursor; returns payments before this position."""
+    """Return results before this cursor.
+
+    Use `page_info.start_cursor` from the previous response to fetch the previous
+    page.
+    """
 
     billing_reason: Literal[
         "subscription_create", "subscription_cycle", "subscription_update", "one_time", "manual", "subscription"
@@ -39,10 +46,10 @@ class PaymentListParams(TypedDict, total=False):
     """The sort direction."""
 
     first: int
-    """The number of payments to return."""
+    """Number of results to return from the start of the range."""
 
     last: int
-    """The number of payments to return from the end of the range."""
+    """Number of results to return from the end of the range."""
 
     member_id: str
     """Only payments made by this member, prefixed `mber_`."""

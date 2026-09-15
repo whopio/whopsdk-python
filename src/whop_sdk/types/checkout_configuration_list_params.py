@@ -14,7 +14,10 @@ class CheckoutConfigurationListParams(TypedDict, total=False):
     """Account ID, prefixed `biz_`."""
 
     after: str
-    """Cursor for the next page of results."""
+    """Return results after this cursor.
+
+    Use `page_info.end_cursor` from the previous response to fetch the next page.
+    """
 
     created_after: str
     """Only return checkout configurations created after this ISO 8601 timestamp."""
@@ -26,7 +29,7 @@ class CheckoutConfigurationListParams(TypedDict, total=False):
     """Sort direction. Defaults to `desc`."""
 
     first: int
-    """Number of checkout configurations to return."""
+    """Number of results to return from the start of the range."""
 
     order: Literal["created_at"]
     """Field used to sort checkout configurations."""

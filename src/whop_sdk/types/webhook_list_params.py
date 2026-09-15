@@ -14,7 +14,10 @@ class WebhookListParams(TypedDict, total=False):
     """The unique identifier of the account to list webhooks for."""
 
     after: str
-    """A cursor; returns webhooks after this position."""
+    """Return results after this cursor.
+
+    Use `page_info.end_cursor` from the previous response to fetch the next page.
+    """
 
     app_id: str
     """Only return webhooks attached to this app.
@@ -23,10 +26,14 @@ class WebhookListParams(TypedDict, total=False):
     """
 
     before: str
-    """A cursor; returns webhooks before this position."""
+    """Return results before this cursor.
+
+    Use `page_info.start_cursor` from the previous response to fetch the previous
+    page.
+    """
 
     first: int
-    """The number of webhooks to return (default 20, max 100)."""
+    """Number of results to return from the start of the range."""
 
     has_failures: bool
     """
@@ -42,6 +49,6 @@ class WebhookListParams(TypedDict, total=False):
     """
 
     last: int
-    """The number of webhooks to return from the end of the range."""
+    """Number of results to return from the end of the range."""
 
     api_version_date: Annotated[str, PropertyInfo(alias="Api-Version-Date")]

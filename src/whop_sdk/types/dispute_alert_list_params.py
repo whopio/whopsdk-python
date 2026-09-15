@@ -17,10 +17,17 @@ class DisputeAlertListParams(TypedDict, total=False):
     """
 
     after: str
-    """A cursor; returns alerts after this position."""
+    """Return results after this cursor.
+
+    Use `page_info.end_cursor` from the previous response to fetch the next page.
+    """
 
     before: str
-    """A cursor; returns alerts before this position."""
+    """Return results before this cursor.
+
+    Use `page_info.start_cursor` from the previous response to fetch the previous
+    page.
+    """
 
     created_after: str
     """Only alerts Whop received after this ISO 8601 timestamp."""
@@ -32,10 +39,10 @@ class DisputeAlertListParams(TypedDict, total=False):
     """Sort direction."""
 
     first: int
-    """The number of alerts to return (default 20, max 100)."""
+    """Number of results to return from the start of the range."""
 
     last: int
-    """The number of alerts to return from the end of the range."""
+    """Number of results to return from the end of the range."""
 
     order: Literal["created_at", "reported_at", "amount"]
     """The field to sort alerts by."""

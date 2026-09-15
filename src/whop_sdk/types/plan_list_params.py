@@ -18,10 +18,17 @@ class PlanListParams(TypedDict, total=False):
     """
 
     after: str
-    """A cursor; returns plans after this position."""
+    """Return results after this cursor.
+
+    Use `page_info.end_cursor` from the previous response to fetch the next page.
+    """
 
     before: str
-    """A cursor; returns plans before this position."""
+    """Return results before this cursor.
+
+    Use `page_info.start_cursor` from the previous response to fetch the previous
+    page.
+    """
 
     created_after: str
     """Only return plans created after this timestamp."""
@@ -33,10 +40,10 @@ class PlanListParams(TypedDict, total=False):
     """The sort direction for results. Defaults to descending."""
 
     first: int
-    """The number of plans to return (default and max 100)."""
+    """Number of results to return from the start of the range."""
 
     last: int
-    """The number of plans to return from the end of the range."""
+    """Number of results to return from the end of the range."""
 
     order: Literal["id", "active_members_count", "created_at", "internal_notes", "expiration_days"]
     """The field to sort results by. Defaults to created_at."""

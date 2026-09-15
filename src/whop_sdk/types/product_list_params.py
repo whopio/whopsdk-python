@@ -22,10 +22,17 @@ class ProductListParams(TypedDict, total=False):
     """
 
     after: str
-    """A cursor; returns products after this position."""
+    """Return results after this cursor.
+
+    Use `page_info.end_cursor` from the previous response to fetch the next page.
+    """
 
     before: str
-    """A cursor; returns products before this position."""
+    """Return results before this cursor.
+
+    Use `page_info.start_cursor` from the previous response to fetch the previous
+    page.
+    """
 
     created_after: str
     """Only return products created after this ISO 8601 timestamp."""
@@ -37,7 +44,7 @@ class ProductListParams(TypedDict, total=False):
     """The sort direction for results. Defaults to descending."""
 
     first: int
-    """The number of products to return (default and max 100)."""
+    """Number of results to return from the start of the range."""
 
     labels: SequenceNotStr[str]
     """Filter to only products carrying all of these labels.
@@ -46,7 +53,7 @@ class ProductListParams(TypedDict, total=False):
     """
 
     last: int
-    """The number of products to return from the end of the range."""
+    """Number of results to return from the end of the range."""
 
     marketplace_category_route: str
     """

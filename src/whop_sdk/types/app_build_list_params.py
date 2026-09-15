@@ -15,10 +15,17 @@ class AppBuildListParams(TypedDict, total=False):
     """The app to list builds for, prefixed `app_`."""
 
     after: str
-    """A cursor; returns builds after this position."""
+    """Return results after this cursor.
+
+    Use `page_info.end_cursor` from the previous response to fetch the next page.
+    """
 
     before: str
-    """A cursor; returns builds before this position."""
+    """Return results before this cursor.
+
+    Use `page_info.start_cursor` from the previous response to fetch the previous
+    page.
+    """
 
     created_after: Union[int, str]
     """Only return builds created after this ISO 8601 timestamp."""
@@ -27,10 +34,10 @@ class AppBuildListParams(TypedDict, total=False):
     """Only return builds created before this ISO 8601 timestamp."""
 
     first: int
-    """The number of builds to return (default 20, max 100)."""
+    """Number of results to return from the start of the range."""
 
     last: int
-    """The number of builds to return from the end of the range."""
+    """Number of results to return from the end of the range."""
 
     platform: Literal["ios", "android", "web"]
     """Filter builds by target platform."""

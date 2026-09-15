@@ -15,10 +15,17 @@ class ShipmentListParams(TypedDict, total=False):
     """The account to list shipments for. Defaults to the acting account."""
 
     after: str
-    """A cursor; returns shipments after this position."""
+    """Return results after this cursor.
+
+    Use `page_info.end_cursor` from the previous response to fetch the next page.
+    """
 
     before: str
-    """A cursor; returns shipments before this position."""
+    """Return results before this cursor.
+
+    Use `page_info.start_cursor` from the previous response to fetch the previous
+    page.
+    """
 
     created_after: str
     """Return shipments created after this ISO 8601 timestamp."""
@@ -30,10 +37,10 @@ class ShipmentListParams(TypedDict, total=False):
     """The sort direction."""
 
     first: int
-    """The number of shipments to return."""
+    """Number of results to return from the start of the range."""
 
     last: int
-    """The number of shipments to return from the end of the range."""
+    """Number of results to return from the end of the range."""
 
     order: Literal["created_at"]
     """The field to sort by."""

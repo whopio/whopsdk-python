@@ -364,9 +364,11 @@ class ProductsResource(SyncAPIResource):
           account_id: The unique identifier of the account to list products for. Omit to search the
               public marketplace.
 
-          after: A cursor; returns products after this position.
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
-          before: A cursor; returns products before this position.
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           created_after: Only return products created after this ISO 8601 timestamp.
 
@@ -374,12 +376,12 @@ class ProductsResource(SyncAPIResource):
 
           direction: The sort direction for results. Defaults to descending.
 
-          first: The number of products to return (default and max 100).
+          first: Number of results to return from the start of the range.
 
           labels: Filter to only products carrying all of these labels. Labels are matched
               lowercased.
 
-          last: The number of products to return from the end of the range.
+          last: Number of results to return from the end of the range.
 
           marketplace_category_route: Only return marketplace products assigned to this category route, such as
               `trading`.
@@ -820,9 +822,11 @@ class AsyncProductsResource(AsyncAPIResource):
           account_id: The unique identifier of the account to list products for. Omit to search the
               public marketplace.
 
-          after: A cursor; returns products after this position.
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
-          before: A cursor; returns products before this position.
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           created_after: Only return products created after this ISO 8601 timestamp.
 
@@ -830,12 +834,12 @@ class AsyncProductsResource(AsyncAPIResource):
 
           direction: The sort direction for results. Defaults to descending.
 
-          first: The number of products to return (default and max 100).
+          first: Number of results to return from the start of the range.
 
           labels: Filter to only products carrying all of these labels. Labels are matched
               lowercased.
 
-          last: The number of products to return from the end of the range.
+          last: Number of results to return from the end of the range.
 
           marketplace_category_route: Only return marketplace products assigned to this category route, such as
               `trading`.

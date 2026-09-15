@@ -11,16 +11,23 @@ __all__ = ["UserListParams"]
 
 class UserListParams(TypedDict, total=False):
     after: str
-    """A cursor; returns users after this position."""
+    """Return results after this cursor.
+
+    Use `page_info.end_cursor` from the previous response to fetch the next page.
+    """
 
     before: str
-    """A cursor; returns users before this position."""
+    """Return results before this cursor.
+
+    Use `page_info.start_cursor` from the previous response to fetch the previous
+    page.
+    """
 
     first: int
-    """The number of users to return (max 50)."""
+    """Number of results to return from the start of the range."""
 
     last: int
-    """The number of users to return from the end of the range."""
+    """Number of results to return from the end of the range."""
 
     query: str
     """A search term to filter users by name or username."""

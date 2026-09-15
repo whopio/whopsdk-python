@@ -256,9 +256,11 @@ class PaymentsResource(SyncAPIResource):
         Args:
           account_id: Only payments charged by this account, prefixed `biz_`.
 
-          after: A cursor; returns payments after this position.
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
-          before: A cursor; returns payments before this position.
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           billing_reason: Only payments charged for this reason.
 
@@ -270,9 +272,9 @@ class PaymentsResource(SyncAPIResource):
 
           direction: The sort direction.
 
-          first: The number of payments to return.
+          first: Number of results to return from the start of the range.
 
-          last: The number of payments to return from the end of the range.
+          last: Number of results to return from the end of the range.
 
           member_id: Only payments made by this member, prefixed `mber_`.
 
@@ -746,9 +748,11 @@ class AsyncPaymentsResource(AsyncAPIResource):
         Args:
           account_id: Only payments charged by this account, prefixed `biz_`.
 
-          after: A cursor; returns payments after this position.
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
-          before: A cursor; returns payments before this position.
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           billing_reason: Only payments charged for this reason.
 
@@ -760,9 +764,9 @@ class AsyncPaymentsResource(AsyncAPIResource):
 
           direction: The sort direction.
 
-          first: The number of payments to return.
+          first: Number of results to return from the start of the range.
 
-          last: The number of payments to return from the end of the range.
+          last: Number of results to return from the end of the range.
 
           member_id: Only payments made by this member, prefixed `mber_`.
 

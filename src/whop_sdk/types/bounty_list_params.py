@@ -18,10 +18,17 @@ class BountyListParams(TypedDict, total=False):
     """
 
     after: str
-    """Cursor to paginate forwards from."""
+    """Return results after this cursor.
+
+    Use `page_info.end_cursor` from the previous response to fetch the next page.
+    """
 
     before: str
-    """Cursor to paginate backwards from."""
+    """Return results before this cursor.
+
+    Use `page_info.start_cursor` from the previous response to fetch the previous
+    page.
+    """
 
     business_goal_type: Literal[
         "clipping",
@@ -60,10 +67,10 @@ class BountyListParams(TypedDict, total=False):
     """
 
     first: int
-    """Number of bounties to return from the start of the window."""
+    """Number of results to return from the start of the range."""
 
     last: int
-    """Number of bounties to return from the end of the window."""
+    """Number of results to return from the end of the range."""
 
     order: Literal["created_at", "gross_paid_out_amount", "gross_reward_amount"]
     """Sort field."""

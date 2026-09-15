@@ -183,9 +183,11 @@ class ShipmentsResource(SyncAPIResource):
         Args:
           account_id: The account to list shipments for. Defaults to the acting account.
 
-          after: A cursor; returns shipments after this position.
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
-          before: A cursor; returns shipments before this position.
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           created_after: Return shipments created after this ISO 8601 timestamp.
 
@@ -193,9 +195,9 @@ class ShipmentsResource(SyncAPIResource):
 
           direction: The sort direction.
 
-          first: The number of shipments to return.
+          first: Number of results to return from the start of the range.
 
-          last: The number of shipments to return from the end of the range.
+          last: Number of results to return from the end of the range.
 
           order: The field to sort by.
 
@@ -402,9 +404,11 @@ class AsyncShipmentsResource(AsyncAPIResource):
         Args:
           account_id: The account to list shipments for. Defaults to the acting account.
 
-          after: A cursor; returns shipments after this position.
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
-          before: A cursor; returns shipments before this position.
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           created_after: Return shipments created after this ISO 8601 timestamp.
 
@@ -412,9 +416,9 @@ class AsyncShipmentsResource(AsyncAPIResource):
 
           direction: The sort direction.
 
-          first: The number of shipments to return.
+          first: Number of results to return from the start of the range.
 
-          last: The number of shipments to return from the end of the range.
+          last: Number of results to return from the end of the range.
 
           order: The field to sort by.
 

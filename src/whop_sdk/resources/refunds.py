@@ -120,9 +120,11 @@ class RefundsResource(SyncAPIResource):
         Args:
           account_id: Only refunds issued by this account, prefixed `biz_`.
 
-          after: A cursor; returns refunds after this position.
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
-          before: A cursor; returns refunds before this position.
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           created_after: Only refunds requested after this ISO 8601 timestamp.
 
@@ -130,9 +132,9 @@ class RefundsResource(SyncAPIResource):
 
           direction: The sort direction.
 
-          first: The number of refunds to return.
+          first: Number of results to return from the start of the range.
 
-          last: The number of refunds to return from the end of the range.
+          last: Number of results to return from the end of the range.
 
           order: The field to sort by.
 
@@ -271,9 +273,11 @@ class AsyncRefundsResource(AsyncAPIResource):
         Args:
           account_id: Only refunds issued by this account, prefixed `biz_`.
 
-          after: A cursor; returns refunds after this position.
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
-          before: A cursor; returns refunds before this position.
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           created_after: Only refunds requested after this ISO 8601 timestamp.
 
@@ -281,9 +285,9 @@ class AsyncRefundsResource(AsyncAPIResource):
 
           direction: The sort direction.
 
-          first: The number of refunds to return.
+          first: Number of results to return from the start of the range.
 
-          last: The number of refunds to return from the end of the range.
+          last: Number of results to return from the end of the range.
 
           order: The field to sort by.
 

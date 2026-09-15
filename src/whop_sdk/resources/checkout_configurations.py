@@ -206,7 +206,8 @@ class CheckoutConfigurationsResource(SyncAPIResource):
         Args:
           account_id: Account ID, prefixed `biz_`.
 
-          after: Cursor for the next page of results.
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
           created_after: Only return checkout configurations created after this ISO 8601 timestamp.
 
@@ -214,7 +215,7 @@ class CheckoutConfigurationsResource(SyncAPIResource):
 
           direction: Sort direction. Defaults to `desc`.
 
-          first: Number of checkout configurations to return.
+          first: Number of results to return from the start of the range.
 
           order: Field used to sort checkout configurations.
 
@@ -434,7 +435,8 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
         Args:
           account_id: Account ID, prefixed `biz_`.
 
-          after: Cursor for the next page of results.
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
           created_after: Only return checkout configurations created after this ISO 8601 timestamp.
 
@@ -442,7 +444,7 @@ class AsyncCheckoutConfigurationsResource(AsyncAPIResource):
 
           direction: Sort direction. Defaults to `desc`.
 
-          first: Number of checkout configurations to return.
+          first: Number of results to return from the start of the range.
 
           order: Field used to sort checkout configurations.
 

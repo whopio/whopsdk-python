@@ -16,10 +16,17 @@ class RefundListParams(TypedDict, total=False):
     """Only refunds issued by this account, prefixed `biz_`."""
 
     after: str
-    """A cursor; returns refunds after this position."""
+    """Return results after this cursor.
+
+    Use `page_info.end_cursor` from the previous response to fetch the next page.
+    """
 
     before: str
-    """A cursor; returns refunds before this position."""
+    """Return results before this cursor.
+
+    Use `page_info.start_cursor` from the previous response to fetch the previous
+    page.
+    """
 
     created_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Only refunds requested after this ISO 8601 timestamp."""
@@ -31,10 +38,10 @@ class RefundListParams(TypedDict, total=False):
     """The sort direction."""
 
     first: int
-    """The number of refunds to return."""
+    """Number of results to return from the start of the range."""
 
     last: int
-    """The number of refunds to return from the end of the range."""
+    """Number of results to return from the end of the range."""
 
     order: Literal["created_at"]
     """The field to sort by."""

@@ -257,14 +257,16 @@ class AdCampaignsResource(SyncAPIResource):
           account_id: The account the campaigns belong to. Defaults to the account-scoped key's own
               account.
 
-          after: Cursor to fetch the page after (from page_info.end_cursor).
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
           attribution_model: Attribution model the conversion stats count under (defaults to last_touch).
               Under both models a journey with any whop ad touch attributes to whop; the model
               picks which whop touch credits the entity and which non-whop source wins
               otherwise.
 
-          before: Cursor to fetch the page before (from page_info.start_cursor).
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           created_after: Only return campaigns created after this timestamp.
 
@@ -272,9 +274,9 @@ class AdCampaignsResource(SyncAPIResource):
 
           direction: The sort direction. Defaults to desc.
 
-          first: The number of campaigns to return.
+          first: Number of results to return from the start of the range.
 
-          last: The number of campaigns to return from the end of the range.
+          last: Number of results to return from the end of the range.
 
           order: The field to sort by. Defaults to created_at. Stat columns (spend, impressions,
               …) rank over the stats_from/stats_to window across the whole list, not just the
@@ -656,14 +658,16 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
           account_id: The account the campaigns belong to. Defaults to the account-scoped key's own
               account.
 
-          after: Cursor to fetch the page after (from page_info.end_cursor).
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
           attribution_model: Attribution model the conversion stats count under (defaults to last_touch).
               Under both models a journey with any whop ad touch attributes to whop; the model
               picks which whop touch credits the entity and which non-whop source wins
               otherwise.
 
-          before: Cursor to fetch the page before (from page_info.start_cursor).
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
           created_after: Only return campaigns created after this timestamp.
 
@@ -671,9 +675,9 @@ class AsyncAdCampaignsResource(AsyncAPIResource):
 
           direction: The sort direction. Defaults to desc.
 
-          first: The number of campaigns to return.
+          first: Number of results to return from the start of the range.
 
-          last: The number of campaigns to return from the end of the range.
+          last: Number of results to return from the end of the range.
 
           order: The field to sort by. Defaults to created_at. Stat columns (spend, impressions,
               …) rank over the stats_from/stats_to window across the whole list, not just the

@@ -151,8 +151,8 @@ class TestUsers:
         user = client.users.list(
             after="after",
             before="before",
-            first=0,
-            last=0,
+            first=100,
+            last=100,
             query="query",
             api_version_date="2026-09-13",
         )
@@ -381,8 +381,8 @@ class TestAsyncUsers:
         user = await async_client.users.list(
             after="after",
             before="before",
-            first=0,
-            last=0,
+            first=100,
+            last=100,
             query="query",
             api_version_date="2026-09-13",
         )
