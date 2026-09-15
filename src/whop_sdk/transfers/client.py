@@ -76,16 +76,16 @@ class TransfersClient:
             Only transfers created strictly after this ISO 8601 timestamp.
 
         first : typing.Optional[int]
-            Number of transfers to return from the start of the window.
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            Cursor to fetch the page after (from page_info.end_cursor).
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         last : typing.Optional[int]
-            Number of transfers to return from the end of the window.
+            Number of results to return from the end of the range.
 
         before : typing.Optional[str]
-            Cursor to fetch the page before (from page_info.start_cursor).
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -240,13 +240,13 @@ class TransfersClient:
             The account sending the money: a company account ID (`biz_`), or a user ID (`user_`) for that user's own personal balance.
 
         query : typing.Optional[str]
-            Search anyone on Whop by name or username, plus your own accounts by name or ID. An exact business ID (`biz_`) returns that business first. Omit it to get the team around the balance, the people you follow, and your own accounts. The list is the same whether the balance belongs to a company or to you. Searching from a `biz_` origin additionally requires the member:basic:read scope. A credential scoped to a single company is the exception to the search itself: it only ever sees that company's own people. Complete email addresses return no matches.
+            Search anyone on Whop by name or username, plus your own accounts by name or ID. An exact business ID (`biz_`) returns that business first. Omit it to get the team around the balance, the people you follow, and your own accounts. The list is the same whether the balance belongs to a company or to you. Searching from a `biz_` origin additionally requires the member:basic:read scope. A credential scoped to a single company is the exception to the search itself: it only ever sees that company's own people. Complete email addresses return no matches. Search results are limited to 20 recipients.
 
         first : typing.Optional[int]
-            Number of recipients per page. Search queries preserve the dashboard's 20-result maximum.
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            Cursor to fetch the page after (from page_info.end_cursor).
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -368,16 +368,16 @@ class AsyncTransfersClient:
             Only transfers created strictly after this ISO 8601 timestamp.
 
         first : typing.Optional[int]
-            Number of transfers to return from the start of the window.
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            Cursor to fetch the page after (from page_info.end_cursor).
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         last : typing.Optional[int]
-            Number of transfers to return from the end of the window.
+            Number of results to return from the end of the range.
 
         before : typing.Optional[str]
-            Cursor to fetch the page before (from page_info.start_cursor).
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -549,13 +549,13 @@ class AsyncTransfersClient:
             The account sending the money: a company account ID (`biz_`), or a user ID (`user_`) for that user's own personal balance.
 
         query : typing.Optional[str]
-            Search anyone on Whop by name or username, plus your own accounts by name or ID. An exact business ID (`biz_`) returns that business first. Omit it to get the team around the balance, the people you follow, and your own accounts. The list is the same whether the balance belongs to a company or to you. Searching from a `biz_` origin additionally requires the member:basic:read scope. A credential scoped to a single company is the exception to the search itself: it only ever sees that company's own people. Complete email addresses return no matches.
+            Search anyone on Whop by name or username, plus your own accounts by name or ID. An exact business ID (`biz_`) returns that business first. Omit it to get the team around the balance, the people you follow, and your own accounts. The list is the same whether the balance belongs to a company or to you. Searching from a `biz_` origin additionally requires the member:basic:read scope. A credential scoped to a single company is the exception to the search itself: it only ever sees that company's own people. Complete email addresses return no matches. Search results are limited to 20 recipients.
 
         first : typing.Optional[int]
-            Number of recipients per page. Search queries preserve the dashboard's 20-result maximum.
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            Cursor to fetch the page after (from page_info.end_cursor).
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

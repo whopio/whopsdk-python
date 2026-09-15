@@ -100,16 +100,16 @@ class ResolutionCenterCasesClient:
             Only cases opened by this customer — a `user_` tag, or `me` for the calling user. It narrows what you can already read, so `me` lists the cases you opened without the ones on accounts you are a team member of.
 
         first : typing.Optional[int]
-            The number of cases to return (default 20, max 100).
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            A cursor; returns cases after this position.
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         last : typing.Optional[int]
-            The number of cases to return from the end of the range.
+            Number of results to return from the end of the range.
 
         before : typing.Optional[str]
-            A cursor; returns cases before this position.
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         order : typing.Optional[ListResolutionCenterCasesRequestOrder]
             The field to sort cases by.
@@ -528,16 +528,16 @@ class ResolutionCenterCasesClient:
             The resolution center case ID (`reso_` tag).
 
         first : typing.Optional[int]
-            The number of events to return (default 20, max 100).
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            A cursor; returns events after this position.
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         last : typing.Optional[int]
-            The number of events to return from the end of the range.
+            Number of results to return from the end of the range.
 
         before : typing.Optional[str]
-            A cursor; returns events before this position.
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -758,16 +758,16 @@ class AsyncResolutionCenterCasesClient:
             Only cases opened by this customer — a `user_` tag, or `me` for the calling user. It narrows what you can already read, so `me` lists the cases you opened without the ones on accounts you are a team member of.
 
         first : typing.Optional[int]
-            The number of cases to return (default 20, max 100).
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            A cursor; returns cases after this position.
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         last : typing.Optional[int]
-            The number of cases to return from the end of the range.
+            Number of results to return from the end of the range.
 
         before : typing.Optional[str]
-            A cursor; returns cases before this position.
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         order : typing.Optional[ListResolutionCenterCasesRequestOrder]
             The field to sort cases by.
@@ -1247,16 +1247,16 @@ class AsyncResolutionCenterCasesClient:
             The resolution center case ID (`reso_` tag).
 
         first : typing.Optional[int]
-            The number of events to return (default 20, max 100).
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            A cursor; returns events after this position.
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         last : typing.Optional[int]
-            The number of events to return from the end of the range.
+            Number of results to return from the end of the range.
 
         before : typing.Optional[str]
-            A cursor; returns events before this position.
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

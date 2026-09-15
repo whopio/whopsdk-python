@@ -187,16 +187,16 @@ class RawCashbackRulesClient:
         Parameters
         ----------
         first : typing.Optional[int]
-            Number of rules to return from the start of the page.
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            Return rules after this cursor.
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         last : typing.Optional[int]
-            Number of rules to return from the end of the page.
+            Number of results to return from the end of the range.
 
         before : typing.Optional[str]
-            Return rules before this cursor.
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         order : typing.Optional[ListCashbackRulesRequestOrder]
             Field to sort by. Defaults to created_at.
@@ -568,16 +568,16 @@ class AsyncRawCashbackRulesClient:
         Parameters
         ----------
         first : typing.Optional[int]
-            Number of rules to return from the start of the page.
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            Return rules after this cursor.
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         last : typing.Optional[int]
-            Number of rules to return from the end of the page.
+            Number of results to return from the end of the range.
 
         before : typing.Optional[str]
-            Return rules before this cursor.
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         order : typing.Optional[ListCashbackRulesRequestOrder]
             Field to sort by. Defaults to created_at.

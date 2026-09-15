@@ -102,16 +102,16 @@ class RawProductsClient:
             The field to sort results by. Account lists default to `created_at`. Marketplace lists default to `discoverable_at` and accept `created_at` or `discoverable_at`. Cannot be combined with `query`.
 
         first : typing.Optional[int]
-            The number of products to return (default and max 100).
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            A cursor; returns products after this position.
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         last : typing.Optional[int]
-            The number of products to return from the end of the range.
+            Number of results to return from the end of the range.
 
         before : typing.Optional[str]
-            A cursor; returns products before this position.
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         created_after : typing.Optional[str]
             Only return products created after this ISO 8601 timestamp.
@@ -857,16 +857,16 @@ class AsyncRawProductsClient:
             The field to sort results by. Account lists default to `created_at`. Marketplace lists default to `discoverable_at` and accept `created_at` or `discoverable_at`. Cannot be combined with `query`.
 
         first : typing.Optional[int]
-            The number of products to return (default and max 100).
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            A cursor; returns products after this position.
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         last : typing.Optional[int]
-            The number of products to return from the end of the range.
+            Number of results to return from the end of the range.
 
         before : typing.Optional[str]
-            A cursor; returns products before this position.
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         created_after : typing.Optional[str]
             Only return products created after this ISO 8601 timestamp.

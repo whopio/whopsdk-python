@@ -68,16 +68,16 @@ class BusinessesClient:
             When true, only businesses with pending or completed earnings paid to the caller.
 
         first : typing.Optional[int]
-            Number of partner businesses to return from the start of the window.
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            Cursor to fetch the page after (from page_info.end_cursor).
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         last : typing.Optional[int]
-            Number of partner businesses to return from the end of the window.
+            Number of results to return from the end of the range.
 
         before : typing.Optional[str]
-            Cursor to fetch the page before (from page_info.start_cursor).
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         order : typing.Optional[ListBusinessesRequestOrder]
             The field to sort partner businesses by.
@@ -237,16 +237,16 @@ class AsyncBusinessesClient:
             When true, only businesses with pending or completed earnings paid to the caller.
 
         first : typing.Optional[int]
-            Number of partner businesses to return from the start of the window.
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            Cursor to fetch the page after (from page_info.end_cursor).
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         last : typing.Optional[int]
-            Number of partner businesses to return from the end of the window.
+            Number of results to return from the end of the range.
 
         before : typing.Optional[str]
-            Cursor to fetch the page before (from page_info.start_cursor).
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         order : typing.Optional[ListBusinessesRequestOrder]
             The field to sort partner businesses by.

@@ -47,16 +47,16 @@ class LinksClient:
             Filter promotion links by availability. Repeat the status parameter for multiple values.
 
         first : typing.Optional[int]
-            Number of promotion links to return from the start of the window.
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            Cursor to fetch the page after (from page_info.end_cursor).
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         last : typing.Optional[int]
-            Number of promotion links to return from the end of the window.
+            Number of results to return from the end of the range.
 
         before : typing.Optional[str]
-            Cursor to fetch the page before (from page_info.start_cursor).
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -123,16 +123,16 @@ class AsyncLinksClient:
             Filter promotion links by availability. Repeat the status parameter for multiple values.
 
         first : typing.Optional[int]
-            Number of promotion links to return from the start of the window.
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            Cursor to fetch the page after (from page_info.end_cursor).
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         last : typing.Optional[int]
-            Number of promotion links to return from the end of the window.
+            Number of results to return from the end of the range.
 
         before : typing.Optional[str]
-            Cursor to fetch the page before (from page_info.start_cursor).
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

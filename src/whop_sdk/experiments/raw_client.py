@@ -70,16 +70,16 @@ class RawExperimentsClient:
             Only experiments with this status.
 
         first : typing.Optional[int]
-            The number of experiments to return (default 20, max 100).
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            A cursor; returns experiments after this position.
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         last : typing.Optional[int]
-            The number of experiments to return from the end of the range.
+            Number of results to return from the end of the range.
 
         before : typing.Optional[str]
-            A cursor; returns experiments before this position.
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         order : typing.Optional[ListExperimentsRequestOrder]
             The field to sort experiments by.
@@ -810,16 +810,16 @@ class AsyncRawExperimentsClient:
             Only experiments with this status.
 
         first : typing.Optional[int]
-            The number of experiments to return (default 20, max 100).
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            A cursor; returns experiments after this position.
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         last : typing.Optional[int]
-            The number of experiments to return from the end of the range.
+            Number of results to return from the end of the range.
 
         before : typing.Optional[str]
-            A cursor; returns experiments before this position.
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         order : typing.Optional[ListExperimentsRequestOrder]
             The field to sort experiments by.

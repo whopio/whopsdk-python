@@ -65,10 +65,10 @@ class AudiencesClient:
             Filter by uploaded customer lists, Whop People filters, or social engagement.
 
         first : typing.Optional[int]
-            Number of audiences to return. Defaults to 20; maximum 100.
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            Cursor for the next page of audiences.
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -376,10 +376,10 @@ class AsyncAudiencesClient:
             Filter by uploaded customer lists, Whop People filters, or social engagement.
 
         first : typing.Optional[int]
-            Number of audiences to return. Defaults to 20; maximum 100.
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            Cursor for the next page of audiences.
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

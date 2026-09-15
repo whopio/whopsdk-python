@@ -248,7 +248,7 @@ client.accounts.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of accounts to return (default 10, max 50).
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -256,7 +256,7 @@ client.accounts.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor; returns accounts after this position.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -264,7 +264,7 @@ client.accounts.list()
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — The number of accounts to return from the end of the range.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -272,7 +272,7 @@ client.accounts.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — A cursor; returns accounts before this position.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -1555,7 +1555,7 @@ client.ad_campaigns.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of campaigns to return.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -1563,7 +1563,7 @@ client.ad_campaigns.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Cursor to fetch the page after (from page_info.end_cursor).
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -1571,7 +1571,7 @@ client.ad_campaigns.list()
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — The number of campaigns to return from the end of the range.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -1579,7 +1579,7 @@ client.ad_campaigns.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Cursor to fetch the page before (from page_info.start_cursor).
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -2553,7 +2553,7 @@ client.ad_groups.list(
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of ad groups to return.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -2561,7 +2561,7 @@ client.ad_groups.list(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Cursor to fetch the page after (from page_info.end_cursor).
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -2569,7 +2569,7 @@ client.ad_groups.list(
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — The number of ad groups to return from the end of the range.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -2577,7 +2577,7 @@ client.ad_groups.list(
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Cursor to fetch the page before (from page_info.start_cursor).
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -3967,7 +3967,7 @@ client.ads.list(
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of ads to return.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -3975,7 +3975,7 @@ client.ads.list(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Cursor to fetch the page after (from page_info.end_cursor).
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -3983,7 +3983,7 @@ client.ads.list(
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — The number of ads to return from the end of the range.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -3991,7 +3991,7 @@ client.ads.list(
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Cursor to fetch the page before (from page_info.start_cursor).
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -5871,7 +5871,7 @@ client.api_keys.list(
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of API keys to return (default 20, max 100).
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -5879,7 +5879,7 @@ client.api_keys.list(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor; returns API keys after this position.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -5887,7 +5887,7 @@ client.api_keys.list(
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — The number of API keys to return from the end of the range.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -5895,7 +5895,7 @@ client.api_keys.list(
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — A cursor; returns API keys before this position.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -6575,7 +6575,7 @@ client.api_logs.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — Number of logs to return.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -6583,7 +6583,7 @@ client.api_logs.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Cursor to fetch the page after (from page_info.end_cursor).
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -6697,7 +6697,7 @@ client.app_builds.list(
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of builds to return (default 20, max 100).
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -6705,7 +6705,7 @@ client.app_builds.list(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor; returns builds after this position.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -6713,7 +6713,7 @@ client.app_builds.list(
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — The number of builds to return from the end of the range.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -6721,7 +6721,7 @@ client.app_builds.list(
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — A cursor; returns builds before this position.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -7135,7 +7135,7 @@ client.apps.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of apps to return (default 20, max 100).
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -7143,7 +7143,7 @@ client.apps.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor; returns apps after this position.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -7151,7 +7151,7 @@ client.apps.list()
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — The number of apps to return from the end of the range.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -7159,7 +7159,7 @@ client.apps.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — A cursor; returns apps before this position.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -7861,7 +7861,7 @@ client.apps.logs(
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of log lines to return (max 500).
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -7869,7 +7869,7 @@ client.apps.logs(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor for fetching logs after a previous page.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -7877,7 +7877,7 @@ client.apps.logs(
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — A cursor for fetching logs before a later page.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -8072,7 +8072,7 @@ client.audiences.list(
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — Number of audiences to return. Defaults to 20; maximum 100.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -8080,7 +8080,7 @@ client.audiences.list(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Cursor for the next page of audiences.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -9079,7 +9079,7 @@ client.bounties.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — Number of bounties to return from the start of the window.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -9087,7 +9087,7 @@ client.bounties.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Cursor to paginate forwards from.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -9095,7 +9095,7 @@ client.bounties.list()
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — Number of bounties to return from the end of the window.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -9103,7 +9103,7 @@ client.bounties.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Cursor to paginate backwards from.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -9701,7 +9701,7 @@ client.bounty_submissions.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — Number of submissions to return from the start of the window.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -9709,7 +9709,7 @@ client.bounty_submissions.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Cursor to paginate forwards from.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -9717,7 +9717,7 @@ client.bounty_submissions.list()
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — Number of submissions to return from the end of the window.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -9725,7 +9725,7 @@ client.bounty_submissions.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Cursor to paginate backwards from.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -10211,7 +10211,7 @@ client.card_transactions.list(
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of card transactions to return.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -10219,7 +10219,7 @@ client.card_transactions.list(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor; returns card transactions after this position.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -10227,7 +10227,7 @@ client.card_transactions.list(
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — The number of card transactions to return, counting back from the end.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -10235,7 +10235,7 @@ client.card_transactions.list(
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — A cursor; returns card transactions before this position.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -10970,7 +10970,7 @@ client.cashback_rules.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — Number of rules to return from the start of the page.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -10978,7 +10978,7 @@ client.cashback_rules.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Return rules after this cursor.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -10986,7 +10986,7 @@ client.cashback_rules.list()
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — Number of rules to return from the end of the page.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -10994,7 +10994,7 @@ client.cashback_rules.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Return rules before this cursor.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -11557,7 +11557,7 @@ client.checkout_configurations.list(
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — Number of checkout configurations to return.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -11565,7 +11565,7 @@ client.checkout_configurations.list(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Cursor for the next page of results.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -14775,7 +14775,7 @@ client.dispute_alerts.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of alerts to return (default 20, max 100).
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -14783,7 +14783,7 @@ client.dispute_alerts.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor; returns alerts after this position.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -14791,7 +14791,7 @@ client.dispute_alerts.list()
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — The number of alerts to return from the end of the range.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -14799,7 +14799,7 @@ client.dispute_alerts.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — A cursor; returns alerts before this position.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -14984,7 +14984,7 @@ client.disputes.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of disputes to return (default 20, max 100).
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -14992,7 +14992,7 @@ client.disputes.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor; returns disputes after this position.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -15000,7 +15000,7 @@ client.disputes.list()
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — The number of disputes to return from the end of the range.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -15008,7 +15008,7 @@ client.disputes.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — A cursor; returns disputes before this position.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -16490,7 +16490,7 @@ client.domains.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — Number of domains from the start of the page.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -16498,7 +16498,7 @@ client.domains.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Cursor for the next page.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -16506,7 +16506,7 @@ client.domains.list()
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — Number of domains from the end of the page.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -16514,7 +16514,7 @@ client.domains.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Cursor for the previous page.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -16888,7 +16888,7 @@ client.domains.update(
 <dl>
 <dd>
 
-Lists recommended actions and in-progress requests for the account, newest first. Unsuccessful generation requests are omitted. Filter with `status=ready` for current actions. For callers with company:update permission, listing automatically queues generation when no actions are ready or in progress, with a ten-minute cooldown after an unsuccessful request from the current pipeline version.
+Lists an account's recommendations and generation requests, newest first.
 </dd>
 </dl>
 </dd>
@@ -16935,7 +16935,7 @@ client.economic_intelligence.list()
 <dl>
 <dd>
 
-**status:** `typing.Optional[ListEconomicIntelligenceRequestStatus]` — Only recommendations in this state. `ready` for the cards the owner can run now.
+**status:** `typing.Optional[ListEconomicIntelligenceRequestStatus]` — Filter recommendations by their current status.
     
 </dd>
 </dl>
@@ -16943,7 +16943,7 @@ client.economic_intelligence.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of recommendations to return (default 20, max 100).
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -16951,7 +16951,7 @@ client.economic_intelligence.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor; returns recommendations after this position.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -16959,7 +16959,7 @@ client.economic_intelligence.list()
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — The number of recommendations to return from the end of the range.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -16967,7 +16967,7 @@ client.economic_intelligence.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — A cursor; returns recommendations before this position.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -16999,7 +16999,7 @@ client.economic_intelligence.list()
 <dl>
 <dd>
 
-Harnesses Economic Intelligence to generate recommended actions that lead the business down the most optimal path to the next dollar. Returns a `queued` recommendation right away. Poll the list endpoint until it is `ready` or disappears.
+Generates a recommendation based on your input. Returns immediately; poll the list endpoint until its `status` is `ready`.
 </dd>
 </dl>
 </dd>
@@ -17080,7 +17080,7 @@ client.economic_intelligence.create(
 <dl>
 <dd>
 
-Records approval with `executed`, or retires an unwanted recommendation with `superseded`. Both replenish the ready inventory. Supplying a rejection reason also allows retiring an executed recommendation.
+Approves or rejects a recommendation and requests replacements.
 </dd>
 </dl>
 </dd>
@@ -17130,7 +17130,7 @@ client.economic_intelligence.update(
 <dl>
 <dd>
 
-**status:** `UpdateEconomicIntelligenceRequestStatus` — Use `executed` after approval to start the action, or `superseded` to reject it.
+**status:** `UpdateEconomicIntelligenceRequestStatus` — Use `executed` to record approval, or `superseded` to reject the recommendation.
     
 </dd>
 </dl>
@@ -17652,7 +17652,7 @@ client.events.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of events to return.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -17660,7 +17660,7 @@ client.events.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor for fetching events after a previous page.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -17668,7 +17668,7 @@ client.events.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — A cursor for fetching events before a later page.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -18073,7 +18073,7 @@ client.events.pulse()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of events to return.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -18081,7 +18081,7 @@ client.events.pulse()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor for fetching events after a previous page.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -18089,7 +18089,7 @@ client.events.pulse()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — A cursor for fetching events before a later page.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -19066,7 +19066,7 @@ client.experiments.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of experiments to return (default 20, max 100).
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -19074,7 +19074,7 @@ client.experiments.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor; returns experiments after this position.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -19082,7 +19082,7 @@ client.experiments.list()
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — The number of experiments to return from the end of the range.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -19090,7 +19090,7 @@ client.experiments.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — A cursor; returns experiments before this position.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -20543,7 +20543,7 @@ client.files.list(
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of files to return.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -20551,7 +20551,7 @@ client.files.list(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor; returns files after this position.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -20559,7 +20559,7 @@ client.files.list(
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — The number of files to return from the end of the range.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -20567,7 +20567,7 @@ client.files.list(
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — A cursor; returns files before this position.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -24147,7 +24147,7 @@ client.members.list(
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — Number of members to return from the start of the window.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -24155,7 +24155,7 @@ client.members.list(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Cursor to paginate forwards from.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -24163,7 +24163,7 @@ client.members.list(
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — Number of members to return from the end of the window.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -24171,7 +24171,7 @@ client.members.list(
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Cursor to paginate backwards from.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -24388,7 +24388,7 @@ client.memberships.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — Number of memberships to return from the start of the window.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -24396,7 +24396,7 @@ client.memberships.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Cursor to paginate forwards from.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -24404,7 +24404,7 @@ client.memberships.list()
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — Number of memberships to return from the end of the window.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -24412,7 +24412,7 @@ client.memberships.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Cursor to paginate backwards from.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -25657,7 +25657,7 @@ client.messages.update(
 <dl>
 <dd>
 
-Lists the authenticated user's notifications, newest first. Requires a user credential — an account API key has no notification feed. Without filters the feed spans every experience the user belongs to plus the teams they are a member of.
+Lists the authenticated user's notifications, newest first. Requires a user credential — an account API key has no notification feed. Without filters the feed spans every experience the user belongs to plus the teams they are a member of. The `after` cursor is a notification `id` from a previous response; subsequent pages contain older notifications.
 </dd>
 </dl>
 </dd>
@@ -25728,7 +25728,7 @@ client.notifications.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of notifications to return (default 20, max 100).
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -25736,7 +25736,7 @@ client.notifications.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor (a notification `id` from a previous page); returns notifications older than it.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -26323,7 +26323,7 @@ client.partners.referred_users()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — Number of referred users to return from the start of the window.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -26331,7 +26331,7 @@ client.partners.referred_users()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Cursor to fetch the page after (from page_info.end_cursor).
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -26339,7 +26339,7 @@ client.partners.referred_users()
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — Number of referred users to return from the end of the window.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -26347,7 +26347,7 @@ client.partners.referred_users()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Cursor to fetch the page before (from page_info.start_cursor).
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -26556,7 +26556,7 @@ client.payment_method_domains.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — Number of domains to return from the start of the window.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -26564,7 +26564,7 @@ client.payment_method_domains.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Cursor to paginate forwards from.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -26572,7 +26572,7 @@ client.payment_method_domains.list()
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — Number of domains to return from the end of the window.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -26580,7 +26580,7 @@ client.payment_method_domains.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Cursor to paginate backwards from.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -27455,7 +27455,7 @@ client.payments.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of payments to return.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -27463,7 +27463,7 @@ client.payments.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor; returns payments after this position.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -27471,7 +27471,7 @@ client.payments.list()
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — The number of payments to return from the end of the range.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -27479,7 +27479,7 @@ client.payments.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — A cursor; returns payments before this position.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -28714,7 +28714,7 @@ client.payouts.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — Number of payouts to return from the start of the window.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -28722,7 +28722,7 @@ client.payouts.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Cursor to fetch the page after (from page_info.end_cursor).
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -28730,7 +28730,7 @@ client.payouts.list()
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — Number of payouts to return from the end of the window.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -28738,7 +28738,7 @@ client.payouts.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Cursor to fetch the page before (from page_info.start_cursor).
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -29455,7 +29455,7 @@ client.people.list(
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of people to return (default 100, max 100).
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -29463,7 +29463,7 @@ client.people.list(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor for fetching people after a previous page.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -29471,7 +29471,7 @@ client.people.list(
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — A cursor for fetching people before a later page.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -29807,7 +29807,7 @@ client.plans.list(
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of plans to return (default and max 100).
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -29815,7 +29815,7 @@ client.plans.list(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor; returns plans after this position.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -29823,7 +29823,7 @@ client.plans.list(
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — The number of plans to return from the end of the range.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -29831,7 +29831,7 @@ client.plans.list(
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — A cursor; returns plans before this position.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -30790,7 +30790,7 @@ client.products.list(
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of products to return (default and max 100).
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -30798,7 +30798,7 @@ client.products.list(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor; returns products after this position.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -30806,7 +30806,7 @@ client.products.list(
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — The number of products to return from the end of the range.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -30814,7 +30814,7 @@ client.products.list(
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — A cursor; returns products before this position.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -31644,7 +31644,7 @@ client.promo_codes.list(
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — Number of promo codes to return from the start of the window.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -31652,7 +31652,7 @@ client.promo_codes.list(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Cursor to paginate forwards from.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -31660,7 +31660,7 @@ client.promo_codes.list(
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — Number of promo codes to return from the end of the window.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -31668,7 +31668,7 @@ client.promo_codes.list(
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Cursor to paginate backwards from.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -32658,7 +32658,7 @@ client.refunds.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of refunds to return.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -32666,7 +32666,7 @@ client.refunds.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor; returns refunds after this position.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -32674,7 +32674,7 @@ client.refunds.list()
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — The number of refunds to return from the end of the range.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -32682,7 +32682,7 @@ client.refunds.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — A cursor; returns refunds before this position.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -32843,7 +32843,7 @@ client.resolution_center_cases.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of cases to return (default 20, max 100).
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -32851,7 +32851,7 @@ client.resolution_center_cases.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor; returns cases after this position.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -32859,7 +32859,7 @@ client.resolution_center_cases.list()
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — The number of cases to return from the end of the range.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -32867,7 +32867,7 @@ client.resolution_center_cases.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — A cursor; returns cases before this position.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -33580,7 +33580,7 @@ client.resolution_center_cases.events(
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of events to return (default 20, max 100).
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -33588,7 +33588,7 @@ client.resolution_center_cases.events(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor; returns events after this position.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -33596,7 +33596,7 @@ client.resolution_center_cases.events(
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — The number of events to return from the end of the range.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -33604,7 +33604,7 @@ client.resolution_center_cases.events(
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — A cursor; returns events before this position.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -34661,7 +34661,7 @@ client.shipments.list(
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of shipments to return.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -34669,7 +34669,7 @@ client.shipments.list(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor; returns shipments after this position.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -34677,7 +34677,7 @@ client.shipments.list(
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — The number of shipments to return from the end of the range.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -34685,7 +34685,7 @@ client.shipments.list(
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — A cursor; returns shipments before this position.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -35042,7 +35042,7 @@ client.social_accounts.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of social accounts to return.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -35050,7 +35050,7 @@ client.social_accounts.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Cursor to fetch the page after (from page_info.end_cursor).
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -35058,7 +35058,7 @@ client.social_accounts.list()
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — The number of social accounts to return from the end of the range.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -35066,7 +35066,7 @@ client.social_accounts.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Cursor to fetch the page before (from page_info.start_cursor).
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -35530,7 +35530,7 @@ client.social_accounts.posts(
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of posts to return.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -35538,7 +35538,7 @@ client.social_accounts.posts(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Cursor to fetch the page after (from page_info.end_cursor).
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -36833,7 +36833,7 @@ client.team_members.list(
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — Number of members to return. Defaults to 20; maximum 100.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -36841,7 +36841,7 @@ client.team_members.list(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Cursor for the next page of members.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -36849,7 +36849,7 @@ client.team_members.list(
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — Number of members to return from the end of the window.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -36857,7 +36857,7 @@ client.team_members.list(
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Cursor to paginate backwards from.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -37407,7 +37407,7 @@ client.transfers.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — Number of transfers to return from the start of the window.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -37415,7 +37415,7 @@ client.transfers.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Cursor to fetch the page after (from page_info.end_cursor).
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -37423,7 +37423,7 @@ client.transfers.list()
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — Number of transfers to return from the end of the window.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -37431,7 +37431,7 @@ client.transfers.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Cursor to fetch the page before (from page_info.start_cursor).
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -37674,7 +37674,7 @@ client.transfers.list_recipients(
 <dl>
 <dd>
 
-**query:** `typing.Optional[str]` — Search anyone on Whop by name or username, plus your own accounts by name or ID. An exact business ID (`biz_`) returns that business first. Omit it to get the team around the balance, the people you follow, and your own accounts. The list is the same whether the balance belongs to a company or to you. Searching from a `biz_` origin additionally requires the member:basic:read scope. A credential scoped to a single company is the exception to the search itself: it only ever sees that company's own people. Complete email addresses return no matches.
+**query:** `typing.Optional[str]` — Search anyone on Whop by name or username, plus your own accounts by name or ID. An exact business ID (`biz_`) returns that business first. Omit it to get the team around the balance, the people you follow, and your own accounts. The list is the same whether the balance belongs to a company or to you. Searching from a `biz_` origin additionally requires the member:basic:read scope. A credential scoped to a single company is the exception to the search itself: it only ever sees that company's own people. Complete email addresses return no matches. Search results are limited to 20 recipients.
     
 </dd>
 </dl>
@@ -37682,7 +37682,7 @@ client.transfers.list_recipients(
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — Number of recipients per page. Search queries preserve the dashboard's 20-result maximum.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -37690,7 +37690,7 @@ client.transfers.list_recipients(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Cursor to fetch the page after (from page_info.end_cursor).
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -37843,7 +37843,7 @@ client.users.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of users to return (max 50).
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -37851,7 +37851,7 @@ client.users.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor; returns users after this position.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -37859,7 +37859,7 @@ client.users.list()
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — The number of users to return from the end of the range.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -37867,7 +37867,7 @@ client.users.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — A cursor; returns users before this position.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -38937,7 +38937,7 @@ client.webhooks.list(
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of webhooks to return (default 20, max 100).
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -38945,7 +38945,7 @@ client.webhooks.list(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor; returns webhooks after this position.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -38953,7 +38953,7 @@ client.webhooks.list(
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — The number of webhooks to return from the end of the range.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -38961,7 +38961,7 @@ client.webhooks.list(
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — A cursor; returns webhooks before this position.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -39414,7 +39414,7 @@ client.webhooks.list_deliveries(
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of deliveries to return (default 50, max 100).
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -39422,7 +39422,7 @@ client.webhooks.list_deliveries(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor; returns deliveries after this position.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -40619,7 +40619,7 @@ client.bounties.submissions.list(
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — Number of submissions to return from the start of the window.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -40627,7 +40627,7 @@ client.bounties.submissions.list(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Cursor to paginate forwards from.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -40635,7 +40635,7 @@ client.bounties.submissions.list(
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — Number of submissions to return from the end of the window.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -40643,7 +40643,7 @@ client.bounties.submissions.list(
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Cursor to paginate backwards from.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -40943,7 +40943,7 @@ client.members.logs.list(
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — Number of log entries to return from the start of the window.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -40951,7 +40951,7 @@ client.members.logs.list(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Cursor to paginate forwards from.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -40959,7 +40959,7 @@ client.members.logs.list(
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — Number of log entries to return from the end of the window.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -40967,7 +40967,7 @@ client.members.logs.list(
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Cursor to paginate backwards from.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -41047,7 +41047,7 @@ client.notifications.topics.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of topics to return (default 20, max 100).
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -41055,7 +41055,7 @@ client.notifications.topics.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor; returns topics after this position.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -41143,7 +41143,7 @@ client.partners.businesses.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — Number of partner businesses to return from the start of the window.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -41151,7 +41151,7 @@ client.partners.businesses.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Cursor to fetch the page after (from page_info.end_cursor).
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -41159,7 +41159,7 @@ client.partners.businesses.list()
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — Number of partner businesses to return from the end of the window.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -41167,7 +41167,7 @@ client.partners.businesses.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Cursor to fetch the page before (from page_info.start_cursor).
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -41384,7 +41384,7 @@ client.partners.links.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — Number of promotion links to return from the start of the window.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -41392,7 +41392,7 @@ client.partners.links.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Cursor to fetch the page after (from page_info.end_cursor).
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -41400,7 +41400,7 @@ client.partners.links.list()
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — Number of promotion links to return from the end of the window.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -41408,7 +41408,7 @@ client.partners.links.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Cursor to fetch the page before (from page_info.start_cursor).
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -41506,7 +41506,7 @@ client.partners.businesses.earnings.list(
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` 
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -41514,7 +41514,7 @@ client.partners.businesses.earnings.list(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` 
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -41522,7 +41522,7 @@ client.partners.businesses.earnings.list(
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` 
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -41530,7 +41530,7 @@ client.partners.businesses.earnings.list(
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` 
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -41682,7 +41682,7 @@ client.payouts.methods.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — Number of payout methods to return from the start of the window.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -41690,7 +41690,7 @@ client.payouts.methods.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Cursor to fetch the page after (from page_info.end_cursor).
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -41698,7 +41698,7 @@ client.payouts.methods.list()
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — Number of payout methods to return from the end of the window.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -41706,7 +41706,7 @@ client.payouts.methods.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Cursor to fetch the page before (from page_info.start_cursor).
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -42117,7 +42117,7 @@ client.payouts.supported_methods.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — Number of supported payout methods to return from the start of the window.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -42125,7 +42125,7 @@ client.payouts.supported_methods.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Cursor to fetch the page after (from page_info.end_cursor).
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -42133,7 +42133,7 @@ client.payouts.supported_methods.list()
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — Number of supported payout methods to return from the end of the window.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -42141,7 +42141,7 @@ client.payouts.supported_methods.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Cursor to fetch the page before (from page_info.start_cursor).
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -42221,7 +42221,7 @@ client.users.oauth_grants.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of grants to return (default 20, max 100).
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -42229,7 +42229,7 @@ client.users.oauth_grants.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor; returns grants after this position.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -42237,7 +42237,7 @@ client.users.oauth_grants.list()
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — The number of grants to return from the end of the range.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -42245,7 +42245,7 @@ client.users.oauth_grants.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — A cursor; returns grants before this position.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -42484,7 +42484,7 @@ client.users.passkeys.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of passkeys to return (default 20, max 100).
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -42492,7 +42492,7 @@ client.users.passkeys.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor; returns passkeys after this position.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -42500,7 +42500,7 @@ client.users.passkeys.list()
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — The number of passkeys to return from the end of the range.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
     
 </dd>
 </dl>
@@ -42508,7 +42508,7 @@ client.users.passkeys.list()
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — A cursor; returns passkeys before this position.
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -43113,7 +43113,7 @@ client.users.preferences.notifications.experiences.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of preferences to return.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -43121,7 +43121,7 @@ client.users.preferences.notifications.experiences.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor; returns preferences after this position.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -43233,7 +43233,7 @@ client.users.preferences.notifications.topics.list()
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — The number of preferences to return.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -43241,7 +43241,7 @@ client.users.preferences.notifications.topics.list()
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — A cursor; returns preferences after this position.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>

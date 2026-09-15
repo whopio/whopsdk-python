@@ -72,10 +72,10 @@ class RawApiLogsClient:
             Only return requests that took at most this many milliseconds.
 
         first : typing.Optional[int]
-            Number of logs to return.
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            Cursor to fetch the page after (from page_info.end_cursor).
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -229,10 +229,10 @@ class AsyncRawApiLogsClient:
             Only return requests that took at most this many milliseconds.
 
         first : typing.Optional[int]
-            Number of logs to return.
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            Cursor to fetch the page after (from page_info.end_cursor).
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

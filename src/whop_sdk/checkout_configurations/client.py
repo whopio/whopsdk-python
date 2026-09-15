@@ -76,10 +76,10 @@ class CheckoutConfigurationsClient:
             Sort direction. Defaults to `desc`.
 
         first : typing.Optional[int]
-            Number of checkout configurations to return.
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            Cursor for the next page of results.
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -331,10 +331,10 @@ class AsyncCheckoutConfigurationsClient:
             Sort direction. Defaults to `desc`.
 
         first : typing.Optional[int]
-            Number of checkout configurations to return.
+            Number of results to return from the start of the range.
 
         after : typing.Optional[str]
-            Cursor for the next page of results.
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
