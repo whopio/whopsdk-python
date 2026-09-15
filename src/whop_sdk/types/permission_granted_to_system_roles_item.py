@@ -3,5 +3,5 @@
 import typing
 
 PermissionGrantedToSystemRolesItem = typing.Union[
-    typing.Literal["owner", "admin", "moderator", "sales_manager", "advertiser"], typing.Any
+    typing.Literal["owner", "admin", "moderator", "sales_manager", "advertiser", "partner"], typing.Any
 ]

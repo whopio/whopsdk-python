@@ -3,5 +3,5 @@
 import typing
 
 UpdateTeamMembersRequestRole = typing.Union[
-    typing.Literal["owner", "admin", "sales_manager", "moderator", "advertiser", "workforce"], typing.Any
+    typing.Literal["owner", "admin", "partner", "sales_manager", "moderator", "advertiser", "workforce"], typing.Any
 ]
