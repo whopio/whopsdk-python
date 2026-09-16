@@ -23,6 +23,11 @@ class UpdateVerificationsRequestBodyBusinessAddressRequestedInformationItem(Univ
     Answer for `address` items.
     """
 
+    document_number: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Identity number for an `id_document` answer.
+    """
+
     documents: typing.Optional[UpdateVerificationsRequestBodyBusinessAddressRequestedInformationItemDocuments] = (
         pydantic.Field(default=None)
     )
@@ -38,6 +43,11 @@ class UpdateVerificationsRequestBodyBusinessAddressRequestedInformationItem(Univ
     id: str = pydantic.Field()
     """
     Item ID from `requested_information`.
+    """
+
+    issuing_country: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Two-letter ISO 3166-1 issuing country for an `id_document` answer.
     """
 
     value: typing.Optional[str] = pydantic.Field(default=None)

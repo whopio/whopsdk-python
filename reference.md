@@ -21149,7 +21149,7 @@ client.financial_reports.retrieve(
 <dl>
 <dd>
 
-**group_by:** `typing.Optional[RetrieveFinancialReportsRequestGroupBy]` — Grouping granularity for report rows.
+**group_by:** `typing.Optional[RetrieveFinancialReportsRequestGroupBy]` — Grouping granularity for report rows. Hourly grouping is supported for account-level balance activity reports only; hourly periods are timestamps in the requested timezone.
     
 </dd>
 </dl>

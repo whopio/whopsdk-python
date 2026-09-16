@@ -74,7 +74,7 @@ class RawFinancialReportsClient:
             Exclusive end of the report window as an ISO 8601 timestamp. Required for platform-wide (global) reports.
 
         group_by : typing.Optional[RetrieveFinancialReportsRequestGroupBy]
-            Grouping granularity for report rows.
+            Grouping granularity for report rows. Hourly grouping is supported for account-level balance activity reports only; hourly periods are timestamps in the requested timezone.
 
         timezone : typing.Optional[str]
             IANA timezone (for example `America/New_York`) used to bucket report periods. Defaults to UTC. `from` and `to` remain exact instants.
@@ -237,7 +237,7 @@ class AsyncRawFinancialReportsClient:
             Exclusive end of the report window as an ISO 8601 timestamp. Required for platform-wide (global) reports.
 
         group_by : typing.Optional[RetrieveFinancialReportsRequestGroupBy]
-            Grouping granularity for report rows.
+            Grouping granularity for report rows. Hourly grouping is supported for account-level balance activity reports only; hourly periods are timestamps in the requested timezone.
 
         timezone : typing.Optional[str]
             IANA timezone (for example `America/New_York`) used to bucket report periods. Defaults to UTC. `from` and `to` remain exact instants.
