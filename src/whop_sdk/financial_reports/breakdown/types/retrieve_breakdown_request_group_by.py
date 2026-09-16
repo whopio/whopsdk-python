@@ -2,4 +2,4 @@
 
 import typing
 
-RetrieveBreakdownRequestGroupBy = typing.Union[typing.Literal["day", "week", "month"], typing.Any]
+RetrieveBreakdownRequestGroupBy = typing.Union[typing.Literal["hour", "day", "week", "month"], typing.Any]
