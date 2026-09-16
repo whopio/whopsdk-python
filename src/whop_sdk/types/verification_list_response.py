@@ -65,8 +65,18 @@ class DataRequestedInformation(BaseModel):
     What to send as the answer, so you never have to infer it: `files` (a document,
     as a list of its pages), `id_document` (send `documents` with the slot keys for
     the ID you are uploading), `text`, `date`, `phone` or `select` (send `value`),
-    or `address` (send `address`).
+    `text_with_files` (send `value` and optional `files`), or `address` (send
+    `address`).
     """
+
+    details_label: Optional[str] = None
+    """Follow-up prompt shown with this requirement."""
+
+    details_required: Optional[bool] = None
+    """Whether the follow-up response is required when visible."""
+
+    details_visible_for: Optional[List[str]] = None
+    """Selected option values that make the follow-up prompt visible."""
 
     errors: Optional[List[DataRequestedInformationError]] = None
     """Present after a rejected submission."""
@@ -81,6 +91,21 @@ class DataRequestedInformation(BaseModel):
     decides which `documents` slots to send. Absent when the item has no choice to
     make.
     """
+
+    response_type: Optional[Literal["yes_no", "yes_no_na", "date", "url", "number", "tel"]] = None
+    """Optional native input format for a text response."""
+
+    selection_mode: Optional[Literal["single", "multiple"]] = None
+    """Whether a question with `options` accepts one value or multiple values."""
+
+    supporting_files_explanation_allowed: Optional[bool] = None
+    """Whether a written explanation may replace required supporting files."""
+
+    supporting_files_required: Optional[bool] = None
+    """Whether this requirement also needs supporting files."""
+
+    supporting_files_visible_for: Optional[List[str]] = None
+    """Selected option values that make the supporting-file input visible."""
 
 
 class DataRequiredDocument(BaseModel):
