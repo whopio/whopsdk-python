@@ -1063,6 +1063,19 @@ if typing.TYPE_CHECKING:
     from .payment_required_error_body import PaymentRequiredErrorBody
     from .payment_required_error_body_error import PaymentRequiredErrorBodyError
     from .payment_required_error_body_error_type import PaymentRequiredErrorBodyErrorType
+    from .payment_rule import PaymentRule
+    from .payment_rule_action import PaymentRuleAction
+    from .payment_rule_condition import PaymentRuleCondition
+    from .payment_rule_condition_field import PaymentRuleConditionField
+    from .payment_rule_condition_operator import PaymentRuleConditionOperator
+    from .payment_rule_condition_value import PaymentRuleConditionValue
+    from .payment_rule_conditions import PaymentRuleConditions
+    from .payment_rule_field import PaymentRuleField
+    from .payment_rule_field_field import PaymentRuleFieldField
+    from .payment_rule_field_operators_item import PaymentRuleFieldOperatorsItem
+    from .payment_rule_field_option import PaymentRuleFieldOption
+    from .payment_rule_field_type import PaymentRuleFieldType
+    from .payment_rule_status import PaymentRuleStatus
     from .payment_status import PaymentStatus
     from .payment_status_status import PaymentStatusStatus
     from .payment_transaction_statuses import PaymentTransactionStatuses
@@ -2238,6 +2251,19 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaymentRequiredErrorBody": ".payment_required_error_body",
     "PaymentRequiredErrorBodyError": ".payment_required_error_body_error",
     "PaymentRequiredErrorBodyErrorType": ".payment_required_error_body_error_type",
+    "PaymentRule": ".payment_rule",
+    "PaymentRuleAction": ".payment_rule_action",
+    "PaymentRuleCondition": ".payment_rule_condition",
+    "PaymentRuleConditionField": ".payment_rule_condition_field",
+    "PaymentRuleConditionOperator": ".payment_rule_condition_operator",
+    "PaymentRuleConditionValue": ".payment_rule_condition_value",
+    "PaymentRuleConditions": ".payment_rule_conditions",
+    "PaymentRuleField": ".payment_rule_field",
+    "PaymentRuleFieldField": ".payment_rule_field_field",
+    "PaymentRuleFieldOperatorsItem": ".payment_rule_field_operators_item",
+    "PaymentRuleFieldOption": ".payment_rule_field_option",
+    "PaymentRuleFieldType": ".payment_rule_field_type",
+    "PaymentRuleStatus": ".payment_rule_status",
     "PaymentStatus": ".payment_status",
     "PaymentStatusStatus": ".payment_status_status",
     "PaymentTransactionStatuses": ".payment_transaction_statuses",
@@ -3435,6 +3461,19 @@ __all__ = [
     "PaymentRequiredErrorBody",
     "PaymentRequiredErrorBodyError",
     "PaymentRequiredErrorBodyErrorType",
+    "PaymentRule",
+    "PaymentRuleAction",
+    "PaymentRuleCondition",
+    "PaymentRuleConditionField",
+    "PaymentRuleConditionOperator",
+    "PaymentRuleConditionValue",
+    "PaymentRuleConditions",
+    "PaymentRuleField",
+    "PaymentRuleFieldField",
+    "PaymentRuleFieldOperatorsItem",
+    "PaymentRuleFieldOption",
+    "PaymentRuleFieldType",
+    "PaymentRuleStatus",
     "PaymentStatus",
     "PaymentStatusStatus",
     "PaymentTransactionStatuses",
