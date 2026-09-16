@@ -12,6 +12,7 @@ from .payment_address import PaymentAddress
 from .payment_decline_codes import PaymentDeclineCodes
 from .payment_instrument import PaymentInstrument
 from .payment_method_types import PaymentMethodTypes
+from .payment_rule_match import PaymentRuleMatch
 from .payment_verification_checks import PaymentVerificationChecks
 from .receipt_status import ReceiptStatus
 from .receipt_tax_behaviors import ReceiptTaxBehaviors
@@ -149,6 +150,7 @@ class Payment(UniversalBaseModel):
     The kind of instrument used, for example `card`, `apple_pay`, `klarna`, or `us_bank_account`.
     """
 
+    payment_rule_matches: typing.List[PaymentRuleMatch]
     payments_failed: float = pydantic.Field()
     """
     How many charge attempts have failed on this payment.

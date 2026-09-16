@@ -1075,6 +1075,8 @@ if typing.TYPE_CHECKING:
     from .payment_rule_field_operators_item import PaymentRuleFieldOperatorsItem
     from .payment_rule_field_option import PaymentRuleFieldOption
     from .payment_rule_field_type import PaymentRuleFieldType
+    from .payment_rule_match import PaymentRuleMatch
+    from .payment_rule_match_action import PaymentRuleMatchAction
     from .payment_rule_status import PaymentRuleStatus
     from .payment_status import PaymentStatus
     from .payment_status_status import PaymentStatusStatus
@@ -2263,6 +2265,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaymentRuleFieldOperatorsItem": ".payment_rule_field_operators_item",
     "PaymentRuleFieldOption": ".payment_rule_field_option",
     "PaymentRuleFieldType": ".payment_rule_field_type",
+    "PaymentRuleMatch": ".payment_rule_match",
+    "PaymentRuleMatchAction": ".payment_rule_match_action",
     "PaymentRuleStatus": ".payment_rule_status",
     "PaymentStatus": ".payment_status",
     "PaymentStatusStatus": ".payment_status_status",
@@ -3473,6 +3477,8 @@ __all__ = [
     "PaymentRuleFieldOperatorsItem",
     "PaymentRuleFieldOption",
     "PaymentRuleFieldType",
+    "PaymentRuleMatch",
+    "PaymentRuleMatchAction",
     "PaymentRuleStatus",
     "PaymentStatus",
     "PaymentStatusStatus",
