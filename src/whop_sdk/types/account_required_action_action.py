@@ -17,6 +17,7 @@ AccountRequiredActionAction = typing.Union[
         "setup_apple_pay_domains",
         "configure_tax_remitter",
         "add_vat_registration",
+        "enable_two_factor_authentication",
     ],
     typing.Any,
 ]
