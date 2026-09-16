@@ -61,6 +61,7 @@ from .membership_deactivated_webhook_event import MembershipDeactivatedWebhookEv
 from .setup_intent_succeeded_webhook_event import SetupIntentSucceededWebhookEvent
 from .verification_succeeded_webhook_event import VerificationSucceededWebhookEvent
 from .card_application_denied_webhook_event import CardApplicationDeniedWebhookEvent
+from .payment_requires_action_webhook_event import PaymentRequiresActionWebhookEvent
 from .account_financing_denied_webhook_event import AccountFinancingDeniedWebhookEvent
 from .card_application_created_webhook_event import CardApplicationCreatedWebhookEvent
 from .card_application_updated_webhook_event import CardApplicationUpdatedWebhookEvent
@@ -140,6 +141,7 @@ UnwrapWebhookEvent: TypeAlias = Annotated[
         PaymentCreatedWebhookEvent,
         PaymentFailedWebhookEvent,
         PaymentPendingWebhookEvent,
+        PaymentRequiresActionWebhookEvent,
         PaymentSucceededWebhookEvent,
         PayoutCreatedWebhookEvent,
         PayoutReversedWebhookEvent,

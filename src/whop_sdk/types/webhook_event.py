@@ -61,6 +61,7 @@ WebhookEvent: TypeAlias = Literal[
     "payout_account.status_updated",
     "payment.authorized",
     "payment.canceled",
+    "payment.requires_action",
     "resolution_center_case.created",
     "resolution_center_case.updated",
     "resolution_center_case.decided",

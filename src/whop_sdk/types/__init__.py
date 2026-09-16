@@ -379,6 +379,9 @@ from .company_token_transaction_list_params import (
 from .course_lesson_interaction_list_params import (
     CourseLessonInteractionListParams as CourseLessonInteractionListParams,
 )
+from .payment_requires_action_webhook_event import (
+    PaymentRequiresActionWebhookEvent as PaymentRequiresActionWebhookEvent,
+)
 from .account_financing_denied_webhook_event import (
     AccountFinancingDeniedWebhookEvent as AccountFinancingDeniedWebhookEvent,
 )
