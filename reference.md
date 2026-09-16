@@ -16888,7 +16888,7 @@ client.domains.update(
 <dl>
 <dd>
 
-Lists an account's recommendations and generation requests, newest first.
+Lists an account's recommendations and generation requests, newest first. Without an account, signed-out visitors receive a business-setup template and eligible users receive their saved setup recommendation.
 </dd>
 </dl>
 </dd>
@@ -16927,7 +16927,7 @@ client.economic_intelligence.list()
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[str]` — Account ID, prefixed `biz_`. Defaults to the API key's own account.
+**account_id:** `typing.Optional[str]` — Account ID, prefixed `biz_`. Defaults to the API key's own account; omit for personal onboarding.
     
 </dd>
 </dl>

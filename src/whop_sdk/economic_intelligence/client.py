@@ -42,12 +42,12 @@ class EconomicIntelligenceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[EconomicIntelligence, ListEconomicIntelligenceResponse]:
         """
-        Lists an account's recommendations and generation requests, newest first.
+        Lists an account's recommendations and generation requests, newest first. Without an account, signed-out visitors receive a business-setup template and eligible users receive their saved setup recommendation.
 
         Parameters
         ----------
         account_id : typing.Optional[str]
-            Account ID, prefixed `biz_`. Defaults to the API key's own account.
+            Account ID, prefixed `biz_`. Defaults to the API key's own account; omit for personal onboarding.
 
         status : typing.Optional[ListEconomicIntelligenceRequestStatus]
             Filter recommendations by their current status.
@@ -221,12 +221,12 @@ class AsyncEconomicIntelligenceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[EconomicIntelligence, ListEconomicIntelligenceResponse]:
         """
-        Lists an account's recommendations and generation requests, newest first.
+        Lists an account's recommendations and generation requests, newest first. Without an account, signed-out visitors receive a business-setup template and eligible users receive their saved setup recommendation.
 
         Parameters
         ----------
         account_id : typing.Optional[str]
-            Account ID, prefixed `biz_`. Defaults to the API key's own account.
+            Account ID, prefixed `biz_`. Defaults to the API key's own account; omit for personal onboarding.
 
         status : typing.Optional[ListEconomicIntelligenceRequestStatus]
             Filter recommendations by their current status.
