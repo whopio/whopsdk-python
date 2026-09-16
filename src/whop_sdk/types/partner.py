@@ -25,6 +25,11 @@ class Partner(UniversalBaseModel):
     The authenticated partner's public profile.
     """
 
+    verification_waitlist_joined: bool = pydantic.Field()
+    """
+    Whether the user has a pending or approved personal entry on the Verified Partner waitlist.
+    """
+
     whop_partner_verified_at: typing.Optional[str] = pydantic.Field(default=None)
     """
     When the user became a verified Whop Partner, as an ISO 8601 timestamp. `null` if not verified.
