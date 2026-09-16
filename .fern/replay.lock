@@ -468,5 +468,11 @@ generations:
     cli_version: unknown
     generator_versions:
       fernapi/fern-python-sdk: 5.28.0
-current_generation: d66781198a183713d453a06e887776ea87b0c9e4
+  - commit_sha: 49901eeede3c420bdc8bc003e2530c8a5f14ec0c
+    tree_hash: fecf0ad8947b386653a3734e276b10fd880661d4
+    timestamp: 2026-09-16T00:15:05.882Z
+    cli_version: unknown
+    generator_versions:
+      fernapi/fern-python-sdk: 5.28.0
+current_generation: 49901eeede3c420bdc8bc003e2530c8a5f14ec0c
 patches: []
