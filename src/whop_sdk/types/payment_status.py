@@ -17,6 +17,11 @@ class PaymentStatus(UniversalBaseModel):
     The account receiving this payment, or `null` when the payment has no associated account.
     """
 
+    auto_capture_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When Whop will capture this authorization automatically, as an ISO 8601 timestamp. `null` when no automatic capture was requested.
+    """
+
     capture_expires_at: typing.Optional[str] = pydantic.Field(default=None)
     """
     When the card authorization must be captured, as an ISO 8601 timestamp. `null` when this payment was not authorized for later capture.
