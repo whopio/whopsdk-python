@@ -8,9 +8,9 @@ from .economic_intelligence_status import EconomicIntelligenceStatus
 
 
 class EconomicIntelligence(UniversalBaseModel):
-    account_id: str = pydantic.Field()
+    account_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    ID of the account this recommendation is for, prefixed `biz_`.
+    ID of the account this recommendation is for, prefixed `biz_`, or null for personal onboarding.
     """
 
     action_type: typing.Optional[str] = pydantic.Field(default=None)
@@ -18,9 +18,14 @@ class EconomicIntelligence(UniversalBaseModel):
     Type of action recommended, or `null` when no type is assigned. New values may be added; handle unknown types gracefully.
     """
 
-    created_at: str = pydantic.Field()
+    ai_chat_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    When the recommendation was created, as an ISO 8601 timestamp.
+    The chat to resume after its initial message is accepted, or null before a chat is ready.
+    """
+
+    created_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When the recommendation was created, as an ISO 8601 timestamp, or null for an unsaved recommendation.
     """
 
     executed_at: typing.Optional[str] = pydantic.Field(default=None)
@@ -30,7 +35,7 @@ class EconomicIntelligence(UniversalBaseModel):
 
     id: str = pydantic.Field()
     """
-    Recommendation ID, prefixed `reca_`.
+    Recommendation ID, prefixed `reca_`, or `create_business` for an unsaved setup recommendation. Authenticate and list again before executing an unsaved recommendation.
     """
 
     input: typing.Optional[str] = pydantic.Field(default=None)
