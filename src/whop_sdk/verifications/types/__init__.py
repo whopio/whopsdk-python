@@ -30,6 +30,12 @@ if typing.TYPE_CHECKING:
     from .create_verifications_response_requested_information_item_errors_item import (
         CreateVerificationsResponseRequestedInformationItemErrorsItem,
     )
+    from .create_verifications_response_requested_information_item_response_type import (
+        CreateVerificationsResponseRequestedInformationItemResponseType,
+    )
+    from .create_verifications_response_requested_information_item_selection_mode import (
+        CreateVerificationsResponseRequestedInformationItemSelectionMode,
+    )
     from .create_verifications_response_required_documents_item import CreateVerificationsResponseRequiredDocumentsItem
     from .create_verifications_response_required_documents_item_status import (
         CreateVerificationsResponseRequiredDocumentsItemStatus,
@@ -46,6 +52,12 @@ if typing.TYPE_CHECKING:
     )
     from .list_verifications_response_data_item_requested_information_item_errors_item import (
         ListVerificationsResponseDataItemRequestedInformationItemErrorsItem,
+    )
+    from .list_verifications_response_data_item_requested_information_item_response_type import (
+        ListVerificationsResponseDataItemRequestedInformationItemResponseType,
+    )
+    from .list_verifications_response_data_item_requested_information_item_selection_mode import (
+        ListVerificationsResponseDataItemRequestedInformationItemSelectionMode,
     )
     from .list_verifications_response_data_item_required_documents_item import (
         ListVerificationsResponseDataItemRequiredDocumentsItem,
@@ -69,6 +81,12 @@ if typing.TYPE_CHECKING:
     )
     from .retrieve_verifications_response_requested_information_item_errors_item import (
         RetrieveVerificationsResponseRequestedInformationItemErrorsItem,
+    )
+    from .retrieve_verifications_response_requested_information_item_response_type import (
+        RetrieveVerificationsResponseRequestedInformationItemResponseType,
+    )
+    from .retrieve_verifications_response_requested_information_item_selection_mode import (
+        RetrieveVerificationsResponseRequestedInformationItemSelectionMode,
     )
     from .retrieve_verifications_response_required_documents_item import (
         RetrieveVerificationsResponseRequiredDocumentsItem,
@@ -119,6 +137,12 @@ if typing.TYPE_CHECKING:
     from .update_verifications_response_requested_information_item_errors_item import (
         UpdateVerificationsResponseRequestedInformationItemErrorsItem,
     )
+    from .update_verifications_response_requested_information_item_response_type import (
+        UpdateVerificationsResponseRequestedInformationItemResponseType,
+    )
+    from .update_verifications_response_requested_information_item_selection_mode import (
+        UpdateVerificationsResponseRequestedInformationItemSelectionMode,
+    )
     from .update_verifications_response_required_documents_item import UpdateVerificationsResponseRequiredDocumentsItem
     from .update_verifications_response_required_documents_item_status import (
         UpdateVerificationsResponseRequiredDocumentsItemStatus,
@@ -139,6 +163,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateVerificationsResponseKind": ".create_verifications_response_kind",
     "CreateVerificationsResponseRequestedInformationItem": ".create_verifications_response_requested_information_item",
     "CreateVerificationsResponseRequestedInformationItemErrorsItem": ".create_verifications_response_requested_information_item_errors_item",
+    "CreateVerificationsResponseRequestedInformationItemResponseType": ".create_verifications_response_requested_information_item_response_type",
+    "CreateVerificationsResponseRequestedInformationItemSelectionMode": ".create_verifications_response_requested_information_item_selection_mode",
     "CreateVerificationsResponseRequiredDocumentsItem": ".create_verifications_response_required_documents_item",
     "CreateVerificationsResponseRequiredDocumentsItemStatus": ".create_verifications_response_required_documents_item_status",
     "CreateVerificationsResponseStatus": ".create_verifications_response_status",
@@ -150,6 +176,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListVerificationsResponseDataItemKind": ".list_verifications_response_data_item_kind",
     "ListVerificationsResponseDataItemRequestedInformationItem": ".list_verifications_response_data_item_requested_information_item",
     "ListVerificationsResponseDataItemRequestedInformationItemErrorsItem": ".list_verifications_response_data_item_requested_information_item_errors_item",
+    "ListVerificationsResponseDataItemRequestedInformationItemResponseType": ".list_verifications_response_data_item_requested_information_item_response_type",
+    "ListVerificationsResponseDataItemRequestedInformationItemSelectionMode": ".list_verifications_response_data_item_requested_information_item_selection_mode",
     "ListVerificationsResponseDataItemRequiredDocumentsItem": ".list_verifications_response_data_item_required_documents_item",
     "ListVerificationsResponseDataItemRequiredDocumentsItemStatus": ".list_verifications_response_data_item_required_documents_item_status",
     "ListVerificationsResponseDataItemStatus": ".list_verifications_response_data_item_status",
@@ -165,6 +193,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrieveVerificationsResponseKind": ".retrieve_verifications_response_kind",
     "RetrieveVerificationsResponseRequestedInformationItem": ".retrieve_verifications_response_requested_information_item",
     "RetrieveVerificationsResponseRequestedInformationItemErrorsItem": ".retrieve_verifications_response_requested_information_item_errors_item",
+    "RetrieveVerificationsResponseRequestedInformationItemResponseType": ".retrieve_verifications_response_requested_information_item_response_type",
+    "RetrieveVerificationsResponseRequestedInformationItemSelectionMode": ".retrieve_verifications_response_requested_information_item_selection_mode",
     "RetrieveVerificationsResponseRequiredDocumentsItem": ".retrieve_verifications_response_required_documents_item",
     "RetrieveVerificationsResponseRequiredDocumentsItemStatus": ".retrieve_verifications_response_required_documents_item_status",
     "RetrieveVerificationsResponseStatus": ".retrieve_verifications_response_status",
@@ -186,6 +216,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateVerificationsResponseKind": ".update_verifications_response_kind",
     "UpdateVerificationsResponseRequestedInformationItem": ".update_verifications_response_requested_information_item",
     "UpdateVerificationsResponseRequestedInformationItemErrorsItem": ".update_verifications_response_requested_information_item_errors_item",
+    "UpdateVerificationsResponseRequestedInformationItemResponseType": ".update_verifications_response_requested_information_item_response_type",
+    "UpdateVerificationsResponseRequestedInformationItemSelectionMode": ".update_verifications_response_requested_information_item_selection_mode",
     "UpdateVerificationsResponseRequiredDocumentsItem": ".update_verifications_response_required_documents_item",
     "UpdateVerificationsResponseRequiredDocumentsItemStatus": ".update_verifications_response_required_documents_item_status",
     "UpdateVerificationsResponseStatus": ".update_verifications_response_status",
@@ -228,6 +260,8 @@ __all__ = [
     "CreateVerificationsResponseKind",
     "CreateVerificationsResponseRequestedInformationItem",
     "CreateVerificationsResponseRequestedInformationItemErrorsItem",
+    "CreateVerificationsResponseRequestedInformationItemResponseType",
+    "CreateVerificationsResponseRequestedInformationItemSelectionMode",
     "CreateVerificationsResponseRequiredDocumentsItem",
     "CreateVerificationsResponseRequiredDocumentsItemStatus",
     "CreateVerificationsResponseStatus",
@@ -239,6 +273,8 @@ __all__ = [
     "ListVerificationsResponseDataItemKind",
     "ListVerificationsResponseDataItemRequestedInformationItem",
     "ListVerificationsResponseDataItemRequestedInformationItemErrorsItem",
+    "ListVerificationsResponseDataItemRequestedInformationItemResponseType",
+    "ListVerificationsResponseDataItemRequestedInformationItemSelectionMode",
     "ListVerificationsResponseDataItemRequiredDocumentsItem",
     "ListVerificationsResponseDataItemRequiredDocumentsItemStatus",
     "ListVerificationsResponseDataItemStatus",
@@ -254,6 +290,8 @@ __all__ = [
     "RetrieveVerificationsResponseKind",
     "RetrieveVerificationsResponseRequestedInformationItem",
     "RetrieveVerificationsResponseRequestedInformationItemErrorsItem",
+    "RetrieveVerificationsResponseRequestedInformationItemResponseType",
+    "RetrieveVerificationsResponseRequestedInformationItemSelectionMode",
     "RetrieveVerificationsResponseRequiredDocumentsItem",
     "RetrieveVerificationsResponseRequiredDocumentsItemStatus",
     "RetrieveVerificationsResponseStatus",
@@ -275,6 +313,8 @@ __all__ = [
     "UpdateVerificationsResponseKind",
     "UpdateVerificationsResponseRequestedInformationItem",
     "UpdateVerificationsResponseRequestedInformationItemErrorsItem",
+    "UpdateVerificationsResponseRequestedInformationItemResponseType",
+    "UpdateVerificationsResponseRequestedInformationItemSelectionMode",
     "UpdateVerificationsResponseRequiredDocumentsItem",
     "UpdateVerificationsResponseRequiredDocumentsItemStatus",
     "UpdateVerificationsResponseStatus",
