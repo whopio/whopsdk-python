@@ -38,6 +38,9 @@ if typing.TYPE_CHECKING:
     from .post_payment_pending_payload import PostPaymentPendingPayload
     from .post_payment_pending_payload_api_version import PostPaymentPendingPayloadApiVersion
     from .post_payment_pending_payload_type import PostPaymentPendingPayloadType
+    from .post_payment_requires_action_payload import PostPaymentRequiresActionPayload
+    from .post_payment_requires_action_payload_api_version import PostPaymentRequiresActionPayloadApiVersion
+    from .post_payment_requires_action_payload_type import PostPaymentRequiresActionPayloadType
     from .post_payment_succeeded_payload import PostPaymentSucceededPayload
     from .post_payment_succeeded_payload_api_version import PostPaymentSucceededPayloadApiVersion
     from .post_payment_succeeded_payload_type import PostPaymentSucceededPayloadType
@@ -72,6 +75,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostPaymentPendingPayload": ".post_payment_pending_payload",
     "PostPaymentPendingPayloadApiVersion": ".post_payment_pending_payload_api_version",
     "PostPaymentPendingPayloadType": ".post_payment_pending_payload_type",
+    "PostPaymentRequiresActionPayload": ".post_payment_requires_action_payload",
+    "PostPaymentRequiresActionPayloadApiVersion": ".post_payment_requires_action_payload_api_version",
+    "PostPaymentRequiresActionPayloadType": ".post_payment_requires_action_payload_type",
     "PostPaymentSucceededPayload": ".post_payment_succeeded_payload",
     "PostPaymentSucceededPayloadApiVersion": ".post_payment_succeeded_payload_api_version",
     "PostPaymentSucceededPayloadType": ".post_payment_succeeded_payload_type",
@@ -130,6 +136,9 @@ __all__ = [
     "PostPaymentPendingPayload",
     "PostPaymentPendingPayloadApiVersion",
     "PostPaymentPendingPayloadType",
+    "PostPaymentRequiresActionPayload",
+    "PostPaymentRequiresActionPayloadApiVersion",
+    "PostPaymentRequiresActionPayloadType",
     "PostPaymentSucceededPayload",
     "PostPaymentSucceededPayloadApiVersion",
     "PostPaymentSucceededPayloadType",
