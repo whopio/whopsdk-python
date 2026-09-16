@@ -224,6 +224,8 @@ RetrieveFinancialReportsResponseRowsItemLineCategory = typing.Union[
         "psp_payout_settlement_reversal",
         "psp_pool_clearing",
         "psp_pool_dispute_settlement",
+        "psp_pool_refund_clearing",
+        "psp_pool_refund_settlement",
         "psp_pool_settlement",
         "psp_processing_fee",
         "psp_receivable_pooled",
