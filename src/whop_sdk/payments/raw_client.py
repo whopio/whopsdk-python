@@ -226,6 +226,7 @@ class RawPaymentsClient:
         self,
         *,
         account_id: str,
+        auto_capture_after_minutes: typing.Optional[int] = OMIT,
         capture: typing.Optional[bool] = OMIT,
         confirmation_token: typing.Optional[str] = OMIT,
         email: typing.Optional[str] = OMIT,
@@ -247,8 +248,11 @@ class RawPaymentsClient:
         account_id : str
             The account to charge for, prefixed `biz_`.
 
+        auto_capture_after_minutes : typing.Optional[int]
+            Minutes after authorization at which Whop captures the hold automatically unless it has been voided. Requires `capture: false`. Between 5 and 5760 (4 days).
+
         capture : typing.Optional[bool]
-            Whether to capture a card payment immediately. Defaults to true. Pass false to place an authorization hold that must be captured in full within five days via the capture endpoint.
+            Whether to capture a card payment immediately. Defaults to true. Pass false to place an authorization hold that must be captured in full within five days via the capture endpoint, or automatically after `auto_capture_after_minutes`.
 
         confirmation_token : typing.Optional[str]
             A confirmation token describing a payment method the buyer just supplied. Provide this instead of `member_id` and `payment_method_id`; the buyer is resolved from the token's billing email, or from `email`. The buyer may still have a step to complete — poll the payment's status for what to do next.
@@ -293,6 +297,7 @@ class RawPaymentsClient:
             method="POST",
             json={
                 "account_id": account_id,
+                "auto_capture_after_minutes": auto_capture_after_minutes,
                 "capture": capture,
                 "confirmation_token": confirmation_token,
                 "email": email,
@@ -1317,6 +1322,7 @@ class AsyncRawPaymentsClient:
         self,
         *,
         account_id: str,
+        auto_capture_after_minutes: typing.Optional[int] = OMIT,
         capture: typing.Optional[bool] = OMIT,
         confirmation_token: typing.Optional[str] = OMIT,
         email: typing.Optional[str] = OMIT,
@@ -1338,8 +1344,11 @@ class AsyncRawPaymentsClient:
         account_id : str
             The account to charge for, prefixed `biz_`.
 
+        auto_capture_after_minutes : typing.Optional[int]
+            Minutes after authorization at which Whop captures the hold automatically unless it has been voided. Requires `capture: false`. Between 5 and 5760 (4 days).
+
         capture : typing.Optional[bool]
-            Whether to capture a card payment immediately. Defaults to true. Pass false to place an authorization hold that must be captured in full within five days via the capture endpoint.
+            Whether to capture a card payment immediately. Defaults to true. Pass false to place an authorization hold that must be captured in full within five days via the capture endpoint, or automatically after `auto_capture_after_minutes`.
 
         confirmation_token : typing.Optional[str]
             A confirmation token describing a payment method the buyer just supplied. Provide this instead of `member_id` and `payment_method_id`; the buyer is resolved from the token's billing email, or from `email`. The buyer may still have a step to complete — poll the payment's status for what to do next.
@@ -1384,6 +1393,7 @@ class AsyncRawPaymentsClient:
             method="POST",
             json={
                 "account_id": account_id,
+                "auto_capture_after_minutes": auto_capture_after_minutes,
                 "capture": capture,
                 "confirmation_token": confirmation_token,
                 "email": email,
