@@ -2,4 +2,4 @@
 
 import typing
 
-PaymentRuleFieldType = typing.Union[typing.Literal["integer", "string"], typing.Any]
+PaymentRuleFieldType = typing.Union[typing.Literal["integer", "number", "string"], typing.Any]
