@@ -4,12 +4,18 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ...types.receipt_line_item import ReceiptLineItem
 
 
 class ListEventsResponseDataItemRelatedPayment(UniversalBaseModel):
     card_brand: typing.Optional[str] = None
     card_last4: typing.Optional[str] = None
     id: typing.Optional[str] = None
+    line_items: typing.Optional[typing.List[ReceiptLineItem]] = pydantic.Field(default=None)
+    """
+    Everything this payment charged for, in purchase order, including quantities. Older payments fall back to their original plan.
+    """
+
     provider: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
