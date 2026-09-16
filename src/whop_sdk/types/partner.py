@@ -25,6 +25,11 @@ class Partner(UniversalBaseModel):
     The authenticated partner's public profile.
     """
 
+    whop_partner_verified_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When the user became a verified Whop Partner, as an ISO 8601 timestamp. `null` if not verified.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:
