@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import Literal
 
 from .currency import Currency
@@ -24,6 +24,7 @@ __all__ = [
     "PaymentInstrumentIconsSquare",
     "PaymentInstrumentIconsSquareDark",
     "PaymentInstrumentIconsSquareLight",
+    "PaymentRuleMatch",
     "PresentmentTotal",
     "RefundedAmount",
     "ShippingAddress",
@@ -239,6 +240,24 @@ class PaymentInstrument(BaseModel):
 
     payment_method_type: str
     """The payment method type identifier, e.g. `card`, `klarna`, `apple_pay`."""
+
+
+class PaymentRuleMatch(BaseModel):
+    """
+    The account's own payment rules that matched this payment, recorded when they ran. Empty when none matched, when the account had no rules, or when Whop blocked the payment before they ran.
+    """
+
+    id: str
+    """Payment rule ID, prefixed `prule_`."""
+
+    action: Literal["allow", "block", "enforce_3ds"]
+    """What the rule asked for."""
+
+    name: Optional[str] = None
+    """The rule's name when it matched.
+
+    Renaming the rule afterwards does not rewrite this.
+    """
 
 
 class PresentmentTotal(BaseModel):
@@ -720,6 +739,8 @@ class Payment(BaseModel):
 
     payment_method_type: Optional[PaymentMethodTypes] = None
     """The different types of payment methods that can be used."""
+
+    payment_rule_matches: List[PaymentRuleMatch]
 
     payments_failed: float
     """How many charge attempts have failed on this payment."""
