@@ -2,4 +2,6 @@
 
 import typing
 
-PaymentRuleConditionField = typing.Union[typing.Literal["risk_score", "card_country", "customer_email"], typing.Any]
+PaymentRuleConditionField = typing.Union[
+    typing.Literal["risk_score", "amount_in_usd", "card_country", "customer_email", "ip_address"], typing.Any
+]

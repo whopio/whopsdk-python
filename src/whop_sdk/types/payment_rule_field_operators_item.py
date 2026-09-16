@@ -3,6 +3,8 @@
 import typing
 
 PaymentRuleFieldOperatorsItem = typing.Union[
-    typing.Literal["eq", "neq", "gt", "gte", "lt", "lte", "in", "not_in", "contains", "starts_with", "ends_with"],
+    typing.Literal[
+        "eq", "neq", "gt", "gte", "lt", "lte", "in", "not_in", "contains", "starts_with", "ends_with", "in_cidr"
+    ],
     typing.Any,
 ]
