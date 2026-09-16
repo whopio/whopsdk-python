@@ -14,11 +14,18 @@ class PaymentCreateParams(TypedDict, total=False):
     account_id: Required[str]
     """The account to charge for, prefixed `biz_`."""
 
+    auto_capture_after_minutes: Optional[int]
+    """
+    Minutes after authorization at which Whop captures the hold automatically unless
+    it has been voided. Requires `capture: false`. Between 5 and 5760 (4 days).
+    """
+
     capture: Optional[bool]
     """Whether to capture a card payment immediately.
 
     Defaults to true. Pass false to place an authorization hold that must be
-    captured in full within five days via the capture endpoint.
+    captured in full within five days via the capture endpoint, or automatically
+    after `auto_capture_after_minutes`.
     """
 
     confirmation_token: Optional[str]

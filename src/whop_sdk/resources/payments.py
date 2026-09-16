@@ -58,6 +58,7 @@ class PaymentsResource(SyncAPIResource):
         self,
         *,
         account_id: str,
+        auto_capture_after_minutes: Optional[int] | Omit = omit,
         capture: Optional[bool] | Omit = omit,
         confirmation_token: Optional[str] | Omit = omit,
         email: Optional[str] | Omit = omit,
@@ -90,9 +91,12 @@ class PaymentsResource(SyncAPIResource):
         Args:
           account_id: The account to charge for, prefixed `biz_`.
 
+          auto_capture_after_minutes: Minutes after authorization at which Whop captures the hold automatically unless
+              it has been voided. Requires `capture: false`. Between 5 and 5760 (4 days).
+
           capture: Whether to capture a card payment immediately. Defaults to true. Pass false to
               place an authorization hold that must be captured in full within five days via
-              the capture endpoint.
+              the capture endpoint, or automatically after `auto_capture_after_minutes`.
 
           confirmation_token: A confirmation token describing a payment method the buyer just supplied.
               Provide this instead of `member_id` and `payment_method_id`; the buyer is
@@ -153,6 +157,7 @@ class PaymentsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "account_id": account_id,
+                    "auto_capture_after_minutes": auto_capture_after_minutes,
                     "capture": capture,
                     "confirmation_token": confirmation_token,
                     "email": email,
@@ -550,6 +555,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         self,
         *,
         account_id: str,
+        auto_capture_after_minutes: Optional[int] | Omit = omit,
         capture: Optional[bool] | Omit = omit,
         confirmation_token: Optional[str] | Omit = omit,
         email: Optional[str] | Omit = omit,
@@ -582,9 +588,12 @@ class AsyncPaymentsResource(AsyncAPIResource):
         Args:
           account_id: The account to charge for, prefixed `biz_`.
 
+          auto_capture_after_minutes: Minutes after authorization at which Whop captures the hold automatically unless
+              it has been voided. Requires `capture: false`. Between 5 and 5760 (4 days).
+
           capture: Whether to capture a card payment immediately. Defaults to true. Pass false to
               place an authorization hold that must be captured in full within five days via
-              the capture endpoint.
+              the capture endpoint, or automatically after `auto_capture_after_minutes`.
 
           confirmation_token: A confirmation token describing a payment method the buyer just supplied.
               Provide this instead of `member_id` and `payment_method_id`; the buyer is
@@ -645,6 +654,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "account_id": account_id,
+                    "auto_capture_after_minutes": auto_capture_after_minutes,
                     "capture": capture,
                     "confirmation_token": confirmation_token,
                     "email": email,

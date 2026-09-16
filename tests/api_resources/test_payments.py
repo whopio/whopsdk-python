@@ -33,6 +33,7 @@ class TestPayments:
     def test_method_create_with_all_params(self, client: Whop) -> None:
         payment = client.payments.create(
             account_id="biz_xxxxxxxxxxxxxx",
+            auto_capture_after_minutes=60,
             capture=False,
             confirmation_token="ctok_xxxxxxxxxxxxxx",
             email="dana@shinetime.example",
@@ -436,6 +437,7 @@ class TestAsyncPayments:
     async def test_method_create_with_all_params(self, async_client: AsyncWhop) -> None:
         payment = await async_client.payments.create(
             account_id="biz_xxxxxxxxxxxxxx",
+            auto_capture_after_minutes=60,
             capture=False,
             confirmation_token="ctok_xxxxxxxxxxxxxx",
             email="dana@shinetime.example",
