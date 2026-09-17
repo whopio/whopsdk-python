@@ -2,4 +2,4 @@
 
 import typing
 
-ReplacePaymentRulesRequestAction = typing.Union[typing.Literal["allow", "block", "enforce_3ds"], typing.Any]
+ReplacePaymentRulesRequestAction = typing.Union[typing.Literal["allow", "block", "review", "enforce_3ds"], typing.Any]
