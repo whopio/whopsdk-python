@@ -465,6 +465,7 @@ if typing.TYPE_CHECKING:
     from .domain_issue import DomainIssue
     from .domain_status import DomainStatus
     from .economic_intelligence import EconomicIntelligence
+    from .economic_intelligence_sentiment import EconomicIntelligenceSentiment
     from .economic_intelligence_status import EconomicIntelligenceStatus
     from .embed_types import EmbedTypes
     from .entries_sortable_columns import EntriesSortableColumns
@@ -1775,6 +1776,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DomainIssue": ".domain_issue",
     "DomainStatus": ".domain_status",
     "EconomicIntelligence": ".economic_intelligence",
+    "EconomicIntelligenceSentiment": ".economic_intelligence_sentiment",
     "EconomicIntelligenceStatus": ".economic_intelligence_status",
     "EmbedTypes": ".embed_types",
     "EntriesSortableColumns": ".entries_sortable_columns",
@@ -2987,6 +2989,7 @@ __all__ = [
     "DomainIssue",
     "DomainStatus",
     "EconomicIntelligence",
+    "EconomicIntelligenceSentiment",
     "EconomicIntelligenceStatus",
     "EmbedTypes",
     "EntriesSortableColumns",

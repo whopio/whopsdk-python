@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .economic_intelligence_sentiment import EconomicIntelligenceSentiment
 from .economic_intelligence_status import EconomicIntelligenceStatus
 
 
@@ -53,6 +54,11 @@ class EconomicIntelligence(UniversalBaseModel):
     Evidence and metrics supporting the recommendation, or `null` when no reasoning was provided.
     """
 
+    sentiment: typing.Optional[EconomicIntelligenceSentiment] = pydantic.Field(default=None)
+    """
+    How the user rated this recommendation, or `null` if they have not rated it
+    """
+
     status: EconomicIntelligenceStatus = pydantic.Field()
     """
     `queued` when awaiting generation; `pending` while generating; `ready` when available for approval; `executed` when approved; `superseded` when rejected or replaced.
@@ -71,6 +77,11 @@ class EconomicIntelligence(UniversalBaseModel):
     title: typing.Optional[str] = pydantic.Field(default=None)
     """
     Recommended action and its expected benefit, or `null` until generated.
+    """
+
+    user_feedback: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The user's written feedback, or `null` if they have not provided any.
     """
 
     if IS_PYDANTIC_V2:

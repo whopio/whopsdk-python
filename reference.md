@@ -17080,7 +17080,7 @@ client.economic_intelligence.create(
 <dl>
 <dd>
 
-Approves or rejects a recommendation and requests replacements.
+Updates a recommendation status, records feedback, or both. Send `sentiment` to rate it. Include `status: superseded` to retire it and request replacements; a rating alone leaves its status unchanged.
 </dd>
 </dl>
 </dd>
@@ -17105,7 +17105,6 @@ client = Whop(
 
 client.economic_intelligence.update(
     id="id",
-    status="executed",
 )
 
 ```
@@ -17130,14 +17129,6 @@ client.economic_intelligence.update(
 <dl>
 <dd>
 
-**status:** `UpdateEconomicIntelligenceRequestStatus` — Use `executed` to record approval, or `superseded` to reject the recommendation.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **account_id:** `typing.Optional[str]` — Account ID, prefixed `biz_`. Defaults to the API key's own account.
     
 </dd>
@@ -17146,7 +17137,23 @@ client.economic_intelligence.update(
 <dl>
 <dd>
 
-**reason:** `typing.Optional[str]` — Why the recommendation was rejected. Used as feedback when replenishing recommendations.
+**sentiment:** `typing.Optional[UpdateEconomicIntelligenceRequestSentiment]` — A signed-in user can rate a recommendation as `positive` or `negative`. Can be sent alone or together with status.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[UpdateEconomicIntelligenceRequestStatus]` — Use `executed` to record approval, or `superseded` to reject the recommendation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_feedback:** `typing.Optional[str]` — An optional explanation of the rating or rejection. Negative feedback informs replacement recommendations.
     
 </dd>
 </dl>
