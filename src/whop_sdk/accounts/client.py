@@ -39,6 +39,7 @@ from .types.update_accounts_request_tax_type import UpdateAccountsRequestTaxType
 from .types.update_accounts_request_three_ds_level import UpdateAccountsRequestThreeDsLevel
 
 if typing.TYPE_CHECKING:
+    from .fees.client import AsyncFeesClient, FeesClient
     from .preferences.client import AsyncPreferencesClient, PreferencesClient
     from .reserves.client import AsyncReservesClient, ReservesClient
 # this is used as the default value for optional parameters
@@ -49,6 +50,7 @@ class AccountsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._raw_client = RawAccountsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
+        self._fees: typing.Optional[FeesClient] = None
         self._preferences: typing.Optional[PreferencesClient] = None
         self._reserves: typing.Optional[ReservesClient] = None
 
@@ -787,6 +789,14 @@ class AccountsClient:
         return _response.data
 
     @property
+    def fees(self):
+        if self._fees is None:
+            from .fees.client import FeesClient  # noqa: E402
+
+            self._fees = FeesClient(client_wrapper=self._client_wrapper)
+        return self._fees
+
+    @property
     def preferences(self):
         if self._preferences is None:
             from .preferences.client import PreferencesClient  # noqa: E402
@@ -807,6 +817,7 @@ class AsyncAccountsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._raw_client = AsyncRawAccountsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
+        self._fees: typing.Optional[AsyncFeesClient] = None
         self._preferences: typing.Optional[AsyncPreferencesClient] = None
         self._reserves: typing.Optional[AsyncReservesClient] = None
 
@@ -1608,6 +1619,14 @@ class AsyncAccountsClient:
             id, identifier=identifier, as_partner=as_partner, message=message, request_options=request_options
         )
         return _response.data
+
+    @property
+    def fees(self):
+        if self._fees is None:
+            from .fees.client import AsyncFeesClient  # noqa: E402
+
+            self._fees = AsyncFeesClient(client_wrapper=self._client_wrapper)
+        return self._fees
 
     @property
     def preferences(self):
