@@ -21,6 +21,7 @@ SpecificFeeOrigins = typing.Union[
         "stripe_payout_fee",
         "dispute_fee",
         "dispute_alert_fee",
+        "dispute_representment_fee",
         "apple_processing_fee",
         "buyer_fee",
         "sezzle_processing_fee",
