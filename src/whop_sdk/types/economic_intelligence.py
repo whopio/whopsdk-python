@@ -63,6 +63,11 @@ class EconomicIntelligence(UniversalBaseModel):
     When the recommendation was rejected or replaced, as an ISO 8601 timestamp, or `null` if neither has occurred.
     """
 
+    target_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Website URL selected for pixel setup, or `null` when no website was captured for this recommendation.
+    """
+
     title: typing.Optional[str] = pydantic.Field(default=None)
     """
     Recommended action and its expected benefit, or `null` until generated.
