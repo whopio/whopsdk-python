@@ -37,6 +37,12 @@ class TestPayments:
             capture=False,
             confirmation_token="ctok_xxxxxxxxxxxxxx",
             email="dana@shinetime.example",
+            line_items=[
+                {
+                    "plan_id": "plan_xxxxxxxxxxxxxx",
+                    "quantity": 1,
+                }
+            ],
             member_id="mber_xxxxxxxxxxxxxx",
             metadata={"order_ref": "SHINE-4417"},
             payment_method_id="payt_xxxxxxxxxxxxxx",
@@ -441,6 +447,12 @@ class TestAsyncPayments:
             capture=False,
             confirmation_token="ctok_xxxxxxxxxxxxxx",
             email="dana@shinetime.example",
+            line_items=[
+                {
+                    "plan_id": "plan_xxxxxxxxxxxxxx",
+                    "quantity": 1,
+                }
+            ],
             member_id="mber_xxxxxxxxxxxxxx",
             metadata={"order_ref": "SHINE-4417"},
             payment_method_id="payt_xxxxxxxxxxxxxx",

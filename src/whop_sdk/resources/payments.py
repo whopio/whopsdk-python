@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Optional
+from typing import Dict, Union, Iterable, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -62,6 +62,7 @@ class PaymentsResource(SyncAPIResource):
         capture: Optional[bool] | Omit = omit,
         confirmation_token: Optional[str] | Omit = omit,
         email: Optional[str] | Omit = omit,
+        line_items: Iterable[payment_create_params.LineItem] | Omit = omit,
         member_id: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -79,14 +80,16 @@ class PaymentsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Payment:
-        """Charges a buyer for a plan.
+        """Charges a buyer for one or more plans.
 
-        Pass a payment method already on file (`member_id`
-        and `payment_method_id`), or a `confirmation_token` describing a method the
-        buyer just supplied. Collection runs in the background: the response is the
-        payment as created, not its outcome — poll Retrieve status for how far it has
-        got and, for a confirmation-token payment, what the buyer must still do. Pass
-        `plan_id` for an existing plan or `plan` to find or create one inline.
+        Pass a payment method already on file
+        (`member_id` and `payment_method_id`), or a `confirmation_token` describing a
+        method the buyer just supplied. Collection runs in the background: the response
+        is the payment as created, not its outcome — poll Retrieve status for how far it
+        has got and, for a confirmation-token payment, what the buyer must still do.
+        Pass `line_items` for one or more plans with quantities, `plan_id` for an
+        existing plan, or `plan` to find or create one inline. These inputs are mutually
+        exclusive.
 
         Args:
           account_id: The account to charge for, prefixed `biz_`.
@@ -107,6 +110,10 @@ class PaymentsResource(SyncAPIResource):
               creating the user the payment belongs to. Ignored unless `confirmation_token` is
               provided, and when the token was created by a signed-in buyer.
 
+          line_items: What the buyer is purchasing. One entry charges that plan; several entries form
+              a cart, which requires every plan to be a compatible plan from this account in
+              the same currency.
+
           member_id: The member to charge, prefixed `mber_`. Required with `payment_method_id` unless
               `confirmation_token` is provided.
 
@@ -115,12 +122,12 @@ class PaymentsResource(SyncAPIResource):
           payment_method_id: The stored payment method to charge, prefixed `payt_`. It must belong to the
               member. Required unless `confirmation_token` is provided.
 
-          plan: Find or create a plan for this payment. Mutually exclusive with `plan_id`.
-              Creating a plan requires plan:create; creating or updating a product requires
-              the corresponding product permission.
+          plan: Find or create a plan for this payment. Mutually exclusive with `plan_id` and
+              `line_items`. Creating a plan requires plan:create; creating or updating a
+              product requires the corresponding product permission.
 
           plan_id: The plan to charge for, prefixed `plan_`. It must belong to the account.
-              Mutually exclusive with `plan`.
+              Mutually exclusive with `plan` and `line_items`.
 
           promo_code_id: An active promo code to apply, prefixed `promo_`. It must belong to the account
               and be valid for the plan.
@@ -161,6 +168,7 @@ class PaymentsResource(SyncAPIResource):
                     "capture": capture,
                     "confirmation_token": confirmation_token,
                     "email": email,
+                    "line_items": line_items,
                     "member_id": member_id,
                     "metadata": metadata,
                     "payment_method_id": payment_method_id,
@@ -559,6 +567,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         capture: Optional[bool] | Omit = omit,
         confirmation_token: Optional[str] | Omit = omit,
         email: Optional[str] | Omit = omit,
+        line_items: Iterable[payment_create_params.LineItem] | Omit = omit,
         member_id: Optional[str] | Omit = omit,
         metadata: Optional[Dict[str, str]] | Omit = omit,
         payment_method_id: Optional[str] | Omit = omit,
@@ -576,14 +585,16 @@ class AsyncPaymentsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Payment:
-        """Charges a buyer for a plan.
+        """Charges a buyer for one or more plans.
 
-        Pass a payment method already on file (`member_id`
-        and `payment_method_id`), or a `confirmation_token` describing a method the
-        buyer just supplied. Collection runs in the background: the response is the
-        payment as created, not its outcome — poll Retrieve status for how far it has
-        got and, for a confirmation-token payment, what the buyer must still do. Pass
-        `plan_id` for an existing plan or `plan` to find or create one inline.
+        Pass a payment method already on file
+        (`member_id` and `payment_method_id`), or a `confirmation_token` describing a
+        method the buyer just supplied. Collection runs in the background: the response
+        is the payment as created, not its outcome — poll Retrieve status for how far it
+        has got and, for a confirmation-token payment, what the buyer must still do.
+        Pass `line_items` for one or more plans with quantities, `plan_id` for an
+        existing plan, or `plan` to find or create one inline. These inputs are mutually
+        exclusive.
 
         Args:
           account_id: The account to charge for, prefixed `biz_`.
@@ -604,6 +615,10 @@ class AsyncPaymentsResource(AsyncAPIResource):
               creating the user the payment belongs to. Ignored unless `confirmation_token` is
               provided, and when the token was created by a signed-in buyer.
 
+          line_items: What the buyer is purchasing. One entry charges that plan; several entries form
+              a cart, which requires every plan to be a compatible plan from this account in
+              the same currency.
+
           member_id: The member to charge, prefixed `mber_`. Required with `payment_method_id` unless
               `confirmation_token` is provided.
 
@@ -612,12 +627,12 @@ class AsyncPaymentsResource(AsyncAPIResource):
           payment_method_id: The stored payment method to charge, prefixed `payt_`. It must belong to the
               member. Required unless `confirmation_token` is provided.
 
-          plan: Find or create a plan for this payment. Mutually exclusive with `plan_id`.
-              Creating a plan requires plan:create; creating or updating a product requires
-              the corresponding product permission.
+          plan: Find or create a plan for this payment. Mutually exclusive with `plan_id` and
+              `line_items`. Creating a plan requires plan:create; creating or updating a
+              product requires the corresponding product permission.
 
           plan_id: The plan to charge for, prefixed `plan_`. It must belong to the account.
-              Mutually exclusive with `plan`.
+              Mutually exclusive with `plan` and `line_items`.
 
           promo_code_id: An active promo code to apply, prefixed `promo_`. It must belong to the account
               and be valid for the plan.
@@ -658,6 +673,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
                     "capture": capture,
                     "confirmation_token": confirmation_token,
                     "email": email,
+                    "line_items": line_items,
                     "member_id": member_id,
                     "metadata": metadata,
                     "payment_method_id": payment_method_id,

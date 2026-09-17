@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
+from typing import Dict, Iterable, Optional
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["PaymentCreateParams", "Plan", "PlanProduct"]
+__all__ = ["PaymentCreateParams", "LineItem", "Plan", "PlanProduct"]
 
 
 class PaymentCreateParams(TypedDict, total=False):
@@ -43,6 +43,13 @@ class PaymentCreateParams(TypedDict, total=False):
     provided, and when the token was created by a signed-in buyer.
     """
 
+    line_items: Iterable[LineItem]
+    """What the buyer is purchasing.
+
+    One entry charges that plan; several entries form a cart, which requires every
+    plan to be a compatible plan from this account in the same currency.
+    """
+
     member_id: Optional[str]
     """The member to charge, prefixed `mber_`.
 
@@ -61,14 +68,15 @@ class PaymentCreateParams(TypedDict, total=False):
     plan: Plan
     """Find or create a plan for this payment.
 
-    Mutually exclusive with `plan_id`. Creating a plan requires plan:create;
-    creating or updating a product requires the corresponding product permission.
+    Mutually exclusive with `plan_id` and `line_items`. Creating a plan requires
+    plan:create; creating or updating a product requires the corresponding product
+    permission.
     """
 
     plan_id: str
     """The plan to charge for, prefixed `plan_`.
 
-    It must belong to the account. Mutually exclusive with `plan`.
+    It must belong to the account. Mutually exclusive with `plan` and `line_items`.
     """
 
     promo_code_id: Optional[str]
@@ -96,6 +104,20 @@ class PaymentCreateParams(TypedDict, total=False):
     api_version_date: Annotated[str, PropertyInfo(alias="Api-Version-Date")]
 
     idempotency_key: Annotated[str, PropertyInfo(alias="Idempotency-Key")]
+
+
+class LineItem(TypedDict, total=False):
+    plan_id: Required[str]
+    """An existing plan to charge for, prefixed `plan_`.
+
+    Each plan may appear once — use `quantity` for multiple units.
+    """
+
+    quantity: Optional[int]
+    """How many units of the plan to purchase.
+
+    Defaults to 1; more than 1 requires the plan to allow multiple quantities.
+    """
 
 
 class PlanProduct(TypedDict, total=False):
@@ -144,7 +166,7 @@ class PlanProduct(TypedDict, total=False):
 class Plan(TypedDict, total=False):
     """Find or create a plan for this payment.
 
-    Mutually exclusive with `plan_id`. Creating a plan requires plan:create; creating or updating a product requires the corresponding product permission.
+    Mutually exclusive with `plan_id` and `line_items`. Creating a plan requires plan:create; creating or updating a product requires the corresponding product permission.
     """
 
     currency: Required[
