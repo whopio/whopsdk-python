@@ -15,6 +15,8 @@ __all__ = [
     "Payment",
     "AmountAfterFees",
     "BillingAddress",
+    "LineItem",
+    "LineItemSubtotal",
     "PaymentInstrument",
     "PaymentInstrumentCard",
     "PaymentInstrumentIcons",
@@ -90,6 +92,81 @@ class BillingAddress(BaseModel):
 
     state: Optional[str] = None
     """The state, province or region."""
+
+
+class LineItemSubtotal(BaseModel):
+    """
+    The recorded amount for this item's full quantity, before discounts, tax, and fees, in its purchase currency. Returns `null` when no item amount was recorded.
+    """
+
+    amount: str
+    """The amount in major units, as an exact decimal string — `"10.00"` is ten
+    dollars.
+
+    A string so no float rounds it in transit.
+    """
+
+    currency: str
+    """Three-letter ISO 4217 currency code, lowercase."""
+
+    decimals: int
+    """
+    How many decimal places the amount CARRIES — the precision the charge itself
+    runs at.
+    """
+
+    display_decimals: int
+    """How many decimal places to SHOW.
+
+    Usually equal to `decimals`, and deliberately not always: COP is charged in
+    centavos but written in whole pesos, so it is `2` and `0`. Format the number in
+    your own locale using this.
+    """
+
+
+class LineItem(BaseModel):
+    """
+    Everything this payment charged for, in purchase order, with quantities and subtotals in the purchase currency. Payments made before item snapshots were recorded return the single item implied by their plan. Empty when no items or plan can be resolved.
+    """
+
+    id: Optional[str] = None
+    """Line item ID, prefixed `li_`.
+
+    Null when the payment predates item snapshots and the item is read from the
+    payment's plan.
+    """
+
+    label: Optional[str] = None
+    """The item's name as shown at checkout — the product title, else the plan title."""
+
+    plan_id: Optional[str] = None
+    """The plan bought, prefixed `plan_`. Null when the plan has since been deleted."""
+
+    plan_title: Optional[str] = None
+    """
+    The plan's current title, or `null` when the plan has been deleted or has no
+    title.
+    """
+
+    product_id: Optional[str] = None
+    """The product the plan belongs to, prefixed `prod_`.
+
+    On a payment that predates item snapshots this falls back to the plan's product,
+    so it can be set where the parent's own `product_id` is null. Null for a plan
+    with no product.
+    """
+
+    product_title: Optional[str] = None
+    """The product's current title, or `null` when the item has no product."""
+
+    quantity: float
+    """How many units were bought."""
+
+    subtotal: Optional[LineItemSubtotal] = None
+    """
+    The recorded amount for this item's full quantity, before discounts, tax, and
+    fees, in its purchase currency. Returns `null` when no item amount was recorded.
+    """
 
 
 class PaymentInstrumentCard(BaseModel):
@@ -696,6 +773,8 @@ class Payment(BaseModel):
 
     last_payment_attempt_at: Optional[str] = None
     """When the most recent charge attempt ran, or null."""
+
+    line_items: List[LineItem]
 
     member_id: Optional[str] = None
     """The buyer's member record on the account, prefixed `mber_`.

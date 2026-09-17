@@ -353,7 +353,7 @@ class IssuerComment(BaseModel):
 
 class LineItemSubtotal(BaseModel):
     """
-    The recorded amount for this item's full quantity, before discounts, tax, and fees, in its purchase currency. This is not the amount being contested. Returns `null` when no item amount was recorded.
+    The recorded amount for this item's full quantity, before discounts, tax, and fees, in its purchase currency. Returns `null` when no item amount was recorded.
     """
 
     amount: str
@@ -423,8 +423,7 @@ class LineItem(BaseModel):
     subtotal: Optional[LineItemSubtotal] = None
     """
     The recorded amount for this item's full quantity, before discounts, tax, and
-    fees, in its purchase currency. This is not the amount being contested. Returns
-    `null` when no item amount was recorded.
+    fees, in its purchase currency. Returns `null` when no item amount was recorded.
     """
 
 

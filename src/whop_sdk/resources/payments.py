@@ -198,11 +198,11 @@ class PaymentsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Payment:
-        """Returns one payment.
-
-        Related records are ids — resolve a plan, membership,
-        member or shipment on its own endpoint, and list this payment's refunds,
-        disputes or Resolution Center cases with `?payment_id=`.
+        """
+        Returns one payment, including every purchased line item with its quantity and
+        subtotal. Related records are ids — resolve a plan, membership, member or
+        shipment on its own endpoint, and list this payment's refunds, disputes or
+        Resolution Center cases with `?payment_id=`.
 
         Args:
           extra_headers: Send extra headers
@@ -703,11 +703,11 @@ class AsyncPaymentsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Payment:
-        """Returns one payment.
-
-        Related records are ids — resolve a plan, membership,
-        member or shipment on its own endpoint, and list this payment's refunds,
-        disputes or Resolution Center cases with `?payment_id=`.
+        """
+        Returns one payment, including every purchased line item with its quantity and
+        subtotal. Related records are ids — resolve a plan, membership, member or
+        shipment on its own endpoint, and list this payment's refunds, disputes or
+        Resolution Center cases with `?payment_id=`.
 
         Args:
           extra_headers: Send extra headers
