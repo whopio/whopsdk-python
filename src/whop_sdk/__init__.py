@@ -2180,6 +2180,7 @@ if typing.TYPE_CHECKING:
         ReplacePaymentRulesRequestConditionsAllItemOperator,
     )
     from .payments import (
+        CreatePaymentsRequestLineItemsItem,
         CreatePaymentsRequestPlan,
         CreatePaymentsRequestPlanCurrency,
         CreatePaymentsRequestPlanPlanType,
@@ -3379,6 +3380,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreatePaymentRulesRequestConditionsAllItem": ".payment_rules",
     "CreatePaymentRulesRequestConditionsAllItemField": ".payment_rules",
     "CreatePaymentRulesRequestConditionsAllItemOperator": ".payment_rules",
+    "CreatePaymentsRequestLineItemsItem": ".payments",
     "CreatePaymentsRequestPlan": ".payments",
     "CreatePaymentsRequestPlanCurrency": ".payments",
     "CreatePaymentsRequestPlanPlanType": ".payments",
@@ -6091,6 +6093,7 @@ __all__ = [
     "CreatePaymentRulesRequestConditionsAllItem",
     "CreatePaymentRulesRequestConditionsAllItemField",
     "CreatePaymentRulesRequestConditionsAllItemOperator",
+    "CreatePaymentsRequestLineItemsItem",
     "CreatePaymentsRequestPlan",
     "CreatePaymentsRequestPlanCurrency",
     "CreatePaymentsRequestPlanPlanType",
