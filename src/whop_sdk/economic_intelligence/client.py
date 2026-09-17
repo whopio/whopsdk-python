@@ -9,6 +9,7 @@ from ..types.economic_intelligence import EconomicIntelligence
 from .raw_client import AsyncRawEconomicIntelligenceClient, RawEconomicIntelligenceClient
 from .types.list_economic_intelligence_request_status import ListEconomicIntelligenceRequestStatus
 from .types.list_economic_intelligence_response import ListEconomicIntelligenceResponse
+from .types.update_economic_intelligence_request_sentiment import UpdateEconomicIntelligenceRequestSentiment
 from .types.update_economic_intelligence_request_status import UpdateEconomicIntelligenceRequestStatus
 
 # this is used as the default value for optional parameters
@@ -144,27 +145,31 @@ class EconomicIntelligenceClient:
         self,
         id: str,
         *,
-        status: UpdateEconomicIntelligenceRequestStatus,
         account_id: typing.Optional[str] = None,
-        reason: typing.Optional[str] = OMIT,
+        sentiment: typing.Optional[UpdateEconomicIntelligenceRequestSentiment] = OMIT,
+        status: typing.Optional[UpdateEconomicIntelligenceRequestStatus] = OMIT,
+        user_feedback: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> EconomicIntelligence:
         """
-        Approves or rejects a recommendation and requests replacements.
+        Updates a recommendation status, records feedback, or both. Send `sentiment` to rate it. Include `status: superseded` to retire it and request replacements; a rating alone leaves its status unchanged.
 
         Parameters
         ----------
         id : str
             Recommendation ID, prefixed `reca_`.
 
-        status : UpdateEconomicIntelligenceRequestStatus
-            Use `executed` to record approval, or `superseded` to reject the recommendation.
-
         account_id : typing.Optional[str]
             Account ID, prefixed `biz_`. Defaults to the API key's own account.
 
-        reason : typing.Optional[str]
-            Why the recommendation was rejected. Used as feedback when replenishing recommendations.
+        sentiment : typing.Optional[UpdateEconomicIntelligenceRequestSentiment]
+            A signed-in user can rate a recommendation as `positive` or `negative`. Can be sent alone or together with status.
+
+        status : typing.Optional[UpdateEconomicIntelligenceRequestStatus]
+            Use `executed` to record approval, or `superseded` to reject the recommendation.
+
+        user_feedback : typing.Optional[str]
+            An optional explanation of the rating or rejection. Negative feedback informs replacement recommendations.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -185,11 +190,15 @@ class EconomicIntelligenceClient:
         )
         client.economic_intelligence.update(
             id="id",
-            status="executed",
         )
         """
         _response = self._raw_client.update(
-            id, status=status, account_id=account_id, reason=reason, request_options=request_options
+            id,
+            account_id=account_id,
+            sentiment=sentiment,
+            status=status,
+            user_feedback=user_feedback,
+            request_options=request_options,
         )
         return _response.data
 
@@ -340,27 +349,31 @@ class AsyncEconomicIntelligenceClient:
         self,
         id: str,
         *,
-        status: UpdateEconomicIntelligenceRequestStatus,
         account_id: typing.Optional[str] = None,
-        reason: typing.Optional[str] = OMIT,
+        sentiment: typing.Optional[UpdateEconomicIntelligenceRequestSentiment] = OMIT,
+        status: typing.Optional[UpdateEconomicIntelligenceRequestStatus] = OMIT,
+        user_feedback: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> EconomicIntelligence:
         """
-        Approves or rejects a recommendation and requests replacements.
+        Updates a recommendation status, records feedback, or both. Send `sentiment` to rate it. Include `status: superseded` to retire it and request replacements; a rating alone leaves its status unchanged.
 
         Parameters
         ----------
         id : str
             Recommendation ID, prefixed `reca_`.
 
-        status : UpdateEconomicIntelligenceRequestStatus
-            Use `executed` to record approval, or `superseded` to reject the recommendation.
-
         account_id : typing.Optional[str]
             Account ID, prefixed `biz_`. Defaults to the API key's own account.
 
-        reason : typing.Optional[str]
-            Why the recommendation was rejected. Used as feedback when replenishing recommendations.
+        sentiment : typing.Optional[UpdateEconomicIntelligenceRequestSentiment]
+            A signed-in user can rate a recommendation as `positive` or `negative`. Can be sent alone or together with status.
+
+        status : typing.Optional[UpdateEconomicIntelligenceRequestStatus]
+            Use `executed` to record approval, or `superseded` to reject the recommendation.
+
+        user_feedback : typing.Optional[str]
+            An optional explanation of the rating or rejection. Negative feedback informs replacement recommendations.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -386,13 +399,17 @@ class AsyncEconomicIntelligenceClient:
         async def main() -> None:
             await client.economic_intelligence.update(
                 id="id",
-                status="executed",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._raw_client.update(
-            id, status=status, account_id=account_id, reason=reason, request_options=request_options
+            id,
+            account_id=account_id,
+            sentiment=sentiment,
+            status=status,
+            user_feedback=user_feedback,
+            request_options=request_options,
         )
         return _response.data
