@@ -10,7 +10,7 @@ from .update_preferences_request_ads_payment_methods_primary import UpdatePrefer
 
 class UpdatePreferencesRequestAdsPaymentMethods(UniversalBaseModel):
     """
-    How the account pays for Whop Ads spend. `primary` is charged first; `backup` covers the charge when the primary fails.
+    How the account pays for Whop Ads spend. Requires `primary`; `backup` is optional and covers the charge when the primary fails. Configuring a `card` requires a user token; account API keys can configure only `platform_balance` sources.
     """
 
     backup: typing.Optional[UpdatePreferencesRequestAdsPaymentMethodsBackup] = pydantic.Field(default=None)

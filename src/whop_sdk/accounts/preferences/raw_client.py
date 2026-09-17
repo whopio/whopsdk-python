@@ -115,7 +115,7 @@ class RawPreferencesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdatePreferencesResponse]:
         """
-        Updates the account's preferences. Each top-level key present in the body is replaced as a whole; omitted keys are left untouched. `ads_triple_whale_integration` takes the Data-In API key to connect with, or `null` to disconnect, plus an optional `shop_domain`. `ads_payment_methods` always requires a `primary` entry. `backup` is optional and any pairing is allowed — two cards, `card`+`platform_balance`, or a single method — so a card-only advertiser can fund ads without a platform balance. The `primary` and `backup` must be different sources. A `platform_balance` entry may omit `id` to use the account's default Whop balance. Configuring a `card` requires a user token; account API keys can set up platform-balance billing only.
+        Updates the account's preferences. Each top-level key present in the body is replaced as a whole; omitted keys are left untouched.
 
         Parameters
         ----------
@@ -126,7 +126,7 @@ class RawPreferencesClient:
             Opens an advertising certification application. Keyed by certification type (`prescription_drug_ads`); set the entry's `status` to `pending_information` to start, then answer the requested fields via `PATCH /verifications/{id}`. Only one application per type can be open at a time; every other status is set by Whop's review.
 
         ads_payment_methods : typing.Optional[UpdatePreferencesRequestAdsPaymentMethods]
-            How the account pays for Whop Ads spend. `primary` is charged first; `backup` covers the charge when the primary fails.
+            How the account pays for Whop Ads spend. Requires `primary`; `backup` is optional and covers the charge when the primary fails. Configuring a `card` requires a user token; account API keys can configure only `platform_balance` sources.
 
         ads_reporting_currency : typing.Optional[str]
             Lowercase ISO currency code, such as `usd` or `eur`, used to display ad spend and stats. Defaults to `usd`.
@@ -347,7 +347,7 @@ class AsyncRawPreferencesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdatePreferencesResponse]:
         """
-        Updates the account's preferences. Each top-level key present in the body is replaced as a whole; omitted keys are left untouched. `ads_triple_whale_integration` takes the Data-In API key to connect with, or `null` to disconnect, plus an optional `shop_domain`. `ads_payment_methods` always requires a `primary` entry. `backup` is optional and any pairing is allowed — two cards, `card`+`platform_balance`, or a single method — so a card-only advertiser can fund ads without a platform balance. The `primary` and `backup` must be different sources. A `platform_balance` entry may omit `id` to use the account's default Whop balance. Configuring a `card` requires a user token; account API keys can set up platform-balance billing only.
+        Updates the account's preferences. Each top-level key present in the body is replaced as a whole; omitted keys are left untouched.
 
         Parameters
         ----------
@@ -358,7 +358,7 @@ class AsyncRawPreferencesClient:
             Opens an advertising certification application. Keyed by certification type (`prescription_drug_ads`); set the entry's `status` to `pending_information` to start, then answer the requested fields via `PATCH /verifications/{id}`. Only one application per type can be open at a time; every other status is set by Whop's review.
 
         ads_payment_methods : typing.Optional[UpdatePreferencesRequestAdsPaymentMethods]
-            How the account pays for Whop Ads spend. `primary` is charged first; `backup` covers the charge when the primary fails.
+            How the account pays for Whop Ads spend. Requires `primary`; `backup` is optional and covers the charge when the primary fails. Configuring a `card` requires a user token; account API keys can configure only `platform_balance` sources.
 
         ads_reporting_currency : typing.Optional[str]
             Lowercase ISO currency code, such as `usd` or `eur`, used to display ad spend and stats. Defaults to `usd`.
