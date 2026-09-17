@@ -12,7 +12,7 @@ from .create_payments_request_plan_visibility import CreatePaymentsRequestPlanVi
 
 class CreatePaymentsRequestPlan(UniversalBaseModel):
     """
-    Find or create a plan for this payment. Mutually exclusive with `plan_id`. Creating a plan requires plan:create; creating or updating a product requires the corresponding product permission.
+    Find or create a plan for this payment. Mutually exclusive with `plan_id` and `line_items`. Creating a plan requires plan:create; creating or updating a product requires the corresponding product permission.
     """
 
     application_fee_amount: typing.Optional[float] = pydantic.Field(default=None)

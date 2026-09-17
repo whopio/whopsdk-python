@@ -28251,7 +28251,7 @@ client.payments.list()
 <dl>
 <dd>
 
-Charges a buyer for a plan. Pass a payment method already on file (`member_id` and `payment_method_id`), or a `confirmation_token` describing a method the buyer just supplied. Collection runs in the background: the response is the payment as created, not its outcome — poll Retrieve status for how far it has got and, for a confirmation-token payment, what the buyer must still do. Pass `plan_id` for an existing plan or `plan` to find or create one inline.
+Charges a buyer for one or more plans. Pass a payment method already on file (`member_id` and `payment_method_id`), or a `confirmation_token` describing a method the buyer just supplied. Collection runs in the background: the response is the payment as created, not its outcome — poll Retrieve status for how far it has got and, for a confirmation-token payment, what the buyer must still do. Pass `line_items` for one or more plans with quantities, `plan_id` for an existing plan, or `plan` to find or create one inline. These inputs are mutually exclusive.
 </dd>
 </dl>
 </dd>
@@ -28332,6 +28332,14 @@ client.payments.create(
 <dl>
 <dd>
 
+**line_items:** `typing.Optional[typing.List[CreatePaymentsRequestLineItemsItem]]` — What the buyer is purchasing. One entry charges that plan; several entries form a cart, which requires every plan to be a compatible plan from this account in the same currency.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **member_id:** `typing.Optional[str]` — The member to charge, prefixed `mber_`. Required with `payment_method_id` unless `confirmation_token` is provided.
     
 </dd>
@@ -28356,7 +28364,7 @@ client.payments.create(
 <dl>
 <dd>
 
-**plan:** `typing.Optional[CreatePaymentsRequestPlan]` — Find or create a plan for this payment. Mutually exclusive with `plan_id`. Creating a plan requires plan:create; creating or updating a product requires the corresponding product permission.
+**plan:** `typing.Optional[CreatePaymentsRequestPlan]` — Find or create a plan for this payment. Mutually exclusive with `plan_id` and `line_items`. Creating a plan requires plan:create; creating or updating a product requires the corresponding product permission.
     
 </dd>
 </dl>
@@ -28364,7 +28372,7 @@ client.payments.create(
 <dl>
 <dd>
 
-**plan_id:** `typing.Optional[str]` — The plan to charge for, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan`.
+**plan_id:** `typing.Optional[str]` — The plan to charge for, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
     
 </dd>
 </dl>

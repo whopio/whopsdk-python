@@ -6,6 +6,7 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .create_payments_request_line_items_item import CreatePaymentsRequestLineItemsItem
     from .create_payments_request_plan import CreatePaymentsRequestPlan
     from .create_payments_request_plan_currency import CreatePaymentsRequestPlanCurrency
     from .create_payments_request_plan_plan_type import CreatePaymentsRequestPlanPlanType
@@ -45,6 +46,7 @@ if typing.TYPE_CHECKING:
     from .post_payment_succeeded_payload_api_version import PostPaymentSucceededPayloadApiVersion
     from .post_payment_succeeded_payload_type import PostPaymentSucceededPayloadType
 _dynamic_imports: typing.Dict[str, str] = {
+    "CreatePaymentsRequestLineItemsItem": ".create_payments_request_line_items_item",
     "CreatePaymentsRequestPlan": ".create_payments_request_plan",
     "CreatePaymentsRequestPlanCurrency": ".create_payments_request_plan_currency",
     "CreatePaymentsRequestPlanPlanType": ".create_payments_request_plan_plan_type",
@@ -106,6 +108,7 @@ def __dir__():
 
 
 __all__ = [
+    "CreatePaymentsRequestLineItemsItem",
     "CreatePaymentsRequestPlan",
     "CreatePaymentsRequestPlanCurrency",
     "CreatePaymentsRequestPlanPlanType",

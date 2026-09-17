@@ -7,6 +7,7 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
+        CreatePaymentsRequestLineItemsItem,
         CreatePaymentsRequestPlan,
         CreatePaymentsRequestPlanCurrency,
         CreatePaymentsRequestPlanPlanType,
@@ -45,6 +46,7 @@ if typing.TYPE_CHECKING:
         PostPaymentSucceededPayloadType,
     )
 _dynamic_imports: typing.Dict[str, str] = {
+    "CreatePaymentsRequestLineItemsItem": ".types",
     "CreatePaymentsRequestPlan": ".types",
     "CreatePaymentsRequestPlanCurrency": ".types",
     "CreatePaymentsRequestPlanPlanType": ".types",
@@ -106,6 +108,7 @@ def __dir__():
 
 
 __all__ = [
+    "CreatePaymentsRequestLineItemsItem",
     "CreatePaymentsRequestPlan",
     "CreatePaymentsRequestPlanCurrency",
     "CreatePaymentsRequestPlanPlanType",
