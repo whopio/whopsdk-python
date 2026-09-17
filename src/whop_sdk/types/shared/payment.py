@@ -250,7 +250,7 @@ class PaymentRuleMatch(BaseModel):
     id: str
     """Payment rule ID, prefixed `prule_`."""
 
-    action: Literal["allow", "block", "enforce_3ds"]
+    action: Literal["allow", "block", "review", "enforce_3ds"]
     """What the rule asked for."""
 
     name: Optional[str] = None
