@@ -115,7 +115,6 @@ class Webhook(BaseModel):
             "payout_account.status_updated",
             "payment.authorized",
             "payment.canceled",
-            "payment.requires_action",
             "resolution_center_case.created",
             "resolution_center_case.updated",
             "resolution_center_case.decided",
@@ -140,6 +139,7 @@ class Webhook(BaseModel):
             "payment.succeeded",
             "payment.failed",
             "payment.pending",
+            "payment.requires_action",
             "dispute.created",
             "dispute.updated",
             "refund.created",
@@ -160,6 +160,7 @@ class Webhook(BaseModel):
             "app_payment.succeeded",
             "app_payment.failed",
             "app_payment.pending",
+            "app_payment.requires_action",
             "app_membership.cancel_at_period_end_changed",
         ]
     ]
@@ -239,7 +240,6 @@ class Webhook(BaseModel):
             "payout_account.status_updated",
             "payment.authorized",
             "payment.canceled",
-            "payment.requires_action",
             "resolution_center_case.created",
             "resolution_center_case.updated",
             "resolution_center_case.decided",
@@ -264,6 +264,7 @@ class Webhook(BaseModel):
             "payment.succeeded",
             "payment.failed",
             "payment.pending",
+            "payment.requires_action",
             "dispute.created",
             "dispute.updated",
             "refund.created",
@@ -284,6 +285,7 @@ class Webhook(BaseModel):
             "app_payment.succeeded",
             "app_payment.failed",
             "app_payment.pending",
+            "app_payment.requires_action",
             "app_membership.cancel_at_period_end_changed",
         ]
     ]
