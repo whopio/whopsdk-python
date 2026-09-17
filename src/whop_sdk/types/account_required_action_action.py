@@ -5,6 +5,7 @@ import typing
 AccountRequiredActionAction = typing.Union[
     typing.Literal[
         "deposit_funds",
+        "review_held_payments",
         "accept_airwallex_terms",
         "submit_information_request",
         "update_automatic_withdrawal_method",
