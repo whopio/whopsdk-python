@@ -14,6 +14,7 @@ from .payment_instrument import PaymentInstrument
 from .payment_method_types import PaymentMethodTypes
 from .payment_rule_match import PaymentRuleMatch
 from .payment_verification_checks import PaymentVerificationChecks
+from .receipt_line_item import ReceiptLineItem
 from .receipt_status import ReceiptStatus
 from .receipt_tax_behaviors import ReceiptTaxBehaviors
 from .user_summary import UserSummary
@@ -105,6 +106,7 @@ class Payment(UniversalBaseModel):
     When the most recent charge attempt ran, or null.
     """
 
+    line_items: typing.List[ReceiptLineItem]
     member_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The buyer's member record on the account, prefixed `mber_`. Null without the member:basic:read permission.

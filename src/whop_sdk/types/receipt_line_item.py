@@ -45,7 +45,7 @@ class ReceiptLineItem(UniversalBaseModel):
 
     subtotal: typing.Optional[Money] = pydantic.Field(default=None)
     """
-    The recorded amount for this item's full quantity, before discounts, tax, and fees, in its purchase currency. This is not the amount being contested. Returns `null` when no item amount was recorded.
+    The recorded amount for this item's full quantity, before discounts, tax, and fees, in its purchase currency. Returns `null` when no item amount was recorded.
     """
 
     if IS_PYDANTIC_V2:
