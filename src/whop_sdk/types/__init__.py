@@ -37,6 +37,17 @@ if typing.TYPE_CHECKING:
     from .account_company_formation_signatures import AccountCompanyFormationSignatures
     from .account_company_formation_status import AccountCompanyFormationStatus
     from .account_dispute_alert_auto_refund_control import AccountDisputeAlertAutoRefundControl
+    from .account_fee import AccountFee
+    from .account_fee_category import AccountFeeCategory
+    from .account_fee_markup import AccountFeeMarkup
+    from .account_fee_markup_source import AccountFeeMarkupSource
+    from .account_fee_markup_unadjustable_reason import AccountFeeMarkupUnadjustableReason
+    from .account_fee_markups import AccountFeeMarkups
+    from .account_fee_rate import AccountFeeRate
+    from .account_fee_region import AccountFeeRegion
+    from .account_fee_source import AccountFeeSource
+    from .account_fee_unadjustable_reason import AccountFeeUnadjustableReason
+    from .account_fees import AccountFees
     from .account_home_preferences_item import AccountHomePreferencesItem
     from .account_link import AccountLink
     from .account_link_use_cases import AccountLinkUseCases
@@ -1370,6 +1381,17 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AccountCompanyFormationSignatures": ".account_company_formation_signatures",
     "AccountCompanyFormationStatus": ".account_company_formation_status",
     "AccountDisputeAlertAutoRefundControl": ".account_dispute_alert_auto_refund_control",
+    "AccountFee": ".account_fee",
+    "AccountFeeCategory": ".account_fee_category",
+    "AccountFeeMarkup": ".account_fee_markup",
+    "AccountFeeMarkupSource": ".account_fee_markup_source",
+    "AccountFeeMarkupUnadjustableReason": ".account_fee_markup_unadjustable_reason",
+    "AccountFeeMarkups": ".account_fee_markups",
+    "AccountFeeRate": ".account_fee_rate",
+    "AccountFeeRegion": ".account_fee_region",
+    "AccountFeeSource": ".account_fee_source",
+    "AccountFeeUnadjustableReason": ".account_fee_unadjustable_reason",
+    "AccountFees": ".account_fees",
     "AccountHomePreferencesItem": ".account_home_preferences_item",
     "AccountLink": ".account_link",
     "AccountLinkUseCases": ".account_link_use_cases",
@@ -2583,6 +2605,17 @@ __all__ = [
     "AccountCompanyFormationSignatures",
     "AccountCompanyFormationStatus",
     "AccountDisputeAlertAutoRefundControl",
+    "AccountFee",
+    "AccountFeeCategory",
+    "AccountFeeMarkup",
+    "AccountFeeMarkupSource",
+    "AccountFeeMarkupUnadjustableReason",
+    "AccountFeeMarkups",
+    "AccountFeeRate",
+    "AccountFeeRegion",
+    "AccountFeeSource",
+    "AccountFeeUnadjustableReason",
+    "AccountFees",
     "AccountHomePreferencesItem",
     "AccountLink",
     "AccountLinkUseCases",
