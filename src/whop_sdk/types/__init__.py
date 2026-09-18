@@ -45,6 +45,8 @@ if typing.TYPE_CHECKING:
     from .account_fee_markups import AccountFeeMarkups
     from .account_fee_rate import AccountFeeRate
     from .account_fee_region import AccountFeeRegion
+    from .account_fee_regional_rate import AccountFeeRegionalRate
+    from .account_fee_regional_rate_source import AccountFeeRegionalRateSource
     from .account_fee_source import AccountFeeSource
     from .account_fee_unadjustable_reason import AccountFeeUnadjustableReason
     from .account_fees import AccountFees
@@ -1393,6 +1395,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AccountFeeMarkups": ".account_fee_markups",
     "AccountFeeRate": ".account_fee_rate",
     "AccountFeeRegion": ".account_fee_region",
+    "AccountFeeRegionalRate": ".account_fee_regional_rate",
+    "AccountFeeRegionalRateSource": ".account_fee_regional_rate_source",
     "AccountFeeSource": ".account_fee_source",
     "AccountFeeUnadjustableReason": ".account_fee_unadjustable_reason",
     "AccountFees": ".account_fees",
@@ -2621,6 +2625,8 @@ __all__ = [
     "AccountFeeMarkups",
     "AccountFeeRate",
     "AccountFeeRegion",
+    "AccountFeeRegionalRate",
+    "AccountFeeRegionalRateSource",
     "AccountFeeSource",
     "AccountFeeUnadjustableReason",
     "AccountFees",

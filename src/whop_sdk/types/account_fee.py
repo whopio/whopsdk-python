@@ -7,6 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .account_fee_category import AccountFeeCategory
 from .account_fee_rate import AccountFeeRate
 from .account_fee_region import AccountFeeRegion
+from .account_fee_regional_rate import AccountFeeRegionalRate
 from .account_fee_source import AccountFeeSource
 from .account_fee_unadjustable_reason import AccountFeeUnadjustableReason
 from .money import Money
@@ -25,7 +26,7 @@ class AccountFee(UniversalBaseModel):
 
     default: AccountFeeRate = pydantic.Field()
     """
-    The platform rate with no custom deal: what applies if the custom rate is cleared.
+    The platform rate before custom or inherited pricing is applied.
     """
 
     ends_at: typing.Optional[str] = pydantic.Field(default=None)
@@ -53,9 +54,14 @@ class AccountFee(UniversalBaseModel):
     The acquirer region `percentage` and `fixed` describe, for a fee that varies by where the money is processed. `null` for a fee that does not vary by region.
     """
 
-    regions: typing.Dict[str, AccountFeeRate] = pydantic.Field()
+    regions: typing.Dict[str, AccountFeeRegionalRate] = pydantic.Field()
     """
-    The rate in every other region this fee varies by, keyed by region. Empty for a fee that does not vary by region.
+    The rate, source, default, reset rate, and editable minimum in every other region this fee varies by, keyed by region. Empty for a fee that does not vary by region.
+    """
+
+    reset: AccountFeeRate = pydantic.Field()
+    """
+    The rate that takes effect when this account's custom rate is cleared, including inherited pricing.
     """
 
     source: AccountFeeSource = pydantic.Field()
