@@ -41004,14 +41004,6 @@ client.accounts.fees.update(
 <dl>
 <dd>
 
-**ads:** `typing.Optional[UpdateFeesRequestAds]` — The fields of a fee the caller may change. Only the keys sent are replaced.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **bank_deposit:** `typing.Optional[UpdateFeesRequestBankDeposit]` — The fields of a fee the caller may change. Only the keys sent are replaced.
     
 </dd>

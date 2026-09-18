@@ -6,8 +6,6 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .update_fees_request_ads import UpdateFeesRequestAds
-    from .update_fees_request_ads_regions_value import UpdateFeesRequestAdsRegionsValue
     from .update_fees_request_bank_deposit import UpdateFeesRequestBankDeposit
     from .update_fees_request_bank_deposit_regions_value import UpdateFeesRequestBankDepositRegionsValue
     from .update_fees_request_billing import UpdateFeesRequestBilling
@@ -77,8 +75,6 @@ if typing.TYPE_CHECKING:
     from .update_fees_request_transfers import UpdateFeesRequestTransfers
     from .update_fees_request_transfers_regions_value import UpdateFeesRequestTransfersRegionsValue
 _dynamic_imports: typing.Dict[str, str] = {
-    "UpdateFeesRequestAds": ".update_fees_request_ads",
-    "UpdateFeesRequestAdsRegionsValue": ".update_fees_request_ads_regions_value",
     "UpdateFeesRequestBankDeposit": ".update_fees_request_bank_deposit",
     "UpdateFeesRequestBankDepositRegionsValue": ".update_fees_request_bank_deposit_regions_value",
     "UpdateFeesRequestBilling": ".update_fees_request_billing",
@@ -168,8 +164,6 @@ def __dir__():
 
 
 __all__ = [
-    "UpdateFeesRequestAds",
-    "UpdateFeesRequestAdsRegionsValue",
     "UpdateFeesRequestBankDeposit",
     "UpdateFeesRequestBankDepositRegionsValue",
     "UpdateFeesRequestBilling",

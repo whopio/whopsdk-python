@@ -51,8 +51,6 @@ if typing.TYPE_CHECKING:
     )
     from . import fees, preferences, reserves
     from .fees import (
-        UpdateFeesRequestAds,
-        UpdateFeesRequestAdsRegionsValue,
         UpdateFeesRequestBankDeposit,
         UpdateFeesRequestBankDepositRegionsValue,
         UpdateFeesRequestBilling,
@@ -214,8 +212,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateAccountsRequestTaxRemittedBy": ".types",
     "UpdateAccountsRequestTaxType": ".types",
     "UpdateAccountsRequestThreeDsLevel": ".types",
-    "UpdateFeesRequestAds": ".fees",
-    "UpdateFeesRequestAdsRegionsValue": ".fees",
     "UpdateFeesRequestBankDeposit": ".fees",
     "UpdateFeesRequestBankDepositRegionsValue": ".fees",
     "UpdateFeesRequestBilling": ".fees",
@@ -386,8 +382,6 @@ __all__ = [
     "UpdateAccountsRequestTaxRemittedBy",
     "UpdateAccountsRequestTaxType",
     "UpdateAccountsRequestThreeDsLevel",
-    "UpdateFeesRequestAds",
-    "UpdateFeesRequestAdsRegionsValue",
     "UpdateFeesRequestBankDeposit",
     "UpdateFeesRequestBankDepositRegionsValue",
     "UpdateFeesRequestBilling",

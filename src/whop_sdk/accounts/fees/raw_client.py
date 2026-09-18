@@ -16,7 +16,6 @@ from ...errors.forbidden_error import ForbiddenError
 from ...errors.not_found_error import NotFoundError
 from ...errors.unauthorized_error import UnauthorizedError
 from ...types.account_fees import AccountFees
-from .types.update_fees_request_ads import UpdateFeesRequestAds
 from .types.update_fees_request_bank_deposit import UpdateFeesRequestBankDeposit
 from .types.update_fees_request_billing import UpdateFeesRequestBilling
 from .types.update_fees_request_buyer import UpdateFeesRequestBuyer
@@ -124,7 +123,6 @@ class RawFeesClient:
         self,
         account_id: str,
         *,
-        ads: typing.Optional[UpdateFeesRequestAds] = OMIT,
         bank_deposit: typing.Optional[UpdateFeesRequestBankDeposit] = OMIT,
         billing: typing.Optional[UpdateFeesRequestBilling] = OMIT,
         buyer: typing.Optional[UpdateFeesRequestBuyer] = OMIT,
@@ -163,9 +161,6 @@ class RawFeesClient:
         ----------
         account_id : str
             Account ID, prefixed `biz_`.
-
-        ads : typing.Optional[UpdateFeesRequestAds]
-            The fields of a fee the caller may change. Only the keys sent are replaced.
 
         bank_deposit : typing.Optional[UpdateFeesRequestBankDeposit]
             The fields of a fee the caller may change. Only the keys sent are replaced.
@@ -266,9 +261,6 @@ class RawFeesClient:
             f"accounts/{encode_path_param(account_id)}/fees",
             method="PATCH",
             json={
-                "ads": convert_and_respect_annotation_metadata(
-                    object_=ads, annotation=UpdateFeesRequestAds, direction="write"
-                ),
                 "bank_deposit": convert_and_respect_annotation_metadata(
                     object_=bank_deposit, annotation=UpdateFeesRequestBankDeposit, direction="write"
                 ),
@@ -489,7 +481,6 @@ class AsyncRawFeesClient:
         self,
         account_id: str,
         *,
-        ads: typing.Optional[UpdateFeesRequestAds] = OMIT,
         bank_deposit: typing.Optional[UpdateFeesRequestBankDeposit] = OMIT,
         billing: typing.Optional[UpdateFeesRequestBilling] = OMIT,
         buyer: typing.Optional[UpdateFeesRequestBuyer] = OMIT,
@@ -528,9 +519,6 @@ class AsyncRawFeesClient:
         ----------
         account_id : str
             Account ID, prefixed `biz_`.
-
-        ads : typing.Optional[UpdateFeesRequestAds]
-            The fields of a fee the caller may change. Only the keys sent are replaced.
 
         bank_deposit : typing.Optional[UpdateFeesRequestBankDeposit]
             The fields of a fee the caller may change. Only the keys sent are replaced.
@@ -631,9 +619,6 @@ class AsyncRawFeesClient:
             f"accounts/{encode_path_param(account_id)}/fees",
             method="PATCH",
             json={
-                "ads": convert_and_respect_annotation_metadata(
-                    object_=ads, annotation=UpdateFeesRequestAds, direction="write"
-                ),
                 "bank_deposit": convert_and_respect_annotation_metadata(
                     object_=bank_deposit, annotation=UpdateFeesRequestBankDeposit, direction="write"
                 ),

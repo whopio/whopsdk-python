@@ -14,11 +14,6 @@ class AccountFees(UniversalBaseModel):
     The account these fees are charged to, prefixed `biz_`.
     """
 
-    ads: AccountFee = pydantic.Field()
-    """
-    Charged on Whop Ads spend.
-    """
-
     bank_deposit: AccountFee = pydantic.Field()
     """
     Charged on bank deposits into the account's balance.

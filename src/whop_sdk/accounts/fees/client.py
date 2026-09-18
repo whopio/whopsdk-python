@@ -6,7 +6,6 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
 from ...types.account_fees import AccountFees
 from .raw_client import AsyncRawFeesClient, RawFeesClient
-from .types.update_fees_request_ads import UpdateFeesRequestAds
 from .types.update_fees_request_bank_deposit import UpdateFeesRequestBankDeposit
 from .types.update_fees_request_billing import UpdateFeesRequestBilling
 from .types.update_fees_request_buyer import UpdateFeesRequestBuyer
@@ -92,7 +91,6 @@ class FeesClient:
         self,
         account_id: str,
         *,
-        ads: typing.Optional[UpdateFeesRequestAds] = OMIT,
         bank_deposit: typing.Optional[UpdateFeesRequestBankDeposit] = OMIT,
         billing: typing.Optional[UpdateFeesRequestBilling] = OMIT,
         buyer: typing.Optional[UpdateFeesRequestBuyer] = OMIT,
@@ -131,9 +129,6 @@ class FeesClient:
         ----------
         account_id : str
             Account ID, prefixed `biz_`.
-
-        ads : typing.Optional[UpdateFeesRequestAds]
-            The fields of a fee the caller may change. Only the keys sent are replaced.
 
         bank_deposit : typing.Optional[UpdateFeesRequestBankDeposit]
             The fields of a fee the caller may change. Only the keys sent are replaced.
@@ -245,7 +240,6 @@ class FeesClient:
         """
         _response = self._raw_client.update(
             account_id,
-            ads=ads,
             bank_deposit=bank_deposit,
             billing=billing,
             buyer=buyer,
@@ -342,7 +336,6 @@ class AsyncFeesClient:
         self,
         account_id: str,
         *,
-        ads: typing.Optional[UpdateFeesRequestAds] = OMIT,
         bank_deposit: typing.Optional[UpdateFeesRequestBankDeposit] = OMIT,
         billing: typing.Optional[UpdateFeesRequestBilling] = OMIT,
         buyer: typing.Optional[UpdateFeesRequestBuyer] = OMIT,
@@ -381,9 +374,6 @@ class AsyncFeesClient:
         ----------
         account_id : str
             Account ID, prefixed `biz_`.
-
-        ads : typing.Optional[UpdateFeesRequestAds]
-            The fields of a fee the caller may change. Only the keys sent are replaced.
 
         bank_deposit : typing.Optional[UpdateFeesRequestBankDeposit]
             The fields of a fee the caller may change. Only the keys sent are replaced.
@@ -503,7 +493,6 @@ class AsyncFeesClient:
         """
         _response = await self._raw_client.update(
             account_id,
-            ads=ads,
             bank_deposit=bank_deposit,
             billing=billing,
             buyer=buyer,
