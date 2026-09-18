@@ -39,6 +39,11 @@ class AccountFee(UniversalBaseModel):
     The amount charged per event in effect. `null` when the fee has no fixed component.
     """
 
+    maximum: typing.Optional[AccountFeeRate] = pydantic.Field(default=None)
+    """
+    The highest rate the caller may set. `null` when the fee is not adjustable or the caller is not capped.
+    """
+
     minimum: typing.Optional[AccountFeeRate] = pydantic.Field(default=None)
     """
     The lowest rate the caller may set, present only when `adjustable`.
@@ -56,7 +61,7 @@ class AccountFee(UniversalBaseModel):
 
     regions: typing.Dict[str, AccountFeeRegionalRate] = pydantic.Field()
     """
-    The rate, source, default, reset rate, and editable minimum in every other region this fee varies by, keyed by region. Empty for a fee that does not vary by region.
+    The rate, source, default, reset rate, and editable limits in every other region this fee varies by, keyed by region. Empty for a fee that does not vary by region.
     """
 
     reset: AccountFeeRate = pydantic.Field()
