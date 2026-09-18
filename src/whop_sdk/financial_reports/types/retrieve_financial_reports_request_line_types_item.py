@@ -41,6 +41,7 @@ RetrieveFinancialReportsRequestLineTypesItem = typing.Union[
         "dispute_alert_fee",
         "dispute_hold_adjustment",
         "dispute_representment_fee",
+        "economic_intelligence_percentage_fee",
         "external_card_load_deposit",
         "fees",
         "fraud_prevention_fee",

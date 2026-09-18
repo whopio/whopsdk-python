@@ -85,6 +85,7 @@ RetrieveFinancialReportsResponseRowsItemLineCategory = typing.Union[
         "dispute_settlement_reversal",
         "dispute_unreconciled_clearing",
         "dispute_unreconciled_reversal",
+        "economic_intelligence_percentage_fee",
         "external_account_connection_fee",
         "external_card_load_deposit",
         "external_card_load_offset",
