@@ -7,8 +7,6 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
-        UpdateFeesRequestAds,
-        UpdateFeesRequestAdsRegionsValue,
         UpdateFeesRequestBankDeposit,
         UpdateFeesRequestBankDepositRegionsValue,
         UpdateFeesRequestBilling,
@@ -75,8 +73,6 @@ if typing.TYPE_CHECKING:
         UpdateFeesRequestTransfersRegionsValue,
     )
 _dynamic_imports: typing.Dict[str, str] = {
-    "UpdateFeesRequestAds": ".types",
-    "UpdateFeesRequestAdsRegionsValue": ".types",
     "UpdateFeesRequestBankDeposit": ".types",
     "UpdateFeesRequestBankDepositRegionsValue": ".types",
     "UpdateFeesRequestBilling": ".types",
@@ -166,8 +162,6 @@ def __dir__():
 
 
 __all__ = [
-    "UpdateFeesRequestAds",
-    "UpdateFeesRequestAdsRegionsValue",
     "UpdateFeesRequestBankDeposit",
     "UpdateFeesRequestBankDepositRegionsValue",
     "UpdateFeesRequestBilling",
