@@ -45,6 +45,8 @@ __all__ = [
     "DataTermsOfService",
     "DataTermsOfServiceMultipartUploadURL",
     "DataWallet",
+    "DataPartner",
+    "DataPartnerProfilePicture",
 ]
 
 
@@ -1159,6 +1161,46 @@ class DataWallet(BaseModel):
     """The blockchain network the wallet lives on"""
 
 
+class DataPartnerProfilePicture(BaseModel):
+    """
+    Avatar wrapper; its `url` is always present, using a generated placeholder when the user set no picture.
+    """
+
+    url: str
+    """Avatar image URL.
+
+    Always present — a generated placeholder when the user set no picture.
+    """
+
+
+class DataPartner(BaseModel):
+    """The account's active first-tier partner.
+
+    Present on retrieve responses; null when no active first-tier partner is attributed to the account. Omitted from other responses.
+    """
+
+    id: str
+    """User ID, prefixed `user_`."""
+
+    email: Optional[str] = None
+    """Email address for contacting the partner.
+
+    Null when the partner has not added their own email address.
+    """
+
+    name: Optional[str] = None
+    """Display name."""
+
+    profile_picture: DataPartnerProfilePicture
+    """
+    Avatar wrapper; its `url` is always present, using a generated placeholder when
+    the user set no picture.
+    """
+
+    username: str
+    """Public username."""
+
+
 class Data(BaseModel):
     id: str
     """Account ID, prefixed `biz_`."""
@@ -1445,6 +1487,13 @@ class Data(BaseModel):
     """The account's business website URL, or `null` if none has been provided.
 
     Setting it also adds a `website` entry to `social_links`.
+    """
+
+    partner: Optional[DataPartner] = None
+    """The account's active first-tier partner.
+
+    Present on retrieve responses; null when no active first-tier partner is
+    attributed to the account. Omitted from other responses.
     """
 
 
