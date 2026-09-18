@@ -116,6 +116,7 @@ class Data(BaseModel):
         "revshare_percentage_fee",
         "application_fee",
         "high_risk_merchant_fee",
+        "economic_intelligence_percentage_fee",
     ]
     """
     The specific fee this line is, such as `payment_processing_percentage_fee` or
