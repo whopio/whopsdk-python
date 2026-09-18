@@ -65,6 +65,7 @@ if typing.TYPE_CHECKING:
     from .memberships.client import AsyncMembershipsClient, MembershipsClient
     from .messages.client import AsyncMessagesClient, MessagesClient
     from .notifications.client import AsyncNotificationsClient, NotificationsClient
+    from .partner_referral_requests.client import AsyncPartnerReferralRequestsClient, PartnerReferralRequestsClient
     from .partners.client import AsyncPartnersClient, PartnersClient
     from .payment_method_domains.client import AsyncPaymentMethodDomainsClient, PaymentMethodDomainsClient
     from .payment_methods.client import AsyncPaymentMethodsClient, PaymentMethodsClient
@@ -243,6 +244,7 @@ class Whop:
         self._memberships: typing.Optional[MembershipsClient] = None
         self._messages: typing.Optional[MessagesClient] = None
         self._notifications: typing.Optional[NotificationsClient] = None
+        self._partner_referral_requests: typing.Optional[PartnerReferralRequestsClient] = None
         self._partners: typing.Optional[PartnersClient] = None
         self._payment_method_domains: typing.Optional[PaymentMethodDomainsClient] = None
         self._payment_methods: typing.Optional[PaymentMethodsClient] = None
@@ -714,6 +716,14 @@ class Whop:
         return self._notifications
 
     @property
+    def partner_referral_requests(self):
+        if self._partner_referral_requests is None:
+            from .partner_referral_requests.client import PartnerReferralRequestsClient  # noqa: E402
+
+            self._partner_referral_requests = PartnerReferralRequestsClient(client_wrapper=self._client_wrapper)
+        return self._partner_referral_requests
+
+    @property
     def partners(self):
         if self._partners is None:
             from .partners.client import PartnersClient  # noqa: E402
@@ -1114,6 +1124,7 @@ class AsyncWhop:
         self._memberships: typing.Optional[AsyncMembershipsClient] = None
         self._messages: typing.Optional[AsyncMessagesClient] = None
         self._notifications: typing.Optional[AsyncNotificationsClient] = None
+        self._partner_referral_requests: typing.Optional[AsyncPartnerReferralRequestsClient] = None
         self._partners: typing.Optional[AsyncPartnersClient] = None
         self._payment_method_domains: typing.Optional[AsyncPaymentMethodDomainsClient] = None
         self._payment_methods: typing.Optional[AsyncPaymentMethodsClient] = None
@@ -1583,6 +1594,14 @@ class AsyncWhop:
 
             self._notifications = AsyncNotificationsClient(client_wrapper=self._client_wrapper)
         return self._notifications
+
+    @property
+    def partner_referral_requests(self):
+        if self._partner_referral_requests is None:
+            from .partner_referral_requests.client import AsyncPartnerReferralRequestsClient  # noqa: E402
+
+            self._partner_referral_requests = AsyncPartnerReferralRequestsClient(client_wrapper=self._client_wrapper)
+        return self._partner_referral_requests
 
     @property
     def partners(self):
