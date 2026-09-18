@@ -14,6 +14,7 @@ from .account_home_preferences_item import AccountHomePreferencesItem
 from .account_onboarding_type import AccountOnboardingType
 from .account_opengraph_image_variant import AccountOpengraphImageVariant
 from .account_parent import AccountParent
+from .account_partner import AccountPartner
 from .account_payment_controls import AccountPaymentControls
 from .account_recommended_action import AccountRecommendedAction
 from .account_required_action import AccountRequiredAction
@@ -169,6 +170,11 @@ class Account(UniversalBaseModel):
     parent_account: typing.Optional[AccountParent] = pydantic.Field(default=None)
     """
     Parent account for connected accounts, or `null` for standalone accounts.
+    """
+
+    partner: typing.Optional[AccountPartner] = pydantic.Field(default=None)
+    """
+    The account's active first-tier partner. Present on retrieve responses; null when no active first-tier partner is attributed to the account. Omitted from other responses.
     """
 
     payment_controls: typing.Optional[AccountPaymentControls] = pydantic.Field(default=None)
