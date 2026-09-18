@@ -112,7 +112,7 @@ class RawFinancialActivityClient:
             activities listed for a user
         """
         _response = self._client_wrapper.httpx_client.request(
-            "financial-activity",
+            "financial_activity",
             method="GET",
             params={
                 "account_id": account_id,
@@ -289,7 +289,7 @@ class AsyncRawFinancialActivityClient:
             activities listed for a user
         """
         _response = await self._client_wrapper.httpx_client.request(
-            "financial-activity",
+            "financial_activity",
             method="GET",
             params={
                 "account_id": account_id,
