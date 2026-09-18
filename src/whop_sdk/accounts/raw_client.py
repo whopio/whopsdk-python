@@ -250,7 +250,7 @@ class RawAccountsClient:
             The ISO 3166-1 alpha-2 country code where the account's business is located (e.g. `US`). Defaults to the parent account's country for connected accounts.
 
         email : typing.Optional[str]
-            The email address of the account owner. Required for Account API key requests.
+            The email address of the account owner. Required when creating a connected account.
 
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
             Arbitrary key/value metadata to store on the account.
@@ -1360,7 +1360,7 @@ class AsyncRawAccountsClient:
             The ISO 3166-1 alpha-2 country code where the account's business is located (e.g. `US`). Defaults to the parent account's country for connected accounts.
 
         email : typing.Optional[str]
-            The email address of the account owner. Required for Account API key requests.
+            The email address of the account owner. Required when creating a connected account.
 
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
             Arbitrary key/value metadata to store on the account.

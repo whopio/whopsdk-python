@@ -439,7 +439,7 @@ client.accounts.create()
 <dl>
 <dd>
 
-**email:** `typing.Optional[str]` — The email address of the account owner. Required for Account API key requests.
+**email:** `typing.Optional[str]` — The email address of the account owner. Required when creating a connected account.
     
 </dd>
 </dl>
