@@ -7,6 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .account_summary import AccountSummary
 from .partner_referral_request_request_type import PartnerReferralRequestRequestType
 from .partner_referral_request_status import PartnerReferralRequestStatus
+from .partner_referral_reward import PartnerReferralReward
 from .user_summary import UserSummary
 
 
@@ -46,6 +47,7 @@ class PartnerReferralRequest(UniversalBaseModel):
     How the referral request was initiated.
     """
 
+    rewards: typing.List[PartnerReferralReward]
     status: typing.Optional[PartnerReferralRequestStatus] = pydantic.Field(default=None)
     """
     The approval state, or null for requests without an approval process.
