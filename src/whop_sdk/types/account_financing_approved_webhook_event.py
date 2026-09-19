@@ -777,6 +777,7 @@ class DataRequiredAction(BaseModel):
         "update_payout_profile",
         "card_usage_review",
         "verify_identity",
+        "verify_airwallex_account",
         "sign_formation_documents",
         "connect_fulfillment_tracker",
         "setup_apple_pay_domains",
