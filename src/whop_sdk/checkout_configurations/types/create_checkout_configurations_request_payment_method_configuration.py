@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ...types.payment_method_types import PaymentMethodTypes
 
 
 class CreateCheckoutConfigurationsRequestPaymentMethodConfiguration(UniversalBaseModel):
@@ -11,14 +12,14 @@ class CreateCheckoutConfigurationsRequestPaymentMethodConfiguration(UniversalBas
     Payment method overrides for this checkout. `null` uses the plan or platform defaults.
     """
 
-    disabled: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    disabled: typing.Optional[typing.List[PaymentMethodTypes]] = pydantic.Field(default=None)
     """
-    Payment methods explicitly disabled for checkout.
+    Payment method types explicitly disabled for checkout — the `type` values from the payment method types catalogue. Types Whop no longer offers, and the read-only `unknown` placeholder, are dropped.
     """
 
-    enabled: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    enabled: typing.Optional[typing.List[PaymentMethodTypes]] = pydantic.Field(default=None)
     """
-    Payment methods explicitly enabled for checkout.
+    Payment method types explicitly enabled for checkout — the `type` values from the payment method types catalogue. Types Whop no longer offers, and the read-only `unknown` placeholder, are dropped.
     """
 
     include_platform_defaults: typing.Optional[bool] = pydantic.Field(default=None)
