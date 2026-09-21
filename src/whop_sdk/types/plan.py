@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .account_summary import AccountSummary
 from .checkout_session_payment_method_configuration import CheckoutSessionPaymentMethodConfiguration
+from .money import Money
 from .plan_currency import PlanCurrency
 from .plan_custom_field import PlanCustomField
 from .plan_plan_type import PlanPlanType
@@ -102,6 +103,11 @@ class Plan(UniversalBaseModel):
     initial_price: float = pydantic.Field()
     """
     Initial purchase price in plan currency.
+    """
+
+    initial_price_due: Money = pydantic.Field()
+    """
+    Total charged at checkout for one unit, before promo codes and tax: `initial_price` plus the first `renewal_price` for recurring plans, or `initial_price` alone while a free trial applies. The trial does not apply when the viewing user has already used one for this plan.
     """
 
     internal_notes: typing.Optional[str] = pydantic.Field(default=None)
