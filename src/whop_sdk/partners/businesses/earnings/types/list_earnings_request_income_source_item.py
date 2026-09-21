@@ -3,5 +3,6 @@
 import typing
 
 ListEarningsRequestIncomeSourceItem = typing.Union[
-    typing.Literal["sales", "ad_spend", "transfer", "card_interchange", "onboarding_reward"], typing.Any
+    typing.Literal["sales", "ad_spend", "transfer", "card_interchange", "onboarding_reward", "partner_reward"],
+    typing.Any,
 ]
