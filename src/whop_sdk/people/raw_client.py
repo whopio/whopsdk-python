@@ -38,6 +38,9 @@ class RawPeopleClient:
         attribution_model: typing.Optional[ListPeopleRequestAttributionModel] = None,
         event_name: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         custom_event: typing.Optional[str] = None,
+        event_within_days: typing.Optional[int] = None,
+        from_: typing.Optional[dt.datetime] = None,
+        to: typing.Optional[dt.datetime] = None,
         event_from: typing.Optional[dt.datetime] = None,
         event_to: typing.Optional[dt.datetime] = None,
         audience_id: typing.Optional[str] = None,
@@ -53,6 +56,22 @@ class RawPeopleClient:
         first_seen_before: typing.Optional[dt.datetime] = None,
         last_seen_after: typing.Optional[dt.datetime] = None,
         last_seen_before: typing.Optional[dt.datetime] = None,
+        ltv_gt: typing.Optional[float] = None,
+        ltv_gte: typing.Optional[float] = None,
+        ltv_lt: typing.Optional[float] = None,
+        ltv_lte: typing.Optional[float] = None,
+        aov_gt: typing.Optional[float] = None,
+        aov_gte: typing.Optional[float] = None,
+        aov_lt: typing.Optional[float] = None,
+        aov_lte: typing.Optional[float] = None,
+        purchase_count_gt: typing.Optional[float] = None,
+        purchase_count_gte: typing.Optional[float] = None,
+        purchase_count_lt: typing.Optional[float] = None,
+        purchase_count_lte: typing.Optional[float] = None,
+        event_count_gt: typing.Optional[float] = None,
+        event_count_gte: typing.Optional[float] = None,
+        event_count_lt: typing.Optional[float] = None,
+        event_count_lte: typing.Optional[float] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
@@ -83,11 +102,20 @@ class RawPeopleClient:
         custom_event : typing.Optional[str]
             Only include people who fired this custom pixel event.
 
+        event_within_days : typing.Optional[int]
+            Match activity within a rolling number of days. Cannot be combined with event_from/event_to.
+
+        from_ : typing.Optional[dt.datetime]
+            Inclusive activity-window start. Alias for event_from.
+
+        to : typing.Optional[dt.datetime]
+            Inclusive activity-window end. Alias for event_to.
+
         event_from : typing.Optional[dt.datetime]
-            With event_to plus an event or source filter, switches to exact-population mode: person ids are resolved and paginated on the events side within this window (the same query the people metric counts), then hydrated per page.
+            The inclusive start of the matching activity window.
 
         event_to : typing.Optional[dt.datetime]
-            The inclusive end of the event window for exact-population mode.
+            The inclusive end of the matching activity window, for both stats drilldowns and saved audiences.
 
         audience_id : typing.Optional[str]
             Only include people in this audience. An audience that keeps itself up to date resolves to the People filters that define it, so this always reflects who matches now; uploaded lists and point-in-time snapshots match their recorded members.
@@ -102,7 +130,7 @@ class RawPeopleClient:
             Only include the person linked to this phone number.
 
         country : typing.Optional[str]
-            Only include people whose most recent visit came from this ISO 3166-1 alpha-2 country code.
+            Only include people with activity from this ISO 3166-1 alpha-2 country code.
 
         has_purchased : typing.Optional[bool]
             true for customers only, false for people who have never purchased.
@@ -127,6 +155,54 @@ class RawPeopleClient:
 
         last_seen_before : typing.Optional[dt.datetime]
             Only include people last seen before this ISO 8601 timestamp.
+
+        ltv_gt : typing.Optional[float]
+            Select people whose lifetime ltv is greater than this value. LTV and AOV are in USD.
+
+        ltv_gte : typing.Optional[float]
+            Select people whose lifetime ltv is at least this value. LTV and AOV are in USD.
+
+        ltv_lt : typing.Optional[float]
+            Select people whose lifetime ltv is less than this value. LTV and AOV are in USD.
+
+        ltv_lte : typing.Optional[float]
+            Select people whose lifetime ltv is at most this value. LTV and AOV are in USD.
+
+        aov_gt : typing.Optional[float]
+            Select people whose lifetime aov is greater than this value. LTV and AOV are in USD.
+
+        aov_gte : typing.Optional[float]
+            Select people whose lifetime aov is at least this value. LTV and AOV are in USD.
+
+        aov_lt : typing.Optional[float]
+            Select people whose lifetime aov is less than this value. LTV and AOV are in USD.
+
+        aov_lte : typing.Optional[float]
+            Select people whose lifetime aov is at most this value. LTV and AOV are in USD.
+
+        purchase_count_gt : typing.Optional[float]
+            Select people whose lifetime purchase_count is greater than this value. LTV and AOV are in USD.
+
+        purchase_count_gte : typing.Optional[float]
+            Select people whose lifetime purchase_count is at least this value. LTV and AOV are in USD.
+
+        purchase_count_lt : typing.Optional[float]
+            Select people whose lifetime purchase_count is less than this value. LTV and AOV are in USD.
+
+        purchase_count_lte : typing.Optional[float]
+            Select people whose lifetime purchase_count is at most this value. LTV and AOV are in USD.
+
+        event_count_gt : typing.Optional[float]
+            Select people whose lifetime event_count is greater than this value. LTV and AOV are in USD.
+
+        event_count_gte : typing.Optional[float]
+            Select people whose lifetime event_count is at least this value. LTV and AOV are in USD.
+
+        event_count_lt : typing.Optional[float]
+            Select people whose lifetime event_count is less than this value. LTV and AOV are in USD.
+
+        event_count_lte : typing.Optional[float]
+            Select people whose lifetime event_count is at most this value. LTV and AOV are in USD.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -161,6 +237,9 @@ class RawPeopleClient:
                 "attribution_model": attribution_model,
                 "event_name": event_name,
                 "custom_event": custom_event,
+                "event_within_days": event_within_days,
+                "from": serialize_datetime(from_) if from_ is not None else None,
+                "to": serialize_datetime(to) if to is not None else None,
                 "event_from": serialize_datetime(event_from) if event_from is not None else None,
                 "event_to": serialize_datetime(event_to) if event_to is not None else None,
                 "audience_id": audience_id,
@@ -176,6 +255,22 @@ class RawPeopleClient:
                 "first_seen_before": serialize_datetime(first_seen_before) if first_seen_before is not None else None,
                 "last_seen_after": serialize_datetime(last_seen_after) if last_seen_after is not None else None,
                 "last_seen_before": serialize_datetime(last_seen_before) if last_seen_before is not None else None,
+                "ltv_gt": ltv_gt,
+                "ltv_gte": ltv_gte,
+                "ltv_lt": ltv_lt,
+                "ltv_lte": ltv_lte,
+                "aov_gt": aov_gt,
+                "aov_gte": aov_gte,
+                "aov_lt": aov_lt,
+                "aov_lte": aov_lte,
+                "purchase_count_gt": purchase_count_gt,
+                "purchase_count_gte": purchase_count_gte,
+                "purchase_count_lt": purchase_count_lt,
+                "purchase_count_lte": purchase_count_lte,
+                "event_count_gt": event_count_gt,
+                "event_count_gte": event_count_gte,
+                "event_count_lt": event_count_lt,
+                "event_count_lte": event_count_lte,
                 "first": first,
                 "after": after,
                 "before": before,
@@ -206,6 +301,9 @@ class RawPeopleClient:
                         attribution_model=attribution_model,
                         event_name=event_name,
                         custom_event=custom_event,
+                        event_within_days=event_within_days,
+                        from_=from_,
+                        to=to,
                         event_from=event_from,
                         event_to=event_to,
                         audience_id=audience_id,
@@ -221,6 +319,22 @@ class RawPeopleClient:
                         first_seen_before=first_seen_before,
                         last_seen_after=last_seen_after,
                         last_seen_before=last_seen_before,
+                        ltv_gt=ltv_gt,
+                        ltv_gte=ltv_gte,
+                        ltv_lt=ltv_lt,
+                        ltv_lte=ltv_lte,
+                        aov_gt=aov_gt,
+                        aov_gte=aov_gte,
+                        aov_lt=aov_lt,
+                        aov_lte=aov_lte,
+                        purchase_count_gt=purchase_count_gt,
+                        purchase_count_gte=purchase_count_gte,
+                        purchase_count_lt=purchase_count_lt,
+                        purchase_count_lte=purchase_count_lte,
+                        event_count_gt=event_count_gt,
+                        event_count_gte=event_count_gte,
+                        event_count_lt=event_count_lt,
+                        event_count_lte=event_count_lte,
                         first=first,
                         after=_parsed_next,
                         before=before,
@@ -349,6 +463,9 @@ class AsyncRawPeopleClient:
         attribution_model: typing.Optional[ListPeopleRequestAttributionModel] = None,
         event_name: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         custom_event: typing.Optional[str] = None,
+        event_within_days: typing.Optional[int] = None,
+        from_: typing.Optional[dt.datetime] = None,
+        to: typing.Optional[dt.datetime] = None,
         event_from: typing.Optional[dt.datetime] = None,
         event_to: typing.Optional[dt.datetime] = None,
         audience_id: typing.Optional[str] = None,
@@ -364,6 +481,22 @@ class AsyncRawPeopleClient:
         first_seen_before: typing.Optional[dt.datetime] = None,
         last_seen_after: typing.Optional[dt.datetime] = None,
         last_seen_before: typing.Optional[dt.datetime] = None,
+        ltv_gt: typing.Optional[float] = None,
+        ltv_gte: typing.Optional[float] = None,
+        ltv_lt: typing.Optional[float] = None,
+        ltv_lte: typing.Optional[float] = None,
+        aov_gt: typing.Optional[float] = None,
+        aov_gte: typing.Optional[float] = None,
+        aov_lt: typing.Optional[float] = None,
+        aov_lte: typing.Optional[float] = None,
+        purchase_count_gt: typing.Optional[float] = None,
+        purchase_count_gte: typing.Optional[float] = None,
+        purchase_count_lt: typing.Optional[float] = None,
+        purchase_count_lte: typing.Optional[float] = None,
+        event_count_gt: typing.Optional[float] = None,
+        event_count_gte: typing.Optional[float] = None,
+        event_count_lt: typing.Optional[float] = None,
+        event_count_lte: typing.Optional[float] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         before: typing.Optional[str] = None,
@@ -394,11 +527,20 @@ class AsyncRawPeopleClient:
         custom_event : typing.Optional[str]
             Only include people who fired this custom pixel event.
 
+        event_within_days : typing.Optional[int]
+            Match activity within a rolling number of days. Cannot be combined with event_from/event_to.
+
+        from_ : typing.Optional[dt.datetime]
+            Inclusive activity-window start. Alias for event_from.
+
+        to : typing.Optional[dt.datetime]
+            Inclusive activity-window end. Alias for event_to.
+
         event_from : typing.Optional[dt.datetime]
-            With event_to plus an event or source filter, switches to exact-population mode: person ids are resolved and paginated on the events side within this window (the same query the people metric counts), then hydrated per page.
+            The inclusive start of the matching activity window.
 
         event_to : typing.Optional[dt.datetime]
-            The inclusive end of the event window for exact-population mode.
+            The inclusive end of the matching activity window, for both stats drilldowns and saved audiences.
 
         audience_id : typing.Optional[str]
             Only include people in this audience. An audience that keeps itself up to date resolves to the People filters that define it, so this always reflects who matches now; uploaded lists and point-in-time snapshots match their recorded members.
@@ -413,7 +555,7 @@ class AsyncRawPeopleClient:
             Only include the person linked to this phone number.
 
         country : typing.Optional[str]
-            Only include people whose most recent visit came from this ISO 3166-1 alpha-2 country code.
+            Only include people with activity from this ISO 3166-1 alpha-2 country code.
 
         has_purchased : typing.Optional[bool]
             true for customers only, false for people who have never purchased.
@@ -438,6 +580,54 @@ class AsyncRawPeopleClient:
 
         last_seen_before : typing.Optional[dt.datetime]
             Only include people last seen before this ISO 8601 timestamp.
+
+        ltv_gt : typing.Optional[float]
+            Select people whose lifetime ltv is greater than this value. LTV and AOV are in USD.
+
+        ltv_gte : typing.Optional[float]
+            Select people whose lifetime ltv is at least this value. LTV and AOV are in USD.
+
+        ltv_lt : typing.Optional[float]
+            Select people whose lifetime ltv is less than this value. LTV and AOV are in USD.
+
+        ltv_lte : typing.Optional[float]
+            Select people whose lifetime ltv is at most this value. LTV and AOV are in USD.
+
+        aov_gt : typing.Optional[float]
+            Select people whose lifetime aov is greater than this value. LTV and AOV are in USD.
+
+        aov_gte : typing.Optional[float]
+            Select people whose lifetime aov is at least this value. LTV and AOV are in USD.
+
+        aov_lt : typing.Optional[float]
+            Select people whose lifetime aov is less than this value. LTV and AOV are in USD.
+
+        aov_lte : typing.Optional[float]
+            Select people whose lifetime aov is at most this value. LTV and AOV are in USD.
+
+        purchase_count_gt : typing.Optional[float]
+            Select people whose lifetime purchase_count is greater than this value. LTV and AOV are in USD.
+
+        purchase_count_gte : typing.Optional[float]
+            Select people whose lifetime purchase_count is at least this value. LTV and AOV are in USD.
+
+        purchase_count_lt : typing.Optional[float]
+            Select people whose lifetime purchase_count is less than this value. LTV and AOV are in USD.
+
+        purchase_count_lte : typing.Optional[float]
+            Select people whose lifetime purchase_count is at most this value. LTV and AOV are in USD.
+
+        event_count_gt : typing.Optional[float]
+            Select people whose lifetime event_count is greater than this value. LTV and AOV are in USD.
+
+        event_count_gte : typing.Optional[float]
+            Select people whose lifetime event_count is at least this value. LTV and AOV are in USD.
+
+        event_count_lt : typing.Optional[float]
+            Select people whose lifetime event_count is less than this value. LTV and AOV are in USD.
+
+        event_count_lte : typing.Optional[float]
+            Select people whose lifetime event_count is at most this value. LTV and AOV are in USD.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -472,6 +662,9 @@ class AsyncRawPeopleClient:
                 "attribution_model": attribution_model,
                 "event_name": event_name,
                 "custom_event": custom_event,
+                "event_within_days": event_within_days,
+                "from": serialize_datetime(from_) if from_ is not None else None,
+                "to": serialize_datetime(to) if to is not None else None,
                 "event_from": serialize_datetime(event_from) if event_from is not None else None,
                 "event_to": serialize_datetime(event_to) if event_to is not None else None,
                 "audience_id": audience_id,
@@ -487,6 +680,22 @@ class AsyncRawPeopleClient:
                 "first_seen_before": serialize_datetime(first_seen_before) if first_seen_before is not None else None,
                 "last_seen_after": serialize_datetime(last_seen_after) if last_seen_after is not None else None,
                 "last_seen_before": serialize_datetime(last_seen_before) if last_seen_before is not None else None,
+                "ltv_gt": ltv_gt,
+                "ltv_gte": ltv_gte,
+                "ltv_lt": ltv_lt,
+                "ltv_lte": ltv_lte,
+                "aov_gt": aov_gt,
+                "aov_gte": aov_gte,
+                "aov_lt": aov_lt,
+                "aov_lte": aov_lte,
+                "purchase_count_gt": purchase_count_gt,
+                "purchase_count_gte": purchase_count_gte,
+                "purchase_count_lt": purchase_count_lt,
+                "purchase_count_lte": purchase_count_lte,
+                "event_count_gt": event_count_gt,
+                "event_count_gte": event_count_gte,
+                "event_count_lt": event_count_lt,
+                "event_count_lte": event_count_lte,
                 "first": first,
                 "after": after,
                 "before": before,
@@ -519,6 +728,9 @@ class AsyncRawPeopleClient:
                             attribution_model=attribution_model,
                             event_name=event_name,
                             custom_event=custom_event,
+                            event_within_days=event_within_days,
+                            from_=from_,
+                            to=to,
                             event_from=event_from,
                             event_to=event_to,
                             audience_id=audience_id,
@@ -534,6 +746,22 @@ class AsyncRawPeopleClient:
                             first_seen_before=first_seen_before,
                             last_seen_after=last_seen_after,
                             last_seen_before=last_seen_before,
+                            ltv_gt=ltv_gt,
+                            ltv_gte=ltv_gte,
+                            ltv_lt=ltv_lt,
+                            ltv_lte=ltv_lte,
+                            aov_gt=aov_gt,
+                            aov_gte=aov_gte,
+                            aov_lt=aov_lt,
+                            aov_lte=aov_lte,
+                            purchase_count_gt=purchase_count_gt,
+                            purchase_count_gte=purchase_count_gte,
+                            purchase_count_lt=purchase_count_lt,
+                            purchase_count_lte=purchase_count_lte,
+                            event_count_gt=event_count_gt,
+                            event_count_gte=event_count_gte,
+                            event_count_lt=event_count_lt,
+                            event_count_lte=event_count_lte,
                             first=first,
                             after=_parsed_next,
                             before=before,
