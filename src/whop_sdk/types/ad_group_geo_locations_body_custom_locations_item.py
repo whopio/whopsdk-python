@@ -10,6 +10,11 @@ from .ad_group_geo_locations_body_custom_locations_item_distance_unit import (
 
 
 class AdGroupGeoLocationsBodyCustomLocationsItem(UniversalBaseModel):
+    country_code: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    ISO 3166-1 alpha-2 country the point falls in, as `DE`. Send it under a special ad category: the campaign must declare the countries its ad sets reach, and a coordinate names none.
+    """
+
     distance_unit: typing.Optional[AdGroupGeoLocationsBodyCustomLocationsItemDistanceUnit] = pydantic.Field(
         default=None
     )
