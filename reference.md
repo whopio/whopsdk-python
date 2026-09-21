@@ -2393,6 +2393,707 @@ client.ad_campaigns.unpause(
 </dl>
 </details>
 
+## Ad Conversion Value Rules
+<details><summary><code>client.ad_conversion_value_rules.<a href="src/whop_sdk/ad_conversion_value_rules/client.py">list</a>(...) -> ListAdConversionValueRulesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List saved rules the caller can read. Filter by business with account_id.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.DEFAULT,
+)
+
+client.ad_conversion_value_rules.list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[ListAdConversionValueRulesRequestStatus]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**platform:** `typing.Optional[ListAdConversionValueRulesRequestPlatform]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**resource_id:** `typing.Optional[str]` — Campaign, ad group, or ad ID. Return rules covering this item, its ancestors, or its descendants.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[ListAdConversionValueRulesRequestOrder]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**direction:** `typing.Optional[ListAdConversionValueRulesRequestDirection]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.ad_conversion_value_rules.<a href="src/whop_sdk/ad_conversion_value_rules/client.py">create</a>(...) -> AdConversionValueRule</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create one rule covering every selected target and event combination. Active rules cannot overlap for the same platform and event. Customer prices and Whop revenue stay unchanged.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+from whop_sdk.ad_conversion_value_rules import CreateAdConversionValueRulesRequestEventsItem, CreateAdConversionValueRulesRequestTargetsItem
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.DEFAULT,
+)
+
+client.ad_conversion_value_rules.create(
+    account_id="biz_xxxxxxxxxxxxxx",
+    adjustment_type="fixed",
+    events=[
+        CreateAdConversionValueRulesRequestEventsItem(
+            event_name="purchase",
+        )
+    ],
+    targets=[
+        CreateAdConversionValueRulesRequestTargetsItem(
+            platform="tiktok",
+            scope="business",
+        )
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**account_id:** `str` — Business that owns the rule.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**adjustment_type:** `CreateAdConversionValueRulesRequestAdjustmentType` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**events:** `typing.List[CreateAdConversionValueRulesRequestEventsItem]` — Events adjusted on every selected target. Every platform must support every selected event.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**targets:** `typing.List[CreateAdConversionValueRulesRequestTargetsItem]` — Targets sharing one scope. Every selected event applies to every target. At most 500 target and event combinations.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fixed_value:** `typing.Optional[CreateAdConversionValueRulesRequestFixedValue]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**metadata:** `typing.Optional[typing.Dict[str, str]]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**percentage_change:** `typing.Optional[float]` — Signed percent change from negative 100 to 10000. The sent value cannot go below zero.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**replace_rule_ids:** `typing.Optional[typing.List[str]]` — Exact IDs of active rules whose overlapping selections will be replaced. Other selections keep their values; remaining selections may split into separate rules. Broader rules remain as fallbacks for other items. Stale or incomplete conflict selections fail.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[CreateAdConversionValueRulesRequestStatus]` — Initial rule status. Defaults to active.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.ad_conversion_value_rules.<a href="src/whop_sdk/ad_conversion_value_rules/client.py">retrieve</a>(...) -> AdConversionValueRule</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.DEFAULT,
+)
+
+client.ad_conversion_value_rules.retrieve(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Conversion value rule ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.ad_conversion_value_rules.<a href="src/whop_sdk/ad_conversion_value_rules/client.py">delete</a>(...) -> DeleteAdConversionValueRulesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Soft-delete a rule and deactivate all its coverage. Preserve its stored settings.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.DEFAULT,
+)
+
+client.ad_conversion_value_rules.delete(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Conversion value rule ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.ad_conversion_value_rules.<a href="src/whop_sdk/ad_conversion_value_rules/client.py">update</a>(...) -> AdConversionValueRule</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Edit a rule without changing its status. Supplied targets or events replace that selection in full. Omitted fields stay unchanged. All changes succeed or fail together.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.DEFAULT,
+)
+
+client.ad_conversion_value_rules.update(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Conversion value rule ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**adjustment_type:** `typing.Optional[UpdateAdConversionValueRulesRequestAdjustmentType]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**events:** `typing.Optional[typing.List[UpdateAdConversionValueRulesRequestEventsItem]]` — Events adjusted on every selected target. Every platform must support every selected event.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fixed_value:** `typing.Optional[UpdateAdConversionValueRulesRequestFixedValue]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**metadata:** `typing.Optional[typing.Dict[str, str]]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**percentage_change:** `typing.Optional[float]` — Signed percent change from negative 100 to 10000. The sent value cannot go below zero.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**replace_rule_ids:** `typing.Optional[typing.List[str]]` — Exact IDs of active rules whose overlapping selections will be replaced. Other selections keep their values; remaining selections may split into separate rules. Broader rules remain as fallbacks for other items. Stale or incomplete conflict selections fail.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**targets:** `typing.Optional[typing.List[UpdateAdConversionValueRulesRequestTargetsItem]]` — Targets sharing one scope. Every selected event applies to every target. At most 500 target and event combinations.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.ad_conversion_value_rules.<a href="src/whop_sdk/ad_conversion_value_rules/client.py">pause</a>(...) -> AdConversionValueRule</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Pause the rule across all selected targets and events.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.DEFAULT,
+)
+
+client.ad_conversion_value_rules.pause(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Conversion value rule ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.ad_conversion_value_rules.<a href="src/whop_sdk/ad_conversion_value_rules/client.py">unpause</a>(...) -> AdConversionValueRule</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Resume the rule and automatically replace overlapping selections in the same transaction. Other selections keep their values, and broader rules remain as defaults. Rules with no remaining selections are paused. Resuming an already-active rule makes no changes.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.DEFAULT,
+)
+
+client.ad_conversion_value_rules.unpause(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Conversion value rule ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Ad Groups
 <details><summary><code>client.ad_groups.<a href="src/whop_sdk/ad_groups/client.py">list</a>(...) -> ListAdGroupsResponse</code></summary>
 <dl>

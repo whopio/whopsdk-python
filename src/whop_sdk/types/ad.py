@@ -11,6 +11,7 @@ from .ad_entity_reference import AdEntityReference
 from .ad_lead_form import AdLeadForm
 from .ad_messaging_config import AdMessagingConfig
 from .ad_music import AdMusic
+from .ad_platform import AdPlatform
 from .ad_platform_issue import AdPlatformIssue
 from .ad_post_source import AdPostSource
 from .ad_result_event import AdResultEvent
@@ -220,6 +221,11 @@ class Ad(UniversalBaseModel):
     music: typing.Optional[AdMusic] = pydantic.Field(default=None)
     """
     The advertiser-uploaded MP3 a TikTok carousel ad plays. TikTok-only; `null` elsewhere and for non-carousel ads.
+    """
+
+    platform: AdPlatform = pydantic.Field()
+    """
+    The ad platform this ad runs on.
     """
 
     post_id: typing.Optional[str] = pydantic.Field(default=None)

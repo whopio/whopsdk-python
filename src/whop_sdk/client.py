@@ -14,6 +14,7 @@ if typing.TYPE_CHECKING:
     from .account_links.client import AccountLinksClient, AsyncAccountLinksClient
     from .accounts.client import AccountsClient, AsyncAccountsClient
     from .ad_campaigns.client import AdCampaignsClient, AsyncAdCampaignsClient
+    from .ad_conversion_value_rules.client import AdConversionValueRulesClient, AsyncAdConversionValueRulesClient
     from .ad_groups.client import AdGroupsClient, AsyncAdGroupsClient
     from .ads.client import AdsClient, AsyncAdsClient
     from .affiliates.client import AffiliatesClient, AsyncAffiliatesClient
@@ -193,6 +194,7 @@ class Whop:
         self._account_links: typing.Optional[AccountLinksClient] = None
         self._accounts: typing.Optional[AccountsClient] = None
         self._ad_campaigns: typing.Optional[AdCampaignsClient] = None
+        self._ad_conversion_value_rules: typing.Optional[AdConversionValueRulesClient] = None
         self._ad_groups: typing.Optional[AdGroupsClient] = None
         self._ads: typing.Optional[AdsClient] = None
         self._affiliates: typing.Optional[AffiliatesClient] = None
@@ -306,6 +308,14 @@ class Whop:
 
             self._ad_campaigns = AdCampaignsClient(client_wrapper=self._client_wrapper)
         return self._ad_campaigns
+
+    @property
+    def ad_conversion_value_rules(self):
+        if self._ad_conversion_value_rules is None:
+            from .ad_conversion_value_rules.client import AdConversionValueRulesClient  # noqa: E402
+
+            self._ad_conversion_value_rules = AdConversionValueRulesClient(client_wrapper=self._client_wrapper)
+        return self._ad_conversion_value_rules
 
     @property
     def ad_groups(self):
@@ -1073,6 +1083,7 @@ class AsyncWhop:
         self._account_links: typing.Optional[AsyncAccountLinksClient] = None
         self._accounts: typing.Optional[AsyncAccountsClient] = None
         self._ad_campaigns: typing.Optional[AsyncAdCampaignsClient] = None
+        self._ad_conversion_value_rules: typing.Optional[AsyncAdConversionValueRulesClient] = None
         self._ad_groups: typing.Optional[AsyncAdGroupsClient] = None
         self._ads: typing.Optional[AsyncAdsClient] = None
         self._affiliates: typing.Optional[AsyncAffiliatesClient] = None
@@ -1186,6 +1197,14 @@ class AsyncWhop:
 
             self._ad_campaigns = AsyncAdCampaignsClient(client_wrapper=self._client_wrapper)
         return self._ad_campaigns
+
+    @property
+    def ad_conversion_value_rules(self):
+        if self._ad_conversion_value_rules is None:
+            from .ad_conversion_value_rules.client import AsyncAdConversionValueRulesClient  # noqa: E402
+
+            self._ad_conversion_value_rules = AsyncAdConversionValueRulesClient(client_wrapper=self._client_wrapper)
+        return self._ad_conversion_value_rules
 
     @property
     def ad_groups(self):

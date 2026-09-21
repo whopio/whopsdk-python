@@ -48,6 +48,7 @@ if typing.TYPE_CHECKING:
     from .post_ad_updated_payload_data import PostAdUpdatedPayloadData
     from .post_ad_updated_payload_data_call_to_action import PostAdUpdatedPayloadDataCallToAction
     from .post_ad_updated_payload_data_delivery_status import PostAdUpdatedPayloadDataDeliveryStatus
+    from .post_ad_updated_payload_data_platform import PostAdUpdatedPayloadDataPlatform
     from .post_ad_updated_payload_data_post_source import PostAdUpdatedPayloadDataPostSource
     from .post_ad_updated_payload_data_status import PostAdUpdatedPayloadDataStatus
     from .post_ad_updated_payload_type import PostAdUpdatedPayloadType
@@ -116,6 +117,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostAdUpdatedPayloadData": ".post_ad_updated_payload_data",
     "PostAdUpdatedPayloadDataCallToAction": ".post_ad_updated_payload_data_call_to_action",
     "PostAdUpdatedPayloadDataDeliveryStatus": ".post_ad_updated_payload_data_delivery_status",
+    "PostAdUpdatedPayloadDataPlatform": ".post_ad_updated_payload_data_platform",
     "PostAdUpdatedPayloadDataPostSource": ".post_ad_updated_payload_data_post_source",
     "PostAdUpdatedPayloadDataStatus": ".post_ad_updated_payload_data_status",
     "PostAdUpdatedPayloadType": ".post_ad_updated_payload_type",
@@ -200,6 +202,7 @@ __all__ = [
     "PostAdUpdatedPayloadData",
     "PostAdUpdatedPayloadDataCallToAction",
     "PostAdUpdatedPayloadDataDeliveryStatus",
+    "PostAdUpdatedPayloadDataPlatform",
     "PostAdUpdatedPayloadDataPostSource",
     "PostAdUpdatedPayloadDataStatus",
     "PostAdUpdatedPayloadType",
