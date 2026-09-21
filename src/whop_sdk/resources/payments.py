@@ -70,6 +70,7 @@ class PaymentsResource(SyncAPIResource):
         plan_id: str | Omit = omit,
         promo_code_id: Optional[str] | Omit = omit,
         return_url: Optional[str] | Omit = omit,
+        shipping_address: Optional[payment_create_params.ShippingAddress] | Omit = omit,
         statement_descriptor: Optional[str] | Omit = omit,
         api_version_date: str | Omit = omit,
         idempotency_key: str | Omit = omit,
@@ -136,6 +137,9 @@ class PaymentsResource(SyncAPIResource):
               URL without credentials, at most 2,048 characters. Ignored unless
               `confirmation_token` is provided.
 
+          shipping_address: Where physical goods ship, returned on the payment as `shipping_address`. Only
+              the keys you supply are kept; omit it for digital goods.
+
           statement_descriptor: Overrides the text on the buyer's card statement for this payment only. Takes
               precedence over the product's and account's custom descriptors, and changes
               neither. Must start with `WHOP*`, be 5-22 characters, contain at least one
@@ -176,6 +180,7 @@ class PaymentsResource(SyncAPIResource):
                     "plan_id": plan_id,
                     "promo_code_id": promo_code_id,
                     "return_url": return_url,
+                    "shipping_address": shipping_address,
                     "statement_descriptor": statement_descriptor,
                 },
                 payment_create_params.PaymentCreateParams,
@@ -575,6 +580,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
         plan_id: str | Omit = omit,
         promo_code_id: Optional[str] | Omit = omit,
         return_url: Optional[str] | Omit = omit,
+        shipping_address: Optional[payment_create_params.ShippingAddress] | Omit = omit,
         statement_descriptor: Optional[str] | Omit = omit,
         api_version_date: str | Omit = omit,
         idempotency_key: str | Omit = omit,
@@ -641,6 +647,9 @@ class AsyncPaymentsResource(AsyncAPIResource):
               URL without credentials, at most 2,048 characters. Ignored unless
               `confirmation_token` is provided.
 
+          shipping_address: Where physical goods ship, returned on the payment as `shipping_address`. Only
+              the keys you supply are kept; omit it for digital goods.
+
           statement_descriptor: Overrides the text on the buyer's card statement for this payment only. Takes
               precedence over the product's and account's custom descriptors, and changes
               neither. Must start with `WHOP*`, be 5-22 characters, contain at least one
@@ -681,6 +690,7 @@ class AsyncPaymentsResource(AsyncAPIResource):
                     "plan_id": plan_id,
                     "promo_code_id": promo_code_id,
                     "return_url": return_url,
+                    "shipping_address": shipping_address,
                     "statement_descriptor": statement_descriptor,
                 },
                 payment_create_params.PaymentCreateParams,

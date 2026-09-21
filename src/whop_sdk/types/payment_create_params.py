@@ -7,7 +7,7 @@ from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["PaymentCreateParams", "LineItem", "Plan", "PlanProduct"]
+__all__ = ["PaymentCreateParams", "LineItem", "Plan", "PlanProduct", "ShippingAddress"]
 
 
 class PaymentCreateParams(TypedDict, total=False):
@@ -90,6 +90,12 @@ class PaymentCreateParams(TypedDict, total=False):
 
     An absolute https URL without credentials, at most 2,048 characters. Ignored
     unless `confirmation_token` is provided.
+    """
+
+    shipping_address: Optional[ShippingAddress]
+    """Where physical goods ship, returned on the payment as `shipping_address`.
+
+    Only the keys you supply are kept; omit it for digital goods.
     """
 
     statement_descriptor: Optional[str]
@@ -323,3 +329,31 @@ class Plan(TypedDict, total=False):
 
     visibility: Optional[Literal["visible", "hidden", "archived", "quick_link"]]
     """Whether the plan is visible to customers."""
+
+
+class ShippingAddress(TypedDict, total=False):
+    """Where physical goods ship, returned on the payment as `shipping_address`.
+
+    Only the keys you supply are kept; omit it for digital goods.
+    """
+
+    city: Optional[str]
+    """City name."""
+
+    country: Optional[str]
+    """ISO 3166-1 alpha-2 country code, such as `US`."""
+
+    line1: Optional[str]
+    """First line of the street address."""
+
+    line2: Optional[str]
+    """Second line of the street address."""
+
+    name: Optional[str]
+    """The recipient's full name, as it should appear on the shipping label."""
+
+    postal_code: Optional[str]
+    """Postal or ZIP code."""
+
+    state: Optional[str]
+    """State, province, or region code, such as `CA`."""
