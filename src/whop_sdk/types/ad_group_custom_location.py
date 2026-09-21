@@ -8,6 +8,11 @@ from .ad_group_custom_location_distance_unit import AdGroupCustomLocationDistanc
 
 
 class AdGroupCustomLocation(UniversalBaseModel):
+    country_code: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    ISO 3166-1 alpha-2 country the point falls in. Send it under a special ad category, where the campaign must declare the countries its ad sets reach.
+    """
+
     distance_unit: AdGroupCustomLocationDistanceUnit = pydantic.Field()
     """
     Unit for `radius`.
