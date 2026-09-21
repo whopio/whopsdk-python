@@ -72,14 +72,6 @@ from .courses import (
     CoursesResourceWithStreamingResponse,
     AsyncCoursesResourceWithStreamingResponse,
 )
-from .entries import (
-    EntriesResource,
-    AsyncEntriesResource,
-    EntriesResourceWithRawResponse,
-    AsyncEntriesResourceWithRawResponse,
-    EntriesResourceWithStreamingResponse,
-    AsyncEntriesResourceWithStreamingResponse,
-)
 from .members import (
     MembersResource,
     AsyncMembersResource,
@@ -478,12 +470,6 @@ __all__ = [
     "AsyncPlansResourceWithRawResponse",
     "PlansResourceWithStreamingResponse",
     "AsyncPlansResourceWithStreamingResponse",
-    "EntriesResource",
-    "AsyncEntriesResource",
-    "EntriesResourceWithRawResponse",
-    "AsyncEntriesResourceWithRawResponse",
-    "EntriesResourceWithStreamingResponse",
-    "AsyncEntriesResourceWithStreamingResponse",
     "ForumPostsResource",
     "AsyncForumPostsResource",
     "ForumPostsResourceWithRawResponse",

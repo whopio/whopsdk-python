@@ -4,7 +4,6 @@ from .currency import Currency as Currency
 from .direction import Direction as Direction
 from .plan_type import PlanType as PlanType
 from .visibility import Visibility as Visibility
-from .entry_status import EntryStatus as EntryStatus
 from .who_can_post import WhoCanPost as WhoCanPost
 from .who_can_react import WhoCanReact as WhoCanReact
 from .invoice_status import InvoiceStatus as InvoiceStatus

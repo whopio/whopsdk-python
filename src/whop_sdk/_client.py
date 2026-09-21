@@ -45,7 +45,6 @@ if TYPE_CHECKING:
         forums,
         topups,
         courses,
-        entries,
         members,
         refunds,
         reviews,
@@ -101,7 +100,6 @@ if TYPE_CHECKING:
     from .resources.forums import ForumsResource, AsyncForumsResource
     from .resources.topups import TopupsResource, AsyncTopupsResource
     from .resources.courses import CoursesResource, AsyncCoursesResource
-    from .resources.entries import EntriesResource, AsyncEntriesResource
     from .resources.members import MembersResource, AsyncMembersResource
     from .resources.refunds import RefundsResource, AsyncRefundsResource
     from .resources.reviews import ReviewsResource, AsyncReviewsResource
@@ -291,12 +289,6 @@ class Whop(SyncAPIClient):
         from .resources.plans import PlansResource
 
         return PlansResource(self)
-
-    @cached_property
-    def entries(self) -> EntriesResource:
-        from .resources.entries import EntriesResource
-
-        return EntriesResource(self)
 
     @cached_property
     def forum_posts(self) -> ForumPostsResource:
@@ -946,12 +938,6 @@ class AsyncWhop(AsyncAPIClient):
         return AsyncPlansResource(self)
 
     @cached_property
-    def entries(self) -> AsyncEntriesResource:
-        from .resources.entries import AsyncEntriesResource
-
-        return AsyncEntriesResource(self)
-
-    @cached_property
     def forum_posts(self) -> AsyncForumPostsResource:
         from .resources.forum_posts import AsyncForumPostsResource
 
@@ -1526,12 +1512,6 @@ class WhopWithRawResponse:
         return PlansResourceWithRawResponse(self._client.plans)
 
     @cached_property
-    def entries(self) -> entries.EntriesResourceWithRawResponse:
-        from .resources.entries import EntriesResourceWithRawResponse
-
-        return EntriesResourceWithRawResponse(self._client.entries)
-
-    @cached_property
     def forum_posts(self) -> forum_posts.ForumPostsResourceWithRawResponse:
         from .resources.forum_posts import ForumPostsResourceWithRawResponse
 
@@ -1989,12 +1969,6 @@ class AsyncWhopWithRawResponse:
         from .resources.plans import AsyncPlansResourceWithRawResponse
 
         return AsyncPlansResourceWithRawResponse(self._client.plans)
-
-    @cached_property
-    def entries(self) -> entries.AsyncEntriesResourceWithRawResponse:
-        from .resources.entries import AsyncEntriesResourceWithRawResponse
-
-        return AsyncEntriesResourceWithRawResponse(self._client.entries)
 
     @cached_property
     def forum_posts(self) -> forum_posts.AsyncForumPostsResourceWithRawResponse:
@@ -2458,12 +2432,6 @@ class WhopWithStreamedResponse:
         return PlansResourceWithStreamingResponse(self._client.plans)
 
     @cached_property
-    def entries(self) -> entries.EntriesResourceWithStreamingResponse:
-        from .resources.entries import EntriesResourceWithStreamingResponse
-
-        return EntriesResourceWithStreamingResponse(self._client.entries)
-
-    @cached_property
     def forum_posts(self) -> forum_posts.ForumPostsResourceWithStreamingResponse:
         from .resources.forum_posts import ForumPostsResourceWithStreamingResponse
 
@@ -2923,12 +2891,6 @@ class AsyncWhopWithStreamedResponse:
         from .resources.plans import AsyncPlansResourceWithStreamingResponse
 
         return AsyncPlansResourceWithStreamingResponse(self._client.plans)
-
-    @cached_property
-    def entries(self) -> entries.AsyncEntriesResourceWithStreamingResponse:
-        from .resources.entries import AsyncEntriesResourceWithStreamingResponse
-
-        return AsyncEntriesResourceWithStreamingResponse(self._client.entries)
 
     @cached_property
     def forum_posts(self) -> forum_posts.AsyncForumPostsResourceWithStreamingResponse:
