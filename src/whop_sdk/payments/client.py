@@ -11,6 +11,7 @@ from ..types.payment_status import PaymentStatus
 from .raw_client import AsyncRawPaymentsClient, RawPaymentsClient
 from .types.create_payments_request_line_items_item import CreatePaymentsRequestLineItemsItem
 from .types.create_payments_request_plan import CreatePaymentsRequestPlan
+from .types.create_payments_request_shipping_address import CreatePaymentsRequestShippingAddress
 from .types.list_fees_payments_response import ListFeesPaymentsResponse
 from .types.list_payments_request_billing_reason import ListPaymentsRequestBillingReason
 from .types.list_payments_request_direction import ListPaymentsRequestDirection
@@ -181,6 +182,7 @@ class PaymentsClient:
         plan_id: typing.Optional[str] = OMIT,
         promo_code_id: typing.Optional[str] = OMIT,
         return_url: typing.Optional[str] = OMIT,
+        shipping_address: typing.Optional[CreatePaymentsRequestShippingAddress] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Payment:
@@ -228,6 +230,9 @@ class PaymentsClient:
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters. Ignored unless `confirmation_token` is provided.
 
+        shipping_address : typing.Optional[CreatePaymentsRequestShippingAddress]
+            Where physical goods ship, returned on the payment as `shipping_address`. Only the keys you supply are kept; omit it for digital goods.
+
         statement_descriptor : typing.Optional[str]
             Overrides the text on the buyer's card statement for this payment only. Takes precedence over the product's and account's custom descriptors, and changes neither. Must start with `WHOP*`, be 5-22 characters, contain at least one letter, and use only Latin letters, numbers, spaces, underscores, hyphens, or asterisks.
 
@@ -266,6 +271,7 @@ class PaymentsClient:
             plan_id=plan_id,
             promo_code_id=promo_code_id,
             return_url=return_url,
+            shipping_address=shipping_address,
             statement_descriptor=statement_descriptor,
             request_options=request_options,
         )
@@ -758,6 +764,7 @@ class AsyncPaymentsClient:
         plan_id: typing.Optional[str] = OMIT,
         promo_code_id: typing.Optional[str] = OMIT,
         return_url: typing.Optional[str] = OMIT,
+        shipping_address: typing.Optional[CreatePaymentsRequestShippingAddress] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Payment:
@@ -805,6 +812,9 @@ class AsyncPaymentsClient:
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters. Ignored unless `confirmation_token` is provided.
 
+        shipping_address : typing.Optional[CreatePaymentsRequestShippingAddress]
+            Where physical goods ship, returned on the payment as `shipping_address`. Only the keys you supply are kept; omit it for digital goods.
+
         statement_descriptor : typing.Optional[str]
             Overrides the text on the buyer's card statement for this payment only. Takes precedence over the product's and account's custom descriptors, and changes neither. Must start with `WHOP*`, be 5-22 characters, contain at least one letter, and use only Latin letters, numbers, spaces, underscores, hyphens, or asterisks.
 
@@ -851,6 +861,7 @@ class AsyncPaymentsClient:
             plan_id=plan_id,
             promo_code_id=promo_code_id,
             return_url=return_url,
+            shipping_address=shipping_address,
             statement_descriptor=statement_descriptor,
             request_options=request_options,
         )

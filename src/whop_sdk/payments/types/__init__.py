@@ -16,6 +16,7 @@ if typing.TYPE_CHECKING:
     )
     from .create_payments_request_plan_product_visibility import CreatePaymentsRequestPlanProductVisibility
     from .create_payments_request_plan_visibility import CreatePaymentsRequestPlanVisibility
+    from .create_payments_request_shipping_address import CreatePaymentsRequestShippingAddress
     from .list_fees_payments_response import ListFeesPaymentsResponse
     from .list_fees_payments_response_page_info import ListFeesPaymentsResponsePageInfo
     from .list_payments_request_billing_reason import ListPaymentsRequestBillingReason
@@ -54,6 +55,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreatePaymentsRequestPlanProductGlobalAffiliateStatus": ".create_payments_request_plan_product_global_affiliate_status",
     "CreatePaymentsRequestPlanProductVisibility": ".create_payments_request_plan_product_visibility",
     "CreatePaymentsRequestPlanVisibility": ".create_payments_request_plan_visibility",
+    "CreatePaymentsRequestShippingAddress": ".create_payments_request_shipping_address",
     "ListFeesPaymentsResponse": ".list_fees_payments_response",
     "ListFeesPaymentsResponsePageInfo": ".list_fees_payments_response_page_info",
     "ListPaymentsRequestBillingReason": ".list_payments_request_billing_reason",
@@ -116,6 +118,7 @@ __all__ = [
     "CreatePaymentsRequestPlanProductGlobalAffiliateStatus",
     "CreatePaymentsRequestPlanProductVisibility",
     "CreatePaymentsRequestPlanVisibility",
+    "CreatePaymentsRequestShippingAddress",
     "ListFeesPaymentsResponse",
     "ListFeesPaymentsResponsePageInfo",
     "ListPaymentsRequestBillingReason",
