@@ -5,7 +5,7 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["PlanListResponse", "Account", "CustomField"]
+__all__ = ["PlanListResponse", "Account", "CustomField", "InitialPriceDue"]
 
 
 class Account(BaseModel):
@@ -38,6 +38,36 @@ class CustomField(BaseModel):
 
     required: bool
     """Whether the customer must complete this field to check out."""
+
+
+class InitialPriceDue(BaseModel):
+    """
+    Total charged at checkout for one unit, before promo codes and tax: `initial_price` plus the first `renewal_price` for recurring plans, or `initial_price` alone while a free trial applies. The trial does not apply when the viewing user has already used one for this plan.
+    """
+
+    amount: str
+    """The amount in major units, as an exact decimal string — `"10.00"` is ten
+    dollars.
+
+    A string so no float rounds it in transit.
+    """
+
+    currency: str
+    """Three-letter ISO 4217 currency code, lowercase."""
+
+    decimals: int
+    """
+    How many decimal places the amount CARRIES — the precision the charge itself
+    runs at.
+    """
+
+    display_decimals: int
+    """How many decimal places to SHOW.
+
+    Usually equal to `decimals`, and deliberately not always: COP is charged in
+    centavos but written in whole pesos, so it is `2` and `0`. Format the number in
+    your own locale using this.
+    """
 
 
 class PlanListResponse(BaseModel):
@@ -109,6 +139,14 @@ class PlanListResponse(BaseModel):
 
     initial_price: float
     """Initial purchase price in plan currency."""
+
+    initial_price_due: InitialPriceDue
+    """
+    Total charged at checkout for one unit, before promo codes and tax:
+    `initial_price` plus the first `renewal_price` for recurring plans, or
+    `initial_price` alone while a free trial applies. The trial does not apply when
+    the viewing user has already used one for this plan.
+    """
 
     internal_notes: Optional[str] = None
     """Private notes not shown to customers.

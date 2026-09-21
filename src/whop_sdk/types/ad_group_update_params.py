@@ -373,6 +373,13 @@ class RegionsExcludeCustomLocation(TypedDict, total=False):
     radius: Required[float]
     """Radius around the center point: 1-50 miles or 1-80 kilometers."""
 
+    country_code: str
+    """ISO 3166-1 alpha-2 country the point falls in, as `DE`.
+
+    Send it under a special ad category: the campaign must declare the countries its
+    ad sets reach, and a coordinate names none.
+    """
+
     distance_unit: Literal["mile", "kilometer"]
     """Unit for `radius`. Defaults to `mile`."""
 
@@ -441,6 +448,13 @@ class RegionsIncludeCustomLocation(TypedDict, total=False):
 
     radius: Required[float]
     """Radius around the center point: 1-50 miles or 1-80 kilometers."""
+
+    country_code: str
+    """ISO 3166-1 alpha-2 country the point falls in, as `DE`.
+
+    Send it under a special ad category: the campaign must declare the countries its
+    ad sets reach, and a coordinate names none.
+    """
 
     distance_unit: Literal["mile", "kilometer"]
     """Unit for `radius`. Defaults to `mile`."""

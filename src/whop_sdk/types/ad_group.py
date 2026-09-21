@@ -217,6 +217,13 @@ class RegionsExcludeCustomLocation(BaseModel):
     radius: float
     """Radius around the center point, in `distance_unit`."""
 
+    country_code: Optional[str] = None
+    """ISO 3166-1 alpha-2 country the point falls in.
+
+    Send it under a special ad category, where the campaign must declare the
+    countries its ad sets reach.
+    """
+
     name: Optional[str] = None
     """Label for the location, such as a city or address.
 
@@ -264,6 +271,13 @@ class RegionsIncludeCustomLocation(BaseModel):
 
     radius: float
     """Radius around the center point, in `distance_unit`."""
+
+    country_code: Optional[str] = None
+    """ISO 3166-1 alpha-2 country the point falls in.
+
+    Send it under a special ad category, where the campaign must declare the
+    countries its ad sets reach.
+    """
 
     name: Optional[str] = None
     """Label for the location, such as a city or address.

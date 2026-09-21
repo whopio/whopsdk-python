@@ -162,6 +162,7 @@ class TestAdGroups:
                             "latitude": 30.2672,
                             "longitude": -97.7431,
                             "radius": 25,
+                            "country_code": "country_code",
                             "distance_unit": "mile",
                             "name": "4180 Burnet Rd, Austin TX 78756",
                         }
@@ -183,6 +184,7 @@ class TestAdGroups:
                             "latitude": 30.2672,
                             "longitude": -97.7431,
                             "radius": 25,
+                            "country_code": "country_code",
                             "distance_unit": "mile",
                             "name": "4180 Burnet Rd, Austin TX 78756",
                         }
@@ -587,6 +589,7 @@ class TestAsyncAdGroups:
                             "latitude": 30.2672,
                             "longitude": -97.7431,
                             "radius": 25,
+                            "country_code": "country_code",
                             "distance_unit": "mile",
                             "name": "4180 Burnet Rd, Austin TX 78756",
                         }
@@ -608,6 +611,7 @@ class TestAsyncAdGroups:
                             "latitude": 30.2672,
                             "longitude": -97.7431,
                             "radius": 25,
+                            "country_code": "country_code",
                             "distance_unit": "mile",
                             "name": "4180 Burnet Rd, Austin TX 78756",
                         }
