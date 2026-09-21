@@ -679,6 +679,7 @@ class Data(BaseModel):
         "onchain_wallet_transfer_outgoing",
         "onchain_withdrawal",
         "orchestration_percentage_fee",
+        "partner_grant_reward",
         "passthrough_gmv",
         "payment_dispute",
         "payment_dispute_adjustment",
