@@ -4,6 +4,9 @@ import typing
 
 PermissionAction = typing.Union[
     typing.Literal[
+        "waitlist_entry:read",
+        "waitlist_entry:create",
+        "waitlist_entry:cancel",
         "experiment:manage",
         "experiment:read",
         "ai_prompt:create",

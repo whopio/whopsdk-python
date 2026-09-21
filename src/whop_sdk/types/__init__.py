@@ -492,13 +492,8 @@ if typing.TYPE_CHECKING:
     from .economic_intelligence_sentiment import EconomicIntelligenceSentiment
     from .economic_intelligence_status import EconomicIntelligenceStatus
     from .embed_types import EmbedTypes
-    from .entries_sortable_columns import EntriesSortableColumns
     from .entry import Entry
     from .entry_custom_field_responses_item import EntryCustomFieldResponsesItem
-    from .entry_list_item import EntryListItem
-    from .entry_list_item_plan import EntryListItemPlan
-    from .entry_list_item_product import EntryListItemProduct
-    from .entry_list_item_user import EntryListItemUser
     from .entry_plan import EntryPlan
     from .entry_product import EntryProduct
     from .entry_status import EntryStatus
@@ -1353,6 +1348,10 @@ if typing.TYPE_CHECKING:
     from .verification_statuses import VerificationStatuses
     from .visibility import Visibility
     from .visibility_filter import VisibilityFilter
+    from .waitlist_entry import WaitlistEntry
+    from .waitlist_entry_approval_failure_reason import WaitlistEntryApprovalFailureReason
+    from .waitlist_entry_custom_field_response import WaitlistEntryCustomFieldResponse
+    from .waitlist_entry_status import WaitlistEntryStatus
     from .webhook import Webhook
     from .webhook_api_version import WebhookApiVersion
     from .webhook_delivery import WebhookDelivery
@@ -1833,13 +1832,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EconomicIntelligenceSentiment": ".economic_intelligence_sentiment",
     "EconomicIntelligenceStatus": ".economic_intelligence_status",
     "EmbedTypes": ".embed_types",
-    "EntriesSortableColumns": ".entries_sortable_columns",
     "Entry": ".entry",
     "EntryCustomFieldResponsesItem": ".entry_custom_field_responses_item",
-    "EntryListItem": ".entry_list_item",
-    "EntryListItemPlan": ".entry_list_item_plan",
-    "EntryListItemProduct": ".entry_list_item_product",
-    "EntryListItemUser": ".entry_list_item_user",
     "EntryPlan": ".entry_plan",
     "EntryProduct": ".entry_product",
     "EntryStatus": ".entry_status",
@@ -2572,6 +2566,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "VerificationStatuses": ".verification_statuses",
     "Visibility": ".visibility",
     "VisibilityFilter": ".visibility_filter",
+    "WaitlistEntry": ".waitlist_entry",
+    "WaitlistEntryApprovalFailureReason": ".waitlist_entry_approval_failure_reason",
+    "WaitlistEntryCustomFieldResponse": ".waitlist_entry_custom_field_response",
+    "WaitlistEntryStatus": ".waitlist_entry_status",
     "Webhook": ".webhook",
     "WebhookApiVersion": ".webhook_api_version",
     "WebhookDelivery": ".webhook_delivery",
@@ -3076,13 +3074,8 @@ __all__ = [
     "EconomicIntelligenceSentiment",
     "EconomicIntelligenceStatus",
     "EmbedTypes",
-    "EntriesSortableColumns",
     "Entry",
     "EntryCustomFieldResponsesItem",
-    "EntryListItem",
-    "EntryListItemPlan",
-    "EntryListItemProduct",
-    "EntryListItemUser",
     "EntryPlan",
     "EntryProduct",
     "EntryStatus",
@@ -3815,6 +3808,10 @@ __all__ = [
     "VerificationStatuses",
     "Visibility",
     "VisibilityFilter",
+    "WaitlistEntry",
+    "WaitlistEntryApprovalFailureReason",
+    "WaitlistEntryCustomFieldResponse",
+    "WaitlistEntryStatus",
     "Webhook",
     "WebhookApiVersion",
     "WebhookDelivery",

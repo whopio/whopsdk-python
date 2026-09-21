@@ -7,8 +7,6 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
-        ApproveEntriesResponse,
-        ListEntriesResponse,
         PostEntryApprovedPayload,
         PostEntryApprovedPayloadApiVersion,
         PostEntryApprovedPayloadType,
@@ -23,8 +21,6 @@ if typing.TYPE_CHECKING:
         PostEntryDeniedPayloadType,
     )
 _dynamic_imports: typing.Dict[str, str] = {
-    "ApproveEntriesResponse": ".types",
-    "ListEntriesResponse": ".types",
     "PostEntryApprovedPayload": ".types",
     "PostEntryApprovedPayloadApiVersion": ".types",
     "PostEntryApprovedPayloadType": ".types",
@@ -62,8 +58,6 @@ def __dir__():
 
 
 __all__ = [
-    "ApproveEntriesResponse",
-    "ListEntriesResponse",
     "PostEntryApprovedPayload",
     "PostEntryApprovedPayloadApiVersion",
     "PostEntryApprovedPayloadType",
