@@ -4,24 +4,13 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ...types.entry_list_item import EntryListItem
-from ...types.page_info import PageInfo
+from ...types.waitlist_entry import WaitlistEntry
+from .list_waitlist_entries_response_page_info import ListWaitlistEntriesResponsePageInfo
 
 
-class ListEntriesResponse(UniversalBaseModel):
-    """
-    The connection type for PublicEntry.
-    """
-
-    data: typing.List[EntryListItem] = pydantic.Field()
-    """
-    A list of nodes.
-    """
-
-    page_info: PageInfo = pydantic.Field()
-    """
-    Information to aid in pagination.
-    """
+class ListWaitlistEntriesResponse(UniversalBaseModel):
+    data: typing.List[WaitlistEntry]
+    page_info: ListWaitlistEntriesResponsePageInfo
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -3,17 +3,18 @@
 import typing
 
 import pydantic
-from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class EntryListItemPlan(UniversalBaseModel):
+class CreateWaitlistEntriesRequestCustomFieldResponsesItem(UniversalBaseModel):
+    answer: str = pydantic.Field()
     """
-    The waitlisted plan that this entry is a signup for.
+    The buyer's answer.
     """
 
-    id: str = pydantic.Field()
+    custom_field_id: str = pydantic.Field()
     """
-    The unique identifier for the plan.
+    The checkout question being answered, prefixed `field_`.
     """
 
     if IS_PYDANTIC_V2:

@@ -6,19 +6,20 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class EntryListItemProduct(UniversalBaseModel):
+class WaitlistEntryCustomFieldResponse(UniversalBaseModel):
+    answer: str = pydantic.Field()
     """
-    The product associated with this entry's waitlisted plan. Null if the plan is not tied to a product.
+    The buyer's answer.
     """
 
     id: str = pydantic.Field()
     """
-    The unique identifier for the product.
+    The answer's ID, prefixed `cfrp_`.
     """
 
-    title: str = pydantic.Field()
+    question: str = pydantic.Field()
     """
-    The display name of the product shown to customers on the product page and in search results.
+    The question shown when the signup was submitted.
     """
 
     if IS_PYDANTIC_V2:

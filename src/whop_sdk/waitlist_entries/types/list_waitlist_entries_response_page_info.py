@@ -6,15 +6,11 @@ import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class ApproveEntriesResponse(UniversalBaseModel):
-    """
-    An object representing an asynchronous job.
-    """
-
-    job_id: str = pydantic.Field()
-    """
-    The ID of the job.
-    """
+class ListWaitlistEntriesResponsePageInfo(UniversalBaseModel):
+    end_cursor: typing.Optional[str] = None
+    has_next_page: bool
+    has_previous_page: bool
+    start_cursor: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

@@ -46,7 +46,6 @@ if typing.TYPE_CHECKING:
     from .dm_members.client import AsyncDmMembersClient, DmMembersClient
     from .domains.client import AsyncDomainsClient, DomainsClient
     from .economic_intelligence.client import AsyncEconomicIntelligenceClient, EconomicIntelligenceClient
-    from .entries.client import AsyncEntriesClient, EntriesClient
     from .events.client import AsyncEventsClient, EventsClient
     from .experiences.client import AsyncExperiencesClient, ExperiencesClient
     from .experiments.client import AsyncExperimentsClient, ExperimentsClient
@@ -95,6 +94,7 @@ if typing.TYPE_CHECKING:
     from .transfers.client import AsyncTransfersClient, TransfersClient
     from .users.client import AsyncUsersClient, UsersClient
     from .verifications.client import AsyncVerificationsClient, VerificationsClient
+    from .waitlist_entries.client import AsyncWaitlistEntriesClient, WaitlistEntriesClient
     from .webhooks.client import AsyncWebhooksClient, WebhooksClient
 
 
@@ -226,7 +226,6 @@ class Whop:
         self._dm_members: typing.Optional[DmMembersClient] = None
         self._domains: typing.Optional[DomainsClient] = None
         self._economic_intelligence: typing.Optional[EconomicIntelligenceClient] = None
-        self._entries: typing.Optional[EntriesClient] = None
         self._events: typing.Optional[EventsClient] = None
         self._experiences: typing.Optional[ExperiencesClient] = None
         self._experiments: typing.Optional[ExperimentsClient] = None
@@ -275,6 +274,7 @@ class Whop:
         self._transfers: typing.Optional[TransfersClient] = None
         self._users: typing.Optional[UsersClient] = None
         self._verifications: typing.Optional[VerificationsClient] = None
+        self._waitlist_entries: typing.Optional[WaitlistEntriesClient] = None
         self._webhooks: typing.Optional[WebhooksClient] = None
 
     @property
@@ -564,14 +564,6 @@ class Whop:
 
             self._economic_intelligence = EconomicIntelligenceClient(client_wrapper=self._client_wrapper)
         return self._economic_intelligence
-
-    @property
-    def entries(self):
-        if self._entries is None:
-            from .entries.client import EntriesClient  # noqa: E402
-
-            self._entries = EntriesClient(client_wrapper=self._client_wrapper)
-        return self._entries
 
     @property
     def events(self):
@@ -958,6 +950,14 @@ class Whop:
         return self._verifications
 
     @property
+    def waitlist_entries(self):
+        if self._waitlist_entries is None:
+            from .waitlist_entries.client import WaitlistEntriesClient  # noqa: E402
+
+            self._waitlist_entries = WaitlistEntriesClient(client_wrapper=self._client_wrapper)
+        return self._waitlist_entries
+
+    @property
     def webhooks(self):
         if self._webhooks is None:
             from .webhooks.client import WebhooksClient  # noqa: E402
@@ -1115,7 +1115,6 @@ class AsyncWhop:
         self._dm_members: typing.Optional[AsyncDmMembersClient] = None
         self._domains: typing.Optional[AsyncDomainsClient] = None
         self._economic_intelligence: typing.Optional[AsyncEconomicIntelligenceClient] = None
-        self._entries: typing.Optional[AsyncEntriesClient] = None
         self._events: typing.Optional[AsyncEventsClient] = None
         self._experiences: typing.Optional[AsyncExperiencesClient] = None
         self._experiments: typing.Optional[AsyncExperimentsClient] = None
@@ -1164,6 +1163,7 @@ class AsyncWhop:
         self._transfers: typing.Optional[AsyncTransfersClient] = None
         self._users: typing.Optional[AsyncUsersClient] = None
         self._verifications: typing.Optional[AsyncVerificationsClient] = None
+        self._waitlist_entries: typing.Optional[AsyncWaitlistEntriesClient] = None
         self._webhooks: typing.Optional[AsyncWebhooksClient] = None
 
     @property
@@ -1453,14 +1453,6 @@ class AsyncWhop:
 
             self._economic_intelligence = AsyncEconomicIntelligenceClient(client_wrapper=self._client_wrapper)
         return self._economic_intelligence
-
-    @property
-    def entries(self):
-        if self._entries is None:
-            from .entries.client import AsyncEntriesClient  # noqa: E402
-
-            self._entries = AsyncEntriesClient(client_wrapper=self._client_wrapper)
-        return self._entries
 
     @property
     def events(self):
@@ -1845,6 +1837,14 @@ class AsyncWhop:
 
             self._verifications = AsyncVerificationsClient(client_wrapper=self._client_wrapper)
         return self._verifications
+
+    @property
+    def waitlist_entries(self):
+        if self._waitlist_entries is None:
+            from .waitlist_entries.client import AsyncWaitlistEntriesClient  # noqa: E402
+
+            self._waitlist_entries = AsyncWaitlistEntriesClient(client_wrapper=self._client_wrapper)
+        return self._waitlist_entries
 
     @property
     def webhooks(self):
