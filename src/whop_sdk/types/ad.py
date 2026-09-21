@@ -531,6 +531,9 @@ class Ad(BaseModel):
     interactions with the ad.
     """
 
+    platform: Literal["meta", "tiktok"]
+    """The ad platform this ad runs on."""
+
     post_id: Optional[str] = None
     """
     The post the ad network serves for this ad, as `pageID_postID` on Meta — the

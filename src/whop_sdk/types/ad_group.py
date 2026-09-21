@@ -586,6 +586,9 @@ class AdGroup(BaseModel):
 
     placements: List[Placement]
 
+    platform: Literal["meta", "tiktok"]
+    """The ad platform this ad group runs on."""
+
     purchase_value: float
     """USD value of pixel-attributed purchases."""
 
