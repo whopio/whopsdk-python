@@ -12,6 +12,7 @@ from ...types.ad_music import AdMusic
 from ...types.ad_platform_issue import AdPlatformIssue
 from .post_ad_updated_payload_data_call_to_action import PostAdUpdatedPayloadDataCallToAction
 from .post_ad_updated_payload_data_delivery_status import PostAdUpdatedPayloadDataDeliveryStatus
+from .post_ad_updated_payload_data_platform import PostAdUpdatedPayloadDataPlatform
 from .post_ad_updated_payload_data_post_source import PostAdUpdatedPayloadDataPostSource
 from .post_ad_updated_payload_data_status import PostAdUpdatedPayloadDataStatus
 
@@ -79,6 +80,11 @@ class PostAdUpdatedPayloadData(UniversalBaseModel):
     music: typing.Optional[AdMusic] = pydantic.Field(default=None)
     """
     The advertiser-uploaded MP3 a TikTok carousel ad plays. TikTok-only; `null` elsewhere and for non-carousel ads.
+    """
+
+    platform: PostAdUpdatedPayloadDataPlatform = pydantic.Field()
+    """
+    The ad platform this ad runs on.
     """
 
     post_id: typing.Optional[str] = pydantic.Field(default=None)

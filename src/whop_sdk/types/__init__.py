@@ -104,6 +104,14 @@ if typing.TYPE_CHECKING:
     from .ad_campaign_result_event import AdCampaignResultEvent
     from .ad_campaign_special_ad_categories_item import AdCampaignSpecialAdCategoriesItem
     from .ad_campaign_status import AdCampaignStatus
+    from .ad_conversion_value_rule import AdConversionValueRule
+    from .ad_conversion_value_rule_adjustment_type import AdConversionValueRuleAdjustmentType
+    from .ad_conversion_value_rule_event import AdConversionValueRuleEvent
+    from .ad_conversion_value_rule_event_event_name import AdConversionValueRuleEventEventName
+    from .ad_conversion_value_rule_status import AdConversionValueRuleStatus
+    from .ad_conversion_value_rule_target import AdConversionValueRuleTarget
+    from .ad_conversion_value_rule_target_platform import AdConversionValueRuleTargetPlatform
+    from .ad_conversion_value_rule_target_scope import AdConversionValueRuleTargetScope
     from .ad_creative import AdCreative
     from .ad_creative_crop import AdCreativeCrop
     from .ad_creative_format import AdCreativeFormat
@@ -160,6 +168,7 @@ if typing.TYPE_CHECKING:
     from .ad_group_optimization_goal import AdGroupOptimizationGoal
     from .ad_group_placement import AdGroupPlacement
     from .ad_group_placement_platform import AdGroupPlacementPlatform
+    from .ad_group_platform import AdGroupPlatform
     from .ad_group_regions import AdGroupRegions
     from .ad_group_regions_body import AdGroupRegionsBody
     from .ad_group_result_event import AdGroupResultEvent
@@ -178,6 +187,7 @@ if typing.TYPE_CHECKING:
     from .ad_lead_form_question_option import AdLeadFormQuestionOption
     from .ad_messaging_config import AdMessagingConfig
     from .ad_music import AdMusic
+    from .ad_platform import AdPlatform
     from .ad_platform_issue import AdPlatformIssue
     from .ad_platform_issue_resource_type import AdPlatformIssueResourceType
     from .ad_post_source import AdPostSource
@@ -1455,6 +1465,14 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdCampaignResultEvent": ".ad_campaign_result_event",
     "AdCampaignSpecialAdCategoriesItem": ".ad_campaign_special_ad_categories_item",
     "AdCampaignStatus": ".ad_campaign_status",
+    "AdConversionValueRule": ".ad_conversion_value_rule",
+    "AdConversionValueRuleAdjustmentType": ".ad_conversion_value_rule_adjustment_type",
+    "AdConversionValueRuleEvent": ".ad_conversion_value_rule_event",
+    "AdConversionValueRuleEventEventName": ".ad_conversion_value_rule_event_event_name",
+    "AdConversionValueRuleStatus": ".ad_conversion_value_rule_status",
+    "AdConversionValueRuleTarget": ".ad_conversion_value_rule_target",
+    "AdConversionValueRuleTargetPlatform": ".ad_conversion_value_rule_target_platform",
+    "AdConversionValueRuleTargetScope": ".ad_conversion_value_rule_target_scope",
     "AdCreative": ".ad_creative",
     "AdCreativeCrop": ".ad_creative_crop",
     "AdCreativeFormat": ".ad_creative_format",
@@ -1505,6 +1523,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdGroupOptimizationGoal": ".ad_group_optimization_goal",
     "AdGroupPlacement": ".ad_group_placement",
     "AdGroupPlacementPlatform": ".ad_group_placement_platform",
+    "AdGroupPlatform": ".ad_group_platform",
     "AdGroupRegions": ".ad_group_regions",
     "AdGroupRegionsBody": ".ad_group_regions_body",
     "AdGroupResultEvent": ".ad_group_result_event",
@@ -1523,6 +1542,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdLeadFormQuestionOption": ".ad_lead_form_question_option",
     "AdMessagingConfig": ".ad_messaging_config",
     "AdMusic": ".ad_music",
+    "AdPlatform": ".ad_platform",
     "AdPlatformIssue": ".ad_platform_issue",
     "AdPlatformIssueResourceType": ".ad_platform_issue_resource_type",
     "AdPostSource": ".ad_post_source",
@@ -2688,6 +2708,14 @@ __all__ = [
     "AdCampaignResultEvent",
     "AdCampaignSpecialAdCategoriesItem",
     "AdCampaignStatus",
+    "AdConversionValueRule",
+    "AdConversionValueRuleAdjustmentType",
+    "AdConversionValueRuleEvent",
+    "AdConversionValueRuleEventEventName",
+    "AdConversionValueRuleStatus",
+    "AdConversionValueRuleTarget",
+    "AdConversionValueRuleTargetPlatform",
+    "AdConversionValueRuleTargetScope",
     "AdCreative",
     "AdCreativeCrop",
     "AdCreativeFormat",
@@ -2738,6 +2766,7 @@ __all__ = [
     "AdGroupOptimizationGoal",
     "AdGroupPlacement",
     "AdGroupPlacementPlatform",
+    "AdGroupPlatform",
     "AdGroupRegions",
     "AdGroupRegionsBody",
     "AdGroupResultEvent",
@@ -2756,6 +2785,7 @@ __all__ = [
     "AdLeadFormQuestionOption",
     "AdMessagingConfig",
     "AdMusic",
+    "AdPlatform",
     "AdPlatformIssue",
     "AdPlatformIssueResourceType",
     "AdPostSource",
