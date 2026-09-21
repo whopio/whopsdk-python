@@ -32,9 +32,9 @@ if typing.TYPE_CHECKING:
     from .list_earnings_response_data_item_resource_alternative_payment_method_object import (
         ListEarningsResponseDataItemResourceAlternativePaymentMethodObject,
     )
-    from .list_earnings_response_data_item_resource_business_id import ListEarningsResponseDataItemResourceBusinessId
-    from .list_earnings_response_data_item_resource_business_id_object import (
-        ListEarningsResponseDataItemResourceBusinessIdObject,
+    from .list_earnings_response_data_item_resource_created_at import ListEarningsResponseDataItemResourceCreatedAt
+    from .list_earnings_response_data_item_resource_created_at_object import (
+        ListEarningsResponseDataItemResourceCreatedAtObject,
     )
     from .list_earnings_response_data_item_resource_currency import ListEarningsResponseDataItemResourceCurrency
     from .list_earnings_response_data_item_resource_currency_object import (
@@ -42,6 +42,8 @@ if typing.TYPE_CHECKING:
     )
     from .list_earnings_response_data_item_resource_one import ListEarningsResponseDataItemResourceOne
     from .list_earnings_response_data_item_resource_one_object import ListEarningsResponseDataItemResourceOneObject
+    from .list_earnings_response_data_item_resource_slug import ListEarningsResponseDataItemResourceSlug
+    from .list_earnings_response_data_item_resource_slug_object import ListEarningsResponseDataItemResourceSlugObject
     from .list_earnings_response_data_item_status import ListEarningsResponseDataItemStatus
     from .list_earnings_response_page_info import ListEarningsResponsePageInfo
 _dynamic_imports: typing.Dict[str, str] = {
@@ -61,12 +63,14 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListEarningsResponseDataItemResourceAlternativePaymentMethod": ".list_earnings_response_data_item_resource_alternative_payment_method",
     "ListEarningsResponseDataItemResourceAlternativePaymentMethodAlternativePaymentMethod": ".list_earnings_response_data_item_resource_alternative_payment_method_alternative_payment_method",
     "ListEarningsResponseDataItemResourceAlternativePaymentMethodObject": ".list_earnings_response_data_item_resource_alternative_payment_method_object",
-    "ListEarningsResponseDataItemResourceBusinessId": ".list_earnings_response_data_item_resource_business_id",
-    "ListEarningsResponseDataItemResourceBusinessIdObject": ".list_earnings_response_data_item_resource_business_id_object",
+    "ListEarningsResponseDataItemResourceCreatedAt": ".list_earnings_response_data_item_resource_created_at",
+    "ListEarningsResponseDataItemResourceCreatedAtObject": ".list_earnings_response_data_item_resource_created_at_object",
     "ListEarningsResponseDataItemResourceCurrency": ".list_earnings_response_data_item_resource_currency",
     "ListEarningsResponseDataItemResourceCurrencyObject": ".list_earnings_response_data_item_resource_currency_object",
     "ListEarningsResponseDataItemResourceOne": ".list_earnings_response_data_item_resource_one",
     "ListEarningsResponseDataItemResourceOneObject": ".list_earnings_response_data_item_resource_one_object",
+    "ListEarningsResponseDataItemResourceSlug": ".list_earnings_response_data_item_resource_slug",
+    "ListEarningsResponseDataItemResourceSlugObject": ".list_earnings_response_data_item_resource_slug_object",
     "ListEarningsResponseDataItemStatus": ".list_earnings_response_data_item_status",
     "ListEarningsResponsePageInfo": ".list_earnings_response_page_info",
 }
@@ -110,12 +114,14 @@ __all__ = [
     "ListEarningsResponseDataItemResourceAlternativePaymentMethod",
     "ListEarningsResponseDataItemResourceAlternativePaymentMethodAlternativePaymentMethod",
     "ListEarningsResponseDataItemResourceAlternativePaymentMethodObject",
-    "ListEarningsResponseDataItemResourceBusinessId",
-    "ListEarningsResponseDataItemResourceBusinessIdObject",
+    "ListEarningsResponseDataItemResourceCreatedAt",
+    "ListEarningsResponseDataItemResourceCreatedAtObject",
     "ListEarningsResponseDataItemResourceCurrency",
     "ListEarningsResponseDataItemResourceCurrencyObject",
     "ListEarningsResponseDataItemResourceOne",
     "ListEarningsResponseDataItemResourceOneObject",
+    "ListEarningsResponseDataItemResourceSlug",
+    "ListEarningsResponseDataItemResourceSlugObject",
     "ListEarningsResponseDataItemStatus",
     "ListEarningsResponsePageInfo",
 ]

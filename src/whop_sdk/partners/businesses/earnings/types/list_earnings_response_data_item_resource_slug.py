@@ -5,12 +5,10 @@ import typing
 
 import pydantic
 from .....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .list_earnings_response_data_item_resource_business_id_object import (
-    ListEarningsResponseDataItemResourceBusinessIdObject,
-)
+from .list_earnings_response_data_item_resource_slug_object import ListEarningsResponseDataItemResourceSlugObject
 
 
-class ListEarningsResponseDataItemResourceBusinessId(UniversalBaseModel):
+class ListEarningsResponseDataItemResourceSlug(UniversalBaseModel):
     business_id: str = pydantic.Field()
     """
     The referred business that qualified.
@@ -22,7 +20,7 @@ class ListEarningsResponseDataItemResourceBusinessId(UniversalBaseModel):
     The onboarding reward the referred business qualified for, prefixed `onbr_`.
     """
 
-    object: ListEarningsResponseDataItemResourceBusinessIdObject
+    object: ListEarningsResponseDataItemResourceSlugObject
     slug: typing.Optional[str] = pydantic.Field(default=None)
     """
     The reward link slug.

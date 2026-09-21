@@ -41,7 +41,7 @@ class ListEarningsResponseDataItem(UniversalBaseModel):
     id: typing.Optional[str] = None
     income_source: ListEarningsResponseDataItemIncomeSource = pydantic.Field()
     """
-    Which income source the commission is on: product-sales gross profit, Whop Ads spend billed to the business, platform balance transfer fees, Whop Card interchange, or a fixed onboarding reward paid to the partner when a referred business qualifies.
+    Which income source the commission is on: product-sales gross profit, Whop Ads spend billed to the business, platform balance transfer fees, Whop Card interchange, or a fixed onboarding or referral link reward paid to the partner when a referred business qualifies.
     """
 
     object: ListEarningsResponseDataItemObject
@@ -54,7 +54,7 @@ class ListEarningsResponseDataItem(UniversalBaseModel):
     product: typing.Optional[ListEarningsResponseDataItemProduct] = None
     resource: typing.Optional[ListEarningsResponseDataItemResource] = pydantic.Field(default=None)
     """
-    The resource that generated the earning: the customer payment receipt for sales and ad spend earnings, the balance transfer for transfer earnings, or the card transaction for card interchange earnings.
+    The resource that generated the earning: the customer payment receipt for sales and ad spend earnings, the balance transfer for transfer earnings, the card transaction for card interchange earnings, or the qualifying reward for fixed reward earnings.
     """
 
     second_tier: bool = pydantic.Field()

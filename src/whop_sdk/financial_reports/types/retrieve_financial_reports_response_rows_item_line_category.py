@@ -133,6 +133,7 @@ RetrieveFinancialReportsResponseRowsItemLineCategory = typing.Union[
         "onchain_withdrawal",
         "onchain_withdrawal_offset",
         "orchestration_percentage_fee",
+        "partner_grant_reward",
         "passthrough_gmv",
         "passthrough_gmv_offset",
         "payment_dispute",
