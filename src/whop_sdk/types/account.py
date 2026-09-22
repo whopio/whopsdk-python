@@ -15,6 +15,7 @@ from .account_onboarding_type import AccountOnboardingType
 from .account_opengraph_image_variant import AccountOpengraphImageVariant
 from .account_parent import AccountParent
 from .account_partner import AccountPartner
+from .account_partner_reward import AccountPartnerReward
 from .account_payment_controls import AccountPaymentControls
 from .account_recommended_action import AccountRecommendedAction
 from .account_required_action import AccountRequiredAction
@@ -219,6 +220,7 @@ class Account(UniversalBaseModel):
     The account's return policy document, or `null` if they have not published one.
     """
 
+    rewards: typing.Optional[typing.List[AccountPartnerReward]] = None
     route: str = pydantic.Field()
     """
     Account public route identifier.
