@@ -38,7 +38,7 @@ class TestAdGroups:
             stats_from="stats_from",
             stats_to="stats_to",
             time_zone="time_zone",
-            api_version_date="2026-09-22",
+            api_version_date="2026-09-22-1",
         )
         assert_matches_type(AdGroup, ad_group, path=["response"])
 
@@ -196,7 +196,7 @@ class TestAdGroups:
             starts_at="2026-01-01T12:00:00.000Z",
             status="paused",
             title="North America — brand prospecting",
-            api_version_date="2026-09-22",
+            api_version_date="2026-09-22-1",
         )
         assert_matches_type(AdGroup, ad_group, path=["response"])
 
@@ -261,7 +261,7 @@ class TestAdGroups:
             stats_to="stats_to",
             status="active",
             time_zone="time_zone",
-            api_version_date="2026-09-22",
+            api_version_date="2026-09-22-1",
         )
         assert_matches_type(SyncCursorPage[AdGroup], ad_group, path=["response"])
 
@@ -300,7 +300,7 @@ class TestAdGroups:
     def test_method_delete_with_all_params(self, client: Whop) -> None:
         ad_group = client.ad_groups.delete(
             id="id",
-            api_version_date="2026-09-22",
+            api_version_date="2026-09-22-1",
         )
         assert_matches_type(AdGroupDeleteResponse, ad_group, path=["response"])
 
@@ -351,7 +351,7 @@ class TestAdGroups:
     def test_method_pause_with_all_params(self, client: Whop) -> None:
         ad_group = client.ad_groups.pause(
             id="id",
-            api_version_date="2026-09-22",
+            api_version_date="2026-09-22-1",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(AdGroup, ad_group, path=["response"])
@@ -403,7 +403,7 @@ class TestAdGroups:
     def test_method_unpause_with_all_params(self, client: Whop) -> None:
         ad_group = client.ad_groups.unpause(
             id="id",
-            api_version_date="2026-09-22",
+            api_version_date="2026-09-22-1",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(AdGroup, ad_group, path=["response"])
@@ -465,7 +465,7 @@ class TestAsyncAdGroups:
             stats_from="stats_from",
             stats_to="stats_to",
             time_zone="time_zone",
-            api_version_date="2026-09-22",
+            api_version_date="2026-09-22-1",
         )
         assert_matches_type(AdGroup, ad_group, path=["response"])
 
@@ -623,7 +623,7 @@ class TestAsyncAdGroups:
             starts_at="2026-01-01T12:00:00.000Z",
             status="paused",
             title="North America — brand prospecting",
-            api_version_date="2026-09-22",
+            api_version_date="2026-09-22-1",
         )
         assert_matches_type(AdGroup, ad_group, path=["response"])
 
@@ -688,7 +688,7 @@ class TestAsyncAdGroups:
             stats_to="stats_to",
             status="active",
             time_zone="time_zone",
-            api_version_date="2026-09-22",
+            api_version_date="2026-09-22-1",
         )
         assert_matches_type(AsyncCursorPage[AdGroup], ad_group, path=["response"])
 
@@ -727,7 +727,7 @@ class TestAsyncAdGroups:
     async def test_method_delete_with_all_params(self, async_client: AsyncWhop) -> None:
         ad_group = await async_client.ad_groups.delete(
             id="id",
-            api_version_date="2026-09-22",
+            api_version_date="2026-09-22-1",
         )
         assert_matches_type(AdGroupDeleteResponse, ad_group, path=["response"])
 
@@ -778,7 +778,7 @@ class TestAsyncAdGroups:
     async def test_method_pause_with_all_params(self, async_client: AsyncWhop) -> None:
         ad_group = await async_client.ad_groups.pause(
             id="id",
-            api_version_date="2026-09-22",
+            api_version_date="2026-09-22-1",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(AdGroup, ad_group, path=["response"])
@@ -830,7 +830,7 @@ class TestAsyncAdGroups:
     async def test_method_unpause_with_all_params(self, async_client: AsyncWhop) -> None:
         ad_group = await async_client.ad_groups.unpause(
             id="id",
-            api_version_date="2026-09-22",
+            api_version_date="2026-09-22-1",
             idempotency_key="d9105228-4a08-46b1-8b91-42fed586d383",
         )
         assert_matches_type(AdGroup, ad_group, path=["response"])

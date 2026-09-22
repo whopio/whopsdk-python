@@ -4,35 +4,49 @@ from __future__ import annotations
 
 from typing import Union
 from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
 
 from .._utils import PropertyInfo
-from .shared.direction import Direction
 
 __all__ = ["SetupIntentListParams"]
 
 
 class SetupIntentListParams(TypedDict, total=False):
-    account_id: Required[str]
-    """The unique identifier of the company to list setup intents for."""
+    account_id: str
+    """Only setup intents for this account, prefixed `biz_`."""
 
     after: str
-    """Returns the elements in the list that come after the specified cursor."""
+    """Return results after this cursor.
+
+    Use `page_info.end_cursor` from the previous response to fetch the next page.
+    """
 
     before: str
-    """Returns the elements in the list that come before the specified cursor."""
+    """Return results before this cursor.
+
+    Use `page_info.start_cursor` from the previous response to fetch the previous
+    page.
+    """
 
     created_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-    """Only return setup intents created after this timestamp."""
+    """Only setup intents created after this ISO 8601 timestamp."""
 
     created_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-    """Only return setup intents created before this timestamp."""
+    """Only setup intents created before this ISO 8601 timestamp."""
 
-    direction: Direction
-    """The sort direction for ordering results, either ascending or descending."""
+    direction: Literal["asc", "desc"]
+    """The sort direction."""
 
     first: int
-    """Returns the first _n_ elements from the list."""
+    """Number of results to return from the start of the range."""
 
     last: int
-    """Returns the last _n_ elements from the list."""
+    """Number of results to return from the end of the range."""
+
+    order: Literal["created_at"]
+    """The field to sort by."""
+
+    status: Literal["processing", "succeeded", "canceled", "requires_action"]
+    """Only setup intents in this state."""
+
+    api_version_date: Annotated[str, PropertyInfo(alias="Api-Version-Date")]

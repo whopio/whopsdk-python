@@ -1,196 +1,314 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Optional
-from datetime import datetime
+from typing import Optional
+from typing_extensions import Literal
 
 from .._models import BaseModel
-from .card_brands import CardBrands
-from .setup_intent_status import SetupIntentStatus
 from .payment_method_types import PaymentMethodTypes
 
 __all__ = [
     "SetupIntent",
-    "CheckoutConfiguration",
-    "Company",
-    "Member",
-    "MemberUser",
-    "PaymentMethod",
-    "PaymentMethodCard",
-    "PaymentMethodMailingAddress",
+    "LastSetupError",
+    "PaymentInstrument",
+    "PaymentInstrumentCard",
+    "PaymentInstrumentIcons",
+    "PaymentInstrumentIconsCard",
+    "PaymentInstrumentIconsCardDark",
+    "PaymentInstrumentIconsCardLight",
+    "PaymentInstrumentIconsSquare",
+    "PaymentInstrumentIconsSquareDark",
+    "PaymentInstrumentIconsSquareLight",
+    "User",
+    "UserProfilePicture",
 ]
 
 
-class CheckoutConfiguration(BaseModel):
-    """The checkout session configuration associated with this setup intent.
+class LastSetupError(BaseModel):
+    """Why the setup ended where it did, or `null` when nothing has failed.
 
-    Null if no checkout session was used.
+    Present on `canceled` — a buyer who abandoned carries no code, one refused by the provider does. Dropped once the setup succeeds.
     """
 
-    id: str
-    """The unique identifier for the checkout session."""
+    code: Optional[str] = None
+    """A machine-readable classification of the failure, e.g.
 
-
-class Company(BaseModel):
-    """The company that initiated this setup intent.
-
-    Null if the company has been deleted.
+    `enrollment_declined`. Absent when the buyer simply abandoned the setup.
     """
 
-    id: str
-    """The unique identifier for the company."""
+    message: Optional[str] = None
+    """A human-readable explanation of the failure."""
 
 
-class MemberUser(BaseModel):
-    """The user for this member, if any."""
-
-    id: str
-    """The unique identifier for the company member user."""
-
-    email: Optional[str] = None
-    """The digital mailing address of the user."""
-
-    name: Optional[str] = None
-    """The user's full name."""
-
-    username: str
-    """The whop username."""
-
-
-class Member(BaseModel):
-    """The company member associated with this setup intent.
-
-    Null if the user is not a member.
+class PaymentInstrumentCard(BaseModel):
+    """
+    Card payments only: the card's network, last four, and issuer identification number.
     """
 
-    id: str
-    """The unique identifier for the company member."""
-
-    user: Optional[MemberUser] = None
-    """The user for this member, if any."""
-
-
-class PaymentMethodCard(BaseModel):
+    brand: Optional[str] = None
     """
-    The card data associated with the payment method, if its a debit or credit card.
+    The network identifier (`visa`, `amex`, …), matching `card.networks` entries and
+    saved card payment methods. Null when the vault did not record the network.
     """
 
-    brand: Optional[CardBrands] = None
-    """Possible card brands that a payment token can have"""
+    exp_month: Optional[float] = None
+    """The card's expiry month, 1 to 12. Null when the vault did not record it."""
 
-    exp_month: Optional[int] = None
-    """The two-digit expiration month of the card (1-12). Null if not available."""
+    exp_year: Optional[float] = None
+    """The card's four-digit expiry year. Null when the vault did not record it."""
 
-    exp_year: Optional[int] = None
-    """The two-digit expiration year of the card (e.g., 27 for 2027).
-
-    Null if not available.
+    issuer_identification_number: Optional[str] = None
+    """
+    The issuer identification number, also called the BIN: the card's leading six or
+    eight digits, which identify the issuing bank. Null when the processor did not
+    report it.
     """
 
     last4: Optional[str] = None
-    """The last four digits of the card number. Null if not available."""
+    """The card's last four digits, when captured."""
 
 
-class PaymentMethodMailingAddress(BaseModel):
-    """The mailing address associated with the payment method's user"""
+class PaymentInstrumentIconsCardDark(BaseModel):
+    """The colorway for dark surfaces."""
 
-    city: Optional[str] = None
-    """The city of the address."""
+    png_1x: str
+    """Raster fallback at the shape's native size."""
 
-    country: Optional[str] = None
-    """The country of the address."""
+    png_2x: str
+    """Raster fallback at double density."""
 
-    line1: Optional[str] = None
-    """The line 1 of the address."""
+    png_4x: str
+    """Raster fallback at quadruple density."""
 
-    line2: Optional[str] = None
-    """The line 2 of the address."""
-
-    name: Optional[str] = None
-    """The name of the customer."""
-
-    postal_code: Optional[str] = None
-    """The postal code of the address."""
-
-    state: Optional[str] = None
-    """The state of the address."""
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
 
 
-class PaymentMethod(BaseModel):
-    """The saved payment method created by this setup intent.
+class PaymentInstrumentIconsCardLight(BaseModel):
+    """The colorway for light surfaces."""
 
-    Null if the setup has not completed successfully.
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class PaymentInstrumentIconsCard(BaseModel):
+    """The credit-card-proportioned tile (48x30)."""
+
+    dark: PaymentInstrumentIconsCardDark
+    """The colorway for dark surfaces."""
+
+    light: PaymentInstrumentIconsCardLight
+    """The colorway for light surfaces."""
+
+
+class PaymentInstrumentIconsSquareDark(BaseModel):
+    """The colorway for dark surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class PaymentInstrumentIconsSquareLight(BaseModel):
+    """The colorway for light surfaces."""
+
+    png_1x: str
+    """Raster fallback at the shape's native size."""
+
+    png_2x: str
+    """Raster fallback at double density."""
+
+    png_4x: str
+    """Raster fallback at quadruple density."""
+
+    svg: str
+    """The vector file. Prefer this everywhere SVG renders."""
+
+
+class PaymentInstrumentIconsSquare(BaseModel):
+    """The square tile (32x32)."""
+
+    dark: PaymentInstrumentIconsSquareDark
+    """The colorway for dark surfaces."""
+
+    light: PaymentInstrumentIconsSquareLight
+    """The colorway for light surfaces."""
+
+
+class PaymentInstrumentIcons(BaseModel):
+    """
+    The standard icon set: square and card shapes, each in light and dark colorways.
+    """
+
+    card: PaymentInstrumentIconsCard
+    """The credit-card-proportioned tile (48x30)."""
+
+    square: PaymentInstrumentIconsSquare
+    """The square tile (32x32)."""
+
+
+class PaymentInstrument(BaseModel):
+    """
+    The method behind this setup shaped for display: a buyer-facing name, the standard icon set, and the card's brand, last four, issuer identification number, and expiry when it was a card. Null until a method was collected.
+    """
+
+    card: Optional[PaymentInstrumentCard] = None
+    """
+    Card payments only: the card's network, last four, and issuer identification
+    number.
+    """
+
+    display_name: str
+    """
+    Buyer-facing instrument name — "Visa •••• 4242" when the card surfaced, else the
+    method's own name ("Klarna").
+    """
+
+    icons: PaymentInstrumentIcons
+    """
+    The standard icon set: square and card shapes, each in light and dark colorways.
+    """
+
+    installment_count: Optional[float] = None
+    """Installment methods only: how many payments the charge splits into.
+
+    Data, not copy — compose and translate the label client-side.
+    """
+
+    payment_method_type: str
+    """The payment method type identifier, e.g. `card`, `klarna`, `apple_pay`."""
+
+
+class UserProfilePicture(BaseModel):
+    """
+    Avatar wrapper; its `url` is always present, using a generated placeholder when the user set no picture.
+    """
+
+    url: str
+    """Avatar image URL.
+
+    Always present — a generated placeholder when the user set no picture.
+    """
+
+
+class User(BaseModel):
+    """The user saving the payment method.
+
+    Null when the buyer is a company rather than a user.
     """
 
     id: str
-    """The unique identifier for the payment token."""
+    """User ID, prefixed `user_`."""
 
-    card: Optional[PaymentMethodCard] = None
+    name: Optional[str] = None
+    """Display name."""
+
+    profile_picture: UserProfilePicture
     """
-    The card data associated with the payment method, if its a debit or credit card.
+    Avatar wrapper; its `url` is always present, using a generated placeholder when
+    the user set no picture.
     """
 
-    created_at: datetime
-    """The datetime the payment token was created."""
-
-    mailing_address: Optional[PaymentMethodMailingAddress] = None
-    """The mailing address associated with the payment method's user"""
-
-    payment_method_type: PaymentMethodTypes
-    """The payment method type of the payment method"""
+    username: str
+    """Public username."""
 
 
 class SetupIntent(BaseModel):
-    """
-    A setup intent allows a user to save a payment method for future use without making an immediate purchase.
-    """
-
     id: str
-    """The unique identifier for the setup intent."""
+    """Setup intent ID, prefixed `sint_`."""
 
-    checkout_configuration: Optional[CheckoutConfiguration] = None
-    """The checkout session configuration associated with this setup intent.
+    account_id: Optional[str] = None
+    """The account the payment method is saved for, prefixed `biz_`."""
 
-    Null if no checkout session was used.
+    checkout_configuration_id: Optional[str] = None
+    """The checkout configuration this setup was created through, prefixed `ch_`.
+
+    Null for a setup created through this API rather than a hosted checkout.
     """
 
-    company: Optional[Company] = None
-    """The company that initiated this setup intent.
-
-    Null if the company has been deleted.
+    client_secret: Optional[str] = None
+    """
+    The credential a buyer's surface presents to poll this setup and set its return
+    URL — hand it to the elements' `handleNextAction`. Only on setups created
+    through this API, and always null in list responses — retrieve the setup intent
+    for it.
     """
 
-    created_at: datetime
-    """The datetime the setup intent was created."""
+    created_at: str
+    """When the setup intent was created, as an ISO 8601 timestamp."""
 
-    error_message: Optional[str] = None
-    """A human-readable error message explaining why the setup intent failed.
+    last_setup_error: Optional[LastSetupError] = None
+    """Why the setup ended where it did, or `null` when nothing has failed.
 
-    Null if no error occurred.
+    Present on `canceled` — a buyer who abandoned carries no code, one refused by
+    the provider does. Dropped once the setup succeeds.
     """
 
-    member: Optional[Member] = None
-    """The company member associated with this setup intent.
+    member_id: Optional[str] = None
+    """The buyer's member record on the account, prefixed `mber_`.
 
-    Null if the user is not a member.
+    Null without the member:basic:read permission, unless the caller is the buyer.
     """
 
-    metadata: Optional[Dict[str, object]] = None
-    """Custom key-value pairs attached to this setup intent.
+    metadata: Optional[object] = None
+    """Your own key-value data attached when the setup intent was created."""
 
-    Null if no metadata was provided.
+    payment_instrument: Optional[PaymentInstrument] = None
+    """
+    The method behind this setup shaped for display: a buyer-facing name, the
+    standard icon set, and the card's brand, last four, issuer identification
+    number, and expiry when it was a card. Null until a method was collected.
     """
 
-    payment_method: Optional[PaymentMethod] = None
-    """The saved payment method created by this setup intent.
+    payment_method_id: Optional[str] = None
+    """The saved payment method, prefixed `payt_`, ready to charge with Create Payment.
 
-    Null if the setup has not completed successfully.
+    Null until the setup has `succeeded`.
     """
 
-    status: SetupIntentStatus
-    """The current status of the setup intent."""
+    payment_method_type: Optional[PaymentMethodTypes] = None
+    """The different types of payment methods that can be used."""
+
+    return_url: Optional[str] = None
+    """
+    Where the buyer lands after completing an off-site step, or `null` to leave them
+    where they are.
+    """
+
+    status: Literal["processing", "succeeded", "canceled", "requires_action"]
+    """How far the setup has got.
+
+    **A 201 or 200 means we answered, not that the method was saved — always branch
+    on this.** `requires_action` — the buyer has a step outstanding; hand
+    `client_secret` to the elements or poll Retrieve setup status. `processing` —
+    the processor is deciding. `succeeded` — the method is saved, and only this one
+    means saved. `canceled` — abandoned or refused; see `last_setup_error`.
+    """
 
     three_ds_verified: bool
-    """
-    Whether 3D Secure authentication was completed when this payment method was set
-    up.
+    """True when the buyer completed 3D Secure while saving this payment method."""
+
+    updated_at: str
+    """When the setup intent was last updated, as an ISO 8601 timestamp."""
+
+    user: Optional[User] = None
+    """The user saving the payment method.
+
+    Null when the buyer is a company rather than a user.
     """

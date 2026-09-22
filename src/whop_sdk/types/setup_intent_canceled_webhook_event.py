@@ -21,10 +21,6 @@ class SetupIntentCanceledWebhookEvent(BaseModel):
     """The dated API version (Api-Version-Date) the payload is serialized to"""
 
     data: SetupIntent
-    """
-    A setup intent allows a user to save a payment method for future use without
-    making an immediate purchase.
-    """
 
     timestamp: datetime
     """The timestamp in ISO 8601 format that the webhook was sent at on the server"""

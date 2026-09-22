@@ -4,12 +4,13 @@ from __future__ import annotations
 
 from typing import Union
 from datetime import datetime
+from typing_extensions import Literal
 
 import httpx
 
 from ..types import setup_intent_list_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import path_template, maybe_transform
+from .._utils import path_template, maybe_transform, strip_not_given
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -21,13 +22,18 @@ from .._response import (
 from ..pagination import SyncCursorPage, AsyncCursorPage
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.setup_intent import SetupIntent
-from ..types.shared.direction import Direction
-from ..types.setup_intent_list_response import SetupIntentListResponse
 
 __all__ = ["SetupIntentsResource", "AsyncSetupIntentsResource"]
 
 
 class SetupIntentsResource(SyncAPIResource):
+    """A Setup Intent saves a buyer's payment method for later without taking money now.
+
+    Create one from a confirmation token the payment elements collected in setup mode, or from a payment method already on file to re-verify it. It runs the same collection flow a payment does, so the buyer may still owe a step: 3D Secure on a card, a hosted enrollment, or linking a bank account.
+
+    The create response is the setup intent as created, not its outcome. Hand its `client_secret` to the elements' `handleNextAction`, or poll [Retrieve status](/api-reference/beta/setup-intents/retrieve-setup-status) for how far the setup has gone and what is outstanding. Once it reaches `succeeded`, `payment_method_id` names the saved method and Create Payment charges it.
+    """
+
     @cached_property
     def with_raw_response(self) -> SetupIntentsResourceWithRawResponse:
         """
@@ -51,6 +57,7 @@ class SetupIntentsResource(SyncAPIResource):
         self,
         id: str,
         *,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -58,14 +65,11 @@ class SetupIntentsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SetupIntent:
-        """
-        Retrieves the details of an existing setup intent.
+        """Returns one setup intent.
 
-        Required permissions:
-
-        - `payment:setup_intent:read`
-        - `member:basic:read`
-        - `member:email:read`
+        Related records are ids — once `status` is
+        `succeeded`, `payment_method_id` is the saved method to charge or retrieve. The
+        buyer's own token may retrieve a setup intent that belongs to it.
 
         Args:
           extra_headers: Send extra headers
@@ -78,6 +82,7 @@ class SetupIntentsResource(SyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return self._get(
             path_template("/setup_intents/{id}", id=id),
             options=make_request_options(
@@ -89,48 +94,52 @@ class SetupIntentsResource(SyncAPIResource):
     def list(
         self,
         *,
-        account_id: str,
+        account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
         created_after: Union[str, datetime] | Omit = omit,
         created_before: Union[str, datetime] | Omit = omit,
-        direction: Direction | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
+        order: Literal["created_at"] | Omit = omit,
+        status: Literal["processing", "succeeded", "canceled", "requires_action"] | Omit = omit,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SyncCursorPage[SetupIntentListResponse]:
-        """
-        Returns a paginated list of setup intents for a company, with optional filtering
-        by creation date. A setup intent securely collects and stores a member's payment
-        method for future use without charging them immediately.
+    ) -> SyncCursorPage[SetupIntent]:
+        """Lists setup intents newest first.
 
-        Required permissions:
-
-        - `payment:setup_intent:read`
-        - `member:basic:read`
-        - `member:email:read`
+        An account API key lists its own account; a
+        user token lists every account it can read, or one account with `account_id`.
+        `client_secret` is always null on list rows — retrieve the setup intent for it.
 
         Args:
-          account_id: The unique identifier of the company to list setup intents for.
+          account_id: Only setup intents for this account, prefixed `biz_`.
 
-          after: Returns the elements in the list that come after the specified cursor.
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
-          created_after: Only return setup intents created after this timestamp.
+          created_after: Only setup intents created after this ISO 8601 timestamp.
 
-          created_before: Only return setup intents created before this timestamp.
+          created_before: Only setup intents created before this ISO 8601 timestamp.
 
-          direction: The sort direction for ordering results, either ascending or descending.
+          direction: The sort direction.
 
-          first: Returns the first _n_ elements from the list.
+          first: Number of results to return from the start of the range.
 
-          last: Returns the last _n_ elements from the list.
+          last: Number of results to return from the end of the range.
+
+          order: The field to sort by.
+
+          status: Only setup intents in this state.
 
           extra_headers: Send extra headers
 
@@ -140,9 +149,10 @@ class SetupIntentsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return self._get_api_list(
             "/setup_intents",
-            page=SyncCursorPage[SetupIntentListResponse],
+            page=SyncCursorPage[SetupIntent],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -158,15 +168,24 @@ class SetupIntentsResource(SyncAPIResource):
                         "direction": direction,
                         "first": first,
                         "last": last,
+                        "order": order,
+                        "status": status,
                     },
                     setup_intent_list_params.SetupIntentListParams,
                 ),
             ),
-            model=SetupIntentListResponse,
+            model=SetupIntent,
         )
 
 
 class AsyncSetupIntentsResource(AsyncAPIResource):
+    """A Setup Intent saves a buyer's payment method for later without taking money now.
+
+    Create one from a confirmation token the payment elements collected in setup mode, or from a payment method already on file to re-verify it. It runs the same collection flow a payment does, so the buyer may still owe a step: 3D Secure on a card, a hosted enrollment, or linking a bank account.
+
+    The create response is the setup intent as created, not its outcome. Hand its `client_secret` to the elements' `handleNextAction`, or poll [Retrieve status](/api-reference/beta/setup-intents/retrieve-setup-status) for how far the setup has gone and what is outstanding. Once it reaches `succeeded`, `payment_method_id` names the saved method and Create Payment charges it.
+    """
+
     @cached_property
     def with_raw_response(self) -> AsyncSetupIntentsResourceWithRawResponse:
         """
@@ -190,6 +209,7 @@ class AsyncSetupIntentsResource(AsyncAPIResource):
         self,
         id: str,
         *,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -197,14 +217,11 @@ class AsyncSetupIntentsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SetupIntent:
-        """
-        Retrieves the details of an existing setup intent.
+        """Returns one setup intent.
 
-        Required permissions:
-
-        - `payment:setup_intent:read`
-        - `member:basic:read`
-        - `member:email:read`
+        Related records are ids — once `status` is
+        `succeeded`, `payment_method_id` is the saved method to charge or retrieve. The
+        buyer's own token may retrieve a setup intent that belongs to it.
 
         Args:
           extra_headers: Send extra headers
@@ -217,6 +234,7 @@ class AsyncSetupIntentsResource(AsyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return await self._get(
             path_template("/setup_intents/{id}", id=id),
             options=make_request_options(
@@ -228,48 +246,52 @@ class AsyncSetupIntentsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        account_id: str,
+        account_id: str | Omit = omit,
         after: str | Omit = omit,
         before: str | Omit = omit,
         created_after: Union[str, datetime] | Omit = omit,
         created_before: Union[str, datetime] | Omit = omit,
-        direction: Direction | Omit = omit,
+        direction: Literal["asc", "desc"] | Omit = omit,
         first: int | Omit = omit,
         last: int | Omit = omit,
+        order: Literal["created_at"] | Omit = omit,
+        status: Literal["processing", "succeeded", "canceled", "requires_action"] | Omit = omit,
+        api_version_date: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AsyncPaginator[SetupIntentListResponse, AsyncCursorPage[SetupIntentListResponse]]:
-        """
-        Returns a paginated list of setup intents for a company, with optional filtering
-        by creation date. A setup intent securely collects and stores a member's payment
-        method for future use without charging them immediately.
+    ) -> AsyncPaginator[SetupIntent, AsyncCursorPage[SetupIntent]]:
+        """Lists setup intents newest first.
 
-        Required permissions:
-
-        - `payment:setup_intent:read`
-        - `member:basic:read`
-        - `member:email:read`
+        An account API key lists its own account; a
+        user token lists every account it can read, or one account with `account_id`.
+        `client_secret` is always null on list rows — retrieve the setup intent for it.
 
         Args:
-          account_id: The unique identifier of the company to list setup intents for.
+          account_id: Only setup intents for this account, prefixed `biz_`.
 
-          after: Returns the elements in the list that come after the specified cursor.
+          after: Return results after this cursor. Use `page_info.end_cursor` from the previous
+              response to fetch the next page.
 
-          before: Returns the elements in the list that come before the specified cursor.
+          before: Return results before this cursor. Use `page_info.start_cursor` from the
+              previous response to fetch the previous page.
 
-          created_after: Only return setup intents created after this timestamp.
+          created_after: Only setup intents created after this ISO 8601 timestamp.
 
-          created_before: Only return setup intents created before this timestamp.
+          created_before: Only setup intents created before this ISO 8601 timestamp.
 
-          direction: The sort direction for ordering results, either ascending or descending.
+          direction: The sort direction.
 
-          first: Returns the first _n_ elements from the list.
+          first: Number of results to return from the start of the range.
 
-          last: Returns the last _n_ elements from the list.
+          last: Number of results to return from the end of the range.
+
+          order: The field to sort by.
+
+          status: Only setup intents in this state.
 
           extra_headers: Send extra headers
 
@@ -279,9 +301,10 @@ class AsyncSetupIntentsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"Api-Version-Date": api_version_date}), **(extra_headers or {})}
         return self._get_api_list(
             "/setup_intents",
-            page=AsyncCursorPage[SetupIntentListResponse],
+            page=AsyncCursorPage[SetupIntent],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -297,11 +320,13 @@ class AsyncSetupIntentsResource(AsyncAPIResource):
                         "direction": direction,
                         "first": first,
                         "last": last,
+                        "order": order,
+                        "status": status,
                     },
                     setup_intent_list_params.SetupIntentListParams,
                 ),
             ),
-            model=SetupIntentListResponse,
+            model=SetupIntent,
         )
 
 

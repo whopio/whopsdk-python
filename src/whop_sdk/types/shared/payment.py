@@ -174,11 +174,17 @@ class PaymentInstrumentCard(BaseModel):
     Card payments only: the card's network, last four, and issuer identification number.
     """
 
-    brand: str
+    brand: Optional[str] = None
     """
     The network identifier (`visa`, `amex`, …), matching `card.networks` entries and
-    saved card payment methods.
+    saved card payment methods. Null when the vault did not record the network.
     """
+
+    exp_month: Optional[float] = None
+    """The card's expiry month, 1 to 12. Null when the vault did not record it."""
+
+    exp_year: Optional[float] = None
+    """The card's four-digit expiry year. Null when the vault did not record it."""
 
     issuer_identification_number: Optional[str] = None
     """
