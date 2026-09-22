@@ -9,6 +9,11 @@ from .user_summary import UserSummary
 
 
 class Partner(UniversalBaseModel):
+    certification_complete: bool = pydantic.Field()
+    """
+    Whether the user passed every visible quiz and knowledge check in the partner certification course. `false` until each of those lessons has a passing result.
+    """
+
     joined_at: typing.Optional[str] = pydantic.Field(default=None)
     """
     When the user joined the partner program, as an ISO 8601 timestamp. Null when they have not joined.
