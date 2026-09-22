@@ -78,7 +78,6 @@ WebhookEvent = typing.Union[
         "ad_campaign.payment_failed",
         "ad_campaign.updated",
         "ad.updated",
-        "pixel_event.created",
         "chat.message.created",
         "chat.reaction.created",
         "payment.created",
