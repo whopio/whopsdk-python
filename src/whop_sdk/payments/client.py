@@ -455,7 +455,7 @@ class PaymentsClient:
 
     def void(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Payment:
         """
-        Voids a payment that has not yet been settled. Voiding cancels the payment before it is captured by the payment processor.
+        Voids or cancels an eligible payment. The request is rejected if the payment is no longer eligible.
 
         Parameters
         ----------
@@ -1085,7 +1085,7 @@ class AsyncPaymentsClient:
 
     async def void(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Payment:
         """
-        Voids a payment that has not yet been settled. Voiding cancels the payment before it is captured by the payment processor.
+        Voids or cancels an eligible payment. The request is rejected if the payment is no longer eligible.
 
         Parameters
         ----------

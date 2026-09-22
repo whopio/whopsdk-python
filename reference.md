@@ -29493,7 +29493,7 @@ client.payments.retry(
 <dl>
 <dd>
 
-Voids a payment that has not yet been settled. Voiding cancels the payment before it is captured by the payment processor.
+Voids or cancels an eligible payment. The request is rejected if the payment is no longer eligible.
 </dd>
 </dl>
 </dd>

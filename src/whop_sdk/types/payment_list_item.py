@@ -265,7 +265,7 @@ class PaymentListItem(UniversalBaseModel):
 
     voidable: bool = pydantic.Field()
     """
-    True when the payment is tied to a membership in `past_due`, the payment status is `open`, and the processor allows voiding payments; otherwise false.
+    True when the payment can be voided or canceled. The request is rejected if the payment is no longer eligible.
     """
 
     if IS_PYDANTIC_V2:
