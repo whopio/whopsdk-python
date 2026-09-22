@@ -3,17 +3,17 @@
 import typing
 
 import pydantic
-from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class CreateSetupIntentsResponseCompany(UniversalBaseModel):
+class SetupIntentLegacyCheckoutConfiguration(UniversalBaseModel):
     """
-    The company that initiated this setup intent. Null if the company has been deleted.
+    The checkout session configuration associated with this setup intent. Null if no checkout session was used.
     """
 
     id: str = pydantic.Field()
     """
-    The unique identifier for the company.
+    The unique identifier for the checkout session.
     """
 
     if IS_PYDANTIC_V2:

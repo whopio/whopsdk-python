@@ -4,16 +4,22 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .setup_intent_legacy_member_user import SetupIntentLegacyMemberUser
 
 
-class SetupIntentCompany(UniversalBaseModel):
+class SetupIntentLegacyMember(UniversalBaseModel):
     """
-    The company that initiated this setup intent. Null if the company has been deleted.
+    The company member associated with this setup intent. Null if the user is not a member.
     """
 
     id: str = pydantic.Field()
     """
-    The unique identifier for the company.
+    The unique identifier for the company member.
+    """
+
+    user: typing.Optional[SetupIntentLegacyMemberUser] = pydantic.Field(default=None)
+    """
+    The user for this member, if any.
     """
 
     if IS_PYDANTIC_V2:

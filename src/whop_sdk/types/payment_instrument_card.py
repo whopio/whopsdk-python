@@ -7,9 +7,19 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class PaymentInstrumentCard(UniversalBaseModel):
-    brand: str = pydantic.Field()
+    brand: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The network identifier (`visa`, `amex`, …), matching `card.networks` entries and saved card payment methods.
+    The network identifier (`visa`, `amex`, …), matching `card.networks` entries and saved card payment methods. Null when the vault did not record the network.
+    """
+
+    exp_month: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    The card's expiry month, 1 to 12. Null when the vault did not record it.
+    """
+
+    exp_year: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    The card's four-digit expiry year. Null when the vault did not record it.
     """
 
     issuer_identification_number: typing.Optional[str] = pydantic.Field(default=None)

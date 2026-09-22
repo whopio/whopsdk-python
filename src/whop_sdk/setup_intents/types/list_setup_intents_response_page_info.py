@@ -6,15 +6,11 @@ import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class CreateSetupIntentsResponseCheckoutConfiguration(UniversalBaseModel):
-    """
-    The checkout session configuration associated with this setup intent. Null if no checkout session was used.
-    """
-
-    id: str = pydantic.Field()
-    """
-    The unique identifier for the checkout session.
-    """
+class ListSetupIntentsResponsePageInfo(UniversalBaseModel):
+    end_cursor: typing.Optional[str] = None
+    has_next_page: bool
+    has_previous_page: bool
+    start_cursor: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

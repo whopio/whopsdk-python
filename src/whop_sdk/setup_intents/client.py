@@ -6,13 +6,12 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
-from ..types.direction import Direction
 from ..types.setup_intent import SetupIntent
-from ..types.setup_intent_list_item import SetupIntentListItem
 from ..types.setup_status import SetupStatus
 from .raw_client import AsyncRawSetupIntentsClient, RawSetupIntentsClient
-from .types.create_setup_intents_request import CreateSetupIntentsRequest
-from .types.create_setup_intents_response import CreateSetupIntentsResponse
+from .types.list_setup_intents_request_direction import ListSetupIntentsRequestDirection
+from .types.list_setup_intents_request_order import ListSetupIntentsRequestOrder
+from .types.list_setup_intents_request_status import ListSetupIntentsRequestStatus
 from .types.list_setup_intents_response import ListSetupIntentsResponse
 
 # this is used as the default value for optional parameters
@@ -37,79 +36,71 @@ class SetupIntentsClient:
     def list(
         self,
         *,
-        account_id: str,
-        after: typing.Optional[str] = None,
-        before: typing.Optional[str] = None,
-        first: typing.Optional[int] = None,
-        last: typing.Optional[int] = None,
-        direction: typing.Optional[Direction] = None,
+        account_id: typing.Optional[str] = None,
+        status: typing.Optional[ListSetupIntentsRequestStatus] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
+        order: typing.Optional[ListSetupIntentsRequestOrder] = None,
+        direction: typing.Optional[ListSetupIntentsRequestDirection] = None,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        last: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> SyncPager[SetupIntentListItem, ListSetupIntentsResponse]:
+    ) -> SyncPager[SetupIntent, ListSetupIntentsResponse]:
         """
-        Returns a paginated list of setup intents for a company, with optional filtering by creation date. A setup intent securely collects and stores a member's payment method for future use without charging them immediately.
-
-        Required permissions:
-         - `payment:setup_intent:read`
-         - `member:basic:read`
-         - `member:email:read`
+        Lists setup intents newest first. An account API key lists its own account; a user token lists every account it can read, or one account with `account_id`. `client_secret` is always null on list rows — retrieve the setup intent for it.
 
         Parameters
         ----------
-        account_id : str
-            The unique identifier of the company to list setup intents for.
+        account_id : typing.Optional[str]
+            Only setup intents for this account, prefixed `biz_`.
 
-        after : typing.Optional[str]
-            Returns the elements in the list that come after the specified cursor.
-
-        before : typing.Optional[str]
-            Returns the elements in the list that come before the specified cursor.
-
-        first : typing.Optional[int]
-            Returns the first _n_ elements from the list.
-
-        last : typing.Optional[int]
-            Returns the last _n_ elements from the list.
-
-        direction : typing.Optional[Direction]
+        status : typing.Optional[ListSetupIntentsRequestStatus]
+            Only setup intents in this state.
 
         created_before : typing.Optional[dt.datetime]
-            Only return setup intents created before this timestamp.
+            Only setup intents created before this ISO 8601 timestamp.
 
         created_after : typing.Optional[dt.datetime]
-            Only return setup intents created after this timestamp.
+            Only setup intents created after this ISO 8601 timestamp.
+
+        order : typing.Optional[ListSetupIntentsRequestOrder]
+            The field to sort by.
+
+        direction : typing.Optional[ListSetupIntentsRequestDirection]
+            The sort direction.
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        last : typing.Optional[int]
+            Number of results to return from the end of the range.
+
+        before : typing.Optional[str]
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        SyncPager[SetupIntentListItem, ListSetupIntentsResponse]
-            A successful response
+        SyncPager[SetupIntent, ListSetupIntentsResponse]
+            setup intents listed
 
         Examples
         --------
-        import datetime
-
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-22",
+            "2026-09-22-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
-        response = client.setup_intents.list(
-            first=42,
-            last=42,
-            created_before=datetime.datetime.fromisoformat(
-                "2023-12-01 05:00:00+00:00",
-            ),
-            created_after=datetime.datetime.fromisoformat(
-                "2023-12-01 05:00:00+00:00",
-            ),
-            account_id="biz_xxxxxxxxxxxxxx",
-        )
+        response = client.setup_intents.list()
         for item in response:
             yield item
         # alternatively, you can paginate page-by-page
@@ -118,72 +109,55 @@ class SetupIntentsClient:
         """
         return self._raw_client.list(
             account_id=account_id,
-            after=after,
-            before=before,
-            first=first,
-            last=last,
-            direction=direction,
+            status=status,
             created_before=created_before,
             created_after=created_after,
+            order=order,
+            direction=direction,
+            first=first,
+            after=after,
+            last=last,
+            before=before,
             request_options=request_options,
         )
 
     def create(
-        self, *, request: CreateSetupIntentsRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> CreateSetupIntentsResponse:
+        self,
+        *,
+        account_id: str,
+        confirmation_token: typing.Optional[str] = OMIT,
+        currency: typing.Optional[str] = OMIT,
+        email: typing.Optional[str] = OMIT,
+        metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
+        payment_method_id: typing.Optional[str] = OMIT,
+        return_url: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SetupIntent:
         """
-        Save a buyer's payment method for later without charging it. Provide a confirmation token for a method the buyer just supplied, or an existing payment method to re-verify. The buyer may still have a step to complete — 3D Secure, a hosted enrollment, linking a bank account — so poll the setup intent's status endpoint for what to do next.
-
-        Required permissions:
-         - `payment:charge`
-         - `member:basic:read`
-         - `member:email:read`
+        Saves a buyer's payment method for later without charging it. Pass a `confirmation_token` for a method the buyer just supplied through the payment elements in setup mode, or a `payment_method_id` already on file to re-verify it. The response is the setup intent as created, not its outcome: while it is `requires_action` the buyer still has a step, so hand `client_secret` to the elements' `handleNextAction` or poll Retrieve setup status. A buyer's own token holding `member:payment_methods:use` may create a setup intent for itself from a confirmation token.
 
         Parameters
         ----------
-        request : CreateSetupIntentsRequest
+        account_id : str
+            The account to save the payment method for, prefixed `biz_`.
 
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
+        confirmation_token : typing.Optional[str]
+            A confirmation token describing a payment method the buyer just supplied, collected by the payment elements in setup mode. Provide this or `payment_method_id`, not both. The buyer is resolved from the token's billing email, or from `email`, and may still have a step to complete — poll Retrieve setup status for what to do next.
 
-        Returns
-        -------
-        CreateSetupIntentsResponse
-            A successful response
+        currency : typing.Optional[str]
+            The currency the saved payment method will be used with, as a lowercase ISO 4217 code. Controls which currency-specific payment methods are available. Defaults to `usd`.
 
-        Examples
-        --------
-        from whop_sdk import Whop
-        from whop_sdk.setup_intents import CreateSetupIntentsRequestConfirmationToken
+        email : typing.Optional[str]
+            Overrides the buyer email carried on the confirmation token, resolving or creating the user the method belongs to. Ignored unless `confirmation_token` is provided, and when the token was created by a signed-in buyer or the caller is the buyer.
 
-        client = Whop(
-            "2026-09-22",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-        client.setup_intents.create(
-            request=CreateSetupIntentsRequestConfirmationToken(
-                account_id="biz_xxxxxxxxxxxxxx",
-                confirmation_token="ctok_xxxxxxxxxxxxxx",
-            ),
-        )
-        """
-        _response = self._raw_client.create(request=request, request_options=request_options)
-        return _response.data
+        metadata : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Custom metadata to attach to the setup intent. Returned on the setup intent and its webhooks.
 
-    def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> SetupIntent:
-        """
-        Retrieves the details of an existing setup intent.
+        payment_method_id : typing.Optional[str]
+            An existing payment method to re-verify and save, prefixed `payt_`. Provide this or `confirmation_token`, not both. Not available to a buyer credential.
 
-        Required permissions:
-         - `payment:setup_intent:read`
-         - `member:basic:read`
-         - `member:email:read`
-
-        Parameters
-        ----------
-        id : str
-            The unique identifier of the setup intent.
+        return_url : typing.Optional[str]
+            Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -191,19 +165,61 @@ class SetupIntentsClient:
         Returns
         -------
         SetupIntent
-            A successful response
+            setup intent created from a confirmation token
 
         Examples
         --------
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-22",
+            "2026-09-22-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.setup_intents.create(
+            account_id="biz_xxxxxxxxxxxxxx",
+        )
+        """
+        _response = self._raw_client.create(
+            account_id=account_id,
+            confirmation_token=confirmation_token,
+            currency=currency,
+            email=email,
+            metadata=metadata,
+            payment_method_id=payment_method_id,
+            return_url=return_url,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> SetupIntent:
+        """
+        Returns one setup intent. Related records are ids — once `status` is `succeeded`, `payment_method_id` is the saved method to charge or retrieve. The buyer's own token may retrieve a setup intent that belongs to it.
+
+        Parameters
+        ----------
+        id : str
+            The setup intent to retrieve, prefixed `sint_`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SetupIntent
+            setup intent retrieved
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-09-22-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.setup_intents.retrieve(
-            id="sint_xxxxxxxxxxxxx",
+            id="id",
         )
         """
         _response = self._raw_client.retrieve(id, request_options=request_options)
@@ -236,7 +252,7 @@ class SetupIntentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-22",
+            "2026-09-22-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -274,7 +290,7 @@ class SetupIntentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-22",
+            "2026-09-22-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -304,83 +320,76 @@ class AsyncSetupIntentsClient:
     async def list(
         self,
         *,
-        account_id: str,
-        after: typing.Optional[str] = None,
-        before: typing.Optional[str] = None,
-        first: typing.Optional[int] = None,
-        last: typing.Optional[int] = None,
-        direction: typing.Optional[Direction] = None,
+        account_id: typing.Optional[str] = None,
+        status: typing.Optional[ListSetupIntentsRequestStatus] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
+        order: typing.Optional[ListSetupIntentsRequestOrder] = None,
+        direction: typing.Optional[ListSetupIntentsRequestDirection] = None,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        last: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncPager[SetupIntentListItem, ListSetupIntentsResponse]:
+    ) -> AsyncPager[SetupIntent, ListSetupIntentsResponse]:
         """
-        Returns a paginated list of setup intents for a company, with optional filtering by creation date. A setup intent securely collects and stores a member's payment method for future use without charging them immediately.
-
-        Required permissions:
-         - `payment:setup_intent:read`
-         - `member:basic:read`
-         - `member:email:read`
+        Lists setup intents newest first. An account API key lists its own account; a user token lists every account it can read, or one account with `account_id`. `client_secret` is always null on list rows — retrieve the setup intent for it.
 
         Parameters
         ----------
-        account_id : str
-            The unique identifier of the company to list setup intents for.
+        account_id : typing.Optional[str]
+            Only setup intents for this account, prefixed `biz_`.
 
-        after : typing.Optional[str]
-            Returns the elements in the list that come after the specified cursor.
-
-        before : typing.Optional[str]
-            Returns the elements in the list that come before the specified cursor.
-
-        first : typing.Optional[int]
-            Returns the first _n_ elements from the list.
-
-        last : typing.Optional[int]
-            Returns the last _n_ elements from the list.
-
-        direction : typing.Optional[Direction]
+        status : typing.Optional[ListSetupIntentsRequestStatus]
+            Only setup intents in this state.
 
         created_before : typing.Optional[dt.datetime]
-            Only return setup intents created before this timestamp.
+            Only setup intents created before this ISO 8601 timestamp.
 
         created_after : typing.Optional[dt.datetime]
-            Only return setup intents created after this timestamp.
+            Only setup intents created after this ISO 8601 timestamp.
+
+        order : typing.Optional[ListSetupIntentsRequestOrder]
+            The field to sort by.
+
+        direction : typing.Optional[ListSetupIntentsRequestDirection]
+            The sort direction.
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        last : typing.Optional[int]
+            Number of results to return from the end of the range.
+
+        before : typing.Optional[str]
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncPager[SetupIntentListItem, ListSetupIntentsResponse]
-            A successful response
+        AsyncPager[SetupIntent, ListSetupIntentsResponse]
+            setup intents listed
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-22",
+            "2026-09-22-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
 
 
         async def main() -> None:
-            response = await client.setup_intents.list(
-                first=42,
-                last=42,
-                created_before=datetime.datetime.fromisoformat(
-                    "2023-12-01 05:00:00+00:00",
-                ),
-                created_after=datetime.datetime.fromisoformat(
-                    "2023-12-01 05:00:00+00:00",
-                ),
-                account_id="biz_xxxxxxxxxxxxxx",
-            )
+            response = await client.setup_intents.list()
             async for item in response:
                 yield item
 
@@ -393,80 +402,55 @@ class AsyncSetupIntentsClient:
         """
         return await self._raw_client.list(
             account_id=account_id,
-            after=after,
-            before=before,
-            first=first,
-            last=last,
-            direction=direction,
+            status=status,
             created_before=created_before,
             created_after=created_after,
+            order=order,
+            direction=direction,
+            first=first,
+            after=after,
+            last=last,
+            before=before,
             request_options=request_options,
         )
 
     async def create(
-        self, *, request: CreateSetupIntentsRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> CreateSetupIntentsResponse:
+        self,
+        *,
+        account_id: str,
+        confirmation_token: typing.Optional[str] = OMIT,
+        currency: typing.Optional[str] = OMIT,
+        email: typing.Optional[str] = OMIT,
+        metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
+        payment_method_id: typing.Optional[str] = OMIT,
+        return_url: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SetupIntent:
         """
-        Save a buyer's payment method for later without charging it. Provide a confirmation token for a method the buyer just supplied, or an existing payment method to re-verify. The buyer may still have a step to complete — 3D Secure, a hosted enrollment, linking a bank account — so poll the setup intent's status endpoint for what to do next.
-
-        Required permissions:
-         - `payment:charge`
-         - `member:basic:read`
-         - `member:email:read`
+        Saves a buyer's payment method for later without charging it. Pass a `confirmation_token` for a method the buyer just supplied through the payment elements in setup mode, or a `payment_method_id` already on file to re-verify it. The response is the setup intent as created, not its outcome: while it is `requires_action` the buyer still has a step, so hand `client_secret` to the elements' `handleNextAction` or poll Retrieve setup status. A buyer's own token holding `member:payment_methods:use` may create a setup intent for itself from a confirmation token.
 
         Parameters
         ----------
-        request : CreateSetupIntentsRequest
+        account_id : str
+            The account to save the payment method for, prefixed `biz_`.
 
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
+        confirmation_token : typing.Optional[str]
+            A confirmation token describing a payment method the buyer just supplied, collected by the payment elements in setup mode. Provide this or `payment_method_id`, not both. The buyer is resolved from the token's billing email, or from `email`, and may still have a step to complete — poll Retrieve setup status for what to do next.
 
-        Returns
-        -------
-        CreateSetupIntentsResponse
-            A successful response
+        currency : typing.Optional[str]
+            The currency the saved payment method will be used with, as a lowercase ISO 4217 code. Controls which currency-specific payment methods are available. Defaults to `usd`.
 
-        Examples
-        --------
-        import asyncio
+        email : typing.Optional[str]
+            Overrides the buyer email carried on the confirmation token, resolving or creating the user the method belongs to. Ignored unless `confirmation_token` is provided, and when the token was created by a signed-in buyer or the caller is the buyer.
 
-        from whop_sdk import AsyncWhop
-        from whop_sdk.setup_intents import CreateSetupIntentsRequestConfirmationToken
+        metadata : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Custom metadata to attach to the setup intent. Returned on the setup intent and its webhooks.
 
-        client = AsyncWhop(
-            "2026-09-22",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
+        payment_method_id : typing.Optional[str]
+            An existing payment method to re-verify and save, prefixed `payt_`. Provide this or `confirmation_token`, not both. Not available to a buyer credential.
 
-
-        async def main() -> None:
-            await client.setup_intents.create(
-                request=CreateSetupIntentsRequestConfirmationToken(
-                    account_id="biz_xxxxxxxxxxxxxx",
-                    confirmation_token="ctok_xxxxxxxxxxxxxx",
-                ),
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.create(request=request, request_options=request_options)
-        return _response.data
-
-    async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> SetupIntent:
-        """
-        Retrieves the details of an existing setup intent.
-
-        Required permissions:
-         - `payment:setup_intent:read`
-         - `member:basic:read`
-         - `member:email:read`
-
-        Parameters
-        ----------
-        id : str
-            The unique identifier of the setup intent.
+        return_url : typing.Optional[str]
+            Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -474,7 +458,7 @@ class AsyncSetupIntentsClient:
         Returns
         -------
         SetupIntent
-            A successful response
+            setup intent created from a confirmation token
 
         Examples
         --------
@@ -483,7 +467,57 @@ class AsyncSetupIntentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-22",
+            "2026-09-22-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.setup_intents.create(
+                account_id="biz_xxxxxxxxxxxxxx",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.create(
+            account_id=account_id,
+            confirmation_token=confirmation_token,
+            currency=currency,
+            email=email,
+            metadata=metadata,
+            payment_method_id=payment_method_id,
+            return_url=return_url,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> SetupIntent:
+        """
+        Returns one setup intent. Related records are ids — once `status` is `succeeded`, `payment_method_id` is the saved method to charge or retrieve. The buyer's own token may retrieve a setup intent that belongs to it.
+
+        Parameters
+        ----------
+        id : str
+            The setup intent to retrieve, prefixed `sint_`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SetupIntent
+            setup intent retrieved
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-09-22-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -491,7 +525,7 @@ class AsyncSetupIntentsClient:
 
         async def main() -> None:
             await client.setup_intents.retrieve(
-                id="sint_xxxxxxxxxxxxx",
+                id="id",
             )
 
 
@@ -529,7 +563,7 @@ class AsyncSetupIntentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-22",
+            "2026-09-22-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -575,7 +609,7 @@ class AsyncSetupIntentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-22",
+            "2026-09-22-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

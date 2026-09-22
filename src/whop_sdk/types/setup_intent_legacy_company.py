@@ -6,14 +6,14 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class SetupIntentCheckoutConfiguration(UniversalBaseModel):
+class SetupIntentLegacyCompany(UniversalBaseModel):
     """
-    The checkout session configuration associated with this setup intent. Null if no checkout session was used.
+    The company that initiated this setup intent. Null if the company has been deleted.
     """
 
     id: str = pydantic.Field()
     """
-    The unique identifier for the checkout session.
+    The unique identifier for the company.
     """
 
     if IS_PYDANTIC_V2:

@@ -4,32 +4,25 @@ import datetime as dt
 import typing
 
 import pydantic
-from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ...types.setup_intent_statuses import SetupIntentStatuses
-from .create_setup_intents_response_checkout_configuration import CreateSetupIntentsResponseCheckoutConfiguration
-from .create_setup_intents_response_company import CreateSetupIntentsResponseCompany
-from .create_setup_intents_response_member import CreateSetupIntentsResponseMember
-from .create_setup_intents_response_payment_method import CreateSetupIntentsResponsePaymentMethod
+from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .setup_intent_legacy_checkout_configuration import SetupIntentLegacyCheckoutConfiguration
+from .setup_intent_legacy_company import SetupIntentLegacyCompany
+from .setup_intent_legacy_member import SetupIntentLegacyMember
+from .setup_intent_legacy_payment_method import SetupIntentLegacyPaymentMethod
+from .setup_intent_statuses import SetupIntentStatuses
 
 
-class CreateSetupIntentsResponse(UniversalBaseModel):
+class SetupIntentLegacy(UniversalBaseModel):
     """
     A setup intent allows a user to save a payment method for future use without making an immediate purchase.
     """
 
-    checkout_configuration: typing.Optional[CreateSetupIntentsResponseCheckoutConfiguration] = pydantic.Field(
-        default=None
-    )
+    checkout_configuration: typing.Optional[SetupIntentLegacyCheckoutConfiguration] = pydantic.Field(default=None)
     """
     The checkout session configuration associated with this setup intent. Null if no checkout session was used.
     """
 
-    client_secret: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The credential the buyer's surface presents to poll this setup intent and set its return URL. Returned when the setup is created and still has something to finish — hold on to it, because a later read will not repeat it. Null when the setup settled on the spot and there is nothing left to authorize. It unlocks this setup intent and nothing else; treat it like a password for that one attempt.
-    """
-
-    company: typing.Optional[CreateSetupIntentsResponseCompany] = pydantic.Field(default=None)
+    company: typing.Optional[SetupIntentLegacyCompany] = pydantic.Field(default=None)
     """
     The company that initiated this setup intent. Null if the company has been deleted.
     """
@@ -49,7 +42,7 @@ class CreateSetupIntentsResponse(UniversalBaseModel):
     The unique identifier for the setup intent.
     """
 
-    member: typing.Optional[CreateSetupIntentsResponseMember] = pydantic.Field(default=None)
+    member: typing.Optional[SetupIntentLegacyMember] = pydantic.Field(default=None)
     """
     The company member associated with this setup intent. Null if the user is not a member.
     """
@@ -59,7 +52,7 @@ class CreateSetupIntentsResponse(UniversalBaseModel):
     Custom key-value pairs attached to this setup intent. Null if no metadata was provided.
     """
 
-    payment_method: typing.Optional[CreateSetupIntentsResponsePaymentMethod] = pydantic.Field(default=None)
+    payment_method: typing.Optional[SetupIntentLegacyPaymentMethod] = pydantic.Field(default=None)
     """
     The saved payment method created by this setup intent. Null if the setup has not completed successfully.
     """
