@@ -35,26 +35,20 @@ class RawCashbackRulesClient:
     def create(
         self,
         *,
-        merchant_category_code: str,
-        merchant_name: str,
         rate_bps: int,
         starts_at: dt.datetime,
         description: typing.Optional[str] = OMIT,
         expires_at: typing.Optional[dt.datetime] = OMIT,
+        merchant_category_code: typing.Optional[str] = OMIT,
+        merchant_name: typing.Optional[str] = OMIT,
         scoped_account_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CashbackRule]:
         """
-        Creates a future-dated card cashback rule funded by the authenticated platform account. Requires payout:transfer_funds. Both the raw merchant name and four-digit MCC are required. Optionally limit the rule to one direct connected account. The funding account is derived from the credential and cannot be supplied. Creation does not transfer funds. Supports Idempotency-Key for safe retries.
+        Creates a future-dated card cashback rule funded by the authenticated platform account. Requires payout:transfer_funds. Merchant name and MCC are optional. Every supplied merchant filter must match. When both are omitted or null, scoped_account_id is required and all eligible transactions for that account match. Optionally limit the rule to one direct connected account. The funding account is derived from the credential and cannot be supplied. Creation does not transfer funds. Supports Idempotency-Key for safe retries.
 
         Parameters
         ----------
-        merchant_category_code : str
-            Four-digit MCC, including leading zeros. Must match together with merchant_name.
-
-        merchant_name : str
-            Raw merchant name reported by the card provider, not the enriched display name. Matched with the MCC; not a substring or wildcard.
-
         rate_bps : int
             Cashback rate in basis points: 500 means 5%.
 
@@ -67,8 +61,14 @@ class RawCashbackRulesClient:
         expires_at : typing.Optional[dt.datetime]
             Exclusive end, strictly later than starts_at. Omit or set null for no expiration.
 
+        merchant_category_code : typing.Optional[str]
+            Four-digit MCC, including leading zeros. Null matches any MCC. When both merchant filters are absent, scoped_account_id is required.
+
+        merchant_name : typing.Optional[str]
+            Raw merchant name reported by the card provider, not the enriched display name. Omit or set null to match any merchant name. Supplied names must contain a non-whitespace character and match together with any MCC filter.
+
         scoped_account_id : typing.Optional[str]
-            Account ID prefixed biz_ belonging to a direct connected account. Omit or set null to designate all direct connected accounts.
+            Account ID prefixed biz_ belonging to a direct connected account. Required when both merchant filters are omitted or null. Otherwise, omit or set null to designate all direct connected accounts.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -317,10 +317,10 @@ class RawCashbackRulesClient:
             Exclusive end as an ISO 8601 timestamp, strictly later than the original starts_at. May be in the past to end an active rule. Set null to remove the expiration.
 
         merchant_category_code : typing.Optional[str]
-            Four-digit MCC, including leading zeros. Must match together with merchant_name.
+            Four-digit MCC, including leading zeros. Null matches any MCC. When both merchant filters are absent, scoped_account_id is required.
 
         merchant_name : typing.Optional[str]
-            Raw merchant name reported by the card provider. Must contain a non-whitespace character. Matched with the MCC; not a substring or wildcard.
+            Raw merchant name reported by the card provider. Set null to match any merchant name. Supplied names must contain a non-whitespace character and match together with any MCC filter. Clearing both filters requires an existing scoped_account_id.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -416,26 +416,20 @@ class AsyncRawCashbackRulesClient:
     async def create(
         self,
         *,
-        merchant_category_code: str,
-        merchant_name: str,
         rate_bps: int,
         starts_at: dt.datetime,
         description: typing.Optional[str] = OMIT,
         expires_at: typing.Optional[dt.datetime] = OMIT,
+        merchant_category_code: typing.Optional[str] = OMIT,
+        merchant_name: typing.Optional[str] = OMIT,
         scoped_account_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CashbackRule]:
         """
-        Creates a future-dated card cashback rule funded by the authenticated platform account. Requires payout:transfer_funds. Both the raw merchant name and four-digit MCC are required. Optionally limit the rule to one direct connected account. The funding account is derived from the credential and cannot be supplied. Creation does not transfer funds. Supports Idempotency-Key for safe retries.
+        Creates a future-dated card cashback rule funded by the authenticated platform account. Requires payout:transfer_funds. Merchant name and MCC are optional. Every supplied merchant filter must match. When both are omitted or null, scoped_account_id is required and all eligible transactions for that account match. Optionally limit the rule to one direct connected account. The funding account is derived from the credential and cannot be supplied. Creation does not transfer funds. Supports Idempotency-Key for safe retries.
 
         Parameters
         ----------
-        merchant_category_code : str
-            Four-digit MCC, including leading zeros. Must match together with merchant_name.
-
-        merchant_name : str
-            Raw merchant name reported by the card provider, not the enriched display name. Matched with the MCC; not a substring or wildcard.
-
         rate_bps : int
             Cashback rate in basis points: 500 means 5%.
 
@@ -448,8 +442,14 @@ class AsyncRawCashbackRulesClient:
         expires_at : typing.Optional[dt.datetime]
             Exclusive end, strictly later than starts_at. Omit or set null for no expiration.
 
+        merchant_category_code : typing.Optional[str]
+            Four-digit MCC, including leading zeros. Null matches any MCC. When both merchant filters are absent, scoped_account_id is required.
+
+        merchant_name : typing.Optional[str]
+            Raw merchant name reported by the card provider, not the enriched display name. Omit or set null to match any merchant name. Supplied names must contain a non-whitespace character and match together with any MCC filter.
+
         scoped_account_id : typing.Optional[str]
-            Account ID prefixed biz_ belonging to a direct connected account. Omit or set null to designate all direct connected accounts.
+            Account ID prefixed biz_ belonging to a direct connected account. Required when both merchant filters are omitted or null. Otherwise, omit or set null to designate all direct connected accounts.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -701,10 +701,10 @@ class AsyncRawCashbackRulesClient:
             Exclusive end as an ISO 8601 timestamp, strictly later than the original starts_at. May be in the past to end an active rule. Set null to remove the expiration.
 
         merchant_category_code : typing.Optional[str]
-            Four-digit MCC, including leading zeros. Must match together with merchant_name.
+            Four-digit MCC, including leading zeros. Null matches any MCC. When both merchant filters are absent, scoped_account_id is required.
 
         merchant_name : typing.Optional[str]
-            Raw merchant name reported by the card provider. Must contain a non-whitespace character. Matched with the MCC; not a substring or wildcard.
+            Raw merchant name reported by the card provider. Set null to match any merchant name. Supplied names must contain a non-whitespace character and match together with any MCC filter. Clearing both filters requires an existing scoped_account_id.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

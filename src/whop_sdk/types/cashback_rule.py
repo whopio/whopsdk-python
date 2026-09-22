@@ -37,14 +37,14 @@ class CashbackRule(UniversalBaseModel):
     Cashback rule ID, prefixed `cicbr_`.
     """
 
-    merchant_category_code: str = pydantic.Field()
+    merchant_category_code: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Four-digit merchant category code. Both merchant filters must match.
+    Four-digit merchant category code. Null matches any MCC. When both merchant filters are null, scoped_account_id is required.
     """
 
-    merchant_name: str = pydantic.Field()
+    merchant_name: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Raw merchant name reported by the card provider. Matched together with the merchant category code; not a substring or enriched display-name match.
+    Raw merchant name reported by the card provider. Null matches any merchant name. When set, matches together with any MCC filter; not a substring or enriched display-name match.
     """
 
     rate_bps: int = pydantic.Field()

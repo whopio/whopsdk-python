@@ -11628,7 +11628,7 @@ client.cards.update(
 <dl>
 <dd>
 
-Creates a future-dated card cashback rule funded by the authenticated platform account. Requires payout:transfer_funds. Both the raw merchant name and four-digit MCC are required. Optionally limit the rule to one direct connected account. The funding account is derived from the credential and cannot be supplied. Creation does not transfer funds. Supports Idempotency-Key for safe retries.
+Creates a future-dated card cashback rule funded by the authenticated platform account. Requires payout:transfer_funds. Merchant name and MCC are optional. Every supplied merchant filter must match. When both are omitted or null, scoped_account_id is required and all eligible transactions for that account match. Optionally limit the rule to one direct connected account. The funding account is derived from the credential and cannot be supplied. Creation does not transfer funds. Supports Idempotency-Key for safe retries.
 </dd>
 </dl>
 </dd>
@@ -11653,8 +11653,6 @@ client = Whop(
 )
 
 client.cashback_rules.create(
-    merchant_category_code="5734",
-    merchant_name="ACME SOFTWARE",
     rate_bps=500,
     starts_at=datetime.datetime.fromisoformat("2026-01-01T12:00:00+00:00"),
 )
@@ -11669,22 +11667,6 @@ client.cashback_rules.create(
 
 <dl>
 <dd>
-
-<dl>
-<dd>
-
-**merchant_category_code:** `str` — Four-digit MCC, including leading zeros. Must match together with merchant_name.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**merchant_name:** `str` — Raw merchant name reported by the card provider, not the enriched display name. Matched with the MCC; not a substring or wildcard.
-    
-</dd>
-</dl>
 
 <dl>
 <dd>
@@ -11721,7 +11703,23 @@ client.cashback_rules.create(
 <dl>
 <dd>
 
-**scoped_account_id:** `typing.Optional[str]` — Account ID prefixed biz_ belonging to a direct connected account. Omit or set null to designate all direct connected accounts.
+**merchant_category_code:** `typing.Optional[str]` — Four-digit MCC, including leading zeros. Null matches any MCC. When both merchant filters are absent, scoped_account_id is required.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**merchant_name:** `typing.Optional[str]` — Raw merchant name reported by the card provider, not the enriched display name. Omit or set null to match any merchant name. Supplied names must contain a non-whitespace character and match together with any MCC filter.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**scoped_account_id:** `typing.Optional[str]` — Account ID prefixed biz_ belonging to a direct connected account. Required when both merchant filters are omitted or null. Otherwise, omit or set null to designate all direct connected accounts.
     
 </dd>
 </dl>
@@ -11929,7 +11927,7 @@ client.cashback_rules.update(
 <dl>
 <dd>
 
-**merchant_category_code:** `typing.Optional[str]` — Four-digit MCC, including leading zeros. Must match together with merchant_name.
+**merchant_category_code:** `typing.Optional[str]` — Four-digit MCC, including leading zeros. Null matches any MCC. When both merchant filters are absent, scoped_account_id is required.
     
 </dd>
 </dl>
@@ -11937,7 +11935,7 @@ client.cashback_rules.update(
 <dl>
 <dd>
 
-**merchant_name:** `typing.Optional[str]` — Raw merchant name reported by the card provider. Must contain a non-whitespace character. Matched with the MCC; not a substring or wildcard.
+**merchant_name:** `typing.Optional[str]` — Raw merchant name reported by the card provider. Set null to match any merchant name. Supplied names must contain a non-whitespace character and match together with any MCC filter. Clearing both filters requires an existing scoped_account_id.
     
 </dd>
 </dl>
