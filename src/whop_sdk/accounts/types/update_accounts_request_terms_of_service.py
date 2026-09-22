@@ -6,19 +6,14 @@ import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class UpdateDisputesRequestEvidenceRefundPolicyAttachment(UniversalBaseModel):
+class UpdateAccountsRequestTermsOfService(UniversalBaseModel):
     """
-    The refund policy document. Defaults to the account's return policy when not set.
-    """
-
-    direct_upload_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The ID returned by a direct upload.
+    The account's terms of service document. Attached to new disputes as the cancellation policy evidence when no cancellation policy is set. PDF only. Pass a JSON object containing an `id` from [Create File](/api-reference/files/create-file), or `null` to remove it.
     """
 
     id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The ID of an already-uploaded file.
+    ID of a file from [Create File](/api-reference/files/create-file), prefixed `file_`.
     """
 
     if IS_PYDANTIC_V2:

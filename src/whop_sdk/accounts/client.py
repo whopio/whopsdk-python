@@ -25,11 +25,16 @@ from .types.retry_ads_payment_accounts_response import RetryAdsPaymentAccountsRe
 from .types.transfer_ownership_accounts_response import TransferOwnershipAccountsResponse
 from .types.update_accounts_request_banner_image import UpdateAccountsRequestBannerImage
 from .types.update_accounts_request_business_address import UpdateAccountsRequestBusinessAddress
+from .types.update_accounts_request_cancellation_policy import UpdateAccountsRequestCancellationPolicy
+from .types.update_accounts_request_eula import UpdateAccountsRequestEula
 from .types.update_accounts_request_home_preferences_item import UpdateAccountsRequestHomePreferencesItem
 from .types.update_accounts_request_logo import UpdateAccountsRequestLogo
 from .types.update_accounts_request_onboarding_type import UpdateAccountsRequestOnboardingType
 from .types.update_accounts_request_opengraph_image import UpdateAccountsRequestOpengraphImage
 from .types.update_accounts_request_opengraph_image_variant import UpdateAccountsRequestOpengraphImageVariant
+from .types.update_accounts_request_privacy_policy import UpdateAccountsRequestPrivacyPolicy
+from .types.update_accounts_request_return_policy import UpdateAccountsRequestReturnPolicy
+from .types.update_accounts_request_shipping_policy import UpdateAccountsRequestShippingPolicy
 from .types.update_accounts_request_store_page_config import UpdateAccountsRequestStorePageConfig
 from .types.update_accounts_request_tax_collection_enabled_states_item import (
     UpdateAccountsRequestTaxCollectionEnabledStatesItem,
@@ -37,6 +42,7 @@ from .types.update_accounts_request_tax_collection_enabled_states_item import (
 from .types.update_accounts_request_tax_identifiers_item import UpdateAccountsRequestTaxIdentifiersItem
 from .types.update_accounts_request_tax_remitted_by import UpdateAccountsRequestTaxRemittedBy
 from .types.update_accounts_request_tax_type import UpdateAccountsRequestTaxType
+from .types.update_accounts_request_terms_of_service import UpdateAccountsRequestTermsOfService
 from .types.update_accounts_request_three_ds_level import UpdateAccountsRequestThreeDsLevel
 
 if typing.TYPE_CHECKING:
@@ -314,9 +320,11 @@ class AccountsClient:
         business_address: typing.Optional[UpdateAccountsRequestBusinessAddress] = OMIT,
         business_name: typing.Optional[str] = OMIT,
         business_type: typing.Optional[str] = OMIT,
+        cancellation_policy: typing.Optional[UpdateAccountsRequestCancellationPolicy] = OMIT,
         collect_vat_id: typing.Optional[bool] = OMIT,
         country: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
+        eula: typing.Optional[UpdateAccountsRequestEula] = OMIT,
         featured_affiliate_product_id: typing.Optional[str] = OMIT,
         home_preferences: typing.Optional[typing.Sequence[UpdateAccountsRequestHomePreferencesItem]] = OMIT,
         industry_group: typing.Optional[str] = OMIT,
@@ -329,10 +337,13 @@ class AccountsClient:
         opengraph_image_variant: typing.Optional[UpdateAccountsRequestOpengraphImageVariant] = OMIT,
         other_business_description: typing.Optional[str] = OMIT,
         other_industry_description: typing.Optional[str] = OMIT,
+        privacy_policy: typing.Optional[UpdateAccountsRequestPrivacyPolicy] = OMIT,
         product_tax_code_id: typing.Optional[str] = OMIT,
         require2fa: typing.Optional[bool] = OMIT,
+        return_policy: typing.Optional[UpdateAccountsRequestReturnPolicy] = OMIT,
         route: typing.Optional[str] = OMIT,
         send_customer_emails: typing.Optional[bool] = OMIT,
+        shipping_policy: typing.Optional[UpdateAccountsRequestShippingPolicy] = OMIT,
         show_joined_whops: typing.Optional[bool] = OMIT,
         show_reviews_dtc: typing.Optional[bool] = OMIT,
         show_user_directory: typing.Optional[bool] = OMIT,
@@ -345,6 +356,7 @@ class AccountsClient:
         tax_identifiers: typing.Optional[typing.Sequence[UpdateAccountsRequestTaxIdentifiersItem]] = OMIT,
         tax_remitted_by: typing.Optional[UpdateAccountsRequestTaxRemittedBy] = OMIT,
         tax_type: typing.Optional[UpdateAccountsRequestTaxType] = OMIT,
+        terms_of_service: typing.Optional[UpdateAccountsRequestTermsOfService] = OMIT,
         three_ds_level: typing.Optional[UpdateAccountsRequestThreeDsLevel] = OMIT,
         title: typing.Optional[str] = OMIT,
         use_logo_as_opengraph_image_fallback: typing.Optional[bool] = OMIT,
@@ -377,6 +389,9 @@ class AccountsClient:
         business_type : typing.Optional[str]
             High-level business category for the account. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
 
+        cancellation_policy : typing.Optional[UpdateAccountsRequestCancellationPolicy]
+            The account's cancellation policy document. Attached to new disputes as the cancellation policy evidence, with the terms of service as the fallback. PDF only. Pass a JSON object containing an `id` from [Create File](/api-reference/files/create-file), or `null` to remove it.
+
         collect_vat_id : typing.Optional[bool]
             Whether checkout shows a VAT/tax ID field for buyers to optionally enter. Does not require a VAT ID to purchase.
 
@@ -385,6 +400,9 @@ class AccountsClient:
 
         description : typing.Optional[str]
             Account promotional description. When creating a Whop-managed Facebook page, it is truncated to 155 characters and used as the About text.
+
+        eula : typing.Optional[UpdateAccountsRequestEula]
+            The account's end-user license agreement document. PDF only. Pass a JSON object containing an `id` from [Create File](/api-reference/files/create-file), or `null` to remove it.
 
         featured_affiliate_product_id : typing.Optional[str]
             The ID of the product to feature for affiliates. Pass `null` to clear.
@@ -422,17 +440,26 @@ class AccountsClient:
         other_industry_description : typing.Optional[str]
             The description of the industry type when industry_type is other.
 
+        privacy_policy : typing.Optional[UpdateAccountsRequestPrivacyPolicy]
+            The account's privacy policy document. PDF only. Pass a JSON object containing an `id` from [Create File](/api-reference/files/create-file), or `null` to remove it.
+
         product_tax_code_id : typing.Optional[str]
             ID of the tax classification code applied by default to the account's products. See the available [product categories](https://docs.numeral.com/essentials/product-categories).
 
         require2fa : typing.Optional[bool]
             Whether the account requires authorized users to have two-factor authentication enabled.
 
+        return_policy : typing.Optional[UpdateAccountsRequestReturnPolicy]
+            The account's return and refund policy document. Attached to new disputes as the refund policy evidence, with the terms of service as the fallback. PDF only. Pass a JSON object containing an `id` from [Create File](/api-reference/files/create-file), or `null` to remove it.
+
         route : typing.Optional[str]
             The unique URL slug for the account.
 
         send_customer_emails : typing.Optional[bool]
             Whether Whop sends transactional emails to customers on behalf of this account.
+
+        shipping_policy : typing.Optional[UpdateAccountsRequestShippingPolicy]
+            The account's shipping policy document. Sent with physical-goods dispute evidence. PDF only. Pass a JSON object containing an `id` from [Create File](/api-reference/files/create-file), or `null` to remove it.
 
         show_joined_whops : typing.Optional[bool]
             Whether the account appears in joined whops on other accounts.
@@ -463,6 +490,9 @@ class AccountsClient:
 
         tax_type : typing.Optional[UpdateAccountsRequestTaxType]
             Determines whether tax is included in the listed price or added at checkout.
+
+        terms_of_service : typing.Optional[UpdateAccountsRequestTermsOfService]
+            The account's terms of service document. Attached to new disputes as the cancellation policy evidence when no cancellation policy is set. PDF only. Pass a JSON object containing an `id` from [Create File](/api-reference/files/create-file), or `null` to remove it.
 
         three_ds_level : typing.Optional[UpdateAccountsRequestThreeDsLevel]
             3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. `null` uses the standard checkout flow.
@@ -505,9 +535,11 @@ class AccountsClient:
             business_address=business_address,
             business_name=business_name,
             business_type=business_type,
+            cancellation_policy=cancellation_policy,
             collect_vat_id=collect_vat_id,
             country=country,
             description=description,
+            eula=eula,
             featured_affiliate_product_id=featured_affiliate_product_id,
             home_preferences=home_preferences,
             industry_group=industry_group,
@@ -520,10 +552,13 @@ class AccountsClient:
             opengraph_image_variant=opengraph_image_variant,
             other_business_description=other_business_description,
             other_industry_description=other_industry_description,
+            privacy_policy=privacy_policy,
             product_tax_code_id=product_tax_code_id,
             require2fa=require2fa,
+            return_policy=return_policy,
             route=route,
             send_customer_emails=send_customer_emails,
+            shipping_policy=shipping_policy,
             show_joined_whops=show_joined_whops,
             show_reviews_dtc=show_reviews_dtc,
             show_user_directory=show_user_directory,
@@ -534,6 +569,7 @@ class AccountsClient:
             tax_identifiers=tax_identifiers,
             tax_remitted_by=tax_remitted_by,
             tax_type=tax_type,
+            terms_of_service=terms_of_service,
             three_ds_level=three_ds_level,
             title=title,
             use_logo_as_opengraph_image_fallback=use_logo_as_opengraph_image_fallback,
@@ -1149,9 +1185,11 @@ class AsyncAccountsClient:
         business_address: typing.Optional[UpdateAccountsRequestBusinessAddress] = OMIT,
         business_name: typing.Optional[str] = OMIT,
         business_type: typing.Optional[str] = OMIT,
+        cancellation_policy: typing.Optional[UpdateAccountsRequestCancellationPolicy] = OMIT,
         collect_vat_id: typing.Optional[bool] = OMIT,
         country: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
+        eula: typing.Optional[UpdateAccountsRequestEula] = OMIT,
         featured_affiliate_product_id: typing.Optional[str] = OMIT,
         home_preferences: typing.Optional[typing.Sequence[UpdateAccountsRequestHomePreferencesItem]] = OMIT,
         industry_group: typing.Optional[str] = OMIT,
@@ -1164,10 +1202,13 @@ class AsyncAccountsClient:
         opengraph_image_variant: typing.Optional[UpdateAccountsRequestOpengraphImageVariant] = OMIT,
         other_business_description: typing.Optional[str] = OMIT,
         other_industry_description: typing.Optional[str] = OMIT,
+        privacy_policy: typing.Optional[UpdateAccountsRequestPrivacyPolicy] = OMIT,
         product_tax_code_id: typing.Optional[str] = OMIT,
         require2fa: typing.Optional[bool] = OMIT,
+        return_policy: typing.Optional[UpdateAccountsRequestReturnPolicy] = OMIT,
         route: typing.Optional[str] = OMIT,
         send_customer_emails: typing.Optional[bool] = OMIT,
+        shipping_policy: typing.Optional[UpdateAccountsRequestShippingPolicy] = OMIT,
         show_joined_whops: typing.Optional[bool] = OMIT,
         show_reviews_dtc: typing.Optional[bool] = OMIT,
         show_user_directory: typing.Optional[bool] = OMIT,
@@ -1180,6 +1221,7 @@ class AsyncAccountsClient:
         tax_identifiers: typing.Optional[typing.Sequence[UpdateAccountsRequestTaxIdentifiersItem]] = OMIT,
         tax_remitted_by: typing.Optional[UpdateAccountsRequestTaxRemittedBy] = OMIT,
         tax_type: typing.Optional[UpdateAccountsRequestTaxType] = OMIT,
+        terms_of_service: typing.Optional[UpdateAccountsRequestTermsOfService] = OMIT,
         three_ds_level: typing.Optional[UpdateAccountsRequestThreeDsLevel] = OMIT,
         title: typing.Optional[str] = OMIT,
         use_logo_as_opengraph_image_fallback: typing.Optional[bool] = OMIT,
@@ -1212,6 +1254,9 @@ class AsyncAccountsClient:
         business_type : typing.Optional[str]
             High-level business category for the account. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
 
+        cancellation_policy : typing.Optional[UpdateAccountsRequestCancellationPolicy]
+            The account's cancellation policy document. Attached to new disputes as the cancellation policy evidence, with the terms of service as the fallback. PDF only. Pass a JSON object containing an `id` from [Create File](/api-reference/files/create-file), or `null` to remove it.
+
         collect_vat_id : typing.Optional[bool]
             Whether checkout shows a VAT/tax ID field for buyers to optionally enter. Does not require a VAT ID to purchase.
 
@@ -1220,6 +1265,9 @@ class AsyncAccountsClient:
 
         description : typing.Optional[str]
             Account promotional description. When creating a Whop-managed Facebook page, it is truncated to 155 characters and used as the About text.
+
+        eula : typing.Optional[UpdateAccountsRequestEula]
+            The account's end-user license agreement document. PDF only. Pass a JSON object containing an `id` from [Create File](/api-reference/files/create-file), or `null` to remove it.
 
         featured_affiliate_product_id : typing.Optional[str]
             The ID of the product to feature for affiliates. Pass `null` to clear.
@@ -1257,17 +1305,26 @@ class AsyncAccountsClient:
         other_industry_description : typing.Optional[str]
             The description of the industry type when industry_type is other.
 
+        privacy_policy : typing.Optional[UpdateAccountsRequestPrivacyPolicy]
+            The account's privacy policy document. PDF only. Pass a JSON object containing an `id` from [Create File](/api-reference/files/create-file), or `null` to remove it.
+
         product_tax_code_id : typing.Optional[str]
             ID of the tax classification code applied by default to the account's products. See the available [product categories](https://docs.numeral.com/essentials/product-categories).
 
         require2fa : typing.Optional[bool]
             Whether the account requires authorized users to have two-factor authentication enabled.
 
+        return_policy : typing.Optional[UpdateAccountsRequestReturnPolicy]
+            The account's return and refund policy document. Attached to new disputes as the refund policy evidence, with the terms of service as the fallback. PDF only. Pass a JSON object containing an `id` from [Create File](/api-reference/files/create-file), or `null` to remove it.
+
         route : typing.Optional[str]
             The unique URL slug for the account.
 
         send_customer_emails : typing.Optional[bool]
             Whether Whop sends transactional emails to customers on behalf of this account.
+
+        shipping_policy : typing.Optional[UpdateAccountsRequestShippingPolicy]
+            The account's shipping policy document. Sent with physical-goods dispute evidence. PDF only. Pass a JSON object containing an `id` from [Create File](/api-reference/files/create-file), or `null` to remove it.
 
         show_joined_whops : typing.Optional[bool]
             Whether the account appears in joined whops on other accounts.
@@ -1298,6 +1355,9 @@ class AsyncAccountsClient:
 
         tax_type : typing.Optional[UpdateAccountsRequestTaxType]
             Determines whether tax is included in the listed price or added at checkout.
+
+        terms_of_service : typing.Optional[UpdateAccountsRequestTermsOfService]
+            The account's terms of service document. Attached to new disputes as the cancellation policy evidence when no cancellation policy is set. PDF only. Pass a JSON object containing an `id` from [Create File](/api-reference/files/create-file), or `null` to remove it.
 
         three_ds_level : typing.Optional[UpdateAccountsRequestThreeDsLevel]
             3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. `null` uses the standard checkout flow.
@@ -1348,9 +1408,11 @@ class AsyncAccountsClient:
             business_address=business_address,
             business_name=business_name,
             business_type=business_type,
+            cancellation_policy=cancellation_policy,
             collect_vat_id=collect_vat_id,
             country=country,
             description=description,
+            eula=eula,
             featured_affiliate_product_id=featured_affiliate_product_id,
             home_preferences=home_preferences,
             industry_group=industry_group,
@@ -1363,10 +1425,13 @@ class AsyncAccountsClient:
             opengraph_image_variant=opengraph_image_variant,
             other_business_description=other_business_description,
             other_industry_description=other_industry_description,
+            privacy_policy=privacy_policy,
             product_tax_code_id=product_tax_code_id,
             require2fa=require2fa,
+            return_policy=return_policy,
             route=route,
             send_customer_emails=send_customer_emails,
+            shipping_policy=shipping_policy,
             show_joined_whops=show_joined_whops,
             show_reviews_dtc=show_reviews_dtc,
             show_user_directory=show_user_directory,
@@ -1377,6 +1442,7 @@ class AsyncAccountsClient:
             tax_identifiers=tax_identifiers,
             tax_remitted_by=tax_remitted_by,
             tax_type=tax_type,
+            terms_of_service=terms_of_service,
             three_ds_level=three_ds_level,
             title=title,
             use_logo_as_opengraph_image_fallback=use_logo_as_opengraph_image_fallback,
