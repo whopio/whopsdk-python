@@ -34,6 +34,7 @@ class EconomicIntelligence(UniversalBaseModel):
     When the recommendation was approved, as an ISO 8601 timestamp, or `null` if it has not been approved.
     """
 
+    expected_tool_calls: typing.Optional[typing.List[str]] = None
     id: str = pydantic.Field()
     """
     Recommendation ID, prefixed `reca_`, or `create_business` for an unsaved setup recommendation. Authenticate and list again before executing an unsaved recommendation.
