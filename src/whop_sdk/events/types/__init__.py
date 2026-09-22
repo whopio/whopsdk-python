@@ -38,6 +38,35 @@ if typing.TYPE_CHECKING:
     from .list_events_response_data_item_related_user import ListEventsResponseDataItemRelatedUser
     from .list_events_response_data_item_user import ListEventsResponseDataItemUser
     from .list_events_response_page_info import ListEventsResponsePageInfo
+    from .post_pixel_event_created_payload import PostPixelEventCreatedPayload
+    from .post_pixel_event_created_payload_api_version import PostPixelEventCreatedPayloadApiVersion
+    from .post_pixel_event_created_payload_data import PostPixelEventCreatedPayloadData
+    from .post_pixel_event_created_payload_data_context import PostPixelEventCreatedPayloadDataContext
+    from .post_pixel_event_created_payload_data_context_source_type import (
+        PostPixelEventCreatedPayloadDataContextSourceType,
+    )
+    from .post_pixel_event_created_payload_data_questions_item import PostPixelEventCreatedPayloadDataQuestionsItem
+    from .post_pixel_event_created_payload_data_related import PostPixelEventCreatedPayloadDataRelated
+    from .post_pixel_event_created_payload_data_related_account import PostPixelEventCreatedPayloadDataRelatedAccount
+    from .post_pixel_event_created_payload_data_related_ad import PostPixelEventCreatedPayloadDataRelatedAd
+    from .post_pixel_event_created_payload_data_related_ad_campaign import (
+        PostPixelEventCreatedPayloadDataRelatedAdCampaign,
+    )
+    from .post_pixel_event_created_payload_data_related_ad_group import PostPixelEventCreatedPayloadDataRelatedAdGroup
+    from .post_pixel_event_created_payload_data_related_app import PostPixelEventCreatedPayloadDataRelatedApp
+    from .post_pixel_event_created_payload_data_related_audience import PostPixelEventCreatedPayloadDataRelatedAudience
+    from .post_pixel_event_created_payload_data_related_audience_audience_type import (
+        PostPixelEventCreatedPayloadDataRelatedAudienceAudienceType,
+    )
+    from .post_pixel_event_created_payload_data_related_audience_source_type import (
+        PostPixelEventCreatedPayloadDataRelatedAudienceSourceType,
+    )
+    from .post_pixel_event_created_payload_data_related_payment import PostPixelEventCreatedPayloadDataRelatedPayment
+    from .post_pixel_event_created_payload_data_related_plan import PostPixelEventCreatedPayloadDataRelatedPlan
+    from .post_pixel_event_created_payload_data_related_product import PostPixelEventCreatedPayloadDataRelatedProduct
+    from .post_pixel_event_created_payload_data_related_user import PostPixelEventCreatedPayloadDataRelatedUser
+    from .post_pixel_event_created_payload_data_user import PostPixelEventCreatedPayloadDataUser
+    from .post_pixel_event_created_payload_type import PostPixelEventCreatedPayloadType
     from .pulse_events_response import PulseEventsResponse
     from .pulse_events_response_data_item import PulseEventsResponseDataItem
     from .pulse_events_response_data_item_event_name import PulseEventsResponseDataItemEventName
@@ -73,6 +102,27 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListEventsResponseDataItemRelatedUser": ".list_events_response_data_item_related_user",
     "ListEventsResponseDataItemUser": ".list_events_response_data_item_user",
     "ListEventsResponsePageInfo": ".list_events_response_page_info",
+    "PostPixelEventCreatedPayload": ".post_pixel_event_created_payload",
+    "PostPixelEventCreatedPayloadApiVersion": ".post_pixel_event_created_payload_api_version",
+    "PostPixelEventCreatedPayloadData": ".post_pixel_event_created_payload_data",
+    "PostPixelEventCreatedPayloadDataContext": ".post_pixel_event_created_payload_data_context",
+    "PostPixelEventCreatedPayloadDataContextSourceType": ".post_pixel_event_created_payload_data_context_source_type",
+    "PostPixelEventCreatedPayloadDataQuestionsItem": ".post_pixel_event_created_payload_data_questions_item",
+    "PostPixelEventCreatedPayloadDataRelated": ".post_pixel_event_created_payload_data_related",
+    "PostPixelEventCreatedPayloadDataRelatedAccount": ".post_pixel_event_created_payload_data_related_account",
+    "PostPixelEventCreatedPayloadDataRelatedAd": ".post_pixel_event_created_payload_data_related_ad",
+    "PostPixelEventCreatedPayloadDataRelatedAdCampaign": ".post_pixel_event_created_payload_data_related_ad_campaign",
+    "PostPixelEventCreatedPayloadDataRelatedAdGroup": ".post_pixel_event_created_payload_data_related_ad_group",
+    "PostPixelEventCreatedPayloadDataRelatedApp": ".post_pixel_event_created_payload_data_related_app",
+    "PostPixelEventCreatedPayloadDataRelatedAudience": ".post_pixel_event_created_payload_data_related_audience",
+    "PostPixelEventCreatedPayloadDataRelatedAudienceAudienceType": ".post_pixel_event_created_payload_data_related_audience_audience_type",
+    "PostPixelEventCreatedPayloadDataRelatedAudienceSourceType": ".post_pixel_event_created_payload_data_related_audience_source_type",
+    "PostPixelEventCreatedPayloadDataRelatedPayment": ".post_pixel_event_created_payload_data_related_payment",
+    "PostPixelEventCreatedPayloadDataRelatedPlan": ".post_pixel_event_created_payload_data_related_plan",
+    "PostPixelEventCreatedPayloadDataRelatedProduct": ".post_pixel_event_created_payload_data_related_product",
+    "PostPixelEventCreatedPayloadDataRelatedUser": ".post_pixel_event_created_payload_data_related_user",
+    "PostPixelEventCreatedPayloadDataUser": ".post_pixel_event_created_payload_data_user",
+    "PostPixelEventCreatedPayloadType": ".post_pixel_event_created_payload_type",
     "PulseEventsResponse": ".pulse_events_response",
     "PulseEventsResponseDataItem": ".pulse_events_response_data_item",
     "PulseEventsResponseDataItemEventName": ".pulse_events_response_data_item_event_name",
@@ -132,6 +182,27 @@ __all__ = [
     "ListEventsResponseDataItemRelatedUser",
     "ListEventsResponseDataItemUser",
     "ListEventsResponsePageInfo",
+    "PostPixelEventCreatedPayload",
+    "PostPixelEventCreatedPayloadApiVersion",
+    "PostPixelEventCreatedPayloadData",
+    "PostPixelEventCreatedPayloadDataContext",
+    "PostPixelEventCreatedPayloadDataContextSourceType",
+    "PostPixelEventCreatedPayloadDataQuestionsItem",
+    "PostPixelEventCreatedPayloadDataRelated",
+    "PostPixelEventCreatedPayloadDataRelatedAccount",
+    "PostPixelEventCreatedPayloadDataRelatedAd",
+    "PostPixelEventCreatedPayloadDataRelatedAdCampaign",
+    "PostPixelEventCreatedPayloadDataRelatedAdGroup",
+    "PostPixelEventCreatedPayloadDataRelatedApp",
+    "PostPixelEventCreatedPayloadDataRelatedAudience",
+    "PostPixelEventCreatedPayloadDataRelatedAudienceAudienceType",
+    "PostPixelEventCreatedPayloadDataRelatedAudienceSourceType",
+    "PostPixelEventCreatedPayloadDataRelatedPayment",
+    "PostPixelEventCreatedPayloadDataRelatedPlan",
+    "PostPixelEventCreatedPayloadDataRelatedProduct",
+    "PostPixelEventCreatedPayloadDataRelatedUser",
+    "PostPixelEventCreatedPayloadDataUser",
+    "PostPixelEventCreatedPayloadType",
     "PulseEventsResponse",
     "PulseEventsResponseDataItem",
     "PulseEventsResponseDataItemEventName",
