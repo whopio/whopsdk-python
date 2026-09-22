@@ -291,7 +291,7 @@ class Payment(UniversalBaseModel):
 
     voidable: bool = pydantic.Field()
     """
-    True when the payment is `open` on a past-due membership and its processor supports voiding — see `POST /payments/{id}/void`.
+    True when the payment can be voided or canceled. The request is rejected if the payment is no longer eligible — see `POST /payments/{id}/void`.
     """
 
     if IS_PYDANTIC_V2:
