@@ -37,7 +37,7 @@ class UpdateDisputesRequestEvidence(UniversalBaseModel):
         pydantic.Field(default=None)
     )
     """
-    The cancellation policy document.
+    The cancellation policy document. Defaults to the account's cancellation policy, then its terms of service, when not set.
     """
 
     cancellation_policy_disclosure: typing.Optional[str] = pydantic.Field(default=None)
@@ -76,7 +76,7 @@ class UpdateDisputesRequestEvidence(UniversalBaseModel):
         default=None
     )
     """
-    The refund policy document.
+    The refund policy document. Defaults to the account's return policy when not set.
     """
 
     refund_policy_disclosure: typing.Optional[str] = pydantic.Field(default=None)

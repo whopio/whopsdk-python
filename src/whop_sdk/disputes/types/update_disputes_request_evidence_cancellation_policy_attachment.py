@@ -8,7 +8,7 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 class UpdateDisputesRequestEvidenceCancellationPolicyAttachment(UniversalBaseModel):
     """
-    The cancellation policy document.
+    The cancellation policy document. Defaults to the account's cancellation policy, then its terms of service, when not set.
     """
 
     direct_upload_id: typing.Optional[str] = pydantic.Field(default=None)

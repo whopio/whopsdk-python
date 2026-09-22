@@ -21,7 +21,7 @@ class DisputeEvidence(UniversalBaseModel):
 
     cancellation_policy_attachment: typing.Optional[DisputeAttachment] = pydantic.Field(default=None)
     """
-    The cancellation policy document. Falls back to Whop's platform policy when the seller has not uploaded their own.
+    The cancellation policy document. Defaults to the account's cancellation policy, then its terms of service, then its return policy, then Whop's platform policy.
     """
 
     cancellation_policy_disclosure: typing.Optional[str] = pydantic.Field(default=None)
@@ -57,7 +57,7 @@ class DisputeEvidence(UniversalBaseModel):
 
     refund_policy_attachment: typing.Optional[DisputeAttachment] = pydantic.Field(default=None)
     """
-    The refund policy document. Falls back to Whop's platform policy when the seller has not uploaded their own.
+    The refund policy document. Defaults to the account's return policy, then its terms of service, then Whop's platform policy.
     """
 
     refund_policy_disclosure: typing.Optional[str] = pydantic.Field(default=None)

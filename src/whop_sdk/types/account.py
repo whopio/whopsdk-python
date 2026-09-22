@@ -56,6 +56,11 @@ class Account(UniversalBaseModel):
     Whether pending funds may be transferred from this platform account to its connected accounts.
     """
 
+    cancellation_policy: typing.Optional[File] = pydantic.Field(default=None)
+    """
+    The account's cancellation policy document, or `null` if they have not published one.
+    """
+
     capabilities: typing.Optional[AccountCapabilities] = pydantic.Field(default=None)
     """
     Payment rails enabled for this account, each `active`, `inactive`, or `pending` (onboarding or review in progress). Computed only on `retrieve` and `me` for callers with `company:balance:read` scope; `null` otherwise.
@@ -222,6 +227,11 @@ class Account(UniversalBaseModel):
     send_customer_emails: bool = pydantic.Field()
     """
     Whether Whop sends transactional emails to customers on behalf of this account.
+    """
+
+    shipping_policy: typing.Optional[File] = pydantic.Field(default=None)
+    """
+    The account's shipping policy document, or `null` if they have not published one.
     """
 
     show_joined_whops: bool = pydantic.Field()
