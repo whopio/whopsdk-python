@@ -38,7 +38,7 @@ class TestUsers:
             interval="hour",
             time_zone="time_zone",
             to="to",
-            api_version_date="2026-09-15",
+            api_version_date="2026-09-22",
         )
         assert_matches_type(User, user, path=["response"])
 
@@ -101,7 +101,7 @@ class TestUsers:
                 "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             },
             username="tanyacole",
-            api_version_date="2026-09-15",
+            api_version_date="2026-09-22",
         )
         assert_matches_type(User, user, path=["response"])
 
@@ -154,7 +154,7 @@ class TestUsers:
             first=100,
             last=100,
             query="query",
-            api_version_date="2026-09-15",
+            api_version_date="2026-09-22",
         )
         assert_matches_type(SyncCursorPage[User], user, path=["response"])
 
@@ -195,7 +195,7 @@ class TestUsers:
         user = client.users.check_access(
             resource_id="resource_id",
             id="id",
-            api_version_date="2026-09-15",
+            api_version_date="2026-09-22",
         )
         assert_matches_type(UserCheckAccessResponse, user, path=["response"])
 
@@ -268,7 +268,7 @@ class TestAsyncUsers:
             interval="hour",
             time_zone="time_zone",
             to="to",
-            api_version_date="2026-09-15",
+            api_version_date="2026-09-22",
         )
         assert_matches_type(User, user, path=["response"])
 
@@ -331,7 +331,7 @@ class TestAsyncUsers:
                 "direct_upload_id": "eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             },
             username="tanyacole",
-            api_version_date="2026-09-15",
+            api_version_date="2026-09-22",
         )
         assert_matches_type(User, user, path=["response"])
 
@@ -384,7 +384,7 @@ class TestAsyncUsers:
             first=100,
             last=100,
             query="query",
-            api_version_date="2026-09-15",
+            api_version_date="2026-09-22",
         )
         assert_matches_type(AsyncCursorPage[User], user, path=["response"])
 
@@ -425,7 +425,7 @@ class TestAsyncUsers:
         user = await async_client.users.check_access(
             resource_id="resource_id",
             id="id",
-            api_version_date="2026-09-15",
+            api_version_date="2026-09-22",
         )
         assert_matches_type(UserCheckAccessResponse, user, path=["response"])
 
