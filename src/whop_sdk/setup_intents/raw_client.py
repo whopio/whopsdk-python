@@ -13,20 +13,17 @@ from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
-from ..core.serialization import convert_and_respect_annotation_metadata
 from ..errors.bad_request_error import BadRequestError
+from ..errors.conflict_error import ConflictError
 from ..errors.forbidden_error import ForbiddenError
-from ..errors.internal_server_error import InternalServerError
 from ..errors.not_found_error import NotFoundError
-from ..errors.too_many_requests_error import TooManyRequestsError
 from ..errors.unauthorized_error import UnauthorizedError
-from ..errors.unprocessable_entity_error import UnprocessableEntityError
-from ..types.direction import Direction
 from ..types.setup_intent import SetupIntent
-from ..types.setup_intent_list_item import SetupIntentListItem
 from ..types.setup_status import SetupStatus
-from .types.create_setup_intents_request import CreateSetupIntentsRequest
-from .types.create_setup_intents_response import CreateSetupIntentsResponse
+from ..types.v1error_response import V1ErrorResponse
+from .types.list_setup_intents_request_direction import ListSetupIntentsRequestDirection
+from .types.list_setup_intents_request_order import ListSetupIntentsRequestOrder
+from .types.list_setup_intents_request_status import ListSetupIntentsRequestStatus
 from .types.list_setup_intents_response import ListSetupIntentsResponse
 from pydantic import ValidationError
 
@@ -41,69 +38,75 @@ class RawSetupIntentsClient:
     def list(
         self,
         *,
-        account_id: str,
-        after: typing.Optional[str] = None,
-        before: typing.Optional[str] = None,
-        first: typing.Optional[int] = None,
-        last: typing.Optional[int] = None,
-        direction: typing.Optional[Direction] = None,
+        account_id: typing.Optional[str] = None,
+        status: typing.Optional[ListSetupIntentsRequestStatus] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
+        order: typing.Optional[ListSetupIntentsRequestOrder] = None,
+        direction: typing.Optional[ListSetupIntentsRequestDirection] = None,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        last: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> SyncPager[SetupIntentListItem, ListSetupIntentsResponse]:
+    ) -> SyncPager[SetupIntent, ListSetupIntentsResponse]:
         """
-        Returns a paginated list of setup intents for a company, with optional filtering by creation date. A setup intent securely collects and stores a member's payment method for future use without charging them immediately.
-
-        Required permissions:
-         - `payment:setup_intent:read`
-         - `member:basic:read`
-         - `member:email:read`
+        Lists setup intents newest first. An account API key lists its own account; a user token lists every account it can read, or one account with `account_id`. `client_secret` is always null on list rows — retrieve the setup intent for it.
 
         Parameters
         ----------
-        account_id : str
-            The unique identifier of the company to list setup intents for.
+        account_id : typing.Optional[str]
+            Only setup intents for this account, prefixed `biz_`.
 
-        after : typing.Optional[str]
-            Returns the elements in the list that come after the specified cursor.
-
-        before : typing.Optional[str]
-            Returns the elements in the list that come before the specified cursor.
-
-        first : typing.Optional[int]
-            Returns the first _n_ elements from the list.
-
-        last : typing.Optional[int]
-            Returns the last _n_ elements from the list.
-
-        direction : typing.Optional[Direction]
+        status : typing.Optional[ListSetupIntentsRequestStatus]
+            Only setup intents in this state.
 
         created_before : typing.Optional[dt.datetime]
-            Only return setup intents created before this timestamp.
+            Only setup intents created before this ISO 8601 timestamp.
 
         created_after : typing.Optional[dt.datetime]
-            Only return setup intents created after this timestamp.
+            Only setup intents created after this ISO 8601 timestamp.
+
+        order : typing.Optional[ListSetupIntentsRequestOrder]
+            The field to sort by.
+
+        direction : typing.Optional[ListSetupIntentsRequestDirection]
+            The sort direction.
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        last : typing.Optional[int]
+            Number of results to return from the end of the range.
+
+        before : typing.Optional[str]
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        SyncPager[SetupIntentListItem, ListSetupIntentsResponse]
-            A successful response
+        SyncPager[SetupIntent, ListSetupIntentsResponse]
+            setup intents listed
         """
         _response = self._client_wrapper.httpx_client.request(
             "setup_intents",
             method="GET",
             params={
-                "after": after,
-                "before": before,
-                "first": first,
-                "last": last,
-                "direction": direction,
+                "account_id": account_id,
+                "status": status,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "account_id": account_id,
+                "order": order,
+                "direction": direction,
+                "first": first,
+                "after": after,
+                "last": last,
+                "before": before,
             },
             request_options=request_options,
         )
@@ -124,13 +127,15 @@ class RawSetupIntentsClient:
                     _has_next = _parsed_next is not None and _parsed_next != ""
                     _get_next = lambda: self.list(
                         account_id=account_id,
-                        after=_parsed_next,
-                        before=before,
-                        first=first,
-                        last=last,
-                        direction=direction,
+                        status=status,
                         created_before=created_before,
                         created_after=created_after,
+                        order=order,
+                        direction=direction,
+                        first=first,
+                        after=_parsed_next,
+                        last=last,
+                        before=before,
                         request_options=request_options,
                     )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
@@ -167,50 +172,6 @@ class RawSetupIntentsClient:
                         ),
                     ),
                 )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -221,151 +182,42 @@ class RawSetupIntentsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def create(
-        self, *, request: CreateSetupIntentsRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[CreateSetupIntentsResponse]:
-        """
-        Save a buyer's payment method for later without charging it. Provide a confirmation token for a method the buyer just supplied, or an existing payment method to re-verify. The buyer may still have a step to complete — 3D Secure, a hosted enrollment, linking a bank account — so poll the setup intent's status endpoint for what to do next.
-
-        Required permissions:
-         - `payment:charge`
-         - `member:basic:read`
-         - `member:email:read`
-
-        Parameters
-        ----------
-        request : CreateSetupIntentsRequest
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[CreateSetupIntentsResponse]
-            A successful response
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            "setup_intents",
-            method="POST",
-            json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=CreateSetupIntentsRequest, direction="write"
-            ),
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    CreateSetupIntentsResponse,
-                    parse_obj_as(
-                        type_=CreateSetupIntentsResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def retrieve(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        account_id: str,
+        confirmation_token: typing.Optional[str] = OMIT,
+        currency: typing.Optional[str] = OMIT,
+        email: typing.Optional[str] = OMIT,
+        metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
+        payment_method_id: typing.Optional[str] = OMIT,
+        return_url: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[SetupIntent]:
         """
-        Retrieves the details of an existing setup intent.
-
-        Required permissions:
-         - `payment:setup_intent:read`
-         - `member:basic:read`
-         - `member:email:read`
+        Saves a buyer's payment method for later without charging it. Pass a `confirmation_token` for a method the buyer just supplied through the payment elements in setup mode, or a `payment_method_id` already on file to re-verify it. The response is the setup intent as created, not its outcome: while it is `requires_action` the buyer still has a step, so hand `client_secret` to the elements' `handleNextAction` or poll Retrieve setup status. A buyer's own token holding `member:payment_methods:use` may create a setup intent for itself from a confirmation token.
 
         Parameters
         ----------
-        id : str
-            The unique identifier of the setup intent.
+        account_id : str
+            The account to save the payment method for, prefixed `biz_`.
+
+        confirmation_token : typing.Optional[str]
+            A confirmation token describing a payment method the buyer just supplied, collected by the payment elements in setup mode. Provide this or `payment_method_id`, not both. The buyer is resolved from the token's billing email, or from `email`, and may still have a step to complete — poll Retrieve setup status for what to do next.
+
+        currency : typing.Optional[str]
+            The currency the saved payment method will be used with, as a lowercase ISO 4217 code. Controls which currency-specific payment methods are available. Defaults to `usd`.
+
+        email : typing.Optional[str]
+            Overrides the buyer email carried on the confirmation token, resolving or creating the user the method belongs to. Ignored unless `confirmation_token` is provided, and when the token was created by a signed-in buyer or the caller is the buyer.
+
+        metadata : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Custom metadata to attach to the setup intent. Returned on the setup intent and its webhooks.
+
+        payment_method_id : typing.Optional[str]
+            An existing payment method to re-verify and save, prefixed `payt_`. Provide this or `confirmation_token`, not both. Not available to a buyer credential.
+
+        return_url : typing.Optional[str]
+            Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -373,12 +225,25 @@ class RawSetupIntentsClient:
         Returns
         -------
         HttpResponse[SetupIntent]
-            A successful response
+            setup intent created from a confirmation token
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"setup_intents/{encode_path_param(id)}",
-            method="GET",
+            "setup_intents",
+            method="POST",
+            json={
+                "account_id": account_id,
+                "confirmation_token": confirmation_token,
+                "currency": currency,
+                "email": email,
+                "metadata": metadata,
+                "payment_method_id": payment_method_id,
+                "return_url": return_url,
+            },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
+            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
@@ -434,8 +299,62 @@ class RawSetupIntentsClient:
                         ),
                     ),
                 )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        V1ErrorResponse,
+                        parse_obj_as(
+                            type_=V1ErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def retrieve(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[SetupIntent]:
+        """
+        Returns one setup intent. Related records are ids — once `status` is `succeeded`, `payment_method_id` is the saved method to charge or retrieve. The buyer's own token may retrieve a setup intent that belongs to it.
+
+        Parameters
+        ----------
+        id : str
+            The setup intent to retrieve, prefixed `sint_`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[SetupIntent]
+            setup intent retrieved
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"setup_intents/{encode_path_param(id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    SetupIntent,
+                    parse_obj_as(
+                        type_=SetupIntent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -445,8 +364,8 @@ class RawSetupIntentsClient:
                         ),
                     ),
                 )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
+            if _response.status_code == 403:
+                raise ForbiddenError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -456,8 +375,8 @@ class RawSetupIntentsClient:
                         ),
                     ),
                 )
-            if _response.status_code == 500:
-                raise InternalServerError(
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -646,69 +565,75 @@ class AsyncRawSetupIntentsClient:
     async def list(
         self,
         *,
-        account_id: str,
-        after: typing.Optional[str] = None,
-        before: typing.Optional[str] = None,
-        first: typing.Optional[int] = None,
-        last: typing.Optional[int] = None,
-        direction: typing.Optional[Direction] = None,
+        account_id: typing.Optional[str] = None,
+        status: typing.Optional[ListSetupIntentsRequestStatus] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
+        order: typing.Optional[ListSetupIntentsRequestOrder] = None,
+        direction: typing.Optional[ListSetupIntentsRequestDirection] = None,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        last: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncPager[SetupIntentListItem, ListSetupIntentsResponse]:
+    ) -> AsyncPager[SetupIntent, ListSetupIntentsResponse]:
         """
-        Returns a paginated list of setup intents for a company, with optional filtering by creation date. A setup intent securely collects and stores a member's payment method for future use without charging them immediately.
-
-        Required permissions:
-         - `payment:setup_intent:read`
-         - `member:basic:read`
-         - `member:email:read`
+        Lists setup intents newest first. An account API key lists its own account; a user token lists every account it can read, or one account with `account_id`. `client_secret` is always null on list rows — retrieve the setup intent for it.
 
         Parameters
         ----------
-        account_id : str
-            The unique identifier of the company to list setup intents for.
+        account_id : typing.Optional[str]
+            Only setup intents for this account, prefixed `biz_`.
 
-        after : typing.Optional[str]
-            Returns the elements in the list that come after the specified cursor.
-
-        before : typing.Optional[str]
-            Returns the elements in the list that come before the specified cursor.
-
-        first : typing.Optional[int]
-            Returns the first _n_ elements from the list.
-
-        last : typing.Optional[int]
-            Returns the last _n_ elements from the list.
-
-        direction : typing.Optional[Direction]
+        status : typing.Optional[ListSetupIntentsRequestStatus]
+            Only setup intents in this state.
 
         created_before : typing.Optional[dt.datetime]
-            Only return setup intents created before this timestamp.
+            Only setup intents created before this ISO 8601 timestamp.
 
         created_after : typing.Optional[dt.datetime]
-            Only return setup intents created after this timestamp.
+            Only setup intents created after this ISO 8601 timestamp.
+
+        order : typing.Optional[ListSetupIntentsRequestOrder]
+            The field to sort by.
+
+        direction : typing.Optional[ListSetupIntentsRequestDirection]
+            The sort direction.
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        last : typing.Optional[int]
+            Number of results to return from the end of the range.
+
+        before : typing.Optional[str]
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncPager[SetupIntentListItem, ListSetupIntentsResponse]
-            A successful response
+        AsyncPager[SetupIntent, ListSetupIntentsResponse]
+            setup intents listed
         """
         _response = await self._client_wrapper.httpx_client.request(
             "setup_intents",
             method="GET",
             params={
-                "after": after,
-                "before": before,
-                "first": first,
-                "last": last,
-                "direction": direction,
+                "account_id": account_id,
+                "status": status,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
-                "account_id": account_id,
+                "order": order,
+                "direction": direction,
+                "first": first,
+                "after": after,
+                "last": last,
+                "before": before,
             },
             request_options=request_options,
         )
@@ -731,13 +656,15 @@ class AsyncRawSetupIntentsClient:
                     async def _get_next():
                         return await self.list(
                             account_id=account_id,
-                            after=_parsed_next,
-                            before=before,
-                            first=first,
-                            last=last,
-                            direction=direction,
+                            status=status,
                             created_before=created_before,
                             created_after=created_after,
+                            order=order,
+                            direction=direction,
+                            first=first,
+                            after=_parsed_next,
+                            last=last,
+                            before=before,
                             request_options=request_options,
                         )
 
@@ -775,50 +702,6 @@ class AsyncRawSetupIntentsClient:
                         ),
                     ),
                 )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -829,151 +712,42 @@ class AsyncRawSetupIntentsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def create(
-        self, *, request: CreateSetupIntentsRequest, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[CreateSetupIntentsResponse]:
-        """
-        Save a buyer's payment method for later without charging it. Provide a confirmation token for a method the buyer just supplied, or an existing payment method to re-verify. The buyer may still have a step to complete — 3D Secure, a hosted enrollment, linking a bank account — so poll the setup intent's status endpoint for what to do next.
-
-        Required permissions:
-         - `payment:charge`
-         - `member:basic:read`
-         - `member:email:read`
-
-        Parameters
-        ----------
-        request : CreateSetupIntentsRequest
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[CreateSetupIntentsResponse]
-            A successful response
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "setup_intents",
-            method="POST",
-            json=convert_and_respect_annotation_metadata(
-                object_=request, annotation=CreateSetupIntentsRequest, direction="write"
-            ),
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    CreateSetupIntentsResponse,
-                    parse_obj_as(
-                        type_=CreateSetupIntentsResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def retrieve(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        account_id: str,
+        confirmation_token: typing.Optional[str] = OMIT,
+        currency: typing.Optional[str] = OMIT,
+        email: typing.Optional[str] = OMIT,
+        metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
+        payment_method_id: typing.Optional[str] = OMIT,
+        return_url: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[SetupIntent]:
         """
-        Retrieves the details of an existing setup intent.
-
-        Required permissions:
-         - `payment:setup_intent:read`
-         - `member:basic:read`
-         - `member:email:read`
+        Saves a buyer's payment method for later without charging it. Pass a `confirmation_token` for a method the buyer just supplied through the payment elements in setup mode, or a `payment_method_id` already on file to re-verify it. The response is the setup intent as created, not its outcome: while it is `requires_action` the buyer still has a step, so hand `client_secret` to the elements' `handleNextAction` or poll Retrieve setup status. A buyer's own token holding `member:payment_methods:use` may create a setup intent for itself from a confirmation token.
 
         Parameters
         ----------
-        id : str
-            The unique identifier of the setup intent.
+        account_id : str
+            The account to save the payment method for, prefixed `biz_`.
+
+        confirmation_token : typing.Optional[str]
+            A confirmation token describing a payment method the buyer just supplied, collected by the payment elements in setup mode. Provide this or `payment_method_id`, not both. The buyer is resolved from the token's billing email, or from `email`, and may still have a step to complete — poll Retrieve setup status for what to do next.
+
+        currency : typing.Optional[str]
+            The currency the saved payment method will be used with, as a lowercase ISO 4217 code. Controls which currency-specific payment methods are available. Defaults to `usd`.
+
+        email : typing.Optional[str]
+            Overrides the buyer email carried on the confirmation token, resolving or creating the user the method belongs to. Ignored unless `confirmation_token` is provided, and when the token was created by a signed-in buyer or the caller is the buyer.
+
+        metadata : typing.Optional[typing.Dict[str, typing.Optional[str]]]
+            Custom metadata to attach to the setup intent. Returned on the setup intent and its webhooks.
+
+        payment_method_id : typing.Optional[str]
+            An existing payment method to re-verify and save, prefixed `payt_`. Provide this or `confirmation_token`, not both. Not available to a buyer credential.
+
+        return_url : typing.Optional[str]
+            Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -981,12 +755,25 @@ class AsyncRawSetupIntentsClient:
         Returns
         -------
         AsyncHttpResponse[SetupIntent]
-            A successful response
+            setup intent created from a confirmation token
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"setup_intents/{encode_path_param(id)}",
-            method="GET",
+            "setup_intents",
+            method="POST",
+            json={
+                "account_id": account_id,
+                "confirmation_token": confirmation_token,
+                "currency": currency,
+                "email": email,
+                "metadata": metadata,
+                "payment_method_id": payment_method_id,
+                "return_url": return_url,
+            },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
+            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
@@ -1042,8 +829,62 @@ class AsyncRawSetupIntentsClient:
                         ),
                     ),
                 )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        V1ErrorResponse,
+                        parse_obj_as(
+                            type_=V1ErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def retrieve(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[SetupIntent]:
+        """
+        Returns one setup intent. Related records are ids — once `status` is `succeeded`, `payment_method_id` is the saved method to charge or retrieve. The buyer's own token may retrieve a setup intent that belongs to it.
+
+        Parameters
+        ----------
+        id : str
+            The setup intent to retrieve, prefixed `sint_`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[SetupIntent]
+            setup intent retrieved
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"setup_intents/{encode_path_param(id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    SetupIntent,
+                    parse_obj_as(
+                        type_=SetupIntent,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1053,8 +894,8 @@ class AsyncRawSetupIntentsClient:
                         ),
                     ),
                 )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
+            if _response.status_code == 403:
+                raise ForbiddenError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1064,8 +905,8 @@ class AsyncRawSetupIntentsClient:
                         ),
                     ),
                 )
-            if _response.status_code == 500:
-                raise InternalServerError(
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,

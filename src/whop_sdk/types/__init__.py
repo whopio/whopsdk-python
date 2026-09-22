@@ -1249,8 +1249,14 @@ if typing.TYPE_CHECKING:
     from .review_user import ReviewUser
     from .schedule_frequencies import ScheduleFrequencies
     from .setup_intent import SetupIntent
-    from .setup_intent_checkout_configuration import SetupIntentCheckoutConfiguration
-    from .setup_intent_company import SetupIntentCompany
+    from .setup_intent_legacy import SetupIntentLegacy
+    from .setup_intent_legacy_checkout_configuration import SetupIntentLegacyCheckoutConfiguration
+    from .setup_intent_legacy_company import SetupIntentLegacyCompany
+    from .setup_intent_legacy_member import SetupIntentLegacyMember
+    from .setup_intent_legacy_member_user import SetupIntentLegacyMemberUser
+    from .setup_intent_legacy_payment_method import SetupIntentLegacyPaymentMethod
+    from .setup_intent_legacy_payment_method_card import SetupIntentLegacyPaymentMethodCard
+    from .setup_intent_legacy_payment_method_mailing_address import SetupIntentLegacyPaymentMethodMailingAddress
     from .setup_intent_list_item import SetupIntentListItem
     from .setup_intent_list_item_checkout_configuration import SetupIntentListItemCheckoutConfiguration
     from .setup_intent_list_item_company import SetupIntentListItemCompany
@@ -1259,11 +1265,7 @@ if typing.TYPE_CHECKING:
     from .setup_intent_list_item_payment_method import SetupIntentListItemPaymentMethod
     from .setup_intent_list_item_payment_method_card import SetupIntentListItemPaymentMethodCard
     from .setup_intent_list_item_payment_method_mailing_address import SetupIntentListItemPaymentMethodMailingAddress
-    from .setup_intent_member import SetupIntentMember
-    from .setup_intent_member_user import SetupIntentMemberUser
-    from .setup_intent_payment_method import SetupIntentPaymentMethod
-    from .setup_intent_payment_method_card import SetupIntentPaymentMethodCard
-    from .setup_intent_payment_method_mailing_address import SetupIntentPaymentMethodMailingAddress
+    from .setup_intent_status import SetupIntentStatus
     from .setup_intent_statuses import SetupIntentStatuses
     from .setup_last_setup_error import SetupLastSetupError
     from .setup_status import SetupStatus
@@ -2474,8 +2476,14 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ReviewUser": ".review_user",
     "ScheduleFrequencies": ".schedule_frequencies",
     "SetupIntent": ".setup_intent",
-    "SetupIntentCheckoutConfiguration": ".setup_intent_checkout_configuration",
-    "SetupIntentCompany": ".setup_intent_company",
+    "SetupIntentLegacy": ".setup_intent_legacy",
+    "SetupIntentLegacyCheckoutConfiguration": ".setup_intent_legacy_checkout_configuration",
+    "SetupIntentLegacyCompany": ".setup_intent_legacy_company",
+    "SetupIntentLegacyMember": ".setup_intent_legacy_member",
+    "SetupIntentLegacyMemberUser": ".setup_intent_legacy_member_user",
+    "SetupIntentLegacyPaymentMethod": ".setup_intent_legacy_payment_method",
+    "SetupIntentLegacyPaymentMethodCard": ".setup_intent_legacy_payment_method_card",
+    "SetupIntentLegacyPaymentMethodMailingAddress": ".setup_intent_legacy_payment_method_mailing_address",
     "SetupIntentListItem": ".setup_intent_list_item",
     "SetupIntentListItemCheckoutConfiguration": ".setup_intent_list_item_checkout_configuration",
     "SetupIntentListItemCompany": ".setup_intent_list_item_company",
@@ -2484,11 +2492,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SetupIntentListItemPaymentMethod": ".setup_intent_list_item_payment_method",
     "SetupIntentListItemPaymentMethodCard": ".setup_intent_list_item_payment_method_card",
     "SetupIntentListItemPaymentMethodMailingAddress": ".setup_intent_list_item_payment_method_mailing_address",
-    "SetupIntentMember": ".setup_intent_member",
-    "SetupIntentMemberUser": ".setup_intent_member_user",
-    "SetupIntentPaymentMethod": ".setup_intent_payment_method",
-    "SetupIntentPaymentMethodCard": ".setup_intent_payment_method_card",
-    "SetupIntentPaymentMethodMailingAddress": ".setup_intent_payment_method_mailing_address",
+    "SetupIntentStatus": ".setup_intent_status",
     "SetupIntentStatuses": ".setup_intent_statuses",
     "SetupLastSetupError": ".setup_last_setup_error",
     "SetupStatus": ".setup_status",
@@ -3721,8 +3725,14 @@ __all__ = [
     "ReviewUser",
     "ScheduleFrequencies",
     "SetupIntent",
-    "SetupIntentCheckoutConfiguration",
-    "SetupIntentCompany",
+    "SetupIntentLegacy",
+    "SetupIntentLegacyCheckoutConfiguration",
+    "SetupIntentLegacyCompany",
+    "SetupIntentLegacyMember",
+    "SetupIntentLegacyMemberUser",
+    "SetupIntentLegacyPaymentMethod",
+    "SetupIntentLegacyPaymentMethodCard",
+    "SetupIntentLegacyPaymentMethodMailingAddress",
     "SetupIntentListItem",
     "SetupIntentListItemCheckoutConfiguration",
     "SetupIntentListItemCompany",
@@ -3731,11 +3741,7 @@ __all__ = [
     "SetupIntentListItemPaymentMethod",
     "SetupIntentListItemPaymentMethodCard",
     "SetupIntentListItemPaymentMethodMailingAddress",
-    "SetupIntentMember",
-    "SetupIntentMemberUser",
-    "SetupIntentPaymentMethod",
-    "SetupIntentPaymentMethodCard",
-    "SetupIntentPaymentMethodMailingAddress",
+    "SetupIntentStatus",
     "SetupIntentStatuses",
     "SetupLastSetupError",
     "SetupStatus",

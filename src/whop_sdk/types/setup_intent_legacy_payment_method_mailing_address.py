@@ -6,7 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class SetupIntentPaymentMethodMailingAddress(UniversalBaseModel):
+class SetupIntentLegacyPaymentMethodMailingAddress(UniversalBaseModel):
     """
     The mailing address associated with the payment method's user
     """

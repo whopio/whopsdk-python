@@ -4,24 +4,13 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ...types.page_info import PageInfo
-from ...types.setup_intent_list_item import SetupIntentListItem
+from ...types.setup_intent import SetupIntent
+from .list_setup_intents_response_page_info import ListSetupIntentsResponsePageInfo
 
 
 class ListSetupIntentsResponse(UniversalBaseModel):
-    """
-    The connection type for SetupIntent.
-    """
-
-    data: typing.List[SetupIntentListItem] = pydantic.Field()
-    """
-    A list of nodes.
-    """
-
-    page_info: PageInfo = pydantic.Field()
-    """
-    Information to aid in pagination.
-    """
+    data: typing.List[SetupIntent]
+    page_info: ListSetupIntentsResponsePageInfo
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

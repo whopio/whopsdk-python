@@ -35753,12 +35753,7 @@ client.reviews.retrieve(
 <dl>
 <dd>
 
-Returns a paginated list of setup intents for a company, with optional filtering by creation date. A setup intent securely collects and stores a member's payment method for future use without charging them immediately.
-
-Required permissions:
- - `payment:setup_intent:read`
- - `member:basic:read`
- - `member:email:read`
+Lists setup intents newest first. An account API key lists its own account; a user token lists every account it can read, or one account with `account_id`. `client_secret` is always null on list rows — retrieve the setup intent for it.
 </dd>
 </dl>
 </dd>
@@ -35775,20 +35770,13 @@ Required permissions:
 ```python
 from whop_sdk import Whop
 from whop_sdk.environment import WhopEnvironment
-import datetime
 
 client = Whop(
     token="<token>",
     environment=WhopEnvironment.DEFAULT,
 )
 
-client.setup_intents.list(
-    first=42,
-    last=42,
-    created_before=datetime.datetime.fromisoformat("2023-12-01T05:00:00+00:00"),
-    created_after=datetime.datetime.fromisoformat("2023-12-01T05:00:00+00:00"),
-    account_id="biz_xxxxxxxxxxxxxx",
-)
+client.setup_intents.list()
 
 ```
 </dd>
@@ -35804,7 +35792,7 @@ client.setup_intents.list(
 <dl>
 <dd>
 
-**account_id:** `str` — The unique identifier of the company to list setup intents for.
+**account_id:** `typing.Optional[str]` — Only setup intents for this account, prefixed `biz_`.
     
 </dd>
 </dl>
@@ -35812,7 +35800,7 @@ client.setup_intents.list(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Returns the elements in the list that come after the specified cursor.
+**status:** `typing.Optional[ListSetupIntentsRequestStatus]` — Only setup intents in this state.
     
 </dd>
 </dl>
@@ -35820,7 +35808,7 @@ client.setup_intents.list(
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Returns the elements in the list that come before the specified cursor.
+**created_before:** `typing.Optional[datetime.datetime]` — Only setup intents created before this ISO 8601 timestamp.
     
 </dd>
 </dl>
@@ -35828,7 +35816,7 @@ client.setup_intents.list(
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — Returns the first _n_ elements from the list.
+**created_after:** `typing.Optional[datetime.datetime]` — Only setup intents created after this ISO 8601 timestamp.
     
 </dd>
 </dl>
@@ -35836,7 +35824,7 @@ client.setup_intents.list(
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — Returns the last _n_ elements from the list.
+**order:** `typing.Optional[ListSetupIntentsRequestOrder]` — The field to sort by.
     
 </dd>
 </dl>
@@ -35844,7 +35832,7 @@ client.setup_intents.list(
 <dl>
 <dd>
 
-**direction:** `typing.Optional[Direction]` 
+**direction:** `typing.Optional[ListSetupIntentsRequestDirection]` — The sort direction.
     
 </dd>
 </dl>
@@ -35852,7 +35840,7 @@ client.setup_intents.list(
 <dl>
 <dd>
 
-**created_before:** `typing.Optional[datetime.datetime]` — Only return setup intents created before this timestamp.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -35860,7 +35848,23 @@ client.setup_intents.list(
 <dl>
 <dd>
 
-**created_after:** `typing.Optional[datetime.datetime]` — Only return setup intents created after this timestamp.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -35880,7 +35884,7 @@ client.setup_intents.list(
 </dl>
 </details>
 
-<details><summary><code>client.setup_intents.<a href="src/whop_sdk/setup_intents/client.py">create</a>(...) -> CreateSetupIntentsResponse</code></summary>
+<details><summary><code>client.setup_intents.<a href="src/whop_sdk/setup_intents/client.py">create</a>(...) -> SetupIntent</code></summary>
 <dl>
 <dd>
 
@@ -35892,12 +35896,7 @@ client.setup_intents.list(
 <dl>
 <dd>
 
-Save a buyer's payment method for later without charging it. Provide a confirmation token for a method the buyer just supplied, or an existing payment method to re-verify. The buyer may still have a step to complete — 3D Secure, a hosted enrollment, linking a bank account — so poll the setup intent's status endpoint for what to do next.
-
-Required permissions:
- - `payment:charge`
- - `member:basic:read`
- - `member:email:read`
+Saves a buyer's payment method for later without charging it. Pass a `confirmation_token` for a method the buyer just supplied through the payment elements in setup mode, or a `payment_method_id` already on file to re-verify it. The response is the setup intent as created, not its outcome: while it is `requires_action` the buyer still has a step, so hand `client_secret` to the elements' `handleNextAction` or poll Retrieve setup status. A buyer's own token holding `member:payment_methods:use` may create a setup intent for itself from a confirmation token.
 </dd>
 </dl>
 </dd>
@@ -35914,7 +35913,6 @@ Required permissions:
 ```python
 from whop_sdk import Whop
 from whop_sdk.environment import WhopEnvironment
-from whop_sdk.setup_intents import CreateSetupIntentsRequestConfirmationToken
 
 client = Whop(
     token="<token>",
@@ -35922,10 +35920,7 @@ client = Whop(
 )
 
 client.setup_intents.create(
-    request=CreateSetupIntentsRequestConfirmationToken(
-        account_id="biz_xxxxxxxxxxxxxx",
-        confirmation_token="ctok_xxxxxxxxxxxxxx",
-    ),
+    account_id="biz_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -35942,7 +35937,55 @@ client.setup_intents.create(
 <dl>
 <dd>
 
-**request:** `CreateSetupIntentsRequest` — Parameters for CreateSetupIntent
+**account_id:** `str` — The account to save the payment method for, prefixed `biz_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**confirmation_token:** `typing.Optional[str]` — A confirmation token describing a payment method the buyer just supplied, collected by the payment elements in setup mode. Provide this or `payment_method_id`, not both. The buyer is resolved from the token's billing email, or from `email`, and may still have a step to complete — poll Retrieve setup status for what to do next.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**currency:** `typing.Optional[str]` — The currency the saved payment method will be used with, as a lowercase ISO 4217 code. Controls which currency-specific payment methods are available. Defaults to `usd`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**email:** `typing.Optional[str]` — Overrides the buyer email carried on the confirmation token, resolving or creating the user the method belongs to. Ignored unless `confirmation_token` is provided, and when the token was created by a signed-in buyer or the caller is the buyer.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**metadata:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — Custom metadata to attach to the setup intent. Returned on the setup intent and its webhooks.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment_method_id:** `typing.Optional[str]` — An existing payment method to re-verify and save, prefixed `payt_`. Provide this or `confirmation_token`, not both. Not available to a buyer credential.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**return_url:** `typing.Optional[str]` — Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters.
     
 </dd>
 </dl>
@@ -35974,12 +36017,7 @@ client.setup_intents.create(
 <dl>
 <dd>
 
-Retrieves the details of an existing setup intent.
-
-Required permissions:
- - `payment:setup_intent:read`
- - `member:basic:read`
- - `member:email:read`
+Returns one setup intent. Related records are ids — once `status` is `succeeded`, `payment_method_id` is the saved method to charge or retrieve. The buyer's own token may retrieve a setup intent that belongs to it.
 </dd>
 </dl>
 </dd>
@@ -36003,7 +36041,7 @@ client = Whop(
 )
 
 client.setup_intents.retrieve(
-    id="sint_xxxxxxxxxxxxx",
+    id="id",
 )
 
 ```
@@ -36020,7 +36058,7 @@ client.setup_intents.retrieve(
 <dl>
 <dd>
 
-**id:** `str` — The unique identifier of the setup intent.
+**id:** `str` — The setup intent to retrieve, prefixed `sint_`.
     
 </dd>
 </dl>

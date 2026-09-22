@@ -4,20 +4,18 @@ import datetime as dt
 import typing
 
 import pydantic
-from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ...types.payment_method_types import PaymentMethodTypes
-from .create_setup_intents_response_payment_method_card import CreateSetupIntentsResponsePaymentMethodCard
-from .create_setup_intents_response_payment_method_mailing_address import (
-    CreateSetupIntentsResponsePaymentMethodMailingAddress,
-)
+from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .payment_method_types import PaymentMethodTypes
+from .setup_intent_legacy_payment_method_card import SetupIntentLegacyPaymentMethodCard
+from .setup_intent_legacy_payment_method_mailing_address import SetupIntentLegacyPaymentMethodMailingAddress
 
 
-class CreateSetupIntentsResponsePaymentMethod(UniversalBaseModel):
+class SetupIntentLegacyPaymentMethod(UniversalBaseModel):
     """
     The saved payment method created by this setup intent. Null if the setup has not completed successfully.
     """
 
-    card: typing.Optional[CreateSetupIntentsResponsePaymentMethodCard] = pydantic.Field(default=None)
+    card: typing.Optional[SetupIntentLegacyPaymentMethodCard] = pydantic.Field(default=None)
     """
     The card data associated with the payment method, if its a debit or credit card.
     """
@@ -32,9 +30,7 @@ class CreateSetupIntentsResponsePaymentMethod(UniversalBaseModel):
     The unique identifier for the payment token.
     """
 
-    mailing_address: typing.Optional[CreateSetupIntentsResponsePaymentMethodMailingAddress] = pydantic.Field(
-        default=None
-    )
+    mailing_address: typing.Optional[SetupIntentLegacyPaymentMethodMailingAddress] = pydantic.Field(default=None)
     """
     The mailing address associated with the payment method's user
     """

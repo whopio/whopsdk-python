@@ -3,11 +3,11 @@
 import typing
 
 import pydantic
-from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ...types.card_brands import CardBrands
+from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .card_brands import CardBrands
 
 
-class CreateSetupIntentsResponsePaymentMethodCard(UniversalBaseModel):
+class SetupIntentLegacyPaymentMethodCard(UniversalBaseModel):
     """
     The card data associated with the payment method, if its a debit or credit card.
     """
