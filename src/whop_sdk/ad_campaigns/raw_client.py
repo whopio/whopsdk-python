@@ -726,7 +726,7 @@ class RawAdCampaignsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[AdCampaign]:
         """
-        Retries billing for an ad campaign whose payment previously failed.
+        Queues a background payment retry for the campaign's entire account, including other campaigns with failed payments. Prefer POST /accounts/{id}/retry_ads_payment for new integrations. The returned campaign does not confirm payment success; read delivery_status and issues for the outcome.
 
         Parameters
         ----------
@@ -1525,7 +1525,7 @@ class AsyncRawAdCampaignsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[AdCampaign]:
         """
-        Retries billing for an ad campaign whose payment previously failed.
+        Queues a background payment retry for the campaign's entire account, including other campaigns with failed payments. Prefer POST /accounts/{id}/retry_ads_payment for new integrations. The returned campaign does not confirm payment success; read delivery_status and issues for the outcome.
 
         Parameters
         ----------

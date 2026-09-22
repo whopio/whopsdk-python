@@ -49,7 +49,7 @@ class PostAdCampaignUpdatedPayloadData(UniversalBaseModel):
 
     delivery_status: PostAdCampaignUpdatedPayloadDataDeliveryStatus = pydantic.Field()
     """
-    Whether the campaign's ads are delivering right now, and if not, why. When several states apply at once, the highest-precedence one is returned.
+    Whether the campaign's ads are delivering right now, and if not, why. Account billing failures set payment_failed without changing the configured status. Successful payment retry clears that block and recalculates delivery. When several states apply at once, the highest-precedence one is returned.
     """
 
     id: str = pydantic.Field()
@@ -76,7 +76,7 @@ class PostAdCampaignUpdatedPayloadData(UniversalBaseModel):
     special_ad_categories: typing.List[PostAdCampaignUpdatedPayloadDataSpecialAdCategoriesItem]
     status: PostAdCampaignUpdatedPayloadDataStatus = pydantic.Field()
     """
-    The lifecycle status of the ad campaign.
+    The configured lifecycle status of the ad campaign. Billing failures preserve active or paused here and set delivery_status to payment_failed.
     """
 
     title: str = pydantic.Field()
