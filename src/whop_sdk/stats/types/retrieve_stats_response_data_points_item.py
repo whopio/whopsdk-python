@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ...types.funnel_step_result import FunnelStepResult
 from .retrieve_stats_response_data_points_item_breakdown_item import RetrieveStatsResponseDataPointsItemBreakdownItem
 
 
@@ -13,6 +14,11 @@ class RetrieveStatsResponseDataPointsItem(UniversalBaseModel):
     )
     """
     Present only when broken down: one entry per property value in this period.
+    """
+
+    steps: typing.Optional[typing.List[FunnelStepResult]] = pydantic.Field(default=None)
+    """
+    Present for the funnel metric. People reaching each step in order, starting with the entry step.
     """
 
     timestamp: int = pydantic.Field()

@@ -8,6 +8,11 @@ from .list_stats_response_data_item_unit import ListStatsResponseDataItemUnit
 
 
 class ListStatsResponseDataItem(UniversalBaseModel):
+    breakdowns: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
+    """
+    Supported breakdown_by values when they differ from the filter properties.
+    """
+
     description: str = pydantic.Field()
     """
     A short description of what the metric measures.

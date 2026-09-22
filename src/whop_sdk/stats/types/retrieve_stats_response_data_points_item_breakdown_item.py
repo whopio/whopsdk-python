@@ -4,12 +4,18 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ...types.funnel_step_result import FunnelStepResult
 
 
 class RetrieveStatsResponseDataPointsItemBreakdownItem(UniversalBaseModel):
     name: str = pydantic.Field()
     """
     The property value, for example usd or visa.
+    """
+
+    steps: typing.Optional[typing.List[FunnelStepResult]] = pydantic.Field(default=None)
+    """
+    Present for the funnel metric. People reaching each step in order, starting with the entry step.
     """
 
     value: typing.Optional[float] = pydantic.Field(default=None)

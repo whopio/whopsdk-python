@@ -557,6 +557,10 @@ if typing.TYPE_CHECKING:
     from .forum_who_can_comment_types import ForumWhoCanCommentTypes
     from .forum_who_can_post_types import ForumWhoCanPostTypes
     from .friendly_receipt_status import FriendlyReceiptStatus
+    from .funnel_comparison import FunnelComparison
+    from .funnel_confidence_interval import FunnelConfidenceInterval
+    from .funnel_step import FunnelStep
+    from .funnel_step_result import FunnelStepResult
     from .future_usage_types import FutureUsageTypes
     from .global_affiliate_statuses import GlobalAffiliateStatuses
     from .grantable_authorized_user_roles import GrantableAuthorizedUserRoles
@@ -1233,6 +1237,7 @@ if typing.TYPE_CHECKING:
     from .resolution_event_action import ResolutionEventAction
     from .resolution_event_reporter_type import ResolutionEventReporterType
     from .resolution_payment import ResolutionPayment
+    from .retrieve_stats_request_steps import RetrieveStatsRequestSteps
     from .review import Review
     from .review_attachments_item import ReviewAttachmentsItem
     from .review_company import ReviewCompany
@@ -1895,6 +1900,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ForumWhoCanCommentTypes": ".forum_who_can_comment_types",
     "ForumWhoCanPostTypes": ".forum_who_can_post_types",
     "FriendlyReceiptStatus": ".friendly_receipt_status",
+    "FunnelComparison": ".funnel_comparison",
+    "FunnelConfidenceInterval": ".funnel_confidence_interval",
+    "FunnelStep": ".funnel_step",
+    "FunnelStepResult": ".funnel_step_result",
     "FutureUsageTypes": ".future_usage_types",
     "GlobalAffiliateStatuses": ".global_affiliate_statuses",
     "GrantableAuthorizedUserRoles": ".grantable_authorized_user_roles",
@@ -2453,6 +2462,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ResolutionEventAction": ".resolution_event_action",
     "ResolutionEventReporterType": ".resolution_event_reporter_type",
     "ResolutionPayment": ".resolution_payment",
+    "RetrieveStatsRequestSteps": ".retrieve_stats_request_steps",
     "Review": ".review",
     "ReviewAttachmentsItem": ".review_attachments_item",
     "ReviewCompany": ".review_company",
@@ -3137,6 +3147,10 @@ __all__ = [
     "ForumWhoCanCommentTypes",
     "ForumWhoCanPostTypes",
     "FriendlyReceiptStatus",
+    "FunnelComparison",
+    "FunnelConfidenceInterval",
+    "FunnelStep",
+    "FunnelStepResult",
     "FutureUsageTypes",
     "GlobalAffiliateStatuses",
     "GrantableAuthorizedUserRoles",
@@ -3695,6 +3709,7 @@ __all__ = [
     "ResolutionEventAction",
     "ResolutionEventReporterType",
     "ResolutionPayment",
+    "RetrieveStatsRequestSteps",
     "Review",
     "ReviewAttachmentsItem",
     "ReviewCompany",
