@@ -159,7 +159,7 @@ class AdCampaign(UniversalBaseModel):
 
     delivery_status: AdCampaignDeliveryStatus = pydantic.Field()
     """
-    Whether the campaign's ads are delivering right now, and if not, why. When several states apply at once, the highest-precedence one is returned.
+    Whether the campaign's ads are delivering right now, and if not, why. Account billing failures set payment_failed without changing the configured status. Successful payment retry clears that block and recalculates delivery. When several states apply at once, the highest-precedence one is returned.
     """
 
     frequency: typing.Optional[float] = pydantic.Field(default=None)
@@ -266,7 +266,7 @@ class AdCampaign(UniversalBaseModel):
 
     status: AdCampaignStatus = pydantic.Field()
     """
-    The lifecycle status of the ad campaign.
+    The configured lifecycle status of the ad campaign. Billing failures preserve active or paused here and set delivery_status to payment_failed.
     """
 
     submitted_application_value: float = pydantic.Field()

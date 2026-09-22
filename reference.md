@@ -1304,7 +1304,7 @@ client.accounts.form_company(
 <dl>
 <dd>
 
-Queues a background retry of the account's failed ads payments using its configured ads payment methods. A queued response does not mean payment succeeded. Check the account's ad campaigns for the outcome.
+Queues one background retry of the account's failed ads payments across its campaigns, using the account's configured ads payment methods. A queued response does not mean payment succeeded. Read campaign delivery_status and issues for the outcome. Successful settlement clears the payment block without changing configured active or paused status; legacy payment_failed status becomes paused. Another request while the account retry is queued or running returns an error asking you to wait.
 </dd>
 </dl>
 </dd>
@@ -2380,7 +2380,7 @@ client.ad_campaigns.pause(
 <dl>
 <dd>
 
-Retries billing for an ad campaign whose payment previously failed.
+Queues a background payment retry for the campaign's entire account, including other campaigns with failed payments. Prefer POST /accounts/{id}/retry_ads_payment for new integrations. The returned campaign does not confirm payment success; read delivery_status and issues for the outcome.
 </dd>
 </dl>
 </dd>
