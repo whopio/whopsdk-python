@@ -84,7 +84,7 @@ class AccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Account, ListAccountsResponse]:
         """
-        Lists accounts visible to the credential. User tokens return the user's business accounts; Account API keys return the requesting account and its connected accounts. Pass `parent_account_id` to return only that parent account's connected accounts.
+        Lists accounts visible to the credential. User tokens return the user's business accounts; Account API keys return the requesting account and its connected accounts. Pass `parent_account_id` to return only that parent account's connected accounts. Includes each account's `cards` application summary when the caller has `company:balance:read` access to that account.
 
         Parameters
         ----------
@@ -851,7 +851,7 @@ class AsyncAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Account, ListAccountsResponse]:
         """
-        Lists accounts visible to the credential. User tokens return the user's business accounts; Account API keys return the requesting account and its connected accounts. Pass `parent_account_id` to return only that parent account's connected accounts.
+        Lists accounts visible to the credential. User tokens return the user's business accounts; Account API keys return the requesting account and its connected accounts. Pass `parent_account_id` to return only that parent account's connected accounts. Includes each account's `cards` application summary when the caller has `company:balance:read` access to that account.
 
         Parameters
         ----------
