@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .update_fees_request_child_markups_card_spend import UpdateFeesRequestChildMarkupsCardSpend
 from .update_fees_request_child_markups_crypto_swaps import UpdateFeesRequestChildMarkupsCryptoSwaps
 from .update_fees_request_child_markups_deposits_value import UpdateFeesRequestChildMarkupsDepositsValue
 from .update_fees_request_child_markups_payments import UpdateFeesRequestChildMarkupsPayments
@@ -13,7 +14,12 @@ from .update_fees_request_child_markups_transfers import UpdateFeesRequestChildM
 
 class UpdateFeesRequestChildMarkups(UniversalBaseModel):
     """
-    This platform's default markups for every account connected to it.
+    Default markups for connected accounts. Available on accounts without a parent, even before any accounts connect.
+    """
+
+    card_spend: typing.Optional[UpdateFeesRequestChildMarkupsCardSpend] = pydantic.Field(default=None)
+    """
+    The markup on card purchases settled by the connected account. `null` clears the custom markup.
     """
 
     crypto_swaps: typing.Optional[UpdateFeesRequestChildMarkupsCryptoSwaps] = pydantic.Field(default=None)
