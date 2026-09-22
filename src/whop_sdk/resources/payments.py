@@ -503,10 +503,10 @@ class PaymentsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Payment:
-        """Voids a payment that has not yet been settled.
+        """Voids or cancels an eligible payment.
 
-        Voiding cancels the payment
-        before it is captured by the payment processor.
+        The request is rejected if the payment is
+        no longer eligible.
 
         Args:
           extra_headers: Send extra headers
@@ -1015,10 +1015,10 @@ class AsyncPaymentsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Payment:
-        """Voids a payment that has not yet been settled.
+        """Voids or cancels an eligible payment.
 
-        Voiding cancels the payment
-        before it is captured by the payment processor.
+        The request is rejected if the payment is
+        no longer eligible.
 
         Args:
           extra_headers: Send extra headers
