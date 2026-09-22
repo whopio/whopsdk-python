@@ -58,6 +58,9 @@ if typing.TYPE_CHECKING:
     from .account_parent import AccountParent
     from .account_parent_fees_value import AccountParentFeesValue
     from .account_partner import AccountPartner
+    from .account_partner_reward import AccountPartnerReward
+    from .account_partner_reward_qualification_type import AccountPartnerRewardQualificationType
+    from .account_partner_reward_status import AccountPartnerRewardStatus
     from .account_payment_controls import AccountPaymentControls
     from .account_payment_controls_restricted_payment_methods_item import (
         AccountPaymentControlsRestrictedPaymentMethodsItem,
@@ -1427,6 +1430,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AccountParent": ".account_parent",
     "AccountParentFeesValue": ".account_parent_fees_value",
     "AccountPartner": ".account_partner",
+    "AccountPartnerReward": ".account_partner_reward",
+    "AccountPartnerRewardQualificationType": ".account_partner_reward_qualification_type",
+    "AccountPartnerRewardStatus": ".account_partner_reward_status",
     "AccountPaymentControls": ".account_payment_controls",
     "AccountPaymentControlsRestrictedPaymentMethodsItem": ".account_payment_controls_restricted_payment_methods_item",
     "AccountPaymentControlsUndatedPendingReason": ".account_payment_controls_undated_pending_reason",
@@ -2676,6 +2682,9 @@ __all__ = [
     "AccountParent",
     "AccountParentFeesValue",
     "AccountPartner",
+    "AccountPartnerReward",
+    "AccountPartnerRewardQualificationType",
+    "AccountPartnerRewardStatus",
     "AccountPaymentControls",
     "AccountPaymentControlsRestrictedPaymentMethodsItem",
     "AccountPaymentControlsUndatedPendingReason",
