@@ -739,7 +739,7 @@ class RawAdCampaignsClient:
         Returns
         -------
         HttpResponse[AdCampaign]
-            payment retried
+            payment retry queued
         """
         _response = self._client_wrapper.httpx_client.request(
             f"ad_campaigns/{encode_path_param(id)}/retry_payment",
@@ -1538,7 +1538,7 @@ class AsyncRawAdCampaignsClient:
         Returns
         -------
         AsyncHttpResponse[AdCampaign]
-            payment retried
+            payment retry queued
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"ad_campaigns/{encode_path_param(id)}/retry_payment",

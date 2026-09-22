@@ -537,7 +537,7 @@ class AdCampaignsClient:
         Returns
         -------
         AdCampaign
-            payment retried
+            payment retry queued
 
         Examples
         --------
@@ -1150,7 +1150,7 @@ class AsyncAdCampaignsClient:
         Returns
         -------
         AdCampaign
-            payment retried
+            payment retry queued
 
         Examples
         --------
