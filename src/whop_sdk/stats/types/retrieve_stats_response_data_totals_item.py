@@ -4,12 +4,26 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ...types.funnel_comparison import FunnelComparison
+from ...types.funnel_confidence_interval import FunnelConfidenceInterval
+from ...types.funnel_step_result import FunnelStepResult
 
 
 class RetrieveStatsResponseDataTotalsItem(UniversalBaseModel):
+    comparison: typing.Optional[FunnelComparison] = None
+    confidence_interval: typing.Optional[FunnelConfidenceInterval] = pydantic.Field(default=None)
+    """
+    Funnel only. The Wilson interval for final conversion, present when confidence_level or compare_to is supplied.
+    """
+
     name: str = pydantic.Field()
     """
     The property value this total is for, or the metric's name when it isn't split by a property.
+    """
+
+    steps: typing.Optional[typing.List[FunnelStepResult]] = pydantic.Field(default=None)
+    """
+    Present for the funnel metric. People reaching each step in order, starting with the entry step.
     """
 
     value: typing.Optional[float] = pydantic.Field(default=None)

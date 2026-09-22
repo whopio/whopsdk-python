@@ -37353,7 +37353,7 @@ client.stats.list()
 <dl>
 <dd>
 
-Retrieves a metric as a time series of points for an account or user over a time range. The `market_prices` metric is public and requires no authentication.
+Retrieves a metric as a time series of points for an account or user over a time range. The `market_prices` metric is public and requires no authentication. The `funnel` metric measures 2 to 10 ordered events per person. Its first matching event inside from/to anchors the cohort, breakdown and conversion window; later entries do not restart it. Intervening events are allowed, and conversions may occur after to. Funnel values are final conversion percentages; steps include counts and cumulative conversion percentages. Experiment funnels use experiment.exposure as step 1 and breakdown_by=variant. See funnel step properties for current availability. Pass steps using bracket parameters such as steps[1][event]=pixel.page&steps[1][page]=/pricing*&steps[2][event]=payment.completed.
 </dd>
 </dl>
 </dd>
@@ -37421,7 +37421,7 @@ client.stats.retrieve(
 <dl>
 <dd>
 
-**to:** `str` — End of the range — a date (YYYY-MM-DD), expanded to the end of that day, or an ISO 8601 timestamp (for example 2026-07-17T16:37:00Z), used exactly.
+**to:** `str` — End of the range — a date (YYYY-MM-DD), expanded to the end of that day, or an ISO 8601 timestamp (for example 2026-07-17T16:37:00Z), used exactly. Funnel entry ranges cannot exceed 90 days.
     
 </dd>
 </dl>
@@ -37445,7 +37445,7 @@ client.stats.retrieve(
 <dl>
 <dd>
 
-**interval:** `typing.Optional[RetrieveStatsRequestInterval]` — How wide each point is. Defaults to day. Snapshot metrics are day-only.
+**interval:** `typing.Optional[RetrieveStatsRequestInterval]` — How wide each point is. Defaults to day. Snapshot metrics are day-only. Funnels support at most 2,000 first-entry cohort buckets.
     
 </dd>
 </dl>
@@ -37453,7 +37453,7 @@ client.stats.retrieve(
 <dl>
 <dd>
 
-**breakdown_by:** `typing.Optional[str]` — Split the metric out by one of its properties — each point gets a breakdown array. For example breakdown_by=currency returns an entry for usd, an entry for eur, and so on.
+**breakdown_by:** `typing.Optional[str]` — Split the metric out by one of its properties — each point gets a breakdown array. For example breakdown_by=currency returns an entry for usd, an entry for eur, and so on. Funnels use a property of the first matched event, with at most 300 groups. experiment_id and variant require an exposure as step 1. For funnel source breakdowns, steps[1][source]=whop:* groups by campaign, whop:<campaign>:* by ad group, and whop:<campaign>:<group>:* by ad. See funnel step properties for current availability. See the metric catalog for supported breakdowns.
     
 </dd>
 </dl>
@@ -37678,6 +37678,46 @@ client.stats.retrieve(
 <dd>
 
 **event:** `typing.Optional[str]` — Filter the events metric to one or more full event names, for example payment.completed or pixel.lead. Comma-separated names match any listed event. Use group_by=event for separate groups. Available on metrics that list event.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**conversion_window:** `typing.Optional[str]` — Funnel only. Time allowed from the first event to the final event: integer minutes, hours, or days, up to 30d.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**mature_only:** `typing.Optional[bool]` — Funnel only. Include only entrants whose full conversion window has elapsed. Required for confidence intervals and comparisons.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**steps:** `typing.Optional[RetrieveStatsRequestSteps]` — Funnel only. Required when metric=funnel. Consecutive one-based steps encoded as steps[1][event], steps[1][page], steps[2][event], and so on. Values are scalar strings, never JSON.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**compare_to:** `typing.Optional[str]` — Funnel only. The breakdown value to use as baseline for whole-window final conversion. Requires breakdown_by and mature_only=true; defaults confidence_level to 0.95.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**confidence_level:** `typing.Optional[float]` — Funnel only. Confidence level for whole-window final conversion intervals, for example 0.95. Requires mature_only=true. Exposure steps must each filter one user-randomized experiment.
     
 </dd>
 </dl>

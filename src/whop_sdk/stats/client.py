@@ -5,6 +5,7 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
+from ..types.retrieve_stats_request_steps import RetrieveStatsRequestSteps
 from .raw_client import AsyncRawStatsClient, RawStatsClient
 from .types.list_stats_response import ListStatsResponse
 from .types.retrieve_stats_request_event_type import RetrieveStatsRequestEventType
@@ -94,6 +95,11 @@ class StatsClient:
         ad_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         snapshot_window: typing.Optional[RetrieveStatsRequestSnapshotWindow] = None,
         event: typing.Optional[str] = None,
+        conversion_window: typing.Optional[str] = None,
+        mature_only: typing.Optional[bool] = None,
+        steps: typing.Optional[RetrieveStatsRequestSteps] = None,
+        compare_to: typing.Optional[str] = None,
+        confidence_level: typing.Optional[float] = None,
         contactable: typing.Optional[bool] = None,
         has_purchased: typing.Optional[bool] = None,
         first_seen_after: typing.Optional[dt.datetime] = None,
@@ -124,7 +130,7 @@ class StatsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RetrieveStatsResponse:
         """
-        Retrieves a metric as a time series of points for an account or user over a time range. The `market_prices` metric is public and requires no authentication.
+        Retrieves a metric as a time series of points for an account or user over a time range. The `market_prices` metric is public and requires no authentication. The `funnel` metric measures 2 to 10 ordered events per person. Its first matching event inside from/to anchors the cohort, breakdown and conversion window; later entries do not restart it. Intervening events are allowed, and conversions may occur after to. Funnel values are final conversion percentages; steps include counts and cumulative conversion percentages. Experiment funnels use experiment.exposure as step 1 and breakdown_by=variant. See funnel step properties for current availability. Pass steps using bracket parameters such as steps[1][event]=pixel.page&steps[1][page]=/pricing*&steps[2][event]=payment.completed.
 
         Parameters
         ----------
@@ -135,7 +141,7 @@ class StatsClient:
             Start of the range — a date (YYYY-MM-DD), expanded to the start of that day, or an ISO 8601 timestamp (for example 2026-07-16T16:37:00Z), used exactly.
 
         to : str
-            End of the range — a date (YYYY-MM-DD), expanded to the end of that day, or an ISO 8601 timestamp (for example 2026-07-17T16:37:00Z), used exactly.
+            End of the range — a date (YYYY-MM-DD), expanded to the end of that day, or an ISO 8601 timestamp (for example 2026-07-17T16:37:00Z), used exactly. Funnel entry ranges cannot exceed 90 days.
 
         account_id : typing.Optional[str]
             The account this query concerns, for example biz_AbC123.
@@ -144,10 +150,10 @@ class StatsClient:
             The user this query concerns, for example user_AbC123. Available on metrics that support user subjects, such as account_balance.
 
         interval : typing.Optional[RetrieveStatsRequestInterval]
-            How wide each point is. Defaults to day. Snapshot metrics are day-only.
+            How wide each point is. Defaults to day. Snapshot metrics are day-only. Funnels support at most 2,000 first-entry cohort buckets.
 
         breakdown_by : typing.Optional[str]
-            Split the metric out by one of its properties — each point gets a breakdown array. For example breakdown_by=currency returns an entry for usd, an entry for eur, and so on.
+            Split the metric out by one of its properties — each point gets a breakdown array. For example breakdown_by=currency returns an entry for usd, an entry for eur, and so on. Funnels use a property of the first matched event, with at most 300 groups. experiment_id and variant require an exposure as step 1. For funnel source breakdowns, steps[1][source]=whop:* groups by campaign, whop:<campaign>:* by ad group, and whop:<campaign>:<group>:* by ad. See funnel step properties for current availability. See the metric catalog for supported breakdowns.
 
         convert_to : typing.Optional[str]
             Display currency for money metrics — every amount is converted into this ISO currency using the exchange rate on each period's date. Defaults to usd. For the ads metrics (ad_spend, ad_delivery), pass the account's ads reporting currency to match the ad entity endpoints. On transaction metrics, it is ignored when you filter or break down by currency (those report the original transaction currency, unconverted).
@@ -232,6 +238,21 @@ class StatsClient:
 
         event : typing.Optional[str]
             Filter the events metric to one or more full event names, for example payment.completed or pixel.lead. Comma-separated names match any listed event. Use group_by=event for separate groups. Available on metrics that list event.
+
+        conversion_window : typing.Optional[str]
+            Funnel only. Time allowed from the first event to the final event: integer minutes, hours, or days, up to 30d.
+
+        mature_only : typing.Optional[bool]
+            Funnel only. Include only entrants whose full conversion window has elapsed. Required for confidence intervals and comparisons.
+
+        steps : typing.Optional[RetrieveStatsRequestSteps]
+            Funnel only. Required when metric=funnel. Consecutive one-based steps encoded as steps[1][event], steps[1][page], steps[2][event], and so on. Values are scalar strings, never JSON.
+
+        compare_to : typing.Optional[str]
+            Funnel only. The breakdown value to use as baseline for whole-window final conversion. Requires breakdown_by and mature_only=true; defaults confidence_level to 0.95.
+
+        confidence_level : typing.Optional[float]
+            Funnel only. Confidence level for whole-window final conversion intervals, for example 0.95. Requires mature_only=true. Exposure steps must each filter one user-randomized experiment.
 
         contactable : typing.Optional[bool]
             People metric only: contactable equals this value. Applies to the current person profile for every time bucket. LTV and AOV are in USD. Not accepted by the Events metric.
@@ -376,6 +397,11 @@ class StatsClient:
             ad_ids=ad_ids,
             snapshot_window=snapshot_window,
             event=event,
+            conversion_window=conversion_window,
+            mature_only=mature_only,
+            steps=steps,
+            compare_to=compare_to,
+            confidence_level=confidence_level,
             contactable=contactable,
             has_purchased=has_purchased,
             first_seen_after=first_seen_after,
@@ -497,6 +523,11 @@ class AsyncStatsClient:
         ad_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         snapshot_window: typing.Optional[RetrieveStatsRequestSnapshotWindow] = None,
         event: typing.Optional[str] = None,
+        conversion_window: typing.Optional[str] = None,
+        mature_only: typing.Optional[bool] = None,
+        steps: typing.Optional[RetrieveStatsRequestSteps] = None,
+        compare_to: typing.Optional[str] = None,
+        confidence_level: typing.Optional[float] = None,
         contactable: typing.Optional[bool] = None,
         has_purchased: typing.Optional[bool] = None,
         first_seen_after: typing.Optional[dt.datetime] = None,
@@ -527,7 +558,7 @@ class AsyncStatsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RetrieveStatsResponse:
         """
-        Retrieves a metric as a time series of points for an account or user over a time range. The `market_prices` metric is public and requires no authentication.
+        Retrieves a metric as a time series of points for an account or user over a time range. The `market_prices` metric is public and requires no authentication. The `funnel` metric measures 2 to 10 ordered events per person. Its first matching event inside from/to anchors the cohort, breakdown and conversion window; later entries do not restart it. Intervening events are allowed, and conversions may occur after to. Funnel values are final conversion percentages; steps include counts and cumulative conversion percentages. Experiment funnels use experiment.exposure as step 1 and breakdown_by=variant. See funnel step properties for current availability. Pass steps using bracket parameters such as steps[1][event]=pixel.page&steps[1][page]=/pricing*&steps[2][event]=payment.completed.
 
         Parameters
         ----------
@@ -538,7 +569,7 @@ class AsyncStatsClient:
             Start of the range — a date (YYYY-MM-DD), expanded to the start of that day, or an ISO 8601 timestamp (for example 2026-07-16T16:37:00Z), used exactly.
 
         to : str
-            End of the range — a date (YYYY-MM-DD), expanded to the end of that day, or an ISO 8601 timestamp (for example 2026-07-17T16:37:00Z), used exactly.
+            End of the range — a date (YYYY-MM-DD), expanded to the end of that day, or an ISO 8601 timestamp (for example 2026-07-17T16:37:00Z), used exactly. Funnel entry ranges cannot exceed 90 days.
 
         account_id : typing.Optional[str]
             The account this query concerns, for example biz_AbC123.
@@ -547,10 +578,10 @@ class AsyncStatsClient:
             The user this query concerns, for example user_AbC123. Available on metrics that support user subjects, such as account_balance.
 
         interval : typing.Optional[RetrieveStatsRequestInterval]
-            How wide each point is. Defaults to day. Snapshot metrics are day-only.
+            How wide each point is. Defaults to day. Snapshot metrics are day-only. Funnels support at most 2,000 first-entry cohort buckets.
 
         breakdown_by : typing.Optional[str]
-            Split the metric out by one of its properties — each point gets a breakdown array. For example breakdown_by=currency returns an entry for usd, an entry for eur, and so on.
+            Split the metric out by one of its properties — each point gets a breakdown array. For example breakdown_by=currency returns an entry for usd, an entry for eur, and so on. Funnels use a property of the first matched event, with at most 300 groups. experiment_id and variant require an exposure as step 1. For funnel source breakdowns, steps[1][source]=whop:* groups by campaign, whop:<campaign>:* by ad group, and whop:<campaign>:<group>:* by ad. See funnel step properties for current availability. See the metric catalog for supported breakdowns.
 
         convert_to : typing.Optional[str]
             Display currency for money metrics — every amount is converted into this ISO currency using the exchange rate on each period's date. Defaults to usd. For the ads metrics (ad_spend, ad_delivery), pass the account's ads reporting currency to match the ad entity endpoints. On transaction metrics, it is ignored when you filter or break down by currency (those report the original transaction currency, unconverted).
@@ -635,6 +666,21 @@ class AsyncStatsClient:
 
         event : typing.Optional[str]
             Filter the events metric to one or more full event names, for example payment.completed or pixel.lead. Comma-separated names match any listed event. Use group_by=event for separate groups. Available on metrics that list event.
+
+        conversion_window : typing.Optional[str]
+            Funnel only. Time allowed from the first event to the final event: integer minutes, hours, or days, up to 30d.
+
+        mature_only : typing.Optional[bool]
+            Funnel only. Include only entrants whose full conversion window has elapsed. Required for confidence intervals and comparisons.
+
+        steps : typing.Optional[RetrieveStatsRequestSteps]
+            Funnel only. Required when metric=funnel. Consecutive one-based steps encoded as steps[1][event], steps[1][page], steps[2][event], and so on. Values are scalar strings, never JSON.
+
+        compare_to : typing.Optional[str]
+            Funnel only. The breakdown value to use as baseline for whole-window final conversion. Requires breakdown_by and mature_only=true; defaults confidence_level to 0.95.
+
+        confidence_level : typing.Optional[float]
+            Funnel only. Confidence level for whole-window final conversion intervals, for example 0.95. Requires mature_only=true. Exposure steps must each filter one user-randomized experiment.
 
         contactable : typing.Optional[bool]
             People metric only: contactable equals this value. Applies to the current person profile for every time bucket. LTV and AOV are in USD. Not accepted by the Events metric.
@@ -787,6 +833,11 @@ class AsyncStatsClient:
             ad_ids=ad_ids,
             snapshot_window=snapshot_window,
             event=event,
+            conversion_window=conversion_window,
+            mature_only=mature_only,
+            steps=steps,
+            compare_to=compare_to,
+            confidence_level=confidence_level,
             contactable=contactable,
             has_purchased=has_purchased,
             first_seen_after=first_seen_after,
