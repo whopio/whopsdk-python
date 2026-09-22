@@ -58,7 +58,7 @@ class Buyer(BaseModel):
 class EvidenceCancellationPolicyAttachment(BaseModel):
     """The cancellation policy document.
 
-    Falls back to Whop's platform policy when the seller has not uploaded their own.
+    Defaults to the account's cancellation policy, then its terms of service, then its return policy, then Whop's platform policy.
     """
 
     id: Optional[str] = None
@@ -143,6 +143,8 @@ class EvidenceDocument(BaseModel):
     document_type: Literal[
         "return_policy",
         "shipping_policy",
+        "cancellation_policy",
+        "terms_of_service",
         "physical_fulfillment",
         "customer_order_history",
         "product_image",
@@ -204,7 +206,7 @@ class EvidenceDocument(BaseModel):
 class EvidenceRefundPolicyAttachment(BaseModel):
     """The refund policy document.
 
-    Falls back to Whop's platform policy when the seller has not uploaded their own.
+    Defaults to the account's return policy, then its terms of service, then Whop's platform policy.
     """
 
     id: Optional[str] = None
@@ -269,7 +271,8 @@ class Evidence(BaseModel):
     cancellation_policy_attachment: Optional[EvidenceCancellationPolicyAttachment] = None
     """The cancellation policy document.
 
-    Falls back to Whop's platform policy when the seller has not uploaded their own.
+    Defaults to the account's cancellation policy, then its terms of service, then
+    its return policy, then Whop's platform policy.
     """
 
     cancellation_policy_disclosure: Optional[str] = None
@@ -295,7 +298,8 @@ class Evidence(BaseModel):
     refund_policy_attachment: Optional[EvidenceRefundPolicyAttachment] = None
     """The refund policy document.
 
-    Falls back to Whop's platform policy when the seller has not uploaded their own.
+    Defaults to the account's return policy, then its terms of service, then Whop's
+    platform policy.
     """
 
     refund_policy_disclosure: Optional[str] = None

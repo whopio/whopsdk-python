@@ -15,6 +15,8 @@ __all__ = [
     "DataBalance",
     "DataBalanceBreakdown",
     "DataBalanceBreakdownPendingSettlement",
+    "DataCancellationPolicy",
+    "DataCancellationPolicyMultipartUploadURL",
     "DataCapabilities",
     "DataCards",
     "DataCompanyFormation",
@@ -39,6 +41,8 @@ __all__ = [
     "DataRequiredAction",
     "DataReturnPolicy",
     "DataReturnPolicyMultipartUploadURL",
+    "DataShippingPolicy",
+    "DataShippingPolicyMultipartUploadURL",
     "DataSocialLink",
     "DataStorePageConfig",
     "DataTaxIdentifier",
@@ -123,6 +127,81 @@ class DataBalance(BaseModel):
 
     value_usd: Optional[str] = None
     """Holding USD value, or `null` when no exchange rate is available."""
+
+
+class DataCancellationPolicyMultipartUploadURL(BaseModel):
+    """The presigned URL for each part.
+
+    Present only on create, and only for multipart uploads.
+    """
+
+    part_number: int
+    """The 1-based index of this part within the multipart upload."""
+
+    url: str
+    """The presigned URL to PUT this part's bytes to."""
+
+
+class DataCancellationPolicy(BaseModel):
+    """
+    The account's cancellation policy document, or `null` if they have not published one.
+    """
+
+    id: str
+    """The file's ID, prefixed `file_`."""
+
+    content_type: Optional[str] = None
+    """The file's MIME type, e.g. `application/pdf`."""
+
+    created_at: str
+    """When the file was created, as an ISO 8601 timestamp."""
+
+    filename: Optional[str] = None
+    """The original filename, including its extension."""
+
+    object: str
+    """The type of this object, always `file`."""
+
+    size: Optional[int] = None
+    """The file size in bytes. `null` until the upload has finished."""
+
+    upload_status: Literal["pending", "processing", "ready", "failed"]
+    """Where the file is in its upload lifecycle."""
+
+    url: Optional[str] = None
+    """
+    A URL to download the file: a permanent CDN URL for public files, a signed
+    expiring URL for private ones. `null` until the upload has finished.
+    """
+
+    visibility: Literal["public", "private"]
+    """
+    `public` files are served via an unsigned CDN URL; `private` files via a signed,
+    expiring URL.
+    """
+
+    multipart_chunk_size: Optional[int] = None
+    """The byte size each part (except the last) must be.
+
+    Present only on create, and only for multipart uploads.
+    """
+
+    multipart_upload_id: Optional[str] = None
+    """The ID of the multipart upload, passed back to `complete`.
+
+    Present only on create, and only for multipart uploads.
+    """
+
+    multipart_upload_urls: Optional[List[DataCancellationPolicyMultipartUploadURL]] = None
+
+    upload_headers: Optional[builtins.object] = None
+    """Headers to send with the upload PUT. Present only on create."""
+
+    upload_url: Optional[str] = None
+    """Presigned URL to PUT the file's bytes to.
+
+    Present only on create, and only for single-part uploads.
+    """
 
 
 class DataCapabilities(BaseModel):
@@ -883,6 +962,81 @@ class DataReturnPolicy(BaseModel):
     """
 
 
+class DataShippingPolicyMultipartUploadURL(BaseModel):
+    """The presigned URL for each part.
+
+    Present only on create, and only for multipart uploads.
+    """
+
+    part_number: int
+    """The 1-based index of this part within the multipart upload."""
+
+    url: str
+    """The presigned URL to PUT this part's bytes to."""
+
+
+class DataShippingPolicy(BaseModel):
+    """
+    The account's shipping policy document, or `null` if they have not published one.
+    """
+
+    id: str
+    """The file's ID, prefixed `file_`."""
+
+    content_type: Optional[str] = None
+    """The file's MIME type, e.g. `application/pdf`."""
+
+    created_at: str
+    """When the file was created, as an ISO 8601 timestamp."""
+
+    filename: Optional[str] = None
+    """The original filename, including its extension."""
+
+    object: str
+    """The type of this object, always `file`."""
+
+    size: Optional[int] = None
+    """The file size in bytes. `null` until the upload has finished."""
+
+    upload_status: Literal["pending", "processing", "ready", "failed"]
+    """Where the file is in its upload lifecycle."""
+
+    url: Optional[str] = None
+    """
+    A URL to download the file: a permanent CDN URL for public files, a signed
+    expiring URL for private ones. `null` until the upload has finished.
+    """
+
+    visibility: Literal["public", "private"]
+    """
+    `public` files are served via an unsigned CDN URL; `private` files via a signed,
+    expiring URL.
+    """
+
+    multipart_chunk_size: Optional[int] = None
+    """The byte size each part (except the last) must be.
+
+    Present only on create, and only for multipart uploads.
+    """
+
+    multipart_upload_id: Optional[str] = None
+    """The ID of the multipart upload, passed back to `complete`.
+
+    Present only on create, and only for multipart uploads.
+    """
+
+    multipart_upload_urls: Optional[List[DataShippingPolicyMultipartUploadURL]] = None
+
+    upload_headers: Optional[builtins.object] = None
+    """Headers to send with the upload PUT. Present only on create."""
+
+    upload_url: Optional[str] = None
+    """Presigned URL to PUT the file's bytes to.
+
+    Present only on create, and only for single-part uploads.
+    """
+
+
 class DataSocialLink(BaseModel):
     """Account social links."""
 
@@ -1233,6 +1387,12 @@ class Data(BaseModel):
     connected accounts.
     """
 
+    cancellation_policy: Optional[DataCancellationPolicy] = None
+    """
+    The account's cancellation policy document, or `null` if they have not published
+    one.
+    """
+
     capabilities: Optional[DataCapabilities] = None
     """
     Payment rails enabled for this account, each `active`, `inactive`, or `pending`
@@ -1373,6 +1533,12 @@ class Data(BaseModel):
 
     send_customer_emails: bool
     """Whether Whop sends transactional emails to customers on behalf of this account."""
+
+    shipping_policy: Optional[DataShippingPolicy] = None
+    """
+    The account's shipping policy document, or `null` if they have not published
+    one.
+    """
 
     show_joined_whops: bool
     """Whether the account appears in joined whops on other accounts."""
