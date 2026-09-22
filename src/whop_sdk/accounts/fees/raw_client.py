@@ -75,6 +75,7 @@ class RawFeesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"accounts/{encode_path_param(account_id)}/fees",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -259,6 +260,7 @@ class RawFeesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"accounts/{encode_path_param(account_id)}/fees",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "bank_deposit": convert_and_respect_annotation_metadata(
@@ -433,6 +435,7 @@ class AsyncRawFeesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"accounts/{encode_path_param(account_id)}/fees",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -617,6 +620,7 @@ class AsyncRawFeesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"accounts/{encode_path_param(account_id)}/fees",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "bank_deposit": convert_and_respect_annotation_metadata(

@@ -90,6 +90,7 @@ class RawWebhooksClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "webhooks",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -227,6 +228,7 @@ class RawWebhooksClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "webhooks",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "api_version_date": api_version_date,
@@ -335,6 +337,7 @@ class RawWebhooksClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"webhooks/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -411,6 +414,7 @@ class RawWebhooksClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"webhooks/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -510,6 +514,7 @@ class RawWebhooksClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"webhooks/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "api_version_date": api_version_date,
@@ -619,6 +624,7 @@ class RawWebhooksClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"webhooks/{encode_path_param(id)}/deliveries",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "first": first,
@@ -722,6 +728,7 @@ class RawWebhooksClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"webhooks/{encode_path_param(id)}/deliveries/{encode_path_param(delivery_id)}/replay",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "regenerate_id": regenerate_id,
@@ -850,6 +857,7 @@ class RawWebhooksClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"webhooks/{encode_path_param(id)}/replay",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "events": events,
@@ -962,6 +970,7 @@ class RawWebhooksClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"webhooks/{encode_path_param(id)}/test",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "event": event,
@@ -1103,6 +1112,7 @@ class AsyncRawWebhooksClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "webhooks",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -1243,6 +1253,7 @@ class AsyncRawWebhooksClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "webhooks",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "api_version_date": api_version_date,
@@ -1353,6 +1364,7 @@ class AsyncRawWebhooksClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"webhooks/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1429,6 +1441,7 @@ class AsyncRawWebhooksClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"webhooks/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -1528,6 +1541,7 @@ class AsyncRawWebhooksClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"webhooks/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "api_version_date": api_version_date,
@@ -1637,6 +1651,7 @@ class AsyncRawWebhooksClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"webhooks/{encode_path_param(id)}/deliveries",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "first": first,
@@ -1743,6 +1758,7 @@ class AsyncRawWebhooksClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"webhooks/{encode_path_param(id)}/deliveries/{encode_path_param(delivery_id)}/replay",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "regenerate_id": regenerate_id,
@@ -1871,6 +1887,7 @@ class AsyncRawWebhooksClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"webhooks/{encode_path_param(id)}/replay",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "events": events,
@@ -1983,6 +2000,7 @@ class AsyncRawWebhooksClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"webhooks/{encode_path_param(id)}/test",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "event": event,

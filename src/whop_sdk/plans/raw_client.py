@@ -117,6 +117,7 @@ class RawPlansClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "plans",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -318,6 +319,7 @@ class RawPlansClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "plans",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -433,6 +435,7 @@ class RawPlansClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"plans/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -487,6 +490,7 @@ class RawPlansClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"plans/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -648,6 +652,7 @@ class RawPlansClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"plans/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "adaptive_pricing_enabled": adaptive_pricing_enabled,
@@ -759,6 +764,7 @@ class RawPlansClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"plans/{encode_path_param(id)}/calculate_tax",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "address": convert_and_respect_annotation_metadata(
@@ -928,6 +934,7 @@ class AsyncRawPlansClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "plans",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -1132,6 +1139,7 @@ class AsyncRawPlansClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "plans",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -1249,6 +1257,7 @@ class AsyncRawPlansClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"plans/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1303,6 +1312,7 @@ class AsyncRawPlansClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"plans/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -1464,6 +1474,7 @@ class AsyncRawPlansClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"plans/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "adaptive_pricing_enabled": adaptive_pricing_enabled,
@@ -1575,6 +1586,7 @@ class AsyncRawPlansClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"plans/{encode_path_param(id)}/calculate_tax",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "address": convert_and_respect_annotation_metadata(

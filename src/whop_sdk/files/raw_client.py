@@ -81,6 +81,7 @@ class RawFilesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "files",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "file_ids": file_ids,
@@ -186,6 +187,7 @@ class RawFilesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "files",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "byte_size": byte_size,
@@ -270,6 +272,7 @@ class RawFilesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"files/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -346,6 +349,7 @@ class RawFilesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"files/{encode_path_param(id)}/complete",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "multipart_parts": convert_and_respect_annotation_metadata(
@@ -477,6 +481,7 @@ class AsyncRawFilesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "files",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "file_ids": file_ids,
@@ -585,6 +590,7 @@ class AsyncRawFilesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "files",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "byte_size": byte_size,
@@ -671,6 +677,7 @@ class AsyncRawFilesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"files/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -747,6 +754,7 @@ class AsyncRawFilesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"files/{encode_path_param(id)}/complete",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "multipart_parts": convert_and_respect_annotation_metadata(

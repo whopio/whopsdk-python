@@ -133,6 +133,7 @@ class RawPaymentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "payments",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -304,6 +305,7 @@ class RawPaymentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "payments",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -431,6 +433,7 @@ class RawPaymentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -507,6 +510,7 @@ class RawPaymentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(id)}/capture",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -594,6 +598,7 @@ class RawPaymentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(id)}/fees",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -666,6 +671,7 @@ class RawPaymentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(id)}/refund",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "partial_amount": partial_amount,
@@ -769,6 +775,7 @@ class RawPaymentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(id)}/retry",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -843,6 +850,7 @@ class RawPaymentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(id)}/void",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -919,6 +927,7 @@ class RawPaymentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(payment_id)}/resume",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -1020,6 +1029,7 @@ class RawPaymentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(payment_id)}/return_url",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "return_url": return_url,
@@ -1092,6 +1102,7 @@ class RawPaymentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(payment_id)}/status",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1244,6 +1255,7 @@ class AsyncRawPaymentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "payments",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -1418,6 +1430,7 @@ class AsyncRawPaymentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "payments",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -1547,6 +1560,7 @@ class AsyncRawPaymentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1623,6 +1637,7 @@ class AsyncRawPaymentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(id)}/capture",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -1710,6 +1725,7 @@ class AsyncRawPaymentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(id)}/fees",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1782,6 +1798,7 @@ class AsyncRawPaymentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(id)}/refund",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "partial_amount": partial_amount,
@@ -1887,6 +1904,7 @@ class AsyncRawPaymentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(id)}/retry",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -1963,6 +1981,7 @@ class AsyncRawPaymentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(id)}/void",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -2039,6 +2058,7 @@ class AsyncRawPaymentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(payment_id)}/resume",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -2140,6 +2160,7 @@ class AsyncRawPaymentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(payment_id)}/return_url",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "return_url": return_url,
@@ -2212,6 +2233,7 @@ class AsyncRawPaymentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payments/{encode_path_param(payment_id)}/status",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )

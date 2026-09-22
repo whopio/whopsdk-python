@@ -32,7 +32,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.access_tokens.create()
@@ -128,7 +128,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.account_links.create(
@@ -229,7 +229,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.accounts.list()
@@ -396,7 +396,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.accounts.create()
@@ -523,7 +523,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.accounts.me()
@@ -586,7 +586,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.accounts.retrieve(
@@ -659,7 +659,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.accounts.update(
@@ -1093,7 +1093,7 @@ from whop_sdk.accounts import FormCompanyAccountsRequestBusinessAddress, FormCom
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.accounts.form_company(
@@ -1324,7 +1324,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.accounts.retry_ads_payment(
@@ -1397,7 +1397,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.accounts.suspend(
@@ -1470,7 +1470,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.accounts.transfer_ownership(
@@ -1569,7 +1569,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ad_campaigns.list()
@@ -1752,7 +1752,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ad_campaigns.create(
@@ -1915,7 +1915,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ad_campaigns.retrieve(
@@ -2020,7 +2020,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ad_campaigns.delete(
@@ -2093,7 +2093,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ad_campaigns.update(
@@ -2238,7 +2238,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ad_campaigns.duplicate(
@@ -2327,7 +2327,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ad_campaigns.pause(
@@ -2400,7 +2400,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ad_campaigns.unpause(
@@ -2474,7 +2474,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ad_conversion_value_rules.list()
@@ -2618,7 +2618,7 @@ from whop_sdk.ad_conversion_value_rules import CreateAdConversionValueRulesReque
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ad_conversion_value_rules.create(
@@ -2753,7 +2753,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ad_conversion_value_rules.retrieve(
@@ -2826,7 +2826,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ad_conversion_value_rules.delete(
@@ -2899,7 +2899,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ad_conversion_value_rules.update(
@@ -3028,7 +3028,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ad_conversion_value_rules.pause(
@@ -3101,7 +3101,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ad_conversion_value_rules.unpause(
@@ -3175,7 +3175,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ad_groups.list(
@@ -3378,7 +3378,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ad_groups.create(
@@ -3638,7 +3638,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ad_groups.estimate_reach(
@@ -3767,7 +3767,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ad_groups.search_targeting_options(
@@ -3896,7 +3896,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ad_groups.retrieve(
@@ -4001,7 +4001,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ad_groups.delete(
@@ -4074,7 +4074,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ad_groups.update(
@@ -4326,7 +4326,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ad_groups.duplicate(
@@ -4423,7 +4423,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ad_groups.pause(
@@ -4496,7 +4496,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ad_groups.unpause(
@@ -4570,7 +4570,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ads.list(
@@ -4792,7 +4792,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ads.create()
@@ -4999,7 +4999,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ads.retrieve(
@@ -5104,7 +5104,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ads.delete(
@@ -5177,7 +5177,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ads.update(
@@ -5378,7 +5378,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ads.duplicate(
@@ -5475,7 +5475,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ads.pause(
@@ -5548,7 +5548,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ads.unpause(
@@ -5625,7 +5625,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.affiliates.list(
@@ -5767,7 +5767,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.affiliates.create(
@@ -5852,7 +5852,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.affiliates.retrieve(
@@ -5928,7 +5928,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.affiliates.archive(
@@ -6004,7 +6004,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.affiliates.unarchive(
@@ -6078,7 +6078,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ai_chats.list(
@@ -6195,7 +6195,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ai_chats.create(
@@ -6316,7 +6316,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ai_chats.retrieve(
@@ -6392,7 +6392,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ai_chats.delete(
@@ -6468,7 +6468,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ai_chats.update(
@@ -6566,7 +6566,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.api_keys.list(
@@ -6713,7 +6713,7 @@ from whop_sdk.api_keys import CreateApiKeysRequestPermissions
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.api_keys.create(
@@ -6837,7 +6837,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.api_keys.list_permissions()
@@ -6900,7 +6900,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.api_keys.retrieve(
@@ -6973,7 +6973,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.api_keys.delete(
@@ -7046,7 +7046,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.api_keys.update(
@@ -7159,7 +7159,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.api_keys.rotate(
@@ -7233,7 +7233,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.api_logs.list()
@@ -7385,7 +7385,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.app_builds.list(
@@ -7523,7 +7523,7 @@ from whop_sdk.app_builds import CreateAppBuildsRequestAttachment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.app_builds.create(
@@ -7646,7 +7646,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.app_builds.retrieve(
@@ -7719,7 +7719,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.app_builds.promote(
@@ -7793,7 +7793,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.apps.list()
@@ -7960,7 +7960,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.apps.create(
@@ -8081,7 +8081,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.apps.retrieve(
@@ -8154,7 +8154,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.apps.delete(
@@ -8227,7 +8227,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.apps.update(
@@ -8460,7 +8460,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.apps.deploy(
@@ -8541,7 +8541,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.apps.logs(
@@ -8679,7 +8679,7 @@ from whop_sdk.apps import UpdatePermissionsAppsRequestRequestedPermissionsItem
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.apps.update_permissions(
@@ -8768,7 +8768,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.audiences.list(
@@ -8882,7 +8882,7 @@ from whop_sdk.audiences import CreateAudiencesRequestEngagement
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.audiences.create(
@@ -9055,7 +9055,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.audiences.delete(
@@ -9128,7 +9128,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.audiences.update(
@@ -9217,7 +9217,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.audiences.add_people(
@@ -9305,7 +9305,7 @@ import datetime
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.authorized_users.list(
@@ -9451,7 +9451,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.authorized_users.create(
@@ -9562,7 +9562,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.authorized_users.retrieve(
@@ -9638,7 +9638,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.authorized_users.delete(
@@ -9721,7 +9721,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.bounties.list()
@@ -9904,7 +9904,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.bounties.create(
@@ -10075,7 +10075,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.bounties.retrieve(
@@ -10148,7 +10148,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.bounties.update(
@@ -10301,7 +10301,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.bounties.cancel(
@@ -10375,7 +10375,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.bounty_submissions.list()
@@ -10526,7 +10526,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.bounty_submissions.create(
@@ -10623,7 +10623,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.bounty_submissions.retrieve(
@@ -10704,7 +10704,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.bounty_submissions.delete(
@@ -10777,7 +10777,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.bounty_submissions.submit(
@@ -10859,7 +10859,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.card_transactions.list(
@@ -11036,7 +11036,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.card_transactions.retrieve(
@@ -11118,7 +11118,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.cards.list()
@@ -11197,7 +11197,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.cards.create()
@@ -11316,7 +11316,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.cards.retrieve(
@@ -11405,7 +11405,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.cards.update(
@@ -11576,7 +11576,7 @@ import datetime
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.cashback_rules.create(
@@ -11698,7 +11698,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.cashback_rules.list()
@@ -11809,7 +11809,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.cashback_rules.update(
@@ -11918,7 +11918,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.chat_channels.list(
@@ -12037,7 +12037,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.chat_channels.retrieve(
@@ -12113,7 +12113,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.chat_channels.update(
@@ -12235,7 +12235,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.checkout_configurations.list(
@@ -12364,7 +12364,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.checkout_configurations.create(
@@ -12510,7 +12510,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.checkout_configurations.retrieve(
@@ -12583,7 +12583,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.checkout_configurations.delete(
@@ -12662,7 +12662,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.company_token_transactions.list(
@@ -12792,7 +12792,7 @@ from whop_sdk.company_token_transactions import CreateCompanyTokenTransactionsRe
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.company_token_transactions.create(
@@ -12875,7 +12875,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.company_token_transactions.retrieve(
@@ -12949,7 +12949,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.confirmation_tokens.retrieve(
@@ -13035,7 +13035,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.course_chapters.list(
@@ -13145,7 +13145,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.course_chapters.create(
@@ -13229,7 +13229,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.course_chapters.retrieve(
@@ -13305,7 +13305,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.course_chapters.delete(
@@ -13381,7 +13381,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.course_chapters.update(
@@ -13468,7 +13468,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.course_lesson_interactions.list(
@@ -13605,7 +13605,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.course_lesson_interactions.retrieve(
@@ -13682,7 +13682,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.course_lessons.list(
@@ -13801,7 +13801,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.course_lessons.create(
@@ -13934,7 +13934,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.course_lessons.retrieve(
@@ -14010,7 +14010,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.course_lessons.delete(
@@ -14086,7 +14086,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.course_lessons.update(
@@ -14271,7 +14271,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.course_lessons.mark_as_completed(
@@ -14344,7 +14344,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.course_lessons.start(
@@ -14418,7 +14418,7 @@ from whop_sdk.course_lessons import SubmitAssessmentCourseLessonsRequestAnswersI
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.course_lessons.submit_assessment(
@@ -14509,7 +14509,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.course_students.list(
@@ -14628,7 +14628,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.course_students.retrieve(
@@ -14705,7 +14705,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.courses.list(
@@ -14824,7 +14824,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.courses.create(
@@ -14957,7 +14957,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.courses.retrieve(
@@ -15033,7 +15033,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.courses.delete(
@@ -15109,7 +15109,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.courses.update(
@@ -15263,7 +15263,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.deposits.create(
@@ -15345,7 +15345,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.dispute_alerts.list()
@@ -15496,7 +15496,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.dispute_alerts.retrieve(
@@ -15570,7 +15570,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.disputes.list()
@@ -15721,7 +15721,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.disputes.summary()
@@ -15832,7 +15832,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.disputes.retrieve(
@@ -15905,7 +15905,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.disputes.update(
@@ -15986,7 +15986,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.disputes.submit(
@@ -16060,7 +16060,7 @@ from whop_sdk.disputes import UploadEvidenceDisputesRequestDocumentsItem
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.disputes.upload_evidence(
@@ -16150,7 +16150,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.dm_channels.list(
@@ -16260,7 +16260,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.dm_channels.create(
@@ -16363,7 +16363,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.dm_channels.retrieve(
@@ -16440,7 +16440,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.dm_channels.delete(
@@ -16517,7 +16517,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.dm_channels.update(
@@ -16603,7 +16603,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.dm_members.list(
@@ -16714,7 +16714,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.dm_members.create(
@@ -16800,7 +16800,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.dm_members.retrieve(
@@ -16877,7 +16877,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.dm_members.delete(
@@ -16954,7 +16954,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.dm_members.update(
@@ -17044,7 +17044,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.domains.list()
@@ -17179,7 +17179,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.domains.create(
@@ -17285,7 +17285,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.domains.retrieve(
@@ -17358,7 +17358,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.domains.delete(
@@ -17431,7 +17431,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.domains.update(
@@ -17521,7 +17521,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.economic_intelligence.list()
@@ -17632,7 +17632,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.economic_intelligence.create(
@@ -17713,7 +17713,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.economic_intelligence.update(
@@ -17819,7 +17819,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.events.list()
@@ -18034,7 +18034,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.events.create(
@@ -18264,7 +18264,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.events.pulse()
@@ -18359,7 +18359,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.events.validate_pixel()
@@ -18440,7 +18440,7 @@ import datetime
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.experiences.list(
@@ -18584,7 +18584,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.experiences.create(
@@ -18706,7 +18706,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.experiences.retrieve(
@@ -18780,7 +18780,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.experiences.delete(
@@ -18854,7 +18854,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.experiences.update(
@@ -18986,7 +18986,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.experiences.attach(
@@ -19071,7 +19071,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.experiences.detach(
@@ -19159,7 +19159,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.experiences.duplicate(
@@ -19241,7 +19241,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.experiments.list()
@@ -19376,7 +19376,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.experiments.create(
@@ -19530,7 +19530,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.experiments.exposures()
@@ -19641,7 +19641,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.experiments.retrieve(
@@ -19722,7 +19722,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.experiments.update(
@@ -19843,7 +19843,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.experiments.activate(
@@ -19932,7 +19932,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.experiments.end(
@@ -20030,7 +20030,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.experiments.pause(
@@ -20112,7 +20112,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.exports.list()
@@ -20231,7 +20231,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.exports.create(
@@ -20336,7 +20336,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.exports.retrieve(
@@ -20413,7 +20413,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.fee_markups.list(
@@ -20523,7 +20523,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.fee_markups.create(
@@ -20640,7 +20640,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.fee_markups.delete(
@@ -20714,7 +20714,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.files.list(
@@ -20837,7 +20837,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.files.create(
@@ -20934,7 +20934,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.files.retrieve(
@@ -21008,7 +21008,7 @@ from whop_sdk.files import CompleteFilesRequestMultipartPartsItem
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.files.complete(
@@ -21105,7 +21105,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.financial_activity.list()
@@ -21297,7 +21297,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.financial_reports.retrieve(
@@ -21471,7 +21471,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.forum_posts.list(
@@ -21605,7 +21605,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.forum_posts.create(
@@ -21777,7 +21777,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.forum_posts.retrieve(
@@ -21850,7 +21850,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.forum_posts.update(
@@ -21967,7 +21967,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.forums.list(
@@ -22086,7 +22086,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.forums.retrieve(
@@ -22162,7 +22162,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.forums.update(
@@ -22279,7 +22279,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.identity_profiles.list_identity_profile(
@@ -22405,7 +22405,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.identity_profiles.retrieve_identity_profile(
@@ -22478,7 +22478,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.identity_profiles.unlink_identity_profile(
@@ -22563,7 +22563,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.identity_profiles.list_verifications_identity_profile(
@@ -22675,7 +22675,7 @@ import datetime
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.invoices.list(
@@ -22847,7 +22847,7 @@ from whop_sdk.invoices import CreateInvoicesRequestProduct, CreateInvoicesReques
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.invoices.create(
@@ -22933,7 +22933,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.invoices.retrieve(
@@ -23009,7 +23009,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.invoices.delete(
@@ -23088,7 +23088,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.invoices.update(
@@ -23276,7 +23276,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.invoices.mark_paid(
@@ -23352,7 +23352,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.invoices.mark_uncollectible(
@@ -23428,7 +23428,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.invoices.resend(
@@ -23504,7 +23504,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.invoices.void(
@@ -23585,7 +23585,7 @@ import datetime
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.leads.list(
@@ -23724,7 +23724,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.leads.create(
@@ -23835,7 +23835,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.leads.retrieve(
@@ -23914,7 +23914,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.leads.update(
@@ -24008,7 +24008,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.ledger_accounts.retrieve(
@@ -24082,7 +24082,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.media.generate(
@@ -24196,7 +24196,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.media.retrieve(
@@ -24270,7 +24270,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.members.list(
@@ -24441,7 +24441,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.members.retrieve(
@@ -24515,7 +24515,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.memberships.list()
@@ -24683,7 +24683,7 @@ from whop_sdk.memberships import InviteMembershipsRequestBodyUserId
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.memberships.invite(
@@ -24759,7 +24759,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.memberships.retrieve(
@@ -24832,7 +24832,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.memberships.update(
@@ -24921,7 +24921,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.memberships.cancel(
@@ -25010,7 +25010,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.memberships.extend(
@@ -25092,7 +25092,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.memberships.pause(
@@ -25173,7 +25173,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.memberships.resume(
@@ -25246,7 +25246,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.memberships.resync_access(
@@ -25319,7 +25319,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.memberships.transfer(
@@ -25398,7 +25398,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.messages.list(
@@ -25519,7 +25519,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.messages.create(
@@ -25639,7 +25639,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.messages.retrieve(
@@ -25718,7 +25718,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.messages.delete(
@@ -25797,7 +25797,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.messages.update(
@@ -25895,7 +25895,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.notifications.list()
@@ -26006,7 +26006,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.notifications.create(
@@ -26136,7 +26136,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.notifications.badges(
@@ -26219,7 +26219,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.notifications.mark_read()
@@ -26298,7 +26298,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.notifications.retrieve(
@@ -26372,7 +26372,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.partner_referral_requests.list()
@@ -26516,7 +26516,7 @@ from whop_sdk.partner_referral_requests import CreatePartnerReferralRequestsRequ
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.partner_referral_requests.create(
@@ -26591,7 +26591,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.partner_referral_requests.retrieve(
@@ -26664,7 +26664,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.partner_referral_requests.accept(
@@ -26737,7 +26737,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.partner_referral_requests.cancel(
@@ -26810,7 +26810,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.partner_referral_requests.decline(
@@ -26884,7 +26884,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.partners.create()
@@ -26947,7 +26947,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.partners.leaderboard()
@@ -27018,7 +27018,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.partners.referred_users()
@@ -27129,7 +27129,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.partners.retrieve(
@@ -27203,7 +27203,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payment_method_domains.list()
@@ -27362,7 +27362,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payment_method_domains.create(
@@ -27443,7 +27443,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payment_method_domains.retrieve(
@@ -27516,7 +27516,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payment_method_domains.delete(
@@ -27589,7 +27589,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payment_method_domains.verify(
@@ -27667,7 +27667,7 @@ import datetime
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payment_methods.list(
@@ -27868,7 +27868,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payment_methods.retrieve(
@@ -27962,7 +27962,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payment_methods.delete_payment_method(
@@ -28040,7 +28040,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payment_rules.list()
@@ -28162,7 +28162,7 @@ from whop_sdk.payment_rules import CreatePaymentRulesRequestConditions, CreatePa
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payment_rules.create(
@@ -28277,7 +28277,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payment_rules.list_fields()
@@ -28326,7 +28326,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payment_rules.retrieve(
@@ -28399,7 +28399,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payment_rules.delete(
@@ -28472,7 +28472,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payment_rules.update(
@@ -28547,7 +28547,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payment_rules.activate(
@@ -28620,7 +28620,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payment_rules.deactivate(
@@ -28694,7 +28694,7 @@ from whop_sdk.payment_rules import ReplacePaymentRulesRequestConditions, Replace
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payment_rules.replace(
@@ -28794,7 +28794,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payments.list()
@@ -29001,7 +29001,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payments.create(
@@ -29186,7 +29186,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payments.retrieve(
@@ -29259,7 +29259,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payments.capture(
@@ -29332,7 +29332,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payments.list_fees(
@@ -29405,7 +29405,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payments.refund(
@@ -29486,7 +29486,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payments.retry(
@@ -29559,7 +29559,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payments.void(
@@ -29632,7 +29632,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payments.resume(
@@ -29705,7 +29705,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payments.update_return_url(
@@ -29787,7 +29787,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payments.retrieve_status(
@@ -29864,7 +29864,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payout_accounts.retrieve(
@@ -29941,7 +29941,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payout_methods.list_payout_method(
@@ -30051,7 +30051,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payout_methods.retrieve_payout_method(
@@ -30125,7 +30125,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payouts.list()
@@ -30284,7 +30284,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payouts.create(
@@ -30446,7 +30446,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payouts.create_quote(
@@ -30576,7 +30576,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payouts.retrieve(
@@ -30665,7 +30665,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payouts.cancel(
@@ -30755,7 +30755,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.people.list(
@@ -31185,7 +31185,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.people.retrieve(
@@ -31267,7 +31267,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.permissions.list(
@@ -31349,7 +31349,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.plans.list(
@@ -31529,7 +31529,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.plans.create()
@@ -31792,7 +31792,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.plans.retrieve(
@@ -31865,7 +31865,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.plans.delete(
@@ -31938,7 +31938,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.plans.update(
@@ -32220,7 +32220,7 @@ from whop_sdk.plans import CalculateTaxPlansRequestAddress
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.plans.calculate_tax(
@@ -32322,7 +32322,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.products.list(
@@ -32528,7 +32528,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.products.create(
@@ -32753,7 +32753,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.products.retrieve(
@@ -32826,7 +32826,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.products.delete(
@@ -32899,7 +32899,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.products.update(
@@ -33052,7 +33052,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.products.publish(
@@ -33125,7 +33125,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.products.unpublish(
@@ -33199,7 +33199,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.promo_codes.list(
@@ -33366,7 +33366,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.promo_codes.create(
@@ -33557,7 +33557,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.promo_codes.retrieve(
@@ -33630,7 +33630,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.promo_codes.delete(
@@ -33703,7 +33703,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.promo_codes.activate(
@@ -33776,7 +33776,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.promo_codes.deactivate(
@@ -33857,7 +33857,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.reactions.list(
@@ -33971,7 +33971,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.reactions.create(
@@ -34067,7 +34067,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.reactions.retrieve(
@@ -34147,7 +34147,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.reactions.delete(
@@ -34229,7 +34229,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.refunds.list()
@@ -34380,7 +34380,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.refunds.retrieve(
@@ -34454,7 +34454,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.resolution_center_cases.list()
@@ -34621,7 +34621,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.resolution_center_cases.create(
@@ -34720,7 +34720,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.resolution_center_cases.summary()
@@ -34847,7 +34847,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.resolution_center_cases.retrieve(
@@ -34920,7 +34920,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.resolution_center_cases.accept(
@@ -35017,7 +35017,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.resolution_center_cases.appeal(
@@ -35107,7 +35107,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.resolution_center_cases.deny(
@@ -35197,7 +35197,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.resolution_center_cases.events(
@@ -35302,7 +35302,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.resolution_center_cases.reply(
@@ -35392,7 +35392,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.resolution_center_cases.request_info(
@@ -35481,7 +35481,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.resolution_center_cases.withdraw(
@@ -35556,7 +35556,7 @@ import datetime
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.reviews.list(
@@ -35699,7 +35699,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.reviews.retrieve(
@@ -35773,7 +35773,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.setup_intents.list()
@@ -35916,7 +35916,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.setup_intents.create(
@@ -36037,7 +36037,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.setup_intents.retrieve(
@@ -36110,7 +36110,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.setup_intents.update_return_url(
@@ -36192,7 +36192,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.setup_intents.retrieve_status(
@@ -36266,7 +36266,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.shipments.list(
@@ -36421,7 +36421,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.shipments.create(
@@ -36511,7 +36511,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.shipments.retrieve(
@@ -36584,7 +36584,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.shipments.update(
@@ -36667,7 +36667,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.social_accounts.list()
@@ -36818,7 +36818,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.social_accounts.create(
@@ -36899,7 +36899,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.social_accounts.connect(
@@ -36997,7 +36997,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.social_accounts.delete(
@@ -37086,7 +37086,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.social_accounts.lead_forms(
@@ -37168,7 +37168,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.social_accounts.posts(
@@ -37275,7 +37275,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.stats.list()
@@ -37338,7 +37338,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.stats.retrieve(
@@ -37954,7 +37954,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.support_channels.list(
@@ -38096,7 +38096,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.support_channels.create(
@@ -38197,7 +38197,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.support_channels.retrieve(
@@ -38271,7 +38271,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.swaps.list(
@@ -38344,7 +38344,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.swaps.create(
@@ -38475,7 +38475,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.swaps.create_quote(
@@ -38614,7 +38614,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.swaps.retrieve(
@@ -38688,7 +38688,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.team_members.list(
@@ -38849,7 +38849,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.team_members.create(
@@ -38947,7 +38947,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.team_members.retrieve(
@@ -39020,7 +39020,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.team_members.delete(
@@ -39093,7 +39093,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.team_members.update(
@@ -39179,7 +39179,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.topups.create(
@@ -39280,7 +39280,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.transfers.list()
@@ -39423,7 +39423,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.transfers.create(
@@ -39585,7 +39585,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.transfers.list_recipients(
@@ -39682,7 +39682,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.transfers.retrieve(
@@ -39756,7 +39756,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.users.list()
@@ -39859,7 +39859,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.users.me()
@@ -39978,7 +39978,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.users.update_me()
@@ -40089,7 +40089,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.users.retrieve(
@@ -40218,7 +40218,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.users.update(
@@ -40339,7 +40339,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.users.check_access(
@@ -40421,7 +40421,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.users.recommend_actions(
@@ -40495,7 +40495,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.verifications.list(
@@ -40585,7 +40585,7 @@ from whop_sdk.verifications import CreateVerificationsRequestBody_Individual
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.verifications.create(
@@ -40667,7 +40667,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.verifications.retrieve(
@@ -40741,7 +40741,7 @@ from whop_sdk.verifications import UpdateVerificationsRequestBodyPersonalAddress
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.verifications.update(
@@ -40824,7 +40824,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.waitlist_entries.list()
@@ -40983,7 +40983,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.waitlist_entries.create(
@@ -41072,7 +41072,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.waitlist_entries.approve_all(
@@ -41153,7 +41153,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.waitlist_entries.retrieve(
@@ -41226,7 +41226,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.waitlist_entries.approve(
@@ -41299,7 +41299,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.waitlist_entries.cancel(
@@ -41372,7 +41372,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.waitlist_entries.deny(
@@ -41446,7 +41446,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.webhooks.list(
@@ -41575,7 +41575,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.webhooks.create(
@@ -41688,7 +41688,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.webhooks.retrieve(
@@ -41761,7 +41761,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.webhooks.delete(
@@ -41834,7 +41834,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.webhooks.update(
@@ -41947,7 +41947,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.webhooks.list_deliveries(
@@ -42036,7 +42036,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.webhooks.replay_delivery(
@@ -42126,7 +42126,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.webhooks.replay(
@@ -42240,7 +42240,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.webhooks.test(
@@ -42323,7 +42323,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.accounts.fees.retrieve(
@@ -42396,7 +42396,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.accounts.fees.update(
@@ -42702,7 +42702,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.accounts.preferences.retrieve(
@@ -42786,7 +42786,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.accounts.preferences.update(
@@ -42932,7 +42932,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.accounts.reserves.list(
@@ -43009,7 +43009,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.affiliates.overrides.list(
@@ -43128,7 +43128,7 @@ from whop_sdk.affiliates.overrides import CreateOverridesRequestBody_Standard
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.affiliates.overrides.create(
@@ -43217,7 +43217,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.affiliates.overrides.retrieve(
@@ -43302,7 +43302,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.affiliates.overrides.delete(
@@ -43387,7 +43387,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.affiliates.overrides.update(
@@ -43502,7 +43502,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.bounties.submissions.list(
@@ -43647,7 +43647,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.bounties.submissions.retrieve(
@@ -43731,7 +43731,7 @@ import datetime
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.financial_reports.breakdown.retrieve(
@@ -43866,7 +43866,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.members.logs.list(
@@ -43972,7 +43972,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.notifications.topics.list()
@@ -44060,7 +44060,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.partners.businesses.list()
@@ -44235,7 +44235,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.partners.businesses.retrieve(
@@ -44309,7 +44309,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.partners.links.list()
@@ -44413,7 +44413,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.partners.businesses.earnings.list(
@@ -44534,6 +44534,196 @@ client.partners.businesses.earnings.list(
 </dl>
 </details>
 
+## Payments Direct
+<details><summary><code>client.payments.direct.<a href="src/whop_sdk/payments/direct/client.py">create</a>(...) -> Payment</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Charges a buyer for a plan from card details the caller holds itself, for integrators whose own systems are PCI compliant. Card details are accepted only on the vault host, where the card is tokenized before it reaches Whop; the official SDKs route this operation there, and raw card details sent to the regular host are refused. (Whop's own clients, which tokenize with the Basis Theory SDK, send the resulting token intent id to the regular host.) Collection runs in the background: the response is the payment as created, not its outcome — poll Retrieve status for how far it has got and what the buyer must still do, such as 3D Secure.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+from whop_sdk.payments.direct import CreateDirectRequestBillingDetails, CreateDirectRequestBillingDetailsAddress, CreateDirectRequestPaymentMethod
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.payments.direct.create(
+    account_id="biz_xxxxxxxxxxxxxx",
+    billing_details=CreateDirectRequestBillingDetails(
+        address=CreateDirectRequestBillingDetailsAddress(
+            country="US",
+            postal_code="94105",
+        ),
+        email="dana@shinetime.example",
+        name="Dana Shine",
+    ),
+    payment_method=CreateDirectRequestPaymentMethod(
+        type="card",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**account_id:** `str` — The account to charge for, prefixed `biz_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**billing_details:** `CreateDirectRequestBillingDetails` — The buyer's billing details.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment_method:** `CreateDirectRequestPaymentMethod` — The payment method to charge, as the raw details the caller holds. Raw details are accepted only on the vault host, where Whop's vault tokenizes them in transit; the official SDKs route this operation there. Whop's own clients, which tokenize with the Basis Theory SDK, send the resulting token intent id to the regular host.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**auto_capture_after_minutes:** `typing.Optional[int]` — Minutes after authorization at which Whop captures the hold automatically unless it has been voided. Requires `capture: false`. Between 5 and 5760 (4 days).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**capture:** `typing.Optional[bool]` — Whether to capture the payment immediately. Defaults to true. Pass false to place an authorization hold that must be captured in full within five days via the capture endpoint, or automatically after `auto_capture_after_minutes`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**member_id:** `typing.Optional[str]` — The member to charge, prefixed `mber_`. When omitted the buyer is resolved from `billing_details.email`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**metadata:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — Custom metadata to attach to the payment.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**off_session:** `typing.Optional[bool]` — Whether the charge is merchant-initiated, with the buyer not present. Defaults to false. When true, `payment_method.card.network_transaction_id` is required: a merchant-initiated charge on a card Whop has not charged before carries the id of the card's prior customer-initiated transaction. No 3D Secure step is offered: an issuer that requires the buyer to authenticate declines the charge, and the payment fails with that reason so the card can be charged again with the buyer present. A declined card is not saved.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**plan:** `typing.Optional[CreateDirectRequestPlan]` — Find or create a plan for this payment. Mutually exclusive with `plan_id` and `line_items`. Creating a plan requires plan:create; creating or updating a product requires the corresponding product permission.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**plan_id:** `typing.Optional[str]` — The plan to charge for, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**promo_code_id:** `typing.Optional[str]` — An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the plan.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**return_url:** `typing.Optional[str]` — Where the buyer continues after completing an off-site step such as 3D Secure. An absolute https URL without credentials, at most 2,048 characters.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**setup_future_usage:** `typing.Optional[CreateDirectRequestSetupFutureUsage]` — Attests that the buyer was told the card will be saved for later charges. `off_session` for merchant-initiated charges, `on_session` for buyer-present ones.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**statement_descriptor:** `typing.Optional[str]` — Overrides the text on the buyer's card statement for this payment only. Must start with `WHOP*`, be 5-22 characters, contain at least one letter, and use only Latin letters, numbers, spaces, underscores, hyphens, or asterisks.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Payouts Methods
 <details><summary><code>client.payouts.methods.<a href="src/whop_sdk/payouts/methods/client.py">list</a>(...) -> ListMethodsResponse</code></summary>
 <dl>
@@ -44567,7 +44757,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payouts.methods.list()
@@ -44710,7 +44900,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payouts.methods.create(
@@ -44831,7 +45021,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payouts.methods.delete(
@@ -44904,7 +45094,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payouts.methods.update(
@@ -44994,7 +45184,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.payouts.supported_methods.list()
@@ -45113,6 +45303,140 @@ client.payouts.supported_methods.list()
 </dl>
 </details>
 
+## SetupIntents Direct
+<details><summary><code>client.setup_intents.direct.<a href="src/whop_sdk/setup_intents/direct/client.py">create</a>(...) -> SetupIntent</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Saves a card for later charges from card details the caller holds itself, for integrators whose own systems are PCI compliant. Card details are accepted only on the vault host, where the card is tokenized before it reaches Whop; the official SDKs route this operation there, and raw card details sent to the regular host are refused. (Whop's own clients, which tokenize with the Basis Theory SDK, send the resulting token intent id to the regular host.) The setup runs in the background: poll Retrieve setup status for its outcome and for anything the buyer must still do, such as 3D Secure. Once it succeeds, the saved payment method arrives on the `setup_intent.succeeded` webhook and in List payment methods for the member.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+from whop_sdk.setup_intents.direct import CreateDirectRequestBillingDetails, CreateDirectRequestBillingDetailsAddress, CreateDirectRequestPaymentMethod
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.setup_intents.direct.create(
+    account_id="biz_xxxxxxxxxxxxxx",
+    billing_details=CreateDirectRequestBillingDetails(
+        address=CreateDirectRequestBillingDetailsAddress(
+            country="US",
+            postal_code="94105",
+        ),
+        email="dana@shinetime.example",
+        name="Dana Shine",
+    ),
+    payment_method=CreateDirectRequestPaymentMethod(
+        type="card",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**account_id:** `str` — The account the card is saved for, prefixed `biz_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**billing_details:** `CreateDirectRequestBillingDetails` — The buyer's billing details.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment_method:** `CreateDirectRequestPaymentMethod` — The payment method to save, as the raw details the caller holds. Raw details are accepted only on the vault host, where Whop's vault tokenizes them in transit; the official SDKs route this operation there. Whop's own clients, which tokenize with the Basis Theory SDK, send the resulting token intent id to the regular host.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**currency:** `typing.Optional[str]` — The currency the card will be charged in, as a three-letter code. Defaults to usd.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**member_id:** `typing.Optional[str]` — The member the card belongs to, prefixed `mber_`. When omitted the buyer is resolved from `billing_details.email`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**metadata:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — Custom metadata to attach to the setup.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**return_url:** `typing.Optional[str]` — Where the buyer continues after completing an off-site step such as 3D Secure. An absolute https URL without credentials, at most 2,048 characters.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Users OauthGrants
 <details><summary><code>client.users.oauth_grants.<a href="src/whop_sdk/users/oauth_grants/client.py">list</a>(...) -> ListOauthGrantsResponse</code></summary>
 <dl>
@@ -45146,7 +45470,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.users.oauth_grants.list()
@@ -45265,7 +45589,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.users.oauth_grants.create(
@@ -45417,7 +45741,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.users.passkeys.list()
@@ -45528,7 +45852,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.users.passkeys.create(
@@ -45628,7 +45952,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.users.passkeys.challenge(
@@ -45709,7 +46033,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.users.passkeys.delete(
@@ -45810,7 +46134,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.users.preferences.retrieve()
@@ -45873,7 +46197,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.users.preferences.update()
@@ -45968,7 +46292,7 @@ from whop_sdk.users.preferences.notifications import SetNotificationsRequestPref
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.users.preferences.notifications.set(
@@ -46046,7 +46370,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.users.preferences.notifications.experiences.list()
@@ -46126,7 +46450,7 @@ from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
     token="<token>",
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 
 client.users.preferences.notifications.topics.list()

@@ -119,7 +119,7 @@ from whop_sdk import Whop
 from whop_sdk.environment import WhopEnvironment
 
 client = Whop(
-    environment=WhopEnvironment.DEFAULT,
+    environment=WhopEnvironment.PRODUCTION,
 )
 ```
 

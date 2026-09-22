@@ -86,6 +86,7 @@ class RawReviewsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "reviews",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -233,6 +234,7 @@ class RawReviewsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"reviews/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -393,6 +395,7 @@ class AsyncRawReviewsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "reviews",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -545,6 +548,7 @@ class AsyncRawReviewsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"reviews/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )

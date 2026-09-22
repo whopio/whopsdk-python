@@ -144,6 +144,7 @@ class RawResolutionCenterCasesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "resolution_center_cases",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -271,6 +272,7 @@ class RawResolutionCenterCasesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "resolution_center_cases",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "attachments": convert_and_respect_annotation_metadata(
@@ -401,6 +403,7 @@ class RawResolutionCenterCasesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "resolution_center_cases/summary",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "groups": groups,
@@ -476,6 +479,7 @@ class RawResolutionCenterCasesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"resolution_center_cases/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -556,6 +560,7 @@ class RawResolutionCenterCasesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"resolution_center_cases/{encode_path_param(id)}/accept",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "attachments": convert_and_respect_annotation_metadata(
@@ -656,6 +661,7 @@ class RawResolutionCenterCasesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"resolution_center_cases/{encode_path_param(id)}/appeal",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "attachments": convert_and_respect_annotation_metadata(
@@ -744,6 +750,7 @@ class RawResolutionCenterCasesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"resolution_center_cases/{encode_path_param(id)}/deny",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "attachments": convert_and_respect_annotation_metadata(
@@ -840,6 +847,7 @@ class RawResolutionCenterCasesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"resolution_center_cases/{encode_path_param(id)}/events",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "first": first,
@@ -936,6 +944,7 @@ class RawResolutionCenterCasesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"resolution_center_cases/{encode_path_param(id)}/reply",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "attachments": convert_and_respect_annotation_metadata(
@@ -1024,6 +1033,7 @@ class RawResolutionCenterCasesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"resolution_center_cases/{encode_path_param(id)}/request_info",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "attachments": convert_and_respect_annotation_metadata(
@@ -1101,6 +1111,7 @@ class RawResolutionCenterCasesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"resolution_center_cases/{encode_path_param(id)}/withdraw",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -1235,6 +1246,7 @@ class AsyncRawResolutionCenterCasesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "resolution_center_cases",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -1365,6 +1377,7 @@ class AsyncRawResolutionCenterCasesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "resolution_center_cases",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "attachments": convert_and_respect_annotation_metadata(
@@ -1495,6 +1508,7 @@ class AsyncRawResolutionCenterCasesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "resolution_center_cases/summary",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "groups": groups,
@@ -1570,6 +1584,7 @@ class AsyncRawResolutionCenterCasesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"resolution_center_cases/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1650,6 +1665,7 @@ class AsyncRawResolutionCenterCasesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"resolution_center_cases/{encode_path_param(id)}/accept",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "attachments": convert_and_respect_annotation_metadata(
@@ -1750,6 +1766,7 @@ class AsyncRawResolutionCenterCasesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"resolution_center_cases/{encode_path_param(id)}/appeal",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "attachments": convert_and_respect_annotation_metadata(
@@ -1838,6 +1855,7 @@ class AsyncRawResolutionCenterCasesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"resolution_center_cases/{encode_path_param(id)}/deny",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "attachments": convert_and_respect_annotation_metadata(
@@ -1934,6 +1952,7 @@ class AsyncRawResolutionCenterCasesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"resolution_center_cases/{encode_path_param(id)}/events",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "first": first,
@@ -2033,6 +2052,7 @@ class AsyncRawResolutionCenterCasesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"resolution_center_cases/{encode_path_param(id)}/reply",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "attachments": convert_and_respect_annotation_metadata(
@@ -2121,6 +2141,7 @@ class AsyncRawResolutionCenterCasesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"resolution_center_cases/{encode_path_param(id)}/request_info",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "attachments": convert_and_respect_annotation_metadata(
@@ -2198,6 +2219,7 @@ class AsyncRawResolutionCenterCasesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"resolution_center_cases/{encode_path_param(id)}/withdraw",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )

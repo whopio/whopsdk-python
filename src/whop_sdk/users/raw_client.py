@@ -76,6 +76,7 @@ class RawUsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "users",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "query": query,
@@ -178,6 +179,7 @@ class RawUsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "users/me",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -259,6 +261,7 @@ class RawUsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "users/me",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             params={
                 "account_id": account_id,
@@ -362,6 +365,7 @@ class RawUsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"users/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -447,6 +451,7 @@ class RawUsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"users/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             params={
                 "account_id": account_id,
@@ -511,6 +516,7 @@ class RawUsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"users/{encode_path_param(id)}/access/{encode_path_param(resource_id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -554,6 +560,7 @@ class RawUsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"users/{encode_path_param(id)}/recommend_actions",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -643,6 +650,7 @@ class AsyncRawUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "users",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "query": query,
@@ -748,6 +756,7 @@ class AsyncRawUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "users/me",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -829,6 +838,7 @@ class AsyncRawUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "users/me",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             params={
                 "account_id": account_id,
@@ -932,6 +942,7 @@ class AsyncRawUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"users/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -1017,6 +1028,7 @@ class AsyncRawUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"users/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             params={
                 "account_id": account_id,
@@ -1081,6 +1093,7 @@ class AsyncRawUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"users/{encode_path_param(id)}/access/{encode_path_param(resource_id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1124,6 +1137,7 @@ class AsyncRawUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"users/{encode_path_param(id)}/recommend_actions",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )

@@ -53,6 +53,7 @@ class RawTopicsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "notifications/topics",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "topic_type": topic_type,
@@ -151,6 +152,7 @@ class AsyncRawTopicsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "notifications/topics",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "topic_type": topic_type,

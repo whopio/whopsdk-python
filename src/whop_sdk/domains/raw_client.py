@@ -84,6 +84,7 @@ class RawDomainsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "domains",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -175,6 +176,7 @@ class RawDomainsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "domains",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -238,6 +240,7 @@ class RawDomainsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"domains/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -279,6 +282,7 @@ class RawDomainsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"domains/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -333,6 +337,7 @@ class RawDomainsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"domains/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "app_id": app_id,
@@ -424,6 +429,7 @@ class AsyncRawDomainsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "domains",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -518,6 +524,7 @@ class AsyncRawDomainsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "domains",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -583,6 +590,7 @@ class AsyncRawDomainsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"domains/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -626,6 +634,7 @@ class AsyncRawDomainsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"domains/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -680,6 +689,7 @@ class AsyncRawDomainsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"domains/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "app_id": app_id,

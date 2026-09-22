@@ -137,6 +137,7 @@ class RawEventsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "events",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "identifier": identifier,
@@ -332,6 +333,7 @@ class RawEventsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "events",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -431,6 +433,7 @@ class RawEventsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "events/pulse",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "event": event,
@@ -511,6 +514,7 @@ class RawEventsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "events/validate_pixel",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -686,6 +690,7 @@ class AsyncRawEventsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "events",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "identifier": identifier,
@@ -884,6 +889,7 @@ class AsyncRawEventsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "events",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -983,6 +989,7 @@ class AsyncRawEventsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "events/pulse",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "event": event,
@@ -1066,6 +1073,7 @@ class AsyncRawEventsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "events/validate_pixel",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,

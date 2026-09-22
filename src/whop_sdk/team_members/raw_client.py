@@ -104,6 +104,7 @@ class RawTeamMembersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "team_members",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -241,6 +242,7 @@ class RawTeamMembersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "team_members",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -325,6 +327,7 @@ class RawTeamMembersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"team_members/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -379,6 +382,7 @@ class RawTeamMembersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"team_members/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -458,6 +462,7 @@ class RawTeamMembersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"team_members/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "role": role,
@@ -582,6 +587,7 @@ class AsyncRawTeamMembersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "team_members",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -722,6 +728,7 @@ class AsyncRawTeamMembersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "team_members",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -808,6 +815,7 @@ class AsyncRawTeamMembersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"team_members/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -862,6 +870,7 @@ class AsyncRawTeamMembersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"team_members/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -941,6 +950,7 @@ class AsyncRawTeamMembersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"team_members/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "role": role,

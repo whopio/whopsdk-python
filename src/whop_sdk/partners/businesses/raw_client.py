@@ -105,6 +105,7 @@ class RawBusinessesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "partners/businesses",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "status": status,
@@ -220,6 +221,7 @@ class RawBusinessesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"partners/businesses/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -334,6 +336,7 @@ class AsyncRawBusinessesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "partners/businesses",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "status": status,
@@ -452,6 +455,7 @@ class AsyncRawBusinessesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"partners/businesses/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )

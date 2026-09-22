@@ -100,6 +100,7 @@ class RawMembersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "members",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -211,6 +212,7 @@ class RawMembersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"members/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -332,6 +334,7 @@ class AsyncRawMembersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "members",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -448,6 +451,7 @@ class AsyncRawMembersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"members/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )

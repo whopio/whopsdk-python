@@ -47,6 +47,7 @@ class RawExperiencesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "users/me/preferences/notifications/experiences",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "first": first,
@@ -128,6 +129,7 @@ class AsyncRawExperiencesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "users/me/preferences/notifications/experiences",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "first": first,

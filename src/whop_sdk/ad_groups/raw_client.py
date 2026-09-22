@@ -158,6 +158,7 @@ class RawAdGroupsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "ad_groups",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -345,6 +346,7 @@ class RawAdGroupsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "ad_groups",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "ad_campaign_id": ad_campaign_id,
@@ -486,6 +488,7 @@ class RawAdGroupsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "ad_groups/estimate_reach",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -643,6 +646,7 @@ class RawAdGroupsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "ad_groups/targeting_options",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -748,6 +752,7 @@ class RawAdGroupsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"ad_groups/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "stats_from": stats_from,
@@ -808,6 +813,7 @@ class RawAdGroupsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"ad_groups/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -957,6 +963,7 @@ class RawAdGroupsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"ad_groups/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "audiences": convert_and_respect_annotation_metadata(
@@ -1058,6 +1065,7 @@ class RawAdGroupsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"ad_groups/{encode_path_param(id)}/duplicate",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "count": count,
@@ -1141,6 +1149,7 @@ class RawAdGroupsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"ad_groups/{encode_path_param(id)}/pause",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -1193,6 +1202,7 @@ class RawAdGroupsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"ad_groups/{encode_path_param(id)}/unpause",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -1319,6 +1329,7 @@ class AsyncRawAdGroupsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "ad_groups",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -1509,6 +1520,7 @@ class AsyncRawAdGroupsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "ad_groups",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "ad_campaign_id": ad_campaign_id,
@@ -1650,6 +1662,7 @@ class AsyncRawAdGroupsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "ad_groups/estimate_reach",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -1807,6 +1820,7 @@ class AsyncRawAdGroupsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "ad_groups/targeting_options",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -1912,6 +1926,7 @@ class AsyncRawAdGroupsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"ad_groups/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "stats_from": stats_from,
@@ -1972,6 +1987,7 @@ class AsyncRawAdGroupsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"ad_groups/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -2121,6 +2137,7 @@ class AsyncRawAdGroupsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"ad_groups/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "audiences": convert_and_respect_annotation_metadata(
@@ -2222,6 +2239,7 @@ class AsyncRawAdGroupsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"ad_groups/{encode_path_param(id)}/duplicate",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "count": count,
@@ -2307,6 +2325,7 @@ class AsyncRawAdGroupsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"ad_groups/{encode_path_param(id)}/pause",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -2361,6 +2380,7 @@ class AsyncRawAdGroupsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"ad_groups/{encode_path_param(id)}/unpause",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )

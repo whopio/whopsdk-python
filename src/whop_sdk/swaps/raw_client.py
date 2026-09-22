@@ -55,6 +55,7 @@ class RawSwapsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "swaps",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -143,6 +144,7 @@ class RawSwapsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "swaps",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -272,6 +274,7 @@ class RawSwapsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "swaps/quote",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "amount": amount,
@@ -356,6 +359,7 @@ class RawSwapsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"swaps/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -437,6 +441,7 @@ class AsyncRawSwapsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "swaps",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -525,6 +530,7 @@ class AsyncRawSwapsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "swaps",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -654,6 +660,7 @@ class AsyncRawSwapsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "swaps/quote",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "amount": amount,
@@ -738,6 +745,7 @@ class AsyncRawSwapsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"swaps/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )

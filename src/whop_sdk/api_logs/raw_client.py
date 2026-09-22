@@ -87,6 +87,7 @@ class RawApiLogsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "api_logs",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -244,6 +245,7 @@ class AsyncRawApiLogsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "api_logs",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,

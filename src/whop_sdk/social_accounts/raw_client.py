@@ -107,6 +107,7 @@ class RawSocialAccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "social_accounts",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -212,6 +213,7 @@ class RawSocialAccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "social_accounts",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -311,6 +313,7 @@ class RawSocialAccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "social_accounts/connect",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -408,6 +411,7 @@ class RawSocialAccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"social_accounts/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             params={
                 "account_id": account_id,
@@ -513,6 +517,7 @@ class RawSocialAccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"social_accounts/{encode_path_param(id)}/lead_forms",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -611,6 +616,7 @@ class RawSocialAccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"social_accounts/{encode_path_param(id)}/posts",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -757,6 +763,7 @@ class AsyncRawSocialAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "social_accounts",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -865,6 +872,7 @@ class AsyncRawSocialAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "social_accounts",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -964,6 +972,7 @@ class AsyncRawSocialAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "social_accounts/connect",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -1061,6 +1070,7 @@ class AsyncRawSocialAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"social_accounts/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             params={
                 "account_id": account_id,
@@ -1166,6 +1176,7 @@ class AsyncRawSocialAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"social_accounts/{encode_path_param(id)}/lead_forms",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -1264,6 +1275,7 @@ class AsyncRawSocialAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"social_accounts/{encode_path_param(id)}/posts",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,

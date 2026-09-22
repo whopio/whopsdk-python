@@ -80,6 +80,7 @@ class RawOauthGrantsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "users/me/oauth_grants",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "app_id": app_id,
@@ -220,6 +221,7 @@ class RawOauthGrantsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "users/me/oauth_grants",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -366,6 +368,7 @@ class AsyncRawOauthGrantsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "users/me/oauth_grants",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "app_id": app_id,
@@ -509,6 +512,7 @@ class AsyncRawOauthGrantsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "users/me/oauth_grants",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,

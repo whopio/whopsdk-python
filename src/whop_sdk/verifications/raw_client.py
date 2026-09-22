@@ -67,6 +67,7 @@ class RawVerificationsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "verifications",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -154,6 +155,7 @@ class RawVerificationsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "verifications",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             params={
                 "account_id": account_id,
@@ -262,6 +264,7 @@ class RawVerificationsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"verifications/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -333,6 +336,7 @@ class RawVerificationsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"verifications/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=UpdateVerificationsRequestBody, direction="write"
@@ -443,6 +447,7 @@ class AsyncRawVerificationsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "verifications",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -530,6 +535,7 @@ class AsyncRawVerificationsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "verifications",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             params={
                 "account_id": account_id,
@@ -638,6 +644,7 @@ class AsyncRawVerificationsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"verifications/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -709,6 +716,7 @@ class AsyncRawVerificationsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"verifications/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=UpdateVerificationsRequestBody, direction="write"

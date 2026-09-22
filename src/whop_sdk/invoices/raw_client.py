@@ -113,6 +113,7 @@ class RawInvoicesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "invoices",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -273,6 +274,7 @@ class RawInvoicesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "invoices",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=CreateInvoicesRequest, direction="write"
@@ -404,6 +406,7 @@ class RawInvoicesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"invoices/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -525,6 +528,7 @@ class RawInvoicesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"invoices/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -710,6 +714,7 @@ class RawInvoicesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"invoices/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "automatically_finalizes_at": automatically_finalizes_at,
@@ -861,6 +866,7 @@ class RawInvoicesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"invoices/{encode_path_param(id)}/mark_paid",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -984,6 +990,7 @@ class RawInvoicesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"invoices/{encode_path_param(id)}/mark_uncollectible",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -1105,6 +1112,7 @@ class RawInvoicesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"invoices/{encode_path_param(id)}/resend",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -1226,6 +1234,7 @@ class RawInvoicesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"invoices/{encode_path_param(id)}/void",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -1401,6 +1410,7 @@ class AsyncRawInvoicesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "invoices",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -1564,6 +1574,7 @@ class AsyncRawInvoicesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "invoices",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=CreateInvoicesRequest, direction="write"
@@ -1697,6 +1708,7 @@ class AsyncRawInvoicesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"invoices/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1820,6 +1832,7 @@ class AsyncRawInvoicesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"invoices/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -2005,6 +2018,7 @@ class AsyncRawInvoicesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"invoices/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "automatically_finalizes_at": automatically_finalizes_at,
@@ -2158,6 +2172,7 @@ class AsyncRawInvoicesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"invoices/{encode_path_param(id)}/mark_paid",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -2281,6 +2296,7 @@ class AsyncRawInvoicesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"invoices/{encode_path_param(id)}/mark_uncollectible",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -2404,6 +2420,7 @@ class AsyncRawInvoicesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"invoices/{encode_path_param(id)}/resend",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -2527,6 +2544,7 @@ class AsyncRawInvoicesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"invoices/{encode_path_param(id)}/void",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )

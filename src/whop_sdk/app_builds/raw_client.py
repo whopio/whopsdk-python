@@ -96,6 +96,7 @@ class RawAppBuildsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "app_builds",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "app_id": app_id,
@@ -241,6 +242,7 @@ class RawAppBuildsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "app_builds",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "ai_prompt_id": ai_prompt_id,
@@ -343,6 +345,7 @@ class RawAppBuildsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"app_builds/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -417,6 +420,7 @@ class RawAppBuildsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"app_builds/{encode_path_param(id)}/promote",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -555,6 +559,7 @@ class AsyncRawAppBuildsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "app_builds",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "app_id": app_id,
@@ -703,6 +708,7 @@ class AsyncRawAppBuildsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "app_builds",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "ai_prompt_id": ai_prompt_id,
@@ -807,6 +813,7 @@ class AsyncRawAppBuildsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"app_builds/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -883,6 +890,7 @@ class AsyncRawAppBuildsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"app_builds/{encode_path_param(id)}/promote",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )

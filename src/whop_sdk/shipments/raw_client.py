@@ -96,6 +96,7 @@ class RawShipmentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "shipments",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -227,6 +228,7 @@ class RawShipmentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "shipments",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -321,6 +323,7 @@ class RawShipmentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"shipments/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -400,6 +403,7 @@ class RawShipmentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"shipments/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "tracking_number": tracking_number,
@@ -542,6 +546,7 @@ class AsyncRawShipmentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "shipments",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -676,6 +681,7 @@ class AsyncRawShipmentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "shipments",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -772,6 +778,7 @@ class AsyncRawShipmentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"shipments/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -851,6 +858,7 @@ class AsyncRawShipmentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"shipments/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "tracking_number": tracking_number,

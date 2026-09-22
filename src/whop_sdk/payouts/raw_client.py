@@ -107,6 +107,7 @@ class RawPayoutsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "payouts",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -276,6 +277,7 @@ class RawPayoutsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "payouts",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -423,6 +425,7 @@ class RawPayoutsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "payouts/quotes",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -535,6 +538,7 @@ class RawPayoutsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payouts/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -637,6 +641,7 @@ class RawPayoutsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payouts/{encode_path_param(id)}/cancel",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             params={
                 "account_id": account_id,
@@ -780,6 +785,7 @@ class AsyncRawPayoutsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "payouts",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -952,6 +958,7 @@ class AsyncRawPayoutsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "payouts",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -1099,6 +1106,7 @@ class AsyncRawPayoutsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "payouts/quotes",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -1211,6 +1219,7 @@ class AsyncRawPayoutsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payouts/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -1313,6 +1322,7 @@ class AsyncRawPayoutsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payouts/{encode_path_param(id)}/cancel",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             params={
                 "account_id": account_id,

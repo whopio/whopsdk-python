@@ -120,6 +120,7 @@ class RawBountiesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "bounties",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -288,6 +289,7 @@ class RawBountiesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "bounties",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "accepted_submissions_limit": accepted_submissions_limit,
@@ -383,6 +385,7 @@ class RawBountiesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"bounties/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -480,6 +483,7 @@ class RawBountiesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"bounties/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "accepted_submissions_limit": accepted_submissions_limit,
@@ -548,6 +552,7 @@ class RawBountiesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"bounties/{encode_path_param(id)}/cancel",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -710,6 +715,7 @@ class AsyncRawBountiesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "bounties",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -881,6 +887,7 @@ class AsyncRawBountiesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "bounties",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "accepted_submissions_limit": accepted_submissions_limit,
@@ -978,6 +985,7 @@ class AsyncRawBountiesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"bounties/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1075,6 +1083,7 @@ class AsyncRawBountiesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"bounties/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "accepted_submissions_limit": accepted_submissions_limit,
@@ -1145,6 +1154,7 @@ class AsyncRawBountiesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"bounties/{encode_path_param(id)}/cancel",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )

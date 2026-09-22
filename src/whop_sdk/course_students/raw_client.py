@@ -76,6 +76,7 @@ class RawCourseStudentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "course_students",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -223,6 +224,7 @@ class RawCourseStudentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"course_students/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -375,6 +377,7 @@ class AsyncRawCourseStudentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "course_students",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -525,6 +528,7 @@ class AsyncRawCourseStudentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"course_students/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )

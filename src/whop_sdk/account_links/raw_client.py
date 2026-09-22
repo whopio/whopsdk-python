@@ -64,6 +64,7 @@ class RawAccountLinksClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "account_links",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -214,6 +215,7 @@ class AsyncRawAccountLinksClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "account_links",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,

@@ -48,6 +48,7 @@ class RawPartnersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "partners",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -127,6 +128,7 @@ class RawPartnersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "partners/leaderboard",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "period": period,
@@ -207,6 +209,7 @@ class RawPartnersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "partners/referred_users",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "has_businesses": has_businesses,
@@ -282,6 +285,7 @@ class RawPartnersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"partners/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -360,6 +364,7 @@ class AsyncRawPartnersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "partners",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -439,6 +444,7 @@ class AsyncRawPartnersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "partners/leaderboard",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "period": period,
@@ -519,6 +525,7 @@ class AsyncRawPartnersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "partners/referred_users",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "has_businesses": has_businesses,
@@ -599,6 +606,7 @@ class AsyncRawPartnersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"partners/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )

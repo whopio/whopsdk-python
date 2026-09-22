@@ -80,6 +80,7 @@ class RawChatChannelsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "chat_channels",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -226,6 +227,7 @@ class RawChatChannelsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"chat_channels/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -376,6 +378,7 @@ class RawChatChannelsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"chat_channels/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "ban_media": ban_media,
@@ -539,6 +542,7 @@ class AsyncRawChatChannelsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "chat_channels",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -688,6 +692,7 @@ class AsyncRawChatChannelsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"chat_channels/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -838,6 +843,7 @@ class AsyncRawChatChannelsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"chat_channels/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "ban_media": ban_media,

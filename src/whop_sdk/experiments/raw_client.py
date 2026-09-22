@@ -97,6 +97,7 @@ class RawExperimentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "experiments",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -219,6 +220,7 @@ class RawExperimentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "experiments",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -332,6 +334,7 @@ class RawExperimentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "experiments/exposures",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "subject": convert_and_respect_annotation_metadata(
@@ -394,6 +397,7 @@ class RawExperimentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"experiments/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -476,6 +480,7 @@ class RawExperimentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"experiments/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             params={
                 "account_id": account_id,
@@ -567,6 +572,7 @@ class RawExperimentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"experiments/{encode_path_param(id)}/activate",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             params={
                 "account_id": account_id,
@@ -657,6 +663,7 @@ class RawExperimentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"experiments/{encode_path_param(id)}/end",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             params={
                 "account_id": account_id,
@@ -740,6 +747,7 @@ class RawExperimentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"experiments/{encode_path_param(id)}/pause",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             params={
                 "account_id": account_id,
@@ -837,6 +845,7 @@ class AsyncRawExperimentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "experiments",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -962,6 +971,7 @@ class AsyncRawExperimentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "experiments",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -1075,6 +1085,7 @@ class AsyncRawExperimentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "experiments/exposures",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "subject": convert_and_respect_annotation_metadata(
@@ -1137,6 +1148,7 @@ class AsyncRawExperimentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"experiments/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -1219,6 +1231,7 @@ class AsyncRawExperimentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"experiments/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             params={
                 "account_id": account_id,
@@ -1310,6 +1323,7 @@ class AsyncRawExperimentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"experiments/{encode_path_param(id)}/activate",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             params={
                 "account_id": account_id,
@@ -1400,6 +1414,7 @@ class AsyncRawExperimentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"experiments/{encode_path_param(id)}/end",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             params={
                 "account_id": account_id,
@@ -1483,6 +1498,7 @@ class AsyncRawExperimentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"experiments/{encode_path_param(id)}/pause",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             params={
                 "account_id": account_id,

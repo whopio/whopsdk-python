@@ -84,6 +84,7 @@ class RawCourseLessonInteractionsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "course_lesson_interactions",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -235,6 +236,7 @@ class RawCourseLessonInteractionsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"course_lesson_interactions/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -395,6 +397,7 @@ class AsyncRawCourseLessonInteractionsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "course_lesson_interactions",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -549,6 +552,7 @@ class AsyncRawCourseLessonInteractionsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"course_lesson_interactions/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )

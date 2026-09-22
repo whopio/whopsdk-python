@@ -146,6 +146,7 @@ class RawAdsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "ads",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -331,6 +332,7 @@ class RawAdsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "ads",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "ad_group": ad_group,
@@ -462,6 +464,7 @@ class RawAdsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"ads/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "stats_from": stats_from,
@@ -522,6 +525,7 @@ class RawAdsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"ads/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -643,6 +647,7 @@ class RawAdsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"ads/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "call_to_action": call_to_action,
@@ -735,6 +740,7 @@ class RawAdsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"ads/{encode_path_param(id)}/duplicate",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "count": count,
@@ -818,6 +824,7 @@ class RawAdsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"ads/{encode_path_param(id)}/pause",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -870,6 +877,7 @@ class RawAdsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"ads/{encode_path_param(id)}/unpause",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -1004,6 +1012,7 @@ class AsyncRawAdsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "ads",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -1192,6 +1201,7 @@ class AsyncRawAdsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "ads",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "ad_group": ad_group,
@@ -1323,6 +1333,7 @@ class AsyncRawAdsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"ads/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "stats_from": stats_from,
@@ -1383,6 +1394,7 @@ class AsyncRawAdsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"ads/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -1504,6 +1516,7 @@ class AsyncRawAdsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"ads/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "call_to_action": call_to_action,
@@ -1596,6 +1609,7 @@ class AsyncRawAdsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"ads/{encode_path_param(id)}/duplicate",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "count": count,
@@ -1679,6 +1693,7 @@ class AsyncRawAdsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"ads/{encode_path_param(id)}/pause",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -1733,6 +1748,7 @@ class AsyncRawAdsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"ads/{encode_path_param(id)}/unpause",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )

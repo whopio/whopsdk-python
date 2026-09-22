@@ -92,6 +92,7 @@ class RawPaymentRulesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "payment_rules",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -192,6 +193,7 @@ class RawPaymentRulesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "payment_rules",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -278,6 +280,7 @@ class RawPaymentRulesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "payment_rules/fields",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -319,6 +322,7 @@ class RawPaymentRulesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payment_rules/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -370,6 +374,7 @@ class RawPaymentRulesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payment_rules/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -417,6 +422,7 @@ class RawPaymentRulesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payment_rules/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "metadata": metadata,
@@ -466,6 +472,7 @@ class RawPaymentRulesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payment_rules/{encode_path_param(id)}/activate",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -520,6 +527,7 @@ class RawPaymentRulesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payment_rules/{encode_path_param(id)}/deactivate",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -585,6 +593,7 @@ class RawPaymentRulesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payment_rules/{encode_path_param(id)}/replace",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "action": action,
@@ -687,6 +696,7 @@ class AsyncRawPaymentRulesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "payment_rules",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -790,6 +800,7 @@ class AsyncRawPaymentRulesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "payment_rules",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -876,6 +887,7 @@ class AsyncRawPaymentRulesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "payment_rules/fields",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -917,6 +929,7 @@ class AsyncRawPaymentRulesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payment_rules/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -970,6 +983,7 @@ class AsyncRawPaymentRulesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payment_rules/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -1017,6 +1031,7 @@ class AsyncRawPaymentRulesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payment_rules/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "metadata": metadata,
@@ -1066,6 +1081,7 @@ class AsyncRawPaymentRulesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payment_rules/{encode_path_param(id)}/activate",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -1120,6 +1136,7 @@ class AsyncRawPaymentRulesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payment_rules/{encode_path_param(id)}/deactivate",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -1185,6 +1202,7 @@ class AsyncRawPaymentRulesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payment_rules/{encode_path_param(id)}/replace",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "action": action,

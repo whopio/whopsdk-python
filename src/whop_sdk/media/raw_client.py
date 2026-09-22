@@ -75,6 +75,7 @@ class RawMediaClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "media/generate",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -183,6 +184,7 @@ class RawMediaClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"media/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -265,6 +267,7 @@ class AsyncRawMediaClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "media/generate",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -375,6 +378,7 @@ class AsyncRawMediaClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"media/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )

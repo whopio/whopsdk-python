@@ -84,6 +84,7 @@ class RawCoursesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "courses",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -261,6 +262,7 @@ class RawCoursesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "courses",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "certificate_after_completion_enabled": certificate_after_completion_enabled,
@@ -398,6 +400,7 @@ class RawCoursesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"courses/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -519,6 +522,7 @@ class RawCoursesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"courses/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -685,6 +689,7 @@ class RawCoursesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"courses/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "certificate_after_completion_enabled": certificate_after_completion_enabled,
@@ -858,6 +863,7 @@ class AsyncRawCoursesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "courses",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -1038,6 +1044,7 @@ class AsyncRawCoursesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "courses",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "certificate_after_completion_enabled": certificate_after_completion_enabled,
@@ -1177,6 +1184,7 @@ class AsyncRawCoursesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"courses/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1300,6 +1308,7 @@ class AsyncRawCoursesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"courses/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -1466,6 +1475,7 @@ class AsyncRawCoursesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"courses/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "certificate_after_completion_enabled": certificate_after_completion_enabled,
