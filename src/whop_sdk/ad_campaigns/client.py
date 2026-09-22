@@ -133,7 +133,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-15",
+            "2026-09-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -234,7 +234,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-15",
+            "2026-09-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -304,7 +304,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-15",
+            "2026-09-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -344,7 +344,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-15",
+            "2026-09-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -418,7 +418,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-15",
+            "2026-09-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -476,7 +476,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-15",
+            "2026-09-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -511,7 +511,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-15",
+            "2026-09-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -520,39 +520,6 @@ class AdCampaignsClient:
         )
         """
         _response = self._raw_client.pause(id, request_options=request_options)
-        return _response.data
-
-    def retry_payment(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> AdCampaign:
-        """
-        Queues a background payment retry for the campaign's entire account, including other campaigns with failed payments. Prefer POST /accounts/{id}/retry_ads_payment for new integrations. The returned campaign does not confirm payment success; read delivery_status and issues for the outcome.
-
-        Parameters
-        ----------
-        id : str
-            The ad campaign ID.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AdCampaign
-            payment retry queued
-
-        Examples
-        --------
-        from whop_sdk import Whop
-
-        client = Whop(
-            "2026-09-15",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-        client.ad_campaigns.retry_payment(
-            id="id",
-        )
-        """
-        _response = self._raw_client.retry_payment(id, request_options=request_options)
         return _response.data
 
     def unpause(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> AdCampaign:
@@ -577,7 +544,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-15",
+            "2026-09-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -689,7 +656,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-15",
+            "2026-09-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -799,7 +766,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-15",
+            "2026-09-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -877,7 +844,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-15",
+            "2026-09-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -927,7 +894,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-15",
+            "2026-09-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1009,7 +976,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-15",
+            "2026-09-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1075,7 +1042,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-15",
+            "2026-09-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1118,7 +1085,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-15",
+            "2026-09-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1133,47 +1100,6 @@ class AsyncAdCampaignsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.pause(id, request_options=request_options)
-        return _response.data
-
-    async def retry_payment(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> AdCampaign:
-        """
-        Queues a background payment retry for the campaign's entire account, including other campaigns with failed payments. Prefer POST /accounts/{id}/retry_ads_payment for new integrations. The returned campaign does not confirm payment success; read delivery_status and issues for the outcome.
-
-        Parameters
-        ----------
-        id : str
-            The ad campaign ID.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AdCampaign
-            payment retry queued
-
-        Examples
-        --------
-        import asyncio
-
-        from whop_sdk import AsyncWhop
-
-        client = AsyncWhop(
-            "2026-09-15",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.ad_campaigns.retry_payment(
-                id="id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.retry_payment(id, request_options=request_options)
         return _response.data
 
     async def unpause(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> AdCampaign:
@@ -1200,7 +1126,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-15",
+            "2026-09-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
