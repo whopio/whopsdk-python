@@ -93,6 +93,7 @@ class RawExperiencesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "experiences",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -270,6 +271,7 @@ class RawExperiencesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "experiences",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -403,6 +405,7 @@ class RawExperiencesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"experiences/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -522,6 +525,7 @@ class RawExperiencesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"experiences/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -674,6 +678,7 @@ class RawExperiencesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"experiences/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "access_level": access_level,
@@ -815,6 +820,7 @@ class RawExperiencesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"experiences/{encode_path_param(id)}/attach",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "product_id": product_id,
@@ -948,6 +954,7 @@ class RawExperiencesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"experiences/{encode_path_param(id)}/detach",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "product_id": product_id,
@@ -1084,6 +1091,7 @@ class RawExperiencesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"experiences/{encode_path_param(id)}/duplicate",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "name": name,
@@ -1251,6 +1259,7 @@ class AsyncRawExperiencesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "experiences",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -1431,6 +1440,7 @@ class AsyncRawExperiencesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "experiences",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -1566,6 +1576,7 @@ class AsyncRawExperiencesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"experiences/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1687,6 +1698,7 @@ class AsyncRawExperiencesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"experiences/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -1839,6 +1851,7 @@ class AsyncRawExperiencesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"experiences/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "access_level": access_level,
@@ -1980,6 +1993,7 @@ class AsyncRawExperiencesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"experiences/{encode_path_param(id)}/attach",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "product_id": product_id,
@@ -2113,6 +2127,7 @@ class AsyncRawExperiencesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"experiences/{encode_path_param(id)}/detach",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "product_id": product_id,
@@ -2249,6 +2264,7 @@ class AsyncRawExperiencesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"experiences/{encode_path_param(id)}/duplicate",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "name": name,

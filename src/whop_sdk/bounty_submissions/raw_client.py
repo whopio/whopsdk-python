@@ -101,6 +101,7 @@ class RawBountySubmissionsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "bounty_submissions",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -225,6 +226,7 @@ class RawBountySubmissionsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "bounty_submissions",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "affiliate_code": affiliate_code,
@@ -348,6 +350,7 @@ class RawBountySubmissionsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"bounty_submissions/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -416,6 +419,7 @@ class RawBountySubmissionsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"bounty_submissions/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -499,6 +503,7 @@ class RawBountySubmissionsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"bounty_submissions/{encode_path_param(id)}/submit",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "deliverable": convert_and_respect_annotation_metadata(
@@ -656,6 +661,7 @@ class AsyncRawBountySubmissionsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "bounty_submissions",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -783,6 +789,7 @@ class AsyncRawBountySubmissionsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "bounty_submissions",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "affiliate_code": affiliate_code,
@@ -906,6 +913,7 @@ class AsyncRawBountySubmissionsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"bounty_submissions/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -974,6 +982,7 @@ class AsyncRawBountySubmissionsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"bounty_submissions/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -1057,6 +1066,7 @@ class AsyncRawBountySubmissionsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"bounty_submissions/{encode_path_param(id)}/submit",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "deliverable": convert_and_respect_annotation_metadata(

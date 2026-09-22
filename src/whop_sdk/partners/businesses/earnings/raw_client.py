@@ -90,6 +90,7 @@ class RawEarningsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"partners/businesses/{encode_path_param(id)}/earnings",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "status": status,
@@ -226,6 +227,7 @@ class AsyncRawEarningsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"partners/businesses/{encode_path_param(id)}/earnings",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "status": status,

@@ -47,6 +47,7 @@ class RawPermissionsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "permissions",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "resource_id": resource_id,
@@ -128,6 +129,7 @@ class AsyncRawPermissionsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "permissions",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "resource_id": resource_id,

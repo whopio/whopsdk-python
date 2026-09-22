@@ -79,6 +79,7 @@ class RawAiChatsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "ai_chats",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -252,6 +253,7 @@ class RawAiChatsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "ai_chats",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "agent_identifier": agent_identifier,
@@ -387,6 +389,7 @@ class RawAiChatsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"ai_chats/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -508,6 +511,7 @@ class RawAiChatsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"ai_chats/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -646,6 +650,7 @@ class RawAiChatsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"ai_chats/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "current_account_id": current_account_id,
@@ -802,6 +807,7 @@ class AsyncRawAiChatsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "ai_chats",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -978,6 +984,7 @@ class AsyncRawAiChatsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "ai_chats",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "agent_identifier": agent_identifier,
@@ -1115,6 +1122,7 @@ class AsyncRawAiChatsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"ai_chats/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1238,6 +1246,7 @@ class AsyncRawAiChatsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"ai_chats/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -1376,6 +1385,7 @@ class AsyncRawAiChatsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"ai_chats/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "current_account_id": current_account_id,

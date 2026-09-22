@@ -43,6 +43,7 @@ class RawConfirmationTokensClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"confirmation_tokens/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -108,6 +109,7 @@ class AsyncRawConfirmationTokensClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"confirmation_tokens/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,

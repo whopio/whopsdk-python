@@ -54,6 +54,7 @@ class RawNotificationsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "users/me/preferences/notifications",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "preferences": convert_and_respect_annotation_metadata(
@@ -144,6 +145,7 @@ class AsyncRawNotificationsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "users/me/preferences/notifications",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "preferences": convert_and_respect_annotation_metadata(

@@ -129,6 +129,7 @@ class RawProductsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "products",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -318,6 +319,7 @@ class RawProductsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "products",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -411,6 +413,7 @@ class RawProductsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"products/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -465,6 +468,7 @@ class RawProductsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"products/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -573,6 +577,7 @@ class RawProductsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"products/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "banner_image": convert_and_respect_annotation_metadata(
@@ -660,6 +665,7 @@ class RawProductsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"products/{encode_path_param(id)}/publish",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -734,6 +740,7 @@ class RawProductsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"products/{encode_path_param(id)}/unpublish",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -884,6 +891,7 @@ class AsyncRawProductsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "products",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -1076,6 +1084,7 @@ class AsyncRawProductsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "products",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -1171,6 +1180,7 @@ class AsyncRawProductsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"products/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1225,6 +1235,7 @@ class AsyncRawProductsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"products/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -1333,6 +1344,7 @@ class AsyncRawProductsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"products/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "banner_image": convert_and_respect_annotation_metadata(
@@ -1422,6 +1434,7 @@ class AsyncRawProductsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"products/{encode_path_param(id)}/publish",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -1498,6 +1511,7 @@ class AsyncRawProductsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"products/{encode_path_param(id)}/unpublish",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )

@@ -64,6 +64,7 @@ class RawAccessTokensClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "access_tokens",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -214,6 +215,7 @@ class AsyncRawAccessTokensClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "access_tokens",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,

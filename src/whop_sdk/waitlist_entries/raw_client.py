@@ -105,6 +105,7 @@ class RawWaitlistEntriesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "waitlist_entries",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "first": first,
@@ -240,6 +241,7 @@ class RawWaitlistEntriesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "waitlist_entries",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "custom_field_responses": convert_and_respect_annotation_metadata(
@@ -358,6 +360,7 @@ class RawWaitlistEntriesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "waitlist_entries/approve_all",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -464,6 +467,7 @@ class RawWaitlistEntriesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"waitlist_entries/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -540,6 +544,7 @@ class RawWaitlistEntriesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"waitlist_entries/{encode_path_param(id)}/approve",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -627,6 +632,7 @@ class RawWaitlistEntriesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"waitlist_entries/{encode_path_param(id)}/cancel",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -712,6 +718,7 @@ class RawWaitlistEntriesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"waitlist_entries/{encode_path_param(id)}/deny",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -851,6 +858,7 @@ class AsyncRawWaitlistEntriesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "waitlist_entries",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "first": first,
@@ -989,6 +997,7 @@ class AsyncRawWaitlistEntriesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "waitlist_entries",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "custom_field_responses": convert_and_respect_annotation_metadata(
@@ -1107,6 +1116,7 @@ class AsyncRawWaitlistEntriesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "waitlist_entries/approve_all",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -1213,6 +1223,7 @@ class AsyncRawWaitlistEntriesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"waitlist_entries/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1289,6 +1300,7 @@ class AsyncRawWaitlistEntriesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"waitlist_entries/{encode_path_param(id)}/approve",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -1376,6 +1388,7 @@ class AsyncRawWaitlistEntriesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"waitlist_entries/{encode_path_param(id)}/cancel",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -1463,6 +1476,7 @@ class AsyncRawWaitlistEntriesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"waitlist_entries/{encode_path_param(id)}/deny",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )

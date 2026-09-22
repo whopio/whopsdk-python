@@ -64,6 +64,7 @@ class RawLinksClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "partners/links",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "status": status,
@@ -187,6 +188,7 @@ class AsyncRawLinksClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "partners/links",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "status": status,

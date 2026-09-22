@@ -91,6 +91,7 @@ class RawLeadsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "leads",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -263,6 +264,7 @@ class RawLeadsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "leads",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -398,6 +400,7 @@ class RawLeadsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"leads/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -535,6 +538,7 @@ class RawLeadsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"leads/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "metadata": metadata,
@@ -705,6 +709,7 @@ class AsyncRawLeadsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "leads",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -880,6 +885,7 @@ class AsyncRawLeadsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "leads",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -1017,6 +1023,7 @@ class AsyncRawLeadsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"leads/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1154,6 +1161,7 @@ class AsyncRawLeadsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"leads/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "metadata": metadata,

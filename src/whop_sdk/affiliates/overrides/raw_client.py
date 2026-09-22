@@ -85,6 +85,7 @@ class RawOverridesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"affiliates/{encode_path_param(id)}/overrides",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -232,6 +233,7 @@ class RawOverridesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"affiliates/{encode_path_param(id)}/overrides",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=CreateOverridesRequestBody, direction="write"
@@ -365,6 +367,7 @@ class RawOverridesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"affiliates/{encode_path_param(id)}/overrides/{encode_path_param(override_id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -491,6 +494,7 @@ class RawOverridesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"affiliates/{encode_path_param(id)}/overrides/{encode_path_param(override_id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -637,6 +641,7 @@ class RawOverridesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"affiliates/{encode_path_param(id)}/overrides/{encode_path_param(override_id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "applies_to_payments": applies_to_payments,
@@ -797,6 +802,7 @@ class AsyncRawOverridesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"affiliates/{encode_path_param(id)}/overrides",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -947,6 +953,7 @@ class AsyncRawOverridesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"affiliates/{encode_path_param(id)}/overrides",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=CreateOverridesRequestBody, direction="write"
@@ -1080,6 +1087,7 @@ class AsyncRawOverridesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"affiliates/{encode_path_param(id)}/overrides/{encode_path_param(override_id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1206,6 +1214,7 @@ class AsyncRawOverridesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"affiliates/{encode_path_param(id)}/overrides/{encode_path_param(override_id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -1352,6 +1361,7 @@ class AsyncRawOverridesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"affiliates/{encode_path_param(id)}/overrides/{encode_path_param(override_id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "applies_to_payments": applies_to_payments,

@@ -86,6 +86,7 @@ class RawCompanyTokenTransactionsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "company_token_transactions",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -235,6 +236,7 @@ class RawCompanyTokenTransactionsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "company_token_transactions",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=CreateCompanyTokenTransactionsRequest, direction="write"
@@ -367,6 +369,7 @@ class RawCompanyTokenTransactionsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"company_token_transactions/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -523,6 +526,7 @@ class AsyncRawCompanyTokenTransactionsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "company_token_transactions",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -675,6 +679,7 @@ class AsyncRawCompanyTokenTransactionsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "company_token_transactions",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=CreateCompanyTokenTransactionsRequest, direction="write"
@@ -807,6 +812,7 @@ class AsyncRawCompanyTokenTransactionsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"company_token_transactions/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )

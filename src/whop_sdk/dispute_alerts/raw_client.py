@@ -91,6 +91,7 @@ class RawDisputeAlertsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "dispute_alerts",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -200,6 +201,7 @@ class RawDisputeAlertsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"dispute_alerts/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -324,6 +326,7 @@ class AsyncRawDisputeAlertsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "dispute_alerts",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -436,6 +439,7 @@ class AsyncRawDisputeAlertsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"dispute_alerts/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )

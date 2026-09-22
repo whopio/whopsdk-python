@@ -85,6 +85,7 @@ class RawSubmissionsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"bounties/{encode_path_param(bounty_id)}/submissions",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "status": status,
@@ -183,6 +184,7 @@ class RawSubmissionsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"bounties/{encode_path_param(bounty_id)}/submissions/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -281,6 +283,7 @@ class AsyncRawSubmissionsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"bounties/{encode_path_param(bounty_id)}/submissions",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "status": status,
@@ -382,6 +385,7 @@ class AsyncRawSubmissionsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"bounties/{encode_path_param(bounty_id)}/submissions/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )

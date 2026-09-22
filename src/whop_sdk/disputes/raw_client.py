@@ -104,6 +104,7 @@ class RawDisputesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "disputes",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -240,6 +241,7 @@ class RawDisputesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "disputes/summary",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "groups": groups,
@@ -311,6 +313,7 @@ class RawDisputesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"disputes/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -383,6 +386,7 @@ class RawDisputesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"disputes/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "evidence": convert_and_respect_annotation_metadata(
@@ -466,6 +470,7 @@ class RawDisputesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"disputes/{encode_path_param(id)}/submit",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -560,6 +565,7 @@ class RawDisputesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"disputes/{encode_path_param(id)}/upload_evidence",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "documents": convert_and_respect_annotation_metadata(
@@ -708,6 +714,7 @@ class AsyncRawDisputesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "disputes",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -847,6 +854,7 @@ class AsyncRawDisputesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "disputes/summary",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "groups": groups,
@@ -920,6 +928,7 @@ class AsyncRawDisputesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"disputes/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -992,6 +1001,7 @@ class AsyncRawDisputesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"disputes/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "evidence": convert_and_respect_annotation_metadata(
@@ -1077,6 +1087,7 @@ class AsyncRawDisputesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"disputes/{encode_path_param(id)}/submit",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -1171,6 +1182,7 @@ class AsyncRawDisputesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"disputes/{encode_path_param(id)}/upload_evidence",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "documents": convert_and_respect_annotation_metadata(

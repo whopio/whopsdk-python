@@ -92,6 +92,7 @@ class RawForumPostsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "forum_posts",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -293,6 +294,7 @@ class RawForumPostsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "forum_posts",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -439,6 +441,7 @@ class RawForumPostsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"forum_posts/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -582,6 +585,7 @@ class RawForumPostsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"forum_posts/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "attachments": convert_and_respect_annotation_metadata(
@@ -756,6 +760,7 @@ class AsyncRawForumPostsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "forum_posts",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -960,6 +965,7 @@ class AsyncRawForumPostsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "forum_posts",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -1108,6 +1114,7 @@ class AsyncRawForumPostsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"forum_posts/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1251,6 +1258,7 @@ class AsyncRawForumPostsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"forum_posts/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "attachments": convert_and_respect_annotation_metadata(

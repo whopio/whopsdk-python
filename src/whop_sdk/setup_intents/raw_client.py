@@ -95,6 +95,7 @@ class RawSetupIntentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "setup_intents",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -229,6 +230,7 @@ class RawSetupIntentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "setup_intents",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -340,6 +342,7 @@ class RawSetupIntentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"setup_intents/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -419,6 +422,7 @@ class RawSetupIntentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"setup_intents/{encode_path_param(setup_intent_id)}/return_url",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "return_url": return_url,
@@ -502,6 +506,7 @@ class RawSetupIntentsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"setup_intents/{encode_path_param(setup_intent_id)}/status",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -622,6 +627,7 @@ class AsyncRawSetupIntentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "setup_intents",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -759,6 +765,7 @@ class AsyncRawSetupIntentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "setup_intents",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -870,6 +877,7 @@ class AsyncRawSetupIntentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"setup_intents/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -949,6 +957,7 @@ class AsyncRawSetupIntentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"setup_intents/{encode_path_param(setup_intent_id)}/return_url",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "return_url": return_url,
@@ -1032,6 +1041,7 @@ class AsyncRawSetupIntentsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"setup_intents/{encode_path_param(setup_intent_id)}/status",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )

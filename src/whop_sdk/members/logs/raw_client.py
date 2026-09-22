@@ -61,6 +61,7 @@ class RawLogsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"members/{encode_path_param(id)}/logs",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "first": first,
@@ -170,6 +171,7 @@ class AsyncRawLogsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"members/{encode_path_param(id)}/logs",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "first": first,

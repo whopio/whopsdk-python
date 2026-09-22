@@ -123,6 +123,7 @@ class RawAppsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "apps",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -252,6 +253,7 @@ class RawAppsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "apps",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -363,6 +365,7 @@ class RawAppsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"apps/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -417,6 +420,7 @@ class RawAppsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"apps/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -576,6 +580,7 @@ class RawAppsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"apps/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "app_store_description": app_store_description,
@@ -694,6 +699,7 @@ class RawAppsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"apps/{encode_path_param(id)}/deploy",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "draft": draft,
@@ -801,6 +807,7 @@ class RawAppsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"apps/{encode_path_param(id)}/logs",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "app_build_id": app_build_id,
@@ -912,6 +919,7 @@ class RawAppsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"apps/{encode_path_param(id)}/permissions",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "requested_permissions": convert_and_respect_annotation_metadata(
@@ -1066,6 +1074,7 @@ class AsyncRawAppsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "apps",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -1198,6 +1207,7 @@ class AsyncRawAppsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "apps",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -1311,6 +1321,7 @@ class AsyncRawAppsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"apps/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1365,6 +1376,7 @@ class AsyncRawAppsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"apps/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -1524,6 +1536,7 @@ class AsyncRawAppsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"apps/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "app_store_description": app_store_description,
@@ -1642,6 +1655,7 @@ class AsyncRawAppsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"apps/{encode_path_param(id)}/deploy",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "draft": draft,
@@ -1749,6 +1763,7 @@ class AsyncRawAppsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"apps/{encode_path_param(id)}/logs",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "app_build_id": app_build_id,
@@ -1863,6 +1878,7 @@ class AsyncRawAppsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"apps/{encode_path_param(id)}/permissions",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "requested_permissions": convert_and_respect_annotation_metadata(

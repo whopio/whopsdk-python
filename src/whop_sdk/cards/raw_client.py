@@ -63,6 +63,7 @@ class RawCardsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "cards",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -181,6 +182,7 @@ class RawCardsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "cards",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -303,6 +305,7 @@ class RawCardsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"cards/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -412,6 +415,7 @@ class RawCardsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"cards/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "account_id": account_id,
@@ -533,6 +537,7 @@ class AsyncRawCardsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "cards",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -651,6 +656,7 @@ class AsyncRawCardsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "cards",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -773,6 +779,7 @@ class AsyncRawCardsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"cards/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -882,6 +889,7 @@ class AsyncRawCardsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"cards/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "account_id": account_id,

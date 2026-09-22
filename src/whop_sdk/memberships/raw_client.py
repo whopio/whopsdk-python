@@ -108,6 +108,7 @@ class RawMembershipsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "memberships",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -231,6 +232,7 @@ class RawMembershipsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "memberships/invite",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=InviteMembershipsRequestBody, direction="write"
@@ -331,6 +333,7 @@ class RawMembershipsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"memberships/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -407,6 +410,7 @@ class RawMembershipsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"memberships/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "cancel_at_period_end": cancel_at_period_end,
@@ -491,6 +495,7 @@ class RawMembershipsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"memberships/{encode_path_param(id)}/cancel",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "cancel_at_period_end": cancel_at_period_end,
@@ -578,6 +583,7 @@ class RawMembershipsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"memberships/{encode_path_param(id)}/extend",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "days": days,
@@ -664,6 +670,7 @@ class RawMembershipsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"memberships/{encode_path_param(id)}/pause",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "until": until,
@@ -745,6 +752,7 @@ class RawMembershipsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"memberships/{encode_path_param(id)}/resume",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -821,6 +829,7 @@ class RawMembershipsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"memberships/{encode_path_param(id)}/resync_access",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -897,6 +906,7 @@ class RawMembershipsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"memberships/{encode_path_param(id)}/transfer",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -1040,6 +1050,7 @@ class AsyncRawMembershipsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "memberships",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -1166,6 +1177,7 @@ class AsyncRawMembershipsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "memberships/invite",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=InviteMembershipsRequestBody, direction="write"
@@ -1268,6 +1280,7 @@ class AsyncRawMembershipsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"memberships/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1344,6 +1357,7 @@ class AsyncRawMembershipsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"memberships/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "cancel_at_period_end": cancel_at_period_end,
@@ -1428,6 +1442,7 @@ class AsyncRawMembershipsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"memberships/{encode_path_param(id)}/cancel",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "cancel_at_period_end": cancel_at_period_end,
@@ -1515,6 +1530,7 @@ class AsyncRawMembershipsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"memberships/{encode_path_param(id)}/extend",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "days": days,
@@ -1601,6 +1617,7 @@ class AsyncRawMembershipsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"memberships/{encode_path_param(id)}/pause",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "until": until,
@@ -1684,6 +1701,7 @@ class AsyncRawMembershipsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"memberships/{encode_path_param(id)}/resume",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -1760,6 +1778,7 @@ class AsyncRawMembershipsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"memberships/{encode_path_param(id)}/resync_access",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -1836,6 +1855,7 @@ class AsyncRawMembershipsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"memberships/{encode_path_param(id)}/transfer",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )

@@ -83,6 +83,7 @@ class RawForumsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "forums",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -227,6 +228,7 @@ class RawForumsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"forums/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -373,6 +375,7 @@ class RawForumsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"forums/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "banned_words": banned_words,
@@ -537,6 +540,7 @@ class AsyncRawForumsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "forums",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -686,6 +690,7 @@ class AsyncRawForumsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"forums/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -832,6 +837,7 @@ class AsyncRawForumsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"forums/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "banned_words": banned_words,

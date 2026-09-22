@@ -96,6 +96,7 @@ class RawAuthorizedUsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "authorized_users",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -268,6 +269,7 @@ class RawAuthorizedUsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "authorized_users",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -407,6 +409,7 @@ class RawAuthorizedUsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"authorized_users/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -537,6 +540,7 @@ class RawAuthorizedUsersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"authorized_users/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             params={
                 "account_id": account_id,
@@ -703,6 +707,7 @@ class AsyncRawAuthorizedUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "authorized_users",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -878,6 +883,7 @@ class AsyncRawAuthorizedUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "authorized_users",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -1017,6 +1023,7 @@ class AsyncRawAuthorizedUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"authorized_users/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1147,6 +1154,7 @@ class AsyncRawAuthorizedUsersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"authorized_users/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             params={
                 "account_id": account_id,

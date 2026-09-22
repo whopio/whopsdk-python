@@ -102,6 +102,7 @@ class RawApiKeysClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "api_keys",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "resource_id": resource_id,
@@ -247,6 +248,7 @@ class RawApiKeysClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "api_keys",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "api_version_date": api_version_date,
@@ -346,6 +348,7 @@ class RawApiKeysClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "api_keys/permissions",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -398,6 +401,7 @@ class RawApiKeysClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"api_keys/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -474,6 +478,7 @@ class RawApiKeysClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"api_keys/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -584,6 +589,7 @@ class RawApiKeysClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"api_keys/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "api_version_date": api_version_date,
@@ -682,6 +688,7 @@ class RawApiKeysClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"api_keys/{encode_path_param(id)}/rotate",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -813,6 +820,7 @@ class AsyncRawApiKeysClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "api_keys",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "resource_id": resource_id,
@@ -961,6 +969,7 @@ class AsyncRawApiKeysClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "api_keys",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "api_version_date": api_version_date,
@@ -1060,6 +1069,7 @@ class AsyncRawApiKeysClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "api_keys/permissions",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1114,6 +1124,7 @@ class AsyncRawApiKeysClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"api_keys/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1190,6 +1201,7 @@ class AsyncRawApiKeysClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"api_keys/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -1300,6 +1312,7 @@ class AsyncRawApiKeysClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"api_keys/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "api_version_date": api_version_date,
@@ -1400,6 +1413,7 @@ class AsyncRawApiKeysClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"api_keys/{encode_path_param(id)}/rotate",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )

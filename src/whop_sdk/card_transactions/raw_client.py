@@ -99,6 +99,7 @@ class RawCardTransactionsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "card_transactions",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -219,6 +220,7 @@ class RawCardTransactionsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"card_transactions/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -354,6 +356,7 @@ class AsyncRawCardTransactionsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "card_transactions",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -477,6 +480,7 @@ class AsyncRawCardTransactionsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"card_transactions/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,

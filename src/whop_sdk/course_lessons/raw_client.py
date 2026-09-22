@@ -94,6 +94,7 @@ class RawCourseLessonsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "course_lessons",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -271,6 +272,7 @@ class RawCourseLessonsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "course_lessons",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "chapter_id": chapter_id,
@@ -412,6 +414,7 @@ class RawCourseLessonsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"course_lessons/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -533,6 +536,7 @@ class RawCourseLessonsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"course_lessons/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -719,6 +723,7 @@ class RawCourseLessonsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"course_lessons/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "assessment_completion_requirement": convert_and_respect_annotation_metadata(
@@ -877,6 +882,7 @@ class RawCourseLessonsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"course_lessons/{encode_path_param(lesson_id)}/mark_as_completed",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -995,6 +1001,7 @@ class RawCourseLessonsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"course_lessons/{encode_path_param(lesson_id)}/start",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -1122,6 +1129,7 @@ class RawCourseLessonsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"course_lessons/{encode_path_param(lesson_id)}/submit_assessment",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "answers": convert_and_respect_annotation_metadata(
@@ -1284,6 +1292,7 @@ class AsyncRawCourseLessonsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "course_lessons",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -1464,6 +1473,7 @@ class AsyncRawCourseLessonsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "course_lessons",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "chapter_id": chapter_id,
@@ -1605,6 +1615,7 @@ class AsyncRawCourseLessonsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"course_lessons/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1728,6 +1739,7 @@ class AsyncRawCourseLessonsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"course_lessons/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -1914,6 +1926,7 @@ class AsyncRawCourseLessonsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"course_lessons/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "assessment_completion_requirement": convert_and_respect_annotation_metadata(
@@ -2072,6 +2085,7 @@ class AsyncRawCourseLessonsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"course_lessons/{encode_path_param(lesson_id)}/mark_as_completed",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -2192,6 +2206,7 @@ class AsyncRawCourseLessonsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"course_lessons/{encode_path_param(lesson_id)}/start",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -2319,6 +2334,7 @@ class AsyncRawCourseLessonsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"course_lessons/{encode_path_param(lesson_id)}/submit_assessment",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "answers": convert_and_respect_annotation_metadata(

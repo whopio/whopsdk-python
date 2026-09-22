@@ -229,6 +229,7 @@ class RawPeopleClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "people",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -402,6 +403,7 @@ class RawPeopleClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"people/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -654,6 +656,7 @@ class AsyncRawPeopleClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "people",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -830,6 +833,7 @@ class AsyncRawPeopleClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"people/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,

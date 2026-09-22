@@ -77,6 +77,7 @@ class RawDmMembersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "dm_members",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -225,6 +226,7 @@ class RawDmMembersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "dm_members",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "channel_id": channel_id,
@@ -355,6 +357,7 @@ class RawDmMembersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"dm_members/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -477,6 +480,7 @@ class RawDmMembersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"dm_members/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -612,6 +616,7 @@ class RawDmMembersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"dm_members/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "notification_preference": notification_preference,
@@ -768,6 +773,7 @@ class AsyncRawDmMembersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "dm_members",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -919,6 +925,7 @@ class AsyncRawDmMembersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "dm_members",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "channel_id": channel_id,
@@ -1051,6 +1058,7 @@ class AsyncRawDmMembersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"dm_members/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1175,6 +1183,7 @@ class AsyncRawDmMembersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"dm_members/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -1310,6 +1319,7 @@ class AsyncRawDmMembersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"dm_members/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "notification_preference": notification_preference,

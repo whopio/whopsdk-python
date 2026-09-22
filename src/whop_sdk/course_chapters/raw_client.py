@@ -74,6 +74,7 @@ class RawCourseChaptersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "course_chapters",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -225,6 +226,7 @@ class RawCourseChaptersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "course_chapters",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "course_id": course_id,
@@ -356,6 +358,7 @@ class RawCourseChaptersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"course_chapters/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -477,6 +480,7 @@ class RawCourseChaptersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"course_chapters/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -603,6 +607,7 @@ class RawCourseChaptersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"course_chapters/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "title": title,
@@ -757,6 +762,7 @@ class AsyncRawCourseChaptersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "course_chapters",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -911,6 +917,7 @@ class AsyncRawCourseChaptersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "course_chapters",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "course_id": course_id,
@@ -1042,6 +1049,7 @@ class AsyncRawCourseChaptersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"course_chapters/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1165,6 +1173,7 @@ class AsyncRawCourseChaptersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"course_chapters/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -1291,6 +1300,7 @@ class AsyncRawCourseChaptersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"course_chapters/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "title": title,

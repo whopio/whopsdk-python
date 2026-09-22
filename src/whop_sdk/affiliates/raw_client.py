@@ -90,6 +90,7 @@ class RawAffiliatesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "affiliates",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -245,6 +246,7 @@ class RawAffiliatesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "affiliates",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -374,6 +376,7 @@ class RawAffiliatesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"affiliates/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -495,6 +498,7 @@ class RawAffiliatesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"affiliates/{encode_path_param(id)}/archive",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -616,6 +620,7 @@ class RawAffiliatesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"affiliates/{encode_path_param(id)}/unarchive",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -776,6 +781,7 @@ class AsyncRawAffiliatesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "affiliates",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -934,6 +940,7 @@ class AsyncRawAffiliatesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "affiliates",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -1065,6 +1072,7 @@ class AsyncRawAffiliatesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"affiliates/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1188,6 +1196,7 @@ class AsyncRawAffiliatesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"affiliates/{encode_path_param(id)}/archive",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -1311,6 +1320,7 @@ class AsyncRawAffiliatesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"affiliates/{encode_path_param(id)}/unarchive",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )

@@ -104,6 +104,7 @@ class RawPaymentMethodDomainsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "payment_method_domains",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -233,6 +234,7 @@ class RawPaymentMethodDomainsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "payment_method_domains",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -339,6 +341,7 @@ class RawPaymentMethodDomainsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payment_method_domains/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -415,6 +418,7 @@ class RawPaymentMethodDomainsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payment_method_domains/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -491,6 +495,7 @@ class RawPaymentMethodDomainsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payment_method_domains/{encode_path_param(id)}/verify",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -641,6 +646,7 @@ class AsyncRawPaymentMethodDomainsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "payment_method_domains",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -773,6 +779,7 @@ class AsyncRawPaymentMethodDomainsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "payment_method_domains",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -879,6 +886,7 @@ class AsyncRawPaymentMethodDomainsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payment_method_domains/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -955,6 +963,7 @@ class AsyncRawPaymentMethodDomainsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payment_method_domains/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -1031,6 +1040,7 @@ class AsyncRawPaymentMethodDomainsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payment_method_domains/{encode_path_param(id)}/verify",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )

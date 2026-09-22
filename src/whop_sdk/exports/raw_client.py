@@ -81,6 +81,7 @@ class RawExportsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "exports",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -185,6 +186,7 @@ class RawExportsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "exports",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -281,6 +283,7 @@ class RawExportsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"exports/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -389,6 +392,7 @@ class AsyncRawExportsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "exports",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -493,6 +497,7 @@ class AsyncRawExportsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "exports",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -591,6 +596,7 @@ class AsyncRawExportsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"exports/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )

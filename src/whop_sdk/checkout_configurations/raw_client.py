@@ -92,6 +92,7 @@ class RawCheckoutConfigurationsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "checkout_configurations",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -225,6 +226,7 @@ class RawCheckoutConfigurationsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "checkout_configurations",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -312,6 +314,7 @@ class RawCheckoutConfigurationsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"checkout_configurations/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -366,6 +369,7 @@ class RawCheckoutConfigurationsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"checkout_configurations/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -467,6 +471,7 @@ class AsyncRawCheckoutConfigurationsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "checkout_configurations",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -603,6 +608,7 @@ class AsyncRawCheckoutConfigurationsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "checkout_configurations",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -690,6 +696,7 @@ class AsyncRawCheckoutConfigurationsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"checkout_configurations/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -744,6 +751,7 @@ class AsyncRawCheckoutConfigurationsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"checkout_configurations/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )

@@ -83,6 +83,7 @@ class RawIdentityProfilesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "identity_profiles",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -231,6 +232,7 @@ class RawIdentityProfilesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"identity_profiles/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -354,6 +356,7 @@ class RawIdentityProfilesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"identity_profiles/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             params={
                 "ledger_account_id": ledger_account_id,
@@ -499,6 +502,7 @@ class RawIdentityProfilesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"identity_profiles/{encode_path_param(id)}/verifications",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -672,6 +676,7 @@ class AsyncRawIdentityProfilesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "identity_profiles",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -823,6 +828,7 @@ class AsyncRawIdentityProfilesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"identity_profiles/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -946,6 +952,7 @@ class AsyncRawIdentityProfilesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"identity_profiles/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             params={
                 "ledger_account_id": ledger_account_id,
@@ -1091,6 +1098,7 @@ class AsyncRawIdentityProfilesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"identity_profiles/{encode_path_param(id)}/verifications",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,

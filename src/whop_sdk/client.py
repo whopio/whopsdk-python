@@ -104,15 +104,12 @@ class Whop:
 
     Parameters
     ----------
-    base_url : typing.Optional[str]
-        The base url to use for requests from the client.
-
     environment : WhopEnvironment
         The environment to use for requests from the client. from .environment import WhopEnvironment
 
 
 
-        Defaults to WhopEnvironment.DEFAULT
+        Defaults to WhopEnvironment.PRODUCTION
 
 
 
@@ -157,8 +154,7 @@ class Whop:
     def __init__(
         self,
         *,
-        base_url: typing.Optional[str] = None,
-        environment: WhopEnvironment = WhopEnvironment.DEFAULT,
+        environment: WhopEnvironment = WhopEnvironment.PRODUCTION,
         api_version_date: typing.Optional[str] = "2026-09-22-1",
         idempotency_key: typing.Optional[str] = None,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
@@ -174,7 +170,7 @@ class Whop:
         _defaulted_timeout = timeout if timeout is not None else 60 if httpx_client is None else None
         _defaulted_max_retries = max_retries if max_retries is not None else 2
         self._client_wrapper = SyncClientWrapper(
-            base_url=_get_base_url(base_url=base_url, environment=environment),
+            environment=environment,
             api_version_date=api_version_date,
             idempotency_key=idempotency_key,
             token=token,
@@ -990,15 +986,12 @@ class AsyncWhop:
 
     Parameters
     ----------
-    base_url : typing.Optional[str]
-        The base url to use for requests from the client.
-
     environment : WhopEnvironment
         The environment to use for requests from the client. from .environment import WhopEnvironment
 
 
 
-        Defaults to WhopEnvironment.DEFAULT
+        Defaults to WhopEnvironment.PRODUCTION
 
 
 
@@ -1046,8 +1039,7 @@ class AsyncWhop:
     def __init__(
         self,
         *,
-        base_url: typing.Optional[str] = None,
-        environment: WhopEnvironment = WhopEnvironment.DEFAULT,
+        environment: WhopEnvironment = WhopEnvironment.PRODUCTION,
         api_version_date: typing.Optional[str] = "2026-09-22-1",
         idempotency_key: typing.Optional[str] = None,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
@@ -1064,7 +1056,7 @@ class AsyncWhop:
         _defaulted_timeout = timeout if timeout is not None else 60 if httpx_client is None else None
         _defaulted_max_retries = max_retries if max_retries is not None else 2
         self._client_wrapper = AsyncClientWrapper(
-            base_url=_get_base_url(base_url=base_url, environment=environment),
+            environment=environment,
             api_version_date=api_version_date,
             idempotency_key=idempotency_key,
             token=token,
@@ -1853,12 +1845,3 @@ class AsyncWhop:
 
             self._webhooks = AsyncWebhooksClient(client_wrapper=self._client_wrapper)
         return self._webhooks
-
-
-def _get_base_url(*, base_url: typing.Optional[str] = None, environment: WhopEnvironment) -> str:
-    if base_url is not None:
-        return base_url
-    elif environment is not None:
-        return environment.value
-    else:
-        raise Exception("Please pass in either base_url or environment to construct the client")

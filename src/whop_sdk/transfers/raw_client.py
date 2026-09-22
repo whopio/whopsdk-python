@@ -98,6 +98,7 @@ class RawTransfersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "transfers",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "origin_id": origin_id,
@@ -230,6 +231,7 @@ class RawTransfersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "transfers",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "amount": amount,
@@ -350,6 +352,7 @@ class RawTransfersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "transfers/recipients",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "origin_id": origin_id,
@@ -456,6 +459,7 @@ class RawTransfersClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"transfers/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -554,6 +558,7 @@ class AsyncRawTransfersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "transfers",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "origin_id": origin_id,
@@ -689,6 +694,7 @@ class AsyncRawTransfersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "transfers",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "amount": amount,
@@ -809,6 +815,7 @@ class AsyncRawTransfersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "transfers/recipients",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "origin_id": origin_id,
@@ -918,6 +925,7 @@ class AsyncRawTransfersClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"transfers/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )

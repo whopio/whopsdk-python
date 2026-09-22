@@ -101,6 +101,7 @@ class RawAdConversionValueRulesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "ad_conversion_value_rules",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -207,6 +208,7 @@ class RawAdConversionValueRulesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "ad_conversion_value_rules",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -308,6 +310,7 @@ class RawAdConversionValueRulesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"ad_conversion_value_rules/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -351,6 +354,7 @@ class RawAdConversionValueRulesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"ad_conversion_value_rules/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -422,6 +426,7 @@ class RawAdConversionValueRulesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"ad_conversion_value_rules/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "adjustment_type": adjustment_type,
@@ -490,6 +495,7 @@ class RawAdConversionValueRulesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"ad_conversion_value_rules/{encode_path_param(id)}/pause",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -544,6 +550,7 @@ class RawAdConversionValueRulesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"ad_conversion_value_rules/{encode_path_param(id)}/unpause",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -637,6 +644,7 @@ class AsyncRawAdConversionValueRulesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "ad_conversion_value_rules",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -746,6 +754,7 @@ class AsyncRawAdConversionValueRulesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "ad_conversion_value_rules",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -847,6 +856,7 @@ class AsyncRawAdConversionValueRulesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"ad_conversion_value_rules/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -890,6 +900,7 @@ class AsyncRawAdConversionValueRulesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"ad_conversion_value_rules/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -961,6 +972,7 @@ class AsyncRawAdConversionValueRulesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"ad_conversion_value_rules/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "adjustment_type": adjustment_type,
@@ -1029,6 +1041,7 @@ class AsyncRawAdConversionValueRulesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"ad_conversion_value_rules/{encode_path_param(id)}/pause",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -1083,6 +1096,7 @@ class AsyncRawAdConversionValueRulesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"ad_conversion_value_rules/{encode_path_param(id)}/unpause",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )

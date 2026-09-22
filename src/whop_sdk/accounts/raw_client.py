@@ -137,6 +137,7 @@ class RawAccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "accounts",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "first": first,
@@ -281,6 +282,7 @@ class RawAccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "accounts",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "affiliate_code": affiliate_code,
@@ -377,6 +379,7 @@ class RawAccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "accounts/me",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -440,6 +443,7 @@ class RawAccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"accounts/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -701,6 +705,7 @@ class RawAccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"accounts/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "affiliate_application_required": affiliate_application_required,
@@ -940,6 +945,7 @@ class RawAccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"accounts/{encode_path_param(id)}/form_company",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "business_address": convert_and_respect_annotation_metadata(
@@ -1066,6 +1072,7 @@ class RawAccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"accounts/{encode_path_param(id)}/retry_ads_payment",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -1162,6 +1169,7 @@ class RawAccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"accounts/{encode_path_param(id)}/suspend",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -1264,6 +1272,7 @@ class RawAccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"accounts/{encode_path_param(id)}/transfer_ownership",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "as_partner": as_partner,
@@ -1394,6 +1403,7 @@ class AsyncRawAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "accounts",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "first": first,
@@ -1541,6 +1551,7 @@ class AsyncRawAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "accounts",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "affiliate_code": affiliate_code,
@@ -1637,6 +1648,7 @@ class AsyncRawAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "accounts/me",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1702,6 +1714,7 @@ class AsyncRawAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"accounts/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1963,6 +1976,7 @@ class AsyncRawAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"accounts/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "affiliate_application_required": affiliate_application_required,
@@ -2202,6 +2216,7 @@ class AsyncRawAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"accounts/{encode_path_param(id)}/form_company",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "business_address": convert_and_respect_annotation_metadata(
@@ -2328,6 +2343,7 @@ class AsyncRawAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"accounts/{encode_path_param(id)}/retry_ads_payment",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -2426,6 +2442,7 @@ class AsyncRawAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"accounts/{encode_path_param(id)}/suspend",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -2528,6 +2545,7 @@ class AsyncRawAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"accounts/{encode_path_param(id)}/transfer_ownership",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "as_partner": as_partner,

@@ -46,6 +46,7 @@ class RawStatsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "stats",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -367,6 +368,7 @@ class RawStatsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"stats/{encode_path_param(metric)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -526,6 +528,7 @@ class AsyncRawStatsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "stats",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -847,6 +850,7 @@ class AsyncRawStatsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"stats/{encode_path_param(metric)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,

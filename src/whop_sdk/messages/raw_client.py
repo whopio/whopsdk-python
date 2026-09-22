@@ -84,6 +84,7 @@ class RawMessagesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "messages",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -256,6 +257,7 @@ class RawMessagesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "messages",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "attachments": convert_and_respect_annotation_metadata(
@@ -398,6 +400,7 @@ class RawMessagesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"messages/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -522,6 +525,7 @@ class RawMessagesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"messages/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -663,6 +667,7 @@ class RawMessagesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"messages/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "attachments": convert_and_respect_annotation_metadata(
@@ -828,6 +833,7 @@ class AsyncRawMessagesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "messages",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "after": after,
@@ -1003,6 +1009,7 @@ class AsyncRawMessagesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "messages",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "attachments": convert_and_respect_annotation_metadata(
@@ -1147,6 +1154,7 @@ class AsyncRawMessagesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"messages/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -1273,6 +1281,7 @@ class AsyncRawMessagesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"messages/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             request_options=request_options,
         )
@@ -1414,6 +1423,7 @@ class AsyncRawMessagesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"messages/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "attachments": convert_and_respect_annotation_metadata(

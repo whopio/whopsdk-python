@@ -78,6 +78,7 @@ class RawPasskeysClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "users/me/passkeys",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "first": first,
@@ -192,6 +193,7 @@ class RawPasskeysClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "users/me/passkeys",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "attestation_object": attestation_object,
@@ -296,6 +298,7 @@ class RawPasskeysClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "users/me/passkeys/challenge",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "challenge_type": challenge_type,
@@ -417,6 +420,7 @@ class RawPasskeysClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"users/me/passkeys/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             json={
                 "authenticator_data": authenticator_data,
@@ -541,6 +545,7 @@ class AsyncRawPasskeysClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "users/me/passkeys",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "first": first,
@@ -658,6 +663,7 @@ class AsyncRawPasskeysClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "users/me/passkeys",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "attestation_object": attestation_object,
@@ -762,6 +768,7 @@ class AsyncRawPasskeysClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "users/me/passkeys/challenge",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "challenge_type": challenge_type,
@@ -883,6 +890,7 @@ class AsyncRawPasskeysClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"users/me/passkeys/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="DELETE",
             json={
                 "authenticator_data": authenticator_data,

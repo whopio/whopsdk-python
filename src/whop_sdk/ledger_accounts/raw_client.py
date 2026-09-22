@@ -50,6 +50,7 @@ class RawLedgerAccountsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"ledger_accounts/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -179,6 +180,7 @@ class AsyncRawLedgerAccountsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"ledger_accounts/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )

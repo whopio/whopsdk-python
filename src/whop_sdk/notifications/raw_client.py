@@ -76,6 +76,7 @@ class RawNotificationsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "notifications",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "unread": unread,
@@ -206,6 +207,7 @@ class RawNotificationsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "notifications",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -314,6 +316,7 @@ class RawNotificationsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "notifications/badges",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "experience_ids": experience_ids,
@@ -390,6 +393,7 @@ class RawNotificationsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "notifications/mark_read",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "all": all_,
@@ -496,6 +500,7 @@ class RawNotificationsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"notifications/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -589,6 +594,7 @@ class AsyncRawNotificationsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "notifications",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "unread": unread,
@@ -722,6 +728,7 @@ class AsyncRawNotificationsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "notifications",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -830,6 +837,7 @@ class AsyncRawNotificationsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "notifications/badges",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "experience_ids": experience_ids,
@@ -906,6 +914,7 @@ class AsyncRawNotificationsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "notifications/mark_read",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "all": all_,
@@ -1012,6 +1021,7 @@ class AsyncRawNotificationsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"notifications/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )

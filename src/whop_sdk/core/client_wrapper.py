@@ -3,6 +3,7 @@
 import typing
 
 import httpx
+from ..environment import WhopEnvironment
 from .http_client import AsyncHttpClient, HttpClient
 from .logging import LogConfig, Logger
 
@@ -15,7 +16,7 @@ class BaseClientWrapper:
         idempotency_key: typing.Optional[str] = None,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         headers: typing.Optional[typing.Dict[str, str]] = None,
-        base_url: str,
+        environment: WhopEnvironment,
         timeout: typing.Optional[float] = None,
         max_retries: int = 2,
         stream_reconnection_enabled: typing.Optional[bool] = None,
@@ -26,7 +27,7 @@ class BaseClientWrapper:
         self._idempotency_key = idempotency_key
         self._token = token
         self._headers = headers
-        self._base_url = base_url
+        self._environment = environment
         self._timeout = timeout
         self._max_retries = max_retries
         self._stream_reconnection_enabled = stream_reconnection_enabled
@@ -62,8 +63,8 @@ class BaseClientWrapper:
     def get_custom_headers(self) -> typing.Optional[typing.Dict[str, str]]:
         return self._headers
 
-    def get_base_url(self) -> str:
-        return self._base_url
+    def get_environment(self) -> WhopEnvironment:
+        return self._environment
 
     def get_timeout(self) -> typing.Optional[float]:
         return self._timeout
@@ -86,7 +87,7 @@ class SyncClientWrapper(BaseClientWrapper):
         idempotency_key: typing.Optional[str] = None,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         headers: typing.Optional[typing.Dict[str, str]] = None,
-        base_url: str,
+        environment: WhopEnvironment,
         timeout: typing.Optional[float] = None,
         max_retries: int = 2,
         stream_reconnection_enabled: typing.Optional[bool] = None,
@@ -99,7 +100,7 @@ class SyncClientWrapper(BaseClientWrapper):
             idempotency_key=idempotency_key,
             token=token,
             headers=headers,
-            base_url=base_url,
+            environment=environment,
             timeout=timeout,
             max_retries=max_retries,
             stream_reconnection_enabled=stream_reconnection_enabled,
@@ -110,7 +111,6 @@ class SyncClientWrapper(BaseClientWrapper):
             httpx_client=httpx_client,
             base_headers=self.get_headers,
             base_timeout=self.get_timeout,
-            base_url=self.get_base_url,
             base_max_retries=self.get_max_retries(),
             logging_config=self._logging,
         )
@@ -124,7 +124,7 @@ class AsyncClientWrapper(BaseClientWrapper):
         idempotency_key: typing.Optional[str] = None,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         headers: typing.Optional[typing.Dict[str, str]] = None,
-        base_url: str,
+        environment: WhopEnvironment,
         timeout: typing.Optional[float] = None,
         max_retries: int = 2,
         stream_reconnection_enabled: typing.Optional[bool] = None,
@@ -138,7 +138,7 @@ class AsyncClientWrapper(BaseClientWrapper):
             idempotency_key=idempotency_key,
             token=token,
             headers=headers,
-            base_url=base_url,
+            environment=environment,
             timeout=timeout,
             max_retries=max_retries,
             stream_reconnection_enabled=stream_reconnection_enabled,
@@ -150,7 +150,6 @@ class AsyncClientWrapper(BaseClientWrapper):
             httpx_client=httpx_client,
             base_headers=self.get_headers,
             base_timeout=self.get_timeout,
-            base_url=self.get_base_url,
             base_max_retries=self.get_max_retries(),
             async_base_headers=self.async_get_headers,
             logging_config=self._logging,

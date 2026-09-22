@@ -55,6 +55,7 @@ class RawPreferencesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"accounts/{encode_path_param(account_id)}/preferences",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -170,6 +171,7 @@ class RawPreferencesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"accounts/{encode_path_param(account_id)}/preferences",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "ads_certifications": convert_and_respect_annotation_metadata(
@@ -298,6 +300,7 @@ class AsyncRawPreferencesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"accounts/{encode_path_param(account_id)}/preferences",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -413,6 +416,7 @@ class AsyncRawPreferencesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"accounts/{encode_path_param(account_id)}/preferences",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "ads_certifications": convert_and_respect_annotation_metadata(

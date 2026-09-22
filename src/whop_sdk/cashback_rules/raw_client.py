@@ -80,6 +80,7 @@ class RawCashbackRulesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "cashback_rule",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "description": description,
@@ -214,6 +215,7 @@ class RawCashbackRulesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "cashback_rules",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "first": first,
@@ -332,6 +334,7 @@ class RawCashbackRulesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"cashback_rules/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "description": description,
@@ -461,6 +464,7 @@ class AsyncRawCashbackRulesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "cashback_rule",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "description": description,
@@ -595,6 +599,7 @@ class AsyncRawCashbackRulesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "cashback_rules",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "first": first,
@@ -716,6 +721,7 @@ class AsyncRawCashbackRulesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"cashback_rules/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "description": description,

@@ -22,7 +22,22 @@ if typing.TYPE_CHECKING:
         PostSetupIntentSucceededPayloadApiVersion,
         PostSetupIntentSucceededPayloadType,
     )
+    from . import direct
+    from .direct import (
+        CreateDirectRequestBillingDetails,
+        CreateDirectRequestBillingDetailsAddress,
+        CreateDirectRequestPaymentMethod,
+        CreateDirectRequestPaymentMethodCard,
+        CreateDirectRequestPaymentMethodCardDetails,
+        CreateDirectRequestPaymentMethodType,
+    )
 _dynamic_imports: typing.Dict[str, str] = {
+    "CreateDirectRequestBillingDetails": ".direct",
+    "CreateDirectRequestBillingDetailsAddress": ".direct",
+    "CreateDirectRequestPaymentMethod": ".direct",
+    "CreateDirectRequestPaymentMethodCard": ".direct",
+    "CreateDirectRequestPaymentMethodCardDetails": ".direct",
+    "CreateDirectRequestPaymentMethodType": ".direct",
     "ListSetupIntentsRequestDirection": ".types",
     "ListSetupIntentsRequestOrder": ".types",
     "ListSetupIntentsRequestStatus": ".types",
@@ -37,6 +52,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostSetupIntentSucceededPayload": ".types",
     "PostSetupIntentSucceededPayloadApiVersion": ".types",
     "PostSetupIntentSucceededPayloadType": ".types",
+    "direct": ".direct",
 }
 
 
@@ -62,6 +78,12 @@ def __dir__():
 
 
 __all__ = [
+    "CreateDirectRequestBillingDetails",
+    "CreateDirectRequestBillingDetailsAddress",
+    "CreateDirectRequestPaymentMethod",
+    "CreateDirectRequestPaymentMethodCard",
+    "CreateDirectRequestPaymentMethodCardDetails",
+    "CreateDirectRequestPaymentMethodType",
     "ListSetupIntentsRequestDirection",
     "ListSetupIntentsRequestOrder",
     "ListSetupIntentsRequestStatus",
@@ -76,4 +98,5 @@ __all__ = [
     "PostSetupIntentSucceededPayload",
     "PostSetupIntentSucceededPayloadApiVersion",
     "PostSetupIntentSucceededPayloadType",
+    "direct",
 ]

@@ -95,6 +95,7 @@ class RawPartnerReferralRequestsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "partner_referral_requests",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -204,6 +205,7 @@ class RawPartnerReferralRequestsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "partner_referral_requests",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=CreatePartnerReferralRequestsRequestBody, direction="write"
@@ -306,6 +308,7 @@ class RawPartnerReferralRequestsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"partner_referral_requests/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -382,6 +385,7 @@ class RawPartnerReferralRequestsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"partner_referral_requests/{encode_path_param(id)}/accept",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -469,6 +473,7 @@ class RawPartnerReferralRequestsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"partner_referral_requests/{encode_path_param(id)}/cancel",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -556,6 +561,7 @@ class RawPartnerReferralRequestsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"partner_referral_requests/{encode_path_param(id)}/decline",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -687,6 +693,7 @@ class AsyncRawPartnerReferralRequestsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "partner_referral_requests",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -799,6 +806,7 @@ class AsyncRawPartnerReferralRequestsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "partner_referral_requests",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=CreatePartnerReferralRequestsRequestBody, direction="write"
@@ -901,6 +909,7 @@ class AsyncRawPartnerReferralRequestsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"partner_referral_requests/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -977,6 +986,7 @@ class AsyncRawPartnerReferralRequestsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"partner_referral_requests/{encode_path_param(id)}/accept",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -1064,6 +1074,7 @@ class AsyncRawPartnerReferralRequestsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"partner_referral_requests/{encode_path_param(id)}/cancel",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )
@@ -1151,6 +1162,7 @@ class AsyncRawPartnerReferralRequestsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"partner_referral_requests/{encode_path_param(id)}/decline",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             request_options=request_options,
         )

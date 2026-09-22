@@ -76,6 +76,7 @@ class RawEconomicIntelligenceClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "economic_intelligence",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -193,6 +194,7 @@ class RawEconomicIntelligenceClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "economic_intelligence",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -296,6 +298,7 @@ class RawEconomicIntelligenceClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             f"economic_intelligence/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             params={
                 "account_id": account_id,
@@ -423,6 +426,7 @@ class AsyncRawEconomicIntelligenceClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "economic_intelligence",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -543,6 +547,7 @@ class AsyncRawEconomicIntelligenceClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "economic_intelligence",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "account_id": account_id,
@@ -646,6 +651,7 @@ class AsyncRawEconomicIntelligenceClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"economic_intelligence/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             params={
                 "account_id": account_id,

@@ -86,6 +86,7 @@ class RawSupportedMethodsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "payouts/supported_methods",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,
@@ -254,6 +255,7 @@ class AsyncRawSupportedMethodsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "payouts/supported_methods",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
                 "account_id": account_id,

@@ -51,6 +51,7 @@ class RawDepositsClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "deposits",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "amount": amount,
@@ -136,6 +137,7 @@ class AsyncRawDepositsClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "deposits",
+            base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
                 "amount": amount,

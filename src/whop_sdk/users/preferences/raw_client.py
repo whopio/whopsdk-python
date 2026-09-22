@@ -38,6 +38,7 @@ class RawPreferencesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "users/me/preferences",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -103,6 +104,7 @@ class RawPreferencesClient:
         """
         _response = self._client_wrapper.httpx_client.request(
             "users/me/preferences",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "bounty_worker_onboarding_dismissed": bounty_worker_onboarding_dismissed,
@@ -179,6 +181,7 @@ class AsyncRawPreferencesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "users/me/preferences",
+            base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
         )
@@ -244,6 +247,7 @@ class AsyncRawPreferencesClient:
         """
         _response = await self._client_wrapper.httpx_client.request(
             "users/me/preferences",
+            base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
                 "bounty_worker_onboarding_dismissed": bounty_worker_onboarding_dismissed,
