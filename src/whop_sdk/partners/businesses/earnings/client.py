@@ -98,7 +98,7 @@ class EarningsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-15",
+            "2026-09-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -213,7 +213,7 @@ class AsyncEarningsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-15",
+            "2026-09-22",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
