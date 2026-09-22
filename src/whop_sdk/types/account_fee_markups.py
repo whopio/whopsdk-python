@@ -8,6 +8,11 @@ from .account_fee_markup import AccountFeeMarkup
 
 
 class AccountFeeMarkups(UniversalBaseModel):
+    card_spend: AccountFeeMarkup = pydantic.Field()
+    """
+    The markup on card purchases settled by the connected account.
+    """
+
     crypto_swaps: AccountFeeMarkup = pydantic.Field()
     """
     The markup on cryptocurrency token swaps.

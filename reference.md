@@ -42457,7 +42457,7 @@ client.accounts.fees.update(
 <dl>
 <dd>
 
-**child_markups:** `typing.Optional[UpdateFeesRequestChildMarkups]` — This platform's default markups for every account connected to it.
+**child_markups:** `typing.Optional[UpdateFeesRequestChildMarkups]` — Default markups for connected accounts. Available on accounts without a parent, even before any accounts connect.
     
 </dd>
 </dl>

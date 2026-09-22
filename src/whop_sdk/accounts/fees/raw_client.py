@@ -175,7 +175,7 @@ class RawFeesClient:
             The fields of a fee the caller may change. Only the keys sent are replaced.
 
         child_markups : typing.Optional[UpdateFeesRequestChildMarkups]
-            This platform's default markups for every account connected to it.
+            Default markups for connected accounts. Available on accounts without a parent, even before any accounts connect.
 
         cross_border : typing.Optional[UpdateFeesRequestCrossBorder]
             The fields of a fee the caller may change. Only the keys sent are replaced.
@@ -533,7 +533,7 @@ class AsyncRawFeesClient:
             The fields of a fee the caller may change. Only the keys sent are replaced.
 
         child_markups : typing.Optional[UpdateFeesRequestChildMarkups]
-            This platform's default markups for every account connected to it.
+            Default markups for connected accounts. Available on accounts without a parent, even before any accounts connect.
 
         cross_border : typing.Optional[UpdateFeesRequestCrossBorder]
             The fields of a fee the caller may change. Only the keys sent are replaced.

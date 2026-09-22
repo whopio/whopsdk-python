@@ -36,7 +36,7 @@ class AccountFees(UniversalBaseModel):
 
     child_markups: typing.Optional[AccountFeeMarkups] = pydantic.Field(default=None)
     """
-    The default markups this account charges the accounts connected to it. `null` unless the account is a platform.
+    The default markups this account charges connected accounts, configurable before any accounts connect. `null` if this account has a parent.
     """
 
     cross_border: AccountFee = pydantic.Field()

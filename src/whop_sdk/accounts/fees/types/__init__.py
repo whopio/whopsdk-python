@@ -15,6 +15,7 @@ if typing.TYPE_CHECKING:
     from .update_fees_request_card_processing import UpdateFeesRequestCardProcessing
     from .update_fees_request_card_processing_regions_value import UpdateFeesRequestCardProcessingRegionsValue
     from .update_fees_request_child_markups import UpdateFeesRequestChildMarkups
+    from .update_fees_request_child_markups_card_spend import UpdateFeesRequestChildMarkupsCardSpend
     from .update_fees_request_child_markups_crypto_swaps import UpdateFeesRequestChildMarkupsCryptoSwaps
     from .update_fees_request_child_markups_deposits_value import UpdateFeesRequestChildMarkupsDepositsValue
     from .update_fees_request_child_markups_payments import UpdateFeesRequestChildMarkupsPayments
@@ -45,6 +46,7 @@ if typing.TYPE_CHECKING:
     from .update_fees_request_marketplace import UpdateFeesRequestMarketplace
     from .update_fees_request_marketplace_regions_value import UpdateFeesRequestMarketplaceRegionsValue
     from .update_fees_request_markups import UpdateFeesRequestMarkups
+    from .update_fees_request_markups_card_spend import UpdateFeesRequestMarkupsCardSpend
     from .update_fees_request_markups_crypto_swaps import UpdateFeesRequestMarkupsCryptoSwaps
     from .update_fees_request_markups_deposits_value import UpdateFeesRequestMarkupsDepositsValue
     from .update_fees_request_markups_payments import UpdateFeesRequestMarkupsPayments
@@ -84,6 +86,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateFeesRequestCardProcessing": ".update_fees_request_card_processing",
     "UpdateFeesRequestCardProcessingRegionsValue": ".update_fees_request_card_processing_regions_value",
     "UpdateFeesRequestChildMarkups": ".update_fees_request_child_markups",
+    "UpdateFeesRequestChildMarkupsCardSpend": ".update_fees_request_child_markups_card_spend",
     "UpdateFeesRequestChildMarkupsCryptoSwaps": ".update_fees_request_child_markups_crypto_swaps",
     "UpdateFeesRequestChildMarkupsDepositsValue": ".update_fees_request_child_markups_deposits_value",
     "UpdateFeesRequestChildMarkupsPayments": ".update_fees_request_child_markups_payments",
@@ -112,6 +115,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateFeesRequestMarketplace": ".update_fees_request_marketplace",
     "UpdateFeesRequestMarketplaceRegionsValue": ".update_fees_request_marketplace_regions_value",
     "UpdateFeesRequestMarkups": ".update_fees_request_markups",
+    "UpdateFeesRequestMarkupsCardSpend": ".update_fees_request_markups_card_spend",
     "UpdateFeesRequestMarkupsCryptoSwaps": ".update_fees_request_markups_crypto_swaps",
     "UpdateFeesRequestMarkupsDepositsValue": ".update_fees_request_markups_deposits_value",
     "UpdateFeesRequestMarkupsPayments": ".update_fees_request_markups_payments",
@@ -173,6 +177,7 @@ __all__ = [
     "UpdateFeesRequestCardProcessing",
     "UpdateFeesRequestCardProcessingRegionsValue",
     "UpdateFeesRequestChildMarkups",
+    "UpdateFeesRequestChildMarkupsCardSpend",
     "UpdateFeesRequestChildMarkupsCryptoSwaps",
     "UpdateFeesRequestChildMarkupsDepositsValue",
     "UpdateFeesRequestChildMarkupsPayments",
@@ -201,6 +206,7 @@ __all__ = [
     "UpdateFeesRequestMarketplace",
     "UpdateFeesRequestMarketplaceRegionsValue",
     "UpdateFeesRequestMarkups",
+    "UpdateFeesRequestMarkupsCardSpend",
     "UpdateFeesRequestMarkupsCryptoSwaps",
     "UpdateFeesRequestMarkupsDepositsValue",
     "UpdateFeesRequestMarkupsPayments",
