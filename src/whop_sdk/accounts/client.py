@@ -21,6 +21,7 @@ from .types.list_accounts_request_direction import ListAccountsRequestDirection
 from .types.list_accounts_request_order import ListAccountsRequestOrder
 from .types.list_accounts_request_status import ListAccountsRequestStatus
 from .types.list_accounts_response import ListAccountsResponse
+from .types.retry_ads_payment_accounts_response import RetryAdsPaymentAccountsResponse
 from .types.transfer_ownership_accounts_response import TransferOwnershipAccountsResponse
 from .types.update_accounts_request_banner_image import UpdateAccountsRequestBannerImage
 from .types.update_accounts_request_business_address import UpdateAccountsRequestBusinessAddress
@@ -700,6 +701,41 @@ class AccountsClient:
             use_registered_agent=use_registered_agent,
             request_options=request_options,
         )
+        return _response.data
+
+    def retry_ads_payment(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> RetryAdsPaymentAccountsResponse:
+        """
+        Queues a background retry of the account's failed ads payments using its configured ads payment methods. A queued response does not mean payment succeeded. Check the account's ad campaigns for the outcome.
+
+        Parameters
+        ----------
+        id : str
+            The account ID.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RetryAdsPaymentAccountsResponse
+            payment retry queued
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-09-15",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.accounts.retry_ads_payment(
+            id="id",
+        )
+        """
+        _response = self._raw_client.retry_ads_payment(id, request_options=request_options)
         return _response.data
 
     def suspend(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Account:
@@ -1516,6 +1552,49 @@ class AsyncAccountsClient:
             use_registered_agent=use_registered_agent,
             request_options=request_options,
         )
+        return _response.data
+
+    async def retry_ads_payment(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> RetryAdsPaymentAccountsResponse:
+        """
+        Queues a background retry of the account's failed ads payments using its configured ads payment methods. A queued response does not mean payment succeeded. Check the account's ad campaigns for the outcome.
+
+        Parameters
+        ----------
+        id : str
+            The account ID.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RetryAdsPaymentAccountsResponse
+            payment retry queued
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-09-15",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.accounts.retry_ads_payment(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.retry_ads_payment(id, request_options=request_options)
         return _response.data
 
     async def suspend(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Account:
