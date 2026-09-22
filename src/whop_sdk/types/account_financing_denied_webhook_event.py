@@ -174,7 +174,7 @@ class DataCapabilities(BaseModel):
 class DataCards(BaseModel):
     """Whop Cards application details for the account.
 
-    Computed only on `retrieve` and `me` for callers with `company:balance:read` scope; `null` otherwise, or when the account has no card application.
+    Returned on `list`, `retrieve`, and `me` for callers with `company:balance:read` scope; `null` otherwise, or when the account has no card application or blocking application review.
     """
 
     kind: Optional[Literal["individual", "business"]] = None
@@ -1243,8 +1243,9 @@ class Data(BaseModel):
     cards: Optional[DataCards] = None
     """Whop Cards application details for the account.
 
-    Computed only on `retrieve` and `me` for callers with `company:balance:read`
-    scope; `null` otherwise, or when the account has no card application.
+    Returned on `list`, `retrieve`, and `me` for callers with `company:balance:read`
+    scope; `null` otherwise, or when the account has no card application or blocking
+    application review.
     """
 
     collect_vat_id: bool
