@@ -116,6 +116,7 @@ PaymentMethodTypes = typing.Union[
         "splitit",
         "sunbit",
         "swish",
+        "tabby",
         "tamara",
         "touch_n_go",
         "twint",
