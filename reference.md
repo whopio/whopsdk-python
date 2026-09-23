@@ -30337,7 +30337,7 @@ client.payouts.create(
 <dl>
 <dd>
 
-**quote_token:** `typing.Optional[str]` — The server-signed quote_token returned by POST /payouts/quotes. Required when the ledger account's payout_quote_required is true; a payout without it is refused with the invalid_payout_quote error type. When provided, Whop will not commit a provider payout below the destination amount the quote showed.
+**quote_token:** `typing.Optional[str]` — The server-signed quote_token returned by POST /payouts/quotes. Send it when the ledger account's payout_quote_required is true. A business with quote enforcement on refuses a payout without it with the invalid_payout_quote error type. When provided, Whop will not commit a provider payout below the destination amount the quote showed.
     
 </dd>
 </dl>
