@@ -34,7 +34,17 @@ class AdCampaign(UniversalBaseModel):
 
     budget_amount: typing.Optional[float] = pydantic.Field(default=None)
     """
-    The campaign's budget, in the ad account's currency. `null` when each ad group sets its own budget instead.
+    The campaign's budget in USD, which is what it is stored and billed in. `null` when each ad group sets its own budget instead.
+    """
+
+    budget_amount_local: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    The same budget stated in `budget_currency` at today's exchange rate, for display in the account's ads reporting currency. `null` when `budget_amount` is.
+    """
+
+    budget_currency: str = pydantic.Field()
+    """
+    The ISO 4217 code `budget_amount_local` is in: the account's `ads_reporting_currency` preference. `usd` unless the account changed it.
     """
 
     budget_optimization: typing.Optional[AdCampaignBudgetOptimization] = pydantic.Field(default=None)

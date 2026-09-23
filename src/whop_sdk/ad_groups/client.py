@@ -200,6 +200,7 @@ class AdGroupsClient:
         audiences: typing.Optional[AdGroupAudiencesBody] = OMIT,
         bid_type: typing.Optional[CreateAdGroupsRequestBidType] = OMIT,
         budget_amount: typing.Optional[float] = OMIT,
+        budget_amount_local: typing.Optional[float] = OMIT,
         budget_type: typing.Optional[CreateAdGroupsRequestBudgetType] = OMIT,
         conversion_event: typing.Optional[ConversionEvent] = OMIT,
         conversion_location: typing.Optional[CreateAdGroupsRequestConversionLocation] = OMIT,
@@ -236,7 +237,10 @@ class AdGroupsClient:
             How delivery bids are set in the ad auction. Target-based strategies use `desired_cost_per_result`.
 
         budget_amount : typing.Optional[float]
-            This ad group's budget, in the ad account's currency. Omit when the budget is set on the campaign instead.
+            This ad group's budget in USD, which is what it is stored and billed in. Omit when the budget is set on the campaign instead.
+
+        budget_amount_local : typing.Optional[float]
+            This ad group's budget stated in the account's ads reporting currency (`budget_currency` on the response) instead of USD. Converted to USD at the current exchange rate and stored as budget_amount; on an update, an amount equal to the current budget_amount_local keeps the stored USD budget as is. Provide this or budget_amount, not both.
 
         budget_type : typing.Optional[CreateAdGroupsRequestBudgetType]
             Whether budget_amount is spent per day (`daily`) or over the ad group's full run (`lifetime`).
@@ -329,6 +333,7 @@ class AdGroupsClient:
             audiences=audiences,
             bid_type=bid_type,
             budget_amount=budget_amount,
+            budget_amount_local=budget_amount_local,
             budget_type=budget_type,
             conversion_event=conversion_event,
             conversion_location=conversion_location,
@@ -620,6 +625,7 @@ class AdGroupsClient:
         audiences: typing.Optional[AdGroupAudiencesBody] = OMIT,
         bid_type: typing.Optional[UpdateAdGroupsRequestBidType] = OMIT,
         budget_amount: typing.Optional[float] = OMIT,
+        budget_amount_local: typing.Optional[float] = OMIT,
         budget_type: typing.Optional[UpdateAdGroupsRequestBudgetType] = OMIT,
         conversion_event: typing.Optional[ConversionEvent] = OMIT,
         conversion_location: typing.Optional[UpdateAdGroupsRequestConversionLocation] = OMIT,
@@ -655,7 +661,10 @@ class AdGroupsClient:
             How delivery bids are set in the ad auction. Target-based strategies use `desired_cost_per_result`.
 
         budget_amount : typing.Optional[float]
-            This ad group's budget, in the ad account's currency. Omit when the budget is set on the campaign instead.
+            This ad group's budget in USD, which is what it is stored and billed in. Omit when the budget is set on the campaign instead.
+
+        budget_amount_local : typing.Optional[float]
+            This ad group's budget stated in the account's ads reporting currency (`budget_currency` on the response) instead of USD. Converted to USD at the current exchange rate and stored as budget_amount; on an update, an amount equal to the current budget_amount_local keeps the stored USD budget as is. Provide this or budget_amount, not both.
 
         budget_type : typing.Optional[UpdateAdGroupsRequestBudgetType]
             Whether budget_amount is spent per day (`daily`) or over the ad group's full run (`lifetime`).
@@ -745,6 +754,7 @@ class AdGroupsClient:
             audiences=audiences,
             bid_type=bid_type,
             budget_amount=budget_amount,
+            budget_amount_local=budget_amount_local,
             budget_type=budget_type,
             conversion_event=conversion_event,
             conversion_location=conversion_location,
@@ -1046,6 +1056,7 @@ class AsyncAdGroupsClient:
         audiences: typing.Optional[AdGroupAudiencesBody] = OMIT,
         bid_type: typing.Optional[CreateAdGroupsRequestBidType] = OMIT,
         budget_amount: typing.Optional[float] = OMIT,
+        budget_amount_local: typing.Optional[float] = OMIT,
         budget_type: typing.Optional[CreateAdGroupsRequestBudgetType] = OMIT,
         conversion_event: typing.Optional[ConversionEvent] = OMIT,
         conversion_location: typing.Optional[CreateAdGroupsRequestConversionLocation] = OMIT,
@@ -1082,7 +1093,10 @@ class AsyncAdGroupsClient:
             How delivery bids are set in the ad auction. Target-based strategies use `desired_cost_per_result`.
 
         budget_amount : typing.Optional[float]
-            This ad group's budget, in the ad account's currency. Omit when the budget is set on the campaign instead.
+            This ad group's budget in USD, which is what it is stored and billed in. Omit when the budget is set on the campaign instead.
+
+        budget_amount_local : typing.Optional[float]
+            This ad group's budget stated in the account's ads reporting currency (`budget_currency` on the response) instead of USD. Converted to USD at the current exchange rate and stored as budget_amount; on an update, an amount equal to the current budget_amount_local keeps the stored USD budget as is. Provide this or budget_amount, not both.
 
         budget_type : typing.Optional[CreateAdGroupsRequestBudgetType]
             Whether budget_amount is spent per day (`daily`) or over the ad group's full run (`lifetime`).
@@ -1183,6 +1197,7 @@ class AsyncAdGroupsClient:
             audiences=audiences,
             bid_type=bid_type,
             budget_amount=budget_amount,
+            budget_amount_local=budget_amount_local,
             budget_type=budget_type,
             conversion_event=conversion_event,
             conversion_location=conversion_location,
@@ -1508,6 +1523,7 @@ class AsyncAdGroupsClient:
         audiences: typing.Optional[AdGroupAudiencesBody] = OMIT,
         bid_type: typing.Optional[UpdateAdGroupsRequestBidType] = OMIT,
         budget_amount: typing.Optional[float] = OMIT,
+        budget_amount_local: typing.Optional[float] = OMIT,
         budget_type: typing.Optional[UpdateAdGroupsRequestBudgetType] = OMIT,
         conversion_event: typing.Optional[ConversionEvent] = OMIT,
         conversion_location: typing.Optional[UpdateAdGroupsRequestConversionLocation] = OMIT,
@@ -1543,7 +1559,10 @@ class AsyncAdGroupsClient:
             How delivery bids are set in the ad auction. Target-based strategies use `desired_cost_per_result`.
 
         budget_amount : typing.Optional[float]
-            This ad group's budget, in the ad account's currency. Omit when the budget is set on the campaign instead.
+            This ad group's budget in USD, which is what it is stored and billed in. Omit when the budget is set on the campaign instead.
+
+        budget_amount_local : typing.Optional[float]
+            This ad group's budget stated in the account's ads reporting currency (`budget_currency` on the response) instead of USD. Converted to USD at the current exchange rate and stored as budget_amount; on an update, an amount equal to the current budget_amount_local keeps the stored USD budget as is. Provide this or budget_amount, not both.
 
         budget_type : typing.Optional[UpdateAdGroupsRequestBudgetType]
             Whether budget_amount is spent per day (`daily`) or over the ad group's full run (`lifetime`).
@@ -1641,6 +1660,7 @@ class AsyncAdGroupsClient:
             audiences=audiences,
             bid_type=bid_type,
             budget_amount=budget_amount,
+            budget_amount_local=budget_amount_local,
             budget_type=budget_type,
             conversion_event=conversion_event,
             conversion_location=conversion_location,
