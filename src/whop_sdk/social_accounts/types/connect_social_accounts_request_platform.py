@@ -2,4 +2,4 @@
 
 import typing
 
-ConnectSocialAccountsRequestPlatform = typing.Union[typing.Literal["meta_business", "tiktok"], typing.Any]
+ConnectSocialAccountsRequestPlatform = typing.Union[typing.Literal["meta_business", "tiktok", "linkedin"], typing.Any]
