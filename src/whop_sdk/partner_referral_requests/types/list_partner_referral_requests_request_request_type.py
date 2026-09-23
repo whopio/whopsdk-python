@@ -3,5 +3,5 @@
 import typing
 
 ListPartnerReferralRequestsRequestRequestType = typing.Union[
-    typing.Literal["manual", "ownership_transfer", "reward_link"], typing.Any
+    typing.Literal["manual", "ownership_transfer", "link"], typing.Any
 ]
