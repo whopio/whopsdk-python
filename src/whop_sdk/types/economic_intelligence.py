@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .economic_intelligence_operation import EconomicIntelligenceOperation
 from .economic_intelligence_sentiment import EconomicIntelligenceSentiment
 from .economic_intelligence_status import EconomicIntelligenceStatus
 
@@ -34,7 +35,7 @@ class EconomicIntelligence(UniversalBaseModel):
     When the recommendation was approved, as an ISO 8601 timestamp, or `null` if it has not been approved.
     """
 
-    expected_tool_calls: typing.Optional[typing.List[str]] = None
+    expected_tool_calls: typing.Optional[typing.List[EconomicIntelligenceOperation]] = None
     id: str = pydantic.Field()
     """
     Recommendation ID, prefixed `reca_`, or `create_business` for an unsaved setup recommendation. Authenticate and list again before executing an unsaved recommendation.
