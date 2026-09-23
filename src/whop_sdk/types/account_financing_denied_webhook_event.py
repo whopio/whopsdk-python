@@ -51,6 +51,10 @@ __all__ = [
     "DataWallet",
     "DataPartner",
     "DataPartnerProfilePicture",
+    "DataReward",
+    "DataRewardQualificationAmount",
+    "DataRewardQualificationProgress",
+    "DataRewardRewardAmount",
 ]
 
 
@@ -1355,6 +1359,133 @@ class DataPartner(BaseModel):
     """Public username."""
 
 
+class DataRewardQualificationAmount(BaseModel):
+    """Qualifying USD volume required to earn this reward."""
+
+    amount: str
+    """The amount in major units, as an exact decimal string — `"10.00"` is ten
+    dollars.
+
+    A string so no float rounds it in transit.
+    """
+
+    currency: str
+    """Three-letter ISO 4217 currency code, lowercase."""
+
+    decimals: int
+    """
+    How many decimal places the amount CARRIES — the precision the charge itself
+    runs at.
+    """
+
+    display_decimals: int
+    """How many decimal places to SHOW.
+
+    Usually equal to `decimals`, and deliberately not always: COP is charged in
+    centavos but written in whole pesos, so it is `2` and `0`. Format the number in
+    your own locale using this.
+    """
+
+
+class DataRewardQualificationProgress(BaseModel):
+    """
+    Qualifying USD volume for the reward’s activity accumulated by this account since attribution, calculated using the fulfillment rules.
+    """
+
+    amount: str
+    """The amount in major units, as an exact decimal string — `"10.00"` is ten
+    dollars.
+
+    A string so no float rounds it in transit.
+    """
+
+    currency: str
+    """Three-letter ISO 4217 currency code, lowercase."""
+
+    decimals: int
+    """
+    How many decimal places the amount CARRIES — the precision the charge itself
+    runs at.
+    """
+
+    display_decimals: int
+    """How many decimal places to SHOW.
+
+    Usually equal to `decimals`, and deliberately not always: COP is charged in
+    centavos but written in whole pesos, so it is `2` and `0`. Format the number in
+    your own locale using this.
+    """
+
+
+class DataRewardRewardAmount(BaseModel):
+    """USD balance credit for this reward.
+
+    Uses the saved grant amount once fulfillment has started.
+    """
+
+    amount: str
+    """The amount in major units, as an exact decimal string — `"10.00"` is ten
+    dollars.
+
+    A string so no float rounds it in transit.
+    """
+
+    currency: str
+    """Three-letter ISO 4217 currency code, lowercase."""
+
+    decimals: int
+    """
+    How many decimal places the amount CARRIES — the precision the charge itself
+    runs at.
+    """
+
+    display_decimals: int
+    """How many decimal places to SHOW.
+
+    Usually equal to `decimals`, and deliberately not always: COP is charged in
+    centavos but written in whole pesos, so it is `2` and `0`. Format the number in
+    your own locale using this.
+    """
+
+
+class DataReward(BaseModel):
+    """
+    Business rewards attached through this account's active referral link, with account-specific progress and ledger status. Present on retrieve responses; empty without both balance and stats read access.
+    """
+
+    id: str
+    """Reward definition ID, prefixed `prwd_`.
+
+    Progress and status apply to the containing account.
+    """
+
+    qualification_amount: DataRewardQualificationAmount
+    """Qualifying USD volume required to earn this reward."""
+
+    qualification_progress: DataRewardQualificationProgress
+    """
+    Qualifying USD volume for the reward’s activity accumulated by this account
+    since attribution, calculated using the fulfillment rules.
+    """
+
+    qualification_type: Literal["sales", "ad_spend"]
+    """Activity that qualifies this account for the reward."""
+
+    reward_amount: DataRewardRewardAmount
+    """USD balance credit for this reward.
+
+    Uses the saved grant amount once fulfillment has started.
+    """
+
+    status: Literal["in_progress", "processing", "credited", "reversing", "reversed", "unavailable"]
+    """This account's reward state.
+
+    Credited requires a posted ledger entry; processing includes a met requirement
+    awaiting fulfillment. Reversing and reversed reflect a subsequent reward
+    reversal.
+    """
+
+
 class Data(BaseModel):
     id: str
     """Account ID, prefixed `biz_`."""
@@ -1662,6 +1793,8 @@ class Data(BaseModel):
     Present on retrieve responses; null when no active first-tier partner is
     attributed to the account. Omitted from other responses.
     """
+
+    rewards: Optional[List[DataReward]] = None
 
 
 class AccountFinancingDeniedWebhookEvent(BaseModel):
