@@ -36,6 +36,7 @@ class EconomicIntelligenceClient:
         *,
         account_id: typing.Optional[str] = None,
         status: typing.Optional[ListEconomicIntelligenceRequestStatus] = None,
+        input: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
@@ -52,6 +53,9 @@ class EconomicIntelligenceClient:
 
         status : typing.Optional[ListEconomicIntelligenceRequestStatus]
             Filter recommendations by their current status.
+
+        input : typing.Optional[str]
+            What you want recommendations for, in your own words. Up to 1000 characters. Narrows the list to the recommendations that address it.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -92,6 +96,7 @@ class EconomicIntelligenceClient:
         return self._raw_client.list(
             account_id=account_id,
             status=status,
+            input=input,
             first=first,
             after=after,
             last=last,
@@ -99,53 +104,12 @@ class EconomicIntelligenceClient:
             request_options=request_options,
         )
 
-    def create(
-        self,
-        *,
-        input: str,
-        account_id: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> EconomicIntelligence:
-        """
-        Generates a recommendation based on your input. Returns immediately; poll the list endpoint until its `status` is `ready`.
-
-        Parameters
-        ----------
-        input : str
-            What the owner wants, in their own words. Up to 1000 characters.
-
-        account_id : typing.Optional[str]
-            Account ID, prefixed `biz_`. Defaults to the API key's own account.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        EconomicIntelligence
-            recommendation queued
-
-        Examples
-        --------
-        from whop_sdk import Whop
-
-        client = Whop(
-            "2026-09-22-4",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-        client.economic_intelligence.create(
-            input="I sell $79 customized gym straps. The number of purchases per day fell from 84 to 66 since June and my ads cost per signup doubled to $38. Half the leads never open the checkout. I want to win back churned visitors and lift conversion without cutting the price, and I can spend up to $500 this month on it.",
-        )
-        """
-        _response = self._raw_client.create(input=input, account_id=account_id, request_options=request_options)
-        return _response.data
-
     def update(
         self,
         id: str,
         *,
         account_id: typing.Optional[str] = None,
+        input: typing.Optional[str] = OMIT,
         sentiment: typing.Optional[UpdateEconomicIntelligenceRequestSentiment] = OMIT,
         status: typing.Optional[UpdateEconomicIntelligenceRequestStatus] = OMIT,
         user_feedback: typing.Optional[str] = OMIT,
@@ -161,6 +125,9 @@ class EconomicIntelligenceClient:
 
         account_id : typing.Optional[str]
             Account ID, prefixed `biz_`. Defaults to the API key's own account.
+
+        input : typing.Optional[str]
+            What you want the replacement recommendation for, in your own words. Up to 1000 characters. Sent when superseding, it directs the generation that replaces the rejected recommendation.
 
         sentiment : typing.Optional[UpdateEconomicIntelligenceRequestSentiment]
             A signed-in user can rate a recommendation as `positive` or `negative`. Can be sent alone or together with status.
@@ -195,6 +162,7 @@ class EconomicIntelligenceClient:
         _response = self._raw_client.update(
             id,
             account_id=account_id,
+            input=input,
             sentiment=sentiment,
             status=status,
             user_feedback=user_feedback,
@@ -223,6 +191,7 @@ class AsyncEconomicIntelligenceClient:
         *,
         account_id: typing.Optional[str] = None,
         status: typing.Optional[ListEconomicIntelligenceRequestStatus] = None,
+        input: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
@@ -239,6 +208,9 @@ class AsyncEconomicIntelligenceClient:
 
         status : typing.Optional[ListEconomicIntelligenceRequestStatus]
             Filter recommendations by their current status.
+
+        input : typing.Optional[str]
+            What you want recommendations for, in your own words. Up to 1000 characters. Narrows the list to the recommendations that address it.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -288,6 +260,7 @@ class AsyncEconomicIntelligenceClient:
         return await self._raw_client.list(
             account_id=account_id,
             status=status,
+            input=input,
             first=first,
             after=after,
             last=last,
@@ -295,61 +268,12 @@ class AsyncEconomicIntelligenceClient:
             request_options=request_options,
         )
 
-    async def create(
-        self,
-        *,
-        input: str,
-        account_id: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> EconomicIntelligence:
-        """
-        Generates a recommendation based on your input. Returns immediately; poll the list endpoint until its `status` is `ready`.
-
-        Parameters
-        ----------
-        input : str
-            What the owner wants, in their own words. Up to 1000 characters.
-
-        account_id : typing.Optional[str]
-            Account ID, prefixed `biz_`. Defaults to the API key's own account.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        EconomicIntelligence
-            recommendation queued
-
-        Examples
-        --------
-        import asyncio
-
-        from whop_sdk import AsyncWhop
-
-        client = AsyncWhop(
-            "2026-09-22-4",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.economic_intelligence.create(
-                input="I sell $79 customized gym straps. The number of purchases per day fell from 84 to 66 since June and my ads cost per signup doubled to $38. Half the leads never open the checkout. I want to win back churned visitors and lift conversion without cutting the price, and I can spend up to $500 this month on it.",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.create(input=input, account_id=account_id, request_options=request_options)
-        return _response.data
-
     async def update(
         self,
         id: str,
         *,
         account_id: typing.Optional[str] = None,
+        input: typing.Optional[str] = OMIT,
         sentiment: typing.Optional[UpdateEconomicIntelligenceRequestSentiment] = OMIT,
         status: typing.Optional[UpdateEconomicIntelligenceRequestStatus] = OMIT,
         user_feedback: typing.Optional[str] = OMIT,
@@ -365,6 +289,9 @@ class AsyncEconomicIntelligenceClient:
 
         account_id : typing.Optional[str]
             Account ID, prefixed `biz_`. Defaults to the API key's own account.
+
+        input : typing.Optional[str]
+            What you want the replacement recommendation for, in your own words. Up to 1000 characters. Sent when superseding, it directs the generation that replaces the rejected recommendation.
 
         sentiment : typing.Optional[UpdateEconomicIntelligenceRequestSentiment]
             A signed-in user can rate a recommendation as `positive` or `negative`. Can be sent alone or together with status.
@@ -407,6 +334,7 @@ class AsyncEconomicIntelligenceClient:
         _response = await self._raw_client.update(
             id,
             account_id=account_id,
+            input=input,
             sentiment=sentiment,
             status=status,
             user_feedback=user_feedback,
