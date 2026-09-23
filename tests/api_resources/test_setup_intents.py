@@ -32,7 +32,7 @@ class TestSetupIntents:
     def test_method_retrieve_with_all_params(self, client: Whop) -> None:
         setup_intent = client.setup_intents.retrieve(
             id="id",
-            api_version_date="2026-09-22-2",
+            api_version_date="2026-09-22-3",
         )
         assert_matches_type(SetupIntent, setup_intent, path=["response"])
 
@@ -90,7 +90,7 @@ class TestSetupIntents:
             last=100,
             order="created_at",
             status="processing",
-            api_version_date="2026-09-22-2",
+            api_version_date="2026-09-22-3",
         )
         assert_matches_type(SyncCursorPage[SetupIntent], setup_intent, path=["response"])
 
@@ -135,7 +135,7 @@ class TestAsyncSetupIntents:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncWhop) -> None:
         setup_intent = await async_client.setup_intents.retrieve(
             id="id",
-            api_version_date="2026-09-22-2",
+            api_version_date="2026-09-22-3",
         )
         assert_matches_type(SetupIntent, setup_intent, path=["response"])
 
@@ -193,7 +193,7 @@ class TestAsyncSetupIntents:
             last=100,
             order="created_at",
             status="processing",
-            api_version_date="2026-09-22-2",
+            api_version_date="2026-09-22-3",
         )
         assert_matches_type(AsyncCursorPage[SetupIntent], setup_intent, path=["response"])
 
