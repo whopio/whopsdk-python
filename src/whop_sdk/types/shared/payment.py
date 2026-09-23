@@ -615,6 +615,12 @@ class VerificationChecks(BaseModel):
     address_line1: Optional[str] = None
     """The Address Verification Service (AVS) result for the billing street address."""
 
+    authorization_code: Optional[str] = None
+    """
+    The card issuer's authorization code for this charge, or null when the processor
+    did not return one.
+    """
+
     card_holder_name: Optional[str] = None
     """Whether the cardholder name matched the issuer's records."""
 
