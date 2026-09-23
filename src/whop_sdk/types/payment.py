@@ -10,6 +10,7 @@ from .friendly_receipt_status import FriendlyReceiptStatus
 from .money import Money
 from .payment_address import PaymentAddress
 from .payment_decline_codes import PaymentDeclineCodes
+from .payment_hold import PaymentHold
 from .payment_instrument import PaymentInstrument
 from .payment_method_types import PaymentMethodTypes
 from .payment_rule_match import PaymentRuleMatch
@@ -96,6 +97,7 @@ class Payment(UniversalBaseModel):
     For installment methods, how many payments the charge splits into.
     """
 
+    holds: typing.List[PaymentHold]
     id: str = pydantic.Field()
     """
     Payment ID, prefixed `pay_`.
@@ -216,7 +218,7 @@ class Payment(UniversalBaseModel):
 
     settlement_time_at: typing.Optional[str] = pydantic.Field(default=None)
     """
-    When the funds post to the account's available balance, at midnight UTC. The `financial_activity.funds_available` webhook's `posted_at` carries the same value when the settlement that clears it posts. Null until the payment is paid, and always null in list responses — retrieve the payment for it.
+    When the portion not listed in `holds` posts to the account's available balance, at midnight UTC. The `financial_activity.funds_available` webhook's `posted_at` carries the same value when the settlement that clears it posts. Null until the payment is paid, and always null in list responses — retrieve the payment for it.
     """
 
     shipment_id: typing.Optional[str] = pydantic.Field(default=None)
