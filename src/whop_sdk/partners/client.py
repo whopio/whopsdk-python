@@ -17,7 +17,6 @@ from .types.referred_users_partners_response_data_item import ReferredUsersPartn
 
 if typing.TYPE_CHECKING:
     from .businesses.client import AsyncBusinessesClient, BusinessesClient
-    from .links.client import AsyncLinksClient, LinksClient
 
 
 class PartnersClient:
@@ -25,7 +24,6 @@ class PartnersClient:
         self._raw_client = RawPartnersClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._businesses: typing.Optional[BusinessesClient] = None
-        self._links: typing.Optional[LinksClient] = None
 
     @property
     def with_raw_response(self) -> RawPartnersClient:
@@ -172,7 +170,7 @@ class PartnersClient:
 
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Partner:
         """
-        Retrieves the authenticated user's public profile, enrollment date, partner verification timestamp, verification waitlist status, partner certification completion, active direct business referral count, and default payout rates. Use me or the authenticated user's own user ID; other users are not accessible. Users who have not enrolled have a null joined_at. Retrieve referral URLs and promotion links from GET /partners/links.
+        Retrieves the authenticated user's public profile, enrollment date, partner verification timestamp, verification waitlist status, partner certification completion, active direct business referral count, and default payout rates. Use me or the authenticated user's own user ID; other users are not accessible. Users who have not enrolled have a null joined_at. Create and manage referral links through /partner_referral_requests.
 
         Parameters
         ----------
@@ -211,21 +209,12 @@ class PartnersClient:
             self._businesses = BusinessesClient(client_wrapper=self._client_wrapper)
         return self._businesses
 
-    @property
-    def links(self):
-        if self._links is None:
-            from .links.client import LinksClient  # noqa: E402
-
-            self._links = LinksClient(client_wrapper=self._client_wrapper)
-        return self._links
-
 
 class AsyncPartnersClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._raw_client = AsyncRawPartnersClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._businesses: typing.Optional[AsyncBusinessesClient] = None
-        self._links: typing.Optional[AsyncLinksClient] = None
 
     @property
     def with_raw_response(self) -> AsyncRawPartnersClient:
@@ -397,7 +386,7 @@ class AsyncPartnersClient:
 
     async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Partner:
         """
-        Retrieves the authenticated user's public profile, enrollment date, partner verification timestamp, verification waitlist status, partner certification completion, active direct business referral count, and default payout rates. Use me or the authenticated user's own user ID; other users are not accessible. Users who have not enrolled have a null joined_at. Retrieve referral URLs and promotion links from GET /partners/links.
+        Retrieves the authenticated user's public profile, enrollment date, partner verification timestamp, verification waitlist status, partner certification completion, active direct business referral count, and default payout rates. Use me or the authenticated user's own user ID; other users are not accessible. Users who have not enrolled have a null joined_at. Create and manage referral links through /partner_referral_requests.
 
         Parameters
         ----------
@@ -443,11 +432,3 @@ class AsyncPartnersClient:
 
             self._businesses = AsyncBusinessesClient(client_wrapper=self._client_wrapper)
         return self._businesses
-
-    @property
-    def links(self):
-        if self._links is None:
-            from .links.client import AsyncLinksClient  # noqa: E402
-
-            self._links = AsyncLinksClient(client_wrapper=self._client_wrapper)
-        return self._links

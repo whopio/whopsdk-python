@@ -760,10 +760,6 @@ if typing.TYPE_CHECKING:
     from .partner_referral_reward import PartnerReferralReward
     from .partner_referral_reward_bot_qualification_type import PartnerReferralRewardBotQualificationType
     from .partner_referral_reward_recipient import PartnerReferralRewardRecipient
-    from .partner_reward_link import PartnerRewardLink
-    from .partner_reward_link_qualification_income_source import PartnerRewardLinkQualificationIncomeSource
-    from .partner_reward_link_reward_type import PartnerRewardLinkRewardType
-    from .partner_reward_link_status import PartnerRewardLinkStatus
     from .passkey import Passkey
     from .payment import Payment
     from .payment_address import PaymentAddress
@@ -2107,10 +2103,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PartnerReferralReward": ".partner_referral_reward",
     "PartnerReferralRewardBotQualificationType": ".partner_referral_reward_bot_qualification_type",
     "PartnerReferralRewardRecipient": ".partner_referral_reward_recipient",
-    "PartnerRewardLink": ".partner_reward_link",
-    "PartnerRewardLinkQualificationIncomeSource": ".partner_reward_link_qualification_income_source",
-    "PartnerRewardLinkRewardType": ".partner_reward_link_reward_type",
-    "PartnerRewardLinkStatus": ".partner_reward_link_status",
     "Passkey": ".passkey",
     "Payment": ".payment",
     "PaymentAddress": ".payment_address",
@@ -3362,10 +3354,6 @@ __all__ = [
     "PartnerReferralReward",
     "PartnerReferralRewardBotQualificationType",
     "PartnerReferralRewardRecipient",
-    "PartnerRewardLink",
-    "PartnerRewardLinkQualificationIncomeSource",
-    "PartnerRewardLinkRewardType",
-    "PartnerRewardLinkStatus",
     "Passkey",
     "Payment",
     "PaymentAddress",
