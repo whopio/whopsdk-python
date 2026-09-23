@@ -1695,10 +1695,11 @@ class Data(BaseModel):
     """
 
     status_reason: Optional[str] = None
-    """Why the account was suspended, in language safe to show the account owner.
-
-    Computed on `retrieve`, `me`, and `suspend`; `null` otherwise, when `status` is
-    not `suspended`, and when the suspension was recorded without a reason.
+    """
+    Why the account was suspended, as the label shown to the account owner, such as
+    `Suspended - Fraudulent payment activity`. Computed on `retrieve`, `me`, and
+    `suspend`; `null` otherwise, when `status` is not `suspended`, and when the
+    suspension was recorded without a reason.
     """
 
     store_page_config: DataStorePageConfig
