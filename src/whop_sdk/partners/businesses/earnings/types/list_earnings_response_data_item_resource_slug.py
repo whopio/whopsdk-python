@@ -17,13 +17,13 @@ class ListEarningsResponseDataItemResourceSlug(UniversalBaseModel):
     created_at: dt.datetime
     id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The onboarding reward the referred business qualified for, prefixed `onbr_`.
+    The retired onboarding reward ID. Always null; retained for historical earnings compatibility.
     """
 
     object: ListEarningsResponseDataItemResourceSlugObject
     slug: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The reward link slug.
+    The retired reward link slug. Always null; retained for historical earnings compatibility.
     """
 
     if IS_PYDANTIC_V2:
