@@ -415,7 +415,7 @@ client.accounts.create()
 <dl>
 <dd>
 
-**affiliate_code:** `typing.Optional[str]` — The username, if any, of the partner who referred this account
+**affiliate_code:** `typing.Optional[str]` — A saved partner referral link code for this new business account. An existing primary user referral takes priority. Used with user tokens creating top-level accounts.
     
 </dd>
 </dl>

@@ -249,7 +249,7 @@ class RawAccountsClient:
         Parameters
         ----------
         affiliate_code : typing.Optional[str]
-            The username, if any, of the partner who referred this account
+            A saved partner referral link code for this new business account. An existing primary user referral takes priority. Used with user tokens creating top-level accounts.
 
         blueprint_id : typing.Optional[str]
             The blueprint App ID, prefixed `app_`. Creates a hosted website for the account and queues its deployment asynchronously; the Account response does not report deployment completion.
@@ -1518,7 +1518,7 @@ class AsyncRawAccountsClient:
         Parameters
         ----------
         affiliate_code : typing.Optional[str]
-            The username, if any, of the partner who referred this account
+            A saved partner referral link code for this new business account. An existing primary user referral takes priority. Used with user tokens creating top-level accounts.
 
         blueprint_id : typing.Optional[str]
             The blueprint App ID, prefixed `app_`. Creates a hosted website for the account and queues its deployment asynchronously; the Account response does not report deployment completion.
