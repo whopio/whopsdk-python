@@ -28812,7 +28812,7 @@ client.payments.list()
 <dl>
 <dd>
 
-**user_id:** `typing.Optional[str]` — Only payments made by this buyer, prefixed `user_`.
+**user_id:** `typing.Optional[str]` — Only payments made by this buyer, prefixed `user_`. Payments are listed for the accounts the caller manages, so `me` is not accepted; list the caller's own purchases with `GET /memberships?user_id=me`.
     
 </dd>
 </dl>
@@ -31619,7 +31619,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**payment_method_configuration:** `typing.Optional[CreatePlansRequestPaymentMethodConfiguration]` — Explicit payment method configuration for the plan. When not provided, the account's defaults apply.
+**payment_method_configuration:** `typing.Optional[CreatePlansRequestPaymentMethodConfiguration]` — Explicit payment method configuration for the plan. When not provided, the account's defaults apply. Send at least one of `enabled` or `disabled`; an omitted one is empty.
     
 </dd>
 </dl>
@@ -31683,7 +31683,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**title:** `typing.Optional[str]` — The display name of the plan shown to customers on the product page.
+**title:** `typing.Optional[str]` — The display name of the plan shown to customers on the product page. Maximum 30 characters.
     
 </dd>
 </dl>
@@ -32054,7 +32054,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**payment_method_configuration:** `typing.Optional[UpdatePlansRequestPaymentMethodConfiguration]` — Explicit payment method configuration for the plan. When not provided, the account's defaults apply.
+**payment_method_configuration:** `typing.Optional[UpdatePlansRequestPaymentMethodConfiguration]` — Explicit payment method configuration for the plan. When not provided, the account's defaults apply. Send at least one of `enabled` or `disabled`; an omitted one is empty.
     
 </dd>
 </dl>
@@ -32110,7 +32110,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**title:** `typing.Optional[str]` — The display name of the plan shown to customers on the product page.
+**title:** `typing.Optional[str]` — The display name of the plan shown to customers on the product page. Maximum 30 characters.
     
 </dd>
 </dl>
@@ -32564,7 +32564,7 @@ client.products.create(
 <dl>
 <dd>
 
-**description:** `typing.Optional[str]` — A written description displayed on the product page.
+**description:** `typing.Optional[str]` — A written description displayed on the product page. Maximum 1,500 characters.
     
 </dd>
 </dl>
@@ -32596,7 +32596,7 @@ client.products.create(
 <dl>
 <dd>
 
-**headline:** `typing.Optional[str]` — A short marketing headline for the product page.
+**headline:** `typing.Optional[str]` — A short marketing headline for the product page. Maximum 80 characters.
     
 </dd>
 </dl>
@@ -32903,7 +32903,7 @@ client.products.update(
 <dl>
 <dd>
 
-**description:** `typing.Optional[str]` — A written description displayed on the product page.
+**description:** `typing.Optional[str]` — A written description displayed on the product page. Maximum 1,500 characters.
     
 </dd>
 </dl>
@@ -32919,7 +32919,7 @@ client.products.update(
 <dl>
 <dd>
 
-**headline:** `typing.Optional[str]` — A short marketing headline for the product page.
+**headline:** `typing.Optional[str]` — A short marketing headline for the product page. Maximum 80 characters.
     
 </dd>
 </dl>
@@ -32959,7 +32959,7 @@ client.products.update(
 <dl>
 <dd>
 
-**title:** `typing.Optional[str]` — The display name of the product.
+**title:** `typing.Optional[str]` — The display name of the product. Maximum 80 characters.
     
 </dd>
 </dl>

@@ -226,7 +226,7 @@ class PlansClient:
             Override the default tax classification for this specific plan.
 
         payment_method_configuration : typing.Optional[CreatePlansRequestPaymentMethodConfiguration]
-            Explicit payment method configuration for the plan. When not provided, the account's defaults apply.
+            Explicit payment method configuration for the plan. When not provided, the account's defaults apply. Send at least one of `enabled` or `disabled`; an omitted one is empty.
 
         plan_type : typing.Optional[str]
             Plan billing type, such as `one_time` or `renewal`.
@@ -250,7 +250,7 @@ class PlansClient:
             3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. Send `null` to inherit the account default.
 
         title : typing.Optional[str]
-            The display name of the plan shown to customers on the product page.
+            The display name of the plan shown to customers on the product page. Maximum 30 characters.
 
         trial_period_days : typing.Optional[int]
             Free trial duration before the first recurring charge.
@@ -462,7 +462,7 @@ class PlansClient:
             Override the default tax classification for this specific plan.
 
         payment_method_configuration : typing.Optional[UpdatePlansRequestPaymentMethodConfiguration]
-            Explicit payment method configuration for the plan. When not provided, the account's defaults apply.
+            Explicit payment method configuration for the plan. When not provided, the account's defaults apply. Send at least one of `enabled` or `disabled`; an omitted one is empty.
 
         release_method : typing.Optional[str]
             Sales method for this plan.
@@ -483,7 +483,7 @@ class PlansClient:
             3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. Send `null` to inherit the account default.
 
         title : typing.Optional[str]
-            The display name of the plan shown to customers on the product page.
+            The display name of the plan shown to customers on the product page. Maximum 30 characters.
 
         trial_period_days : typing.Optional[int]
             Free trial duration before the first recurring charge.
@@ -812,7 +812,7 @@ class AsyncPlansClient:
             Override the default tax classification for this specific plan.
 
         payment_method_configuration : typing.Optional[CreatePlansRequestPaymentMethodConfiguration]
-            Explicit payment method configuration for the plan. When not provided, the account's defaults apply.
+            Explicit payment method configuration for the plan. When not provided, the account's defaults apply. Send at least one of `enabled` or `disabled`; an omitted one is empty.
 
         plan_type : typing.Optional[str]
             Plan billing type, such as `one_time` or `renewal`.
@@ -836,7 +836,7 @@ class AsyncPlansClient:
             3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. Send `null` to inherit the account default.
 
         title : typing.Optional[str]
-            The display name of the plan shown to customers on the product page.
+            The display name of the plan shown to customers on the product page. Maximum 30 characters.
 
         trial_period_days : typing.Optional[int]
             Free trial duration before the first recurring charge.
@@ -1072,7 +1072,7 @@ class AsyncPlansClient:
             Override the default tax classification for this specific plan.
 
         payment_method_configuration : typing.Optional[UpdatePlansRequestPaymentMethodConfiguration]
-            Explicit payment method configuration for the plan. When not provided, the account's defaults apply.
+            Explicit payment method configuration for the plan. When not provided, the account's defaults apply. Send at least one of `enabled` or `disabled`; an omitted one is empty.
 
         release_method : typing.Optional[str]
             Sales method for this plan.
@@ -1093,7 +1093,7 @@ class AsyncPlansClient:
             3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. Send `null` to inherit the account default.
 
         title : typing.Optional[str]
-            The display name of the plan shown to customers on the product page.
+            The display name of the plan shown to customers on the product page. Maximum 30 characters.
 
         trial_period_days : typing.Optional[int]
             Free trial duration before the first recurring charge.

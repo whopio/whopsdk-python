@@ -9,7 +9,7 @@ from ...types.payment_method_types import PaymentMethodTypes
 
 class UpdatePlansRequestPaymentMethodConfiguration(UniversalBaseModel):
     """
-    Explicit payment method configuration for the plan. When not provided, the account's defaults apply.
+    Explicit payment method configuration for the plan. When not provided, the account's defaults apply. Send at least one of `enabled` or `disabled`; an omitted one is empty.
     """
 
     disabled: typing.Optional[typing.List[PaymentMethodTypes]] = pydantic.Field(default=None)

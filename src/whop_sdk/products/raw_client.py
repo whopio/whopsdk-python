@@ -268,7 +268,7 @@ class RawProductsClient:
             Custom bank statement descriptor. Must start with WHOP*.
 
         description : typing.Optional[str]
-            A written description displayed on the product page.
+            A written description displayed on the product page. Maximum 1,500 characters.
 
         gallery_images : typing.Optional[typing.Sequence[CreateProductsRequestGalleryImagesItem]]
             Images or videos displayed in the product gallery, in display order. Replaces the existing gallery. Send an empty array to clear it; omit or pass null to leave it unchanged. A banner image does not populate the gallery.
@@ -280,7 +280,7 @@ class RawProductsClient:
             The enrollment status in the global affiliate program.
 
         headline : typing.Optional[str]
-            A short marketing headline for the product page.
+            A short marketing headline for the product page. Maximum 80 characters.
 
         labels : typing.Optional[typing.Sequence[str]]
             Labels used to group products into collections. Stored lowercased and de-duplicated. Maximum 20 labels, 50 characters each.
@@ -541,13 +541,13 @@ class RawProductsClient:
             A wide image for the product, shown on the product page and on listing cards. Pass `{ id }` for an existing attachment or `{ direct_upload_id }` for a completed direct upload; `null` removes it.
 
         description : typing.Optional[str]
-            A written description displayed on the product page.
+            A written description displayed on the product page. Maximum 1,500 characters.
 
         gallery_images : typing.Optional[typing.Sequence[UpdateProductsRequestGalleryImagesItem]]
             Images or videos displayed in the product gallery, in display order. Replaces the existing gallery. Send an empty array to clear it; omit or pass null to leave it unchanged. A banner image does not populate the gallery.
 
         headline : typing.Optional[str]
-            A short marketing headline for the product page.
+            A short marketing headline for the product page. Maximum 80 characters.
 
         labels : typing.Optional[typing.Sequence[str]]
             Labels used to group products into collections. Replaces the existing labels. Send an empty array to clear them.
@@ -562,7 +562,7 @@ class RawProductsClient:
             Whether to send an automated welcome message via support chat when a user joins this product.
 
         title : typing.Optional[str]
-            The display name of the product.
+            The display name of the product. Maximum 80 characters.
 
         visibility : typing.Optional[str]
             Whether the product is visible to customers.
@@ -1033,7 +1033,7 @@ class AsyncRawProductsClient:
             Custom bank statement descriptor. Must start with WHOP*.
 
         description : typing.Optional[str]
-            A written description displayed on the product page.
+            A written description displayed on the product page. Maximum 1,500 characters.
 
         gallery_images : typing.Optional[typing.Sequence[CreateProductsRequestGalleryImagesItem]]
             Images or videos displayed in the product gallery, in display order. Replaces the existing gallery. Send an empty array to clear it; omit or pass null to leave it unchanged. A banner image does not populate the gallery.
@@ -1045,7 +1045,7 @@ class AsyncRawProductsClient:
             The enrollment status in the global affiliate program.
 
         headline : typing.Optional[str]
-            A short marketing headline for the product page.
+            A short marketing headline for the product page. Maximum 80 characters.
 
         labels : typing.Optional[typing.Sequence[str]]
             Labels used to group products into collections. Stored lowercased and de-duplicated. Maximum 20 labels, 50 characters each.
@@ -1308,13 +1308,13 @@ class AsyncRawProductsClient:
             A wide image for the product, shown on the product page and on listing cards. Pass `{ id }` for an existing attachment or `{ direct_upload_id }` for a completed direct upload; `null` removes it.
 
         description : typing.Optional[str]
-            A written description displayed on the product page.
+            A written description displayed on the product page. Maximum 1,500 characters.
 
         gallery_images : typing.Optional[typing.Sequence[UpdateProductsRequestGalleryImagesItem]]
             Images or videos displayed in the product gallery, in display order. Replaces the existing gallery. Send an empty array to clear it; omit or pass null to leave it unchanged. A banner image does not populate the gallery.
 
         headline : typing.Optional[str]
-            A short marketing headline for the product page.
+            A short marketing headline for the product page. Maximum 80 characters.
 
         labels : typing.Optional[typing.Sequence[str]]
             Labels used to group products into collections. Replaces the existing labels. Send an empty array to clear them.
@@ -1329,7 +1329,7 @@ class AsyncRawProductsClient:
             Whether to send an automated welcome message via support chat when a user joins this product.
 
         title : typing.Optional[str]
-            The display name of the product.
+            The display name of the product. Maximum 80 characters.
 
         visibility : typing.Optional[str]
             Whether the product is visible to customers.
