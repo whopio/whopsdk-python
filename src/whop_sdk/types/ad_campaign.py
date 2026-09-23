@@ -171,6 +171,7 @@ class AdCampaign(BaseModel):
 
     delivery_status: Literal[
         "payment_failed",
+        "in_appeal",
         "all_ads_rejected",
         "draft",
         "no_ad_groups",

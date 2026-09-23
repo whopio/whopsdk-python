@@ -359,6 +359,7 @@ class Data(BaseModel):
     creatives: List[DataCreative]
 
     delivery_status: Literal[
+        "in_appeal",
         "rejected",
         "in_review",
         "draft",

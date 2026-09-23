@@ -477,6 +477,7 @@ class Ad(BaseModel):
     """
 
     delivery_status: Literal[
+        "in_appeal",
         "rejected",
         "in_review",
         "draft",

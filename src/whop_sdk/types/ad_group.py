@@ -492,6 +492,7 @@ class AdGroup(BaseModel):
     """
 
     delivery_status: Literal[
+        "in_appeal",
         "all_ads_rejected",
         "rejected",
         "draft",
