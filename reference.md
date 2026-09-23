@@ -29401,7 +29401,7 @@ client.payments.refund(
 <dl>
 <dd>
 
-**partial_amount:** `typing.Optional[float]` — The amount to refund. For multi-currency payments, this is in the charge currency (what the buyer paid). For single-currency, this is in the payment currency. If omitted, the full payment amount is refunded.
+**partial_amount:** `typing.Optional[float]` — The amount to refund, stated in this payment's `currency` like every other amount on it. When the buyer was billed in a different currency, it is converted at the payment's own exchange rate before the refund is issued. An amount that covers everything still refundable refunds the rest of the payment — omit it to refund the rest without having to work out what that is.
     
 </dd>
 </dl>
