@@ -12,6 +12,11 @@ class PaymentVerificationChecks(UniversalBaseModel):
     The Address Verification Service (AVS) result for the billing street address.
     """
 
+    authorization_code: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The card issuer's authorization code for this charge, or null when the processor did not return one.
+    """
+
     card_holder_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     Whether the cardholder name matched the issuer's records.

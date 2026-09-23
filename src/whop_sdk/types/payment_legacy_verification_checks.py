@@ -16,6 +16,11 @@ class PaymentLegacyVerificationChecks(UniversalBaseModel):
     Whether the billing street address the customer entered matched the address the issuer has on file.
     """
 
+    authorization_code: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The card issuer's authorization code for this charge. Null when the processor did not return one.
+    """
+
     card_holder_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     Whether the cardholder name the customer entered matched the name the issuer has on file.
