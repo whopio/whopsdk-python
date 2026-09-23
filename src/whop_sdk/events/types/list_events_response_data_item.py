@@ -22,8 +22,6 @@ class ListEventsResponseDataItem(UniversalBaseModel):
     path: typing.Optional[str] = None
     person_id: str
     questions: typing.Optional[typing.List[ListEventsResponseDataItemQuestionsItem]] = None
-    recommended_action_chain_id: typing.Optional[str] = None
-    recommended_action_shown_position: typing.Optional[int] = None
     referrer_url: typing.Optional[str] = None
     related: typing.Optional[ListEventsResponseDataItemRelated] = pydantic.Field(default=None)
     """
