@@ -93,10 +93,10 @@ class FinancialActivityClient:
             Only include rows posted before this ISO 8601 timestamp.
 
         available_after : typing.Optional[dt.date]
-            Only include rows whose funds became withdrawable on or after this `YYYY-MM-DD` settlement date (UTC), distinct from posted_at. Requires currency.
+            Only include balance credits and debits available on or after this `YYYY-MM-DD` date (UTC), distinct from posted_at. Requires currency.
 
         available_before : typing.Optional[dt.date]
-            Only include rows whose funds became withdrawable on or before this `YYYY-MM-DD` settlement date (UTC). Set equal to available_after for a single day. Requires currency.
+            Only include balance credits and debits available on or before this `YYYY-MM-DD` date (UTC). Set equal to available_after for a single day. Requires currency.
 
         limit : typing.Optional[int]
             Maximum number of rows to return.
@@ -227,10 +227,10 @@ class AsyncFinancialActivityClient:
             Only include rows posted before this ISO 8601 timestamp.
 
         available_after : typing.Optional[dt.date]
-            Only include rows whose funds became withdrawable on or after this `YYYY-MM-DD` settlement date (UTC), distinct from posted_at. Requires currency.
+            Only include balance credits and debits available on or after this `YYYY-MM-DD` date (UTC), distinct from posted_at. Requires currency.
 
         available_before : typing.Optional[dt.date]
-            Only include rows whose funds became withdrawable on or before this `YYYY-MM-DD` settlement date (UTC). Set equal to available_after for a single day. Requires currency.
+            Only include balance credits and debits available on or before this `YYYY-MM-DD` date (UTC). Set equal to available_after for a single day. Requires currency.
 
         limit : typing.Optional[int]
             Maximum number of rows to return.

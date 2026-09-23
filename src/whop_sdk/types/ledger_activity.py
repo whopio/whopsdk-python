@@ -27,7 +27,7 @@ class LedgerActivity(UniversalBaseModel):
 
     available_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
-    ISO 8601 timestamp these funds became (or are scheduled to become) withdrawable: the posted time for already-settled funds, or 00:00:00 UTC on the scheduled release date for pending funds. Present only on inflows entering the balance (payments, top-ups, incoming transfers/affiliate); null on payouts, refunds, disputes and on-chain rows. The available_after/before filters window on its UTC settlement date.
+    ISO 8601 timestamp when this activity affects available funds: 00:00:00 UTC on the scheduled release date for credits and debits in a pending good-funds release bucket; the posted time for credits and debits to settled available funds, including refunds, disputes and payouts. Null for activity outside these paths, including on-chain rows. The available_after/before filters use its UTC date; default activity excludes some movements, including opt-in reserves.
     """
 
     currency: LedgerActivityCurrency = pydantic.Field()
