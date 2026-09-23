@@ -4,6 +4,7 @@ import typing
 
 AdGroupDeliveryStatus = typing.Union[
     typing.Literal[
+        "in_appeal",
         "all_ads_rejected",
         "rejected",
         "draft",
