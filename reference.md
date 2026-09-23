@@ -21220,7 +21220,7 @@ client.financial_activity.list()
 <dl>
 <dd>
 
-**available_after:** `typing.Optional[datetime.date]` — Only include rows whose funds became withdrawable on or after this `YYYY-MM-DD` settlement date (UTC), distinct from posted_at. Requires currency.
+**available_after:** `typing.Optional[datetime.date]` — Only include balance credits and debits available on or after this `YYYY-MM-DD` date (UTC), distinct from posted_at. Requires currency.
     
 </dd>
 </dl>
@@ -21228,7 +21228,7 @@ client.financial_activity.list()
 <dl>
 <dd>
 
-**available_before:** `typing.Optional[datetime.date]` — Only include rows whose funds became withdrawable on or before this `YYYY-MM-DD` settlement date (UTC). Set equal to available_after for a single day. Requires currency.
+**available_before:** `typing.Optional[datetime.date]` — Only include balance credits and debits available on or before this `YYYY-MM-DD` date (UTC). Set equal to available_after for a single day. Requires currency.
     
 </dd>
 </dl>
