@@ -6,7 +6,10 @@ from .create_partner_referral_requests_request_body_account_id import CreatePart
 from .create_partner_referral_requests_request_body_account_url import (
     CreatePartnerReferralRequestsRequestBodyAccountUrl,
 )
+from .create_partner_referral_requests_request_body_code import CreatePartnerReferralRequestsRequestBodyCode
 
 CreatePartnerReferralRequestsRequestBody = typing.Union[
-    CreatePartnerReferralRequestsRequestBodyAccountId, CreatePartnerReferralRequestsRequestBodyAccountUrl
+    CreatePartnerReferralRequestsRequestBodyAccountId,
+    CreatePartnerReferralRequestsRequestBodyAccountUrl,
+    CreatePartnerReferralRequestsRequestBodyCode,
 ]
