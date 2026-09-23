@@ -16,7 +16,6 @@ __all__ = [
     "EvidenceDocumentMultipartUploadURL",
     "EvidenceRefundPolicyAttachment",
     "EvidenceUncategorizedAttachment",
-    "GeneratedResponseAttachment",
     "IssuerComment",
     "LineItem",
     "LineItemSubtotal",
@@ -123,7 +122,7 @@ class EvidenceDocumentMultipartUploadURL(BaseModel):
 
 class EvidenceDocument(BaseModel):
     """
-    Additional evidence documents uploaded through `POST /disputes/{id}/upload_evidence`, beyond the four fixed slots. Each rides into the submitted packet under its `document_type`.
+    Additional evidence documents, beyond the four fixed slots — set via `evidence.documents` on `PATCH /disputes/{id}`. Each rides into the submitted packet under its `document_type`.
     """
 
     id: str
@@ -134,7 +133,8 @@ class EvidenceDocument(BaseModel):
     )
     """The uploaded file's MIME type.
 
-    Uploads are restricted to the types the processor accepts.
+    Uploads are restricted to the types the processor accepts, and rejected without
+    one — never null.
     """
 
     created_at: str
@@ -152,8 +152,24 @@ class EvidenceDocument(BaseModel):
         "customer_session",
         "digital_fulfillment",
         "subscription",
+        "customer_communication",
     ]
-    """What kind of evidence the document is."""
+    """What this document proves, in the processor's own evidence vocabulary.
+
+    `return_policy`, `cancellation_policy`, and `terms_of_service` are the seller's
+    policy documents — uploading one overrides the account's copy for this dispute
+    (`return_policy`, `cancellation_policy`, and `customer_communication` also
+    override the matching fixed evidence slot). `shipping_policy` is the seller's
+    shipping terms. `customer_communication` is correspondence with the buyer — a
+    support thread or chat log. `product_image` is a photo of the product or service
+    the buyer received. `physical_fulfillment` is proof a physical order shipped and
+    arrived; `digital_fulfillment` is proof the buyer accessed a digital product.
+    `customer_order_history` is the buyer's past orders with this seller;
+    `prior_transactions` is their broader payment history across the platform, for a
+    fraud defense. `customer_session` is checkout forensics — IP, device
+    fingerprint, AVS/CVV, 3D Secure result. `subscription` is membership lifecycle
+    evidence — renewals, cancellation, reminders sent.
+    """
 
     filename: Optional[str] = None
     """The original filename, including its extension."""
@@ -313,33 +329,6 @@ class Evidence(BaseModel):
 
     uncategorized_attachment: Optional[EvidenceUncategorizedAttachment] = None
     """Supporting evidence that does not fit the other categories."""
-
-
-class GeneratedResponseAttachment(BaseModel):
-    """
-    The AI-generated representment document filed with the processor on the seller's behalf, once ready. Null until generation completes, and for disputes not using Whop Dispute Fighter.
-    """
-
-    id: Optional[str] = None
-    """The attachment's ID.
-
-    `null` for a Whop-hosted policy, which is not an uploaded file.
-    """
-
-    content_type: Optional[str] = None
-    """The uploaded file's MIME type."""
-
-    filename: Optional[str] = None
-    """The uploaded file's name."""
-
-    platform: bool
-    """
-    Whether this is Whop's own hosted policy, standing in because the seller
-    uploaded none. Sending it back on a PATCH changes nothing.
-    """
-
-    url: Optional[str] = None
-    """A URL to download the attachment."""
 
 
 class IssuerComment(BaseModel):
@@ -623,7 +612,10 @@ class Payment(BaseModel):
     """How the customer paid, such as `card` or `paypal`."""
 
     payment_processor: Optional[str] = None
-    """The processor that handled the payment, such as `stripe`."""
+    """Deprecated: no longer populated.
+
+    Always `null`. DEPRECATED: No longer populated. Always null.
+    """
 
 
 class Dispute(BaseModel):
@@ -636,7 +628,7 @@ class Dispute(BaseModel):
     amount: float
     """The disputed amount, in whole units of `currency`."""
 
-    buyer: Optional[Buyer] = None
+    buyer: Buyer
     """The customer who filed the dispute."""
 
     created_at: str
@@ -651,8 +643,9 @@ class Dispute(BaseModel):
     evidence_due_at: Optional[str] = None
     """The deadline to submit evidence, as an ISO 8601 timestamp.
 
-    Whop reserves the last 24 hours before the processor's own cutoff to forward the
-    submission.
+    `null` when the network already auto-resolved the dispute (Visa RDR) with no
+    evidence round, or when the processor hasn't reported a deadline for this
+    dispute.
     """
 
     evidence_editable: bool
@@ -664,13 +657,6 @@ class Dispute(BaseModel):
     evidence_submitted_at: Optional[str] = None
     """When the evidence was submitted to the processor, as an ISO 8601 timestamp."""
 
-    generated_response_attachment: Optional[GeneratedResponseAttachment] = None
-    """
-    The AI-generated representment document filed with the processor on the seller's
-    behalf, once ready. Null until generation completes, and for disputes not using
-    Whop Dispute Fighter.
-    """
-
     inquiry: bool
     """Whether this is a pre-dispute inquiry rather than a formal chargeback.
 
@@ -681,7 +667,7 @@ class Dispute(BaseModel):
 
     line_items: List[LineItem]
 
-    payment: Optional[Payment] = None
+    payment: Payment
     """The payment being disputed."""
 
     plan_id: Optional[str] = None
@@ -689,12 +675,6 @@ class Dispute(BaseModel):
 
     product_id: Optional[str] = None
     """The product the disputed payment was for, prefixed `prod_`."""
-
-    rapid_dispute_resolution: bool
-    """Whether Visa Rapid Dispute Resolution settled this automatically.
-
-    These refund the customer without an evidence round.
-    """
 
     reason: Literal[
         "fraudulent",
