@@ -85,7 +85,7 @@ class PaymentsClient:
             Only payments presented in this three-letter currency, such as `usd`.
 
         user_id : typing.Optional[str]
-            Only payments made by this buyer, prefixed `user_`.
+            Only payments made by this buyer, prefixed `user_`. Payments are listed for the accounts the caller manages, so `me` is not accepted; list the caller's own purchases with `GET /memberships?user_id=me`.
 
         query : typing.Optional[str]
             Search payments by user ID, membership ID, user email, name, or username. Email filtering requires the member:email:read permission.
@@ -668,7 +668,7 @@ class AsyncPaymentsClient:
             Only payments presented in this three-letter currency, such as `usd`.
 
         user_id : typing.Optional[str]
-            Only payments made by this buyer, prefixed `user_`.
+            Only payments made by this buyer, prefixed `user_`. Payments are listed for the accounts the caller manages, so `me` is not accepted; list the caller's own purchases with `GET /memberships?user_id=me`.
 
         query : typing.Optional[str]
             Search payments by user ID, membership ID, user email, name, or username. Email filtering requires the member:email:read permission.
