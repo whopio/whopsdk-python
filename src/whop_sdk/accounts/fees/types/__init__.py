@@ -21,6 +21,7 @@ if typing.TYPE_CHECKING:
     from .update_fees_request_child_markups_payments import UpdateFeesRequestChildMarkupsPayments
     from .update_fees_request_child_markups_payouts_value import UpdateFeesRequestChildMarkupsPayoutsValue
     from .update_fees_request_child_markups_transfers import UpdateFeesRequestChildMarkupsTransfers
+    from .update_fees_request_covered_payout_fees import UpdateFeesRequestCoveredPayoutFees
     from .update_fees_request_cross_border import UpdateFeesRequestCrossBorder
     from .update_fees_request_cross_border_regions_value import UpdateFeesRequestCrossBorderRegionsValue
     from .update_fees_request_dispute import UpdateFeesRequestDispute
@@ -92,6 +93,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateFeesRequestChildMarkupsPayments": ".update_fees_request_child_markups_payments",
     "UpdateFeesRequestChildMarkupsPayoutsValue": ".update_fees_request_child_markups_payouts_value",
     "UpdateFeesRequestChildMarkupsTransfers": ".update_fees_request_child_markups_transfers",
+    "UpdateFeesRequestCoveredPayoutFees": ".update_fees_request_covered_payout_fees",
     "UpdateFeesRequestCrossBorder": ".update_fees_request_cross_border",
     "UpdateFeesRequestCrossBorderRegionsValue": ".update_fees_request_cross_border_regions_value",
     "UpdateFeesRequestDispute": ".update_fees_request_dispute",
@@ -183,6 +185,7 @@ __all__ = [
     "UpdateFeesRequestChildMarkupsPayments",
     "UpdateFeesRequestChildMarkupsPayoutsValue",
     "UpdateFeesRequestChildMarkupsTransfers",
+    "UpdateFeesRequestCoveredPayoutFees",
     "UpdateFeesRequestCrossBorder",
     "UpdateFeesRequestCrossBorderRegionsValue",
     "UpdateFeesRequestDispute",

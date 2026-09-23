@@ -10,6 +10,7 @@ from .update_disputes_request_evidence_cancellation_policy_attachment import (
 from .update_disputes_request_evidence_customer_communication_attachment import (
     UpdateDisputesRequestEvidenceCustomerCommunicationAttachment,
 )
+from .update_disputes_request_evidence_documents_item import UpdateDisputesRequestEvidenceDocumentsItem
 from .update_disputes_request_evidence_refund_policy_attachment import (
     UpdateDisputesRequestEvidenceRefundPolicyAttachment,
 )
@@ -60,6 +61,11 @@ class UpdateDisputesRequestEvidence(UniversalBaseModel):
     customer_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The customer's name as given at checkout.
+    """
+
+    documents: typing.Optional[typing.List[UpdateDisputesRequestEvidenceDocumentsItem]] = pydantic.Field(default=None)
+    """
+    The full set of evidence documents the dispute should carry, beyond the four fixed evidence slots. Replaces all previously uploaded documents. Upload files through `POST /files` and reference them by `id`, or send the files as multipart file parts to upload and attach in one call. Policy documents (`return_policy`, `shipping_policy`, `cancellation_policy`, `terms_of_service`) default from the account's own documents; uploading one here replaces the account copy for this dispute, and a `cancellation_policy` or `return_policy` upload also takes precedence over the matching fixed evidence slot.
     """
 
     notes: typing.Optional[str] = pydantic.Field(default=None)

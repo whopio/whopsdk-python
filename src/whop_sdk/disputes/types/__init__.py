@@ -29,6 +29,10 @@ if typing.TYPE_CHECKING:
     from .update_disputes_request_evidence_customer_communication_attachment import (
         UpdateDisputesRequestEvidenceCustomerCommunicationAttachment,
     )
+    from .update_disputes_request_evidence_documents_item import UpdateDisputesRequestEvidenceDocumentsItem
+    from .update_disputes_request_evidence_documents_item_document_type import (
+        UpdateDisputesRequestEvidenceDocumentsItemDocumentType,
+    )
     from .update_disputes_request_evidence_refund_policy_attachment import (
         UpdateDisputesRequestEvidenceRefundPolicyAttachment,
     )
@@ -59,6 +63,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateDisputesRequestEvidence": ".update_disputes_request_evidence",
     "UpdateDisputesRequestEvidenceCancellationPolicyAttachment": ".update_disputes_request_evidence_cancellation_policy_attachment",
     "UpdateDisputesRequestEvidenceCustomerCommunicationAttachment": ".update_disputes_request_evidence_customer_communication_attachment",
+    "UpdateDisputesRequestEvidenceDocumentsItem": ".update_disputes_request_evidence_documents_item",
+    "UpdateDisputesRequestEvidenceDocumentsItemDocumentType": ".update_disputes_request_evidence_documents_item_document_type",
     "UpdateDisputesRequestEvidenceRefundPolicyAttachment": ".update_disputes_request_evidence_refund_policy_attachment",
     "UpdateDisputesRequestEvidenceUncategorizedAttachment": ".update_disputes_request_evidence_uncategorized_attachment",
     "UploadEvidenceDisputesRequestDocumentsItem": ".upload_evidence_disputes_request_documents_item",
@@ -107,6 +113,8 @@ __all__ = [
     "UpdateDisputesRequestEvidence",
     "UpdateDisputesRequestEvidenceCancellationPolicyAttachment",
     "UpdateDisputesRequestEvidenceCustomerCommunicationAttachment",
+    "UpdateDisputesRequestEvidenceDocumentsItem",
+    "UpdateDisputesRequestEvidenceDocumentsItemDocumentType",
     "UpdateDisputesRequestEvidenceRefundPolicyAttachment",
     "UpdateDisputesRequestEvidenceUncategorizedAttachment",
     "UploadEvidenceDisputesRequestDocumentsItem",

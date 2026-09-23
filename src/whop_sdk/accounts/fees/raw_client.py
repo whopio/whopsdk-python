@@ -21,6 +21,7 @@ from .types.update_fees_request_billing import UpdateFeesRequestBilling
 from .types.update_fees_request_buyer import UpdateFeesRequestBuyer
 from .types.update_fees_request_card_processing import UpdateFeesRequestCardProcessing
 from .types.update_fees_request_child_markups import UpdateFeesRequestChildMarkups
+from .types.update_fees_request_covered_payout_fees import UpdateFeesRequestCoveredPayoutFees
 from .types.update_fees_request_cross_border import UpdateFeesRequestCrossBorder
 from .types.update_fees_request_dispute import UpdateFeesRequestDispute
 from .types.update_fees_request_dispute_alert import UpdateFeesRequestDisputeAlert
@@ -129,6 +130,7 @@ class RawFeesClient:
         buyer: typing.Optional[UpdateFeesRequestBuyer] = OMIT,
         card_processing: typing.Optional[UpdateFeesRequestCardProcessing] = OMIT,
         child_markups: typing.Optional[UpdateFeesRequestChildMarkups] = OMIT,
+        covered_payout_fees: typing.Optional[UpdateFeesRequestCoveredPayoutFees] = OMIT,
         cross_border: typing.Optional[UpdateFeesRequestCrossBorder] = OMIT,
         dispute: typing.Optional[UpdateFeesRequestDispute] = OMIT,
         dispute_alert: typing.Optional[UpdateFeesRequestDisputeAlert] = OMIT,
@@ -177,6 +179,9 @@ class RawFeesClient:
 
         child_markups : typing.Optional[UpdateFeesRequestChildMarkups]
             Default markups for connected accounts. Available on accounts without a parent, even before any accounts connect.
+
+        covered_payout_fees : typing.Optional[UpdateFeesRequestCoveredPayoutFees]
+            Changes to the payout fees this account covers for connected accounts. Send either all or individual category keys. Omitted categories stay unchanged; category changes have no effect while all is true.
 
         cross_border : typing.Optional[UpdateFeesRequestCrossBorder]
             The fields of a fee the caller may change. Only the keys sent are replaced.
@@ -277,6 +282,9 @@ class RawFeesClient:
                 ),
                 "child_markups": convert_and_respect_annotation_metadata(
                     object_=child_markups, annotation=UpdateFeesRequestChildMarkups, direction="write"
+                ),
+                "covered_payout_fees": convert_and_respect_annotation_metadata(
+                    object_=covered_payout_fees, annotation=UpdateFeesRequestCoveredPayoutFees, direction="write"
                 ),
                 "cross_border": convert_and_respect_annotation_metadata(
                     object_=cross_border, annotation=UpdateFeesRequestCrossBorder, direction="write"
@@ -489,6 +497,7 @@ class AsyncRawFeesClient:
         buyer: typing.Optional[UpdateFeesRequestBuyer] = OMIT,
         card_processing: typing.Optional[UpdateFeesRequestCardProcessing] = OMIT,
         child_markups: typing.Optional[UpdateFeesRequestChildMarkups] = OMIT,
+        covered_payout_fees: typing.Optional[UpdateFeesRequestCoveredPayoutFees] = OMIT,
         cross_border: typing.Optional[UpdateFeesRequestCrossBorder] = OMIT,
         dispute: typing.Optional[UpdateFeesRequestDispute] = OMIT,
         dispute_alert: typing.Optional[UpdateFeesRequestDisputeAlert] = OMIT,
@@ -537,6 +546,9 @@ class AsyncRawFeesClient:
 
         child_markups : typing.Optional[UpdateFeesRequestChildMarkups]
             Default markups for connected accounts. Available on accounts without a parent, even before any accounts connect.
+
+        covered_payout_fees : typing.Optional[UpdateFeesRequestCoveredPayoutFees]
+            Changes to the payout fees this account covers for connected accounts. Send either all or individual category keys. Omitted categories stay unchanged; category changes have no effect while all is true.
 
         cross_border : typing.Optional[UpdateFeesRequestCrossBorder]
             The fields of a fee the caller may change. Only the keys sent are replaced.
@@ -637,6 +649,9 @@ class AsyncRawFeesClient:
                 ),
                 "child_markups": convert_and_respect_annotation_metadata(
                     object_=child_markups, annotation=UpdateFeesRequestChildMarkups, direction="write"
+                ),
+                "covered_payout_fees": convert_and_respect_annotation_metadata(
+                    object_=covered_payout_fees, annotation=UpdateFeesRequestCoveredPayoutFees, direction="write"
                 ),
                 "cross_border": convert_and_respect_annotation_metadata(
                     object_=cross_border, annotation=UpdateFeesRequestCrossBorder, direction="write"

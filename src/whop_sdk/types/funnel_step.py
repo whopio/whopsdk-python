@@ -9,12 +9,12 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 class FunnelStep(UniversalBaseModel):
     app_build_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The Whop app build ID attached to the event. Currently unavailable for funnels; requests return 400. Comma-separated alternatives are ORed; different filters are ANDed.
+    The Whop app build ID attached to the event. Comma-separated alternatives are ORed; different filters are ANDed.
     """
 
     app_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The event's app id. Currently unavailable for funnels; requests return 400. Comma-separated alternatives are ORed; different filters are ANDed.
+    The event's app id. Comma-separated alternatives are ORed; different filters are ANDed.
     """
 
     browser: typing.Optional[str] = pydantic.Field(default=None)
@@ -49,7 +49,7 @@ class FunnelStep(UniversalBaseModel):
 
     experiment_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    An experiment ID owned by account_id. Requires event=experiment.exposure. Currently unavailable for funnels; requests return 400. Comma-separated alternatives are ORed; different filters are ANDed.
+    An experiment ID owned by account_id. Requires event=experiment.exposure. Comma-separated alternatives are ORed; different filters are ANDed.
     """
 
     hostname: typing.Optional[str] = pydantic.Field(default=None)
@@ -69,17 +69,17 @@ class FunnelStep(UniversalBaseModel):
 
     plan_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The plan ID attached to the event. Currently unavailable for funnels; requests return 400. Comma-separated alternatives are ORed; different filters are ANDed.
+    The plan ID attached to the event. Comma-separated alternatives are ORed; different filters are ANDed.
     """
 
     product_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The product ID attached to the event. Currently unavailable for funnels; requests return 400. Comma-separated alternatives are ORed; different filters are ANDed.
+    The product ID attached to the event. Comma-separated alternatives are ORed; different filters are ANDed.
     """
 
     source: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The Whop ad-click source of this page view, not conversion attribution. Use whop:* for any Whop ad click, whop:<campaign>:* for a campaign, or whop:<campaign>:<group>:<ad> for an exact ad. Only ad-click page-view events support source. With breakdown_by=source, trailing :* levels select campaign, ad-group, or ad detail. Currently unavailable for funnels; requests return 400. Comma-separated alternatives are ORed; different filters are ANDed.
+    The Whop ad-click source of this page view, not conversion attribution. Use whop:* for any Whop ad click, whop:<campaign>:* for a campaign, or whop:<campaign>:<group>:<ad> for an exact ad. Only ad-click page-view events support source. With breakdown_by=source, trailing :* levels select campaign, ad-group, or ad detail. Comma-separated alternatives are ORed; different filters are ANDed.
     """
 
     utm_source: typing.Optional[str] = pydantic.Field(default=None)
@@ -89,7 +89,7 @@ class FunnelStep(UniversalBaseModel):
 
     variant: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The exposed variant name. Requires event=experiment.exposure. Currently unavailable for funnels; requests return 400. Comma-separated alternatives are ORed; different filters are ANDed.
+    The exposed variant name. Requires event=experiment.exposure. Comma-separated alternatives are ORed; different filters are ANDed.
     """
 
     if IS_PYDANTIC_V2:
