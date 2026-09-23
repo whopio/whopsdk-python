@@ -2,7 +2,7 @@
 
 import typing
 
-UploadEvidenceDisputesRequestDocumentsItemDocumentType = typing.Union[
+UpdateDisputesRequestEvidenceDocumentsItemDocumentType = typing.Union[
     typing.Literal[
         "return_policy",
         "shipping_policy",

@@ -240,7 +240,7 @@ class DisputesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Dispute:
         """
-        Edits a dispute's evidence, while it is still editable. Sending it is a separate call.
+        Edits a dispute's evidence, while it is still editable. Sending it is a separate call. `evidence.documents`, when provided, replaces the full set of documents beyond the four fixed evidence slots — see its own description.
 
         Parameters
         ----------
@@ -315,7 +315,7 @@ class DisputesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Dispute:
         """
-        Replaces the full set of uploaded evidence documents on a dispute, beyond the four fixed evidence slots. Upload files through `POST /files` and reference them by `id`, or send the files as multipart file parts to upload and attach in one call. Send every document the packet should carry — up to 10, 10MB each and 25MB in total; an empty list removes them all. Accepted content types: application/pdf, application/json, image/jpeg, image/png, image/webp — any other type is rejected. Policy documents (`return_policy`, `shipping_policy`, `cancellation_policy`, `terms_of_service`) default from the account's own documents; uploading one here replaces the account copy for this dispute, and a `cancellation_policy` or `return_policy` upload also takes precedence over the matching fixed evidence slot.
+        Prefer `PATCH /disputes/{id}` with `evidence.documents` — it does the same replace alongside every other evidence field in one call. Replaces the full set of uploaded evidence documents on a dispute, beyond the four fixed evidence slots. Upload files through `POST /files` and reference them by `id`, or send the files as multipart file parts to upload and attach in one call. Send every document the packet should carry — up to 10, 10MB each and 25MB in total; an empty list removes them all. Accepted content types: application/pdf, application/json, image/jpeg, image/png, image/webp — any other type is rejected. Policy documents (`return_policy`, `shipping_policy`, `cancellation_policy`, `terms_of_service`) default from the account's own documents; uploading one here replaces the account copy for this dispute, and a `cancellation_policy` or `return_policy` upload also takes precedence over the matching fixed evidence slot.
 
         Parameters
         ----------
@@ -323,7 +323,7 @@ class DisputesClient:
             The dispute ID (`dspt_` tag).
 
         documents : typing.Sequence[UploadEvidenceDisputesRequestDocumentsItem]
-            The full set of evidence documents the dispute should carry. Replaces all previously uploaded documents.
+            The full set of evidence documents the dispute should carry, beyond the four fixed evidence slots. Replaces all previously uploaded documents. Upload files through `POST /files` and reference them by `id`, or send the files as multipart file parts to upload and attach in one call. Policy documents (`return_policy`, `shipping_policy`, `cancellation_policy`, `terms_of_service`) default from the account's own documents; uploading one here replaces the account copy for this dispute, and a `cancellation_policy` or `return_policy` upload also takes precedence over the matching fixed evidence slot.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -600,7 +600,7 @@ class AsyncDisputesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Dispute:
         """
-        Edits a dispute's evidence, while it is still editable. Sending it is a separate call.
+        Edits a dispute's evidence, while it is still editable. Sending it is a separate call. `evidence.documents`, when provided, replaces the full set of documents beyond the four fixed evidence slots — see its own description.
 
         Parameters
         ----------
@@ -691,7 +691,7 @@ class AsyncDisputesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Dispute:
         """
-        Replaces the full set of uploaded evidence documents on a dispute, beyond the four fixed evidence slots. Upload files through `POST /files` and reference them by `id`, or send the files as multipart file parts to upload and attach in one call. Send every document the packet should carry — up to 10, 10MB each and 25MB in total; an empty list removes them all. Accepted content types: application/pdf, application/json, image/jpeg, image/png, image/webp — any other type is rejected. Policy documents (`return_policy`, `shipping_policy`, `cancellation_policy`, `terms_of_service`) default from the account's own documents; uploading one here replaces the account copy for this dispute, and a `cancellation_policy` or `return_policy` upload also takes precedence over the matching fixed evidence slot.
+        Prefer `PATCH /disputes/{id}` with `evidence.documents` — it does the same replace alongside every other evidence field in one call. Replaces the full set of uploaded evidence documents on a dispute, beyond the four fixed evidence slots. Upload files through `POST /files` and reference them by `id`, or send the files as multipart file parts to upload and attach in one call. Send every document the packet should carry — up to 10, 10MB each and 25MB in total; an empty list removes them all. Accepted content types: application/pdf, application/json, image/jpeg, image/png, image/webp — any other type is rejected. Policy documents (`return_policy`, `shipping_policy`, `cancellation_policy`, `terms_of_service`) default from the account's own documents; uploading one here replaces the account copy for this dispute, and a `cancellation_policy` or `return_policy` upload also takes precedence over the matching fixed evidence slot.
 
         Parameters
         ----------
@@ -699,7 +699,7 @@ class AsyncDisputesClient:
             The dispute ID (`dspt_` tag).
 
         documents : typing.Sequence[UploadEvidenceDisputesRequestDocumentsItem]
-            The full set of evidence documents the dispute should carry. Replaces all previously uploaded documents.
+            The full set of evidence documents the dispute should carry, beyond the four fixed evidence slots. Replaces all previously uploaded documents. Upload files through `POST /files` and reference them by `id`, or send the files as multipart file parts to upload and attach in one call. Policy documents (`return_policy`, `shipping_policy`, `cancellation_policy`, `terms_of_service`) default from the account's own documents; uploading one here replaces the account copy for this dispute, and a `cancellation_policy` or `return_policy` upload also takes precedence over the matching fixed evidence slot.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

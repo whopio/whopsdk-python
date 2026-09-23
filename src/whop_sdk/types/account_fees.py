@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .account_covered_payout_fees import AccountCoveredPayoutFees
 from .account_fee import AccountFee
 from .account_fee_markups import AccountFeeMarkups
 
@@ -37,6 +38,11 @@ class AccountFees(UniversalBaseModel):
     child_markups: typing.Optional[AccountFeeMarkups] = pydantic.Field(default=None)
     """
     The default markups this account charges connected accounts, configurable before any accounts connect. `null` if this account has a parent.
+    """
+
+    covered_payout_fees: AccountCoveredPayoutFees = pydantic.Field()
+    """
+    Which payout fees this account pays for its connected accounts.
     """
 
     cross_border: AccountFee = pydantic.Field()

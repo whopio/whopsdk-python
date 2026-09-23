@@ -36,6 +36,7 @@ if typing.TYPE_CHECKING:
     from .account_company_formation_signature_request_status import AccountCompanyFormationSignatureRequestStatus
     from .account_company_formation_signatures import AccountCompanyFormationSignatures
     from .account_company_formation_status import AccountCompanyFormationStatus
+    from .account_covered_payout_fees import AccountCoveredPayoutFees
     from .account_dispute_alert_auto_refund_control import AccountDisputeAlertAutoRefundControl
     from .account_fee import AccountFee
     from .account_fee_category import AccountFeeCategory
@@ -424,7 +425,6 @@ if typing.TYPE_CHECKING:
     from .dispute_alert_list_item import DisputeAlertListItem
     from .dispute_alert_list_item_dispute import DisputeAlertListItemDispute
     from .dispute_alert_list_item_payment import DisputeAlertListItemPayment
-    from .dispute_alert_not_actionable_reason import DisputeAlertNotActionableReason
     from .dispute_alert_type import DisputeAlertType
     from .dispute_alert_types import DisputeAlertTypes
     from .dispute_attachment import DisputeAttachment
@@ -1410,6 +1410,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AccountCompanyFormationSignatureRequestStatus": ".account_company_formation_signature_request_status",
     "AccountCompanyFormationSignatures": ".account_company_formation_signatures",
     "AccountCompanyFormationStatus": ".account_company_formation_status",
+    "AccountCoveredPayoutFees": ".account_covered_payout_fees",
     "AccountDisputeAlertAutoRefundControl": ".account_dispute_alert_auto_refund_control",
     "AccountFee": ".account_fee",
     "AccountFeeCategory": ".account_fee_category",
@@ -1786,7 +1787,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DisputeAlertListItem": ".dispute_alert_list_item",
     "DisputeAlertListItemDispute": ".dispute_alert_list_item_dispute",
     "DisputeAlertListItemPayment": ".dispute_alert_list_item_payment",
-    "DisputeAlertNotActionableReason": ".dispute_alert_not_actionable_reason",
     "DisputeAlertType": ".dispute_alert_type",
     "DisputeAlertTypes": ".dispute_alert_types",
     "DisputeAttachment": ".dispute_attachment",
@@ -2664,6 +2664,7 @@ __all__ = [
     "AccountCompanyFormationSignatureRequestStatus",
     "AccountCompanyFormationSignatures",
     "AccountCompanyFormationStatus",
+    "AccountCoveredPayoutFees",
     "AccountDisputeAlertAutoRefundControl",
     "AccountFee",
     "AccountFeeCategory",
@@ -3040,7 +3041,6 @@ __all__ = [
     "DisputeAlertListItem",
     "DisputeAlertListItemDispute",
     "DisputeAlertListItemPayment",
-    "DisputeAlertNotActionableReason",
     "DisputeAlertType",
     "DisputeAlertTypes",
     "DisputeAttachment",

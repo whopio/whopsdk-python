@@ -50,7 +50,8 @@ class DisputePayment(UniversalBaseModel):
 
     payment_processor: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The processor that handled the payment, such as `stripe`.
+    Deprecated: no longer populated. Always `null`.
+    DEPRECATED: No longer populated. Always null.
     """
 
     if IS_PYDANTIC_V2:

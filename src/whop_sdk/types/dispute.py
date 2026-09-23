@@ -4,7 +4,6 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .dispute_attachment import DisputeAttachment
 from .dispute_buyer import DisputeBuyer
 from .dispute_evidence import DisputeEvidence
 from .dispute_evidence_locked_reason import DisputeEvidenceLockedReason
@@ -26,7 +25,7 @@ class Dispute(UniversalBaseModel):
     The disputed amount, in whole units of `currency`.
     """
 
-    buyer: typing.Optional[DisputeBuyer] = pydantic.Field(default=None)
+    buyer: DisputeBuyer = pydantic.Field()
     """
     The customer who filed the dispute.
     """
@@ -48,7 +47,7 @@ class Dispute(UniversalBaseModel):
 
     evidence_due_at: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The deadline to submit evidence, as an ISO 8601 timestamp. Whop reserves the last 24 hours before the processor's own cutoff to forward the submission.
+    The deadline to submit evidence, as an ISO 8601 timestamp. `null` when the network already auto-resolved the dispute (Visa RDR) with no evidence round, or when the processor hasn't reported a deadline for this dispute.
     """
 
     evidence_editable: bool = pydantic.Field()
@@ -66,11 +65,6 @@ class Dispute(UniversalBaseModel):
     When the evidence was submitted to the processor, as an ISO 8601 timestamp.
     """
 
-    generated_response_attachment: typing.Optional[DisputeAttachment] = pydantic.Field(default=None)
-    """
-    The AI-generated representment document filed with the processor on the seller's behalf, once ready. Null until generation completes, and for disputes not using Whop Dispute Fighter.
-    """
-
     id: str = pydantic.Field()
     """
     Dispute ID, prefixed `dspt_`.
@@ -83,7 +77,7 @@ class Dispute(UniversalBaseModel):
 
     issuer_comments: typing.List[DisputeIssuerComment]
     line_items: typing.List[ReceiptLineItem]
-    payment: typing.Optional[DisputePayment] = pydantic.Field(default=None)
+    payment: DisputePayment = pydantic.Field()
     """
     The payment being disputed.
     """
@@ -96,11 +90,6 @@ class Dispute(UniversalBaseModel):
     product_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The product the disputed payment was for, prefixed `prod_`.
-    """
-
-    rapid_dispute_resolution: bool = pydantic.Field()
-    """
-    Whether Visa Rapid Dispute Resolution settled this automatically. These refund the customer without an evidence round.
     """
 
     reason: DisputeReason = pydantic.Field()
