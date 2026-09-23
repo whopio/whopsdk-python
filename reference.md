@@ -17556,6 +17556,14 @@ client.economic_intelligence.list()
 <dl>
 <dd>
 
+**input:** `typing.Optional[str]` — What you want recommendations for, in your own words. Up to 1000 characters. Narrows the list to the recommendations that address it.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
@@ -17581,87 +17589,6 @@ client.economic_intelligence.list()
 <dd>
 
 **before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.economic_intelligence.<a href="src/whop_sdk/economic_intelligence/client.py">create</a>(...) -> EconomicIntelligence</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Generates a recommendation based on your input. Returns immediately; poll the list endpoint until its `status` is `ready`.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from whop_sdk import Whop
-from whop_sdk.environment import WhopEnvironment
-
-client = Whop(
-    token="<token>",
-    environment=WhopEnvironment.PRODUCTION,
-)
-
-client.economic_intelligence.create(
-    input="I sell $79 customized gym straps. The number of purchases per day fell from 84 to 66 since June and my ads cost per signup doubled to $38. Half the leads never open the checkout. I want to win back churned visitors and lift conversion without cutting the price, and I can spend up to $500 this month on it.",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**input:** `str` — What the owner wants, in their own words. Up to 1000 characters.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**account_id:** `typing.Optional[str]` — Account ID, prefixed `biz_`. Defaults to the API key's own account.
     
 </dd>
 </dl>
@@ -17743,6 +17670,14 @@ client.economic_intelligence.update(
 <dd>
 
 **account_id:** `typing.Optional[str]` — Account ID, prefixed `biz_`. Defaults to the API key's own account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**input:** `typing.Optional[str]` — What you want the replacement recommendation for, in your own words. Up to 1000 characters. Sent when superseding, it directs the generation that replaces the rejected recommendation.
     
 </dd>
 </dl>
