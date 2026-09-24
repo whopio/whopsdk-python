@@ -20,6 +20,7 @@ RetrieveFinancialReportsResponseRowsItemGrouping = typing.Union[
         "operational_costs",
         "other",
         "payments",
+        "platform_credits",
         "refunds",
         "reserves",
         "transfers",
