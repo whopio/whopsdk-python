@@ -2,4 +2,4 @@
 
 import typing
 
-PostAdUpdatedPayloadDataPlatform = typing.Union[typing.Literal["meta", "tiktok"], typing.Any]
+PostAdUpdatedPayloadDataPlatform = typing.Union[typing.Literal["meta", "tiktok", "google"], typing.Any]
