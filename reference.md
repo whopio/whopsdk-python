@@ -38491,9 +38491,7 @@ client = Whop(
     environment=WhopEnvironment.PRODUCTION,
 )
 
-client.swaps.list(
-    account_id="account_id",
-)
+client.swaps.list()
 
 ```
 </dd>
@@ -38509,7 +38507,15 @@ client.swaps.list(
 <dl>
 <dd>
 
-**account_id:** `str` — Business or user account ID (biz_* / user_*).
+**account_id:** `typing.Optional[str]` — Business account whose swaps to list, prefixed `biz_`. Provide this or `user_id`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_id:** `typing.Optional[str]` — The caller's own user ID, prefixed `user_`, to list swaps in their personal account. Provide this or `account_id`.
     
 </dd>
 </dl>
@@ -38565,7 +38571,6 @@ client = Whop(
 )
 
 client.swaps.create(
-    account_id="biz_xxxxxxxxxxxxxx",
     from_token="usd",
     to_token="cad",
 )
@@ -38584,14 +38589,6 @@ client.swaps.create(
 <dl>
 <dd>
 
-**account_id:** `str` — Business or user account ID (biz_* / user_*).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **from_token:** `str` — Source token contract address or ticker symbol, such as "USDT".
     
 </dd>
@@ -38601,6 +38598,14 @@ client.swaps.create(
 <dd>
 
 **to_token:** `str` — Destination token contract address or ticker symbol, such as "XAUT".
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — Business account that makes the swap, prefixed `biz_`. Provide this or `user_id`.
     
 </dd>
 </dl>
@@ -38641,6 +38646,14 @@ client.swaps.create(
 <dd>
 
 **to_chain:** `typing.Optional[CreateSwapsRequestToChain]` — Destination chain name or chain ID. Defaults to the destination token's chain when omitted.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_id:** `typing.Optional[str]` — The caller's own user ID, prefixed `user_`, to swap in their personal account. Provide this or `account_id`.
     
 </dd>
 </dl>
@@ -40731,9 +40744,7 @@ client = Whop(
     environment=WhopEnvironment.PRODUCTION,
 )
 
-client.verifications.list(
-    account_id="account_id",
-)
+client.verifications.list()
 
 ```
 </dd>
@@ -40749,7 +40760,15 @@ client.verifications.list(
 <dl>
 <dd>
 
-**account_id:** `str` — Account or user ID whose verifications you want to list. Use a `biz_` account ID, or the caller's `user_` ID for personal verifications.
+**account_id:** `typing.Optional[str]` — Business account whose verifications you want to list, prefixed `biz_`. Provide this or `user_id`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_id:** `typing.Optional[str]` — The caller's own user ID, prefixed `user_`, to list personal verifications. Provide this or `account_id`.
     
 </dd>
 </dl>
@@ -40822,7 +40841,6 @@ client = Whop(
 )
 
 client.verifications.create(
-    account_id="account_id",
     request=CreateVerificationsRequestBody_Individual(),
 )
 
@@ -40840,7 +40858,7 @@ client.verifications.create(
 <dl>
 <dd>
 
-**account_id:** `str` — Account or user ID whose identity you want to verify. Use a `biz_` account ID for account verifications, or the caller's `user_` ID for personal verification.
+**request:** `CreateVerificationsRequestBody` 
     
 </dd>
 </dl>
@@ -40848,7 +40866,15 @@ client.verifications.create(
 <dl>
 <dd>
 
-**request:** `CreateVerificationsRequestBody` 
+**account_id:** `typing.Optional[str]` — Business account whose identity you want to verify, prefixed `biz_`. Provide this or `user_id`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_id:** `typing.Optional[str]` — The caller's own user ID, prefixed `user_`, for a personal verification. Provide this or `account_id`.
     
 </dd>
 </dl>

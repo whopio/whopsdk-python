@@ -11,7 +11,7 @@ from .retrieve_swaps_response_status import RetrieveSwapsResponseStatus
 class RetrieveSwapsResponse(UniversalBaseModel):
     account_id: str = pydantic.Field()
     """
-    Account ID that owns the wallet used for the swap.
+    Account that owns the swap: a business ID prefixed `biz_`, or the user ID for a personal account.
     """
 
     error: typing.Optional[str] = pydantic.Field(default=None)
@@ -33,6 +33,11 @@ class RetrieveSwapsResponse(UniversalBaseModel):
     tx_hashes: typing.List[str] = pydantic.Field()
     """
     On-chain transaction hashes produced by the swap.
+    """
+
+    user_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    User whose personal account owns the swap, prefixed `user_`. Null for a business account.
     """
 
     if IS_PYDANTIC_V2:

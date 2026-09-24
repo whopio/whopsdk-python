@@ -38,7 +38,8 @@ class RawVerificationsClient:
     def list(
         self,
         *,
-        account_id: str,
+        account_id: typing.Optional[str] = None,
+        user_id: typing.Optional[str] = None,
         order: typing.Optional[ListVerificationsRequestOrder] = None,
         direction: typing.Optional[ListVerificationsRequestDirection] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -48,8 +49,11 @@ class RawVerificationsClient:
 
         Parameters
         ----------
-        account_id : str
-            Account or user ID whose verifications you want to list. Use a `biz_` account ID, or the caller's `user_` ID for personal verifications.
+        account_id : typing.Optional[str]
+            Business account whose verifications you want to list, prefixed `biz_`. Provide this or `user_id`.
+
+        user_id : typing.Optional[str]
+            The caller's own user ID, prefixed `user_`, to list personal verifications. Provide this or `account_id`.
 
         order : typing.Optional[ListVerificationsRequestOrder]
             Field used to sort returned verifications.
@@ -71,6 +75,7 @@ class RawVerificationsClient:
             method="GET",
             params={
                 "account_id": account_id,
+                "user_id": user_id,
                 "order": order,
                 "direction": direction,
             },
@@ -131,8 +136,9 @@ class RawVerificationsClient:
     def create(
         self,
         *,
-        account_id: str,
         request: CreateVerificationsRequestBody,
+        account_id: typing.Optional[str] = None,
+        user_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateVerificationsResponse]:
         """
@@ -140,10 +146,13 @@ class RawVerificationsClient:
 
         Parameters
         ----------
-        account_id : str
-            Account or user ID whose identity you want to verify. Use a `biz_` account ID for account verifications, or the caller's `user_` ID for personal verification.
-
         request : CreateVerificationsRequestBody
+
+        account_id : typing.Optional[str]
+            Business account whose identity you want to verify, prefixed `biz_`. Provide this or `user_id`.
+
+        user_id : typing.Optional[str]
+            The caller's own user ID, prefixed `user_`, for a personal verification. Provide this or `account_id`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -159,6 +168,7 @@ class RawVerificationsClient:
             method="POST",
             params={
                 "account_id": account_id,
+                "user_id": user_id,
             },
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=CreateVerificationsRequestBody, direction="write"
@@ -418,7 +428,8 @@ class AsyncRawVerificationsClient:
     async def list(
         self,
         *,
-        account_id: str,
+        account_id: typing.Optional[str] = None,
+        user_id: typing.Optional[str] = None,
         order: typing.Optional[ListVerificationsRequestOrder] = None,
         direction: typing.Optional[ListVerificationsRequestDirection] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -428,8 +439,11 @@ class AsyncRawVerificationsClient:
 
         Parameters
         ----------
-        account_id : str
-            Account or user ID whose verifications you want to list. Use a `biz_` account ID, or the caller's `user_` ID for personal verifications.
+        account_id : typing.Optional[str]
+            Business account whose verifications you want to list, prefixed `biz_`. Provide this or `user_id`.
+
+        user_id : typing.Optional[str]
+            The caller's own user ID, prefixed `user_`, to list personal verifications. Provide this or `account_id`.
 
         order : typing.Optional[ListVerificationsRequestOrder]
             Field used to sort returned verifications.
@@ -451,6 +465,7 @@ class AsyncRawVerificationsClient:
             method="GET",
             params={
                 "account_id": account_id,
+                "user_id": user_id,
                 "order": order,
                 "direction": direction,
             },
@@ -511,8 +526,9 @@ class AsyncRawVerificationsClient:
     async def create(
         self,
         *,
-        account_id: str,
         request: CreateVerificationsRequestBody,
+        account_id: typing.Optional[str] = None,
+        user_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateVerificationsResponse]:
         """
@@ -520,10 +536,13 @@ class AsyncRawVerificationsClient:
 
         Parameters
         ----------
-        account_id : str
-            Account or user ID whose identity you want to verify. Use a `biz_` account ID for account verifications, or the caller's `user_` ID for personal verification.
-
         request : CreateVerificationsRequestBody
+
+        account_id : typing.Optional[str]
+            Business account whose identity you want to verify, prefixed `biz_`. Provide this or `user_id`.
+
+        user_id : typing.Optional[str]
+            The caller's own user ID, prefixed `user_`, for a personal verification. Provide this or `account_id`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -539,6 +558,7 @@ class AsyncRawVerificationsClient:
             method="POST",
             params={
                 "account_id": account_id,
+                "user_id": user_id,
             },
             json=convert_and_respect_annotation_metadata(
                 object_=request, annotation=CreateVerificationsRequestBody, direction="write"

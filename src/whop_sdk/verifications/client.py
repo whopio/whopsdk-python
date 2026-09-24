@@ -36,7 +36,8 @@ class VerificationsClient:
     def list(
         self,
         *,
-        account_id: str,
+        account_id: typing.Optional[str] = None,
+        user_id: typing.Optional[str] = None,
         order: typing.Optional[ListVerificationsRequestOrder] = None,
         direction: typing.Optional[ListVerificationsRequestDirection] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -46,8 +47,11 @@ class VerificationsClient:
 
         Parameters
         ----------
-        account_id : str
-            Account or user ID whose verifications you want to list. Use a `biz_` account ID, or the caller's `user_` ID for personal verifications.
+        account_id : typing.Optional[str]
+            Business account whose verifications you want to list, prefixed `biz_`. Provide this or `user_id`.
+
+        user_id : typing.Optional[str]
+            The caller's own user ID, prefixed `user_`, to list personal verifications. Provide this or `account_id`.
 
         order : typing.Optional[ListVerificationsRequestOrder]
             Field used to sort returned verifications.
@@ -72,20 +76,19 @@ class VerificationsClient:
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
-        client.verifications.list(
-            account_id="account_id",
-        )
+        client.verifications.list()
         """
         _response = self._raw_client.list(
-            account_id=account_id, order=order, direction=direction, request_options=request_options
+            account_id=account_id, user_id=user_id, order=order, direction=direction, request_options=request_options
         )
         return _response.data
 
     def create(
         self,
         *,
-        account_id: str,
         request: CreateVerificationsRequestBody,
+        account_id: typing.Optional[str] = None,
+        user_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateVerificationsResponse:
         """
@@ -93,10 +96,13 @@ class VerificationsClient:
 
         Parameters
         ----------
-        account_id : str
-            Account or user ID whose identity you want to verify. Use a `biz_` account ID for account verifications, or the caller's `user_` ID for personal verification.
-
         request : CreateVerificationsRequestBody
+
+        account_id : typing.Optional[str]
+            Business account whose identity you want to verify, prefixed `biz_`. Provide this or `user_id`.
+
+        user_id : typing.Optional[str]
+            The caller's own user ID, prefixed `user_`, for a personal verification. Provide this or `account_id`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -117,11 +123,12 @@ class VerificationsClient:
             token="YOUR_TOKEN",
         )
         client.verifications.create(
-            account_id="account_id",
             request=CreateVerificationsRequestBody_Individual(),
         )
         """
-        _response = self._raw_client.create(account_id=account_id, request=request, request_options=request_options)
+        _response = self._raw_client.create(
+            request=request, account_id=account_id, user_id=user_id, request_options=request_options
+        )
         return _response.data
 
     def retrieve(
@@ -221,7 +228,8 @@ class AsyncVerificationsClient:
     async def list(
         self,
         *,
-        account_id: str,
+        account_id: typing.Optional[str] = None,
+        user_id: typing.Optional[str] = None,
         order: typing.Optional[ListVerificationsRequestOrder] = None,
         direction: typing.Optional[ListVerificationsRequestDirection] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -231,8 +239,11 @@ class AsyncVerificationsClient:
 
         Parameters
         ----------
-        account_id : str
-            Account or user ID whose verifications you want to list. Use a `biz_` account ID, or the caller's `user_` ID for personal verifications.
+        account_id : typing.Optional[str]
+            Business account whose verifications you want to list, prefixed `biz_`. Provide this or `user_id`.
+
+        user_id : typing.Optional[str]
+            The caller's own user ID, prefixed `user_`, to list personal verifications. Provide this or `account_id`.
 
         order : typing.Optional[ListVerificationsRequestOrder]
             Field used to sort returned verifications.
@@ -262,23 +273,22 @@ class AsyncVerificationsClient:
 
 
         async def main() -> None:
-            await client.verifications.list(
-                account_id="account_id",
-            )
+            await client.verifications.list()
 
 
         asyncio.run(main())
         """
         _response = await self._raw_client.list(
-            account_id=account_id, order=order, direction=direction, request_options=request_options
+            account_id=account_id, user_id=user_id, order=order, direction=direction, request_options=request_options
         )
         return _response.data
 
     async def create(
         self,
         *,
-        account_id: str,
         request: CreateVerificationsRequestBody,
+        account_id: typing.Optional[str] = None,
+        user_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateVerificationsResponse:
         """
@@ -286,10 +296,13 @@ class AsyncVerificationsClient:
 
         Parameters
         ----------
-        account_id : str
-            Account or user ID whose identity you want to verify. Use a `biz_` account ID for account verifications, or the caller's `user_` ID for personal verification.
-
         request : CreateVerificationsRequestBody
+
+        account_id : typing.Optional[str]
+            Business account whose identity you want to verify, prefixed `biz_`. Provide this or `user_id`.
+
+        user_id : typing.Optional[str]
+            The caller's own user ID, prefixed `user_`, for a personal verification. Provide this or `account_id`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -315,7 +328,6 @@ class AsyncVerificationsClient:
 
         async def main() -> None:
             await client.verifications.create(
-                account_id="account_id",
                 request=CreateVerificationsRequestBody_Individual(),
             )
 
@@ -323,7 +335,7 @@ class AsyncVerificationsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.create(
-            account_id=account_id, request=request, request_options=request_options
+            request=request, account_id=account_id, user_id=user_id, request_options=request_options
         )
         return _response.data
 

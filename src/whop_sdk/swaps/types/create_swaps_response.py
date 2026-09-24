@@ -13,7 +13,7 @@ from .create_swaps_response_to_token import CreateSwapsResponseToToken
 class CreateSwapsResponse(UniversalBaseModel):
     account_id: str = pydantic.Field()
     """
-    Account ID that owns the wallet used for the swap.
+    Account that owns the swap: a business ID prefixed `biz_`, or the user ID for a personal account.
     """
 
     amount_in: typing.Optional[float] = pydantic.Field(default=None)
@@ -65,6 +65,11 @@ class CreateSwapsResponse(UniversalBaseModel):
     to_token: typing.Optional[CreateSwapsResponseToToken] = pydantic.Field(default=None)
     """
     Fiat pairs only: the destination currency.
+    """
+
+    user_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    User whose personal account owns the swap, prefixed `user_`. Null for a business account.
     """
 
     if IS_PYDANTIC_V2:
