@@ -439,6 +439,14 @@ client.accounts.create()
 <dl>
 <dd>
 
+**dispute_fighter_enabled:** `typing.Optional[bool]` — Whether Whop assembles and files dispute evidence for this account. Enabling it opts into the success fee charged on disputes it wins. Requires payment:dispute. Omit to preserve the existing setting or creation default.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **email:** `typing.Optional[str]` — The email address of the account owner. Required when creating a connected account.
     
 </dd>
@@ -448,6 +456,14 @@ client.accounts.create()
 <dd>
 
 **metadata:** `typing.Optional[typing.Dict[str, typing.Any]]` — Arbitrary key/value metadata to store on the account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**orchestration_enabled:** `typing.Optional[bool]` — Whether payment orchestration is enabled for this account. Requires payout:account:update. Omit to preserve the existing setting or creation default.
     
 </dd>
 </dl>
@@ -784,6 +800,14 @@ client.accounts.update(
 <dl>
 <dd>
 
+**dispute_fighter_enabled:** `typing.Optional[bool]` — Whether Whop assembles and files dispute evidence for this account. Enabling it opts into the success fee charged on disputes it wins. Requires payment:dispute. Omit to preserve the existing setting or creation default.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **eula:** `typing.Optional[UpdateAccountsRequestEula]` — The account's end-user license agreement document. PDF only. Pass a JSON object containing an `id` from [Create File](/api-reference/files/create-file), or `null` to remove it.
     
 </dd>
@@ -865,6 +889,14 @@ client.accounts.update(
 <dd>
 
 **opengraph_image_variant:** `typing.Optional[UpdateAccountsRequestOpengraphImageVariant]` — The account Open Graph image variant.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**orchestration_enabled:** `typing.Optional[bool]` — Whether payment orchestration is enabled for this account. Requires payout:account:update. Omit to preserve the existing setting or creation default.
     
 </dd>
 </dl>

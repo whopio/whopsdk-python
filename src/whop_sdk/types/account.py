@@ -98,6 +98,11 @@ class Account(UniversalBaseModel):
     Account promotional description.
     """
 
+    dispute_fighter_enabled: bool = pydantic.Field()
+    """
+    Whether Whop assembles and files dispute evidence for this account. Enabling it opts the account into the success fee charged on disputes it wins.
+    """
+
     economic_intelligence: bool = pydantic.Field()
     """
     Whether Economic Intelligence is on for the account. It turns off automatically when its committed period ends.
@@ -157,6 +162,11 @@ class Account(UniversalBaseModel):
     opengraph_image_variant: typing.Optional[AccountOpengraphImageVariant] = pydantic.Field(default=None)
     """
     Account Open Graph image variant.
+    """
+
+    orchestration_enabled: bool = pydantic.Field()
+    """
+    Whether payment orchestration is enabled for this account.
     """
 
     other_business_description: typing.Optional[str] = pydantic.Field(default=None)
