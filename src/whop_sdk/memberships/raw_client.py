@@ -733,6 +733,115 @@ class RawMembershipsClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def reactivate(
+        self, id: str, *, days: typing.Optional[int] = OMIT, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[Membership]:
+        """
+        Restores access to a `canceled` or `expired` membership that contains only one-time purchases and sets its `status` to `completed`. Lifetime memberships regain lifetime access. For memberships with an expiration, `days` sets `current_period_end` that many days from now; without it the original `current_period_end` is kept, so `days` is required once that has passed. Active and recurring memberships cannot be reactivated.
+
+        Parameters
+        ----------
+        id : str
+            Membership ID (`mem_` tag).
+
+        days : typing.Optional[int]
+            Days of access from now (1-1095), which sets `current_period_end`. Omit to keep the original `current_period_end`; required once it has passed. Ignored for lifetime memberships.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[Membership]
+            membership reactivated
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"memberships/{encode_path_param(id)}/reactivate",
+            base_url=self._client_wrapper.get_environment().api,
+            method="POST",
+            json={
+                "days": days,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    Membership,
+                    parse_obj_as(
+                        type_=Membership,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        V1ErrorResponse,
+                        parse_obj_as(
+                            type_=V1ErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     def resume(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[Membership]:
         """
         Resumes a previously paused membership's recurring payment collection. Billing resumes on the next cycle.
@@ -1651,6 +1760,115 @@ class AsyncRawMembershipsClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        V1ErrorResponse,
+                        parse_obj_as(
+                            type_=V1ErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def reactivate(
+        self, id: str, *, days: typing.Optional[int] = OMIT, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[Membership]:
+        """
+        Restores access to a `canceled` or `expired` membership that contains only one-time purchases and sets its `status` to `completed`. Lifetime memberships regain lifetime access. For memberships with an expiration, `days` sets `current_period_end` that many days from now; without it the original `current_period_end` is kept, so `days` is required once that has passed. Active and recurring memberships cannot be reactivated.
+
+        Parameters
+        ----------
+        id : str
+            Membership ID (`mem_` tag).
+
+        days : typing.Optional[int]
+            Days of access from now (1-1095), which sets `current_period_end`. Omit to keep the original `current_period_end`; required once it has passed. Ignored for lifetime memberships.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[Membership]
+            membership reactivated
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"memberships/{encode_path_param(id)}/reactivate",
+            base_url=self._client_wrapper.get_environment().api,
+            method="POST",
+            json={
+                "days": days,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    Membership,
+                    parse_obj_as(
+                        type_=Membership,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,

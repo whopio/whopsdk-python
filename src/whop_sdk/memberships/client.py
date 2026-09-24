@@ -379,6 +379,44 @@ class MembershipsClient:
         _response = self._raw_client.pause(id, until=until, request_options=request_options)
         return _response.data
 
+    def reactivate(
+        self, id: str, *, days: typing.Optional[int] = OMIT, request_options: typing.Optional[RequestOptions] = None
+    ) -> Membership:
+        """
+        Restores access to a `canceled` or `expired` membership that contains only one-time purchases and sets its `status` to `completed`. Lifetime memberships regain lifetime access. For memberships with an expiration, `days` sets `current_period_end` that many days from now; without it the original `current_period_end` is kept, so `days` is required once that has passed. Active and recurring memberships cannot be reactivated.
+
+        Parameters
+        ----------
+        id : str
+            Membership ID (`mem_` tag).
+
+        days : typing.Optional[int]
+            Days of access from now (1-1095), which sets `current_period_end`. Omit to keep the original `current_period_end`; required once it has passed. Ignored for lifetime memberships.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Membership
+            membership reactivated
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-09-24",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.memberships.reactivate(
+            id="id",
+        )
+        """
+        _response = self._raw_client.reactivate(id, days=days, request_options=request_options)
+        return _response.data
+
     def resume(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Membership:
         """
         Resumes a previously paused membership's recurring payment collection. Billing resumes on the next cycle.
@@ -898,6 +936,52 @@ class AsyncMembershipsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.pause(id, until=until, request_options=request_options)
+        return _response.data
+
+    async def reactivate(
+        self, id: str, *, days: typing.Optional[int] = OMIT, request_options: typing.Optional[RequestOptions] = None
+    ) -> Membership:
+        """
+        Restores access to a `canceled` or `expired` membership that contains only one-time purchases and sets its `status` to `completed`. Lifetime memberships regain lifetime access. For memberships with an expiration, `days` sets `current_period_end` that many days from now; without it the original `current_period_end` is kept, so `days` is required once that has passed. Active and recurring memberships cannot be reactivated.
+
+        Parameters
+        ----------
+        id : str
+            Membership ID (`mem_` tag).
+
+        days : typing.Optional[int]
+            Days of access from now (1-1095), which sets `current_period_end`. Omit to keep the original `current_period_end`; required once it has passed. Ignored for lifetime memberships.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Membership
+            membership reactivated
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-09-24",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.memberships.reactivate(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.reactivate(id, days=days, request_options=request_options)
         return _response.data
 
     async def resume(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Membership:
