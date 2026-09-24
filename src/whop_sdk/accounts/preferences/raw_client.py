@@ -23,6 +23,9 @@ from .types.update_preferences_request_ads_payment_methods import UpdatePreferen
 from .types.update_preferences_request_ads_triple_whale_integration import (
     UpdatePreferencesRequestAdsTripleWhaleIntegration,
 )
+from .types.update_preferences_request_subscription_failure_behavior import (
+    UpdatePreferencesRequestSubscriptionFailureBehavior,
+)
 from .types.update_preferences_response import UpdatePreferencesResponse
 from pydantic import ValidationError
 
@@ -113,6 +116,7 @@ class RawPreferencesClient:
         cards_notifications: typing.Optional[bool] = OMIT,
         dispute_fighter_enabled: typing.Optional[bool] = OMIT,
         economic_intelligence_duration_days: typing.Optional[int] = OMIT,
+        subscription_failure_behavior: typing.Optional[UpdatePreferencesRequestSubscriptionFailureBehavior] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdatePreferencesResponse]:
         """
@@ -161,6 +165,9 @@ class RawPreferencesClient:
         economic_intelligence_duration_days : typing.Optional[int]
             Turns on Economic Intelligence for this many days, at the fee listed for that duration in `economic_intelligence_offers`. It can't be changed or turned off until `economic_intelligence_ends_at`, and it can't be turned on during a free trial. Requires the `company:update` scope on your API key.
 
+        subscription_failure_behavior : typing.Optional[UpdatePreferencesRequestSubscriptionFailureBehavior]
+            What happens to a subscription once every retry of a renewal payment has failed. `cancel` (the default) cancels it. `none` leaves it past due and keeps billing it each period; access follows the account's past-due access setting. Requires company:manage_checkout permission.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -193,6 +200,7 @@ class RawPreferencesClient:
                 "cards_notifications": cards_notifications,
                 "dispute_fighter_enabled": dispute_fighter_enabled,
                 "economic_intelligence_duration_days": economic_intelligence_duration_days,
+                "subscription_failure_behavior": subscription_failure_behavior,
             },
             headers={
                 "content-type": "application/json",
@@ -358,6 +366,7 @@ class AsyncRawPreferencesClient:
         cards_notifications: typing.Optional[bool] = OMIT,
         dispute_fighter_enabled: typing.Optional[bool] = OMIT,
         economic_intelligence_duration_days: typing.Optional[int] = OMIT,
+        subscription_failure_behavior: typing.Optional[UpdatePreferencesRequestSubscriptionFailureBehavior] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdatePreferencesResponse]:
         """
@@ -406,6 +415,9 @@ class AsyncRawPreferencesClient:
         economic_intelligence_duration_days : typing.Optional[int]
             Turns on Economic Intelligence for this many days, at the fee listed for that duration in `economic_intelligence_offers`. It can't be changed or turned off until `economic_intelligence_ends_at`, and it can't be turned on during a free trial. Requires the `company:update` scope on your API key.
 
+        subscription_failure_behavior : typing.Optional[UpdatePreferencesRequestSubscriptionFailureBehavior]
+            What happens to a subscription once every retry of a renewal payment has failed. `cancel` (the default) cancels it. `none` leaves it past due and keeps billing it each period; access follows the account's past-due access setting. Requires company:manage_checkout permission.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -438,6 +450,7 @@ class AsyncRawPreferencesClient:
                 "cards_notifications": cards_notifications,
                 "dispute_fighter_enabled": dispute_fighter_enabled,
                 "economic_intelligence_duration_days": economic_intelligence_duration_days,
+                "subscription_failure_behavior": subscription_failure_behavior,
             },
             headers={
                 "content-type": "application/json",

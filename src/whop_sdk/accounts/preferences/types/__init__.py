@@ -41,6 +41,9 @@ if typing.TYPE_CHECKING:
     from .retrieve_preferences_response_economic_intelligence_offers_item import (
         RetrievePreferencesResponseEconomicIntelligenceOffersItem,
     )
+    from .retrieve_preferences_response_subscription_failure_behavior import (
+        RetrievePreferencesResponseSubscriptionFailureBehavior,
+    )
     from .update_preferences_request_ads_certifications_value import UpdatePreferencesRequestAdsCertificationsValue
     from .update_preferences_request_ads_certifications_value_status import (
         UpdatePreferencesRequestAdsCertificationsValueStatus,
@@ -56,6 +59,9 @@ if typing.TYPE_CHECKING:
     )
     from .update_preferences_request_ads_triple_whale_integration import (
         UpdatePreferencesRequestAdsTripleWhaleIntegration,
+    )
+    from .update_preferences_request_subscription_failure_behavior import (
+        UpdatePreferencesRequestSubscriptionFailureBehavior,
     )
     from .update_preferences_response import UpdatePreferencesResponse
     from .update_preferences_response_ads_agreement import UpdatePreferencesResponseAdsAgreement
@@ -90,6 +96,9 @@ if typing.TYPE_CHECKING:
     from .update_preferences_response_economic_intelligence_offers_item import (
         UpdatePreferencesResponseEconomicIntelligenceOffersItem,
     )
+    from .update_preferences_response_subscription_failure_behavior import (
+        UpdatePreferencesResponseSubscriptionFailureBehavior,
+    )
 _dynamic_imports: typing.Dict[str, str] = {
     "RetrievePreferencesResponse": ".retrieve_preferences_response",
     "RetrievePreferencesResponseAdsAgreement": ".retrieve_preferences_response_ads_agreement",
@@ -106,6 +115,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrievePreferencesResponseAdsTripleWhaleIntegration": ".retrieve_preferences_response_ads_triple_whale_integration",
     "RetrievePreferencesResponseAdsTripleWhaleIntegrationStatus": ".retrieve_preferences_response_ads_triple_whale_integration_status",
     "RetrievePreferencesResponseEconomicIntelligenceOffersItem": ".retrieve_preferences_response_economic_intelligence_offers_item",
+    "RetrievePreferencesResponseSubscriptionFailureBehavior": ".retrieve_preferences_response_subscription_failure_behavior",
     "UpdatePreferencesRequestAdsCertificationsValue": ".update_preferences_request_ads_certifications_value",
     "UpdatePreferencesRequestAdsCertificationsValueStatus": ".update_preferences_request_ads_certifications_value_status",
     "UpdatePreferencesRequestAdsPaymentMethods": ".update_preferences_request_ads_payment_methods",
@@ -114,6 +124,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatePreferencesRequestAdsPaymentMethodsPrimary": ".update_preferences_request_ads_payment_methods_primary",
     "UpdatePreferencesRequestAdsPaymentMethodsPrimaryType": ".update_preferences_request_ads_payment_methods_primary_type",
     "UpdatePreferencesRequestAdsTripleWhaleIntegration": ".update_preferences_request_ads_triple_whale_integration",
+    "UpdatePreferencesRequestSubscriptionFailureBehavior": ".update_preferences_request_subscription_failure_behavior",
     "UpdatePreferencesResponse": ".update_preferences_response",
     "UpdatePreferencesResponseAdsAgreement": ".update_preferences_response_ads_agreement",
     "UpdatePreferencesResponseAdsAgreementStatus": ".update_preferences_response_ads_agreement_status",
@@ -129,6 +140,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatePreferencesResponseAdsTripleWhaleIntegration": ".update_preferences_response_ads_triple_whale_integration",
     "UpdatePreferencesResponseAdsTripleWhaleIntegrationStatus": ".update_preferences_response_ads_triple_whale_integration_status",
     "UpdatePreferencesResponseEconomicIntelligenceOffersItem": ".update_preferences_response_economic_intelligence_offers_item",
+    "UpdatePreferencesResponseSubscriptionFailureBehavior": ".update_preferences_response_subscription_failure_behavior",
 }
 
 
@@ -169,6 +181,7 @@ __all__ = [
     "RetrievePreferencesResponseAdsTripleWhaleIntegration",
     "RetrievePreferencesResponseAdsTripleWhaleIntegrationStatus",
     "RetrievePreferencesResponseEconomicIntelligenceOffersItem",
+    "RetrievePreferencesResponseSubscriptionFailureBehavior",
     "UpdatePreferencesRequestAdsCertificationsValue",
     "UpdatePreferencesRequestAdsCertificationsValueStatus",
     "UpdatePreferencesRequestAdsPaymentMethods",
@@ -177,6 +190,7 @@ __all__ = [
     "UpdatePreferencesRequestAdsPaymentMethodsPrimary",
     "UpdatePreferencesRequestAdsPaymentMethodsPrimaryType",
     "UpdatePreferencesRequestAdsTripleWhaleIntegration",
+    "UpdatePreferencesRequestSubscriptionFailureBehavior",
     "UpdatePreferencesResponse",
     "UpdatePreferencesResponseAdsAgreement",
     "UpdatePreferencesResponseAdsAgreementStatus",
@@ -192,4 +206,5 @@ __all__ = [
     "UpdatePreferencesResponseAdsTripleWhaleIntegration",
     "UpdatePreferencesResponseAdsTripleWhaleIntegrationStatus",
     "UpdatePreferencesResponseEconomicIntelligenceOffersItem",
+    "UpdatePreferencesResponseSubscriptionFailureBehavior",
 ]
