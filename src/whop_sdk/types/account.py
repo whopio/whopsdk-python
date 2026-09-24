@@ -27,6 +27,7 @@ from .account_tax_type import AccountTaxType
 from .account_three_ds_level import AccountThreeDsLevel
 from .account_wallet import AccountWallet
 from .file import File
+from .trading_account import TradingAccount
 from .user_summary import UserSummary
 
 
@@ -312,6 +313,11 @@ class Account(UniversalBaseModel):
     total_usd: typing.Optional[str] = pydantic.Field(default=None)
     """
     Total USD value across balances with known exchange rates. Computed only on single-account reads (`retrieve` and `me`); `null` on list responses, writes, missing balance-read permission, or unavailable balance source.
+    """
+
+    trading: typing.Optional[TradingAccount] = pydantic.Field(default=None)
+    """
+    Live trading state. Opt in with `include_trading=true` on single-account reads; `null` otherwise, without trading permission, or without an Ethereum wallet. Provider failures return an error, not a zero balance.
     """
 
     use_logo_as_opengraph_image_fallback: bool = pydantic.Field()

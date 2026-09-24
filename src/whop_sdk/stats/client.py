@@ -48,7 +48,7 @@ class StatsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -348,7 +348,7 @@ class StatsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -470,7 +470,7 @@ class AsyncStatsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -778,7 +778,7 @@ class AsyncStatsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

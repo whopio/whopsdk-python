@@ -89,7 +89,7 @@ class UsersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -107,6 +107,7 @@ class UsersClient:
     def me(
         self,
         *,
+        include_trading: typing.Optional[bool] = None,
         account_id: typing.Optional[str] = None,
         include_balance: typing.Optional[bool] = None,
         include_balance_history: typing.Optional[bool] = None,
@@ -121,6 +122,9 @@ class UsersClient:
 
         Parameters
         ----------
+        include_trading : typing.Optional[bool]
+            Also retrieve live trading state under `trading`. Only honored on the self view (me) with crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet. Provider failures return 503.
+
         account_id : typing.Optional[str]
             When set, returns your account-specific profile overrides for this account.
 
@@ -155,13 +159,14 @@ class UsersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.users.me()
         """
         _response = self._raw_client.me(
+            include_trading=include_trading,
             account_id=account_id,
             include_balance=include_balance,
             include_balance_history=include_balance_history,
@@ -215,7 +220,7 @@ class UsersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -236,6 +241,7 @@ class UsersClient:
         self,
         id: str,
         *,
+        include_trading: typing.Optional[bool] = None,
         account_id: typing.Optional[str] = None,
         include_balance: typing.Optional[bool] = None,
         include_balance_history: typing.Optional[bool] = None,
@@ -252,6 +258,9 @@ class UsersClient:
         ----------
         id : str
             User ID (prefixed `user_`), username, or `me` for the authenticated user.
+
+        include_trading : typing.Optional[bool]
+            Also retrieve live trading state under `trading`. Only honored on the self view (me) with crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet. Provider failures return 503.
 
         account_id : typing.Optional[str]
             When set, returns the user's account-specific profile overrides for this account.
@@ -287,7 +296,7 @@ class UsersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -297,6 +306,7 @@ class UsersClient:
         """
         _response = self._raw_client.retrieve(
             id,
+            include_trading=include_trading,
             account_id=account_id,
             include_balance=include_balance,
             include_balance_history=include_balance_history,
@@ -354,7 +364,7 @@ class UsersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -401,7 +411,7 @@ class UsersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -437,7 +447,7 @@ class UsersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -537,7 +547,7 @@ class AsyncUsersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -562,6 +572,7 @@ class AsyncUsersClient:
     async def me(
         self,
         *,
+        include_trading: typing.Optional[bool] = None,
         account_id: typing.Optional[str] = None,
         include_balance: typing.Optional[bool] = None,
         include_balance_history: typing.Optional[bool] = None,
@@ -576,6 +587,9 @@ class AsyncUsersClient:
 
         Parameters
         ----------
+        include_trading : typing.Optional[bool]
+            Also retrieve live trading state under `trading`. Only honored on the self view (me) with crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet. Provider failures return 503.
+
         account_id : typing.Optional[str]
             When set, returns your account-specific profile overrides for this account.
 
@@ -612,7 +626,7 @@ class AsyncUsersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -625,6 +639,7 @@ class AsyncUsersClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.me(
+            include_trading=include_trading,
             account_id=account_id,
             include_balance=include_balance,
             include_balance_history=include_balance_history,
@@ -680,7 +695,7 @@ class AsyncUsersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -707,6 +722,7 @@ class AsyncUsersClient:
         self,
         id: str,
         *,
+        include_trading: typing.Optional[bool] = None,
         account_id: typing.Optional[str] = None,
         include_balance: typing.Optional[bool] = None,
         include_balance_history: typing.Optional[bool] = None,
@@ -723,6 +739,9 @@ class AsyncUsersClient:
         ----------
         id : str
             User ID (prefixed `user_`), username, or `me` for the authenticated user.
+
+        include_trading : typing.Optional[bool]
+            Also retrieve live trading state under `trading`. Only honored on the self view (me) with crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet. Provider failures return 503.
 
         account_id : typing.Optional[str]
             When set, returns the user's account-specific profile overrides for this account.
@@ -760,7 +779,7 @@ class AsyncUsersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -776,6 +795,7 @@ class AsyncUsersClient:
         """
         _response = await self._raw_client.retrieve(
             id,
+            include_trading=include_trading,
             account_id=account_id,
             include_balance=include_balance,
             include_balance_history=include_balance_history,
@@ -835,7 +855,7 @@ class AsyncUsersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -890,7 +910,7 @@ class AsyncUsersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -934,7 +954,7 @@ class AsyncUsersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

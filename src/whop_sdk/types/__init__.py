@@ -1324,6 +1324,27 @@ if typing.TYPE_CHECKING:
     from .too_many_requests_error_body import TooManyRequestsErrorBody
     from .too_many_requests_error_body_error import TooManyRequestsErrorBodyError
     from .topup import Topup
+    from .trading_account import TradingAccount
+    from .trading_account_object import TradingAccountObject
+    from .trading_account_provider import TradingAccountProvider
+    from .trading_cumulative_funding import TradingCumulativeFunding
+    from .trading_hyperliquid_account import TradingHyperliquidAccount
+    from .trading_hyperliquid_order import TradingHyperliquidOrder
+    from .trading_hyperliquid_position import TradingHyperliquidPosition
+    from .trading_margin_summary import TradingMarginSummary
+    from .trading_order import TradingOrder
+    from .trading_order_object import TradingOrderObject
+    from .trading_order_order_type import TradingOrderOrderType
+    from .trading_order_side import TradingOrderSide
+    from .trading_order_status import TradingOrderStatus
+    from .trading_order_time_in_force import TradingOrderTimeInForce
+    from .trading_position import TradingPosition
+    from .trading_position_leverage import TradingPositionLeverage
+    from .trading_position_leverage_type import TradingPositionLeverageType
+    from .trading_position_object import TradingPositionObject
+    from .trading_position_side import TradingPositionSide
+    from .trading_websocket_subscription import TradingWebsocketSubscription
+    from .trading_websocket_subscription_channel import TradingWebsocketSubscriptionChannel
     from .unauthorized_error_body import UnauthorizedErrorBody
     from .unauthorized_error_body_error import UnauthorizedErrorBodyError
     from .unprocessable_entity_error_body import UnprocessableEntityErrorBody
@@ -2551,6 +2572,27 @@ _dynamic_imports: typing.Dict[str, str] = {
     "TooManyRequestsErrorBody": ".too_many_requests_error_body",
     "TooManyRequestsErrorBodyError": ".too_many_requests_error_body_error",
     "Topup": ".topup",
+    "TradingAccount": ".trading_account",
+    "TradingAccountObject": ".trading_account_object",
+    "TradingAccountProvider": ".trading_account_provider",
+    "TradingCumulativeFunding": ".trading_cumulative_funding",
+    "TradingHyperliquidAccount": ".trading_hyperliquid_account",
+    "TradingHyperliquidOrder": ".trading_hyperliquid_order",
+    "TradingHyperliquidPosition": ".trading_hyperliquid_position",
+    "TradingMarginSummary": ".trading_margin_summary",
+    "TradingOrder": ".trading_order",
+    "TradingOrderObject": ".trading_order_object",
+    "TradingOrderOrderType": ".trading_order_order_type",
+    "TradingOrderSide": ".trading_order_side",
+    "TradingOrderStatus": ".trading_order_status",
+    "TradingOrderTimeInForce": ".trading_order_time_in_force",
+    "TradingPosition": ".trading_position",
+    "TradingPositionLeverage": ".trading_position_leverage",
+    "TradingPositionLeverageType": ".trading_position_leverage_type",
+    "TradingPositionObject": ".trading_position_object",
+    "TradingPositionSide": ".trading_position_side",
+    "TradingWebsocketSubscription": ".trading_websocket_subscription",
+    "TradingWebsocketSubscriptionChannel": ".trading_websocket_subscription_channel",
     "UnauthorizedErrorBody": ".unauthorized_error_body",
     "UnauthorizedErrorBodyError": ".unauthorized_error_body_error",
     "UnprocessableEntityErrorBody": ".unprocessable_entity_error_body",
@@ -3802,6 +3844,27 @@ __all__ = [
     "TooManyRequestsErrorBody",
     "TooManyRequestsErrorBodyError",
     "Topup",
+    "TradingAccount",
+    "TradingAccountObject",
+    "TradingAccountProvider",
+    "TradingCumulativeFunding",
+    "TradingHyperliquidAccount",
+    "TradingHyperliquidOrder",
+    "TradingHyperliquidPosition",
+    "TradingMarginSummary",
+    "TradingOrder",
+    "TradingOrderObject",
+    "TradingOrderOrderType",
+    "TradingOrderSide",
+    "TradingOrderStatus",
+    "TradingOrderTimeInForce",
+    "TradingPosition",
+    "TradingPositionLeverage",
+    "TradingPositionLeverageType",
+    "TradingPositionObject",
+    "TradingPositionSide",
+    "TradingWebsocketSubscription",
+    "TradingWebsocketSubscriptionChannel",
     "UnauthorizedErrorBody",
     "UnauthorizedErrorBodyError",
     "UnprocessableEntityErrorBody",
