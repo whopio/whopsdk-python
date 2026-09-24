@@ -2,4 +2,4 @@
 
 import typing
 
-AdCampaignPlatform = typing.Union[typing.Literal["meta", "tiktok"], typing.Any]
+AdCampaignPlatform = typing.Union[typing.Literal["meta", "tiktok", "google"], typing.Any]
