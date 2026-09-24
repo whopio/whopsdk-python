@@ -42892,7 +42892,7 @@ Required scopes depend on the preferences being updated:
 | `ads_payment_methods`, `ads_reporting_currency`, `ads_scheduling_timezone`, `ads_triple_whale_integration`, `ads_certifications` | `ad_campaign:create` |
 | `cards_auto_top_up`, `cards_notifications` | `payout:account:update` |
 | `dispute_fighter_enabled` | `payment:dispute` |
-| `economic_intelligence` | `company:update` |
+| `economic_intelligence_duration_days` | `company:update` |
 
 When updating preferences from multiple rows, all corresponding scopes are required for the account.
 </dd>
@@ -43007,7 +43007,7 @@ client.accounts.preferences.update(
 <dl>
 <dd>
 
-**economic_intelligence:** `typing.Optional[bool]` — Whether economic intelligence is enabled for the account. Requires an existing ledger account and the `company:update` scope on your API key.
+**economic_intelligence_duration_days:** `typing.Optional[int]` — Turns on Economic Intelligence for this many days, at the fee listed for that duration in `economic_intelligence_offers`. It can't be changed or turned off until `economic_intelligence_ends_at`, and it can't be turned on during a free trial. Requires the `company:update` scope on your API key.
     
 </dd>
 </dl>

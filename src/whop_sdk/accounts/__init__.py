@@ -141,6 +141,7 @@ if typing.TYPE_CHECKING:
         RetrievePreferencesResponseAdsPaymentMethodsPrimaryType,
         RetrievePreferencesResponseAdsTripleWhaleIntegration,
         RetrievePreferencesResponseAdsTripleWhaleIntegrationStatus,
+        RetrievePreferencesResponseEconomicIntelligenceOffersItem,
         UpdatePreferencesRequestAdsCertificationsValue,
         UpdatePreferencesRequestAdsCertificationsValueStatus,
         UpdatePreferencesRequestAdsPaymentMethods,
@@ -163,6 +164,7 @@ if typing.TYPE_CHECKING:
         UpdatePreferencesResponseAdsPaymentMethodsPrimaryType,
         UpdatePreferencesResponseAdsTripleWhaleIntegration,
         UpdatePreferencesResponseAdsTripleWhaleIntegrationStatus,
+        UpdatePreferencesResponseEconomicIntelligenceOffersItem,
     )
     from .reserves import ListReservesResponse
 _dynamic_imports: typing.Dict[str, str] = {
@@ -204,6 +206,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrievePreferencesResponseAdsPaymentMethodsPrimaryType": ".preferences",
     "RetrievePreferencesResponseAdsTripleWhaleIntegration": ".preferences",
     "RetrievePreferencesResponseAdsTripleWhaleIntegrationStatus": ".preferences",
+    "RetrievePreferencesResponseEconomicIntelligenceOffersItem": ".preferences",
     "RetryAdsPaymentAccountsResponse": ".types",
     "TransferOwnershipAccountsResponse": ".types",
     "UpdateAccountsRequestBannerImage": ".types",
@@ -318,6 +321,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatePreferencesResponseAdsPaymentMethodsPrimaryType": ".preferences",
     "UpdatePreferencesResponseAdsTripleWhaleIntegration": ".preferences",
     "UpdatePreferencesResponseAdsTripleWhaleIntegrationStatus": ".preferences",
+    "UpdatePreferencesResponseEconomicIntelligenceOffersItem": ".preferences",
     "fees": ".fees",
     "preferences": ".preferences",
     "reserves": ".reserves",
@@ -384,6 +388,7 @@ __all__ = [
     "RetrievePreferencesResponseAdsPaymentMethodsPrimaryType",
     "RetrievePreferencesResponseAdsTripleWhaleIntegration",
     "RetrievePreferencesResponseAdsTripleWhaleIntegrationStatus",
+    "RetrievePreferencesResponseEconomicIntelligenceOffersItem",
     "RetryAdsPaymentAccountsResponse",
     "TransferOwnershipAccountsResponse",
     "UpdateAccountsRequestBannerImage",
@@ -498,6 +503,7 @@ __all__ = [
     "UpdatePreferencesResponseAdsPaymentMethodsPrimaryType",
     "UpdatePreferencesResponseAdsTripleWhaleIntegration",
     "UpdatePreferencesResponseAdsTripleWhaleIntegrationStatus",
+    "UpdatePreferencesResponseEconomicIntelligenceOffersItem",
     "fees",
     "preferences",
     "reserves",
