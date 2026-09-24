@@ -3,5 +3,6 @@
 import typing
 
 RefundReason = typing.Union[
-    typing.Literal["duplicate", "fraudulent", "requested_by_customer", "expired_uncaptured_charge"], typing.Any
+    typing.Literal["duplicate", "fraudulent", "requested_by_customer", "expired_uncaptured_charge", "dispute_alert"],
+    typing.Any,
 ]
