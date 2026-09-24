@@ -333,6 +333,8 @@ if typing.TYPE_CHECKING:
     from .card_transaction_list_item import CardTransactionListItem
     from .card_transaction_status import CardTransactionStatus
     from .card_transaction_transaction_type import CardTransactionTransactionType
+    from .cashback_payout import CashbackPayout
+    from .cashback_payout_status import CashbackPayoutStatus
     from .cashback_rule import CashbackRule
     from .chat_channel import ChatChannel
     from .chat_channel_experience import ChatChannelExperience
@@ -1717,6 +1719,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CardTransactionListItem": ".card_transaction_list_item",
     "CardTransactionStatus": ".card_transaction_status",
     "CardTransactionTransactionType": ".card_transaction_transaction_type",
+    "CashbackPayout": ".cashback_payout",
+    "CashbackPayoutStatus": ".cashback_payout_status",
     "CashbackRule": ".cashback_rule",
     "ChatChannel": ".chat_channel",
     "ChatChannelExperience": ".chat_channel_experience",
@@ -2991,6 +2995,8 @@ __all__ = [
     "CardTransactionListItem",
     "CardTransactionStatus",
     "CardTransactionTransactionType",
+    "CashbackPayout",
+    "CashbackPayoutStatus",
     "CashbackRule",
     "ChatChannel",
     "ChatChannelExperience",
