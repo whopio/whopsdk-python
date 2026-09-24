@@ -8,17 +8,17 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 class UpdatePreferencesRequestAdsTripleWhaleIntegration(UniversalBaseModel):
     """
-    Connects or disconnects the Triple Whale integration. Requires the `ad_campaign:create` scope on your API key. Connecting requires a shop domain to report spend against — either an explicit `shop_domain` (required for any merchant without a connected Shopify store, e.g. WooCommerce, a custom checkout, or a white-label platform's merchant) or a Shopify store connected on the Fulfillment page.
+    Connects or disconnects the Triple Whale integration, or changes the shop it reports to. Requires the `ad_campaign:create` scope on your API key. Connecting requires a shop domain to report spend against — either an explicit `shop_domain` (required for any merchant without a connected Shopify store, e.g. WooCommerce, a custom checkout, or a white-label platform's merchant) or a Shopify store connected on the Fulfillment page.
     """
 
     api_key: typing.Optional[str] = pydantic.Field(default=None)
     """
-    A Triple Whale Data-In API key with the `Ads: Write` scope, validated against Triple Whale before it is stored. Pass `null` to disconnect. Connecting for the first time backfills the account's existing ad spend.
+    A Triple Whale Data-In API key with the `Ads: Write` scope, validated against Triple Whale before it is stored. Pass `null` to disconnect. Connecting for the first time backfills the account's existing ad spend. Required unless you are only changing `shop_domain` on an already connected integration, in which case the stored key is reused.
     """
 
     shop_domain: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The exact shop domain configured in Triple Whale's Settings → Store (for Shopify this is the `.myshopify.com` domain; for a custom sales platform it's whatever domain Triple Whale assigned when the shop was set up there). Validated against Triple Whale — the API key must have access to it — before it is stored. Omit to fall back to a connected Shopify store's domain; there is no way to clear a stored value, only to overwrite it with a new domain.
+    The exact shop domain configured in Triple Whale's Settings → Store (for Shopify this is the `.myshopify.com` domain; for a custom sales platform it's whatever domain Triple Whale assigned when the shop was set up there). A leading `https://` and trailing `/` are stripped, and what remains must be a bare hostname with no path or spaces. Validated against Triple Whale — the API key must have access to it — before it is stored. Changing it on a connected integration backfills the account's ad spend onto the new shop. Omit to fall back to a connected Shopify store's domain; there is no way to clear a stored value, only to overwrite it with a new domain.
     """
 
     if IS_PYDANTIC_V2:
