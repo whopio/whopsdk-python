@@ -6,6 +6,7 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
+from ..types.cashback_payout import CashbackPayout
 from ..types.cashback_rule import CashbackRule
 from .raw_client import AsyncRawCashbackRulesClient, RawCashbackRulesClient
 from .types.list_cashback_rules_request_direction import ListCashbackRulesRequestDirection
@@ -174,6 +175,55 @@ class CashbackRulesClient:
             direction=direction,
             request_options=request_options,
         )
+
+    def payout(
+        self,
+        *,
+        account_id: typing.Optional[str] = OMIT,
+        cashback_rule_id: typing.Optional[str] = OMIT,
+        transaction_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> CashbackPayout:
+        """
+        Distributes cashback on demand from the authenticated platform's available USD balance to its direct connected accounts. Requires payout:transfer_funds. Optional filters combine; an empty body includes all eligible transactions. Only completed, unpaid transactions created before this request are considered. The latest matching rule wins; its funding account must be the authenticated platform. Amounts are calculated when processed. Returns status `processing` and echoes supplied filters when background processing is queued. Status `failed` with HTTP 200 means the queue rejected the request. This is not a payment confirmation. Failed transaction jobs retry automatically; insufficient funds requires adding USD to the funding wallet. Supports Idempotency-Key, and overlapping requests cannot pay the same card transaction twice.
+
+        Parameters
+        ----------
+        account_id : typing.Optional[str]
+            Pay only this direct connected account.
+
+        cashback_rule_id : typing.Optional[str]
+            Pay only transactions whose winning cashback rule has this ID and is funded by the authenticated platform.
+
+        transaction_id : typing.Optional[str]
+            Pay only this card transaction belonging to a direct connected account.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CashbackPayout
+            queue rejected the request
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-09-24",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.cashback_rules.payout()
+        """
+        _response = self._raw_client.payout(
+            account_id=account_id,
+            cashback_rule_id=cashback_rule_id,
+            transaction_id=transaction_id,
+            request_options=request_options,
+        )
+        return _response.data
 
     def update(
         self,
@@ -411,6 +461,63 @@ class AsyncCashbackRulesClient:
             direction=direction,
             request_options=request_options,
         )
+
+    async def payout(
+        self,
+        *,
+        account_id: typing.Optional[str] = OMIT,
+        cashback_rule_id: typing.Optional[str] = OMIT,
+        transaction_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> CashbackPayout:
+        """
+        Distributes cashback on demand from the authenticated platform's available USD balance to its direct connected accounts. Requires payout:transfer_funds. Optional filters combine; an empty body includes all eligible transactions. Only completed, unpaid transactions created before this request are considered. The latest matching rule wins; its funding account must be the authenticated platform. Amounts are calculated when processed. Returns status `processing` and echoes supplied filters when background processing is queued. Status `failed` with HTTP 200 means the queue rejected the request. This is not a payment confirmation. Failed transaction jobs retry automatically; insufficient funds requires adding USD to the funding wallet. Supports Idempotency-Key, and overlapping requests cannot pay the same card transaction twice.
+
+        Parameters
+        ----------
+        account_id : typing.Optional[str]
+            Pay only this direct connected account.
+
+        cashback_rule_id : typing.Optional[str]
+            Pay only transactions whose winning cashback rule has this ID and is funded by the authenticated platform.
+
+        transaction_id : typing.Optional[str]
+            Pay only this card transaction belonging to a direct connected account.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        CashbackPayout
+            queue rejected the request
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-09-24",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.cashback_rules.payout()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.payout(
+            account_id=account_id,
+            cashback_rule_id=cashback_rule_id,
+            transaction_id=transaction_id,
+            request_options=request_options,
+        )
+        return _response.data
 
     async def update(
         self,

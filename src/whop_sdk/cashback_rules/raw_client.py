@@ -17,6 +17,7 @@ from ..errors.conflict_error import ConflictError
 from ..errors.forbidden_error import ForbiddenError
 from ..errors.not_found_error import NotFoundError
 from ..errors.unauthorized_error import UnauthorizedError
+from ..types.cashback_payout import CashbackPayout
 from ..types.cashback_rule import CashbackRule
 from ..types.v1error_response import V1ErrorResponse
 from .types.list_cashback_rules_request_direction import ListCashbackRulesRequestDirection
@@ -281,6 +282,103 @@ class RawCashbackRulesClient:
                         typing.Any,
                         parse_obj_as(
                             type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def payout(
+        self,
+        *,
+        account_id: typing.Optional[str] = OMIT,
+        cashback_rule_id: typing.Optional[str] = OMIT,
+        transaction_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[CashbackPayout]:
+        """
+        Distributes cashback on demand from the authenticated platform's available USD balance to its direct connected accounts. Requires payout:transfer_funds. Optional filters combine; an empty body includes all eligible transactions. Only completed, unpaid transactions created before this request are considered. The latest matching rule wins; its funding account must be the authenticated platform. Amounts are calculated when processed. Returns status `processing` and echoes supplied filters when background processing is queued. Status `failed` with HTTP 200 means the queue rejected the request. This is not a payment confirmation. Failed transaction jobs retry automatically; insufficient funds requires adding USD to the funding wallet. Supports Idempotency-Key, and overlapping requests cannot pay the same card transaction twice.
+
+        Parameters
+        ----------
+        account_id : typing.Optional[str]
+            Pay only this direct connected account.
+
+        cashback_rule_id : typing.Optional[str]
+            Pay only transactions whose winning cashback rule has this ID and is funded by the authenticated platform.
+
+        transaction_id : typing.Optional[str]
+            Pay only this card transaction belonging to a direct connected account.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[CashbackPayout]
+            queue rejected the request
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "cashback_rules/payout",
+            base_url=self._client_wrapper.get_environment().api,
+            method="POST",
+            json={
+                "account_id": account_id,
+                "cashback_rule_id": cashback_rule_id,
+                "transaction_id": transaction_id,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    CashbackPayout,
+                    parse_obj_as(
+                        type_=CashbackPayout,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        V1ErrorResponse,
+                        parse_obj_as(
+                            type_=V1ErrorResponse,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -668,6 +766,103 @@ class AsyncRawCashbackRulesClient:
                         typing.Any,
                         parse_obj_as(
                             type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def payout(
+        self,
+        *,
+        account_id: typing.Optional[str] = OMIT,
+        cashback_rule_id: typing.Optional[str] = OMIT,
+        transaction_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[CashbackPayout]:
+        """
+        Distributes cashback on demand from the authenticated platform's available USD balance to its direct connected accounts. Requires payout:transfer_funds. Optional filters combine; an empty body includes all eligible transactions. Only completed, unpaid transactions created before this request are considered. The latest matching rule wins; its funding account must be the authenticated platform. Amounts are calculated when processed. Returns status `processing` and echoes supplied filters when background processing is queued. Status `failed` with HTTP 200 means the queue rejected the request. This is not a payment confirmation. Failed transaction jobs retry automatically; insufficient funds requires adding USD to the funding wallet. Supports Idempotency-Key, and overlapping requests cannot pay the same card transaction twice.
+
+        Parameters
+        ----------
+        account_id : typing.Optional[str]
+            Pay only this direct connected account.
+
+        cashback_rule_id : typing.Optional[str]
+            Pay only transactions whose winning cashback rule has this ID and is funded by the authenticated platform.
+
+        transaction_id : typing.Optional[str]
+            Pay only this card transaction belonging to a direct connected account.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[CashbackPayout]
+            queue rejected the request
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "cashback_rules/payout",
+            base_url=self._client_wrapper.get_environment().api,
+            method="POST",
+            json={
+                "account_id": account_id,
+                "cashback_rule_id": cashback_rule_id,
+                "transaction_id": transaction_id,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    CashbackPayout,
+                    parse_obj_as(
+                        type_=CashbackPayout,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        V1ErrorResponse,
+                        parse_obj_as(
+                            type_=V1ErrorResponse,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
