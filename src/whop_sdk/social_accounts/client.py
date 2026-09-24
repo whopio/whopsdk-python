@@ -380,6 +380,48 @@ class SocialAccountsClient:
             id, account_id=account_id, post_id=post_id, first=first, after=after, request_options=request_options
         )
 
+    def refresh(
+        self,
+        id: str,
+        *,
+        account_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SocialAccount:
+        """
+        Refreshes the state of a social account. Use it to clear an `error` that has been resolved.
+
+        Parameters
+        ----------
+        id : str
+            The social account (a sacc_ identifier) to refresh.
+
+        account_id : typing.Optional[str]
+            The Account (biz_ identifier) the social account is connected to. An account-scoped API key may omit this to default to its own account.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SocialAccount
+            refresh started
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-09-23",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.social_accounts.refresh(
+            id="id",
+        )
+        """
+        _response = self._raw_client.refresh(id, account_id=account_id, request_options=request_options)
+        return _response.data
+
 
 class AsyncSocialAccountsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -789,3 +831,53 @@ class AsyncSocialAccountsClient:
         return await self._raw_client.posts(
             id, account_id=account_id, post_id=post_id, first=first, after=after, request_options=request_options
         )
+
+    async def refresh(
+        self,
+        id: str,
+        *,
+        account_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SocialAccount:
+        """
+        Refreshes the state of a social account. Use it to clear an `error` that has been resolved.
+
+        Parameters
+        ----------
+        id : str
+            The social account (a sacc_ identifier) to refresh.
+
+        account_id : typing.Optional[str]
+            The Account (biz_ identifier) the social account is connected to. An account-scoped API key may omit this to default to its own account.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SocialAccount
+            refresh started
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-09-23",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.social_accounts.refresh(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.refresh(id, account_id=account_id, request_options=request_options)
+        return _response.data
