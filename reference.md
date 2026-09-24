@@ -31531,6 +31531,14 @@ client.plans.create()
 <dl>
 <dd>
 
+**attributes:** `typing.Optional[typing.Dict[str, typing.Any]]` — Attribute values that make this plan one variant of its product, as a map of attribute name to value, e.g. `{"size": "Large", "color": "Blue"}`. Names are normalized to snake_case identifiers (`Ring Size` becomes `ring_size`) and come back in alphabetical order. Every variant plan on a product must carry the same attribute names and a distinct set of values. Send `null` to make the plan an ordinary pricing option again.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **billing_period:** `typing.Optional[int]` — Recurring billing interval in days, such as 30 for monthly or 365 for annual.
     
 </dd>
@@ -31652,6 +31660,14 @@ client.plans.create()
 <dd>
 
 **renewal_price:** `typing.Optional[float]` — The amount charged each billing period for recurring plans, in the plan's currency. A paid fiat plan charges at least 1.00 in its currency.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sku:** `typing.Optional[str]` — Stock keeping unit for this plan. Maximum 100 characters. Free text, not enforced unique.
     
 </dd>
 </dl>
@@ -31942,6 +31958,14 @@ client.plans.update(
 <dl>
 <dd>
 
+**attributes:** `typing.Optional[typing.Dict[str, typing.Any]]` — Attribute values that make this plan one variant of its product, as a map of attribute name to value, e.g. `{"size": "Large", "color": "Blue"}`. Names are normalized to snake_case identifiers (`Ring Size` becomes `ring_size`) and come back in alphabetical order. Every variant plan on a product must carry the same attribute names and a distinct set of values. Send `null` to make the plan an ordinary pricing option again.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **billing_period:** `typing.Optional[int]` — Recurring billing interval in days, such as 30 for monthly or 365 for annual.
     
 </dd>
@@ -32071,6 +32095,14 @@ client.plans.update(
 <dd>
 
 **renewal_price:** `typing.Optional[float]` — The amount charged each billing period for recurring plans, in the plan's currency. A paid fiat plan charges at least 1.00 in its currency.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sku:** `typing.Optional[str]` — Stock keeping unit for this plan. Maximum 100 characters. Free text, not enforced unique.
     
 </dd>
 </dl>
