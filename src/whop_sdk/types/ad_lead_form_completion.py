@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .ad_lead_form_completion_button_type import AdLeadFormCompletionButtonType
 
 
 class AdLeadFormCompletion(UniversalBaseModel):
@@ -12,9 +13,19 @@ class AdLeadFormCompletion(UniversalBaseModel):
     Text of the follow-up button.
     """
 
+    button_type: typing.Optional[AdLeadFormCompletionButtonType] = pydantic.Field(default=None)
+    """
+    What the follow-up button does. `null` on forms saved before the button was configurable.
+    """
+
     description: typing.Optional[str] = pydantic.Field(default=None)
     """
     Body text under the headline.
+    """
+
+    file_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    File the follow-up button opens. Set when `button_type` is `download`.
     """
 
     headline: typing.Optional[str] = pydantic.Field(default=None)
@@ -22,9 +33,14 @@ class AdLeadFormCompletion(UniversalBaseModel):
     Headline of the completion screen.
     """
 
+    phone_number: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Number the follow-up button calls. Set when `button_type` is `call`.
+    """
+
     url: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Website the follow-up button opens. `null` when the screen has no button.
+    Website the follow-up button opens. Set when `button_type` is `website`.
     """
 
     if IS_PYDANTIC_V2:

@@ -4,16 +4,20 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .create_ads_request_lead_form_completion_button_type import CreateAdsRequestLeadFormCompletionButtonType
 
 
 class CreateAdsRequestLeadFormCompletion(UniversalBaseModel):
     """
-    Optional completion screen shown after submission; url sets the follow-up website button.
+    Optional completion screen shown after submission. Its button needs a destination: url for button_type website (the default), phone_number for call, file_url for download.
     """
 
     button_text: typing.Optional[str] = None
+    button_type: typing.Optional[CreateAdsRequestLeadFormCompletionButtonType] = None
     description: typing.Optional[str] = None
+    file_url: typing.Optional[str] = None
     headline: typing.Optional[str] = None
+    phone_number: typing.Optional[str] = None
     url: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
