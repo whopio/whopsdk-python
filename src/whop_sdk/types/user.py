@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .social_account import SocialAccount
+from .trading_account import TradingAccount
 from .user_balance import UserBalance
 from .user_balance_history import UserBalanceHistory
 from .user_banner import UserBanner
@@ -68,6 +69,11 @@ class User(UniversalBaseModel):
     staff: typing.Optional[UserStaffAccess] = pydantic.Field(default=None)
     """
     Whop staff access flags. Populated only on the self view (retrieved with the reserved id `me`) for callers with staff-read scope; `null` there for every user who is not Whop staff, and always `null` elsewhere.
+    """
+
+    trading: typing.Optional[TradingAccount] = pydantic.Field(default=None)
+    """
+    Live trading state. Opt in with `include_trading=true` when retrieving `me`; `null` otherwise, without trading permission, or without an Ethereum wallet. Provider failures return an error, not a zero balance.
     """
 
     username: str = pydantic.Field()

@@ -18,6 +18,7 @@ from ..errors.bad_request_error import BadRequestError
 from ..errors.conflict_error import ConflictError
 from ..errors.forbidden_error import ForbiddenError
 from ..errors.not_found_error import NotFoundError
+from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.account import Account
 from ..types.v1error_response import V1ErrorResponse
@@ -363,12 +364,17 @@ class RawAccountsClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def me(self, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[Account]:
+    def me(
+        self, *, include_trading: typing.Optional[bool] = None, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[Account]:
         """
         Retrieves the account associated with the current Account API key.
 
         Parameters
         ----------
+        include_trading : typing.Optional[bool]
+            Also retrieve live trading state under `trading`. Requires crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet; null otherwise. Provider failures return 503.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -381,6 +387,9 @@ class RawAccountsClient:
             "accounts/me",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
+            params={
+                "include_trading": include_trading,
+            },
             request_options=request_options,
         )
         try:
@@ -415,6 +424,17 @@ class RawAccountsClient:
                         ),
                     ),
                 )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        V1ErrorResponse,
+                        parse_obj_as(
+                            type_=V1ErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -424,7 +444,13 @@ class RawAccountsClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[Account]:
+    def retrieve(
+        self,
+        id: str,
+        *,
+        include_trading: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[Account]:
         """
         Retrieves a single account by ID or public route when it is visible to the credential, including its crypto wallet. The reserved id `me` retrieves the account associated with the current Account API key; user tokens have no single account, so they must address one by ID or route.
 
@@ -432,6 +458,9 @@ class RawAccountsClient:
         ----------
         id : str
             Account ID, prefixed `biz_`, its public route, or `me` for the account associated with the current API key.
+
+        include_trading : typing.Optional[bool]
+            Also retrieve live trading state under `trading`. Requires crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet; null otherwise. Provider failures return 503.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -445,6 +474,9 @@ class RawAccountsClient:
             f"accounts/{encode_path_param(id)}",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
+            params={
+                "include_trading": include_trading,
+            },
             request_options=request_options,
         )
         try:
@@ -486,6 +518,17 @@ class RawAccountsClient:
                         typing.Any,
                         parse_obj_as(
                             type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        V1ErrorResponse,
+                        parse_obj_as(
+                            type_=V1ErrorResponse,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1632,12 +1675,17 @@ class AsyncRawAccountsClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def me(self, *, request_options: typing.Optional[RequestOptions] = None) -> AsyncHttpResponse[Account]:
+    async def me(
+        self, *, include_trading: typing.Optional[bool] = None, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[Account]:
         """
         Retrieves the account associated with the current Account API key.
 
         Parameters
         ----------
+        include_trading : typing.Optional[bool]
+            Also retrieve live trading state under `trading`. Requires crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet; null otherwise. Provider failures return 503.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1650,6 +1698,9 @@ class AsyncRawAccountsClient:
             "accounts/me",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
+            params={
+                "include_trading": include_trading,
+            },
             request_options=request_options,
         )
         try:
@@ -1684,6 +1735,17 @@ class AsyncRawAccountsClient:
                         ),
                     ),
                 )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        V1ErrorResponse,
+                        parse_obj_as(
+                            type_=V1ErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -1694,7 +1756,11 @@ class AsyncRawAccountsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def retrieve(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        id: str,
+        *,
+        include_trading: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Account]:
         """
         Retrieves a single account by ID or public route when it is visible to the credential, including its crypto wallet. The reserved id `me` retrieves the account associated with the current Account API key; user tokens have no single account, so they must address one by ID or route.
@@ -1703,6 +1769,9 @@ class AsyncRawAccountsClient:
         ----------
         id : str
             Account ID, prefixed `biz_`, its public route, or `me` for the account associated with the current API key.
+
+        include_trading : typing.Optional[bool]
+            Also retrieve live trading state under `trading`. Requires crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet; null otherwise. Provider failures return 503.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1716,6 +1785,9 @@ class AsyncRawAccountsClient:
             f"accounts/{encode_path_param(id)}",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
+            params={
+                "include_trading": include_trading,
+            },
             request_options=request_options,
         )
         try:
@@ -1757,6 +1829,17 @@ class AsyncRawAccountsClient:
                         typing.Any,
                         parse_obj_as(
                             type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        V1ErrorResponse,
+                        parse_obj_as(
+                            type_=V1ErrorResponse,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

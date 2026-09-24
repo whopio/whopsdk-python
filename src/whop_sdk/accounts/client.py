@@ -147,7 +147,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -230,7 +230,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -249,12 +249,17 @@ class AccountsClient:
         )
         return _response.data
 
-    def me(self, *, request_options: typing.Optional[RequestOptions] = None) -> Account:
+    def me(
+        self, *, include_trading: typing.Optional[bool] = None, request_options: typing.Optional[RequestOptions] = None
+    ) -> Account:
         """
         Retrieves the account associated with the current Account API key.
 
         Parameters
         ----------
+        include_trading : typing.Optional[bool]
+            Also retrieve live trading state under `trading`. Requires crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet; null otherwise. Provider failures return 503.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -268,16 +273,22 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.accounts.me()
         """
-        _response = self._raw_client.me(request_options=request_options)
+        _response = self._raw_client.me(include_trading=include_trading, request_options=request_options)
         return _response.data
 
-    def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Account:
+    def retrieve(
+        self,
+        id: str,
+        *,
+        include_trading: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> Account:
         """
         Retrieves a single account by ID or public route when it is visible to the credential, including its crypto wallet. The reserved id `me` retrieves the account associated with the current Account API key; user tokens have no single account, so they must address one by ID or route.
 
@@ -285,6 +296,9 @@ class AccountsClient:
         ----------
         id : str
             Account ID, prefixed `biz_`, its public route, or `me` for the account associated with the current API key.
+
+        include_trading : typing.Optional[bool]
+            Also retrieve live trading state under `trading`. Requires crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet; null otherwise. Provider failures return 503.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -299,7 +313,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -307,7 +321,7 @@ class AccountsClient:
             id="id",
         )
         """
-        _response = self._raw_client.retrieve(id, request_options=request_options)
+        _response = self._raw_client.retrieve(id, include_trading=include_trading, request_options=request_options)
         return _response.data
 
     def update(
@@ -519,7 +533,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -667,7 +681,7 @@ class AccountsClient:
         )
 
         client = Whop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -763,7 +777,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -796,7 +810,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -846,7 +860,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -981,7 +995,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1073,7 +1087,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1098,12 +1112,17 @@ class AsyncAccountsClient:
         )
         return _response.data
 
-    async def me(self, *, request_options: typing.Optional[RequestOptions] = None) -> Account:
+    async def me(
+        self, *, include_trading: typing.Optional[bool] = None, request_options: typing.Optional[RequestOptions] = None
+    ) -> Account:
         """
         Retrieves the account associated with the current Account API key.
 
         Parameters
         ----------
+        include_trading : typing.Optional[bool]
+            Also retrieve live trading state under `trading`. Requires crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet; null otherwise. Provider failures return 503.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1119,7 +1138,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1131,10 +1150,16 @@ class AsyncAccountsClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.me(request_options=request_options)
+        _response = await self._raw_client.me(include_trading=include_trading, request_options=request_options)
         return _response.data
 
-    async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Account:
+    async def retrieve(
+        self,
+        id: str,
+        *,
+        include_trading: typing.Optional[bool] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> Account:
         """
         Retrieves a single account by ID or public route when it is visible to the credential, including its crypto wallet. The reserved id `me` retrieves the account associated with the current Account API key; user tokens have no single account, so they must address one by ID or route.
 
@@ -1142,6 +1167,9 @@ class AsyncAccountsClient:
         ----------
         id : str
             Account ID, prefixed `biz_`, its public route, or `me` for the account associated with the current API key.
+
+        include_trading : typing.Optional[bool]
+            Also retrieve live trading state under `trading`. Requires crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet; null otherwise. Provider failures return 503.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1158,7 +1186,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1172,7 +1200,9 @@ class AsyncAccountsClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.retrieve(id, request_options=request_options)
+        _response = await self._raw_client.retrieve(
+            id, include_trading=include_trading, request_options=request_options
+        )
         return _response.data
 
     async def update(
@@ -1386,7 +1416,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1542,7 +1572,7 @@ class AsyncAccountsClient:
         )
 
         client = AsyncWhop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1646,7 +1676,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1687,7 +1717,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1745,7 +1775,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-22-4",
+            "2026-09-23",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

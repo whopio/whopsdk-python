@@ -491,7 +491,7 @@ client.accounts.create()
 </dl>
 </details>
 
-<details><summary><code>client.accounts.<a href="src/whop_sdk/accounts/client.py">me</a>() -> Account</code></summary>
+<details><summary><code>client.accounts.<a href="src/whop_sdk/accounts/client.py">me</a>(...) -> Account</code></summary>
 <dl>
 <dd>
 
@@ -538,6 +538,14 @@ client.accounts.me()
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**include_trading:** `typing.Optional[bool]` — Also retrieve live trading state under `trading`. Requires crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet; null otherwise. Provider failures return 503.
+    
+</dd>
+</dl>
 
 <dl>
 <dd>
@@ -608,6 +616,14 @@ client.accounts.retrieve(
 <dd>
 
 **id:** `str` — Account ID, prefixed `biz_`, its public route, or `me` for the account associated with the current API key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_trading:** `typing.Optional[bool]` — Also retrieve live trading state under `trading`. Requires crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet; null otherwise. Provider failures return 503.
     
 </dd>
 </dl>
@@ -39877,6 +39893,14 @@ client.users.me()
 <dl>
 <dd>
 
+**include_trading:** `typing.Optional[bool]` — Also retrieve live trading state under `trading`. Only honored on the self view (me) with crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet. Provider failures return 503.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **account_id:** `typing.Optional[str]` — When set, returns your account-specific profile overrides for this account.
     
 </dd>
@@ -40110,6 +40134,14 @@ client.users.retrieve(
 <dd>
 
 **id:** `str` — User ID (prefixed `user_`), username, or `me` for the authenticated user.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_trading:** `typing.Optional[bool]` — Also retrieve live trading state under `trading`. Only honored on the self view (me) with crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet. Provider failures return 503.
     
 </dd>
 </dl>

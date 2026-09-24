@@ -255,6 +255,8 @@ PermissionAction = typing.Union[
         "checkout_request:basic:read",
         "crypto_wallet:manage",
         "crypto_wallet:swap",
+        "crypto_wallet:trade",
+        "crypto_wallet:trade:read",
         "airdrop_link:basic:read",
         "airdrop_link:manage",
         "lead:manage",
