@@ -22,6 +22,7 @@ if typing.TYPE_CHECKING:
         RetrievePreferencesResponseAdsTripleWhaleIntegration,
         RetrievePreferencesResponseAdsTripleWhaleIntegrationStatus,
         RetrievePreferencesResponseEconomicIntelligenceOffersItem,
+        RetrievePreferencesResponseSubscriptionFailureBehavior,
         UpdatePreferencesRequestAdsCertificationsValue,
         UpdatePreferencesRequestAdsCertificationsValueStatus,
         UpdatePreferencesRequestAdsPaymentMethods,
@@ -30,6 +31,7 @@ if typing.TYPE_CHECKING:
         UpdatePreferencesRequestAdsPaymentMethodsPrimary,
         UpdatePreferencesRequestAdsPaymentMethodsPrimaryType,
         UpdatePreferencesRequestAdsTripleWhaleIntegration,
+        UpdatePreferencesRequestSubscriptionFailureBehavior,
         UpdatePreferencesResponse,
         UpdatePreferencesResponseAdsAgreement,
         UpdatePreferencesResponseAdsAgreementStatus,
@@ -45,6 +47,7 @@ if typing.TYPE_CHECKING:
         UpdatePreferencesResponseAdsTripleWhaleIntegration,
         UpdatePreferencesResponseAdsTripleWhaleIntegrationStatus,
         UpdatePreferencesResponseEconomicIntelligenceOffersItem,
+        UpdatePreferencesResponseSubscriptionFailureBehavior,
     )
 _dynamic_imports: typing.Dict[str, str] = {
     "RetrievePreferencesResponse": ".types",
@@ -62,6 +65,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrievePreferencesResponseAdsTripleWhaleIntegration": ".types",
     "RetrievePreferencesResponseAdsTripleWhaleIntegrationStatus": ".types",
     "RetrievePreferencesResponseEconomicIntelligenceOffersItem": ".types",
+    "RetrievePreferencesResponseSubscriptionFailureBehavior": ".types",
     "UpdatePreferencesRequestAdsCertificationsValue": ".types",
     "UpdatePreferencesRequestAdsCertificationsValueStatus": ".types",
     "UpdatePreferencesRequestAdsPaymentMethods": ".types",
@@ -70,6 +74,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatePreferencesRequestAdsPaymentMethodsPrimary": ".types",
     "UpdatePreferencesRequestAdsPaymentMethodsPrimaryType": ".types",
     "UpdatePreferencesRequestAdsTripleWhaleIntegration": ".types",
+    "UpdatePreferencesRequestSubscriptionFailureBehavior": ".types",
     "UpdatePreferencesResponse": ".types",
     "UpdatePreferencesResponseAdsAgreement": ".types",
     "UpdatePreferencesResponseAdsAgreementStatus": ".types",
@@ -85,6 +90,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatePreferencesResponseAdsTripleWhaleIntegration": ".types",
     "UpdatePreferencesResponseAdsTripleWhaleIntegrationStatus": ".types",
     "UpdatePreferencesResponseEconomicIntelligenceOffersItem": ".types",
+    "UpdatePreferencesResponseSubscriptionFailureBehavior": ".types",
 }
 
 
@@ -125,6 +131,7 @@ __all__ = [
     "RetrievePreferencesResponseAdsTripleWhaleIntegration",
     "RetrievePreferencesResponseAdsTripleWhaleIntegrationStatus",
     "RetrievePreferencesResponseEconomicIntelligenceOffersItem",
+    "RetrievePreferencesResponseSubscriptionFailureBehavior",
     "UpdatePreferencesRequestAdsCertificationsValue",
     "UpdatePreferencesRequestAdsCertificationsValueStatus",
     "UpdatePreferencesRequestAdsPaymentMethods",
@@ -133,6 +140,7 @@ __all__ = [
     "UpdatePreferencesRequestAdsPaymentMethodsPrimary",
     "UpdatePreferencesRequestAdsPaymentMethodsPrimaryType",
     "UpdatePreferencesRequestAdsTripleWhaleIntegration",
+    "UpdatePreferencesRequestSubscriptionFailureBehavior",
     "UpdatePreferencesResponse",
     "UpdatePreferencesResponseAdsAgreement",
     "UpdatePreferencesResponseAdsAgreementStatus",
@@ -148,4 +156,5 @@ __all__ = [
     "UpdatePreferencesResponseAdsTripleWhaleIntegration",
     "UpdatePreferencesResponseAdsTripleWhaleIntegrationStatus",
     "UpdatePreferencesResponseEconomicIntelligenceOffersItem",
+    "UpdatePreferencesResponseSubscriptionFailureBehavior",
 ]

@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .account_economic_intelligence_offer import AccountEconomicIntelligenceOffer
+from .account_preferences_subscription_failure_behavior import AccountPreferencesSubscriptionFailureBehavior
 
 
 class AccountPreferences(UniversalBaseModel):
@@ -60,6 +61,10 @@ class AccountPreferences(UniversalBaseModel):
     """
 
     economic_intelligence_offers: typing.Optional[typing.List[AccountEconomicIntelligenceOffer]] = None
+    subscription_failure_behavior: AccountPreferencesSubscriptionFailureBehavior = pydantic.Field()
+    """
+    What happens to a subscription once every retry of a renewal payment has failed. `cancel` (the default) cancels it. `none` leaves it past due and keeps billing it each period; access follows the account's past-due access setting.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

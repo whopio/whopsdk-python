@@ -11,6 +11,9 @@ from .update_preferences_response_ads_triple_whale_integration import UpdatePref
 from .update_preferences_response_economic_intelligence_offers_item import (
     UpdatePreferencesResponseEconomicIntelligenceOffersItem,
 )
+from .update_preferences_response_subscription_failure_behavior import (
+    UpdatePreferencesResponseSubscriptionFailureBehavior,
+)
 
 
 class UpdatePreferencesResponse(UniversalBaseModel):
@@ -74,6 +77,11 @@ class UpdatePreferencesResponse(UniversalBaseModel):
     ] = pydantic.Field(default=None)
     """
     Durations the account can choose from to turn on Economic Intelligence, each with its fee. `null` while Economic Intelligence is on or during a free trial.
+    """
+
+    subscription_failure_behavior: UpdatePreferencesResponseSubscriptionFailureBehavior = pydantic.Field()
+    """
+    What happens to a subscription once every retry of a renewal payment has failed. `cancel` (the default) cancels it. `none` leaves it past due and keeps billing it each period; access follows the account's past-due access setting.
     """
 
     if IS_PYDANTIC_V2:
