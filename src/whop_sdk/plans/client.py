@@ -156,6 +156,7 @@ class PlansClient:
         *,
         account_id: typing.Optional[str] = OMIT,
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
+        attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
         checkout_styling: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         currency: typing.Optional[str] = OMIT,
@@ -172,6 +173,7 @@ class PlansClient:
         product_id: typing.Optional[str] = OMIT,
         release_method: typing.Optional[str] = OMIT,
         renewal_price: typing.Optional[float] = OMIT,
+        sku: typing.Optional[str] = OMIT,
         split_pay_required_payments: typing.Optional[int] = OMIT,
         stock: typing.Optional[int] = OMIT,
         three_ds_level: typing.Optional[CreatePlansRequestThreeDsLevel] = OMIT,
@@ -191,6 +193,9 @@ class PlansClient:
 
         adaptive_pricing_enabled : typing.Optional[bool]
             Whether this plan accepts local currency payments via adaptive pricing.
+
+        attributes : typing.Optional[typing.Dict[str, typing.Any]]
+            Attribute values that make this plan one variant of its product, as a map of attribute name to value, e.g. `{"size": "Large", "color": "Blue"}`. Names are normalized to snake_case identifiers (`Ring Size` becomes `ring_size`) and come back in alphabetical order. Every variant plan on a product must carry the same attribute names and a distinct set of values. Send `null` to make the plan an ordinary pricing option again.
 
         billing_period : typing.Optional[int]
             Recurring billing interval in days, such as 30 for monthly or 365 for annual.
@@ -240,6 +245,9 @@ class PlansClient:
         renewal_price : typing.Optional[float]
             The amount charged each billing period for recurring plans, in the plan's currency. A paid fiat plan charges at least 1.00 in its currency.
 
+        sku : typing.Optional[str]
+            Stock keeping unit for this plan. Maximum 100 characters. Free text, not enforced unique.
+
         split_pay_required_payments : typing.Optional[int]
             Installment payments required before the subscription pauses.
 
@@ -283,6 +291,7 @@ class PlansClient:
         _response = self._raw_client.create(
             account_id=account_id,
             adaptive_pricing_enabled=adaptive_pricing_enabled,
+            attributes=attributes,
             billing_period=billing_period,
             checkout_styling=checkout_styling,
             currency=currency,
@@ -299,6 +308,7 @@ class PlansClient:
             product_id=product_id,
             release_method=release_method,
             renewal_price=renewal_price,
+            sku=sku,
             split_pay_required_payments=split_pay_required_payments,
             stock=stock,
             three_ds_level=three_ds_level,
@@ -381,6 +391,7 @@ class PlansClient:
         id: str,
         *,
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
+        attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
         cancel_discount_intervals: typing.Optional[int] = OMIT,
         cancel_discount_percentage: typing.Optional[int] = OMIT,
@@ -398,6 +409,7 @@ class PlansClient:
         payment_method_configuration: typing.Optional[UpdatePlansRequestPaymentMethodConfiguration] = OMIT,
         release_method: typing.Optional[str] = OMIT,
         renewal_price: typing.Optional[float] = OMIT,
+        sku: typing.Optional[str] = OMIT,
         stock: typing.Optional[int] = OMIT,
         strike_through_initial_price: typing.Optional[float] = OMIT,
         strike_through_renewal_price: typing.Optional[float] = OMIT,
@@ -418,6 +430,9 @@ class PlansClient:
 
         adaptive_pricing_enabled : typing.Optional[bool]
             Whether this plan accepts local currency payments via adaptive pricing.
+
+        attributes : typing.Optional[typing.Dict[str, typing.Any]]
+            Attribute values that make this plan one variant of its product, as a map of attribute name to value, e.g. `{"size": "Large", "color": "Blue"}`. Names are normalized to snake_case identifiers (`Ring Size` becomes `ring_size`) and come back in alphabetical order. Every variant plan on a product must carry the same attribute names and a distinct set of values. Send `null` to make the plan an ordinary pricing option again.
 
         billing_period : typing.Optional[int]
             Recurring billing interval in days, such as 30 for monthly or 365 for annual.
@@ -470,6 +485,9 @@ class PlansClient:
         renewal_price : typing.Optional[float]
             The amount charged each billing period for recurring plans, in the plan's currency. A paid fiat plan charges at least 1.00 in its currency.
 
+        sku : typing.Optional[str]
+            Stock keeping unit for this plan. Maximum 100 characters. Free text, not enforced unique.
+
         stock : typing.Optional[int]
             The maximum number of units available for purchase. Ignored when unlimited_stock is true.
 
@@ -518,6 +536,7 @@ class PlansClient:
         _response = self._raw_client.update(
             id,
             adaptive_pricing_enabled=adaptive_pricing_enabled,
+            attributes=attributes,
             billing_period=billing_period,
             cancel_discount_intervals=cancel_discount_intervals,
             cancel_discount_percentage=cancel_discount_percentage,
@@ -535,6 +554,7 @@ class PlansClient:
             payment_method_configuration=payment_method_configuration,
             release_method=release_method,
             renewal_price=renewal_price,
+            sku=sku,
             stock=stock,
             strike_through_initial_price=strike_through_initial_price,
             strike_through_renewal_price=strike_through_renewal_price,
@@ -742,6 +762,7 @@ class AsyncPlansClient:
         *,
         account_id: typing.Optional[str] = OMIT,
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
+        attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
         checkout_styling: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         currency: typing.Optional[str] = OMIT,
@@ -758,6 +779,7 @@ class AsyncPlansClient:
         product_id: typing.Optional[str] = OMIT,
         release_method: typing.Optional[str] = OMIT,
         renewal_price: typing.Optional[float] = OMIT,
+        sku: typing.Optional[str] = OMIT,
         split_pay_required_payments: typing.Optional[int] = OMIT,
         stock: typing.Optional[int] = OMIT,
         three_ds_level: typing.Optional[CreatePlansRequestThreeDsLevel] = OMIT,
@@ -777,6 +799,9 @@ class AsyncPlansClient:
 
         adaptive_pricing_enabled : typing.Optional[bool]
             Whether this plan accepts local currency payments via adaptive pricing.
+
+        attributes : typing.Optional[typing.Dict[str, typing.Any]]
+            Attribute values that make this plan one variant of its product, as a map of attribute name to value, e.g. `{"size": "Large", "color": "Blue"}`. Names are normalized to snake_case identifiers (`Ring Size` becomes `ring_size`) and come back in alphabetical order. Every variant plan on a product must carry the same attribute names and a distinct set of values. Send `null` to make the plan an ordinary pricing option again.
 
         billing_period : typing.Optional[int]
             Recurring billing interval in days, such as 30 for monthly or 365 for annual.
@@ -825,6 +850,9 @@ class AsyncPlansClient:
 
         renewal_price : typing.Optional[float]
             The amount charged each billing period for recurring plans, in the plan's currency. A paid fiat plan charges at least 1.00 in its currency.
+
+        sku : typing.Optional[str]
+            Stock keeping unit for this plan. Maximum 100 characters. Free text, not enforced unique.
 
         split_pay_required_payments : typing.Optional[int]
             Installment payments required before the subscription pauses.
@@ -877,6 +905,7 @@ class AsyncPlansClient:
         _response = await self._raw_client.create(
             account_id=account_id,
             adaptive_pricing_enabled=adaptive_pricing_enabled,
+            attributes=attributes,
             billing_period=billing_period,
             checkout_styling=checkout_styling,
             currency=currency,
@@ -893,6 +922,7 @@ class AsyncPlansClient:
             product_id=product_id,
             release_method=release_method,
             renewal_price=renewal_price,
+            sku=sku,
             split_pay_required_payments=split_pay_required_payments,
             stock=stock,
             three_ds_level=three_ds_level,
@@ -991,6 +1021,7 @@ class AsyncPlansClient:
         id: str,
         *,
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
+        attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
         cancel_discount_intervals: typing.Optional[int] = OMIT,
         cancel_discount_percentage: typing.Optional[int] = OMIT,
@@ -1008,6 +1039,7 @@ class AsyncPlansClient:
         payment_method_configuration: typing.Optional[UpdatePlansRequestPaymentMethodConfiguration] = OMIT,
         release_method: typing.Optional[str] = OMIT,
         renewal_price: typing.Optional[float] = OMIT,
+        sku: typing.Optional[str] = OMIT,
         stock: typing.Optional[int] = OMIT,
         strike_through_initial_price: typing.Optional[float] = OMIT,
         strike_through_renewal_price: typing.Optional[float] = OMIT,
@@ -1028,6 +1060,9 @@ class AsyncPlansClient:
 
         adaptive_pricing_enabled : typing.Optional[bool]
             Whether this plan accepts local currency payments via adaptive pricing.
+
+        attributes : typing.Optional[typing.Dict[str, typing.Any]]
+            Attribute values that make this plan one variant of its product, as a map of attribute name to value, e.g. `{"size": "Large", "color": "Blue"}`. Names are normalized to snake_case identifiers (`Ring Size` becomes `ring_size`) and come back in alphabetical order. Every variant plan on a product must carry the same attribute names and a distinct set of values. Send `null` to make the plan an ordinary pricing option again.
 
         billing_period : typing.Optional[int]
             Recurring billing interval in days, such as 30 for monthly or 365 for annual.
@@ -1079,6 +1114,9 @@ class AsyncPlansClient:
 
         renewal_price : typing.Optional[float]
             The amount charged each billing period for recurring plans, in the plan's currency. A paid fiat plan charges at least 1.00 in its currency.
+
+        sku : typing.Optional[str]
+            Stock keeping unit for this plan. Maximum 100 characters. Free text, not enforced unique.
 
         stock : typing.Optional[int]
             The maximum number of units available for purchase. Ignored when unlimited_stock is true.
@@ -1136,6 +1174,7 @@ class AsyncPlansClient:
         _response = await self._raw_client.update(
             id,
             adaptive_pricing_enabled=adaptive_pricing_enabled,
+            attributes=attributes,
             billing_period=billing_period,
             cancel_discount_intervals=cancel_discount_intervals,
             cancel_discount_percentage=cancel_discount_percentage,
@@ -1153,6 +1192,7 @@ class AsyncPlansClient:
             payment_method_configuration=payment_method_configuration,
             release_method=release_method,
             renewal_price=renewal_price,
+            sku=sku,
             stock=stock,
             strike_through_initial_price=strike_through_initial_price,
             strike_through_renewal_price=strike_through_renewal_price,

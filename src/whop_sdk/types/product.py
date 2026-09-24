@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .plan_list_item import PlanListItem
 from .product_custom_cta import ProductCustomCta
 from .product_gallery_image import ProductGalleryImage
 from .product_global_affiliate_status import ProductGlobalAffiliateStatus
@@ -135,6 +136,12 @@ class Product(UniversalBaseModel):
     When the product was last updated, as an ISO 8601 timestamp.
     """
 
+    variant_attributes: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
+    """
+    The option set the product's variants span, as a map of attribute name to the values in use, e.g. `{"color": ["Blue", "Red"], "size": ["S", "M", "L"]}`. Derived from the visible, non-invoice plans that carry `attributes`: keys alphabetical, values in the order the plans were created. Read-only. `null` when the product has no variants.
+    """
+
+    variants: typing.Optional[typing.List[PlanListItem]] = None
     verified: bool = pydantic.Field()
     """
     Whether the product has been verified by Whop.

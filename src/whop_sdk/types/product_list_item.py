@@ -81,6 +81,11 @@ class ProductListItem(UniversalBaseModel):
     When the product was last updated, as an ISO 8601 timestamp.
     """
 
+    variant_attributes: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
+    """
+    The option set the product's variants span, as a map of attribute name to the values in use, e.g. `{"color": ["Blue", "Red"], "size": ["S", "M", "L"]}`. Derived from the visible, non-invoice plans that carry `attributes`: keys alphabetical, values in the order the plans were created. Read-only. `null` when the product has no variants.
+    """
+
     verified: bool = pydantic.Field()
     """
     Whether the product has been verified by Whop.

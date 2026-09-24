@@ -24,6 +24,11 @@ class PlanListItem(UniversalBaseModel):
     Whether adaptive pricing is enabled for this plan. Raw setting — does not check processor compatibility or feature flags.
     """
 
+    attributes: typing.Optional[typing.Dict[str, typing.Optional[str]]] = pydantic.Field(default=None)
+    """
+    Attribute values that make this plan one variant of its product, as a map of attribute name to value, e.g. `{"color": "Blue", "size": "Large"}`. Names are snake_case identifiers and come back in alphabetical order. Every variant plan on a product carries the same attribute names and a distinct set of values; the product lists the full option set as `variant_attributes`. `null` for a plan that is not a variant.
+    """
+
     billing_period: typing.Optional[float] = pydantic.Field(default=None)
     """
     Number of days between recurring charges, such as 30 for monthly or 365 for annual. `null` for one-time plans.
@@ -145,6 +150,11 @@ class PlanListItem(UniversalBaseModel):
     Recurring price charged every billing period.
     """
 
+    sku: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Stock keeping unit, free text set by the seller (e.g. `TSHIRT-LARGE-BLUE`). Not enforced unique. `null` when unset.
+    """
+
     split_pay_required_payments: typing.Optional[float] = pydantic.Field(default=None)
     """
     Installment payments required before the subscription pauses. Must be greater than 1. `null` if split pay is not configured.
@@ -172,7 +182,7 @@ class PlanListItem(UniversalBaseModel):
 
     title: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Plan display name shown to customers. Maximum 30 characters. `null` if no title has been set.
+    Plan display name shown to customers. Maximum 30 characters. A variant created without one defaults to its attribute values joined with ` / `. `null` if no title has been set.
     """
 
     trial_period_days: typing.Optional[float] = pydantic.Field(default=None)
