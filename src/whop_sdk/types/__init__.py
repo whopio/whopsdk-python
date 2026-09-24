@@ -180,6 +180,7 @@ if typing.TYPE_CHECKING:
     from .ad_group_targeting_category import AdGroupTargetingCategory
     from .ad_lead_form import AdLeadForm
     from .ad_lead_form_completion import AdLeadFormCompletion
+    from .ad_lead_form_completion_button_type import AdLeadFormCompletionButtonType
     from .ad_lead_form_disclaimer import AdLeadFormDisclaimer
     from .ad_lead_form_disclaimer_checkbox import AdLeadFormDisclaimerCheckbox
     from .ad_lead_form_form_type import AdLeadFormFormType
@@ -1564,6 +1565,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdGroupTargetingCategory": ".ad_group_targeting_category",
     "AdLeadForm": ".ad_lead_form",
     "AdLeadFormCompletion": ".ad_lead_form_completion",
+    "AdLeadFormCompletionButtonType": ".ad_lead_form_completion_button_type",
     "AdLeadFormDisclaimer": ".ad_lead_form_disclaimer",
     "AdLeadFormDisclaimerCheckbox": ".ad_lead_form_disclaimer_checkbox",
     "AdLeadFormFormType": ".ad_lead_form_form_type",
@@ -2836,6 +2838,7 @@ __all__ = [
     "AdGroupTargetingCategory",
     "AdLeadForm",
     "AdLeadFormCompletion",
+    "AdLeadFormCompletionButtonType",
     "AdLeadFormDisclaimer",
     "AdLeadFormDisclaimerCheckbox",
     "AdLeadFormFormType",

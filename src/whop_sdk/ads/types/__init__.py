@@ -12,6 +12,7 @@ if typing.TYPE_CHECKING:
     from .create_ads_request_creatives_item_format import CreateAdsRequestCreativesItemFormat
     from .create_ads_request_lead_form import CreateAdsRequestLeadForm
     from .create_ads_request_lead_form_completion import CreateAdsRequestLeadFormCompletion
+    from .create_ads_request_lead_form_completion_button_type import CreateAdsRequestLeadFormCompletionButtonType
     from .create_ads_request_lead_form_disclaimer import CreateAdsRequestLeadFormDisclaimer
     from .create_ads_request_lead_form_disclaimer_checkboxes_item import (
         CreateAdsRequestLeadFormDisclaimerCheckboxesItem,
@@ -59,6 +60,7 @@ if typing.TYPE_CHECKING:
     from .update_ads_request_creatives_item_format import UpdateAdsRequestCreativesItemFormat
     from .update_ads_request_lead_form import UpdateAdsRequestLeadForm
     from .update_ads_request_lead_form_completion import UpdateAdsRequestLeadFormCompletion
+    from .update_ads_request_lead_form_completion_button_type import UpdateAdsRequestLeadFormCompletionButtonType
     from .update_ads_request_lead_form_disclaimer import UpdateAdsRequestLeadFormDisclaimer
     from .update_ads_request_lead_form_disclaimer_checkboxes_item import (
         UpdateAdsRequestLeadFormDisclaimerCheckboxesItem,
@@ -89,6 +91,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateAdsRequestCreativesItemFormat": ".create_ads_request_creatives_item_format",
     "CreateAdsRequestLeadForm": ".create_ads_request_lead_form",
     "CreateAdsRequestLeadFormCompletion": ".create_ads_request_lead_form_completion",
+    "CreateAdsRequestLeadFormCompletionButtonType": ".create_ads_request_lead_form_completion_button_type",
     "CreateAdsRequestLeadFormDisclaimer": ".create_ads_request_lead_form_disclaimer",
     "CreateAdsRequestLeadFormDisclaimerCheckboxesItem": ".create_ads_request_lead_form_disclaimer_checkboxes_item",
     "CreateAdsRequestLeadFormFormType": ".create_ads_request_lead_form_form_type",
@@ -128,6 +131,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateAdsRequestCreativesItemFormat": ".update_ads_request_creatives_item_format",
     "UpdateAdsRequestLeadForm": ".update_ads_request_lead_form",
     "UpdateAdsRequestLeadFormCompletion": ".update_ads_request_lead_form_completion",
+    "UpdateAdsRequestLeadFormCompletionButtonType": ".update_ads_request_lead_form_completion_button_type",
     "UpdateAdsRequestLeadFormDisclaimer": ".update_ads_request_lead_form_disclaimer",
     "UpdateAdsRequestLeadFormDisclaimerCheckboxesItem": ".update_ads_request_lead_form_disclaimer_checkboxes_item",
     "UpdateAdsRequestLeadFormFormType": ".update_ads_request_lead_form_form_type",
@@ -174,6 +178,7 @@ __all__ = [
     "CreateAdsRequestCreativesItemFormat",
     "CreateAdsRequestLeadForm",
     "CreateAdsRequestLeadFormCompletion",
+    "CreateAdsRequestLeadFormCompletionButtonType",
     "CreateAdsRequestLeadFormDisclaimer",
     "CreateAdsRequestLeadFormDisclaimerCheckboxesItem",
     "CreateAdsRequestLeadFormFormType",
@@ -213,6 +218,7 @@ __all__ = [
     "UpdateAdsRequestCreativesItemFormat",
     "UpdateAdsRequestLeadForm",
     "UpdateAdsRequestLeadFormCompletion",
+    "UpdateAdsRequestLeadFormCompletionButtonType",
     "UpdateAdsRequestLeadFormDisclaimer",
     "UpdateAdsRequestLeadFormDisclaimerCheckboxesItem",
     "UpdateAdsRequestLeadFormFormType",

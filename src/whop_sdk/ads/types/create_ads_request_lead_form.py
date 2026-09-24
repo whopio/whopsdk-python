@@ -19,7 +19,7 @@ class CreateAdsRequestLeadForm(UniversalBaseModel):
 
     completion: typing.Optional[CreateAdsRequestLeadFormCompletion] = pydantic.Field(default=None)
     """
-    Optional completion screen shown after submission; url sets the follow-up website button.
+    Optional completion screen shown after submission. Its button needs a destination: url for button_type website (the default), phone_number for call, file_url for download.
     """
 
     disclaimer: typing.Optional[CreateAdsRequestLeadFormDisclaimer] = pydantic.Field(default=None)
