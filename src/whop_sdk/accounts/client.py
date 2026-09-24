@@ -181,8 +181,10 @@ class AccountsClient:
         affiliate_code: typing.Optional[str] = OMIT,
         blueprint_id: typing.Optional[str] = OMIT,
         country: typing.Optional[str] = OMIT,
+        dispute_fighter_enabled: typing.Optional[bool] = OMIT,
         email: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
+        orchestration_enabled: typing.Optional[bool] = OMIT,
         send_customer_emails: typing.Optional[bool] = OMIT,
         title: typing.Optional[str] = OMIT,
         website: typing.Optional[str] = OMIT,
@@ -202,11 +204,17 @@ class AccountsClient:
         country : typing.Optional[str]
             The ISO 3166-1 alpha-2 country code where the account's business is located (e.g. `US`). Defaults to the parent account's country for connected accounts.
 
+        dispute_fighter_enabled : typing.Optional[bool]
+            Whether Whop assembles and files dispute evidence for this account. Enabling it opts into the success fee charged on disputes it wins. Requires payment:dispute. Omit to preserve the existing setting or creation default.
+
         email : typing.Optional[str]
             The email address of the account owner. Required when creating a connected account.
 
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
             Arbitrary key/value metadata to store on the account.
+
+        orchestration_enabled : typing.Optional[bool]
+            Whether payment orchestration is enabled for this account. Requires payout:account:update. Omit to preserve the existing setting or creation default.
 
         send_customer_emails : typing.Optional[bool]
             Whether Whop sends transactional emails to customers on behalf of the connected account.
@@ -240,8 +248,10 @@ class AccountsClient:
             affiliate_code=affiliate_code,
             blueprint_id=blueprint_id,
             country=country,
+            dispute_fighter_enabled=dispute_fighter_enabled,
             email=email,
             metadata=metadata,
+            orchestration_enabled=orchestration_enabled,
             send_customer_emails=send_customer_emails,
             title=title,
             website=website,
@@ -338,6 +348,7 @@ class AccountsClient:
         collect_vat_id: typing.Optional[bool] = OMIT,
         country: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
+        dispute_fighter_enabled: typing.Optional[bool] = OMIT,
         eula: typing.Optional[UpdateAccountsRequestEula] = OMIT,
         featured_affiliate_product_id: typing.Optional[str] = OMIT,
         home_preferences: typing.Optional[typing.Sequence[UpdateAccountsRequestHomePreferencesItem]] = OMIT,
@@ -349,6 +360,7 @@ class AccountsClient:
         onboarding_type: typing.Optional[UpdateAccountsRequestOnboardingType] = OMIT,
         opengraph_image: typing.Optional[UpdateAccountsRequestOpengraphImage] = OMIT,
         opengraph_image_variant: typing.Optional[UpdateAccountsRequestOpengraphImageVariant] = OMIT,
+        orchestration_enabled: typing.Optional[bool] = OMIT,
         other_business_description: typing.Optional[str] = OMIT,
         other_industry_description: typing.Optional[str] = OMIT,
         privacy_policy: typing.Optional[UpdateAccountsRequestPrivacyPolicy] = OMIT,
@@ -415,6 +427,9 @@ class AccountsClient:
         description : typing.Optional[str]
             Account promotional description. When creating a Whop-managed Facebook page, it is truncated to 155 characters and used as the About text.
 
+        dispute_fighter_enabled : typing.Optional[bool]
+            Whether Whop assembles and files dispute evidence for this account. Enabling it opts into the success fee charged on disputes it wins. Requires payment:dispute. Omit to preserve the existing setting or creation default.
+
         eula : typing.Optional[UpdateAccountsRequestEula]
             The account's end-user license agreement document. PDF only. Pass a JSON object containing an `id` from [Create File](/api-reference/files/create-file), or `null` to remove it.
 
@@ -447,6 +462,9 @@ class AccountsClient:
 
         opengraph_image_variant : typing.Optional[UpdateAccountsRequestOpengraphImageVariant]
             The account Open Graph image variant.
+
+        orchestration_enabled : typing.Optional[bool]
+            Whether payment orchestration is enabled for this account. Requires payout:account:update. Omit to preserve the existing setting or creation default.
 
         other_business_description : typing.Optional[str]
             The description of the business type when business_type is other.
@@ -553,6 +571,7 @@ class AccountsClient:
             collect_vat_id=collect_vat_id,
             country=country,
             description=description,
+            dispute_fighter_enabled=dispute_fighter_enabled,
             eula=eula,
             featured_affiliate_product_id=featured_affiliate_product_id,
             home_preferences=home_preferences,
@@ -564,6 +583,7 @@ class AccountsClient:
             onboarding_type=onboarding_type,
             opengraph_image=opengraph_image,
             opengraph_image_variant=opengraph_image_variant,
+            orchestration_enabled=orchestration_enabled,
             other_business_description=other_business_description,
             other_industry_description=other_industry_description,
             privacy_policy=privacy_policy,
@@ -1036,8 +1056,10 @@ class AsyncAccountsClient:
         affiliate_code: typing.Optional[str] = OMIT,
         blueprint_id: typing.Optional[str] = OMIT,
         country: typing.Optional[str] = OMIT,
+        dispute_fighter_enabled: typing.Optional[bool] = OMIT,
         email: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
+        orchestration_enabled: typing.Optional[bool] = OMIT,
         send_customer_emails: typing.Optional[bool] = OMIT,
         title: typing.Optional[str] = OMIT,
         website: typing.Optional[str] = OMIT,
@@ -1057,11 +1079,17 @@ class AsyncAccountsClient:
         country : typing.Optional[str]
             The ISO 3166-1 alpha-2 country code where the account's business is located (e.g. `US`). Defaults to the parent account's country for connected accounts.
 
+        dispute_fighter_enabled : typing.Optional[bool]
+            Whether Whop assembles and files dispute evidence for this account. Enabling it opts into the success fee charged on disputes it wins. Requires payment:dispute. Omit to preserve the existing setting or creation default.
+
         email : typing.Optional[str]
             The email address of the account owner. Required when creating a connected account.
 
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
             Arbitrary key/value metadata to store on the account.
+
+        orchestration_enabled : typing.Optional[bool]
+            Whether payment orchestration is enabled for this account. Requires payout:account:update. Omit to preserve the existing setting or creation default.
 
         send_customer_emails : typing.Optional[bool]
             Whether Whop sends transactional emails to customers on behalf of the connected account.
@@ -1103,8 +1131,10 @@ class AsyncAccountsClient:
             affiliate_code=affiliate_code,
             blueprint_id=blueprint_id,
             country=country,
+            dispute_fighter_enabled=dispute_fighter_enabled,
             email=email,
             metadata=metadata,
+            orchestration_enabled=orchestration_enabled,
             send_customer_emails=send_customer_emails,
             title=title,
             website=website,
@@ -1219,6 +1249,7 @@ class AsyncAccountsClient:
         collect_vat_id: typing.Optional[bool] = OMIT,
         country: typing.Optional[str] = OMIT,
         description: typing.Optional[str] = OMIT,
+        dispute_fighter_enabled: typing.Optional[bool] = OMIT,
         eula: typing.Optional[UpdateAccountsRequestEula] = OMIT,
         featured_affiliate_product_id: typing.Optional[str] = OMIT,
         home_preferences: typing.Optional[typing.Sequence[UpdateAccountsRequestHomePreferencesItem]] = OMIT,
@@ -1230,6 +1261,7 @@ class AsyncAccountsClient:
         onboarding_type: typing.Optional[UpdateAccountsRequestOnboardingType] = OMIT,
         opengraph_image: typing.Optional[UpdateAccountsRequestOpengraphImage] = OMIT,
         opengraph_image_variant: typing.Optional[UpdateAccountsRequestOpengraphImageVariant] = OMIT,
+        orchestration_enabled: typing.Optional[bool] = OMIT,
         other_business_description: typing.Optional[str] = OMIT,
         other_industry_description: typing.Optional[str] = OMIT,
         privacy_policy: typing.Optional[UpdateAccountsRequestPrivacyPolicy] = OMIT,
@@ -1296,6 +1328,9 @@ class AsyncAccountsClient:
         description : typing.Optional[str]
             Account promotional description. When creating a Whop-managed Facebook page, it is truncated to 155 characters and used as the About text.
 
+        dispute_fighter_enabled : typing.Optional[bool]
+            Whether Whop assembles and files dispute evidence for this account. Enabling it opts into the success fee charged on disputes it wins. Requires payment:dispute. Omit to preserve the existing setting or creation default.
+
         eula : typing.Optional[UpdateAccountsRequestEula]
             The account's end-user license agreement document. PDF only. Pass a JSON object containing an `id` from [Create File](/api-reference/files/create-file), or `null` to remove it.
 
@@ -1328,6 +1363,9 @@ class AsyncAccountsClient:
 
         opengraph_image_variant : typing.Optional[UpdateAccountsRequestOpengraphImageVariant]
             The account Open Graph image variant.
+
+        orchestration_enabled : typing.Optional[bool]
+            Whether payment orchestration is enabled for this account. Requires payout:account:update. Omit to preserve the existing setting or creation default.
 
         other_business_description : typing.Optional[str]
             The description of the business type when business_type is other.
@@ -1442,6 +1480,7 @@ class AsyncAccountsClient:
             collect_vat_id=collect_vat_id,
             country=country,
             description=description,
+            dispute_fighter_enabled=dispute_fighter_enabled,
             eula=eula,
             featured_affiliate_product_id=featured_affiliate_product_id,
             home_preferences=home_preferences,
@@ -1453,6 +1492,7 @@ class AsyncAccountsClient:
             onboarding_type=onboarding_type,
             opengraph_image=opengraph_image,
             opengraph_image_variant=opengraph_image_variant,
+            orchestration_enabled=orchestration_enabled,
             other_business_description=other_business_description,
             other_industry_description=other_industry_description,
             privacy_policy=privacy_policy,
