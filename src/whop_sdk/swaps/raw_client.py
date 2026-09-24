@@ -35,15 +35,22 @@ class RawSwapsClient:
         self._client_wrapper = client_wrapper
 
     def list(
-        self, *, account_id: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        account_id: typing.Optional[str] = None,
+        user_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ListSwapsResponse]:
         """
         Retrieve the account's completed or pending swaps — currently just the latest one.
 
         Parameters
         ----------
-        account_id : str
-            Business or user account ID (biz_* / user_*).
+        account_id : typing.Optional[str]
+            Business account whose swaps to list, prefixed `biz_`. Provide this or `user_id`.
+
+        user_id : typing.Optional[str]
+            The caller's own user ID, prefixed `user_`, to list swaps in their personal account. Provide this or `account_id`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -59,6 +66,7 @@ class RawSwapsClient:
             method="GET",
             params={
                 "account_id": account_id,
+                "user_id": user_id,
             },
             request_options=request_options,
         )
@@ -95,14 +103,15 @@ class RawSwapsClient:
     def create(
         self,
         *,
-        account_id: str,
         from_token: str,
         to_token: str,
+        account_id: typing.Optional[str] = OMIT,
         amount: typing.Optional[str] = OMIT,
         from_chain: typing.Optional[CreateSwapsRequestFromChain] = OMIT,
         slippage_bps: typing.Optional[int] = OMIT,
         to_amount: typing.Optional[str] = OMIT,
         to_chain: typing.Optional[CreateSwapsRequestToChain] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateSwapsResponse]:
         """
@@ -110,14 +119,14 @@ class RawSwapsClient:
 
         Parameters
         ----------
-        account_id : str
-            Business or user account ID (biz_* / user_*).
-
         from_token : str
             Source token contract address or ticker symbol, such as "USDT".
 
         to_token : str
             Destination token contract address or ticker symbol, such as "XAUT".
+
+        account_id : typing.Optional[str]
+            Business account that makes the swap, prefixed `biz_`. Provide this or `user_id`.
 
         amount : typing.Optional[str]
             Source token amount. Required for crypto swaps. For fiat pairs: the amount of from_token to convert at the mid-market rate; omit (along with to_amount) to repay the full negative to_token balance instead.
@@ -133,6 +142,9 @@ class RawSwapsClient:
 
         to_chain : typing.Optional[CreateSwapsRequestToChain]
             Destination chain name or chain ID. Defaults to the destination token's chain when omitted.
+
+        user_id : typing.Optional[str]
+            The caller's own user ID, prefixed `user_`, to swap in their personal account. Provide this or `account_id`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -159,6 +171,7 @@ class RawSwapsClient:
                     object_=to_chain, annotation=typing.Optional[CreateSwapsRequestToChain], direction="write"
                 ),
                 "to_token": to_token,
+                "user_id": user_id,
             },
             headers={
                 "content-type": "application/json",
@@ -421,15 +434,22 @@ class AsyncRawSwapsClient:
         self._client_wrapper = client_wrapper
 
     async def list(
-        self, *, account_id: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        account_id: typing.Optional[str] = None,
+        user_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ListSwapsResponse]:
         """
         Retrieve the account's completed or pending swaps — currently just the latest one.
 
         Parameters
         ----------
-        account_id : str
-            Business or user account ID (biz_* / user_*).
+        account_id : typing.Optional[str]
+            Business account whose swaps to list, prefixed `biz_`. Provide this or `user_id`.
+
+        user_id : typing.Optional[str]
+            The caller's own user ID, prefixed `user_`, to list swaps in their personal account. Provide this or `account_id`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -445,6 +465,7 @@ class AsyncRawSwapsClient:
             method="GET",
             params={
                 "account_id": account_id,
+                "user_id": user_id,
             },
             request_options=request_options,
         )
@@ -481,14 +502,15 @@ class AsyncRawSwapsClient:
     async def create(
         self,
         *,
-        account_id: str,
         from_token: str,
         to_token: str,
+        account_id: typing.Optional[str] = OMIT,
         amount: typing.Optional[str] = OMIT,
         from_chain: typing.Optional[CreateSwapsRequestFromChain] = OMIT,
         slippage_bps: typing.Optional[int] = OMIT,
         to_amount: typing.Optional[str] = OMIT,
         to_chain: typing.Optional[CreateSwapsRequestToChain] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateSwapsResponse]:
         """
@@ -496,14 +518,14 @@ class AsyncRawSwapsClient:
 
         Parameters
         ----------
-        account_id : str
-            Business or user account ID (biz_* / user_*).
-
         from_token : str
             Source token contract address or ticker symbol, such as "USDT".
 
         to_token : str
             Destination token contract address or ticker symbol, such as "XAUT".
+
+        account_id : typing.Optional[str]
+            Business account that makes the swap, prefixed `biz_`. Provide this or `user_id`.
 
         amount : typing.Optional[str]
             Source token amount. Required for crypto swaps. For fiat pairs: the amount of from_token to convert at the mid-market rate; omit (along with to_amount) to repay the full negative to_token balance instead.
@@ -519,6 +541,9 @@ class AsyncRawSwapsClient:
 
         to_chain : typing.Optional[CreateSwapsRequestToChain]
             Destination chain name or chain ID. Defaults to the destination token's chain when omitted.
+
+        user_id : typing.Optional[str]
+            The caller's own user ID, prefixed `user_`, to swap in their personal account. Provide this or `account_id`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -545,6 +570,7 @@ class AsyncRawSwapsClient:
                     object_=to_chain, annotation=typing.Optional[CreateSwapsRequestToChain], direction="write"
                 ),
                 "to_token": to_token,
+                "user_id": user_id,
             },
             headers={
                 "content-type": "application/json",
