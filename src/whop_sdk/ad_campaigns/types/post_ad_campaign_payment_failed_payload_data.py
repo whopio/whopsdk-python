@@ -64,6 +64,16 @@ class PostAdCampaignPaymentFailedPayloadData(UniversalBaseModel):
     Whether the campaign's ads are delivering right now, and if not, why. Account billing failures set payment_failed without changing the configured status. Successful payment retry clears that block and recalculates delivery. When several states apply at once, the highest-precedence one is returned.
     """
 
+    desired_cost_per_result: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Google only: the target cost per conversion in USD when `bid_type` is `average_target`. `null` otherwise.
+    """
+
+    ends_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Google only: when the campaign stops delivering, as an ISO 8601 timestamp. `null` runs it until paused.
+    """
+
     id: str = pydantic.Field()
     """
     Unique identifier for the ad campaign, prefixed `adcamp_`.
@@ -86,6 +96,11 @@ class PostAdCampaignPaymentFailedPayloadData(UniversalBaseModel):
     """
 
     special_ad_categories: typing.List[PostAdCampaignPaymentFailedPayloadDataSpecialAdCategoriesItem]
+    starts_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Google only: when the campaign starts delivering, as an ISO 8601 timestamp. `null` starts it as soon as it launches.
+    """
+
     status: PostAdCampaignPaymentFailedPayloadDataStatus = pydantic.Field()
     """
     The configured lifecycle status of the ad campaign. Billing failures preserve active or paused here and set delivery_status to payment_failed.

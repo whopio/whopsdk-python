@@ -172,6 +172,16 @@ class AdCampaign(UniversalBaseModel):
     Whether the campaign's ads are delivering right now, and if not, why. Account billing failures set payment_failed without changing the configured status. Successful payment retry clears that block and recalculates delivery. When several states apply at once, the highest-precedence one is returned.
     """
 
+    desired_cost_per_result: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Google only: the target cost per conversion in USD when `bid_type` is `average_target`. `null` otherwise.
+    """
+
+    ends_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Google only: when the campaign stops delivering, as an ISO 8601 timestamp. `null` runs it until paused.
+    """
+
     frequency: typing.Optional[float] = pydantic.Field(default=None)
     """
     Platform-reported impressions divided by reach.
@@ -272,6 +282,11 @@ class AdCampaign(UniversalBaseModel):
     spend_currency: typing.Optional[str] = pydantic.Field(default=None)
     """
     The ISO 4217 currency code of all monetary metrics.
+    """
+
+    starts_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Google only: when the campaign starts delivering, as an ISO 8601 timestamp. `null` starts it as soon as it launches.
     """
 
     status: AdCampaignStatus = pydantic.Field()
