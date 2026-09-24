@@ -103,6 +103,7 @@ class PartnersClient:
     def referred_users(
         self,
         *,
+        query: typing.Optional[str] = None,
         has_businesses: typing.Optional[bool] = None,
         has_earning_businesses: typing.Optional[bool] = None,
         first: typing.Optional[int] = None,
@@ -116,6 +117,9 @@ class PartnersClient:
 
         Parameters
         ----------
+        query : typing.Optional[str]
+            Search referred users by name or username.
+
         has_businesses : typing.Optional[bool]
             When true, only referred users who brought at least one business onto Whop.
 
@@ -159,6 +163,7 @@ class PartnersClient:
             yield page
         """
         return self._raw_client.referred_users(
+            query=query,
             has_businesses=has_businesses,
             has_earning_businesses=has_earning_businesses,
             first=first,
@@ -310,6 +315,7 @@ class AsyncPartnersClient:
     async def referred_users(
         self,
         *,
+        query: typing.Optional[str] = None,
         has_businesses: typing.Optional[bool] = None,
         has_earning_businesses: typing.Optional[bool] = None,
         first: typing.Optional[int] = None,
@@ -323,6 +329,9 @@ class AsyncPartnersClient:
 
         Parameters
         ----------
+        query : typing.Optional[str]
+            Search referred users by name or username.
+
         has_businesses : typing.Optional[bool]
             When true, only referred users who brought at least one business onto Whop.
 
@@ -375,6 +384,7 @@ class AsyncPartnersClient:
         asyncio.run(main())
         """
         return await self._raw_client.referred_users(
+            query=query,
             has_businesses=has_businesses,
             has_earning_businesses=has_earning_businesses,
             first=first,

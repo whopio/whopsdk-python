@@ -27020,6 +27020,14 @@ client.partners.referred_users()
 <dl>
 <dd>
 
+**query:** `typing.Optional[str]` — Search referred users by name or username.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **has_businesses:** `typing.Optional[bool]` — When true, only referred users who brought at least one business onto Whop.
     
 </dd>

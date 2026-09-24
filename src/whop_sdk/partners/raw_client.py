@@ -168,6 +168,7 @@ class RawPartnersClient:
     def referred_users(
         self,
         *,
+        query: typing.Optional[str] = None,
         has_businesses: typing.Optional[bool] = None,
         has_earning_businesses: typing.Optional[bool] = None,
         first: typing.Optional[int] = None,
@@ -181,6 +182,9 @@ class RawPartnersClient:
 
         Parameters
         ----------
+        query : typing.Optional[str]
+            Search referred users by name or username.
+
         has_businesses : typing.Optional[bool]
             When true, only referred users who brought at least one business onto Whop.
 
@@ -212,6 +216,7 @@ class RawPartnersClient:
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
+                "query": query,
                 "has_businesses": has_businesses,
                 "has_earning_businesses": has_earning_businesses,
                 "first": first,
@@ -237,6 +242,7 @@ class RawPartnersClient:
                     _parsed_next = _parsed_response.page_info.end_cursor
                     _has_next = _parsed_next is not None and _parsed_next != ""
                     _get_next = lambda: self.referred_users(
+                        query=query,
                         has_businesses=has_businesses,
                         has_earning_businesses=has_earning_businesses,
                         first=first,
@@ -484,6 +490,7 @@ class AsyncRawPartnersClient:
     async def referred_users(
         self,
         *,
+        query: typing.Optional[str] = None,
         has_businesses: typing.Optional[bool] = None,
         has_earning_businesses: typing.Optional[bool] = None,
         first: typing.Optional[int] = None,
@@ -497,6 +504,9 @@ class AsyncRawPartnersClient:
 
         Parameters
         ----------
+        query : typing.Optional[str]
+            Search referred users by name or username.
+
         has_businesses : typing.Optional[bool]
             When true, only referred users who brought at least one business onto Whop.
 
@@ -528,6 +538,7 @@ class AsyncRawPartnersClient:
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
+                "query": query,
                 "has_businesses": has_businesses,
                 "has_earning_businesses": has_earning_businesses,
                 "first": first,
@@ -555,6 +566,7 @@ class AsyncRawPartnersClient:
 
                     async def _get_next():
                         return await self.referred_users(
+                            query=query,
                             has_businesses=has_businesses,
                             has_earning_businesses=has_earning_businesses,
                             first=first,
