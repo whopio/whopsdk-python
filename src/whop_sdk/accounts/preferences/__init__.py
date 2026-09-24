@@ -21,6 +21,7 @@ if typing.TYPE_CHECKING:
         RetrievePreferencesResponseAdsPaymentMethodsPrimaryType,
         RetrievePreferencesResponseAdsTripleWhaleIntegration,
         RetrievePreferencesResponseAdsTripleWhaleIntegrationStatus,
+        RetrievePreferencesResponseEconomicIntelligenceOffersItem,
         UpdatePreferencesRequestAdsCertificationsValue,
         UpdatePreferencesRequestAdsCertificationsValueStatus,
         UpdatePreferencesRequestAdsPaymentMethods,
@@ -43,6 +44,7 @@ if typing.TYPE_CHECKING:
         UpdatePreferencesResponseAdsPaymentMethodsPrimaryType,
         UpdatePreferencesResponseAdsTripleWhaleIntegration,
         UpdatePreferencesResponseAdsTripleWhaleIntegrationStatus,
+        UpdatePreferencesResponseEconomicIntelligenceOffersItem,
     )
 _dynamic_imports: typing.Dict[str, str] = {
     "RetrievePreferencesResponse": ".types",
@@ -59,6 +61,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrievePreferencesResponseAdsPaymentMethodsPrimaryType": ".types",
     "RetrievePreferencesResponseAdsTripleWhaleIntegration": ".types",
     "RetrievePreferencesResponseAdsTripleWhaleIntegrationStatus": ".types",
+    "RetrievePreferencesResponseEconomicIntelligenceOffersItem": ".types",
     "UpdatePreferencesRequestAdsCertificationsValue": ".types",
     "UpdatePreferencesRequestAdsCertificationsValueStatus": ".types",
     "UpdatePreferencesRequestAdsPaymentMethods": ".types",
@@ -81,6 +84,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatePreferencesResponseAdsPaymentMethodsPrimaryType": ".types",
     "UpdatePreferencesResponseAdsTripleWhaleIntegration": ".types",
     "UpdatePreferencesResponseAdsTripleWhaleIntegrationStatus": ".types",
+    "UpdatePreferencesResponseEconomicIntelligenceOffersItem": ".types",
 }
 
 
@@ -120,6 +124,7 @@ __all__ = [
     "RetrievePreferencesResponseAdsPaymentMethodsPrimaryType",
     "RetrievePreferencesResponseAdsTripleWhaleIntegration",
     "RetrievePreferencesResponseAdsTripleWhaleIntegrationStatus",
+    "RetrievePreferencesResponseEconomicIntelligenceOffersItem",
     "UpdatePreferencesRequestAdsCertificationsValue",
     "UpdatePreferencesRequestAdsCertificationsValueStatus",
     "UpdatePreferencesRequestAdsPaymentMethods",
@@ -142,4 +147,5 @@ __all__ = [
     "UpdatePreferencesResponseAdsPaymentMethodsPrimaryType",
     "UpdatePreferencesResponseAdsTripleWhaleIntegration",
     "UpdatePreferencesResponseAdsTripleWhaleIntegrationStatus",
+    "UpdatePreferencesResponseEconomicIntelligenceOffersItem",
 ]

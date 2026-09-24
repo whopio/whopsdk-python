@@ -10,6 +10,9 @@ from .retrieve_preferences_response_ads_payment_methods import RetrievePreferenc
 from .retrieve_preferences_response_ads_triple_whale_integration import (
     RetrievePreferencesResponseAdsTripleWhaleIntegration,
 )
+from .retrieve_preferences_response_economic_intelligence_offers_item import (
+    RetrievePreferencesResponseEconomicIntelligenceOffersItem,
+)
 
 
 class RetrievePreferencesResponse(UniversalBaseModel):
@@ -60,7 +63,19 @@ class RetrievePreferencesResponse(UniversalBaseModel):
 
     economic_intelligence: bool = pydantic.Field()
     """
-    Whether economic intelligence is enabled for the account.
+    Whether Economic Intelligence is on for the account. It turns off automatically at `economic_intelligence_ends_at`.
+    """
+
+    economic_intelligence_ends_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When the account's committed Economic Intelligence period ends, as an ISO 8601 timestamp. Economic Intelligence can't be turned off before then. `null` when Economic Intelligence is off or has no end date.
+    """
+
+    economic_intelligence_offers: typing.Optional[
+        typing.List[RetrievePreferencesResponseEconomicIntelligenceOffersItem]
+    ] = pydantic.Field(default=None)
+    """
+    Durations the account can choose from to turn on Economic Intelligence, each with its fee. `null` while Economic Intelligence is on or during a free trial.
     """
 
     if IS_PYDANTIC_V2:

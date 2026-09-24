@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .account_economic_intelligence_offer import AccountEconomicIntelligenceOffer
 
 
 class AccountPreferences(UniversalBaseModel):
@@ -50,8 +51,15 @@ class AccountPreferences(UniversalBaseModel):
 
     economic_intelligence: bool = pydantic.Field()
     """
-    Whether economic intelligence is enabled for the account.
+    Whether Economic Intelligence is on for the account. It turns off automatically at `economic_intelligence_ends_at`.
     """
+
+    economic_intelligence_ends_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When the account's committed Economic Intelligence period ends, as an ISO 8601 timestamp. Economic Intelligence can't be turned off before then. `null` when Economic Intelligence is off or has no end date.
+    """
+
+    economic_intelligence_offers: typing.Optional[typing.List[AccountEconomicIntelligenceOffer]] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
