@@ -18,6 +18,11 @@ class DisputeAlert(UniversalBaseModel):
     The alerted amount, in whole units of `currency`. This is what the issuer reported, which can differ from the payment's own amount.
     """
 
+    auto_refunded: bool = pydantic.Field()
+    """
+    Whether Whop automatically refunded the alerted payment. Reflects the payment, so it can be `true` for a refund issued by another flow (RDR, resolution) on the same payment.
+    """
+
     card_brand: typing.Optional[str] = pydantic.Field(default=None)
     """
     The card network as reported by the issuer, lowercased, such as `visa` or `mastercard`. `unknown` when the report carries neither a network nor a recognizable BIN.
