@@ -23,6 +23,9 @@ from .types.update_preferences_request_ads_payment_methods import UpdatePreferen
 from .types.update_preferences_request_ads_triple_whale_integration import (
     UpdatePreferencesRequestAdsTripleWhaleIntegration,
 )
+from .types.update_preferences_request_economic_intelligence_duration_key import (
+    UpdatePreferencesRequestEconomicIntelligenceDurationKey,
+)
 from .types.update_preferences_request_subscription_failure_behavior import (
     UpdatePreferencesRequestSubscriptionFailureBehavior,
 )
@@ -115,7 +118,9 @@ class RawPreferencesClient:
         cards_auto_top_up: typing.Optional[bool] = OMIT,
         cards_notifications: typing.Optional[bool] = OMIT,
         dispute_fighter_enabled: typing.Optional[bool] = OMIT,
-        economic_intelligence_duration_days: typing.Optional[int] = OMIT,
+        economic_intelligence_duration_key: typing.Optional[
+            UpdatePreferencesRequestEconomicIntelligenceDurationKey
+        ] = OMIT,
         subscription_failure_behavior: typing.Optional[UpdatePreferencesRequestSubscriptionFailureBehavior] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdatePreferencesResponse]:
@@ -129,7 +134,7 @@ class RawPreferencesClient:
         | `ads_payment_methods`, `ads_reporting_currency`, `ads_scheduling_timezone`, `ads_triple_whale_integration`, `ads_certifications` | `ad_campaign:create` |
         | `cards_auto_top_up`, `cards_notifications` | `payout:account:update` |
         | `dispute_fighter_enabled` | `payment:dispute` |
-        | `economic_intelligence_duration_days` | `company:update` |
+        | `economic_intelligence_duration_key` | `company:update` |
 
         When updating preferences from multiple rows, all corresponding scopes are required for the account.
 
@@ -162,8 +167,8 @@ class RawPreferencesClient:
         dispute_fighter_enabled : typing.Optional[bool]
             Whether Whop assembles and files the evidence response when this account's payments are disputed. Off by default; enabling it also opts the account into the success fee charged only on disputes it wins. Requires the `payment:dispute` scope on your API key.
 
-        economic_intelligence_duration_days : typing.Optional[int]
-            Turns on Economic Intelligence for this many days, at the fee listed for that duration in `economic_intelligence_offers`. It can't be changed or turned off until `economic_intelligence_ends_at`, and it can't be turned on during a free trial. Requires the `company:update` scope on your API key.
+        economic_intelligence_duration_key : typing.Optional[UpdatePreferencesRequestEconomicIntelligenceDurationKey]
+            Turns on Economic Intelligence for the duration with this `key` in `economic_intelligence_offers`, at that duration's fee. It can't be changed or turned off until `economic_intelligence_ends_at`, and it can only be turned on once the account is off the Economic Intelligence waitlist. Requires the `company:update` scope on your API key.
 
         subscription_failure_behavior : typing.Optional[UpdatePreferencesRequestSubscriptionFailureBehavior]
             What happens to a subscription once every retry of a renewal payment has failed. `cancel` (the default) cancels it. `none` leaves it past due and keeps billing it each period; access follows the account's past-due access setting. Requires company:manage_checkout permission.
@@ -199,7 +204,7 @@ class RawPreferencesClient:
                 "cards_auto_top_up": cards_auto_top_up,
                 "cards_notifications": cards_notifications,
                 "dispute_fighter_enabled": dispute_fighter_enabled,
-                "economic_intelligence_duration_days": economic_intelligence_duration_days,
+                "economic_intelligence_duration_key": economic_intelligence_duration_key,
                 "subscription_failure_behavior": subscription_failure_behavior,
             },
             headers={
@@ -365,7 +370,9 @@ class AsyncRawPreferencesClient:
         cards_auto_top_up: typing.Optional[bool] = OMIT,
         cards_notifications: typing.Optional[bool] = OMIT,
         dispute_fighter_enabled: typing.Optional[bool] = OMIT,
-        economic_intelligence_duration_days: typing.Optional[int] = OMIT,
+        economic_intelligence_duration_key: typing.Optional[
+            UpdatePreferencesRequestEconomicIntelligenceDurationKey
+        ] = OMIT,
         subscription_failure_behavior: typing.Optional[UpdatePreferencesRequestSubscriptionFailureBehavior] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdatePreferencesResponse]:
@@ -379,7 +386,7 @@ class AsyncRawPreferencesClient:
         | `ads_payment_methods`, `ads_reporting_currency`, `ads_scheduling_timezone`, `ads_triple_whale_integration`, `ads_certifications` | `ad_campaign:create` |
         | `cards_auto_top_up`, `cards_notifications` | `payout:account:update` |
         | `dispute_fighter_enabled` | `payment:dispute` |
-        | `economic_intelligence_duration_days` | `company:update` |
+        | `economic_intelligence_duration_key` | `company:update` |
 
         When updating preferences from multiple rows, all corresponding scopes are required for the account.
 
@@ -412,8 +419,8 @@ class AsyncRawPreferencesClient:
         dispute_fighter_enabled : typing.Optional[bool]
             Whether Whop assembles and files the evidence response when this account's payments are disputed. Off by default; enabling it also opts the account into the success fee charged only on disputes it wins. Requires the `payment:dispute` scope on your API key.
 
-        economic_intelligence_duration_days : typing.Optional[int]
-            Turns on Economic Intelligence for this many days, at the fee listed for that duration in `economic_intelligence_offers`. It can't be changed or turned off until `economic_intelligence_ends_at`, and it can't be turned on during a free trial. Requires the `company:update` scope on your API key.
+        economic_intelligence_duration_key : typing.Optional[UpdatePreferencesRequestEconomicIntelligenceDurationKey]
+            Turns on Economic Intelligence for the duration with this `key` in `economic_intelligence_offers`, at that duration's fee. It can't be changed or turned off until `economic_intelligence_ends_at`, and it can only be turned on once the account is off the Economic Intelligence waitlist. Requires the `company:update` scope on your API key.
 
         subscription_failure_behavior : typing.Optional[UpdatePreferencesRequestSubscriptionFailureBehavior]
             What happens to a subscription once every retry of a renewal payment has failed. `cancel` (the default) cancels it. `none` leaves it past due and keeps billing it each period; access follows the account's past-due access setting. Requires company:manage_checkout permission.
@@ -449,7 +456,7 @@ class AsyncRawPreferencesClient:
                 "cards_auto_top_up": cards_auto_top_up,
                 "cards_notifications": cards_notifications,
                 "dispute_fighter_enabled": dispute_fighter_enabled,
-                "economic_intelligence_duration_days": economic_intelligence_duration_days,
+                "economic_intelligence_duration_key": economic_intelligence_duration_key,
                 "subscription_failure_behavior": subscription_failure_behavior,
             },
             headers={

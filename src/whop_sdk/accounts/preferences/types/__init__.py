@@ -41,6 +41,12 @@ if typing.TYPE_CHECKING:
     from .retrieve_preferences_response_economic_intelligence_offers_item import (
         RetrievePreferencesResponseEconomicIntelligenceOffersItem,
     )
+    from .retrieve_preferences_response_economic_intelligence_offers_item_duration_unit import (
+        RetrievePreferencesResponseEconomicIntelligenceOffersItemDurationUnit,
+    )
+    from .retrieve_preferences_response_economic_intelligence_offers_item_key import (
+        RetrievePreferencesResponseEconomicIntelligenceOffersItemKey,
+    )
     from .retrieve_preferences_response_subscription_failure_behavior import (
         RetrievePreferencesResponseSubscriptionFailureBehavior,
     )
@@ -59,6 +65,9 @@ if typing.TYPE_CHECKING:
     )
     from .update_preferences_request_ads_triple_whale_integration import (
         UpdatePreferencesRequestAdsTripleWhaleIntegration,
+    )
+    from .update_preferences_request_economic_intelligence_duration_key import (
+        UpdatePreferencesRequestEconomicIntelligenceDurationKey,
     )
     from .update_preferences_request_subscription_failure_behavior import (
         UpdatePreferencesRequestSubscriptionFailureBehavior,
@@ -96,6 +105,12 @@ if typing.TYPE_CHECKING:
     from .update_preferences_response_economic_intelligence_offers_item import (
         UpdatePreferencesResponseEconomicIntelligenceOffersItem,
     )
+    from .update_preferences_response_economic_intelligence_offers_item_duration_unit import (
+        UpdatePreferencesResponseEconomicIntelligenceOffersItemDurationUnit,
+    )
+    from .update_preferences_response_economic_intelligence_offers_item_key import (
+        UpdatePreferencesResponseEconomicIntelligenceOffersItemKey,
+    )
     from .update_preferences_response_subscription_failure_behavior import (
         UpdatePreferencesResponseSubscriptionFailureBehavior,
     )
@@ -115,6 +130,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrievePreferencesResponseAdsTripleWhaleIntegration": ".retrieve_preferences_response_ads_triple_whale_integration",
     "RetrievePreferencesResponseAdsTripleWhaleIntegrationStatus": ".retrieve_preferences_response_ads_triple_whale_integration_status",
     "RetrievePreferencesResponseEconomicIntelligenceOffersItem": ".retrieve_preferences_response_economic_intelligence_offers_item",
+    "RetrievePreferencesResponseEconomicIntelligenceOffersItemDurationUnit": ".retrieve_preferences_response_economic_intelligence_offers_item_duration_unit",
+    "RetrievePreferencesResponseEconomicIntelligenceOffersItemKey": ".retrieve_preferences_response_economic_intelligence_offers_item_key",
     "RetrievePreferencesResponseSubscriptionFailureBehavior": ".retrieve_preferences_response_subscription_failure_behavior",
     "UpdatePreferencesRequestAdsCertificationsValue": ".update_preferences_request_ads_certifications_value",
     "UpdatePreferencesRequestAdsCertificationsValueStatus": ".update_preferences_request_ads_certifications_value_status",
@@ -124,6 +141,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatePreferencesRequestAdsPaymentMethodsPrimary": ".update_preferences_request_ads_payment_methods_primary",
     "UpdatePreferencesRequestAdsPaymentMethodsPrimaryType": ".update_preferences_request_ads_payment_methods_primary_type",
     "UpdatePreferencesRequestAdsTripleWhaleIntegration": ".update_preferences_request_ads_triple_whale_integration",
+    "UpdatePreferencesRequestEconomicIntelligenceDurationKey": ".update_preferences_request_economic_intelligence_duration_key",
     "UpdatePreferencesRequestSubscriptionFailureBehavior": ".update_preferences_request_subscription_failure_behavior",
     "UpdatePreferencesResponse": ".update_preferences_response",
     "UpdatePreferencesResponseAdsAgreement": ".update_preferences_response_ads_agreement",
@@ -140,6 +158,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatePreferencesResponseAdsTripleWhaleIntegration": ".update_preferences_response_ads_triple_whale_integration",
     "UpdatePreferencesResponseAdsTripleWhaleIntegrationStatus": ".update_preferences_response_ads_triple_whale_integration_status",
     "UpdatePreferencesResponseEconomicIntelligenceOffersItem": ".update_preferences_response_economic_intelligence_offers_item",
+    "UpdatePreferencesResponseEconomicIntelligenceOffersItemDurationUnit": ".update_preferences_response_economic_intelligence_offers_item_duration_unit",
+    "UpdatePreferencesResponseEconomicIntelligenceOffersItemKey": ".update_preferences_response_economic_intelligence_offers_item_key",
     "UpdatePreferencesResponseSubscriptionFailureBehavior": ".update_preferences_response_subscription_failure_behavior",
 }
 
@@ -181,6 +201,8 @@ __all__ = [
     "RetrievePreferencesResponseAdsTripleWhaleIntegration",
     "RetrievePreferencesResponseAdsTripleWhaleIntegrationStatus",
     "RetrievePreferencesResponseEconomicIntelligenceOffersItem",
+    "RetrievePreferencesResponseEconomicIntelligenceOffersItemDurationUnit",
+    "RetrievePreferencesResponseEconomicIntelligenceOffersItemKey",
     "RetrievePreferencesResponseSubscriptionFailureBehavior",
     "UpdatePreferencesRequestAdsCertificationsValue",
     "UpdatePreferencesRequestAdsCertificationsValueStatus",
@@ -190,6 +212,7 @@ __all__ = [
     "UpdatePreferencesRequestAdsPaymentMethodsPrimary",
     "UpdatePreferencesRequestAdsPaymentMethodsPrimaryType",
     "UpdatePreferencesRequestAdsTripleWhaleIntegration",
+    "UpdatePreferencesRequestEconomicIntelligenceDurationKey",
     "UpdatePreferencesRequestSubscriptionFailureBehavior",
     "UpdatePreferencesResponse",
     "UpdatePreferencesResponseAdsAgreement",
@@ -206,5 +229,7 @@ __all__ = [
     "UpdatePreferencesResponseAdsTripleWhaleIntegration",
     "UpdatePreferencesResponseAdsTripleWhaleIntegrationStatus",
     "UpdatePreferencesResponseEconomicIntelligenceOffersItem",
+    "UpdatePreferencesResponseEconomicIntelligenceOffersItemDurationUnit",
+    "UpdatePreferencesResponseEconomicIntelligenceOffersItemKey",
     "UpdatePreferencesResponseSubscriptionFailureBehavior",
 ]

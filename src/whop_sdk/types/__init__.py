@@ -39,6 +39,8 @@ if typing.TYPE_CHECKING:
     from .account_covered_payout_fees import AccountCoveredPayoutFees
     from .account_dispute_alert_auto_refund_control import AccountDisputeAlertAutoRefundControl
     from .account_economic_intelligence_offer import AccountEconomicIntelligenceOffer
+    from .account_economic_intelligence_offer_duration_unit import AccountEconomicIntelligenceOfferDurationUnit
+    from .account_economic_intelligence_offer_key import AccountEconomicIntelligenceOfferKey
     from .account_fee import AccountFee
     from .account_fee_category import AccountFeeCategory
     from .account_fee_markup import AccountFeeMarkup
@@ -1458,6 +1460,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AccountCoveredPayoutFees": ".account_covered_payout_fees",
     "AccountDisputeAlertAutoRefundControl": ".account_dispute_alert_auto_refund_control",
     "AccountEconomicIntelligenceOffer": ".account_economic_intelligence_offer",
+    "AccountEconomicIntelligenceOfferDurationUnit": ".account_economic_intelligence_offer_duration_unit",
+    "AccountEconomicIntelligenceOfferKey": ".account_economic_intelligence_offer_key",
     "AccountFee": ".account_fee",
     "AccountFeeCategory": ".account_fee_category",
     "AccountFeeMarkup": ".account_fee_markup",
@@ -2757,6 +2761,8 @@ __all__ = [
     "AccountCoveredPayoutFees",
     "AccountDisputeAlertAutoRefundControl",
     "AccountEconomicIntelligenceOffer",
+    "AccountEconomicIntelligenceOfferDurationUnit",
+    "AccountEconomicIntelligenceOfferKey",
     "AccountFee",
     "AccountFeeCategory",
     "AccountFeeMarkup",
