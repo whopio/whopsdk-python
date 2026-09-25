@@ -9,11 +9,15 @@ from ..types.ad import Ad
 from .raw_client import AsyncRawAdsClient, RawAdsClient
 from .types.create_ads_request_call_to_action import CreateAdsRequestCallToAction
 from .types.create_ads_request_creatives_item import CreateAdsRequestCreativesItem
+from .types.create_ads_request_descriptions_item import CreateAdsRequestDescriptionsItem
+from .types.create_ads_request_headlines_item import CreateAdsRequestHeadlinesItem
 from .types.create_ads_request_lead_form import CreateAdsRequestLeadForm
 from .types.create_ads_request_messaging_config import CreateAdsRequestMessagingConfig
 from .types.create_ads_request_music import CreateAdsRequestMusic
 from .types.create_ads_request_post_source import CreateAdsRequestPostSource
+from .types.create_ads_request_primary_texts_item import CreateAdsRequestPrimaryTextsItem
 from .types.create_ads_request_social_accounts_item import CreateAdsRequestSocialAccountsItem
+from .types.create_ads_request_translations import CreateAdsRequestTranslations
 from .types.delete_ads_response import DeleteAdsResponse
 from .types.duplicate_ads_response import DuplicateAdsResponse
 from .types.list_ads_request_attribution_model import ListAdsRequestAttributionModel
@@ -24,11 +28,15 @@ from .types.list_ads_response import ListAdsResponse
 from .types.retrieve_ads_request_attribution_model import RetrieveAdsRequestAttributionModel
 from .types.update_ads_request_call_to_action import UpdateAdsRequestCallToAction
 from .types.update_ads_request_creatives_item import UpdateAdsRequestCreativesItem
+from .types.update_ads_request_descriptions_item import UpdateAdsRequestDescriptionsItem
+from .types.update_ads_request_headlines_item import UpdateAdsRequestHeadlinesItem
 from .types.update_ads_request_lead_form import UpdateAdsRequestLeadForm
 from .types.update_ads_request_messaging_config import UpdateAdsRequestMessagingConfig
 from .types.update_ads_request_music import UpdateAdsRequestMusic
 from .types.update_ads_request_post_source import UpdateAdsRequestPostSource
+from .types.update_ads_request_primary_texts_item import UpdateAdsRequestPrimaryTextsItem
 from .types.update_ads_request_social_accounts_item import UpdateAdsRequestSocialAccountsItem
+from .types.update_ads_request_translations import UpdateAdsRequestTranslations
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -148,7 +156,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-24",
+            "2026-09-24-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -192,18 +200,19 @@ class AdsClient:
         ad_group_id: typing.Optional[str] = OMIT,
         call_to_action: typing.Optional[CreateAdsRequestCallToAction] = OMIT,
         creatives: typing.Optional[typing.Sequence[CreateAdsRequestCreativesItem]] = OMIT,
-        descriptions: typing.Optional[typing.Sequence[str]] = OMIT,
+        descriptions: typing.Optional[typing.Sequence[CreateAdsRequestDescriptionsItem]] = OMIT,
         existing_post_id: typing.Optional[str] = OMIT,
-        headlines: typing.Optional[typing.Sequence[str]] = OMIT,
+        headlines: typing.Optional[typing.Sequence[CreateAdsRequestHeadlinesItem]] = OMIT,
         lead_form: typing.Optional[CreateAdsRequestLeadForm] = OMIT,
         lead_form_id: typing.Optional[str] = OMIT,
         messaging_config: typing.Optional[CreateAdsRequestMessagingConfig] = OMIT,
         multi_advertiser_ads: typing.Optional[bool] = OMIT,
         music: typing.Optional[CreateAdsRequestMusic] = OMIT,
         post_source: typing.Optional[CreateAdsRequestPostSource] = OMIT,
-        primary_texts: typing.Optional[typing.Sequence[str]] = OMIT,
+        primary_texts: typing.Optional[typing.Sequence[CreateAdsRequestPrimaryTextsItem]] = OMIT,
         social_accounts: typing.Optional[typing.Sequence[CreateAdsRequestSocialAccountsItem]] = OMIT,
         title: typing.Optional[str] = OMIT,
+        translations: typing.Optional[CreateAdsRequestTranslations] = OMIT,
         url: typing.Optional[str] = OMIT,
         url_parameters: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -225,14 +234,14 @@ class AdsClient:
         creatives : typing.Optional[typing.Sequence[CreateAdsRequestCreativesItem]]
             The ad's creative assets. Each entry is an uploaded file id with an optional format; omit format for the original asset. Entries with no format become a carousel's ordered cards, sharing the ad's copy — 2-10 of them on Meta, while TikTok runs even a single image as a one-card carousel.
 
-        descriptions : typing.Optional[typing.Sequence[str]]
-            The description variants shown on the ad.
+        descriptions : typing.Optional[typing.Sequence[CreateAdsRequestDescriptionsItem]]
+            The description shown on the ad. Entries without a language are the ad's own copy; add one entry per other language on a Meta ad with `translations`.
 
         existing_post_id : typing.Optional[str]
             Promote a post you already published instead of uploading creatives — a Facebook post or Instagram media id. Mutually exclusive with creatives. Pair with post_source.
 
-        headlines : typing.Optional[typing.Sequence[str]]
-            The headline variants shown on the ad.
+        headlines : typing.Optional[typing.Sequence[CreateAdsRequestHeadlinesItem]]
+            The headline shown on the ad. Entries without a language are the ad's own copy; add one entry per other language on a Meta ad with `translations`.
 
         lead_form : typing.Optional[CreateAdsRequestLeadForm]
             Instant lead form for the ad. Only allowed when the ad group's conversion_location is an instant-form destination (instant_forms, instant_forms_and_messenger, website_and_instant_forms). Mutually exclusive with lead_form_id.
@@ -252,14 +261,17 @@ class AdsClient:
         post_source : typing.Optional[CreateAdsRequestPostSource]
             Identifies the network that owns `existing_post_id`. The source is inferred from the ID shape when omitted.
 
-        primary_texts : typing.Optional[typing.Sequence[str]]
-            The primary text variants shown in the ad body.
+        primary_texts : typing.Optional[typing.Sequence[CreateAdsRequestPrimaryTextsItem]]
+            The primary text shown in the ad body. Entries without a language are the ad's own copy (several make text variations); add one entry per other language on a Meta ad with `translations`.
 
         social_accounts : typing.Optional[typing.Sequence[CreateAdsRequestSocialAccountsItem]]
             The social accounts the ad runs under — a connected Facebook page and, optionally, an Instagram profile.
 
         title : typing.Optional[str]
             The display name of the ad.
+
+        translations : typing.Optional[CreateAdsRequestTranslations]
+            Shows a Meta ad in other languages. Each viewer sees the version for their language; everyone else sees the ad's own copy. Tag every copy and creatives entry with its language: the ad's own with `source_language`, and give every other language a `primary_texts` and `headlines` entry (a `descriptions` entry and a `creatives` entry are optional), or list it in `automatic_languages`. Needs a website destination, one image or video, and exactly one primary text and headline of the ad's own (and at most one description), with no Dynamic Creative or crops. Replaced as a whole when sent, so send `automatic_languages` with `source_language`. null turns translations off and deletes their media. Meta-only.
 
         url : typing.Optional[str]
             The URL the ad links to. Query parameters are merged into url_parameters, so the stored URL is always bare.
@@ -280,7 +292,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-24",
+            "2026-09-24-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -303,6 +315,7 @@ class AdsClient:
             primary_texts=primary_texts,
             social_accounts=social_accounts,
             title=title,
+            translations=translations,
             url=url,
             url_parameters=url_parameters,
             request_options=request_options,
@@ -352,7 +365,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-24",
+            "2026-09-24-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -392,7 +405,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-24",
+            "2026-09-24-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -409,18 +422,19 @@ class AdsClient:
         *,
         call_to_action: typing.Optional[UpdateAdsRequestCallToAction] = OMIT,
         creatives: typing.Optional[typing.Sequence[UpdateAdsRequestCreativesItem]] = OMIT,
-        descriptions: typing.Optional[typing.Sequence[str]] = OMIT,
+        descriptions: typing.Optional[typing.Sequence[UpdateAdsRequestDescriptionsItem]] = OMIT,
         existing_post_id: typing.Optional[str] = OMIT,
-        headlines: typing.Optional[typing.Sequence[str]] = OMIT,
+        headlines: typing.Optional[typing.Sequence[UpdateAdsRequestHeadlinesItem]] = OMIT,
         lead_form: typing.Optional[UpdateAdsRequestLeadForm] = OMIT,
         lead_form_id: typing.Optional[str] = OMIT,
         messaging_config: typing.Optional[UpdateAdsRequestMessagingConfig] = OMIT,
         multi_advertiser_ads: typing.Optional[bool] = OMIT,
         music: typing.Optional[UpdateAdsRequestMusic] = OMIT,
         post_source: typing.Optional[UpdateAdsRequestPostSource] = OMIT,
-        primary_texts: typing.Optional[typing.Sequence[str]] = OMIT,
+        primary_texts: typing.Optional[typing.Sequence[UpdateAdsRequestPrimaryTextsItem]] = OMIT,
         social_accounts: typing.Optional[typing.Sequence[UpdateAdsRequestSocialAccountsItem]] = OMIT,
         title: typing.Optional[str] = OMIT,
+        translations: typing.Optional[UpdateAdsRequestTranslations] = OMIT,
         url: typing.Optional[str] = OMIT,
         url_parameters: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -439,14 +453,14 @@ class AdsClient:
         creatives : typing.Optional[typing.Sequence[UpdateAdsRequestCreativesItem]]
             The ad's creative assets. Each entry is an uploaded file id with an optional format; omit format for the original asset. Replaces a live ad's creative on the platform. Entries with no format replace it with a carousel's ordered cards — 2-10 of them on Meta, while TikTok runs even a single image as a one-card carousel.
 
-        descriptions : typing.Optional[typing.Sequence[str]]
-            The description variants shown on the ad.
+        descriptions : typing.Optional[typing.Sequence[UpdateAdsRequestDescriptionsItem]]
+            The description shown on the ad. Entries without a language are the ad's own copy; add one entry per other language on a Meta ad with `translations`.
 
         existing_post_id : typing.Optional[str]
             Promote a post you already published instead of uploading creatives — a Facebook post or Instagram media id. Mutually exclusive with creatives. Pair with post_source.
 
-        headlines : typing.Optional[typing.Sequence[str]]
-            The headline variants shown on the ad.
+        headlines : typing.Optional[typing.Sequence[UpdateAdsRequestHeadlinesItem]]
+            The headline shown on the ad. Entries without a language are the ad's own copy; add one entry per other language on a Meta ad with `translations`.
 
         lead_form : typing.Optional[UpdateAdsRequestLeadForm]
             Instant lead form for the ad. Only allowed when the ad group's conversion_location is an instant-form destination (instant_forms, instant_forms_and_messenger, website_and_instant_forms). Mutually exclusive with lead_form_id.
@@ -466,14 +480,17 @@ class AdsClient:
         post_source : typing.Optional[UpdateAdsRequestPostSource]
             Identifies the network that owns `existing_post_id`. The source is inferred from the ID shape when omitted.
 
-        primary_texts : typing.Optional[typing.Sequence[str]]
-            The primary text variants shown in the ad body.
+        primary_texts : typing.Optional[typing.Sequence[UpdateAdsRequestPrimaryTextsItem]]
+            The primary text shown in the ad body. Entries without a language are the ad's own copy (several make text variations); add one entry per other language on a Meta ad with `translations`.
 
         social_accounts : typing.Optional[typing.Sequence[UpdateAdsRequestSocialAccountsItem]]
             The social accounts the ad runs under — a connected Facebook page and, optionally, an Instagram profile.
 
         title : typing.Optional[str]
             The display name of the ad.
+
+        translations : typing.Optional[UpdateAdsRequestTranslations]
+            Shows a Meta ad in other languages. Each viewer sees the version for their language; everyone else sees the ad's own copy. Tag every copy and creatives entry with its language: the ad's own with `source_language`, and give every other language a `primary_texts` and `headlines` entry (a `descriptions` entry and a `creatives` entry are optional), or list it in `automatic_languages`. Needs a website destination, one image or video, and exactly one primary text and headline of the ad's own (and at most one description), with no Dynamic Creative or crops. Replaced as a whole when sent, so send `automatic_languages` with `source_language`. null turns translations off and deletes their media. Meta-only.
 
         url : typing.Optional[str]
             The URL the ad links to. Query parameters are merged into url_parameters, so the stored URL is always bare.
@@ -494,7 +511,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-24",
+            "2026-09-24-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -518,6 +535,7 @@ class AdsClient:
             primary_texts=primary_texts,
             social_accounts=social_accounts,
             title=title,
+            translations=translations,
             url=url,
             url_parameters=url_parameters,
             request_options=request_options,
@@ -563,7 +581,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-24",
+            "2026-09-24-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -602,7 +620,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-24",
+            "2026-09-24-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -635,7 +653,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-24",
+            "2026-09-24-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -763,7 +781,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-24",
+            "2026-09-24-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -814,18 +832,19 @@ class AsyncAdsClient:
         ad_group_id: typing.Optional[str] = OMIT,
         call_to_action: typing.Optional[CreateAdsRequestCallToAction] = OMIT,
         creatives: typing.Optional[typing.Sequence[CreateAdsRequestCreativesItem]] = OMIT,
-        descriptions: typing.Optional[typing.Sequence[str]] = OMIT,
+        descriptions: typing.Optional[typing.Sequence[CreateAdsRequestDescriptionsItem]] = OMIT,
         existing_post_id: typing.Optional[str] = OMIT,
-        headlines: typing.Optional[typing.Sequence[str]] = OMIT,
+        headlines: typing.Optional[typing.Sequence[CreateAdsRequestHeadlinesItem]] = OMIT,
         lead_form: typing.Optional[CreateAdsRequestLeadForm] = OMIT,
         lead_form_id: typing.Optional[str] = OMIT,
         messaging_config: typing.Optional[CreateAdsRequestMessagingConfig] = OMIT,
         multi_advertiser_ads: typing.Optional[bool] = OMIT,
         music: typing.Optional[CreateAdsRequestMusic] = OMIT,
         post_source: typing.Optional[CreateAdsRequestPostSource] = OMIT,
-        primary_texts: typing.Optional[typing.Sequence[str]] = OMIT,
+        primary_texts: typing.Optional[typing.Sequence[CreateAdsRequestPrimaryTextsItem]] = OMIT,
         social_accounts: typing.Optional[typing.Sequence[CreateAdsRequestSocialAccountsItem]] = OMIT,
         title: typing.Optional[str] = OMIT,
+        translations: typing.Optional[CreateAdsRequestTranslations] = OMIT,
         url: typing.Optional[str] = OMIT,
         url_parameters: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -847,14 +866,14 @@ class AsyncAdsClient:
         creatives : typing.Optional[typing.Sequence[CreateAdsRequestCreativesItem]]
             The ad's creative assets. Each entry is an uploaded file id with an optional format; omit format for the original asset. Entries with no format become a carousel's ordered cards, sharing the ad's copy — 2-10 of them on Meta, while TikTok runs even a single image as a one-card carousel.
 
-        descriptions : typing.Optional[typing.Sequence[str]]
-            The description variants shown on the ad.
+        descriptions : typing.Optional[typing.Sequence[CreateAdsRequestDescriptionsItem]]
+            The description shown on the ad. Entries without a language are the ad's own copy; add one entry per other language on a Meta ad with `translations`.
 
         existing_post_id : typing.Optional[str]
             Promote a post you already published instead of uploading creatives — a Facebook post or Instagram media id. Mutually exclusive with creatives. Pair with post_source.
 
-        headlines : typing.Optional[typing.Sequence[str]]
-            The headline variants shown on the ad.
+        headlines : typing.Optional[typing.Sequence[CreateAdsRequestHeadlinesItem]]
+            The headline shown on the ad. Entries without a language are the ad's own copy; add one entry per other language on a Meta ad with `translations`.
 
         lead_form : typing.Optional[CreateAdsRequestLeadForm]
             Instant lead form for the ad. Only allowed when the ad group's conversion_location is an instant-form destination (instant_forms, instant_forms_and_messenger, website_and_instant_forms). Mutually exclusive with lead_form_id.
@@ -874,14 +893,17 @@ class AsyncAdsClient:
         post_source : typing.Optional[CreateAdsRequestPostSource]
             Identifies the network that owns `existing_post_id`. The source is inferred from the ID shape when omitted.
 
-        primary_texts : typing.Optional[typing.Sequence[str]]
-            The primary text variants shown in the ad body.
+        primary_texts : typing.Optional[typing.Sequence[CreateAdsRequestPrimaryTextsItem]]
+            The primary text shown in the ad body. Entries without a language are the ad's own copy (several make text variations); add one entry per other language on a Meta ad with `translations`.
 
         social_accounts : typing.Optional[typing.Sequence[CreateAdsRequestSocialAccountsItem]]
             The social accounts the ad runs under — a connected Facebook page and, optionally, an Instagram profile.
 
         title : typing.Optional[str]
             The display name of the ad.
+
+        translations : typing.Optional[CreateAdsRequestTranslations]
+            Shows a Meta ad in other languages. Each viewer sees the version for their language; everyone else sees the ad's own copy. Tag every copy and creatives entry with its language: the ad's own with `source_language`, and give every other language a `primary_texts` and `headlines` entry (a `descriptions` entry and a `creatives` entry are optional), or list it in `automatic_languages`. Needs a website destination, one image or video, and exactly one primary text and headline of the ad's own (and at most one description), with no Dynamic Creative or crops. Replaced as a whole when sent, so send `automatic_languages` with `source_language`. null turns translations off and deletes their media. Meta-only.
 
         url : typing.Optional[str]
             The URL the ad links to. Query parameters are merged into url_parameters, so the stored URL is always bare.
@@ -904,7 +926,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-24",
+            "2026-09-24-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -933,6 +955,7 @@ class AsyncAdsClient:
             primary_texts=primary_texts,
             social_accounts=social_accounts,
             title=title,
+            translations=translations,
             url=url,
             url_parameters=url_parameters,
             request_options=request_options,
@@ -984,7 +1007,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-24",
+            "2026-09-24-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1032,7 +1055,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-24",
+            "2026-09-24-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1055,18 +1078,19 @@ class AsyncAdsClient:
         *,
         call_to_action: typing.Optional[UpdateAdsRequestCallToAction] = OMIT,
         creatives: typing.Optional[typing.Sequence[UpdateAdsRequestCreativesItem]] = OMIT,
-        descriptions: typing.Optional[typing.Sequence[str]] = OMIT,
+        descriptions: typing.Optional[typing.Sequence[UpdateAdsRequestDescriptionsItem]] = OMIT,
         existing_post_id: typing.Optional[str] = OMIT,
-        headlines: typing.Optional[typing.Sequence[str]] = OMIT,
+        headlines: typing.Optional[typing.Sequence[UpdateAdsRequestHeadlinesItem]] = OMIT,
         lead_form: typing.Optional[UpdateAdsRequestLeadForm] = OMIT,
         lead_form_id: typing.Optional[str] = OMIT,
         messaging_config: typing.Optional[UpdateAdsRequestMessagingConfig] = OMIT,
         multi_advertiser_ads: typing.Optional[bool] = OMIT,
         music: typing.Optional[UpdateAdsRequestMusic] = OMIT,
         post_source: typing.Optional[UpdateAdsRequestPostSource] = OMIT,
-        primary_texts: typing.Optional[typing.Sequence[str]] = OMIT,
+        primary_texts: typing.Optional[typing.Sequence[UpdateAdsRequestPrimaryTextsItem]] = OMIT,
         social_accounts: typing.Optional[typing.Sequence[UpdateAdsRequestSocialAccountsItem]] = OMIT,
         title: typing.Optional[str] = OMIT,
+        translations: typing.Optional[UpdateAdsRequestTranslations] = OMIT,
         url: typing.Optional[str] = OMIT,
         url_parameters: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1085,14 +1109,14 @@ class AsyncAdsClient:
         creatives : typing.Optional[typing.Sequence[UpdateAdsRequestCreativesItem]]
             The ad's creative assets. Each entry is an uploaded file id with an optional format; omit format for the original asset. Replaces a live ad's creative on the platform. Entries with no format replace it with a carousel's ordered cards — 2-10 of them on Meta, while TikTok runs even a single image as a one-card carousel.
 
-        descriptions : typing.Optional[typing.Sequence[str]]
-            The description variants shown on the ad.
+        descriptions : typing.Optional[typing.Sequence[UpdateAdsRequestDescriptionsItem]]
+            The description shown on the ad. Entries without a language are the ad's own copy; add one entry per other language on a Meta ad with `translations`.
 
         existing_post_id : typing.Optional[str]
             Promote a post you already published instead of uploading creatives — a Facebook post or Instagram media id. Mutually exclusive with creatives. Pair with post_source.
 
-        headlines : typing.Optional[typing.Sequence[str]]
-            The headline variants shown on the ad.
+        headlines : typing.Optional[typing.Sequence[UpdateAdsRequestHeadlinesItem]]
+            The headline shown on the ad. Entries without a language are the ad's own copy; add one entry per other language on a Meta ad with `translations`.
 
         lead_form : typing.Optional[UpdateAdsRequestLeadForm]
             Instant lead form for the ad. Only allowed when the ad group's conversion_location is an instant-form destination (instant_forms, instant_forms_and_messenger, website_and_instant_forms). Mutually exclusive with lead_form_id.
@@ -1112,14 +1136,17 @@ class AsyncAdsClient:
         post_source : typing.Optional[UpdateAdsRequestPostSource]
             Identifies the network that owns `existing_post_id`. The source is inferred from the ID shape when omitted.
 
-        primary_texts : typing.Optional[typing.Sequence[str]]
-            The primary text variants shown in the ad body.
+        primary_texts : typing.Optional[typing.Sequence[UpdateAdsRequestPrimaryTextsItem]]
+            The primary text shown in the ad body. Entries without a language are the ad's own copy (several make text variations); add one entry per other language on a Meta ad with `translations`.
 
         social_accounts : typing.Optional[typing.Sequence[UpdateAdsRequestSocialAccountsItem]]
             The social accounts the ad runs under — a connected Facebook page and, optionally, an Instagram profile.
 
         title : typing.Optional[str]
             The display name of the ad.
+
+        translations : typing.Optional[UpdateAdsRequestTranslations]
+            Shows a Meta ad in other languages. Each viewer sees the version for their language; everyone else sees the ad's own copy. Tag every copy and creatives entry with its language: the ad's own with `source_language`, and give every other language a `primary_texts` and `headlines` entry (a `descriptions` entry and a `creatives` entry are optional), or list it in `automatic_languages`. Needs a website destination, one image or video, and exactly one primary text and headline of the ad's own (and at most one description), with no Dynamic Creative or crops. Replaced as a whole when sent, so send `automatic_languages` with `source_language`. null turns translations off and deletes their media. Meta-only.
 
         url : typing.Optional[str]
             The URL the ad links to. Query parameters are merged into url_parameters, so the stored URL is always bare.
@@ -1142,7 +1169,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-24",
+            "2026-09-24-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1172,6 +1199,7 @@ class AsyncAdsClient:
             primary_texts=primary_texts,
             social_accounts=social_accounts,
             title=title,
+            translations=translations,
             url=url,
             url_parameters=url_parameters,
             request_options=request_options,
@@ -1219,7 +1247,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-24",
+            "2026-09-24-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1266,7 +1294,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-24",
+            "2026-09-24-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1307,7 +1335,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-24",
+            "2026-09-24-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

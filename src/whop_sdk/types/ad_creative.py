@@ -24,6 +24,11 @@ class AdCreative(UniversalBaseModel):
     The creative attachment's file id.
     """
 
+    language: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    ISO 639 code of the language this image or video is shown for, such as `es`. On an ad with translations, the ad's own creative carries `translations.source_language`. It's `null` on an ad without translations.
+    """
+
     media_type: typing.Optional[str] = pydantic.Field(default=None)
     """
     The kind of asset, image or video.

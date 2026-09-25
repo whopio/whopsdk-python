@@ -200,6 +200,8 @@ if typing.TYPE_CHECKING:
     from .ad_post_source import AdPostSource
     from .ad_result_event import AdResultEvent
     from .ad_status import AdStatus
+    from .ad_text import AdText
+    from .ad_translations import AdTranslations
     from .affiliate import Affiliate
     from .affiliate_applies_to_payments import AffiliateAppliesToPayments
     from .affiliate_applies_to_products import AffiliateAppliesToProducts
@@ -1589,6 +1591,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdPostSource": ".ad_post_source",
     "AdResultEvent": ".ad_result_event",
     "AdStatus": ".ad_status",
+    "AdText": ".ad_text",
+    "AdTranslations": ".ad_translations",
     "Affiliate": ".affiliate",
     "AffiliateAppliesToPayments": ".affiliate_applies_to_payments",
     "AffiliateAppliesToProducts": ".affiliate_applies_to_products",
@@ -2866,6 +2870,8 @@ __all__ = [
     "AdPostSource",
     "AdResultEvent",
     "AdStatus",
+    "AdText",
+    "AdTranslations",
     "Affiliate",
     "AffiliateAppliesToPayments",
     "AffiliateAppliesToProducts",

@@ -10,6 +10,8 @@ if typing.TYPE_CHECKING:
     from .create_ads_request_creatives_item import CreateAdsRequestCreativesItem
     from .create_ads_request_creatives_item_crop import CreateAdsRequestCreativesItemCrop
     from .create_ads_request_creatives_item_format import CreateAdsRequestCreativesItemFormat
+    from .create_ads_request_descriptions_item import CreateAdsRequestDescriptionsItem
+    from .create_ads_request_headlines_item import CreateAdsRequestHeadlinesItem
     from .create_ads_request_lead_form import CreateAdsRequestLeadForm
     from .create_ads_request_lead_form_completion import CreateAdsRequestLeadFormCompletion
     from .create_ads_request_lead_form_completion_button_type import CreateAdsRequestLeadFormCompletionButtonType
@@ -35,7 +37,9 @@ if typing.TYPE_CHECKING:
     from .create_ads_request_messaging_config import CreateAdsRequestMessagingConfig
     from .create_ads_request_music import CreateAdsRequestMusic
     from .create_ads_request_post_source import CreateAdsRequestPostSource
+    from .create_ads_request_primary_texts_item import CreateAdsRequestPrimaryTextsItem
     from .create_ads_request_social_accounts_item import CreateAdsRequestSocialAccountsItem
+    from .create_ads_request_translations import CreateAdsRequestTranslations
     from .delete_ads_response import DeleteAdsResponse
     from .duplicate_ads_response import DuplicateAdsResponse
     from .list_ads_request_attribution_model import ListAdsRequestAttributionModel
@@ -58,6 +62,8 @@ if typing.TYPE_CHECKING:
     from .update_ads_request_creatives_item import UpdateAdsRequestCreativesItem
     from .update_ads_request_creatives_item_crop import UpdateAdsRequestCreativesItemCrop
     from .update_ads_request_creatives_item_format import UpdateAdsRequestCreativesItemFormat
+    from .update_ads_request_descriptions_item import UpdateAdsRequestDescriptionsItem
+    from .update_ads_request_headlines_item import UpdateAdsRequestHeadlinesItem
     from .update_ads_request_lead_form import UpdateAdsRequestLeadForm
     from .update_ads_request_lead_form_completion import UpdateAdsRequestLeadFormCompletion
     from .update_ads_request_lead_form_completion_button_type import UpdateAdsRequestLeadFormCompletionButtonType
@@ -83,12 +89,16 @@ if typing.TYPE_CHECKING:
     from .update_ads_request_messaging_config import UpdateAdsRequestMessagingConfig
     from .update_ads_request_music import UpdateAdsRequestMusic
     from .update_ads_request_post_source import UpdateAdsRequestPostSource
+    from .update_ads_request_primary_texts_item import UpdateAdsRequestPrimaryTextsItem
     from .update_ads_request_social_accounts_item import UpdateAdsRequestSocialAccountsItem
+    from .update_ads_request_translations import UpdateAdsRequestTranslations
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateAdsRequestCallToAction": ".create_ads_request_call_to_action",
     "CreateAdsRequestCreativesItem": ".create_ads_request_creatives_item",
     "CreateAdsRequestCreativesItemCrop": ".create_ads_request_creatives_item_crop",
     "CreateAdsRequestCreativesItemFormat": ".create_ads_request_creatives_item_format",
+    "CreateAdsRequestDescriptionsItem": ".create_ads_request_descriptions_item",
+    "CreateAdsRequestHeadlinesItem": ".create_ads_request_headlines_item",
     "CreateAdsRequestLeadForm": ".create_ads_request_lead_form",
     "CreateAdsRequestLeadFormCompletion": ".create_ads_request_lead_form_completion",
     "CreateAdsRequestLeadFormCompletionButtonType": ".create_ads_request_lead_form_completion_button_type",
@@ -106,7 +116,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateAdsRequestMessagingConfig": ".create_ads_request_messaging_config",
     "CreateAdsRequestMusic": ".create_ads_request_music",
     "CreateAdsRequestPostSource": ".create_ads_request_post_source",
+    "CreateAdsRequestPrimaryTextsItem": ".create_ads_request_primary_texts_item",
     "CreateAdsRequestSocialAccountsItem": ".create_ads_request_social_accounts_item",
+    "CreateAdsRequestTranslations": ".create_ads_request_translations",
     "DeleteAdsResponse": ".delete_ads_response",
     "DuplicateAdsResponse": ".duplicate_ads_response",
     "ListAdsRequestAttributionModel": ".list_ads_request_attribution_model",
@@ -129,6 +141,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateAdsRequestCreativesItem": ".update_ads_request_creatives_item",
     "UpdateAdsRequestCreativesItemCrop": ".update_ads_request_creatives_item_crop",
     "UpdateAdsRequestCreativesItemFormat": ".update_ads_request_creatives_item_format",
+    "UpdateAdsRequestDescriptionsItem": ".update_ads_request_descriptions_item",
+    "UpdateAdsRequestHeadlinesItem": ".update_ads_request_headlines_item",
     "UpdateAdsRequestLeadForm": ".update_ads_request_lead_form",
     "UpdateAdsRequestLeadFormCompletion": ".update_ads_request_lead_form_completion",
     "UpdateAdsRequestLeadFormCompletionButtonType": ".update_ads_request_lead_form_completion_button_type",
@@ -146,7 +160,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateAdsRequestMessagingConfig": ".update_ads_request_messaging_config",
     "UpdateAdsRequestMusic": ".update_ads_request_music",
     "UpdateAdsRequestPostSource": ".update_ads_request_post_source",
+    "UpdateAdsRequestPrimaryTextsItem": ".update_ads_request_primary_texts_item",
     "UpdateAdsRequestSocialAccountsItem": ".update_ads_request_social_accounts_item",
+    "UpdateAdsRequestTranslations": ".update_ads_request_translations",
 }
 
 
@@ -176,6 +192,8 @@ __all__ = [
     "CreateAdsRequestCreativesItem",
     "CreateAdsRequestCreativesItemCrop",
     "CreateAdsRequestCreativesItemFormat",
+    "CreateAdsRequestDescriptionsItem",
+    "CreateAdsRequestHeadlinesItem",
     "CreateAdsRequestLeadForm",
     "CreateAdsRequestLeadFormCompletion",
     "CreateAdsRequestLeadFormCompletionButtonType",
@@ -193,7 +211,9 @@ __all__ = [
     "CreateAdsRequestMessagingConfig",
     "CreateAdsRequestMusic",
     "CreateAdsRequestPostSource",
+    "CreateAdsRequestPrimaryTextsItem",
     "CreateAdsRequestSocialAccountsItem",
+    "CreateAdsRequestTranslations",
     "DeleteAdsResponse",
     "DuplicateAdsResponse",
     "ListAdsRequestAttributionModel",
@@ -216,6 +236,8 @@ __all__ = [
     "UpdateAdsRequestCreativesItem",
     "UpdateAdsRequestCreativesItemCrop",
     "UpdateAdsRequestCreativesItemFormat",
+    "UpdateAdsRequestDescriptionsItem",
+    "UpdateAdsRequestHeadlinesItem",
     "UpdateAdsRequestLeadForm",
     "UpdateAdsRequestLeadFormCompletion",
     "UpdateAdsRequestLeadFormCompletionButtonType",
@@ -233,5 +255,7 @@ __all__ = [
     "UpdateAdsRequestMessagingConfig",
     "UpdateAdsRequestMusic",
     "UpdateAdsRequestPostSource",
+    "UpdateAdsRequestPrimaryTextsItem",
     "UpdateAdsRequestSocialAccountsItem",
+    "UpdateAdsRequestTranslations",
 ]

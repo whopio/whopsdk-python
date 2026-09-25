@@ -16,6 +16,8 @@ from .ad_platform_issue import AdPlatformIssue
 from .ad_post_source import AdPostSource
 from .ad_result_event import AdResultEvent
 from .ad_status import AdStatus
+from .ad_text import AdText
+from .ad_translations import AdTranslations
 
 
 class Ad(UniversalBaseModel):
@@ -160,7 +162,7 @@ class Ad(UniversalBaseModel):
     Whether the ad is delivering right now, and if not, why. When several states apply at once, the highest-precedence one is returned.
     """
 
-    descriptions: typing.List[str]
+    descriptions: typing.List[AdText]
     existing_post_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The post you pointed this ad at, when it promotes one you already published — a Facebook post, Instagram media, or TikTok video ID. `null` when the ad uses uploaded creatives.
@@ -171,7 +173,7 @@ class Ad(UniversalBaseModel):
     Platform-reported impressions divided by reach.
     """
 
-    headlines: typing.List[str]
+    headlines: typing.List[AdText]
     id: str = pydantic.Field()
     """
     Unique identifier for the ad, prefixed `ad_`.
@@ -243,7 +245,7 @@ class Ad(UniversalBaseModel):
     Preview image of the post named by `existing_post_id`. `null` for ads that use uploaded creatives, or until the post's media has been fetched from the network.
     """
 
-    primary_texts: typing.List[str]
+    primary_texts: typing.List[AdText]
     purchase_value: float = pydantic.Field()
     """
     USD value of pixel-attributed purchases.
@@ -318,6 +320,11 @@ class Ad(UniversalBaseModel):
     title: typing.Optional[str] = pydantic.Field(default=None)
     """
     Display title of the ad.
+    """
+
+    translations: typing.Optional[AdTranslations] = pydantic.Field(default=None)
+    """
+    The languages a Meta ad runs in besides its own. Each viewer sees the version for their language, or the ad's own copy. `null` when the ad runs in one language.
     """
 
     unique_click_through_rate: typing.Optional[float] = pydantic.Field(default=None)

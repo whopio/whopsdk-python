@@ -20,6 +20,11 @@ class UpdateAdsRequestCreativesItem(UniversalBaseModel):
     Uploaded file ID, prefixed `file_`.
     """
 
+    language: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    ISO 639 code of the language this image or video is shown for, such as `es`. Required on every entry of an ad with `translations`, where the ad's own creative uses `translations.source_language`. Another language's creative is the same type as the ad's own, with no format. Leave it out on an ad without translations.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:
