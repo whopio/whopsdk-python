@@ -11,6 +11,7 @@ from ..core.request_options import RequestOptions
 from ..types.setup_intent import SetupIntent
 from ..types.setup_status import SetupStatus
 from .raw_client import AsyncRawSetupIntentsClient, RawSetupIntentsClient
+from .types.create_setup_intents_request_purpose import CreateSetupIntentsRequestPurpose
 from .types.list_setup_intents_request_direction import ListSetupIntentsRequestDirection
 from .types.list_setup_intents_request_order import ListSetupIntentsRequestOrder
 from .types.list_setup_intents_request_status import ListSetupIntentsRequestStatus
@@ -134,9 +135,9 @@ class SetupIntentsClient:
         confirmation_token: typing.Optional[str] = OMIT,
         currency: typing.Optional[str] = OMIT,
         email: typing.Optional[str] = OMIT,
-        for_ads_billing: typing.Optional[bool] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
+        purpose: typing.Optional[CreateSetupIntentsRequestPurpose] = OMIT,
         return_url: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SetupIntent:
@@ -157,14 +158,14 @@ class SetupIntentsClient:
         email : typing.Optional[str]
             Overrides the buyer email carried on the confirmation token, resolving or creating the user the method belongs to. Ignored unless `confirmation_token` is provided, and when the token was created by a signed-in buyer or the caller is the buyer.
 
-        for_ads_billing : typing.Optional[bool]
-            Set to `true` when saving a card to pay for Whop Ads on `account_id`. The card is verified by Whop Ads, the merchant that charges it, which helps minimize security declines on ad payments. Requires `ad_campaign:create` on `account_id`. Defaults to `false`.
-
         metadata : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             Custom metadata to attach to the setup intent. Returned on the setup intent and its webhooks.
 
         payment_method_id : typing.Optional[str]
             An existing payment method to re-verify and save, prefixed `payt_`. Provide this or `confirmation_token`, not both. Not available to a buyer credential.
+
+        purpose : typing.Optional[CreateSetupIntentsRequestPurpose]
+            What the saved payment method will pay for. Set to `ads_billing` when saving a card to pay for Whop Ads on `account_id`: the card is verified by Whop Ads, the merchant that charges it, which helps minimize security declines on ad payments, and it requires `ad_campaign:create` on `account_id`. Omit it for any other payment method.
 
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters.
@@ -195,9 +196,9 @@ class SetupIntentsClient:
             confirmation_token=confirmation_token,
             currency=currency,
             email=email,
-            for_ads_billing=for_ads_billing,
             metadata=metadata,
             payment_method_id=payment_method_id,
+            purpose=purpose,
             return_url=return_url,
             request_options=request_options,
         )
@@ -442,9 +443,9 @@ class AsyncSetupIntentsClient:
         confirmation_token: typing.Optional[str] = OMIT,
         currency: typing.Optional[str] = OMIT,
         email: typing.Optional[str] = OMIT,
-        for_ads_billing: typing.Optional[bool] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
+        purpose: typing.Optional[CreateSetupIntentsRequestPurpose] = OMIT,
         return_url: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SetupIntent:
@@ -465,14 +466,14 @@ class AsyncSetupIntentsClient:
         email : typing.Optional[str]
             Overrides the buyer email carried on the confirmation token, resolving or creating the user the method belongs to. Ignored unless `confirmation_token` is provided, and when the token was created by a signed-in buyer or the caller is the buyer.
 
-        for_ads_billing : typing.Optional[bool]
-            Set to `true` when saving a card to pay for Whop Ads on `account_id`. The card is verified by Whop Ads, the merchant that charges it, which helps minimize security declines on ad payments. Requires `ad_campaign:create` on `account_id`. Defaults to `false`.
-
         metadata : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             Custom metadata to attach to the setup intent. Returned on the setup intent and its webhooks.
 
         payment_method_id : typing.Optional[str]
             An existing payment method to re-verify and save, prefixed `payt_`. Provide this or `confirmation_token`, not both. Not available to a buyer credential.
+
+        purpose : typing.Optional[CreateSetupIntentsRequestPurpose]
+            What the saved payment method will pay for. Set to `ads_billing` when saving a card to pay for Whop Ads on `account_id`: the card is verified by Whop Ads, the merchant that charges it, which helps minimize security declines on ad payments, and it requires `ad_campaign:create` on `account_id`. Omit it for any other payment method.
 
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters.
@@ -511,9 +512,9 @@ class AsyncSetupIntentsClient:
             confirmation_token=confirmation_token,
             currency=currency,
             email=email,
-            for_ads_billing=for_ads_billing,
             metadata=metadata,
             payment_method_id=payment_method_id,
+            purpose=purpose,
             return_url=return_url,
             request_options=request_options,
         )

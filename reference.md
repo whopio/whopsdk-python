@@ -36289,14 +36289,6 @@ client.setup_intents.create(
 <dl>
 <dd>
 
-**for_ads_billing:** `typing.Optional[bool]` — Set to `true` when saving a card to pay for Whop Ads on `account_id`. The card is verified by Whop Ads, the merchant that charges it, which helps minimize security declines on ad payments. Requires `ad_campaign:create` on `account_id`. Defaults to `false`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **metadata:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — Custom metadata to attach to the setup intent. Returned on the setup intent and its webhooks.
     
 </dd>
@@ -36306,6 +36298,14 @@ client.setup_intents.create(
 <dd>
 
 **payment_method_id:** `typing.Optional[str]` — An existing payment method to re-verify and save, prefixed `payt_`. Provide this or `confirmation_token`, not both. Not available to a buyer credential.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**purpose:** `typing.Optional[CreateSetupIntentsRequestPurpose]` — What the saved payment method will pay for. Set to `ads_billing` when saving a card to pay for Whop Ads on `account_id`: the card is verified by Whop Ads, the merchant that charges it, which helps minimize security declines on ad payments, and it requires `ad_campaign:create` on `account_id`. Omit it for any other payment method.
     
 </dd>
 </dl>

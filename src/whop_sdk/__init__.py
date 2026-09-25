@@ -2651,6 +2651,7 @@ if typing.TYPE_CHECKING:
     )
     from .reviews import ListReviewsResponse
     from .setup_intents import (
+        CreateSetupIntentsRequestPurpose,
         ListSetupIntentsRequestDirection,
         ListSetupIntentsRequestOrder,
         ListSetupIntentsRequestStatus,
@@ -3622,6 +3623,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateQuoteSwapsResponseObject": ".swaps",
     "CreateResolutionCenterCasesRequestAttachmentsItem": ".resolution_center_cases",
     "CreateResolutionCenterCasesRequestReason": ".resolution_center_cases",
+    "CreateSetupIntentsRequestPurpose": ".setup_intents",
     "CreateSocialAccountsRequestPlatform": ".social_accounts",
     "CreateSwapsRequestFromChain": ".swaps",
     "CreateSwapsRequestToChain": ".swaps",
@@ -6487,6 +6489,7 @@ __all__ = [
     "CreateQuoteSwapsResponseObject",
     "CreateResolutionCenterCasesRequestAttachmentsItem",
     "CreateResolutionCenterCasesRequestReason",
+    "CreateSetupIntentsRequestPurpose",
     "CreateSocialAccountsRequestPlatform",
     "CreateSwapsRequestFromChain",
     "CreateSwapsRequestToChain",
