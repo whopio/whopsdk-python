@@ -23,7 +23,7 @@ class RawConfirmationTokensClient:
         self, id: str, *, account_id: str, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[ConfirmationToken]:
         """
-        Retrieves a token's display-safe preview — never the underlying payment credential. Public and rate-limited: the account_id query param must match the account the token was minted for.
+        Retrieves a token's payment method and billing details — never the underlying payment credential. Public and rate-limited: the account_id query param must match the account the token was minted for. A bearer credential with payment:basic:read on that account also receives the collected billing address.
 
         Parameters
         ----------
@@ -89,7 +89,7 @@ class AsyncRawConfirmationTokensClient:
         self, id: str, *, account_id: str, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[ConfirmationToken]:
         """
-        Retrieves a token's display-safe preview — never the underlying payment credential. Public and rate-limited: the account_id query param must match the account the token was minted for.
+        Retrieves a token's payment method and billing details — never the underlying payment credential. Public and rate-limited: the account_id query param must match the account the token was minted for. A bearer credential with payment:basic:read on that account also receives the collected billing address.
 
         Parameters
         ----------
