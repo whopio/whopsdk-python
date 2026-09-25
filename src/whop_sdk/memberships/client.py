@@ -214,10 +214,11 @@ class MembershipsClient:
         *,
         cancel_at_period_end: typing.Optional[bool] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
+        payment_method_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Membership:
         """
-        Updates a membership: merge metadata key-value pairs, or toggle `cancel_at_period_end` — `true` schedules the cancellation for the end of the current billing period, `false` reverses a pending one.
+        Updates a membership: merge metadata key-value pairs, toggle `cancel_at_period_end` — `true` schedules the cancellation for the end of the current billing period, `false` reverses a pending one — or move future renewals to another of the customer's saved payment methods with `payment_method_id`.
 
         Parameters
         ----------
@@ -229,6 +230,9 @@ class MembershipsClient:
 
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
             Key-value pairs to merge into the membership's metadata. Pass an empty object to clear it.
+
+        payment_method_id : typing.Optional[str]
+            The ID of a payment method the customer has saved with your account. Future renewals charge it, and an open past-due payment is retried on it right away. Requires the `member:payment_methods:manage` permission.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -252,7 +256,11 @@ class MembershipsClient:
         )
         """
         _response = self._raw_client.update(
-            id, cancel_at_period_end=cancel_at_period_end, metadata=metadata, request_options=request_options
+            id,
+            cancel_at_period_end=cancel_at_period_end,
+            metadata=metadata,
+            payment_method_id=payment_method_id,
+            request_options=request_options,
         )
         return _response.data
 
@@ -739,10 +747,11 @@ class AsyncMembershipsClient:
         *,
         cancel_at_period_end: typing.Optional[bool] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
+        payment_method_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Membership:
         """
-        Updates a membership: merge metadata key-value pairs, or toggle `cancel_at_period_end` — `true` schedules the cancellation for the end of the current billing period, `false` reverses a pending one.
+        Updates a membership: merge metadata key-value pairs, toggle `cancel_at_period_end` — `true` schedules the cancellation for the end of the current billing period, `false` reverses a pending one — or move future renewals to another of the customer's saved payment methods with `payment_method_id`.
 
         Parameters
         ----------
@@ -754,6 +763,9 @@ class AsyncMembershipsClient:
 
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
             Key-value pairs to merge into the membership's metadata. Pass an empty object to clear it.
+
+        payment_method_id : typing.Optional[str]
+            The ID of a payment method the customer has saved with your account. Future renewals charge it, and an open past-due payment is retried on it right away. Requires the `member:payment_methods:manage` permission.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -785,7 +797,11 @@ class AsyncMembershipsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.update(
-            id, cancel_at_period_end=cancel_at_period_end, metadata=metadata, request_options=request_options
+            id,
+            cancel_at_period_end=cancel_at_period_end,
+            metadata=metadata,
+            payment_method_id=payment_method_id,
+            request_options=request_options,
         )
         return _response.data
 

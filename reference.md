@@ -25003,7 +25003,7 @@ client.memberships.retrieve(
 <dl>
 <dd>
 
-Updates a membership: merge metadata key-value pairs, or toggle `cancel_at_period_end` — `true` schedules the cancellation for the end of the current billing period, `false` reverses a pending one.
+Updates a membership: merge metadata key-value pairs, toggle `cancel_at_period_end` — `true` schedules the cancellation for the end of the current billing period, `false` reverses a pending one — or move future renewals to another of the customer's saved payment methods with `payment_method_id`.
 </dd>
 </dl>
 </dd>
@@ -25061,6 +25061,14 @@ client.memberships.update(
 <dd>
 
 **metadata:** `typing.Optional[typing.Dict[str, typing.Any]]` — Key-value pairs to merge into the membership's metadata. Pass an empty object to clear it.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment_method_id:** `typing.Optional[str]` — The ID of a payment method the customer has saved with your account. Future renewals charge it, and an open past-due payment is retried on it right away. Requires the `member:payment_methods:manage` permission.
     
 </dd>
 </dl>
