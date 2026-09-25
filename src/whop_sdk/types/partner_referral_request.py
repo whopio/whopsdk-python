@@ -58,6 +58,11 @@ class PartnerReferralRequest(UniversalBaseModel):
     When the request last changed, as an ISO 8601 timestamp.
     """
 
+    user: typing.Optional[UserSummary] = pydantic.Field(default=None)
+    """
+    User receiving the attribution request, or null for a business request or referral link.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

@@ -39,6 +39,7 @@ class RawPartnerReferralRequestsClient:
         self,
         *,
         account_id: typing.Optional[str] = None,
+        target_user_id: typing.Optional[str] = None,
         partner_id: typing.Optional[str] = None,
         status: typing.Optional[ListPartnerReferralRequestsRequestStatus] = None,
         request_type: typing.Optional[ListPartnerReferralRequestsRequestRequestType] = None,
@@ -51,12 +52,15 @@ class RawPartnerReferralRequestsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[PartnerReferralRequest, ListPartnerReferralRequestsResponse]:
         """
-        Lists requests sent by an eligible partner and requests for accounts where the authenticated user currently holds the owner role. Enrolled, non-suspended partners can read their links without verification; reading their sent manual requests requires verification. Filters narrow that combined view. Use a Whop login session or an account API key with `partner:referral_request:read`. The key must have been created by the account's current owner. Account API keys return their owner's sent requests and incoming requests for the key's account.
+        Lists your referral links and attribution requests, including incoming requests for you or businesses you own, with filters for recipient, partner, type, and status.
 
         Parameters
         ----------
         account_id : typing.Optional[str]
             Only requests for this business ID, prefixed `biz_`.
+
+        target_user_id : typing.Optional[str]
+            Only requests received by this user ID, prefixed `user_`.
 
         partner_id : typing.Optional[str]
             Only requests sent by this partner's user ID, prefixed `user_`.
@@ -99,6 +103,7 @@ class RawPartnerReferralRequestsClient:
             method="GET",
             params={
                 "account_id": account_id,
+                "target_user_id": target_user_id,
                 "partner_id": partner_id,
                 "status": status,
                 "request_type": request_type,
@@ -128,6 +133,7 @@ class RawPartnerReferralRequestsClient:
                     _has_next = _parsed_next is not None and _parsed_next != ""
                     _get_next = lambda: self.list(
                         account_id=account_id,
+                        target_user_id=target_user_id,
                         partner_id=partner_id,
                         status=status,
                         request_type=request_type,
@@ -189,7 +195,7 @@ class RawPartnerReferralRequestsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PartnerReferralRequest]:
         """
-        Creates a pending manual request for an existing business as the authenticated, enrolled, verified Whop partner. Provide exactly one of account_id or account_url. Whop business and product links resolve to their business. A business owner must accept before attribution changes. An existing pending manual request from the same partner returns 200; a new request returns 201. Alternatively, send request_type=link without a code, business, or redemption limit to get your oldest saved referral link, or create one with a randomly generated code when none exists. Provide a custom code or redemption limit to create a new link; omitted codes are generated randomly. Only authorized staff may configure rewards or select another partner. Link creation requires partner enrollment and a non-suspended account, but not verification. Use a Whop login session or an account API key with `partner:referral_request:create`. The key must have been created by the account's current owner and acts as that owner.
+        Creates a referral link or sends a verified partner's attribution request to an existing business or enrolled partner for approval.
 
         Parameters
         ----------
@@ -291,7 +297,7 @@ class RawPartnerReferralRequestsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[PartnerReferralRequest]:
         """
-        Retrieves a request visible to its eligible sender or a current owner of the receiving account. Enrolled, non-suspended partners can read their links without verification. Use a Whop login session or an account API key with `partner:referral_request:read`. The key must have been created by the account's current owner. Account API keys can retrieve their owner's sent requests and incoming requests for the key's account.
+        Retrieves a referral link or attribution request by ID, including its partner, recipient, approval status, and referral code when present.
 
         Parameters
         ----------
@@ -368,7 +374,7 @@ class RawPartnerReferralRequestsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[PartnerReferralRequest]:
         """
-        Accepts a pending manual request as a current business owner and attributes the business to the verified requesting partner. Existing active attribution blocks acceptance. Repeating acceptance returns the accepted request. Use a Whop login session or an account API key with `partner:referral_request:accept`. The key must have been created by the account's current owner. Account API keys can respond only to requests for the key's account.
+        Accepts a pending attribution request as the receiving user or business owner, assigning the requesting partner as that user's or business's referrer.
 
         Parameters
         ----------
@@ -456,7 +462,7 @@ class RawPartnerReferralRequestsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[PartnerReferralRequest]:
         """
-        Cancels a pending manual request as its eligible requesting partner. Repeating cancellation returns the cancelled request. Use a Whop login session or an account API key with `partner:referral_request:cancel`. The key must have been created by the account's current owner. Account API keys cancel requests as their account owner.
+        Cancels a pending attribution request you sent so the recipient can no longer accept it, and returns the cancelled request.
 
         Parameters
         ----------
@@ -544,7 +550,7 @@ class RawPartnerReferralRequestsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[PartnerReferralRequest]:
         """
-        Denies a pending manual request as a current business owner. Repeating denial returns the denied request. Use a Whop login session or an account API key with `partner:referral_request:decline`. The key must have been created by the account's current owner. Account API keys can respond only to requests for the key's account.
+        Declines a pending attribution request for you or a business you own, marking it as denied without assigning the requesting partner as a referrer.
 
         Parameters
         ----------
@@ -637,6 +643,7 @@ class AsyncRawPartnerReferralRequestsClient:
         self,
         *,
         account_id: typing.Optional[str] = None,
+        target_user_id: typing.Optional[str] = None,
         partner_id: typing.Optional[str] = None,
         status: typing.Optional[ListPartnerReferralRequestsRequestStatus] = None,
         request_type: typing.Optional[ListPartnerReferralRequestsRequestRequestType] = None,
@@ -649,12 +656,15 @@ class AsyncRawPartnerReferralRequestsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[PartnerReferralRequest, ListPartnerReferralRequestsResponse]:
         """
-        Lists requests sent by an eligible partner and requests for accounts where the authenticated user currently holds the owner role. Enrolled, non-suspended partners can read their links without verification; reading their sent manual requests requires verification. Filters narrow that combined view. Use a Whop login session or an account API key with `partner:referral_request:read`. The key must have been created by the account's current owner. Account API keys return their owner's sent requests and incoming requests for the key's account.
+        Lists your referral links and attribution requests, including incoming requests for you or businesses you own, with filters for recipient, partner, type, and status.
 
         Parameters
         ----------
         account_id : typing.Optional[str]
             Only requests for this business ID, prefixed `biz_`.
+
+        target_user_id : typing.Optional[str]
+            Only requests received by this user ID, prefixed `user_`.
 
         partner_id : typing.Optional[str]
             Only requests sent by this partner's user ID, prefixed `user_`.
@@ -697,6 +707,7 @@ class AsyncRawPartnerReferralRequestsClient:
             method="GET",
             params={
                 "account_id": account_id,
+                "target_user_id": target_user_id,
                 "partner_id": partner_id,
                 "status": status,
                 "request_type": request_type,
@@ -728,6 +739,7 @@ class AsyncRawPartnerReferralRequestsClient:
                     async def _get_next():
                         return await self.list(
                             account_id=account_id,
+                            target_user_id=target_user_id,
                             partner_id=partner_id,
                             status=status,
                             request_type=request_type,
@@ -790,7 +802,7 @@ class AsyncRawPartnerReferralRequestsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PartnerReferralRequest]:
         """
-        Creates a pending manual request for an existing business as the authenticated, enrolled, verified Whop partner. Provide exactly one of account_id or account_url. Whop business and product links resolve to their business. A business owner must accept before attribution changes. An existing pending manual request from the same partner returns 200; a new request returns 201. Alternatively, send request_type=link without a code, business, or redemption limit to get your oldest saved referral link, or create one with a randomly generated code when none exists. Provide a custom code or redemption limit to create a new link; omitted codes are generated randomly. Only authorized staff may configure rewards or select another partner. Link creation requires partner enrollment and a non-suspended account, but not verification. Use a Whop login session or an account API key with `partner:referral_request:create`. The key must have been created by the account's current owner and acts as that owner.
+        Creates a referral link or sends a verified partner's attribution request to an existing business or enrolled partner for approval.
 
         Parameters
         ----------
@@ -892,7 +904,7 @@ class AsyncRawPartnerReferralRequestsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[PartnerReferralRequest]:
         """
-        Retrieves a request visible to its eligible sender or a current owner of the receiving account. Enrolled, non-suspended partners can read their links without verification. Use a Whop login session or an account API key with `partner:referral_request:read`. The key must have been created by the account's current owner. Account API keys can retrieve their owner's sent requests and incoming requests for the key's account.
+        Retrieves a referral link or attribution request by ID, including its partner, recipient, approval status, and referral code when present.
 
         Parameters
         ----------
@@ -969,7 +981,7 @@ class AsyncRawPartnerReferralRequestsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[PartnerReferralRequest]:
         """
-        Accepts a pending manual request as a current business owner and attributes the business to the verified requesting partner. Existing active attribution blocks acceptance. Repeating acceptance returns the accepted request. Use a Whop login session or an account API key with `partner:referral_request:accept`. The key must have been created by the account's current owner. Account API keys can respond only to requests for the key's account.
+        Accepts a pending attribution request as the receiving user or business owner, assigning the requesting partner as that user's or business's referrer.
 
         Parameters
         ----------
@@ -1057,7 +1069,7 @@ class AsyncRawPartnerReferralRequestsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[PartnerReferralRequest]:
         """
-        Cancels a pending manual request as its eligible requesting partner. Repeating cancellation returns the cancelled request. Use a Whop login session or an account API key with `partner:referral_request:cancel`. The key must have been created by the account's current owner. Account API keys cancel requests as their account owner.
+        Cancels a pending attribution request you sent so the recipient can no longer accept it, and returns the cancelled request.
 
         Parameters
         ----------
@@ -1145,7 +1157,7 @@ class AsyncRawPartnerReferralRequestsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[PartnerReferralRequest]:
         """
-        Denies a pending manual request as a current business owner. Repeating denial returns the denied request. Use a Whop login session or an account API key with `partner:referral_request:decline`. The key must have been created by the account's current owner. Account API keys can respond only to requests for the key's account.
+        Declines a pending attribution request for you or a business you own, marking it as denied without assigning the requesting partner as a referrer.
 
         Parameters
         ----------
