@@ -6,6 +6,7 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .delete_accounts_response import DeleteAccountsResponse
     from .form_company_accounts_request_business_address import FormCompanyAccountsRequestBusinessAddress
     from .form_company_accounts_request_entity_suffix import FormCompanyAccountsRequestEntitySuffix
     from .form_company_accounts_request_entity_type import FormCompanyAccountsRequestEntityType
@@ -61,6 +62,7 @@ if typing.TYPE_CHECKING:
     from .update_accounts_request_terms_of_service import UpdateAccountsRequestTermsOfService
     from .update_accounts_request_three_ds_level import UpdateAccountsRequestThreeDsLevel
 _dynamic_imports: typing.Dict[str, str] = {
+    "DeleteAccountsResponse": ".delete_accounts_response",
     "FormCompanyAccountsRequestBusinessAddress": ".form_company_accounts_request_business_address",
     "FormCompanyAccountsRequestEntitySuffix": ".form_company_accounts_request_entity_suffix",
     "FormCompanyAccountsRequestEntityType": ".form_company_accounts_request_entity_type",
@@ -134,6 +136,7 @@ def __dir__():
 
 
 __all__ = [
+    "DeleteAccountsResponse",
     "FormCompanyAccountsRequestBusinessAddress",
     "FormCompanyAccountsRequestEntitySuffix",
     "FormCompanyAccountsRequestEntityType",

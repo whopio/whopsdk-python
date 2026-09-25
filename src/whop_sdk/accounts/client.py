@@ -10,6 +10,7 @@ from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
 from ..types.account import Account
 from .raw_client import AsyncRawAccountsClient, RawAccountsClient
+from .types.delete_accounts_response import DeleteAccountsResponse
 from .types.form_company_accounts_request_business_address import FormCompanyAccountsRequestBusinessAddress
 from .types.form_company_accounts_request_entity_suffix import FormCompanyAccountsRequestEntitySuffix
 from .types.form_company_accounts_request_entity_type import FormCompanyAccountsRequestEntityType
@@ -332,6 +333,39 @@ class AccountsClient:
         )
         """
         _response = self._raw_client.retrieve(id, include_trading=include_trading, request_options=request_options)
+        return _response.data
+
+    def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> DeleteAccountsResponse:
+        """
+        Deletes a connected account directly owned by the authenticated platform account. The account must have no settled, pending, or reserved balance in any currency and no active, trialing, or past-due memberships. The account stops resolving immediately, and its products, plans, and team access are removed in the background; payment history is retained. Deletion cannot be undone through the API. This cannot delete the platform account itself or an account owned by another platform.
+
+        Parameters
+        ----------
+        id : str
+            Connected account ID, prefixed `biz_`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        DeleteAccountsResponse
+            Connected account deleted.
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-09-24-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.accounts.delete(
+            id="id",
+        )
+        """
+        _response = self._raw_client.delete(id, request_options=request_options)
         return _response.data
 
     def update(
@@ -1233,6 +1267,49 @@ class AsyncAccountsClient:
         _response = await self._raw_client.retrieve(
             id, include_trading=include_trading, request_options=request_options
         )
+        return _response.data
+
+    async def delete(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> DeleteAccountsResponse:
+        """
+        Deletes a connected account directly owned by the authenticated platform account. The account must have no settled, pending, or reserved balance in any currency and no active, trialing, or past-due memberships. The account stops resolving immediately, and its products, plans, and team access are removed in the background; payment history is retained. Deletion cannot be undone through the API. This cannot delete the platform account itself or an account owned by another platform.
+
+        Parameters
+        ----------
+        id : str
+            Connected account ID, prefixed `biz_`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        DeleteAccountsResponse
+            Connected account deleted.
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-09-24-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.accounts.delete(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.delete(id, request_options=request_options)
         return _response.data
 
     async def update(
