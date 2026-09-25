@@ -187,7 +187,7 @@ class SocialAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ConnectSocialAccountsResponse:
         """
-        Starts an OAuth connection flow and returns an authorize_url where the user can connect a social account. LinkedIn connects the authenticated user’s profile and must be completed in a browser signed in as that same Whop user.
+        Starts an OAuth connection flow and returns an authorize_url where the user can connect a social account. LinkedIn supports personal profiles only, with scopes omitted. TikTok connects the authenticated user’s profile when scopes are omitted or company advertising assets with advertise. Meta Business and Snapchat support advertising connections only and require advertise. Personal profile connections must be completed in a browser signed in as the initiating Whop user.
 
         Parameters
         ----------
@@ -198,10 +198,10 @@ class SocialAccountsClient:
             Where to send the user once they finish connecting their accounts. Any `http` or `https` URL. If the connection fails, the user is redirected with a `social_account_error` query param.
 
         account_id : typing.Optional[str]
-            The Account (biz_ identifier) to connect the social account for. An account-scoped API key may omit this to default to its own account. Omit for LinkedIn connections.
+            The Account (biz_ identifier) to connect the social account for. An account-scoped API key may omit this to default to its own account. Omit for user profile connections.
 
         scopes : typing.Optional[typing.Sequence[ConnectSocialAccountsRequestScopesItem]]
-            Capabilities to grant for the connected social account. `advertise` is required for `meta_business`, `tiktok`, and `snapchat` connections — it is not conditional on whether you intend to run ads, and omitting it fails the request. Omit scopes for LinkedIn connections.
+            The connection purpose. For `meta_business` and `snapchat`, `advertise` is required and connects company advertising assets. For `linkedin`, omit scopes to connect the authenticated user’s profile; advertising is not supported. For `tiktok`, omit scopes to connect the authenticated user’s profile, or pass `advertise` to connect company advertising assets. Profile connections still request the platform permissions needed to read the profile.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -604,7 +604,7 @@ class AsyncSocialAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ConnectSocialAccountsResponse:
         """
-        Starts an OAuth connection flow and returns an authorize_url where the user can connect a social account. LinkedIn connects the authenticated user’s profile and must be completed in a browser signed in as that same Whop user.
+        Starts an OAuth connection flow and returns an authorize_url where the user can connect a social account. LinkedIn supports personal profiles only, with scopes omitted. TikTok connects the authenticated user’s profile when scopes are omitted or company advertising assets with advertise. Meta Business and Snapchat support advertising connections only and require advertise. Personal profile connections must be completed in a browser signed in as the initiating Whop user.
 
         Parameters
         ----------
@@ -615,10 +615,10 @@ class AsyncSocialAccountsClient:
             Where to send the user once they finish connecting their accounts. Any `http` or `https` URL. If the connection fails, the user is redirected with a `social_account_error` query param.
 
         account_id : typing.Optional[str]
-            The Account (biz_ identifier) to connect the social account for. An account-scoped API key may omit this to default to its own account. Omit for LinkedIn connections.
+            The Account (biz_ identifier) to connect the social account for. An account-scoped API key may omit this to default to its own account. Omit for user profile connections.
 
         scopes : typing.Optional[typing.Sequence[ConnectSocialAccountsRequestScopesItem]]
-            Capabilities to grant for the connected social account. `advertise` is required for `meta_business`, `tiktok`, and `snapchat` connections — it is not conditional on whether you intend to run ads, and omitting it fails the request. Omit scopes for LinkedIn connections.
+            The connection purpose. For `meta_business` and `snapchat`, `advertise` is required and connects company advertising assets. For `linkedin`, omit scopes to connect the authenticated user’s profile; advertising is not supported. For `tiktok`, omit scopes to connect the authenticated user’s profile, or pass `advertise` to connect company advertising assets. Profile connections still request the platform permissions needed to read the profile.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
