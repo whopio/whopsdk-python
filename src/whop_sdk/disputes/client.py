@@ -81,7 +81,7 @@ class DisputesClient:
             Sort direction.
 
         status : typing.Optional[typing.Union[ListDisputesRequestStatusItem, typing.Sequence[ListDisputesRequestStatusItem]]]
-            Only disputes in these statuses. Repeat the parameter to pass several — one paginated list covers all of them. Covers both chargebacks and inquiries at each stage. A `needs_response` dispute whose evidence deadline has passed reports and filters as `under_review` instead.
+            Only disputes in these statuses. Repeat the parameter to pass several — one paginated list covers all of them. Inquiries match only the `warning_` statuses. A `needs_response` dispute whose evidence deadline has passed reports and filters as `under_review` instead.
 
         currency : typing.Optional[str]
             Only disputes in this three-letter ISO currency.
@@ -416,7 +416,7 @@ class AsyncDisputesClient:
             Sort direction.
 
         status : typing.Optional[typing.Union[ListDisputesRequestStatusItem, typing.Sequence[ListDisputesRequestStatusItem]]]
-            Only disputes in these statuses. Repeat the parameter to pass several — one paginated list covers all of them. Covers both chargebacks and inquiries at each stage. A `needs_response` dispute whose evidence deadline has passed reports and filters as `under_review` instead.
+            Only disputes in these statuses. Repeat the parameter to pass several — one paginated list covers all of them. Inquiries match only the `warning_` statuses. A `needs_response` dispute whose evidence deadline has passed reports and filters as `under_review` instead.
 
         currency : typing.Optional[str]
             Only disputes in this three-letter ISO currency.

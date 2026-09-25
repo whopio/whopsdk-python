@@ -3,5 +3,15 @@
 import typing
 
 SummaryDisputesRequestStatusItem = typing.Union[
-    typing.Literal["needs_response", "under_review", "won", "lost", "closed"], typing.Any
+    typing.Literal[
+        "needs_response",
+        "warning_needs_response",
+        "under_review",
+        "warning_under_review",
+        "won",
+        "lost",
+        "closed",
+        "warning_closed",
+    ],
+    typing.Any,
 ]

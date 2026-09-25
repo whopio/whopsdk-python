@@ -2,4 +2,16 @@
 
 import typing
 
-DisputeStatus = typing.Union[typing.Literal["needs_response", "under_review", "won", "lost", "closed"], typing.Any]
+DisputeStatus = typing.Union[
+    typing.Literal[
+        "needs_response",
+        "warning_needs_response",
+        "under_review",
+        "warning_under_review",
+        "won",
+        "lost",
+        "closed",
+        "warning_closed",
+    ],
+    typing.Any,
+]
