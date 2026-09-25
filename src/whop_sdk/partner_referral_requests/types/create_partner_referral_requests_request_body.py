@@ -10,12 +10,14 @@ from .create_partner_referral_requests_request_body_code import CreatePartnerRef
 from .create_partner_referral_requests_request_body_target_user_id import (
     CreatePartnerReferralRequestsRequestBodyTargetUserId,
 )
-from .create_partner_referral_requests_request_body_username import CreatePartnerReferralRequestsRequestBodyUsername
+from .create_partner_referral_requests_request_body_target_username import (
+    CreatePartnerReferralRequestsRequestBodyTargetUsername,
+)
 
 CreatePartnerReferralRequestsRequestBody = typing.Union[
     CreatePartnerReferralRequestsRequestBodyAccountId,
     CreatePartnerReferralRequestsRequestBodyAccountUrl,
     CreatePartnerReferralRequestsRequestBodyTargetUserId,
-    CreatePartnerReferralRequestsRequestBodyUsername,
+    CreatePartnerReferralRequestsRequestBodyTargetUsername,
     CreatePartnerReferralRequestsRequestBodyCode,
 ]
