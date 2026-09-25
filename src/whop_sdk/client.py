@@ -91,6 +91,7 @@ if typing.TYPE_CHECKING:
     from .swaps.client import AsyncSwapsClient, SwapsClient
     from .team_members.client import AsyncTeamMembersClient, TeamMembersClient
     from .topups.client import AsyncTopupsClient, TopupsClient
+    from .trades.client import AsyncTradesClient, TradesClient
     from .transfers.client import AsyncTransfersClient, TransfersClient
     from .users.client import AsyncUsersClient, UsersClient
     from .verifications.client import AsyncVerificationsClient, VerificationsClient
@@ -267,6 +268,7 @@ class Whop:
         self._swaps: typing.Optional[SwapsClient] = None
         self._team_members: typing.Optional[TeamMembersClient] = None
         self._topups: typing.Optional[TopupsClient] = None
+        self._trades: typing.Optional[TradesClient] = None
         self._transfers: typing.Optional[TransfersClient] = None
         self._users: typing.Optional[UsersClient] = None
         self._verifications: typing.Optional[VerificationsClient] = None
@@ -922,6 +924,14 @@ class Whop:
         return self._topups
 
     @property
+    def trades(self):
+        if self._trades is None:
+            from .trades.client import TradesClient  # noqa: E402
+
+            self._trades = TradesClient(client_wrapper=self._client_wrapper)
+        return self._trades
+
+    @property
     def transfers(self):
         if self._transfers is None:
             from .transfers.client import TransfersClient  # noqa: E402
@@ -1152,6 +1162,7 @@ class AsyncWhop:
         self._swaps: typing.Optional[AsyncSwapsClient] = None
         self._team_members: typing.Optional[AsyncTeamMembersClient] = None
         self._topups: typing.Optional[AsyncTopupsClient] = None
+        self._trades: typing.Optional[AsyncTradesClient] = None
         self._transfers: typing.Optional[AsyncTransfersClient] = None
         self._users: typing.Optional[AsyncUsersClient] = None
         self._verifications: typing.Optional[AsyncVerificationsClient] = None
@@ -1805,6 +1816,14 @@ class AsyncWhop:
 
             self._topups = AsyncTopupsClient(client_wrapper=self._client_wrapper)
         return self._topups
+
+    @property
+    def trades(self):
+        if self._trades is None:
+            from .trades.client import AsyncTradesClient  # noqa: E402
+
+            self._trades = AsyncTradesClient(client_wrapper=self._client_wrapper)
+        return self._trades
 
     @property
     def transfers(self):
