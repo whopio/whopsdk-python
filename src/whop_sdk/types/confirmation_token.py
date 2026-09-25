@@ -5,14 +5,20 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .confirmation_token_status import ConfirmationTokenStatus
+from .payment_address import PaymentAddress
 from .payment_billing_details_preview import PaymentBillingDetailsPreview
 from .payment_method_display import PaymentMethodDisplay
 
 
 class ConfirmationToken(UniversalBaseModel):
+    billing_address: typing.Optional[PaymentAddress] = pydantic.Field(default=None)
+    """
+    The collected billing address, including the name on the address. Null when not collected or without bearer authentication with payment:basic:read on the token’s account.
+    """
+
     billing_details: typing.Optional[PaymentBillingDetailsPreview] = pydantic.Field(default=None)
     """
-    Enough of the billing details to raise a customer record and recognise the method — email, name, country and postal code. The street address is collected for the charge but never returned; this endpoint is a display-safe preview.
+    Billing preview supplied at collection: email, name, country and postal code.
     """
 
     created_at: str = pydantic.Field()
