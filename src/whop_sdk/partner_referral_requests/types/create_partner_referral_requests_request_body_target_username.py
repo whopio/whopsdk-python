@@ -6,8 +6,8 @@ import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class CreatePartnerReferralRequestsRequestBodyUsername(UniversalBaseModel):
-    username: str = pydantic.Field()
+class CreatePartnerReferralRequestsRequestBodyTargetUsername(UniversalBaseModel):
+    target_username: str = pydantic.Field()
     """
     Username of the user to request attribution for, with or without a leading @.
     """
