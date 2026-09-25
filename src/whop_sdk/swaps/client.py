@@ -64,7 +64,7 @@ class SwapsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-24",
+            "2026-09-24-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -132,7 +132,7 @@ class SwapsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-24",
+            "2026-09-24-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -214,7 +214,7 @@ class SwapsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-24",
+            "2026-09-24-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -260,7 +260,7 @@ class SwapsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-09-24",
+            "2026-09-24-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -320,7 +320,7 @@ class AsyncSwapsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-24",
+            "2026-09-24-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -396,7 +396,7 @@ class AsyncSwapsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-24",
+            "2026-09-24-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -486,7 +486,7 @@ class AsyncSwapsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-24",
+            "2026-09-24-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -542,7 +542,7 @@ class AsyncSwapsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-09-24",
+            "2026-09-24-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

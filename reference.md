@@ -4923,7 +4923,7 @@ client.ads.create()
 <dl>
 <dd>
 
-**descriptions:** `typing.Optional[typing.List[str]]` — The description variants shown on the ad.
+**descriptions:** `typing.Optional[typing.List[CreateAdsRequestDescriptionsItem]]` — The description shown on the ad. Entries without a language are the ad's own copy; add one entry per other language on a Meta ad with `translations`.
     
 </dd>
 </dl>
@@ -4939,7 +4939,7 @@ client.ads.create()
 <dl>
 <dd>
 
-**headlines:** `typing.Optional[typing.List[str]]` — The headline variants shown on the ad.
+**headlines:** `typing.Optional[typing.List[CreateAdsRequestHeadlinesItem]]` — The headline shown on the ad. Entries without a language are the ad's own copy; add one entry per other language on a Meta ad with `translations`.
     
 </dd>
 </dl>
@@ -4995,7 +4995,7 @@ client.ads.create()
 <dl>
 <dd>
 
-**primary_texts:** `typing.Optional[typing.List[str]]` — The primary text variants shown in the ad body.
+**primary_texts:** `typing.Optional[typing.List[CreateAdsRequestPrimaryTextsItem]]` — The primary text shown in the ad body. Entries without a language are the ad's own copy (several make text variations); add one entry per other language on a Meta ad with `translations`.
     
 </dd>
 </dl>
@@ -5012,6 +5012,14 @@ client.ads.create()
 <dd>
 
 **title:** `typing.Optional[str]` — The display name of the ad.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**translations:** `typing.Optional[CreateAdsRequestTranslations]` — Shows a Meta ad in other languages. Each viewer sees the version for their language; everyone else sees the ad's own copy. Tag every copy and creatives entry with its language: the ad's own with `source_language`, and give every other language a `primary_texts` and `headlines` entry (a `descriptions` entry and a `creatives` entry are optional), or list it in `automatic_languages`. Needs a website destination, one image or video, and exactly one primary text and headline of the ad's own (and at most one description), with no Dynamic Creative or crops. Replaced as a whole when sent, so send `automatic_languages` with `source_language`. null turns translations off and deletes their media. Meta-only.
     
 </dd>
 </dl>
@@ -5302,7 +5310,7 @@ client.ads.update(
 <dl>
 <dd>
 
-**descriptions:** `typing.Optional[typing.List[str]]` — The description variants shown on the ad.
+**descriptions:** `typing.Optional[typing.List[UpdateAdsRequestDescriptionsItem]]` — The description shown on the ad. Entries without a language are the ad's own copy; add one entry per other language on a Meta ad with `translations`.
     
 </dd>
 </dl>
@@ -5318,7 +5326,7 @@ client.ads.update(
 <dl>
 <dd>
 
-**headlines:** `typing.Optional[typing.List[str]]` — The headline variants shown on the ad.
+**headlines:** `typing.Optional[typing.List[UpdateAdsRequestHeadlinesItem]]` — The headline shown on the ad. Entries without a language are the ad's own copy; add one entry per other language on a Meta ad with `translations`.
     
 </dd>
 </dl>
@@ -5374,7 +5382,7 @@ client.ads.update(
 <dl>
 <dd>
 
-**primary_texts:** `typing.Optional[typing.List[str]]` — The primary text variants shown in the ad body.
+**primary_texts:** `typing.Optional[typing.List[UpdateAdsRequestPrimaryTextsItem]]` — The primary text shown in the ad body. Entries without a language are the ad's own copy (several make text variations); add one entry per other language on a Meta ad with `translations`.
     
 </dd>
 </dl>
@@ -5391,6 +5399,14 @@ client.ads.update(
 <dd>
 
 **title:** `typing.Optional[str]` — The display name of the ad.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**translations:** `typing.Optional[UpdateAdsRequestTranslations]` — Shows a Meta ad in other languages. Each viewer sees the version for their language; everyone else sees the ad's own copy. Tag every copy and creatives entry with its language: the ad's own with `source_language`, and give every other language a `primary_texts` and `headlines` entry (a `descriptions` entry and a `creatives` entry are optional), or list it in `automatic_languages`. Needs a website destination, one image or video, and exactly one primary text and headline of the ad's own (and at most one description), with no Dynamic Creative or crops. Replaced as a whole when sent, so send `automatic_languages` with `source_language`. null turns translations off and deletes their media. Meta-only.
     
 </dd>
 </dl>

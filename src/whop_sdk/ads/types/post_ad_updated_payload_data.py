@@ -10,6 +10,8 @@ from ...types.ad_lead_form import AdLeadForm
 from ...types.ad_messaging_config import AdMessagingConfig
 from ...types.ad_music import AdMusic
 from ...types.ad_platform_issue import AdPlatformIssue
+from ...types.ad_text import AdText
+from ...types.ad_translations import AdTranslations
 from .post_ad_updated_payload_data_call_to_action import PostAdUpdatedPayloadDataCallToAction
 from .post_ad_updated_payload_data_delivery_status import PostAdUpdatedPayloadDataDeliveryStatus
 from .post_ad_updated_payload_data_platform import PostAdUpdatedPayloadDataPlatform
@@ -44,13 +46,13 @@ class PostAdUpdatedPayloadData(UniversalBaseModel):
     Whether the ad is delivering right now, and if not, why. When several states apply at once, the highest-precedence one is returned.
     """
 
-    descriptions: typing.List[str]
+    descriptions: typing.List[AdText]
     existing_post_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The post you pointed this ad at, when it promotes one you already published — a Facebook post, Instagram media, or TikTok video ID. `null` when the ad uses uploaded creatives.
     """
 
-    headlines: typing.List[str]
+    headlines: typing.List[AdText]
     id: str = pydantic.Field()
     """
     Unique identifier for the ad, prefixed `ad_`.
@@ -102,7 +104,7 @@ class PostAdUpdatedPayloadData(UniversalBaseModel):
     Preview image of the post named by `existing_post_id`. `null` for ads that use uploaded creatives, or until the post's media has been fetched from the network.
     """
 
-    primary_texts: typing.List[str]
+    primary_texts: typing.List[AdText]
     social_accounts: typing.List[AdEntityReference]
     status: PostAdUpdatedPayloadDataStatus = pydantic.Field()
     """
@@ -112,6 +114,11 @@ class PostAdUpdatedPayloadData(UniversalBaseModel):
     title: typing.Optional[str] = pydantic.Field(default=None)
     """
     Display title of the ad.
+    """
+
+    translations: typing.Optional[AdTranslations] = pydantic.Field(default=None)
+    """
+    The languages a Meta ad runs in besides its own. Each viewer sees the version for their language, or the ad's own copy. `null` when the ad runs in one language.
     """
 
     updated_at: str = pydantic.Field()

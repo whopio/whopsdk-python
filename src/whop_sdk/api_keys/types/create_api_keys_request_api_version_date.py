@@ -52,6 +52,7 @@ CreateApiKeysRequestApiVersionDate = typing.Union[
         "2026-09-22-4",
         "2026-09-23",
         "2026-09-24",
+        "2026-09-24-1",
     ],
     typing.Any,
 ]
