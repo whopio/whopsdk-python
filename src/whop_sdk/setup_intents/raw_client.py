@@ -189,6 +189,7 @@ class RawSetupIntentsClient:
         confirmation_token: typing.Optional[str] = OMIT,
         currency: typing.Optional[str] = OMIT,
         email: typing.Optional[str] = OMIT,
+        for_ads_billing: typing.Optional[bool] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         return_url: typing.Optional[str] = OMIT,
@@ -210,6 +211,9 @@ class RawSetupIntentsClient:
 
         email : typing.Optional[str]
             Overrides the buyer email carried on the confirmation token, resolving or creating the user the method belongs to. Ignored unless `confirmation_token` is provided, and when the token was created by a signed-in buyer or the caller is the buyer.
+
+        for_ads_billing : typing.Optional[bool]
+            Set to `true` when saving a card to pay for Whop Ads on `account_id`. The card is verified by Whop Ads, the merchant that charges it, which helps minimize security declines on ad payments. Requires `ad_campaign:create` on `account_id`. Defaults to `false`.
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             Custom metadata to attach to the setup intent. Returned on the setup intent and its webhooks.
@@ -237,6 +241,7 @@ class RawSetupIntentsClient:
                 "confirmation_token": confirmation_token,
                 "currency": currency,
                 "email": email,
+                "for_ads_billing": for_ads_billing,
                 "metadata": metadata,
                 "payment_method_id": payment_method_id,
                 "return_url": return_url,
@@ -724,6 +729,7 @@ class AsyncRawSetupIntentsClient:
         confirmation_token: typing.Optional[str] = OMIT,
         currency: typing.Optional[str] = OMIT,
         email: typing.Optional[str] = OMIT,
+        for_ads_billing: typing.Optional[bool] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         return_url: typing.Optional[str] = OMIT,
@@ -745,6 +751,9 @@ class AsyncRawSetupIntentsClient:
 
         email : typing.Optional[str]
             Overrides the buyer email carried on the confirmation token, resolving or creating the user the method belongs to. Ignored unless `confirmation_token` is provided, and when the token was created by a signed-in buyer or the caller is the buyer.
+
+        for_ads_billing : typing.Optional[bool]
+            Set to `true` when saving a card to pay for Whop Ads on `account_id`. The card is verified by Whop Ads, the merchant that charges it, which helps minimize security declines on ad payments. Requires `ad_campaign:create` on `account_id`. Defaults to `false`.
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             Custom metadata to attach to the setup intent. Returned on the setup intent and its webhooks.
@@ -772,6 +781,7 @@ class AsyncRawSetupIntentsClient:
                 "confirmation_token": confirmation_token,
                 "currency": currency,
                 "email": email,
+                "for_ads_billing": for_ads_billing,
                 "metadata": metadata,
                 "payment_method_id": payment_method_id,
                 "return_url": return_url,
