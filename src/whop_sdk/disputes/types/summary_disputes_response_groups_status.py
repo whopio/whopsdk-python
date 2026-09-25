@@ -15,6 +15,9 @@ class SummaryDisputesResponseGroupsStatus(UniversalBaseModel):
     lost: int
     needs_response: int
     under_review: int
+    warning_closed: int
+    warning_needs_response: int
+    warning_under_review: int
     won: int
 
     if IS_PYDANTIC_V2:
