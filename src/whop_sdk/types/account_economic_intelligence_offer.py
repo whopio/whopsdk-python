@@ -4,17 +4,29 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .account_economic_intelligence_offer_duration_unit import AccountEconomicIntelligenceOfferDurationUnit
+from .account_economic_intelligence_offer_key import AccountEconomicIntelligenceOfferKey
 
 
 class AccountEconomicIntelligenceOffer(UniversalBaseModel):
-    duration_days: int = pydantic.Field()
+    duration: int = pydantic.Field()
     """
-    How many days Economic Intelligence stays on. Pass this value as `economic_intelligence_duration_days` to turn it on.
+    What period of time Economic Intelligence stays on.
+    """
+
+    duration_unit: AccountEconomicIntelligenceOfferDurationUnit = pydantic.Field()
+    """
+    The unit of time the duration is in (hours or days)
     """
 
     fee_percentage: float = pydantic.Field()
     """
     Percentage of volume charged while Economic Intelligence is on, such as `1.5` for 1.5%.
+    """
+
+    key: AccountEconomicIntelligenceOfferKey = pydantic.Field()
+    """
+    The unique identifier for this duration. Pass this value as `economic_intelligence_duration_key` to turn it on.
     """
 
     recommended: bool = pydantic.Field()

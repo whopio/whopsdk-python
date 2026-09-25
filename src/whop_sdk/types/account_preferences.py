@@ -60,6 +60,11 @@ class AccountPreferences(UniversalBaseModel):
     When the account's committed Economic Intelligence period ends, as an ISO 8601 timestamp. Economic Intelligence can't be turned off before then. `null` when Economic Intelligence is off or has no end date.
     """
 
+    economic_intelligence_fee_percentage: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Percentage of volume charged while Economic Intelligence is on, such as `1.5` for 1.5%. `null` when Economic Intelligence is off.
+    """
+
     economic_intelligence_offers: typing.Optional[typing.List[AccountEconomicIntelligenceOffer]] = None
     subscription_failure_behavior: AccountPreferencesSubscriptionFailureBehavior = pydantic.Field()
     """
