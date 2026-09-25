@@ -1366,6 +1366,7 @@ if typing.TYPE_CHECKING:
     )
     from ._default_clients import DefaultAioHttpClient, DefaultAsyncHttpxClient
     from .accounts import (
+        DeleteAccountsResponse,
         FormCompanyAccountsRequestBusinessAddress,
         FormCompanyAccountsRequestEntitySuffix,
         FormCompanyAccountsRequestEntityType,
@@ -3634,6 +3635,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CustomFieldTypes": ".types",
     "DefaultAioHttpClient": "._default_clients",
     "DefaultAsyncHttpxClient": "._default_clients",
+    "DeleteAccountsResponse": ".accounts",
     "DeleteAdCampaignsResponse": ".ad_campaigns",
     "DeleteAdConversionValueRulesResponse": ".ad_conversion_value_rules",
     "DeleteAdGroupsResponse": ".ad_groups",
@@ -6457,6 +6459,7 @@ __all__ = [
     "CustomFieldTypes",
     "DefaultAioHttpClient",
     "DefaultAsyncHttpxClient",
+    "DeleteAccountsResponse",
     "DeleteAdCampaignsResponse",
     "DeleteAdConversionValueRulesResponse",
     "DeleteAdGroupsResponse",
