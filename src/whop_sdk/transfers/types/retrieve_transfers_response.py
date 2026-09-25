@@ -99,7 +99,7 @@ class RetrieveTransfersResponse(UniversalBaseModel):
 
     status: RetrieveTransfersResponseStatus = pydantic.Field()
     """
-    Transfer status. `processing` means the on-chain leg is still executing — poll the transfer until it resolves to `succeeded` or `failed`. A `failed` transfer may be retried under the same ID and later resolve to `succeeded`.
+    Transfer status. `processing` means the on-chain leg is still executing — subscribe to `transfer.completed` and `transfer.failed`, or retrieve the transfer to check its current status. A `failed` transfer may be retried under the same ID and later resolve to `succeeded`.
     """
 
     if IS_PYDANTIC_V2:
