@@ -9,6 +9,7 @@ PaymentMethodTypes = typing.Union[
         "affirm",
         "afterpay_clearpay",
         "alipay",
+        "alipayhk",
         "alma",
         "amazon_pay",
         "apple",
