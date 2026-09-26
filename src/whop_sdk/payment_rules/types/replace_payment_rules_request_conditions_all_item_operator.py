@@ -4,7 +4,7 @@ import typing
 
 ReplacePaymentRulesRequestConditionsAllItemOperator = typing.Union[
     typing.Literal[
-        "eq", "neq", "gt", "gte", "lt", "lte", "in", "not_in", "contains", "starts_with", "ends_with", "in_cidr"
+        "eq", "neq", "gt", "gte", "lt", "lte", "in", "not_in", "starts_with", "contains", "ends_with", "in_cidr"
     ],
     typing.Any,
 ]
