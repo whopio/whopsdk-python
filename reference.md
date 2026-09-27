@@ -39309,7 +39309,7 @@ client.team_members.create(
 <dl>
 <dd>
 
-**role:** `CreateTeamMembersRequestRole` — The system role to grant. Partners must pass all certification quizzes.
+**role:** `CreateTeamMembersRequestRole` — The system role to grant. The Partner role can only be granted to the account's attached, verified partner.
     
 </dd>
 </dl>
@@ -39553,7 +39553,7 @@ client.team_members.update(
 <dl>
 <dd>
 
-**role:** `UpdateTeamMembersRequestRole` — The system role to grant. Partners must pass all certification quizzes.
+**role:** `UpdateTeamMembersRequestRole` — The system role to grant. The Partner role can only be granted to the account's attached, verified partner.
     
 </dd>
 </dl>
