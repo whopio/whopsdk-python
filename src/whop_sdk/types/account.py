@@ -27,6 +27,7 @@ from .account_tax_type import AccountTaxType
 from .account_three_ds_level import AccountThreeDsLevel
 from .account_wallet import AccountWallet
 from .file import File
+from .money import Money
 from .trading_account import TradingAccount
 from .user_summary import UserSummary
 
@@ -199,6 +200,7 @@ class Account(UniversalBaseModel):
     Payment health controls currently applied to the account. Computed only on `retrieve` and `me` for callers with `company:balance:read` scope; `null` otherwise.
     """
 
+    platform_credits: typing.List[Money]
     privacy_policy: typing.Optional[File] = pydantic.Field(default=None)
     """
     The account's privacy policy document, or `null` if they have not published one.

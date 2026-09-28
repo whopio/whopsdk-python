@@ -32,7 +32,7 @@ class AccountPartnerReward(UniversalBaseModel):
 
     reward_amount: Money = pydantic.Field()
     """
-    USD balance credit for this reward. Uses the saved grant amount once fulfillment has started.
+    USD amount credited for this reward. Uses the saved grant amount once fulfillment has started.
     """
 
     status: AccountPartnerRewardStatus = pydantic.Field()
