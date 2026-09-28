@@ -17,6 +17,7 @@ from .raw_client import AsyncRawAdGroupsClient, RawAdGroupsClient
 from .types.create_ad_groups_request_bid_type import CreateAdGroupsRequestBidType
 from .types.create_ad_groups_request_budget_type import CreateAdGroupsRequestBudgetType
 from .types.create_ad_groups_request_conversion_location import CreateAdGroupsRequestConversionLocation
+from .types.create_ad_groups_request_delivery_schedule import CreateAdGroupsRequestDeliverySchedule
 from .types.create_ad_groups_request_frequency_cap import CreateAdGroupsRequestFrequencyCap
 from .types.create_ad_groups_request_message_apps_item import CreateAdGroupsRequestMessageAppsItem
 from .types.create_ad_groups_request_optimization_goal import CreateAdGroupsRequestOptimizationGoal
@@ -43,6 +44,7 @@ from .types.search_targeting_options_ad_groups_response import SearchTargetingOp
 from .types.update_ad_groups_request_bid_type import UpdateAdGroupsRequestBidType
 from .types.update_ad_groups_request_budget_type import UpdateAdGroupsRequestBudgetType
 from .types.update_ad_groups_request_conversion_location import UpdateAdGroupsRequestConversionLocation
+from .types.update_ad_groups_request_delivery_schedule import UpdateAdGroupsRequestDeliverySchedule
 from .types.update_ad_groups_request_frequency_cap import UpdateAdGroupsRequestFrequencyCap
 from .types.update_ad_groups_request_message_apps_item import UpdateAdGroupsRequestMessageAppsItem
 from .types.update_ad_groups_request_optimization_goal import UpdateAdGroupsRequestOptimizationGoal
@@ -204,6 +206,7 @@ class AdGroupsClient:
         budget_type: typing.Optional[CreateAdGroupsRequestBudgetType] = OMIT,
         conversion_event: typing.Optional[ConversionEvent] = OMIT,
         conversion_location: typing.Optional[CreateAdGroupsRequestConversionLocation] = OMIT,
+        delivery_schedule: typing.Optional[CreateAdGroupsRequestDeliverySchedule] = OMIT,
         demographics: typing.Optional[AdGroupDemographicsBody] = OMIT,
         desired_cost_per_result: typing.Optional[float] = OMIT,
         detailed_targeting: typing.Optional[AdGroupDetailedTargetingBody] = OMIT,
@@ -249,6 +252,9 @@ class AdGroupsClient:
 
         conversion_location : typing.Optional[CreateAdGroupsRequestConversionLocation]
             Where the outcome being optimized for occurs, such as a website visit, social-profile visit, messaging conversation, ad interaction, or lead-form submission. The lead form itself is set on the ad.
+
+        delivery_schedule : typing.Optional[CreateAdGroupsRequestDeliverySchedule]
+            Hours the ad group delivers in each week, keyed by day. Each window runs from `start` to `end` on the hour, with `24:00` for midnight, and a day's windows can't overlap or touch. A day that's empty or left out doesn't deliver. Replaces the whole schedule; `null` delivers at every hour. Some platforms need a lifetime `budget_type` for a schedule, on the ad group or on its campaign when the campaign holds the budget.
 
         demographics : typing.Optional[AdGroupDemographicsBody]
             Age, gender, and automatic-audience targeting.
@@ -337,6 +343,7 @@ class AdGroupsClient:
             budget_type=budget_type,
             conversion_event=conversion_event,
             conversion_location=conversion_location,
+            delivery_schedule=delivery_schedule,
             demographics=demographics,
             desired_cost_per_result=desired_cost_per_result,
             detailed_targeting=detailed_targeting,
@@ -629,6 +636,7 @@ class AdGroupsClient:
         budget_type: typing.Optional[UpdateAdGroupsRequestBudgetType] = OMIT,
         conversion_event: typing.Optional[ConversionEvent] = OMIT,
         conversion_location: typing.Optional[UpdateAdGroupsRequestConversionLocation] = OMIT,
+        delivery_schedule: typing.Optional[UpdateAdGroupsRequestDeliverySchedule] = OMIT,
         demographics: typing.Optional[AdGroupDemographicsBody] = OMIT,
         desired_cost_per_result: typing.Optional[float] = OMIT,
         detailed_targeting: typing.Optional[AdGroupDetailedTargetingBody] = OMIT,
@@ -673,6 +681,9 @@ class AdGroupsClient:
 
         conversion_location : typing.Optional[UpdateAdGroupsRequestConversionLocation]
             Where the outcome being optimized for occurs, such as a website visit, social-profile visit, messaging conversation, ad interaction, or lead-form submission. The lead form itself is set on the ad.
+
+        delivery_schedule : typing.Optional[UpdateAdGroupsRequestDeliverySchedule]
+            Hours the ad group delivers in each week, keyed by day. Each window runs from `start` to `end` on the hour, with `24:00` for midnight, and a day's windows can't overlap or touch. A day that's empty or left out doesn't deliver. Replaces the whole schedule; `null` delivers at every hour. Some platforms need a lifetime `budget_type` for a schedule, on the ad group or on its campaign when the campaign holds the budget.
 
         demographics : typing.Optional[AdGroupDemographicsBody]
             Age, gender, and automatic-audience targeting.
@@ -758,6 +769,7 @@ class AdGroupsClient:
             budget_type=budget_type,
             conversion_event=conversion_event,
             conversion_location=conversion_location,
+            delivery_schedule=delivery_schedule,
             demographics=demographics,
             desired_cost_per_result=desired_cost_per_result,
             detailed_targeting=detailed_targeting,
@@ -1060,6 +1072,7 @@ class AsyncAdGroupsClient:
         budget_type: typing.Optional[CreateAdGroupsRequestBudgetType] = OMIT,
         conversion_event: typing.Optional[ConversionEvent] = OMIT,
         conversion_location: typing.Optional[CreateAdGroupsRequestConversionLocation] = OMIT,
+        delivery_schedule: typing.Optional[CreateAdGroupsRequestDeliverySchedule] = OMIT,
         demographics: typing.Optional[AdGroupDemographicsBody] = OMIT,
         desired_cost_per_result: typing.Optional[float] = OMIT,
         detailed_targeting: typing.Optional[AdGroupDetailedTargetingBody] = OMIT,
@@ -1105,6 +1118,9 @@ class AsyncAdGroupsClient:
 
         conversion_location : typing.Optional[CreateAdGroupsRequestConversionLocation]
             Where the outcome being optimized for occurs, such as a website visit, social-profile visit, messaging conversation, ad interaction, or lead-form submission. The lead form itself is set on the ad.
+
+        delivery_schedule : typing.Optional[CreateAdGroupsRequestDeliverySchedule]
+            Hours the ad group delivers in each week, keyed by day. Each window runs from `start` to `end` on the hour, with `24:00` for midnight, and a day's windows can't overlap or touch. A day that's empty or left out doesn't deliver. Replaces the whole schedule; `null` delivers at every hour. Some platforms need a lifetime `budget_type` for a schedule, on the ad group or on its campaign when the campaign holds the budget.
 
         demographics : typing.Optional[AdGroupDemographicsBody]
             Age, gender, and automatic-audience targeting.
@@ -1201,6 +1217,7 @@ class AsyncAdGroupsClient:
             budget_type=budget_type,
             conversion_event=conversion_event,
             conversion_location=conversion_location,
+            delivery_schedule=delivery_schedule,
             demographics=demographics,
             desired_cost_per_result=desired_cost_per_result,
             detailed_targeting=detailed_targeting,
@@ -1527,6 +1544,7 @@ class AsyncAdGroupsClient:
         budget_type: typing.Optional[UpdateAdGroupsRequestBudgetType] = OMIT,
         conversion_event: typing.Optional[ConversionEvent] = OMIT,
         conversion_location: typing.Optional[UpdateAdGroupsRequestConversionLocation] = OMIT,
+        delivery_schedule: typing.Optional[UpdateAdGroupsRequestDeliverySchedule] = OMIT,
         demographics: typing.Optional[AdGroupDemographicsBody] = OMIT,
         desired_cost_per_result: typing.Optional[float] = OMIT,
         detailed_targeting: typing.Optional[AdGroupDetailedTargetingBody] = OMIT,
@@ -1571,6 +1589,9 @@ class AsyncAdGroupsClient:
 
         conversion_location : typing.Optional[UpdateAdGroupsRequestConversionLocation]
             Where the outcome being optimized for occurs, such as a website visit, social-profile visit, messaging conversation, ad interaction, or lead-form submission. The lead form itself is set on the ad.
+
+        delivery_schedule : typing.Optional[UpdateAdGroupsRequestDeliverySchedule]
+            Hours the ad group delivers in each week, keyed by day. Each window runs from `start` to `end` on the hour, with `24:00` for midnight, and a day's windows can't overlap or touch. A day that's empty or left out doesn't deliver. Replaces the whole schedule; `null` delivers at every hour. Some platforms need a lifetime `budget_type` for a schedule, on the ad group or on its campaign when the campaign holds the budget.
 
         demographics : typing.Optional[AdGroupDemographicsBody]
             Age, gender, and automatic-audience targeting.
@@ -1664,6 +1685,7 @@ class AsyncAdGroupsClient:
             budget_type=budget_type,
             conversion_event=conversion_event,
             conversion_location=conversion_location,
+            delivery_schedule=delivery_schedule,
             demographics=demographics,
             desired_cost_per_result=desired_cost_per_result,
             detailed_targeting=detailed_targeting,

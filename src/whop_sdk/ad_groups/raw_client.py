@@ -29,6 +29,7 @@ from ..types.v1error_response import V1ErrorResponse
 from .types.create_ad_groups_request_bid_type import CreateAdGroupsRequestBidType
 from .types.create_ad_groups_request_budget_type import CreateAdGroupsRequestBudgetType
 from .types.create_ad_groups_request_conversion_location import CreateAdGroupsRequestConversionLocation
+from .types.create_ad_groups_request_delivery_schedule import CreateAdGroupsRequestDeliverySchedule
 from .types.create_ad_groups_request_frequency_cap import CreateAdGroupsRequestFrequencyCap
 from .types.create_ad_groups_request_message_apps_item import CreateAdGroupsRequestMessageAppsItem
 from .types.create_ad_groups_request_optimization_goal import CreateAdGroupsRequestOptimizationGoal
@@ -55,6 +56,7 @@ from .types.search_targeting_options_ad_groups_response import SearchTargetingOp
 from .types.update_ad_groups_request_bid_type import UpdateAdGroupsRequestBidType
 from .types.update_ad_groups_request_budget_type import UpdateAdGroupsRequestBudgetType
 from .types.update_ad_groups_request_conversion_location import UpdateAdGroupsRequestConversionLocation
+from .types.update_ad_groups_request_delivery_schedule import UpdateAdGroupsRequestDeliverySchedule
 from .types.update_ad_groups_request_frequency_cap import UpdateAdGroupsRequestFrequencyCap
 from .types.update_ad_groups_request_message_apps_item import UpdateAdGroupsRequestMessageAppsItem
 from .types.update_ad_groups_request_optimization_goal import UpdateAdGroupsRequestOptimizationGoal
@@ -237,6 +239,7 @@ class RawAdGroupsClient:
         budget_type: typing.Optional[CreateAdGroupsRequestBudgetType] = OMIT,
         conversion_event: typing.Optional[ConversionEvent] = OMIT,
         conversion_location: typing.Optional[CreateAdGroupsRequestConversionLocation] = OMIT,
+        delivery_schedule: typing.Optional[CreateAdGroupsRequestDeliverySchedule] = OMIT,
         demographics: typing.Optional[AdGroupDemographicsBody] = OMIT,
         desired_cost_per_result: typing.Optional[float] = OMIT,
         detailed_targeting: typing.Optional[AdGroupDetailedTargetingBody] = OMIT,
@@ -282,6 +285,9 @@ class RawAdGroupsClient:
 
         conversion_location : typing.Optional[CreateAdGroupsRequestConversionLocation]
             Where the outcome being optimized for occurs, such as a website visit, social-profile visit, messaging conversation, ad interaction, or lead-form submission. The lead form itself is set on the ad.
+
+        delivery_schedule : typing.Optional[CreateAdGroupsRequestDeliverySchedule]
+            Hours the ad group delivers in each week, keyed by day. Each window runs from `start` to `end` on the hour, with `24:00` for midnight, and a day's windows can't overlap or touch. A day that's empty or left out doesn't deliver. Replaces the whole schedule; `null` delivers at every hour. Some platforms need a lifetime `budget_type` for a schedule, on the ad group or on its campaign when the campaign holds the budget.
 
         demographics : typing.Optional[AdGroupDemographicsBody]
             Age, gender, and automatic-audience targeting.
@@ -365,6 +371,11 @@ class RawAdGroupsClient:
                     object_=conversion_event, annotation=typing.Optional[ConversionEvent], direction="write"
                 ),
                 "conversion_location": conversion_location,
+                "delivery_schedule": convert_and_respect_annotation_metadata(
+                    object_=delivery_schedule,
+                    annotation=typing.Optional[CreateAdGroupsRequestDeliverySchedule],
+                    direction="write",
+                ),
                 "demographics": convert_and_respect_annotation_metadata(
                     object_=demographics, annotation=AdGroupDemographicsBody, direction="write"
                 ),
@@ -863,6 +874,7 @@ class RawAdGroupsClient:
         budget_type: typing.Optional[UpdateAdGroupsRequestBudgetType] = OMIT,
         conversion_event: typing.Optional[ConversionEvent] = OMIT,
         conversion_location: typing.Optional[UpdateAdGroupsRequestConversionLocation] = OMIT,
+        delivery_schedule: typing.Optional[UpdateAdGroupsRequestDeliverySchedule] = OMIT,
         demographics: typing.Optional[AdGroupDemographicsBody] = OMIT,
         desired_cost_per_result: typing.Optional[float] = OMIT,
         detailed_targeting: typing.Optional[AdGroupDetailedTargetingBody] = OMIT,
@@ -907,6 +919,9 @@ class RawAdGroupsClient:
 
         conversion_location : typing.Optional[UpdateAdGroupsRequestConversionLocation]
             Where the outcome being optimized for occurs, such as a website visit, social-profile visit, messaging conversation, ad interaction, or lead-form submission. The lead form itself is set on the ad.
+
+        delivery_schedule : typing.Optional[UpdateAdGroupsRequestDeliverySchedule]
+            Hours the ad group delivers in each week, keyed by day. Each window runs from `start` to `end` on the hour, with `24:00` for midnight, and a day's windows can't overlap or touch. A day that's empty or left out doesn't deliver. Replaces the whole schedule; `null` delivers at every hour. Some platforms need a lifetime `budget_type` for a schedule, on the ad group or on its campaign when the campaign holds the budget.
 
         demographics : typing.Optional[AdGroupDemographicsBody]
             Age, gender, and automatic-audience targeting.
@@ -986,6 +1001,11 @@ class RawAdGroupsClient:
                     object_=conversion_event, annotation=typing.Optional[ConversionEvent], direction="write"
                 ),
                 "conversion_location": conversion_location,
+                "delivery_schedule": convert_and_respect_annotation_metadata(
+                    object_=delivery_schedule,
+                    annotation=typing.Optional[UpdateAdGroupsRequestDeliverySchedule],
+                    direction="write",
+                ),
                 "demographics": convert_and_respect_annotation_metadata(
                     object_=demographics, annotation=AdGroupDemographicsBody, direction="write"
                 ),
@@ -1030,6 +1050,17 @@ class RawAdGroupsClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -1421,6 +1452,7 @@ class AsyncRawAdGroupsClient:
         budget_type: typing.Optional[CreateAdGroupsRequestBudgetType] = OMIT,
         conversion_event: typing.Optional[ConversionEvent] = OMIT,
         conversion_location: typing.Optional[CreateAdGroupsRequestConversionLocation] = OMIT,
+        delivery_schedule: typing.Optional[CreateAdGroupsRequestDeliverySchedule] = OMIT,
         demographics: typing.Optional[AdGroupDemographicsBody] = OMIT,
         desired_cost_per_result: typing.Optional[float] = OMIT,
         detailed_targeting: typing.Optional[AdGroupDetailedTargetingBody] = OMIT,
@@ -1466,6 +1498,9 @@ class AsyncRawAdGroupsClient:
 
         conversion_location : typing.Optional[CreateAdGroupsRequestConversionLocation]
             Where the outcome being optimized for occurs, such as a website visit, social-profile visit, messaging conversation, ad interaction, or lead-form submission. The lead form itself is set on the ad.
+
+        delivery_schedule : typing.Optional[CreateAdGroupsRequestDeliverySchedule]
+            Hours the ad group delivers in each week, keyed by day. Each window runs from `start` to `end` on the hour, with `24:00` for midnight, and a day's windows can't overlap or touch. A day that's empty or left out doesn't deliver. Replaces the whole schedule; `null` delivers at every hour. Some platforms need a lifetime `budget_type` for a schedule, on the ad group or on its campaign when the campaign holds the budget.
 
         demographics : typing.Optional[AdGroupDemographicsBody]
             Age, gender, and automatic-audience targeting.
@@ -1549,6 +1584,11 @@ class AsyncRawAdGroupsClient:
                     object_=conversion_event, annotation=typing.Optional[ConversionEvent], direction="write"
                 ),
                 "conversion_location": conversion_location,
+                "delivery_schedule": convert_and_respect_annotation_metadata(
+                    object_=delivery_schedule,
+                    annotation=typing.Optional[CreateAdGroupsRequestDeliverySchedule],
+                    direction="write",
+                ),
                 "demographics": convert_and_respect_annotation_metadata(
                     object_=demographics, annotation=AdGroupDemographicsBody, direction="write"
                 ),
@@ -2047,6 +2087,7 @@ class AsyncRawAdGroupsClient:
         budget_type: typing.Optional[UpdateAdGroupsRequestBudgetType] = OMIT,
         conversion_event: typing.Optional[ConversionEvent] = OMIT,
         conversion_location: typing.Optional[UpdateAdGroupsRequestConversionLocation] = OMIT,
+        delivery_schedule: typing.Optional[UpdateAdGroupsRequestDeliverySchedule] = OMIT,
         demographics: typing.Optional[AdGroupDemographicsBody] = OMIT,
         desired_cost_per_result: typing.Optional[float] = OMIT,
         detailed_targeting: typing.Optional[AdGroupDetailedTargetingBody] = OMIT,
@@ -2091,6 +2132,9 @@ class AsyncRawAdGroupsClient:
 
         conversion_location : typing.Optional[UpdateAdGroupsRequestConversionLocation]
             Where the outcome being optimized for occurs, such as a website visit, social-profile visit, messaging conversation, ad interaction, or lead-form submission. The lead form itself is set on the ad.
+
+        delivery_schedule : typing.Optional[UpdateAdGroupsRequestDeliverySchedule]
+            Hours the ad group delivers in each week, keyed by day. Each window runs from `start` to `end` on the hour, with `24:00` for midnight, and a day's windows can't overlap or touch. A day that's empty or left out doesn't deliver. Replaces the whole schedule; `null` delivers at every hour. Some platforms need a lifetime `budget_type` for a schedule, on the ad group or on its campaign when the campaign holds the budget.
 
         demographics : typing.Optional[AdGroupDemographicsBody]
             Age, gender, and automatic-audience targeting.
@@ -2170,6 +2214,11 @@ class AsyncRawAdGroupsClient:
                     object_=conversion_event, annotation=typing.Optional[ConversionEvent], direction="write"
                 ),
                 "conversion_location": conversion_location,
+                "delivery_schedule": convert_and_respect_annotation_metadata(
+                    object_=delivery_schedule,
+                    annotation=typing.Optional[UpdateAdGroupsRequestDeliverySchedule],
+                    direction="write",
+                ),
                 "demographics": convert_and_respect_annotation_metadata(
                     object_=demographics, annotation=AdGroupDemographicsBody, direction="write"
                 ),
@@ -2214,6 +2263,17 @@ class AsyncRawAdGroupsClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
