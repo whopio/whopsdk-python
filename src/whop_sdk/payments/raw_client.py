@@ -31,6 +31,7 @@ from .types.list_payments_request_direction import ListPaymentsRequestDirection
 from .types.list_payments_request_order import ListPaymentsRequestOrder
 from .types.list_payments_request_status import ListPaymentsRequestStatus
 from .types.list_payments_response import ListPaymentsResponse
+from .types.update_payments_request_shipping_address import UpdatePaymentsRequestShippingAddress
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -421,7 +422,7 @@ class RawPaymentsClient:
         Parameters
         ----------
         id : str
-            The payment to retrieve, prefixed `pay_`.
+            The payment, prefixed `pay_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -447,6 +448,117 @@ class RawPaymentsClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def update(
+        self,
+        id: str,
+        *,
+        return_url: typing.Optional[str] = OMIT,
+        shipping_address: typing.Optional[UpdatePaymentsRequestShippingAddress] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[Payment]:
+        """
+        Changes a payment's shipping address or return URL, such as when a buyer corrects where their order should go before it ships. `shipping_address` is replaced as a whole, never merged: always send the complete address, including fields that are not changing, or they are cleared. Only `shipping_address` and `return_url` can be changed, and any other field is rejected. Omit either one to leave it unchanged.
+
+        Parameters
+        ----------
+        id : str
+            The payment, prefixed `pay_`.
+
+        return_url : typing.Optional[str]
+            Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters. Only for payments created with a `confirmation_token`, and only until the buyer has returned. Omit it to leave it unchanged.
+
+        shipping_address : typing.Optional[UpdatePaymentsRequestShippingAddress]
+            The complete new shipping address. It replaces the current address as a whole and is never merged with it, so send every field the address should have, including the ones that are not changing. Any field you leave out is cleared: sending only `city` leaves an address with nothing but a city. Pass null to remove the address, or omit `shipping_address` to leave it unchanged. It cannot change once a shipment exists for the payment.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[Payment]
+            shipping address replaced
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"payments/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
+            method="PATCH",
+            json={
+                "return_url": return_url,
+                "shipping_address": convert_and_respect_annotation_metadata(
+                    object_=shipping_address,
+                    annotation=typing.Optional[UpdatePaymentsRequestShippingAddress],
+                    direction="write",
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    Payment,
+                    parse_obj_as(
+                        type_=Payment,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
@@ -1548,7 +1660,7 @@ class AsyncRawPaymentsClient:
         Parameters
         ----------
         id : str
-            The payment to retrieve, prefixed `pay_`.
+            The payment, prefixed `pay_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1574,6 +1686,117 @@ class AsyncRawPaymentsClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def update(
+        self,
+        id: str,
+        *,
+        return_url: typing.Optional[str] = OMIT,
+        shipping_address: typing.Optional[UpdatePaymentsRequestShippingAddress] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[Payment]:
+        """
+        Changes a payment's shipping address or return URL, such as when a buyer corrects where their order should go before it ships. `shipping_address` is replaced as a whole, never merged: always send the complete address, including fields that are not changing, or they are cleared. Only `shipping_address` and `return_url` can be changed, and any other field is rejected. Omit either one to leave it unchanged.
+
+        Parameters
+        ----------
+        id : str
+            The payment, prefixed `pay_`.
+
+        return_url : typing.Optional[str]
+            Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters. Only for payments created with a `confirmation_token`, and only until the buyer has returned. Omit it to leave it unchanged.
+
+        shipping_address : typing.Optional[UpdatePaymentsRequestShippingAddress]
+            The complete new shipping address. It replaces the current address as a whole and is never merged with it, so send every field the address should have, including the ones that are not changing. Any field you leave out is cleared: sending only `city` leaves an address with nothing but a city. Pass null to remove the address, or omit `shipping_address` to leave it unchanged. It cannot change once a shipment exists for the payment.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[Payment]
+            shipping address replaced
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"payments/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
+            method="PATCH",
+            json={
+                "return_url": return_url,
+                "shipping_address": convert_and_respect_annotation_metadata(
+                    object_=shipping_address,
+                    annotation=typing.Optional[UpdatePaymentsRequestShippingAddress],
+                    direction="write",
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    Payment,
+                    parse_obj_as(
+                        type_=Payment,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),

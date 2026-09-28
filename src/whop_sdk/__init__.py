@@ -2386,6 +2386,7 @@ if typing.TYPE_CHECKING:
         PostPaymentSucceededPayload,
         PostPaymentSucceededPayloadApiVersion,
         PostPaymentSucceededPayloadType,
+        UpdatePaymentsRequestShippingAddress,
     )
     from .payout_accounts import (
         PostPayoutAccountStatusUpdatedPayload,
@@ -5738,6 +5739,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateMeUsersRequestBanner": ".users",
     "UpdateMeUsersRequestProfilePicture": ".users",
     "UpdateMessagesRequestAttachmentsItem": ".messages",
+    "UpdatePaymentsRequestShippingAddress": ".payments",
     "UpdatePermissionsAppsRequestRequestedPermissionsItem": ".apps",
     "UpdatePlansRequestCustomFieldsItem": ".plans",
     "UpdatePlansRequestCustomFieldsItemFieldType": ".plans",
@@ -8659,6 +8661,7 @@ __all__ = [
     "UpdateMeUsersRequestBanner",
     "UpdateMeUsersRequestProfilePicture",
     "UpdateMessagesRequestAttachmentsItem",
+    "UpdatePaymentsRequestShippingAddress",
     "UpdatePermissionsAppsRequestRequestedPermissionsItem",
     "UpdatePlansRequestCustomFieldsItem",
     "UpdatePlansRequestCustomFieldsItemFieldType",
