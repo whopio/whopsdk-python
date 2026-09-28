@@ -19,7 +19,9 @@ from .types.list_social_accounts_request_order import ListSocialAccountsRequestO
 from .types.list_social_accounts_request_platform import ListSocialAccountsRequestPlatform
 from .types.list_social_accounts_request_scopes_item import ListSocialAccountsRequestScopesItem
 from .types.list_social_accounts_response import ListSocialAccountsResponse
+from .types.partners_social_accounts_response import PartnersSocialAccountsResponse
 from .types.posts_social_accounts_response import PostsSocialAccountsResponse
+from .types.remove_partner_social_accounts_response import RemovePartnerSocialAccountsResponse
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -317,6 +319,160 @@ class SocialAccountsClient:
         )
         """
         _response = self._raw_client.lead_forms(id, account_id=account_id, request_options=request_options)
+        return _response.data
+
+    def partners(
+        self,
+        id: str,
+        *,
+        account_id: typing.Optional[str] = None,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SyncPager[SocialAccount, PartnersSocialAccountsResponse]:
+        """
+        Lists the creators an Instagram account runs partnership ads with, and where each creator's permission stands.
+
+        Parameters
+        ----------
+        id : str
+            The Instagram account (a sacc_ identifier) the partners run partnership ads with.
+
+        account_id : typing.Optional[str]
+            The Account (biz_ identifier) that advertises as the Instagram account. An account-scoped API key may omit this to default to its own account.
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SyncPager[SocialAccount, PartnersSocialAccountsResponse]
+            partners listed
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-09-25",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        response = client.social_accounts.partners(
+            id="id",
+        )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
+        """
+        return self._raw_client.partners(
+            id, account_id=account_id, first=first, after=after, request_options=request_options
+        )
+
+    def add_partner(
+        self,
+        id: str,
+        *,
+        username: str,
+        account_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SocialAccount:
+        """
+        Invites an Instagram creator to run partnership ads with an Instagram account. The creator approves the invitation in the Instagram app, and `partnership_status` stays `pending` until they do; [refresh](/api-reference/beta/social-accounts/refresh) the partner to pick up their answer.
+
+        Parameters
+        ----------
+        id : str
+            The Instagram account (a sacc_ identifier) the partners run partnership ads with.
+
+        username : str
+            The creator's Instagram username, with or without the leading `@`. The creator needs a professional (Business or Creator) Instagram account.
+
+        account_id : typing.Optional[str]
+            The Account (biz_ identifier) that advertises as the Instagram account. An account-scoped API key may omit this to default to its own account.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SocialAccount
+            creator invited
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-09-25",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.social_accounts.add_partner(
+            id="id",
+            username="@luverahealth",
+        )
+        """
+        _response = self._raw_client.add_partner(
+            id, username=username, account_id=account_id, request_options=request_options
+        )
+        return _response.data
+
+    def remove_partner(
+        self,
+        id: str,
+        partner_id: str,
+        *,
+        account_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> RemovePartnerSocialAccountsResponse:
+        """
+        Revokes a creator's permission to run partnership ads with an Instagram account. Every account that advertises as the Instagram account loses the partner, since the permission belongs to the Instagram account.
+
+        Parameters
+        ----------
+        id : str
+            The Instagram account (a sacc_ identifier) the partner runs partnership ads with.
+
+        partner_id : str
+            The partner creator's social account (a sacc_ identifier).
+
+        account_id : typing.Optional[str]
+            The Account (biz_ identifier) that advertises as the Instagram account. An account-scoped API key may omit this to default to its own account.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RemovePartnerSocialAccountsResponse
+            partner removed
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-09-25",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.social_accounts.remove_partner(
+            id="id",
+            partner_id="partner_id",
+        )
+        """
+        _response = self._raw_client.remove_partner(
+            id, partner_id, account_id=account_id, request_options=request_options
+        )
         return _response.data
 
     def posts(
@@ -760,6 +916,185 @@ class AsyncSocialAccountsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.lead_forms(id, account_id=account_id, request_options=request_options)
+        return _response.data
+
+    async def partners(
+        self,
+        id: str,
+        *,
+        account_id: typing.Optional[str] = None,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncPager[SocialAccount, PartnersSocialAccountsResponse]:
+        """
+        Lists the creators an Instagram account runs partnership ads with, and where each creator's permission stands.
+
+        Parameters
+        ----------
+        id : str
+            The Instagram account (a sacc_ identifier) the partners run partnership ads with.
+
+        account_id : typing.Optional[str]
+            The Account (biz_ identifier) that advertises as the Instagram account. An account-scoped API key may omit this to default to its own account.
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncPager[SocialAccount, PartnersSocialAccountsResponse]
+            partners listed
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-09-25",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            response = await client.social_accounts.partners(
+                id="id",
+            )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
+
+
+        asyncio.run(main())
+        """
+        return await self._raw_client.partners(
+            id, account_id=account_id, first=first, after=after, request_options=request_options
+        )
+
+    async def add_partner(
+        self,
+        id: str,
+        *,
+        username: str,
+        account_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SocialAccount:
+        """
+        Invites an Instagram creator to run partnership ads with an Instagram account. The creator approves the invitation in the Instagram app, and `partnership_status` stays `pending` until they do; [refresh](/api-reference/beta/social-accounts/refresh) the partner to pick up their answer.
+
+        Parameters
+        ----------
+        id : str
+            The Instagram account (a sacc_ identifier) the partners run partnership ads with.
+
+        username : str
+            The creator's Instagram username, with or without the leading `@`. The creator needs a professional (Business or Creator) Instagram account.
+
+        account_id : typing.Optional[str]
+            The Account (biz_ identifier) that advertises as the Instagram account. An account-scoped API key may omit this to default to its own account.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SocialAccount
+            creator invited
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-09-25",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.social_accounts.add_partner(
+                id="id",
+                username="@luverahealth",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.add_partner(
+            id, username=username, account_id=account_id, request_options=request_options
+        )
+        return _response.data
+
+    async def remove_partner(
+        self,
+        id: str,
+        partner_id: str,
+        *,
+        account_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> RemovePartnerSocialAccountsResponse:
+        """
+        Revokes a creator's permission to run partnership ads with an Instagram account. Every account that advertises as the Instagram account loses the partner, since the permission belongs to the Instagram account.
+
+        Parameters
+        ----------
+        id : str
+            The Instagram account (a sacc_ identifier) the partner runs partnership ads with.
+
+        partner_id : str
+            The partner creator's social account (a sacc_ identifier).
+
+        account_id : typing.Optional[str]
+            The Account (biz_ identifier) that advertises as the Instagram account. An account-scoped API key may omit this to default to its own account.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        RemovePartnerSocialAccountsResponse
+            partner removed
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-09-25",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.social_accounts.remove_partner(
+                id="id",
+                partner_id="partner_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.remove_partner(
+            id, partner_id, account_id=account_id, request_options=request_options
+        )
         return _response.data
 
     async def posts(

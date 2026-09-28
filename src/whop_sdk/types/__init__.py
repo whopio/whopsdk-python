@@ -1298,6 +1298,7 @@ if typing.TYPE_CHECKING:
     from .social_account_lead_form_form_type import SocialAccountLeadFormFormType
     from .social_account_parent import SocialAccountParent
     from .social_account_parent_platform import SocialAccountParentPlatform
+    from .social_account_partnership_status import SocialAccountPartnershipStatus
     from .social_account_platform import SocialAccountPlatform
     from .social_account_post import SocialAccountPost
     from .social_account_post_call_to_action import SocialAccountPostCallToAction
@@ -2590,6 +2591,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SocialAccountLeadFormFormType": ".social_account_lead_form_form_type",
     "SocialAccountParent": ".social_account_parent",
     "SocialAccountParentPlatform": ".social_account_parent_platform",
+    "SocialAccountPartnershipStatus": ".social_account_partnership_status",
     "SocialAccountPlatform": ".social_account_platform",
     "SocialAccountPost": ".social_account_post",
     "SocialAccountPostCallToAction": ".social_account_post_call_to_action",
@@ -3904,6 +3906,7 @@ __all__ = [
     "SocialAccountLeadFormFormType",
     "SocialAccountParent",
     "SocialAccountParentPlatform",
+    "SocialAccountPartnershipStatus",
     "SocialAccountPlatform",
     "SocialAccountPost",
     "SocialAccountPostCallToAction",
