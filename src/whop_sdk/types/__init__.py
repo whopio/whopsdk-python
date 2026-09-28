@@ -136,7 +136,9 @@ if typing.TYPE_CHECKING:
     from .ad_group_conversion_location import AdGroupConversionLocation
     from .ad_group_custom_location import AdGroupCustomLocation
     from .ad_group_custom_location_distance_unit import AdGroupCustomLocationDistanceUnit
+    from .ad_group_delivery_schedule import AdGroupDeliverySchedule
     from .ad_group_delivery_status import AdGroupDeliveryStatus
+    from .ad_group_delivery_window import AdGroupDeliveryWindow
     from .ad_group_demographic_category import AdGroupDemographicCategory
     from .ad_group_demographic_category_type import AdGroupDemographicCategoryType
     from .ad_group_demographics import AdGroupDemographics
@@ -1555,7 +1557,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdGroupConversionLocation": ".ad_group_conversion_location",
     "AdGroupCustomLocation": ".ad_group_custom_location",
     "AdGroupCustomLocationDistanceUnit": ".ad_group_custom_location_distance_unit",
+    "AdGroupDeliverySchedule": ".ad_group_delivery_schedule",
     "AdGroupDeliveryStatus": ".ad_group_delivery_status",
+    "AdGroupDeliveryWindow": ".ad_group_delivery_window",
     "AdGroupDemographicCategory": ".ad_group_demographic_category",
     "AdGroupDemographicCategoryType": ".ad_group_demographic_category_type",
     "AdGroupDemographics": ".ad_group_demographics",
@@ -2856,7 +2860,9 @@ __all__ = [
     "AdGroupConversionLocation",
     "AdGroupCustomLocation",
     "AdGroupCustomLocationDistanceUnit",
+    "AdGroupDeliverySchedule",
     "AdGroupDeliveryStatus",
+    "AdGroupDeliveryWindow",
     "AdGroupDemographicCategory",
     "AdGroupDemographicCategoryType",
     "AdGroupDemographics",

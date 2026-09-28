@@ -9,6 +9,22 @@ if typing.TYPE_CHECKING:
     from .create_ad_groups_request_bid_type import CreateAdGroupsRequestBidType
     from .create_ad_groups_request_budget_type import CreateAdGroupsRequestBudgetType
     from .create_ad_groups_request_conversion_location import CreateAdGroupsRequestConversionLocation
+    from .create_ad_groups_request_delivery_schedule import CreateAdGroupsRequestDeliverySchedule
+    from .create_ad_groups_request_delivery_schedule_friday_item import CreateAdGroupsRequestDeliveryScheduleFridayItem
+    from .create_ad_groups_request_delivery_schedule_monday_item import CreateAdGroupsRequestDeliveryScheduleMondayItem
+    from .create_ad_groups_request_delivery_schedule_saturday_item import (
+        CreateAdGroupsRequestDeliveryScheduleSaturdayItem,
+    )
+    from .create_ad_groups_request_delivery_schedule_sunday_item import CreateAdGroupsRequestDeliveryScheduleSundayItem
+    from .create_ad_groups_request_delivery_schedule_thursday_item import (
+        CreateAdGroupsRequestDeliveryScheduleThursdayItem,
+    )
+    from .create_ad_groups_request_delivery_schedule_tuesday_item import (
+        CreateAdGroupsRequestDeliveryScheduleTuesdayItem,
+    )
+    from .create_ad_groups_request_delivery_schedule_wednesday_item import (
+        CreateAdGroupsRequestDeliveryScheduleWednesdayItem,
+    )
     from .create_ad_groups_request_frequency_cap import CreateAdGroupsRequestFrequencyCap
     from .create_ad_groups_request_message_apps_item import CreateAdGroupsRequestMessageAppsItem
     from .create_ad_groups_request_optimization_goal import CreateAdGroupsRequestOptimizationGoal
@@ -39,6 +55,22 @@ if typing.TYPE_CHECKING:
     from .update_ad_groups_request_bid_type import UpdateAdGroupsRequestBidType
     from .update_ad_groups_request_budget_type import UpdateAdGroupsRequestBudgetType
     from .update_ad_groups_request_conversion_location import UpdateAdGroupsRequestConversionLocation
+    from .update_ad_groups_request_delivery_schedule import UpdateAdGroupsRequestDeliverySchedule
+    from .update_ad_groups_request_delivery_schedule_friday_item import UpdateAdGroupsRequestDeliveryScheduleFridayItem
+    from .update_ad_groups_request_delivery_schedule_monday_item import UpdateAdGroupsRequestDeliveryScheduleMondayItem
+    from .update_ad_groups_request_delivery_schedule_saturday_item import (
+        UpdateAdGroupsRequestDeliveryScheduleSaturdayItem,
+    )
+    from .update_ad_groups_request_delivery_schedule_sunday_item import UpdateAdGroupsRequestDeliveryScheduleSundayItem
+    from .update_ad_groups_request_delivery_schedule_thursday_item import (
+        UpdateAdGroupsRequestDeliveryScheduleThursdayItem,
+    )
+    from .update_ad_groups_request_delivery_schedule_tuesday_item import (
+        UpdateAdGroupsRequestDeliveryScheduleTuesdayItem,
+    )
+    from .update_ad_groups_request_delivery_schedule_wednesday_item import (
+        UpdateAdGroupsRequestDeliveryScheduleWednesdayItem,
+    )
     from .update_ad_groups_request_frequency_cap import UpdateAdGroupsRequestFrequencyCap
     from .update_ad_groups_request_message_apps_item import UpdateAdGroupsRequestMessageAppsItem
     from .update_ad_groups_request_optimization_goal import UpdateAdGroupsRequestOptimizationGoal
@@ -51,6 +83,14 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateAdGroupsRequestBidType": ".create_ad_groups_request_bid_type",
     "CreateAdGroupsRequestBudgetType": ".create_ad_groups_request_budget_type",
     "CreateAdGroupsRequestConversionLocation": ".create_ad_groups_request_conversion_location",
+    "CreateAdGroupsRequestDeliverySchedule": ".create_ad_groups_request_delivery_schedule",
+    "CreateAdGroupsRequestDeliveryScheduleFridayItem": ".create_ad_groups_request_delivery_schedule_friday_item",
+    "CreateAdGroupsRequestDeliveryScheduleMondayItem": ".create_ad_groups_request_delivery_schedule_monday_item",
+    "CreateAdGroupsRequestDeliveryScheduleSaturdayItem": ".create_ad_groups_request_delivery_schedule_saturday_item",
+    "CreateAdGroupsRequestDeliveryScheduleSundayItem": ".create_ad_groups_request_delivery_schedule_sunday_item",
+    "CreateAdGroupsRequestDeliveryScheduleThursdayItem": ".create_ad_groups_request_delivery_schedule_thursday_item",
+    "CreateAdGroupsRequestDeliveryScheduleTuesdayItem": ".create_ad_groups_request_delivery_schedule_tuesday_item",
+    "CreateAdGroupsRequestDeliveryScheduleWednesdayItem": ".create_ad_groups_request_delivery_schedule_wednesday_item",
     "CreateAdGroupsRequestFrequencyCap": ".create_ad_groups_request_frequency_cap",
     "CreateAdGroupsRequestMessageAppsItem": ".create_ad_groups_request_message_apps_item",
     "CreateAdGroupsRequestOptimizationGoal": ".create_ad_groups_request_optimization_goal",
@@ -77,6 +117,14 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateAdGroupsRequestBidType": ".update_ad_groups_request_bid_type",
     "UpdateAdGroupsRequestBudgetType": ".update_ad_groups_request_budget_type",
     "UpdateAdGroupsRequestConversionLocation": ".update_ad_groups_request_conversion_location",
+    "UpdateAdGroupsRequestDeliverySchedule": ".update_ad_groups_request_delivery_schedule",
+    "UpdateAdGroupsRequestDeliveryScheduleFridayItem": ".update_ad_groups_request_delivery_schedule_friday_item",
+    "UpdateAdGroupsRequestDeliveryScheduleMondayItem": ".update_ad_groups_request_delivery_schedule_monday_item",
+    "UpdateAdGroupsRequestDeliveryScheduleSaturdayItem": ".update_ad_groups_request_delivery_schedule_saturday_item",
+    "UpdateAdGroupsRequestDeliveryScheduleSundayItem": ".update_ad_groups_request_delivery_schedule_sunday_item",
+    "UpdateAdGroupsRequestDeliveryScheduleThursdayItem": ".update_ad_groups_request_delivery_schedule_thursday_item",
+    "UpdateAdGroupsRequestDeliveryScheduleTuesdayItem": ".update_ad_groups_request_delivery_schedule_tuesday_item",
+    "UpdateAdGroupsRequestDeliveryScheduleWednesdayItem": ".update_ad_groups_request_delivery_schedule_wednesday_item",
     "UpdateAdGroupsRequestFrequencyCap": ".update_ad_groups_request_frequency_cap",
     "UpdateAdGroupsRequestMessageAppsItem": ".update_ad_groups_request_message_apps_item",
     "UpdateAdGroupsRequestOptimizationGoal": ".update_ad_groups_request_optimization_goal",
@@ -113,6 +161,14 @@ __all__ = [
     "CreateAdGroupsRequestBidType",
     "CreateAdGroupsRequestBudgetType",
     "CreateAdGroupsRequestConversionLocation",
+    "CreateAdGroupsRequestDeliverySchedule",
+    "CreateAdGroupsRequestDeliveryScheduleFridayItem",
+    "CreateAdGroupsRequestDeliveryScheduleMondayItem",
+    "CreateAdGroupsRequestDeliveryScheduleSaturdayItem",
+    "CreateAdGroupsRequestDeliveryScheduleSundayItem",
+    "CreateAdGroupsRequestDeliveryScheduleThursdayItem",
+    "CreateAdGroupsRequestDeliveryScheduleTuesdayItem",
+    "CreateAdGroupsRequestDeliveryScheduleWednesdayItem",
     "CreateAdGroupsRequestFrequencyCap",
     "CreateAdGroupsRequestMessageAppsItem",
     "CreateAdGroupsRequestOptimizationGoal",
@@ -139,6 +195,14 @@ __all__ = [
     "UpdateAdGroupsRequestBidType",
     "UpdateAdGroupsRequestBudgetType",
     "UpdateAdGroupsRequestConversionLocation",
+    "UpdateAdGroupsRequestDeliverySchedule",
+    "UpdateAdGroupsRequestDeliveryScheduleFridayItem",
+    "UpdateAdGroupsRequestDeliveryScheduleMondayItem",
+    "UpdateAdGroupsRequestDeliveryScheduleSaturdayItem",
+    "UpdateAdGroupsRequestDeliveryScheduleSundayItem",
+    "UpdateAdGroupsRequestDeliveryScheduleThursdayItem",
+    "UpdateAdGroupsRequestDeliveryScheduleTuesdayItem",
+    "UpdateAdGroupsRequestDeliveryScheduleWednesdayItem",
     "UpdateAdGroupsRequestFrequencyCap",
     "UpdateAdGroupsRequestMessageAppsItem",
     "UpdateAdGroupsRequestOptimizationGoal",
