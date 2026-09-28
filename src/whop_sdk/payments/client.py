@@ -20,6 +20,7 @@ from .types.list_payments_request_direction import ListPaymentsRequestDirection
 from .types.list_payments_request_order import ListPaymentsRequestOrder
 from .types.list_payments_request_status import ListPaymentsRequestStatus
 from .types.list_payments_response import ListPaymentsResponse
+from .types.update_payments_request_shipping_address import UpdatePaymentsRequestShippingAddress
 
 if typing.TYPE_CHECKING:
     from .direct.client import AsyncDirectClient, DirectClient
@@ -290,7 +291,7 @@ class PaymentsClient:
         Parameters
         ----------
         id : str
-            The payment to retrieve, prefixed `pay_`.
+            The payment, prefixed `pay_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -314,6 +315,54 @@ class PaymentsClient:
         )
         """
         _response = self._raw_client.retrieve(id, request_options=request_options)
+        return _response.data
+
+    def update(
+        self,
+        id: str,
+        *,
+        return_url: typing.Optional[str] = OMIT,
+        shipping_address: typing.Optional[UpdatePaymentsRequestShippingAddress] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> Payment:
+        """
+        Changes a payment's shipping address or return URL, such as when a buyer corrects where their order should go before it ships. `shipping_address` is replaced as a whole, never merged: always send the complete address, including fields that are not changing, or they are cleared. Only `shipping_address` and `return_url` can be changed, and any other field is rejected. Omit either one to leave it unchanged.
+
+        Parameters
+        ----------
+        id : str
+            The payment, prefixed `pay_`.
+
+        return_url : typing.Optional[str]
+            Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters. Only for payments created with a `confirmation_token`, and only until the buyer has returned. Omit it to leave it unchanged.
+
+        shipping_address : typing.Optional[UpdatePaymentsRequestShippingAddress]
+            The complete new shipping address. It replaces the current address as a whole and is never merged with it, so send every field the address should have, including the ones that are not changing. Any field you leave out is cleared: sending only `city` leaves an address with nothing but a city. Pass null to remove the address, or omit `shipping_address` to leave it unchanged. It cannot change once a shipment exists for the payment.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Payment
+            shipping address replaced
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-09-25",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.payments.update(
+            id="id",
+        )
+        """
+        _response = self._raw_client.update(
+            id, return_url=return_url, shipping_address=shipping_address, request_options=request_options
+        )
         return _response.data
 
     def capture(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> PaymentStatus:
@@ -890,7 +939,7 @@ class AsyncPaymentsClient:
         Parameters
         ----------
         id : str
-            The payment to retrieve, prefixed `pay_`.
+            The payment, prefixed `pay_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -922,6 +971,62 @@ class AsyncPaymentsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.retrieve(id, request_options=request_options)
+        return _response.data
+
+    async def update(
+        self,
+        id: str,
+        *,
+        return_url: typing.Optional[str] = OMIT,
+        shipping_address: typing.Optional[UpdatePaymentsRequestShippingAddress] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> Payment:
+        """
+        Changes a payment's shipping address or return URL, such as when a buyer corrects where their order should go before it ships. `shipping_address` is replaced as a whole, never merged: always send the complete address, including fields that are not changing, or they are cleared. Only `shipping_address` and `return_url` can be changed, and any other field is rejected. Omit either one to leave it unchanged.
+
+        Parameters
+        ----------
+        id : str
+            The payment, prefixed `pay_`.
+
+        return_url : typing.Optional[str]
+            Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters. Only for payments created with a `confirmation_token`, and only until the buyer has returned. Omit it to leave it unchanged.
+
+        shipping_address : typing.Optional[UpdatePaymentsRequestShippingAddress]
+            The complete new shipping address. It replaces the current address as a whole and is never merged with it, so send every field the address should have, including the ones that are not changing. Any field you leave out is cleared: sending only `city` leaves an address with nothing but a city. Pass null to remove the address, or omit `shipping_address` to leave it unchanged. It cannot change once a shipment exists for the payment.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Payment
+            shipping address replaced
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-09-25",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.payments.update(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.update(
+            id, return_url=return_url, shipping_address=shipping_address, request_options=request_options
+        )
         return _response.data
 
     async def capture(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> PaymentStatus:

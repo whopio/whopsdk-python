@@ -45,6 +45,7 @@ if typing.TYPE_CHECKING:
         PostPaymentSucceededPayload,
         PostPaymentSucceededPayloadApiVersion,
         PostPaymentSucceededPayloadType,
+        UpdatePaymentsRequestShippingAddress,
     )
     from . import direct
     from .direct import (
@@ -116,6 +117,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostPaymentSucceededPayload": ".types",
     "PostPaymentSucceededPayloadApiVersion": ".types",
     "PostPaymentSucceededPayloadType": ".types",
+    "UpdatePaymentsRequestShippingAddress": ".types",
     "direct": ".direct",
 }
 
@@ -194,5 +196,6 @@ __all__ = [
     "PostPaymentSucceededPayload",
     "PostPaymentSucceededPayloadApiVersion",
     "PostPaymentSucceededPayloadType",
+    "UpdatePaymentsRequestShippingAddress",
     "direct",
 ]

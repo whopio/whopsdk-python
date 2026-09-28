@@ -46,6 +46,7 @@ if typing.TYPE_CHECKING:
     from .post_payment_succeeded_payload import PostPaymentSucceededPayload
     from .post_payment_succeeded_payload_api_version import PostPaymentSucceededPayloadApiVersion
     from .post_payment_succeeded_payload_type import PostPaymentSucceededPayloadType
+    from .update_payments_request_shipping_address import UpdatePaymentsRequestShippingAddress
 _dynamic_imports: typing.Dict[str, str] = {
     "CreatePaymentsRequestLineItemsItem": ".create_payments_request_line_items_item",
     "CreatePaymentsRequestPlan": ".create_payments_request_plan",
@@ -85,6 +86,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostPaymentSucceededPayload": ".post_payment_succeeded_payload",
     "PostPaymentSucceededPayloadApiVersion": ".post_payment_succeeded_payload_api_version",
     "PostPaymentSucceededPayloadType": ".post_payment_succeeded_payload_type",
+    "UpdatePaymentsRequestShippingAddress": ".update_payments_request_shipping_address",
 }
 
 
@@ -148,4 +150,5 @@ __all__ = [
     "PostPaymentSucceededPayload",
     "PostPaymentSucceededPayloadApiVersion",
     "PostPaymentSucceededPayloadType",
+    "UpdatePaymentsRequestShippingAddress",
 ]
