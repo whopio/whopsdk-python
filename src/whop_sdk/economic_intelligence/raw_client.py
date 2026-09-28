@@ -178,13 +178,14 @@ class RawEconomicIntelligenceClient:
         *,
         account_id: typing.Optional[str] = None,
         input: typing.Optional[str] = OMIT,
+        result_url: typing.Optional[str] = OMIT,
         sentiment: typing.Optional[UpdateEconomicIntelligenceRequestSentiment] = OMIT,
         status: typing.Optional[UpdateEconomicIntelligenceRequestStatus] = OMIT,
         user_feedback: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[EconomicIntelligence]:
         """
-        Updates a recommendation status, records feedback, or both. Send `sentiment` to rate it. Include `status: superseded` to retire it and request replacements; a rating alone leaves its status unchanged.
+        Updates a recommendation status, records feedback, or both. Send `sentiment` to rate it. Include `status: superseded` to retire a ready recommendation and request replacements; a rating alone leaves its status unchanged. To run a recommendation yourself, send `status: running` to start, then `status: executed` when it is carried out (with `result_url` when there is a result to view) or `status: incomplete` if the run ended without carrying it out. Whop AI reports its own runs the same way. Send `status: acknowledged` once an executed run's result has been seen.
 
         Parameters
         ----------
@@ -197,11 +198,14 @@ class RawEconomicIntelligenceClient:
         input : typing.Optional[str]
             What you want the replacement recommendation for, in your own words. Up to 1000 characters. Sent when superseding, it directs the generation that replaces the rejected recommendation.
 
+        result_url : typing.Optional[str]
+            With `status: executed`, where to view what was produced, such as the published website or created product. An http or https URL.
+
         sentiment : typing.Optional[UpdateEconomicIntelligenceRequestSentiment]
             A signed-in user can rate a recommendation as `positive` or `negative`. Can be sent alone or together with status.
 
         status : typing.Optional[UpdateEconomicIntelligenceRequestStatus]
-            Use `executed` to record approval, or `superseded` to reject the recommendation.
+            Use `running` to start a run of a ready recommendation, `executed` to record that it was carried out, `incomplete` to record that a running recommendation's run ended without carrying it out, `superseded` to reject a ready recommendation, or `acknowledged` to mark an executed run as seen; the recommendation stays `executed` and records `acknowledged_at`.
 
         user_feedback : typing.Optional[str]
             An optional explanation of the rating or rejection. Negative feedback informs replacement recommendations.
@@ -223,6 +227,7 @@ class RawEconomicIntelligenceClient:
             },
             json={
                 "input": input,
+                "result_url": result_url,
                 "sentiment": sentiment,
                 "status": status,
                 "user_feedback": user_feedback,
@@ -450,13 +455,14 @@ class AsyncRawEconomicIntelligenceClient:
         *,
         account_id: typing.Optional[str] = None,
         input: typing.Optional[str] = OMIT,
+        result_url: typing.Optional[str] = OMIT,
         sentiment: typing.Optional[UpdateEconomicIntelligenceRequestSentiment] = OMIT,
         status: typing.Optional[UpdateEconomicIntelligenceRequestStatus] = OMIT,
         user_feedback: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[EconomicIntelligence]:
         """
-        Updates a recommendation status, records feedback, or both. Send `sentiment` to rate it. Include `status: superseded` to retire it and request replacements; a rating alone leaves its status unchanged.
+        Updates a recommendation status, records feedback, or both. Send `sentiment` to rate it. Include `status: superseded` to retire a ready recommendation and request replacements; a rating alone leaves its status unchanged. To run a recommendation yourself, send `status: running` to start, then `status: executed` when it is carried out (with `result_url` when there is a result to view) or `status: incomplete` if the run ended without carrying it out. Whop AI reports its own runs the same way. Send `status: acknowledged` once an executed run's result has been seen.
 
         Parameters
         ----------
@@ -469,11 +475,14 @@ class AsyncRawEconomicIntelligenceClient:
         input : typing.Optional[str]
             What you want the replacement recommendation for, in your own words. Up to 1000 characters. Sent when superseding, it directs the generation that replaces the rejected recommendation.
 
+        result_url : typing.Optional[str]
+            With `status: executed`, where to view what was produced, such as the published website or created product. An http or https URL.
+
         sentiment : typing.Optional[UpdateEconomicIntelligenceRequestSentiment]
             A signed-in user can rate a recommendation as `positive` or `negative`. Can be sent alone or together with status.
 
         status : typing.Optional[UpdateEconomicIntelligenceRequestStatus]
-            Use `executed` to record approval, or `superseded` to reject the recommendation.
+            Use `running` to start a run of a ready recommendation, `executed` to record that it was carried out, `incomplete` to record that a running recommendation's run ended without carrying it out, `superseded` to reject a ready recommendation, or `acknowledged` to mark an executed run as seen; the recommendation stays `executed` and records `acknowledged_at`.
 
         user_feedback : typing.Optional[str]
             An optional explanation of the rating or rejection. Negative feedback informs replacement recommendations.
@@ -495,6 +504,7 @@ class AsyncRawEconomicIntelligenceClient:
             },
             json={
                 "input": input,
+                "result_url": result_url,
                 "sentiment": sentiment,
                 "status": status,
                 "user_feedback": user_feedback,
