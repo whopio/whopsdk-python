@@ -47940,7 +47940,7 @@ client.users.oauth_grants.create(
 <dl>
 <dd>
 
-**consent_shown:** `typing.Optional[bool]` — Whether the consent UI listed these scopes for the user. Sending `false` succeeds only when the user has already granted every scope requested.
+**consent_shown:** `typing.Optional[bool]` — Whether the consent UI listed these scopes for the user. Sending `false` succeeds only when the user has already granted every scope requested, or when the app is one of Whop's own with the consent skip switched on and asks for `openid` alone.
     
 </dd>
 </dl>
