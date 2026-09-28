@@ -1403,6 +1403,17 @@ if typing.TYPE_CHECKING:
     from .user_summary import UserSummary
     from .v1error_response import V1ErrorResponse
     from .v1error_response_error import V1ErrorResponseError
+    from .variant import Variant
+    from .variant_list_item import VariantListItem
+    from .variant_list_item_plan_type import VariantListItemPlanType
+    from .variant_list_item_release_method import VariantListItemReleaseMethod
+    from .variant_list_item_three_ds_level import VariantListItemThreeDsLevel
+    from .variant_list_item_visibility import VariantListItemVisibility
+    from .variant_plan_type import VariantPlanType
+    from .variant_release_method import VariantReleaseMethod
+    from .variant_tax_type import VariantTaxType
+    from .variant_three_ds_level import VariantThreeDsLevel
+    from .variant_visibility import VariantVisibility
     from .verification import Verification
     from .verification_error_codes import VerificationErrorCodes
     from .verification_list_item import VerificationListItem
@@ -2682,6 +2693,17 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UserSummary": ".user_summary",
     "V1ErrorResponse": ".v1error_response",
     "V1ErrorResponseError": ".v1error_response_error",
+    "Variant": ".variant",
+    "VariantListItem": ".variant_list_item",
+    "VariantListItemPlanType": ".variant_list_item_plan_type",
+    "VariantListItemReleaseMethod": ".variant_list_item_release_method",
+    "VariantListItemThreeDsLevel": ".variant_list_item_three_ds_level",
+    "VariantListItemVisibility": ".variant_list_item_visibility",
+    "VariantPlanType": ".variant_plan_type",
+    "VariantReleaseMethod": ".variant_release_method",
+    "VariantTaxType": ".variant_tax_type",
+    "VariantThreeDsLevel": ".variant_three_ds_level",
+    "VariantVisibility": ".variant_visibility",
     "Verification": ".verification",
     "VerificationErrorCodes": ".verification_error_codes",
     "VerificationListItem": ".verification_list_item",
@@ -3985,6 +4007,17 @@ __all__ = [
     "UserSummary",
     "V1ErrorResponse",
     "V1ErrorResponseError",
+    "Variant",
+    "VariantListItem",
+    "VariantListItemPlanType",
+    "VariantListItemReleaseMethod",
+    "VariantListItemThreeDsLevel",
+    "VariantListItemVisibility",
+    "VariantPlanType",
+    "VariantReleaseMethod",
+    "VariantTaxType",
+    "VariantThreeDsLevel",
+    "VariantVisibility",
     "Verification",
     "VerificationErrorCodes",
     "VerificationListItem",

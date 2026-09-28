@@ -238,7 +238,7 @@ class EventsClient:
             When the event occurred. Defaults to now.
 
         plan_id : typing.Optional[str]
-            The plan associated with the event.
+            The variant associated with the event.
 
         product_id : typing.Optional[str]
             The product associated with the event.
@@ -629,7 +629,7 @@ class AsyncEventsClient:
             When the event occurred. Defaults to now.
 
         plan_id : typing.Optional[str]
-            The plan associated with the event.
+            The variant associated with the event.
 
         product_id : typing.Optional[str]
             The product associated with the event.

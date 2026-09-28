@@ -9,7 +9,7 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 class InviteMembershipsRequestBodyUserId(UniversalBaseModel):
     plan_id: str = pydantic.Field()
     """
-    Free plan whose membership the recipient is invited to, prefixed `plan_`.
+    Free variant whose membership the recipient is invited to, prefixed `plan_`.
     """
 
     user_id: str = pydantic.Field()

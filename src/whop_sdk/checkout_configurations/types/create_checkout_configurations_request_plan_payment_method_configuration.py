@@ -9,17 +9,17 @@ from ...types.payment_method_types import PaymentMethodTypes
 
 class CreateCheckoutConfigurationsRequestPlanPaymentMethodConfiguration(UniversalBaseModel):
     """
-    Payment method overrides for the inline plan. `null` uses platform defaults.
+    Payment method overrides for the inline variant. `null` uses platform defaults.
     """
 
     disabled: typing.Optional[typing.List[PaymentMethodTypes]] = pydantic.Field(default=None)
     """
-    Payment method types explicitly disabled for this plan — the `type` values from the payment method types catalogue. Types Whop no longer offers, and the read-only `unknown` placeholder, are dropped.
+    Payment method types explicitly disabled for this variant — the `type` values from the payment method types catalogue. Types Whop no longer offers, and the read-only `unknown` placeholder, are dropped.
     """
 
     enabled: typing.Optional[typing.List[PaymentMethodTypes]] = pydantic.Field(default=None)
     """
-    Payment method types explicitly enabled for this plan — the `type` values from the payment method types catalogue. Types Whop no longer offers, and the read-only `unknown` placeholder, are dropped.
+    Payment method types explicitly enabled for this variant — the `type` values from the payment method types catalogue. Types Whop no longer offers, and the read-only `unknown` placeholder, are dropped.
     """
 
     include_platform_defaults: typing.Optional[bool] = pydantic.Field(default=None)

@@ -7,39 +7,12 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class CalculateTaxPlansRequestAddress(UniversalBaseModel):
-    """
-    Buyer billing address used for tax calculation. Provide either `address.country` or `ip_address`; include state and postal code when available for more accurate results.
-    """
-
-    city: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    City name.
-    """
-
-    country: str = pydantic.Field()
-    """
-    ISO 3166-1 alpha-2 country code, such as `US`, `DE`, or `GB`.
-    """
-
-    line1: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    First line of the street address.
-    """
-
-    line2: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    Second line of the street address.
-    """
-
-    postal_code: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    Postal or ZIP code.
-    """
-
-    state: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    State, province, or region code, such as `CA`.
-    """
+    city: typing.Optional[str] = None
+    country: str
+    line1: typing.Optional[str] = None
+    line2: typing.Optional[str] = None
+    postal_code: typing.Optional[str] = None
+    state: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

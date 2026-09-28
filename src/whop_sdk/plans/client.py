@@ -62,36 +62,27 @@ class PlansClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[PlanListItem, ListPlansResponse]:
         """
-        Returns a paginated list of plans. Omit `account_id` and pass `product_ids` to list a product's public buyable plans.
+        Deprecated compatibility endpoint. List variants with `GET /variants` instead.
 
         Parameters
         ----------
         account_id : typing.Optional[str]
-            The unique identifier of the account to list plans for. Required unless `product_ids` is provided for a public product-plan read.
 
         direction : typing.Optional[ListPlansRequestDirection]
-            The sort direction for results. Defaults to descending.
 
         order : typing.Optional[ListPlansRequestOrder]
-            The field to sort results by. Defaults to created_at.
 
         release_methods : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Filter to only plans matching these release methods.
 
         visibilities : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Filter to only plans matching these visibility states.
 
         plan_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Filter to only plans matching these billing types.
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Filter to only plans belonging to these product identifiers. When `account_id` is omitted, this is required and the response is publicly readable: only visible, non-invoice plans are returned.
 
         created_before : typing.Optional[str]
-            Only return plans created before this timestamp.
 
         created_after : typing.Optional[str]
-            Only return plans created after this timestamp.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -111,7 +102,7 @@ class PlansClient:
         Returns
         -------
         SyncPager[PlanListItem, ListPlansResponse]
-            visible plans listed by product without authentication
+            variants listed through the deprecated plans path
 
         Examples
         --------
@@ -122,12 +113,7 @@ class PlansClient:
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
-        response = client.plans.list(
-            release_methods=["buy_now"],
-            visibilities=["visible"],
-            plan_types=["renewal"],
-            product_ids=["prod_xxxxxxxxxxxxxx"],
-        )
+        response = client.plans.list()
         for item in response:
             yield item
         # alternatively, you can paginate page-by-page
@@ -184,90 +170,63 @@ class PlansClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Plan:
         """
-        Create a new pricing plan for a product. The plan defines the billing interval, price, and availability for customers.
+        Deprecated compatibility endpoint. Create variants with `POST /variants` instead.
 
         Parameters
         ----------
         account_id : typing.Optional[str]
-            The unique identifier of the account to create this plan for. Required when authenticating as a user; an account API key supplies its own account.
 
         adaptive_pricing_enabled : typing.Optional[bool]
-            Whether this plan accepts local currency payments via adaptive pricing.
 
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
-            Attribute values that make this plan one variant of its product, as a map of attribute name to value, e.g. `{"size": "Large", "color": "Blue"}`. Names are normalized to snake_case identifiers (`Ring Size` becomes `ring_size`) and come back in alphabetical order. Every variant plan on a product must carry the same attribute names and a distinct set of values. Send `null` to make the plan an ordinary pricing option again.
 
         billing_period : typing.Optional[int]
-            Recurring billing interval in days, such as 30 for monthly or 365 for annual.
 
         checkout_styling : typing.Optional[typing.Dict[str, typing.Any]]
-            Checkout styling overrides for this plan.
 
         currency : typing.Optional[str]
-            The three-letter ISO currency code for the plan's pricing. Defaults to USD.
 
         custom_fields : typing.Optional[typing.Sequence[CreatePlansRequestCustomFieldsItem]]
-            An array of custom field definitions to collect from customers at checkout. Omitting this field clears existing custom fields.
 
         description : typing.Optional[str]
-            A text description of the plan displayed to customers on the product page.
 
         expiration_days : typing.Optional[int]
-            Access duration in days before the membership expires.
 
         image : typing.Optional[CreatePlansRequestImage]
-            An image displayed on the product page to represent this plan.
 
         initial_price : typing.Optional[float]
-            Initial amount charged in the plan's currency, e.g. 10.43 for $10.43. A paid fiat plan charges at least 1.00 in its currency; use 0 for free.
 
         internal_notes : typing.Optional[str]
-            Private notes visible only to the account owner. Not shown to customers.
 
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
-            Custom key-value pairs to store on the plan. Included in webhook payloads for payment and membership events. Max 50 keys, 100 chars per key, 500 chars per string value. The reserved keys `custom_cta` (a checkout call-to-action button label — one of the product custom CTA values, e.g. `subscribe`, `get_offer`) and `custom_cta_url` (a URL the button links to; web or `tel:`) override the product's call to action for this plan and are validated on save.
 
         override_tax_type : typing.Optional[str]
-            Override the default tax classification for this specific plan.
 
         payment_method_configuration : typing.Optional[CreatePlansRequestPaymentMethodConfiguration]
-            Explicit payment method configuration for the plan. When not provided, the account's defaults apply. Send at least one of `enabled` or `disabled`; an omitted one is empty.
 
         plan_type : typing.Optional[str]
-            Plan billing type, such as `one_time` or `renewal`.
 
         product_id : typing.Optional[str]
-            The unique identifier of the product to attach this plan to.
 
         release_method : typing.Optional[str]
-            Sales method for this plan.
 
         renewal_price : typing.Optional[float]
-            The amount charged each billing period for recurring plans, in the plan's currency. A paid fiat plan charges at least 1.00 in its currency.
 
         sku : typing.Optional[str]
-            Stock keeping unit for this plan. Maximum 100 characters. Free text, not enforced unique.
 
         split_pay_required_payments : typing.Optional[int]
-            Installment payments required before the subscription pauses.
 
         stock : typing.Optional[int]
-            The maximum number of units available for purchase. Ignored when unlimited_stock is true.
 
         three_ds_level : typing.Optional[CreatePlansRequestThreeDsLevel]
-            3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. Send `null` to inherit the account default.
 
         title : typing.Optional[str]
-            The display name of the plan shown to customers on the product page. Maximum 30 characters.
 
         trial_period_days : typing.Optional[int]
-            Free trial duration before the first recurring charge.
 
         unlimited_stock : typing.Optional[bool]
-            Whether the plan has unlimited stock. When true, the stock field is ignored.
 
         visibility : typing.Optional[str]
-            Whether the plan is visible to customers or hidden from public view.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -275,7 +234,7 @@ class PlansClient:
         Returns
         -------
         Plan
-            plan created
+            variant created through the deprecated plans path
 
         Examples
         --------
@@ -322,12 +281,12 @@ class PlansClient:
 
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Plan:
         """
-        Retrieves the details of an existing plan.
+        Deprecated compatibility endpoint. Retrieve variants with `GET /variants/{id}` instead.
 
         Parameters
         ----------
         id : str
-            Plan ID, prefixed `plan_`.
+            Variant ID, prefixed `plan_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -335,7 +294,7 @@ class PlansClient:
         Returns
         -------
         Plan
-            plan retrieved
+            variant retrieved through the deprecated plans path
 
         Examples
         --------
@@ -355,12 +314,12 @@ class PlansClient:
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> DeletePlansResponse:
         """
-        Delete a plan from a product. It stops selling immediately; existing memberships on this plan will not be affected.
+        Deprecated compatibility endpoint. Delete variants with `DELETE /variants/{id}` instead.
 
         Parameters
         ----------
         id : str
-            Plan ID, prefixed `plan_`.
+            Variant ID, prefixed `plan_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -368,7 +327,7 @@ class PlansClient:
         Returns
         -------
         DeletePlansResponse
-            plan deleted
+            variant deleted through the deprecated plans path
 
         Examples
         --------
@@ -421,96 +380,68 @@ class PlansClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Plan:
         """
-        Update a plan's pricing, billing interval, visibility, stock, and other settings.
+        Deprecated compatibility endpoint. Update variants with `PATCH /variants/{id}` instead.
 
         Parameters
         ----------
         id : str
-            Plan ID, prefixed `plan_`.
+            Variant ID, prefixed `plan_`.
 
         adaptive_pricing_enabled : typing.Optional[bool]
-            Whether this plan accepts local currency payments via adaptive pricing.
 
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
-            Attribute values that make this plan one variant of its product, as a map of attribute name to value, e.g. `{"size": "Large", "color": "Blue"}`. Names are normalized to snake_case identifiers (`Ring Size` becomes `ring_size`) and come back in alphabetical order. Every variant plan on a product must carry the same attribute names and a distinct set of values. Send `null` to make the plan an ordinary pricing option again.
 
         billing_period : typing.Optional[int]
-            Recurring billing interval in days, such as 30 for monthly or 365 for annual.
 
         cancel_discount_intervals : typing.Optional[int]
-            How many renewals the retention discount applies to. Required when `offer_cancel_discount` is true.
 
         cancel_discount_percentage : typing.Optional[int]
-            Percentage taken off each discounted renewal. Required when `offer_cancel_discount` is true.
 
         checkout_styling : typing.Optional[typing.Dict[str, typing.Any]]
-            Checkout styling overrides for this plan.
 
         currency : typing.Optional[str]
-            The three-letter ISO currency code for the plan's pricing. Defaults to USD.
 
         custom_fields : typing.Optional[typing.Sequence[UpdatePlansRequestCustomFieldsItem]]
-            An array of custom field definitions to collect from customers at checkout. Omitting this field clears existing custom fields.
 
         description : typing.Optional[str]
-            A text description of the plan displayed to customers on the product page.
 
         expiration_days : typing.Optional[int]
-            Access duration in days before the membership expires.
 
         image : typing.Optional[UpdatePlansRequestImage]
-            An image displayed on the product page to represent this plan.
 
         initial_price : typing.Optional[float]
-            Initial amount charged in the plan's currency, e.g. 10.43 for $10.43. A paid fiat plan charges at least 1.00 in its currency; use 0 for free.
 
         internal_notes : typing.Optional[str]
-            Private notes visible only to the account owner. Not shown to customers.
 
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
-            Custom key-value pairs to store on the plan. Included in webhook payloads for payment and membership events. Max 50 keys, 100 chars per key, 500 chars per string value. The reserved keys `custom_cta` (a checkout call-to-action button label — one of the product custom CTA values, e.g. `subscribe`, `get_offer`) and `custom_cta_url` (a URL the button links to; web or `tel:`) override the product's call to action for this plan and are validated on save.
 
         offer_cancel_discount : typing.Optional[bool]
-            Whether to offer a retention discount when a customer attempts to cancel.
 
         override_tax_type : typing.Optional[str]
-            Override the default tax classification for this specific plan.
 
         payment_method_configuration : typing.Optional[UpdatePlansRequestPaymentMethodConfiguration]
-            Explicit payment method configuration for the plan. When not provided, the account's defaults apply. Send at least one of `enabled` or `disabled`; an omitted one is empty.
 
         release_method : typing.Optional[str]
-            Sales method for this plan.
 
         renewal_price : typing.Optional[float]
-            The amount charged each billing period for recurring plans, in the plan's currency. A paid fiat plan charges at least 1.00 in its currency.
 
         sku : typing.Optional[str]
-            Stock keeping unit for this plan. Maximum 100 characters. Free text, not enforced unique.
 
         stock : typing.Optional[int]
-            The maximum number of units available for purchase. Ignored when unlimited_stock is true.
 
         strike_through_initial_price : typing.Optional[float]
-            A comparison price displayed with a strikethrough for the initial price.
 
         strike_through_renewal_price : typing.Optional[float]
-            A comparison price displayed with a strikethrough for the renewal price.
 
         three_ds_level : typing.Optional[UpdatePlansRequestThreeDsLevel]
-            3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. Send `null` to inherit the account default.
 
         title : typing.Optional[str]
-            The display name of the plan shown to customers on the product page. Maximum 30 characters.
 
         trial_period_days : typing.Optional[int]
-            Free trial duration before the first recurring charge.
 
         unlimited_stock : typing.Optional[bool]
-            Whether the plan has unlimited stock. When true, the stock field is ignored.
 
         visibility : typing.Optional[str]
-            Whether the plan is visible to customers or hidden from public view.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -518,7 +449,7 @@ class PlansClient:
         Returns
         -------
         Plan
-            plan updated
+            variant updated through the deprecated plans path
 
         Examples
         --------
@@ -577,21 +508,18 @@ class PlansClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CalculateTaxPlansResponse:
         """
-        Previews tax for a plan before checkout, based on the buyer's location.
+        Deprecated compatibility endpoint. Preview variant tax with `POST /variants/{id}/calculate_tax` instead.
 
         Parameters
         ----------
         id : str
-            Plan ID, prefixed `plan_`.
+            Variant ID, prefixed `plan_`.
 
         address : typing.Optional[CalculateTaxPlansRequestAddress]
-            Buyer billing address used for tax calculation. Provide either `address.country` or `ip_address`; include state and postal code when available for more accurate results.
 
         ip_address : typing.Optional[str]
-            Buyer IP address used to infer location when no billing address is provided.
 
         tax_ids : typing.Optional[typing.Sequence[CalculateTaxPlansRequestTaxIdsItem]]
-            Optional buyer tax ID for B2B exemptions. At most one entry is supported.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -599,12 +527,11 @@ class PlansClient:
         Returns
         -------
         CalculateTaxPlansResponse
-            tax calculated
+            variant tax calculated through the deprecated plans path
 
         Examples
         --------
         from whop_sdk import Whop
-        from whop_sdk.plans import CalculateTaxPlansRequestAddress
 
         client = Whop(
             "2026-09-25",
@@ -613,10 +540,6 @@ class PlansClient:
         )
         client.plans.calculate_tax(
             id="id",
-            address=CalculateTaxPlansRequestAddress(
-                country="DE",
-                postal_code="10115",
-            ),
         )
         """
         _response = self._raw_client.calculate_tax(
@@ -659,36 +582,27 @@ class AsyncPlansClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[PlanListItem, ListPlansResponse]:
         """
-        Returns a paginated list of plans. Omit `account_id` and pass `product_ids` to list a product's public buyable plans.
+        Deprecated compatibility endpoint. List variants with `GET /variants` instead.
 
         Parameters
         ----------
         account_id : typing.Optional[str]
-            The unique identifier of the account to list plans for. Required unless `product_ids` is provided for a public product-plan read.
 
         direction : typing.Optional[ListPlansRequestDirection]
-            The sort direction for results. Defaults to descending.
 
         order : typing.Optional[ListPlansRequestOrder]
-            The field to sort results by. Defaults to created_at.
 
         release_methods : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Filter to only plans matching these release methods.
 
         visibilities : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Filter to only plans matching these visibility states.
 
         plan_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Filter to only plans matching these billing types.
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Filter to only plans belonging to these product identifiers. When `account_id` is omitted, this is required and the response is publicly readable: only visible, non-invoice plans are returned.
 
         created_before : typing.Optional[str]
-            Only return plans created before this timestamp.
 
         created_after : typing.Optional[str]
-            Only return plans created after this timestamp.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -708,7 +622,7 @@ class AsyncPlansClient:
         Returns
         -------
         AsyncPager[PlanListItem, ListPlansResponse]
-            visible plans listed by product without authentication
+            variants listed through the deprecated plans path
 
         Examples
         --------
@@ -724,12 +638,7 @@ class AsyncPlansClient:
 
 
         async def main() -> None:
-            response = await client.plans.list(
-                release_methods=["buy_now"],
-                visibilities=["visible"],
-                plan_types=["renewal"],
-                product_ids=["prod_xxxxxxxxxxxxxx"],
-            )
+            response = await client.plans.list()
             async for item in response:
                 yield item
 
@@ -790,90 +699,63 @@ class AsyncPlansClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Plan:
         """
-        Create a new pricing plan for a product. The plan defines the billing interval, price, and availability for customers.
+        Deprecated compatibility endpoint. Create variants with `POST /variants` instead.
 
         Parameters
         ----------
         account_id : typing.Optional[str]
-            The unique identifier of the account to create this plan for. Required when authenticating as a user; an account API key supplies its own account.
 
         adaptive_pricing_enabled : typing.Optional[bool]
-            Whether this plan accepts local currency payments via adaptive pricing.
 
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
-            Attribute values that make this plan one variant of its product, as a map of attribute name to value, e.g. `{"size": "Large", "color": "Blue"}`. Names are normalized to snake_case identifiers (`Ring Size` becomes `ring_size`) and come back in alphabetical order. Every variant plan on a product must carry the same attribute names and a distinct set of values. Send `null` to make the plan an ordinary pricing option again.
 
         billing_period : typing.Optional[int]
-            Recurring billing interval in days, such as 30 for monthly or 365 for annual.
 
         checkout_styling : typing.Optional[typing.Dict[str, typing.Any]]
-            Checkout styling overrides for this plan.
 
         currency : typing.Optional[str]
-            The three-letter ISO currency code for the plan's pricing. Defaults to USD.
 
         custom_fields : typing.Optional[typing.Sequence[CreatePlansRequestCustomFieldsItem]]
-            An array of custom field definitions to collect from customers at checkout. Omitting this field clears existing custom fields.
 
         description : typing.Optional[str]
-            A text description of the plan displayed to customers on the product page.
 
         expiration_days : typing.Optional[int]
-            Access duration in days before the membership expires.
 
         image : typing.Optional[CreatePlansRequestImage]
-            An image displayed on the product page to represent this plan.
 
         initial_price : typing.Optional[float]
-            Initial amount charged in the plan's currency, e.g. 10.43 for $10.43. A paid fiat plan charges at least 1.00 in its currency; use 0 for free.
 
         internal_notes : typing.Optional[str]
-            Private notes visible only to the account owner. Not shown to customers.
 
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
-            Custom key-value pairs to store on the plan. Included in webhook payloads for payment and membership events. Max 50 keys, 100 chars per key, 500 chars per string value. The reserved keys `custom_cta` (a checkout call-to-action button label — one of the product custom CTA values, e.g. `subscribe`, `get_offer`) and `custom_cta_url` (a URL the button links to; web or `tel:`) override the product's call to action for this plan and are validated on save.
 
         override_tax_type : typing.Optional[str]
-            Override the default tax classification for this specific plan.
 
         payment_method_configuration : typing.Optional[CreatePlansRequestPaymentMethodConfiguration]
-            Explicit payment method configuration for the plan. When not provided, the account's defaults apply. Send at least one of `enabled` or `disabled`; an omitted one is empty.
 
         plan_type : typing.Optional[str]
-            Plan billing type, such as `one_time` or `renewal`.
 
         product_id : typing.Optional[str]
-            The unique identifier of the product to attach this plan to.
 
         release_method : typing.Optional[str]
-            Sales method for this plan.
 
         renewal_price : typing.Optional[float]
-            The amount charged each billing period for recurring plans, in the plan's currency. A paid fiat plan charges at least 1.00 in its currency.
 
         sku : typing.Optional[str]
-            Stock keeping unit for this plan. Maximum 100 characters. Free text, not enforced unique.
 
         split_pay_required_payments : typing.Optional[int]
-            Installment payments required before the subscription pauses.
 
         stock : typing.Optional[int]
-            The maximum number of units available for purchase. Ignored when unlimited_stock is true.
 
         three_ds_level : typing.Optional[CreatePlansRequestThreeDsLevel]
-            3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. Send `null` to inherit the account default.
 
         title : typing.Optional[str]
-            The display name of the plan shown to customers on the product page. Maximum 30 characters.
 
         trial_period_days : typing.Optional[int]
-            Free trial duration before the first recurring charge.
 
         unlimited_stock : typing.Optional[bool]
-            Whether the plan has unlimited stock. When true, the stock field is ignored.
 
         visibility : typing.Optional[str]
-            Whether the plan is visible to customers or hidden from public view.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -881,7 +763,7 @@ class AsyncPlansClient:
         Returns
         -------
         Plan
-            plan created
+            variant created through the deprecated plans path
 
         Examples
         --------
@@ -936,12 +818,12 @@ class AsyncPlansClient:
 
     async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Plan:
         """
-        Retrieves the details of an existing plan.
+        Deprecated compatibility endpoint. Retrieve variants with `GET /variants/{id}` instead.
 
         Parameters
         ----------
         id : str
-            Plan ID, prefixed `plan_`.
+            Variant ID, prefixed `plan_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -949,7 +831,7 @@ class AsyncPlansClient:
         Returns
         -------
         Plan
-            plan retrieved
+            variant retrieved through the deprecated plans path
 
         Examples
         --------
@@ -977,12 +859,12 @@ class AsyncPlansClient:
 
     async def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> DeletePlansResponse:
         """
-        Delete a plan from a product. It stops selling immediately; existing memberships on this plan will not be affected.
+        Deprecated compatibility endpoint. Delete variants with `DELETE /variants/{id}` instead.
 
         Parameters
         ----------
         id : str
-            Plan ID, prefixed `plan_`.
+            Variant ID, prefixed `plan_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -990,7 +872,7 @@ class AsyncPlansClient:
         Returns
         -------
         DeletePlansResponse
-            plan deleted
+            variant deleted through the deprecated plans path
 
         Examples
         --------
@@ -1051,96 +933,68 @@ class AsyncPlansClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Plan:
         """
-        Update a plan's pricing, billing interval, visibility, stock, and other settings.
+        Deprecated compatibility endpoint. Update variants with `PATCH /variants/{id}` instead.
 
         Parameters
         ----------
         id : str
-            Plan ID, prefixed `plan_`.
+            Variant ID, prefixed `plan_`.
 
         adaptive_pricing_enabled : typing.Optional[bool]
-            Whether this plan accepts local currency payments via adaptive pricing.
 
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
-            Attribute values that make this plan one variant of its product, as a map of attribute name to value, e.g. `{"size": "Large", "color": "Blue"}`. Names are normalized to snake_case identifiers (`Ring Size` becomes `ring_size`) and come back in alphabetical order. Every variant plan on a product must carry the same attribute names and a distinct set of values. Send `null` to make the plan an ordinary pricing option again.
 
         billing_period : typing.Optional[int]
-            Recurring billing interval in days, such as 30 for monthly or 365 for annual.
 
         cancel_discount_intervals : typing.Optional[int]
-            How many renewals the retention discount applies to. Required when `offer_cancel_discount` is true.
 
         cancel_discount_percentage : typing.Optional[int]
-            Percentage taken off each discounted renewal. Required when `offer_cancel_discount` is true.
 
         checkout_styling : typing.Optional[typing.Dict[str, typing.Any]]
-            Checkout styling overrides for this plan.
 
         currency : typing.Optional[str]
-            The three-letter ISO currency code for the plan's pricing. Defaults to USD.
 
         custom_fields : typing.Optional[typing.Sequence[UpdatePlansRequestCustomFieldsItem]]
-            An array of custom field definitions to collect from customers at checkout. Omitting this field clears existing custom fields.
 
         description : typing.Optional[str]
-            A text description of the plan displayed to customers on the product page.
 
         expiration_days : typing.Optional[int]
-            Access duration in days before the membership expires.
 
         image : typing.Optional[UpdatePlansRequestImage]
-            An image displayed on the product page to represent this plan.
 
         initial_price : typing.Optional[float]
-            Initial amount charged in the plan's currency, e.g. 10.43 for $10.43. A paid fiat plan charges at least 1.00 in its currency; use 0 for free.
 
         internal_notes : typing.Optional[str]
-            Private notes visible only to the account owner. Not shown to customers.
 
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
-            Custom key-value pairs to store on the plan. Included in webhook payloads for payment and membership events. Max 50 keys, 100 chars per key, 500 chars per string value. The reserved keys `custom_cta` (a checkout call-to-action button label — one of the product custom CTA values, e.g. `subscribe`, `get_offer`) and `custom_cta_url` (a URL the button links to; web or `tel:`) override the product's call to action for this plan and are validated on save.
 
         offer_cancel_discount : typing.Optional[bool]
-            Whether to offer a retention discount when a customer attempts to cancel.
 
         override_tax_type : typing.Optional[str]
-            Override the default tax classification for this specific plan.
 
         payment_method_configuration : typing.Optional[UpdatePlansRequestPaymentMethodConfiguration]
-            Explicit payment method configuration for the plan. When not provided, the account's defaults apply. Send at least one of `enabled` or `disabled`; an omitted one is empty.
 
         release_method : typing.Optional[str]
-            Sales method for this plan.
 
         renewal_price : typing.Optional[float]
-            The amount charged each billing period for recurring plans, in the plan's currency. A paid fiat plan charges at least 1.00 in its currency.
 
         sku : typing.Optional[str]
-            Stock keeping unit for this plan. Maximum 100 characters. Free text, not enforced unique.
 
         stock : typing.Optional[int]
-            The maximum number of units available for purchase. Ignored when unlimited_stock is true.
 
         strike_through_initial_price : typing.Optional[float]
-            A comparison price displayed with a strikethrough for the initial price.
 
         strike_through_renewal_price : typing.Optional[float]
-            A comparison price displayed with a strikethrough for the renewal price.
 
         three_ds_level : typing.Optional[UpdatePlansRequestThreeDsLevel]
-            3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. Send `null` to inherit the account default.
 
         title : typing.Optional[str]
-            The display name of the plan shown to customers on the product page. Maximum 30 characters.
 
         trial_period_days : typing.Optional[int]
-            Free trial duration before the first recurring charge.
 
         unlimited_stock : typing.Optional[bool]
-            Whether the plan has unlimited stock. When true, the stock field is ignored.
 
         visibility : typing.Optional[str]
-            Whether the plan is visible to customers or hidden from public view.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1148,7 +1002,7 @@ class AsyncPlansClient:
         Returns
         -------
         Plan
-            plan updated
+            variant updated through the deprecated plans path
 
         Examples
         --------
@@ -1215,21 +1069,18 @@ class AsyncPlansClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CalculateTaxPlansResponse:
         """
-        Previews tax for a plan before checkout, based on the buyer's location.
+        Deprecated compatibility endpoint. Preview variant tax with `POST /variants/{id}/calculate_tax` instead.
 
         Parameters
         ----------
         id : str
-            Plan ID, prefixed `plan_`.
+            Variant ID, prefixed `plan_`.
 
         address : typing.Optional[CalculateTaxPlansRequestAddress]
-            Buyer billing address used for tax calculation. Provide either `address.country` or `ip_address`; include state and postal code when available for more accurate results.
 
         ip_address : typing.Optional[str]
-            Buyer IP address used to infer location when no billing address is provided.
 
         tax_ids : typing.Optional[typing.Sequence[CalculateTaxPlansRequestTaxIdsItem]]
-            Optional buyer tax ID for B2B exemptions. At most one entry is supported.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1237,14 +1088,13 @@ class AsyncPlansClient:
         Returns
         -------
         CalculateTaxPlansResponse
-            tax calculated
+            variant tax calculated through the deprecated plans path
 
         Examples
         --------
         import asyncio
 
         from whop_sdk import AsyncWhop
-        from whop_sdk.plans import CalculateTaxPlansRequestAddress
 
         client = AsyncWhop(
             "2026-09-25",
@@ -1256,10 +1106,6 @@ class AsyncPlansClient:
         async def main() -> None:
             await client.plans.calculate_tax(
                 id="id",
-                address=CalculateTaxPlansRequestAddress(
-                    country="DE",
-                    postal_code="10115",
-                ),
             )
 
 

@@ -70,7 +70,7 @@ class ResolutionCenterCase(UniversalBaseModel):
 
     plan_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The plan the payment was made on, prefixed `plan_`.
+    The variant the payment was made on, prefixed `plan_`.
     """
 
     product_id: typing.Optional[str] = pydantic.Field(default=None)

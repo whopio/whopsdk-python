@@ -8,17 +8,17 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 class LedgerActivityPaymentPlan(UniversalBaseModel):
     """
-    Plan associated with the payment, when applicable.
+    Variant associated with the payment, when applicable.
     """
 
     id: str = pydantic.Field()
     """
-    Plan ID, prefixed `plan_`.
+    Variant ID, prefixed `plan_`.
     """
 
     name: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Plan name.
+    Variant name.
     """
 
     if IS_PYDANTIC_V2:

@@ -40,7 +40,7 @@ class RetrieveCheckoutConfigurationsResponse(UniversalBaseModel):
         RetrieveCheckoutConfigurationsResponseEffectivePaymentMethodConfiguration
     ] = pydantic.Field(default=None)
     """
-    The configuration governing a checkout mounted from this configuration, resolved through every layer (its own overrides, the plan's, and the account's) — the shape a session's `payment_method_configuration` carries. Apply it over the payment method types catalogue for the offerable set. `null` means platform defaults; `payment_method_configuration` stays this configuration's own editable override.
+    The configuration governing a checkout mounted from this configuration, resolved through every layer (its own overrides, the variant's, and the account's) — the shape a session's `payment_method_configuration` carries. Apply it over the payment method types catalogue for the offerable set. `null` means platform defaults; `payment_method_configuration` stays this configuration's own editable override.
     """
 
     id: str = pydantic.Field()
@@ -62,12 +62,12 @@ class RetrieveCheckoutConfigurationsResponse(UniversalBaseModel):
         pydantic.Field(default=None)
     )
     """
-    Payment method overrides for this checkout. `null` when it uses the plan or platform defaults.
+    Payment method overrides for this checkout. `null` when it uses the variant or platform defaults.
     """
 
     plan: typing.Optional[RetrieveCheckoutConfigurationsResponsePlan] = pydantic.Field(default=None)
     """
-    Plan used for payment checkout. `null` in setup mode.
+    Variant used for payment checkout. `null` in setup mode.
     """
 
     purchase_url: typing.Optional[str] = pydantic.Field(default=None)
@@ -82,7 +82,7 @@ class RetrieveCheckoutConfigurationsResponse(UniversalBaseModel):
 
     three_ds_level: typing.Optional[RetrieveCheckoutConfigurationsResponseThreeDsLevel] = pydantic.Field(default=None)
     """
-    3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. Applies in setup mode; `null` uses frictionless 3DS. Payment mode uses the plan policy.
+    3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. Applies in setup mode; `null` uses frictionless 3DS. Payment mode uses the variant policy.
     """
 
     updated_at: str = pydantic.Field()

@@ -4,13 +4,13 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .plan_list_item import PlanListItem
 from .product_custom_cta import ProductCustomCta
 from .product_gallery_image import ProductGalleryImage
 from .product_global_affiliate_status import ProductGlobalAffiliateStatus
 from .product_marketplace_status import ProductMarketplaceStatus
 from .product_member_affiliate_status import ProductMemberAffiliateStatus
 from .product_public_plan import ProductPublicPlan
+from .variant_list_item import VariantListItem
 
 
 class Product(UniversalBaseModel):
@@ -46,7 +46,7 @@ class Product(UniversalBaseModel):
 
     default_plan: typing.Optional[ProductPublicPlan] = pydantic.Field(default=None)
     """
-    Buyable plan to show and check out with. The configured default when that plan is buyable, otherwise the first buyable plan in product-page order. `null` when none is buyable.
+    Buyable variant to show and check out with. The configured default when that variant is buyable, otherwise the first buyable variant in product-page order. `null` when none is buyable.
     """
 
     description: typing.Optional[str] = pydantic.Field(default=None)
@@ -138,10 +138,10 @@ class Product(UniversalBaseModel):
 
     variant_attributes: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
     """
-    The option set the product's variants span, as a map of attribute name to the values in use, e.g. `{"color": ["Blue", "Red"], "size": ["S", "M", "L"]}`. Derived from the visible, non-invoice plans that carry `attributes`: keys alphabetical, values in the order the plans were created. Read-only. `null` when the product has no variants.
+    The option set the product's variants span, as a map of attribute name to the values in use, e.g. `{"color": ["Blue", "Red"], "size": ["S", "M", "L"]}`. Derived from the visible, non-invoice variants that carry `attributes`: keys alphabetical, values in the order the variants were created. Read-only. `null` when the product has no variants.
     """
 
-    variants: typing.Optional[typing.List[PlanListItem]] = None
+    variants: typing.Optional[typing.List[VariantListItem]] = None
     verified: bool = pydantic.Field()
     """
     Whether the product has been verified by Whop.

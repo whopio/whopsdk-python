@@ -17,7 +17,7 @@ class Membership(UniversalBaseModel):
 
     cancel_at_period_end: bool = pydantic.Field()
     """
-    Whether the membership is set to cancel when the current billing period ends. Only meaningful for recurring plans.
+    Whether the membership is set to cancel when the current billing period ends. Only meaningful for recurring variants.
     """
 
     canceled_at: typing.Optional[str] = pydantic.Field(default=None)
@@ -77,7 +77,7 @@ class Membership(UniversalBaseModel):
 
     plan_id: str = pydantic.Field()
     """
-    The plan the buyer purchased, prefixed `plan_`.
+    The variant the buyer purchased, prefixed `plan_`.
     """
 
     product_id: str = pydantic.Field()

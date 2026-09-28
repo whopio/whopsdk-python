@@ -7,10 +7,6 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class UpdatePlansRequestImage(UniversalBaseModel):
-    """
-    An image displayed on the product page to represent this plan.
-    """
-
     direct_upload_id: typing.Optional[str] = None
     id: typing.Optional[str] = None
 

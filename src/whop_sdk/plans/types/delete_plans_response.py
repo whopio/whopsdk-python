@@ -7,15 +7,8 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class DeletePlansResponse(UniversalBaseModel):
-    deleted: bool = pydantic.Field()
-    """
-    Always true.
-    """
-
-    id: str = pydantic.Field()
-    """
-    ID of the deleted plan.
-    """
+    deleted: bool
+    id: str
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

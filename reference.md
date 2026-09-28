@@ -12536,7 +12536,7 @@ client.checkout_configurations.list(
 <dl>
 <dd>
 
-**plan_id:** `typing.Optional[str]` — Only return checkout configurations for this plan ID, prefixed `plan_`.
+**plan_id:** `typing.Optional[str]` — Only return checkout configurations for this variant ID, prefixed `plan_`.
     
 </dd>
 </dl>
@@ -12616,7 +12616,7 @@ client.checkout_configurations.list(
 <dl>
 <dd>
 
-Creates a reusable checkout configuration for an existing or inline plan.
+Creates a reusable checkout configuration for an existing or inline variant.
 </dd>
 </dl>
 </dd>
@@ -12698,7 +12698,7 @@ client.checkout_configurations.create(
 <dl>
 <dd>
 
-**payment_method_configuration:** `typing.Optional[CreateCheckoutConfigurationsRequestPaymentMethodConfiguration]` — Payment method overrides for this checkout. `null` uses the plan or platform defaults.
+**payment_method_configuration:** `typing.Optional[CreateCheckoutConfigurationsRequestPaymentMethodConfiguration]` — Payment method overrides for this checkout. `null` uses the variant or platform defaults.
     
 </dd>
 </dl>
@@ -12706,7 +12706,7 @@ client.checkout_configurations.create(
 <dl>
 <dd>
 
-**plan:** `typing.Optional[CreateCheckoutConfigurationsRequestPlan]` — Plan attributes used to create or find a plan for this checkout configuration. Mutually exclusive with `plan_id`.
+**plan:** `typing.Optional[CreateCheckoutConfigurationsRequestPlan]` — Variant attributes used to create or find a variant for this checkout configuration. Mutually exclusive with `plan_id`.
     
 </dd>
 </dl>
@@ -12714,7 +12714,7 @@ client.checkout_configurations.create(
 <dl>
 <dd>
 
-**plan_id:** `typing.Optional[str]` — Existing plan ID, prefixed `plan_`. Mutually exclusive with `plan`.
+**plan_id:** `typing.Optional[str]` — Existing variant ID, prefixed `plan_`. Mutually exclusive with `plan`.
     
 </dd>
 </dl>
@@ -12730,7 +12730,7 @@ client.checkout_configurations.create(
 <dl>
 <dd>
 
-**three_ds_level:** `typing.Optional[CreateCheckoutConfigurationsRequestThreeDsLevel]` — 3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. Applies in setup mode; `null` uses frictionless 3DS. Payment mode uses the plan policy.
+**three_ds_level:** `typing.Optional[CreateCheckoutConfigurationsRequestThreeDsLevel]` — 3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. Applies in setup mode; `null` uses frictionless 3DS. Payment mode uses the variant policy.
     
 </dd>
 </dl>
@@ -18355,7 +18355,7 @@ Use a standard event (lead, submit_application, contact, complete_registration, 
 <dl>
 <dd>
 
-**plan_id:** `typing.Optional[str]` — The plan associated with the event.
+**plan_id:** `typing.Optional[str]` — The variant associated with the event.
     
 </dd>
 </dl>
@@ -19788,7 +19788,7 @@ client.experiments.exposures()
 <dl>
 <dd>
 
-**properties:** `typing.Optional[str]` — JSON-encoded scalar values that property targeting conditions match against. Numeric and boolean strings are coerced. Nested query keys such as properties[plan]=pro remain accepted for existing callers. For internal experiments, is_internal_user is derived from the session and cannot be overridden.
+**properties:** `typing.Optional[str]` — JSON-encoded scalar values that property targeting conditions match against. Numeric and boolean strings are coerced. Nested query keys such as properties[variant]=pro remain accepted for existing callers. For internal experiments, is_internal_user is derived from the session and cannot be overridden.
     
 </dd>
 </dl>
@@ -24773,7 +24773,7 @@ client.memberships.list()
 <dl>
 <dd>
 
-**plan_id:** `typing.Optional[str]` — Filter to memberships of this plan (`plan_` tag). Repeat as plan_ids[] for several.
+**plan_id:** `typing.Optional[str]` — Filter to memberships of this variant (`plan_` tag). Repeat as plan_ids[] for several.
     
 </dd>
 </dl>
@@ -24869,7 +24869,7 @@ client.memberships.list()
 <dl>
 <dd>
 
-Sends an email inviting one recipient to join the account through a free plan. Identify the recipient by exactly one of `user_id` or `email`. The invitation is bound to that recipient; after signing in, accepting it immediately grants the membership without checkout. This Experimental endpoint is available only to accounts enabled for membership invitations.
+Sends an email inviting one recipient to join the account through a free variant. Identify the recipient by exactly one of `user_id` or `email`. The invitation is bound to that recipient; after signing in, accepting it immediately grants the membership without checkout. This Experimental endpoint is available only to accounts enabled for membership invitations.
 </dd>
 </dl>
 </dd>
@@ -29197,7 +29197,7 @@ client.payments.list()
 <dl>
 <dd>
 
-**plan_id:** `typing.Optional[str]` — Only payments priced by this plan, prefixed `plan_`.
+**plan_id:** `typing.Optional[str]` — Only payments priced by this variant, prefixed `plan_`.
     
 </dd>
 </dl>
@@ -29293,7 +29293,7 @@ client.payments.list()
 <dl>
 <dd>
 
-Charges a buyer for one or more plans. Pass a payment method already on file (`member_id` and `payment_method_id`), or a `confirmation_token` describing a method the buyer just supplied. Collection runs in the background: the response is the payment as created, not its outcome — poll Retrieve status for how far it has got and, for a confirmation-token payment, what the buyer must still do. Pass `line_items` for one or more plans with quantities, `plan_id` for an existing plan, or `plan` to find or create one inline. These inputs are mutually exclusive.
+Charges a buyer for one or more variants. Pass a payment method already on file (`member_id` and `payment_method_id`), or a `confirmation_token` describing a method the buyer just supplied. Collection runs in the background: the response is the payment as created, not its outcome — poll Retrieve status for how far it has got and, for a confirmation-token payment, what the buyer must still do. Pass `line_items` for one or more variants with quantities, `plan_id` for an existing variant, or the compatibility input `plan` to find or create one inline. These inputs are mutually exclusive.
 </dd>
 </dl>
 </dd>
@@ -29374,7 +29374,7 @@ client.payments.create(
 <dl>
 <dd>
 
-**line_items:** `typing.Optional[typing.List[CreatePaymentsRequestLineItemsItem]]` — What the buyer is purchasing. One entry charges that plan; several entries form a cart, which requires every plan to be a compatible plan from this account in the same currency.
+**line_items:** `typing.Optional[typing.List[CreatePaymentsRequestLineItemsItem]]` — What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
     
 </dd>
 </dl>
@@ -29406,7 +29406,7 @@ client.payments.create(
 <dl>
 <dd>
 
-**plan:** `typing.Optional[CreatePaymentsRequestPlan]` — Find or create a plan for this payment. Mutually exclusive with `plan_id` and `line_items`. Creating a plan requires plan:create; creating or updating a product requires the corresponding product permission.
+**plan:** `typing.Optional[CreatePaymentsRequestPlan]` — Find or create a variant for this payment through the compatibility input `plan`. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
     
 </dd>
 </dl>
@@ -29414,7 +29414,7 @@ client.payments.create(
 <dl>
 <dd>
 
-**plan_id:** `typing.Optional[str]` — The plan to charge for, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
+**plan_id:** `typing.Optional[str]` — The variant to charge for, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
     
 </dd>
 </dl>
@@ -29422,7 +29422,7 @@ client.payments.create(
 <dl>
 <dd>
 
-**promo_code_id:** `typing.Optional[str]` — An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the plan.
+**promo_code_id:** `typing.Optional[str]` — An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant.
     
 </dd>
 </dl>
@@ -29478,7 +29478,7 @@ client.payments.create(
 <dl>
 <dd>
 
-Returns one payment, including every purchased line item with its quantity and subtotal. Related records are ids — resolve a plan, membership, member or shipment on its own endpoint, and list this payment's refunds, disputes or Resolution Center cases with `?payment_id=`.
+Returns one payment, including every purchased line item with its quantity and subtotal. Related records are ids — resolve a variant, membership, member or shipment on its own endpoint, and list this payment's refunds, disputes or Resolution Center cases with `?payment_id=`.
 </dd>
 </dl>
 </dd>
@@ -29778,7 +29778,7 @@ client.payments.refund(
 <dl>
 <dd>
 
-Retries a failed or pending payment. This re-attempts the charge using the original payment method and plan details.
+Retries a failed or pending payment. This re-attempts the charge using the original payment method and variant details.
 </dd>
 </dl>
 </dd>
@@ -31641,7 +31641,7 @@ client.permissions.list(
 <dl>
 <dd>
 
-Returns a paginated list of plans. Omit `account_id` and pass `product_ids` to list a product's public buyable plans.
+Deprecated compatibility endpoint. List variants with `GET /variants` instead.
 </dd>
 </dl>
 </dd>
@@ -31664,20 +31664,7 @@ client = Whop(
     environment=WhopEnvironment.PRODUCTION,
 )
 
-client.plans.list(
-    release_methods=[
-        "buy_now"
-    ],
-    visibilities=[
-        "visible"
-    ],
-    plan_types=[
-        "renewal"
-    ],
-    product_ids=[
-        "prod_xxxxxxxxxxxxxx"
-    ],
-)
+client.plans.list()
 
 ```
 </dd>
@@ -31693,7 +31680,7 @@ client.plans.list(
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[str]` — The unique identifier of the account to list plans for. Required unless `product_ids` is provided for a public product-plan read.
+**account_id:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -31701,7 +31688,7 @@ client.plans.list(
 <dl>
 <dd>
 
-**direction:** `typing.Optional[ListPlansRequestDirection]` — The sort direction for results. Defaults to descending.
+**direction:** `typing.Optional[ListPlansRequestDirection]` 
     
 </dd>
 </dl>
@@ -31709,7 +31696,7 @@ client.plans.list(
 <dl>
 <dd>
 
-**order:** `typing.Optional[ListPlansRequestOrder]` — The field to sort results by. Defaults to created_at.
+**order:** `typing.Optional[ListPlansRequestOrder]` 
     
 </dd>
 </dl>
@@ -31717,7 +31704,7 @@ client.plans.list(
 <dl>
 <dd>
 
-**release_methods:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter to only plans matching these release methods.
+**release_methods:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` 
     
 </dd>
 </dl>
@@ -31725,7 +31712,7 @@ client.plans.list(
 <dl>
 <dd>
 
-**visibilities:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter to only plans matching these visibility states.
+**visibilities:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` 
     
 </dd>
 </dl>
@@ -31733,7 +31720,7 @@ client.plans.list(
 <dl>
 <dd>
 
-**plan_types:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter to only plans matching these billing types.
+**plan_types:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` 
     
 </dd>
 </dl>
@@ -31741,7 +31728,7 @@ client.plans.list(
 <dl>
 <dd>
 
-**product_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter to only plans belonging to these product identifiers. When `account_id` is omitted, this is required and the response is publicly readable: only visible, non-invoice plans are returned.
+**product_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` 
     
 </dd>
 </dl>
@@ -31749,7 +31736,7 @@ client.plans.list(
 <dl>
 <dd>
 
-**created_before:** `typing.Optional[str]` — Only return plans created before this timestamp.
+**created_before:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -31757,7 +31744,7 @@ client.plans.list(
 <dl>
 <dd>
 
-**created_after:** `typing.Optional[str]` — Only return plans created after this timestamp.
+**created_after:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -31821,7 +31808,7 @@ client.plans.list(
 <dl>
 <dd>
 
-Create a new pricing plan for a product. The plan defines the billing interval, price, and availability for customers.
+Deprecated compatibility endpoint. Create variants with `POST /variants` instead.
 </dd>
 </dl>
 </dd>
@@ -31860,7 +31847,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[str]` — The unique identifier of the account to create this plan for. Required when authenticating as a user; an account API key supplies its own account.
+**account_id:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -31868,7 +31855,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**adaptive_pricing_enabled:** `typing.Optional[bool]` — Whether this plan accepts local currency payments via adaptive pricing.
+**adaptive_pricing_enabled:** `typing.Optional[bool]` 
     
 </dd>
 </dl>
@@ -31876,7 +31863,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**attributes:** `typing.Optional[typing.Dict[str, typing.Any]]` — Attribute values that make this plan one variant of its product, as a map of attribute name to value, e.g. `{"size": "Large", "color": "Blue"}`. Names are normalized to snake_case identifiers (`Ring Size` becomes `ring_size`) and come back in alphabetical order. Every variant plan on a product must carry the same attribute names and a distinct set of values. Send `null` to make the plan an ordinary pricing option again.
+**attributes:** `typing.Optional[typing.Dict[str, typing.Any]]` 
     
 </dd>
 </dl>
@@ -31884,7 +31871,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**billing_period:** `typing.Optional[int]` — Recurring billing interval in days, such as 30 for monthly or 365 for annual.
+**billing_period:** `typing.Optional[int]` 
     
 </dd>
 </dl>
@@ -31892,7 +31879,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**checkout_styling:** `typing.Optional[typing.Dict[str, typing.Any]]` — Checkout styling overrides for this plan.
+**checkout_styling:** `typing.Optional[typing.Dict[str, typing.Any]]` 
     
 </dd>
 </dl>
@@ -31900,7 +31887,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**currency:** `typing.Optional[str]` — The three-letter ISO currency code for the plan's pricing. Defaults to USD.
+**currency:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -31908,7 +31895,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**custom_fields:** `typing.Optional[typing.List[CreatePlansRequestCustomFieldsItem]]` — An array of custom field definitions to collect from customers at checkout. Omitting this field clears existing custom fields.
+**custom_fields:** `typing.Optional[typing.List[CreatePlansRequestCustomFieldsItem]]` 
     
 </dd>
 </dl>
@@ -31916,7 +31903,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**description:** `typing.Optional[str]` — A text description of the plan displayed to customers on the product page.
+**description:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -31924,7 +31911,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**expiration_days:** `typing.Optional[int]` — Access duration in days before the membership expires.
+**expiration_days:** `typing.Optional[int]` 
     
 </dd>
 </dl>
@@ -31932,7 +31919,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**image:** `typing.Optional[CreatePlansRequestImage]` — An image displayed on the product page to represent this plan.
+**image:** `typing.Optional[CreatePlansRequestImage]` 
     
 </dd>
 </dl>
@@ -31940,7 +31927,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**initial_price:** `typing.Optional[float]` — Initial amount charged in the plan's currency, e.g. 10.43 for $10.43. A paid fiat plan charges at least 1.00 in its currency; use 0 for free.
+**initial_price:** `typing.Optional[float]` 
     
 </dd>
 </dl>
@@ -31948,7 +31935,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**internal_notes:** `typing.Optional[str]` — Private notes visible only to the account owner. Not shown to customers.
+**internal_notes:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -31956,7 +31943,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**metadata:** `typing.Optional[typing.Dict[str, typing.Any]]` — Custom key-value pairs to store on the plan. Included in webhook payloads for payment and membership events. Max 50 keys, 100 chars per key, 500 chars per string value. The reserved keys `custom_cta` (a checkout call-to-action button label — one of the product custom CTA values, e.g. `subscribe`, `get_offer`) and `custom_cta_url` (a URL the button links to; web or `tel:`) override the product's call to action for this plan and are validated on save.
+**metadata:** `typing.Optional[typing.Dict[str, typing.Any]]` 
     
 </dd>
 </dl>
@@ -31964,7 +31951,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**override_tax_type:** `typing.Optional[str]` — Override the default tax classification for this specific plan.
+**override_tax_type:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -31972,7 +31959,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**payment_method_configuration:** `typing.Optional[CreatePlansRequestPaymentMethodConfiguration]` — Explicit payment method configuration for the plan. When not provided, the account's defaults apply. Send at least one of `enabled` or `disabled`; an omitted one is empty.
+**payment_method_configuration:** `typing.Optional[CreatePlansRequestPaymentMethodConfiguration]` 
     
 </dd>
 </dl>
@@ -31980,7 +31967,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**plan_type:** `typing.Optional[str]` — Plan billing type, such as `one_time` or `renewal`.
+**plan_type:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -31988,7 +31975,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**product_id:** `typing.Optional[str]` — The unique identifier of the product to attach this plan to.
+**product_id:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -31996,7 +31983,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**release_method:** `typing.Optional[str]` — Sales method for this plan.
+**release_method:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -32004,7 +31991,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**renewal_price:** `typing.Optional[float]` — The amount charged each billing period for recurring plans, in the plan's currency. A paid fiat plan charges at least 1.00 in its currency.
+**renewal_price:** `typing.Optional[float]` 
     
 </dd>
 </dl>
@@ -32012,7 +31999,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**sku:** `typing.Optional[str]` — Stock keeping unit for this plan. Maximum 100 characters. Free text, not enforced unique.
+**sku:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -32020,7 +32007,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**split_pay_required_payments:** `typing.Optional[int]` — Installment payments required before the subscription pauses.
+**split_pay_required_payments:** `typing.Optional[int]` 
     
 </dd>
 </dl>
@@ -32028,7 +32015,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**stock:** `typing.Optional[int]` — The maximum number of units available for purchase. Ignored when unlimited_stock is true.
+**stock:** `typing.Optional[int]` 
     
 </dd>
 </dl>
@@ -32036,7 +32023,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**three_ds_level:** `typing.Optional[CreatePlansRequestThreeDsLevel]` — 3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. Send `null` to inherit the account default.
+**three_ds_level:** `typing.Optional[CreatePlansRequestThreeDsLevel]` 
     
 </dd>
 </dl>
@@ -32044,7 +32031,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**title:** `typing.Optional[str]` — The display name of the plan shown to customers on the product page. Maximum 30 characters.
+**title:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -32052,7 +32039,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**trial_period_days:** `typing.Optional[int]` — Free trial duration before the first recurring charge.
+**trial_period_days:** `typing.Optional[int]` 
     
 </dd>
 </dl>
@@ -32060,7 +32047,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**unlimited_stock:** `typing.Optional[bool]` — Whether the plan has unlimited stock. When true, the stock field is ignored.
+**unlimited_stock:** `typing.Optional[bool]` 
     
 </dd>
 </dl>
@@ -32068,7 +32055,7 @@ client.plans.create()
 <dl>
 <dd>
 
-**visibility:** `typing.Optional[str]` — Whether the plan is visible to customers or hidden from public view.
+**visibility:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -32100,7 +32087,7 @@ client.plans.create()
 <dl>
 <dd>
 
-Retrieves the details of an existing plan.
+Deprecated compatibility endpoint. Retrieve variants with `GET /variants/{id}` instead.
 </dd>
 </dl>
 </dd>
@@ -32141,7 +32128,7 @@ client.plans.retrieve(
 <dl>
 <dd>
 
-**id:** `str` — Plan ID, prefixed `plan_`.
+**id:** `str` — Variant ID, prefixed `plan_`.
     
 </dd>
 </dl>
@@ -32173,7 +32160,7 @@ client.plans.retrieve(
 <dl>
 <dd>
 
-Delete a plan from a product. It stops selling immediately; existing memberships on this plan will not be affected.
+Deprecated compatibility endpoint. Delete variants with `DELETE /variants/{id}` instead.
 </dd>
 </dl>
 </dd>
@@ -32214,7 +32201,7 @@ client.plans.delete(
 <dl>
 <dd>
 
-**id:** `str` — Plan ID, prefixed `plan_`.
+**id:** `str` — Variant ID, prefixed `plan_`.
     
 </dd>
 </dl>
@@ -32246,7 +32233,7 @@ client.plans.delete(
 <dl>
 <dd>
 
-Update a plan's pricing, billing interval, visibility, stock, and other settings.
+Deprecated compatibility endpoint. Update variants with `PATCH /variants/{id}` instead.
 </dd>
 </dl>
 </dd>
@@ -32287,7 +32274,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**id:** `str` — Plan ID, prefixed `plan_`.
+**id:** `str` — Variant ID, prefixed `plan_`.
     
 </dd>
 </dl>
@@ -32295,7 +32282,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**adaptive_pricing_enabled:** `typing.Optional[bool]` — Whether this plan accepts local currency payments via adaptive pricing.
+**adaptive_pricing_enabled:** `typing.Optional[bool]` 
     
 </dd>
 </dl>
@@ -32303,7 +32290,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**attributes:** `typing.Optional[typing.Dict[str, typing.Any]]` — Attribute values that make this plan one variant of its product, as a map of attribute name to value, e.g. `{"size": "Large", "color": "Blue"}`. Names are normalized to snake_case identifiers (`Ring Size` becomes `ring_size`) and come back in alphabetical order. Every variant plan on a product must carry the same attribute names and a distinct set of values. Send `null` to make the plan an ordinary pricing option again.
+**attributes:** `typing.Optional[typing.Dict[str, typing.Any]]` 
     
 </dd>
 </dl>
@@ -32311,7 +32298,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**billing_period:** `typing.Optional[int]` — Recurring billing interval in days, such as 30 for monthly or 365 for annual.
+**billing_period:** `typing.Optional[int]` 
     
 </dd>
 </dl>
@@ -32319,7 +32306,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**cancel_discount_intervals:** `typing.Optional[int]` — How many renewals the retention discount applies to. Required when `offer_cancel_discount` is true.
+**cancel_discount_intervals:** `typing.Optional[int]` 
     
 </dd>
 </dl>
@@ -32327,7 +32314,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**cancel_discount_percentage:** `typing.Optional[int]` — Percentage taken off each discounted renewal. Required when `offer_cancel_discount` is true.
+**cancel_discount_percentage:** `typing.Optional[int]` 
     
 </dd>
 </dl>
@@ -32335,7 +32322,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**checkout_styling:** `typing.Optional[typing.Dict[str, typing.Any]]` — Checkout styling overrides for this plan.
+**checkout_styling:** `typing.Optional[typing.Dict[str, typing.Any]]` 
     
 </dd>
 </dl>
@@ -32343,7 +32330,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**currency:** `typing.Optional[str]` — The three-letter ISO currency code for the plan's pricing. Defaults to USD.
+**currency:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -32351,7 +32338,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**custom_fields:** `typing.Optional[typing.List[UpdatePlansRequestCustomFieldsItem]]` — An array of custom field definitions to collect from customers at checkout. Omitting this field clears existing custom fields.
+**custom_fields:** `typing.Optional[typing.List[UpdatePlansRequestCustomFieldsItem]]` 
     
 </dd>
 </dl>
@@ -32359,7 +32346,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**description:** `typing.Optional[str]` — A text description of the plan displayed to customers on the product page.
+**description:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -32367,7 +32354,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**expiration_days:** `typing.Optional[int]` — Access duration in days before the membership expires.
+**expiration_days:** `typing.Optional[int]` 
     
 </dd>
 </dl>
@@ -32375,7 +32362,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**image:** `typing.Optional[UpdatePlansRequestImage]` — An image displayed on the product page to represent this plan.
+**image:** `typing.Optional[UpdatePlansRequestImage]` 
     
 </dd>
 </dl>
@@ -32383,7 +32370,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**initial_price:** `typing.Optional[float]` — Initial amount charged in the plan's currency, e.g. 10.43 for $10.43. A paid fiat plan charges at least 1.00 in its currency; use 0 for free.
+**initial_price:** `typing.Optional[float]` 
     
 </dd>
 </dl>
@@ -32391,7 +32378,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**internal_notes:** `typing.Optional[str]` — Private notes visible only to the account owner. Not shown to customers.
+**internal_notes:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -32399,7 +32386,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**metadata:** `typing.Optional[typing.Dict[str, typing.Any]]` — Custom key-value pairs to store on the plan. Included in webhook payloads for payment and membership events. Max 50 keys, 100 chars per key, 500 chars per string value. The reserved keys `custom_cta` (a checkout call-to-action button label — one of the product custom CTA values, e.g. `subscribe`, `get_offer`) and `custom_cta_url` (a URL the button links to; web or `tel:`) override the product's call to action for this plan and are validated on save.
+**metadata:** `typing.Optional[typing.Dict[str, typing.Any]]` 
     
 </dd>
 </dl>
@@ -32407,7 +32394,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**offer_cancel_discount:** `typing.Optional[bool]` — Whether to offer a retention discount when a customer attempts to cancel.
+**offer_cancel_discount:** `typing.Optional[bool]` 
     
 </dd>
 </dl>
@@ -32415,7 +32402,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**override_tax_type:** `typing.Optional[str]` — Override the default tax classification for this specific plan.
+**override_tax_type:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -32423,7 +32410,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**payment_method_configuration:** `typing.Optional[UpdatePlansRequestPaymentMethodConfiguration]` — Explicit payment method configuration for the plan. When not provided, the account's defaults apply. Send at least one of `enabled` or `disabled`; an omitted one is empty.
+**payment_method_configuration:** `typing.Optional[UpdatePlansRequestPaymentMethodConfiguration]` 
     
 </dd>
 </dl>
@@ -32431,7 +32418,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**release_method:** `typing.Optional[str]` — Sales method for this plan.
+**release_method:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -32439,7 +32426,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**renewal_price:** `typing.Optional[float]` — The amount charged each billing period for recurring plans, in the plan's currency. A paid fiat plan charges at least 1.00 in its currency.
+**renewal_price:** `typing.Optional[float]` 
     
 </dd>
 </dl>
@@ -32447,7 +32434,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**sku:** `typing.Optional[str]` — Stock keeping unit for this plan. Maximum 100 characters. Free text, not enforced unique.
+**sku:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -32455,7 +32442,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**stock:** `typing.Optional[int]` — The maximum number of units available for purchase. Ignored when unlimited_stock is true.
+**stock:** `typing.Optional[int]` 
     
 </dd>
 </dl>
@@ -32463,7 +32450,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**strike_through_initial_price:** `typing.Optional[float]` — A comparison price displayed with a strikethrough for the initial price.
+**strike_through_initial_price:** `typing.Optional[float]` 
     
 </dd>
 </dl>
@@ -32471,7 +32458,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**strike_through_renewal_price:** `typing.Optional[float]` — A comparison price displayed with a strikethrough for the renewal price.
+**strike_through_renewal_price:** `typing.Optional[float]` 
     
 </dd>
 </dl>
@@ -32479,7 +32466,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**three_ds_level:** `typing.Optional[UpdatePlansRequestThreeDsLevel]` — 3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. Send `null` to inherit the account default.
+**three_ds_level:** `typing.Optional[UpdatePlansRequestThreeDsLevel]` 
     
 </dd>
 </dl>
@@ -32487,7 +32474,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**title:** `typing.Optional[str]` — The display name of the plan shown to customers on the product page. Maximum 30 characters.
+**title:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -32495,7 +32482,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**trial_period_days:** `typing.Optional[int]` — Free trial duration before the first recurring charge.
+**trial_period_days:** `typing.Optional[int]` 
     
 </dd>
 </dl>
@@ -32503,7 +32490,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**unlimited_stock:** `typing.Optional[bool]` — Whether the plan has unlimited stock. When true, the stock field is ignored.
+**unlimited_stock:** `typing.Optional[bool]` 
     
 </dd>
 </dl>
@@ -32511,7 +32498,7 @@ client.plans.update(
 <dl>
 <dd>
 
-**visibility:** `typing.Optional[str]` — Whether the plan is visible to customers or hidden from public view.
+**visibility:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -32543,7 +32530,7 @@ client.plans.update(
 <dl>
 <dd>
 
-Previews tax for a plan before checkout, based on the buyer's location.
+Deprecated compatibility endpoint. Preview variant tax with `POST /variants/{id}/calculate_tax` instead.
 </dd>
 </dl>
 </dd>
@@ -32560,7 +32547,6 @@ Previews tax for a plan before checkout, based on the buyer's location.
 ```python
 from whop_sdk import Whop
 from whop_sdk.environment import WhopEnvironment
-from whop_sdk.plans import CalculateTaxPlansRequestAddress
 
 client = Whop(
     token="<token>",
@@ -32569,10 +32555,6 @@ client = Whop(
 
 client.plans.calculate_tax(
     id="id",
-    address=CalculateTaxPlansRequestAddress(
-        country="DE",
-        postal_code="10115",
-    ),
 )
 
 ```
@@ -32589,7 +32571,7 @@ client.plans.calculate_tax(
 <dl>
 <dd>
 
-**id:** `str` — Plan ID, prefixed `plan_`.
+**id:** `str` — Variant ID, prefixed `plan_`.
     
 </dd>
 </dl>
@@ -32597,7 +32579,7 @@ client.plans.calculate_tax(
 <dl>
 <dd>
 
-**address:** `typing.Optional[CalculateTaxPlansRequestAddress]` — Buyer billing address used for tax calculation. Provide either `address.country` or `ip_address`; include state and postal code when available for more accurate results.
+**address:** `typing.Optional[CalculateTaxPlansRequestAddress]` 
     
 </dd>
 </dl>
@@ -32605,7 +32587,7 @@ client.plans.calculate_tax(
 <dl>
 <dd>
 
-**ip_address:** `typing.Optional[str]` — Buyer IP address used to infer location when no billing address is provided.
+**ip_address:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -32613,7 +32595,7 @@ client.plans.calculate_tax(
 <dl>
 <dd>
 
-**tax_ids:** `typing.Optional[typing.List[CalculateTaxPlansRequestTaxIdsItem]]` — Optional buyer tax ID for B2B exemptions. At most one entry is supported.
+**tax_ids:** `typing.Optional[typing.List[CalculateTaxPlansRequestTaxIdsItem]]` 
     
 </dd>
 </dl>
@@ -32716,7 +32698,7 @@ client.products.list(
 <dl>
 <dd>
 
-**plan_types:** `typing.Optional[typing.Union[ListProductsRequestPlanTypesItem, typing.Sequence[ListProductsRequestPlanTypesItem]]]` — Filter to products with a buyable plan of these billing models, such as `one_time` or `renewal`.
+**plan_types:** `typing.Optional[typing.Union[ListProductsRequestPlanTypesItem, typing.Sequence[ListProductsRequestPlanTypesItem]]]` — Filter to products with a buyable variant of these billing models, such as `one_time` or `renewal`.
     
 </dd>
 </dl>
@@ -32724,7 +32706,7 @@ client.products.list(
 <dl>
 <dd>
 
-**price_minimum:** `typing.Optional[float]` — Only return products whose advertised buyable plan has a displayed price of at least this amount. Recurring plans use renewal price.
+**price_minimum:** `typing.Optional[float]` — Only return products whose advertised buyable variant has a displayed price of at least this amount. Recurring variants use renewal price.
     
 </dd>
 </dl>
@@ -32732,7 +32714,7 @@ client.products.list(
 <dl>
 <dd>
 
-**price_maximum:** `typing.Optional[float]` — Only return products whose advertised buyable plan has a displayed price of at most this amount. Recurring plans use renewal price.
+**price_maximum:** `typing.Optional[float]` — Only return products whose advertised buyable variant has a displayed price of at most this amount. Recurring variants use renewal price.
     
 </dd>
 </dl>
@@ -33594,7 +33576,7 @@ client.promo_codes.list(
 <dl>
 <dd>
 
-**plan_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only promo codes scoped to these plan IDs.
+**plan_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only promo codes scoped to these variant IDs.
     
 </dd>
 </dl>
@@ -41454,6 +41436,1011 @@ client.users.recommend_actions(
 </dl>
 </details>
 
+## Variants
+<details><summary><code>client.variants.<a href="src/whop_sdk/variants/client.py">list</a>(...) -> ListVariantsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a paginated list of variants. Omit `account_id` and pass `product_ids` to list a product's public buyable variants.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.variants.list(
+    release_methods=[
+        "buy_now"
+    ],
+    visibilities=[
+        "visible"
+    ],
+    plan_types=[
+        "renewal"
+    ],
+    product_ids=[
+        "prod_xxxxxxxxxxxxxx"
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — The unique identifier of the account to list variants for. Required unless `product_ids` is provided for a public product-variant read.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**direction:** `typing.Optional[ListVariantsRequestDirection]` — The sort direction for results. Defaults to descending.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[ListVariantsRequestOrder]` — The field to sort results by. Defaults to created_at.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**release_methods:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter to only variants matching these release methods.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**visibilities:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter to only variants matching these visibility states.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**plan_types:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter to only variants matching these billing types.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**product_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter to only variants belonging to these product identifiers. When `account_id` is omitted, this is required and the response is publicly readable: only visible, non-invoice variants are returned.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[str]` — Only return variants created before this timestamp.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[str]` — Only return variants created after this timestamp.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.variants.<a href="src/whop_sdk/variants/client.py">create</a>(...) -> Variant</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new pricing variant for a product. The variant defines the billing interval, price, and availability for customers.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.variants.create()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — The unique identifier of the account to create this variant for. Required when authenticating as a user; an account API key supplies its own account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**adaptive_pricing_enabled:** `typing.Optional[bool]` — Whether this variant accepts local currency payments via adaptive pricing.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**attributes:** `typing.Optional[typing.Dict[str, typing.Any]]` — Attribute values that make this variant one variant of its product, as a map of attribute name to value, e.g. `{"size": "Large", "color": "Blue"}`. Names are normalized to snake_case identifiers (`Ring Size` becomes `ring_size`) and come back in alphabetical order. Every variant on a product must carry the same attribute names and a distinct set of values. Send `null` to make the variant an ordinary pricing option again.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**billing_period:** `typing.Optional[int]` — Recurring billing interval in days, such as 30 for monthly or 365 for annual.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**checkout_styling:** `typing.Optional[typing.Dict[str, typing.Any]]` — Checkout styling overrides for this variant.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**currency:** `typing.Optional[str]` — The three-letter ISO currency code for the variant's pricing. Defaults to USD.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**custom_fields:** `typing.Optional[typing.List[CreateVariantsRequestCustomFieldsItem]]` — An array of custom field definitions to collect from customers at checkout. Omitting this field clears existing custom fields.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `typing.Optional[str]` — A text description of the variant displayed to customers on the product page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expiration_days:** `typing.Optional[int]` — Access duration in days before the membership expires.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**image:** `typing.Optional[CreateVariantsRequestImage]` — An image displayed on the product page to represent this variant.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**initial_price:** `typing.Optional[float]` — Initial amount charged in the variant's currency, e.g. 10.43 for $10.43. A paid fiat variant charges at least 1.00 in its currency; use 0 for free.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**internal_notes:** `typing.Optional[str]` — Private notes visible only to the account owner. Not shown to customers.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**metadata:** `typing.Optional[typing.Dict[str, typing.Any]]` — Custom key-value pairs to store on the variant. Included in webhook payloads for payment and membership events. Max 50 keys, 100 chars per key, 500 chars per string value. The reserved keys `custom_cta` (a checkout call-to-action button label — one of the product custom CTA values, e.g. `subscribe`, `get_offer`) and `custom_cta_url` (a URL the button links to; web or `tel:`) override the product's call to action for this variant and are validated on save.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**override_tax_type:** `typing.Optional[str]` — Override the default tax classification for this specific variant.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment_method_configuration:** `typing.Optional[CreateVariantsRequestPaymentMethodConfiguration]` — Explicit payment method configuration for the variant. When not provided, the account's defaults apply. Send at least one of `enabled` or `disabled`; an omitted one is empty.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**plan_type:** `typing.Optional[str]` — Variant billing type, such as `one_time` or `renewal`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**product_id:** `typing.Optional[str]` — The unique identifier of the product to attach this variant to.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**release_method:** `typing.Optional[str]` — Sales method for this variant.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**renewal_price:** `typing.Optional[float]` — The amount charged each billing period for recurring variants, in the variant's currency. A paid fiat variant charges at least 1.00 in its currency.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sku:** `typing.Optional[str]` — Stock keeping unit for this variant. Maximum 100 characters. Free text, not enforced unique.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**split_pay_required_payments:** `typing.Optional[int]` — Installment payments required before the subscription pauses.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**stock:** `typing.Optional[int]` — The maximum number of units available for purchase. Ignored when unlimited_stock is true.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**three_ds_level:** `typing.Optional[CreateVariantsRequestThreeDsLevel]` — 3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. Send `null` to inherit the account default.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**title:** `typing.Optional[str]` — The display name of the variant shown to customers on the product page. Maximum 30 characters.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**trial_period_days:** `typing.Optional[int]` — Free trial duration before the first recurring charge.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**unlimited_stock:** `typing.Optional[bool]` — Whether the variant has unlimited stock. When true, the stock field is ignored.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**visibility:** `typing.Optional[str]` — Whether the variant is visible to customers or hidden from public view.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.variants.<a href="src/whop_sdk/variants/client.py">retrieve</a>(...) -> Variant</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves the details of an existing variant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.variants.retrieve(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Variant ID, prefixed `plan_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.variants.<a href="src/whop_sdk/variants/client.py">delete</a>(...) -> DeleteVariantsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a variant from a product. It stops selling immediately; existing memberships on this variant will not be affected.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.variants.delete(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Variant ID, prefixed `plan_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.variants.<a href="src/whop_sdk/variants/client.py">update</a>(...) -> Variant</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update a variant's pricing, billing interval, visibility, stock, and other settings.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.variants.update(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Variant ID, prefixed `plan_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**adaptive_pricing_enabled:** `typing.Optional[bool]` — Whether this variant accepts local currency payments via adaptive pricing.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**attributes:** `typing.Optional[typing.Dict[str, typing.Any]]` — Attribute values that make this variant one variant of its product, as a map of attribute name to value, e.g. `{"size": "Large", "color": "Blue"}`. Names are normalized to snake_case identifiers (`Ring Size` becomes `ring_size`) and come back in alphabetical order. Every variant on a product must carry the same attribute names and a distinct set of values. Send `null` to make the variant an ordinary pricing option again.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**billing_period:** `typing.Optional[int]` — Recurring billing interval in days, such as 30 for monthly or 365 for annual.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cancel_discount_intervals:** `typing.Optional[int]` — How many renewals the retention discount applies to. Required when `offer_cancel_discount` is true.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cancel_discount_percentage:** `typing.Optional[int]` — Percentage taken off each discounted renewal. Required when `offer_cancel_discount` is true.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**checkout_styling:** `typing.Optional[typing.Dict[str, typing.Any]]` — Checkout styling overrides for this variant.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**currency:** `typing.Optional[str]` — The three-letter ISO currency code for the variant's pricing. Defaults to USD.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**custom_fields:** `typing.Optional[typing.List[UpdateVariantsRequestCustomFieldsItem]]` — An array of custom field definitions to collect from customers at checkout. Omitting this field clears existing custom fields.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `typing.Optional[str]` — A text description of the variant displayed to customers on the product page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expiration_days:** `typing.Optional[int]` — Access duration in days before the membership expires.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**image:** `typing.Optional[UpdateVariantsRequestImage]` — An image displayed on the product page to represent this variant.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**initial_price:** `typing.Optional[float]` — Initial amount charged in the variant's currency, e.g. 10.43 for $10.43. A paid fiat variant charges at least 1.00 in its currency; use 0 for free.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**internal_notes:** `typing.Optional[str]` — Private notes visible only to the account owner. Not shown to customers.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**metadata:** `typing.Optional[typing.Dict[str, typing.Any]]` — Custom key-value pairs to store on the variant. Included in webhook payloads for payment and membership events. Max 50 keys, 100 chars per key, 500 chars per string value. The reserved keys `custom_cta` (a checkout call-to-action button label — one of the product custom CTA values, e.g. `subscribe`, `get_offer`) and `custom_cta_url` (a URL the button links to; web or `tel:`) override the product's call to action for this variant and are validated on save.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**offer_cancel_discount:** `typing.Optional[bool]` — Whether to offer a retention discount when a customer attempts to cancel.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**override_tax_type:** `typing.Optional[str]` — Override the default tax classification for this specific variant.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment_method_configuration:** `typing.Optional[UpdateVariantsRequestPaymentMethodConfiguration]` — Explicit payment method configuration for the variant. When not provided, the account's defaults apply. Send at least one of `enabled` or `disabled`; an omitted one is empty.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**release_method:** `typing.Optional[str]` — Sales method for this variant.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**renewal_price:** `typing.Optional[float]` — The amount charged each billing period for recurring variants, in the variant's currency. A paid fiat variant charges at least 1.00 in its currency.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sku:** `typing.Optional[str]` — Stock keeping unit for this variant. Maximum 100 characters. Free text, not enforced unique.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**stock:** `typing.Optional[int]` — The maximum number of units available for purchase. Ignored when unlimited_stock is true.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**strike_through_initial_price:** `typing.Optional[float]` — A comparison price displayed with a strikethrough for the initial price.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**strike_through_renewal_price:** `typing.Optional[float]` — A comparison price displayed with a strikethrough for the renewal price.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**three_ds_level:** `typing.Optional[UpdateVariantsRequestThreeDsLevel]` — 3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. Send `null` to inherit the account default.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**title:** `typing.Optional[str]` — The display name of the variant shown to customers on the product page. Maximum 30 characters.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**trial_period_days:** `typing.Optional[int]` — Free trial duration before the first recurring charge.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**unlimited_stock:** `typing.Optional[bool]` — Whether the variant has unlimited stock. When true, the stock field is ignored.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**visibility:** `typing.Optional[str]` — Whether the variant is visible to customers or hidden from public view.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.variants.<a href="src/whop_sdk/variants/client.py">calculate_tax</a>(...) -> CalculateTaxVariantsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Previews tax for a variant before checkout, based on the buyer's location.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+from whop_sdk.variants import CalculateTaxVariantsRequestAddress
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.variants.calculate_tax(
+    id="id",
+    address=CalculateTaxVariantsRequestAddress(
+        country="DE",
+        postal_code="10115",
+    ),
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Variant ID, prefixed `plan_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**address:** `typing.Optional[CalculateTaxVariantsRequestAddress]` — Buyer billing address used for tax calculation. Provide either `address.country` or `ip_address`; include state and postal code when available for more accurate results.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ip_address:** `typing.Optional[str]` — Buyer IP address used to infer location when no billing address is provided.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tax_ids:** `typing.Optional[typing.List[CalculateTaxVariantsRequestTaxIdsItem]]` — Optional buyer tax ID for B2B exemptions. At most one entry is supported.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Verifications
 <details><summary><code>client.verifications.<a href="src/whop_sdk/verifications/client.py">list</a>(...) -> ListVerificationsResponse</code></summary>
 <dl>
@@ -41880,7 +42867,7 @@ client.waitlist_entries.list()
 <dl>
 <dd>
 
-**plan_id:** `typing.Optional[str]` — Only return signups for this plan, prefixed `plan_`.
+**plan_id:** `typing.Optional[str]` — Only return signups for this variant, prefixed `plan_`.
     
 </dd>
 </dl>
@@ -41896,7 +42883,7 @@ client.waitlist_entries.list()
 <dl>
 <dd>
 
-**product_id:** `typing.Optional[str]` — Only return signups for plans on this product, prefixed `prod_`.
+**product_id:** `typing.Optional[str]` — Only return signups for variants on this product, prefixed `prod_`.
     
 </dd>
 </dl>
@@ -41968,7 +42955,7 @@ client.waitlist_entries.list()
 <dl>
 <dd>
 
-Joins a free waitlist plan as the authenticated user. Requires waitlist_entry:create. Repeated joins return the existing pending entry, or an approved entry with a valid membership. Paid plans are rejected; no payment method is collected and no membership is granted.
+Joins a free waitlist variant as the authenticated user. Requires waitlist_entry:create. Repeated joins return the existing pending entry, or an approved entry with a valid membership. Paid variants are rejected; no payment method is collected and no membership is granted.
 </dd>
 </dl>
 </dd>
@@ -42009,7 +42996,7 @@ client.waitlist_entries.create(
 <dl>
 <dd>
 
-**plan_id:** `str` — The free waitlist plan to join, prefixed `plan_`.
+**plan_id:** `str` — The free waitlist variant to join, prefixed `plan_`.
     
 </dd>
 </dl>
@@ -42017,7 +43004,7 @@ client.waitlist_entries.create(
 <dl>
 <dd>
 
-**custom_field_responses:** `typing.Optional[typing.List[CreateWaitlistEntriesRequestCustomFieldResponsesItem]]` — Answers to the plan's checkout questions. Every required question must be answered.
+**custom_field_responses:** `typing.Optional[typing.List[CreateWaitlistEntriesRequestCustomFieldResponsesItem]]` — Answers to the variant's checkout questions. Every required question must be answered.
     
 </dd>
 </dl>
@@ -42057,7 +43044,7 @@ client.waitlist_entries.create(
 <dl>
 <dd>
 
-Queues approval of every pending signup for an account, optionally narrowed to a plan. Requires plan:waitlist:manage. Paid signups may charge saved payment methods. Approval runs asynchronously: list signups with `status` set to `pending` to follow progress, and retrieve a signup to read its outcome. Signups created after this request are excluded.
+Queues approval of every pending signup for an account, optionally narrowed to a variant. Requires plan:waitlist:manage. Paid signups may charge saved payment methods. Approval runs asynchronously: list signups with `status` set to `pending` to follow progress, and retrieve a signup to read its outcome. Signups created after this request are excluded.
 </dd>
 </dl>
 </dd>
@@ -42106,7 +43093,7 @@ client.waitlist_entries.approve_all(
 <dl>
 <dd>
 
-**plan_id:** `typing.Optional[str]` — Only approve signups for this plan, prefixed `plan_`. Omit to include every waitlist plan on the account.
+**plan_id:** `typing.Optional[str]` — Only approve signups for this variant, prefixed `plan_`. Omit to include every waitlist variant on the account.
     
 </dd>
 </dl>
@@ -45464,7 +46451,7 @@ client.partners.businesses.earnings.list(
 <dl>
 <dd>
 
-Charges a buyer for a plan from card details the caller holds itself, for integrators whose own systems are PCI compliant. Card details are accepted only on the vault host, where the card is tokenized before it reaches Whop; the official SDKs route this operation there, and raw card details sent to the regular host are refused. (Whop's own clients, which tokenize with the Basis Theory SDK, send the resulting token intent id to the regular host.) Collection runs in the background: the response is the payment as created, not its outcome — poll Retrieve status for how far it has got and what the buyer must still do, such as 3D Secure.
+Charges a buyer for a variant from card details the caller holds itself, for integrators whose own systems are PCI compliant. Card details are accepted only on the vault host, where the card is tokenized before it reaches Whop; the official SDKs route this operation there, and raw card details sent to the regular host are refused. (Whop's own clients, which tokenize with the Basis Theory SDK, send the resulting token intent id to the regular host.) Collection runs in the background: the response is the payment as created, not its outcome — poll Retrieve status for how far it has got and what the buyer must still do, such as 3D Secure.
 </dd>
 </dl>
 </dd>
@@ -45581,7 +46568,7 @@ client.payments.direct.create(
 <dl>
 <dd>
 
-**plan:** `typing.Optional[CreateDirectRequestPlan]` — Find or create a plan for this payment. Mutually exclusive with `plan_id` and `line_items`. Creating a plan requires plan:create; creating or updating a product requires the corresponding product permission.
+**plan:** `typing.Optional[CreateDirectRequestPlan]` — Find or create a variant for this payment through the compatibility input `plan`. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
     
 </dd>
 </dl>
@@ -45589,7 +46576,7 @@ client.payments.direct.create(
 <dl>
 <dd>
 
-**plan_id:** `typing.Optional[str]` — The plan to charge for, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan`.
+**plan_id:** `typing.Optional[str]` — The variant to charge for, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan`.
     
 </dd>
 </dl>
@@ -45597,7 +46584,7 @@ client.payments.direct.create(
 <dl>
 <dd>
 
-**promo_code_id:** `typing.Optional[str]` — An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the plan.
+**promo_code_id:** `typing.Optional[str]` — An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant.
     
 </dd>
 </dl>

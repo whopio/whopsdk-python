@@ -63,12 +63,12 @@ class LedgerActivity(UniversalBaseModel):
 
     plan_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    ID of the plan associated with the payment, when applicable.
+    ID of the variant associated with the payment, when applicable.
     """
 
     plan_name: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Name of the plan associated with the payment, when applicable.
+    Name of the variant associated with the payment, when applicable.
     """
 
     posted_at: dt.datetime = pydantic.Field()
