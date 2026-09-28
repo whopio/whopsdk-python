@@ -109,11 +109,11 @@ class OauthGrantsClient:
         self,
         *,
         client_id: str,
-        code_challenge: str,
-        code_challenge_method: CreateOauthGrantsRequestCodeChallengeMethod,
         redirect_uri: str,
         requested_scopes: typing.Sequence[str],
         account_id: typing.Optional[str] = OMIT,
+        code_challenge: typing.Optional[str] = OMIT,
+        code_challenge_method: typing.Optional[CreateOauthGrantsRequestCodeChallengeMethod] = OMIT,
         consent_shown: typing.Optional[bool] = OMIT,
         nonce: typing.Optional[str] = OMIT,
         response_type: typing.Optional[CreateOauthGrantsRequestResponseType] = OMIT,
@@ -121,18 +121,12 @@ class OauthGrantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> OauthGrant:
         """
-        Completes the OAuth authorization step for the authenticated user: records their consent for the scopes an app asked for and mints the authorization code to hand back to it. Returns the grant, plus a `redirect_url` carrying that code — the one and only time it is returned. Exchange the code at `POST /oauth/token` with the verifier for `code_challenge`. Requires a user session, because consent has to come from the account holder: an API key or an OAuth token is refused, so an app can never authorize itself. Send an `Idempotency-Key` to make a retry safe — a replay returns the original `redirect_url` and its code rather than issuing a second one.
+        Completes the OAuth authorization step for the authenticated user: records their consent for the scopes an app asked for and mints the authorization code to hand back to it. Returns the grant, plus a `redirect_url` carrying that code — the one and only time it is returned. Exchange the code at `POST /oauth/token` with the verifier for `code_challenge`, or with the app's secret when a confidential app sent none. Requires a user session, because consent has to come from the account holder: an API key or an OAuth token is refused, so an app can never authorize itself. Send an `Idempotency-Key` to make a retry safe — a replay returns the original `redirect_url` and its code rather than issuing a second one.
 
         Parameters
         ----------
         client_id : str
             The app being authorized, prefixed `app_`.
-
-        code_challenge : str
-            The PKCE code challenge: the base64url-encoded SHA-256 of your code verifier, without padding.
-
-        code_challenge_method : CreateOauthGrantsRequestCodeChallengeMethod
-            How `code_challenge` was derived. Only `S256` is accepted.
 
         redirect_uri : str
             Where to send the user once they have consented. Must match one of the app's registered redirect URIs exactly — it is compared as a string, not normalized.
@@ -142,6 +136,12 @@ class OauthGrantsClient:
 
         account_id : typing.Optional[str]
             Authorize the app for one of the user's accounts rather than for the user alone, prefixed `biz_`. The user must have access to it.
+
+        code_challenge : typing.Optional[str]
+            The PKCE code challenge: the base64url-encoded SHA-256 of your code verifier, without padding. Required unless the app is confidential; a confidential app that leaves it out redeems the code with its secret instead of a verifier.
+
+        code_challenge_method : typing.Optional[CreateOauthGrantsRequestCodeChallengeMethod]
+            How `code_challenge` was derived. Only `S256` is accepted. Required with `code_challenge`.
 
         consent_shown : typing.Optional[bool]
             Whether the consent UI listed these scopes for the user. Sending `false` succeeds only when the user has already granted every scope requested.
@@ -174,19 +174,17 @@ class OauthGrantsClient:
         )
         client.users.oauth_grants.create(
             client_id="app_xxxxxxxxxxxxxx",
-            code_challenge="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-            code_challenge_method="S256",
             redirect_uri="https://Booking.Shinetime.example:8443/oauth/Callback/",
             requested_scopes=["profile"],
         )
         """
         _response = self._raw_client.create(
             client_id=client_id,
-            code_challenge=code_challenge,
-            code_challenge_method=code_challenge_method,
             redirect_uri=redirect_uri,
             requested_scopes=requested_scopes,
             account_id=account_id,
+            code_challenge=code_challenge,
+            code_challenge_method=code_challenge_method,
             consent_shown=consent_shown,
             nonce=nonce,
             response_type=response_type,
@@ -297,11 +295,11 @@ class AsyncOauthGrantsClient:
         self,
         *,
         client_id: str,
-        code_challenge: str,
-        code_challenge_method: CreateOauthGrantsRequestCodeChallengeMethod,
         redirect_uri: str,
         requested_scopes: typing.Sequence[str],
         account_id: typing.Optional[str] = OMIT,
+        code_challenge: typing.Optional[str] = OMIT,
+        code_challenge_method: typing.Optional[CreateOauthGrantsRequestCodeChallengeMethod] = OMIT,
         consent_shown: typing.Optional[bool] = OMIT,
         nonce: typing.Optional[str] = OMIT,
         response_type: typing.Optional[CreateOauthGrantsRequestResponseType] = OMIT,
@@ -309,18 +307,12 @@ class AsyncOauthGrantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> OauthGrant:
         """
-        Completes the OAuth authorization step for the authenticated user: records their consent for the scopes an app asked for and mints the authorization code to hand back to it. Returns the grant, plus a `redirect_url` carrying that code — the one and only time it is returned. Exchange the code at `POST /oauth/token` with the verifier for `code_challenge`. Requires a user session, because consent has to come from the account holder: an API key or an OAuth token is refused, so an app can never authorize itself. Send an `Idempotency-Key` to make a retry safe — a replay returns the original `redirect_url` and its code rather than issuing a second one.
+        Completes the OAuth authorization step for the authenticated user: records their consent for the scopes an app asked for and mints the authorization code to hand back to it. Returns the grant, plus a `redirect_url` carrying that code — the one and only time it is returned. Exchange the code at `POST /oauth/token` with the verifier for `code_challenge`, or with the app's secret when a confidential app sent none. Requires a user session, because consent has to come from the account holder: an API key or an OAuth token is refused, so an app can never authorize itself. Send an `Idempotency-Key` to make a retry safe — a replay returns the original `redirect_url` and its code rather than issuing a second one.
 
         Parameters
         ----------
         client_id : str
             The app being authorized, prefixed `app_`.
-
-        code_challenge : str
-            The PKCE code challenge: the base64url-encoded SHA-256 of your code verifier, without padding.
-
-        code_challenge_method : CreateOauthGrantsRequestCodeChallengeMethod
-            How `code_challenge` was derived. Only `S256` is accepted.
 
         redirect_uri : str
             Where to send the user once they have consented. Must match one of the app's registered redirect URIs exactly — it is compared as a string, not normalized.
@@ -330,6 +322,12 @@ class AsyncOauthGrantsClient:
 
         account_id : typing.Optional[str]
             Authorize the app for one of the user's accounts rather than for the user alone, prefixed `biz_`. The user must have access to it.
+
+        code_challenge : typing.Optional[str]
+            The PKCE code challenge: the base64url-encoded SHA-256 of your code verifier, without padding. Required unless the app is confidential; a confidential app that leaves it out redeems the code with its secret instead of a verifier.
+
+        code_challenge_method : typing.Optional[CreateOauthGrantsRequestCodeChallengeMethod]
+            How `code_challenge` was derived. Only `S256` is accepted. Required with `code_challenge`.
 
         consent_shown : typing.Optional[bool]
             Whether the consent UI listed these scopes for the user. Sending `false` succeeds only when the user has already granted every scope requested.
@@ -367,8 +365,6 @@ class AsyncOauthGrantsClient:
         async def main() -> None:
             await client.users.oauth_grants.create(
                 client_id="app_xxxxxxxxxxxxxx",
-                code_challenge="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-                code_challenge_method="S256",
                 redirect_uri="https://Booking.Shinetime.example:8443/oauth/Callback/",
                 requested_scopes=["profile"],
             )
@@ -378,11 +374,11 @@ class AsyncOauthGrantsClient:
         """
         _response = await self._raw_client.create(
             client_id=client_id,
-            code_challenge=code_challenge,
-            code_challenge_method=code_challenge_method,
             redirect_uri=redirect_uri,
             requested_scopes=requested_scopes,
             account_id=account_id,
+            code_challenge=code_challenge,
+            code_challenge_method=code_challenge_method,
             consent_shown=consent_shown,
             nonce=nonce,
             response_type=response_type,
