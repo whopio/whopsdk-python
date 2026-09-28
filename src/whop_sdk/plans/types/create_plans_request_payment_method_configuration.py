@@ -8,20 +8,8 @@ from ...types.payment_method_types import PaymentMethodTypes
 
 
 class CreatePlansRequestPaymentMethodConfiguration(UniversalBaseModel):
-    """
-    Explicit payment method configuration for the plan. When not provided, the account's defaults apply. Send at least one of `enabled` or `disabled`; an omitted one is empty.
-    """
-
-    disabled: typing.Optional[typing.List[PaymentMethodTypes]] = pydantic.Field(default=None)
-    """
-    Payment method types explicitly disabled for this plan — the `type` values from the payment method types catalogue. Types Whop no longer offers, and the read-only `unknown` placeholder, are dropped.
-    """
-
-    enabled: typing.Optional[typing.List[PaymentMethodTypes]] = pydantic.Field(default=None)
-    """
-    Payment method types explicitly enabled for this plan — the `type` values from the payment method types catalogue. Types Whop no longer offers, and the read-only `unknown` placeholder, are dropped.
-    """
-
+    disabled: typing.Optional[typing.List[PaymentMethodTypes]] = None
+    enabled: typing.Optional[typing.List[PaymentMethodTypes]] = None
     include_platform_defaults: typing.Optional[bool] = None
 
     if IS_PYDANTIC_V2:

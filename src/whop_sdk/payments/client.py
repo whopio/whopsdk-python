@@ -100,7 +100,7 @@ class PaymentsClient:
             Only payments for this product, prefixed `prod_`.
 
         plan_id : typing.Optional[str]
-            Only payments priced by this plan, prefixed `plan_`.
+            Only payments priced by this variant, prefixed `plan_`.
 
         created_before : typing.Optional[dt.datetime]
             Only payments created before this ISO 8601 timestamp.
@@ -193,7 +193,7 @@ class PaymentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Payment:
         """
-        Charges a buyer for one or more plans. Pass a payment method already on file (`member_id` and `payment_method_id`), or a `confirmation_token` describing a method the buyer just supplied. Collection runs in the background: the response is the payment as created, not its outcome — poll Retrieve status for how far it has got and, for a confirmation-token payment, what the buyer must still do. Pass `line_items` for one or more plans with quantities, `plan_id` for an existing plan, or `plan` to find or create one inline. These inputs are mutually exclusive.
+        Charges a buyer for one or more variants. Pass a payment method already on file (`member_id` and `payment_method_id`), or a `confirmation_token` describing a method the buyer just supplied. Collection runs in the background: the response is the payment as created, not its outcome — poll Retrieve status for how far it has got and, for a confirmation-token payment, what the buyer must still do. Pass `line_items` for one or more variants with quantities, `plan_id` for an existing variant, or the compatibility input `plan` to find or create one inline. These inputs are mutually exclusive.
 
         Parameters
         ----------
@@ -213,7 +213,7 @@ class PaymentsClient:
             Overrides the buyer email carried on the confirmation token, resolving or creating the user the payment belongs to. Ignored unless `confirmation_token` is provided, and when the token was created by a signed-in buyer.
 
         line_items : typing.Optional[typing.Sequence[CreatePaymentsRequestLineItemsItem]]
-            What the buyer is purchasing. One entry charges that plan; several entries form a cart, which requires every plan to be a compatible plan from this account in the same currency.
+            What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
 
         member_id : typing.Optional[str]
             The member to charge, prefixed `mber_`. Required with `payment_method_id` unless `confirmation_token` is provided.
@@ -225,13 +225,13 @@ class PaymentsClient:
             The stored payment method to charge, prefixed `payt_`. It must belong to the member. Required unless `confirmation_token` is provided.
 
         plan : typing.Optional[CreatePaymentsRequestPlan]
-            Find or create a plan for this payment. Mutually exclusive with `plan_id` and `line_items`. Creating a plan requires plan:create; creating or updating a product requires the corresponding product permission.
+            Find or create a variant for this payment through the compatibility input `plan`. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
 
         plan_id : typing.Optional[str]
-            The plan to charge for, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
+            The variant to charge for, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
 
         promo_code_id : typing.Optional[str]
-            An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the plan.
+            An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant.
 
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters. Ignored unless `confirmation_token` is provided.
@@ -285,7 +285,7 @@ class PaymentsClient:
 
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Payment:
         """
-        Returns one payment, including every purchased line item with its quantity and subtotal. Related records are ids — resolve a plan, membership, member or shipment on its own endpoint, and list this payment's refunds, disputes or Resolution Center cases with `?payment_id=`.
+        Returns one payment, including every purchased line item with its quantity and subtotal. Related records are ids — resolve a variant, membership, member or shipment on its own endpoint, and list this payment's refunds, disputes or Resolution Center cases with `?payment_id=`.
 
         Parameters
         ----------
@@ -428,7 +428,7 @@ class PaymentsClient:
 
     def retry(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Payment:
         """
-        Retries a failed or pending payment. This re-attempts the charge using the original payment method and plan details.
+        Retries a failed or pending payment. This re-attempts the charge using the original payment method and variant details.
 
         Parameters
         ----------
@@ -683,7 +683,7 @@ class AsyncPaymentsClient:
             Only payments for this product, prefixed `prod_`.
 
         plan_id : typing.Optional[str]
-            Only payments priced by this plan, prefixed `plan_`.
+            Only payments priced by this variant, prefixed `plan_`.
 
         created_before : typing.Optional[dt.datetime]
             Only payments created before this ISO 8601 timestamp.
@@ -785,7 +785,7 @@ class AsyncPaymentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Payment:
         """
-        Charges a buyer for one or more plans. Pass a payment method already on file (`member_id` and `payment_method_id`), or a `confirmation_token` describing a method the buyer just supplied. Collection runs in the background: the response is the payment as created, not its outcome — poll Retrieve status for how far it has got and, for a confirmation-token payment, what the buyer must still do. Pass `line_items` for one or more plans with quantities, `plan_id` for an existing plan, or `plan` to find or create one inline. These inputs are mutually exclusive.
+        Charges a buyer for one or more variants. Pass a payment method already on file (`member_id` and `payment_method_id`), or a `confirmation_token` describing a method the buyer just supplied. Collection runs in the background: the response is the payment as created, not its outcome — poll Retrieve status for how far it has got and, for a confirmation-token payment, what the buyer must still do. Pass `line_items` for one or more variants with quantities, `plan_id` for an existing variant, or the compatibility input `plan` to find or create one inline. These inputs are mutually exclusive.
 
         Parameters
         ----------
@@ -805,7 +805,7 @@ class AsyncPaymentsClient:
             Overrides the buyer email carried on the confirmation token, resolving or creating the user the payment belongs to. Ignored unless `confirmation_token` is provided, and when the token was created by a signed-in buyer.
 
         line_items : typing.Optional[typing.Sequence[CreatePaymentsRequestLineItemsItem]]
-            What the buyer is purchasing. One entry charges that plan; several entries form a cart, which requires every plan to be a compatible plan from this account in the same currency.
+            What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
 
         member_id : typing.Optional[str]
             The member to charge, prefixed `mber_`. Required with `payment_method_id` unless `confirmation_token` is provided.
@@ -817,13 +817,13 @@ class AsyncPaymentsClient:
             The stored payment method to charge, prefixed `payt_`. It must belong to the member. Required unless `confirmation_token` is provided.
 
         plan : typing.Optional[CreatePaymentsRequestPlan]
-            Find or create a plan for this payment. Mutually exclusive with `plan_id` and `line_items`. Creating a plan requires plan:create; creating or updating a product requires the corresponding product permission.
+            Find or create a variant for this payment through the compatibility input `plan`. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
 
         plan_id : typing.Optional[str]
-            The plan to charge for, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
+            The variant to charge for, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
 
         promo_code_id : typing.Optional[str]
-            An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the plan.
+            An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant.
 
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters. Ignored unless `confirmation_token` is provided.
@@ -885,7 +885,7 @@ class AsyncPaymentsClient:
 
     async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Payment:
         """
-        Returns one payment, including every purchased line item with its quantity and subtotal. Related records are ids — resolve a plan, membership, member or shipment on its own endpoint, and list this payment's refunds, disputes or Resolution Center cases with `?payment_id=`.
+        Returns one payment, including every purchased line item with its quantity and subtotal. Related records are ids — resolve a variant, membership, member or shipment on its own endpoint, and list this payment's refunds, disputes or Resolution Center cases with `?payment_id=`.
 
         Parameters
         ----------
@@ -1060,7 +1060,7 @@ class AsyncPaymentsClient:
 
     async def retry(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Payment:
         """
-        Retries a failed or pending payment. This re-attempts the charge using the original payment method and plan details.
+        Retries a failed or pending payment. This re-attempts the charge using the original payment method and variant details.
 
         Parameters
         ----------

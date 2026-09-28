@@ -19,12 +19,12 @@ from .create_checkout_configurations_request_plan_visibility import CreateChecko
 
 class CreateCheckoutConfigurationsRequestPlan(UniversalBaseModel):
     """
-    Plan attributes used to create or find a plan for this checkout configuration. Mutually exclusive with `plan_id`.
+    Variant attributes used to create or find a variant for this checkout configuration. Mutually exclusive with `plan_id`.
     """
 
     account_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Account ID for the inline plan, prefixed `biz_`. Defaults to the account resolved from the request.
+    Account ID for the inline variant, prefixed `biz_`. Defaults to the account resolved from the request.
     """
 
     billing_period: typing.Optional[int] = pydantic.Field(default=None)
@@ -34,59 +34,59 @@ class CreateCheckoutConfigurationsRequestPlan(UniversalBaseModel):
 
     currency: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Three-letter ISO currency code for the plan's prices.
+    Three-letter ISO currency code for the variant's prices.
     """
 
     description: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Customer-visible plan description.
+    Customer-visible variant description.
     """
 
     expiration_days: typing.Optional[int] = pydantic.Field(default=None)
     """
-    Access duration in days for expiration-based plans.
+    Access duration in days for expiration-based variants.
     """
 
     force_create_new_plan: typing.Optional[bool] = pydantic.Field(default=None)
     """
-    Whether to create a new plan instead of reusing a matching one.
+    Whether to create a new variant instead of reusing a matching one.
     """
 
     initial_price: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Initial purchase price in the plan currency.
+    Initial purchase price in the variant currency.
     """
 
     metadata: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
     """
-    Custom key-value metadata stored on the plan.
+    Custom key-value metadata stored on the variant.
     """
 
     override_tax_type: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Tax classification override for this plan.
+    Tax classification override for this variant.
     """
 
     payment_method_configuration: typing.Optional[CreateCheckoutConfigurationsRequestPlanPaymentMethodConfiguration] = (
         pydantic.Field(default=None)
     )
     """
-    Payment method overrides for the inline plan. `null` uses platform defaults.
+    Payment method overrides for the inline variant. `null` uses platform defaults.
     """
 
     plan_type: typing.Optional[CreateCheckoutConfigurationsRequestPlanPlanType] = pydantic.Field(default=None)
     """
-    Billing model for the plan.
+    Billing model for the variant.
     """
 
     product_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Product ID the inline plan should belong to, prefixed `prod_`.
+    Product ID the inline variant should belong to, prefixed `prod_`.
     """
 
     release_method: typing.Optional[CreateCheckoutConfigurationsRequestPlanReleaseMethod] = pydantic.Field(default=None)
     """
-    Sales method for the plan.
+    Sales method for the variant.
     """
 
     renewal_price: typing.Optional[float] = pydantic.Field(default=None)
@@ -106,7 +106,7 @@ class CreateCheckoutConfigurationsRequestPlan(UniversalBaseModel):
 
     title: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Plan display name shown to customers.
+    Variant display name shown to customers.
     """
 
     trial_period_days: typing.Optional[int] = pydantic.Field(default=None)
@@ -116,12 +116,12 @@ class CreateCheckoutConfigurationsRequestPlan(UniversalBaseModel):
 
     unlimited_stock: typing.Optional[bool] = pydantic.Field(default=None)
     """
-    Whether the plan has unlimited stock.
+    Whether the variant has unlimited stock.
     """
 
     visibility: typing.Optional[CreateCheckoutConfigurationsRequestPlanVisibility] = pydantic.Field(default=None)
     """
-    Whether the plan is visible to customers or hidden from public view.
+    Whether the variant is visible to customers or hidden from public view.
     """
 
     if IS_PYDANTIC_V2:

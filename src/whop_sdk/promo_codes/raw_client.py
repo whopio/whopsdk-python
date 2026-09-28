@@ -69,7 +69,7 @@ class RawPromoCodesClient:
             Only promo codes scoped to these product IDs.
 
         plan_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Only promo codes scoped to these plan IDs.
+            Only promo codes scoped to these variant IDs.
 
         created_before : typing.Optional[dt.datetime]
             Only promo codes created before this ISO 8601 timestamp.
@@ -580,7 +580,7 @@ class AsyncRawPromoCodesClient:
             Only promo codes scoped to these product IDs.
 
         plan_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Only promo codes scoped to these plan IDs.
+            Only promo codes scoped to these variant IDs.
 
         created_before : typing.Optional[dt.datetime]
             Only promo codes created before this ISO 8601 timestamp.

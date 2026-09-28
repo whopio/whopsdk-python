@@ -84,7 +84,7 @@ class Dispute(UniversalBaseModel):
 
     plan_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The plan the disputed payment was made on, prefixed `plan_`.
+    The variant the disputed payment was made on, prefixed `plan_`.
     """
 
     product_id: typing.Optional[str] = pydantic.Field(default=None)

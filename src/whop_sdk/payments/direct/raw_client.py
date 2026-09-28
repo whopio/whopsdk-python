@@ -48,7 +48,7 @@ class RawDirectClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Payment]:
         """
-        Charges a buyer for a plan from card details the caller holds itself, for integrators whose own systems are PCI compliant. Card details are accepted only on the vault host, where the card is tokenized before it reaches Whop; the official SDKs route this operation there, and raw card details sent to the regular host are refused. (Whop's own clients, which tokenize with the Basis Theory SDK, send the resulting token intent id to the regular host.) Collection runs in the background: the response is the payment as created, not its outcome — poll Retrieve status for how far it has got and what the buyer must still do, such as 3D Secure.
+        Charges a buyer for a variant from card details the caller holds itself, for integrators whose own systems are PCI compliant. Card details are accepted only on the vault host, where the card is tokenized before it reaches Whop; the official SDKs route this operation there, and raw card details sent to the regular host are refused. (Whop's own clients, which tokenize with the Basis Theory SDK, send the resulting token intent id to the regular host.) Collection runs in the background: the response is the payment as created, not its outcome — poll Retrieve status for how far it has got and what the buyer must still do, such as 3D Secure.
 
         Parameters
         ----------
@@ -77,13 +77,13 @@ class RawDirectClient:
             Whether the charge is merchant-initiated, with the buyer not present. Defaults to false. When true, `payment_method.card.network_transaction_id` is required: a merchant-initiated charge on a card Whop has not charged before carries the id of the card's prior customer-initiated transaction. No 3D Secure step is offered: an issuer that requires the buyer to authenticate declines the charge, and the payment fails with that reason so the card can be charged again with the buyer present. A declined card is not saved.
 
         plan : typing.Optional[CreateDirectRequestPlan]
-            Find or create a plan for this payment. Mutually exclusive with `plan_id` and `line_items`. Creating a plan requires plan:create; creating or updating a product requires the corresponding product permission.
+            Find or create a variant for this payment through the compatibility input `plan`. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
 
         plan_id : typing.Optional[str]
-            The plan to charge for, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan`.
+            The variant to charge for, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan`.
 
         promo_code_id : typing.Optional[str]
-            An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the plan.
+            An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant.
 
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step such as 3D Secure. An absolute https URL without credentials, at most 2,048 characters.
@@ -200,7 +200,7 @@ class AsyncRawDirectClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Payment]:
         """
-        Charges a buyer for a plan from card details the caller holds itself, for integrators whose own systems are PCI compliant. Card details are accepted only on the vault host, where the card is tokenized before it reaches Whop; the official SDKs route this operation there, and raw card details sent to the regular host are refused. (Whop's own clients, which tokenize with the Basis Theory SDK, send the resulting token intent id to the regular host.) Collection runs in the background: the response is the payment as created, not its outcome — poll Retrieve status for how far it has got and what the buyer must still do, such as 3D Secure.
+        Charges a buyer for a variant from card details the caller holds itself, for integrators whose own systems are PCI compliant. Card details are accepted only on the vault host, where the card is tokenized before it reaches Whop; the official SDKs route this operation there, and raw card details sent to the regular host are refused. (Whop's own clients, which tokenize with the Basis Theory SDK, send the resulting token intent id to the regular host.) Collection runs in the background: the response is the payment as created, not its outcome — poll Retrieve status for how far it has got and what the buyer must still do, such as 3D Secure.
 
         Parameters
         ----------
@@ -229,13 +229,13 @@ class AsyncRawDirectClient:
             Whether the charge is merchant-initiated, with the buyer not present. Defaults to false. When true, `payment_method.card.network_transaction_id` is required: a merchant-initiated charge on a card Whop has not charged before carries the id of the card's prior customer-initiated transaction. No 3D Secure step is offered: an issuer that requires the buyer to authenticate declines the charge, and the payment fails with that reason so the card can be charged again with the buyer present. A declined card is not saved.
 
         plan : typing.Optional[CreateDirectRequestPlan]
-            Find or create a plan for this payment. Mutually exclusive with `plan_id` and `line_items`. Creating a plan requires plan:create; creating or updating a product requires the corresponding product permission.
+            Find or create a variant for this payment through the compatibility input `plan`. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
 
         plan_id : typing.Optional[str]
-            The plan to charge for, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan`.
+            The variant to charge for, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan`.
 
         promo_code_id : typing.Optional[str]
-            An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the plan.
+            An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant.
 
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step such as 3D Secure. An absolute https URL without credentials, at most 2,048 characters.

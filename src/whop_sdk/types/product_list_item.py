@@ -26,7 +26,7 @@ class ProductListItem(UniversalBaseModel):
 
     default_plan: typing.Optional[ProductPublicPlan] = pydantic.Field(default=None)
     """
-    Buyable plan to show and check out with. The configured default when that plan is buyable, otherwise the first buyable plan in product-page order. `null` when none is buyable.
+    Buyable variant to show and check out with. The configured default when that variant is buyable, otherwise the first buyable variant in product-page order. `null` when none is buyable.
     """
 
     description: typing.Optional[str] = pydantic.Field(default=None)
@@ -83,7 +83,7 @@ class ProductListItem(UniversalBaseModel):
 
     variant_attributes: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
     """
-    The option set the product's variants span, as a map of attribute name to the values in use, e.g. `{"color": ["Blue", "Red"], "size": ["S", "M", "L"]}`. Derived from the visible, non-invoice plans that carry `attributes`: keys alphabetical, values in the order the plans were created. Read-only. `null` when the product has no variants.
+    The option set the product's variants span, as a map of attribute name to the values in use, e.g. `{"color": ["Blue", "Red"], "size": ["S", "M", "L"]}`. Derived from the visible, non-invoice variants that carry `attributes`: keys alphabetical, values in the order the variants were created. Read-only. `null` when the product has no variants.
     """
 
     verified: bool = pydantic.Field()

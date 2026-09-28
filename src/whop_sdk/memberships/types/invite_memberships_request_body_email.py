@@ -14,7 +14,7 @@ class InviteMembershipsRequestBodyEmail(UniversalBaseModel):
 
     plan_id: str = pydantic.Field()
     """
-    Free plan whose membership the recipient is invited to, prefixed `plan_`.
+    Free variant whose membership the recipient is invited to, prefixed `plan_`.
     """
 
     if IS_PYDANTIC_V2:

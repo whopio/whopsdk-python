@@ -22,15 +22,6 @@ if typing.TYPE_CHECKING:
     from .list_plans_request_order import ListPlansRequestOrder
     from .list_plans_response import ListPlansResponse
     from .list_plans_response_page_info import ListPlansResponsePageInfo
-    from .post_plan_created_payload import PostPlanCreatedPayload
-    from .post_plan_created_payload_api_version import PostPlanCreatedPayloadApiVersion
-    from .post_plan_created_payload_type import PostPlanCreatedPayloadType
-    from .post_plan_deleted_payload import PostPlanDeletedPayload
-    from .post_plan_deleted_payload_api_version import PostPlanDeletedPayloadApiVersion
-    from .post_plan_deleted_payload_type import PostPlanDeletedPayloadType
-    from .post_plan_updated_payload import PostPlanUpdatedPayload
-    from .post_plan_updated_payload_api_version import PostPlanUpdatedPayloadApiVersion
-    from .post_plan_updated_payload_type import PostPlanUpdatedPayloadType
     from .update_plans_request_custom_fields_item import UpdatePlansRequestCustomFieldsItem
     from .update_plans_request_custom_fields_item_field_type import UpdatePlansRequestCustomFieldsItemFieldType
     from .update_plans_request_image import UpdatePlansRequestImage
@@ -53,15 +44,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListPlansRequestOrder": ".list_plans_request_order",
     "ListPlansResponse": ".list_plans_response",
     "ListPlansResponsePageInfo": ".list_plans_response_page_info",
-    "PostPlanCreatedPayload": ".post_plan_created_payload",
-    "PostPlanCreatedPayloadApiVersion": ".post_plan_created_payload_api_version",
-    "PostPlanCreatedPayloadType": ".post_plan_created_payload_type",
-    "PostPlanDeletedPayload": ".post_plan_deleted_payload",
-    "PostPlanDeletedPayloadApiVersion": ".post_plan_deleted_payload_api_version",
-    "PostPlanDeletedPayloadType": ".post_plan_deleted_payload_type",
-    "PostPlanUpdatedPayload": ".post_plan_updated_payload",
-    "PostPlanUpdatedPayloadApiVersion": ".post_plan_updated_payload_api_version",
-    "PostPlanUpdatedPayloadType": ".post_plan_updated_payload_type",
     "UpdatePlansRequestCustomFieldsItem": ".update_plans_request_custom_fields_item",
     "UpdatePlansRequestCustomFieldsItemFieldType": ".update_plans_request_custom_fields_item_field_type",
     "UpdatePlansRequestImage": ".update_plans_request_image",
@@ -108,15 +90,6 @@ __all__ = [
     "ListPlansRequestOrder",
     "ListPlansResponse",
     "ListPlansResponsePageInfo",
-    "PostPlanCreatedPayload",
-    "PostPlanCreatedPayloadApiVersion",
-    "PostPlanCreatedPayloadType",
-    "PostPlanDeletedPayload",
-    "PostPlanDeletedPayloadApiVersion",
-    "PostPlanDeletedPayloadType",
-    "PostPlanUpdatedPayload",
-    "PostPlanUpdatedPayloadApiVersion",
-    "PostPlanUpdatedPayloadType",
     "UpdatePlansRequestCustomFieldsItem",
     "UpdatePlansRequestCustomFieldsItemFieldType",
     "UpdatePlansRequestImage",

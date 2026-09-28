@@ -14,7 +14,7 @@ class ApproveAllWaitlistEntriesResponse(UniversalBaseModel):
 
     plan_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The plan the request was narrowed to, prefixed `plan_`, or `null` when every waitlist plan on the account was included.
+    The variant the request was narrowed to, prefixed `plan_`, or `null` when every waitlist variant on the account was included.
     """
 
     queued: bool = pydantic.Field()

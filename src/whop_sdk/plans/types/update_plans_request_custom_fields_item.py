@@ -8,35 +8,12 @@ from .update_plans_request_custom_fields_item_field_type import UpdatePlansReque
 
 
 class UpdatePlansRequestCustomFieldsItem(UniversalBaseModel):
-    field_type: typing.Optional[UpdatePlansRequestCustomFieldsItemFieldType] = pydantic.Field(default=None)
-    """
-    The type of the custom field.
-    """
-
-    id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The ID of the custom field (if being updated).
-    """
-
-    name: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The name of the custom field.
-    """
-
-    order: typing.Optional[int] = pydantic.Field(default=None)
-    """
-    The order of the field.
-    """
-
-    placeholder: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    An example response displayed in the input field.
-    """
-
-    required: typing.Optional[bool] = pydantic.Field(default=None)
-    """
-    Whether or not the field is required.
-    """
+    field_type: typing.Optional[UpdatePlansRequestCustomFieldsItemFieldType] = None
+    id: typing.Optional[str] = None
+    name: typing.Optional[str] = None
+    order: typing.Optional[int] = None
+    placeholder: typing.Optional[str] = None
+    required: typing.Optional[bool] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

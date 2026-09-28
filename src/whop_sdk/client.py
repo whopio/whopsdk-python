@@ -94,6 +94,7 @@ if typing.TYPE_CHECKING:
     from .trades.client import AsyncTradesClient, TradesClient
     from .transfers.client import AsyncTransfersClient, TransfersClient
     from .users.client import AsyncUsersClient, UsersClient
+    from .variants.client import AsyncVariantsClient, VariantsClient
     from .verifications.client import AsyncVerificationsClient, VerificationsClient
     from .waitlist_entries.client import AsyncWaitlistEntriesClient, WaitlistEntriesClient
     from .webhooks.client import AsyncWebhooksClient, WebhooksClient
@@ -271,6 +272,7 @@ class Whop:
         self._trades: typing.Optional[TradesClient] = None
         self._transfers: typing.Optional[TransfersClient] = None
         self._users: typing.Optional[UsersClient] = None
+        self._variants: typing.Optional[VariantsClient] = None
         self._verifications: typing.Optional[VerificationsClient] = None
         self._waitlist_entries: typing.Optional[WaitlistEntriesClient] = None
         self._webhooks: typing.Optional[WebhooksClient] = None
@@ -948,6 +950,14 @@ class Whop:
         return self._users
 
     @property
+    def variants(self):
+        if self._variants is None:
+            from .variants.client import VariantsClient  # noqa: E402
+
+            self._variants = VariantsClient(client_wrapper=self._client_wrapper)
+        return self._variants
+
+    @property
     def verifications(self):
         if self._verifications is None:
             from .verifications.client import VerificationsClient  # noqa: E402
@@ -1165,6 +1175,7 @@ class AsyncWhop:
         self._trades: typing.Optional[AsyncTradesClient] = None
         self._transfers: typing.Optional[AsyncTransfersClient] = None
         self._users: typing.Optional[AsyncUsersClient] = None
+        self._variants: typing.Optional[AsyncVariantsClient] = None
         self._verifications: typing.Optional[AsyncVerificationsClient] = None
         self._waitlist_entries: typing.Optional[AsyncWaitlistEntriesClient] = None
         self._webhooks: typing.Optional[AsyncWebhooksClient] = None
@@ -1840,6 +1851,14 @@ class AsyncWhop:
 
             self._users = AsyncUsersClient(client_wrapper=self._client_wrapper)
         return self._users
+
+    @property
+    def variants(self):
+        if self._variants is None:
+            from .variants.client import AsyncVariantsClient  # noqa: E402
+
+            self._variants = AsyncVariantsClient(client_wrapper=self._client_wrapper)
+        return self._variants
 
     @property
     def verifications(self):

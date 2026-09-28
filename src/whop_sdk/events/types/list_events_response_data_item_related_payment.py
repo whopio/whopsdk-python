@@ -13,7 +13,7 @@ class ListEventsResponseDataItemRelatedPayment(UniversalBaseModel):
     id: typing.Optional[str] = None
     line_items: typing.Optional[typing.List[ReceiptLineItem]] = pydantic.Field(default=None)
     """
-    Everything this payment charged for, in purchase order, including quantities. Older payments fall back to their original plan.
+    Everything this payment charged for, in purchase order, including quantities. Older payments fall back to their original variant.
     """
 
     provider: typing.Optional[str] = None

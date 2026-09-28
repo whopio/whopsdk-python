@@ -72,13 +72,13 @@ class RawWaitlistEntriesClient:
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         plan_id : typing.Optional[str]
-            Only return signups for this plan, prefixed `plan_`.
+            Only return signups for this variant, prefixed `plan_`.
 
         account_id : typing.Optional[str]
             Only return signups submitted to this seller account, prefixed `biz_`.
 
         product_id : typing.Optional[str]
-            Only return signups for plans on this product, prefixed `prod_`.
+            Only return signups for variants on this product, prefixed `prod_`.
 
         status : typing.Optional[ListWaitlistEntriesRequestStatus]
             Only return signups in this state. Canceled signups are returned only when `status` is `canceled`.
@@ -218,15 +218,15 @@ class RawWaitlistEntriesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[WaitlistEntry]:
         """
-        Joins a free waitlist plan as the authenticated user. Requires waitlist_entry:create. Repeated joins return the existing pending entry, or an approved entry with a valid membership. Paid plans are rejected; no payment method is collected and no membership is granted.
+        Joins a free waitlist variant as the authenticated user. Requires waitlist_entry:create. Repeated joins return the existing pending entry, or an approved entry with a valid membership. Paid variants are rejected; no payment method is collected and no membership is granted.
 
         Parameters
         ----------
         plan_id : str
-            The free waitlist plan to join, prefixed `plan_`.
+            The free waitlist variant to join, prefixed `plan_`.
 
         custom_field_responses : typing.Optional[typing.Sequence[CreateWaitlistEntriesRequestCustomFieldResponsesItem]]
-            Answers to the plan's checkout questions. Every required question must be answered.
+            Answers to the variant's checkout questions. Every required question must be answered.
 
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
             Custom key-value pairs to store on the signup. Max 50 keys, 100 chars per key, 500 chars per string value. Ignored when the request returns an existing signup.
@@ -340,7 +340,7 @@ class RawWaitlistEntriesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ApproveAllWaitlistEntriesResponse]:
         """
-        Queues approval of every pending signup for an account, optionally narrowed to a plan. Requires plan:waitlist:manage. Paid signups may charge saved payment methods. Approval runs asynchronously: list signups with `status` set to `pending` to follow progress, and retrieve a signup to read its outcome. Signups created after this request are excluded.
+        Queues approval of every pending signup for an account, optionally narrowed to a variant. Requires plan:waitlist:manage. Paid signups may charge saved payment methods. Approval runs asynchronously: list signups with `status` set to `pending` to follow progress, and retrieve a signup to read its outcome. Signups created after this request are excluded.
 
         Parameters
         ----------
@@ -348,7 +348,7 @@ class RawWaitlistEntriesClient:
             The seller account whose pending signups to approve, prefixed `biz_`.
 
         plan_id : typing.Optional[str]
-            Only approve signups for this plan, prefixed `plan_`. Omit to include every waitlist plan on the account.
+            Only approve signups for this variant, prefixed `plan_`. Omit to include every waitlist variant on the account.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -825,13 +825,13 @@ class AsyncRawWaitlistEntriesClient:
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         plan_id : typing.Optional[str]
-            Only return signups for this plan, prefixed `plan_`.
+            Only return signups for this variant, prefixed `plan_`.
 
         account_id : typing.Optional[str]
             Only return signups submitted to this seller account, prefixed `biz_`.
 
         product_id : typing.Optional[str]
-            Only return signups for plans on this product, prefixed `prod_`.
+            Only return signups for variants on this product, prefixed `prod_`.
 
         status : typing.Optional[ListWaitlistEntriesRequestStatus]
             Only return signups in this state. Canceled signups are returned only when `status` is `canceled`.
@@ -974,15 +974,15 @@ class AsyncRawWaitlistEntriesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[WaitlistEntry]:
         """
-        Joins a free waitlist plan as the authenticated user. Requires waitlist_entry:create. Repeated joins return the existing pending entry, or an approved entry with a valid membership. Paid plans are rejected; no payment method is collected and no membership is granted.
+        Joins a free waitlist variant as the authenticated user. Requires waitlist_entry:create. Repeated joins return the existing pending entry, or an approved entry with a valid membership. Paid variants are rejected; no payment method is collected and no membership is granted.
 
         Parameters
         ----------
         plan_id : str
-            The free waitlist plan to join, prefixed `plan_`.
+            The free waitlist variant to join, prefixed `plan_`.
 
         custom_field_responses : typing.Optional[typing.Sequence[CreateWaitlistEntriesRequestCustomFieldResponsesItem]]
-            Answers to the plan's checkout questions. Every required question must be answered.
+            Answers to the variant's checkout questions. Every required question must be answered.
 
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
             Custom key-value pairs to store on the signup. Max 50 keys, 100 chars per key, 500 chars per string value. Ignored when the request returns an existing signup.
@@ -1096,7 +1096,7 @@ class AsyncRawWaitlistEntriesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ApproveAllWaitlistEntriesResponse]:
         """
-        Queues approval of every pending signup for an account, optionally narrowed to a plan. Requires plan:waitlist:manage. Paid signups may charge saved payment methods. Approval runs asynchronously: list signups with `status` set to `pending` to follow progress, and retrieve a signup to read its outcome. Signups created after this request are excluded.
+        Queues approval of every pending signup for an account, optionally narrowed to a variant. Requires plan:waitlist:manage. Paid signups may charge saved payment methods. Approval runs asynchronously: list signups with `status` set to `pending` to follow progress, and retrieve a signup to read its outcome. Signups created after this request are excluded.
 
         Parameters
         ----------
@@ -1104,7 +1104,7 @@ class AsyncRawWaitlistEntriesClient:
             The seller account whose pending signups to approve, prefixed `biz_`.
 
         plan_id : typing.Optional[str]
-            Only approve signups for this plan, prefixed `plan_`. Omit to include every waitlist plan on the account.
+            Only approve signups for this variant, prefixed `plan_`. Omit to include every waitlist variant on the account.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

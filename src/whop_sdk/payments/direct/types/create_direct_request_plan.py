@@ -12,12 +12,12 @@ from .create_direct_request_plan_visibility import CreateDirectRequestPlanVisibi
 
 class CreateDirectRequestPlan(UniversalBaseModel):
     """
-    Find or create a plan for this payment. Mutually exclusive with `plan_id` and `line_items`. Creating a plan requires plan:create; creating or updating a product requires the corresponding product permission.
+    Find or create a variant for this payment through the compatibility input `plan`. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
     """
 
     application_fee_amount: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Application fee collected by the platform in the plan currency (5.00 means $5.00 for USD). Must be positive and below the initial price for one-time plans or renewal price for recurring plans. Paid to the parent account alongside other processing fees; collection is capped to remaining proceeds. Applies to subsequent payments on recurring plans. Only valid for connected accounts with a parent account.
+    Application fee collected by the platform in the variant currency (5.00 means $5.00 for USD). Must be positive and below the initial price for one-time variants or renewal price for recurring variants. Paid to the parent account alongside other processing fees; collection is capped to remaining proceeds. Applies to subsequent payments on recurring variants. Only valid for connected accounts with a parent account.
     """
 
     billing_period: typing.Optional[int] = pydantic.Field(default=None)
@@ -27,12 +27,12 @@ class CreateDirectRequestPlan(UniversalBaseModel):
 
     currency: CreateDirectRequestPlanCurrency = pydantic.Field()
     """
-    Currency code for the plan prices.
+    Currency code for the variant prices.
     """
 
     description: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Plan description.
+    Variant description.
     """
 
     expiration_days: typing.Optional[int] = pydantic.Field(default=None)
@@ -42,12 +42,12 @@ class CreateDirectRequestPlan(UniversalBaseModel):
 
     force_create_new_plan: typing.Optional[bool] = pydantic.Field(default=None)
     """
-    Create a new plan instead of reusing a matching plan.
+    Create a new variant instead of reusing a matching variant.
     """
 
     initial_price: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Additional amount charged on the first purchase, in the plan currency. For recurring plans without a trial, the first charge includes this amount plus renewal_price.
+    Additional amount charged on the first purchase, in the variant currency. For recurring variants without a trial, the first charge includes this amount plus renewal_price.
     """
 
     internal_notes: typing.Optional[str] = pydantic.Field(default=None)
@@ -57,7 +57,7 @@ class CreateDirectRequestPlan(UniversalBaseModel):
 
     plan_type: typing.Optional[CreateDirectRequestPlanPlanType] = pydantic.Field(default=None)
     """
-    Billing model for the plan.
+    Billing model for the variant.
     """
 
     product: typing.Optional[CreateDirectRequestPlanProduct] = pydantic.Field(default=None)
@@ -72,12 +72,12 @@ class CreateDirectRequestPlan(UniversalBaseModel):
 
     renewal_price: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Recurring price in the plan currency.
+    Recurring price in the variant currency.
     """
 
     title: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Plan title.
+    Variant title.
     """
 
     trial_period_days: typing.Optional[int] = pydantic.Field(default=None)
@@ -87,7 +87,7 @@ class CreateDirectRequestPlan(UniversalBaseModel):
 
     visibility: typing.Optional[CreateDirectRequestPlanVisibility] = pydantic.Field(default=None)
     """
-    Whether the plan is visible to customers.
+    Whether the variant is visible to customers.
     """
 
     if IS_PYDANTIC_V2:

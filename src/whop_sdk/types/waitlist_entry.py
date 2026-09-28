@@ -17,7 +17,7 @@ class WaitlistEntry(UniversalBaseModel):
 
     approval_failure_reason: typing.Optional[WaitlistEntryApprovalFailureReason] = pydantic.Field(default=None)
     """
-    Why the last approval attempt failed, or `null` when none has. `plan_unavailable` — the plan, product, or seller account was deleted. `already_member` — the user already has a membership on a one-per-user product. `checkout_failed` — checkout failed, usually a declined payment, and the signup was denied. `unknown` — another failure; retry. Cleared when approval is requeued.
+    Why the last approval attempt failed, or `null` when none has. `plan_unavailable` — the variant, product, or seller account was deleted. `already_member` — the user already has a membership on a one-per-user product. `checkout_failed` — checkout failed, usually a declined payment, and the signup was denied. `unknown` — another failure; retry. Cleared when approval is requeued.
     """
 
     buyer_account_id: typing.Optional[str] = pydantic.Field(default=None)
@@ -48,12 +48,12 @@ class WaitlistEntry(UniversalBaseModel):
 
     plan_id: str = pydantic.Field()
     """
-    The plan this signup belongs to, prefixed `plan_`.
+    The variant this signup belongs to, prefixed `plan_`.
     """
 
     product_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The product this signup belongs to, prefixed `prod_`, or `null` when the plan has no product.
+    The product this signup belongs to, prefixed `prod_`, or `null` when the variant has no product.
     """
 
     status: WaitlistEntryStatus = pydantic.Field()

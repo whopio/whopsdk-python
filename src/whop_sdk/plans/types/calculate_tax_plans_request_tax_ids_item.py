@@ -8,15 +8,8 @@ from .calculate_tax_plans_request_tax_ids_item_type import CalculateTaxPlansRequ
 
 
 class CalculateTaxPlansRequestTaxIdsItem(UniversalBaseModel):
-    type: typing.Optional[CalculateTaxPlansRequestTaxIdsItemType] = pydantic.Field(default=None)
-    """
-    Tax ID type, such as `eu_vat` for an EU VAT number.
-    """
-
-    value: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    Tax ID value, for example `DE123456789`.
-    """
+    type: typing.Optional[CalculateTaxPlansRequestTaxIdsItemType] = None
+    value: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

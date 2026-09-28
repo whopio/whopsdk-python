@@ -9,7 +9,7 @@ from ...types.payment_method_types import PaymentMethodTypes
 
 class CreateCheckoutConfigurationsRequestPaymentMethodConfiguration(UniversalBaseModel):
     """
-    Payment method overrides for this checkout. `null` uses the plan or platform defaults.
+    Payment method overrides for this checkout. `null` uses the variant or platform defaults.
     """
 
     disabled: typing.Optional[typing.List[PaymentMethodTypes]] = pydantic.Field(default=None)

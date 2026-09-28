@@ -8,7 +8,7 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 class ListCheckoutConfigurationsResponseDataItemPaymentMethodConfiguration(UniversalBaseModel):
     """
-    Payment method overrides for this checkout. `null` when it uses the plan or platform defaults.
+    Payment method overrides for this checkout. `null` when it uses the variant or platform defaults.
     """
 
     disabled: typing.Optional[typing.List[str]] = pydantic.Field(default=None)

@@ -13,7 +13,7 @@ from .checkout_configuration_plan_visibility import CheckoutConfigurationPlanVis
 class CheckoutConfigurationPlan(UniversalBaseModel):
     adaptive_pricing_enabled: bool = pydantic.Field()
     """
-    Whether this plan accepts local currency payments via adaptive pricing.
+    Whether this variant accepts local currency payments via adaptive pricing.
     """
 
     billing_period: typing.Optional[int] = pydantic.Field(default=None)
@@ -23,32 +23,32 @@ class CheckoutConfigurationPlan(UniversalBaseModel):
 
     currency: str = pydantic.Field()
     """
-    Three-letter ISO currency code for the plan's prices.
+    Three-letter ISO currency code for the variant's prices.
     """
 
     expiration_days: typing.Optional[int] = pydantic.Field(default=None)
     """
-    Access duration in days for expiration-based plans.
+    Access duration in days for expiration-based variants.
     """
 
     id: str = pydantic.Field()
     """
-    Plan ID, prefixed `plan_`.
+    Variant ID, prefixed `plan_`.
     """
 
     initial_price: float = pydantic.Field()
     """
-    Initial purchase price in the plan currency.
+    Initial purchase price in the variant currency.
     """
 
     plan_type: CheckoutConfigurationPlanPlanType = pydantic.Field()
     """
-    Billing model for the plan.
+    Billing model for the variant.
     """
 
     release_method: CheckoutConfigurationPlanReleaseMethod = pydantic.Field()
     """
-    Sales method for the plan.
+    Sales method for the variant.
     """
 
     renewal_price: float = pydantic.Field()
@@ -68,7 +68,7 @@ class CheckoutConfigurationPlan(UniversalBaseModel):
 
     visibility: CheckoutConfigurationPlanVisibility = pydantic.Field()
     """
-    Whether the plan is visible to customers or hidden from public view.
+    Whether the variant is visible to customers or hidden from public view.
     """
 
     if IS_PYDANTIC_V2:

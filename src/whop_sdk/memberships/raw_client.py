@@ -72,7 +72,7 @@ class RawMembershipsClient:
             Filter to memberships of this product (`prod_` tag). Repeat as product_ids[] for several.
 
         plan_id : typing.Optional[str]
-            Filter to memberships of this plan (`plan_` tag). Repeat as plan_ids[] for several.
+            Filter to memberships of this variant (`plan_` tag). Repeat as plan_ids[] for several.
 
         created_after : typing.Optional[str]
             Only memberships created after this ISO 8601 timestamp.
@@ -216,7 +216,7 @@ class RawMembershipsClient:
         self, *, request: InviteMembershipsRequestBody, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[InviteMembershipsResponse]:
         """
-        Sends an email inviting one recipient to join the account through a free plan. Identify the recipient by exactly one of `user_id` or `email`. The invitation is bound to that recipient; after signing in, accepting it immediately grants the membership without checkout. This Experimental endpoint is available only to accounts enabled for membership invitations.
+        Sends an email inviting one recipient to join the account through a free variant. Identify the recipient by exactly one of `user_id` or `email`. The invitation is bound to that recipient; after signing in, accepting it immediately grants the membership without checkout. This Experimental endpoint is available only to accounts enabled for membership invitations.
 
         Parameters
         ----------
@@ -1128,7 +1128,7 @@ class AsyncRawMembershipsClient:
             Filter to memberships of this product (`prod_` tag). Repeat as product_ids[] for several.
 
         plan_id : typing.Optional[str]
-            Filter to memberships of this plan (`plan_` tag). Repeat as plan_ids[] for several.
+            Filter to memberships of this variant (`plan_` tag). Repeat as plan_ids[] for several.
 
         created_after : typing.Optional[str]
             Only memberships created after this ISO 8601 timestamp.
@@ -1275,7 +1275,7 @@ class AsyncRawMembershipsClient:
         self, *, request: InviteMembershipsRequestBody, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[InviteMembershipsResponse]:
         """
-        Sends an email inviting one recipient to join the account through a free plan. Identify the recipient by exactly one of `user_id` or `email`. The invitation is bound to that recipient; after signing in, accepting it immediately grants the membership without checkout. This Experimental endpoint is available only to accounts enabled for membership invitations.
+        Sends an email inviting one recipient to join the account through a free variant. Identify the recipient by exactly one of `user_id` or `email`. The invitation is bound to that recipient; after signing in, accepting it immediately grants the membership without checkout. This Experimental endpoint is available only to accounts enabled for membership invitations.
 
         Parameters
         ----------

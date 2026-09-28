@@ -12,17 +12,17 @@ from .product_public_plan_visibility import ProductPublicPlanVisibility
 class ProductPublicPlan(UniversalBaseModel):
     billing_period: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Number of days between recurring charges, such as 30 for monthly or 365 for annual. `null` for one-time plans.
+    Number of days between recurring charges, such as 30 for monthly or 365 for annual. `null` for one-time variants.
     """
 
     expiration_days: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Access duration in days for expiration-based plans. `null` for plans without an expiration.
+    Access duration in days for expiration-based variants. `null` for variants without an expiration.
     """
 
     id: str = pydantic.Field()
     """
-    Plan ID, prefixed `plan_`.
+    Variant ID, prefixed `plan_`.
     """
 
     initial_price: Money = pydantic.Field()
@@ -32,27 +32,27 @@ class ProductPublicPlan(UniversalBaseModel):
 
     plan_type: ProductPublicPlanPlanType = pydantic.Field()
     """
-    Billing model for this plan: `one_time` or `renewal`.
+    Billing model for this variant: `one_time` or `renewal`.
     """
 
     renewal_price: Money = pydantic.Field()
     """
-    The recurring charge every `billing_period` days. `amount` is `"0.00"` for one-time plans.
+    The recurring charge every `billing_period` days. `amount` is `"0.00"` for one-time variants.
     """
 
     title: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Plan display name shown to customers. `null` if no title has been set.
+    Variant display name shown to customers. `null` if no title has been set.
     """
 
     unlimited_stock: bool = pydantic.Field()
     """
-    Whether the plan has unlimited stock.
+    Whether the variant has unlimited stock.
     """
 
     visibility: ProductPublicPlanVisibility = pydantic.Field()
     """
-    Where this plan can be seen. `visible` plans appear on the product page.
+    Where this variant can be seen. `visible` variants appear on the product page.
     """
 
     if IS_PYDANTIC_V2:

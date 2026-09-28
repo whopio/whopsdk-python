@@ -51,7 +51,7 @@ class LedgerActivityPayment(UniversalBaseModel):
 
     plan: typing.Optional[LedgerActivityPaymentPlan] = pydantic.Field(default=None)
     """
-    Plan associated with the payment, when applicable.
+    Variant associated with the payment, when applicable.
     """
 
     product: typing.Optional[LedgerActivityPaymentProduct] = pydantic.Field(default=None)

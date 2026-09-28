@@ -61,7 +61,7 @@ class CheckoutConfigurationsClient:
             Account ID, prefixed `biz_`.
 
         plan_id : typing.Optional[str]
-            Only return checkout configurations for this plan ID, prefixed `plan_`.
+            Only return checkout configurations for this variant ID, prefixed `plan_`.
 
         created_before : typing.Optional[str]
             Only return checkout configurations created before this ISO 8601 timestamp.
@@ -137,7 +137,7 @@ class CheckoutConfigurationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateCheckoutConfigurationsResponse:
         """
-        Creates a reusable checkout configuration for an existing or inline plan.
+        Creates a reusable checkout configuration for an existing or inline variant.
 
         Parameters
         ----------
@@ -157,19 +157,19 @@ class CheckoutConfigurationsClient:
             Controls whether checkout charges the buyer immediately or saves payment details for later. Defaults to `payment`.
 
         payment_method_configuration : typing.Optional[CreateCheckoutConfigurationsRequestPaymentMethodConfiguration]
-            Payment method overrides for this checkout. `null` uses the plan or platform defaults.
+            Payment method overrides for this checkout. `null` uses the variant or platform defaults.
 
         plan : typing.Optional[CreateCheckoutConfigurationsRequestPlan]
-            Plan attributes used to create or find a plan for this checkout configuration. Mutually exclusive with `plan_id`.
+            Variant attributes used to create or find a variant for this checkout configuration. Mutually exclusive with `plan_id`.
 
         plan_id : typing.Optional[str]
-            Existing plan ID, prefixed `plan_`. Mutually exclusive with `plan`.
+            Existing variant ID, prefixed `plan_`. Mutually exclusive with `plan`.
 
         redirect_url : typing.Optional[str]
             URL customers are sent to after checkout.
 
         three_ds_level : typing.Optional[CreateCheckoutConfigurationsRequestThreeDsLevel]
-            3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. Applies in setup mode; `null` uses frictionless 3DS. Payment mode uses the plan policy.
+            3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. Applies in setup mode; `null` uses frictionless 3DS. Payment mode uses the variant policy.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -316,7 +316,7 @@ class AsyncCheckoutConfigurationsClient:
             Account ID, prefixed `biz_`.
 
         plan_id : typing.Optional[str]
-            Only return checkout configurations for this plan ID, prefixed `plan_`.
+            Only return checkout configurations for this variant ID, prefixed `plan_`.
 
         created_before : typing.Optional[str]
             Only return checkout configurations created before this ISO 8601 timestamp.
@@ -401,7 +401,7 @@ class AsyncCheckoutConfigurationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateCheckoutConfigurationsResponse:
         """
-        Creates a reusable checkout configuration for an existing or inline plan.
+        Creates a reusable checkout configuration for an existing or inline variant.
 
         Parameters
         ----------
@@ -421,19 +421,19 @@ class AsyncCheckoutConfigurationsClient:
             Controls whether checkout charges the buyer immediately or saves payment details for later. Defaults to `payment`.
 
         payment_method_configuration : typing.Optional[CreateCheckoutConfigurationsRequestPaymentMethodConfiguration]
-            Payment method overrides for this checkout. `null` uses the plan or platform defaults.
+            Payment method overrides for this checkout. `null` uses the variant or platform defaults.
 
         plan : typing.Optional[CreateCheckoutConfigurationsRequestPlan]
-            Plan attributes used to create or find a plan for this checkout configuration. Mutually exclusive with `plan_id`.
+            Variant attributes used to create or find a variant for this checkout configuration. Mutually exclusive with `plan_id`.
 
         plan_id : typing.Optional[str]
-            Existing plan ID, prefixed `plan_`. Mutually exclusive with `plan`.
+            Existing variant ID, prefixed `plan_`. Mutually exclusive with `plan`.
 
         redirect_url : typing.Optional[str]
             URL customers are sent to after checkout.
 
         three_ds_level : typing.Optional[CreateCheckoutConfigurationsRequestThreeDsLevel]
-            3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. Applies in setup mode; `null` uses frictionless 3DS. Payment mode uses the plan policy.
+            3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. Applies in setup mode; `null` uses frictionless 3DS. Payment mode uses the variant policy.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

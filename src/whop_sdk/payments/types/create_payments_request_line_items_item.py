@@ -9,12 +9,12 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 class CreatePaymentsRequestLineItemsItem(UniversalBaseModel):
     plan_id: str = pydantic.Field()
     """
-    An existing plan to charge for, prefixed `plan_`. Each plan may appear once — use `quantity` for multiple units.
+    An existing variant to charge for, prefixed `plan_`. Each variant may appear once — use `quantity` for multiple units.
     """
 
     quantity: typing.Optional[int] = pydantic.Field(default=None)
     """
-    How many units of the plan to purchase. Defaults to 1; more than 1 requires the plan to allow multiple quantities.
+    How many units of the variant to purchase. Defaults to 1; more than 1 requires the variant to allow multiple quantities.
     """
 
     if IS_PYDANTIC_V2:

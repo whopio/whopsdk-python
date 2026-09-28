@@ -5,7 +5,7 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ...types.plan import Plan
+from ...types.variant import Variant
 from .post_plan_created_payload_api_version import PostPlanCreatedPayloadApiVersion
 from .post_plan_created_payload_type import PostPlanCreatedPayloadType
 
@@ -26,7 +26,7 @@ class PostPlanCreatedPayload(UniversalBaseModel):
     The dated API version (Api-Version-Date) the payload is serialized to
     """
 
-    data: Plan
+    data: Variant
     id: str = pydantic.Field()
     """
     A unique ID for every single webhook request
