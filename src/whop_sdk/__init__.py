@@ -2044,6 +2044,7 @@ if typing.TYPE_CHECKING:
         ListEconomicIntelligenceRequestStatus,
         ListEconomicIntelligenceResponse,
         ListEconomicIntelligenceResponsePageInfo,
+        UpdateEconomicIntelligenceRequestResultPage,
         UpdateEconomicIntelligenceRequestSentiment,
         UpdateEconomicIntelligenceRequestStatus,
     )
@@ -5735,6 +5736,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateDisputesRequestEvidenceDocumentsItemDocumentType": ".disputes",
     "UpdateDisputesRequestEvidenceRefundPolicyAttachment": ".disputes",
     "UpdateDisputesRequestEvidenceUncategorizedAttachment": ".disputes",
+    "UpdateEconomicIntelligenceRequestResultPage": ".economic_intelligence",
     "UpdateEconomicIntelligenceRequestSentiment": ".economic_intelligence",
     "UpdateEconomicIntelligenceRequestStatus": ".economic_intelligence",
     "UpdateExperiencesRequestLogo": ".experiences",
@@ -8666,6 +8668,7 @@ __all__ = [
     "UpdateDisputesRequestEvidenceDocumentsItemDocumentType",
     "UpdateDisputesRequestEvidenceRefundPolicyAttachment",
     "UpdateDisputesRequestEvidenceUncategorizedAttachment",
+    "UpdateEconomicIntelligenceRequestResultPage",
     "UpdateEconomicIntelligenceRequestSentiment",
     "UpdateEconomicIntelligenceRequestStatus",
     "UpdateExperiencesRequestLogo",

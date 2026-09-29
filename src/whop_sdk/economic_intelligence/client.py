@@ -9,6 +9,7 @@ from ..types.economic_intelligence import EconomicIntelligence
 from .raw_client import AsyncRawEconomicIntelligenceClient, RawEconomicIntelligenceClient
 from .types.list_economic_intelligence_request_status import ListEconomicIntelligenceRequestStatus
 from .types.list_economic_intelligence_response import ListEconomicIntelligenceResponse
+from .types.update_economic_intelligence_request_result_page import UpdateEconomicIntelligenceRequestResultPage
 from .types.update_economic_intelligence_request_sentiment import UpdateEconomicIntelligenceRequestSentiment
 from .types.update_economic_intelligence_request_status import UpdateEconomicIntelligenceRequestStatus
 
@@ -110,6 +111,8 @@ class EconomicIntelligenceClient:
         *,
         account_id: typing.Optional[str] = None,
         input: typing.Optional[str] = OMIT,
+        result_id: typing.Optional[str] = OMIT,
+        result_page: typing.Optional[UpdateEconomicIntelligenceRequestResultPage] = OMIT,
         result_url: typing.Optional[str] = OMIT,
         sentiment: typing.Optional[UpdateEconomicIntelligenceRequestSentiment] = OMIT,
         status: typing.Optional[UpdateEconomicIntelligenceRequestStatus] = OMIT,
@@ -117,7 +120,7 @@ class EconomicIntelligenceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> EconomicIntelligence:
         """
-        Updates a recommendation status, records feedback, or both. Send `sentiment` to rate it. Include `status: superseded` to retire a ready recommendation and request replacements; a rating alone leaves its status unchanged. To run a recommendation yourself, send `status: running` to start, then `status: executed` when it is carried out (with `result_url` when there is a result to view) or `status: incomplete` if the run ended without carrying it out. Whop AI reports its own runs the same way. Send `status: acknowledged` once an executed run's result has been seen.
+        Updates a recommendation status, records feedback, or both. Send `sentiment` to rate it. Include `status: superseded` to retire a ready recommendation and request replacements; a rating alone leaves its status unchanged. To run a recommendation yourself, send `status: running` to start, then `status: executed` when it is carried out (with `result_id` naming what it changed, or `result_page` naming where it worked, so the result links there) or `status: incomplete` if the run ended without carrying it out. Whop AI reports its own runs the same way. Send `status: acknowledged` once an executed run's result has been seen.
 
         Parameters
         ----------
@@ -130,8 +133,14 @@ class EconomicIntelligenceClient:
         input : typing.Optional[str]
             What you want the replacement recommendation for, in your own words. Up to 1000 characters. Sent when superseding, it directs the generation that replaces the rejected recommendation.
 
+        result_id : typing.Optional[str]
+            With `status: executed`, the ID of what the run produced or changed, and the recommendation's `result_url` becomes where to view it: an ad (`ad_`), ad group (`adgrp_`) or ad campaign (`adcamp_`), a website (`app_`), a product (`prod_`), a plan (`plan_`), a checkout link (`ch_`), a promo code (`promo_`), or an experience (`exp_`). Without `result_id` or `result_page`, `result_url` links to the resource the recommendation was about, when it names one. Send only one of `result_id`, `result_page` and `result_url`.
+
+        result_page : typing.Optional[UpdateEconomicIntelligenceRequestResultPage]
+            With `status: executed`, the page where the run's result can be seen when it is not one resource, such as the checkout links list or the store page. The recommendation's `result_url` becomes that page on the account's dashboard, or its store page for `store_page`.
+
         result_url : typing.Optional[str]
-            With `status: executed`, where to view what was produced, such as the published website or created product. An http or https URL.
+            With `status: executed`, where to view what was produced when it is outside Whop. An http or https URL. Prefer `result_id` for anything on Whop.
 
         sentiment : typing.Optional[UpdateEconomicIntelligenceRequestSentiment]
             A signed-in user can rate a recommendation as `positive` or `negative`. Can be sent alone or together with status.
@@ -167,6 +176,8 @@ class EconomicIntelligenceClient:
             id,
             account_id=account_id,
             input=input,
+            result_id=result_id,
+            result_page=result_page,
             result_url=result_url,
             sentiment=sentiment,
             status=status,
@@ -279,6 +290,8 @@ class AsyncEconomicIntelligenceClient:
         *,
         account_id: typing.Optional[str] = None,
         input: typing.Optional[str] = OMIT,
+        result_id: typing.Optional[str] = OMIT,
+        result_page: typing.Optional[UpdateEconomicIntelligenceRequestResultPage] = OMIT,
         result_url: typing.Optional[str] = OMIT,
         sentiment: typing.Optional[UpdateEconomicIntelligenceRequestSentiment] = OMIT,
         status: typing.Optional[UpdateEconomicIntelligenceRequestStatus] = OMIT,
@@ -286,7 +299,7 @@ class AsyncEconomicIntelligenceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> EconomicIntelligence:
         """
-        Updates a recommendation status, records feedback, or both. Send `sentiment` to rate it. Include `status: superseded` to retire a ready recommendation and request replacements; a rating alone leaves its status unchanged. To run a recommendation yourself, send `status: running` to start, then `status: executed` when it is carried out (with `result_url` when there is a result to view) or `status: incomplete` if the run ended without carrying it out. Whop AI reports its own runs the same way. Send `status: acknowledged` once an executed run's result has been seen.
+        Updates a recommendation status, records feedback, or both. Send `sentiment` to rate it. Include `status: superseded` to retire a ready recommendation and request replacements; a rating alone leaves its status unchanged. To run a recommendation yourself, send `status: running` to start, then `status: executed` when it is carried out (with `result_id` naming what it changed, or `result_page` naming where it worked, so the result links there) or `status: incomplete` if the run ended without carrying it out. Whop AI reports its own runs the same way. Send `status: acknowledged` once an executed run's result has been seen.
 
         Parameters
         ----------
@@ -299,8 +312,14 @@ class AsyncEconomicIntelligenceClient:
         input : typing.Optional[str]
             What you want the replacement recommendation for, in your own words. Up to 1000 characters. Sent when superseding, it directs the generation that replaces the rejected recommendation.
 
+        result_id : typing.Optional[str]
+            With `status: executed`, the ID of what the run produced or changed, and the recommendation's `result_url` becomes where to view it: an ad (`ad_`), ad group (`adgrp_`) or ad campaign (`adcamp_`), a website (`app_`), a product (`prod_`), a plan (`plan_`), a checkout link (`ch_`), a promo code (`promo_`), or an experience (`exp_`). Without `result_id` or `result_page`, `result_url` links to the resource the recommendation was about, when it names one. Send only one of `result_id`, `result_page` and `result_url`.
+
+        result_page : typing.Optional[UpdateEconomicIntelligenceRequestResultPage]
+            With `status: executed`, the page where the run's result can be seen when it is not one resource, such as the checkout links list or the store page. The recommendation's `result_url` becomes that page on the account's dashboard, or its store page for `store_page`.
+
         result_url : typing.Optional[str]
-            With `status: executed`, where to view what was produced, such as the published website or created product. An http or https URL.
+            With `status: executed`, where to view what was produced when it is outside Whop. An http or https URL. Prefer `result_id` for anything on Whop.
 
         sentiment : typing.Optional[UpdateEconomicIntelligenceRequestSentiment]
             A signed-in user can rate a recommendation as `positive` or `negative`. Can be sent alone or together with status.
@@ -344,6 +363,8 @@ class AsyncEconomicIntelligenceClient:
             id,
             account_id=account_id,
             input=input,
+            result_id=result_id,
+            result_page=result_page,
             result_url=result_url,
             sentiment=sentiment,
             status=status,
