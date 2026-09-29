@@ -212,18 +212,22 @@ class MembershipsClient:
         self,
         id: str,
         *,
+        billing_period_days: typing.Optional[int] = OMIT,
         cancel_at_period_end: typing.Optional[bool] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Membership:
         """
-        Updates a membership: merge metadata key-value pairs, toggle `cancel_at_period_end` — `true` schedules the cancellation for the end of the current billing period, `false` reverses a pending one — or move future renewals to another of the customer's saved payment methods with `payment_method_id`.
+        Updates a membership: merge metadata key-value pairs, toggle `cancel_at_period_end` — `true` schedules the cancellation for the end of the current billing period, `false` reverses a pending one — or move future renewals to another of the customer's saved payment methods with `payment_method_id`, or set `billing_period_days` to change renewal cadence for an active, trialing, or past-due membership billed automatically by Whop. The current period end moves to the current period start plus the requested number of days, and future renewals use the same cadence. Invoice, externally billed, and canceling memberships are not supported.
 
         Parameters
         ----------
         id : str
             Membership ID (`mem_` tag), or a software license key.
+
+        billing_period_days : typing.Optional[int]
+            Number of days between recurring charges. Sets the current period end to the current period start plus this value and applies to every recurring variant. The new period end must remain in the future. Existing non-daily memberships cannot be changed to daily billing.
 
         cancel_at_period_end : typing.Optional[bool]
             `true` cancels at the end of the current billing period (the customer keeps access until then); `false` reverses a pending cancellation.
@@ -253,10 +257,12 @@ class MembershipsClient:
         )
         client.memberships.update(
             id="id",
+            billing_period_days=45,
         )
         """
         _response = self._raw_client.update(
             id,
+            billing_period_days=billing_period_days,
             cancel_at_period_end=cancel_at_period_end,
             metadata=metadata,
             payment_method_id=payment_method_id,
@@ -745,18 +751,22 @@ class AsyncMembershipsClient:
         self,
         id: str,
         *,
+        billing_period_days: typing.Optional[int] = OMIT,
         cancel_at_period_end: typing.Optional[bool] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Membership:
         """
-        Updates a membership: merge metadata key-value pairs, toggle `cancel_at_period_end` — `true` schedules the cancellation for the end of the current billing period, `false` reverses a pending one — or move future renewals to another of the customer's saved payment methods with `payment_method_id`.
+        Updates a membership: merge metadata key-value pairs, toggle `cancel_at_period_end` — `true` schedules the cancellation for the end of the current billing period, `false` reverses a pending one — or move future renewals to another of the customer's saved payment methods with `payment_method_id`, or set `billing_period_days` to change renewal cadence for an active, trialing, or past-due membership billed automatically by Whop. The current period end moves to the current period start plus the requested number of days, and future renewals use the same cadence. Invoice, externally billed, and canceling memberships are not supported.
 
         Parameters
         ----------
         id : str
             Membership ID (`mem_` tag), or a software license key.
+
+        billing_period_days : typing.Optional[int]
+            Number of days between recurring charges. Sets the current period end to the current period start plus this value and applies to every recurring variant. The new period end must remain in the future. Existing non-daily memberships cannot be changed to daily billing.
 
         cancel_at_period_end : typing.Optional[bool]
             `true` cancels at the end of the current billing period (the customer keeps access until then); `false` reverses a pending cancellation.
@@ -791,6 +801,7 @@ class AsyncMembershipsClient:
         async def main() -> None:
             await client.memberships.update(
                 id="id",
+                billing_period_days=45,
             )
 
 
@@ -798,6 +809,7 @@ class AsyncMembershipsClient:
         """
         _response = await self._raw_client.update(
             id,
+            billing_period_days=billing_period_days,
             cancel_at_period_end=cancel_at_period_end,
             metadata=metadata,
             payment_method_id=payment_method_id,

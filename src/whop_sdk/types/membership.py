@@ -15,6 +15,11 @@ class Membership(UniversalBaseModel):
     The account (seller) this membership belongs to.
     """
 
+    billing_period_days: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Number of days between recurring charges. `null` for non-renewing memberships or memberships with multiple renewal schedules.
+    """
+
     cancel_at_period_end: bool = pydantic.Field()
     """
     Whether the membership is set to cancel when the current billing period ends. Only meaningful for recurring variants.
