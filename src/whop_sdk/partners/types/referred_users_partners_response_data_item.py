@@ -14,12 +14,12 @@ from .referred_users_partners_response_data_item_user import ReferredUsersPartne
 class ReferredUsersPartnersResponseDataItem(UniversalBaseModel):
     business_count: int = pydantic.Field()
     """
-    Number of active businesses this user referred that credit the caller as a second-tier partner. Excludes deleted businesses.
+    Number of active businesses this user referred that credit the caller as a second-tier partner, or any earning partner in global mode. An earning-partner filter narrows the count to that partner. Excludes deleted businesses.
     """
 
     earnings: Money = pydantic.Field()
     """
-    The caller's total pending and completed affiliate earnings from this referred user across all tiers, in USD. Includes historical earnings from removed referrals and deleted businesses.
+    Total pending and completed affiliate earnings from this user for their current primary referrer, across all tiers, in USD. Includes historical earnings from removed referrals and deleted businesses.
     """
 
     joined_at: dt.datetime = pydantic.Field()
