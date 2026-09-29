@@ -6,6 +6,7 @@ import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .leaderboard_partners_response_leaders_item import LeaderboardPartnersResponseLeadersItem
 from .leaderboard_partners_response_me import LeaderboardPartnersResponseMe
+from .leaderboard_partners_response_nearby_item import LeaderboardPartnersResponseNearbyItem
 
 
 class LeaderboardPartnersResponse(UniversalBaseModel):
@@ -17,6 +18,11 @@ class LeaderboardPartnersResponse(UniversalBaseModel):
     me: typing.Optional[LeaderboardPartnersResponseMe] = pydantic.Field(default=None)
     """
     The caller's own standing; null when the caller has no referral earnings.
+    """
+
+    nearby: typing.List[LeaderboardPartnersResponseNearbyItem] = pydantic.Field()
+    """
+    The referrers ranked within five places of the caller, including the caller, best first. Empty when the caller has no referral earnings or is anonymous.
     """
 
     if IS_PYDANTIC_V2:

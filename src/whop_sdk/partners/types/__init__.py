@@ -17,6 +17,11 @@ if typing.TYPE_CHECKING:
     from .leaderboard_partners_response_me import LeaderboardPartnersResponseMe
     from .leaderboard_partners_response_me_user import LeaderboardPartnersResponseMeUser
     from .leaderboard_partners_response_me_user_profile_picture import LeaderboardPartnersResponseMeUserProfilePicture
+    from .leaderboard_partners_response_nearby_item import LeaderboardPartnersResponseNearbyItem
+    from .leaderboard_partners_response_nearby_item_user import LeaderboardPartnersResponseNearbyItemUser
+    from .leaderboard_partners_response_nearby_item_user_profile_picture import (
+        LeaderboardPartnersResponseNearbyItemUserProfilePicture,
+    )
     from .referred_users_partners_request_direction import ReferredUsersPartnersRequestDirection
     from .referred_users_partners_request_order import ReferredUsersPartnersRequestOrder
     from .referred_users_partners_response import ReferredUsersPartnersResponse
@@ -36,6 +41,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LeaderboardPartnersResponseMe": ".leaderboard_partners_response_me",
     "LeaderboardPartnersResponseMeUser": ".leaderboard_partners_response_me_user",
     "LeaderboardPartnersResponseMeUserProfilePicture": ".leaderboard_partners_response_me_user_profile_picture",
+    "LeaderboardPartnersResponseNearbyItem": ".leaderboard_partners_response_nearby_item",
+    "LeaderboardPartnersResponseNearbyItemUser": ".leaderboard_partners_response_nearby_item_user",
+    "LeaderboardPartnersResponseNearbyItemUserProfilePicture": ".leaderboard_partners_response_nearby_item_user_profile_picture",
     "ReferredUsersPartnersRequestDirection": ".referred_users_partners_request_direction",
     "ReferredUsersPartnersRequestOrder": ".referred_users_partners_request_order",
     "ReferredUsersPartnersResponse": ".referred_users_partners_response",
@@ -77,6 +85,9 @@ __all__ = [
     "LeaderboardPartnersResponseMe",
     "LeaderboardPartnersResponseMeUser",
     "LeaderboardPartnersResponseMeUserProfilePicture",
+    "LeaderboardPartnersResponseNearbyItem",
+    "LeaderboardPartnersResponseNearbyItemUser",
+    "LeaderboardPartnersResponseNearbyItemUserProfilePicture",
     "ReferredUsersPartnersRequestDirection",
     "ReferredUsersPartnersRequestOrder",
     "ReferredUsersPartnersResponse",
