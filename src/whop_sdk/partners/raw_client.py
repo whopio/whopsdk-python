@@ -21,6 +21,8 @@ from ..types.v1error_response import V1ErrorResponse
 from .types.create_partners_response import CreatePartnersResponse
 from .types.leaderboard_partners_request_period import LeaderboardPartnersRequestPeriod
 from .types.leaderboard_partners_response import LeaderboardPartnersResponse
+from .types.referred_users_partners_request_direction import ReferredUsersPartnersRequestDirection
+from .types.referred_users_partners_request_order import ReferredUsersPartnersRequestOrder
 from .types.referred_users_partners_response import ReferredUsersPartnersResponse
 from .types.referred_users_partners_response_data_item import ReferredUsersPartnersResponseDataItem
 from pydantic import ValidationError
@@ -171,6 +173,8 @@ class RawPartnersClient:
         query: typing.Optional[str] = None,
         has_businesses: typing.Optional[bool] = None,
         has_earning_businesses: typing.Optional[bool] = None,
+        order: typing.Optional[ReferredUsersPartnersRequestOrder] = None,
+        direction: typing.Optional[ReferredUsersPartnersRequestDirection] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
@@ -178,7 +182,7 @@ class RawPartnersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ReferredUsersPartnersResponseDataItem, ReferredUsersPartnersResponse]:
         """
-        Lists the users the caller referred onto Whop (newest first), each with the second-tier earnings the caller has made from that user's businesses.
+        Lists the users the caller referred onto Whop, newest first by default, each with the caller's total affiliate earnings from that user across all tiers. Earnings sorting uses cached totals.
 
         Parameters
         ----------
@@ -190,6 +194,12 @@ class RawPartnersClient:
 
         has_earning_businesses : typing.Optional[bool]
             When true, only referred users with at least one business that has generated earnings.
+
+        order : typing.Optional[ReferredUsersPartnersRequestOrder]
+            The field to sort by. created_at uses the user's signup date; earnings_usd uses the caller's cached total affiliate earnings from that user.
+
+        direction : typing.Optional[ReferredUsersPartnersRequestDirection]
+            The direction to sort results.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -219,6 +229,8 @@ class RawPartnersClient:
                 "query": query,
                 "has_businesses": has_businesses,
                 "has_earning_businesses": has_earning_businesses,
+                "order": order,
+                "direction": direction,
                 "first": first,
                 "after": after,
                 "last": last,
@@ -245,6 +257,8 @@ class RawPartnersClient:
                         query=query,
                         has_businesses=has_businesses,
                         has_earning_businesses=has_earning_businesses,
+                        order=order,
+                        direction=direction,
                         first=first,
                         after=_parsed_next,
                         last=last,
@@ -252,6 +266,17 @@ class RawPartnersClient:
                         request_options=request_options,
                     )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
@@ -493,6 +518,8 @@ class AsyncRawPartnersClient:
         query: typing.Optional[str] = None,
         has_businesses: typing.Optional[bool] = None,
         has_earning_businesses: typing.Optional[bool] = None,
+        order: typing.Optional[ReferredUsersPartnersRequestOrder] = None,
+        direction: typing.Optional[ReferredUsersPartnersRequestDirection] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
@@ -500,7 +527,7 @@ class AsyncRawPartnersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ReferredUsersPartnersResponseDataItem, ReferredUsersPartnersResponse]:
         """
-        Lists the users the caller referred onto Whop (newest first), each with the second-tier earnings the caller has made from that user's businesses.
+        Lists the users the caller referred onto Whop, newest first by default, each with the caller's total affiliate earnings from that user across all tiers. Earnings sorting uses cached totals.
 
         Parameters
         ----------
@@ -512,6 +539,12 @@ class AsyncRawPartnersClient:
 
         has_earning_businesses : typing.Optional[bool]
             When true, only referred users with at least one business that has generated earnings.
+
+        order : typing.Optional[ReferredUsersPartnersRequestOrder]
+            The field to sort by. created_at uses the user's signup date; earnings_usd uses the caller's cached total affiliate earnings from that user.
+
+        direction : typing.Optional[ReferredUsersPartnersRequestDirection]
+            The direction to sort results.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -541,6 +574,8 @@ class AsyncRawPartnersClient:
                 "query": query,
                 "has_businesses": has_businesses,
                 "has_earning_businesses": has_earning_businesses,
+                "order": order,
+                "direction": direction,
                 "first": first,
                 "after": after,
                 "last": last,
@@ -569,6 +604,8 @@ class AsyncRawPartnersClient:
                             query=query,
                             has_businesses=has_businesses,
                             has_earning_businesses=has_earning_businesses,
+                            order=order,
+                            direction=direction,
                             first=first,
                             after=_parsed_next,
                             last=last,
@@ -577,6 +614,17 @@ class AsyncRawPartnersClient:
                         )
 
                 return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),

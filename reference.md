@@ -27310,7 +27310,7 @@ client.partners.leaderboard()
 <dl>
 <dd>
 
-Lists the users the caller referred onto Whop (newest first), each with the second-tier earnings the caller has made from that user's businesses.
+Lists the users the caller referred onto Whop, newest first by default, each with the caller's total affiliate earnings from that user across all tiers. Earnings sorting uses cached totals.
 </dd>
 </dl>
 </dd>
@@ -27366,6 +27366,22 @@ client.partners.referred_users()
 <dd>
 
 **has_earning_businesses:** `typing.Optional[bool]` — When true, only referred users with at least one business that has generated earnings.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[ReferredUsersPartnersRequestOrder]` — The field to sort by. created_at uses the user's signup date; earnings_usd uses the caller's cached total affiliate earnings from that user.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**direction:** `typing.Optional[ReferredUsersPartnersRequestDirection]` — The direction to sort results.
     
 </dd>
 </dl>

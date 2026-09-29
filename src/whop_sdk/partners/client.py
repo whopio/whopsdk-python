@@ -12,6 +12,8 @@ from .raw_client import AsyncRawPartnersClient, RawPartnersClient
 from .types.create_partners_response import CreatePartnersResponse
 from .types.leaderboard_partners_request_period import LeaderboardPartnersRequestPeriod
 from .types.leaderboard_partners_response import LeaderboardPartnersResponse
+from .types.referred_users_partners_request_direction import ReferredUsersPartnersRequestDirection
+from .types.referred_users_partners_request_order import ReferredUsersPartnersRequestOrder
 from .types.referred_users_partners_response import ReferredUsersPartnersResponse
 from .types.referred_users_partners_response_data_item import ReferredUsersPartnersResponseDataItem
 
@@ -106,6 +108,8 @@ class PartnersClient:
         query: typing.Optional[str] = None,
         has_businesses: typing.Optional[bool] = None,
         has_earning_businesses: typing.Optional[bool] = None,
+        order: typing.Optional[ReferredUsersPartnersRequestOrder] = None,
+        direction: typing.Optional[ReferredUsersPartnersRequestDirection] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
@@ -113,7 +117,7 @@ class PartnersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ReferredUsersPartnersResponseDataItem, ReferredUsersPartnersResponse]:
         """
-        Lists the users the caller referred onto Whop (newest first), each with the second-tier earnings the caller has made from that user's businesses.
+        Lists the users the caller referred onto Whop, newest first by default, each with the caller's total affiliate earnings from that user across all tiers. Earnings sorting uses cached totals.
 
         Parameters
         ----------
@@ -125,6 +129,12 @@ class PartnersClient:
 
         has_earning_businesses : typing.Optional[bool]
             When true, only referred users with at least one business that has generated earnings.
+
+        order : typing.Optional[ReferredUsersPartnersRequestOrder]
+            The field to sort by. created_at uses the user's signup date; earnings_usd uses the caller's cached total affiliate earnings from that user.
+
+        direction : typing.Optional[ReferredUsersPartnersRequestDirection]
+            The direction to sort results.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -166,6 +176,8 @@ class PartnersClient:
             query=query,
             has_businesses=has_businesses,
             has_earning_businesses=has_earning_businesses,
+            order=order,
+            direction=direction,
             first=first,
             after=after,
             last=last,
@@ -318,6 +330,8 @@ class AsyncPartnersClient:
         query: typing.Optional[str] = None,
         has_businesses: typing.Optional[bool] = None,
         has_earning_businesses: typing.Optional[bool] = None,
+        order: typing.Optional[ReferredUsersPartnersRequestOrder] = None,
+        direction: typing.Optional[ReferredUsersPartnersRequestDirection] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
@@ -325,7 +339,7 @@ class AsyncPartnersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ReferredUsersPartnersResponseDataItem, ReferredUsersPartnersResponse]:
         """
-        Lists the users the caller referred onto Whop (newest first), each with the second-tier earnings the caller has made from that user's businesses.
+        Lists the users the caller referred onto Whop, newest first by default, each with the caller's total affiliate earnings from that user across all tiers. Earnings sorting uses cached totals.
 
         Parameters
         ----------
@@ -337,6 +351,12 @@ class AsyncPartnersClient:
 
         has_earning_businesses : typing.Optional[bool]
             When true, only referred users with at least one business that has generated earnings.
+
+        order : typing.Optional[ReferredUsersPartnersRequestOrder]
+            The field to sort by. created_at uses the user's signup date; earnings_usd uses the caller's cached total affiliate earnings from that user.
+
+        direction : typing.Optional[ReferredUsersPartnersRequestDirection]
+            The direction to sort results.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -387,6 +407,8 @@ class AsyncPartnersClient:
             query=query,
             has_businesses=has_businesses,
             has_earning_businesses=has_earning_businesses,
+            order=order,
+            direction=direction,
             first=first,
             after=after,
             last=last,

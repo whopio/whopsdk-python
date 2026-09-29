@@ -19,7 +19,7 @@ class ReferredUsersPartnersResponseDataItem(UniversalBaseModel):
 
     earnings: Money = pydantic.Field()
     """
-    The caller's total earnings across the business referrals included in business_count, in USD.
+    The caller's total pending and completed affiliate earnings from this referred user across all tiers, in USD. Includes historical earnings from removed referrals and deleted businesses.
     """
 
     joined_at: dt.datetime = pydantic.Field()
