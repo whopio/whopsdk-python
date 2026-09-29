@@ -24,6 +24,7 @@ PaymentLastPaymentErrorDeclineCode = typing.Union[
         "restricted_card",
         "card_velocity_exceeded",
         "contact_issuer",
+        "card_declined_by_issuer",
         "bank_declined",
         "regulatory_blocked",
         "transaction_not_permitted",
