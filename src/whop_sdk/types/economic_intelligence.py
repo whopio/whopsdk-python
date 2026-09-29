@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .economic_intelligence_input import EconomicIntelligenceInput
 from .economic_intelligence_operation import EconomicIntelligenceOperation
 from .economic_intelligence_sentiment import EconomicIntelligenceSentiment
 from .economic_intelligence_status import EconomicIntelligenceStatus
@@ -51,6 +52,7 @@ class EconomicIntelligence(UniversalBaseModel):
     What you requested, in your own words, or `null` for recommendations generated without your input.
     """
 
+    inputs: typing.List[EconomicIntelligenceInput]
     prompt: typing.Optional[str] = pydantic.Field(default=None)
     """
     Step-by-step instructions for Whop AI, or `null` when no instructions are available.
