@@ -16,6 +16,7 @@ PaymentTransactionTypes = typing.Union[
         "fraud_screening",
         "authorization",
         "installment",
+        "deposit",
     ],
     typing.Any,
 ]
