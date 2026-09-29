@@ -11,9 +11,9 @@ class SummaryDisputesResponseGroupsStatus(UniversalBaseModel):
     How many of the matching disputes are in each status. Every status is present, including those with a count of zero.
     """
 
-    closed: int
     lost: int
     needs_response: int
+    prevented: int
     under_review: int
     warning_closed: int
     warning_needs_response: int

@@ -7,6 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .payment_instrument import PaymentInstrument
 from .payment_method_types import PaymentMethodTypes
 from .setup_intent_status import SetupIntentStatus
+from .setup_intent_three_ds_level import SetupIntentThreeDsLevel
 from .setup_last_setup_error import SetupLastSetupError
 from .user_summary import UserSummary
 
@@ -75,6 +76,11 @@ class SetupIntent(UniversalBaseModel):
     status: SetupIntentStatus = pydantic.Field()
     """
     How far the setup has got. **A 201 or 200 means we answered, not that the method was saved — always branch on this.** `requires_action` — the buyer has a step outstanding; hand `client_secret` to the elements or poll Retrieve setup status. `processing` — the processor is deciding. `succeeded` — the method is saved, and only this one means saved. `canceled` — abandoned or refused; see `last_setup_error`.
+    """
+
+    three_ds_level: typing.Optional[SetupIntentThreeDsLevel] = pydantic.Field(default=None)
+    """
+    3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. The setting requested for this setup, or `null` when unset.
     """
 
     three_ds_verified: bool = pydantic.Field()

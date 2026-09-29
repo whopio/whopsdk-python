@@ -10,7 +10,7 @@ DisputeStatus = typing.Union[
         "warning_under_review",
         "won",
         "lost",
-        "closed",
+        "prevented",
         "warning_closed",
     ],
     typing.Any,
