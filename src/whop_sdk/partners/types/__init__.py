@@ -17,6 +17,8 @@ if typing.TYPE_CHECKING:
     from .leaderboard_partners_response_me import LeaderboardPartnersResponseMe
     from .leaderboard_partners_response_me_user import LeaderboardPartnersResponseMeUser
     from .leaderboard_partners_response_me_user_profile_picture import LeaderboardPartnersResponseMeUserProfilePicture
+    from .referred_users_partners_request_direction import ReferredUsersPartnersRequestDirection
+    from .referred_users_partners_request_order import ReferredUsersPartnersRequestOrder
     from .referred_users_partners_response import ReferredUsersPartnersResponse
     from .referred_users_partners_response_data_item import ReferredUsersPartnersResponseDataItem
     from .referred_users_partners_response_data_item_user import ReferredUsersPartnersResponseDataItemUser
@@ -34,6 +36,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LeaderboardPartnersResponseMe": ".leaderboard_partners_response_me",
     "LeaderboardPartnersResponseMeUser": ".leaderboard_partners_response_me_user",
     "LeaderboardPartnersResponseMeUserProfilePicture": ".leaderboard_partners_response_me_user_profile_picture",
+    "ReferredUsersPartnersRequestDirection": ".referred_users_partners_request_direction",
+    "ReferredUsersPartnersRequestOrder": ".referred_users_partners_request_order",
     "ReferredUsersPartnersResponse": ".referred_users_partners_response",
     "ReferredUsersPartnersResponseDataItem": ".referred_users_partners_response_data_item",
     "ReferredUsersPartnersResponseDataItemUser": ".referred_users_partners_response_data_item_user",
@@ -73,6 +77,8 @@ __all__ = [
     "LeaderboardPartnersResponseMe",
     "LeaderboardPartnersResponseMeUser",
     "LeaderboardPartnersResponseMeUserProfilePicture",
+    "ReferredUsersPartnersRequestDirection",
+    "ReferredUsersPartnersRequestOrder",
     "ReferredUsersPartnersResponse",
     "ReferredUsersPartnersResponseDataItem",
     "ReferredUsersPartnersResponseDataItemUser",
