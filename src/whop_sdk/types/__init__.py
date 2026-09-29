@@ -503,6 +503,7 @@ if typing.TYPE_CHECKING:
     from .domain_issue import DomainIssue
     from .domain_status import DomainStatus
     from .economic_intelligence import EconomicIntelligence
+    from .economic_intelligence_input import EconomicIntelligenceInput
     from .economic_intelligence_operation import EconomicIntelligenceOperation
     from .economic_intelligence_sentiment import EconomicIntelligenceSentiment
     from .economic_intelligence_status import EconomicIntelligenceStatus
@@ -1917,6 +1918,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DomainIssue": ".domain_issue",
     "DomainStatus": ".domain_status",
     "EconomicIntelligence": ".economic_intelligence",
+    "EconomicIntelligenceInput": ".economic_intelligence_input",
     "EconomicIntelligenceOperation": ".economic_intelligence_operation",
     "EconomicIntelligenceSentiment": ".economic_intelligence_sentiment",
     "EconomicIntelligenceStatus": ".economic_intelligence_status",
@@ -3233,6 +3235,7 @@ __all__ = [
     "DomainIssue",
     "DomainStatus",
     "EconomicIntelligence",
+    "EconomicIntelligenceInput",
     "EconomicIntelligenceOperation",
     "EconomicIntelligenceSentiment",
     "EconomicIntelligenceStatus",
