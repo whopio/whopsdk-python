@@ -90,6 +90,11 @@ class Membership(UniversalBaseModel):
     Billing state of the membership. `active`/`trialing` memberships grant access; `past_due` is the grace period after a failed payment; `completed` one-time purchases keep access; `canceled`/`expired` do not.
     """
 
+    updated_at: str = pydantic.Field()
+    """
+    When the membership was last changed, as an ISO 8601 timestamp. Reflects the most recent change to the membership itself, so you can reconcile against webhook retries, replays, and backfills.
+    """
+
     user_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The buyer, prefixed `user_`. `null` when the buyer is another business or the membership is unclaimed.
