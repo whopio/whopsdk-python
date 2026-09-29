@@ -294,6 +294,11 @@ class PaymentLegacy(UniversalBaseModel):
     The shipping address provided by the customer for physical goods. Null if no shipping address was collected.
     """
 
+    sku: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The stock keeping unit of the variant this payment charged for (the first item, on a cart), as set by the seller. Accounts with billing-reason SKU suffixes enabled receive it stamped with why the charge happened: `-S` for a first subscription charge, `-R` for a renewal, `-C` for a one-time purchase, `-U` when the payment's own metadata carries `upsell: true`, `-F` when nothing was charged. Other billing reasons carry the bare SKU. Null when the variant has no SKU.
+    """
+
     status: typing.Optional[ReceiptStatus] = pydantic.Field(default=None)
     """
     The current lifecycle state of this payment (e.g., 'draft', 'open', 'paid', 'void').
