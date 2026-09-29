@@ -33,6 +33,11 @@ from .user_summary import UserSummary
 
 
 class Account(UniversalBaseModel):
+    ads_spend_usd: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Lifetime charged ad spend for the account, in USD. Computed only on `list` for callers with `stats:read` on the account; `null` otherwise.
+    """
+
     balances: typing.List[AccountBalanceToken]
     banner_image_url: typing.Optional[str] = pydantic.Field(default=None)
     """
