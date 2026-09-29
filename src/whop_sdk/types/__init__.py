@@ -1280,6 +1280,7 @@ if typing.TYPE_CHECKING:
     from .setup_intent_list_item_payment_method_mailing_address import SetupIntentListItemPaymentMethodMailingAddress
     from .setup_intent_status import SetupIntentStatus
     from .setup_intent_statuses import SetupIntentStatuses
+    from .setup_intent_three_ds_level import SetupIntentThreeDsLevel
     from .setup_last_setup_error import SetupLastSetupError
     from .setup_status import SetupStatus
     from .setup_status_status import SetupStatusStatus
@@ -2573,6 +2574,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SetupIntentListItemPaymentMethodMailingAddress": ".setup_intent_list_item_payment_method_mailing_address",
     "SetupIntentStatus": ".setup_intent_status",
     "SetupIntentStatuses": ".setup_intent_statuses",
+    "SetupIntentThreeDsLevel": ".setup_intent_three_ds_level",
     "SetupLastSetupError": ".setup_last_setup_error",
     "SetupStatus": ".setup_status",
     "SetupStatusStatus": ".setup_status_status",
@@ -3888,6 +3890,7 @@ __all__ = [
     "SetupIntentListItemPaymentMethodMailingAddress",
     "SetupIntentStatus",
     "SetupIntentStatuses",
+    "SetupIntentThreeDsLevel",
     "SetupLastSetupError",
     "SetupStatus",
     "SetupStatusStatus",
