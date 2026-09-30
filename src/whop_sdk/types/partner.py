@@ -25,6 +25,11 @@ class Partner(UniversalBaseModel):
     Number of active first-tier business referrals attributed to the partner, excluding deleted businesses.
     """
 
+    referring_partner: typing.Optional[UserSummary] = pydantic.Field(default=None)
+    """
+    The user currently attributed as this user's primary referrer. Null when there is no active primary referral.
+    """
+
     user: UserSummary = pydantic.Field()
     """
     The authenticated partner's public profile.
