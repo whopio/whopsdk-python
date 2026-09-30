@@ -556,6 +556,13 @@ if typing.TYPE_CHECKING:
     from .file_multipart_url import FileMultipartUrl
     from .file_upload_status import FileUploadStatus
     from .file_visibility import FileVisibility
+    from .financing_application import FinancingApplication
+    from .financing_application_status import FinancingApplicationStatus
+    from .financing_requirement import FinancingRequirement
+    from .financing_requirement_file_collection_type import FinancingRequirementFileCollectionType
+    from .financing_requirement_text_collection_type import FinancingRequirementTextCollectionType
+    from .financing_requirement_text_format import FinancingRequirementTextFormat
+    from .financing_terms import FinancingTerms
     from .forbidden_error_body import ForbiddenErrorBody
     from .forbidden_error_body_error import ForbiddenErrorBodyError
     from .forum import Forum
@@ -1970,6 +1977,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "FileMultipartUrl": ".file_multipart_url",
     "FileUploadStatus": ".file_upload_status",
     "FileVisibility": ".file_visibility",
+    "FinancingApplication": ".financing_application",
+    "FinancingApplicationStatus": ".financing_application_status",
+    "FinancingRequirement": ".financing_requirement",
+    "FinancingRequirementFileCollectionType": ".financing_requirement_file_collection_type",
+    "FinancingRequirementTextCollectionType": ".financing_requirement_text_collection_type",
+    "FinancingRequirementTextFormat": ".financing_requirement_text_format",
+    "FinancingTerms": ".financing_terms",
     "ForbiddenErrorBody": ".forbidden_error_body",
     "ForbiddenErrorBodyError": ".forbidden_error_body_error",
     "Forum": ".forum",
@@ -3288,6 +3302,13 @@ __all__ = [
     "FileMultipartUrl",
     "FileUploadStatus",
     "FileVisibility",
+    "FinancingApplication",
+    "FinancingApplicationStatus",
+    "FinancingRequirement",
+    "FinancingRequirementFileCollectionType",
+    "FinancingRequirementTextCollectionType",
+    "FinancingRequirementTextFormat",
+    "FinancingTerms",
     "ForbiddenErrorBody",
     "ForbiddenErrorBodyError",
     "Forum",
