@@ -17773,7 +17773,7 @@ client.domains.update(
 <dl>
 <dd>
 
-Lists an account's recommendations and generation requests, newest first. Without an account, signed-out visitors receive a business-setup template and eligible users receive their saved setup recommendation.
+Lists an account's recommendations and generation requests, newest first by default. Without an account, signed-out visitors receive a business-setup template and eligible users receive their saved setup recommendation. With `has_run` and no account, users receive the recommendations run on every account they can read.
 </dd>
 </dl>
 </dd>
@@ -17829,6 +17829,30 @@ client.economic_intelligence.list()
 <dd>
 
 **input:** `typing.Optional[str]` — What you want recommendations for, in your own words. Up to 1000 characters. Narrows the list to the recommendations that address it.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**has_run:** `typing.Optional[bool]` — When true, only recommendations someone has started running, by any user. Without `account_id`, covers every account you can read that has Economic Intelligence. Can't be combined with `input`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[ListEconomicIntelligenceRequestOrder]` — Sort field.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**direction:** `typing.Optional[ListEconomicIntelligenceRequestDirection]` — Sort direction.
     
 </dd>
 </dl>

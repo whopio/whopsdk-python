@@ -6,6 +6,8 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .list_economic_intelligence_request_direction import ListEconomicIntelligenceRequestDirection
+    from .list_economic_intelligence_request_order import ListEconomicIntelligenceRequestOrder
     from .list_economic_intelligence_request_status import ListEconomicIntelligenceRequestStatus
     from .list_economic_intelligence_response import ListEconomicIntelligenceResponse
     from .list_economic_intelligence_response_page_info import ListEconomicIntelligenceResponsePageInfo
@@ -13,6 +15,8 @@ if typing.TYPE_CHECKING:
     from .update_economic_intelligence_request_sentiment import UpdateEconomicIntelligenceRequestSentiment
     from .update_economic_intelligence_request_status import UpdateEconomicIntelligenceRequestStatus
 _dynamic_imports: typing.Dict[str, str] = {
+    "ListEconomicIntelligenceRequestDirection": ".list_economic_intelligence_request_direction",
+    "ListEconomicIntelligenceRequestOrder": ".list_economic_intelligence_request_order",
     "ListEconomicIntelligenceRequestStatus": ".list_economic_intelligence_request_status",
     "ListEconomicIntelligenceResponse": ".list_economic_intelligence_response",
     "ListEconomicIntelligenceResponsePageInfo": ".list_economic_intelligence_response_page_info",
@@ -44,6 +48,8 @@ def __dir__():
 
 
 __all__ = [
+    "ListEconomicIntelligenceRequestDirection",
+    "ListEconomicIntelligenceRequestOrder",
     "ListEconomicIntelligenceRequestStatus",
     "ListEconomicIntelligenceResponse",
     "ListEconomicIntelligenceResponsePageInfo",
