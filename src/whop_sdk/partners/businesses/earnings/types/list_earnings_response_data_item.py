@@ -5,6 +5,7 @@ import typing
 
 import pydantic
 from .....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .....types.money import Money
 from .list_earnings_response_data_item_account import ListEarningsResponseDataItemAccount
 from .list_earnings_response_data_item_financial_activity_item import ListEarningsResponseDataItemFinancialActivityItem
 from .list_earnings_response_data_item_income_source import ListEarningsResponseDataItemIncomeSource
@@ -52,6 +53,11 @@ class ListEarningsResponseDataItem(UniversalBaseModel):
     """
 
     product: typing.Optional[ListEarningsResponseDataItemProduct] = None
+    projected_commission_amount_usd: typing.Optional[Money] = pydantic.Field(default=None)
+    """
+    Estimated commission while awaiting settlement. Null when no estimate is available or the earning has settled.
+    """
+
     resource: typing.Optional[ListEarningsResponseDataItemResource] = pydantic.Field(default=None)
     """
     The resource that generated the earning: the customer payment receipt for sales and ad spend earnings, the balance transfer for transfer earnings, the card transaction for card interchange earnings, or the qualifying reward for fixed reward earnings.
