@@ -10,6 +10,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .payment_instructions import PaymentInstructions
 from .payment_next_action_await_confirmation_data import PaymentNextActionAwaitConfirmationData
 from .payment_next_action_await_confirmation_render_item import PaymentNextActionAwaitConfirmationRenderItem
+from .payment_next_action_collect_card_present_data import PaymentNextActionCollectCardPresentData
 from .payment_next_action_display_instructions_render_item import PaymentNextActionDisplayInstructionsRenderItem
 from .payment_next_action_redirect_data import PaymentNextActionRedirectData
 from .payment_next_action_redirect_render_item import PaymentNextActionRedirectRenderItem
@@ -23,6 +24,24 @@ class PaymentNextAction_AwaitConfirmation(UniversalBaseModel):
     type: typing.Literal["await_confirmation"] = "await_confirmation"
     data: PaymentNextActionAwaitConfirmationData
     render: typing.List[PaymentNextActionAwaitConfirmationRenderItem]
+
+    if IS_PYDANTIC_V2:
+        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
+    else:
+
+        class Config:
+            frozen = True
+            smart_union = True
+            extra = pydantic.Extra.allow
+
+
+class PaymentNextAction_CollectCardPresent(UniversalBaseModel):
+    """
+    What the buyer must do to finish. `type` picks the shape and each type carries only its own `data`, so switching on `type` gives you exactly that step's payload.
+    """
+
+    type: typing.Literal["collect_card_present"] = "collect_card_present"
+    data: PaymentNextActionCollectCardPresentData
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
@@ -74,7 +93,10 @@ class PaymentNextAction_Redirect(UniversalBaseModel):
 
 PaymentNextAction = typing_extensions.Annotated[
     typing.Union[
-        PaymentNextAction_AwaitConfirmation, PaymentNextAction_DisplayInstructions, PaymentNextAction_Redirect
+        PaymentNextAction_AwaitConfirmation,
+        PaymentNextAction_CollectCardPresent,
+        PaymentNextAction_DisplayInstructions,
+        PaymentNextAction_Redirect,
     ],
     pydantic.Field(discriminator="type"),
 ]
