@@ -23,6 +23,7 @@ from ..types.payment import Payment
 from ..types.payment_status import PaymentStatus
 from ..types.v1error_response import V1ErrorResponse
 from .types.create_payments_request_line_items_item import CreatePaymentsRequestLineItemsItem
+from .types.create_payments_request_payment_method import CreatePaymentsRequestPaymentMethod
 from .types.create_payments_request_plan import CreatePaymentsRequestPlan
 from .types.create_payments_request_shipping_address import CreatePaymentsRequestShippingAddress
 from .types.list_fees_payments_response import ListFeesPaymentsResponse
@@ -244,6 +245,7 @@ class RawPaymentsClient:
         line_items: typing.Optional[typing.Sequence[CreatePaymentsRequestLineItemsItem]] = OMIT,
         member_id: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
+        payment_method: typing.Optional[CreatePaymentsRequestPaymentMethod] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         plan: typing.Optional[CreatePaymentsRequestPlan] = OMIT,
         plan_id: typing.Optional[str] = OMIT,
@@ -271,7 +273,7 @@ class RawPaymentsClient:
             A confirmation token describing a payment method the buyer just supplied. Provide this instead of `member_id` and `payment_method_id`; the buyer is resolved from the token's billing email, or from `email`. The buyer may still have a step to complete — poll the payment's status for what to do next.
 
         email : typing.Optional[str]
-            Overrides the buyer email carried on the confirmation token, resolving or creating the user the payment belongs to. Ignored unless `confirmation_token` is provided, and when the token was created by a signed-in buyer.
+            The buyer's email, resolving or creating the user the payment belongs to. With `confirmation_token` it overrides the email the token carries, and is ignored when the token was created by a signed-in buyer; with `payment_method` it names a buyer the point of sale already knows, otherwise the sale belongs to a guest until a buyer is attached. Ignored with `member_id`.
 
         line_items : typing.Optional[typing.Sequence[CreatePaymentsRequestLineItemsItem]]
             What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
@@ -281,6 +283,9 @@ class RawPaymentsClient:
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             Custom metadata to attach to the payment.
+
+        payment_method : typing.Optional[CreatePaymentsRequestPaymentMethod]
+            A payment method collected on the seller's device rather than described by a confirmation token. `type` names it and the member named after it carries what the device needs. Today only `card_present` (Tap to Pay): nothing is collected on this call, the payment is created first and the reader then collects against it with the client secret the status endpoint serves in `next_action`. Mutually exclusive with `confirmation_token`, `member_id` and `payment_method_id`.
 
         payment_method_id : typing.Optional[str]
             The stored payment method to charge, prefixed `payt_`. It must belong to the member. Required unless `confirmation_token` is provided.
@@ -328,6 +333,11 @@ class RawPaymentsClient:
                 ),
                 "member_id": member_id,
                 "metadata": metadata,
+                "payment_method": convert_and_respect_annotation_metadata(
+                    object_=payment_method,
+                    annotation=typing.Optional[CreatePaymentsRequestPaymentMethod],
+                    direction="write",
+                ),
                 "payment_method_id": payment_method_id,
                 "plan": convert_and_respect_annotation_metadata(
                     object_=plan, annotation=CreatePaymentsRequestPlan, direction="write"
@@ -1486,6 +1496,7 @@ class AsyncRawPaymentsClient:
         line_items: typing.Optional[typing.Sequence[CreatePaymentsRequestLineItemsItem]] = OMIT,
         member_id: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
+        payment_method: typing.Optional[CreatePaymentsRequestPaymentMethod] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         plan: typing.Optional[CreatePaymentsRequestPlan] = OMIT,
         plan_id: typing.Optional[str] = OMIT,
@@ -1513,7 +1524,7 @@ class AsyncRawPaymentsClient:
             A confirmation token describing a payment method the buyer just supplied. Provide this instead of `member_id` and `payment_method_id`; the buyer is resolved from the token's billing email, or from `email`. The buyer may still have a step to complete — poll the payment's status for what to do next.
 
         email : typing.Optional[str]
-            Overrides the buyer email carried on the confirmation token, resolving or creating the user the payment belongs to. Ignored unless `confirmation_token` is provided, and when the token was created by a signed-in buyer.
+            The buyer's email, resolving or creating the user the payment belongs to. With `confirmation_token` it overrides the email the token carries, and is ignored when the token was created by a signed-in buyer; with `payment_method` it names a buyer the point of sale already knows, otherwise the sale belongs to a guest until a buyer is attached. Ignored with `member_id`.
 
         line_items : typing.Optional[typing.Sequence[CreatePaymentsRequestLineItemsItem]]
             What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
@@ -1523,6 +1534,9 @@ class AsyncRawPaymentsClient:
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             Custom metadata to attach to the payment.
+
+        payment_method : typing.Optional[CreatePaymentsRequestPaymentMethod]
+            A payment method collected on the seller's device rather than described by a confirmation token. `type` names it and the member named after it carries what the device needs. Today only `card_present` (Tap to Pay): nothing is collected on this call, the payment is created first and the reader then collects against it with the client secret the status endpoint serves in `next_action`. Mutually exclusive with `confirmation_token`, `member_id` and `payment_method_id`.
 
         payment_method_id : typing.Optional[str]
             The stored payment method to charge, prefixed `payt_`. It must belong to the member. Required unless `confirmation_token` is provided.
@@ -1570,6 +1584,11 @@ class AsyncRawPaymentsClient:
                 ),
                 "member_id": member_id,
                 "metadata": metadata,
+                "payment_method": convert_and_respect_annotation_metadata(
+                    object_=payment_method,
+                    annotation=typing.Optional[CreatePaymentsRequestPaymentMethod],
+                    direction="write",
+                ),
                 "payment_method_id": payment_method_id,
                 "plan": convert_and_respect_annotation_metadata(
                     object_=plan, annotation=CreatePaymentsRequestPlan, direction="write"

@@ -1099,12 +1099,15 @@ if typing.TYPE_CHECKING:
     from .payment_next_action import (
         PaymentNextAction,
         PaymentNextAction_AwaitConfirmation,
+        PaymentNextAction_CollectCardPresent,
         PaymentNextAction_DisplayInstructions,
         PaymentNextAction_Redirect,
     )
     from .payment_next_action_await_confirmation import PaymentNextActionAwaitConfirmation
     from .payment_next_action_await_confirmation_data import PaymentNextActionAwaitConfirmationData
     from .payment_next_action_await_confirmation_render_item import PaymentNextActionAwaitConfirmationRenderItem
+    from .payment_next_action_collect_card_present import PaymentNextActionCollectCardPresent
+    from .payment_next_action_collect_card_present_data import PaymentNextActionCollectCardPresentData
     from .payment_next_action_display_instructions import PaymentNextActionDisplayInstructions
     from .payment_next_action_display_instructions_render_item import PaymentNextActionDisplayInstructionsRenderItem
     from .payment_next_action_redirect import PaymentNextActionRedirect
@@ -2407,12 +2410,15 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaymentNextActionAwaitConfirmation": ".payment_next_action_await_confirmation",
     "PaymentNextActionAwaitConfirmationData": ".payment_next_action_await_confirmation_data",
     "PaymentNextActionAwaitConfirmationRenderItem": ".payment_next_action_await_confirmation_render_item",
+    "PaymentNextActionCollectCardPresent": ".payment_next_action_collect_card_present",
+    "PaymentNextActionCollectCardPresentData": ".payment_next_action_collect_card_present_data",
     "PaymentNextActionDisplayInstructions": ".payment_next_action_display_instructions",
     "PaymentNextActionDisplayInstructionsRenderItem": ".payment_next_action_display_instructions_render_item",
     "PaymentNextActionRedirect": ".payment_next_action_redirect",
     "PaymentNextActionRedirectData": ".payment_next_action_redirect_data",
     "PaymentNextActionRedirectRenderItem": ".payment_next_action_redirect_render_item",
     "PaymentNextAction_AwaitConfirmation": ".payment_next_action",
+    "PaymentNextAction_CollectCardPresent": ".payment_next_action",
     "PaymentNextAction_DisplayInstructions": ".payment_next_action",
     "PaymentNextAction_Redirect": ".payment_next_action",
     "PaymentProcessingDetails": ".payment_processing_details",
@@ -3734,12 +3740,15 @@ __all__ = [
     "PaymentNextActionAwaitConfirmation",
     "PaymentNextActionAwaitConfirmationData",
     "PaymentNextActionAwaitConfirmationRenderItem",
+    "PaymentNextActionCollectCardPresent",
+    "PaymentNextActionCollectCardPresentData",
     "PaymentNextActionDisplayInstructions",
     "PaymentNextActionDisplayInstructionsRenderItem",
     "PaymentNextActionRedirect",
     "PaymentNextActionRedirectData",
     "PaymentNextActionRedirectRenderItem",
     "PaymentNextAction_AwaitConfirmation",
+    "PaymentNextAction_CollectCardPresent",
     "PaymentNextAction_DisplayInstructions",
     "PaymentNextAction_Redirect",
     "PaymentProcessingDetails",

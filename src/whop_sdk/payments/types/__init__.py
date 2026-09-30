@@ -7,6 +7,12 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .create_payments_request_line_items_item import CreatePaymentsRequestLineItemsItem
+    from .create_payments_request_payment_method import CreatePaymentsRequestPaymentMethod
+    from .create_payments_request_payment_method_card_present import CreatePaymentsRequestPaymentMethodCardPresent
+    from .create_payments_request_payment_method_card_present_platform import (
+        CreatePaymentsRequestPaymentMethodCardPresentPlatform,
+    )
+    from .create_payments_request_payment_method_type import CreatePaymentsRequestPaymentMethodType
     from .create_payments_request_plan import CreatePaymentsRequestPlan
     from .create_payments_request_plan_currency import CreatePaymentsRequestPlanCurrency
     from .create_payments_request_plan_plan_type import CreatePaymentsRequestPlanPlanType
@@ -50,6 +56,10 @@ if typing.TYPE_CHECKING:
     from .update_payments_request_shipping_address import UpdatePaymentsRequestShippingAddress
 _dynamic_imports: typing.Dict[str, str] = {
     "CreatePaymentsRequestLineItemsItem": ".create_payments_request_line_items_item",
+    "CreatePaymentsRequestPaymentMethod": ".create_payments_request_payment_method",
+    "CreatePaymentsRequestPaymentMethodCardPresent": ".create_payments_request_payment_method_card_present",
+    "CreatePaymentsRequestPaymentMethodCardPresentPlatform": ".create_payments_request_payment_method_card_present_platform",
+    "CreatePaymentsRequestPaymentMethodType": ".create_payments_request_payment_method_type",
     "CreatePaymentsRequestPlan": ".create_payments_request_plan",
     "CreatePaymentsRequestPlanCurrency": ".create_payments_request_plan_currency",
     "CreatePaymentsRequestPlanPlanType": ".create_payments_request_plan_plan_type",
@@ -115,6 +125,10 @@ def __dir__():
 
 __all__ = [
     "CreatePaymentsRequestLineItemsItem",
+    "CreatePaymentsRequestPaymentMethod",
+    "CreatePaymentsRequestPaymentMethodCardPresent",
+    "CreatePaymentsRequestPaymentMethodCardPresentPlatform",
+    "CreatePaymentsRequestPaymentMethodType",
     "CreatePaymentsRequestPlan",
     "CreatePaymentsRequestPlanCurrency",
     "CreatePaymentsRequestPlanPlanType",
