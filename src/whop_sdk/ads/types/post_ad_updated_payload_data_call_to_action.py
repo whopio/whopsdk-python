@@ -35,6 +35,9 @@ PostAdUpdatedPayloadDataCallToAction = typing.Union[
         "event_rsvp",
         "see_details",
         "view_instagram_profile",
+        "donate_now",
+        "see_more",
+        "visit_site",
     ],
     typing.Any,
 ]
