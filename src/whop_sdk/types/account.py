@@ -10,6 +10,7 @@ from .account_balance_token import AccountBalanceToken
 from .account_capabilities import AccountCapabilities
 from .account_cards import AccountCards
 from .account_company_formation import AccountCompanyFormation
+from .account_financing import AccountFinancing
 from .account_home_preferences_item import AccountHomePreferencesItem
 from .account_onboarding_type import AccountOnboardingType
 from .account_opengraph_image_variant import AccountOpengraphImageVariant
@@ -122,6 +123,11 @@ class Account(UniversalBaseModel):
     eula: typing.Optional[File] = pydantic.Field(default=None)
     """
     The account's end-user license agreement document, or `null` if they have not published one.
+    """
+
+    financing: typing.Optional[AccountFinancing] = pydantic.Field(default=None)
+    """
+    The account's most recent financing application. Computed only on `retrieve` and `me` for callers with `company:balance:read` scope; `null` otherwise, or when the account has never applied for financing.
     """
 
     home_preferences: typing.List[AccountHomePreferencesItem]
