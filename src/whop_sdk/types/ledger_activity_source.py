@@ -6,8 +6,10 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .ledger_activity_source_fee_kind import LedgerActivitySourceFeeKind
+from .ledger_activity_source_fee_type import LedgerActivitySourceFeeType
 from .ledger_activity_source_payout_destination import LedgerActivitySourcePayoutDestination
 from .money import Money
+from .user_summary import UserSummary
 
 
 class LedgerActivitySource(UniversalBaseModel):
@@ -40,14 +42,29 @@ class LedgerActivitySource(UniversalBaseModel):
     Payout creation time as an ISO 8601 timestamp (payout sources only; requires payout:withdrawal:read).
     """
 
+    created_by_user: typing.Optional[UserSummary] = pydantic.Field(default=None)
+    """
+    User who requested the withdrawal. Null for system-generated withdrawals or without payout:withdrawal:read.
+    """
+
     estimated_arrival: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     Estimated arrival as an ISO 8601 timestamp (payout sources only; requires payout:withdrawal:read).
     """
 
+    fee_amount: typing.Optional[Money] = pydantic.Field(default=None)
+    """
+    Total withdrawal fees, including markup fees. Requires payout:withdrawal:read.
+    """
+
     fee_kind: typing.Optional[LedgerActivitySourceFeeKind] = pydantic.Field(default=None)
     """
     Action that generated a platform markup fee: deposit, swap, transfer, card_spend, or payout. Present for platform_markup_fee and platform_markup_fee_payout, including when include_resource is false. Null when the originating action is unavailable; omitted on other source types.
+    """
+
+    fee_type: typing.Optional[LedgerActivitySourceFeeType] = pydantic.Field(default=None)
+    """
+    Whether withdrawal fees are inclusive or exclusive. Requires payout:withdrawal:read.
     """
 
     from_amount: typing.Optional[str] = pydantic.Field(default=None)
@@ -85,6 +102,11 @@ class LedgerActivitySource(UniversalBaseModel):
     payment_processor: typing.Optional[str] = pydantic.Field(default=None)
     """
     Processor used by the payment source.
+    """
+
+    payout_amount: typing.Optional[Money] = pydantic.Field(default=None)
+    """
+    Withdrawal principal sent to the destination, excluding fees, in the withdrawal currency. Requires payout:withdrawal:read.
     """
 
     payout_destination: typing.Optional[LedgerActivitySourcePayoutDestination] = pydantic.Field(default=None)
@@ -125,6 +147,11 @@ class LedgerActivitySource(UniversalBaseModel):
     to_currency: typing.Optional[str] = pydantic.Field(default=None)
     """
     Lowercase currency code converted to (swap sources only).
+    """
+
+    trace_code: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Bank trace reference for the withdrawal. Requires payout:withdrawal:read.
     """
 
     tx_hash: typing.Optional[str] = pydantic.Field(default=None)

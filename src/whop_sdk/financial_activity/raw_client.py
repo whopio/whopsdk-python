@@ -15,6 +15,7 @@ from ..errors.bad_request_error import BadRequestError
 from ..errors.forbidden_error import ForbiddenError
 from ..errors.not_found_error import NotFoundError
 from ..errors.unauthorized_error import UnauthorizedError
+from .types.list_financial_activity_request_balance_type import ListFinancialActivityRequestBalanceType
 from .types.list_financial_activity_request_direction import ListFinancialActivityRequestDirection
 from .types.list_financial_activity_request_line_types_item import ListFinancialActivityRequestLineTypesItem
 from .types.list_financial_activity_response import ListFinancialActivityResponse
@@ -41,6 +42,8 @@ class RawFinancialActivityClient:
         resource_id: typing.Optional[str] = None,
         activity_id: typing.Optional[str] = None,
         exclude_internal_movements: typing.Optional[bool] = None,
+        balance_type: typing.Optional[ListFinancialActivityRequestBalanceType] = None,
+        withdrawal_id: typing.Optional[str] = None,
         currency: typing.Optional[str] = None,
         posted_after: typing.Optional[dt.datetime] = None,
         posted_before: typing.Optional[dt.datetime] = None,
@@ -81,6 +84,12 @@ class RawFinancialActivityClient:
 
         exclude_internal_movements : typing.Optional[bool]
             Whether to exclude balance reservations and balanced movements between the account's own balances.
+
+        balance_type : typing.Optional[ListFinancialActivityRequestBalanceType]
+            Which balance the activity changes. `total` includes available, pending, and reserved funds. `available` includes only movements into or out of available funds, including reservations, releases, and fees. Movements within the selected balance are omitted. Omit to preserve the existing activity feed. Requires account_id or user_id; cannot be combined with available_after or available_before.
+
+        withdrawal_id : typing.Optional[str]
+            Withdrawal ID (wdrl_). With balance_type=available, selects the same period as its statement, after the previous withdrawal and through this withdrawal, excluding this withdrawal and its fee. Requires a single account. Overrides currency and posted-date filters.
 
         currency : typing.Optional[str]
             Optional currency code filter, for example `usd`.
@@ -125,6 +134,8 @@ class RawFinancialActivityClient:
                 "resource_id": resource_id,
                 "activity_id": activity_id,
                 "exclude_internal_movements": exclude_internal_movements,
+                "balance_type": balance_type,
+                "withdrawal_id": withdrawal_id,
                 "currency": currency,
                 "posted_after": serialize_datetime(posted_after) if posted_after is not None else None,
                 "posted_before": serialize_datetime(posted_before) if posted_before is not None else None,
@@ -219,6 +230,8 @@ class AsyncRawFinancialActivityClient:
         resource_id: typing.Optional[str] = None,
         activity_id: typing.Optional[str] = None,
         exclude_internal_movements: typing.Optional[bool] = None,
+        balance_type: typing.Optional[ListFinancialActivityRequestBalanceType] = None,
+        withdrawal_id: typing.Optional[str] = None,
         currency: typing.Optional[str] = None,
         posted_after: typing.Optional[dt.datetime] = None,
         posted_before: typing.Optional[dt.datetime] = None,
@@ -259,6 +272,12 @@ class AsyncRawFinancialActivityClient:
 
         exclude_internal_movements : typing.Optional[bool]
             Whether to exclude balance reservations and balanced movements between the account's own balances.
+
+        balance_type : typing.Optional[ListFinancialActivityRequestBalanceType]
+            Which balance the activity changes. `total` includes available, pending, and reserved funds. `available` includes only movements into or out of available funds, including reservations, releases, and fees. Movements within the selected balance are omitted. Omit to preserve the existing activity feed. Requires account_id or user_id; cannot be combined with available_after or available_before.
+
+        withdrawal_id : typing.Optional[str]
+            Withdrawal ID (wdrl_). With balance_type=available, selects the same period as its statement, after the previous withdrawal and through this withdrawal, excluding this withdrawal and its fee. Requires a single account. Overrides currency and posted-date filters.
 
         currency : typing.Optional[str]
             Optional currency code filter, for example `usd`.
@@ -303,6 +322,8 @@ class AsyncRawFinancialActivityClient:
                 "resource_id": resource_id,
                 "activity_id": activity_id,
                 "exclude_internal_movements": exclude_internal_movements,
+                "balance_type": balance_type,
+                "withdrawal_id": withdrawal_id,
                 "currency": currency,
                 "posted_after": serialize_datetime(posted_after) if posted_after is not None else None,
                 "posted_before": serialize_datetime(posted_before) if posted_before is not None else None,

@@ -110,6 +110,8 @@ if typing.TYPE_CHECKING:
         RetrievePayoutsResponseSource,
         RetrievePayoutsResponseSpeed,
         RetrievePayoutsResponseStatus,
+        RetrievePayoutsResponseTimelineItem,
+        RetrievePayoutsResponseTimelineItemStatus,
     )
     from . import methods, supported_methods
     from .methods import (
@@ -307,6 +309,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrievePayoutsResponseSource": ".types",
     "RetrievePayoutsResponseSpeed": ".types",
     "RetrievePayoutsResponseStatus": ".types",
+    "RetrievePayoutsResponseTimelineItem": ".types",
+    "RetrievePayoutsResponseTimelineItemStatus": ".types",
     "UpdateMethodsResponse": ".methods",
     "UpdateMethodsResponseBankVerificationState": ".methods",
     "UpdateMethodsResponseObject": ".methods",
@@ -484,6 +488,8 @@ __all__ = [
     "RetrievePayoutsResponseSource",
     "RetrievePayoutsResponseSpeed",
     "RetrievePayoutsResponseStatus",
+    "RetrievePayoutsResponseTimelineItem",
+    "RetrievePayoutsResponseTimelineItemStatus",
     "UpdateMethodsResponse",
     "UpdateMethodsResponseBankVerificationState",
     "UpdateMethodsResponseObject",

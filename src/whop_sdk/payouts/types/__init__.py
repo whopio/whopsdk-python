@@ -149,6 +149,8 @@ if typing.TYPE_CHECKING:
     from .retrieve_payouts_response_source import RetrievePayoutsResponseSource
     from .retrieve_payouts_response_speed import RetrievePayoutsResponseSpeed
     from .retrieve_payouts_response_status import RetrievePayoutsResponseStatus
+    from .retrieve_payouts_response_timeline_item import RetrievePayoutsResponseTimelineItem
+    from .retrieve_payouts_response_timeline_item_status import RetrievePayoutsResponseTimelineItemStatus
 _dynamic_imports: typing.Dict[str, str] = {
     "CancelPayoutsResponse": ".cancel_payouts_response",
     "CancelPayoutsResponseFailure": ".cancel_payouts_response_failure",
@@ -253,6 +255,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrievePayoutsResponseSource": ".retrieve_payouts_response_source",
     "RetrievePayoutsResponseSpeed": ".retrieve_payouts_response_speed",
     "RetrievePayoutsResponseStatus": ".retrieve_payouts_response_status",
+    "RetrievePayoutsResponseTimelineItem": ".retrieve_payouts_response_timeline_item",
+    "RetrievePayoutsResponseTimelineItemStatus": ".retrieve_payouts_response_timeline_item_status",
 }
 
 
@@ -381,4 +385,6 @@ __all__ = [
     "RetrievePayoutsResponseSource",
     "RetrievePayoutsResponseSpeed",
     "RetrievePayoutsResponseStatus",
+    "RetrievePayoutsResponseTimelineItem",
+    "RetrievePayoutsResponseTimelineItemStatus",
 ]
