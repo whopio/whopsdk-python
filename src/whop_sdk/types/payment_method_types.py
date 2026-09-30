@@ -27,6 +27,7 @@ PaymentMethodTypes = typing.Union[
         "ca_bank_transfer",
         "capchase_pay",
         "card",
+        "card_present",
         "card_installments_three",
         "card_installments_six",
         "card_installments_twelve",

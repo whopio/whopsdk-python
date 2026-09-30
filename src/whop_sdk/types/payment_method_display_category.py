@@ -13,6 +13,7 @@ PaymentMethodDisplayCategory = typing.Union[
         "crypto",
         "balance",
         "in_app_purchase",
+        "card_present",
         "saved",
     ],
     typing.Any,
