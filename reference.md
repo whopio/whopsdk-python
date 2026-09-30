@@ -21427,6 +21427,22 @@ client.financial_activity.list()
 <dl>
 <dd>
 
+**balance_type:** `typing.Optional[ListFinancialActivityRequestBalanceType]` — Which balance the activity changes. `total` includes available, pending, and reserved funds. `available` includes only movements into or out of available funds, including reservations, releases, and fees. Movements within the selected balance are omitted. Omit to preserve the existing activity feed. Requires account_id or user_id; cannot be combined with available_after or available_before.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**withdrawal_id:** `typing.Optional[str]` — Withdrawal ID (wdrl_). With balance_type=available, selects the same period as its statement, after the previous withdrawal and through this withdrawal, excluding this withdrawal and its fee. Requires a single account. Overrides currency and posted-date filters.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **currency:** `typing.Optional[str]` — Optional currency code filter, for example `usd`.
     
 </dd>

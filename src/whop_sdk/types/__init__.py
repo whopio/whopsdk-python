@@ -674,6 +674,7 @@ if typing.TYPE_CHECKING:
     from .ledger_activity_resource_two_object import LedgerActivityResourceTwoObject
     from .ledger_activity_source import LedgerActivitySource
     from .ledger_activity_source_fee_kind import LedgerActivitySourceFeeKind
+    from .ledger_activity_source_fee_type import LedgerActivitySourceFeeType
     from .ledger_activity_source_payout_destination import LedgerActivitySourcePayoutDestination
     from .ledger_types import LedgerTypes
     from .lesson_types import LessonTypes
@@ -2083,6 +2084,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LedgerActivityResourceTwoObject": ".ledger_activity_resource_two_object",
     "LedgerActivitySource": ".ledger_activity_source",
     "LedgerActivitySourceFeeKind": ".ledger_activity_source_fee_kind",
+    "LedgerActivitySourceFeeType": ".ledger_activity_source_fee_type",
     "LedgerActivitySourcePayoutDestination": ".ledger_activity_source_payout_destination",
     "LedgerTypes": ".ledger_types",
     "LessonTypes": ".lesson_types",
@@ -3400,6 +3402,7 @@ __all__ = [
     "LedgerActivityResourceTwoObject",
     "LedgerActivitySource",
     "LedgerActivitySourceFeeKind",
+    "LedgerActivitySourceFeeType",
     "LedgerActivitySourcePayoutDestination",
     "LedgerTypes",
     "LessonTypes",

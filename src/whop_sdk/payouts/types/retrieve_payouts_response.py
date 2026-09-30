@@ -12,6 +12,7 @@ from .retrieve_payouts_response_payout_method import RetrievePayoutsResponsePayo
 from .retrieve_payouts_response_source import RetrievePayoutsResponseSource
 from .retrieve_payouts_response_speed import RetrievePayoutsResponseSpeed
 from .retrieve_payouts_response_status import RetrievePayoutsResponseStatus
+from .retrieve_payouts_response_timeline_item import RetrievePayoutsResponseTimelineItem
 
 
 class RetrievePayoutsResponse(UniversalBaseModel):
@@ -30,6 +31,11 @@ class RetrievePayoutsResponse(UniversalBaseModel):
     Payout currency.
     """
 
+    delayed: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether an in-transit withdrawal is past its settlement window.
+    """
+
     destination_amount: typing.Optional[str] = pydantic.Field(default=None)
     """
     The amount delivered in the destination currency, as a decimal string. Assigned when the payout is processed, so it is `null` before then and on payouts without a recorded conversion.
@@ -43,6 +49,11 @@ class RetrievePayoutsResponse(UniversalBaseModel):
     estimated_arrival: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     Estimated time the funds become available in the destination account.
+    """
+
+    estimated_arrival_end: typing.Optional[dt.datetime] = pydantic.Field(default=None)
+    """
+    End of the expected bank settlement window.
     """
 
     exchange_rate: typing.Optional[float] = pydantic.Field(default=None)
@@ -129,6 +140,11 @@ class RetrievePayoutsResponse(UniversalBaseModel):
     status_detail: str = pydantic.Field()
     """
     The finest machine phase under `status` — for example `awaiting_provider_acceptance` vs `in_transit` under `processing`, or the stablecoin conversion phase under `requested`. Informational vocabulary: values can be added without a version bump; `status` is the versioned contract.
+    """
+
+    timeline: typing.Optional[typing.List[RetrievePayoutsResponseTimelineItem]] = pydantic.Field(default=None)
+    """
+    Completed lifecycle events in chronological order. Present when retrieving a withdrawal ID.
     """
 
     trace_code: typing.Optional[str] = pydantic.Field(default=None)
