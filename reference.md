@@ -29175,7 +29175,7 @@ client.payment_rules.replace(
 <dl>
 <dd>
 
-Lists payments, newest first. Without filters this is every payment the caller can read: a company credential's own account, or for a user every account they can read payments for. Filters narrow by account, buyer, product, plan, membership, status, billing reason, currency, and creation window. Filtering by `billing_reason=subscription_cycle` also matches renewals recorded as `subscription_update`. `settlement_time_at` is null on list rows — retrieve the payment for it.
+Lists payments, newest first. By default, returns account sales: a company credential's own account, or for a user every account they can read payments for. Set `mode=user_sales` to list only the sales received by the signed-in user's primary ledger account, without a company. This mode requires the user's own Whop login session and cannot be combined with `account_id`. Filters narrow by account, buyer, product, plan, membership, status, billing reason, currency, and creation window. Filtering by `billing_reason=subscription_cycle` also matches renewals recorded as `subscription_update`. `settlement_time_at` is null on list rows — retrieve the payment for it.
 </dd>
 </dl>
 </dd>
@@ -29214,6 +29214,14 @@ client.payments.list()
 <dl>
 <dd>
 
+**mode:** `typing.Optional[ListPaymentsRequestMode]` — Which sales to list. `account_sales` returns sales for the accounts the caller can read. `user_sales` returns only sales received by the signed-in user's primary ledger account, without a company; requires their own Whop login session and cannot be combined with `account_id`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **account_id:** `typing.Optional[str]` — Only payments charged by this account, prefixed `biz_`.
     
 </dd>
@@ -29246,7 +29254,7 @@ client.payments.list()
 <dl>
 <dd>
 
-**user_id:** `typing.Optional[str]` — Only payments made by this buyer, prefixed `user_`. Payments are listed for the accounts the caller manages, so `me` is not accepted; list the caller's own purchases with `GET /memberships?user_id=me`.
+**user_id:** `typing.Optional[str]` — Only payments made by this buyer, prefixed `user_`. This filters sales the caller can read, so `me` is not accepted; list the caller's own purchases with `GET /memberships?user_id=me`.
     
 </dd>
 </dl>

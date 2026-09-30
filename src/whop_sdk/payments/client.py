@@ -17,6 +17,7 @@ from .types.create_payments_request_shipping_address import CreatePaymentsReques
 from .types.list_fees_payments_response import ListFeesPaymentsResponse
 from .types.list_payments_request_billing_reason import ListPaymentsRequestBillingReason
 from .types.list_payments_request_direction import ListPaymentsRequestDirection
+from .types.list_payments_request_mode import ListPaymentsRequestMode
 from .types.list_payments_request_order import ListPaymentsRequestOrder
 from .types.list_payments_request_status import ListPaymentsRequestStatus
 from .types.list_payments_response import ListPaymentsResponse
@@ -48,6 +49,7 @@ class PaymentsClient:
     def list(
         self,
         *,
+        mode: typing.Optional[ListPaymentsRequestMode] = None,
         account_id: typing.Optional[str] = None,
         status: typing.Optional[ListPaymentsRequestStatus] = None,
         billing_reason: typing.Optional[ListPaymentsRequestBillingReason] = None,
@@ -69,10 +71,13 @@ class PaymentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Payment, ListPaymentsResponse]:
         """
-        Lists payments, newest first. Without filters this is every payment the caller can read: a company credential's own account, or for a user every account they can read payments for. Filters narrow by account, buyer, product, plan, membership, status, billing reason, currency, and creation window. Filtering by `billing_reason=subscription_cycle` also matches renewals recorded as `subscription_update`. `settlement_time_at` is null on list rows — retrieve the payment for it.
+        Lists payments, newest first. By default, returns account sales: a company credential's own account, or for a user every account they can read payments for. Set `mode=user_sales` to list only the sales received by the signed-in user's primary ledger account, without a company. This mode requires the user's own Whop login session and cannot be combined with `account_id`. Filters narrow by account, buyer, product, plan, membership, status, billing reason, currency, and creation window. Filtering by `billing_reason=subscription_cycle` also matches renewals recorded as `subscription_update`. `settlement_time_at` is null on list rows — retrieve the payment for it.
 
         Parameters
         ----------
+        mode : typing.Optional[ListPaymentsRequestMode]
+            Which sales to list. `account_sales` returns sales for the accounts the caller can read. `user_sales` returns only sales received by the signed-in user's primary ledger account, without a company; requires their own Whop login session and cannot be combined with `account_id`.
+
         account_id : typing.Optional[str]
             Only payments charged by this account, prefixed `biz_`.
 
@@ -86,7 +91,7 @@ class PaymentsClient:
             Only payments presented in this three-letter currency, such as `usd`.
 
         user_id : typing.Optional[str]
-            Only payments made by this buyer, prefixed `user_`. Payments are listed for the accounts the caller manages, so `me` is not accepted; list the caller's own purchases with `GET /memberships?user_id=me`.
+            Only payments made by this buyer, prefixed `user_`. This filters sales the caller can read, so `me` is not accepted; list the caller's own purchases with `GET /memberships?user_id=me`.
 
         query : typing.Optional[str]
             Search payments by user ID, membership ID, user email, name, or username. Email filtering requires the member:email:read permission.
@@ -152,6 +157,7 @@ class PaymentsClient:
             yield page
         """
         return self._raw_client.list(
+            mode=mode,
             account_id=account_id,
             status=status,
             billing_reason=billing_reason,
@@ -679,6 +685,7 @@ class AsyncPaymentsClient:
     async def list(
         self,
         *,
+        mode: typing.Optional[ListPaymentsRequestMode] = None,
         account_id: typing.Optional[str] = None,
         status: typing.Optional[ListPaymentsRequestStatus] = None,
         billing_reason: typing.Optional[ListPaymentsRequestBillingReason] = None,
@@ -700,10 +707,13 @@ class AsyncPaymentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Payment, ListPaymentsResponse]:
         """
-        Lists payments, newest first. Without filters this is every payment the caller can read: a company credential's own account, or for a user every account they can read payments for. Filters narrow by account, buyer, product, plan, membership, status, billing reason, currency, and creation window. Filtering by `billing_reason=subscription_cycle` also matches renewals recorded as `subscription_update`. `settlement_time_at` is null on list rows — retrieve the payment for it.
+        Lists payments, newest first. By default, returns account sales: a company credential's own account, or for a user every account they can read payments for. Set `mode=user_sales` to list only the sales received by the signed-in user's primary ledger account, without a company. This mode requires the user's own Whop login session and cannot be combined with `account_id`. Filters narrow by account, buyer, product, plan, membership, status, billing reason, currency, and creation window. Filtering by `billing_reason=subscription_cycle` also matches renewals recorded as `subscription_update`. `settlement_time_at` is null on list rows — retrieve the payment for it.
 
         Parameters
         ----------
+        mode : typing.Optional[ListPaymentsRequestMode]
+            Which sales to list. `account_sales` returns sales for the accounts the caller can read. `user_sales` returns only sales received by the signed-in user's primary ledger account, without a company; requires their own Whop login session and cannot be combined with `account_id`.
+
         account_id : typing.Optional[str]
             Only payments charged by this account, prefixed `biz_`.
 
@@ -717,7 +727,7 @@ class AsyncPaymentsClient:
             Only payments presented in this three-letter currency, such as `usd`.
 
         user_id : typing.Optional[str]
-            Only payments made by this buyer, prefixed `user_`. Payments are listed for the accounts the caller manages, so `me` is not accepted; list the caller's own purchases with `GET /memberships?user_id=me`.
+            Only payments made by this buyer, prefixed `user_`. This filters sales the caller can read, so `me` is not accepted; list the caller's own purchases with `GET /memberships?user_id=me`.
 
         query : typing.Optional[str]
             Search payments by user ID, membership ID, user email, name, or username. Email filtering requires the member:email:read permission.
@@ -792,6 +802,7 @@ class AsyncPaymentsClient:
         asyncio.run(main())
         """
         return await self._raw_client.list(
+            mode=mode,
             account_id=account_id,
             status=status,
             billing_reason=billing_reason,
