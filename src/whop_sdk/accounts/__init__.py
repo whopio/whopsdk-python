@@ -57,7 +57,7 @@ if typing.TYPE_CHECKING:
         UpdateAccountsRequestTermsOfService,
         UpdateAccountsRequestThreeDsLevel,
     )
-    from . import fees, preferences, reserves
+    from . import fees, financing_applications, preferences, reserves
     from .fees import (
         UpdateFeesRequestBankDeposit,
         UpdateFeesRequestBankDepositRegionsValue,
@@ -127,6 +127,17 @@ if typing.TYPE_CHECKING:
         UpdateFeesRequestTransfers,
         UpdateFeesRequestTransfersRegionsValue,
     )
+    from .financing_applications import (
+        ListFinancingApplicationsRequestDirection,
+        ListFinancingApplicationsRequestOrder,
+        ListFinancingApplicationsRequestStatus,
+        ListFinancingApplicationsResponse,
+        ListFinancingApplicationsResponsePageInfo,
+        SubmitFinancingApplicationsRequestMerchantAcceptance,
+        UpdateFinancingApplicationsRequestAnswersItem,
+        UpdateFinancingApplicationsRequestAnswersItemMoney,
+        UpdateFinancingApplicationsRequestAnswersItemMoneyCurrency,
+    )
     from .preferences import (
         RetrievePreferencesResponse,
         RetrievePreferencesResponseAdsAgreement,
@@ -192,6 +203,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListAccountsRequestStatus": ".types",
     "ListAccountsResponse": ".types",
     "ListAccountsResponsePageInfo": ".types",
+    "ListFinancingApplicationsRequestDirection": ".financing_applications",
+    "ListFinancingApplicationsRequestOrder": ".financing_applications",
+    "ListFinancingApplicationsRequestStatus": ".financing_applications",
+    "ListFinancingApplicationsResponse": ".financing_applications",
+    "ListFinancingApplicationsResponsePageInfo": ".financing_applications",
     "ListReservesResponse": ".reserves",
     "PostAccountFinancingApprovedPayload": ".types",
     "PostAccountFinancingApprovedPayloadApiVersion": ".types",
@@ -221,6 +237,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrievePreferencesResponseEconomicIntelligenceOffersItemKey": ".preferences",
     "RetrievePreferencesResponseSubscriptionFailureBehavior": ".preferences",
     "RetryAdsPaymentAccountsResponse": ".types",
+    "SubmitFinancingApplicationsRequestMerchantAcceptance": ".financing_applications",
     "TransferOwnershipAccountsResponse": ".types",
     "UpdateAccountsRequestBannerImage": ".types",
     "UpdateAccountsRequestBusinessAddress": ".types",
@@ -312,6 +329,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateFeesRequestThreeDsRegionsValue": ".fees",
     "UpdateFeesRequestTransfers": ".fees",
     "UpdateFeesRequestTransfersRegionsValue": ".fees",
+    "UpdateFinancingApplicationsRequestAnswersItem": ".financing_applications",
+    "UpdateFinancingApplicationsRequestAnswersItemMoney": ".financing_applications",
+    "UpdateFinancingApplicationsRequestAnswersItemMoneyCurrency": ".financing_applications",
     "UpdatePreferencesRequestAdsCertificationsValue": ".preferences",
     "UpdatePreferencesRequestAdsCertificationsValueStatus": ".preferences",
     "UpdatePreferencesRequestAdsPaymentMethods": ".preferences",
@@ -341,6 +361,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatePreferencesResponseEconomicIntelligenceOffersItemKey": ".preferences",
     "UpdatePreferencesResponseSubscriptionFailureBehavior": ".preferences",
     "fees": ".fees",
+    "financing_applications": ".financing_applications",
     "preferences": ".preferences",
     "reserves": ".reserves",
 }
@@ -383,6 +404,11 @@ __all__ = [
     "ListAccountsRequestStatus",
     "ListAccountsResponse",
     "ListAccountsResponsePageInfo",
+    "ListFinancingApplicationsRequestDirection",
+    "ListFinancingApplicationsRequestOrder",
+    "ListFinancingApplicationsRequestStatus",
+    "ListFinancingApplicationsResponse",
+    "ListFinancingApplicationsResponsePageInfo",
     "ListReservesResponse",
     "PostAccountFinancingApprovedPayload",
     "PostAccountFinancingApprovedPayloadApiVersion",
@@ -412,6 +438,7 @@ __all__ = [
     "RetrievePreferencesResponseEconomicIntelligenceOffersItemKey",
     "RetrievePreferencesResponseSubscriptionFailureBehavior",
     "RetryAdsPaymentAccountsResponse",
+    "SubmitFinancingApplicationsRequestMerchantAcceptance",
     "TransferOwnershipAccountsResponse",
     "UpdateAccountsRequestBannerImage",
     "UpdateAccountsRequestBusinessAddress",
@@ -503,6 +530,9 @@ __all__ = [
     "UpdateFeesRequestThreeDsRegionsValue",
     "UpdateFeesRequestTransfers",
     "UpdateFeesRequestTransfersRegionsValue",
+    "UpdateFinancingApplicationsRequestAnswersItem",
+    "UpdateFinancingApplicationsRequestAnswersItemMoney",
+    "UpdateFinancingApplicationsRequestAnswersItemMoneyCurrency",
     "UpdatePreferencesRequestAdsCertificationsValue",
     "UpdatePreferencesRequestAdsCertificationsValueStatus",
     "UpdatePreferencesRequestAdsPaymentMethods",
@@ -532,6 +562,7 @@ __all__ = [
     "UpdatePreferencesResponseEconomicIntelligenceOffersItemKey",
     "UpdatePreferencesResponseSubscriptionFailureBehavior",
     "fees",
+    "financing_applications",
     "preferences",
     "reserves",
 ]
