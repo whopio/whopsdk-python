@@ -2042,6 +2042,8 @@ if typing.TYPE_CHECKING:
         ListDomainsResponsePageInfo,
     )
     from .economic_intelligence import (
+        ListEconomicIntelligenceRequestDirection,
+        ListEconomicIntelligenceRequestOrder,
         ListEconomicIntelligenceRequestStatus,
         ListEconomicIntelligenceResponse,
         ListEconomicIntelligenceResponsePageInfo,
@@ -4214,6 +4216,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListDomainsRequestStatus": ".domains",
     "ListDomainsResponse": ".domains",
     "ListDomainsResponsePageInfo": ".domains",
+    "ListEconomicIntelligenceRequestDirection": ".economic_intelligence",
+    "ListEconomicIntelligenceRequestOrder": ".economic_intelligence",
     "ListEconomicIntelligenceRequestStatus": ".economic_intelligence",
     "ListEconomicIntelligenceResponse": ".economic_intelligence",
     "ListEconomicIntelligenceResponsePageInfo": ".economic_intelligence",
@@ -7151,6 +7155,8 @@ __all__ = [
     "ListDomainsRequestStatus",
     "ListDomainsResponse",
     "ListDomainsResponsePageInfo",
+    "ListEconomicIntelligenceRequestDirection",
+    "ListEconomicIntelligenceRequestOrder",
     "ListEconomicIntelligenceRequestStatus",
     "ListEconomicIntelligenceResponse",
     "ListEconomicIntelligenceResponsePageInfo",

@@ -7,6 +7,8 @@ from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
 from ..types.economic_intelligence import EconomicIntelligence
 from .raw_client import AsyncRawEconomicIntelligenceClient, RawEconomicIntelligenceClient
+from .types.list_economic_intelligence_request_direction import ListEconomicIntelligenceRequestDirection
+from .types.list_economic_intelligence_request_order import ListEconomicIntelligenceRequestOrder
 from .types.list_economic_intelligence_request_status import ListEconomicIntelligenceRequestStatus
 from .types.list_economic_intelligence_response import ListEconomicIntelligenceResponse
 from .types.update_economic_intelligence_request_result_page import UpdateEconomicIntelligenceRequestResultPage
@@ -38,6 +40,9 @@ class EconomicIntelligenceClient:
         account_id: typing.Optional[str] = None,
         status: typing.Optional[ListEconomicIntelligenceRequestStatus] = None,
         input: typing.Optional[str] = None,
+        has_run: typing.Optional[bool] = None,
+        order: typing.Optional[ListEconomicIntelligenceRequestOrder] = None,
+        direction: typing.Optional[ListEconomicIntelligenceRequestDirection] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
@@ -45,7 +50,7 @@ class EconomicIntelligenceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[EconomicIntelligence, ListEconomicIntelligenceResponse]:
         """
-        Lists an account's recommendations and generation requests, newest first. Without an account, signed-out visitors receive a business-setup template and eligible users receive their saved setup recommendation.
+        Lists an account's recommendations and generation requests, newest first by default. Without an account, signed-out visitors receive a business-setup template and eligible users receive their saved setup recommendation. With `has_run` and no account, users receive the recommendations run on every account they can read.
 
         Parameters
         ----------
@@ -57,6 +62,15 @@ class EconomicIntelligenceClient:
 
         input : typing.Optional[str]
             What you want recommendations for, in your own words. Up to 1000 characters. Narrows the list to the recommendations that address it.
+
+        has_run : typing.Optional[bool]
+            When true, only recommendations someone has started running, by any user. Without `account_id`, covers every account you can read that has Economic Intelligence. Can't be combined with `input`.
+
+        order : typing.Optional[ListEconomicIntelligenceRequestOrder]
+            Sort field.
+
+        direction : typing.Optional[ListEconomicIntelligenceRequestDirection]
+            Sort direction.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -98,6 +112,9 @@ class EconomicIntelligenceClient:
             account_id=account_id,
             status=status,
             input=input,
+            has_run=has_run,
+            order=order,
+            direction=direction,
             first=first,
             after=after,
             last=last,
@@ -208,6 +225,9 @@ class AsyncEconomicIntelligenceClient:
         account_id: typing.Optional[str] = None,
         status: typing.Optional[ListEconomicIntelligenceRequestStatus] = None,
         input: typing.Optional[str] = None,
+        has_run: typing.Optional[bool] = None,
+        order: typing.Optional[ListEconomicIntelligenceRequestOrder] = None,
+        direction: typing.Optional[ListEconomicIntelligenceRequestDirection] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
@@ -215,7 +235,7 @@ class AsyncEconomicIntelligenceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[EconomicIntelligence, ListEconomicIntelligenceResponse]:
         """
-        Lists an account's recommendations and generation requests, newest first. Without an account, signed-out visitors receive a business-setup template and eligible users receive their saved setup recommendation.
+        Lists an account's recommendations and generation requests, newest first by default. Without an account, signed-out visitors receive a business-setup template and eligible users receive their saved setup recommendation. With `has_run` and no account, users receive the recommendations run on every account they can read.
 
         Parameters
         ----------
@@ -227,6 +247,15 @@ class AsyncEconomicIntelligenceClient:
 
         input : typing.Optional[str]
             What you want recommendations for, in your own words. Up to 1000 characters. Narrows the list to the recommendations that address it.
+
+        has_run : typing.Optional[bool]
+            When true, only recommendations someone has started running, by any user. Without `account_id`, covers every account you can read that has Economic Intelligence. Can't be combined with `input`.
+
+        order : typing.Optional[ListEconomicIntelligenceRequestOrder]
+            Sort field.
+
+        direction : typing.Optional[ListEconomicIntelligenceRequestDirection]
+            Sort direction.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -277,6 +306,9 @@ class AsyncEconomicIntelligenceClient:
             account_id=account_id,
             status=status,
             input=input,
+            has_run=has_run,
+            order=order,
+            direction=direction,
             first=first,
             after=after,
             last=last,
