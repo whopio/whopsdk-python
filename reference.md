@@ -45374,7 +45374,7 @@ client.accounts.preferences.update(
 <dl>
 <dd>
 
-**economic_intelligence_duration_key:** `typing.Optional[UpdatePreferencesRequestEconomicIntelligenceDurationKey]` — Turns on Economic Intelligence for the duration with this `key` in `economic_intelligence_offers`, at that duration's fee. It can't be changed or turned off until `economic_intelligence_ends_at`, and it can only be turned on once the account is off the Economic Intelligence waitlist. Requires the `company:update` scope on your API key.
+**economic_intelligence_duration_key:** `typing.Optional[UpdatePreferencesRequestEconomicIntelligenceDurationKey]` — Turns on Economic Intelligence for the duration with this `key` in `economic_intelligence_offers`, at that duration's fee. It can't be changed or turned off until `economic_intelligence_ends_at`. Requires the `company:update` scope on your API key.
     
 </dd>
 </dl>

@@ -135,7 +135,7 @@ class PreferencesClient:
             Whether Whop assembles and files the evidence response when this account's payments are disputed. Off by default; enabling it also opts the account into the success fee charged only on disputes it wins. Requires the `payment:dispute` scope on your API key.
 
         economic_intelligence_duration_key : typing.Optional[UpdatePreferencesRequestEconomicIntelligenceDurationKey]
-            Turns on Economic Intelligence for the duration with this `key` in `economic_intelligence_offers`, at that duration's fee. It can't be changed or turned off until `economic_intelligence_ends_at`, and it can only be turned on once the account is off the Economic Intelligence waitlist. Requires the `company:update` scope on your API key.
+            Turns on Economic Intelligence for the duration with this `key` in `economic_intelligence_offers`, at that duration's fee. It can't be changed or turned off until `economic_intelligence_ends_at`. Requires the `company:update` scope on your API key.
 
         subscription_failure_behavior : typing.Optional[UpdatePreferencesRequestSubscriptionFailureBehavior]
             What happens to a subscription once every retry of a renewal payment has failed. `cancel` (the default) cancels it. `none` leaves it past due and keeps billing it each period; access follows the account's past-due access setting. Requires company:manage_checkout permission.
@@ -298,7 +298,7 @@ class AsyncPreferencesClient:
             Whether Whop assembles and files the evidence response when this account's payments are disputed. Off by default; enabling it also opts the account into the success fee charged only on disputes it wins. Requires the `payment:dispute` scope on your API key.
 
         economic_intelligence_duration_key : typing.Optional[UpdatePreferencesRequestEconomicIntelligenceDurationKey]
-            Turns on Economic Intelligence for the duration with this `key` in `economic_intelligence_offers`, at that duration's fee. It can't be changed or turned off until `economic_intelligence_ends_at`, and it can only be turned on once the account is off the Economic Intelligence waitlist. Requires the `company:update` scope on your API key.
+            Turns on Economic Intelligence for the duration with this `key` in `economic_intelligence_offers`, at that duration's fee. It can't be changed or turned off until `economic_intelligence_ends_at`. Requires the `company:update` scope on your API key.
 
         subscription_failure_behavior : typing.Optional[UpdatePreferencesRequestSubscriptionFailureBehavior]
             What happens to a subscription once every retry of a renewal payment has failed. `cancel` (the default) cancels it. `none` leaves it past due and keeps billing it each period; access follows the account's past-due access setting. Requires company:manage_checkout permission.
