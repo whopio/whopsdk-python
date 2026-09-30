@@ -23,6 +23,10 @@ class EconomicIntelligenceInput(UniversalBaseModel):
     """
 
     options: typing.List[str]
+    template: str = pydantic.Field()
+    """
+    A plan sentence with one {answer} blank to fill with the selected answer.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
