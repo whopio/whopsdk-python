@@ -93,6 +93,7 @@ PaymentMethodTypes = typing.Union[
         "payco",
         "paynow",
         "paypal",
+        "paypal_express",
         "paypay",
         "payto",
         "pix",
