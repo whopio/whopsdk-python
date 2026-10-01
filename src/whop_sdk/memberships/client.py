@@ -270,6 +270,45 @@ class MembershipsClient:
         )
         return _response.data
 
+    def apply_promo_code(
+        self, id: str, *, promo_code: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> Membership:
+        """
+        Applies a promo code to an `active` or `trialing` membership that does not already have one and has exactly one recurring item. The discount lands on the next invoice and follows the code's duration (`once`, `repeating`, or `forever`). Works for Stripe-billed memberships and memberships billed by Whop's billing engine, including payment-element and multi-PSP renewals. Stock, plan eligibility, and expiry are still checked. Memberships with multiple recurring items are rejected.
+
+        Parameters
+        ----------
+        id : str
+            Membership ID (`mem_` tag).
+
+        promo_code : str
+            The promo code to apply, as customers enter it at checkout (for example `SAVE20`).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Membership
+            promo code applied
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-09-29",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.memberships.apply_promo_code(
+            id="id",
+            promo_code="SAVE20",
+        )
+        """
+        _response = self._raw_client.apply_promo_code(id, promo_code=promo_code, request_options=request_options)
+        return _response.data
+
     def cancel(
         self,
         id: str,
@@ -815,6 +854,53 @@ class AsyncMembershipsClient:
             payment_method_id=payment_method_id,
             request_options=request_options,
         )
+        return _response.data
+
+    async def apply_promo_code(
+        self, id: str, *, promo_code: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> Membership:
+        """
+        Applies a promo code to an `active` or `trialing` membership that does not already have one and has exactly one recurring item. The discount lands on the next invoice and follows the code's duration (`once`, `repeating`, or `forever`). Works for Stripe-billed memberships and memberships billed by Whop's billing engine, including payment-element and multi-PSP renewals. Stock, plan eligibility, and expiry are still checked. Memberships with multiple recurring items are rejected.
+
+        Parameters
+        ----------
+        id : str
+            Membership ID (`mem_` tag).
+
+        promo_code : str
+            The promo code to apply, as customers enter it at checkout (for example `SAVE20`).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Membership
+            promo code applied
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-09-29",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.memberships.apply_promo_code(
+                id="id",
+                promo_code="SAVE20",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.apply_promo_code(id, promo_code=promo_code, request_options=request_options)
         return _response.data
 
     async def cancel(
