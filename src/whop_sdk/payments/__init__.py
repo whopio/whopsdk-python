@@ -7,7 +7,6 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
-        CreatePaymentsRequestLineItemsItem,
         CreatePaymentsRequestPaymentMethod,
         CreatePaymentsRequestPaymentMethodCardPresent,
         CreatePaymentsRequestPaymentMethodCardPresentPlatform,
@@ -84,7 +83,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateDirectRequestPlanProductVisibility": ".direct",
     "CreateDirectRequestPlanVisibility": ".direct",
     "CreateDirectRequestSetupFutureUsage": ".direct",
-    "CreatePaymentsRequestLineItemsItem": ".types",
     "CreatePaymentsRequestPaymentMethod": ".types",
     "CreatePaymentsRequestPaymentMethodCardPresent": ".types",
     "CreatePaymentsRequestPaymentMethodCardPresentPlatform": ".types",
@@ -168,7 +166,6 @@ __all__ = [
     "CreateDirectRequestPlanProductVisibility",
     "CreateDirectRequestPlanVisibility",
     "CreateDirectRequestSetupFutureUsage",
-    "CreatePaymentsRequestLineItemsItem",
     "CreatePaymentsRequestPaymentMethod",
     "CreatePaymentsRequestPaymentMethodCardPresent",
     "CreatePaymentsRequestPaymentMethodCardPresentPlatform",

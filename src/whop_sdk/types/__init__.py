@@ -796,6 +796,8 @@ if typing.TYPE_CHECKING:
     from .payment_fee_type import PaymentFeeType
     from .payment_hold import PaymentHold
     from .payment_hold_type import PaymentHoldType
+    from .payment_input import PaymentInput
+    from .payment_input_line_items_item import PaymentInputLineItemsItem
     from .payment_instructions import (
         PaymentInstructions,
         PaymentInstructions_BankTransfer,
@@ -2223,6 +2225,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaymentFeeType": ".payment_fee_type",
     "PaymentHold": ".payment_hold",
     "PaymentHoldType": ".payment_hold_type",
+    "PaymentInput": ".payment_input",
+    "PaymentInputLineItemsItem": ".payment_input_line_items_item",
     "PaymentInstructions": ".payment_instructions",
     "PaymentInstructions_BankTransfer": ".payment_instructions",
     "PaymentInstructions_Qr": ".payment_instructions",
@@ -3558,6 +3562,8 @@ __all__ = [
     "PaymentFeeType",
     "PaymentHold",
     "PaymentHoldType",
+    "PaymentInput",
+    "PaymentInputLineItemsItem",
     "PaymentInstructions",
     "PaymentInstructions_BankTransfer",
     "PaymentInstructions_Qr",
