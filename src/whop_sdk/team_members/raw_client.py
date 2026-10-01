@@ -439,7 +439,11 @@ class RawTeamMembersClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def update(
-        self, id: str, *, role: UpdateTeamMembersRequestRole, request_options: typing.Optional[RequestOptions] = None
+        self,
+        id: str,
+        *,
+        role: typing.Optional[UpdateTeamMembersRequestRole] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[TeamMember]:
         """
         Changes a team member's system role. Requires a user session — account API keys cannot change member roles. The account owner's role cannot be changed, and you cannot change your own role.
@@ -449,7 +453,7 @@ class RawTeamMembersClient:
         id : str
             Team member ID — `ausr_` for accepted members, `ausri_` for pending invites.
 
-        role : UpdateTeamMembersRequestRole
+        role : typing.Optional[UpdateTeamMembersRequestRole]
             The system role to grant. The Partner role can only be granted to the account's attached, verified partner.
 
         request_options : typing.Optional[RequestOptions]
@@ -927,7 +931,11 @@ class AsyncRawTeamMembersClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def update(
-        self, id: str, *, role: UpdateTeamMembersRequestRole, request_options: typing.Optional[RequestOptions] = None
+        self,
+        id: str,
+        *,
+        role: typing.Optional[UpdateTeamMembersRequestRole] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[TeamMember]:
         """
         Changes a team member's system role. Requires a user session — account API keys cannot change member roles. The account owner's role cannot be changed, and you cannot change your own role.
@@ -937,7 +945,7 @@ class AsyncRawTeamMembersClient:
         id : str
             Team member ID — `ausr_` for accepted members, `ausri_` for pending invites.
 
-        role : UpdateTeamMembersRequestRole
+        role : typing.Optional[UpdateTeamMembersRequestRole]
             The system role to grant. The Partner role can only be granted to the account's attached, verified partner.
 
         request_options : typing.Optional[RequestOptions]
