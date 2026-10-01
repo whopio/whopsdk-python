@@ -1178,6 +1178,9 @@ if typing.TYPE_CHECKING:
     from .plan_types import PlanTypes
     from .plan_visibility import PlanVisibility
     from .product import Product
+    from .product_affiliate import ProductAffiliate
+    from .product_affiliate_status import ProductAffiliateStatus
+    from .product_affiliate_user import ProductAffiliateUser
     from .product_custom_cta import ProductCustomCta
     from .product_gallery_image import ProductGalleryImage
     from .product_global_affiliate_status import ProductGlobalAffiliateStatus
@@ -2488,6 +2491,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PlanTypes": ".plan_types",
     "PlanVisibility": ".plan_visibility",
     "Product": ".product",
+    "ProductAffiliate": ".product_affiliate",
+    "ProductAffiliateStatus": ".product_affiliate_status",
+    "ProductAffiliateUser": ".product_affiliate_user",
     "ProductCustomCta": ".product_custom_cta",
     "ProductGalleryImage": ".product_gallery_image",
     "ProductGlobalAffiliateStatus": ".product_global_affiliate_status",
@@ -3820,6 +3826,9 @@ __all__ = [
     "PlanTypes",
     "PlanVisibility",
     "Product",
+    "ProductAffiliate",
+    "ProductAffiliateStatus",
+    "ProductAffiliateUser",
     "ProductCustomCta",
     "ProductGalleryImage",
     "ProductGlobalAffiliateStatus",
