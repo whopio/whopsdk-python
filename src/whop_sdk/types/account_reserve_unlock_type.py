@@ -4,19 +4,18 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .account_reserve_unlock_type import AccountReserveUnlockType
+from .account_reserve_unlock_type_type import AccountReserveUnlockTypeType
 
 
-class AccountReserveUnlock(UniversalBaseModel):
+class AccountReserveUnlockType(UniversalBaseModel):
     amount: str = pydantic.Field()
     """
-    Amount unlocking that day across every reason, in native units, as a decimal string.
+    Amount unlocking that day for this reason, in native units, as a decimal string.
     """
 
-    by_type: typing.List[AccountReserveUnlockType]
-    date: str = pydantic.Field()
+    type: AccountReserveUnlockTypeType = pydantic.Field()
     """
-    The day this money unlocks, as an ISO 8601 date.
+    Why this part of the day's unlock is held, matching `type` on the reserve's `by_type`.
     """
 
     if IS_PYDANTIC_V2:
