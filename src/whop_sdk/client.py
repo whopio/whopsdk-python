@@ -77,6 +77,7 @@ if typing.TYPE_CHECKING:
     from .people.client import AsyncPeopleClient, PeopleClient
     from .permissions.client import AsyncPermissionsClient, PermissionsClient
     from .plans.client import AsyncPlansClient, PlansClient
+    from .product_affiliates.client import AsyncProductAffiliatesClient, ProductAffiliatesClient
     from .products.client import AsyncProductsClient, ProductsClient
     from .promo_codes.client import AsyncPromoCodesClient, PromoCodesClient
     from .reactions.client import AsyncReactionsClient, ReactionsClient
@@ -255,6 +256,7 @@ class Whop:
         self._people: typing.Optional[PeopleClient] = None
         self._permissions: typing.Optional[PermissionsClient] = None
         self._plans: typing.Optional[PlansClient] = None
+        self._product_affiliates: typing.Optional[ProductAffiliatesClient] = None
         self._products: typing.Optional[ProductsClient] = None
         self._promo_codes: typing.Optional[PromoCodesClient] = None
         self._reactions: typing.Optional[ReactionsClient] = None
@@ -814,6 +816,14 @@ class Whop:
         return self._plans
 
     @property
+    def product_affiliates(self):
+        if self._product_affiliates is None:
+            from .product_affiliates.client import ProductAffiliatesClient  # noqa: E402
+
+            self._product_affiliates = ProductAffiliatesClient(client_wrapper=self._client_wrapper)
+        return self._product_affiliates
+
+    @property
     def products(self):
         if self._products is None:
             from .products.client import ProductsClient  # noqa: E402
@@ -1158,6 +1168,7 @@ class AsyncWhop:
         self._people: typing.Optional[AsyncPeopleClient] = None
         self._permissions: typing.Optional[AsyncPermissionsClient] = None
         self._plans: typing.Optional[AsyncPlansClient] = None
+        self._product_affiliates: typing.Optional[AsyncProductAffiliatesClient] = None
         self._products: typing.Optional[AsyncProductsClient] = None
         self._promo_codes: typing.Optional[AsyncPromoCodesClient] = None
         self._reactions: typing.Optional[AsyncReactionsClient] = None
@@ -1715,6 +1726,14 @@ class AsyncWhop:
 
             self._plans = AsyncPlansClient(client_wrapper=self._client_wrapper)
         return self._plans
+
+    @property
+    def product_affiliates(self):
+        if self._product_affiliates is None:
+            from .product_affiliates.client import AsyncProductAffiliatesClient  # noqa: E402
+
+            self._product_affiliates = AsyncProductAffiliatesClient(client_wrapper=self._client_wrapper)
+        return self._product_affiliates
 
     @property
     def products(self):
