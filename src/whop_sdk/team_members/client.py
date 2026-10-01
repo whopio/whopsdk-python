@@ -255,7 +255,11 @@ class TeamMembersClient:
         return _response.data
 
     def update(
-        self, id: str, *, role: UpdateTeamMembersRequestRole, request_options: typing.Optional[RequestOptions] = None
+        self,
+        id: str,
+        *,
+        role: typing.Optional[UpdateTeamMembersRequestRole] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> TeamMember:
         """
         Changes a team member's system role. Requires a user session — account API keys cannot change member roles. The account owner's role cannot be changed, and you cannot change your own role.
@@ -265,7 +269,7 @@ class TeamMembersClient:
         id : str
             Team member ID — `ausr_` for accepted members, `ausri_` for pending invites.
 
-        role : UpdateTeamMembersRequestRole
+        role : typing.Optional[UpdateTeamMembersRequestRole]
             The system role to grant. The Partner role can only be granted to the account's attached, verified partner.
 
         request_options : typing.Optional[RequestOptions]
@@ -287,7 +291,6 @@ class TeamMembersClient:
         )
         client.team_members.update(
             id="id",
-            role="owner",
         )
         """
         _response = self._raw_client.update(id, role=role, request_options=request_options)
@@ -564,7 +567,11 @@ class AsyncTeamMembersClient:
         return _response.data
 
     async def update(
-        self, id: str, *, role: UpdateTeamMembersRequestRole, request_options: typing.Optional[RequestOptions] = None
+        self,
+        id: str,
+        *,
+        role: typing.Optional[UpdateTeamMembersRequestRole] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> TeamMember:
         """
         Changes a team member's system role. Requires a user session — account API keys cannot change member roles. The account owner's role cannot be changed, and you cannot change your own role.
@@ -574,7 +581,7 @@ class AsyncTeamMembersClient:
         id : str
             Team member ID — `ausr_` for accepted members, `ausri_` for pending invites.
 
-        role : UpdateTeamMembersRequestRole
+        role : typing.Optional[UpdateTeamMembersRequestRole]
             The system role to grant. The Partner role can only be granted to the account's attached, verified partner.
 
         request_options : typing.Optional[RequestOptions]
@@ -601,7 +608,6 @@ class AsyncTeamMembersClient:
         async def main() -> None:
             await client.team_members.update(
                 id="id",
-                role="owner",
             )
 
 

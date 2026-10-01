@@ -40111,7 +40111,6 @@ client = Whop(
 
 client.team_members.update(
     id="id",
-    role="owner",
 )
 
 ```
@@ -40136,7 +40135,7 @@ client.team_members.update(
 <dl>
 <dd>
 
-**role:** `UpdateTeamMembersRequestRole` — The system role to grant. The Partner role can only be granted to the account's attached, verified partner.
+**role:** `typing.Optional[UpdateTeamMembersRequestRole]` — The system role to grant. The Partner role can only be granted to the account's attached, verified partner.
     
 </dd>
 </dl>
