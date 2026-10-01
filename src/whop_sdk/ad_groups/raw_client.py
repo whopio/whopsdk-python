@@ -308,7 +308,7 @@ class RawAdGroupsClient:
             When the ad group stops delivering, as an ISO 8601 timestamp. Omit to run until paused.
 
         frequency_cap : typing.Optional[CreateAdGroupsRequestFrequencyCap]
-            Cap on how often one person sees ads from this ad group. Only available on campaigns with the `awareness` objective.
+            Cap on how often one person sees ads from this ad group. Only available when the ad group optimizes for reach or ThruPlay. Once the ad group is live on the ad network, the cap can only be changed before its start date and can't be removed; otherwise `null` clears it.
 
         languages : typing.Optional[typing.Sequence[str]]
             Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted targets all languages.
@@ -389,7 +389,9 @@ class RawAdGroupsClient:
                 "dynamic_creative": dynamic_creative,
                 "ends_at": ends_at,
                 "frequency_cap": convert_and_respect_annotation_metadata(
-                    object_=frequency_cap, annotation=CreateAdGroupsRequestFrequencyCap, direction="write"
+                    object_=frequency_cap,
+                    annotation=typing.Optional[CreateAdGroupsRequestFrequencyCap],
+                    direction="write",
                 ),
                 "languages": languages,
                 "message_apps": message_apps,
@@ -939,7 +941,7 @@ class RawAdGroupsClient:
             When the ad group stops delivering, as an ISO 8601 timestamp. Omit to run until paused.
 
         frequency_cap : typing.Optional[UpdateAdGroupsRequestFrequencyCap]
-            Cap on how often one person sees ads from this ad group. Only available on campaigns with the `awareness` objective.
+            Cap on how often one person sees ads from this ad group. Only available when the ad group optimizes for reach or ThruPlay. Once the ad group is live on the ad network, the cap can only be changed before its start date and can't be removed; otherwise `null` clears it.
 
         languages : typing.Optional[typing.Sequence[str]]
             Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted targets all languages.
@@ -1018,7 +1020,9 @@ class RawAdGroupsClient:
                 ),
                 "ends_at": ends_at,
                 "frequency_cap": convert_and_respect_annotation_metadata(
-                    object_=frequency_cap, annotation=UpdateAdGroupsRequestFrequencyCap, direction="write"
+                    object_=frequency_cap,
+                    annotation=typing.Optional[UpdateAdGroupsRequestFrequencyCap],
+                    direction="write",
                 ),
                 "languages": languages,
                 "message_apps": message_apps,
@@ -1521,7 +1525,7 @@ class AsyncRawAdGroupsClient:
             When the ad group stops delivering, as an ISO 8601 timestamp. Omit to run until paused.
 
         frequency_cap : typing.Optional[CreateAdGroupsRequestFrequencyCap]
-            Cap on how often one person sees ads from this ad group. Only available on campaigns with the `awareness` objective.
+            Cap on how often one person sees ads from this ad group. Only available when the ad group optimizes for reach or ThruPlay. Once the ad group is live on the ad network, the cap can only be changed before its start date and can't be removed; otherwise `null` clears it.
 
         languages : typing.Optional[typing.Sequence[str]]
             Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted targets all languages.
@@ -1602,7 +1606,9 @@ class AsyncRawAdGroupsClient:
                 "dynamic_creative": dynamic_creative,
                 "ends_at": ends_at,
                 "frequency_cap": convert_and_respect_annotation_metadata(
-                    object_=frequency_cap, annotation=CreateAdGroupsRequestFrequencyCap, direction="write"
+                    object_=frequency_cap,
+                    annotation=typing.Optional[CreateAdGroupsRequestFrequencyCap],
+                    direction="write",
                 ),
                 "languages": languages,
                 "message_apps": message_apps,
@@ -2152,7 +2158,7 @@ class AsyncRawAdGroupsClient:
             When the ad group stops delivering, as an ISO 8601 timestamp. Omit to run until paused.
 
         frequency_cap : typing.Optional[UpdateAdGroupsRequestFrequencyCap]
-            Cap on how often one person sees ads from this ad group. Only available on campaigns with the `awareness` objective.
+            Cap on how often one person sees ads from this ad group. Only available when the ad group optimizes for reach or ThruPlay. Once the ad group is live on the ad network, the cap can only be changed before its start date and can't be removed; otherwise `null` clears it.
 
         languages : typing.Optional[typing.Sequence[str]]
             Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted targets all languages.
@@ -2231,7 +2237,9 @@ class AsyncRawAdGroupsClient:
                 ),
                 "ends_at": ends_at,
                 "frequency_cap": convert_and_respect_annotation_metadata(
-                    object_=frequency_cap, annotation=UpdateAdGroupsRequestFrequencyCap, direction="write"
+                    object_=frequency_cap,
+                    annotation=typing.Optional[UpdateAdGroupsRequestFrequencyCap],
+                    direction="write",
                 ),
                 "languages": languages,
                 "message_apps": message_apps,

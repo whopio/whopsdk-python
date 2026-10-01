@@ -8,7 +8,7 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 class UpdateAdGroupsRequestFrequencyCap(UniversalBaseModel):
     """
-    Cap on how often one person sees ads from this ad group. Only available on campaigns with the `awareness` objective.
+    Cap on how often one person sees ads from this ad group. Only available when the ad group optimizes for reach or ThruPlay. Once the ad group is live on the ad network, the cap can only be changed before its start date and can't be removed; otherwise `null` clears it.
     """
 
     maximum_impressions: typing.Optional[int] = pydantic.Field(default=None)
