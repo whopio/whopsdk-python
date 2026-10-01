@@ -12,6 +12,11 @@ class PaymentVerificationChecks(UniversalBaseModel):
     The Address Verification Service (AVS) result for the billing street address.
     """
 
+    arn: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The Acquirer Reference Number (ARN) that traces this charge through the card network, or null when the processor did not return one.
+    """
+
     authorization_code: typing.Optional[str] = pydantic.Field(default=None)
     """
     The card issuer's authorization code for this charge, or null when the processor did not return one.
