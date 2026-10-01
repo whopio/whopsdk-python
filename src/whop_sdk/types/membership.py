@@ -90,6 +90,11 @@ class Membership(UniversalBaseModel):
     The product this membership grants access to, prefixed `prod_`.
     """
 
+    promo_code_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The promo code discounting this membership, prefixed `promo_`. `null` when none is applied. Set at checkout or by Apply Promo Code to Membership.
+    """
+
     status: MembershipStatus = pydantic.Field()
     """
     Billing state of the membership. `active`/`trialing` memberships grant access; `past_due` is the grace period after a failed payment; `completed` one-time purchases keep access; `canceled`/`expired` do not.
