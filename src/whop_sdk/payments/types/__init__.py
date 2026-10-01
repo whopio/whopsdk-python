@@ -6,7 +6,6 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .create_payments_request_line_items_item import CreatePaymentsRequestLineItemsItem
     from .create_payments_request_payment_method import CreatePaymentsRequestPaymentMethod
     from .create_payments_request_payment_method_card_present import CreatePaymentsRequestPaymentMethodCardPresent
     from .create_payments_request_payment_method_card_present_platform import (
@@ -55,7 +54,6 @@ if typing.TYPE_CHECKING:
     from .post_payment_succeeded_payload_type import PostPaymentSucceededPayloadType
     from .update_payments_request_shipping_address import UpdatePaymentsRequestShippingAddress
 _dynamic_imports: typing.Dict[str, str] = {
-    "CreatePaymentsRequestLineItemsItem": ".create_payments_request_line_items_item",
     "CreatePaymentsRequestPaymentMethod": ".create_payments_request_payment_method",
     "CreatePaymentsRequestPaymentMethodCardPresent": ".create_payments_request_payment_method_card_present",
     "CreatePaymentsRequestPaymentMethodCardPresentPlatform": ".create_payments_request_payment_method_card_present_platform",
@@ -124,7 +122,6 @@ def __dir__():
 
 
 __all__ = [
-    "CreatePaymentsRequestLineItemsItem",
     "CreatePaymentsRequestPaymentMethod",
     "CreatePaymentsRequestPaymentMethodCardPresent",
     "CreatePaymentsRequestPaymentMethodCardPresentPlatform",

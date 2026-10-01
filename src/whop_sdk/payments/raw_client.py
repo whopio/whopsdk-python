@@ -20,9 +20,9 @@ from ..errors.forbidden_error import ForbiddenError
 from ..errors.not_found_error import NotFoundError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.payment import Payment
+from ..types.payment_input_line_items_item import PaymentInputLineItemsItem
 from ..types.payment_status import PaymentStatus
 from ..types.v1error_response import V1ErrorResponse
-from .types.create_payments_request_line_items_item import CreatePaymentsRequestLineItemsItem
 from .types.create_payments_request_payment_method import CreatePaymentsRequestPaymentMethod
 from .types.create_payments_request_plan import CreatePaymentsRequestPlan
 from .types.create_payments_request_shipping_address import CreatePaymentsRequestShippingAddress
@@ -242,17 +242,17 @@ class RawPaymentsClient:
         capture: typing.Optional[bool] = OMIT,
         confirmation_token: typing.Optional[str] = OMIT,
         email: typing.Optional[str] = OMIT,
-        line_items: typing.Optional[typing.Sequence[CreatePaymentsRequestLineItemsItem]] = OMIT,
         member_id: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         payment_method: typing.Optional[CreatePaymentsRequestPaymentMethod] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         plan: typing.Optional[CreatePaymentsRequestPlan] = OMIT,
-        plan_id: typing.Optional[str] = OMIT,
-        promo_code_id: typing.Optional[str] = OMIT,
         return_url: typing.Optional[str] = OMIT,
         shipping_address: typing.Optional[CreatePaymentsRequestShippingAddress] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
+        line_items: typing.Optional[typing.Sequence[PaymentInputLineItemsItem]] = OMIT,
+        plan_id: typing.Optional[str] = OMIT,
+        promo_code_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Payment]:
         """
@@ -261,7 +261,7 @@ class RawPaymentsClient:
         Parameters
         ----------
         account_id : str
-            The account to charge for, prefixed `biz_`.
+            The account the purchase belongs to, prefixed `biz_`.
 
         auto_capture_after_minutes : typing.Optional[int]
             Minutes after authorization at which Whop captures the hold automatically unless it has been voided. Requires `capture: false`. Between 5 and 5760 (4 days).
@@ -274,9 +274,6 @@ class RawPaymentsClient:
 
         email : typing.Optional[str]
             The buyer's email, resolving or creating the user the payment belongs to. With `confirmation_token` it overrides the email the token carries, and is ignored when the token was created by a signed-in buyer; with `payment_method` it names a buyer the point of sale already knows, otherwise the sale belongs to a guest until a buyer is attached. Ignored with `member_id`.
-
-        line_items : typing.Optional[typing.Sequence[CreatePaymentsRequestLineItemsItem]]
-            What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
 
         member_id : typing.Optional[str]
             The member to charge, prefixed `mber_`. Required with `payment_method_id` unless `confirmation_token` is provided.
@@ -293,12 +290,6 @@ class RawPaymentsClient:
         plan : typing.Optional[CreatePaymentsRequestPlan]
             Find or create a variant for this payment through the compatibility input `plan`. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
 
-        plan_id : typing.Optional[str]
-            The variant to charge for, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
-
-        promo_code_id : typing.Optional[str]
-            An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant.
-
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters. Ignored unless `confirmation_token` is provided.
 
@@ -307,6 +298,15 @@ class RawPaymentsClient:
 
         statement_descriptor : typing.Optional[str]
             Overrides the text on the buyer's card statement for this payment only. Takes precedence over the product's and account's custom descriptors, and changes neither. Must start with `WHOP*` unless the business processes as the merchant of record. For businesses processing as the merchant of record, omit the `WHOP*` prefix; the descriptor appears as provided. Must be 5-22 characters, contain at least one letter, and use only Latin letters, numbers, spaces, underscores, hyphens, or asterisks.
+
+        line_items : typing.Optional[typing.Sequence[PaymentInputLineItemsItem]]
+            What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
+
+        plan_id : typing.Optional[str]
+            The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `line_items`.
+
+        promo_code_id : typing.Optional[str]
+            An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -321,16 +321,10 @@ class RawPaymentsClient:
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
-                "account_id": account_id,
                 "auto_capture_after_minutes": auto_capture_after_minutes,
                 "capture": capture,
                 "confirmation_token": confirmation_token,
                 "email": email,
-                "line_items": convert_and_respect_annotation_metadata(
-                    object_=line_items,
-                    annotation=typing.Sequence[CreatePaymentsRequestLineItemsItem],
-                    direction="write",
-                ),
                 "member_id": member_id,
                 "metadata": metadata,
                 "payment_method": convert_and_respect_annotation_metadata(
@@ -342,8 +336,6 @@ class RawPaymentsClient:
                 "plan": convert_and_respect_annotation_metadata(
                     object_=plan, annotation=CreatePaymentsRequestPlan, direction="write"
                 ),
-                "plan_id": plan_id,
-                "promo_code_id": promo_code_id,
                 "return_url": return_url,
                 "shipping_address": convert_and_respect_annotation_metadata(
                     object_=shipping_address,
@@ -351,6 +343,12 @@ class RawPaymentsClient:
                     direction="write",
                 ),
                 "statement_descriptor": statement_descriptor,
+                "account_id": account_id,
+                "line_items": convert_and_respect_annotation_metadata(
+                    object_=line_items, annotation=typing.Sequence[PaymentInputLineItemsItem], direction="write"
+                ),
+                "plan_id": plan_id,
+                "promo_code_id": promo_code_id,
             },
             headers={
                 "content-type": "application/json",
@@ -1493,17 +1491,17 @@ class AsyncRawPaymentsClient:
         capture: typing.Optional[bool] = OMIT,
         confirmation_token: typing.Optional[str] = OMIT,
         email: typing.Optional[str] = OMIT,
-        line_items: typing.Optional[typing.Sequence[CreatePaymentsRequestLineItemsItem]] = OMIT,
         member_id: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         payment_method: typing.Optional[CreatePaymentsRequestPaymentMethod] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         plan: typing.Optional[CreatePaymentsRequestPlan] = OMIT,
-        plan_id: typing.Optional[str] = OMIT,
-        promo_code_id: typing.Optional[str] = OMIT,
         return_url: typing.Optional[str] = OMIT,
         shipping_address: typing.Optional[CreatePaymentsRequestShippingAddress] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
+        line_items: typing.Optional[typing.Sequence[PaymentInputLineItemsItem]] = OMIT,
+        plan_id: typing.Optional[str] = OMIT,
+        promo_code_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Payment]:
         """
@@ -1512,7 +1510,7 @@ class AsyncRawPaymentsClient:
         Parameters
         ----------
         account_id : str
-            The account to charge for, prefixed `biz_`.
+            The account the purchase belongs to, prefixed `biz_`.
 
         auto_capture_after_minutes : typing.Optional[int]
             Minutes after authorization at which Whop captures the hold automatically unless it has been voided. Requires `capture: false`. Between 5 and 5760 (4 days).
@@ -1525,9 +1523,6 @@ class AsyncRawPaymentsClient:
 
         email : typing.Optional[str]
             The buyer's email, resolving or creating the user the payment belongs to. With `confirmation_token` it overrides the email the token carries, and is ignored when the token was created by a signed-in buyer; with `payment_method` it names a buyer the point of sale already knows, otherwise the sale belongs to a guest until a buyer is attached. Ignored with `member_id`.
-
-        line_items : typing.Optional[typing.Sequence[CreatePaymentsRequestLineItemsItem]]
-            What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
 
         member_id : typing.Optional[str]
             The member to charge, prefixed `mber_`. Required with `payment_method_id` unless `confirmation_token` is provided.
@@ -1544,12 +1539,6 @@ class AsyncRawPaymentsClient:
         plan : typing.Optional[CreatePaymentsRequestPlan]
             Find or create a variant for this payment through the compatibility input `plan`. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
 
-        plan_id : typing.Optional[str]
-            The variant to charge for, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
-
-        promo_code_id : typing.Optional[str]
-            An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant.
-
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters. Ignored unless `confirmation_token` is provided.
 
@@ -1558,6 +1547,15 @@ class AsyncRawPaymentsClient:
 
         statement_descriptor : typing.Optional[str]
             Overrides the text on the buyer's card statement for this payment only. Takes precedence over the product's and account's custom descriptors, and changes neither. Must start with `WHOP*` unless the business processes as the merchant of record. For businesses processing as the merchant of record, omit the `WHOP*` prefix; the descriptor appears as provided. Must be 5-22 characters, contain at least one letter, and use only Latin letters, numbers, spaces, underscores, hyphens, or asterisks.
+
+        line_items : typing.Optional[typing.Sequence[PaymentInputLineItemsItem]]
+            What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
+
+        plan_id : typing.Optional[str]
+            The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `line_items`.
+
+        promo_code_id : typing.Optional[str]
+            An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1572,16 +1570,10 @@ class AsyncRawPaymentsClient:
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
-                "account_id": account_id,
                 "auto_capture_after_minutes": auto_capture_after_minutes,
                 "capture": capture,
                 "confirmation_token": confirmation_token,
                 "email": email,
-                "line_items": convert_and_respect_annotation_metadata(
-                    object_=line_items,
-                    annotation=typing.Sequence[CreatePaymentsRequestLineItemsItem],
-                    direction="write",
-                ),
                 "member_id": member_id,
                 "metadata": metadata,
                 "payment_method": convert_and_respect_annotation_metadata(
@@ -1593,8 +1585,6 @@ class AsyncRawPaymentsClient:
                 "plan": convert_and_respect_annotation_metadata(
                     object_=plan, annotation=CreatePaymentsRequestPlan, direction="write"
                 ),
-                "plan_id": plan_id,
-                "promo_code_id": promo_code_id,
                 "return_url": return_url,
                 "shipping_address": convert_and_respect_annotation_metadata(
                     object_=shipping_address,
@@ -1602,6 +1592,12 @@ class AsyncRawPaymentsClient:
                     direction="write",
                 ),
                 "statement_descriptor": statement_descriptor,
+                "account_id": account_id,
+                "line_items": convert_and_respect_annotation_metadata(
+                    object_=line_items, annotation=typing.Sequence[PaymentInputLineItemsItem], direction="write"
+                ),
+                "plan_id": plan_id,
+                "promo_code_id": promo_code_id,
             },
             headers={
                 "content-type": "application/json",

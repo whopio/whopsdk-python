@@ -3,10 +3,10 @@
 import typing
 
 import pydantic
-from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class CreatePaymentsRequestLineItemsItem(UniversalBaseModel):
+class PaymentInputLineItemsItem(UniversalBaseModel):
     plan_id: str = pydantic.Field()
     """
     An existing variant to charge for, prefixed `plan_`. Each variant may appear once — use `quantity` for multiple units.
