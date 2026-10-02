@@ -37509,6 +37509,14 @@ client.social_accounts.list()
 <dl>
 <dd>
 
+**trust_level:** `typing.Optional[ListSocialAccountsRequestTrustLevel]` — Only return social accounts linked with this trust level, such as `oauth` for accounts connected through OAuth.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **verified:** `typing.Optional[bool]` — Only return social accounts that are verified on the platform.
     
 </dd>
