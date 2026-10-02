@@ -6,10 +6,10 @@ import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class CreatePartnerReferralRequestsRequestBodyTargetUserId(UniversalBaseModel):
-    target_user_id: str = pydantic.Field()
+class CreatePartnerReferralRequestsRequestBodyTargetEmail(UniversalBaseModel):
+    target_email: str = pydantic.Field()
     """
-    User to request attribution for, prefixed `user_`.
+    Email address on an existing user's account. Matching is case-insensitive. The user does not need to be enrolled in the partner program.
     """
 
     if IS_PYDANTIC_V2:

@@ -195,7 +195,7 @@ class RawPartnerReferralRequestsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PartnerReferralRequest]:
         """
-        Creates a referral link or sends a verified partner's attribution request to an existing business or enrolled partner for approval.
+        Creates a referral link or sends a verified partner's attribution request to an existing business or user for approval. Recipients do not need to join the partner program.
 
         Parameters
         ----------
@@ -802,7 +802,7 @@ class AsyncRawPartnerReferralRequestsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PartnerReferralRequest]:
         """
-        Creates a referral link or sends a verified partner's attribution request to an existing business or enrolled partner for approval.
+        Creates a referral link or sends a verified partner's attribution request to an existing business or user for approval. Recipients do not need to join the partner program.
 
         Parameters
         ----------

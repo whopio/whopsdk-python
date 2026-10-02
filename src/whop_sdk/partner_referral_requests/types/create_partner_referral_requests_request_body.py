@@ -7,6 +7,9 @@ from .create_partner_referral_requests_request_body_account_url import (
     CreatePartnerReferralRequestsRequestBodyAccountUrl,
 )
 from .create_partner_referral_requests_request_body_code import CreatePartnerReferralRequestsRequestBodyCode
+from .create_partner_referral_requests_request_body_target_email import (
+    CreatePartnerReferralRequestsRequestBodyTargetEmail,
+)
 from .create_partner_referral_requests_request_body_target_user_id import (
     CreatePartnerReferralRequestsRequestBodyTargetUserId,
 )
@@ -19,5 +22,6 @@ CreatePartnerReferralRequestsRequestBody = typing.Union[
     CreatePartnerReferralRequestsRequestBodyAccountUrl,
     CreatePartnerReferralRequestsRequestBodyTargetUserId,
     CreatePartnerReferralRequestsRequestBodyTargetUsername,
+    CreatePartnerReferralRequestsRequestBodyTargetEmail,
     CreatePartnerReferralRequestsRequestBodyCode,
 ]
