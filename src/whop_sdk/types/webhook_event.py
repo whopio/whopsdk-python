@@ -15,6 +15,7 @@ WebhookEvent = typing.Union[
         "membership.activated",
         "membership.deactivated",
         "membership.trial_ending_soon",
+        "membership.updated",
         "entry.created",
         "entry.approved",
         "entry.denied",
