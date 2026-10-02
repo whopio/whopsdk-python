@@ -34,6 +34,7 @@ class RawDirectClient:
         account_id: str,
         billing_details: CreateDirectRequestBillingDetails,
         payment_method: CreateDirectRequestPaymentMethod,
+        affiliate_code: typing.Optional[str] = OMIT,
         auto_capture_after_minutes: typing.Optional[int] = OMIT,
         capture: typing.Optional[bool] = OMIT,
         member_id: typing.Optional[str] = OMIT,
@@ -60,6 +61,9 @@ class RawDirectClient:
 
         payment_method : CreateDirectRequestPaymentMethod
             The payment method to charge, as the raw details the caller holds. Raw details are accepted only on the vault host, where Whop's vault tokenizes them in transit; the official SDKs route this operation there. Whop's own clients, which tokenize with the Basis Theory SDK, send the resulting token intent id to the regular host.
+
+        affiliate_code : typing.Optional[str]
+            The code an affiliate link carries, which is the affiliate's username. The affiliate is credited for this payment as on a checkout session. A code naming no one eligible to earn on the product is ignored, and the payment goes ahead. A promo code with its own affiliate takes precedence. No affiliate is credited on a variant without a product or on a purchase of several variants. At most 255 characters.
 
         auto_capture_after_minutes : typing.Optional[int]
             Minutes after authorization at which Whop captures the hold automatically unless it has been voided. Requires `capture: false`. Between 5 and 5760 (4 days).
@@ -108,6 +112,7 @@ class RawDirectClient:
             method="POST",
             json={
                 "account_id": account_id,
+                "affiliate_code": affiliate_code,
                 "auto_capture_after_minutes": auto_capture_after_minutes,
                 "billing_details": convert_and_respect_annotation_metadata(
                     object_=billing_details, annotation=CreateDirectRequestBillingDetails, direction="write"
@@ -186,6 +191,7 @@ class AsyncRawDirectClient:
         account_id: str,
         billing_details: CreateDirectRequestBillingDetails,
         payment_method: CreateDirectRequestPaymentMethod,
+        affiliate_code: typing.Optional[str] = OMIT,
         auto_capture_after_minutes: typing.Optional[int] = OMIT,
         capture: typing.Optional[bool] = OMIT,
         member_id: typing.Optional[str] = OMIT,
@@ -212,6 +218,9 @@ class AsyncRawDirectClient:
 
         payment_method : CreateDirectRequestPaymentMethod
             The payment method to charge, as the raw details the caller holds. Raw details are accepted only on the vault host, where Whop's vault tokenizes them in transit; the official SDKs route this operation there. Whop's own clients, which tokenize with the Basis Theory SDK, send the resulting token intent id to the regular host.
+
+        affiliate_code : typing.Optional[str]
+            The code an affiliate link carries, which is the affiliate's username. The affiliate is credited for this payment as on a checkout session. A code naming no one eligible to earn on the product is ignored, and the payment goes ahead. A promo code with its own affiliate takes precedence. No affiliate is credited on a variant without a product or on a purchase of several variants. At most 255 characters.
 
         auto_capture_after_minutes : typing.Optional[int]
             Minutes after authorization at which Whop captures the hold automatically unless it has been voided. Requires `capture: false`. Between 5 and 5760 (4 days).
@@ -260,6 +269,7 @@ class AsyncRawDirectClient:
             method="POST",
             json={
                 "account_id": account_id,
+                "affiliate_code": affiliate_code,
                 "auto_capture_after_minutes": auto_capture_after_minutes,
                 "billing_details": convert_and_respect_annotation_metadata(
                     object_=billing_details, annotation=CreateDirectRequestBillingDetails, direction="write"
