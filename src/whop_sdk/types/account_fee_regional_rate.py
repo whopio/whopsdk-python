@@ -40,7 +40,7 @@ class AccountFeeRegionalRate(UniversalBaseModel):
     The regional rate that takes effect when this account's custom rate is cleared, including inherited pricing.
     """
 
-    source: AccountFeeRegionalRateSource = pydantic.Field()
+    source: typing.Optional[AccountFeeRegionalRateSource] = pydantic.Field(default=None)
     """
     Where the regional rate in effect comes from: `default` is the platform rate, `custom` a rate negotiated for this account, and `inherited` a rate negotiated by the platform this account is connected to.
     """
