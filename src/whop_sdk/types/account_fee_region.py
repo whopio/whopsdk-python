@@ -3,6 +3,8 @@
 import typing
 
 AccountFeeRegion = typing.Union[
-    typing.Literal["usa", "eu", "ca", "uk", "au", "co", "mx", "ke", "cl", "pe", "ar", "cr", "gt", "uy", "br", "ph"],
+    typing.Literal[
+        "usa", "eu", "ca", "uk", "au", "co", "mx", "ke", "cl", "pe", "ar", "cr", "gt", "uy", "br", "ph", "ng"
+    ],
     typing.Any,
 ]
