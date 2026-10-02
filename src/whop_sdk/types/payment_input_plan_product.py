@@ -3,14 +3,12 @@
 import typing
 
 import pydantic
-from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .create_payments_request_plan_product_global_affiliate_status import (
-    CreatePaymentsRequestPlanProductGlobalAffiliateStatus,
-)
-from .create_payments_request_plan_product_visibility import CreatePaymentsRequestPlanProductVisibility
+from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .payment_input_plan_product_global_affiliate_status import PaymentInputPlanProductGlobalAffiliateStatus
+from .payment_input_plan_product_visibility import PaymentInputPlanProductVisibility
 
 
-class CreatePaymentsRequestPlanProduct(UniversalBaseModel):
+class PaymentInputPlanProduct(UniversalBaseModel):
     """
     Find or create a product by external identifier. Mutually exclusive with product_id.
     """
@@ -40,7 +38,7 @@ class CreatePaymentsRequestPlanProduct(UniversalBaseModel):
     Percentage of revenue paid to global affiliates.
     """
 
-    global_affiliate_status: typing.Optional[CreatePaymentsRequestPlanProductGlobalAffiliateStatus] = pydantic.Field(
+    global_affiliate_status: typing.Optional[PaymentInputPlanProductGlobalAffiliateStatus] = pydantic.Field(
         default=None
     )
     """
@@ -72,7 +70,7 @@ class CreatePaymentsRequestPlanProduct(UniversalBaseModel):
     Product title.
     """
 
-    visibility: typing.Optional[CreatePaymentsRequestPlanProductVisibility] = pydantic.Field(default=None)
+    visibility: typing.Optional[PaymentInputPlanProductVisibility] = pydantic.Field(default=None)
     """
     Product visibility. Defaults to hidden.
     """

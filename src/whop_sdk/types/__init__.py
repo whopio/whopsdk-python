@@ -805,6 +805,13 @@ if typing.TYPE_CHECKING:
     from .payment_hold_type import PaymentHoldType
     from .payment_input import PaymentInput
     from .payment_input_line_items_item import PaymentInputLineItemsItem
+    from .payment_input_plan import PaymentInputPlan
+    from .payment_input_plan_currency import PaymentInputPlanCurrency
+    from .payment_input_plan_plan_type import PaymentInputPlanPlanType
+    from .payment_input_plan_product import PaymentInputPlanProduct
+    from .payment_input_plan_product_global_affiliate_status import PaymentInputPlanProductGlobalAffiliateStatus
+    from .payment_input_plan_product_visibility import PaymentInputPlanProductVisibility
+    from .payment_input_plan_visibility import PaymentInputPlanVisibility
     from .payment_instructions import (
         PaymentInstructions,
         PaymentInstructions_BankTransfer,
@@ -2241,6 +2248,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaymentHoldType": ".payment_hold_type",
     "PaymentInput": ".payment_input",
     "PaymentInputLineItemsItem": ".payment_input_line_items_item",
+    "PaymentInputPlan": ".payment_input_plan",
+    "PaymentInputPlanCurrency": ".payment_input_plan_currency",
+    "PaymentInputPlanPlanType": ".payment_input_plan_plan_type",
+    "PaymentInputPlanProduct": ".payment_input_plan_product",
+    "PaymentInputPlanProductGlobalAffiliateStatus": ".payment_input_plan_product_global_affiliate_status",
+    "PaymentInputPlanProductVisibility": ".payment_input_plan_product_visibility",
+    "PaymentInputPlanVisibility": ".payment_input_plan_visibility",
     "PaymentInstructions": ".payment_instructions",
     "PaymentInstructions_BankTransfer": ".payment_instructions",
     "PaymentInstructions_Qr": ".payment_instructions",
@@ -3585,6 +3599,13 @@ __all__ = [
     "PaymentHoldType",
     "PaymentInput",
     "PaymentInputLineItemsItem",
+    "PaymentInputPlan",
+    "PaymentInputPlanCurrency",
+    "PaymentInputPlanPlanType",
+    "PaymentInputPlanProduct",
+    "PaymentInputPlanProductGlobalAffiliateStatus",
+    "PaymentInputPlanProductVisibility",
+    "PaymentInputPlanVisibility",
     "PaymentInstructions",
     "PaymentInstructions_BankTransfer",
     "PaymentInstructions_Qr",

@@ -12,15 +12,6 @@ if typing.TYPE_CHECKING:
         CreatePaymentsRequestPaymentMethodCardPresentPlatform,
     )
     from .create_payments_request_payment_method_type import CreatePaymentsRequestPaymentMethodType
-    from .create_payments_request_plan import CreatePaymentsRequestPlan
-    from .create_payments_request_plan_currency import CreatePaymentsRequestPlanCurrency
-    from .create_payments_request_plan_plan_type import CreatePaymentsRequestPlanPlanType
-    from .create_payments_request_plan_product import CreatePaymentsRequestPlanProduct
-    from .create_payments_request_plan_product_global_affiliate_status import (
-        CreatePaymentsRequestPlanProductGlobalAffiliateStatus,
-    )
-    from .create_payments_request_plan_product_visibility import CreatePaymentsRequestPlanProductVisibility
-    from .create_payments_request_plan_visibility import CreatePaymentsRequestPlanVisibility
     from .create_payments_request_shipping_address import CreatePaymentsRequestShippingAddress
     from .list_fees_payments_response import ListFeesPaymentsResponse
     from .list_fees_payments_response_page_info import ListFeesPaymentsResponsePageInfo
@@ -58,13 +49,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreatePaymentsRequestPaymentMethodCardPresent": ".create_payments_request_payment_method_card_present",
     "CreatePaymentsRequestPaymentMethodCardPresentPlatform": ".create_payments_request_payment_method_card_present_platform",
     "CreatePaymentsRequestPaymentMethodType": ".create_payments_request_payment_method_type",
-    "CreatePaymentsRequestPlan": ".create_payments_request_plan",
-    "CreatePaymentsRequestPlanCurrency": ".create_payments_request_plan_currency",
-    "CreatePaymentsRequestPlanPlanType": ".create_payments_request_plan_plan_type",
-    "CreatePaymentsRequestPlanProduct": ".create_payments_request_plan_product",
-    "CreatePaymentsRequestPlanProductGlobalAffiliateStatus": ".create_payments_request_plan_product_global_affiliate_status",
-    "CreatePaymentsRequestPlanProductVisibility": ".create_payments_request_plan_product_visibility",
-    "CreatePaymentsRequestPlanVisibility": ".create_payments_request_plan_visibility",
     "CreatePaymentsRequestShippingAddress": ".create_payments_request_shipping_address",
     "ListFeesPaymentsResponse": ".list_fees_payments_response",
     "ListFeesPaymentsResponsePageInfo": ".list_fees_payments_response_page_info",
@@ -126,13 +110,6 @@ __all__ = [
     "CreatePaymentsRequestPaymentMethodCardPresent",
     "CreatePaymentsRequestPaymentMethodCardPresentPlatform",
     "CreatePaymentsRequestPaymentMethodType",
-    "CreatePaymentsRequestPlan",
-    "CreatePaymentsRequestPlanCurrency",
-    "CreatePaymentsRequestPlanPlanType",
-    "CreatePaymentsRequestPlanProduct",
-    "CreatePaymentsRequestPlanProductGlobalAffiliateStatus",
-    "CreatePaymentsRequestPlanProductVisibility",
-    "CreatePaymentsRequestPlanVisibility",
     "CreatePaymentsRequestShippingAddress",
     "ListFeesPaymentsResponse",
     "ListFeesPaymentsResponsePageInfo",

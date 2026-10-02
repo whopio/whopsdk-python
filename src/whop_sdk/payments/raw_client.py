@@ -21,10 +21,10 @@ from ..errors.not_found_error import NotFoundError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.payment import Payment
 from ..types.payment_input_line_items_item import PaymentInputLineItemsItem
+from ..types.payment_input_plan import PaymentInputPlan
 from ..types.payment_status import PaymentStatus
 from ..types.v1error_response import V1ErrorResponse
 from .types.create_payments_request_payment_method import CreatePaymentsRequestPaymentMethod
-from .types.create_payments_request_plan import CreatePaymentsRequestPlan
 from .types.create_payments_request_shipping_address import CreatePaymentsRequestShippingAddress
 from .types.list_fees_payments_response import ListFeesPaymentsResponse
 from .types.list_payments_request_billing_reason import ListPaymentsRequestBillingReason
@@ -246,11 +246,11 @@ class RawPaymentsClient:
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         payment_method: typing.Optional[CreatePaymentsRequestPaymentMethod] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
-        plan: typing.Optional[CreatePaymentsRequestPlan] = OMIT,
         return_url: typing.Optional[str] = OMIT,
         shipping_address: typing.Optional[CreatePaymentsRequestShippingAddress] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
         line_items: typing.Optional[typing.Sequence[PaymentInputLineItemsItem]] = OMIT,
+        plan: typing.Optional[PaymentInputPlan] = OMIT,
         plan_id: typing.Optional[str] = OMIT,
         promo_code_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -287,9 +287,6 @@ class RawPaymentsClient:
         payment_method_id : typing.Optional[str]
             The stored payment method to charge, prefixed `payt_`. It must belong to the member. Required unless `confirmation_token` is provided.
 
-        plan : typing.Optional[CreatePaymentsRequestPlan]
-            Find or create a variant for this payment through the compatibility input `plan`. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
-
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters. Ignored unless `confirmation_token` is provided.
 
@@ -302,8 +299,11 @@ class RawPaymentsClient:
         line_items : typing.Optional[typing.Sequence[PaymentInputLineItemsItem]]
             What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
 
+        plan : typing.Optional[PaymentInputPlan]
+            The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
+
         plan_id : typing.Optional[str]
-            The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `line_items`.
+            The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
 
         promo_code_id : typing.Optional[str]
             An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant.
@@ -333,9 +333,6 @@ class RawPaymentsClient:
                     direction="write",
                 ),
                 "payment_method_id": payment_method_id,
-                "plan": convert_and_respect_annotation_metadata(
-                    object_=plan, annotation=CreatePaymentsRequestPlan, direction="write"
-                ),
                 "return_url": return_url,
                 "shipping_address": convert_and_respect_annotation_metadata(
                     object_=shipping_address,
@@ -346,6 +343,9 @@ class RawPaymentsClient:
                 "account_id": account_id,
                 "line_items": convert_and_respect_annotation_metadata(
                     object_=line_items, annotation=typing.Sequence[PaymentInputLineItemsItem], direction="write"
+                ),
+                "plan": convert_and_respect_annotation_metadata(
+                    object_=plan, annotation=PaymentInputPlan, direction="write"
                 ),
                 "plan_id": plan_id,
                 "promo_code_id": promo_code_id,
@@ -1495,11 +1495,11 @@ class AsyncRawPaymentsClient:
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         payment_method: typing.Optional[CreatePaymentsRequestPaymentMethod] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
-        plan: typing.Optional[CreatePaymentsRequestPlan] = OMIT,
         return_url: typing.Optional[str] = OMIT,
         shipping_address: typing.Optional[CreatePaymentsRequestShippingAddress] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
         line_items: typing.Optional[typing.Sequence[PaymentInputLineItemsItem]] = OMIT,
+        plan: typing.Optional[PaymentInputPlan] = OMIT,
         plan_id: typing.Optional[str] = OMIT,
         promo_code_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1536,9 +1536,6 @@ class AsyncRawPaymentsClient:
         payment_method_id : typing.Optional[str]
             The stored payment method to charge, prefixed `payt_`. It must belong to the member. Required unless `confirmation_token` is provided.
 
-        plan : typing.Optional[CreatePaymentsRequestPlan]
-            Find or create a variant for this payment through the compatibility input `plan`. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
-
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters. Ignored unless `confirmation_token` is provided.
 
@@ -1551,8 +1548,11 @@ class AsyncRawPaymentsClient:
         line_items : typing.Optional[typing.Sequence[PaymentInputLineItemsItem]]
             What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
 
+        plan : typing.Optional[PaymentInputPlan]
+            The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
+
         plan_id : typing.Optional[str]
-            The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `line_items`.
+            The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
 
         promo_code_id : typing.Optional[str]
             An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant.
@@ -1582,9 +1582,6 @@ class AsyncRawPaymentsClient:
                     direction="write",
                 ),
                 "payment_method_id": payment_method_id,
-                "plan": convert_and_respect_annotation_metadata(
-                    object_=plan, annotation=CreatePaymentsRequestPlan, direction="write"
-                ),
                 "return_url": return_url,
                 "shipping_address": convert_and_respect_annotation_metadata(
                     object_=shipping_address,
@@ -1595,6 +1592,9 @@ class AsyncRawPaymentsClient:
                 "account_id": account_id,
                 "line_items": convert_and_respect_annotation_metadata(
                     object_=line_items, annotation=typing.Sequence[PaymentInputLineItemsItem], direction="write"
+                ),
+                "plan": convert_and_respect_annotation_metadata(
+                    object_=plan, annotation=PaymentInputPlan, direction="write"
                 ),
                 "plan_id": plan_id,
                 "promo_code_id": promo_code_id,

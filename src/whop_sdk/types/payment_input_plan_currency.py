@@ -2,7 +2,7 @@
 
 import typing
 
-CreatePaymentsRequestPlanCurrency = typing.Union[
+PaymentInputPlanCurrency = typing.Union[
     typing.Literal[
         "usd",
         "sgd",
