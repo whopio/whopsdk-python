@@ -235,7 +235,7 @@ class AdGroup(UniversalBaseModel):
 
     frequency_cap: typing.Optional[AdGroupFrequencyCap] = pydantic.Field(default=None)
     """
-    Cap on how often one person sees ads from this ad group. Only available when the ad group optimizes for reach or ThruPlay; `null` when uncapped.
+    Cap on how often one person sees ads from this ad group, or from the whole campaign under a campaign budget, where every ad group shares it. Only available when the ad group optimizes for reach or ThruPlay; `null` when uncapped.
     """
 
     id: str = pydantic.Field()
