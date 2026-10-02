@@ -238,6 +238,7 @@ class RawPaymentsClient:
         self,
         *,
         account_id: str,
+        affiliate_code: typing.Optional[str] = OMIT,
         auto_capture_after_minutes: typing.Optional[int] = OMIT,
         capture: typing.Optional[bool] = OMIT,
         confirmation_token: typing.Optional[str] = OMIT,
@@ -262,6 +263,9 @@ class RawPaymentsClient:
         ----------
         account_id : str
             The account the purchase belongs to, prefixed `biz_`.
+
+        affiliate_code : typing.Optional[str]
+            The code an affiliate link carries, which is the affiliate's username. The affiliate is credited for this payment as on a checkout session. A code naming no one eligible to earn on the product is ignored, and the payment goes ahead. A promo code with its own affiliate takes precedence. No affiliate is credited on a variant without a product or on a purchase of several variants. At most 255 characters. Not supported with `payment_method`.
 
         auto_capture_after_minutes : typing.Optional[int]
             Minutes after authorization at which Whop captures the hold automatically unless it has been voided. Requires `capture: false`. Between 5 and 5760 (4 days).
@@ -321,6 +325,7 @@ class RawPaymentsClient:
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
+                "affiliate_code": affiliate_code,
                 "auto_capture_after_minutes": auto_capture_after_minutes,
                 "capture": capture,
                 "confirmation_token": confirmation_token,
@@ -1487,6 +1492,7 @@ class AsyncRawPaymentsClient:
         self,
         *,
         account_id: str,
+        affiliate_code: typing.Optional[str] = OMIT,
         auto_capture_after_minutes: typing.Optional[int] = OMIT,
         capture: typing.Optional[bool] = OMIT,
         confirmation_token: typing.Optional[str] = OMIT,
@@ -1511,6 +1517,9 @@ class AsyncRawPaymentsClient:
         ----------
         account_id : str
             The account the purchase belongs to, prefixed `biz_`.
+
+        affiliate_code : typing.Optional[str]
+            The code an affiliate link carries, which is the affiliate's username. The affiliate is credited for this payment as on a checkout session. A code naming no one eligible to earn on the product is ignored, and the payment goes ahead. A promo code with its own affiliate takes precedence. No affiliate is credited on a variant without a product or on a purchase of several variants. At most 255 characters. Not supported with `payment_method`.
 
         auto_capture_after_minutes : typing.Optional[int]
             Minutes after authorization at which Whop captures the hold automatically unless it has been voided. Requires `capture: false`. Between 5 and 5760 (4 days).
@@ -1570,6 +1579,7 @@ class AsyncRawPaymentsClient:
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
+                "affiliate_code": affiliate_code,
                 "auto_capture_after_minutes": auto_capture_after_minutes,
                 "capture": capture,
                 "confirmation_token": confirmation_token,
