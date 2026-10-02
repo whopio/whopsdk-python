@@ -807,6 +807,7 @@ if typing.TYPE_CHECKING:
     from .payment_input_line_items_item import PaymentInputLineItemsItem
     from .payment_input_plan import PaymentInputPlan
     from .payment_input_plan_currency import PaymentInputPlanCurrency
+    from .payment_input_plan_override_tax_type import PaymentInputPlanOverrideTaxType
     from .payment_input_plan_plan_type import PaymentInputPlanPlanType
     from .payment_input_plan_product import PaymentInputPlanProduct
     from .payment_input_plan_product_global_affiliate_status import PaymentInputPlanProductGlobalAffiliateStatus
@@ -2250,6 +2251,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaymentInputLineItemsItem": ".payment_input_line_items_item",
     "PaymentInputPlan": ".payment_input_plan",
     "PaymentInputPlanCurrency": ".payment_input_plan_currency",
+    "PaymentInputPlanOverrideTaxType": ".payment_input_plan_override_tax_type",
     "PaymentInputPlanPlanType": ".payment_input_plan_plan_type",
     "PaymentInputPlanProduct": ".payment_input_plan_product",
     "PaymentInputPlanProductGlobalAffiliateStatus": ".payment_input_plan_product_global_affiliate_status",
@@ -3601,6 +3603,7 @@ __all__ = [
     "PaymentInputLineItemsItem",
     "PaymentInputPlan",
     "PaymentInputPlanCurrency",
+    "PaymentInputPlanOverrideTaxType",
     "PaymentInputPlanPlanType",
     "PaymentInputPlanProduct",
     "PaymentInputPlanProductGlobalAffiliateStatus",

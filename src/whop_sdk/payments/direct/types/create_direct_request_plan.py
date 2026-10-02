@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .create_direct_request_plan_currency import CreateDirectRequestPlanCurrency
+from .create_direct_request_plan_override_tax_type import CreateDirectRequestPlanOverrideTaxType
 from .create_direct_request_plan_plan_type import CreateDirectRequestPlanPlanType
 from .create_direct_request_plan_product import CreateDirectRequestPlanProduct
 from .create_direct_request_plan_visibility import CreateDirectRequestPlanVisibility
@@ -53,6 +54,11 @@ class CreateDirectRequestPlan(UniversalBaseModel):
     internal_notes: typing.Optional[str] = pydantic.Field(default=None)
     """
     Internal notes for the account.
+    """
+
+    override_tax_type: typing.Optional[CreateDirectRequestPlanOverrideTaxType] = pydantic.Field(default=None)
+    """
+    Whether the variant's price includes tax: `inclusive` (tax is included in the price), `exclusive` (tax is added on top), or `unspecified`. Omit it or pass `null` to use the account's tax setting. On an account enrolled in the Whop tax service, `inclusive` or `exclusive` replaces the account's setting and `unspecified` keeps it. Otherwise it applies only where the account is the merchant of record: `inclusive` or `exclusive` replaces the account's setting when the account collects tax, and `unspecified` means the variant collects no tax. Where Whop is the merchant of record, the account's setting applies. Variants that differ only in this value are different variants.
     """
 
     plan_type: typing.Optional[CreateDirectRequestPlanPlanType] = pydantic.Field(default=None)
