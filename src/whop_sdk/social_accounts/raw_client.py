@@ -30,6 +30,7 @@ from .types.list_social_accounts_request_direction import ListSocialAccountsRequ
 from .types.list_social_accounts_request_order import ListSocialAccountsRequestOrder
 from .types.list_social_accounts_request_platform import ListSocialAccountsRequestPlatform
 from .types.list_social_accounts_request_scopes_item import ListSocialAccountsRequestScopesItem
+from .types.list_social_accounts_request_trust_level import ListSocialAccountsRequestTrustLevel
 from .types.list_social_accounts_response import ListSocialAccountsResponse
 from .types.partners_social_accounts_response import PartnersSocialAccountsResponse
 from .types.posts_social_accounts_response import PostsSocialAccountsResponse
@@ -50,6 +51,7 @@ class RawSocialAccountsClient:
         account_id: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
         platform: typing.Optional[ListSocialAccountsRequestPlatform] = None,
+        trust_level: typing.Optional[ListSocialAccountsRequestTrustLevel] = None,
         verified: typing.Optional[bool] = None,
         scopes: typing.Optional[
             typing.Union[ListSocialAccountsRequestScopesItem, typing.Sequence[ListSocialAccountsRequestScopesItem]]
@@ -75,6 +77,9 @@ class RawSocialAccountsClient:
 
         platform : typing.Optional[ListSocialAccountsRequestPlatform]
             Only return social accounts for the platform that is specified.
+
+        trust_level : typing.Optional[ListSocialAccountsRequestTrustLevel]
+            Only return social accounts linked with this trust level, such as `oauth` for accounts connected through OAuth.
 
         verified : typing.Optional[bool]
             Only return social accounts that are verified on the platform.
@@ -116,6 +121,7 @@ class RawSocialAccountsClient:
                 "account_id": account_id,
                 "user_id": user_id,
                 "platform": platform,
+                "trust_level": trust_level,
                 "verified": verified,
                 "scopes": scopes,
                 "first": first,
@@ -146,6 +152,7 @@ class RawSocialAccountsClient:
                         account_id=account_id,
                         user_id=user_id,
                         platform=platform,
+                        trust_level=trust_level,
                         verified=verified,
                         scopes=scopes,
                         first=first,
@@ -1160,6 +1167,7 @@ class AsyncRawSocialAccountsClient:
         account_id: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
         platform: typing.Optional[ListSocialAccountsRequestPlatform] = None,
+        trust_level: typing.Optional[ListSocialAccountsRequestTrustLevel] = None,
         verified: typing.Optional[bool] = None,
         scopes: typing.Optional[
             typing.Union[ListSocialAccountsRequestScopesItem, typing.Sequence[ListSocialAccountsRequestScopesItem]]
@@ -1185,6 +1193,9 @@ class AsyncRawSocialAccountsClient:
 
         platform : typing.Optional[ListSocialAccountsRequestPlatform]
             Only return social accounts for the platform that is specified.
+
+        trust_level : typing.Optional[ListSocialAccountsRequestTrustLevel]
+            Only return social accounts linked with this trust level, such as `oauth` for accounts connected through OAuth.
 
         verified : typing.Optional[bool]
             Only return social accounts that are verified on the platform.
@@ -1226,6 +1237,7 @@ class AsyncRawSocialAccountsClient:
                 "account_id": account_id,
                 "user_id": user_id,
                 "platform": platform,
+                "trust_level": trust_level,
                 "verified": verified,
                 "scopes": scopes,
                 "first": first,
@@ -1258,6 +1270,7 @@ class AsyncRawSocialAccountsClient:
                             account_id=account_id,
                             user_id=user_id,
                             platform=platform,
+                            trust_level=trust_level,
                             verified=verified,
                             scopes=scopes,
                             first=first,

@@ -16,6 +16,7 @@ if typing.TYPE_CHECKING:
     from .list_social_accounts_request_order import ListSocialAccountsRequestOrder
     from .list_social_accounts_request_platform import ListSocialAccountsRequestPlatform
     from .list_social_accounts_request_scopes_item import ListSocialAccountsRequestScopesItem
+    from .list_social_accounts_request_trust_level import ListSocialAccountsRequestTrustLevel
     from .list_social_accounts_response import ListSocialAccountsResponse
     from .list_social_accounts_response_page_info import ListSocialAccountsResponsePageInfo
     from .partners_social_accounts_response import PartnersSocialAccountsResponse
@@ -34,6 +35,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListSocialAccountsRequestOrder": ".list_social_accounts_request_order",
     "ListSocialAccountsRequestPlatform": ".list_social_accounts_request_platform",
     "ListSocialAccountsRequestScopesItem": ".list_social_accounts_request_scopes_item",
+    "ListSocialAccountsRequestTrustLevel": ".list_social_accounts_request_trust_level",
     "ListSocialAccountsResponse": ".list_social_accounts_response",
     "ListSocialAccountsResponsePageInfo": ".list_social_accounts_response_page_info",
     "PartnersSocialAccountsResponse": ".partners_social_accounts_response",
@@ -76,6 +78,7 @@ __all__ = [
     "ListSocialAccountsRequestOrder",
     "ListSocialAccountsRequestPlatform",
     "ListSocialAccountsRequestScopesItem",
+    "ListSocialAccountsRequestTrustLevel",
     "ListSocialAccountsResponse",
     "ListSocialAccountsResponsePageInfo",
     "PartnersSocialAccountsResponse",
