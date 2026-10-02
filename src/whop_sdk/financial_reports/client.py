@@ -56,6 +56,7 @@ class FinancialReportsClient:
         cumulative: typing.Optional[bool] = None,
         scope_account_id: typing.Optional[str] = None,
         include_payment_fee_breakdown: typing.Optional[bool] = None,
+        period_only_currencies: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RetrieveFinancialReportsResponse:
         """
@@ -102,6 +103,9 @@ class FinancialReportsClient:
         include_payment_fee_breakdown : typing.Optional[bool]
             Balance activity only: include payment costs grouped by payment method and provider.
 
+        period_only_currencies : typing.Optional[bool]
+            Account-level balance activity only: return only currencies with cashflow in the exact requested window. Requires `from` and `to`.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -138,6 +142,7 @@ class FinancialReportsClient:
             cumulative=cumulative,
             scope_account_id=scope_account_id,
             include_payment_fee_breakdown=include_payment_fee_breakdown,
+            period_only_currencies=period_only_currencies,
             request_options=request_options,
         )
         return _response.data
@@ -189,6 +194,7 @@ class AsyncFinancialReportsClient:
         cumulative: typing.Optional[bool] = None,
         scope_account_id: typing.Optional[str] = None,
         include_payment_fee_breakdown: typing.Optional[bool] = None,
+        period_only_currencies: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RetrieveFinancialReportsResponse:
         """
@@ -235,6 +241,9 @@ class AsyncFinancialReportsClient:
         include_payment_fee_breakdown : typing.Optional[bool]
             Balance activity only: include payment costs grouped by payment method and provider.
 
+        period_only_currencies : typing.Optional[bool]
+            Account-level balance activity only: return only currencies with cashflow in the exact requested window. Requires `from` and `to`.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -279,6 +288,7 @@ class AsyncFinancialReportsClient:
             cumulative=cumulative,
             scope_account_id=scope_account_id,
             include_payment_fee_breakdown=include_payment_fee_breakdown,
+            period_only_currencies=period_only_currencies,
             request_options=request_options,
         )
         return _response.data

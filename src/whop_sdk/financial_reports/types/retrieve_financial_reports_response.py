@@ -15,7 +15,7 @@ class RetrieveFinancialReportsResponse(UniversalBaseModel):
     beginning_balance: typing.Optional[float] = None
     currencies: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
-    Every lifetime cashflow currency, ordered by cashflow volume in the requested period.
+    Cashflow currencies ordered by volume in the requested period. Includes lifetime currencies unless `period_only_currencies` is true.
     """
 
     ending_balance: typing.Optional[float] = None
