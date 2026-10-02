@@ -27,7 +27,7 @@ class DomainPublicRecord(UniversalBaseModel):
 
     registrant: typing.Optional[DomainRegistrant] = pydantic.Field(default=None)
     """
-    Who the domain is registered to. Most registrars withhold or replace these details for privacy, so expect privacy services and placeholders such as `Redacted For Privacy`. `null` when the record publishes no registrant.
+    Who the domain is registered to, often a privacy service or `Redacted For Privacy`. `null` when the record publishes no registrant.
     """
 
     registrar: typing.Optional[DomainRegistrar] = pydantic.Field(default=None)
