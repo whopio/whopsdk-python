@@ -41,6 +41,7 @@ class FinancialActivityClient:
         ] = None,
         direction: typing.Optional[ListFinancialActivityRequestDirection] = None,
         resource_id: typing.Optional[str] = None,
+        payment_id: typing.Optional[str] = None,
         activity_id: typing.Optional[str] = None,
         exclude_internal_movements: typing.Optional[bool] = None,
         balance_type: typing.Optional[ListFinancialActivityRequestBalanceType] = None,
@@ -79,6 +80,9 @@ class FinancialActivityClient:
 
         resource_id : typing.Optional[str]
             Optional prefixed resource ID. Returns activity associated with that resource.
+
+        payment_id : typing.Optional[str]
+            Filter activity by payment ID (pay_), including related refunds, disputes, and fees. Combines with resource_id and other filters within the selected accounts. Unknown payments return an empty list.
 
         activity_id : typing.Optional[str]
             Optional ledger activity ID (for example `line_3`). Returns at most that one activity.
@@ -140,6 +144,7 @@ class FinancialActivityClient:
             line_types=line_types,
             direction=direction,
             resource_id=resource_id,
+            payment_id=payment_id,
             activity_id=activity_id,
             exclude_internal_movements=exclude_internal_movements,
             balance_type=balance_type,
@@ -185,6 +190,7 @@ class AsyncFinancialActivityClient:
         ] = None,
         direction: typing.Optional[ListFinancialActivityRequestDirection] = None,
         resource_id: typing.Optional[str] = None,
+        payment_id: typing.Optional[str] = None,
         activity_id: typing.Optional[str] = None,
         exclude_internal_movements: typing.Optional[bool] = None,
         balance_type: typing.Optional[ListFinancialActivityRequestBalanceType] = None,
@@ -223,6 +229,9 @@ class AsyncFinancialActivityClient:
 
         resource_id : typing.Optional[str]
             Optional prefixed resource ID. Returns activity associated with that resource.
+
+        payment_id : typing.Optional[str]
+            Filter activity by payment ID (pay_), including related refunds, disputes, and fees. Combines with resource_id and other filters within the selected accounts. Unknown payments return an empty list.
 
         activity_id : typing.Optional[str]
             Optional ledger activity ID (for example `line_3`). Returns at most that one activity.
@@ -292,6 +301,7 @@ class AsyncFinancialActivityClient:
             line_types=line_types,
             direction=direction,
             resource_id=resource_id,
+            payment_id=payment_id,
             activity_id=activity_id,
             exclude_internal_movements=exclude_internal_movements,
             balance_type=balance_type,
