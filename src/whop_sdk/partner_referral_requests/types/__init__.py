@@ -17,6 +17,9 @@ if typing.TYPE_CHECKING:
     from .create_partner_referral_requests_request_body_code_request_type import (
         CreatePartnerReferralRequestsRequestBodyCodeRequestType,
     )
+    from .create_partner_referral_requests_request_body_target_email import (
+        CreatePartnerReferralRequestsRequestBodyTargetEmail,
+    )
     from .create_partner_referral_requests_request_body_target_user_id import (
         CreatePartnerReferralRequestsRequestBodyTargetUserId,
     )
@@ -35,6 +38,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreatePartnerReferralRequestsRequestBodyAccountUrl": ".create_partner_referral_requests_request_body_account_url",
     "CreatePartnerReferralRequestsRequestBodyCode": ".create_partner_referral_requests_request_body_code",
     "CreatePartnerReferralRequestsRequestBodyCodeRequestType": ".create_partner_referral_requests_request_body_code_request_type",
+    "CreatePartnerReferralRequestsRequestBodyTargetEmail": ".create_partner_referral_requests_request_body_target_email",
     "CreatePartnerReferralRequestsRequestBodyTargetUserId": ".create_partner_referral_requests_request_body_target_user_id",
     "CreatePartnerReferralRequestsRequestBodyTargetUsername": ".create_partner_referral_requests_request_body_target_username",
     "ListPartnerReferralRequestsRequestDirection": ".list_partner_referral_requests_request_direction",
@@ -73,6 +77,7 @@ __all__ = [
     "CreatePartnerReferralRequestsRequestBodyAccountUrl",
     "CreatePartnerReferralRequestsRequestBodyCode",
     "CreatePartnerReferralRequestsRequestBodyCodeRequestType",
+    "CreatePartnerReferralRequestsRequestBodyTargetEmail",
     "CreatePartnerReferralRequestsRequestBodyTargetUserId",
     "CreatePartnerReferralRequestsRequestBodyTargetUsername",
     "ListPartnerReferralRequestsRequestDirection",

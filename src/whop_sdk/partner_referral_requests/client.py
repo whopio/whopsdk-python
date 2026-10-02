@@ -133,7 +133,7 @@ class PartnerReferralRequestsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PartnerReferralRequest:
         """
-        Creates a referral link or sends a verified partner's attribution request to an existing business or enrolled partner for approval.
+        Creates a referral link or sends a verified partner's attribution request to an existing business or user for approval. Recipients do not need to join the partner program.
 
         Parameters
         ----------
@@ -425,7 +425,7 @@ class AsyncPartnerReferralRequestsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PartnerReferralRequest:
         """
-        Creates a referral link or sends a verified partner's attribution request to an existing business or enrolled partner for approval.
+        Creates a referral link or sends a verified partner's attribution request to an existing business or user for approval. Recipients do not need to join the partner program.
 
         Parameters
         ----------
