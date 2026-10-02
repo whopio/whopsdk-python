@@ -10,10 +10,10 @@ from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
 from ..types.payment import Payment
 from ..types.payment_input_line_items_item import PaymentInputLineItemsItem
+from ..types.payment_input_plan import PaymentInputPlan
 from ..types.payment_status import PaymentStatus
 from .raw_client import AsyncRawPaymentsClient, RawPaymentsClient
 from .types.create_payments_request_payment_method import CreatePaymentsRequestPaymentMethod
-from .types.create_payments_request_plan import CreatePaymentsRequestPlan
 from .types.create_payments_request_shipping_address import CreatePaymentsRequestShippingAddress
 from .types.list_fees_payments_response import ListFeesPaymentsResponse
 from .types.list_payments_request_billing_reason import ListPaymentsRequestBillingReason
@@ -192,11 +192,11 @@ class PaymentsClient:
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         payment_method: typing.Optional[CreatePaymentsRequestPaymentMethod] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
-        plan: typing.Optional[CreatePaymentsRequestPlan] = OMIT,
         return_url: typing.Optional[str] = OMIT,
         shipping_address: typing.Optional[CreatePaymentsRequestShippingAddress] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
         line_items: typing.Optional[typing.Sequence[PaymentInputLineItemsItem]] = OMIT,
+        plan: typing.Optional[PaymentInputPlan] = OMIT,
         plan_id: typing.Optional[str] = OMIT,
         promo_code_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -233,9 +233,6 @@ class PaymentsClient:
         payment_method_id : typing.Optional[str]
             The stored payment method to charge, prefixed `payt_`. It must belong to the member. Required unless `confirmation_token` is provided.
 
-        plan : typing.Optional[CreatePaymentsRequestPlan]
-            Find or create a variant for this payment through the compatibility input `plan`. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
-
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters. Ignored unless `confirmation_token` is provided.
 
@@ -248,8 +245,11 @@ class PaymentsClient:
         line_items : typing.Optional[typing.Sequence[PaymentInputLineItemsItem]]
             What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
 
+        plan : typing.Optional[PaymentInputPlan]
+            The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
+
         plan_id : typing.Optional[str]
-            The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `line_items`.
+            The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
 
         promo_code_id : typing.Optional[str]
             An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant.
@@ -285,11 +285,11 @@ class PaymentsClient:
             metadata=metadata,
             payment_method=payment_method,
             payment_method_id=payment_method_id,
-            plan=plan,
             return_url=return_url,
             shipping_address=shipping_address,
             statement_descriptor=statement_descriptor,
             line_items=line_items,
+            plan=plan,
             plan_id=plan_id,
             promo_code_id=promo_code_id,
             request_options=request_options,
@@ -842,11 +842,11 @@ class AsyncPaymentsClient:
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         payment_method: typing.Optional[CreatePaymentsRequestPaymentMethod] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
-        plan: typing.Optional[CreatePaymentsRequestPlan] = OMIT,
         return_url: typing.Optional[str] = OMIT,
         shipping_address: typing.Optional[CreatePaymentsRequestShippingAddress] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
         line_items: typing.Optional[typing.Sequence[PaymentInputLineItemsItem]] = OMIT,
+        plan: typing.Optional[PaymentInputPlan] = OMIT,
         plan_id: typing.Optional[str] = OMIT,
         promo_code_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -883,9 +883,6 @@ class AsyncPaymentsClient:
         payment_method_id : typing.Optional[str]
             The stored payment method to charge, prefixed `payt_`. It must belong to the member. Required unless `confirmation_token` is provided.
 
-        plan : typing.Optional[CreatePaymentsRequestPlan]
-            Find or create a variant for this payment through the compatibility input `plan`. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
-
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters. Ignored unless `confirmation_token` is provided.
 
@@ -898,8 +895,11 @@ class AsyncPaymentsClient:
         line_items : typing.Optional[typing.Sequence[PaymentInputLineItemsItem]]
             What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
 
+        plan : typing.Optional[PaymentInputPlan]
+            The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
+
         plan_id : typing.Optional[str]
-            The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `line_items`.
+            The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
 
         promo_code_id : typing.Optional[str]
             An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant.
@@ -943,11 +943,11 @@ class AsyncPaymentsClient:
             metadata=metadata,
             payment_method=payment_method,
             payment_method_id=payment_method_id,
-            plan=plan,
             return_url=return_url,
             shipping_address=shipping_address,
             statement_descriptor=statement_descriptor,
             line_items=line_items,
+            plan=plan,
             plan_id=plan_id,
             promo_code_id=promo_code_id,
             request_options=request_options,

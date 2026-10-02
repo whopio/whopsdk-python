@@ -2,6 +2,6 @@
 
 import typing
 
-CreatePaymentsRequestPlanProductVisibility = typing.Union[
+PaymentInputPlanProductVisibility = typing.Union[
     typing.Literal["visible", "hidden", "archived", "quick_link"], typing.Any
 ]

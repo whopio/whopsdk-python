@@ -3,16 +3,16 @@
 import typing
 
 import pydantic
-from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .create_payments_request_plan_currency import CreatePaymentsRequestPlanCurrency
-from .create_payments_request_plan_plan_type import CreatePaymentsRequestPlanPlanType
-from .create_payments_request_plan_product import CreatePaymentsRequestPlanProduct
-from .create_payments_request_plan_visibility import CreatePaymentsRequestPlanVisibility
+from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .payment_input_plan_currency import PaymentInputPlanCurrency
+from .payment_input_plan_plan_type import PaymentInputPlanPlanType
+from .payment_input_plan_product import PaymentInputPlanProduct
+from .payment_input_plan_visibility import PaymentInputPlanVisibility
 
 
-class CreatePaymentsRequestPlan(UniversalBaseModel):
+class PaymentInputPlan(UniversalBaseModel):
     """
-    Find or create a variant for this payment through the compatibility input `plan`. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
+    The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
     """
 
     application_fee_amount: typing.Optional[float] = pydantic.Field(default=None)
@@ -25,7 +25,7 @@ class CreatePaymentsRequestPlan(UniversalBaseModel):
     Recurring billing interval in days.
     """
 
-    currency: CreatePaymentsRequestPlanCurrency = pydantic.Field()
+    currency: PaymentInputPlanCurrency = pydantic.Field()
     """
     Currency code for the variant prices.
     """
@@ -55,12 +55,12 @@ class CreatePaymentsRequestPlan(UniversalBaseModel):
     Internal notes for the account.
     """
 
-    plan_type: typing.Optional[CreatePaymentsRequestPlanPlanType] = pydantic.Field(default=None)
+    plan_type: typing.Optional[PaymentInputPlanPlanType] = pydantic.Field(default=None)
     """
     Billing model for the variant.
     """
 
-    product: typing.Optional[CreatePaymentsRequestPlanProduct] = pydantic.Field(default=None)
+    product: typing.Optional[PaymentInputPlanProduct] = pydantic.Field(default=None)
     """
     Find or create a product by external identifier. Mutually exclusive with product_id.
     """
@@ -85,7 +85,7 @@ class CreatePaymentsRequestPlan(UniversalBaseModel):
     Free trial days before renewal.
     """
 
-    visibility: typing.Optional[CreatePaymentsRequestPlanVisibility] = pydantic.Field(default=None)
+    visibility: typing.Optional[PaymentInputPlanVisibility] = pydantic.Field(default=None)
     """
     Whether the variant is visible to customers.
     """

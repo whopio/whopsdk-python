@@ -29599,7 +29599,15 @@ client.payments.create(
 <dl>
 <dd>
 
-**plan_id:** `typing.Optional[str]` — The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `line_items`.
+**plan:** `typing.Optional[PaymentInputPlan]` — The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**plan_id:** `typing.Optional[str]` — The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
     
 </dd>
 </dl>
@@ -29672,14 +29680,6 @@ client.payments.create(
 <dd>
 
 **payment_method_id:** `typing.Optional[str]` — The stored payment method to charge, prefixed `payt_`. It must belong to the member. Required unless `confirmation_token` is provided.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**plan:** `typing.Optional[CreatePaymentsRequestPlan]` — Find or create a variant for this payment through the compatibility input `plan`. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
     
 </dd>
 </dl>
