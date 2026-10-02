@@ -8,7 +8,7 @@ from .domain_dns_record import DomainDnsRecord
 from .domain_issue import DomainIssue
 from .domain_list_item_dns_status import DomainListItemDnsStatus
 from .domain_list_item_status import DomainListItemStatus
-from .domain_registrar_quote import DomainRegistrarQuote
+from .domain_registration_quote import DomainRegistrationQuote
 
 
 class DomainListItem(UniversalBaseModel):
@@ -24,7 +24,7 @@ class DomainListItem(UniversalBaseModel):
 
     certificate_status: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Cloudflare's latest certificate issuance status.
+    The latest issuance status of the domain's TLS certificate.
     """
 
     created_at: typing.Optional[str] = pydantic.Field(default=None)
@@ -45,7 +45,7 @@ class DomainListItem(UniversalBaseModel):
 
     hostname_status: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Cloudflare's latest hostname activation status.
+    The latest activation status of the hostname on Whop's network.
     """
 
     id: typing.Optional[str] = pydantic.Field(default=None)
@@ -64,7 +64,7 @@ class DomainListItem(UniversalBaseModel):
     Custom string keys and values attached to this domain. Empty for a search result.
     """
 
-    registrar_quote: typing.Optional[DomainRegistrarQuote] = pydantic.Field(default=None)
+    registration_quote: typing.Optional[DomainRegistrationQuote] = pydantic.Field(default=None)
     """
     What registering the domain would cost: whether it's available, its first-year, renewal, and transfer prices, a link to buy it, and how desirable it is. Set for a search result: a domain from `search` or retrieved by hostname. `null` for your own domains.
     """
