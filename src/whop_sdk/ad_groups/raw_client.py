@@ -308,7 +308,7 @@ class RawAdGroupsClient:
             When the ad group stops delivering, as an ISO 8601 timestamp. Omit to run until paused.
 
         frequency_cap : typing.Optional[CreateAdGroupsRequestFrequencyCap]
-            Cap on how often one person sees ads from this ad group. Only available when the ad group optimizes for reach or ThruPlay. Once the ad group is live on the ad network, the cap can only be changed before its start date and can't be removed; otherwise `null` clears it.
+            Cap on how often one person sees ads from this ad group. Only available when the ad group optimizes for reach or ThruPlay. Under a campaign budget every ad group must use the same cap, which applies across the whole campaign, and only with the awareness objective (reach or ThruPlay ad groups) or engagement (ThruPlay). Fixed once the campaign launches; `null` clears it before then.
 
         languages : typing.Optional[typing.Sequence[str]]
             Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted targets all languages.
@@ -941,7 +941,7 @@ class RawAdGroupsClient:
             When the ad group stops delivering, as an ISO 8601 timestamp. Omit to run until paused.
 
         frequency_cap : typing.Optional[UpdateAdGroupsRequestFrequencyCap]
-            Cap on how often one person sees ads from this ad group. Only available when the ad group optimizes for reach or ThruPlay. Once the ad group is live on the ad network, the cap can only be changed before its start date and can't be removed; otherwise `null` clears it.
+            Cap on how often one person sees ads from this ad group. Only available when the ad group optimizes for reach or ThruPlay. Under a campaign budget every ad group must use the same cap, which applies across the whole campaign, and only with the awareness objective (reach or ThruPlay ad groups) or engagement (ThruPlay). Fixed once the campaign launches; `null` clears it before then.
 
         languages : typing.Optional[typing.Sequence[str]]
             Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted targets all languages.
@@ -1525,7 +1525,7 @@ class AsyncRawAdGroupsClient:
             When the ad group stops delivering, as an ISO 8601 timestamp. Omit to run until paused.
 
         frequency_cap : typing.Optional[CreateAdGroupsRequestFrequencyCap]
-            Cap on how often one person sees ads from this ad group. Only available when the ad group optimizes for reach or ThruPlay. Once the ad group is live on the ad network, the cap can only be changed before its start date and can't be removed; otherwise `null` clears it.
+            Cap on how often one person sees ads from this ad group. Only available when the ad group optimizes for reach or ThruPlay. Under a campaign budget every ad group must use the same cap, which applies across the whole campaign, and only with the awareness objective (reach or ThruPlay ad groups) or engagement (ThruPlay). Fixed once the campaign launches; `null` clears it before then.
 
         languages : typing.Optional[typing.Sequence[str]]
             Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted targets all languages.
@@ -2158,7 +2158,7 @@ class AsyncRawAdGroupsClient:
             When the ad group stops delivering, as an ISO 8601 timestamp. Omit to run until paused.
 
         frequency_cap : typing.Optional[UpdateAdGroupsRequestFrequencyCap]
-            Cap on how often one person sees ads from this ad group. Only available when the ad group optimizes for reach or ThruPlay. Once the ad group is live on the ad network, the cap can only be changed before its start date and can't be removed; otherwise `null` clears it.
+            Cap on how often one person sees ads from this ad group. Only available when the ad group optimizes for reach or ThruPlay. Under a campaign budget every ad group must use the same cap, which applies across the whole campaign, and only with the awareness objective (reach or ThruPlay ad groups) or engagement (ThruPlay). Fixed once the campaign launches; `null` clears it before then.
 
         languages : typing.Optional[typing.Sequence[str]]
             Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted targets all languages.

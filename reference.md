@@ -3656,7 +3656,7 @@ client.ad_groups.create(
 <dl>
 <dd>
 
-**frequency_cap:** `typing.Optional[CreateAdGroupsRequestFrequencyCap]` — Cap on how often one person sees ads from this ad group. Only available when the ad group optimizes for reach or ThruPlay. Once the ad group is live on the ad network, the cap can only be changed before its start date and can't be removed; otherwise `null` clears it.
+**frequency_cap:** `typing.Optional[CreateAdGroupsRequestFrequencyCap]` — Cap on how often one person sees ads from this ad group. Only available when the ad group optimizes for reach or ThruPlay. Under a campaign budget every ad group must use the same cap, which applies across the whole campaign, and only with the awareness objective (reach or ThruPlay ad groups) or engagement (ThruPlay). Fixed once the campaign launches; `null` clears it before then.
     
 </dd>
 </dl>
@@ -4360,7 +4360,7 @@ client.ad_groups.update(
 <dl>
 <dd>
 
-**frequency_cap:** `typing.Optional[UpdateAdGroupsRequestFrequencyCap]` — Cap on how often one person sees ads from this ad group. Only available when the ad group optimizes for reach or ThruPlay. Once the ad group is live on the ad network, the cap can only be changed before its start date and can't be removed; otherwise `null` clears it.
+**frequency_cap:** `typing.Optional[UpdateAdGroupsRequestFrequencyCap]` — Cap on how often one person sees ads from this ad group. Only available when the ad group optimizes for reach or ThruPlay. Under a campaign budget every ad group must use the same cap, which applies across the whole campaign, and only with the awareness objective (reach or ThruPlay ad groups) or engagement (ThruPlay). Fixed once the campaign launches; `null` clears it before then.
     
 </dd>
 </dl>
