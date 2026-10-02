@@ -6,9 +6,11 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .create_methods_request_recipient import CreateMethodsRequestRecipient
     from .create_methods_response import CreateMethodsResponse
     from .create_methods_response_bank_verification_state import CreateMethodsResponseBankVerificationState
     from .create_methods_response_object import CreateMethodsResponseObject
+    from .create_methods_response_recipient import CreateMethodsResponseRecipient
     from .create_methods_response_status import CreateMethodsResponseStatus
     from .create_methods_response_supported_payout_method import CreateMethodsResponseSupportedPayoutMethod
     from .create_methods_response_supported_payout_method_delivery_type import (
@@ -31,6 +33,7 @@ if typing.TYPE_CHECKING:
         ListMethodsResponseDataItemQuoteInstantUnavailableReason,
     )
     from .list_methods_response_data_item_quote_standard import ListMethodsResponseDataItemQuoteStandard
+    from .list_methods_response_data_item_recipient import ListMethodsResponseDataItemRecipient
     from .list_methods_response_data_item_status import ListMethodsResponseDataItemStatus
     from .list_methods_response_data_item_supported_payout_method import (
         ListMethodsResponseDataItemSupportedPayoutMethod,
@@ -49,6 +52,7 @@ if typing.TYPE_CHECKING:
     from .update_methods_response import UpdateMethodsResponse
     from .update_methods_response_bank_verification_state import UpdateMethodsResponseBankVerificationState
     from .update_methods_response_object import UpdateMethodsResponseObject
+    from .update_methods_response_recipient import UpdateMethodsResponseRecipient
     from .update_methods_response_status import UpdateMethodsResponseStatus
     from .update_methods_response_supported_payout_method import UpdateMethodsResponseSupportedPayoutMethod
     from .update_methods_response_supported_payout_method_delivery_type import (
@@ -56,9 +60,11 @@ if typing.TYPE_CHECKING:
     )
     from .update_methods_response_unavailable_reason import UpdateMethodsResponseUnavailableReason
 _dynamic_imports: typing.Dict[str, str] = {
+    "CreateMethodsRequestRecipient": ".create_methods_request_recipient",
     "CreateMethodsResponse": ".create_methods_response",
     "CreateMethodsResponseBankVerificationState": ".create_methods_response_bank_verification_state",
     "CreateMethodsResponseObject": ".create_methods_response_object",
+    "CreateMethodsResponseRecipient": ".create_methods_response_recipient",
     "CreateMethodsResponseStatus": ".create_methods_response_status",
     "CreateMethodsResponseSupportedPayoutMethod": ".create_methods_response_supported_payout_method",
     "CreateMethodsResponseSupportedPayoutMethodDeliveryType": ".create_methods_response_supported_payout_method_delivery_type",
@@ -75,6 +81,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListMethodsResponseDataItemQuoteInstant": ".list_methods_response_data_item_quote_instant",
     "ListMethodsResponseDataItemQuoteInstantUnavailableReason": ".list_methods_response_data_item_quote_instant_unavailable_reason",
     "ListMethodsResponseDataItemQuoteStandard": ".list_methods_response_data_item_quote_standard",
+    "ListMethodsResponseDataItemRecipient": ".list_methods_response_data_item_recipient",
     "ListMethodsResponseDataItemStatus": ".list_methods_response_data_item_status",
     "ListMethodsResponseDataItemSupportedPayoutMethod": ".list_methods_response_data_item_supported_payout_method",
     "ListMethodsResponseDataItemSupportedPayoutMethodDeliveryType": ".list_methods_response_data_item_supported_payout_method_delivery_type",
@@ -89,6 +96,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateMethodsResponse": ".update_methods_response",
     "UpdateMethodsResponseBankVerificationState": ".update_methods_response_bank_verification_state",
     "UpdateMethodsResponseObject": ".update_methods_response_object",
+    "UpdateMethodsResponseRecipient": ".update_methods_response_recipient",
     "UpdateMethodsResponseStatus": ".update_methods_response_status",
     "UpdateMethodsResponseSupportedPayoutMethod": ".update_methods_response_supported_payout_method",
     "UpdateMethodsResponseSupportedPayoutMethodDeliveryType": ".update_methods_response_supported_payout_method_delivery_type",
@@ -118,9 +126,11 @@ def __dir__():
 
 
 __all__ = [
+    "CreateMethodsRequestRecipient",
     "CreateMethodsResponse",
     "CreateMethodsResponseBankVerificationState",
     "CreateMethodsResponseObject",
+    "CreateMethodsResponseRecipient",
     "CreateMethodsResponseStatus",
     "CreateMethodsResponseSupportedPayoutMethod",
     "CreateMethodsResponseSupportedPayoutMethodDeliveryType",
@@ -137,6 +147,7 @@ __all__ = [
     "ListMethodsResponseDataItemQuoteInstant",
     "ListMethodsResponseDataItemQuoteInstantUnavailableReason",
     "ListMethodsResponseDataItemQuoteStandard",
+    "ListMethodsResponseDataItemRecipient",
     "ListMethodsResponseDataItemStatus",
     "ListMethodsResponseDataItemSupportedPayoutMethod",
     "ListMethodsResponseDataItemSupportedPayoutMethodDeliveryType",
@@ -151,6 +162,7 @@ __all__ = [
     "UpdateMethodsResponse",
     "UpdateMethodsResponseBankVerificationState",
     "UpdateMethodsResponseObject",
+    "UpdateMethodsResponseRecipient",
     "UpdateMethodsResponseStatus",
     "UpdateMethodsResponseSupportedPayoutMethod",
     "UpdateMethodsResponseSupportedPayoutMethodDeliveryType",

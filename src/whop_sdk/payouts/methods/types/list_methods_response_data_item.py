@@ -10,6 +10,7 @@ from .list_methods_response_data_item_estimated_arrival import ListMethodsRespon
 from .list_methods_response_data_item_fee_structure import ListMethodsResponseDataItemFeeStructure
 from .list_methods_response_data_item_object import ListMethodsResponseDataItemObject
 from .list_methods_response_data_item_quote import ListMethodsResponseDataItemQuote
+from .list_methods_response_data_item_recipient import ListMethodsResponseDataItemRecipient
 from .list_methods_response_data_item_status import ListMethodsResponseDataItemStatus
 from .list_methods_response_data_item_supported_payout_method import ListMethodsResponseDataItemSupportedPayoutMethod
 from .list_methods_response_data_item_unavailable_reason import ListMethodsResponseDataItemUnavailableReason
@@ -97,6 +98,11 @@ class ListMethodsResponseDataItem(UniversalBaseModel):
     quote: typing.Optional[ListMethodsResponseDataItemQuote] = pydantic.Field(default=None)
     """
     Fee and delivery estimate for paying out the requested amount through this method. Null unless an amount was provided, or when the estimate is unavailable.
+    """
+
+    recipient: typing.Optional[ListMethodsResponseDataItemRecipient] = pydantic.Field(default=None)
+    """
+    The recipient of a third-party payout method. Present only for recipient payout methods.
     """
 
     status: ListMethodsResponseDataItemStatus = pydantic.Field()

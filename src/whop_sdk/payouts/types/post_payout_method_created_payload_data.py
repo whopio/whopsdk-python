@@ -14,6 +14,7 @@ from .post_payout_method_created_payload_data_estimated_arrival import (
 from .post_payout_method_created_payload_data_fee_structure import PostPayoutMethodCreatedPayloadDataFeeStructure
 from .post_payout_method_created_payload_data_object import PostPayoutMethodCreatedPayloadDataObject
 from .post_payout_method_created_payload_data_quote import PostPayoutMethodCreatedPayloadDataQuote
+from .post_payout_method_created_payload_data_recipient import PostPayoutMethodCreatedPayloadDataRecipient
 from .post_payout_method_created_payload_data_status import PostPayoutMethodCreatedPayloadDataStatus
 from .post_payout_method_created_payload_data_supported_payout_method import (
     PostPayoutMethodCreatedPayloadDataSupportedPayoutMethod,
@@ -107,6 +108,11 @@ class PostPayoutMethodCreatedPayloadData(UniversalBaseModel):
     quote: typing.Optional[PostPayoutMethodCreatedPayloadDataQuote] = pydantic.Field(default=None)
     """
     Fee and delivery estimate for paying out the requested amount through this method. Null unless an amount was provided, or when the estimate is unavailable.
+    """
+
+    recipient: typing.Optional[PostPayoutMethodCreatedPayloadDataRecipient] = pydantic.Field(default=None)
+    """
+    The recipient of a third-party payout method. Present only for recipient payout methods.
     """
 
     status: PostPayoutMethodCreatedPayloadDataStatus = pydantic.Field()

@@ -7,6 +7,7 @@ import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .create_methods_response_bank_verification_state import CreateMethodsResponseBankVerificationState
 from .create_methods_response_object import CreateMethodsResponseObject
+from .create_methods_response_recipient import CreateMethodsResponseRecipient
 from .create_methods_response_status import CreateMethodsResponseStatus
 from .create_methods_response_supported_payout_method import CreateMethodsResponseSupportedPayoutMethod
 from .create_methods_response_unavailable_reason import CreateMethodsResponseUnavailableReason
@@ -72,6 +73,11 @@ class CreateMethodsResponse(UniversalBaseModel):
     quote: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
     """
     Always null on create.
+    """
+
+    recipient: typing.Optional[CreateMethodsResponseRecipient] = pydantic.Field(default=None)
+    """
+    The recipient of a third-party payout method. Present only for recipient payout methods.
     """
 
     status: CreateMethodsResponseStatus = pydantic.Field()

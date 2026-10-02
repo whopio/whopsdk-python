@@ -11,12 +11,14 @@ from ...core.pagination import AsyncPager, SyncPager
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
+from ...core.serialization import convert_and_respect_annotation_metadata
 from ...errors.bad_request_error import BadRequestError
 from ...errors.conflict_error import ConflictError
 from ...errors.forbidden_error import ForbiddenError
 from ...errors.not_found_error import NotFoundError
 from ...errors.unauthorized_error import UnauthorizedError
 from ...types.v1error_response import V1ErrorResponse
+from .types.create_methods_request_recipient import CreateMethodsRequestRecipient
 from .types.create_methods_response import CreateMethodsResponse
 from .types.delete_methods_response import DeleteMethodsResponse
 from .types.list_methods_request_status import ListMethodsRequestStatus
@@ -41,6 +43,7 @@ class RawMethodsClient:
         status: typing.Optional[ListMethodsRequestStatus] = None,
         amount: typing.Optional[float] = None,
         currency: typing.Optional[str] = None,
+        include_recipients: typing.Optional[bool] = None,
         include_limits: typing.Optional[bool] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
@@ -67,6 +70,9 @@ class RawMethodsClient:
 
         currency : typing.Optional[str]
             Currency code of the amount, for example `usd`. Only meaningful with amount or include_limits.
+
+        include_recipients : typing.Optional[bool]
+            When true, also includes bill-pay recipient methods tied to this funding account. Defaults to false, returning only the account's own payout methods.
 
         include_limits : typing.Optional[bool]
             When true, the response also carries limits — the live per-speed payout caps the account's payout requests are validated against, in the requested currency. Requires the payout:withdrawal:read scope.
@@ -101,6 +107,7 @@ class RawMethodsClient:
                 "status": status,
                 "amount": amount,
                 "currency": currency,
+                "include_recipients": include_recipients,
                 "include_limits": include_limits,
                 "first": first,
                 "after": after,
@@ -130,6 +137,7 @@ class RawMethodsClient:
                         status=status,
                         amount=amount,
                         currency=currency,
+                        include_recipients=include_recipients,
                         include_limits=include_limits,
                         first=first,
                         after=_parsed_next,
@@ -200,6 +208,7 @@ class RawMethodsClient:
         fields: typing.Optional[typing.Dict[str, str]] = OMIT,
         is_default: typing.Optional[bool] = OMIT,
         nickname: typing.Optional[str] = OMIT,
+        recipient: typing.Optional[CreateMethodsRequestRecipient] = OMIT,
         user_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateMethodsResponse]:
@@ -226,6 +235,9 @@ class RawMethodsClient:
         nickname : typing.Optional[str]
             A label for the payout method, unique per destination.
 
+        recipient : typing.Optional[CreateMethodsRequestRecipient]
+            Creates an external recipient and saves the bank method on their payout account, bound to the funding account. The MassPay email is generated when omitted; the recipient does not need a Whop login or Sumsub verification. Recipient methods cannot be default or recurring methods and cannot use Plaid.
+
         user_id : typing.Optional[str]
             The user to add the payout method for, prefixed `user_`. Provide this or `account_id`.
 
@@ -247,6 +259,9 @@ class RawMethodsClient:
                 "fields": fields,
                 "is_default": is_default,
                 "nickname": nickname,
+                "recipient": convert_and_respect_annotation_metadata(
+                    object_=recipient, annotation=CreateMethodsRequestRecipient, direction="write"
+                ),
                 "supported_payout_method_id": supported_payout_method_id,
                 "user_id": user_id,
             },
@@ -527,6 +542,7 @@ class AsyncRawMethodsClient:
         status: typing.Optional[ListMethodsRequestStatus] = None,
         amount: typing.Optional[float] = None,
         currency: typing.Optional[str] = None,
+        include_recipients: typing.Optional[bool] = None,
         include_limits: typing.Optional[bool] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
@@ -553,6 +569,9 @@ class AsyncRawMethodsClient:
 
         currency : typing.Optional[str]
             Currency code of the amount, for example `usd`. Only meaningful with amount or include_limits.
+
+        include_recipients : typing.Optional[bool]
+            When true, also includes bill-pay recipient methods tied to this funding account. Defaults to false, returning only the account's own payout methods.
 
         include_limits : typing.Optional[bool]
             When true, the response also carries limits — the live per-speed payout caps the account's payout requests are validated against, in the requested currency. Requires the payout:withdrawal:read scope.
@@ -587,6 +606,7 @@ class AsyncRawMethodsClient:
                 "status": status,
                 "amount": amount,
                 "currency": currency,
+                "include_recipients": include_recipients,
                 "include_limits": include_limits,
                 "first": first,
                 "after": after,
@@ -618,6 +638,7 @@ class AsyncRawMethodsClient:
                             status=status,
                             amount=amount,
                             currency=currency,
+                            include_recipients=include_recipients,
                             include_limits=include_limits,
                             first=first,
                             after=_parsed_next,
@@ -689,6 +710,7 @@ class AsyncRawMethodsClient:
         fields: typing.Optional[typing.Dict[str, str]] = OMIT,
         is_default: typing.Optional[bool] = OMIT,
         nickname: typing.Optional[str] = OMIT,
+        recipient: typing.Optional[CreateMethodsRequestRecipient] = OMIT,
         user_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateMethodsResponse]:
@@ -715,6 +737,9 @@ class AsyncRawMethodsClient:
         nickname : typing.Optional[str]
             A label for the payout method, unique per destination.
 
+        recipient : typing.Optional[CreateMethodsRequestRecipient]
+            Creates an external recipient and saves the bank method on their payout account, bound to the funding account. The MassPay email is generated when omitted; the recipient does not need a Whop login or Sumsub verification. Recipient methods cannot be default or recurring methods and cannot use Plaid.
+
         user_id : typing.Optional[str]
             The user to add the payout method for, prefixed `user_`. Provide this or `account_id`.
 
@@ -736,6 +761,9 @@ class AsyncRawMethodsClient:
                 "fields": fields,
                 "is_default": is_default,
                 "nickname": nickname,
+                "recipient": convert_and_respect_annotation_metadata(
+                    object_=recipient, annotation=CreateMethodsRequestRecipient, direction="write"
+                ),
                 "supported_payout_method_id": supported_payout_method_id,
                 "user_id": user_id,
             },
