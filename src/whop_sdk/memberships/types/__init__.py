@@ -18,19 +18,12 @@ if typing.TYPE_CHECKING:
     from .post_membership_activated_payload import PostMembershipActivatedPayload
     from .post_membership_activated_payload_api_version import PostMembershipActivatedPayloadApiVersion
     from .post_membership_activated_payload_type import PostMembershipActivatedPayloadType
-    from .post_membership_cancel_at_period_end_changed_payload import PostMembershipCancelAtPeriodEndChangedPayload
-    from .post_membership_cancel_at_period_end_changed_payload_api_version import (
-        PostMembershipCancelAtPeriodEndChangedPayloadApiVersion,
-    )
-    from .post_membership_cancel_at_period_end_changed_payload_type import (
-        PostMembershipCancelAtPeriodEndChangedPayloadType,
-    )
-    from .post_membership_deactivated_payload import PostMembershipDeactivatedPayload
-    from .post_membership_deactivated_payload_api_version import PostMembershipDeactivatedPayloadApiVersion
-    from .post_membership_deactivated_payload_type import PostMembershipDeactivatedPayloadType
     from .post_membership_trial_ending_soon_payload import PostMembershipTrialEndingSoonPayload
     from .post_membership_trial_ending_soon_payload_api_version import PostMembershipTrialEndingSoonPayloadApiVersion
     from .post_membership_trial_ending_soon_payload_type import PostMembershipTrialEndingSoonPayloadType
+    from .post_membership_updated_payload import PostMembershipUpdatedPayload
+    from .post_membership_updated_payload_api_version import PostMembershipUpdatedPayloadApiVersion
+    from .post_membership_updated_payload_type import PostMembershipUpdatedPayloadType
     from .transfer_memberships_response import TransferMembershipsResponse
 _dynamic_imports: typing.Dict[str, str] = {
     "InviteMembershipsRequestBody": ".invite_memberships_request_body",
@@ -45,15 +38,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostMembershipActivatedPayload": ".post_membership_activated_payload",
     "PostMembershipActivatedPayloadApiVersion": ".post_membership_activated_payload_api_version",
     "PostMembershipActivatedPayloadType": ".post_membership_activated_payload_type",
-    "PostMembershipCancelAtPeriodEndChangedPayload": ".post_membership_cancel_at_period_end_changed_payload",
-    "PostMembershipCancelAtPeriodEndChangedPayloadApiVersion": ".post_membership_cancel_at_period_end_changed_payload_api_version",
-    "PostMembershipCancelAtPeriodEndChangedPayloadType": ".post_membership_cancel_at_period_end_changed_payload_type",
-    "PostMembershipDeactivatedPayload": ".post_membership_deactivated_payload",
-    "PostMembershipDeactivatedPayloadApiVersion": ".post_membership_deactivated_payload_api_version",
-    "PostMembershipDeactivatedPayloadType": ".post_membership_deactivated_payload_type",
     "PostMembershipTrialEndingSoonPayload": ".post_membership_trial_ending_soon_payload",
     "PostMembershipTrialEndingSoonPayloadApiVersion": ".post_membership_trial_ending_soon_payload_api_version",
     "PostMembershipTrialEndingSoonPayloadType": ".post_membership_trial_ending_soon_payload_type",
+    "PostMembershipUpdatedPayload": ".post_membership_updated_payload",
+    "PostMembershipUpdatedPayloadApiVersion": ".post_membership_updated_payload_api_version",
+    "PostMembershipUpdatedPayloadType": ".post_membership_updated_payload_type",
     "TransferMembershipsResponse": ".transfer_memberships_response",
 }
 
@@ -92,14 +82,11 @@ __all__ = [
     "PostMembershipActivatedPayload",
     "PostMembershipActivatedPayloadApiVersion",
     "PostMembershipActivatedPayloadType",
-    "PostMembershipCancelAtPeriodEndChangedPayload",
-    "PostMembershipCancelAtPeriodEndChangedPayloadApiVersion",
-    "PostMembershipCancelAtPeriodEndChangedPayloadType",
-    "PostMembershipDeactivatedPayload",
-    "PostMembershipDeactivatedPayloadApiVersion",
-    "PostMembershipDeactivatedPayloadType",
     "PostMembershipTrialEndingSoonPayload",
     "PostMembershipTrialEndingSoonPayloadApiVersion",
     "PostMembershipTrialEndingSoonPayloadType",
+    "PostMembershipUpdatedPayload",
+    "PostMembershipUpdatedPayloadApiVersion",
+    "PostMembershipUpdatedPayloadType",
     "TransferMembershipsResponse",
 ]

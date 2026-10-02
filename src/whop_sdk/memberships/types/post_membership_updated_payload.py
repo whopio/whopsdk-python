@@ -6,17 +6,17 @@ import typing
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ...types.membership import Membership
-from .post_membership_deactivated_payload_api_version import PostMembershipDeactivatedPayloadApiVersion
-from .post_membership_deactivated_payload_type import PostMembershipDeactivatedPayloadType
+from .post_membership_updated_payload_api_version import PostMembershipUpdatedPayloadApiVersion
+from .post_membership_updated_payload_type import PostMembershipUpdatedPayloadType
 
 
-class PostMembershipDeactivatedPayload(UniversalBaseModel):
+class PostMembershipUpdatedPayload(UniversalBaseModel):
     account_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The account ID that this webhook event is associated with
     """
 
-    api_version: PostMembershipDeactivatedPayloadApiVersion = pydantic.Field()
+    api_version: PostMembershipUpdatedPayloadApiVersion = pydantic.Field()
     """
     The API version for this webhook
     """
@@ -42,7 +42,7 @@ class PostMembershipDeactivatedPayload(UniversalBaseModel):
     The timestamp in ISO 8601 format that the webhook was sent at on the server
     """
 
-    type: PostMembershipDeactivatedPayloadType = pydantic.Field()
+    type: PostMembershipUpdatedPayloadType = pydantic.Field()
     """
     The webhook event type
     """
