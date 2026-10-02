@@ -505,6 +505,13 @@ if typing.TYPE_CHECKING:
     from .domain_dns_record_type import DomainDnsRecordType
     from .domain_dns_status import DomainDnsStatus
     from .domain_issue import DomainIssue
+    from .domain_list_item import DomainListItem
+    from .domain_list_item_dns_status import DomainListItemDnsStatus
+    from .domain_list_item_status import DomainListItemStatus
+    from .domain_public_record import DomainPublicRecord
+    from .domain_registrant import DomainRegistrant
+    from .domain_registrar import DomainRegistrar
+    from .domain_registrar_quote import DomainRegistrarQuote
     from .domain_status import DomainStatus
     from .economic_intelligence import EconomicIntelligence
     from .economic_intelligence_input import EconomicIntelligenceInput
@@ -1940,6 +1947,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DomainDnsRecordType": ".domain_dns_record_type",
     "DomainDnsStatus": ".domain_dns_status",
     "DomainIssue": ".domain_issue",
+    "DomainListItem": ".domain_list_item",
+    "DomainListItemDnsStatus": ".domain_list_item_dns_status",
+    "DomainListItemStatus": ".domain_list_item_status",
+    "DomainPublicRecord": ".domain_public_record",
+    "DomainRegistrant": ".domain_registrant",
+    "DomainRegistrar": ".domain_registrar",
+    "DomainRegistrarQuote": ".domain_registrar_quote",
     "DomainStatus": ".domain_status",
     "EconomicIntelligence": ".economic_intelligence",
     "EconomicIntelligenceInput": ".economic_intelligence_input",
@@ -3277,6 +3291,13 @@ __all__ = [
     "DomainDnsRecordType",
     "DomainDnsStatus",
     "DomainIssue",
+    "DomainListItem",
+    "DomainListItemDnsStatus",
+    "DomainListItemStatus",
+    "DomainPublicRecord",
+    "DomainRegistrant",
+    "DomainRegistrar",
+    "DomainRegistrarQuote",
     "DomainStatus",
     "EconomicIntelligence",
     "EconomicIntelligenceInput",
