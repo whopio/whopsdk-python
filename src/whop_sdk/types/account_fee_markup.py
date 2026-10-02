@@ -36,7 +36,7 @@ class AccountFeeMarkup(UniversalBaseModel):
     The percentage of the transaction the platform adds, where `2` means 2%. `0` when no markup is set.
     """
 
-    source: AccountFeeMarkupSource = pydantic.Field()
+    source: typing.Optional[AccountFeeMarkupSource] = pydantic.Field(default=None)
     """
     `custom` when a row is set at this level, `default` when the rate falls through to the platform default or zero.
     """

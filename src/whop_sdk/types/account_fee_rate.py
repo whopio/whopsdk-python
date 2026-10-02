@@ -10,12 +10,12 @@ from .money import Money
 class AccountFeeRate(UniversalBaseModel):
     fixed: typing.Optional[Money] = pydantic.Field(default=None)
     """
-    The amount charged per event. `null` when the fee has no fixed component.
+    The amount charged per event. `null` when unavailable.
     """
 
     percentage: typing.Optional[float] = pydantic.Field(default=None)
     """
-    The percentage of the transaction, where `2` means 2%. `null` when the fee has no percentage component.
+    The percentage of the transaction, where `2` means 2%. `null` when unavailable.
     """
 
     if IS_PYDANTIC_V2:

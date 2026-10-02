@@ -69,7 +69,7 @@ class AccountFee(UniversalBaseModel):
     The rate that takes effect when this account's custom rate is cleared, including inherited pricing.
     """
 
-    source: AccountFeeSource = pydantic.Field()
+    source: typing.Optional[AccountFeeSource] = pydantic.Field(default=None)
     """
     Where the rate in effect comes from: `default` is the platform rate, `custom` a rate negotiated for this account, and `inherited` a rate negotiated by the platform this account is connected to.
     """
