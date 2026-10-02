@@ -11,8 +11,12 @@ from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
+from ..errors.bad_request_error import BadRequestError
 from ..errors.conflict_error import ConflictError
+from ..errors.forbidden_error import ForbiddenError
+from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..types.domain import Domain
+from ..types.domain_list_item import DomainListItem
 from ..types.v1error_response import V1ErrorResponse
 from .types.list_domains_request_direction import ListDomainsRequestDirection
 from .types.list_domains_request_order import ListDomainsRequestOrder
@@ -40,10 +44,20 @@ class RawDomainsClient:
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
+        search: typing.Optional[str] = None,
+        tlds: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> SyncPager[Domain, ListDomainsResponse]:
+    ) -> SyncPager[DomainListItem, ListDomainsResponse]:
         """
         Lists the caller's domain claims and assignments. Filter by account, app, or lifecycle status.
+
+        To find a domain to buy instead, pass `search` with a name like `example` or a full domain like `example.com`. The results are then search results, each with a `registrar_quote` saying whether it's available, what it costs, and how desirable it is:
+
+        - The first result is the exact domain: the one you searched, or your name on `.com`. It's included even when it's taken.
+        - Next is your name on other popular extensions, whether or not they're available.
+        - The rest are more available suggestions, such as your name with a prefix or suffix.
+
+        To check your name on extensions you choose, also pass `tlds`: the results are then exactly those domains, in that order. Search results come back on one page and aren't reserved. To see who holds a registered domain and its key dates, retrieve it by hostname.
 
         Parameters
         ----------
@@ -74,12 +88,18 @@ class RawDomainsClient:
         before : typing.Optional[str]
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
+        search : typing.Optional[str]
+            A name or a full domain to find domains to buy, such as `example` or `example.com`. A URL or subdomain searches its registrable domain. When set, the results are search results rather than your domains, and the other filters, sorting, and pagination don't apply.
+
+        tlds : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            With `search`, the extensions to check your name on, such as `com` or `co.uk`, returned in the order you pass them. Repeat the parameter to pass several, up to 100. The results are then exactly your name on these extensions, without suggestions.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        SyncPager[Domain, ListDomainsResponse]
+        SyncPager[DomainListItem, ListDomainsResponse]
             Domain list
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -96,6 +116,8 @@ class RawDomainsClient:
                 "after": after,
                 "last": last,
                 "before": before,
+                "search": search,
+                "tlds": tlds,
             },
             request_options=request_options,
         )
@@ -124,9 +146,44 @@ class RawDomainsClient:
                         after=_parsed_next,
                         last=last,
                         before=before,
+                        search=search,
+                        tlds=tlds,
                         request_options=request_options,
                     )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        V1ErrorResponse,
+                        parse_obj_as(
+                            type_=V1ErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -225,10 +282,12 @@ class RawDomainsClient:
         """
         Retrieves the claim, app assignment, DNS instructions, and the latest hostname and certificate state. For domains still connecting, needing attention, or being deleted, requests an immediate background check.
 
+        Pass a hostname instead of an ID to look up any domain, yours or not. The result is a search result: its `registrar_quote` says whether it's available, what it costs, and how desirable it is. For a registered domain, `public_record` has its registrar, registrant, and key dates from public registration records, read when you call this.
+
         Parameters
         ----------
         id : str
-            Domain ID, prefixed dom_.
+            Domain ID, prefixed dom_. To retrieve, you can instead pass a hostname such as `example.com` to look up any domain; a name without an extension looks up the name on `.com`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -254,6 +313,28 @@ class RawDomainsClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -270,7 +351,7 @@ class RawDomainsClient:
         Parameters
         ----------
         id : str
-            Domain ID, prefixed dom_.
+            Domain ID, prefixed dom_. To retrieve, you can instead pass a hostname such as `example.com` to look up any domain; a name without an extension looks up the name on `.com`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -319,7 +400,7 @@ class RawDomainsClient:
         Parameters
         ----------
         id : str
-            Domain ID, prefixed dom_.
+            Domain ID, prefixed dom_. To retrieve, you can instead pass a hostname such as `example.com` to look up any domain; a name without an extension looks up the name on `.com`.
 
         app_id : typing.Optional[str]
             App ID, prefixed app_. Must belong to the same account.
@@ -385,10 +466,20 @@ class AsyncRawDomainsClient:
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
+        search: typing.Optional[str] = None,
+        tlds: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncPager[Domain, ListDomainsResponse]:
+    ) -> AsyncPager[DomainListItem, ListDomainsResponse]:
         """
         Lists the caller's domain claims and assignments. Filter by account, app, or lifecycle status.
+
+        To find a domain to buy instead, pass `search` with a name like `example` or a full domain like `example.com`. The results are then search results, each with a `registrar_quote` saying whether it's available, what it costs, and how desirable it is:
+
+        - The first result is the exact domain: the one you searched, or your name on `.com`. It's included even when it's taken.
+        - Next is your name on other popular extensions, whether or not they're available.
+        - The rest are more available suggestions, such as your name with a prefix or suffix.
+
+        To check your name on extensions you choose, also pass `tlds`: the results are then exactly those domains, in that order. Search results come back on one page and aren't reserved. To see who holds a registered domain and its key dates, retrieve it by hostname.
 
         Parameters
         ----------
@@ -419,12 +510,18 @@ class AsyncRawDomainsClient:
         before : typing.Optional[str]
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
+        search : typing.Optional[str]
+            A name or a full domain to find domains to buy, such as `example` or `example.com`. A URL or subdomain searches its registrable domain. When set, the results are search results rather than your domains, and the other filters, sorting, and pagination don't apply.
+
+        tlds : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            With `search`, the extensions to check your name on, such as `com` or `co.uk`, returned in the order you pass them. Repeat the parameter to pass several, up to 100. The results are then exactly your name on these extensions, without suggestions.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncPager[Domain, ListDomainsResponse]
+        AsyncPager[DomainListItem, ListDomainsResponse]
             Domain list
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -441,6 +538,8 @@ class AsyncRawDomainsClient:
                 "after": after,
                 "last": last,
                 "before": before,
+                "search": search,
+                "tlds": tlds,
             },
             request_options=request_options,
         )
@@ -471,10 +570,45 @@ class AsyncRawDomainsClient:
                             after=_parsed_next,
                             last=last,
                             before=before,
+                            search=search,
+                            tlds=tlds,
                             request_options=request_options,
                         )
 
                 return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        V1ErrorResponse,
+                        parse_obj_as(
+                            type_=V1ErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -575,10 +709,12 @@ class AsyncRawDomainsClient:
         """
         Retrieves the claim, app assignment, DNS instructions, and the latest hostname and certificate state. For domains still connecting, needing attention, or being deleted, requests an immediate background check.
 
+        Pass a hostname instead of an ID to look up any domain, yours or not. The result is a search result: its `registrar_quote` says whether it's available, what it costs, and how desirable it is. For a registered domain, `public_record` has its registrar, registrant, and key dates from public registration records, read when you call this.
+
         Parameters
         ----------
         id : str
-            Domain ID, prefixed dom_.
+            Domain ID, prefixed dom_. To retrieve, you can instead pass a hostname such as `example.com` to look up any domain; a name without an extension looks up the name on `.com`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -604,6 +740,28 @@ class AsyncRawDomainsClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -622,7 +780,7 @@ class AsyncRawDomainsClient:
         Parameters
         ----------
         id : str
-            Domain ID, prefixed dom_.
+            Domain ID, prefixed dom_. To retrieve, you can instead pass a hostname such as `example.com` to look up any domain; a name without an extension looks up the name on `.com`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -671,7 +829,7 @@ class AsyncRawDomainsClient:
         Parameters
         ----------
         id : str
-            Domain ID, prefixed dom_.
+            Domain ID, prefixed dom_. To retrieve, you can instead pass a hostname such as `example.com` to look up any domain; a name without an extension looks up the name on `.com`.
 
         app_id : typing.Optional[str]
             App ID, prefixed app_. Must belong to the same account.

@@ -5,14 +5,13 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .domain_dns_record import DomainDnsRecord
-from .domain_dns_status import DomainDnsStatus
 from .domain_issue import DomainIssue
-from .domain_public_record import DomainPublicRecord
+from .domain_list_item_dns_status import DomainListItemDnsStatus
+from .domain_list_item_status import DomainListItemStatus
 from .domain_registrar_quote import DomainRegistrarQuote
-from .domain_status import DomainStatus
 
 
-class Domain(UniversalBaseModel):
+class DomainListItem(UniversalBaseModel):
     account_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     ID of the account claiming or owning this domain, prefixed `biz_`. `null` for a search result.
@@ -34,7 +33,7 @@ class Domain(UniversalBaseModel):
     """
 
     dns_records: typing.List[DomainDnsRecord]
-    dns_status: typing.Optional[DomainDnsStatus] = pydantic.Field(default=None)
+    dns_status: typing.Optional[DomainListItemDnsStatus] = pydantic.Field(default=None)
     """
     Result of the most recent DNS routing check. Ownership is verified separately. `null` for a search result.
     """
@@ -60,14 +59,9 @@ class Domain(UniversalBaseModel):
     When DNS and provider state were last checked, as an ISO 8601 timestamp.
     """
 
-    metadata: typing.Dict[str, str] = pydantic.Field()
+    metadata: typing.Dict[str, typing.Any] = pydantic.Field()
     """
     Custom string keys and values attached to this domain. Empty for a search result.
-    """
-
-    public_record: typing.Optional[DomainPublicRecord] = pydantic.Field(default=None)
-    """
-    The domain's public registration record (RDAP): its registrar, registrant, key dates, registry statuses, and name servers, read when you retrieve the domain by hostname. `null` for your own domains, an available domain, or a record that couldn't be read.
     """
 
     registrar_quote: typing.Optional[DomainRegistrarQuote] = pydantic.Field(default=None)
@@ -75,7 +69,7 @@ class Domain(UniversalBaseModel):
     What registering the domain would cost: whether it's available, its first-year, renewal, and transfer prices, a link to buy it, and how desirable it is. Set for a search result: a domain from `search` or retrieved by hostname. `null` for your own domains.
     """
 
-    status: typing.Optional[DomainStatus] = pydantic.Field(default=None)
+    status: typing.Optional[DomainListItemStatus] = pydantic.Field(default=None)
     """
     Domain lifecycle. Only active domains resolve to their app. `null` for a search result.
     """

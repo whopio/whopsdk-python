@@ -6,6 +6,7 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
 from ..types.domain import Domain
+from ..types.domain_list_item import DomainListItem
 from .raw_client import AsyncRawDomainsClient, RawDomainsClient
 from .types.list_domains_request_direction import ListDomainsRequestDirection
 from .types.list_domains_request_order import ListDomainsRequestOrder
@@ -43,10 +44,20 @@ class DomainsClient:
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
+        search: typing.Optional[str] = None,
+        tlds: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> SyncPager[Domain, ListDomainsResponse]:
+    ) -> SyncPager[DomainListItem, ListDomainsResponse]:
         """
         Lists the caller's domain claims and assignments. Filter by account, app, or lifecycle status.
+
+        To find a domain to buy instead, pass `search` with a name like `example` or a full domain like `example.com`. The results are then search results, each with a `registrar_quote` saying whether it's available, what it costs, and how desirable it is:
+
+        - The first result is the exact domain: the one you searched, or your name on `.com`. It's included even when it's taken.
+        - Next is your name on other popular extensions, whether or not they're available.
+        - The rest are more available suggestions, such as your name with a prefix or suffix.
+
+        To check your name on extensions you choose, also pass `tlds`: the results are then exactly those domains, in that order. Search results come back on one page and aren't reserved. To see who holds a registered domain and its key dates, retrieve it by hostname.
 
         Parameters
         ----------
@@ -77,12 +88,18 @@ class DomainsClient:
         before : typing.Optional[str]
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
+        search : typing.Optional[str]
+            A name or a full domain to find domains to buy, such as `example` or `example.com`. A URL or subdomain searches its registrable domain. When set, the results are search results rather than your domains, and the other filters, sorting, and pagination don't apply.
+
+        tlds : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            With `search`, the extensions to check your name on, such as `com` or `co.uk`, returned in the order you pass them. Repeat the parameter to pass several, up to 100. The results are then exactly your name on these extensions, without suggestions.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        SyncPager[Domain, ListDomainsResponse]
+        SyncPager[DomainListItem, ListDomainsResponse]
             Domain list
 
         Examples
@@ -94,7 +111,9 @@ class DomainsClient:
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
-        response = client.domains.list()
+        response = client.domains.list(
+            tlds=["com"],
+        )
         for item in response:
             yield item
         # alternatively, you can paginate page-by-page
@@ -111,6 +130,8 @@ class DomainsClient:
             after=after,
             last=last,
             before=before,
+            search=search,
+            tlds=tlds,
             request_options=request_options,
         )
 
@@ -180,10 +201,12 @@ class DomainsClient:
         """
         Retrieves the claim, app assignment, DNS instructions, and the latest hostname and certificate state. For domains still connecting, needing attention, or being deleted, requests an immediate background check.
 
+        Pass a hostname instead of an ID to look up any domain, yours or not. The result is a search result: its `registrar_quote` says whether it's available, what it costs, and how desirable it is. For a registered domain, `public_record` has its registrar, registrant, and key dates from public registration records, read when you call this.
+
         Parameters
         ----------
         id : str
-            Domain ID, prefixed dom_.
+            Domain ID, prefixed dom_. To retrieve, you can instead pass a hostname such as `example.com` to look up any domain; a name without an extension looks up the name on `.com`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -216,7 +239,7 @@ class DomainsClient:
         Parameters
         ----------
         id : str
-            Domain ID, prefixed dom_.
+            Domain ID, prefixed dom_. To retrieve, you can instead pass a hostname such as `example.com` to look up any domain; a name without an extension looks up the name on `.com`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -256,7 +279,7 @@ class DomainsClient:
         Parameters
         ----------
         id : str
-            Domain ID, prefixed dom_.
+            Domain ID, prefixed dom_. To retrieve, you can instead pass a hostname such as `example.com` to look up any domain; a name without an extension looks up the name on `.com`.
 
         app_id : typing.Optional[str]
             App ID, prefixed app_. Must belong to the same account.
@@ -316,10 +339,20 @@ class AsyncDomainsClient:
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
+        search: typing.Optional[str] = None,
+        tlds: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncPager[Domain, ListDomainsResponse]:
+    ) -> AsyncPager[DomainListItem, ListDomainsResponse]:
         """
         Lists the caller's domain claims and assignments. Filter by account, app, or lifecycle status.
+
+        To find a domain to buy instead, pass `search` with a name like `example` or a full domain like `example.com`. The results are then search results, each with a `registrar_quote` saying whether it's available, what it costs, and how desirable it is:
+
+        - The first result is the exact domain: the one you searched, or your name on `.com`. It's included even when it's taken.
+        - Next is your name on other popular extensions, whether or not they're available.
+        - The rest are more available suggestions, such as your name with a prefix or suffix.
+
+        To check your name on extensions you choose, also pass `tlds`: the results are then exactly those domains, in that order. Search results come back on one page and aren't reserved. To see who holds a registered domain and its key dates, retrieve it by hostname.
 
         Parameters
         ----------
@@ -350,12 +383,18 @@ class AsyncDomainsClient:
         before : typing.Optional[str]
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
+        search : typing.Optional[str]
+            A name or a full domain to find domains to buy, such as `example` or `example.com`. A URL or subdomain searches its registrable domain. When set, the results are search results rather than your domains, and the other filters, sorting, and pagination don't apply.
+
+        tlds : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            With `search`, the extensions to check your name on, such as `com` or `co.uk`, returned in the order you pass them. Repeat the parameter to pass several, up to 100. The results are then exactly your name on these extensions, without suggestions.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncPager[Domain, ListDomainsResponse]
+        AsyncPager[DomainListItem, ListDomainsResponse]
             Domain list
 
         Examples
@@ -372,7 +411,9 @@ class AsyncDomainsClient:
 
 
         async def main() -> None:
-            response = await client.domains.list()
+            response = await client.domains.list(
+                tlds=["com"],
+            )
             async for item in response:
                 yield item
 
@@ -393,6 +434,8 @@ class AsyncDomainsClient:
             after=after,
             last=last,
             before=before,
+            search=search,
+            tlds=tlds,
             request_options=request_options,
         )
 
@@ -470,10 +513,12 @@ class AsyncDomainsClient:
         """
         Retrieves the claim, app assignment, DNS instructions, and the latest hostname and certificate state. For domains still connecting, needing attention, or being deleted, requests an immediate background check.
 
+        Pass a hostname instead of an ID to look up any domain, yours or not. The result is a search result: its `registrar_quote` says whether it's available, what it costs, and how desirable it is. For a registered domain, `public_record` has its registrar, registrant, and key dates from public registration records, read when you call this.
+
         Parameters
         ----------
         id : str
-            Domain ID, prefixed dom_.
+            Domain ID, prefixed dom_. To retrieve, you can instead pass a hostname such as `example.com` to look up any domain; a name without an extension looks up the name on `.com`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -514,7 +559,7 @@ class AsyncDomainsClient:
         Parameters
         ----------
         id : str
-            Domain ID, prefixed dom_.
+            Domain ID, prefixed dom_. To retrieve, you can instead pass a hostname such as `example.com` to look up any domain; a name without an extension looks up the name on `.com`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -562,7 +607,7 @@ class AsyncDomainsClient:
         Parameters
         ----------
         id : str
-            Domain ID, prefixed dom_.
+            Domain ID, prefixed dom_. To retrieve, you can instead pass a hostname such as `example.com` to look up any domain; a name without an extension looks up the name on `.com`.
 
         app_id : typing.Optional[str]
             App ID, prefixed app_. Must belong to the same account.

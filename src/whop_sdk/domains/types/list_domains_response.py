@@ -4,12 +4,12 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ...types.domain import Domain
+from ...types.domain_list_item import DomainListItem
 from .list_domains_response_page_info import ListDomainsResponsePageInfo
 
 
 class ListDomainsResponse(UniversalBaseModel):
-    data: typing.List[Domain]
+    data: typing.List[DomainListItem]
     page_info: ListDomainsResponsePageInfo
 
     if IS_PYDANTIC_V2:
