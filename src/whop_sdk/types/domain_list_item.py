@@ -66,7 +66,7 @@ class DomainListItem(UniversalBaseModel):
 
     registration_quote: typing.Optional[DomainRegistrationQuote] = pydantic.Field(default=None)
     """
-    What registering the domain would cost: whether it's available, its first-year, renewal, and transfer prices, a link to buy it, and how desirable it is. Set for a search result: a domain from `search` or retrieved by hostname. `null` for your own domains.
+    Whether you can register the domain and what it costs. Set for search results and hostname lookups; `null` for your own domains.
     """
 
     status: typing.Optional[DomainListItemStatus] = pydantic.Field(default=None)

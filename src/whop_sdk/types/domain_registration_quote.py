@@ -15,7 +15,7 @@ class DomainRegistrationQuote(UniversalBaseModel):
 
     premium: bool = pydantic.Field()
     """
-    Whether the registry prices this domain above its standard rate. Premium prices are set per domain and can be much higher.
+    Whether the registry charges more than its standard price for this domain.
     """
 
     price: typing.Optional[Money] = pydantic.Field(default=None)
@@ -25,7 +25,7 @@ class DomainRegistrationQuote(UniversalBaseModel):
 
     purchase_url: typing.Optional[str] = pydantic.Field(default=None)
     """
-    A link to this domain's page in your account's Whop dashboard, where you can buy it. `null` when the domain is not available, or when the request has no account, such as a user token without an account context.
+    Link to buy the domain in your Whop dashboard. `null` when it isn't available or the request has no account, such as a user token.
     """
 
     renewal_price: typing.Optional[Money] = pydantic.Field(default=None)
@@ -35,12 +35,12 @@ class DomainRegistrationQuote(UniversalBaseModel):
 
     score: int = pydantic.Field()
     """
-    How desirable the domain is, from 0 to 100. Short names that read like real words, on well-known extensions, score highest. Hyphens, digits, random-looking letters, and famous brand names score lower.
+    How desirable the domain is, from 0 to 100. Short, real-word names on well-known extensions score highest.
     """
 
     transfer_price: typing.Optional[Money] = pydantic.Field(default=None)
     """
-    What transferring the domain to Whop costs if you already own it elsewhere, including one added year of registration. `null` when the domain is available or its extension cannot be transferred.
+    What moving the domain to Whop costs if you own it elsewhere, including a year of registration. `null` when it's available or can't be transferred.
     """
 
     if IS_PYDANTIC_V2:

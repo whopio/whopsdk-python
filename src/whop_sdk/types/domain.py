@@ -67,12 +67,12 @@ class Domain(UniversalBaseModel):
 
     public_record: typing.Optional[DomainPublicRecord] = pydantic.Field(default=None)
     """
-    The domain's public registration record (RDAP): its registrar, registrant, key dates, registry statuses, and name servers, read when you retrieve the domain by hostname. `null` for your own domains, an available domain, or a record that couldn't be read.
+    The domain's public registration record (RDAP), read when you retrieve it by hostname. `null` for your own domains, available domains, or a record that couldn't be read.
     """
 
     registration_quote: typing.Optional[DomainRegistrationQuote] = pydantic.Field(default=None)
     """
-    What registering the domain would cost: whether it's available, its first-year, renewal, and transfer prices, a link to buy it, and how desirable it is. Set for a search result: a domain from `search` or retrieved by hostname. `null` for your own domains.
+    Whether you can register the domain and what it costs. Set for search results and hostname lookups; `null` for your own domains.
     """
 
     status: typing.Optional[DomainStatus] = pydantic.Field(default=None)
