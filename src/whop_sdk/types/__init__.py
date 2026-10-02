@@ -511,7 +511,7 @@ if typing.TYPE_CHECKING:
     from .domain_public_record import DomainPublicRecord
     from .domain_registrant import DomainRegistrant
     from .domain_registrar import DomainRegistrar
-    from .domain_registrar_quote import DomainRegistrarQuote
+    from .domain_registration_quote import DomainRegistrationQuote
     from .domain_status import DomainStatus
     from .economic_intelligence import EconomicIntelligence
     from .economic_intelligence_input import EconomicIntelligenceInput
@@ -1953,7 +1953,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DomainPublicRecord": ".domain_public_record",
     "DomainRegistrant": ".domain_registrant",
     "DomainRegistrar": ".domain_registrar",
-    "DomainRegistrarQuote": ".domain_registrar_quote",
+    "DomainRegistrationQuote": ".domain_registration_quote",
     "DomainStatus": ".domain_status",
     "EconomicIntelligence": ".economic_intelligence",
     "EconomicIntelligenceInput": ".economic_intelligence_input",
@@ -3297,7 +3297,7 @@ __all__ = [
     "DomainPublicRecord",
     "DomainRegistrant",
     "DomainRegistrar",
-    "DomainRegistrarQuote",
+    "DomainRegistrationQuote",
     "DomainStatus",
     "EconomicIntelligence",
     "EconomicIntelligenceInput",
