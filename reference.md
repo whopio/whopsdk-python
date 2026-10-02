@@ -21694,6 +21694,14 @@ client.financial_reports.retrieve(
 <dl>
 <dd>
 
+**period_only_currencies:** `typing.Optional[bool]` — Account-level balance activity only: return only currencies with cashflow in the exact requested window. Requires `from` and `to`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
