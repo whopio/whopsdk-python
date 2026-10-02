@@ -7,9 +7,11 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
+        CreateMethodsRequestRecipient,
         CreateMethodsResponse,
         CreateMethodsResponseBankVerificationState,
         CreateMethodsResponseObject,
+        CreateMethodsResponseRecipient,
         CreateMethodsResponseStatus,
         CreateMethodsResponseSupportedPayoutMethod,
         CreateMethodsResponseSupportedPayoutMethodDeliveryType,
@@ -26,6 +28,7 @@ if typing.TYPE_CHECKING:
         ListMethodsResponseDataItemQuoteInstant,
         ListMethodsResponseDataItemQuoteInstantUnavailableReason,
         ListMethodsResponseDataItemQuoteStandard,
+        ListMethodsResponseDataItemRecipient,
         ListMethodsResponseDataItemStatus,
         ListMethodsResponseDataItemSupportedPayoutMethod,
         ListMethodsResponseDataItemSupportedPayoutMethodDeliveryType,
@@ -40,15 +43,18 @@ if typing.TYPE_CHECKING:
         UpdateMethodsResponse,
         UpdateMethodsResponseBankVerificationState,
         UpdateMethodsResponseObject,
+        UpdateMethodsResponseRecipient,
         UpdateMethodsResponseStatus,
         UpdateMethodsResponseSupportedPayoutMethod,
         UpdateMethodsResponseSupportedPayoutMethodDeliveryType,
         UpdateMethodsResponseUnavailableReason,
     )
 _dynamic_imports: typing.Dict[str, str] = {
+    "CreateMethodsRequestRecipient": ".types",
     "CreateMethodsResponse": ".types",
     "CreateMethodsResponseBankVerificationState": ".types",
     "CreateMethodsResponseObject": ".types",
+    "CreateMethodsResponseRecipient": ".types",
     "CreateMethodsResponseStatus": ".types",
     "CreateMethodsResponseSupportedPayoutMethod": ".types",
     "CreateMethodsResponseSupportedPayoutMethodDeliveryType": ".types",
@@ -65,6 +71,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListMethodsResponseDataItemQuoteInstant": ".types",
     "ListMethodsResponseDataItemQuoteInstantUnavailableReason": ".types",
     "ListMethodsResponseDataItemQuoteStandard": ".types",
+    "ListMethodsResponseDataItemRecipient": ".types",
     "ListMethodsResponseDataItemStatus": ".types",
     "ListMethodsResponseDataItemSupportedPayoutMethod": ".types",
     "ListMethodsResponseDataItemSupportedPayoutMethodDeliveryType": ".types",
@@ -79,6 +86,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateMethodsResponse": ".types",
     "UpdateMethodsResponseBankVerificationState": ".types",
     "UpdateMethodsResponseObject": ".types",
+    "UpdateMethodsResponseRecipient": ".types",
     "UpdateMethodsResponseStatus": ".types",
     "UpdateMethodsResponseSupportedPayoutMethod": ".types",
     "UpdateMethodsResponseSupportedPayoutMethodDeliveryType": ".types",
@@ -108,9 +116,11 @@ def __dir__():
 
 
 __all__ = [
+    "CreateMethodsRequestRecipient",
     "CreateMethodsResponse",
     "CreateMethodsResponseBankVerificationState",
     "CreateMethodsResponseObject",
+    "CreateMethodsResponseRecipient",
     "CreateMethodsResponseStatus",
     "CreateMethodsResponseSupportedPayoutMethod",
     "CreateMethodsResponseSupportedPayoutMethodDeliveryType",
@@ -127,6 +137,7 @@ __all__ = [
     "ListMethodsResponseDataItemQuoteInstant",
     "ListMethodsResponseDataItemQuoteInstantUnavailableReason",
     "ListMethodsResponseDataItemQuoteStandard",
+    "ListMethodsResponseDataItemRecipient",
     "ListMethodsResponseDataItemStatus",
     "ListMethodsResponseDataItemSupportedPayoutMethod",
     "ListMethodsResponseDataItemSupportedPayoutMethodDeliveryType",
@@ -141,6 +152,7 @@ __all__ = [
     "UpdateMethodsResponse",
     "UpdateMethodsResponseBankVerificationState",
     "UpdateMethodsResponseObject",
+    "UpdateMethodsResponseRecipient",
     "UpdateMethodsResponseStatus",
     "UpdateMethodsResponseSupportedPayoutMethod",
     "UpdateMethodsResponseSupportedPayoutMethodDeliveryType",

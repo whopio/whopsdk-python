@@ -47999,6 +47999,14 @@ client.payouts.methods.list()
 <dl>
 <dd>
 
+**include_recipients:** `typing.Optional[bool]` — When true, also includes bill-pay recipient methods tied to this funding account. Defaults to false, returning only the account's own payout methods.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **include_limits:** `typing.Optional[bool]` — When true, the response also carries limits — the live per-speed payout caps the account's payout requests are validated against, in the requested currency. Requires the payout:withdrawal:read scope.
     
 </dd>
@@ -48145,6 +48153,14 @@ client.payouts.methods.create(
 <dd>
 
 **nickname:** `typing.Optional[str]` — A label for the payout method, unique per destination.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**recipient:** `typing.Optional[CreateMethodsRequestRecipient]` — Creates an external recipient and saves the bank method on their payout account, bound to the funding account. The MassPay email is generated when omitted; the recipient does not need a Whop login or Sumsub verification. Recipient methods cannot be default or recurring methods and cannot use Plaid.
     
 </dd>
 </dl>

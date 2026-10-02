@@ -90,6 +90,7 @@ if typing.TYPE_CHECKING:
         PostPayoutMethodCreatedPayloadDataQuoteInstantUnavailableReason,
     )
     from .post_payout_method_created_payload_data_quote_standard import PostPayoutMethodCreatedPayloadDataQuoteStandard
+    from .post_payout_method_created_payload_data_recipient import PostPayoutMethodCreatedPayloadDataRecipient
     from .post_payout_method_created_payload_data_status import PostPayoutMethodCreatedPayloadDataStatus
     from .post_payout_method_created_payload_data_supported_payout_method import (
         PostPayoutMethodCreatedPayloadDataSupportedPayoutMethod,
@@ -214,6 +215,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostPayoutMethodCreatedPayloadDataQuoteInstant": ".post_payout_method_created_payload_data_quote_instant",
     "PostPayoutMethodCreatedPayloadDataQuoteInstantUnavailableReason": ".post_payout_method_created_payload_data_quote_instant_unavailable_reason",
     "PostPayoutMethodCreatedPayloadDataQuoteStandard": ".post_payout_method_created_payload_data_quote_standard",
+    "PostPayoutMethodCreatedPayloadDataRecipient": ".post_payout_method_created_payload_data_recipient",
     "PostPayoutMethodCreatedPayloadDataStatus": ".post_payout_method_created_payload_data_status",
     "PostPayoutMethodCreatedPayloadDataSupportedPayoutMethod": ".post_payout_method_created_payload_data_supported_payout_method",
     "PostPayoutMethodCreatedPayloadDataSupportedPayoutMethodDeliveryType": ".post_payout_method_created_payload_data_supported_payout_method_delivery_type",
@@ -344,6 +346,7 @@ __all__ = [
     "PostPayoutMethodCreatedPayloadDataQuoteInstant",
     "PostPayoutMethodCreatedPayloadDataQuoteInstantUnavailableReason",
     "PostPayoutMethodCreatedPayloadDataQuoteStandard",
+    "PostPayoutMethodCreatedPayloadDataRecipient",
     "PostPayoutMethodCreatedPayloadDataStatus",
     "PostPayoutMethodCreatedPayloadDataSupportedPayoutMethod",
     "PostPayoutMethodCreatedPayloadDataSupportedPayoutMethodDeliveryType",
