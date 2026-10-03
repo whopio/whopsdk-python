@@ -131,6 +131,7 @@ PaymentMethodTypes = typing.Union[
         "vipps",
         "webpay",
         "wechat_pay",
+        "whop_pay",
         "yape",
         "zip",
         "coinflow",
