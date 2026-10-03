@@ -13,10 +13,11 @@ from ...core.serialization import convert_and_respect_annotation_metadata
 from ...errors.conflict_error import ConflictError
 from ...errors.unauthorized_error import UnauthorizedError
 from ...types.payment import Payment
+from ...types.payment_input_line_items_item import PaymentInputLineItemsItem
+from ...types.payment_input_plan import PaymentInputPlan
 from ...types.v1error_response import V1ErrorResponse
 from .types.create_direct_request_billing_details import CreateDirectRequestBillingDetails
 from .types.create_direct_request_payment_method import CreateDirectRequestPaymentMethod
-from .types.create_direct_request_plan import CreateDirectRequestPlan
 from .types.create_direct_request_setup_future_usage import CreateDirectRequestSetupFutureUsage
 from pydantic import ValidationError
 
@@ -31,21 +32,22 @@ class RawDirectClient:
     def create(
         self,
         *,
-        account_id: str,
         billing_details: CreateDirectRequestBillingDetails,
         payment_method: CreateDirectRequestPaymentMethod,
+        account_id: str,
         affiliate_code: typing.Optional[str] = OMIT,
         auto_capture_after_minutes: typing.Optional[int] = OMIT,
         capture: typing.Optional[bool] = OMIT,
         member_id: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         off_session: typing.Optional[bool] = OMIT,
-        plan: typing.Optional[CreateDirectRequestPlan] = OMIT,
-        plan_id: typing.Optional[str] = OMIT,
-        promo_code_id: typing.Optional[str] = OMIT,
         return_url: typing.Optional[str] = OMIT,
         setup_future_usage: typing.Optional[CreateDirectRequestSetupFutureUsage] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
+        line_items: typing.Optional[typing.Sequence[PaymentInputLineItemsItem]] = OMIT,
+        plan: typing.Optional[PaymentInputPlan] = OMIT,
+        plan_id: typing.Optional[str] = OMIT,
+        promo_code_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Payment]:
         """
@@ -53,14 +55,14 @@ class RawDirectClient:
 
         Parameters
         ----------
-        account_id : str
-            The account to charge for, prefixed `biz_`.
-
         billing_details : CreateDirectRequestBillingDetails
             The buyer's billing details.
 
         payment_method : CreateDirectRequestPaymentMethod
             The payment method to charge, as the raw details the caller holds. Raw details are accepted only on the vault host, where Whop's vault tokenizes them in transit; the official SDKs route this operation there. Whop's own clients, which tokenize with the Basis Theory SDK, send the resulting token intent id to the regular host.
+
+        account_id : str
+            The account the purchase belongs to, prefixed `biz_`.
 
         affiliate_code : typing.Optional[str]
             The code an affiliate link carries, which is the affiliate's username. The affiliate is credited for this payment as on a checkout session. A code naming no one eligible to earn on the product is ignored, and the payment goes ahead. A promo code with its own affiliate takes precedence. No affiliate is credited on a variant without a product or on a purchase of several variants. At most 255 characters.
@@ -80,15 +82,6 @@ class RawDirectClient:
         off_session : typing.Optional[bool]
             Whether the charge is merchant-initiated, with the buyer not present. Defaults to false. When true, `payment_method.card.network_transaction_id` is required: a merchant-initiated charge on a card Whop has not charged before carries the id of the card's prior customer-initiated transaction. No 3D Secure step is offered: an issuer that requires the buyer to authenticate declines the charge, and the payment fails with that reason so the card can be charged again with the buyer present. A declined card is not saved.
 
-        plan : typing.Optional[CreateDirectRequestPlan]
-            Find or create a variant for this payment through the compatibility input `plan`. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
-
-        plan_id : typing.Optional[str]
-            The variant to charge for, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan`.
-
-        promo_code_id : typing.Optional[str]
-            An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant.
-
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step such as 3D Secure. An absolute https URL without credentials, at most 2,048 characters.
 
@@ -97,6 +90,18 @@ class RawDirectClient:
 
         statement_descriptor : typing.Optional[str]
             Overrides the text on the buyer's card statement for this payment only. Must start with `WHOP*`, be 5-22 characters, contain at least one letter, and use only Latin letters, numbers, spaces, underscores, hyphens, or asterisks.
+
+        line_items : typing.Optional[typing.Sequence[PaymentInputLineItemsItem]]
+            What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
+
+        plan : typing.Optional[PaymentInputPlan]
+            The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
+
+        plan_id : typing.Optional[str]
+            The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
+
+        promo_code_id : typing.Optional[str]
+            An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -111,7 +116,6 @@ class RawDirectClient:
             base_url=self._client_wrapper.get_environment().vault,
             method="POST",
             json={
-                "account_id": account_id,
                 "affiliate_code": affiliate_code,
                 "auto_capture_after_minutes": auto_capture_after_minutes,
                 "billing_details": convert_and_respect_annotation_metadata(
@@ -124,14 +128,18 @@ class RawDirectClient:
                 "payment_method": convert_and_respect_annotation_metadata(
                     object_=payment_method, annotation=CreateDirectRequestPaymentMethod, direction="write"
                 ),
-                "plan": convert_and_respect_annotation_metadata(
-                    object_=plan, annotation=CreateDirectRequestPlan, direction="write"
-                ),
-                "plan_id": plan_id,
-                "promo_code_id": promo_code_id,
                 "return_url": return_url,
                 "setup_future_usage": setup_future_usage,
                 "statement_descriptor": statement_descriptor,
+                "account_id": account_id,
+                "line_items": convert_and_respect_annotation_metadata(
+                    object_=line_items, annotation=typing.Sequence[PaymentInputLineItemsItem], direction="write"
+                ),
+                "plan": convert_and_respect_annotation_metadata(
+                    object_=plan, annotation=PaymentInputPlan, direction="write"
+                ),
+                "plan_id": plan_id,
+                "promo_code_id": promo_code_id,
             },
             headers={
                 "content-type": "application/json",
@@ -188,21 +196,22 @@ class AsyncRawDirectClient:
     async def create(
         self,
         *,
-        account_id: str,
         billing_details: CreateDirectRequestBillingDetails,
         payment_method: CreateDirectRequestPaymentMethod,
+        account_id: str,
         affiliate_code: typing.Optional[str] = OMIT,
         auto_capture_after_minutes: typing.Optional[int] = OMIT,
         capture: typing.Optional[bool] = OMIT,
         member_id: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         off_session: typing.Optional[bool] = OMIT,
-        plan: typing.Optional[CreateDirectRequestPlan] = OMIT,
-        plan_id: typing.Optional[str] = OMIT,
-        promo_code_id: typing.Optional[str] = OMIT,
         return_url: typing.Optional[str] = OMIT,
         setup_future_usage: typing.Optional[CreateDirectRequestSetupFutureUsage] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
+        line_items: typing.Optional[typing.Sequence[PaymentInputLineItemsItem]] = OMIT,
+        plan: typing.Optional[PaymentInputPlan] = OMIT,
+        plan_id: typing.Optional[str] = OMIT,
+        promo_code_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Payment]:
         """
@@ -210,14 +219,14 @@ class AsyncRawDirectClient:
 
         Parameters
         ----------
-        account_id : str
-            The account to charge for, prefixed `biz_`.
-
         billing_details : CreateDirectRequestBillingDetails
             The buyer's billing details.
 
         payment_method : CreateDirectRequestPaymentMethod
             The payment method to charge, as the raw details the caller holds. Raw details are accepted only on the vault host, where Whop's vault tokenizes them in transit; the official SDKs route this operation there. Whop's own clients, which tokenize with the Basis Theory SDK, send the resulting token intent id to the regular host.
+
+        account_id : str
+            The account the purchase belongs to, prefixed `biz_`.
 
         affiliate_code : typing.Optional[str]
             The code an affiliate link carries, which is the affiliate's username. The affiliate is credited for this payment as on a checkout session. A code naming no one eligible to earn on the product is ignored, and the payment goes ahead. A promo code with its own affiliate takes precedence. No affiliate is credited on a variant without a product or on a purchase of several variants. At most 255 characters.
@@ -237,15 +246,6 @@ class AsyncRawDirectClient:
         off_session : typing.Optional[bool]
             Whether the charge is merchant-initiated, with the buyer not present. Defaults to false. When true, `payment_method.card.network_transaction_id` is required: a merchant-initiated charge on a card Whop has not charged before carries the id of the card's prior customer-initiated transaction. No 3D Secure step is offered: an issuer that requires the buyer to authenticate declines the charge, and the payment fails with that reason so the card can be charged again with the buyer present. A declined card is not saved.
 
-        plan : typing.Optional[CreateDirectRequestPlan]
-            Find or create a variant for this payment through the compatibility input `plan`. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
-
-        plan_id : typing.Optional[str]
-            The variant to charge for, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan`.
-
-        promo_code_id : typing.Optional[str]
-            An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant.
-
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step such as 3D Secure. An absolute https URL without credentials, at most 2,048 characters.
 
@@ -254,6 +254,18 @@ class AsyncRawDirectClient:
 
         statement_descriptor : typing.Optional[str]
             Overrides the text on the buyer's card statement for this payment only. Must start with `WHOP*`, be 5-22 characters, contain at least one letter, and use only Latin letters, numbers, spaces, underscores, hyphens, or asterisks.
+
+        line_items : typing.Optional[typing.Sequence[PaymentInputLineItemsItem]]
+            What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
+
+        plan : typing.Optional[PaymentInputPlan]
+            The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
+
+        plan_id : typing.Optional[str]
+            The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
+
+        promo_code_id : typing.Optional[str]
+            An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -268,7 +280,6 @@ class AsyncRawDirectClient:
             base_url=self._client_wrapper.get_environment().vault,
             method="POST",
             json={
-                "account_id": account_id,
                 "affiliate_code": affiliate_code,
                 "auto_capture_after_minutes": auto_capture_after_minutes,
                 "billing_details": convert_and_respect_annotation_metadata(
@@ -281,14 +292,18 @@ class AsyncRawDirectClient:
                 "payment_method": convert_and_respect_annotation_metadata(
                     object_=payment_method, annotation=CreateDirectRequestPaymentMethod, direction="write"
                 ),
-                "plan": convert_and_respect_annotation_metadata(
-                    object_=plan, annotation=CreateDirectRequestPlan, direction="write"
-                ),
-                "plan_id": plan_id,
-                "promo_code_id": promo_code_id,
                 "return_url": return_url,
                 "setup_future_usage": setup_future_usage,
                 "statement_descriptor": statement_descriptor,
+                "account_id": account_id,
+                "line_items": convert_and_respect_annotation_metadata(
+                    object_=line_items, annotation=typing.Sequence[PaymentInputLineItemsItem], direction="write"
+                ),
+                "plan": convert_and_respect_annotation_metadata(
+                    object_=plan, annotation=PaymentInputPlan, direction="write"
+                ),
+                "plan_id": plan_id,
+                "promo_code_id": promo_code_id,
             },
             headers={
                 "content-type": "application/json",
