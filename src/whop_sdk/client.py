@@ -69,6 +69,7 @@ if typing.TYPE_CHECKING:
     from .partners.client import AsyncPartnersClient, PartnersClient
     from .payment_method_domains.client import AsyncPaymentMethodDomainsClient, PaymentMethodDomainsClient
     from .payment_methods.client import AsyncPaymentMethodsClient, PaymentMethodsClient
+    from .payment_quotes.client import AsyncPaymentQuotesClient, PaymentQuotesClient
     from .payment_rules.client import AsyncPaymentRulesClient, PaymentRulesClient
     from .payments.client import AsyncPaymentsClient, PaymentsClient
     from .payout_accounts.client import AsyncPayoutAccountsClient, PayoutAccountsClient
@@ -248,6 +249,7 @@ class Whop:
         self._partners: typing.Optional[PartnersClient] = None
         self._payment_method_domains: typing.Optional[PaymentMethodDomainsClient] = None
         self._payment_methods: typing.Optional[PaymentMethodsClient] = None
+        self._payment_quotes: typing.Optional[PaymentQuotesClient] = None
         self._payment_rules: typing.Optional[PaymentRulesClient] = None
         self._payments: typing.Optional[PaymentsClient] = None
         self._payout_accounts: typing.Optional[PayoutAccountsClient] = None
@@ -752,6 +754,14 @@ class Whop:
         return self._payment_methods
 
     @property
+    def payment_quotes(self):
+        if self._payment_quotes is None:
+            from .payment_quotes.client import PaymentQuotesClient  # noqa: E402
+
+            self._payment_quotes = PaymentQuotesClient(client_wrapper=self._client_wrapper)
+        return self._payment_quotes
+
+    @property
     def payment_rules(self):
         if self._payment_rules is None:
             from .payment_rules.client import PaymentRulesClient  # noqa: E402
@@ -1160,6 +1170,7 @@ class AsyncWhop:
         self._partners: typing.Optional[AsyncPartnersClient] = None
         self._payment_method_domains: typing.Optional[AsyncPaymentMethodDomainsClient] = None
         self._payment_methods: typing.Optional[AsyncPaymentMethodsClient] = None
+        self._payment_quotes: typing.Optional[AsyncPaymentQuotesClient] = None
         self._payment_rules: typing.Optional[AsyncPaymentRulesClient] = None
         self._payments: typing.Optional[AsyncPaymentsClient] = None
         self._payout_accounts: typing.Optional[AsyncPayoutAccountsClient] = None
@@ -1662,6 +1673,14 @@ class AsyncWhop:
 
             self._payment_methods = AsyncPaymentMethodsClient(client_wrapper=self._client_wrapper)
         return self._payment_methods
+
+    @property
+    def payment_quotes(self):
+        if self._payment_quotes is None:
+            from .payment_quotes.client import AsyncPaymentQuotesClient  # noqa: E402
+
+            self._payment_quotes = AsyncPaymentQuotesClient(client_wrapper=self._client_wrapper)
+        return self._payment_quotes
 
     @property
     def payment_rules(self):

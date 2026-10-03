@@ -1136,6 +1136,11 @@ if typing.TYPE_CHECKING:
     from .payment_providers import PaymentProviders
     from .payment_qr import PaymentQr
     from .payment_qr_instructions import PaymentQrInstructions
+    from .payment_quote import PaymentQuote
+    from .payment_quote_line_item import PaymentQuoteLineItem
+    from .payment_quote_located_by import PaymentQuoteLocatedBy
+    from .payment_quote_tax_behavior import PaymentQuoteTaxBehavior
+    from .payment_quote_tax_status import PaymentQuoteTaxStatus
     from .payment_required_error_body import PaymentRequiredErrorBody
     from .payment_required_error_body_error import PaymentRequiredErrorBodyError
     from .payment_required_error_body_error_type import PaymentRequiredErrorBodyErrorType
@@ -1364,6 +1369,8 @@ if typing.TYPE_CHECKING:
         TargetingOption_WorkEmployers,
         TargetingOption_WorkPositions,
     )
+    from .tax_id import TaxId
+    from .tax_id_type import TaxIdType
     from .tax_identifier_types import TaxIdentifierTypes
     from .tax_types import TaxTypes
     from .team_member import TeamMember
@@ -2466,6 +2473,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaymentProviders": ".payment_providers",
     "PaymentQr": ".payment_qr",
     "PaymentQrInstructions": ".payment_qr_instructions",
+    "PaymentQuote": ".payment_quote",
+    "PaymentQuoteLineItem": ".payment_quote_line_item",
+    "PaymentQuoteLocatedBy": ".payment_quote_located_by",
+    "PaymentQuoteTaxBehavior": ".payment_quote_tax_behavior",
+    "PaymentQuoteTaxStatus": ".payment_quote_tax_status",
     "PaymentRequiredErrorBody": ".payment_required_error_body",
     "PaymentRequiredErrorBodyError": ".payment_required_error_body_error",
     "PaymentRequiredErrorBodyErrorType": ".payment_required_error_body_error_type",
@@ -2692,6 +2704,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "TargetingOption_Locations": ".targeting_option",
     "TargetingOption_WorkEmployers": ".targeting_option",
     "TargetingOption_WorkPositions": ".targeting_option",
+    "TaxId": ".tax_id",
+    "TaxIdType": ".tax_id_type",
     "TaxIdentifierTypes": ".tax_identifier_types",
     "TaxTypes": ".tax_types",
     "TeamMember": ".team_member",
@@ -3818,6 +3832,11 @@ __all__ = [
     "PaymentProviders",
     "PaymentQr",
     "PaymentQrInstructions",
+    "PaymentQuote",
+    "PaymentQuoteLineItem",
+    "PaymentQuoteLocatedBy",
+    "PaymentQuoteTaxBehavior",
+    "PaymentQuoteTaxStatus",
     "PaymentRequiredErrorBody",
     "PaymentRequiredErrorBodyError",
     "PaymentRequiredErrorBodyErrorType",
@@ -4044,6 +4063,8 @@ __all__ = [
     "TargetingOption_Locations",
     "TargetingOption_WorkEmployers",
     "TargetingOption_WorkPositions",
+    "TaxId",
+    "TaxIdType",
     "TaxIdentifierTypes",
     "TaxTypes",
     "TeamMember",
