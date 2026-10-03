@@ -7,6 +7,11 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class PixelValidation(UniversalBaseModel):
+    affiliate_tracking_detected: bool = pydantic.Field()
+    """
+    Whether an affiliate tracking SDK was found on the page at `url`. Supported platforms: Everflow.
+    """
+
     firing_data_ok: bool = pydantic.Field()
     """
     False when the event lookup failed, meaning `host_events` and `last_seen_days` are incomplete.
