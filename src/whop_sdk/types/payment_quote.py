@@ -52,7 +52,12 @@ class PaymentQuote(UniversalBaseModel):
     line_items: typing.List[PaymentQuoteLineItem]
     located_by: typing.Optional[PaymentQuoteLocatedBy] = pydantic.Field(default=None)
     """
-    Which location tax was calculated for: `shipping_address` when it carries a country, else the billing `address` when it does, else the buyer's `ip_address`. A quote located by `ip_address` is an estimate: quote again with the buyer's address. Null when nothing in the request located the buyer, which only a seller that collects no tax on this purchase is quoted without; `tax_status` is then `not_applicable`.
+    Which location tax was calculated for: `shipping_address` when it carries a country, else the billing `address` when it does, else the buyer's `ip_address`. A quote located by `ip_address` is a preview: a payment cannot use it, so quote again with the buyer's address to pay. Null when nothing in the request located the buyer, which only a seller that collects no tax on this purchase is quoted without; `tax_status` is then `not_applicable`.
+    """
+
+    payment_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The payment holding this quote, prefixed `pay_`, or null while it is unspent. A declined payment keeps its quote and can be retried; check that payment's `status`.
     """
 
     promo_code_id: typing.Optional[str] = pydantic.Field(default=None)
@@ -72,7 +77,7 @@ class PaymentQuote(UniversalBaseModel):
 
     tax_amount: Money = pydantic.Field()
     """
-    The tax owed on the purchase. Zero unless `tax_status` is `calculated`.
+    The tax a payment consuming this quote charges. Zero unless `tax_status` is `calculated`.
     """
 
     tax_behavior: typing.Optional[PaymentQuoteTaxBehavior] = pydantic.Field(default=None)
@@ -83,7 +88,7 @@ class PaymentQuote(UniversalBaseModel):
     tax_ids: typing.List[TaxId]
     tax_status: PaymentQuoteTaxStatus = pydantic.Field()
     """
-    `calculated`: every line was priced. `not_applicable`: this seller collects no tax on this purchase, so the quote owes none. `unavailable`: tax could not be priced — the provider did not answer, or this seller's tax setup cannot price a purchase here; quote again.
+    `calculated`: every line was priced and a payment may consume the quote. `not_applicable`: this seller collects no tax on this purchase, so the quote owes none and may still be consumed. `unavailable`: tax could not be priced — the provider did not answer, or this seller's tax setup cannot price a purchase here — so a payment refuses the quote; quote again, or charge without `quote_id` to have tax calculated at charge time.
     """
 
     total: Money = pydantic.Field()

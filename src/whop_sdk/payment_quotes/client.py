@@ -47,7 +47,7 @@ class PaymentQuotesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaymentQuote:
         """
-        Prices a purchase the way a payment for it will be charged, for a buyer located by the shipping address, then the billing address, then the IP address you pass. The body is the `PaymentInput` a payment takes plus where the buyer is (`address`, `shipping_address`, `tax_ids`, `ip_address`); a seller that collects no tax on the purchase can be quoted without them. The purchase is priced from exactly what you send: no buyer is looked up, so no stored registration or purchase history applies. A quote is priced once, in the plans' own currency, and expires at `expires_at`.
+        Prices a purchase the way a payment for it will be charged, for a buyer located by the shipping address, then the billing address, then the IP address you pass. The body is the `PaymentInput` a payment takes plus where the buyer is (`address`, `shipping_address`, `tax_ids`, `ip_address`); a seller that collects no tax on the purchase can be quoted without them. The purchase is priced from exactly what you send: no buyer is looked up, so no stored registration or purchase history applies. Quote what you are about to charge and pass the quote's `id` as `quote_id` when you create the payment: it then charges exactly the purchase, promo code and tax shown here. A quote is priced once, in the plans' own currency, and may be consumed by one payment before `expires_at`.
 
         Parameters
         ----------
@@ -55,13 +55,13 @@ class PaymentQuotesClient:
             The account the purchase belongs to, prefixed `biz_`.
 
         address : typing.Optional[CreatePaymentQuotesRequestAddress]
-            The buyer's billing address. Where tax is calculated when no shipping address is given, and the address a tax registration belongs to. A seller that collects tax on this purchase needs the buyer located: provide a `country` here, on `shipping_address`, or an `ip_address`. Only the keys you supply are kept.
+            The buyer's billing address. Where tax is calculated when no shipping address is given, and the address a tax registration belongs to. A seller that collects tax on this purchase needs the buyer located: provide a `country` here, on `shipping_address`, or an `ip_address`. Only the keys you supply are kept. The payment that consumes the quote must put the buyer in the same place, by country, state and postal code, through its own `shipping_address` or its confirmation token's billing address, or it is refused with `quote_mismatch`.
 
         ip_address : typing.Optional[str]
-            The buyer's IP address, when your server makes the call on their behalf. Locates the buyer when neither address carries a country. A quote located this way is an estimate (`located_by` is `ip_address`): quote again with the buyer's address.
+            The buyer's IP address, when your server makes the call on their behalf. Locates the buyer when neither address carries a country. A quote located this way (`located_by` is `ip_address`) is a preview: a payment refuses it with `quote_preview_only`, so quote again with the buyer's address before paying.
 
         shipping_address : typing.Optional[CreatePaymentQuotesRequestShippingAddress]
-            Where physical goods ship. When present it is where tax is calculated; omit it for digital goods. Only the keys you supply are kept.
+            Where physical goods ship. When present it is where tax is calculated; omit it for digital goods. Only the keys you supply are kept. The payment that consumes the quote must ship to the same place, by country, state and postal code, or it is refused with `quote_mismatch`.
 
         tax_ids : typing.Optional[typing.Sequence[CreatePaymentQuotesRequestTaxIdsItem]]
             The buyer's tax registration, for a business purchase. One entry. Prices the purchase as business-to-business where that applies (EU reverse charge, for one) and requires an `address` to belong to.
@@ -119,7 +119,7 @@ class PaymentQuotesClient:
 
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> PaymentQuote:
         """
-        Retrieves a payment quote, including when it expires.
+        Retrieves a payment quote, including the payment holding it (`payment_id`, whose `status` says whether it collected) and when it expires.
 
         Parameters
         ----------
@@ -182,7 +182,7 @@ class AsyncPaymentQuotesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaymentQuote:
         """
-        Prices a purchase the way a payment for it will be charged, for a buyer located by the shipping address, then the billing address, then the IP address you pass. The body is the `PaymentInput` a payment takes plus where the buyer is (`address`, `shipping_address`, `tax_ids`, `ip_address`); a seller that collects no tax on the purchase can be quoted without them. The purchase is priced from exactly what you send: no buyer is looked up, so no stored registration or purchase history applies. A quote is priced once, in the plans' own currency, and expires at `expires_at`.
+        Prices a purchase the way a payment for it will be charged, for a buyer located by the shipping address, then the billing address, then the IP address you pass. The body is the `PaymentInput` a payment takes plus where the buyer is (`address`, `shipping_address`, `tax_ids`, `ip_address`); a seller that collects no tax on the purchase can be quoted without them. The purchase is priced from exactly what you send: no buyer is looked up, so no stored registration or purchase history applies. Quote what you are about to charge and pass the quote's `id` as `quote_id` when you create the payment: it then charges exactly the purchase, promo code and tax shown here. A quote is priced once, in the plans' own currency, and may be consumed by one payment before `expires_at`.
 
         Parameters
         ----------
@@ -190,13 +190,13 @@ class AsyncPaymentQuotesClient:
             The account the purchase belongs to, prefixed `biz_`.
 
         address : typing.Optional[CreatePaymentQuotesRequestAddress]
-            The buyer's billing address. Where tax is calculated when no shipping address is given, and the address a tax registration belongs to. A seller that collects tax on this purchase needs the buyer located: provide a `country` here, on `shipping_address`, or an `ip_address`. Only the keys you supply are kept.
+            The buyer's billing address. Where tax is calculated when no shipping address is given, and the address a tax registration belongs to. A seller that collects tax on this purchase needs the buyer located: provide a `country` here, on `shipping_address`, or an `ip_address`. Only the keys you supply are kept. The payment that consumes the quote must put the buyer in the same place, by country, state and postal code, through its own `shipping_address` or its confirmation token's billing address, or it is refused with `quote_mismatch`.
 
         ip_address : typing.Optional[str]
-            The buyer's IP address, when your server makes the call on their behalf. Locates the buyer when neither address carries a country. A quote located this way is an estimate (`located_by` is `ip_address`): quote again with the buyer's address.
+            The buyer's IP address, when your server makes the call on their behalf. Locates the buyer when neither address carries a country. A quote located this way (`located_by` is `ip_address`) is a preview: a payment refuses it with `quote_preview_only`, so quote again with the buyer's address before paying.
 
         shipping_address : typing.Optional[CreatePaymentQuotesRequestShippingAddress]
-            Where physical goods ship. When present it is where tax is calculated; omit it for digital goods. Only the keys you supply are kept.
+            Where physical goods ship. When present it is where tax is calculated; omit it for digital goods. Only the keys you supply are kept. The payment that consumes the quote must ship to the same place, by country, state and postal code, or it is refused with `quote_mismatch`.
 
         tax_ids : typing.Optional[typing.Sequence[CreatePaymentQuotesRequestTaxIdsItem]]
             The buyer's tax registration, for a business purchase. One entry. Prices the purchase as business-to-business where that applies (EU reverse charge, for one) and requires an `address` to belong to.
@@ -262,7 +262,7 @@ class AsyncPaymentQuotesClient:
 
     async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> PaymentQuote:
         """
-        Retrieves a payment quote, including when it expires.
+        Retrieves a payment quote, including the payment holding it (`payment_id`, whose `status` says whether it collected) and when it expires.
 
         Parameters
         ----------

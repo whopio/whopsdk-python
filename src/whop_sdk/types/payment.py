@@ -180,6 +180,11 @@ class Payment(UniversalBaseModel):
     The promo code applied at checkout, prefixed `promo_`, or null.
     """
 
+    quote_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The payment quote this payment charged, prefixed `pq_`: its purchase, promo code and `tax_amount` are the quote's. Null when the payment named no quote and tax was calculated at charge time.
+    """
+
     recovery_url: typing.Optional[str] = pydantic.Field(default=None)
     """
     Whop-hosted URL where the buyer can sign in and complete 3D Secure for an off-session charge the bank challenged — a subscription renewal or a saved-card payment. Null when recovery is unavailable, you lack `member:basic:read`, or in list responses. Retrieve the payment for it.
