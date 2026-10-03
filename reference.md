@@ -28581,7 +28581,7 @@ client.payment_methods.delete_payment_method(
 <dl>
 <dd>
 
-Prices a purchase the way a payment for it will be charged, for a buyer located by the shipping address, then the billing address, then the IP address you pass. The body is the `PaymentInput` a payment takes plus where the buyer is (`address`, `shipping_address`, `tax_ids`, `ip_address`); a seller that collects no tax on the purchase can be quoted without them. The purchase is priced from exactly what you send: no buyer is looked up, so no stored registration or purchase history applies. A quote is priced once, in the plans' own currency, and expires at `expires_at`.
+Prices a purchase the way a payment for it will be charged, for a buyer located by the shipping address, then the billing address, then the IP address you pass. The body is the `PaymentInput` a payment takes plus where the buyer is (`address`, `shipping_address`, `tax_ids`, `ip_address`); a seller that collects no tax on the purchase can be quoted without them. The purchase is priced from exactly what you send: no buyer is looked up, so no stored registration or purchase history applies. Quote what you are about to charge and pass the quote's `id` as `quote_id` when you create the payment: it then charges exactly the purchase, promo code and tax shown here. A quote is priced once, in the plans' own currency, and may be consumed by one payment before `expires_at`.
 </dd>
 </dl>
 </dd>
@@ -28670,7 +28670,7 @@ client.payment_quotes.create(
 <dl>
 <dd>
 
-**address:** `typing.Optional[CreatePaymentQuotesRequestAddress]` — The buyer's billing address. Where tax is calculated when no shipping address is given, and the address a tax registration belongs to. A seller that collects tax on this purchase needs the buyer located: provide a `country` here, on `shipping_address`, or an `ip_address`. Only the keys you supply are kept.
+**address:** `typing.Optional[CreatePaymentQuotesRequestAddress]` — The buyer's billing address. Where tax is calculated when no shipping address is given, and the address a tax registration belongs to. A seller that collects tax on this purchase needs the buyer located: provide a `country` here, on `shipping_address`, or an `ip_address`. Only the keys you supply are kept. The payment that consumes the quote must put the buyer in the same place, by country, state and postal code, through its own `shipping_address` or its confirmation token's billing address, or it is refused with `quote_mismatch`.
     
 </dd>
 </dl>
@@ -28678,7 +28678,7 @@ client.payment_quotes.create(
 <dl>
 <dd>
 
-**ip_address:** `typing.Optional[str]` — The buyer's IP address, when your server makes the call on their behalf. Locates the buyer when neither address carries a country. A quote located this way is an estimate (`located_by` is `ip_address`): quote again with the buyer's address.
+**ip_address:** `typing.Optional[str]` — The buyer's IP address, when your server makes the call on their behalf. Locates the buyer when neither address carries a country. A quote located this way (`located_by` is `ip_address`) is a preview: a payment refuses it with `quote_preview_only`, so quote again with the buyer's address before paying.
     
 </dd>
 </dl>
@@ -28686,7 +28686,7 @@ client.payment_quotes.create(
 <dl>
 <dd>
 
-**shipping_address:** `typing.Optional[CreatePaymentQuotesRequestShippingAddress]` — Where physical goods ship. When present it is where tax is calculated; omit it for digital goods. Only the keys you supply are kept.
+**shipping_address:** `typing.Optional[CreatePaymentQuotesRequestShippingAddress]` — Where physical goods ship. When present it is where tax is calculated; omit it for digital goods. Only the keys you supply are kept. The payment that consumes the quote must ship to the same place, by country, state and postal code, or it is refused with `quote_mismatch`.
     
 </dd>
 </dl>
@@ -28726,7 +28726,7 @@ client.payment_quotes.create(
 <dl>
 <dd>
 
-Retrieves a payment quote, including when it expires.
+Retrieves a payment quote, including the payment holding it (`payment_id`, whose `status` says whether it collected) and when it expires.
 </dd>
 </dl>
 </dd>
@@ -29909,6 +29909,14 @@ client.payments.create(
 <dd>
 
 **payment_method_id:** `typing.Optional[str]` — The stored payment method to charge, prefixed `payt_`. It must belong to the member. Required unless `confirmation_token` is provided.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**quote_id:** `typing.Optional[str]` — A payment quote from `POST /payment_quotes`, prefixed `pq_`. The payment charges exactly the quote: its purchase (its variants and quantities, or the `plan` it priced), which this body may then omit, its promo code, and its tax, the quote's `tax_amount` rather than a figure calculated now. Omit it, or send null, to have tax calculated when the payment is charged. The quote must belong to `account_id`. A purchase field you omit or send as null takes the quote's value; the buyer's email, the addresses and the payment method are this request's own, never the quote's. Whatever you do send must describe the quoted purchase: the same variants, quantities and promo code. A quote that priced `plan` takes only the same `plan` you sent to `POST /payment_quotes` (or omit the purchase to take the quoted one), never `plan_id` or `line_items`, and a quote that priced variants by id never takes `plan`. Unless the quote located no buyer (`located_by` is null), the address the payment carries (its shipping address, else its billing address) must put the buyer where the quote priced tax, by country, state and postal code; otherwise the payment is refused with 400 before the payment method is used. A quote located by IP address (`located_by` is `ip_address`) is a preview and cannot be paid. A quote is consumed by one payment: a declined payment keeps it and can be retried; a new payment needs a new quote. A quote cannot be charged through PayPal; such a payment is refused before the payment method is used. A payment refused over its quote carries an error `code`. `quote_expired`: the quote has expired; quote again. `quote_tax_unavailable`: the quote could not price tax; quote again, or omit `quote_id`. `quote_preview_only`: the quote was located by IP address; quote again with the buyer's address. `quote_in_use` (409): another payment holds the quote. `quote_mismatch`: the purchase or the buyer's address is not the one quoted.
     
 </dd>
 </dl>
@@ -48117,6 +48125,14 @@ client.payments.direct.create(
 <dd>
 
 **off_session:** `typing.Optional[bool]` — Whether the charge is merchant-initiated, with the buyer not present. Defaults to false. When true, `payment_method.card.network_transaction_id` is required: a merchant-initiated charge on a card Whop has not charged before carries the id of the card's prior customer-initiated transaction. No 3D Secure step is offered: an issuer that requires the buyer to authenticate declines the charge, and the payment fails with that reason so the card can be charged again with the buyer present. A declined card is not saved.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**quote_id:** `typing.Optional[str]` — A payment quote from `POST /payment_quotes`, prefixed `pq_`. The payment charges exactly the quote: its purchase (its variants and quantities, or the `plan` it priced), which this body may then omit, its promo code, and its tax, the quote's `tax_amount` rather than a figure calculated now. Omit it, or send null, to have tax calculated when the payment is charged. The quote must belong to `account_id`. A purchase field you omit or send as null takes the quote's value; the buyer's email, the addresses and the payment method are this request's own, never the quote's. Whatever you do send must describe the quoted purchase: the same variants, quantities and promo code. A quote that priced `plan` takes only the same `plan` you sent to `POST /payment_quotes` (or omit the purchase to take the quoted one), never `plan_id` or `line_items`, and a quote that priced variants by id never takes `plan`. Unless the quote located no buyer (`located_by` is null), the address the payment carries (its shipping address, else its billing address) must put the buyer where the quote priced tax, by country, state and postal code; otherwise the payment is refused with 400 before the payment method is used. A quote located by IP address (`located_by` is `ip_address`) is a preview and cannot be paid. A quote is consumed by one payment: a declined payment keeps it and can be retried; a new payment needs a new quote. A quote cannot be charged through PayPal; such a payment is refused before the payment method is used. A payment refused over its quote carries an error `code`. `quote_expired`: the quote has expired; quote again. `quote_tax_unavailable`: the quote could not price tax; quote again, or omit `quote_id`. `quote_preview_only`: the quote was located by IP address; quote again with the buyer's address. `quote_in_use` (409): another payment holds the quote. `quote_mismatch`: the purchase or the buyer's address is not the one quoted.
     
 </dd>
 </dl>

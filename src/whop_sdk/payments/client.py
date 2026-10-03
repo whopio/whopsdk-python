@@ -193,6 +193,7 @@ class PaymentsClient:
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         payment_method: typing.Optional[CreatePaymentsRequestPaymentMethod] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
+        quote_id: typing.Optional[str] = OMIT,
         return_url: typing.Optional[str] = OMIT,
         shipping_address: typing.Optional[CreatePaymentsRequestShippingAddress] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
@@ -237,6 +238,9 @@ class PaymentsClient:
 
         payment_method_id : typing.Optional[str]
             The stored payment method to charge, prefixed `payt_`. It must belong to the member. Required unless `confirmation_token` is provided.
+
+        quote_id : typing.Optional[str]
+            A payment quote from `POST /payment_quotes`, prefixed `pq_`. The payment charges exactly the quote: its purchase (its variants and quantities, or the `plan` it priced), which this body may then omit, its promo code, and its tax, the quote's `tax_amount` rather than a figure calculated now. Omit it, or send null, to have tax calculated when the payment is charged. The quote must belong to `account_id`. A purchase field you omit or send as null takes the quote's value; the buyer's email, the addresses and the payment method are this request's own, never the quote's. Whatever you do send must describe the quoted purchase: the same variants, quantities and promo code. A quote that priced `plan` takes only the same `plan` you sent to `POST /payment_quotes` (or omit the purchase to take the quoted one), never `plan_id` or `line_items`, and a quote that priced variants by id never takes `plan`. Unless the quote located no buyer (`located_by` is null), the address the payment carries (its shipping address, else its billing address) must put the buyer where the quote priced tax, by country, state and postal code; otherwise the payment is refused with 400 before the payment method is used. A quote located by IP address (`located_by` is `ip_address`) is a preview and cannot be paid. A quote is consumed by one payment: a declined payment keeps it and can be retried; a new payment needs a new quote. A quote cannot be charged through PayPal; such a payment is refused before the payment method is used. A payment refused over its quote carries an error `code`. `quote_expired`: the quote has expired; quote again. `quote_tax_unavailable`: the quote could not price tax; quote again, or omit `quote_id`. `quote_preview_only`: the quote was located by IP address; quote again with the buyer's address. `quote_in_use` (409): another payment holds the quote. `quote_mismatch`: the purchase or the buyer's address is not the one quoted.
 
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters. Ignored unless `confirmation_token` is provided.
@@ -294,6 +298,7 @@ class PaymentsClient:
             metadata=metadata,
             payment_method=payment_method,
             payment_method_id=payment_method_id,
+            quote_id=quote_id,
             return_url=return_url,
             shipping_address=shipping_address,
             statement_descriptor=statement_descriptor,
@@ -853,6 +858,7 @@ class AsyncPaymentsClient:
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         payment_method: typing.Optional[CreatePaymentsRequestPaymentMethod] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
+        quote_id: typing.Optional[str] = OMIT,
         return_url: typing.Optional[str] = OMIT,
         shipping_address: typing.Optional[CreatePaymentsRequestShippingAddress] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
@@ -897,6 +903,9 @@ class AsyncPaymentsClient:
 
         payment_method_id : typing.Optional[str]
             The stored payment method to charge, prefixed `payt_`. It must belong to the member. Required unless `confirmation_token` is provided.
+
+        quote_id : typing.Optional[str]
+            A payment quote from `POST /payment_quotes`, prefixed `pq_`. The payment charges exactly the quote: its purchase (its variants and quantities, or the `plan` it priced), which this body may then omit, its promo code, and its tax, the quote's `tax_amount` rather than a figure calculated now. Omit it, or send null, to have tax calculated when the payment is charged. The quote must belong to `account_id`. A purchase field you omit or send as null takes the quote's value; the buyer's email, the addresses and the payment method are this request's own, never the quote's. Whatever you do send must describe the quoted purchase: the same variants, quantities and promo code. A quote that priced `plan` takes only the same `plan` you sent to `POST /payment_quotes` (or omit the purchase to take the quoted one), never `plan_id` or `line_items`, and a quote that priced variants by id never takes `plan`. Unless the quote located no buyer (`located_by` is null), the address the payment carries (its shipping address, else its billing address) must put the buyer where the quote priced tax, by country, state and postal code; otherwise the payment is refused with 400 before the payment method is used. A quote located by IP address (`located_by` is `ip_address`) is a preview and cannot be paid. A quote is consumed by one payment: a declined payment keeps it and can be retried; a new payment needs a new quote. A quote cannot be charged through PayPal; such a payment is refused before the payment method is used. A payment refused over its quote carries an error `code`. `quote_expired`: the quote has expired; quote again. `quote_tax_unavailable`: the quote could not price tax; quote again, or omit `quote_id`. `quote_preview_only`: the quote was located by IP address; quote again with the buyer's address. `quote_in_use` (409): another payment holds the quote. `quote_mismatch`: the purchase or the buyer's address is not the one quoted.
 
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters. Ignored unless `confirmation_token` is provided.
@@ -962,6 +971,7 @@ class AsyncPaymentsClient:
             metadata=metadata,
             payment_method=payment_method,
             payment_method_id=payment_method_id,
+            quote_id=quote_id,
             return_url=return_url,
             shipping_address=shipping_address,
             statement_descriptor=statement_descriptor,

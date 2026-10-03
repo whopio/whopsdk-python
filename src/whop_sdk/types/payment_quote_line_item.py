@@ -15,7 +15,7 @@ class PaymentQuoteLineItem(UniversalBaseModel):
 
     plan_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The variant this line prices, prefixed `plan_`. Null when the purchase describes the variant by `plan` and no variant with those attributes exists yet.
+    The variant this line prices, prefixed `plan_`. Null when the purchase describes the variant by `plan` and no variant with those attributes exists yet: the payment that consumes the quote creates it, and the line names it from then on.
     """
 
     quantity: int = pydantic.Field()
