@@ -47,6 +47,7 @@ class RawDirectClient:
         line_items: typing.Optional[typing.Sequence[PaymentInputLineItemsItem]] = OMIT,
         plan: typing.Optional[PaymentInputPlan] = OMIT,
         plan_id: typing.Optional[str] = OMIT,
+        promo_code: typing.Optional[str] = OMIT,
         promo_code_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Payment]:
@@ -100,8 +101,11 @@ class RawDirectClient:
         plan_id : typing.Optional[str]
             The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
 
+        promo_code : typing.Optional[str]
+            The promo code as the buyer typed it, matched within the account regardless of case and surrounding spaces, as checkout matches it. It must be valid for the variant. Send it or `promo_code_id`, not both; an empty or whitespace-only string counts as not sent. A code the account does not have, or one that is no longer active, is refused before anything is written, with the error code `promo_invalid`.
+
         promo_code_id : typing.Optional[str]
-            An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant.
+            An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant. Send it or `promo_code`, not both.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -139,6 +143,7 @@ class RawDirectClient:
                     object_=plan, annotation=PaymentInputPlan, direction="write"
                 ),
                 "plan_id": plan_id,
+                "promo_code": promo_code,
                 "promo_code_id": promo_code_id,
             },
             headers={
@@ -211,6 +216,7 @@ class AsyncRawDirectClient:
         line_items: typing.Optional[typing.Sequence[PaymentInputLineItemsItem]] = OMIT,
         plan: typing.Optional[PaymentInputPlan] = OMIT,
         plan_id: typing.Optional[str] = OMIT,
+        promo_code: typing.Optional[str] = OMIT,
         promo_code_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Payment]:
@@ -264,8 +270,11 @@ class AsyncRawDirectClient:
         plan_id : typing.Optional[str]
             The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
 
+        promo_code : typing.Optional[str]
+            The promo code as the buyer typed it, matched within the account regardless of case and surrounding spaces, as checkout matches it. It must be valid for the variant. Send it or `promo_code_id`, not both; an empty or whitespace-only string counts as not sent. A code the account does not have, or one that is no longer active, is refused before anything is written, with the error code `promo_invalid`.
+
         promo_code_id : typing.Optional[str]
-            An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant.
+            An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant. Send it or `promo_code`, not both.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -303,6 +312,7 @@ class AsyncRawDirectClient:
                     object_=plan, annotation=PaymentInputPlan, direction="write"
                 ),
                 "plan_id": plan_id,
+                "promo_code": promo_code,
                 "promo_code_id": promo_code_id,
             },
             headers={
