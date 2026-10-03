@@ -47785,7 +47785,7 @@ client.payments.direct.create(
 <dl>
 <dd>
 
-**account_id:** `str` — The account to charge for, prefixed `biz_`.
+**account_id:** `str` — The account the purchase belongs to, prefixed `biz_`.
     
 </dd>
 </dl>
@@ -47802,6 +47802,38 @@ client.payments.direct.create(
 <dd>
 
 **payment_method:** `CreateDirectRequestPaymentMethod` — The payment method to charge, as the raw details the caller holds. Raw details are accepted only on the vault host, where Whop's vault tokenizes them in transit; the official SDKs route this operation there. Whop's own clients, which tokenize with the Basis Theory SDK, send the resulting token intent id to the regular host.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**line_items:** `typing.Optional[typing.List[PaymentInputLineItemsItem]]` — What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**plan:** `typing.Optional[PaymentInputPlan]` — The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**plan_id:** `typing.Optional[str]` — The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**promo_code_id:** `typing.Optional[str]` — An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant.
     
 </dd>
 </dl>
@@ -47850,30 +47882,6 @@ client.payments.direct.create(
 <dd>
 
 **off_session:** `typing.Optional[bool]` — Whether the charge is merchant-initiated, with the buyer not present. Defaults to false. When true, `payment_method.card.network_transaction_id` is required: a merchant-initiated charge on a card Whop has not charged before carries the id of the card's prior customer-initiated transaction. No 3D Secure step is offered: an issuer that requires the buyer to authenticate declines the charge, and the payment fails with that reason so the card can be charged again with the buyer present. A declined card is not saved.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**plan:** `typing.Optional[CreateDirectRequestPlan]` — Find or create a variant for this payment through the compatibility input `plan`. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**plan_id:** `typing.Optional[str]` — The variant to charge for, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**promo_code_id:** `typing.Optional[str]` — An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant.
     
 </dd>
 </dl>
