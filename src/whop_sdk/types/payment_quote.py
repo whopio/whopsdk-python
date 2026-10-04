@@ -24,6 +24,16 @@ class PaymentQuote(UniversalBaseModel):
     The billing address the purchase was priced with, or null. Where tax was calculated when no shipping address was given, and the address the registration belongs to.
     """
 
+    base_currency: str = pydantic.Field()
+    """
+    Three-letter ISO 4217 code of the variants' own currency, lowercase. Equal to `currency` when nothing was converted.
+    """
+
+    base_total: Money = pydantic.Field()
+    """
+    `total` in `base_currency` at `exchange_rate`: the variants' own prices after the promo code, plus `tax_amount` converted at `exchange_rate` when tax is added on top. Equal to `total` when nothing was converted. The payment charges `total`, in `currency`.
+    """
+
     created_at: str = pydantic.Field()
     """
     When the quote was priced, as an ISO 8601 timestamp.
@@ -31,12 +41,17 @@ class PaymentQuote(UniversalBaseModel):
 
     currency: str = pydantic.Field()
     """
-    ISO currency the purchase is priced and charged in, lowercase — the variants' own currency.
+    Three-letter ISO 4217 currency code the purchase is priced and charged in, lowercase: the variants' own currency, or the `presentment_currency` it was converted into.
     """
 
     discount: Money = pydantic.Field()
     """
     What the promo code takes off. Zero without a code.
+    """
+
+    exchange_rate: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    How many units of `currency` one unit of `base_currency` buys, as a decimal string such as `"5.4321"`: the rate the variants' prices were converted at, fixed until `expires_at`, and the rate a payment consuming the quote is charged at. A string, like money amounts, so no float rounds it in transit. Null when nothing was converted.
     """
 
     expires_at: str = pydantic.Field()
@@ -65,6 +80,7 @@ class PaymentQuote(UniversalBaseModel):
     The promo code the quote applied, prefixed `promo_`, or null.
     """
 
+    recommended_currencies: typing.List[str]
     shipping_address: typing.Optional[PaymentAddress] = pydantic.Field(default=None)
     """
     The shipping address the purchase was priced with, or null. When present it is where tax was calculated.
