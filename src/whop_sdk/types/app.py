@@ -116,6 +116,11 @@ class App(UniversalBaseModel):
     App ID, prefixed `app_`.
     """
 
+    imported_from_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The address of the existing website this app was imported from, such as `https://shop.example.com`. `null` if the app was not imported from another site, or if the caller lacks the `developer:basic:read` permission on the app's account.
+    """
+
     marketplace_status: typing.Optional[AppMarketplaceStatus] = pydantic.Field(default=None)
     """
     Approval status of the app's product listing on the Whop app store, or `null` when the app has no associated product.
