@@ -37,6 +37,7 @@ class PaymentQuotesClient:
         account_id: str,
         address: typing.Optional[CreatePaymentQuotesRequestAddress] = OMIT,
         ip_address: typing.Optional[str] = OMIT,
+        presentment_currency: typing.Optional[str] = OMIT,
         shipping_address: typing.Optional[CreatePaymentQuotesRequestShippingAddress] = OMIT,
         tax_ids: typing.Optional[typing.Sequence[CreatePaymentQuotesRequestTaxIdsItem]] = OMIT,
         line_items: typing.Optional[typing.Sequence[PaymentInputLineItemsItem]] = OMIT,
@@ -47,7 +48,7 @@ class PaymentQuotesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaymentQuote:
         """
-        Prices a purchase the way a payment for it will be charged, for a buyer located by the shipping address, then the billing address, then the IP address you pass. The body is the `PaymentInput` a payment takes plus where the buyer is (`address`, `shipping_address`, `tax_ids`, `ip_address`); a seller that collects no tax on the purchase can be quoted without them. The purchase is priced from exactly what you send: no buyer is looked up, so no stored registration or purchase history applies. Quote what you are about to charge and pass the quote's `id` as `quote_id` when you create the payment: it then charges exactly the purchase, promo code and tax shown here. A quote is priced once, in the plans' own currency, and may be consumed by one payment before `expires_at`.
+        Prices a purchase the way a payment for it will be charged, for a buyer located by the shipping address, then the billing address, then the IP address you pass. The body is the `PaymentInput` a payment takes plus where the buyer is (`address`, `shipping_address`, `tax_ids`, `ip_address`); a seller that collects no tax on the purchase can be quoted without them. The purchase is priced from exactly what you send: no buyer is looked up, so no stored registration or purchase history applies. Quote what you are about to charge and pass the quote's `id` as `quote_id` when you create the payment: it then charges exactly the purchase, promo code and tax shown here. A quote is priced once, in the plans' own currency or the `presentment_currency` you ask for, and may be consumed by one payment before `expires_at`.
 
         Parameters
         ----------
@@ -58,7 +59,10 @@ class PaymentQuotesClient:
             The buyer's billing address. Where tax is calculated when no shipping address is given, and the address a tax registration belongs to. A seller that collects tax on this purchase needs the buyer located: provide a `country` here, on `shipping_address`, or an `ip_address`. Only the keys you supply are kept. The payment that consumes the quote must put the buyer in the same place, by country, state and postal code, through its own `shipping_address` or its confirmation token's billing address, or it is refused with `quote_mismatch`.
 
         ip_address : typing.Optional[str]
-            The buyer's IP address, when your server makes the call on their behalf. Locates the buyer when neither address carries a country. A quote located this way (`located_by` is `ip_address`) is a preview: a payment refuses it with `quote_preview_only`, so quote again with the buyer's address before paying.
+            The buyer's IP address, when your server makes the call on their behalf. Locates the buyer when neither address carries a country. A quote located this way (`located_by` is `ip_address`) is a preview: a payment refuses it with `quote_preview_only`, so quote again with the buyer's address before paying. Also where `presentment_currency` `auto` and `recommended_currencies` find the buyer's local currency.
+
+        presentment_currency : typing.Optional[str]
+            The currency to price and charge the purchase in. Omit it, or send null, to price in the variants' own currency. `auto` prices in the currency of the country Whop places the buyer's `ip_address` in when the purchase can be converted into it and a payment method can collect it, and in the variants' own currency otherwise, including when no `ip_address` is sent or Whop cannot place it in a country. A three-letter ISO 4217 code, such as `eur`, prices in that currency or is refused: with `presentment_currency_unsupported` when the purchase cannot be converted into it (adaptive pricing is off for the variant, the variant is not a one-time purchase, or `plan` describes a variant that does not exist yet), and with `presentment_currency_not_payable` when no payment method can collect it. A converted quote states every amount in this currency at an `exchange_rate` fixed until `expires_at`, and the payment that consumes it is charged in this currency at that rate.
 
         shipping_address : typing.Optional[CreatePaymentQuotesRequestShippingAddress]
             Where physical goods ship. When present it is where tax is calculated; omit it for digital goods. Only the keys you supply are kept. The payment that consumes the quote must ship to the same place, by country, state and postal code, or it is refused with `quote_mismatch`.
@@ -106,6 +110,7 @@ class PaymentQuotesClient:
             account_id=account_id,
             address=address,
             ip_address=ip_address,
+            presentment_currency=presentment_currency,
             shipping_address=shipping_address,
             tax_ids=tax_ids,
             line_items=line_items,
@@ -172,6 +177,7 @@ class AsyncPaymentQuotesClient:
         account_id: str,
         address: typing.Optional[CreatePaymentQuotesRequestAddress] = OMIT,
         ip_address: typing.Optional[str] = OMIT,
+        presentment_currency: typing.Optional[str] = OMIT,
         shipping_address: typing.Optional[CreatePaymentQuotesRequestShippingAddress] = OMIT,
         tax_ids: typing.Optional[typing.Sequence[CreatePaymentQuotesRequestTaxIdsItem]] = OMIT,
         line_items: typing.Optional[typing.Sequence[PaymentInputLineItemsItem]] = OMIT,
@@ -182,7 +188,7 @@ class AsyncPaymentQuotesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaymentQuote:
         """
-        Prices a purchase the way a payment for it will be charged, for a buyer located by the shipping address, then the billing address, then the IP address you pass. The body is the `PaymentInput` a payment takes plus where the buyer is (`address`, `shipping_address`, `tax_ids`, `ip_address`); a seller that collects no tax on the purchase can be quoted without them. The purchase is priced from exactly what you send: no buyer is looked up, so no stored registration or purchase history applies. Quote what you are about to charge and pass the quote's `id` as `quote_id` when you create the payment: it then charges exactly the purchase, promo code and tax shown here. A quote is priced once, in the plans' own currency, and may be consumed by one payment before `expires_at`.
+        Prices a purchase the way a payment for it will be charged, for a buyer located by the shipping address, then the billing address, then the IP address you pass. The body is the `PaymentInput` a payment takes plus where the buyer is (`address`, `shipping_address`, `tax_ids`, `ip_address`); a seller that collects no tax on the purchase can be quoted without them. The purchase is priced from exactly what you send: no buyer is looked up, so no stored registration or purchase history applies. Quote what you are about to charge and pass the quote's `id` as `quote_id` when you create the payment: it then charges exactly the purchase, promo code and tax shown here. A quote is priced once, in the plans' own currency or the `presentment_currency` you ask for, and may be consumed by one payment before `expires_at`.
 
         Parameters
         ----------
@@ -193,7 +199,10 @@ class AsyncPaymentQuotesClient:
             The buyer's billing address. Where tax is calculated when no shipping address is given, and the address a tax registration belongs to. A seller that collects tax on this purchase needs the buyer located: provide a `country` here, on `shipping_address`, or an `ip_address`. Only the keys you supply are kept. The payment that consumes the quote must put the buyer in the same place, by country, state and postal code, through its own `shipping_address` or its confirmation token's billing address, or it is refused with `quote_mismatch`.
 
         ip_address : typing.Optional[str]
-            The buyer's IP address, when your server makes the call on their behalf. Locates the buyer when neither address carries a country. A quote located this way (`located_by` is `ip_address`) is a preview: a payment refuses it with `quote_preview_only`, so quote again with the buyer's address before paying.
+            The buyer's IP address, when your server makes the call on their behalf. Locates the buyer when neither address carries a country. A quote located this way (`located_by` is `ip_address`) is a preview: a payment refuses it with `quote_preview_only`, so quote again with the buyer's address before paying. Also where `presentment_currency` `auto` and `recommended_currencies` find the buyer's local currency.
+
+        presentment_currency : typing.Optional[str]
+            The currency to price and charge the purchase in. Omit it, or send null, to price in the variants' own currency. `auto` prices in the currency of the country Whop places the buyer's `ip_address` in when the purchase can be converted into it and a payment method can collect it, and in the variants' own currency otherwise, including when no `ip_address` is sent or Whop cannot place it in a country. A three-letter ISO 4217 code, such as `eur`, prices in that currency or is refused: with `presentment_currency_unsupported` when the purchase cannot be converted into it (adaptive pricing is off for the variant, the variant is not a one-time purchase, or `plan` describes a variant that does not exist yet), and with `presentment_currency_not_payable` when no payment method can collect it. A converted quote states every amount in this currency at an `exchange_rate` fixed until `expires_at`, and the payment that consumes it is charged in this currency at that rate.
 
         shipping_address : typing.Optional[CreatePaymentQuotesRequestShippingAddress]
             Where physical goods ship. When present it is where tax is calculated; omit it for digital goods. Only the keys you supply are kept. The payment that consumes the quote must ship to the same place, by country, state and postal code, or it is refused with `quote_mismatch`.
@@ -249,6 +258,7 @@ class AsyncPaymentQuotesClient:
             account_id=account_id,
             address=address,
             ip_address=ip_address,
+            presentment_currency=presentment_currency,
             shipping_address=shipping_address,
             tax_ids=tax_ids,
             line_items=line_items,
