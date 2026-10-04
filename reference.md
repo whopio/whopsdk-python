@@ -8206,6 +8206,14 @@ client.apps.create(
 <dl>
 <dd>
 
+**imported_from_url:** `typing.Optional[str]` — The address of the existing website this app is imported from, such as `https://shop.example.com`. Must be an `http` or `https` URL.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **redirect_uris:** `typing.Optional[typing.List[str]]` — The whitelisted OAuth callback URLs that users are redirected to after authorizing the app.
     
 </dd>
@@ -8498,6 +8506,14 @@ client.apps.update(
 <dd>
 
 **icon:** `typing.Optional[UpdateAppsRequestIcon]` — The icon image for the app in PNG, JPEG, or GIF format, referencing an uploaded file: `{ id }` for an existing attachment or `{ direct_upload_id }` for a new direct upload.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**imported_from_url:** `typing.Optional[str]` — The address of the existing website this app is imported from, such as `https://shop.example.com`. Must be an `http` or `https` URL. Set to `null` to clear it.
     
 </dd>
 </dl>

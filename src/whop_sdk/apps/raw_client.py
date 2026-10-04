@@ -213,6 +213,7 @@ class RawAppsClient:
         app_type: typing.Optional[CreateAppsRequestAppType] = OMIT,
         base_url: typing.Optional[str] = OMIT,
         icon: typing.Optional[CreateAppsRequestIcon] = OMIT,
+        imported_from_url: typing.Optional[str] = OMIT,
         redirect_uris: typing.Optional[typing.Sequence[str]] = OMIT,
         route: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -236,6 +237,9 @@ class RawAppsClient:
 
         icon : typing.Optional[CreateAppsRequestIcon]
             The icon image for the app in PNG, JPEG, or GIF format, referencing an uploaded file: `{ id }` for an existing attachment or `{ direct_upload_id }` for a new direct upload.
+
+        imported_from_url : typing.Optional[str]
+            The address of the existing website this app is imported from, such as `https://shop.example.com`. Must be an `http` or `https` URL.
 
         redirect_uris : typing.Optional[typing.Sequence[str]]
             The whitelisted OAuth callback URLs that users are redirected to after authorizing the app.
@@ -262,6 +266,7 @@ class RawAppsClient:
                 "icon": convert_and_respect_annotation_metadata(
                     object_=icon, annotation=CreateAppsRequestIcon, direction="write"
                 ),
+                "imported_from_url": imported_from_url,
                 "name": name,
                 "redirect_uris": redirect_uris,
                 "route": route,
@@ -488,6 +493,7 @@ class RawAppsClient:
         discover_path: typing.Optional[str] = OMIT,
         experience_path: typing.Optional[str] = OMIT,
         icon: typing.Optional[UpdateAppsRequestIcon] = OMIT,
+        imported_from_url: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         oauth_client_type: typing.Optional[UpdateAppsRequestOauthClientType] = OMIT,
         openapi_path: typing.Optional[str] = OMIT,
@@ -533,6 +539,9 @@ class RawAppsClient:
 
         icon : typing.Optional[UpdateAppsRequestIcon]
             The icon image for the app in PNG, JPEG, or GIF format, referencing an uploaded file: `{ id }` for an existing attachment or `{ direct_upload_id }` for a new direct upload.
+
+        imported_from_url : typing.Optional[str]
+            The address of the existing website this app is imported from, such as `https://shop.example.com`. Must be an `http` or `https` URL. Set to `null` to clear it.
 
         name : typing.Optional[str]
             The display name for the app, shown to users on the app store and product pages.
@@ -593,6 +602,7 @@ class RawAppsClient:
                 "icon": convert_and_respect_annotation_metadata(
                     object_=icon, annotation=UpdateAppsRequestIcon, direction="write"
                 ),
+                "imported_from_url": imported_from_url,
                 "name": name,
                 "oauth_client_type": oauth_client_type,
                 "openapi_path": openapi_path,
@@ -1167,6 +1177,7 @@ class AsyncRawAppsClient:
         app_type: typing.Optional[CreateAppsRequestAppType] = OMIT,
         base_url: typing.Optional[str] = OMIT,
         icon: typing.Optional[CreateAppsRequestIcon] = OMIT,
+        imported_from_url: typing.Optional[str] = OMIT,
         redirect_uris: typing.Optional[typing.Sequence[str]] = OMIT,
         route: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1190,6 +1201,9 @@ class AsyncRawAppsClient:
 
         icon : typing.Optional[CreateAppsRequestIcon]
             The icon image for the app in PNG, JPEG, or GIF format, referencing an uploaded file: `{ id }` for an existing attachment or `{ direct_upload_id }` for a new direct upload.
+
+        imported_from_url : typing.Optional[str]
+            The address of the existing website this app is imported from, such as `https://shop.example.com`. Must be an `http` or `https` URL.
 
         redirect_uris : typing.Optional[typing.Sequence[str]]
             The whitelisted OAuth callback URLs that users are redirected to after authorizing the app.
@@ -1216,6 +1230,7 @@ class AsyncRawAppsClient:
                 "icon": convert_and_respect_annotation_metadata(
                     object_=icon, annotation=CreateAppsRequestIcon, direction="write"
                 ),
+                "imported_from_url": imported_from_url,
                 "name": name,
                 "redirect_uris": redirect_uris,
                 "route": route,
@@ -1444,6 +1459,7 @@ class AsyncRawAppsClient:
         discover_path: typing.Optional[str] = OMIT,
         experience_path: typing.Optional[str] = OMIT,
         icon: typing.Optional[UpdateAppsRequestIcon] = OMIT,
+        imported_from_url: typing.Optional[str] = OMIT,
         name: typing.Optional[str] = OMIT,
         oauth_client_type: typing.Optional[UpdateAppsRequestOauthClientType] = OMIT,
         openapi_path: typing.Optional[str] = OMIT,
@@ -1489,6 +1505,9 @@ class AsyncRawAppsClient:
 
         icon : typing.Optional[UpdateAppsRequestIcon]
             The icon image for the app in PNG, JPEG, or GIF format, referencing an uploaded file: `{ id }` for an existing attachment or `{ direct_upload_id }` for a new direct upload.
+
+        imported_from_url : typing.Optional[str]
+            The address of the existing website this app is imported from, such as `https://shop.example.com`. Must be an `http` or `https` URL. Set to `null` to clear it.
 
         name : typing.Optional[str]
             The display name for the app, shown to users on the app store and product pages.
@@ -1549,6 +1568,7 @@ class AsyncRawAppsClient:
                 "icon": convert_and_respect_annotation_metadata(
                     object_=icon, annotation=UpdateAppsRequestIcon, direction="write"
                 ),
+                "imported_from_url": imported_from_url,
                 "name": name,
                 "oauth_client_type": oauth_client_type,
                 "openapi_path": openapi_path,
