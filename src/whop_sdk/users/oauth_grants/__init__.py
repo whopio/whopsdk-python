@@ -8,6 +8,7 @@ from importlib import import_module
 if typing.TYPE_CHECKING:
     from .types import (
         CreateOauthGrantsRequestCodeChallengeMethod,
+        CreateOauthGrantsRequestMcpClient,
         CreateOauthGrantsRequestResponseType,
         ListOauthGrantsRequestDirection,
         ListOauthGrantsRequestOrder,
@@ -16,6 +17,7 @@ if typing.TYPE_CHECKING:
     )
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateOauthGrantsRequestCodeChallengeMethod": ".types",
+    "CreateOauthGrantsRequestMcpClient": ".types",
     "CreateOauthGrantsRequestResponseType": ".types",
     "ListOauthGrantsRequestDirection": ".types",
     "ListOauthGrantsRequestOrder": ".types",
@@ -47,6 +49,7 @@ def __dir__():
 
 __all__ = [
     "CreateOauthGrantsRequestCodeChallengeMethod",
+    "CreateOauthGrantsRequestMcpClient",
     "CreateOauthGrantsRequestResponseType",
     "ListOauthGrantsRequestDirection",
     "ListOauthGrantsRequestOrder",

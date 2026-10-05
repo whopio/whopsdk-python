@@ -22,6 +22,7 @@ if typing.TYPE_CHECKING:
     from . import oauth_grants, passkeys, preferences
     from .oauth_grants import (
         CreateOauthGrantsRequestCodeChallengeMethod,
+        CreateOauthGrantsRequestMcpClient,
         CreateOauthGrantsRequestResponseType,
         ListOauthGrantsRequestDirection,
         ListOauthGrantsRequestOrder,
@@ -43,6 +44,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CheckAccessUsersResponse": ".types",
     "CheckAccessUsersResponseAccessLevel": ".types",
     "CreateOauthGrantsRequestCodeChallengeMethod": ".oauth_grants",
+    "CreateOauthGrantsRequestMcpClient": ".oauth_grants",
     "CreateOauthGrantsRequestResponseType": ".oauth_grants",
     "DeletePasskeysResponse": ".passkeys",
     "ListOauthGrantsRequestDirection": ".oauth_grants",
@@ -95,6 +97,7 @@ __all__ = [
     "CheckAccessUsersResponse",
     "CheckAccessUsersResponseAccessLevel",
     "CreateOauthGrantsRequestCodeChallengeMethod",
+    "CreateOauthGrantsRequestMcpClient",
     "CreateOauthGrantsRequestResponseType",
     "DeletePasskeysResponse",
     "ListOauthGrantsRequestDirection",
