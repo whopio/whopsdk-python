@@ -15,6 +15,7 @@ from .ad_group_demographics import AdGroupDemographics
 from .ad_group_detailed_targeting import AdGroupDetailedTargeting
 from .ad_group_devices import AdGroupDevices
 from .ad_group_frequency_cap import AdGroupFrequencyCap
+from .ad_group_learning_progress import AdGroupLearningProgress
 from .ad_group_message_apps_item import AdGroupMessageAppsItem
 from .ad_group_optimization_goal import AdGroupOptimizationGoal
 from .ad_group_placement import AdGroupPlacement
@@ -258,6 +259,11 @@ class AdGroup(UniversalBaseModel):
     leads: float = pydantic.Field()
     """
     Whop pixel-attributed leads, last-click.
+    """
+
+    learning_progress: typing.Optional[AdGroupLearningProgress] = pydantic.Field(default=None)
+    """
+    Progress toward the ad platform's learning conversion threshold for this ad group. Null unless it is learning or learning limited and the platform reports valid counts. Reaching the threshold does not determine delivery status.
     """
 
     link_clicks: float = pydantic.Field()

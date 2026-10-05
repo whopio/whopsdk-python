@@ -176,6 +176,7 @@ if typing.TYPE_CHECKING:
     )
     from .ad_group_geo_locations_body_zips_item import AdGroupGeoLocationsBodyZipsItem
     from .ad_group_geo_locations_body_zips_item_key import AdGroupGeoLocationsBodyZipsItemKey
+    from .ad_group_learning_progress import AdGroupLearningProgress
     from .ad_group_message_apps_item import AdGroupMessageAppsItem
     from .ad_group_operating_system import AdGroupOperatingSystem
     from .ad_group_operating_system_os import AdGroupOperatingSystemOs
@@ -204,6 +205,7 @@ if typing.TYPE_CHECKING:
     from .ad_music import AdMusic
     from .ad_platform import AdPlatform
     from .ad_platform_issue import AdPlatformIssue
+    from .ad_platform_issue_category import AdPlatformIssueCategory
     from .ad_platform_issue_resource_type import AdPlatformIssueResourceType
     from .ad_post_source import AdPostSource
     from .ad_result_event import AdResultEvent
@@ -1647,6 +1649,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdGroupGeoLocationsBodyCustomLocationsItemDistanceUnit": ".ad_group_geo_locations_body_custom_locations_item_distance_unit",
     "AdGroupGeoLocationsBodyZipsItem": ".ad_group_geo_locations_body_zips_item",
     "AdGroupGeoLocationsBodyZipsItemKey": ".ad_group_geo_locations_body_zips_item_key",
+    "AdGroupLearningProgress": ".ad_group_learning_progress",
     "AdGroupMessageAppsItem": ".ad_group_message_apps_item",
     "AdGroupOperatingSystem": ".ad_group_operating_system",
     "AdGroupOperatingSystemOs": ".ad_group_operating_system_os",
@@ -1675,6 +1678,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdMusic": ".ad_music",
     "AdPlatform": ".ad_platform",
     "AdPlatformIssue": ".ad_platform_issue",
+    "AdPlatformIssueCategory": ".ad_platform_issue_category",
     "AdPlatformIssueResourceType": ".ad_platform_issue_resource_type",
     "AdPostSource": ".ad_post_source",
     "AdResultEvent": ".ad_result_event",
@@ -3006,6 +3010,7 @@ __all__ = [
     "AdGroupGeoLocationsBodyCustomLocationsItemDistanceUnit",
     "AdGroupGeoLocationsBodyZipsItem",
     "AdGroupGeoLocationsBodyZipsItemKey",
+    "AdGroupLearningProgress",
     "AdGroupMessageAppsItem",
     "AdGroupOperatingSystem",
     "AdGroupOperatingSystemOs",
@@ -3034,6 +3039,7 @@ __all__ = [
     "AdMusic",
     "AdPlatform",
     "AdPlatformIssue",
+    "AdPlatformIssueCategory",
     "AdPlatformIssueResourceType",
     "AdPostSource",
     "AdResultEvent",
