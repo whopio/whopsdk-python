@@ -31,6 +31,11 @@ class RetrieveBusinessesResponsePayoutPercentages(UniversalBaseModel):
     Share of Whop's profit from platform balance transfers.
     """
 
+    withdrawal: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Share of Whop's profit from withdrawals.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

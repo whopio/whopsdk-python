@@ -3,5 +3,5 @@
 import typing
 
 PartnerPayoutRateIncomeSource = typing.Union[
-    typing.Literal["sales", "transfer", "card_interchange", "ad_spend"], typing.Any
+    typing.Literal["sales", "transfer", "card_interchange", "ad_spend", "withdrawal"], typing.Any
 ]

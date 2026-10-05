@@ -5,17 +5,22 @@ import typing
 
 import pydantic
 from .....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .list_earnings_response_data_item_resource_currency_object import (
-    ListEarningsResponseDataItemResourceCurrencyObject,
-)
+from .list_earnings_response_data_item_resource_five_object import ListEarningsResponseDataItemResourceFiveObject
 
 
-class ListEarningsResponseDataItemResourceCurrency(UniversalBaseModel):
+class ListEarningsResponseDataItemResourceFive(UniversalBaseModel):
+    business_id: str = pydantic.Field()
+    """
+    The referred business that qualified.
+    """
+
     created_at: dt.datetime
-    currency: typing.Optional[str] = None
-    id: str
-    merchant_name: typing.Optional[str] = None
-    object: ListEarningsResponseDataItemResourceCurrencyObject
+    id: str = pydantic.Field()
+    """
+    The referral link reward the business qualified for, prefixed `prwd_`.
+    """
+
+    object: ListEarningsResponseDataItemResourceFiveObject
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

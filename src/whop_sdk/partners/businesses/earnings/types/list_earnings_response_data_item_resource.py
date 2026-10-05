@@ -5,15 +5,17 @@ import typing
 from .list_earnings_response_data_item_resource_alternative_payment_method import (
     ListEarningsResponseDataItemResourceAlternativePaymentMethod,
 )
-from .list_earnings_response_data_item_resource_created_at import ListEarningsResponseDataItemResourceCreatedAt
-from .list_earnings_response_data_item_resource_currency import ListEarningsResponseDataItemResourceCurrency
+from .list_earnings_response_data_item_resource_five import ListEarningsResponseDataItemResourceFive
+from .list_earnings_response_data_item_resource_merchant_name import ListEarningsResponseDataItemResourceMerchantName
 from .list_earnings_response_data_item_resource_one import ListEarningsResponseDataItemResourceOne
 from .list_earnings_response_data_item_resource_slug import ListEarningsResponseDataItemResourceSlug
+from .list_earnings_response_data_item_resource_two import ListEarningsResponseDataItemResourceTwo
 
 ListEarningsResponseDataItemResource = typing.Union[
     typing.Optional[ListEarningsResponseDataItemResourceAlternativePaymentMethod],
     ListEarningsResponseDataItemResourceOne,
-    ListEarningsResponseDataItemResourceCurrency,
+    ListEarningsResponseDataItemResourceTwo,
+    ListEarningsResponseDataItemResourceMerchantName,
     ListEarningsResponseDataItemResourceSlug,
-    ListEarningsResponseDataItemResourceCreatedAt,
+    ListEarningsResponseDataItemResourceFive,
 ]
