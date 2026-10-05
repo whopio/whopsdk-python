@@ -537,7 +537,7 @@ class PaymentsClient:
 
     def void(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Payment:
         """
-        Voids or cancels an eligible payment. The request is rejected if the payment is no longer eligible.
+        Voids or cancels an eligible payment. The request is rejected if the payment is no longer eligible. Some processors confirm the release of a card authorization asynchronously: the payment is then returned still `authorized`, and a `payment.canceled` webhook follows once the hold is released.
 
         Parameters
         ----------
@@ -1258,7 +1258,7 @@ class AsyncPaymentsClient:
 
     async def void(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Payment:
         """
-        Voids or cancels an eligible payment. The request is rejected if the payment is no longer eligible.
+        Voids or cancels an eligible payment. The request is rejected if the payment is no longer eligible. Some processors confirm the release of a card authorization asynchronously: the payment is then returned still `authorized`, and a `payment.canceled` webhook follows once the hold is released.
 
         Parameters
         ----------
