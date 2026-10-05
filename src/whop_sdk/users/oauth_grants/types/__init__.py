@@ -7,6 +7,7 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .create_oauth_grants_request_code_challenge_method import CreateOauthGrantsRequestCodeChallengeMethod
+    from .create_oauth_grants_request_mcp_client import CreateOauthGrantsRequestMcpClient
     from .create_oauth_grants_request_response_type import CreateOauthGrantsRequestResponseType
     from .list_oauth_grants_request_direction import ListOauthGrantsRequestDirection
     from .list_oauth_grants_request_order import ListOauthGrantsRequestOrder
@@ -14,6 +15,7 @@ if typing.TYPE_CHECKING:
     from .list_oauth_grants_response_page_info import ListOauthGrantsResponsePageInfo
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateOauthGrantsRequestCodeChallengeMethod": ".create_oauth_grants_request_code_challenge_method",
+    "CreateOauthGrantsRequestMcpClient": ".create_oauth_grants_request_mcp_client",
     "CreateOauthGrantsRequestResponseType": ".create_oauth_grants_request_response_type",
     "ListOauthGrantsRequestDirection": ".list_oauth_grants_request_direction",
     "ListOauthGrantsRequestOrder": ".list_oauth_grants_request_order",
@@ -45,6 +47,7 @@ def __dir__():
 
 __all__ = [
     "CreateOauthGrantsRequestCodeChallengeMethod",
+    "CreateOauthGrantsRequestMcpClient",
     "CreateOauthGrantsRequestResponseType",
     "ListOauthGrantsRequestDirection",
     "ListOauthGrantsRequestOrder",

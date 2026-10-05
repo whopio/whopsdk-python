@@ -10,6 +10,7 @@ from ...core.pagination import AsyncPager, SyncPager
 from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
+from ...core.serialization import convert_and_respect_annotation_metadata
 from ...errors.bad_request_error import BadRequestError
 from ...errors.conflict_error import ConflictError
 from ...errors.forbidden_error import ForbiddenError
@@ -18,6 +19,7 @@ from ...errors.unauthorized_error import UnauthorizedError
 from ...types.oauth_grant import OauthGrant
 from ...types.v1error_response import V1ErrorResponse
 from .types.create_oauth_grants_request_code_challenge_method import CreateOauthGrantsRequestCodeChallengeMethod
+from .types.create_oauth_grants_request_mcp_client import CreateOauthGrantsRequestMcpClient
 from .types.create_oauth_grants_request_response_type import CreateOauthGrantsRequestResponseType
 from .types.list_oauth_grants_request_direction import ListOauthGrantsRequestDirection
 from .types.list_oauth_grants_request_order import ListOauthGrantsRequestOrder
@@ -171,6 +173,7 @@ class RawOauthGrantsClient:
         code_challenge: typing.Optional[str] = OMIT,
         code_challenge_method: typing.Optional[CreateOauthGrantsRequestCodeChallengeMethod] = OMIT,
         consent_shown: typing.Optional[bool] = OMIT,
+        mcp_client: typing.Optional[CreateOauthGrantsRequestMcpClient] = OMIT,
         nonce: typing.Optional[str] = OMIT,
         response_type: typing.Optional[CreateOauthGrantsRequestResponseType] = OMIT,
         state: typing.Optional[str] = OMIT,
@@ -202,6 +205,9 @@ class RawOauthGrantsClient:
         consent_shown : typing.Optional[bool]
             Whether the consent UI listed these scopes for the user. Sending `false` succeeds only when the user has already granted every scope requested, or when the app is one of Whop's own with the consent skip switched on and asks for `openid` alone.
 
+        mcp_client : typing.Optional[CreateOauthGrantsRequestMcpClient]
+            The downstream MCP client displayed on the consent screen. Requires explicit consent even when the upstream app already has a grant. Bound to the authorization code and returned on token exchange so the MCP server can verify the approved client.
+
         nonce : typing.Optional[str]
             OIDC nonce, echoed into the resulting ID token. Required when `requested_scopes` includes `openid`.
 
@@ -229,6 +235,9 @@ class RawOauthGrantsClient:
                 "code_challenge": code_challenge,
                 "code_challenge_method": code_challenge_method,
                 "consent_shown": consent_shown,
+                "mcp_client": convert_and_respect_annotation_metadata(
+                    object_=mcp_client, annotation=CreateOauthGrantsRequestMcpClient, direction="write"
+                ),
                 "nonce": nonce,
                 "redirect_uri": redirect_uri,
                 "requested_scopes": requested_scopes,
@@ -462,6 +471,7 @@ class AsyncRawOauthGrantsClient:
         code_challenge: typing.Optional[str] = OMIT,
         code_challenge_method: typing.Optional[CreateOauthGrantsRequestCodeChallengeMethod] = OMIT,
         consent_shown: typing.Optional[bool] = OMIT,
+        mcp_client: typing.Optional[CreateOauthGrantsRequestMcpClient] = OMIT,
         nonce: typing.Optional[str] = OMIT,
         response_type: typing.Optional[CreateOauthGrantsRequestResponseType] = OMIT,
         state: typing.Optional[str] = OMIT,
@@ -493,6 +503,9 @@ class AsyncRawOauthGrantsClient:
         consent_shown : typing.Optional[bool]
             Whether the consent UI listed these scopes for the user. Sending `false` succeeds only when the user has already granted every scope requested, or when the app is one of Whop's own with the consent skip switched on and asks for `openid` alone.
 
+        mcp_client : typing.Optional[CreateOauthGrantsRequestMcpClient]
+            The downstream MCP client displayed on the consent screen. Requires explicit consent even when the upstream app already has a grant. Bound to the authorization code and returned on token exchange so the MCP server can verify the approved client.
+
         nonce : typing.Optional[str]
             OIDC nonce, echoed into the resulting ID token. Required when `requested_scopes` includes `openid`.
 
@@ -520,6 +533,9 @@ class AsyncRawOauthGrantsClient:
                 "code_challenge": code_challenge,
                 "code_challenge_method": code_challenge_method,
                 "consent_shown": consent_shown,
+                "mcp_client": convert_and_respect_annotation_metadata(
+                    object_=mcp_client, annotation=CreateOauthGrantsRequestMcpClient, direction="write"
+                ),
                 "nonce": nonce,
                 "redirect_uri": redirect_uri,
                 "requested_scopes": requested_scopes,
