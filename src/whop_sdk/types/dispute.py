@@ -11,6 +11,7 @@ from .dispute_issuer_comment import DisputeIssuerComment
 from .dispute_payment import DisputePayment
 from .dispute_reason import DisputeReason
 from .dispute_status import DisputeStatus
+from .money import Money
 from .receipt_line_item import ReceiptLineItem
 
 
@@ -63,6 +64,11 @@ class Dispute(UniversalBaseModel):
     evidence_submitted_at: typing.Optional[str] = pydantic.Field(default=None)
     """
     When the evidence was submitted to the processor, as an ISO 8601 timestamp.
+    """
+
+    fee: typing.Optional[Money] = pydantic.Field(default=None)
+    """
+    The dispute fee charged to the seller, in the currency it was collected in. `null` when no fee was charged, such as for an inquiry or a Visa RDR resolution.
     """
 
     id: str = pydantic.Field()
