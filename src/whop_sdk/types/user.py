@@ -91,6 +91,16 @@ class User(UniversalBaseModel):
     When the user became an enrolled Whop Partner, as an ISO 8601 timestamp. `null` if never enrolled.
     """
 
+    whop_partner_onboarded_accounts_count: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Number of accounts the user referred to Whop as a Whop Partner that have processed more than $1 in volume attributed to the user. Populated only when retrieving a single user who is a Verified Whop Partner; `null` otherwise.
+    """
+
+    whop_partner_verified_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When the user became a Verified Whop Partner, as an ISO 8601 timestamp. `null` for users who are not Verified Whop Partners, including partners who left the program and suspended users.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:
