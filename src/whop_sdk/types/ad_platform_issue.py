@@ -4,10 +4,16 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .ad_platform_issue_category import AdPlatformIssueCategory
 from .ad_platform_issue_resource_type import AdPlatformIssueResourceType
 
 
 class AdPlatformIssue(UniversalBaseModel):
+    category: AdPlatformIssueCategory = pydantic.Field()
+    """
+    The kind of issue: information about delivery, a warning, or an error requiring attention.
+    """
+
     id: str = pydantic.Field()
     """
     Unique identifier for the issue.
@@ -26,6 +32,11 @@ class AdPlatformIssue(UniversalBaseModel):
     resource_type: AdPlatformIssueResourceType = pydantic.Field()
     """
     The type of resource the issue is attached to.
+    """
+
+    title: str = pydantic.Field()
+    """
+    A short, creator-facing title for the issue.
     """
 
     if IS_PYDANTIC_V2:
