@@ -26,6 +26,8 @@ if typing.TYPE_CHECKING:
         CreateAdGroupsRequestDeliveryScheduleWednesdayItem,
     )
     from .create_ad_groups_request_frequency_cap import CreateAdGroupsRequestFrequencyCap
+    from .create_ad_groups_request_keywords_item import CreateAdGroupsRequestKeywordsItem
+    from .create_ad_groups_request_keywords_item_match_type import CreateAdGroupsRequestKeywordsItemMatchType
     from .create_ad_groups_request_message_apps_item import CreateAdGroupsRequestMessageAppsItem
     from .create_ad_groups_request_optimization_goal import CreateAdGroupsRequestOptimizationGoal
     from .create_ad_groups_request_placements import CreateAdGroupsRequestPlacements
@@ -72,6 +74,8 @@ if typing.TYPE_CHECKING:
         UpdateAdGroupsRequestDeliveryScheduleWednesdayItem,
     )
     from .update_ad_groups_request_frequency_cap import UpdateAdGroupsRequestFrequencyCap
+    from .update_ad_groups_request_keywords_item import UpdateAdGroupsRequestKeywordsItem
+    from .update_ad_groups_request_keywords_item_match_type import UpdateAdGroupsRequestKeywordsItemMatchType
     from .update_ad_groups_request_message_apps_item import UpdateAdGroupsRequestMessageAppsItem
     from .update_ad_groups_request_optimization_goal import UpdateAdGroupsRequestOptimizationGoal
     from .update_ad_groups_request_placements import UpdateAdGroupsRequestPlacements
@@ -92,6 +96,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateAdGroupsRequestDeliveryScheduleTuesdayItem": ".create_ad_groups_request_delivery_schedule_tuesday_item",
     "CreateAdGroupsRequestDeliveryScheduleWednesdayItem": ".create_ad_groups_request_delivery_schedule_wednesday_item",
     "CreateAdGroupsRequestFrequencyCap": ".create_ad_groups_request_frequency_cap",
+    "CreateAdGroupsRequestKeywordsItem": ".create_ad_groups_request_keywords_item",
+    "CreateAdGroupsRequestKeywordsItemMatchType": ".create_ad_groups_request_keywords_item_match_type",
     "CreateAdGroupsRequestMessageAppsItem": ".create_ad_groups_request_message_apps_item",
     "CreateAdGroupsRequestOptimizationGoal": ".create_ad_groups_request_optimization_goal",
     "CreateAdGroupsRequestPlacements": ".create_ad_groups_request_placements",
@@ -126,6 +132,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateAdGroupsRequestDeliveryScheduleTuesdayItem": ".update_ad_groups_request_delivery_schedule_tuesday_item",
     "UpdateAdGroupsRequestDeliveryScheduleWednesdayItem": ".update_ad_groups_request_delivery_schedule_wednesday_item",
     "UpdateAdGroupsRequestFrequencyCap": ".update_ad_groups_request_frequency_cap",
+    "UpdateAdGroupsRequestKeywordsItem": ".update_ad_groups_request_keywords_item",
+    "UpdateAdGroupsRequestKeywordsItemMatchType": ".update_ad_groups_request_keywords_item_match_type",
     "UpdateAdGroupsRequestMessageAppsItem": ".update_ad_groups_request_message_apps_item",
     "UpdateAdGroupsRequestOptimizationGoal": ".update_ad_groups_request_optimization_goal",
     "UpdateAdGroupsRequestPlacements": ".update_ad_groups_request_placements",
@@ -170,6 +178,8 @@ __all__ = [
     "CreateAdGroupsRequestDeliveryScheduleTuesdayItem",
     "CreateAdGroupsRequestDeliveryScheduleWednesdayItem",
     "CreateAdGroupsRequestFrequencyCap",
+    "CreateAdGroupsRequestKeywordsItem",
+    "CreateAdGroupsRequestKeywordsItemMatchType",
     "CreateAdGroupsRequestMessageAppsItem",
     "CreateAdGroupsRequestOptimizationGoal",
     "CreateAdGroupsRequestPlacements",
@@ -204,6 +214,8 @@ __all__ = [
     "UpdateAdGroupsRequestDeliveryScheduleTuesdayItem",
     "UpdateAdGroupsRequestDeliveryScheduleWednesdayItem",
     "UpdateAdGroupsRequestFrequencyCap",
+    "UpdateAdGroupsRequestKeywordsItem",
+    "UpdateAdGroupsRequestKeywordsItemMatchType",
     "UpdateAdGroupsRequestMessageAppsItem",
     "UpdateAdGroupsRequestOptimizationGoal",
     "UpdateAdGroupsRequestPlacements",

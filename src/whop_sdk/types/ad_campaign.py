@@ -7,6 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .ad_campaign_bid_type import AdCampaignBidType
 from .ad_campaign_budget_optimization import AdCampaignBudgetOptimization
 from .ad_campaign_budget_type import AdCampaignBudgetType
+from .ad_campaign_campaign_type import AdCampaignCampaignType
 from .ad_campaign_delivery_status import AdCampaignDeliveryStatus
 from .ad_campaign_objective import AdCampaignObjective
 from .ad_campaign_platform import AdCampaignPlatform
@@ -55,6 +56,11 @@ class AdCampaign(UniversalBaseModel):
     budget_type: typing.Optional[AdCampaignBudgetType] = pydantic.Field(default=None)
     """
     Whether `budget_amount` is spent per day (`daily`) or over the campaign's full run (`lifetime`).
+    """
+
+    campaign_type: AdCampaignCampaignType = pydantic.Field()
+    """
+    The kind of campaign, fixed at creation. `standard` is the ad network's standard campaign; `search` shows text ads on search results for the ad groups' keywords.
     """
 
     click_through_rate: float = pydantic.Field()

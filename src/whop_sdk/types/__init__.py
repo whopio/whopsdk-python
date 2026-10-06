@@ -110,6 +110,7 @@ if typing.TYPE_CHECKING:
     from .ad_campaign_bid_type import AdCampaignBidType
     from .ad_campaign_budget_optimization import AdCampaignBudgetOptimization
     from .ad_campaign_budget_type import AdCampaignBudgetType
+    from .ad_campaign_campaign_type import AdCampaignCampaignType
     from .ad_campaign_delivery_status import AdCampaignDeliveryStatus
     from .ad_campaign_objective import AdCampaignObjective
     from .ad_campaign_platform import AdCampaignPlatform
@@ -176,6 +177,8 @@ if typing.TYPE_CHECKING:
     )
     from .ad_group_geo_locations_body_zips_item import AdGroupGeoLocationsBodyZipsItem
     from .ad_group_geo_locations_body_zips_item_key import AdGroupGeoLocationsBodyZipsItemKey
+    from .ad_group_keyword import AdGroupKeyword
+    from .ad_group_keyword_match_type import AdGroupKeywordMatchType
     from .ad_group_learning_progress import AdGroupLearningProgress
     from .ad_group_message_apps_item import AdGroupMessageAppsItem
     from .ad_group_operating_system import AdGroupOperatingSystem
@@ -1603,6 +1606,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdCampaignBidType": ".ad_campaign_bid_type",
     "AdCampaignBudgetOptimization": ".ad_campaign_budget_optimization",
     "AdCampaignBudgetType": ".ad_campaign_budget_type",
+    "AdCampaignCampaignType": ".ad_campaign_campaign_type",
     "AdCampaignDeliveryStatus": ".ad_campaign_delivery_status",
     "AdCampaignObjective": ".ad_campaign_objective",
     "AdCampaignPlatform": ".ad_campaign_platform",
@@ -1663,6 +1667,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdGroupGeoLocationsBodyCustomLocationsItemDistanceUnit": ".ad_group_geo_locations_body_custom_locations_item_distance_unit",
     "AdGroupGeoLocationsBodyZipsItem": ".ad_group_geo_locations_body_zips_item",
     "AdGroupGeoLocationsBodyZipsItemKey": ".ad_group_geo_locations_body_zips_item_key",
+    "AdGroupKeyword": ".ad_group_keyword",
+    "AdGroupKeywordMatchType": ".ad_group_keyword_match_type",
     "AdGroupLearningProgress": ".ad_group_learning_progress",
     "AdGroupMessageAppsItem": ".ad_group_message_apps_item",
     "AdGroupOperatingSystem": ".ad_group_operating_system",
@@ -2978,6 +2984,7 @@ __all__ = [
     "AdCampaignBidType",
     "AdCampaignBudgetOptimization",
     "AdCampaignBudgetType",
+    "AdCampaignCampaignType",
     "AdCampaignDeliveryStatus",
     "AdCampaignObjective",
     "AdCampaignPlatform",
@@ -3038,6 +3045,8 @@ __all__ = [
     "AdGroupGeoLocationsBodyCustomLocationsItemDistanceUnit",
     "AdGroupGeoLocationsBodyZipsItem",
     "AdGroupGeoLocationsBodyZipsItemKey",
+    "AdGroupKeyword",
+    "AdGroupKeywordMatchType",
     "AdGroupLearningProgress",
     "AdGroupMessageAppsItem",
     "AdGroupOperatingSystem",

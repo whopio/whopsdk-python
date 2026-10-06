@@ -9,12 +9,14 @@ if typing.TYPE_CHECKING:
     from .create_ad_campaigns_request_bid_type import CreateAdCampaignsRequestBidType
     from .create_ad_campaigns_request_budget_optimization import CreateAdCampaignsRequestBudgetOptimization
     from .create_ad_campaigns_request_budget_type import CreateAdCampaignsRequestBudgetType
+    from .create_ad_campaigns_request_campaign_type import CreateAdCampaignsRequestCampaignType
     from .create_ad_campaigns_request_objective import CreateAdCampaignsRequestObjective
     from .create_ad_campaigns_request_platform import CreateAdCampaignsRequestPlatform
     from .create_ad_campaigns_request_special_ad_categories_item import CreateAdCampaignsRequestSpecialAdCategoriesItem
     from .delete_ad_campaigns_response import DeleteAdCampaignsResponse
     from .duplicate_ad_campaigns_response import DuplicateAdCampaignsResponse
     from .list_ad_campaigns_request_attribution_model import ListAdCampaignsRequestAttributionModel
+    from .list_ad_campaigns_request_campaign_type import ListAdCampaignsRequestCampaignType
     from .list_ad_campaigns_request_direction import ListAdCampaignsRequestDirection
     from .list_ad_campaigns_request_order import ListAdCampaignsRequestOrder
     from .list_ad_campaigns_request_status import ListAdCampaignsRequestStatus
@@ -29,6 +31,9 @@ if typing.TYPE_CHECKING:
     )
     from .post_ad_campaign_payment_failed_payload_data_budget_type import (
         PostAdCampaignPaymentFailedPayloadDataBudgetType,
+    )
+    from .post_ad_campaign_payment_failed_payload_data_campaign_type import (
+        PostAdCampaignPaymentFailedPayloadDataCampaignType,
     )
     from .post_ad_campaign_payment_failed_payload_data_delivery_status import (
         PostAdCampaignPaymentFailedPayloadDataDeliveryStatus,
@@ -48,6 +53,7 @@ if typing.TYPE_CHECKING:
         PostAdCampaignUpdatedPayloadDataBudgetOptimization,
     )
     from .post_ad_campaign_updated_payload_data_budget_type import PostAdCampaignUpdatedPayloadDataBudgetType
+    from .post_ad_campaign_updated_payload_data_campaign_type import PostAdCampaignUpdatedPayloadDataCampaignType
     from .post_ad_campaign_updated_payload_data_delivery_status import PostAdCampaignUpdatedPayloadDataDeliveryStatus
     from .post_ad_campaign_updated_payload_data_objective import PostAdCampaignUpdatedPayloadDataObjective
     from .post_ad_campaign_updated_payload_data_platform import PostAdCampaignUpdatedPayloadDataPlatform
@@ -60,18 +66,21 @@ if typing.TYPE_CHECKING:
     from .update_ad_campaigns_request_bid_type import UpdateAdCampaignsRequestBidType
     from .update_ad_campaigns_request_budget_optimization import UpdateAdCampaignsRequestBudgetOptimization
     from .update_ad_campaigns_request_budget_type import UpdateAdCampaignsRequestBudgetType
+    from .update_ad_campaigns_request_campaign_type import UpdateAdCampaignsRequestCampaignType
     from .update_ad_campaigns_request_special_ad_categories_item import UpdateAdCampaignsRequestSpecialAdCategoriesItem
     from .update_ad_campaigns_request_status import UpdateAdCampaignsRequestStatus
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateAdCampaignsRequestBidType": ".create_ad_campaigns_request_bid_type",
     "CreateAdCampaignsRequestBudgetOptimization": ".create_ad_campaigns_request_budget_optimization",
     "CreateAdCampaignsRequestBudgetType": ".create_ad_campaigns_request_budget_type",
+    "CreateAdCampaignsRequestCampaignType": ".create_ad_campaigns_request_campaign_type",
     "CreateAdCampaignsRequestObjective": ".create_ad_campaigns_request_objective",
     "CreateAdCampaignsRequestPlatform": ".create_ad_campaigns_request_platform",
     "CreateAdCampaignsRequestSpecialAdCategoriesItem": ".create_ad_campaigns_request_special_ad_categories_item",
     "DeleteAdCampaignsResponse": ".delete_ad_campaigns_response",
     "DuplicateAdCampaignsResponse": ".duplicate_ad_campaigns_response",
     "ListAdCampaignsRequestAttributionModel": ".list_ad_campaigns_request_attribution_model",
+    "ListAdCampaignsRequestCampaignType": ".list_ad_campaigns_request_campaign_type",
     "ListAdCampaignsRequestDirection": ".list_ad_campaigns_request_direction",
     "ListAdCampaignsRequestOrder": ".list_ad_campaigns_request_order",
     "ListAdCampaignsRequestStatus": ".list_ad_campaigns_request_status",
@@ -83,6 +92,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostAdCampaignPaymentFailedPayloadDataBidType": ".post_ad_campaign_payment_failed_payload_data_bid_type",
     "PostAdCampaignPaymentFailedPayloadDataBudgetOptimization": ".post_ad_campaign_payment_failed_payload_data_budget_optimization",
     "PostAdCampaignPaymentFailedPayloadDataBudgetType": ".post_ad_campaign_payment_failed_payload_data_budget_type",
+    "PostAdCampaignPaymentFailedPayloadDataCampaignType": ".post_ad_campaign_payment_failed_payload_data_campaign_type",
     "PostAdCampaignPaymentFailedPayloadDataDeliveryStatus": ".post_ad_campaign_payment_failed_payload_data_delivery_status",
     "PostAdCampaignPaymentFailedPayloadDataObjective": ".post_ad_campaign_payment_failed_payload_data_objective",
     "PostAdCampaignPaymentFailedPayloadDataPlatform": ".post_ad_campaign_payment_failed_payload_data_platform",
@@ -95,6 +105,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostAdCampaignUpdatedPayloadDataBidType": ".post_ad_campaign_updated_payload_data_bid_type",
     "PostAdCampaignUpdatedPayloadDataBudgetOptimization": ".post_ad_campaign_updated_payload_data_budget_optimization",
     "PostAdCampaignUpdatedPayloadDataBudgetType": ".post_ad_campaign_updated_payload_data_budget_type",
+    "PostAdCampaignUpdatedPayloadDataCampaignType": ".post_ad_campaign_updated_payload_data_campaign_type",
     "PostAdCampaignUpdatedPayloadDataDeliveryStatus": ".post_ad_campaign_updated_payload_data_delivery_status",
     "PostAdCampaignUpdatedPayloadDataObjective": ".post_ad_campaign_updated_payload_data_objective",
     "PostAdCampaignUpdatedPayloadDataPlatform": ".post_ad_campaign_updated_payload_data_platform",
@@ -105,6 +116,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateAdCampaignsRequestBidType": ".update_ad_campaigns_request_bid_type",
     "UpdateAdCampaignsRequestBudgetOptimization": ".update_ad_campaigns_request_budget_optimization",
     "UpdateAdCampaignsRequestBudgetType": ".update_ad_campaigns_request_budget_type",
+    "UpdateAdCampaignsRequestCampaignType": ".update_ad_campaigns_request_campaign_type",
     "UpdateAdCampaignsRequestSpecialAdCategoriesItem": ".update_ad_campaigns_request_special_ad_categories_item",
     "UpdateAdCampaignsRequestStatus": ".update_ad_campaigns_request_status",
 }
@@ -135,12 +147,14 @@ __all__ = [
     "CreateAdCampaignsRequestBidType",
     "CreateAdCampaignsRequestBudgetOptimization",
     "CreateAdCampaignsRequestBudgetType",
+    "CreateAdCampaignsRequestCampaignType",
     "CreateAdCampaignsRequestObjective",
     "CreateAdCampaignsRequestPlatform",
     "CreateAdCampaignsRequestSpecialAdCategoriesItem",
     "DeleteAdCampaignsResponse",
     "DuplicateAdCampaignsResponse",
     "ListAdCampaignsRequestAttributionModel",
+    "ListAdCampaignsRequestCampaignType",
     "ListAdCampaignsRequestDirection",
     "ListAdCampaignsRequestOrder",
     "ListAdCampaignsRequestStatus",
@@ -152,6 +166,7 @@ __all__ = [
     "PostAdCampaignPaymentFailedPayloadDataBidType",
     "PostAdCampaignPaymentFailedPayloadDataBudgetOptimization",
     "PostAdCampaignPaymentFailedPayloadDataBudgetType",
+    "PostAdCampaignPaymentFailedPayloadDataCampaignType",
     "PostAdCampaignPaymentFailedPayloadDataDeliveryStatus",
     "PostAdCampaignPaymentFailedPayloadDataObjective",
     "PostAdCampaignPaymentFailedPayloadDataPlatform",
@@ -164,6 +179,7 @@ __all__ = [
     "PostAdCampaignUpdatedPayloadDataBidType",
     "PostAdCampaignUpdatedPayloadDataBudgetOptimization",
     "PostAdCampaignUpdatedPayloadDataBudgetType",
+    "PostAdCampaignUpdatedPayloadDataCampaignType",
     "PostAdCampaignUpdatedPayloadDataDeliveryStatus",
     "PostAdCampaignUpdatedPayloadDataObjective",
     "PostAdCampaignUpdatedPayloadDataPlatform",
@@ -174,6 +190,7 @@ __all__ = [
     "UpdateAdCampaignsRequestBidType",
     "UpdateAdCampaignsRequestBudgetOptimization",
     "UpdateAdCampaignsRequestBudgetType",
+    "UpdateAdCampaignsRequestCampaignType",
     "UpdateAdCampaignsRequestSpecialAdCategoriesItem",
     "UpdateAdCampaignsRequestStatus",
 ]

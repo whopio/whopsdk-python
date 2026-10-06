@@ -15,6 +15,7 @@ from .ad_group_demographics import AdGroupDemographics
 from .ad_group_detailed_targeting import AdGroupDetailedTargeting
 from .ad_group_devices import AdGroupDevices
 from .ad_group_frequency_cap import AdGroupFrequencyCap
+from .ad_group_keyword import AdGroupKeyword
 from .ad_group_learning_progress import AdGroupLearningProgress
 from .ad_group_message_apps_item import AdGroupMessageAppsItem
 from .ad_group_optimization_goal import AdGroupOptimizationGoal
@@ -250,6 +251,7 @@ class AdGroup(UniversalBaseModel):
     """
 
     issues: typing.List[AdPlatformIssue]
+    keywords: typing.Optional[typing.List[AdGroupKeyword]] = None
     languages: typing.List[str]
     lead_value: float = pydantic.Field()
     """
