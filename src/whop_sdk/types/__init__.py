@@ -735,6 +735,9 @@ if typing.TYPE_CHECKING:
     from .member_statuses import MemberStatuses
     from .members_sortable_columns import MembersSortableColumns
     from .membership import Membership
+    from .membership_affiliate import MembershipAffiliate
+    from .membership_affiliate_applies_to_payments import MembershipAffiliateAppliesToPayments
+    from .membership_affiliate_commission_type import MembershipAffiliateCommissionType
     from .membership_cancellation_modes import MembershipCancellationModes
     from .membership_legacy import MembershipLegacy
     from .membership_legacy_company import MembershipLegacyCompany
@@ -2198,6 +2201,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MemberStatuses": ".member_statuses",
     "MembersSortableColumns": ".members_sortable_columns",
     "Membership": ".membership",
+    "MembershipAffiliate": ".membership_affiliate",
+    "MembershipAffiliateAppliesToPayments": ".membership_affiliate_applies_to_payments",
+    "MembershipAffiliateCommissionType": ".membership_affiliate_commission_type",
     "MembershipCancellationModes": ".membership_cancellation_modes",
     "MembershipLegacy": ".membership_legacy",
     "MembershipLegacyCompany": ".membership_legacy_company",
@@ -3569,6 +3575,9 @@ __all__ = [
     "MemberStatuses",
     "MembersSortableColumns",
     "Membership",
+    "MembershipAffiliate",
+    "MembershipAffiliateAppliesToPayments",
+    "MembershipAffiliateCommissionType",
     "MembershipCancellationModes",
     "MembershipLegacy",
     "MembershipLegacyCompany",

@@ -6,6 +6,7 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .assign_affiliate_memberships_request_commission_type import AssignAffiliateMembershipsRequestCommissionType
     from .invite_memberships_request_body import InviteMembershipsRequestBody
     from .invite_memberships_request_body_email import InviteMembershipsRequestBodyEmail
     from .invite_memberships_request_body_user_id import InviteMembershipsRequestBodyUserId
@@ -26,6 +27,7 @@ if typing.TYPE_CHECKING:
     from .post_membership_updated_payload_type import PostMembershipUpdatedPayloadType
     from .transfer_memberships_response import TransferMembershipsResponse
 _dynamic_imports: typing.Dict[str, str] = {
+    "AssignAffiliateMembershipsRequestCommissionType": ".assign_affiliate_memberships_request_commission_type",
     "InviteMembershipsRequestBody": ".invite_memberships_request_body",
     "InviteMembershipsRequestBodyEmail": ".invite_memberships_request_body_email",
     "InviteMembershipsRequestBodyUserId": ".invite_memberships_request_body_user_id",
@@ -70,6 +72,7 @@ def __dir__():
 
 
 __all__ = [
+    "AssignAffiliateMembershipsRequestCommissionType",
     "InviteMembershipsRequestBody",
     "InviteMembershipsRequestBodyEmail",
     "InviteMembershipsRequestBodyUserId",

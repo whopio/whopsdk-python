@@ -7,6 +7,7 @@ from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
 from ..types.membership import Membership
 from .raw_client import AsyncRawMembershipsClient, RawMembershipsClient
+from .types.assign_affiliate_memberships_request_commission_type import AssignAffiliateMembershipsRequestCommissionType
 from .types.invite_memberships_request_body import InviteMembershipsRequestBody
 from .types.invite_memberships_response import InviteMembershipsResponse
 from .types.list_memberships_request_direction import ListMembershipsRequestDirection
@@ -307,6 +308,75 @@ class MembershipsClient:
         )
         """
         _response = self._raw_client.apply_promo_code(id, promo_code=promo_code, request_options=request_options)
+        return _response.data
+
+    def assign_affiliate(
+        self,
+        id: str,
+        *,
+        commission_type: AssignAffiliateMembershipsRequestCommissionType,
+        commission_value: float,
+        email: typing.Optional[str] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
+        username: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> Membership:
+        """
+        Assigns an affiliate to a membership and pays them the commission you set on its future payments. Name the user with exactly one of `user_id`, `email`, or `username`. A user who is not yet an affiliate of your account becomes one, which also requires `affiliate:create`. Send a new `commission_type` or `commission_value` for the membership's current affiliate to change their commission; a membership that already has a different affiliate returns a conflict. Works for active or trialing memberships with one recurring plan that bill through Stripe or Whop's billing engine, and not for marketplace memberships, paused payments, or a scheduled cancellation. The payout cannot exceed 90% of the next renewal amount, and no past payments are recalculated. You cannot assign yourself.
+
+        Parameters
+        ----------
+        id : str
+            Membership ID (`mem_` tag).
+
+        commission_type : AssignAffiliateMembershipsRequestCommissionType
+            Whether the commission is a percentage of each payment or a fixed amount per payment.
+
+        commission_value : float
+            A whole number from 1 to 90 for `percentage`, or an amount greater than 1 in the membership currency for `flat_fee`. Flat fees need matching billing and settlement currencies.
+
+        email : typing.Optional[str]
+            Email address of the user to assign. Pass exactly one of `user_id`, `email`, or `username`.
+
+        user_id : typing.Optional[str]
+            The user to assign, prefixed `user_`. Pass exactly one of `user_id`, `email`, or `username`.
+
+        username : typing.Optional[str]
+            Whop username of the user to assign. Pass exactly one of `user_id`, `email`, or `username`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Membership
+            affiliate assigned
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-10-06",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.memberships.assign_affiliate(
+            id="id",
+            commission_type="flat_fee",
+            commission_value=5.0,
+            email="affiliate@example.com",
+        )
+        """
+        _response = self._raw_client.assign_affiliate(
+            id,
+            commission_type=commission_type,
+            commission_value=commission_value,
+            email=email,
+            user_id=user_id,
+            username=username,
+            request_options=request_options,
+        )
         return _response.data
 
     def cancel(
@@ -901,6 +971,83 @@ class AsyncMembershipsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.apply_promo_code(id, promo_code=promo_code, request_options=request_options)
+        return _response.data
+
+    async def assign_affiliate(
+        self,
+        id: str,
+        *,
+        commission_type: AssignAffiliateMembershipsRequestCommissionType,
+        commission_value: float,
+        email: typing.Optional[str] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
+        username: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> Membership:
+        """
+        Assigns an affiliate to a membership and pays them the commission you set on its future payments. Name the user with exactly one of `user_id`, `email`, or `username`. A user who is not yet an affiliate of your account becomes one, which also requires `affiliate:create`. Send a new `commission_type` or `commission_value` for the membership's current affiliate to change their commission; a membership that already has a different affiliate returns a conflict. Works for active or trialing memberships with one recurring plan that bill through Stripe or Whop's billing engine, and not for marketplace memberships, paused payments, or a scheduled cancellation. The payout cannot exceed 90% of the next renewal amount, and no past payments are recalculated. You cannot assign yourself.
+
+        Parameters
+        ----------
+        id : str
+            Membership ID (`mem_` tag).
+
+        commission_type : AssignAffiliateMembershipsRequestCommissionType
+            Whether the commission is a percentage of each payment or a fixed amount per payment.
+
+        commission_value : float
+            A whole number from 1 to 90 for `percentage`, or an amount greater than 1 in the membership currency for `flat_fee`. Flat fees need matching billing and settlement currencies.
+
+        email : typing.Optional[str]
+            Email address of the user to assign. Pass exactly one of `user_id`, `email`, or `username`.
+
+        user_id : typing.Optional[str]
+            The user to assign, prefixed `user_`. Pass exactly one of `user_id`, `email`, or `username`.
+
+        username : typing.Optional[str]
+            Whop username of the user to assign. Pass exactly one of `user_id`, `email`, or `username`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Membership
+            affiliate assigned
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-10-06",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.memberships.assign_affiliate(
+                id="id",
+                commission_type="flat_fee",
+                commission_value=5.0,
+                email="affiliate@example.com",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.assign_affiliate(
+            id,
+            commission_type=commission_type,
+            commission_value=commission_value,
+            email=email,
+            user_id=user_id,
+            username=username,
+            request_options=request_options,
+        )
         return _response.data
 
     async def cancel(
