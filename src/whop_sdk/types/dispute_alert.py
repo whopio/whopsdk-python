@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .dispute_alert_type import DisputeAlertType
+from .money import Money
 
 
 class DisputeAlert(UniversalBaseModel):
@@ -36,6 +37,11 @@ class DisputeAlert(UniversalBaseModel):
     currency: str = pydantic.Field()
     """
     Three-letter ISO currency code of the alerted amount.
+    """
+
+    fee: typing.Optional[Money] = pydantic.Field(default=None)
+    """
+    The alert fee charged to the account, in the currency it was collected in. `null` when `fee_charged` is false.
     """
 
     fee_charged: bool = pydantic.Field()
