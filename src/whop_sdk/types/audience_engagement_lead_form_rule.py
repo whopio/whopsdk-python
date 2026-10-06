@@ -13,15 +13,15 @@ class AudienceEngagementLeadFormRule(UniversalBaseModel):
     Interaction that qualifies a person for this rule.
     """
 
+    external_account_id: str = pydantic.Field()
+    """
+    Connected external account ID, prefixed `sacc_`, with advertising access.
+    """
+
     platform_form_ids: typing.List[str]
     retention_days: int = pydantic.Field()
     """
     Rolling membership window in days, from 1 to 90.
-    """
-
-    social_account_id: str = pydantic.Field()
-    """
-    Connected social account ID, prefixed `sacc_`, with advertising access.
     """
 
     if IS_PYDANTIC_V2:

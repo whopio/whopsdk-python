@@ -15,6 +15,7 @@ ListExportsRequestResource = typing.Union[
         "checkout_configurations",
         "disputes",
         "events",
+        "external_accounts",
         "financial-activity",
         "payout_methods",
         "payouts",

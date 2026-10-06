@@ -562,6 +562,16 @@ if typing.TYPE_CHECKING:
     from .export_resource import ExportResource
     from .export_status import ExportStatus
     from .exposures_experiments_request_subject import ExposuresExperimentsRequestSubject
+    from .external_account import ExternalAccount
+    from .external_account_lead_form import ExternalAccountLeadForm
+    from .external_account_lead_form_form_type import ExternalAccountLeadFormFormType
+    from .external_account_parent import ExternalAccountParent
+    from .external_account_parent_platform import ExternalAccountParentPlatform
+    from .external_account_partnership_status import ExternalAccountPartnershipStatus
+    from .external_account_platform import ExternalAccountPlatform
+    from .external_account_post import ExternalAccountPost
+    from .external_account_post_call_to_action import ExternalAccountPostCallToAction
+    from .external_account_post_restrictions_item import ExternalAccountPostRestrictionsItem
     from .fee_markup import FeeMarkup
     from .fee_markup_list_item import FeeMarkupListItem
     from .fee_markup_types import FeeMarkupTypes
@@ -2019,6 +2029,16 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ExportResource": ".export_resource",
     "ExportStatus": ".export_status",
     "ExposuresExperimentsRequestSubject": ".exposures_experiments_request_subject",
+    "ExternalAccount": ".external_account",
+    "ExternalAccountLeadForm": ".external_account_lead_form",
+    "ExternalAccountLeadFormFormType": ".external_account_lead_form_form_type",
+    "ExternalAccountParent": ".external_account_parent",
+    "ExternalAccountParentPlatform": ".external_account_parent_platform",
+    "ExternalAccountPartnershipStatus": ".external_account_partnership_status",
+    "ExternalAccountPlatform": ".external_account_platform",
+    "ExternalAccountPost": ".external_account_post",
+    "ExternalAccountPostCallToAction": ".external_account_post_call_to_action",
+    "ExternalAccountPostRestrictionsItem": ".external_account_post_restrictions_item",
     "FeeMarkup": ".fee_markup",
     "FeeMarkupListItem": ".fee_markup_list_item",
     "FeeMarkupTypes": ".fee_markup_types",
@@ -3380,6 +3400,16 @@ __all__ = [
     "ExportResource",
     "ExportStatus",
     "ExposuresExperimentsRequestSubject",
+    "ExternalAccount",
+    "ExternalAccountLeadForm",
+    "ExternalAccountLeadFormFormType",
+    "ExternalAccountParent",
+    "ExternalAccountParentPlatform",
+    "ExternalAccountPartnershipStatus",
+    "ExternalAccountPlatform",
+    "ExternalAccountPost",
+    "ExternalAccountPostCallToAction",
+    "ExternalAccountPostRestrictionsItem",
     "FeeMarkup",
     "FeeMarkupListItem",
     "FeeMarkupTypes",

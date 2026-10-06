@@ -6,10 +6,10 @@ import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class CreateAdsRequestSocialAccountsItem(UniversalBaseModel):
+class UpdateAdsRequestExternalAccountsItem(UniversalBaseModel):
     id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Social account ID, prefixed `sacc_`.
+    External account ID, prefixed `sacc_`.
     """
 
     if IS_PYDANTIC_V2:

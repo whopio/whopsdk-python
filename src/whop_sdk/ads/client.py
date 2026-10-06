@@ -10,13 +10,13 @@ from .raw_client import AsyncRawAdsClient, RawAdsClient
 from .types.create_ads_request_call_to_action import CreateAdsRequestCallToAction
 from .types.create_ads_request_creatives_item import CreateAdsRequestCreativesItem
 from .types.create_ads_request_descriptions_item import CreateAdsRequestDescriptionsItem
+from .types.create_ads_request_external_accounts_item import CreateAdsRequestExternalAccountsItem
 from .types.create_ads_request_headlines_item import CreateAdsRequestHeadlinesItem
 from .types.create_ads_request_lead_form import CreateAdsRequestLeadForm
 from .types.create_ads_request_messaging_config import CreateAdsRequestMessagingConfig
 from .types.create_ads_request_music import CreateAdsRequestMusic
 from .types.create_ads_request_post_source import CreateAdsRequestPostSource
 from .types.create_ads_request_primary_texts_item import CreateAdsRequestPrimaryTextsItem
-from .types.create_ads_request_social_accounts_item import CreateAdsRequestSocialAccountsItem
 from .types.create_ads_request_translations import CreateAdsRequestTranslations
 from .types.delete_ads_response import DeleteAdsResponse
 from .types.duplicate_ads_response import DuplicateAdsResponse
@@ -29,13 +29,13 @@ from .types.retrieve_ads_request_attribution_model import RetrieveAdsRequestAttr
 from .types.update_ads_request_call_to_action import UpdateAdsRequestCallToAction
 from .types.update_ads_request_creatives_item import UpdateAdsRequestCreativesItem
 from .types.update_ads_request_descriptions_item import UpdateAdsRequestDescriptionsItem
+from .types.update_ads_request_external_accounts_item import UpdateAdsRequestExternalAccountsItem
 from .types.update_ads_request_headlines_item import UpdateAdsRequestHeadlinesItem
 from .types.update_ads_request_lead_form import UpdateAdsRequestLeadForm
 from .types.update_ads_request_messaging_config import UpdateAdsRequestMessagingConfig
 from .types.update_ads_request_music import UpdateAdsRequestMusic
 from .types.update_ads_request_post_source import UpdateAdsRequestPostSource
 from .types.update_ads_request_primary_texts_item import UpdateAdsRequestPrimaryTextsItem
-from .types.update_ads_request_social_accounts_item import UpdateAdsRequestSocialAccountsItem
 from .types.update_ads_request_translations import UpdateAdsRequestTranslations
 
 # this is used as the default value for optional parameters
@@ -156,7 +156,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-05-1",
+            "2026-10-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -202,6 +202,7 @@ class AdsClient:
         creatives: typing.Optional[typing.Sequence[CreateAdsRequestCreativesItem]] = OMIT,
         descriptions: typing.Optional[typing.Sequence[CreateAdsRequestDescriptionsItem]] = OMIT,
         existing_post_id: typing.Optional[str] = OMIT,
+        external_accounts: typing.Optional[typing.Sequence[CreateAdsRequestExternalAccountsItem]] = OMIT,
         headlines: typing.Optional[typing.Sequence[CreateAdsRequestHeadlinesItem]] = OMIT,
         lead_form: typing.Optional[CreateAdsRequestLeadForm] = OMIT,
         lead_form_id: typing.Optional[str] = OMIT,
@@ -210,7 +211,6 @@ class AdsClient:
         music: typing.Optional[CreateAdsRequestMusic] = OMIT,
         post_source: typing.Optional[CreateAdsRequestPostSource] = OMIT,
         primary_texts: typing.Optional[typing.Sequence[CreateAdsRequestPrimaryTextsItem]] = OMIT,
-        social_accounts: typing.Optional[typing.Sequence[CreateAdsRequestSocialAccountsItem]] = OMIT,
         title: typing.Optional[str] = OMIT,
         translations: typing.Optional[CreateAdsRequestTranslations] = OMIT,
         url: typing.Optional[str] = OMIT,
@@ -240,6 +240,9 @@ class AdsClient:
         existing_post_id : typing.Optional[str]
             Promote a post you already published instead of uploading creatives — a Facebook post or Instagram media id. Mutually exclusive with creatives. Pair with post_source.
 
+        external_accounts : typing.Optional[typing.Sequence[CreateAdsRequestExternalAccountsItem]]
+            The external accounts the ad runs under — a connected Facebook page and, optionally, an Instagram profile.
+
         headlines : typing.Optional[typing.Sequence[CreateAdsRequestHeadlinesItem]]
             The headline shown on the ad. Entries without a language are the ad's own copy; add one entry per other language on a Meta ad with `translations`.
 
@@ -263,9 +266,6 @@ class AdsClient:
 
         primary_texts : typing.Optional[typing.Sequence[CreateAdsRequestPrimaryTextsItem]]
             The primary text shown in the ad body. Entries without a language are the ad's own copy (several make text variations); add one entry per other language on a Meta ad with `translations`.
-
-        social_accounts : typing.Optional[typing.Sequence[CreateAdsRequestSocialAccountsItem]]
-            The social accounts the ad runs under — a connected Facebook page and, optionally, an Instagram profile.
 
         title : typing.Optional[str]
             The display name of the ad.
@@ -292,7 +292,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-05-1",
+            "2026-10-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -305,6 +305,7 @@ class AdsClient:
             creatives=creatives,
             descriptions=descriptions,
             existing_post_id=existing_post_id,
+            external_accounts=external_accounts,
             headlines=headlines,
             lead_form=lead_form,
             lead_form_id=lead_form_id,
@@ -313,7 +314,6 @@ class AdsClient:
             music=music,
             post_source=post_source,
             primary_texts=primary_texts,
-            social_accounts=social_accounts,
             title=title,
             translations=translations,
             url=url,
@@ -365,7 +365,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-05-1",
+            "2026-10-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -405,7 +405,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-05-1",
+            "2026-10-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -424,6 +424,7 @@ class AdsClient:
         creatives: typing.Optional[typing.Sequence[UpdateAdsRequestCreativesItem]] = OMIT,
         descriptions: typing.Optional[typing.Sequence[UpdateAdsRequestDescriptionsItem]] = OMIT,
         existing_post_id: typing.Optional[str] = OMIT,
+        external_accounts: typing.Optional[typing.Sequence[UpdateAdsRequestExternalAccountsItem]] = OMIT,
         headlines: typing.Optional[typing.Sequence[UpdateAdsRequestHeadlinesItem]] = OMIT,
         lead_form: typing.Optional[UpdateAdsRequestLeadForm] = OMIT,
         lead_form_id: typing.Optional[str] = OMIT,
@@ -432,7 +433,6 @@ class AdsClient:
         music: typing.Optional[UpdateAdsRequestMusic] = OMIT,
         post_source: typing.Optional[UpdateAdsRequestPostSource] = OMIT,
         primary_texts: typing.Optional[typing.Sequence[UpdateAdsRequestPrimaryTextsItem]] = OMIT,
-        social_accounts: typing.Optional[typing.Sequence[UpdateAdsRequestSocialAccountsItem]] = OMIT,
         title: typing.Optional[str] = OMIT,
         translations: typing.Optional[UpdateAdsRequestTranslations] = OMIT,
         url: typing.Optional[str] = OMIT,
@@ -459,6 +459,9 @@ class AdsClient:
         existing_post_id : typing.Optional[str]
             Promote a post you already published instead of uploading creatives — a Facebook post or Instagram media id. Mutually exclusive with creatives. Pair with post_source.
 
+        external_accounts : typing.Optional[typing.Sequence[UpdateAdsRequestExternalAccountsItem]]
+            The external accounts the ad runs under — a connected Facebook page and, optionally, an Instagram profile.
+
         headlines : typing.Optional[typing.Sequence[UpdateAdsRequestHeadlinesItem]]
             The headline shown on the ad. Entries without a language are the ad's own copy; add one entry per other language on a Meta ad with `translations`.
 
@@ -482,9 +485,6 @@ class AdsClient:
 
         primary_texts : typing.Optional[typing.Sequence[UpdateAdsRequestPrimaryTextsItem]]
             The primary text shown in the ad body. Entries without a language are the ad's own copy (several make text variations); add one entry per other language on a Meta ad with `translations`.
-
-        social_accounts : typing.Optional[typing.Sequence[UpdateAdsRequestSocialAccountsItem]]
-            The social accounts the ad runs under — a connected Facebook page and, optionally, an Instagram profile.
 
         title : typing.Optional[str]
             The display name of the ad.
@@ -511,7 +511,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-05-1",
+            "2026-10-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -525,6 +525,7 @@ class AdsClient:
             creatives=creatives,
             descriptions=descriptions,
             existing_post_id=existing_post_id,
+            external_accounts=external_accounts,
             headlines=headlines,
             lead_form=lead_form,
             lead_form_id=lead_form_id,
@@ -533,7 +534,6 @@ class AdsClient:
             music=music,
             post_source=post_source,
             primary_texts=primary_texts,
-            social_accounts=social_accounts,
             title=title,
             translations=translations,
             url=url,
@@ -581,7 +581,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-05-1",
+            "2026-10-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -620,7 +620,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-05-1",
+            "2026-10-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -653,7 +653,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-05-1",
+            "2026-10-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -781,7 +781,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-05-1",
+            "2026-10-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -834,6 +834,7 @@ class AsyncAdsClient:
         creatives: typing.Optional[typing.Sequence[CreateAdsRequestCreativesItem]] = OMIT,
         descriptions: typing.Optional[typing.Sequence[CreateAdsRequestDescriptionsItem]] = OMIT,
         existing_post_id: typing.Optional[str] = OMIT,
+        external_accounts: typing.Optional[typing.Sequence[CreateAdsRequestExternalAccountsItem]] = OMIT,
         headlines: typing.Optional[typing.Sequence[CreateAdsRequestHeadlinesItem]] = OMIT,
         lead_form: typing.Optional[CreateAdsRequestLeadForm] = OMIT,
         lead_form_id: typing.Optional[str] = OMIT,
@@ -842,7 +843,6 @@ class AsyncAdsClient:
         music: typing.Optional[CreateAdsRequestMusic] = OMIT,
         post_source: typing.Optional[CreateAdsRequestPostSource] = OMIT,
         primary_texts: typing.Optional[typing.Sequence[CreateAdsRequestPrimaryTextsItem]] = OMIT,
-        social_accounts: typing.Optional[typing.Sequence[CreateAdsRequestSocialAccountsItem]] = OMIT,
         title: typing.Optional[str] = OMIT,
         translations: typing.Optional[CreateAdsRequestTranslations] = OMIT,
         url: typing.Optional[str] = OMIT,
@@ -872,6 +872,9 @@ class AsyncAdsClient:
         existing_post_id : typing.Optional[str]
             Promote a post you already published instead of uploading creatives — a Facebook post or Instagram media id. Mutually exclusive with creatives. Pair with post_source.
 
+        external_accounts : typing.Optional[typing.Sequence[CreateAdsRequestExternalAccountsItem]]
+            The external accounts the ad runs under — a connected Facebook page and, optionally, an Instagram profile.
+
         headlines : typing.Optional[typing.Sequence[CreateAdsRequestHeadlinesItem]]
             The headline shown on the ad. Entries without a language are the ad's own copy; add one entry per other language on a Meta ad with `translations`.
 
@@ -895,9 +898,6 @@ class AsyncAdsClient:
 
         primary_texts : typing.Optional[typing.Sequence[CreateAdsRequestPrimaryTextsItem]]
             The primary text shown in the ad body. Entries without a language are the ad's own copy (several make text variations); add one entry per other language on a Meta ad with `translations`.
-
-        social_accounts : typing.Optional[typing.Sequence[CreateAdsRequestSocialAccountsItem]]
-            The social accounts the ad runs under — a connected Facebook page and, optionally, an Instagram profile.
 
         title : typing.Optional[str]
             The display name of the ad.
@@ -926,7 +926,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-05-1",
+            "2026-10-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -945,6 +945,7 @@ class AsyncAdsClient:
             creatives=creatives,
             descriptions=descriptions,
             existing_post_id=existing_post_id,
+            external_accounts=external_accounts,
             headlines=headlines,
             lead_form=lead_form,
             lead_form_id=lead_form_id,
@@ -953,7 +954,6 @@ class AsyncAdsClient:
             music=music,
             post_source=post_source,
             primary_texts=primary_texts,
-            social_accounts=social_accounts,
             title=title,
             translations=translations,
             url=url,
@@ -1007,7 +1007,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-05-1",
+            "2026-10-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1055,7 +1055,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-05-1",
+            "2026-10-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1080,6 +1080,7 @@ class AsyncAdsClient:
         creatives: typing.Optional[typing.Sequence[UpdateAdsRequestCreativesItem]] = OMIT,
         descriptions: typing.Optional[typing.Sequence[UpdateAdsRequestDescriptionsItem]] = OMIT,
         existing_post_id: typing.Optional[str] = OMIT,
+        external_accounts: typing.Optional[typing.Sequence[UpdateAdsRequestExternalAccountsItem]] = OMIT,
         headlines: typing.Optional[typing.Sequence[UpdateAdsRequestHeadlinesItem]] = OMIT,
         lead_form: typing.Optional[UpdateAdsRequestLeadForm] = OMIT,
         lead_form_id: typing.Optional[str] = OMIT,
@@ -1088,7 +1089,6 @@ class AsyncAdsClient:
         music: typing.Optional[UpdateAdsRequestMusic] = OMIT,
         post_source: typing.Optional[UpdateAdsRequestPostSource] = OMIT,
         primary_texts: typing.Optional[typing.Sequence[UpdateAdsRequestPrimaryTextsItem]] = OMIT,
-        social_accounts: typing.Optional[typing.Sequence[UpdateAdsRequestSocialAccountsItem]] = OMIT,
         title: typing.Optional[str] = OMIT,
         translations: typing.Optional[UpdateAdsRequestTranslations] = OMIT,
         url: typing.Optional[str] = OMIT,
@@ -1115,6 +1115,9 @@ class AsyncAdsClient:
         existing_post_id : typing.Optional[str]
             Promote a post you already published instead of uploading creatives — a Facebook post or Instagram media id. Mutually exclusive with creatives. Pair with post_source.
 
+        external_accounts : typing.Optional[typing.Sequence[UpdateAdsRequestExternalAccountsItem]]
+            The external accounts the ad runs under — a connected Facebook page and, optionally, an Instagram profile.
+
         headlines : typing.Optional[typing.Sequence[UpdateAdsRequestHeadlinesItem]]
             The headline shown on the ad. Entries without a language are the ad's own copy; add one entry per other language on a Meta ad with `translations`.
 
@@ -1138,9 +1141,6 @@ class AsyncAdsClient:
 
         primary_texts : typing.Optional[typing.Sequence[UpdateAdsRequestPrimaryTextsItem]]
             The primary text shown in the ad body. Entries without a language are the ad's own copy (several make text variations); add one entry per other language on a Meta ad with `translations`.
-
-        social_accounts : typing.Optional[typing.Sequence[UpdateAdsRequestSocialAccountsItem]]
-            The social accounts the ad runs under — a connected Facebook page and, optionally, an Instagram profile.
 
         title : typing.Optional[str]
             The display name of the ad.
@@ -1169,7 +1169,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-05-1",
+            "2026-10-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1189,6 +1189,7 @@ class AsyncAdsClient:
             creatives=creatives,
             descriptions=descriptions,
             existing_post_id=existing_post_id,
+            external_accounts=external_accounts,
             headlines=headlines,
             lead_form=lead_form,
             lead_form_id=lead_form_id,
@@ -1197,7 +1198,6 @@ class AsyncAdsClient:
             music=music,
             post_source=post_source,
             primary_texts=primary_texts,
-            social_accounts=social_accounts,
             title=title,
             translations=translations,
             url=url,
@@ -1247,7 +1247,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-05-1",
+            "2026-10-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1294,7 +1294,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-05-1",
+            "2026-10-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1335,7 +1335,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-05-1",
+            "2026-10-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
