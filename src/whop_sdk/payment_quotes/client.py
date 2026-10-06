@@ -98,7 +98,7 @@ class PaymentQuotesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-05",
+            "2026-10-05-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -144,7 +144,7 @@ class PaymentQuotesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-05",
+            "2026-10-05-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -240,7 +240,7 @@ class AsyncPaymentQuotesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-05",
+            "2026-10-05-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -294,7 +294,7 @@ class AsyncPaymentQuotesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-05",
+            "2026-10-05-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
