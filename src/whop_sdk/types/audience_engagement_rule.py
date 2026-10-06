@@ -16,8 +16,8 @@ from .audience_engagement_video_rule_event import AudienceEngagementVideoRuleEve
 class AudienceEngagementRule_FacebookPage(UniversalBaseModel):
     object: typing.Literal["facebook_page"] = "facebook_page"
     event: AudienceEngagementFacebookPageRuleEvent
+    external_account_id: str
     retention_days: int
-    social_account_id: str
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
@@ -32,8 +32,8 @@ class AudienceEngagementRule_FacebookPage(UniversalBaseModel):
 class AudienceEngagementRule_InstagramProfile(UniversalBaseModel):
     object: typing.Literal["instagram_profile"] = "instagram_profile"
     event: AudienceEngagementInstagramProfileRuleEvent
+    external_account_id: str
     retention_days: int
-    social_account_id: str
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
@@ -48,9 +48,9 @@ class AudienceEngagementRule_InstagramProfile(UniversalBaseModel):
 class AudienceEngagementRule_LeadForm(UniversalBaseModel):
     object: typing.Literal["lead_form"] = "lead_form"
     event: AudienceEngagementLeadFormRuleEvent
+    external_account_id: str
     platform_form_ids: typing.List[str]
     retention_days: int
-    social_account_id: str
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
@@ -65,9 +65,9 @@ class AudienceEngagementRule_LeadForm(UniversalBaseModel):
 class AudienceEngagementRule_Video(UniversalBaseModel):
     object: typing.Literal["video"] = "video"
     event: AudienceEngagementVideoRuleEvent
+    external_account_id: str
     platform_video_ids: typing.List[str]
     retention_days: int
-    social_account_id: str
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

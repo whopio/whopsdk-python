@@ -52,6 +52,7 @@ class PostAdUpdatedPayloadData(UniversalBaseModel):
     The post you pointed this ad at, when it promotes one you already published — a Facebook post, Instagram media, or TikTok video ID. `null` when the ad uses uploaded creatives.
     """
 
+    external_accounts: typing.List[AdEntityReference]
     headlines: typing.List[AdText]
     id: str = pydantic.Field()
     """
@@ -105,7 +106,6 @@ class PostAdUpdatedPayloadData(UniversalBaseModel):
     """
 
     primary_texts: typing.List[AdText]
-    social_accounts: typing.List[AdEntityReference]
     status: PostAdUpdatedPayloadDataStatus = pydantic.Field()
     """
     Whether the ad is enabled. `active` and `paused` are set by you; `in_review` and `rejected` come from ad review.

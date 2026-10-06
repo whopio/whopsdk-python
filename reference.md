@@ -5028,6 +5028,14 @@ client.ads.create()
 <dl>
 <dd>
 
+**external_accounts:** `typing.Optional[typing.List[CreateAdsRequestExternalAccountsItem]]` — The external accounts the ad runs under — a connected Facebook page and, optionally, an Instagram profile.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **headlines:** `typing.Optional[typing.List[CreateAdsRequestHeadlinesItem]]` — The headline shown on the ad. Entries without a language are the ad's own copy; add one entry per other language on a Meta ad with `translations`.
     
 </dd>
@@ -5085,14 +5093,6 @@ client.ads.create()
 <dd>
 
 **primary_texts:** `typing.Optional[typing.List[CreateAdsRequestPrimaryTextsItem]]` — The primary text shown in the ad body. Entries without a language are the ad's own copy (several make text variations); add one entry per other language on a Meta ad with `translations`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**social_accounts:** `typing.Optional[typing.List[CreateAdsRequestSocialAccountsItem]]` — The social accounts the ad runs under — a connected Facebook page and, optionally, an Instagram profile.
     
 </dd>
 </dl>
@@ -5415,6 +5415,14 @@ client.ads.update(
 <dl>
 <dd>
 
+**external_accounts:** `typing.Optional[typing.List[UpdateAdsRequestExternalAccountsItem]]` — The external accounts the ad runs under — a connected Facebook page and, optionally, an Instagram profile.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **headlines:** `typing.Optional[typing.List[UpdateAdsRequestHeadlinesItem]]` — The headline shown on the ad. Entries without a language are the ad's own copy; add one entry per other language on a Meta ad with `translations`.
     
 </dd>
@@ -5472,14 +5480,6 @@ client.ads.update(
 <dd>
 
 **primary_texts:** `typing.Optional[typing.List[UpdateAdsRequestPrimaryTextsItem]]` — The primary text shown in the ad body. Entries without a language are the ad's own copy (several make text variations); add one entry per other language on a Meta ad with `translations`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**social_accounts:** `typing.Optional[typing.List[UpdateAdsRequestSocialAccountsItem]]` — The social accounts the ad runs under — a connected Facebook page and, optionally, an Instagram profile.
     
 </dd>
 </dl>
@@ -9092,8 +9092,8 @@ client.audiences.create(
         include=[
             AudienceEngagementRule_FacebookPage(
                 event="engaged",
+                external_account_id="sacc_xxxxxxxxxxxxxx",
                 retention_days=30,
-                social_account_id="sacc_xxxxxxxxxxxxxx",
             )
         ],
         platform="meta",
@@ -20653,6 +20653,515 @@ client.exports.retrieve(
 <dd>
 
 **id:** `str` — The export ID, prefixed `exprt_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## External Accounts
+<details><summary><code>client.external_accounts.<a href="src/whop_sdk/external_accounts/client.py">list</a>(...) -> ListExternalAccountsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the external accounts linked to an account or user.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.external_accounts.list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — The Account that the external accounts are connected to. Provide either this or user_id.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_id:** `typing.Optional[str]` — The User that the external accounts are connected to. Provide either this or account_id.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**platform:** `typing.Optional[ListExternalAccountsRequestPlatform]` — Only return external accounts for the platform that is specified.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**trust_level:** `typing.Optional[ListExternalAccountsRequestTrustLevel]` — Only return external accounts linked with this trust level, such as `oauth` for accounts connected through OAuth.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**verified:** `typing.Optional[bool]` — Only return external accounts that are verified on the platform.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**scopes:** `typing.Optional[typing.Union[ListExternalAccountsRequestScopesItem, typing.Sequence[ListExternalAccountsRequestScopesItem]]]` — Only return external accounts that have these scopes.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[ListExternalAccountsRequestOrder]` — The field to sort external accounts by.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**direction:** `typing.Optional[ListExternalAccountsRequestDirection]` — Sort direction.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.external_accounts.<a href="src/whop_sdk/external_accounts/client.py">create</a>(...) -> ExternalAccount</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates or returns a Whop-managed Facebook page or TikTok account for an account.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.external_accounts.create(
+    platform="facebook",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**platform:** `CreateExternalAccountsRequestPlatform` — The platform to create the external account on. `facebook` requires the account's `banner_image`, `logo`, and `description`, and `tiktok` requires its `logo`; configure them with [Update Account](/api-reference/beta/accounts/update-account). The account is returned before the platform has created it — its `id` is usable right away, and the rest of the profile fills in once provisioning finishes.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — The Account (biz_ identifier) to create the external account for. An account-scoped API key may omit this to default to its own account. Account API keys cannot update their own account's branding through Update Account; use a user-authenticated path.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.external_accounts.<a href="src/whop_sdk/external_accounts/client.py">connect</a>(...) -> ConnectExternalAccountsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Starts an OAuth connection flow and returns an authorize_url where the user can connect an external account. LinkedIn supports personal profiles only, with scopes omitted. TikTok connects the authenticated user’s profile when scopes are omitted or company advertising assets with advertise. Meta Business and Snapchat support advertising connections only and require advertise. Personal profile connections must be completed in a browser signed in as the initiating Whop user.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.external_accounts.connect(
+    platform="meta_business",
+    redirect_url="https://example.com/settings/social-accounts",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**platform:** `ConnectExternalAccountsRequestPlatform` — The platform to connect the external account on. Use `meta_business` to connect Meta Business assets, which is how Facebook Pages and Instagram accounts are connected — there is no separate `instagram` value. Use `tiktok` for TikTok accounts, `snapchat` for Snapchat Public Profiles, `linkedin` to connect the authenticated user’s LinkedIn profile, or `youtube` to connect their YouTube channel.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**redirect_url:** `str` — Where to send the user once they finish connecting their accounts. Any `http` or `https` URL. If the connection fails, the user is redirected with a `social_account_error` query param.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — The Account (biz_ identifier) to connect the external account for. An account-scoped API key may omit this to default to its own account. Omit for user profile connections.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**scopes:** `typing.Optional[typing.List[ConnectExternalAccountsRequestScopesItem]]` — The connection purpose. For `meta_business` and `snapchat`, `advertise` is required and connects company advertising assets. For `linkedin` and `youtube`, omit scopes to connect the authenticated user’s profile; advertising is not supported. For `tiktok`, omit scopes to connect the authenticated user’s profile, or pass `advertise` to connect company advertising assets. Profile connections still request the platform permissions needed to read the profile.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.external_accounts.<a href="src/whop_sdk/external_accounts/client.py">delete</a>(...) -> DeleteExternalAccountsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Disconnects an external account from an account or user without deleting the underlying platform account.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.external_accounts.delete(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the external account to disconnect.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — The Account that the external account is connected to. Provide either this or user_id.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_id:** `typing.Optional[str]` — The User that the external account is connected to. Provide either this or account_id.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.external_accounts.<a href="src/whop_sdk/external_accounts/client.py">refresh</a>(...) -> ExternalAccount</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Refreshes the state of an external account. Use it to clear an `error` that has been resolved.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.external_accounts.refresh(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The external account (a sacc_ identifier) to refresh.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — The Account (biz_ identifier) the external account is connected to. An account-scoped API key may omit this to default to its own account.
     
 </dd>
 </dl>
@@ -37745,7 +38254,7 @@ client.shipments.update(
 <dl>
 <dd>
 
-Lists the social accounts linked to an account or user.
+Deprecated compatibility endpoint. List external accounts with `GET /external_accounts` instead.
 </dd>
 </dl>
 </dd>
@@ -37784,7 +38293,7 @@ client.social_accounts.list()
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[str]` — The Account that the social accounts are connected to. Provide either this or user_id.
+**account_id:** `typing.Optional[str]` — The Account that the external accounts are connected to. Provide either this or user_id.
     
 </dd>
 </dl>
@@ -37792,7 +38301,7 @@ client.social_accounts.list()
 <dl>
 <dd>
 
-**user_id:** `typing.Optional[str]` — The User that the social accounts are connected to. Provide either this or account_id.
+**user_id:** `typing.Optional[str]` — The User that the external accounts are connected to. Provide either this or account_id.
     
 </dd>
 </dl>
@@ -37800,7 +38309,7 @@ client.social_accounts.list()
 <dl>
 <dd>
 
-**platform:** `typing.Optional[ListSocialAccountsRequestPlatform]` — Only return social accounts for the platform that is specified.
+**platform:** `typing.Optional[ListSocialAccountsRequestPlatform]` — Only return external accounts for the platform that is specified.
     
 </dd>
 </dl>
@@ -37808,7 +38317,7 @@ client.social_accounts.list()
 <dl>
 <dd>
 
-**trust_level:** `typing.Optional[ListSocialAccountsRequestTrustLevel]` — Only return social accounts linked with this trust level, such as `oauth` for accounts connected through OAuth.
+**trust_level:** `typing.Optional[ListSocialAccountsRequestTrustLevel]` — Only return external accounts linked with this trust level, such as `oauth` for accounts connected through OAuth.
     
 </dd>
 </dl>
@@ -37816,7 +38325,7 @@ client.social_accounts.list()
 <dl>
 <dd>
 
-**verified:** `typing.Optional[bool]` — Only return social accounts that are verified on the platform.
+**verified:** `typing.Optional[bool]` — Only return external accounts that are verified on the platform.
     
 </dd>
 </dl>
@@ -37824,7 +38333,7 @@ client.social_accounts.list()
 <dl>
 <dd>
 
-**scopes:** `typing.Optional[typing.Union[ListSocialAccountsRequestScopesItem, typing.Sequence[ListSocialAccountsRequestScopesItem]]]` — Only return social accounts that have these scopes.
+**scopes:** `typing.Optional[typing.Union[ListSocialAccountsRequestScopesItem, typing.Sequence[ListSocialAccountsRequestScopesItem]]]` — Only return external accounts that have these scopes.
     
 </dd>
 </dl>
@@ -37864,7 +38373,7 @@ client.social_accounts.list()
 <dl>
 <dd>
 
-**order:** `typing.Optional[ListSocialAccountsRequestOrder]` — The field to sort social accounts by.
+**order:** `typing.Optional[ListSocialAccountsRequestOrder]` — The field to sort external accounts by.
     
 </dd>
 </dl>
@@ -37904,7 +38413,7 @@ client.social_accounts.list()
 <dl>
 <dd>
 
-Creates or returns a Whop-managed Facebook page or TikTok account for an account.
+Deprecated compatibility endpoint. Create external accounts with `POST /external_accounts` instead.
 </dd>
 </dl>
 </dd>
@@ -37945,7 +38454,7 @@ client.social_accounts.create(
 <dl>
 <dd>
 
-**platform:** `CreateSocialAccountsRequestPlatform` — The platform to create the social account on. `facebook` requires the account's `banner_image`, `logo`, and `description`, and `tiktok` requires its `logo`; configure them with [Update Account](/api-reference/beta/accounts/update-account). The account is returned before the platform has created it — its `id` is usable right away, and the rest of the profile fills in once provisioning finishes.
+**platform:** `CreateSocialAccountsRequestPlatform` — The platform to create the external account on. `facebook` requires the account's `banner_image`, `logo`, and `description`, and `tiktok` requires its `logo`; configure them with [Update Account](/api-reference/beta/accounts/update-account). The account is returned before the platform has created it — its `id` is usable right away, and the rest of the profile fills in once provisioning finishes.
     
 </dd>
 </dl>
@@ -37953,7 +38462,7 @@ client.social_accounts.create(
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[str]` — The Account (biz_ identifier) to create the social account for. An account-scoped API key may omit this to default to its own account. Account API keys cannot update their own account's branding through Update Account; use a user-authenticated path.
+**account_id:** `typing.Optional[str]` — The Account (biz_ identifier) to create the external account for. An account-scoped API key may omit this to default to its own account. Account API keys cannot update their own account's branding through Update Account; use a user-authenticated path.
     
 </dd>
 </dl>
@@ -37985,7 +38494,7 @@ client.social_accounts.create(
 <dl>
 <dd>
 
-Starts an OAuth connection flow and returns an authorize_url where the user can connect a social account. LinkedIn supports personal profiles only, with scopes omitted. TikTok connects the authenticated user’s profile when scopes are omitted or company advertising assets with advertise. Meta Business and Snapchat support advertising connections only and require advertise. Personal profile connections must be completed in a browser signed in as the initiating Whop user.
+Deprecated compatibility endpoint. Connect external accounts with `POST /external_accounts/connect` instead.
 </dd>
 </dl>
 </dd>
@@ -38027,7 +38536,7 @@ client.social_accounts.connect(
 <dl>
 <dd>
 
-**platform:** `ConnectSocialAccountsRequestPlatform` — The platform to connect the social account on. Use `meta_business` to connect Meta Business assets, which is how Facebook Pages and Instagram accounts are connected — there is no separate `instagram` value. Use `tiktok` for TikTok accounts, `snapchat` for Snapchat Public Profiles, `linkedin` to connect the authenticated user’s LinkedIn profile, or `youtube` to connect their YouTube channel.
+**platform:** `ConnectSocialAccountsRequestPlatform` — The platform to connect the external account on. Use `meta_business` to connect Meta Business assets, which is how Facebook Pages and Instagram accounts are connected — there is no separate `instagram` value. Use `tiktok` for TikTok accounts, `snapchat` for Snapchat Public Profiles, `linkedin` to connect the authenticated user’s LinkedIn profile, or `youtube` to connect their YouTube channel.
     
 </dd>
 </dl>
@@ -38043,7 +38552,7 @@ client.social_accounts.connect(
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[str]` — The Account (biz_ identifier) to connect the social account for. An account-scoped API key may omit this to default to its own account. Omit for user profile connections.
+**account_id:** `typing.Optional[str]` — The Account (biz_ identifier) to connect the external account for. An account-scoped API key may omit this to default to its own account. Omit for user profile connections.
     
 </dd>
 </dl>
@@ -38083,7 +38592,7 @@ client.social_accounts.connect(
 <dl>
 <dd>
 
-Disconnects a social account from an account or user without deleting the underlying platform account.
+Deprecated compatibility endpoint. Disconnect external accounts with `DELETE /external_accounts/{id}` instead.
 </dd>
 </dl>
 </dd>
@@ -38132,7 +38641,7 @@ client.social_accounts.delete(
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[str]` — The Account that the social account is connected to. Provide either this or user_id.
+**account_id:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -38140,7 +38649,7 @@ client.social_accounts.delete(
 <dl>
 <dd>
 
-**user_id:** `typing.Optional[str]` — The User that the social account is connected to. Provide either this or account_id.
+**user_id:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -38172,7 +38681,7 @@ client.social_accounts.delete(
 <dl>
 <dd>
 
-Lists the active lead (instant) forms that already exist on a connected Facebook page, so an ad can reuse one as its `lead_gen_form_id` instead of authoring a new form. Every active form comes back in a single response — the list is not paginated.
+Deprecated compatibility endpoint. List lead forms with `GET /external_accounts/{id}/lead_forms` instead.
 </dd>
 </dl>
 </dd>
@@ -38222,7 +38731,7 @@ client.social_accounts.lead_forms(
 <dl>
 <dd>
 
-**account_id:** `str` — The Account (a biz_ identifier) the social account is connected to.
+**account_id:** `str` 
     
 </dd>
 </dl>
@@ -38254,7 +38763,7 @@ client.social_accounts.lead_forms(
 <dl>
 <dd>
 
-Lists the creators an Instagram account runs partnership ads with, and where each creator's permission stands.
+Deprecated compatibility endpoint. List partners with `GET /external_accounts/{external_account_id}/partners` instead.
 </dd>
 </dl>
 </dd>
@@ -38295,7 +38804,7 @@ client.social_accounts.partners(
 <dl>
 <dd>
 
-**id:** `str` — The Instagram account (a sacc_ identifier) the partners run partnership ads with.
+**id:** `str` — The brand's Instagram social account (a sacc_ identifier).
     
 </dd>
 </dl>
@@ -38351,7 +38860,7 @@ client.social_accounts.partners(
 <dl>
 <dd>
 
-Invites an Instagram creator to run partnership ads with an Instagram account. The creator approves the invitation in the Instagram app, and `partnership_status` stays `pending` until they do; [refresh](/api-reference/beta/social-accounts/refresh) the partner to pick up their answer.
+Deprecated compatibility endpoint. Add partners with `POST /external_accounts/{external_account_id}/partners` instead.
 </dd>
 </dl>
 </dd>
@@ -38393,7 +38902,7 @@ client.social_accounts.add_partner(
 <dl>
 <dd>
 
-**id:** `str` — The Instagram account (a sacc_ identifier) the partners run partnership ads with.
+**id:** `str` — The brand's Instagram social account (a sacc_ identifier).
     
 </dd>
 </dl>
@@ -38441,7 +38950,7 @@ client.social_accounts.add_partner(
 <dl>
 <dd>
 
-Revokes a creator's permission to run partnership ads with an Instagram account. Every account that advertises as the Instagram account loses the partner, since the permission belongs to the Instagram account.
+Deprecated compatibility endpoint. Remove partners with `DELETE /external_accounts/{external_account_id}/partners/{id}` instead.
 </dd>
 </dl>
 </dd>
@@ -38483,7 +38992,7 @@ client.social_accounts.remove_partner(
 <dl>
 <dd>
 
-**id:** `str` — The Instagram account (a sacc_ identifier) the partner runs partnership ads with.
+**id:** `str` — The brand's Instagram social account (a sacc_ identifier).
     
 </dd>
 </dl>
@@ -38531,7 +39040,7 @@ client.social_accounts.remove_partner(
 <dl>
 <dd>
 
-Lists the existing posts of a connected Facebook page, Instagram account, or TikTok account.
+Deprecated compatibility endpoint. List posts with `GET /external_accounts/{id}/posts` instead.
 </dd>
 </dl>
 </dd>
@@ -38581,7 +39090,7 @@ client.social_accounts.posts(
 <dl>
 <dd>
 
-**account_id:** `str` — The Account (a biz_ identifier) the social account is connected to.
+**account_id:** `str` 
     
 </dd>
 </dl>
@@ -38589,7 +39098,7 @@ client.social_accounts.posts(
 <dl>
 <dd>
 
-**post_id:** `typing.Optional[str]` — Return only the single post with this platform id, instead of the full list.
+**post_id:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -38637,7 +39146,7 @@ client.social_accounts.posts(
 <dl>
 <dd>
 
-Refreshes the state of a social account. Use it to clear an `error` that has been resolved.
+Deprecated compatibility endpoint. Refresh external accounts with `POST /external_accounts/{id}/refresh` instead.
 </dd>
 </dl>
 </dd>
@@ -38686,7 +39195,7 @@ client.social_accounts.refresh(
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[str]` — The Account (biz_ identifier) the social account is connected to. An account-scoped API key may omit this to default to its own account.
+**account_id:** `typing.Optional[str]` — The Account (biz_ identifier) the external account is connected to. An account-scoped API key may omit this to default to its own account.
     
 </dd>
 </dl>
@@ -47226,6 +47735,474 @@ client.bounties.submissions.retrieve(
 <dd>
 
 **id:** `str` — The submission to retrieve (`btys_` tag).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## ExternalAccounts Partners
+<details><summary><code>client.external_accounts.partners.<a href="src/whop_sdk/external_accounts/partners/client.py">list</a>(...) -> ListPartnersResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the creators an Instagram account runs partnership ads with, and where each creator's permission stands.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.external_accounts.partners.list(
+    external_account_id="external_account_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**external_account_id:** `str` — The Instagram account (a sacc_ identifier) the partners run partnership ads with.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — The Account (biz_ identifier) that advertises as the Instagram account. An account-scoped API key may omit this to default to its own account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.external_accounts.partners.<a href="src/whop_sdk/external_accounts/partners/client.py">create</a>(...) -> ExternalAccount</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Invites an Instagram creator to run partnership ads with an Instagram account. The creator approves the invitation in the Instagram app, and `partnership_status` stays `pending` until they do; [refresh](/api-reference/beta/external-accounts/refresh) the partner to pick up their answer.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.external_accounts.partners.create(
+    external_account_id="external_account_id",
+    username="@luverahealth",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**external_account_id:** `str` — The Instagram account (a sacc_ identifier) the partners run partnership ads with.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**username:** `str` — The creator's Instagram username, with or without the leading `@`. The creator needs a professional (Business or Creator) Instagram account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — The Account (biz_ identifier) that advertises as the Instagram account. An account-scoped API key may omit this to default to its own account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.external_accounts.partners.<a href="src/whop_sdk/external_accounts/partners/client.py">delete</a>(...) -> DeletePartnersResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Revokes a creator's permission to run partnership ads with an Instagram account. Every account that advertises as the Instagram account loses the partner, since the permission belongs to the Instagram account.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.external_accounts.partners.delete(
+    external_account_id="external_account_id",
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**external_account_id:** `str` — The Instagram account (a sacc_ identifier) the partner runs partnership ads with.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**id:** `str` — The partner creator's external account (a sacc_ identifier).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — The Account (biz_ identifier) that advertises as the Instagram account. An account-scoped API key may omit this to default to its own account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## ExternalAccounts LeadForms
+<details><summary><code>client.external_accounts.lead_forms.<a href="src/whop_sdk/external_accounts/lead_forms/client.py">list</a>(...) -> ListLeadFormsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the active lead (instant) forms that already exist on a connected Facebook page, so an ad can reuse one as its `lead_gen_form_id` instead of authoring a new form. Every active form comes back in a single response — the list is not paginated.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.external_accounts.lead_forms.list(
+    id="id",
+    account_id="account_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The external account (a sacc_ identifier) whose lead forms to list.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `str` — The Account (a biz_ identifier) the external account is connected to.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## ExternalAccounts Posts
+<details><summary><code>client.external_accounts.posts.<a href="src/whop_sdk/external_accounts/posts/client.py">list</a>(...) -> ListPostsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the existing posts of a connected Facebook page, Instagram account, or TikTok account.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.external_accounts.posts.list(
+    id="id",
+    account_id="account_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The external account (a sacc_ identifier) whose posts to list.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `str` — The Account (a biz_ identifier) the external account is connected to.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**post_id:** `typing.Optional[str]` — Return only the single post with this platform id, instead of the full list.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>

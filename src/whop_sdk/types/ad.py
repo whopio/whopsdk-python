@@ -168,6 +168,7 @@ class Ad(UniversalBaseModel):
     The post you pointed this ad at, when it promotes one you already published — a Facebook post, Instagram media, or TikTok video ID. `null` when the ad uses uploaded creatives.
     """
 
+    external_accounts: typing.List[AdEntityReference]
     frequency: typing.Optional[float] = pydantic.Field(default=None)
     """
     Platform-reported impressions divided by reach.
@@ -291,7 +292,6 @@ class Ad(UniversalBaseModel):
     Whop pixel-attributed schedule events, last-click.
     """
 
-    social_accounts: typing.List[AdEntityReference]
     spend: float = pydantic.Field()
     """
     The amount charged, in spend_currency.

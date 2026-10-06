@@ -7,10 +7,7 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class ConnectSocialAccountsResponse(UniversalBaseModel):
-    authorize_url: str = pydantic.Field()
-    """
-    The OAuth authorization URL to redirect the user to.
-    """
+    authorize_url: str
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

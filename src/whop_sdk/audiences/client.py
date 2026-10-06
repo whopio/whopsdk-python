@@ -83,7 +83,7 @@ class AudiencesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-05-1",
+            "2026-10-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -178,7 +178,7 @@ class AudiencesClient:
         from whop_sdk.audiences import CreateAudiencesRequestEngagement
 
         client = Whop(
-            "2026-10-05-1",
+            "2026-10-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -188,8 +188,8 @@ class AudiencesClient:
                 include=[
                     AudienceEngagementRule_FacebookPage(
                         event="engaged",
+                        external_account_id="sacc_xxxxxxxxxxxxxx",
                         retention_days=30,
-                        social_account_id="sacc_xxxxxxxxxxxxxx",
                     )
                 ],
                 platform="meta",
@@ -237,7 +237,7 @@ class AudiencesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-05-1",
+            "2026-10-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -283,7 +283,7 @@ class AudiencesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-05-1",
+            "2026-10-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -319,7 +319,7 @@ class AudiencesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-05-1",
+            "2026-10-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -396,7 +396,7 @@ class AsyncAudiencesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-05-1",
+            "2026-10-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -500,7 +500,7 @@ class AsyncAudiencesClient:
         from whop_sdk.audiences import CreateAudiencesRequestEngagement
 
         client = AsyncWhop(
-            "2026-10-05-1",
+            "2026-10-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -513,8 +513,8 @@ class AsyncAudiencesClient:
                     include=[
                         AudienceEngagementRule_FacebookPage(
                             event="engaged",
+                            external_account_id="sacc_xxxxxxxxxxxxxx",
                             retention_days=30,
-                            social_account_id="sacc_xxxxxxxxxxxxxx",
                         )
                     ],
                     platform="meta",
@@ -569,7 +569,7 @@ class AsyncAudiencesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-05-1",
+            "2026-10-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -623,7 +623,7 @@ class AsyncAudiencesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-05-1",
+            "2026-10-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -669,7 +669,7 @@ class AsyncAudiencesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-05-1",
+            "2026-10-06",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

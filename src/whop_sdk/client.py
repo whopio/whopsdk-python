@@ -50,6 +50,7 @@ if typing.TYPE_CHECKING:
     from .experiences.client import AsyncExperiencesClient, ExperiencesClient
     from .experiments.client import AsyncExperimentsClient, ExperimentsClient
     from .exports.client import AsyncExportsClient, ExportsClient
+    from .external_accounts.client import AsyncExternalAccountsClient, ExternalAccountsClient
     from .fee_markups.client import AsyncFeeMarkupsClient, FeeMarkupsClient
     from .files.client import AsyncFilesClient, FilesClient
     from .financial_activity.client import AsyncFinancialActivityClient, FinancialActivityClient
@@ -149,7 +150,7 @@ class Whop:
     from whop_sdk import Whop
 
     client = Whop(
-        "2026-10-05-1",
+        "2026-10-06",
         idempotency_key="YOUR_IDEMPOTENCY_KEY",
         token="YOUR_TOKEN",
     )
@@ -159,7 +160,7 @@ class Whop:
         self,
         *,
         environment: WhopEnvironment = WhopEnvironment.PRODUCTION,
-        api_version_date: typing.Optional[str] = "2026-10-05-1",
+        api_version_date: typing.Optional[str] = "2026-10-06",
         idempotency_key: typing.Optional[str] = None,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         headers: typing.Optional[typing.Dict[str, str]] = None,
@@ -230,6 +231,7 @@ class Whop:
         self._experiences: typing.Optional[ExperiencesClient] = None
         self._experiments: typing.Optional[ExperimentsClient] = None
         self._exports: typing.Optional[ExportsClient] = None
+        self._external_accounts: typing.Optional[ExternalAccountsClient] = None
         self._fee_markups: typing.Optional[FeeMarkupsClient] = None
         self._files: typing.Optional[FilesClient] = None
         self._financial_activity: typing.Optional[FinancialActivityClient] = None
@@ -600,6 +602,14 @@ class Whop:
 
             self._exports = ExportsClient(client_wrapper=self._client_wrapper)
         return self._exports
+
+    @property
+    def external_accounts(self):
+        if self._external_accounts is None:
+            from .external_accounts.client import ExternalAccountsClient  # noqa: E402
+
+            self._external_accounts = ExternalAccountsClient(client_wrapper=self._client_wrapper)
+        return self._external_accounts
 
     @property
     def fee_markups(self):
@@ -1070,7 +1080,7 @@ class AsyncWhop:
     from whop_sdk import AsyncWhop
 
     client = AsyncWhop(
-        "2026-10-05-1",
+        "2026-10-06",
         idempotency_key="YOUR_IDEMPOTENCY_KEY",
         token="YOUR_TOKEN",
     )
@@ -1080,7 +1090,7 @@ class AsyncWhop:
         self,
         *,
         environment: WhopEnvironment = WhopEnvironment.PRODUCTION,
-        api_version_date: typing.Optional[str] = "2026-10-05-1",
+        api_version_date: typing.Optional[str] = "2026-10-06",
         idempotency_key: typing.Optional[str] = None,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         headers: typing.Optional[typing.Dict[str, str]] = None,
@@ -1151,6 +1161,7 @@ class AsyncWhop:
         self._experiences: typing.Optional[AsyncExperiencesClient] = None
         self._experiments: typing.Optional[AsyncExperimentsClient] = None
         self._exports: typing.Optional[AsyncExportsClient] = None
+        self._external_accounts: typing.Optional[AsyncExternalAccountsClient] = None
         self._fee_markups: typing.Optional[AsyncFeeMarkupsClient] = None
         self._files: typing.Optional[AsyncFilesClient] = None
         self._financial_activity: typing.Optional[AsyncFinancialActivityClient] = None
@@ -1521,6 +1532,14 @@ class AsyncWhop:
 
             self._exports = AsyncExportsClient(client_wrapper=self._client_wrapper)
         return self._exports
+
+    @property
+    def external_accounts(self):
+        if self._external_accounts is None:
+            from .external_accounts.client import AsyncExternalAccountsClient  # noqa: E402
+
+            self._external_accounts = AsyncExternalAccountsClient(client_wrapper=self._client_wrapper)
+        return self._external_accounts
 
     @property
     def fee_markups(self):

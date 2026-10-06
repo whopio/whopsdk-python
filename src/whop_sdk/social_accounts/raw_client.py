@@ -11,12 +11,7 @@ from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
-from ..errors.bad_request_error import BadRequestError
 from ..errors.conflict_error import ConflictError
-from ..errors.forbidden_error import ForbiddenError
-from ..errors.not_found_error import NotFoundError
-from ..errors.too_many_requests_error import TooManyRequestsError
-from ..errors.unauthorized_error import UnauthorizedError
 from ..types.social_account import SocialAccount
 from ..types.social_account_post import SocialAccountPost
 from ..types.v1error_response import V1ErrorResponse
@@ -65,27 +60,27 @@ class RawSocialAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[SocialAccount, ListSocialAccountsResponse]:
         """
-        Lists the social accounts linked to an account or user.
+        Deprecated compatibility endpoint. List external accounts with `GET /external_accounts` instead.
 
         Parameters
         ----------
         account_id : typing.Optional[str]
-            The Account that the social accounts are connected to. Provide either this or user_id.
+            The Account that the external accounts are connected to. Provide either this or user_id.
 
         user_id : typing.Optional[str]
-            The User that the social accounts are connected to. Provide either this or account_id.
+            The User that the external accounts are connected to. Provide either this or account_id.
 
         platform : typing.Optional[ListSocialAccountsRequestPlatform]
-            Only return social accounts for the platform that is specified.
+            Only return external accounts for the platform that is specified.
 
         trust_level : typing.Optional[ListSocialAccountsRequestTrustLevel]
-            Only return social accounts linked with this trust level, such as `oauth` for accounts connected through OAuth.
+            Only return external accounts linked with this trust level, such as `oauth` for accounts connected through OAuth.
 
         verified : typing.Optional[bool]
-            Only return social accounts that are verified on the platform.
+            Only return external accounts that are verified on the platform.
 
         scopes : typing.Optional[typing.Union[ListSocialAccountsRequestScopesItem, typing.Sequence[ListSocialAccountsRequestScopesItem]]]
-            Only return social accounts that have these scopes.
+            Only return external accounts that have these scopes.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -100,7 +95,7 @@ class RawSocialAccountsClient:
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         order : typing.Optional[ListSocialAccountsRequestOrder]
-            The field to sort social accounts by.
+            The field to sort external accounts by.
 
         direction : typing.Optional[ListSocialAccountsRequestDirection]
             Sort direction.
@@ -111,7 +106,7 @@ class RawSocialAccountsClient:
         Returns
         -------
         SyncPager[SocialAccount, ListSocialAccountsResponse]
-            filtered to accounts holding the requested scope
+            social accounts listed through the deprecated path
         """
         _response = self._client_wrapper.httpx_client.request(
             "social_accounts",
@@ -164,28 +159,6 @@ class RawSocialAccountsClient:
                         request_options=request_options,
                     )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -203,15 +176,15 @@ class RawSocialAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[SocialAccount]:
         """
-        Creates or returns a Whop-managed Facebook page or TikTok account for an account.
+        Deprecated compatibility endpoint. Create external accounts with `POST /external_accounts` instead.
 
         Parameters
         ----------
         platform : CreateSocialAccountsRequestPlatform
-            The platform to create the social account on. `facebook` requires the account's `banner_image`, `logo`, and `description`, and `tiktok` requires its `logo`; configure them with [Update Account](/api-reference/beta/accounts/update-account). The account is returned before the platform has created it — its `id` is usable right away, and the rest of the profile fills in once provisioning finishes.
+            The platform to create the external account on. `facebook` requires the account's `banner_image`, `logo`, and `description`, and `tiktok` requires its `logo`; configure them with [Update Account](/api-reference/beta/accounts/update-account). The account is returned before the platform has created it — its `id` is usable right away, and the rest of the profile fills in once provisioning finishes.
 
         account_id : typing.Optional[str]
-            The Account (biz_ identifier) to create the social account for. An account-scoped API key may omit this to default to its own account. Account API keys cannot update their own account's branding through Update Account; use a user-authenticated path.
+            The Account (biz_ identifier) to create the external account for. An account-scoped API key may omit this to default to its own account. Account API keys cannot update their own account's branding through Update Account; use a user-authenticated path.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -219,7 +192,7 @@ class RawSocialAccountsClient:
         Returns
         -------
         HttpResponse[SocialAccount]
-            social account created
+            social account created through the deprecated path
         """
         _response = self._client_wrapper.httpx_client.request(
             "social_accounts",
@@ -245,28 +218,6 @@ class RawSocialAccountsClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             if _response.status_code == 409:
                 raise ConflictError(
                     headers=dict(_response.headers),
@@ -297,18 +248,18 @@ class RawSocialAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ConnectSocialAccountsResponse]:
         """
-        Starts an OAuth connection flow and returns an authorize_url where the user can connect a social account. LinkedIn supports personal profiles only, with scopes omitted. TikTok connects the authenticated user’s profile when scopes are omitted or company advertising assets with advertise. Meta Business and Snapchat support advertising connections only and require advertise. Personal profile connections must be completed in a browser signed in as the initiating Whop user.
+        Deprecated compatibility endpoint. Connect external accounts with `POST /external_accounts/connect` instead.
 
         Parameters
         ----------
         platform : ConnectSocialAccountsRequestPlatform
-            The platform to connect the social account on. Use `meta_business` to connect Meta Business assets, which is how Facebook Pages and Instagram accounts are connected — there is no separate `instagram` value. Use `tiktok` for TikTok accounts, `snapchat` for Snapchat Public Profiles, `linkedin` to connect the authenticated user’s LinkedIn profile, or `youtube` to connect their YouTube channel.
+            The platform to connect the external account on. Use `meta_business` to connect Meta Business assets, which is how Facebook Pages and Instagram accounts are connected — there is no separate `instagram` value. Use `tiktok` for TikTok accounts, `snapchat` for Snapchat Public Profiles, `linkedin` to connect the authenticated user’s LinkedIn profile, or `youtube` to connect their YouTube channel.
 
         redirect_url : str
             Where to send the user once they finish connecting their accounts. Any `http` or `https` URL. If the connection fails, the user is redirected with a `social_account_error` query param.
 
         account_id : typing.Optional[str]
-            The Account (biz_ identifier) to connect the social account for. An account-scoped API key may omit this to default to its own account. Omit for user profile connections.
+            The Account (biz_ identifier) to connect the external account for. An account-scoped API key may omit this to default to its own account. Omit for user profile connections.
 
         scopes : typing.Optional[typing.Sequence[ConnectSocialAccountsRequestScopesItem]]
             The connection purpose. For `meta_business` and `snapchat`, `advertise` is required and connects company advertising assets. For `linkedin` and `youtube`, omit scopes to connect the authenticated user’s profile; advertising is not supported. For `tiktok`, omit scopes to connect the authenticated user’s profile, or pass `advertise` to connect company advertising assets. Profile connections still request the platform permissions needed to read the profile.
@@ -319,7 +270,7 @@ class RawSocialAccountsClient:
         Returns
         -------
         HttpResponse[ConnectSocialAccountsResponse]
-            authorize url returned
+            authorize url returned through the deprecated path
         """
         _response = self._client_wrapper.httpx_client.request(
             "social_accounts/connect",
@@ -347,28 +298,6 @@ class RawSocialAccountsClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             if _response.status_code == 409:
                 raise ConflictError(
                     headers=dict(_response.headers),
@@ -398,7 +327,7 @@ class RawSocialAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[DeleteSocialAccountsResponse]:
         """
-        Disconnects a social account from an account or user without deleting the underlying platform account.
+        Deprecated compatibility endpoint. Disconnect external accounts with `DELETE /external_accounts/{id}` instead.
 
         Parameters
         ----------
@@ -406,10 +335,8 @@ class RawSocialAccountsClient:
             The ID of the social account to disconnect.
 
         account_id : typing.Optional[str]
-            The Account that the social account is connected to. Provide either this or user_id.
 
         user_id : typing.Optional[str]
-            The User that the social account is connected to. Provide either this or account_id.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -417,7 +344,7 @@ class RawSocialAccountsClient:
         Returns
         -------
         HttpResponse[DeleteSocialAccountsResponse]
-            user social account disconnected
+            social account disconnected through the deprecated path
         """
         _response = self._client_wrapper.httpx_client.request(
             f"social_accounts/{encode_path_param(id)}",
@@ -439,61 +366,6 @@ class RawSocialAccountsClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 409:
-                raise ConflictError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        V1ErrorResponse,
-                        parse_obj_as(
-                            type_=V1ErrorResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -507,7 +379,7 @@ class RawSocialAccountsClient:
         self, id: str, *, account_id: str, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[LeadFormsSocialAccountsResponse]:
         """
-        Lists the active lead (instant) forms that already exist on a connected Facebook page, so an ad can reuse one as its `lead_gen_form_id` instead of authoring a new form. Every active form comes back in a single response — the list is not paginated.
+        Deprecated compatibility endpoint. List lead forms with `GET /external_accounts/{id}/lead_forms` instead.
 
         Parameters
         ----------
@@ -515,7 +387,6 @@ class RawSocialAccountsClient:
             The social account (a sacc_ identifier) whose lead forms to list.
 
         account_id : str
-            The Account (a biz_ identifier) the social account is connected to.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -523,7 +394,7 @@ class RawSocialAccountsClient:
         Returns
         -------
         HttpResponse[LeadFormsSocialAccountsResponse]
-            lead forms listed
+            lead forms listed through the deprecated path
         """
         _response = self._client_wrapper.httpx_client.request(
             f"social_accounts/{encode_path_param(id)}/lead_forms",
@@ -544,39 +415,6 @@ class RawSocialAccountsClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -596,12 +434,12 @@ class RawSocialAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[SocialAccount, PartnersSocialAccountsResponse]:
         """
-        Lists the creators an Instagram account runs partnership ads with, and where each creator's permission stands.
+        Deprecated compatibility endpoint. List partners with `GET /external_accounts/{external_account_id}/partners` instead.
 
         Parameters
         ----------
         id : str
-            The Instagram account (a sacc_ identifier) the partners run partnership ads with.
+            The brand's Instagram social account (a sacc_ identifier).
 
         account_id : typing.Optional[str]
             The Account (biz_ identifier) that advertises as the Instagram account. An account-scoped API key may omit this to default to its own account.
@@ -618,7 +456,7 @@ class RawSocialAccountsClient:
         Returns
         -------
         SyncPager[SocialAccount, PartnersSocialAccountsResponse]
-            partners listed
+            partners listed through the deprecated path
         """
         _response = self._client_wrapper.httpx_client.request(
             f"social_accounts/{encode_path_param(id)}/partners",
@@ -654,39 +492,6 @@ class RawSocialAccountsClient:
                         request_options=request_options,
                     )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -705,12 +510,12 @@ class RawSocialAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[SocialAccount]:
         """
-        Invites an Instagram creator to run partnership ads with an Instagram account. The creator approves the invitation in the Instagram app, and `partnership_status` stays `pending` until they do; [refresh](/api-reference/beta/social-accounts/refresh) the partner to pick up their answer.
+        Deprecated compatibility endpoint. Add partners with `POST /external_accounts/{external_account_id}/partners` instead.
 
         Parameters
         ----------
         id : str
-            The Instagram account (a sacc_ identifier) the partners run partnership ads with.
+            The brand's Instagram social account (a sacc_ identifier).
 
         username : str
             The creator's Instagram username, with or without the leading `@`. The creator needs a professional (Business or Creator) Instagram account.
@@ -724,7 +529,7 @@ class RawSocialAccountsClient:
         Returns
         -------
         HttpResponse[SocialAccount]
-            creator invited
+            creator invited through the deprecated path
         """
         _response = self._client_wrapper.httpx_client.request(
             f"social_accounts/{encode_path_param(id)}/partners",
@@ -750,50 +555,6 @@ class RawSocialAccountsClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             if _response.status_code == 409:
                 raise ConflictError(
                     headers=dict(_response.headers),
@@ -801,17 +562,6 @@ class RawSocialAccountsClient:
                         V1ErrorResponse,
                         parse_obj_as(
                             type_=V1ErrorResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -834,12 +584,12 @@ class RawSocialAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[RemovePartnerSocialAccountsResponse]:
         """
-        Revokes a creator's permission to run partnership ads with an Instagram account. Every account that advertises as the Instagram account loses the partner, since the permission belongs to the Instagram account.
+        Deprecated compatibility endpoint. Remove partners with `DELETE /external_accounts/{external_account_id}/partners/{id}` instead.
 
         Parameters
         ----------
         id : str
-            The Instagram account (a sacc_ identifier) the partner runs partnership ads with.
+            The brand's Instagram social account (a sacc_ identifier).
 
         partner_id : str
             The partner creator's social account (a sacc_ identifier).
@@ -853,7 +603,7 @@ class RawSocialAccountsClient:
         Returns
         -------
         HttpResponse[RemovePartnerSocialAccountsResponse]
-            partner removed
+            partner removed through the deprecated path
         """
         _response = self._client_wrapper.httpx_client.request(
             f"social_accounts/{encode_path_param(id)}/partners/{encode_path_param(partner_id)}",
@@ -874,39 +624,6 @@ class RawSocialAccountsClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -927,7 +644,7 @@ class RawSocialAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[SocialAccountPost, PostsSocialAccountsResponse]:
         """
-        Lists the existing posts of a connected Facebook page, Instagram account, or TikTok account.
+        Deprecated compatibility endpoint. List posts with `GET /external_accounts/{id}/posts` instead.
 
         Parameters
         ----------
@@ -935,10 +652,8 @@ class RawSocialAccountsClient:
             The social account (a sacc_ identifier) whose posts to list.
 
         account_id : str
-            The Account (a biz_ identifier) the social account is connected to.
 
         post_id : typing.Optional[str]
-            Return only the single post with this platform id, instead of the full list.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -952,7 +667,7 @@ class RawSocialAccountsClient:
         Returns
         -------
         SyncPager[SocialAccountPost, PostsSocialAccountsResponse]
-            single post returned when post_id is given
+            posts listed through the deprecated path
         """
         _response = self._client_wrapper.httpx_client.request(
             f"social_accounts/{encode_path_param(id)}/posts",
@@ -990,39 +705,6 @@ class RawSocialAccountsClient:
                         request_options=request_options,
                     )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -1040,7 +722,7 @@ class RawSocialAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[SocialAccount]:
         """
-        Refreshes the state of a social account. Use it to clear an `error` that has been resolved.
+        Deprecated compatibility endpoint. Refresh external accounts with `POST /external_accounts/{id}/refresh` instead.
 
         Parameters
         ----------
@@ -1048,7 +730,7 @@ class RawSocialAccountsClient:
             The social account (a sacc_ identifier) to refresh.
 
         account_id : typing.Optional[str]
-            The Account (biz_ identifier) the social account is connected to. An account-scoped API key may omit this to default to its own account.
+            The Account (biz_ identifier) the external account is connected to. An account-scoped API key may omit this to default to its own account.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1056,7 +738,7 @@ class RawSocialAccountsClient:
         Returns
         -------
         HttpResponse[SocialAccount]
-            refresh started
+            refresh started through the deprecated path
         """
         _response = self._client_wrapper.httpx_client.request(
             f"social_accounts/{encode_path_param(id)}/refresh",
@@ -1081,50 +763,6 @@ class RawSocialAccountsClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             if _response.status_code == 409:
                 raise ConflictError(
                     headers=dict(_response.headers),
@@ -1132,17 +770,6 @@ class RawSocialAccountsClient:
                         V1ErrorResponse,
                         parse_obj_as(
                             type_=V1ErrorResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1181,27 +808,27 @@ class AsyncRawSocialAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[SocialAccount, ListSocialAccountsResponse]:
         """
-        Lists the social accounts linked to an account or user.
+        Deprecated compatibility endpoint. List external accounts with `GET /external_accounts` instead.
 
         Parameters
         ----------
         account_id : typing.Optional[str]
-            The Account that the social accounts are connected to. Provide either this or user_id.
+            The Account that the external accounts are connected to. Provide either this or user_id.
 
         user_id : typing.Optional[str]
-            The User that the social accounts are connected to. Provide either this or account_id.
+            The User that the external accounts are connected to. Provide either this or account_id.
 
         platform : typing.Optional[ListSocialAccountsRequestPlatform]
-            Only return social accounts for the platform that is specified.
+            Only return external accounts for the platform that is specified.
 
         trust_level : typing.Optional[ListSocialAccountsRequestTrustLevel]
-            Only return social accounts linked with this trust level, such as `oauth` for accounts connected through OAuth.
+            Only return external accounts linked with this trust level, such as `oauth` for accounts connected through OAuth.
 
         verified : typing.Optional[bool]
-            Only return social accounts that are verified on the platform.
+            Only return external accounts that are verified on the platform.
 
         scopes : typing.Optional[typing.Union[ListSocialAccountsRequestScopesItem, typing.Sequence[ListSocialAccountsRequestScopesItem]]]
-            Only return social accounts that have these scopes.
+            Only return external accounts that have these scopes.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -1216,7 +843,7 @@ class AsyncRawSocialAccountsClient:
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         order : typing.Optional[ListSocialAccountsRequestOrder]
-            The field to sort social accounts by.
+            The field to sort external accounts by.
 
         direction : typing.Optional[ListSocialAccountsRequestDirection]
             Sort direction.
@@ -1227,7 +854,7 @@ class AsyncRawSocialAccountsClient:
         Returns
         -------
         AsyncPager[SocialAccount, ListSocialAccountsResponse]
-            filtered to accounts holding the requested scope
+            social accounts listed through the deprecated path
         """
         _response = await self._client_wrapper.httpx_client.request(
             "social_accounts",
@@ -1283,28 +910,6 @@ class AsyncRawSocialAccountsClient:
                         )
 
                 return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -1322,15 +927,15 @@ class AsyncRawSocialAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[SocialAccount]:
         """
-        Creates or returns a Whop-managed Facebook page or TikTok account for an account.
+        Deprecated compatibility endpoint. Create external accounts with `POST /external_accounts` instead.
 
         Parameters
         ----------
         platform : CreateSocialAccountsRequestPlatform
-            The platform to create the social account on. `facebook` requires the account's `banner_image`, `logo`, and `description`, and `tiktok` requires its `logo`; configure them with [Update Account](/api-reference/beta/accounts/update-account). The account is returned before the platform has created it — its `id` is usable right away, and the rest of the profile fills in once provisioning finishes.
+            The platform to create the external account on. `facebook` requires the account's `banner_image`, `logo`, and `description`, and `tiktok` requires its `logo`; configure them with [Update Account](/api-reference/beta/accounts/update-account). The account is returned before the platform has created it — its `id` is usable right away, and the rest of the profile fills in once provisioning finishes.
 
         account_id : typing.Optional[str]
-            The Account (biz_ identifier) to create the social account for. An account-scoped API key may omit this to default to its own account. Account API keys cannot update their own account's branding through Update Account; use a user-authenticated path.
+            The Account (biz_ identifier) to create the external account for. An account-scoped API key may omit this to default to its own account. Account API keys cannot update their own account's branding through Update Account; use a user-authenticated path.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1338,7 +943,7 @@ class AsyncRawSocialAccountsClient:
         Returns
         -------
         AsyncHttpResponse[SocialAccount]
-            social account created
+            social account created through the deprecated path
         """
         _response = await self._client_wrapper.httpx_client.request(
             "social_accounts",
@@ -1364,28 +969,6 @@ class AsyncRawSocialAccountsClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             if _response.status_code == 409:
                 raise ConflictError(
                     headers=dict(_response.headers),
@@ -1416,18 +999,18 @@ class AsyncRawSocialAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ConnectSocialAccountsResponse]:
         """
-        Starts an OAuth connection flow and returns an authorize_url where the user can connect a social account. LinkedIn supports personal profiles only, with scopes omitted. TikTok connects the authenticated user’s profile when scopes are omitted or company advertising assets with advertise. Meta Business and Snapchat support advertising connections only and require advertise. Personal profile connections must be completed in a browser signed in as the initiating Whop user.
+        Deprecated compatibility endpoint. Connect external accounts with `POST /external_accounts/connect` instead.
 
         Parameters
         ----------
         platform : ConnectSocialAccountsRequestPlatform
-            The platform to connect the social account on. Use `meta_business` to connect Meta Business assets, which is how Facebook Pages and Instagram accounts are connected — there is no separate `instagram` value. Use `tiktok` for TikTok accounts, `snapchat` for Snapchat Public Profiles, `linkedin` to connect the authenticated user’s LinkedIn profile, or `youtube` to connect their YouTube channel.
+            The platform to connect the external account on. Use `meta_business` to connect Meta Business assets, which is how Facebook Pages and Instagram accounts are connected — there is no separate `instagram` value. Use `tiktok` for TikTok accounts, `snapchat` for Snapchat Public Profiles, `linkedin` to connect the authenticated user’s LinkedIn profile, or `youtube` to connect their YouTube channel.
 
         redirect_url : str
             Where to send the user once they finish connecting their accounts. Any `http` or `https` URL. If the connection fails, the user is redirected with a `social_account_error` query param.
 
         account_id : typing.Optional[str]
-            The Account (biz_ identifier) to connect the social account for. An account-scoped API key may omit this to default to its own account. Omit for user profile connections.
+            The Account (biz_ identifier) to connect the external account for. An account-scoped API key may omit this to default to its own account. Omit for user profile connections.
 
         scopes : typing.Optional[typing.Sequence[ConnectSocialAccountsRequestScopesItem]]
             The connection purpose. For `meta_business` and `snapchat`, `advertise` is required and connects company advertising assets. For `linkedin` and `youtube`, omit scopes to connect the authenticated user’s profile; advertising is not supported. For `tiktok`, omit scopes to connect the authenticated user’s profile, or pass `advertise` to connect company advertising assets. Profile connections still request the platform permissions needed to read the profile.
@@ -1438,7 +1021,7 @@ class AsyncRawSocialAccountsClient:
         Returns
         -------
         AsyncHttpResponse[ConnectSocialAccountsResponse]
-            authorize url returned
+            authorize url returned through the deprecated path
         """
         _response = await self._client_wrapper.httpx_client.request(
             "social_accounts/connect",
@@ -1466,28 +1049,6 @@ class AsyncRawSocialAccountsClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             if _response.status_code == 409:
                 raise ConflictError(
                     headers=dict(_response.headers),
@@ -1517,7 +1078,7 @@ class AsyncRawSocialAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[DeleteSocialAccountsResponse]:
         """
-        Disconnects a social account from an account or user without deleting the underlying platform account.
+        Deprecated compatibility endpoint. Disconnect external accounts with `DELETE /external_accounts/{id}` instead.
 
         Parameters
         ----------
@@ -1525,10 +1086,8 @@ class AsyncRawSocialAccountsClient:
             The ID of the social account to disconnect.
 
         account_id : typing.Optional[str]
-            The Account that the social account is connected to. Provide either this or user_id.
 
         user_id : typing.Optional[str]
-            The User that the social account is connected to. Provide either this or account_id.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1536,7 +1095,7 @@ class AsyncRawSocialAccountsClient:
         Returns
         -------
         AsyncHttpResponse[DeleteSocialAccountsResponse]
-            user social account disconnected
+            social account disconnected through the deprecated path
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"social_accounts/{encode_path_param(id)}",
@@ -1558,61 +1117,6 @@ class AsyncRawSocialAccountsClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 409:
-                raise ConflictError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        V1ErrorResponse,
-                        parse_obj_as(
-                            type_=V1ErrorResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -1626,7 +1130,7 @@ class AsyncRawSocialAccountsClient:
         self, id: str, *, account_id: str, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[LeadFormsSocialAccountsResponse]:
         """
-        Lists the active lead (instant) forms that already exist on a connected Facebook page, so an ad can reuse one as its `lead_gen_form_id` instead of authoring a new form. Every active form comes back in a single response — the list is not paginated.
+        Deprecated compatibility endpoint. List lead forms with `GET /external_accounts/{id}/lead_forms` instead.
 
         Parameters
         ----------
@@ -1634,7 +1138,6 @@ class AsyncRawSocialAccountsClient:
             The social account (a sacc_ identifier) whose lead forms to list.
 
         account_id : str
-            The Account (a biz_ identifier) the social account is connected to.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1642,7 +1145,7 @@ class AsyncRawSocialAccountsClient:
         Returns
         -------
         AsyncHttpResponse[LeadFormsSocialAccountsResponse]
-            lead forms listed
+            lead forms listed through the deprecated path
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"social_accounts/{encode_path_param(id)}/lead_forms",
@@ -1663,39 +1166,6 @@ class AsyncRawSocialAccountsClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -1715,12 +1185,12 @@ class AsyncRawSocialAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[SocialAccount, PartnersSocialAccountsResponse]:
         """
-        Lists the creators an Instagram account runs partnership ads with, and where each creator's permission stands.
+        Deprecated compatibility endpoint. List partners with `GET /external_accounts/{external_account_id}/partners` instead.
 
         Parameters
         ----------
         id : str
-            The Instagram account (a sacc_ identifier) the partners run partnership ads with.
+            The brand's Instagram social account (a sacc_ identifier).
 
         account_id : typing.Optional[str]
             The Account (biz_ identifier) that advertises as the Instagram account. An account-scoped API key may omit this to default to its own account.
@@ -1737,7 +1207,7 @@ class AsyncRawSocialAccountsClient:
         Returns
         -------
         AsyncPager[SocialAccount, PartnersSocialAccountsResponse]
-            partners listed
+            partners listed through the deprecated path
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"social_accounts/{encode_path_param(id)}/partners",
@@ -1776,39 +1246,6 @@ class AsyncRawSocialAccountsClient:
                         )
 
                 return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -1827,12 +1264,12 @@ class AsyncRawSocialAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[SocialAccount]:
         """
-        Invites an Instagram creator to run partnership ads with an Instagram account. The creator approves the invitation in the Instagram app, and `partnership_status` stays `pending` until they do; [refresh](/api-reference/beta/social-accounts/refresh) the partner to pick up their answer.
+        Deprecated compatibility endpoint. Add partners with `POST /external_accounts/{external_account_id}/partners` instead.
 
         Parameters
         ----------
         id : str
-            The Instagram account (a sacc_ identifier) the partners run partnership ads with.
+            The brand's Instagram social account (a sacc_ identifier).
 
         username : str
             The creator's Instagram username, with or without the leading `@`. The creator needs a professional (Business or Creator) Instagram account.
@@ -1846,7 +1283,7 @@ class AsyncRawSocialAccountsClient:
         Returns
         -------
         AsyncHttpResponse[SocialAccount]
-            creator invited
+            creator invited through the deprecated path
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"social_accounts/{encode_path_param(id)}/partners",
@@ -1872,50 +1309,6 @@ class AsyncRawSocialAccountsClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             if _response.status_code == 409:
                 raise ConflictError(
                     headers=dict(_response.headers),
@@ -1923,17 +1316,6 @@ class AsyncRawSocialAccountsClient:
                         V1ErrorResponse,
                         parse_obj_as(
                             type_=V1ErrorResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1956,12 +1338,12 @@ class AsyncRawSocialAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[RemovePartnerSocialAccountsResponse]:
         """
-        Revokes a creator's permission to run partnership ads with an Instagram account. Every account that advertises as the Instagram account loses the partner, since the permission belongs to the Instagram account.
+        Deprecated compatibility endpoint. Remove partners with `DELETE /external_accounts/{external_account_id}/partners/{id}` instead.
 
         Parameters
         ----------
         id : str
-            The Instagram account (a sacc_ identifier) the partner runs partnership ads with.
+            The brand's Instagram social account (a sacc_ identifier).
 
         partner_id : str
             The partner creator's social account (a sacc_ identifier).
@@ -1975,7 +1357,7 @@ class AsyncRawSocialAccountsClient:
         Returns
         -------
         AsyncHttpResponse[RemovePartnerSocialAccountsResponse]
-            partner removed
+            partner removed through the deprecated path
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"social_accounts/{encode_path_param(id)}/partners/{encode_path_param(partner_id)}",
@@ -1996,39 +1378,6 @@ class AsyncRawSocialAccountsClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -2049,7 +1398,7 @@ class AsyncRawSocialAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[SocialAccountPost, PostsSocialAccountsResponse]:
         """
-        Lists the existing posts of a connected Facebook page, Instagram account, or TikTok account.
+        Deprecated compatibility endpoint. List posts with `GET /external_accounts/{id}/posts` instead.
 
         Parameters
         ----------
@@ -2057,10 +1406,8 @@ class AsyncRawSocialAccountsClient:
             The social account (a sacc_ identifier) whose posts to list.
 
         account_id : str
-            The Account (a biz_ identifier) the social account is connected to.
 
         post_id : typing.Optional[str]
-            Return only the single post with this platform id, instead of the full list.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -2074,7 +1421,7 @@ class AsyncRawSocialAccountsClient:
         Returns
         -------
         AsyncPager[SocialAccountPost, PostsSocialAccountsResponse]
-            single post returned when post_id is given
+            posts listed through the deprecated path
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"social_accounts/{encode_path_param(id)}/posts",
@@ -2115,39 +1462,6 @@ class AsyncRawSocialAccountsClient:
                         )
 
                 return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -2165,7 +1479,7 @@ class AsyncRawSocialAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[SocialAccount]:
         """
-        Refreshes the state of a social account. Use it to clear an `error` that has been resolved.
+        Deprecated compatibility endpoint. Refresh external accounts with `POST /external_accounts/{id}/refresh` instead.
 
         Parameters
         ----------
@@ -2173,7 +1487,7 @@ class AsyncRawSocialAccountsClient:
             The social account (a sacc_ identifier) to refresh.
 
         account_id : typing.Optional[str]
-            The Account (biz_ identifier) the social account is connected to. An account-scoped API key may omit this to default to its own account.
+            The Account (biz_ identifier) the external account is connected to. An account-scoped API key may omit this to default to its own account.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2181,7 +1495,7 @@ class AsyncRawSocialAccountsClient:
         Returns
         -------
         AsyncHttpResponse[SocialAccount]
-            refresh started
+            refresh started through the deprecated path
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"social_accounts/{encode_path_param(id)}/refresh",
@@ -2206,50 +1520,6 @@ class AsyncRawSocialAccountsClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             if _response.status_code == 409:
                 raise ConflictError(
                     headers=dict(_response.headers),
@@ -2257,17 +1527,6 @@ class AsyncRawSocialAccountsClient:
                         V1ErrorResponse,
                         parse_obj_as(
                             type_=V1ErrorResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
