@@ -1414,6 +1414,7 @@ if typing.TYPE_CHECKING:
         exports,
         external_accounts,
         fee_markups,
+        feedback_submissions,
         files,
         financial_activity,
         financial_reports,
@@ -2217,6 +2218,7 @@ if typing.TYPE_CHECKING:
         ListExternalAccountsResponsePageInfo,
     )
     from .fee_markups import ListFeeMarkupsResponse
+    from .feedback_submissions import CreateFeedbackSubmissionsRequestSource, CreateFeedbackSubmissionsResponse
     from .files import (
         CompleteFilesRequestMultipartPartsItem,
         CreateFilesRequestVisibility,
@@ -3734,6 +3736,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateExperimentsRequestVariantsItem": ".experiments",
     "CreateExportsRequestResource": ".exports",
     "CreateExternalAccountsRequestPlatform": ".external_accounts",
+    "CreateFeedbackSubmissionsRequestSource": ".feedback_submissions",
+    "CreateFeedbackSubmissionsResponse": ".feedback_submissions",
     "CreateFilesRequestVisibility": ".files",
     "CreateForumPostsRequestAttachmentsItem": ".forum_posts",
     "CreateForumPostsRequestPoll": ".forum_posts",
@@ -6078,6 +6082,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "exports": ".exports",
     "external_accounts": ".external_accounts",
     "fee_markups": ".fee_markups",
+    "feedback_submissions": ".feedback_submissions",
     "files": ".files",
     "financial_activity": ".financial_activity",
     "financial_reports": ".financial_reports",
@@ -6750,6 +6755,8 @@ __all__ = [
     "CreateExperimentsRequestVariantsItem",
     "CreateExportsRequestResource",
     "CreateExternalAccountsRequestPlatform",
+    "CreateFeedbackSubmissionsRequestSource",
+    "CreateFeedbackSubmissionsResponse",
     "CreateFilesRequestVisibility",
     "CreateForumPostsRequestAttachmentsItem",
     "CreateForumPostsRequestPoll",
@@ -9094,6 +9101,7 @@ __all__ = [
     "exports",
     "external_accounts",
     "fee_markups",
+    "feedback_submissions",
     "files",
     "financial_activity",
     "financial_reports",
