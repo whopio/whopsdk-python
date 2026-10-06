@@ -52,6 +52,7 @@ if typing.TYPE_CHECKING:
     from .exports.client import AsyncExportsClient, ExportsClient
     from .external_accounts.client import AsyncExternalAccountsClient, ExternalAccountsClient
     from .fee_markups.client import AsyncFeeMarkupsClient, FeeMarkupsClient
+    from .feedback_submissions.client import AsyncFeedbackSubmissionsClient, FeedbackSubmissionsClient
     from .files.client import AsyncFilesClient, FilesClient
     from .financial_activity.client import AsyncFinancialActivityClient, FinancialActivityClient
     from .financial_reports.client import AsyncFinancialReportsClient, FinancialReportsClient
@@ -233,6 +234,7 @@ class Whop:
         self._exports: typing.Optional[ExportsClient] = None
         self._external_accounts: typing.Optional[ExternalAccountsClient] = None
         self._fee_markups: typing.Optional[FeeMarkupsClient] = None
+        self._feedback_submissions: typing.Optional[FeedbackSubmissionsClient] = None
         self._files: typing.Optional[FilesClient] = None
         self._financial_activity: typing.Optional[FinancialActivityClient] = None
         self._financial_reports: typing.Optional[FinancialReportsClient] = None
@@ -618,6 +620,14 @@ class Whop:
 
             self._fee_markups = FeeMarkupsClient(client_wrapper=self._client_wrapper)
         return self._fee_markups
+
+    @property
+    def feedback_submissions(self):
+        if self._feedback_submissions is None:
+            from .feedback_submissions.client import FeedbackSubmissionsClient  # noqa: E402
+
+            self._feedback_submissions = FeedbackSubmissionsClient(client_wrapper=self._client_wrapper)
+        return self._feedback_submissions
 
     @property
     def files(self):
@@ -1163,6 +1173,7 @@ class AsyncWhop:
         self._exports: typing.Optional[AsyncExportsClient] = None
         self._external_accounts: typing.Optional[AsyncExternalAccountsClient] = None
         self._fee_markups: typing.Optional[AsyncFeeMarkupsClient] = None
+        self._feedback_submissions: typing.Optional[AsyncFeedbackSubmissionsClient] = None
         self._files: typing.Optional[AsyncFilesClient] = None
         self._financial_activity: typing.Optional[AsyncFinancialActivityClient] = None
         self._financial_reports: typing.Optional[AsyncFinancialReportsClient] = None
@@ -1548,6 +1559,14 @@ class AsyncWhop:
 
             self._fee_markups = AsyncFeeMarkupsClient(client_wrapper=self._client_wrapper)
         return self._fee_markups
+
+    @property
+    def feedback_submissions(self):
+        if self._feedback_submissions is None:
+            from .feedback_submissions.client import AsyncFeedbackSubmissionsClient  # noqa: E402
+
+            self._feedback_submissions = AsyncFeedbackSubmissionsClient(client_wrapper=self._client_wrapper)
+        return self._feedback_submissions
 
     @property
     def files(self):
