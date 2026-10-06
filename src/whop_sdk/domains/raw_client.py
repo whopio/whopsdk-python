@@ -18,6 +18,7 @@ from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..types.domain import Domain
 from ..types.domain_list_item import DomainListItem
 from ..types.v1error_response import V1ErrorResponse
+from .types.create_domains_request_mode import CreateDomainsRequestMode
 from .types.list_domains_request_direction import ListDomainsRequestDirection
 from .types.list_domains_request_order import ListDomainsRequestOrder
 from .types.list_domains_request_status import ListDomainsRequestStatus
@@ -46,10 +47,11 @@ class RawDomainsClient:
         before: typing.Optional[str] = None,
         search: typing.Optional[str] = None,
         tlds: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        domain: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[DomainListItem, ListDomainsResponse]:
         """
-        Lists your domains. Filter by account, app, or status.
+        Lists your domains. Filter by account, app, status, or hostname.
 
         Pass `search` to find domains to buy instead: the exact domain first, even when taken, then your name on popular extensions, then suggestions. Pass `tlds` to check only the extensions you choose. Results aren't reserved.
 
@@ -62,7 +64,7 @@ class RawDomainsClient:
             Only domains assigned to this app, prefixed app_.
 
         status : typing.Optional[ListDomainsRequestStatus]
-            Only domains with this lifecycle status.
+            Only domains with this lifecycle status. Removed and failed domains aren't listed; retrieve them by ID.
 
         order : typing.Optional[ListDomainsRequestOrder]
             Field to sort by.
@@ -88,6 +90,9 @@ class RawDomainsClient:
         tlds : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             With `search`, check only these extensions, such as `com` or `co.uk`, returned in this order. Repeat for several, up to 100.
 
+        domain : typing.Optional[str]
+            Only your domain with this hostname, such as `example.com`.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -112,6 +117,7 @@ class RawDomainsClient:
                 "before": before,
                 "search": search,
                 "tlds": tlds,
+                "domain": domain,
             },
             request_options=request_options,
         )
@@ -142,6 +148,7 @@ class RawDomainsClient:
                         before=before,
                         search=search,
                         tlds=tlds,
+                        domain=domain,
                         request_options=request_options,
                     )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
@@ -190,32 +197,44 @@ class RawDomainsClient:
     def create(
         self,
         *,
-        app_id: str,
         domain: str,
         account_id: typing.Optional[str] = OMIT,
+        app_id: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
+        mode: typing.Optional[CreateDomainsRequestMode] = OMIT,
+        payment_method_id: typing.Optional[str] = OMIT,
         replace_existing: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Domain]:
         """
-        Claims a hostname for an app and returns the DNS records to publish. Verification and certificate setup run automatically, and unverified claims are deleted after 48 hours. A claim doesn't reserve the hostname.
+        Buys a domain through Whop, or connects one you registered elsewhere.
+
+        A bought domain starts `awaiting_payment`. Pay its `amount_due` at `purchase_url`, or pass `payment_method_id` to charge a saved card. Whop then registers it, hosts its DNS, issues its certificate and serves the app, and renews it every year while `auto_renew` is on. An unpaid purchase is removed after 7 days.
+
+        With `mode: external`, Whop returns the DNS records to publish instead. Verification and certificate setup run automatically, and unverified claims are deleted after 48 hours. A claim doesn't reserve the hostname.
 
         Parameters
         ----------
-        app_id : str
-            App ID, prefixed app_. The app must belong to the account.
-
         domain : str
-            Bare hostname, such as example.com or checkout.example.com. Wildcards, paths, schemes, and ports are not accepted.
+            Bare hostname, such as example.com or checkout.example.com. A bought domain must be a root domain. Wildcards, paths, schemes, and ports are not accepted.
 
         account_id : typing.Optional[str]
             Account ID, prefixed biz_. Required for user credentials; otherwise defaults to the credential's account.
 
+        app_id : typing.Optional[str]
+            App ID, prefixed app_, for the domain to serve. The app must belong to the account. Required with `mode: external`.
+
         metadata : typing.Optional[typing.Dict[str, str]]
             Custom string keys and values.
 
+        mode : typing.Optional[CreateDomainsRequestMode]
+            `managed` buys the domain through Whop; `external` connects a domain you registered elsewhere.
+
+        payment_method_id : typing.Optional[str]
+            Saved card to charge for a bought domain and its renewals, prefixed `payt_`. It must belong to the signed-in user.
+
         replace_existing : typing.Optional[bool]
-            Explicitly transfer a domain from its current owner after publishing this new claim's TXT proof. Create the claim after the current owner verified.
+            With `mode: external`, explicitly transfer a domain from its current owner after publishing this new claim's TXT proof. Create the claim after the current owner verified.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -223,7 +242,7 @@ class RawDomainsClient:
         Returns
         -------
         HttpResponse[Domain]
-            Domain claim created
+            Domain created
         """
         _response = self._client_wrapper.httpx_client.request(
             "domains",
@@ -234,6 +253,8 @@ class RawDomainsClient:
                 "app_id": app_id,
                 "domain": domain,
                 "metadata": metadata,
+                "mode": mode,
+                "payment_method_id": payment_method_id,
                 "replace_existing": replace_existing,
             },
             headers={
@@ -252,6 +273,17 @@ class RawDomainsClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 409:
                 raise ConflictError(
                     headers=dict(_response.headers),
@@ -274,7 +306,7 @@ class RawDomainsClient:
 
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[Domain]:
         """
-        Retrieves a domain's claim, app assignment, DNS records, and hostname and certificate status, and starts a background check if it isn't active yet.
+        Retrieves a domain's status, issues, billing, and DNS records, and checks it again in the background if it isn't active yet.
 
         Pass a hostname instead of an ID to look up any domain, with its `registration_quote` and, if registered, its `public_record`.
 
@@ -340,7 +372,7 @@ class RawDomainsClient:
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[Domain]:
         """
-        Stops routing the domain to its app and starts cleanup. It returns as `deleting`; retrieve it until it's `removed`.
+        Stops routing a connected domain to its app and starts cleanup: it returns as `deleting`; retrieve it until it's `removed`. Deleting an unpaid purchase cancels it. A registered domain can't be deleted; turn off `auto_renew` and it's released after it expires.
 
         Parameters
         ----------
@@ -371,6 +403,17 @@ class RawDomainsClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        V1ErrorResponse,
+                        parse_obj_as(
+                            type_=V1ErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -385,11 +428,13 @@ class RawDomainsClient:
         id: str,
         *,
         app_id: typing.Optional[str] = OMIT,
+        auto_renew: typing.Optional[bool] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
+        payment_method_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Domain]:
         """
-        Reassigns a domain to another app in the same account or replaces its metadata. The hostname and owning account cannot be edited.
+        Reassigns a domain to another app in the same account, replaces its metadata, or changes how a bought domain renews. The hostname and owning account cannot be edited.
 
         Parameters
         ----------
@@ -397,10 +442,16 @@ class RawDomainsClient:
             Domain ID, prefixed `dom_`. To retrieve, you can pass a hostname such as `example.com` instead; a bare name looks up `.com`.
 
         app_id : typing.Optional[str]
-            App ID, prefixed app_. Must belong to the same account.
+            App ID, prefixed app_. Must belong to the same account. Pass `null` to detach a bought domain from its app; it keeps renewing.
+
+        auto_renew : typing.Optional[bool]
+            For a bought domain, whether Whop charges its saved card to renew it before it expires.
 
         metadata : typing.Optional[typing.Dict[str, str]]
             Replacement custom string keys and values.
+
+        payment_method_id : typing.Optional[str]
+            For a bought domain, the saved card to charge, prefixed `payt_`. It must belong to the signed-in user. Pass `null` to remove it.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -416,7 +467,9 @@ class RawDomainsClient:
             method="PATCH",
             json={
                 "app_id": app_id,
+                "auto_renew": auto_renew,
                 "metadata": metadata,
+                "payment_method_id": payment_method_id,
             },
             headers={
                 "content-type": "application/json",
@@ -434,6 +487,17 @@ class RawDomainsClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -462,10 +526,11 @@ class AsyncRawDomainsClient:
         before: typing.Optional[str] = None,
         search: typing.Optional[str] = None,
         tlds: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        domain: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[DomainListItem, ListDomainsResponse]:
         """
-        Lists your domains. Filter by account, app, or status.
+        Lists your domains. Filter by account, app, status, or hostname.
 
         Pass `search` to find domains to buy instead: the exact domain first, even when taken, then your name on popular extensions, then suggestions. Pass `tlds` to check only the extensions you choose. Results aren't reserved.
 
@@ -478,7 +543,7 @@ class AsyncRawDomainsClient:
             Only domains assigned to this app, prefixed app_.
 
         status : typing.Optional[ListDomainsRequestStatus]
-            Only domains with this lifecycle status.
+            Only domains with this lifecycle status. Removed and failed domains aren't listed; retrieve them by ID.
 
         order : typing.Optional[ListDomainsRequestOrder]
             Field to sort by.
@@ -504,6 +569,9 @@ class AsyncRawDomainsClient:
         tlds : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             With `search`, check only these extensions, such as `com` or `co.uk`, returned in this order. Repeat for several, up to 100.
 
+        domain : typing.Optional[str]
+            Only your domain with this hostname, such as `example.com`.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -528,6 +596,7 @@ class AsyncRawDomainsClient:
                 "before": before,
                 "search": search,
                 "tlds": tlds,
+                "domain": domain,
             },
             request_options=request_options,
         )
@@ -560,6 +629,7 @@ class AsyncRawDomainsClient:
                             before=before,
                             search=search,
                             tlds=tlds,
+                            domain=domain,
                             request_options=request_options,
                         )
 
@@ -609,32 +679,44 @@ class AsyncRawDomainsClient:
     async def create(
         self,
         *,
-        app_id: str,
         domain: str,
         account_id: typing.Optional[str] = OMIT,
+        app_id: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
+        mode: typing.Optional[CreateDomainsRequestMode] = OMIT,
+        payment_method_id: typing.Optional[str] = OMIT,
         replace_existing: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Domain]:
         """
-        Claims a hostname for an app and returns the DNS records to publish. Verification and certificate setup run automatically, and unverified claims are deleted after 48 hours. A claim doesn't reserve the hostname.
+        Buys a domain through Whop, or connects one you registered elsewhere.
+
+        A bought domain starts `awaiting_payment`. Pay its `amount_due` at `purchase_url`, or pass `payment_method_id` to charge a saved card. Whop then registers it, hosts its DNS, issues its certificate and serves the app, and renews it every year while `auto_renew` is on. An unpaid purchase is removed after 7 days.
+
+        With `mode: external`, Whop returns the DNS records to publish instead. Verification and certificate setup run automatically, and unverified claims are deleted after 48 hours. A claim doesn't reserve the hostname.
 
         Parameters
         ----------
-        app_id : str
-            App ID, prefixed app_. The app must belong to the account.
-
         domain : str
-            Bare hostname, such as example.com or checkout.example.com. Wildcards, paths, schemes, and ports are not accepted.
+            Bare hostname, such as example.com or checkout.example.com. A bought domain must be a root domain. Wildcards, paths, schemes, and ports are not accepted.
 
         account_id : typing.Optional[str]
             Account ID, prefixed biz_. Required for user credentials; otherwise defaults to the credential's account.
 
+        app_id : typing.Optional[str]
+            App ID, prefixed app_, for the domain to serve. The app must belong to the account. Required with `mode: external`.
+
         metadata : typing.Optional[typing.Dict[str, str]]
             Custom string keys and values.
 
+        mode : typing.Optional[CreateDomainsRequestMode]
+            `managed` buys the domain through Whop; `external` connects a domain you registered elsewhere.
+
+        payment_method_id : typing.Optional[str]
+            Saved card to charge for a bought domain and its renewals, prefixed `payt_`. It must belong to the signed-in user.
+
         replace_existing : typing.Optional[bool]
-            Explicitly transfer a domain from its current owner after publishing this new claim's TXT proof. Create the claim after the current owner verified.
+            With `mode: external`, explicitly transfer a domain from its current owner after publishing this new claim's TXT proof. Create the claim after the current owner verified.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -642,7 +724,7 @@ class AsyncRawDomainsClient:
         Returns
         -------
         AsyncHttpResponse[Domain]
-            Domain claim created
+            Domain created
         """
         _response = await self._client_wrapper.httpx_client.request(
             "domains",
@@ -653,6 +735,8 @@ class AsyncRawDomainsClient:
                 "app_id": app_id,
                 "domain": domain,
                 "metadata": metadata,
+                "mode": mode,
+                "payment_method_id": payment_method_id,
                 "replace_existing": replace_existing,
             },
             headers={
@@ -671,6 +755,17 @@ class AsyncRawDomainsClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             if _response.status_code == 409:
                 raise ConflictError(
                     headers=dict(_response.headers),
@@ -695,7 +790,7 @@ class AsyncRawDomainsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[Domain]:
         """
-        Retrieves a domain's claim, app assignment, DNS records, and hostname and certificate status, and starts a background check if it isn't active yet.
+        Retrieves a domain's status, issues, billing, and DNS records, and checks it again in the background if it isn't active yet.
 
         Pass a hostname instead of an ID to look up any domain, with its `registration_quote` and, if registered, its `public_record`.
 
@@ -763,7 +858,7 @@ class AsyncRawDomainsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[Domain]:
         """
-        Stops routing the domain to its app and starts cleanup. It returns as `deleting`; retrieve it until it's `removed`.
+        Stops routing a connected domain to its app and starts cleanup: it returns as `deleting`; retrieve it until it's `removed`. Deleting an unpaid purchase cancels it. A registered domain can't be deleted; turn off `auto_renew` and it's released after it expires.
 
         Parameters
         ----------
@@ -794,6 +889,17 @@ class AsyncRawDomainsClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        V1ErrorResponse,
+                        parse_obj_as(
+                            type_=V1ErrorResponse,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -808,11 +914,13 @@ class AsyncRawDomainsClient:
         id: str,
         *,
         app_id: typing.Optional[str] = OMIT,
+        auto_renew: typing.Optional[bool] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
+        payment_method_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Domain]:
         """
-        Reassigns a domain to another app in the same account or replaces its metadata. The hostname and owning account cannot be edited.
+        Reassigns a domain to another app in the same account, replaces its metadata, or changes how a bought domain renews. The hostname and owning account cannot be edited.
 
         Parameters
         ----------
@@ -820,10 +928,16 @@ class AsyncRawDomainsClient:
             Domain ID, prefixed `dom_`. To retrieve, you can pass a hostname such as `example.com` instead; a bare name looks up `.com`.
 
         app_id : typing.Optional[str]
-            App ID, prefixed app_. Must belong to the same account.
+            App ID, prefixed app_. Must belong to the same account. Pass `null` to detach a bought domain from its app; it keeps renewing.
+
+        auto_renew : typing.Optional[bool]
+            For a bought domain, whether Whop charges its saved card to renew it before it expires.
 
         metadata : typing.Optional[typing.Dict[str, str]]
             Replacement custom string keys and values.
+
+        payment_method_id : typing.Optional[str]
+            For a bought domain, the saved card to charge, prefixed `payt_`. It must belong to the signed-in user. Pass `null` to remove it.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -839,7 +953,9 @@ class AsyncRawDomainsClient:
             method="PATCH",
             json={
                 "app_id": app_id,
+                "auto_renew": auto_renew,
                 "metadata": metadata,
+                "payment_method_id": payment_method_id,
             },
             headers={
                 "content-type": "application/json",
@@ -857,6 +973,17 @@ class AsyncRawDomainsClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)

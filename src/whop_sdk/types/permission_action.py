@@ -9,6 +9,8 @@ PermissionAction = typing.Union[
         "waitlist_entry:cancel",
         "experiment:manage",
         "experiment:read",
+        "domain:manage",
+        "domain:read",
         "ai_prompt:create",
         "access_pass:basic:export",
         "access_pass:basic:read",

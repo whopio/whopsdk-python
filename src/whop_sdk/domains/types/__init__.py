@@ -6,12 +6,14 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .create_domains_request_mode import CreateDomainsRequestMode
     from .list_domains_request_direction import ListDomainsRequestDirection
     from .list_domains_request_order import ListDomainsRequestOrder
     from .list_domains_request_status import ListDomainsRequestStatus
     from .list_domains_response import ListDomainsResponse
     from .list_domains_response_page_info import ListDomainsResponsePageInfo
 _dynamic_imports: typing.Dict[str, str] = {
+    "CreateDomainsRequestMode": ".create_domains_request_mode",
     "ListDomainsRequestDirection": ".list_domains_request_direction",
     "ListDomainsRequestOrder": ".list_domains_request_order",
     "ListDomainsRequestStatus": ".list_domains_request_status",
@@ -42,6 +44,7 @@ def __dir__():
 
 
 __all__ = [
+    "CreateDomainsRequestMode",
     "ListDomainsRequestDirection",
     "ListDomainsRequestOrder",
     "ListDomainsRequestStatus",

@@ -4,17 +4,18 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .domain_issue_code import DomainIssueCode
 
 
 class DomainIssue(UniversalBaseModel):
-    code: str = pydantic.Field()
+    code: DomainIssueCode = pydantic.Field()
     """
-    The source of the setup issue.
+    What needs attention, as a stable code.
     """
 
     message: str = pydantic.Field()
     """
-    What needs attention before the domain can serve the website.
+    What needs attention before the domain can serve its app or renew.
     """
 
     if IS_PYDANTIC_V2:
