@@ -515,7 +515,7 @@ class RawPayoutsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[RetrievePayoutsResponse]:
         """
-        Fetches one payout by its `wdrl_` ID, or by the `cofr_` conversion request ID a stablecoin payout carries as `payout_request_id` — both ids answer with the same payout object.
+        Fetches one payout by its `wdrl_` ID, or by the `cofr_` conversion request ID a stablecoin payout carries as `payout_request_id` — both ids answer with the same payout object. Authentication is optional. Anyone with the ID can view payout tracking details, including notes, trace code, exchange rate, and payout request ID. Accounting fields require payout:withdrawal:read on the owning ledger. A supplied invalid credential returns 401.
 
         Parameters
         ----------
@@ -523,10 +523,10 @@ class RawPayoutsClient:
             Payout ID, prefixed `wdrl_` for a payout returned by `GET /payouts` or `cofr_` for the payout request returned by `POST /payouts`.
 
         account_id : typing.Optional[str]
-            Owning account ID, prefixed `biz_`. Provide exactly one of `account_id` or `user_id`.
+            Optional owning account ID, prefixed `biz_`. The payout ID identifies its ledger. If supplied, this must match the owner and cannot be combined with `user_id`.
 
         user_id : typing.Optional[str]
-            Owning user ID, prefixed `user_`. Provide exactly one of `account_id` or `user_id`.
+            Optional owning user ID, prefixed `user_`. The payout ID identifies its ledger. If supplied, this must match the owner and cannot be combined with `account_id`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -556,30 +556,8 @@ class RawPayoutsClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1196,7 +1174,7 @@ class AsyncRawPayoutsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[RetrievePayoutsResponse]:
         """
-        Fetches one payout by its `wdrl_` ID, or by the `cofr_` conversion request ID a stablecoin payout carries as `payout_request_id` — both ids answer with the same payout object.
+        Fetches one payout by its `wdrl_` ID, or by the `cofr_` conversion request ID a stablecoin payout carries as `payout_request_id` — both ids answer with the same payout object. Authentication is optional. Anyone with the ID can view payout tracking details, including notes, trace code, exchange rate, and payout request ID. Accounting fields require payout:withdrawal:read on the owning ledger. A supplied invalid credential returns 401.
 
         Parameters
         ----------
@@ -1204,10 +1182,10 @@ class AsyncRawPayoutsClient:
             Payout ID, prefixed `wdrl_` for a payout returned by `GET /payouts` or `cofr_` for the payout request returned by `POST /payouts`.
 
         account_id : typing.Optional[str]
-            Owning account ID, prefixed `biz_`. Provide exactly one of `account_id` or `user_id`.
+            Optional owning account ID, prefixed `biz_`. The payout ID identifies its ledger. If supplied, this must match the owner and cannot be combined with `user_id`.
 
         user_id : typing.Optional[str]
-            Owning user ID, prefixed `user_`. Provide exactly one of `account_id` or `user_id`.
+            Optional owning user ID, prefixed `user_`. The payout ID identifies its ledger. If supplied, this must match the owner and cannot be combined with `account_id`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1237,30 +1215,8 @@ class AsyncRawPayoutsClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             if _response.status_code == 401:
                 raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,

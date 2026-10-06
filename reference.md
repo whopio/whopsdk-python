@@ -31475,7 +31475,7 @@ client.payouts.create_quote(
 <dl>
 <dd>
 
-Fetches one payout by its `wdrl_` ID, or by the `cofr_` conversion request ID a stablecoin payout carries as `payout_request_id` — both ids answer with the same payout object.
+Fetches one payout by its `wdrl_` ID, or by the `cofr_` conversion request ID a stablecoin payout carries as `payout_request_id` — both ids answer with the same payout object. Authentication is optional. Anyone with the ID can view payout tracking details, including notes, trace code, exchange rate, and payout request ID. Accounting fields require payout:withdrawal:read on the owning ledger. A supplied invalid credential returns 401.
 </dd>
 </dl>
 </dd>
@@ -31524,7 +31524,7 @@ client.payouts.retrieve(
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[str]` — Owning account ID, prefixed `biz_`. Provide exactly one of `account_id` or `user_id`.
+**account_id:** `typing.Optional[str]` — Optional owning account ID, prefixed `biz_`. The payout ID identifies its ledger. If supplied, this must match the owner and cannot be combined with `user_id`.
     
 </dd>
 </dl>
@@ -31532,7 +31532,7 @@ client.payouts.retrieve(
 <dl>
 <dd>
 
-**user_id:** `typing.Optional[str]` — Owning user ID, prefixed `user_`. Provide exactly one of `account_id` or `user_id`.
+**user_id:** `typing.Optional[str]` — Optional owning user ID, prefixed `user_`. The payout ID identifies its ledger. If supplied, this must match the owner and cannot be combined with `account_id`.
     
 </dd>
 </dl>

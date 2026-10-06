@@ -11,7 +11,7 @@ from .retrieve_payouts_response_payout_method_supported_payout_method import (
 
 class RetrievePayoutsResponsePayoutMethod(UniversalBaseModel):
     """
-    The saved payout method used. Requires payout:destination:read; null without it.
+    Payout method display details. The nickname requires payout:destination:read on the owning ledger; otherwise it is null.
     """
 
     nickname: typing.Optional[str] = pydantic.Field(default=None)

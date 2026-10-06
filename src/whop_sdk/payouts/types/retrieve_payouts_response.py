@@ -16,9 +16,9 @@ from .retrieve_payouts_response_timeline_item import RetrievePayoutsResponseTime
 
 
 class RetrievePayoutsResponse(UniversalBaseModel):
-    amount: str = pydantic.Field()
+    amount: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The payout amount in whole currency units, as a decimal string.
+    The payout amount in whole currency units, as a decimal string. Only returned to callers with payout:withdrawal:read on the owning ledger.
     """
 
     created_at: dt.datetime = pydantic.Field()
@@ -66,14 +66,14 @@ class RetrievePayoutsResponse(UniversalBaseModel):
     Why the payout ended without paying, or why it reversed after settlement. Present on failed, canceled, denied, and reversed payouts; `null` otherwise.
     """
 
-    fee_amount: str = pydantic.Field()
+    fee_amount: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The fee charged for the payout, in the payout currency, as a decimal string.
+    The fee charged for the payout, in the payout currency, as a decimal string. Only returned to callers with payout:withdrawal:read on the owning ledger.
     """
 
-    fee_paid_by: RetrievePayoutsResponseFeePaidBy = pydantic.Field()
+    fee_paid_by: typing.Optional[RetrievePayoutsResponseFeePaidBy] = pydantic.Field(default=None)
     """
-    Who bore the payout fee: the account itself, or its parent platform.
+    Who bore the payout fee: the account itself, or its parent platform. Only returned to callers with payout:withdrawal:read on the owning ledger.
     """
 
     id: str = pydantic.Field()
@@ -81,14 +81,14 @@ class RetrievePayoutsResponse(UniversalBaseModel):
     Payout ID, prefixed `wdrl_` for a payout returned by `GET /payouts` or `cofr_` for a payout request returned by `POST /payouts`.
     """
 
-    markup_fee: str = pydantic.Field()
+    markup_fee: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Whop's markup on the provider fee, in the payout currency, as a decimal string. `"0.0"` when none applies.
+    Whop's markup on the provider fee, in the payout currency, as a decimal string. `"0.0"` when none applies. Only returned to callers with payout:withdrawal:read on the owning ledger.
     """
 
-    metadata: typing.Dict[str, str] = pydantic.Field()
+    metadata: typing.Optional[typing.Dict[str, str]] = pydantic.Field(default=None)
     """
-    Key-value data attached at creation and echoed on every read. At most 50 keys, key names up to 40 characters, string values up to 500 characters.
+    Key-value data attached at creation and echoed on every read. At most 50 keys, key names up to 40 characters, string values up to 500 characters. Only returned to callers with payout:withdrawal:read on the owning ledger.
     """
 
     net_amount: str = pydantic.Field()
@@ -109,7 +109,7 @@ class RetrievePayoutsResponse(UniversalBaseModel):
 
     payout_method: typing.Optional[RetrievePayoutsResponsePayoutMethod] = pydantic.Field(default=None)
     """
-    The saved payout method used. Requires payout:destination:read; null without it.
+    Payout method display details. The nickname requires payout:destination:read on the owning ledger; otherwise it is null.
     """
 
     payout_request_id: typing.Optional[str] = pydantic.Field(default=None)
@@ -117,9 +117,19 @@ class RetrievePayoutsResponse(UniversalBaseModel):
     Payout request ID, prefixed `cofr_`, returned by `POST /payouts`. For a request retrieved by its own `cofr_` ID, this equals `id`. Returns `null` for payouts not created by `POST /payouts`.
     """
 
+    recipient_name: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The recipient's first name and last initial, or null when no recipient name is available.
+    """
+
+    sender_name: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The sending business's display name, or a personal sender's first name and last initial.
+    """
+
     source: typing.Optional[RetrievePayoutsResponseSource] = pydantic.Field(default=None)
     """
-    How the payout was created. `automatic` means a scheduled auto-payout; `null` on payouts created before source tracking or through internal tooling.
+    How the payout was created. `automatic` means a scheduled auto-payout; `null` on payouts created before source tracking or through internal tooling. Only returned to callers with payout:withdrawal:read on the owning ledger.
     """
 
     speed: RetrievePayoutsResponseSpeed = pydantic.Field()
@@ -129,7 +139,7 @@ class RetrievePayoutsResponse(UniversalBaseModel):
 
     statement_descriptor: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Text that appears on the recipient's bank statement, or `null` if no descriptor was set. When set, 5-22 alphanumeric characters (A-Z, a-z, 0-9).
+    Text that appears on the recipient's bank statement, or `null` if no descriptor was set. When set, 5-22 alphanumeric characters (A-Z, a-z, 0-9). Only returned to callers with payout:withdrawal:read on the owning ledger.
     """
 
     status: RetrievePayoutsResponseStatus = pydantic.Field()
@@ -144,7 +154,7 @@ class RetrievePayoutsResponse(UniversalBaseModel):
 
     timeline: typing.Optional[typing.List[RetrievePayoutsResponseTimelineItem]] = pydantic.Field(default=None)
     """
-    Completed lifecycle events in chronological order. Present when retrieving a withdrawal ID.
+    Completed lifecycle events in chronological order. Present once the payout has a withdrawal record.
     """
 
     trace_code: typing.Optional[str] = pydantic.Field(default=None)
