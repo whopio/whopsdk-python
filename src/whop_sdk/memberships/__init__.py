@@ -7,6 +7,7 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
+        AssignAffiliateMembershipsRequestCommissionType,
         InviteMembershipsRequestBody,
         InviteMembershipsRequestBodyEmail,
         InviteMembershipsRequestBodyUserId,
@@ -28,6 +29,7 @@ if typing.TYPE_CHECKING:
         TransferMembershipsResponse,
     )
 _dynamic_imports: typing.Dict[str, str] = {
+    "AssignAffiliateMembershipsRequestCommissionType": ".types",
     "InviteMembershipsRequestBody": ".types",
     "InviteMembershipsRequestBodyEmail": ".types",
     "InviteMembershipsRequestBodyUserId": ".types",
@@ -72,6 +74,7 @@ def __dir__():
 
 
 __all__ = [
+    "AssignAffiliateMembershipsRequestCommissionType",
     "InviteMembershipsRequestBody",
     "InviteMembershipsRequestBodyEmail",
     "InviteMembershipsRequestBodyUserId",

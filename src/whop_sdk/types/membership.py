@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .membership_affiliate import MembershipAffiliate
 from .membership_member import MembershipMember
 from .membership_status import MembershipStatus
 from .storefront_account import StorefrontAccount
@@ -13,6 +14,11 @@ class Membership(UniversalBaseModel):
     account: StorefrontAccount = pydantic.Field()
     """
     The account (seller) this membership belongs to.
+    """
+
+    affiliate: typing.Optional[MembershipAffiliate] = pydantic.Field(default=None)
+    """
+    The membership's affiliate commission. `null` without an affiliate, without `affiliate:basic:read` on the account, and always in webhooks.
     """
 
     billing_period_days: typing.Optional[int] = pydantic.Field(default=None)

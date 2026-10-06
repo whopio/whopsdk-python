@@ -25824,6 +25824,122 @@ client.memberships.apply_promo_code(
 </dl>
 </details>
 
+<details><summary><code>client.memberships.<a href="src/whop_sdk/memberships/client.py">assign_affiliate</a>(...) -> Membership</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Assigns an affiliate to a membership and pays them the commission you set on its future payments. Name the user with exactly one of `user_id`, `email`, or `username`. A user who is not yet an affiliate of your account becomes one, which also requires `affiliate:create`. Send a new `commission_type` or `commission_value` for the membership's current affiliate to change their commission; a membership that already has a different affiliate returns a conflict. Works for active or trialing memberships with one recurring plan that bill through Stripe or Whop's billing engine, and not for marketplace memberships, paused payments, or a scheduled cancellation. The payout cannot exceed 90% of the next renewal amount, and no past payments are recalculated. You cannot assign yourself.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.memberships.assign_affiliate(
+    id="id",
+    commission_type="flat_fee",
+    commission_value=5,
+    email="affiliate@example.com",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Membership ID (`mem_` tag).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**commission_type:** `AssignAffiliateMembershipsRequestCommissionType` — Whether the commission is a percentage of each payment or a fixed amount per payment.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**commission_value:** `float` — A whole number from 1 to 90 for `percentage`, or an amount greater than 1 in the membership currency for `flat_fee`. Flat fees need matching billing and settlement currencies.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**email:** `typing.Optional[str]` — Email address of the user to assign. Pass exactly one of `user_id`, `email`, or `username`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_id:** `typing.Optional[str]` — The user to assign, prefixed `user_`. Pass exactly one of `user_id`, `email`, or `username`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**username:** `typing.Optional[str]` — Whop username of the user to assign. Pass exactly one of `user_id`, `email`, or `username`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.memberships.<a href="src/whop_sdk/memberships/client.py">cancel</a>(...) -> Membership</code></summary>
 <dl>
 <dd>
