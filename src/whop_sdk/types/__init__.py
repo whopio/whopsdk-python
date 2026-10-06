@@ -505,11 +505,12 @@ if typing.TYPE_CHECKING:
     from .domain import Domain
     from .domain_dns_record import DomainDnsRecord
     from .domain_dns_record_type import DomainDnsRecordType
-    from .domain_dns_status import DomainDnsStatus
     from .domain_issue import DomainIssue
+    from .domain_issue_code import DomainIssueCode
     from .domain_list_item import DomainListItem
-    from .domain_list_item_dns_status import DomainListItemDnsStatus
+    from .domain_list_item_mode import DomainListItemMode
     from .domain_list_item_status import DomainListItemStatus
+    from .domain_mode import DomainMode
     from .domain_public_record import DomainPublicRecord
     from .domain_registrant import DomainRegistrant
     from .domain_registrar import DomainRegistrar
@@ -1977,11 +1978,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Domain": ".domain",
     "DomainDnsRecord": ".domain_dns_record",
     "DomainDnsRecordType": ".domain_dns_record_type",
-    "DomainDnsStatus": ".domain_dns_status",
     "DomainIssue": ".domain_issue",
+    "DomainIssueCode": ".domain_issue_code",
     "DomainListItem": ".domain_list_item",
-    "DomainListItemDnsStatus": ".domain_list_item_dns_status",
+    "DomainListItemMode": ".domain_list_item_mode",
     "DomainListItemStatus": ".domain_list_item_status",
+    "DomainMode": ".domain_mode",
     "DomainPublicRecord": ".domain_public_record",
     "DomainRegistrant": ".domain_registrant",
     "DomainRegistrar": ".domain_registrar",
@@ -3351,11 +3353,12 @@ __all__ = [
     "Domain",
     "DomainDnsRecord",
     "DomainDnsRecordType",
-    "DomainDnsStatus",
     "DomainIssue",
+    "DomainIssueCode",
     "DomainListItem",
-    "DomainListItemDnsStatus",
+    "DomainListItemMode",
     "DomainListItemStatus",
+    "DomainMode",
     "DomainPublicRecord",
     "DomainRegistrant",
     "DomainRegistrar",

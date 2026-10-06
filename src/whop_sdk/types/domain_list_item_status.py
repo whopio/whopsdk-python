@@ -3,6 +3,17 @@
 import typing
 
 DomainListItemStatus = typing.Union[
-    typing.Literal["pending_verification", "provisioning", "active", "action_required", "deleting", "removed"],
+    typing.Literal[
+        "pending_verification",
+        "awaiting_payment",
+        "registering",
+        "provisioning",
+        "active",
+        "action_required",
+        "deleting",
+        "expired",
+        "failed",
+        "removed",
+    ],
     typing.Any,
 ]

@@ -23,11 +23,6 @@ class DomainRegistrationQuote(UniversalBaseModel):
     What the first year of registration costs. `null` when the domain is not available.
     """
 
-    purchase_url: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    Link to buy the domain in your Whop dashboard. `null` when it isn't available or the request has no account, such as a user token.
-    """
-
     renewal_price: typing.Optional[Money] = pydantic.Field(default=None)
     """
     What each yearly renewal costs after the first year. `null` when the domain is not available.
