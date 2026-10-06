@@ -10,6 +10,9 @@ from .post_ad_campaign_payment_failed_payload_data_budget_optimization import (
     PostAdCampaignPaymentFailedPayloadDataBudgetOptimization,
 )
 from .post_ad_campaign_payment_failed_payload_data_budget_type import PostAdCampaignPaymentFailedPayloadDataBudgetType
+from .post_ad_campaign_payment_failed_payload_data_campaign_type import (
+    PostAdCampaignPaymentFailedPayloadDataCampaignType,
+)
 from .post_ad_campaign_payment_failed_payload_data_delivery_status import (
     PostAdCampaignPaymentFailedPayloadDataDeliveryStatus,
 )
@@ -52,6 +55,11 @@ class PostAdCampaignPaymentFailedPayloadData(UniversalBaseModel):
     budget_type: typing.Optional[PostAdCampaignPaymentFailedPayloadDataBudgetType] = pydantic.Field(default=None)
     """
     Whether `budget_amount` is spent per day (`daily`) or over the campaign's full run (`lifetime`).
+    """
+
+    campaign_type: PostAdCampaignPaymentFailedPayloadDataCampaignType = pydantic.Field()
+    """
+    The kind of campaign, fixed at creation. `standard` is the ad network's standard campaign; `search` shows text ads on search results for the ad groups' keywords.
     """
 
     created_at: str = pydantic.Field()

@@ -19,6 +19,7 @@ from .types.create_ad_groups_request_budget_type import CreateAdGroupsRequestBud
 from .types.create_ad_groups_request_conversion_location import CreateAdGroupsRequestConversionLocation
 from .types.create_ad_groups_request_delivery_schedule import CreateAdGroupsRequestDeliverySchedule
 from .types.create_ad_groups_request_frequency_cap import CreateAdGroupsRequestFrequencyCap
+from .types.create_ad_groups_request_keywords_item import CreateAdGroupsRequestKeywordsItem
 from .types.create_ad_groups_request_message_apps_item import CreateAdGroupsRequestMessageAppsItem
 from .types.create_ad_groups_request_optimization_goal import CreateAdGroupsRequestOptimizationGoal
 from .types.create_ad_groups_request_placements import CreateAdGroupsRequestPlacements
@@ -46,6 +47,7 @@ from .types.update_ad_groups_request_budget_type import UpdateAdGroupsRequestBud
 from .types.update_ad_groups_request_conversion_location import UpdateAdGroupsRequestConversionLocation
 from .types.update_ad_groups_request_delivery_schedule import UpdateAdGroupsRequestDeliverySchedule
 from .types.update_ad_groups_request_frequency_cap import UpdateAdGroupsRequestFrequencyCap
+from .types.update_ad_groups_request_keywords_item import UpdateAdGroupsRequestKeywordsItem
 from .types.update_ad_groups_request_message_apps_item import UpdateAdGroupsRequestMessageAppsItem
 from .types.update_ad_groups_request_optimization_goal import UpdateAdGroupsRequestOptimizationGoal
 from .types.update_ad_groups_request_placements import UpdateAdGroupsRequestPlacements
@@ -214,6 +216,7 @@ class AdGroupsClient:
         dynamic_creative: typing.Optional[bool] = OMIT,
         ends_at: typing.Optional[str] = OMIT,
         frequency_cap: typing.Optional[CreateAdGroupsRequestFrequencyCap] = OMIT,
+        keywords: typing.Optional[typing.Sequence[CreateAdGroupsRequestKeywordsItem]] = OMIT,
         languages: typing.Optional[typing.Sequence[str]] = OMIT,
         message_apps: typing.Optional[typing.Sequence[CreateAdGroupsRequestMessageAppsItem]] = OMIT,
         minimum_daily_spend: typing.Optional[float] = OMIT,
@@ -276,6 +279,9 @@ class AdGroupsClient:
 
         frequency_cap : typing.Optional[CreateAdGroupsRequestFrequencyCap]
             Cap on how often one person sees ads from this ad group. Only available when the ad group optimizes for reach or ThruPlay. Under a campaign budget every ad group must use the same cap, which applies across the whole campaign, and only with the awareness objective (reach or ThruPlay ad groups) or engagement (ThruPlay). Fixed once the campaign launches; `null` clears it before then.
+
+        keywords : typing.Optional[typing.Sequence[CreateAdGroupsRequestKeywordsItem]]
+            Search terms the ad group's ads can show for, and terms they never show for. Only search campaigns take keywords, and each of their ad groups needs at least one before launch. Replaces the stored list; omit to keep it.
 
         languages : typing.Optional[typing.Sequence[str]]
             Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted targets all languages.
@@ -351,6 +357,7 @@ class AdGroupsClient:
             dynamic_creative=dynamic_creative,
             ends_at=ends_at,
             frequency_cap=frequency_cap,
+            keywords=keywords,
             languages=languages,
             message_apps=message_apps,
             minimum_daily_spend=minimum_daily_spend,
@@ -643,6 +650,7 @@ class AdGroupsClient:
         devices: typing.Optional[AdGroupDevicesBody] = OMIT,
         ends_at: typing.Optional[str] = OMIT,
         frequency_cap: typing.Optional[UpdateAdGroupsRequestFrequencyCap] = OMIT,
+        keywords: typing.Optional[typing.Sequence[UpdateAdGroupsRequestKeywordsItem]] = OMIT,
         languages: typing.Optional[typing.Sequence[str]] = OMIT,
         message_apps: typing.Optional[typing.Sequence[UpdateAdGroupsRequestMessageAppsItem]] = OMIT,
         minimum_daily_spend: typing.Optional[float] = OMIT,
@@ -702,6 +710,9 @@ class AdGroupsClient:
 
         frequency_cap : typing.Optional[UpdateAdGroupsRequestFrequencyCap]
             Cap on how often one person sees ads from this ad group. Only available when the ad group optimizes for reach or ThruPlay. Under a campaign budget every ad group must use the same cap, which applies across the whole campaign, and only with the awareness objective (reach or ThruPlay ad groups) or engagement (ThruPlay). Fixed once the campaign launches; `null` clears it before then.
+
+        keywords : typing.Optional[typing.Sequence[UpdateAdGroupsRequestKeywordsItem]]
+            Search terms the ad group's ads can show for, and terms they never show for. Only search campaigns take keywords, and each of their ad groups needs at least one before launch. Replaces the stored list; omit to keep it.
 
         languages : typing.Optional[typing.Sequence[str]]
             Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted targets all languages.
@@ -776,6 +787,7 @@ class AdGroupsClient:
             devices=devices,
             ends_at=ends_at,
             frequency_cap=frequency_cap,
+            keywords=keywords,
             languages=languages,
             message_apps=message_apps,
             minimum_daily_spend=minimum_daily_spend,
@@ -1080,6 +1092,7 @@ class AsyncAdGroupsClient:
         dynamic_creative: typing.Optional[bool] = OMIT,
         ends_at: typing.Optional[str] = OMIT,
         frequency_cap: typing.Optional[CreateAdGroupsRequestFrequencyCap] = OMIT,
+        keywords: typing.Optional[typing.Sequence[CreateAdGroupsRequestKeywordsItem]] = OMIT,
         languages: typing.Optional[typing.Sequence[str]] = OMIT,
         message_apps: typing.Optional[typing.Sequence[CreateAdGroupsRequestMessageAppsItem]] = OMIT,
         minimum_daily_spend: typing.Optional[float] = OMIT,
@@ -1142,6 +1155,9 @@ class AsyncAdGroupsClient:
 
         frequency_cap : typing.Optional[CreateAdGroupsRequestFrequencyCap]
             Cap on how often one person sees ads from this ad group. Only available when the ad group optimizes for reach or ThruPlay. Under a campaign budget every ad group must use the same cap, which applies across the whole campaign, and only with the awareness objective (reach or ThruPlay ad groups) or engagement (ThruPlay). Fixed once the campaign launches; `null` clears it before then.
+
+        keywords : typing.Optional[typing.Sequence[CreateAdGroupsRequestKeywordsItem]]
+            Search terms the ad group's ads can show for, and terms they never show for. Only search campaigns take keywords, and each of their ad groups needs at least one before launch. Replaces the stored list; omit to keep it.
 
         languages : typing.Optional[typing.Sequence[str]]
             Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted targets all languages.
@@ -1225,6 +1241,7 @@ class AsyncAdGroupsClient:
             dynamic_creative=dynamic_creative,
             ends_at=ends_at,
             frequency_cap=frequency_cap,
+            keywords=keywords,
             languages=languages,
             message_apps=message_apps,
             minimum_daily_spend=minimum_daily_spend,
@@ -1551,6 +1568,7 @@ class AsyncAdGroupsClient:
         devices: typing.Optional[AdGroupDevicesBody] = OMIT,
         ends_at: typing.Optional[str] = OMIT,
         frequency_cap: typing.Optional[UpdateAdGroupsRequestFrequencyCap] = OMIT,
+        keywords: typing.Optional[typing.Sequence[UpdateAdGroupsRequestKeywordsItem]] = OMIT,
         languages: typing.Optional[typing.Sequence[str]] = OMIT,
         message_apps: typing.Optional[typing.Sequence[UpdateAdGroupsRequestMessageAppsItem]] = OMIT,
         minimum_daily_spend: typing.Optional[float] = OMIT,
@@ -1610,6 +1628,9 @@ class AsyncAdGroupsClient:
 
         frequency_cap : typing.Optional[UpdateAdGroupsRequestFrequencyCap]
             Cap on how often one person sees ads from this ad group. Only available when the ad group optimizes for reach or ThruPlay. Under a campaign budget every ad group must use the same cap, which applies across the whole campaign, and only with the awareness objective (reach or ThruPlay ad groups) or engagement (ThruPlay). Fixed once the campaign launches; `null` clears it before then.
+
+        keywords : typing.Optional[typing.Sequence[UpdateAdGroupsRequestKeywordsItem]]
+            Search terms the ad group's ads can show for, and terms they never show for. Only search campaigns take keywords, and each of their ad groups needs at least one before launch. Replaces the stored list; omit to keep it.
 
         languages : typing.Optional[typing.Sequence[str]]
             Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted targets all languages.
@@ -1692,6 +1713,7 @@ class AsyncAdGroupsClient:
             devices=devices,
             ends_at=ends_at,
             frequency_cap=frequency_cap,
+            keywords=keywords,
             languages=languages,
             message_apps=message_apps,
             minimum_daily_spend=minimum_daily_spend,
