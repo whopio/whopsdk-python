@@ -15,6 +15,8 @@ DomainIssueCode = typing.Union[
         "domain_unavailable",
         "premium_not_supported",
         "unsupported_tld",
+        "registration_unavailable",
+        "registration_premium",
         "registration_failed",
         "renewal_failed",
         "payment_action_required",
