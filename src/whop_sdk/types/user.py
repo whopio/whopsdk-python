@@ -4,7 +4,6 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .social_account import SocialAccount
 from .trading_account import TradingAccount
 from .user_balance import UserBalance
 from .user_balance_history import UserBalanceHistory
@@ -65,7 +64,6 @@ class User(UniversalBaseModel):
     Avatar wrapper; its `url` is always present, using a generated placeholder when the user set no picture.
     """
 
-    social_accounts: typing.List[SocialAccount]
     staff: typing.Optional[UserStaffAccess] = pydantic.Field(default=None)
     """
     Whop staff access flags. Populated only on the self view (retrieved with the reserved id `me`) for callers with staff-read scope; `null` there for every user who is not Whop staff, and always `null` elsewhere.
