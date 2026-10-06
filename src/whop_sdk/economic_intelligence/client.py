@@ -61,7 +61,7 @@ class EconomicIntelligenceClient:
             Filter recommendations by their current status.
 
         input : typing.Optional[str]
-            What you want recommendations for, in your own words. Up to 1000 characters. Narrows the list to the recommendations that address it.
+            What you want recommendations for, in your own words. Up to 1000 characters. Narrows the list to the recommendations that address it. Without a `status` filter, when none do and you can update the account, new recommendations start generating for your input, and the list shows that request until they're ready. Repeating the same input while it generates doesn't start another.
 
         has_run : typing.Optional[bool]
             When true, only recommendations someone has started running, by any user. Without `account_id`, covers every account you can read that has Economic Intelligence. Can't be combined with `input`.
@@ -246,7 +246,7 @@ class AsyncEconomicIntelligenceClient:
             Filter recommendations by their current status.
 
         input : typing.Optional[str]
-            What you want recommendations for, in your own words. Up to 1000 characters. Narrows the list to the recommendations that address it.
+            What you want recommendations for, in your own words. Up to 1000 characters. Narrows the list to the recommendations that address it. Without a `status` filter, when none do and you can update the account, new recommendations start generating for your input, and the list shows that request until they're ready. Repeating the same input while it generates doesn't start another.
 
         has_run : typing.Optional[bool]
             When true, only recommendations someone has started running, by any user. Without `account_id`, covers every account you can read that has Economic Intelligence. Can't be combined with `input`.
