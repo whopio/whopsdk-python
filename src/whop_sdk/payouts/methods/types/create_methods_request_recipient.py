@@ -8,7 +8,7 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 class CreateMethodsRequestRecipient(UniversalBaseModel):
     """
-    Creates a recipient payout account linked to the funding ledger as a non-default account, then saves the bank method on it. No Whop user, company, or recipient ledger is created. The MassPay email is generated when omitted. Recipient methods cannot be default or recurring methods and cannot use Plaid.
+    Creates a recipient payout account linked to the funding ledger as a non-default account, then saves the bank method on it. No Whop user, company, or recipient ledger is created. A valid recipient email is required. Recipient methods cannot be default or recurring methods and cannot use Plaid.
     """
 
     country: str = pydantic.Field()
@@ -16,9 +16,9 @@ class CreateMethodsRequestRecipient(UniversalBaseModel):
     ISO 3166-1 alpha-2 or alpha-3 country code.
     """
 
-    email: typing.Optional[str] = pydantic.Field(default=None)
+    email: str = pydantic.Field()
     """
-    Optional email for the recipient's MassPay payout account. Trimmed and lowercased. When omitted or null, generates a random address ending in `_bp@payouts.whop.com`.
+    Required email for the recipient's MassPay payout account. Trimmed and lowercased.
     """
 
     first_name: str = pydantic.Field()
