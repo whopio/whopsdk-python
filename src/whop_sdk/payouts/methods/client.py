@@ -163,7 +163,7 @@ class MethodsClient:
             A label for the payout method, unique per destination.
 
         recipient : typing.Optional[CreateMethodsRequestRecipient]
-            Creates a recipient payout account linked to the funding ledger as a non-default account, then saves the bank method on it. No Whop user, company, or recipient ledger is created. The MassPay email is generated when omitted. Recipient methods cannot be default or recurring methods and cannot use Plaid.
+            Creates a recipient payout account linked to the funding ledger as a non-default account, then saves the bank method on it. No Whop user, company, or recipient ledger is created. A valid recipient email is required. Recipient methods cannot be default or recurring methods and cannot use Plaid.
 
         user_id : typing.Optional[str]
             The user to add the payout method for, prefixed `user_`. Provide this or `account_id`.
@@ -438,7 +438,7 @@ class AsyncMethodsClient:
             A label for the payout method, unique per destination.
 
         recipient : typing.Optional[CreateMethodsRequestRecipient]
-            Creates a recipient payout account linked to the funding ledger as a non-default account, then saves the bank method on it. No Whop user, company, or recipient ledger is created. The MassPay email is generated when omitted. Recipient methods cannot be default or recurring methods and cannot use Plaid.
+            Creates a recipient payout account linked to the funding ledger as a non-default account, then saves the bank method on it. No Whop user, company, or recipient ledger is created. A valid recipient email is required. Recipient methods cannot be default or recurring methods and cannot use Plaid.
 
         user_id : typing.Optional[str]
             The user to add the payout method for, prefixed `user_`. Provide this or `account_id`.
