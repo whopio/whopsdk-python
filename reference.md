@@ -50260,6 +50260,173 @@ client.stats.reports.list()
 </dl>
 </details>
 
+<details><summary><code>client.stats.reports.<a href="src/whop_sdk/stats/reports/client.py">platform_trends</a>(...) -> PlatformTrendsReportsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Payments across all of Whop, for up to four windows at once. Break rows down by business type, industry type, account country or customer country, and let the business type ride along on industry type rows. The report covers the whole platform, so it takes no `account_id` and any authenticated caller can read it. A breakdown value with fewer than three businesses behind it is left out, and a filtered total that small comes back with every metric `null`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.stats.reports.platform_trends()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**breakdown_by:** `typing.Optional[PlatformTrendsReportsRequestBreakdownBy]` — What each row is. Omit it for one row per window, holding the window's total.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**columns:** `typing.Optional[str]` — Comma-separated properties and metrics to return on each row. Defaults to `gross_revenue,businesses`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**windows:** `typing.Optional[str]` — Comma-separated windows, at most four: `1d`, `7d`, `30d`, `90d`, `365d`, `mtd`, `qtd`, `ytd`, `all_time`, an explicit `2026-09-01..2026-10-01`, any of these prefixed `prev:` for the equal-length period before, or suffixed `@2026-09-01` to end earlier. Defaults to `30d`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**time_zone:** `typing.Optional[str]` — IANA zone that day, month, quarter and year boundaries fall in. Defaults to `Etc/UTC`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[PlatformTrendsReportsRequestOrder]` — The requested metric that ranks rows, by its value in the first window. Defaults to the first requested metric.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**direction:** `typing.Optional[PlatformTrendsReportsRequestDirection]` — Ranking direction. Defaults to `desc`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**convert_to:** `typing.Optional[str]` — Currency every money metric is converted into. Defaults to `usd`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**business_type:** `typing.Optional[str]` — Only counts payments to businesses of these comma-separated business types, such as `education`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**industry_type:** `typing.Optional[str]` — Only counts payments to businesses in these comma-separated industry types, such as `options_trading`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_country:** `typing.Optional[str]` — Only counts payments to accounts located in these comma-separated countries, as ISO 3166-1 alpha-2 codes such as `US`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customer_country:** `typing.Optional[str]` — Only counts payments from customers in these comma-separated countries, as ISO 3166-1 alpha-2 codes such as `US`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Stats TimeSeries
 <details><summary><code>client.stats.time_series.<a href="src/whop_sdk/stats/time_series/client.py">list</a>() -> ListTimeSeriesResponse</code></summary>
 <dl>

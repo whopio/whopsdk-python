@@ -14,6 +14,44 @@ if typing.TYPE_CHECKING:
     from .list_reports_response_data_item_columns_item_type import ListReportsResponseDataItemColumnsItemType
     from .list_reports_response_data_item_columns_item_unit import ListReportsResponseDataItemColumnsItemUnit
     from .list_reports_response_data_item_window_kind import ListReportsResponseDataItemWindowKind
+    from .platform_trends_reports_request_breakdown_by import PlatformTrendsReportsRequestBreakdownBy
+    from .platform_trends_reports_request_direction import PlatformTrendsReportsRequestDirection
+    from .platform_trends_reports_request_order import PlatformTrendsReportsRequestOrder
+    from .platform_trends_reports_response import PlatformTrendsReportsResponse
+    from .platform_trends_reports_response_data import PlatformTrendsReportsResponseData
+    from .platform_trends_reports_response_data_columns_item import PlatformTrendsReportsResponseDataColumnsItem
+    from .platform_trends_reports_response_data_columns_item_aggregate import (
+        PlatformTrendsReportsResponseDataColumnsItemAggregate,
+    )
+    from .platform_trends_reports_response_data_columns_item_type import (
+        PlatformTrendsReportsResponseDataColumnsItemType,
+    )
+    from .platform_trends_reports_response_data_columns_item_unit import (
+        PlatformTrendsReportsResponseDataColumnsItemUnit,
+    )
+    from .platform_trends_reports_response_data_reports_item import PlatformTrendsReportsResponseDataReportsItem
+    from .platform_trends_reports_response_data_reports_item_rows_item import (
+        PlatformTrendsReportsResponseDataReportsItemRowsItem,
+    )
+    from .platform_trends_reports_response_data_reports_item_rows_item_account_country import (
+        PlatformTrendsReportsResponseDataReportsItemRowsItemAccountCountry,
+    )
+    from .platform_trends_reports_response_data_reports_item_rows_item_business_type import (
+        PlatformTrendsReportsResponseDataReportsItemRowsItemBusinessType,
+    )
+    from .platform_trends_reports_response_data_reports_item_rows_item_customer_country import (
+        PlatformTrendsReportsResponseDataReportsItemRowsItemCustomerCountry,
+    )
+    from .platform_trends_reports_response_data_reports_item_rows_item_industry_type import (
+        PlatformTrendsReportsResponseDataReportsItemRowsItemIndustryType,
+    )
+    from .platform_trends_reports_response_data_reports_item_window import (
+        PlatformTrendsReportsResponseDataReportsItemWindow,
+    )
+    from .platform_trends_reports_response_data_reports_item_window_kind import (
+        PlatformTrendsReportsResponseDataReportsItemWindowKind,
+    )
+    from .platform_trends_reports_response_page_info import PlatformTrendsReportsResponsePageInfo
 _dynamic_imports: typing.Dict[str, str] = {
     "ListReportsResponse": ".list_reports_response",
     "ListReportsResponseDataItem": ".list_reports_response_data_item",
@@ -23,6 +61,24 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListReportsResponseDataItemColumnsItemType": ".list_reports_response_data_item_columns_item_type",
     "ListReportsResponseDataItemColumnsItemUnit": ".list_reports_response_data_item_columns_item_unit",
     "ListReportsResponseDataItemWindowKind": ".list_reports_response_data_item_window_kind",
+    "PlatformTrendsReportsRequestBreakdownBy": ".platform_trends_reports_request_breakdown_by",
+    "PlatformTrendsReportsRequestDirection": ".platform_trends_reports_request_direction",
+    "PlatformTrendsReportsRequestOrder": ".platform_trends_reports_request_order",
+    "PlatformTrendsReportsResponse": ".platform_trends_reports_response",
+    "PlatformTrendsReportsResponseData": ".platform_trends_reports_response_data",
+    "PlatformTrendsReportsResponseDataColumnsItem": ".platform_trends_reports_response_data_columns_item",
+    "PlatformTrendsReportsResponseDataColumnsItemAggregate": ".platform_trends_reports_response_data_columns_item_aggregate",
+    "PlatformTrendsReportsResponseDataColumnsItemType": ".platform_trends_reports_response_data_columns_item_type",
+    "PlatformTrendsReportsResponseDataColumnsItemUnit": ".platform_trends_reports_response_data_columns_item_unit",
+    "PlatformTrendsReportsResponseDataReportsItem": ".platform_trends_reports_response_data_reports_item",
+    "PlatformTrendsReportsResponseDataReportsItemRowsItem": ".platform_trends_reports_response_data_reports_item_rows_item",
+    "PlatformTrendsReportsResponseDataReportsItemRowsItemAccountCountry": ".platform_trends_reports_response_data_reports_item_rows_item_account_country",
+    "PlatformTrendsReportsResponseDataReportsItemRowsItemBusinessType": ".platform_trends_reports_response_data_reports_item_rows_item_business_type",
+    "PlatformTrendsReportsResponseDataReportsItemRowsItemCustomerCountry": ".platform_trends_reports_response_data_reports_item_rows_item_customer_country",
+    "PlatformTrendsReportsResponseDataReportsItemRowsItemIndustryType": ".platform_trends_reports_response_data_reports_item_rows_item_industry_type",
+    "PlatformTrendsReportsResponseDataReportsItemWindow": ".platform_trends_reports_response_data_reports_item_window",
+    "PlatformTrendsReportsResponseDataReportsItemWindowKind": ".platform_trends_reports_response_data_reports_item_window_kind",
+    "PlatformTrendsReportsResponsePageInfo": ".platform_trends_reports_response_page_info",
 }
 
 
@@ -56,4 +112,22 @@ __all__ = [
     "ListReportsResponseDataItemColumnsItemType",
     "ListReportsResponseDataItemColumnsItemUnit",
     "ListReportsResponseDataItemWindowKind",
+    "PlatformTrendsReportsRequestBreakdownBy",
+    "PlatformTrendsReportsRequestDirection",
+    "PlatformTrendsReportsRequestOrder",
+    "PlatformTrendsReportsResponse",
+    "PlatformTrendsReportsResponseData",
+    "PlatformTrendsReportsResponseDataColumnsItem",
+    "PlatformTrendsReportsResponseDataColumnsItemAggregate",
+    "PlatformTrendsReportsResponseDataColumnsItemType",
+    "PlatformTrendsReportsResponseDataColumnsItemUnit",
+    "PlatformTrendsReportsResponseDataReportsItem",
+    "PlatformTrendsReportsResponseDataReportsItemRowsItem",
+    "PlatformTrendsReportsResponseDataReportsItemRowsItemAccountCountry",
+    "PlatformTrendsReportsResponseDataReportsItemRowsItemBusinessType",
+    "PlatformTrendsReportsResponseDataReportsItemRowsItemCustomerCountry",
+    "PlatformTrendsReportsResponseDataReportsItemRowsItemIndustryType",
+    "PlatformTrendsReportsResponseDataReportsItemWindow",
+    "PlatformTrendsReportsResponseDataReportsItemWindowKind",
+    "PlatformTrendsReportsResponsePageInfo",
 ]
