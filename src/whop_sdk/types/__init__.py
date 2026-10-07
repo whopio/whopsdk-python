@@ -73,6 +73,7 @@ if typing.TYPE_CHECKING:
     )
     from .account_payment_controls_undated_pending_reason import AccountPaymentControlsUndatedPendingReason
     from .account_preferences import AccountPreferences
+    from .account_preferences_preferred_settlement_currency import AccountPreferencesPreferredSettlementCurrency
     from .account_preferences_subscription_failure_behavior import AccountPreferencesSubscriptionFailureBehavior
     from .account_recommended_action import AccountRecommendedAction
     from .account_recommended_action_action import AccountRecommendedActionAction
@@ -1570,6 +1571,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AccountPaymentControlsRestrictedPaymentMethodsItem": ".account_payment_controls_restricted_payment_methods_item",
     "AccountPaymentControlsUndatedPendingReason": ".account_payment_controls_undated_pending_reason",
     "AccountPreferences": ".account_preferences",
+    "AccountPreferencesPreferredSettlementCurrency": ".account_preferences_preferred_settlement_currency",
     "AccountPreferencesSubscriptionFailureBehavior": ".account_preferences_subscription_failure_behavior",
     "AccountRecommendedAction": ".account_recommended_action",
     "AccountRecommendedActionAction": ".account_recommended_action_action",
@@ -2949,6 +2951,7 @@ __all__ = [
     "AccountPaymentControlsRestrictedPaymentMethodsItem",
     "AccountPaymentControlsUndatedPendingReason",
     "AccountPreferences",
+    "AccountPreferencesPreferredSettlementCurrency",
     "AccountPreferencesSubscriptionFailureBehavior",
     "AccountRecommendedAction",
     "AccountRecommendedActionAction",

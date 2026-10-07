@@ -11,6 +11,9 @@ from .update_preferences_response_ads_triple_whale_integration import UpdatePref
 from .update_preferences_response_economic_intelligence_offers_item import (
     UpdatePreferencesResponseEconomicIntelligenceOffersItem,
 )
+from .update_preferences_response_preferred_settlement_currency import (
+    UpdatePreferencesResponsePreferredSettlementCurrency,
+)
 from .update_preferences_response_subscription_failure_behavior import (
     UpdatePreferencesResponseSubscriptionFailureBehavior,
 )
@@ -82,6 +85,18 @@ class UpdatePreferencesResponse(UniversalBaseModel):
     ] = pydantic.Field(default=None)
     """
     Durations the account can choose from to turn on Economic Intelligence, each with its fee. `null` while Economic Intelligence is on or the account is still on the Economic Intelligence waitlist.
+    """
+
+    preferred_settlement_currency: typing.Optional[UpdatePreferencesResponsePreferredSettlementCurrency] = (
+        pydantic.Field(default=None)
+    )
+    """
+    Lowercase ISO currency code every new sale settles into, regardless of the plan's currency or what the buyer paid in. Sales converted this way carry an additional 0.5% FX fee. `null` when the account settles each sale in its plan's currency.
+    """
+
+    preferred_settlement_currency_changeable_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When `preferred_settlement_currency` may next be changed or turned off, as an ISO 8601 timestamp. It can change at most once every 7 days. `null` when it may change now.
     """
 
     subscription_failure_behavior: UpdatePreferencesResponseSubscriptionFailureBehavior = pydantic.Field()

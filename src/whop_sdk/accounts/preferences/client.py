@@ -14,6 +14,9 @@ from .types.update_preferences_request_ads_triple_whale_integration import (
 from .types.update_preferences_request_economic_intelligence_duration_key import (
     UpdatePreferencesRequestEconomicIntelligenceDurationKey,
 )
+from .types.update_preferences_request_preferred_settlement_currency import (
+    UpdatePreferencesRequestPreferredSettlementCurrency,
+)
 from .types.update_preferences_request_subscription_failure_behavior import (
     UpdatePreferencesRequestSubscriptionFailureBehavior,
 )
@@ -88,6 +91,7 @@ class PreferencesClient:
         economic_intelligence_duration_key: typing.Optional[
             UpdatePreferencesRequestEconomicIntelligenceDurationKey
         ] = OMIT,
+        preferred_settlement_currency: typing.Optional[UpdatePreferencesRequestPreferredSettlementCurrency] = OMIT,
         subscription_failure_behavior: typing.Optional[UpdatePreferencesRequestSubscriptionFailureBehavior] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdatePreferencesResponse:
@@ -137,6 +141,9 @@ class PreferencesClient:
         economic_intelligence_duration_key : typing.Optional[UpdatePreferencesRequestEconomicIntelligenceDurationKey]
             Turns on Economic Intelligence for the duration with this `key` in `economic_intelligence_offers`, at that duration's fee. It can't be changed or turned off until `economic_intelligence_ends_at`. Requires the `company:update` scope on your API key.
 
+        preferred_settlement_currency : typing.Optional[UpdatePreferencesRequestPreferredSettlementCurrency]
+            Settle every new sale into this currency, regardless of the plan's currency or what the buyer paid in; sales converted this way carry an additional 0.5% FX fee. Pass `null` to go back to settling each sale in its plan's currency. Changing it never converts money already in your balances, and it can change at most once every 7 days (see `preferred_settlement_currency_changeable_at`). Requires the `payout:account:update` scope on your API key.
+
         subscription_failure_behavior : typing.Optional[UpdatePreferencesRequestSubscriptionFailureBehavior]
             What happens to a subscription once every retry of a renewal payment has failed. `cancel` (the default) cancels it. `none` leaves it past due and keeps billing it each period; access follows the account's past-due access setting. Requires company:manage_checkout permission.
 
@@ -172,6 +179,7 @@ class PreferencesClient:
             cards_notifications=cards_notifications,
             dispute_fighter_enabled=dispute_fighter_enabled,
             economic_intelligence_duration_key=economic_intelligence_duration_key,
+            preferred_settlement_currency=preferred_settlement_currency,
             subscription_failure_behavior=subscription_failure_behavior,
             request_options=request_options,
         )
@@ -251,6 +259,7 @@ class AsyncPreferencesClient:
         economic_intelligence_duration_key: typing.Optional[
             UpdatePreferencesRequestEconomicIntelligenceDurationKey
         ] = OMIT,
+        preferred_settlement_currency: typing.Optional[UpdatePreferencesRequestPreferredSettlementCurrency] = OMIT,
         subscription_failure_behavior: typing.Optional[UpdatePreferencesRequestSubscriptionFailureBehavior] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdatePreferencesResponse:
@@ -300,6 +309,9 @@ class AsyncPreferencesClient:
         economic_intelligence_duration_key : typing.Optional[UpdatePreferencesRequestEconomicIntelligenceDurationKey]
             Turns on Economic Intelligence for the duration with this `key` in `economic_intelligence_offers`, at that duration's fee. It can't be changed or turned off until `economic_intelligence_ends_at`. Requires the `company:update` scope on your API key.
 
+        preferred_settlement_currency : typing.Optional[UpdatePreferencesRequestPreferredSettlementCurrency]
+            Settle every new sale into this currency, regardless of the plan's currency or what the buyer paid in; sales converted this way carry an additional 0.5% FX fee. Pass `null` to go back to settling each sale in its plan's currency. Changing it never converts money already in your balances, and it can change at most once every 7 days (see `preferred_settlement_currency_changeable_at`). Requires the `payout:account:update` scope on your API key.
+
         subscription_failure_behavior : typing.Optional[UpdatePreferencesRequestSubscriptionFailureBehavior]
             What happens to a subscription once every retry of a renewal payment has failed. `cancel` (the default) cancels it. `none` leaves it past due and keeps billing it each period; access follows the account's past-due access setting. Requires company:manage_checkout permission.
 
@@ -343,6 +355,7 @@ class AsyncPreferencesClient:
             cards_notifications=cards_notifications,
             dispute_fighter_enabled=dispute_fighter_enabled,
             economic_intelligence_duration_key=economic_intelligence_duration_key,
+            preferred_settlement_currency=preferred_settlement_currency,
             subscription_failure_behavior=subscription_failure_behavior,
             request_options=request_options,
         )

@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .account_economic_intelligence_offer import AccountEconomicIntelligenceOffer
+from .account_preferences_preferred_settlement_currency import AccountPreferencesPreferredSettlementCurrency
 from .account_preferences_subscription_failure_behavior import AccountPreferencesSubscriptionFailureBehavior
 
 
@@ -66,6 +67,18 @@ class AccountPreferences(UniversalBaseModel):
     """
 
     economic_intelligence_offers: typing.Optional[typing.List[AccountEconomicIntelligenceOffer]] = None
+    preferred_settlement_currency: typing.Optional[AccountPreferencesPreferredSettlementCurrency] = pydantic.Field(
+        default=None
+    )
+    """
+    Lowercase ISO currency code every new sale settles into, regardless of the plan's currency or what the buyer paid in. Sales converted this way carry an additional 0.5% FX fee. `null` when the account settles each sale in its plan's currency.
+    """
+
+    preferred_settlement_currency_changeable_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When `preferred_settlement_currency` may next be changed or turned off, as an ISO 8601 timestamp. It can change at most once every 7 days. `null` when it may change now.
+    """
+
     subscription_failure_behavior: AccountPreferencesSubscriptionFailureBehavior = pydantic.Field()
     """
     What happens to a subscription once every retry of a renewal payment has failed. `cancel` (the default) cancels it. `none` leaves it past due and keeps billing it each period; access follows the account's past-due access setting.
