@@ -71,7 +71,7 @@ class User(UniversalBaseModel):
 
     trading: typing.Optional[TradingAccount] = pydantic.Field(default=None)
     """
-    Live trading state. Opt in with `include_trading=true` when retrieving `me`; `null` otherwise, without trading permission, or without an Ethereum wallet. Provider failures return an error, not a zero balance.
+    The trading account address and its WebSocket subscriptions. Opt in with `include_trading=true` when retrieving `me`. `null` otherwise, without trading permission, or without an Ethereum wallet.
     """
 
     username: str = pydantic.Field()

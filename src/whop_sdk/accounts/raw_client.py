@@ -18,7 +18,6 @@ from ..errors.bad_request_error import BadRequestError
 from ..errors.conflict_error import ConflictError
 from ..errors.forbidden_error import ForbiddenError
 from ..errors.not_found_error import NotFoundError
-from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.account import Account
 from ..types.v1error_response import V1ErrorResponse
@@ -384,7 +383,7 @@ class RawAccountsClient:
         Parameters
         ----------
         include_trading : typing.Optional[bool]
-            Also retrieve live trading state under `trading`. Requires crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet; null otherwise. Provider failures return 503.
+            Also return the trading account under `trading`: its address and its Hyperliquid WebSocket subscriptions. Requires crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet; null otherwise.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -435,17 +434,6 @@ class RawAccountsClient:
                         ),
                     ),
                 )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        V1ErrorResponse,
-                        parse_obj_as(
-                            type_=V1ErrorResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -471,7 +459,7 @@ class RawAccountsClient:
             Account ID, prefixed `biz_`, its public route, or `me` for the account associated with the current API key.
 
         include_trading : typing.Optional[bool]
-            Also retrieve live trading state under `trading`. Requires crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet; null otherwise. Provider failures return 503.
+            Also return the trading account under `trading`: its address and its Hyperliquid WebSocket subscriptions. Requires crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet; null otherwise.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -529,17 +517,6 @@ class RawAccountsClient:
                         typing.Any,
                         parse_obj_as(
                             type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        V1ErrorResponse,
-                        parse_obj_as(
-                            type_=V1ErrorResponse,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1803,7 +1780,7 @@ class AsyncRawAccountsClient:
         Parameters
         ----------
         include_trading : typing.Optional[bool]
-            Also retrieve live trading state under `trading`. Requires crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet; null otherwise. Provider failures return 503.
+            Also return the trading account under `trading`: its address and its Hyperliquid WebSocket subscriptions. Requires crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet; null otherwise.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1854,17 +1831,6 @@ class AsyncRawAccountsClient:
                         ),
                     ),
                 )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        V1ErrorResponse,
-                        parse_obj_as(
-                            type_=V1ErrorResponse,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -1890,7 +1856,7 @@ class AsyncRawAccountsClient:
             Account ID, prefixed `biz_`, its public route, or `me` for the account associated with the current API key.
 
         include_trading : typing.Optional[bool]
-            Also retrieve live trading state under `trading`. Requires crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet; null otherwise. Provider failures return 503.
+            Also return the trading account under `trading`: its address and its Hyperliquid WebSocket subscriptions. Requires crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet; null otherwise.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1948,17 +1914,6 @@ class AsyncRawAccountsClient:
                         typing.Any,
                         parse_obj_as(
                             type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 503:
-                raise ServiceUnavailableError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        V1ErrorResponse,
-                        parse_obj_as(
-                            type_=V1ErrorResponse,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

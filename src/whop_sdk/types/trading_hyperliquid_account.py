@@ -4,7 +4,6 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .trading_margin_summary import TradingMarginSummary
 from .trading_websocket_subscription import TradingWebsocketSubscription
 
 
@@ -12,16 +11,6 @@ class TradingHyperliquidAccount(UniversalBaseModel):
     address: str = pydantic.Field()
     """
     Lowercase wallet address that holds the Hyperliquid account.
-    """
-
-    builder_fee_bps: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    Builder fee Whop charges on orders, in basis points as a decimal string, or `null` when no fee is configured.
-    """
-
-    margin_summary: TradingMarginSummary = pydantic.Field()
-    """
-    Account value, margin, and withdrawable balance, all in USD.
     """
 
     websocket_subscriptions: typing.List[TradingWebsocketSubscription]

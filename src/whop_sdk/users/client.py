@@ -123,7 +123,7 @@ class UsersClient:
         Parameters
         ----------
         include_trading : typing.Optional[bool]
-            Also retrieve live trading state under `trading`. Only honored on the self view (me) with crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet. Provider failures return 503.
+            Also return the trading account under `trading`: its address and its Hyperliquid WebSocket subscriptions. Only honored on the self view (me) with crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet.
 
         account_id : typing.Optional[str]
             When set, returns your account-specific profile overrides for this account.
@@ -260,7 +260,7 @@ class UsersClient:
             User ID (prefixed `user_`), username, or `me` for the authenticated user.
 
         include_trading : typing.Optional[bool]
-            Also retrieve live trading state under `trading`. Only honored on the self view (me) with crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet. Provider failures return 503.
+            Also return the trading account under `trading`: its address and its Hyperliquid WebSocket subscriptions. Only honored on the self view (me) with crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet.
 
         account_id : typing.Optional[str]
             When set, returns the user's account-specific profile overrides for this account.
@@ -588,7 +588,7 @@ class AsyncUsersClient:
         Parameters
         ----------
         include_trading : typing.Optional[bool]
-            Also retrieve live trading state under `trading`. Only honored on the self view (me) with crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet. Provider failures return 503.
+            Also return the trading account under `trading`: its address and its Hyperliquid WebSocket subscriptions. Only honored on the self view (me) with crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet.
 
         account_id : typing.Optional[str]
             When set, returns your account-specific profile overrides for this account.
@@ -741,7 +741,7 @@ class AsyncUsersClient:
             User ID (prefixed `user_`), username, or `me` for the authenticated user.
 
         include_trading : typing.Optional[bool]
-            Also retrieve live trading state under `trading`. Only honored on the self view (me) with crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet. Provider failures return 503.
+            Also return the trading account under `trading`: its address and its Hyperliquid WebSocket subscriptions. Only honored on the self view (me) with crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet.
 
         account_id : typing.Optional[str]
             When set, returns the user's account-specific profile overrides for this account.

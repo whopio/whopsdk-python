@@ -7,40 +7,20 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
-        CreateTradesRequestInstrumentType,
-        CreateTradesRequestOrdersItem,
-        CreateTradesRequestOrdersItemOrderType,
-        CreateTradesRequestOrdersItemSide,
-        CreateTradesRequestOrdersItemStopLoss,
-        CreateTradesRequestOrdersItemTakeProfit,
-        CreateTradesRequestOrdersItemTimeInForce,
-        CreateTradesRequestProvider,
         ListTradesRequestDirection,
         ListTradesRequestOperationType,
         ListTradesRequestOrder,
         ListTradesRequestStatus,
         ListTradesResponse,
         ListTradesResponsePageInfo,
-        UpdateLeverageTradesRequestMarginMode,
-        UpdateLeverageTradesRequestProvider,
     )
 _dynamic_imports: typing.Dict[str, str] = {
-    "CreateTradesRequestInstrumentType": ".types",
-    "CreateTradesRequestOrdersItem": ".types",
-    "CreateTradesRequestOrdersItemOrderType": ".types",
-    "CreateTradesRequestOrdersItemSide": ".types",
-    "CreateTradesRequestOrdersItemStopLoss": ".types",
-    "CreateTradesRequestOrdersItemTakeProfit": ".types",
-    "CreateTradesRequestOrdersItemTimeInForce": ".types",
-    "CreateTradesRequestProvider": ".types",
     "ListTradesRequestDirection": ".types",
     "ListTradesRequestOperationType": ".types",
     "ListTradesRequestOrder": ".types",
     "ListTradesRequestStatus": ".types",
     "ListTradesResponse": ".types",
     "ListTradesResponsePageInfo": ".types",
-    "UpdateLeverageTradesRequestMarginMode": ".types",
-    "UpdateLeverageTradesRequestProvider": ".types",
 }
 
 
@@ -66,20 +46,10 @@ def __dir__():
 
 
 __all__ = [
-    "CreateTradesRequestInstrumentType",
-    "CreateTradesRequestOrdersItem",
-    "CreateTradesRequestOrdersItemOrderType",
-    "CreateTradesRequestOrdersItemSide",
-    "CreateTradesRequestOrdersItemStopLoss",
-    "CreateTradesRequestOrdersItemTakeProfit",
-    "CreateTradesRequestOrdersItemTimeInForce",
-    "CreateTradesRequestProvider",
     "ListTradesRequestDirection",
     "ListTradesRequestOperationType",
     "ListTradesRequestOrder",
     "ListTradesRequestStatus",
     "ListTradesResponse",
     "ListTradesResponsePageInfo",
-    "UpdateLeverageTradesRequestMarginMode",
-    "UpdateLeverageTradesRequestProvider",
 ]

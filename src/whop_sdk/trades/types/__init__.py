@@ -6,39 +6,19 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .create_trades_request_instrument_type import CreateTradesRequestInstrumentType
-    from .create_trades_request_orders_item import CreateTradesRequestOrdersItem
-    from .create_trades_request_orders_item_order_type import CreateTradesRequestOrdersItemOrderType
-    from .create_trades_request_orders_item_side import CreateTradesRequestOrdersItemSide
-    from .create_trades_request_orders_item_stop_loss import CreateTradesRequestOrdersItemStopLoss
-    from .create_trades_request_orders_item_take_profit import CreateTradesRequestOrdersItemTakeProfit
-    from .create_trades_request_orders_item_time_in_force import CreateTradesRequestOrdersItemTimeInForce
-    from .create_trades_request_provider import CreateTradesRequestProvider
     from .list_trades_request_direction import ListTradesRequestDirection
     from .list_trades_request_operation_type import ListTradesRequestOperationType
     from .list_trades_request_order import ListTradesRequestOrder
     from .list_trades_request_status import ListTradesRequestStatus
     from .list_trades_response import ListTradesResponse
     from .list_trades_response_page_info import ListTradesResponsePageInfo
-    from .update_leverage_trades_request_margin_mode import UpdateLeverageTradesRequestMarginMode
-    from .update_leverage_trades_request_provider import UpdateLeverageTradesRequestProvider
 _dynamic_imports: typing.Dict[str, str] = {
-    "CreateTradesRequestInstrumentType": ".create_trades_request_instrument_type",
-    "CreateTradesRequestOrdersItem": ".create_trades_request_orders_item",
-    "CreateTradesRequestOrdersItemOrderType": ".create_trades_request_orders_item_order_type",
-    "CreateTradesRequestOrdersItemSide": ".create_trades_request_orders_item_side",
-    "CreateTradesRequestOrdersItemStopLoss": ".create_trades_request_orders_item_stop_loss",
-    "CreateTradesRequestOrdersItemTakeProfit": ".create_trades_request_orders_item_take_profit",
-    "CreateTradesRequestOrdersItemTimeInForce": ".create_trades_request_orders_item_time_in_force",
-    "CreateTradesRequestProvider": ".create_trades_request_provider",
     "ListTradesRequestDirection": ".list_trades_request_direction",
     "ListTradesRequestOperationType": ".list_trades_request_operation_type",
     "ListTradesRequestOrder": ".list_trades_request_order",
     "ListTradesRequestStatus": ".list_trades_request_status",
     "ListTradesResponse": ".list_trades_response",
     "ListTradesResponsePageInfo": ".list_trades_response_page_info",
-    "UpdateLeverageTradesRequestMarginMode": ".update_leverage_trades_request_margin_mode",
-    "UpdateLeverageTradesRequestProvider": ".update_leverage_trades_request_provider",
 }
 
 
@@ -64,20 +44,10 @@ def __dir__():
 
 
 __all__ = [
-    "CreateTradesRequestInstrumentType",
-    "CreateTradesRequestOrdersItem",
-    "CreateTradesRequestOrdersItemOrderType",
-    "CreateTradesRequestOrdersItemSide",
-    "CreateTradesRequestOrdersItemStopLoss",
-    "CreateTradesRequestOrdersItemTakeProfit",
-    "CreateTradesRequestOrdersItemTimeInForce",
-    "CreateTradesRequestProvider",
     "ListTradesRequestDirection",
     "ListTradesRequestOperationType",
     "ListTradesRequestOrder",
     "ListTradesRequestStatus",
     "ListTradesResponse",
     "ListTradesResponsePageInfo",
-    "UpdateLeverageTradesRequestMarginMode",
-    "UpdateLeverageTradesRequestProvider",
 ]
