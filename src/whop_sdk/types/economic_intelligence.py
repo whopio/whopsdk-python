@@ -75,12 +75,12 @@ class EconomicIntelligence(UniversalBaseModel):
 
     run_ended_at: typing.Optional[str] = pydantic.Field(default=None)
     """
-    When Whop AI's run ended, whether executed or incomplete, as an ISO 8601 timestamp, or `null` if it has not ended.
+    When the run ended, whether executed or incomplete, as an ISO 8601 timestamp, or `null` if it has not ended.
     """
 
     run_started_at: typing.Optional[str] = pydantic.Field(default=None)
     """
-    When Whop AI started carrying out the recommendation, as an ISO 8601 timestamp, or `null` if it has not run.
+    When the run started, by Whop AI or the recommendation's API calls, as an ISO 8601 timestamp, or `null` if it has not run.
     """
 
     sentiment: typing.Optional[EconomicIntelligenceSentiment] = pydantic.Field(default=None)
@@ -90,7 +90,7 @@ class EconomicIntelligence(UniversalBaseModel):
 
     status: EconomicIntelligenceStatus = pydantic.Field()
     """
-    `queued` when awaiting generation; `pending` while generating; `ready` when available to run; `running` while Whop AI carries it out; `executed` when carried out; `incomplete` when Whop AI's run ended without carrying it out; `superseded` when rejected or replaced.
+    `queued` when awaiting generation; `pending` while generating; `ready` when available to run; `running` while Whop AI or the recommendation's API calls carry it out; `executed` when carried out; `incomplete` when the run ended without carrying it out; `superseded` when rejected or replaced.
     """
 
     superseded_at: typing.Optional[str] = pydantic.Field(default=None)

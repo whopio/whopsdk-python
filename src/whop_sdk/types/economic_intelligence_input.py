@@ -9,7 +9,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 class EconomicIntelligenceInput(UniversalBaseModel):
     answer: typing.Optional[str] = pydantic.Field(default=None)
     """
-    What Whop AI ran with: one of the options or your own text. `null` until a run starts.
+    What the run used: one of the options, or your own text for a `whop_ai` recommendation. `null` until a run starts.
     """
 
     id: str = pydantic.Field()
