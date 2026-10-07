@@ -51,7 +51,7 @@ class RawEconomicIntelligenceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[EconomicIntelligence, ListEconomicIntelligenceResponse]:
         """
-        Lists an account's recommendations and generation requests, newest first by default. Without an account, signed-out visitors receive a business-setup template and eligible users receive their saved setup recommendation. With `has_run` and no account, users receive the recommendations run on every account they can read, including accounts whose Economic Intelligence is off. Executed recommendations, runs, and recommendations that were attributed stay listed after Economic Intelligence turns off. New recommendations are offered only while it is on. Visitor countries, page views, ad impressions and clicks, and payment volume for a time range come from `GET /stats/time_series/{metric}`.
+        Lists an account's recommendations and generation requests, newest first by default. Without an account, signed-out visitors receive a business-setup template and eligible users receive their saved setup recommendation. With `has_run` and no account, users receive the recommendations run on every account they can read.
 
         Parameters
         ----------
@@ -65,7 +65,7 @@ class RawEconomicIntelligenceClient:
             What you want recommendations for, in your own words. Up to 1000 characters. Narrows the list to the recommendations that address it. Without a `status` filter, when none do and you can update the account, new recommendations start generating for your input, and the list shows that request until they're ready. Repeating the same input while it generates doesn't start another.
 
         has_run : typing.Optional[bool]
-            When true, only recommendations someone has started running, by any user. Without `account_id`, covers every account you can read, including accounts whose Economic Intelligence is off. Can't be combined with `input`.
+            When true, only recommendations someone has started running, by any user. Without `account_id`, covers every account you can read that has Economic Intelligence. Can't be combined with `input`.
 
         order : typing.Optional[ListEconomicIntelligenceRequestOrder]
             Sort field.
@@ -353,7 +353,7 @@ class AsyncRawEconomicIntelligenceClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[EconomicIntelligence, ListEconomicIntelligenceResponse]:
         """
-        Lists an account's recommendations and generation requests, newest first by default. Without an account, signed-out visitors receive a business-setup template and eligible users receive their saved setup recommendation. With `has_run` and no account, users receive the recommendations run on every account they can read, including accounts whose Economic Intelligence is off. Executed recommendations, runs, and recommendations that were attributed stay listed after Economic Intelligence turns off. New recommendations are offered only while it is on. Visitor countries, page views, ad impressions and clicks, and payment volume for a time range come from `GET /stats/time_series/{metric}`.
+        Lists an account's recommendations and generation requests, newest first by default. Without an account, signed-out visitors receive a business-setup template and eligible users receive their saved setup recommendation. With `has_run` and no account, users receive the recommendations run on every account they can read.
 
         Parameters
         ----------
@@ -367,7 +367,7 @@ class AsyncRawEconomicIntelligenceClient:
             What you want recommendations for, in your own words. Up to 1000 characters. Narrows the list to the recommendations that address it. Without a `status` filter, when none do and you can update the account, new recommendations start generating for your input, and the list shows that request until they're ready. Repeating the same input while it generates doesn't start another.
 
         has_run : typing.Optional[bool]
-            When true, only recommendations someone has started running, by any user. Without `account_id`, covers every account you can read, including accounts whose Economic Intelligence is off. Can't be combined with `input`.
+            When true, only recommendations someone has started running, by any user. Without `account_id`, covers every account you can read that has Economic Intelligence. Can't be combined with `input`.
 
         order : typing.Optional[ListEconomicIntelligenceRequestOrder]
             Sort field.
