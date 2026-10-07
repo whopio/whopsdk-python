@@ -19,7 +19,17 @@ if typing.TYPE_CHECKING:
         RetrieveStatsResponseDataPointsItemBreakdownItem,
         RetrieveStatsResponseDataTotalsItem,
     )
-    from . import time_series
+    from . import reports, time_series
+    from .reports import (
+        ListReportsResponse,
+        ListReportsResponseDataItem,
+        ListReportsResponseDataItemColumnsItem,
+        ListReportsResponseDataItemColumnsItemAggregate,
+        ListReportsResponseDataItemColumnsItemSet,
+        ListReportsResponseDataItemColumnsItemType,
+        ListReportsResponseDataItemColumnsItemUnit,
+        ListReportsResponseDataItemWindowKind,
+    )
     from .time_series import (
         ListTimeSeriesResponse,
         ListTimeSeriesResponseDataItem,
@@ -34,6 +44,14 @@ if typing.TYPE_CHECKING:
         RetrieveTimeSeriesResponseDataTotalsItem,
     )
 _dynamic_imports: typing.Dict[str, str] = {
+    "ListReportsResponse": ".reports",
+    "ListReportsResponseDataItem": ".reports",
+    "ListReportsResponseDataItemColumnsItem": ".reports",
+    "ListReportsResponseDataItemColumnsItemAggregate": ".reports",
+    "ListReportsResponseDataItemColumnsItemSet": ".reports",
+    "ListReportsResponseDataItemColumnsItemType": ".reports",
+    "ListReportsResponseDataItemColumnsItemUnit": ".reports",
+    "ListReportsResponseDataItemWindowKind": ".reports",
     "ListStatsResponse": ".types",
     "ListStatsResponseDataItem": ".types",
     "ListStatsResponseDataItemUnit": ".types",
@@ -56,6 +74,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrieveTimeSeriesResponseDataPointsItem": ".time_series",
     "RetrieveTimeSeriesResponseDataPointsItemBreakdownItem": ".time_series",
     "RetrieveTimeSeriesResponseDataTotalsItem": ".time_series",
+    "reports": ".reports",
     "time_series": ".time_series",
 }
 
@@ -82,6 +101,14 @@ def __dir__():
 
 
 __all__ = [
+    "ListReportsResponse",
+    "ListReportsResponseDataItem",
+    "ListReportsResponseDataItemColumnsItem",
+    "ListReportsResponseDataItemColumnsItemAggregate",
+    "ListReportsResponseDataItemColumnsItemSet",
+    "ListReportsResponseDataItemColumnsItemType",
+    "ListReportsResponseDataItemColumnsItemUnit",
+    "ListReportsResponseDataItemWindowKind",
     "ListStatsResponse",
     "ListStatsResponseDataItem",
     "ListStatsResponseDataItemUnit",
@@ -104,5 +131,6 @@ __all__ = [
     "RetrieveTimeSeriesResponseDataPointsItem",
     "RetrieveTimeSeriesResponseDataPointsItemBreakdownItem",
     "RetrieveTimeSeriesResponseDataTotalsItem",
+    "reports",
     "time_series",
 ]
