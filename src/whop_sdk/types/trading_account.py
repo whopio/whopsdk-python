@@ -7,8 +7,6 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .trading_account_object import TradingAccountObject
 from .trading_account_provider import TradingAccountProvider
 from .trading_hyperliquid_account import TradingHyperliquidAccount
-from .trading_order import TradingOrder
-from .trading_position import TradingPosition
 
 
 class TradingAccount(UniversalBaseModel):
@@ -28,8 +26,6 @@ class TradingAccount(UniversalBaseModel):
     """
 
     object: TradingAccountObject
-    open_orders: typing.List[TradingOrder]
-    positions: typing.List[TradingPosition]
     provider: TradingAccountProvider = pydantic.Field()
     """
     Trading venue that holds the positions and orders.

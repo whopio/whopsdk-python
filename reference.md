@@ -558,7 +558,7 @@ client.accounts.me()
 <dl>
 <dd>
 
-**include_trading:** `typing.Optional[bool]` — Also retrieve live trading state under `trading`. Requires crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet; null otherwise. Provider failures return 503.
+**include_trading:** `typing.Optional[bool]` — Also return the trading account under `trading`: its address and its Hyperliquid WebSocket subscriptions. Requires crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet; null otherwise.
     
 </dd>
 </dl>
@@ -639,7 +639,7 @@ client.accounts.retrieve(
 <dl>
 <dd>
 
-**include_trading:** `typing.Optional[bool]` — Also retrieve live trading state under `trading`. Requires crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet; null otherwise. Provider failures return 503.
+**include_trading:** `typing.Optional[bool]` — Also return the trading account under `trading`: its address and its Hyperliquid WebSocket subscriptions. Requires crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet; null otherwise.
     
 </dd>
 </dl>
@@ -41650,7 +41650,7 @@ client.trades.list()
 </dl>
 </details>
 
-<details><summary><code>client.trades.<a href="src/whop_sdk/trades/client.py">create</a>(...) -> Trade</code></summary>
+<details><summary><code>client.trades.<a href="src/whop_sdk/trades/client.py">create</a>()</code></summary>
 <dl>
 <dd>
 
@@ -41662,7 +41662,7 @@ client.trades.list()
 <dl>
 <dd>
 
-Submits perpetual orders from a funded trading wallet. Send several limit orders for a ladder, or attach `take_profit` and `stop_loss` to a single entry order. Whop's builder fee is approved and attached automatically. The returned `trop_` ID identifies the submission, not a position, and `completed` doesn't mean filled: check each order acknowledgement, and read live orders and positions from the account's `trading` field. Requires an `Idempotency-Key`. Early beta: email support@whop.com for access.
+Retired. Order batches can no longer be placed. Every caller gets `410 Gone`, whatever the body, and nothing is sent to the trading provider. List and retrieve earlier trades with `GET /trades`.
 </dd>
 </dl>
 </dd>
@@ -41679,25 +41679,13 @@ Submits perpetual orders from a funded trading wallet. Send several limit orders
 ```python
 from whop_sdk import Whop
 from whop_sdk.environment import WhopEnvironment
-from whop_sdk.trades import CreateTradesRequestOrdersItem
 
 client = Whop(
     token="<token>",
     environment=WhopEnvironment.PRODUCTION,
 )
 
-client.trades.create(
-    account_id="biz_xxxxxxxxxxxxxx",
-    instrument_type="perpetual",
-    orders=[
-        CreateTradesRequestOrdersItem(
-            market="ETH",
-            side="buy",
-            size="0.02",
-        )
-    ],
-    provider="hyperliquid",
-)
+client.trades.create()
 
 ```
 </dd>
@@ -41709,54 +41697,6 @@ client.trades.create(
 
 <dl>
 <dd>
-
-<dl>
-<dd>
-
-**account_id:** `str` — The account or user that owns the trading wallet, prefixed `biz_` or `user_`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**instrument_type:** `CreateTradesRequestInstrumentType` — The kind of instrument to trade.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**orders:** `typing.List[CreateTradesRequestOrdersItem]` — Orders to submit together. Attached take-profit and stop-loss are supported only with a single entry order.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `CreateTradesRequestProvider` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**metadata:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — Free-form string-to-string annotations stored on the trade.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**slippage_bps:** `typing.Optional[int]` — Default slippage cap in basis points for market orders and market-triggered take-profit and stop-loss.
-    
-</dd>
-</dl>
 
 <dl>
 <dd>
@@ -41773,7 +41713,7 @@ client.trades.create(
 </dl>
 </details>
 
-<details><summary><code>client.trades.<a href="src/whop_sdk/trades/client.py">update_leverage</a>(...) -> Trade</code></summary>
+<details><summary><code>client.trades.<a href="src/whop_sdk/trades/client.py">update_leverage</a>()</code></summary>
 <dl>
 <dd>
 
@@ -41785,7 +41725,7 @@ client.trades.create(
 <dl>
 <dd>
 
-Sets cross or isolated leverage for a perpetual market, up to that market's maximum. Returns a trade recording the submission. Requires an `Idempotency-Key`.
+Retired. Every caller gets `410 Gone`, and no leverage change is sent to the trading provider.
 </dd>
 </dl>
 </dd>
@@ -41808,13 +41748,7 @@ client = Whop(
     environment=WhopEnvironment.PRODUCTION,
 )
 
-client.trades.update_leverage(
-    account_id="biz_xxxxxxxxxxxxxx",
-    leverage=5,
-    margin_mode="cross",
-    market="ETH",
-    provider="hyperliquid",
-)
+client.trades.update_leverage()
 
 ```
 </dd>
@@ -41826,54 +41760,6 @@ client.trades.update_leverage(
 
 <dl>
 <dd>
-
-<dl>
-<dd>
-
-**account_id:** `str` — The account or user that owns the trading wallet, prefixed `biz_` or `user_`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**leverage:** `int` — Leverage multiplier, such as `10` for 10x. Capped at the market's maximum.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**margin_mode:** `UpdateLeverageTradesRequestMarginMode` — `cross` shares margin across positions; `isolated` limits margin to this market's position.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**market:** `str` — Perpetual market on the provider, such as `ETH`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**provider:** `UpdateLeverageTradesRequestProvider` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**metadata:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — Free-form string-to-string annotations stored on the trade.
-    
-</dd>
-</dl>
 
 <dl>
 <dd>
@@ -41902,7 +41788,7 @@ client.trades.update_leverage(
 <dl>
 <dd>
 
-Retrieves a trade. Order acknowledgements don't update as orders fill; read live orders and positions from the account's `trading` field. Never resubmit a `submission_unknown` trade with a new idempotency key.
+Retrieves a trade. Order acknowledgements don't update as orders fill. Never resubmit a `submission_unknown` trade with a new idempotency key.
 </dd>
 </dl>
 </dd>
@@ -41963,7 +41849,7 @@ client.trades.retrieve(
 </dl>
 </details>
 
-<details><summary><code>client.trades.<a href="src/whop_sdk/trades/client.py">cancel</a>(...) -> Trade</code></summary>
+<details><summary><code>client.trades.<a href="src/whop_sdk/trades/client.py">cancel</a>(...)</code></summary>
 <dl>
 <dd>
 
@@ -41975,7 +41861,7 @@ client.trades.retrieve(
 <dl>
 <dd>
 
-Cancels every order in an order trade, including attached take-profit and stop-loss. This doesn't close filled positions. Returns a new cancellation trade whose `trade_id` points to the original, which is left unchanged. Cancellation works even while opening new positions is disabled. Requires an `Idempotency-Key`.
+Retired. Every caller gets `410 Gone`, and no cancellation is sent to the trading provider.
 </dd>
 </dl>
 </dd>
@@ -42017,14 +41903,6 @@ client.trades.cancel(
 <dd>
 
 **id:** `str` — ID of the order trade to cancel, prefixed `trop_`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**metadata:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — Free-form string-to-string annotations stored on the trade.
     
 </dd>
 </dl>
@@ -42675,7 +42553,7 @@ client.users.me()
 <dl>
 <dd>
 
-**include_trading:** `typing.Optional[bool]` — Also retrieve live trading state under `trading`. Only honored on the self view (me) with crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet. Provider failures return 503.
+**include_trading:** `typing.Optional[bool]` — Also return the trading account under `trading`: its address and its Hyperliquid WebSocket subscriptions. Only honored on the self view (me) with crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet.
     
 </dd>
 </dl>
@@ -42923,7 +42801,7 @@ client.users.retrieve(
 <dl>
 <dd>
 
-**include_trading:** `typing.Optional[bool]` — Also retrieve live trading state under `trading`. Only honored on the self view (me) with crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet. Provider failures return 503.
+**include_trading:** `typing.Optional[bool]` — Also return the trading account under `trading`: its address and its Hyperliquid WebSocket subscriptions. Only honored on the self view (me) with crypto_wallet:trade:read, crypto_wallet:trade, or crypto_wallet:manage permission and an Ethereum wallet.
     
 </dd>
 </dl>
