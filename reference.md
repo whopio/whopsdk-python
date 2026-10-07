@@ -49720,7 +49720,7 @@ client.payouts.methods.create(
 <dl>
 <dd>
 
-**recipient:** `typing.Optional[CreateMethodsRequestRecipient]` — Creates an external recipient and saves the bank method on their payout account, bound to the funding account. The MassPay email is generated when omitted; the recipient does not need a Whop login or Sumsub verification. Recipient methods cannot be default or recurring methods and cannot use Plaid.
+**recipient:** `typing.Optional[CreateMethodsRequestRecipient]` — Creates a recipient payout account linked to the funding ledger as a non-default account, then saves the bank method on it. No Whop user, company, or recipient ledger is created. The MassPay email is generated when omitted. Recipient methods cannot be default or recurring methods and cannot use Plaid.
     
 </dd>
 </dl>
