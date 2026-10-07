@@ -6,6 +6,10 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
 from .raw_client import AsyncRawReportsClient, RawReportsClient
 from .types.list_reports_response import ListReportsResponse
+from .types.platform_trends_reports_request_breakdown_by import PlatformTrendsReportsRequestBreakdownBy
+from .types.platform_trends_reports_request_direction import PlatformTrendsReportsRequestDirection
+from .types.platform_trends_reports_request_order import PlatformTrendsReportsRequestOrder
+from .types.platform_trends_reports_response import PlatformTrendsReportsResponse
 
 
 class ReportsClient:
@@ -49,6 +53,105 @@ class ReportsClient:
         client.stats.reports.list()
         """
         _response = self._raw_client.list(request_options=request_options)
+        return _response.data
+
+    def platform_trends(
+        self,
+        *,
+        breakdown_by: typing.Optional[PlatformTrendsReportsRequestBreakdownBy] = None,
+        columns: typing.Optional[str] = None,
+        windows: typing.Optional[str] = None,
+        time_zone: typing.Optional[str] = None,
+        order: typing.Optional[PlatformTrendsReportsRequestOrder] = None,
+        direction: typing.Optional[PlatformTrendsReportsRequestDirection] = None,
+        convert_to: typing.Optional[str] = None,
+        business_type: typing.Optional[str] = None,
+        industry_type: typing.Optional[str] = None,
+        account_country: typing.Optional[str] = None,
+        customer_country: typing.Optional[str] = None,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PlatformTrendsReportsResponse:
+        """
+        Payments across all of Whop, for up to four windows at once. Break rows down by business type, industry type, account country or customer country, and let the business type ride along on industry type rows. The report covers the whole platform, so it takes no `account_id` and any authenticated caller can read it. A breakdown value with fewer than three businesses behind it is left out, and a filtered total that small comes back with every metric `null`.
+
+        Parameters
+        ----------
+        breakdown_by : typing.Optional[PlatformTrendsReportsRequestBreakdownBy]
+            What each row is. Omit it for one row per window, holding the window's total.
+
+        columns : typing.Optional[str]
+            Comma-separated properties and metrics to return on each row. Defaults to `gross_revenue,businesses`.
+
+        windows : typing.Optional[str]
+            Comma-separated windows, at most four: `1d`, `7d`, `30d`, `90d`, `365d`, `mtd`, `qtd`, `ytd`, `all_time`, an explicit `2026-09-01..2026-10-01`, any of these prefixed `prev:` for the equal-length period before, or suffixed `@2026-09-01` to end earlier. Defaults to `30d`.
+
+        time_zone : typing.Optional[str]
+            IANA zone that day, month, quarter and year boundaries fall in. Defaults to `Etc/UTC`.
+
+        order : typing.Optional[PlatformTrendsReportsRequestOrder]
+            The requested metric that ranks rows, by its value in the first window. Defaults to the first requested metric.
+
+        direction : typing.Optional[PlatformTrendsReportsRequestDirection]
+            Ranking direction. Defaults to `desc`.
+
+        convert_to : typing.Optional[str]
+            Currency every money metric is converted into. Defaults to `usd`.
+
+        business_type : typing.Optional[str]
+            Only counts payments to businesses of these comma-separated business types, such as `education`.
+
+        industry_type : typing.Optional[str]
+            Only counts payments to businesses in these comma-separated industry types, such as `options_trading`.
+
+        account_country : typing.Optional[str]
+            Only counts payments to accounts located in these comma-separated countries, as ISO 3166-1 alpha-2 codes such as `US`.
+
+        customer_country : typing.Optional[str]
+            Only counts payments from customers in these comma-separated countries, as ISO 3166-1 alpha-2 codes such as `US`.
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PlatformTrendsReportsResponse
+            Platform trends for each requested window, with rows in the same order in every window.
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-10-06-2",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.stats.reports.platform_trends()
+        """
+        _response = self._raw_client.platform_trends(
+            breakdown_by=breakdown_by,
+            columns=columns,
+            windows=windows,
+            time_zone=time_zone,
+            order=order,
+            direction=direction,
+            convert_to=convert_to,
+            business_type=business_type,
+            industry_type=industry_type,
+            account_country=account_country,
+            customer_country=customer_country,
+            first=first,
+            after=after,
+            request_options=request_options,
+        )
         return _response.data
 
 
@@ -101,4 +204,111 @@ class AsyncReportsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.list(request_options=request_options)
+        return _response.data
+
+    async def platform_trends(
+        self,
+        *,
+        breakdown_by: typing.Optional[PlatformTrendsReportsRequestBreakdownBy] = None,
+        columns: typing.Optional[str] = None,
+        windows: typing.Optional[str] = None,
+        time_zone: typing.Optional[str] = None,
+        order: typing.Optional[PlatformTrendsReportsRequestOrder] = None,
+        direction: typing.Optional[PlatformTrendsReportsRequestDirection] = None,
+        convert_to: typing.Optional[str] = None,
+        business_type: typing.Optional[str] = None,
+        industry_type: typing.Optional[str] = None,
+        account_country: typing.Optional[str] = None,
+        customer_country: typing.Optional[str] = None,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PlatformTrendsReportsResponse:
+        """
+        Payments across all of Whop, for up to four windows at once. Break rows down by business type, industry type, account country or customer country, and let the business type ride along on industry type rows. The report covers the whole platform, so it takes no `account_id` and any authenticated caller can read it. A breakdown value with fewer than three businesses behind it is left out, and a filtered total that small comes back with every metric `null`.
+
+        Parameters
+        ----------
+        breakdown_by : typing.Optional[PlatformTrendsReportsRequestBreakdownBy]
+            What each row is. Omit it for one row per window, holding the window's total.
+
+        columns : typing.Optional[str]
+            Comma-separated properties and metrics to return on each row. Defaults to `gross_revenue,businesses`.
+
+        windows : typing.Optional[str]
+            Comma-separated windows, at most four: `1d`, `7d`, `30d`, `90d`, `365d`, `mtd`, `qtd`, `ytd`, `all_time`, an explicit `2026-09-01..2026-10-01`, any of these prefixed `prev:` for the equal-length period before, or suffixed `@2026-09-01` to end earlier. Defaults to `30d`.
+
+        time_zone : typing.Optional[str]
+            IANA zone that day, month, quarter and year boundaries fall in. Defaults to `Etc/UTC`.
+
+        order : typing.Optional[PlatformTrendsReportsRequestOrder]
+            The requested metric that ranks rows, by its value in the first window. Defaults to the first requested metric.
+
+        direction : typing.Optional[PlatformTrendsReportsRequestDirection]
+            Ranking direction. Defaults to `desc`.
+
+        convert_to : typing.Optional[str]
+            Currency every money metric is converted into. Defaults to `usd`.
+
+        business_type : typing.Optional[str]
+            Only counts payments to businesses of these comma-separated business types, such as `education`.
+
+        industry_type : typing.Optional[str]
+            Only counts payments to businesses in these comma-separated industry types, such as `options_trading`.
+
+        account_country : typing.Optional[str]
+            Only counts payments to accounts located in these comma-separated countries, as ISO 3166-1 alpha-2 codes such as `US`.
+
+        customer_country : typing.Optional[str]
+            Only counts payments from customers in these comma-separated countries, as ISO 3166-1 alpha-2 codes such as `US`.
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PlatformTrendsReportsResponse
+            Platform trends for each requested window, with rows in the same order in every window.
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-10-06-2",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.stats.reports.platform_trends()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.platform_trends(
+            breakdown_by=breakdown_by,
+            columns=columns,
+            windows=windows,
+            time_zone=time_zone,
+            order=order,
+            direction=direction,
+            convert_to=convert_to,
+            business_type=business_type,
+            industry_type=industry_type,
+            account_country=account_country,
+            customer_country=customer_country,
+            first=first,
+            after=after,
+            request_options=request_options,
+        )
         return _response.data
