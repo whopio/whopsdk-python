@@ -97,7 +97,7 @@ class AppBuildsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-06-1",
+            "2026-10-06-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -129,7 +129,6 @@ class AppBuildsClient:
         attachment: CreateAppBuildsRequestAttachment,
         checksum: str,
         platform: CreateAppBuildsRequestPlatform,
-        ai_prompt_id: typing.Optional[str] = OMIT,
         app_id: typing.Optional[str] = OMIT,
         source_attachment: typing.Optional[CreateAppBuildsRequestSourceAttachment] = OMIT,
         supported_app_view_types: typing.Optional[
@@ -150,9 +149,6 @@ class AppBuildsClient:
 
         platform : CreateAppBuildsRequestPlatform
             The target platform for the build.
-
-        ai_prompt_id : typing.Optional[str]
-            The AI prompt that generated this build, if applicable.
 
         app_id : typing.Optional[str]
             The app to create the build for, prefixed `app_`. Defaults to the app behind the presented credential.
@@ -177,7 +173,7 @@ class AppBuildsClient:
         from whop_sdk.app_builds import CreateAppBuildsRequestAttachment
 
         client = Whop(
-            "2026-10-06-1",
+            "2026-10-06-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -191,7 +187,6 @@ class AppBuildsClient:
             attachment=attachment,
             checksum=checksum,
             platform=platform,
-            ai_prompt_id=ai_prompt_id,
             app_id=app_id,
             source_attachment=source_attachment,
             supported_app_view_types=supported_app_view_types,
@@ -221,7 +216,7 @@ class AppBuildsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-06-1",
+            "2026-10-06-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -254,7 +249,7 @@ class AppBuildsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-06-1",
+            "2026-10-06-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -342,7 +337,7 @@ class AsyncAppBuildsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-06-1",
+            "2026-10-06-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -381,7 +376,6 @@ class AsyncAppBuildsClient:
         attachment: CreateAppBuildsRequestAttachment,
         checksum: str,
         platform: CreateAppBuildsRequestPlatform,
-        ai_prompt_id: typing.Optional[str] = OMIT,
         app_id: typing.Optional[str] = OMIT,
         source_attachment: typing.Optional[CreateAppBuildsRequestSourceAttachment] = OMIT,
         supported_app_view_types: typing.Optional[
@@ -402,9 +396,6 @@ class AsyncAppBuildsClient:
 
         platform : CreateAppBuildsRequestPlatform
             The target platform for the build.
-
-        ai_prompt_id : typing.Optional[str]
-            The AI prompt that generated this build, if applicable.
 
         app_id : typing.Optional[str]
             The app to create the build for, prefixed `app_`. Defaults to the app behind the presented credential.
@@ -431,7 +422,7 @@ class AsyncAppBuildsClient:
         from whop_sdk.app_builds import CreateAppBuildsRequestAttachment
 
         client = AsyncWhop(
-            "2026-10-06-1",
+            "2026-10-06-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -451,7 +442,6 @@ class AsyncAppBuildsClient:
             attachment=attachment,
             checksum=checksum,
             platform=platform,
-            ai_prompt_id=ai_prompt_id,
             app_id=app_id,
             source_attachment=source_attachment,
             supported_app_view_types=supported_app_view_types,
@@ -483,7 +473,7 @@ class AsyncAppBuildsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-06-1",
+            "2026-10-06-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -524,7 +514,7 @@ class AsyncAppBuildsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-06-1",
+            "2026-10-06-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

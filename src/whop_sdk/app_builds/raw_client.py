@@ -198,7 +198,6 @@ class RawAppBuildsClient:
         attachment: CreateAppBuildsRequestAttachment,
         checksum: str,
         platform: CreateAppBuildsRequestPlatform,
-        ai_prompt_id: typing.Optional[str] = OMIT,
         app_id: typing.Optional[str] = OMIT,
         source_attachment: typing.Optional[CreateAppBuildsRequestSourceAttachment] = OMIT,
         supported_app_view_types: typing.Optional[
@@ -219,9 +218,6 @@ class RawAppBuildsClient:
 
         platform : CreateAppBuildsRequestPlatform
             The target platform for the build.
-
-        ai_prompt_id : typing.Optional[str]
-            The AI prompt that generated this build, if applicable.
 
         app_id : typing.Optional[str]
             The app to create the build for, prefixed `app_`. Defaults to the app behind the presented credential.
@@ -245,7 +241,6 @@ class RawAppBuildsClient:
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
-                "ai_prompt_id": ai_prompt_id,
                 "app_id": app_id,
                 "attachment": convert_and_respect_annotation_metadata(
                     object_=attachment, annotation=CreateAppBuildsRequestAttachment, direction="write"
@@ -664,7 +659,6 @@ class AsyncRawAppBuildsClient:
         attachment: CreateAppBuildsRequestAttachment,
         checksum: str,
         platform: CreateAppBuildsRequestPlatform,
-        ai_prompt_id: typing.Optional[str] = OMIT,
         app_id: typing.Optional[str] = OMIT,
         source_attachment: typing.Optional[CreateAppBuildsRequestSourceAttachment] = OMIT,
         supported_app_view_types: typing.Optional[
@@ -685,9 +679,6 @@ class AsyncRawAppBuildsClient:
 
         platform : CreateAppBuildsRequestPlatform
             The target platform for the build.
-
-        ai_prompt_id : typing.Optional[str]
-            The AI prompt that generated this build, if applicable.
 
         app_id : typing.Optional[str]
             The app to create the build for, prefixed `app_`. Defaults to the app behind the presented credential.
@@ -711,7 +702,6 @@ class AsyncRawAppBuildsClient:
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
-                "ai_prompt_id": ai_prompt_id,
                 "app_id": app_id,
                 "attachment": convert_and_respect_annotation_metadata(
                     object_=attachment, annotation=CreateAppBuildsRequestAttachment, direction="write"
