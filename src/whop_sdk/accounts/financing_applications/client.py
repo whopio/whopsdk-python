@@ -98,7 +98,7 @@ class FinancingApplicationsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-06-2",
+            "2026-10-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -149,7 +149,7 @@ class FinancingApplicationsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-06-2",
+            "2026-10-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -187,7 +187,7 @@ class FinancingApplicationsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-06-2",
+            "2026-10-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -236,7 +236,7 @@ class FinancingApplicationsClient:
         )
 
         client = Whop(
-            "2026-10-06-2",
+            "2026-10-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -290,7 +290,7 @@ class FinancingApplicationsClient:
         )
 
         client = Whop(
-            "2026-10-06-2",
+            "2026-10-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -389,7 +389,7 @@ class AsyncFinancingApplicationsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-06-2",
+            "2026-10-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -449,7 +449,7 @@ class AsyncFinancingApplicationsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-06-2",
+            "2026-10-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -495,7 +495,7 @@ class AsyncFinancingApplicationsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-06-2",
+            "2026-10-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -552,7 +552,7 @@ class AsyncFinancingApplicationsClient:
         )
 
         client = AsyncWhop(
-            "2026-10-06-2",
+            "2026-10-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -614,7 +614,7 @@ class AsyncFinancingApplicationsClient:
         )
 
         client = AsyncWhop(
-            "2026-10-06-2",
+            "2026-10-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

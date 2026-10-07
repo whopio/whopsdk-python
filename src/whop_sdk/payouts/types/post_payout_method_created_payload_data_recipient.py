@@ -18,10 +18,6 @@ class PostPayoutMethodCreatedPayloadDataRecipient(UniversalBaseModel):
 
     first_name: str
     last_name: str
-    user_id: str = pydantic.Field()
-    """
-    The recipient's Whop user ID, prefixed `user_`.
-    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

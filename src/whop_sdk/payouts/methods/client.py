@@ -100,7 +100,7 @@ class MethodsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-06-2",
+            "2026-10-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -163,7 +163,7 @@ class MethodsClient:
             A label for the payout method, unique per destination.
 
         recipient : typing.Optional[CreateMethodsRequestRecipient]
-            Creates an external recipient and saves the bank method on their payout account, bound to the funding account. The MassPay email is generated when omitted; the recipient does not need a Whop login or Sumsub verification. Recipient methods cannot be default or recurring methods and cannot use Plaid.
+            Creates a recipient payout account linked to the funding ledger as a non-default account, then saves the bank method on it. No Whop user, company, or recipient ledger is created. The MassPay email is generated when omitted. Recipient methods cannot be default or recurring methods and cannot use Plaid.
 
         user_id : typing.Optional[str]
             The user to add the payout method for, prefixed `user_`. Provide this or `account_id`.
@@ -181,7 +181,7 @@ class MethodsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-06-2",
+            "2026-10-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -224,7 +224,7 @@ class MethodsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-06-2",
+            "2026-10-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -270,7 +270,7 @@ class MethodsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-06-2",
+            "2026-10-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -368,7 +368,7 @@ class AsyncMethodsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-06-2",
+            "2026-10-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -438,7 +438,7 @@ class AsyncMethodsClient:
             A label for the payout method, unique per destination.
 
         recipient : typing.Optional[CreateMethodsRequestRecipient]
-            Creates an external recipient and saves the bank method on their payout account, bound to the funding account. The MassPay email is generated when omitted; the recipient does not need a Whop login or Sumsub verification. Recipient methods cannot be default or recurring methods and cannot use Plaid.
+            Creates a recipient payout account linked to the funding ledger as a non-default account, then saves the bank method on it. No Whop user, company, or recipient ledger is created. The MassPay email is generated when omitted. Recipient methods cannot be default or recurring methods and cannot use Plaid.
 
         user_id : typing.Optional[str]
             The user to add the payout method for, prefixed `user_`. Provide this or `account_id`.
@@ -458,7 +458,7 @@ class AsyncMethodsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-06-2",
+            "2026-10-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -511,7 +511,7 @@ class AsyncMethodsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-06-2",
+            "2026-10-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -565,7 +565,7 @@ class AsyncMethodsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-06-2",
+            "2026-10-07",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
