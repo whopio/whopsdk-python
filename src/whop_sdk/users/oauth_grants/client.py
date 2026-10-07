@@ -84,7 +84,7 @@ class OauthGrantsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-06",
+            "2026-10-06-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -173,7 +173,7 @@ class OauthGrantsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-06",
+            "2026-10-06-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -268,7 +268,7 @@ class AsyncOauthGrantsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-06",
+            "2026-10-06-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -366,7 +366,7 @@ class AsyncOauthGrantsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-06",
+            "2026-10-06-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

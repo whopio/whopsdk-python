@@ -19,10 +19,27 @@ if typing.TYPE_CHECKING:
         RetrieveStatsResponseDataPointsItemBreakdownItem,
         RetrieveStatsResponseDataTotalsItem,
     )
+    from . import time_series
+    from .time_series import (
+        ListTimeSeriesResponse,
+        ListTimeSeriesResponseDataItem,
+        ListTimeSeriesResponseDataItemUnit,
+        RetrieveTimeSeriesRequestEventType,
+        RetrieveTimeSeriesRequestInterval,
+        RetrieveTimeSeriesRequestSnapshotWindow,
+        RetrieveTimeSeriesResponse,
+        RetrieveTimeSeriesResponseData,
+        RetrieveTimeSeriesResponseDataPointsItem,
+        RetrieveTimeSeriesResponseDataPointsItemBreakdownItem,
+        RetrieveTimeSeriesResponseDataTotalsItem,
+    )
 _dynamic_imports: typing.Dict[str, str] = {
     "ListStatsResponse": ".types",
     "ListStatsResponseDataItem": ".types",
     "ListStatsResponseDataItemUnit": ".types",
+    "ListTimeSeriesResponse": ".time_series",
+    "ListTimeSeriesResponseDataItem": ".time_series",
+    "ListTimeSeriesResponseDataItemUnit": ".time_series",
     "RetrieveStatsRequestEventType": ".types",
     "RetrieveStatsRequestInterval": ".types",
     "RetrieveStatsRequestSnapshotWindow": ".types",
@@ -31,6 +48,15 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrieveStatsResponseDataPointsItem": ".types",
     "RetrieveStatsResponseDataPointsItemBreakdownItem": ".types",
     "RetrieveStatsResponseDataTotalsItem": ".types",
+    "RetrieveTimeSeriesRequestEventType": ".time_series",
+    "RetrieveTimeSeriesRequestInterval": ".time_series",
+    "RetrieveTimeSeriesRequestSnapshotWindow": ".time_series",
+    "RetrieveTimeSeriesResponse": ".time_series",
+    "RetrieveTimeSeriesResponseData": ".time_series",
+    "RetrieveTimeSeriesResponseDataPointsItem": ".time_series",
+    "RetrieveTimeSeriesResponseDataPointsItemBreakdownItem": ".time_series",
+    "RetrieveTimeSeriesResponseDataTotalsItem": ".time_series",
+    "time_series": ".time_series",
 }
 
 
@@ -59,6 +85,9 @@ __all__ = [
     "ListStatsResponse",
     "ListStatsResponseDataItem",
     "ListStatsResponseDataItemUnit",
+    "ListTimeSeriesResponse",
+    "ListTimeSeriesResponseDataItem",
+    "ListTimeSeriesResponseDataItemUnit",
     "RetrieveStatsRequestEventType",
     "RetrieveStatsRequestInterval",
     "RetrieveStatsRequestSnapshotWindow",
@@ -67,4 +96,13 @@ __all__ = [
     "RetrieveStatsResponseDataPointsItem",
     "RetrieveStatsResponseDataPointsItemBreakdownItem",
     "RetrieveStatsResponseDataTotalsItem",
+    "RetrieveTimeSeriesRequestEventType",
+    "RetrieveTimeSeriesRequestInterval",
+    "RetrieveTimeSeriesRequestSnapshotWindow",
+    "RetrieveTimeSeriesResponse",
+    "RetrieveTimeSeriesResponseData",
+    "RetrieveTimeSeriesResponseDataPointsItem",
+    "RetrieveTimeSeriesResponseDataPointsItemBreakdownItem",
+    "RetrieveTimeSeriesResponseDataTotalsItem",
+    "time_series",
 ]

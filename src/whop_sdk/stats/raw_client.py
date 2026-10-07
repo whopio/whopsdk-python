@@ -13,10 +13,6 @@ from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..core.serialization import convert_and_respect_annotation_metadata
-from ..errors.bad_request_error import BadRequestError
-from ..errors.forbidden_error import ForbiddenError
-from ..errors.not_found_error import NotFoundError
-from ..errors.unauthorized_error import UnauthorizedError
 from ..types.retrieve_stats_request_steps import RetrieveStatsRequestSteps
 from .types.list_stats_response import ListStatsResponse
 from .types.retrieve_stats_request_event_type import RetrieveStatsRequestEventType
@@ -32,7 +28,7 @@ class RawStatsClient:
 
     def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[ListStatsResponse]:
         """
-        Lists every metric you can query, with its unit and the properties you can filter or break it down by.
+        Deprecated. Lists every metric, which no longer says which of them a projection accepts. List the ones you can chart with `GET /stats/time_series`, or the ones you can rank with `GET /stats/reports`.
 
         Parameters
         ----------
@@ -42,7 +38,7 @@ class RawStatsClient:
         Returns
         -------
         HttpResponse[ListStatsResponse]
-            metric catalog
+            the metric catalog served through the deprecated path
         """
         _response = self._client_wrapper.httpx_client.request(
             "stats",
@@ -60,17 +56,6 @@ class RawStatsClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -153,12 +138,12 @@ class RawStatsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[RetrieveStatsResponse]:
         """
-        Retrieves a metric as a time series of points for an account or user over a time range. The `market_prices` metric is public and requires no authentication. The `funnel` metric measures 2 to 10 ordered events per person. Its first matching event inside from/to anchors the cohort, breakdown and conversion window; later entries do not restart it. Intervening events are allowed, and conversions may occur after to. Funnel values are final conversion percentages; steps include counts and cumulative conversion percentages. Experiment funnels use experiment.exposure as step 1 and breakdown_by=variant. Pass steps using bracket parameters such as steps[1][event]=pixel.page&steps[1][page]=/pricing*&steps[2][event]=payment.completed.
+        Deprecated compatibility endpoint. Retrieve a metric's time series with `GET /stats/time_series/{metric}` instead, or rank one across a breakdown with `GET /stats/reports/{metric}`.
 
         Parameters
         ----------
         metric : str
-            The metric to retrieve, for example net_revenue. Use GET /stats to see every metric key. The metric sets the unit and the properties you can filter or break down by.
+            The metric to retrieve, for example net_revenue.
 
         from_ : str
             Start of the range — a date (YYYY-MM-DD), expanded to the start of that day, or an ISO 8601 timestamp (for example 2026-07-16T16:37:00Z), used exactly.
@@ -364,7 +349,7 @@ class RawStatsClient:
         Returns
         -------
         HttpResponse[RetrieveStatsResponse]
-            a user-scoped metric via a scoped OAuth token
+            a metric's series served through the deprecated path
         """
         _response = self._client_wrapper.httpx_client.request(
             f"stats/{encode_path_param(metric)}",
@@ -452,50 +437,6 @@ class RawStatsClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -514,7 +455,7 @@ class AsyncRawStatsClient:
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[ListStatsResponse]:
         """
-        Lists every metric you can query, with its unit and the properties you can filter or break it down by.
+        Deprecated. Lists every metric, which no longer says which of them a projection accepts. List the ones you can chart with `GET /stats/time_series`, or the ones you can rank with `GET /stats/reports`.
 
         Parameters
         ----------
@@ -524,7 +465,7 @@ class AsyncRawStatsClient:
         Returns
         -------
         AsyncHttpResponse[ListStatsResponse]
-            metric catalog
+            the metric catalog served through the deprecated path
         """
         _response = await self._client_wrapper.httpx_client.request(
             "stats",
@@ -542,17 +483,6 @@ class AsyncRawStatsClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -635,12 +565,12 @@ class AsyncRawStatsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[RetrieveStatsResponse]:
         """
-        Retrieves a metric as a time series of points for an account or user over a time range. The `market_prices` metric is public and requires no authentication. The `funnel` metric measures 2 to 10 ordered events per person. Its first matching event inside from/to anchors the cohort, breakdown and conversion window; later entries do not restart it. Intervening events are allowed, and conversions may occur after to. Funnel values are final conversion percentages; steps include counts and cumulative conversion percentages. Experiment funnels use experiment.exposure as step 1 and breakdown_by=variant. Pass steps using bracket parameters such as steps[1][event]=pixel.page&steps[1][page]=/pricing*&steps[2][event]=payment.completed.
+        Deprecated compatibility endpoint. Retrieve a metric's time series with `GET /stats/time_series/{metric}` instead, or rank one across a breakdown with `GET /stats/reports/{metric}`.
 
         Parameters
         ----------
         metric : str
-            The metric to retrieve, for example net_revenue. Use GET /stats to see every metric key. The metric sets the unit and the properties you can filter or break down by.
+            The metric to retrieve, for example net_revenue.
 
         from_ : str
             Start of the range — a date (YYYY-MM-DD), expanded to the start of that day, or an ISO 8601 timestamp (for example 2026-07-16T16:37:00Z), used exactly.
@@ -846,7 +776,7 @@ class AsyncRawStatsClient:
         Returns
         -------
         AsyncHttpResponse[RetrieveStatsResponse]
-            a user-scoped metric via a scoped OAuth token
+            a metric's series served through the deprecated path
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"stats/{encode_path_param(metric)}",
@@ -934,50 +864,6 @@ class AsyncRawStatsClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 404:
-                raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)

@@ -20,7 +20,7 @@ class ListStatsResponseDataItem(UniversalBaseModel):
 
     key: str = pydantic.Field()
     """
-    The metric's key. Pass it to GET /stats/{metric} to query its values.
+    The metric's key. Pass it to GET /stats/time_series/{metric} to query its values.
     """
 
     name: str = pydantic.Field()

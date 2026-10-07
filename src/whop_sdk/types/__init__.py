@@ -1311,6 +1311,7 @@ if typing.TYPE_CHECKING:
     from .resolution_event_reporter_type import ResolutionEventReporterType
     from .resolution_payment import ResolutionPayment
     from .retrieve_stats_request_steps import RetrieveStatsRequestSteps
+    from .retrieve_time_series_request_steps import RetrieveTimeSeriesRequestSteps
     from .review import Review
     from .review_attachments_item import ReviewAttachmentsItem
     from .review_company import ReviewCompany
@@ -2667,6 +2668,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ResolutionEventReporterType": ".resolution_event_reporter_type",
     "ResolutionPayment": ".resolution_payment",
     "RetrieveStatsRequestSteps": ".retrieve_stats_request_steps",
+    "RetrieveTimeSeriesRequestSteps": ".retrieve_time_series_request_steps",
     "Review": ".review",
     "ReviewAttachmentsItem": ".review_attachments_item",
     "ReviewCompany": ".review_company",
@@ -4045,6 +4047,7 @@ __all__ = [
     "ResolutionEventReporterType",
     "ResolutionPayment",
     "RetrieveStatsRequestSteps",
+    "RetrieveTimeSeriesRequestSteps",
     "Review",
     "ReviewAttachmentsItem",
     "ReviewCompany",
