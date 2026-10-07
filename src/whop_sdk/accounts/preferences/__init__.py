@@ -24,6 +24,7 @@ if typing.TYPE_CHECKING:
         RetrievePreferencesResponseEconomicIntelligenceOffersItem,
         RetrievePreferencesResponseEconomicIntelligenceOffersItemDurationUnit,
         RetrievePreferencesResponseEconomicIntelligenceOffersItemKey,
+        RetrievePreferencesResponsePreferredSettlementCurrency,
         RetrievePreferencesResponseSubscriptionFailureBehavior,
         UpdatePreferencesRequestAdsCertificationsValue,
         UpdatePreferencesRequestAdsCertificationsValueStatus,
@@ -34,6 +35,7 @@ if typing.TYPE_CHECKING:
         UpdatePreferencesRequestAdsPaymentMethodsPrimaryType,
         UpdatePreferencesRequestAdsTripleWhaleIntegration,
         UpdatePreferencesRequestEconomicIntelligenceDurationKey,
+        UpdatePreferencesRequestPreferredSettlementCurrency,
         UpdatePreferencesRequestSubscriptionFailureBehavior,
         UpdatePreferencesResponse,
         UpdatePreferencesResponseAdsAgreement,
@@ -52,6 +54,7 @@ if typing.TYPE_CHECKING:
         UpdatePreferencesResponseEconomicIntelligenceOffersItem,
         UpdatePreferencesResponseEconomicIntelligenceOffersItemDurationUnit,
         UpdatePreferencesResponseEconomicIntelligenceOffersItemKey,
+        UpdatePreferencesResponsePreferredSettlementCurrency,
         UpdatePreferencesResponseSubscriptionFailureBehavior,
     )
 _dynamic_imports: typing.Dict[str, str] = {
@@ -72,6 +75,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrievePreferencesResponseEconomicIntelligenceOffersItem": ".types",
     "RetrievePreferencesResponseEconomicIntelligenceOffersItemDurationUnit": ".types",
     "RetrievePreferencesResponseEconomicIntelligenceOffersItemKey": ".types",
+    "RetrievePreferencesResponsePreferredSettlementCurrency": ".types",
     "RetrievePreferencesResponseSubscriptionFailureBehavior": ".types",
     "UpdatePreferencesRequestAdsCertificationsValue": ".types",
     "UpdatePreferencesRequestAdsCertificationsValueStatus": ".types",
@@ -82,6 +86,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatePreferencesRequestAdsPaymentMethodsPrimaryType": ".types",
     "UpdatePreferencesRequestAdsTripleWhaleIntegration": ".types",
     "UpdatePreferencesRequestEconomicIntelligenceDurationKey": ".types",
+    "UpdatePreferencesRequestPreferredSettlementCurrency": ".types",
     "UpdatePreferencesRequestSubscriptionFailureBehavior": ".types",
     "UpdatePreferencesResponse": ".types",
     "UpdatePreferencesResponseAdsAgreement": ".types",
@@ -100,6 +105,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatePreferencesResponseEconomicIntelligenceOffersItem": ".types",
     "UpdatePreferencesResponseEconomicIntelligenceOffersItemDurationUnit": ".types",
     "UpdatePreferencesResponseEconomicIntelligenceOffersItemKey": ".types",
+    "UpdatePreferencesResponsePreferredSettlementCurrency": ".types",
     "UpdatePreferencesResponseSubscriptionFailureBehavior": ".types",
 }
 
@@ -143,6 +149,7 @@ __all__ = [
     "RetrievePreferencesResponseEconomicIntelligenceOffersItem",
     "RetrievePreferencesResponseEconomicIntelligenceOffersItemDurationUnit",
     "RetrievePreferencesResponseEconomicIntelligenceOffersItemKey",
+    "RetrievePreferencesResponsePreferredSettlementCurrency",
     "RetrievePreferencesResponseSubscriptionFailureBehavior",
     "UpdatePreferencesRequestAdsCertificationsValue",
     "UpdatePreferencesRequestAdsCertificationsValueStatus",
@@ -153,6 +160,7 @@ __all__ = [
     "UpdatePreferencesRequestAdsPaymentMethodsPrimaryType",
     "UpdatePreferencesRequestAdsTripleWhaleIntegration",
     "UpdatePreferencesRequestEconomicIntelligenceDurationKey",
+    "UpdatePreferencesRequestPreferredSettlementCurrency",
     "UpdatePreferencesRequestSubscriptionFailureBehavior",
     "UpdatePreferencesResponse",
     "UpdatePreferencesResponseAdsAgreement",
@@ -171,5 +179,6 @@ __all__ = [
     "UpdatePreferencesResponseEconomicIntelligenceOffersItem",
     "UpdatePreferencesResponseEconomicIntelligenceOffersItemDurationUnit",
     "UpdatePreferencesResponseEconomicIntelligenceOffersItemKey",
+    "UpdatePreferencesResponsePreferredSettlementCurrency",
     "UpdatePreferencesResponseSubscriptionFailureBehavior",
 ]
