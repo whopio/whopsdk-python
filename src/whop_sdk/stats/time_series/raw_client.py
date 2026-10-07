@@ -32,7 +32,7 @@ class RawTimeSeriesClient:
 
     def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[ListTimeSeriesResponse]:
         """
-        Lists the metrics you can chart over time, with the unit each reports and the properties you can filter or break it down by. Every metric can be charted, so this is the whole catalog; the metrics you can rank are the narrower list at `GET /stats/reports`.
+        Lists the metrics you can chart over time, with the unit each reports and the properties you can filter or break it down by. Aggregates that are not bucketed over time are reports, listed at `GET /stats/reports`.
 
         Parameters
         ----------
@@ -153,7 +153,7 @@ class RawTimeSeriesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[RetrieveTimeSeriesResponse]:
         """
-        Retrieves a metric as a time series of points for an account or user over a time range. To rank a metric across one of its breakdowns instead of charting it, use `GET /stats/reports/{metric}`. The `market_prices` metric is public and requires no authentication. The `funnel` metric measures 2 to 10 ordered events per person. Its first matching event inside from/to anchors the cohort, breakdown and conversion window; later entries do not restart it. Intervening events are allowed, and conversions may occur after to. Funnel values are final conversion percentages; steps include counts and cumulative conversion percentages. Experiment funnels use experiment.exposure as step 1 and breakdown_by=variant. Pass steps using bracket parameters such as steps[1][event]=pixel.page&steps[1][page]=/pricing*&steps[2][event]=payment.completed.
+        Retrieves a metric as a time series of points for an account or user over a time range. For an aggregate that is not bucketed over time, use a report from `GET /stats/reports`. The `market_prices` metric is public and requires no authentication. The `funnel` metric measures 2 to 10 ordered events per person. Its first matching event inside from/to anchors the cohort, breakdown and conversion window; later entries do not restart it. Intervening events are allowed, and conversions may occur after to. Funnel values are final conversion percentages; steps include counts and cumulative conversion percentages. Experiment funnels use experiment.exposure as step 1 and breakdown_by=variant. Pass steps using bracket parameters such as steps[1][event]=pixel.page&steps[1][page]=/pricing*&steps[2][event]=payment.completed.
 
         Parameters
         ----------
@@ -514,7 +514,7 @@ class AsyncRawTimeSeriesClient:
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[ListTimeSeriesResponse]:
         """
-        Lists the metrics you can chart over time, with the unit each reports and the properties you can filter or break it down by. Every metric can be charted, so this is the whole catalog; the metrics you can rank are the narrower list at `GET /stats/reports`.
+        Lists the metrics you can chart over time, with the unit each reports and the properties you can filter or break it down by. Aggregates that are not bucketed over time are reports, listed at `GET /stats/reports`.
 
         Parameters
         ----------
@@ -635,7 +635,7 @@ class AsyncRawTimeSeriesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[RetrieveTimeSeriesResponse]:
         """
-        Retrieves a metric as a time series of points for an account or user over a time range. To rank a metric across one of its breakdowns instead of charting it, use `GET /stats/reports/{metric}`. The `market_prices` metric is public and requires no authentication. The `funnel` metric measures 2 to 10 ordered events per person. Its first matching event inside from/to anchors the cohort, breakdown and conversion window; later entries do not restart it. Intervening events are allowed, and conversions may occur after to. Funnel values are final conversion percentages; steps include counts and cumulative conversion percentages. Experiment funnels use experiment.exposure as step 1 and breakdown_by=variant. Pass steps using bracket parameters such as steps[1][event]=pixel.page&steps[1][page]=/pricing*&steps[2][event]=payment.completed.
+        Retrieves a metric as a time series of points for an account or user over a time range. For an aggregate that is not bucketed over time, use a report from `GET /stats/reports`. The `market_prices` metric is public and requires no authentication. The `funnel` metric measures 2 to 10 ordered events per person. Its first matching event inside from/to anchors the cohort, breakdown and conversion window; later entries do not restart it. Intervening events are allowed, and conversions may occur after to. Funnel values are final conversion percentages; steps include counts and cumulative conversion percentages. Experiment funnels use experiment.exposure as step 1 and breakdown_by=variant. Pass steps using bracket parameters such as steps[1][event]=pixel.page&steps[1][page]=/pricing*&steps[2][event]=payment.completed.
 
         Parameters
         ----------

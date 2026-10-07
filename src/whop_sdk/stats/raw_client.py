@@ -28,7 +28,7 @@ class RawStatsClient:
 
     def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[ListStatsResponse]:
         """
-        Deprecated. Lists every metric, which no longer says which of them a projection accepts. List the ones you can chart with `GET /stats/time_series`, or the ones you can rank with `GET /stats/reports`.
+        Deprecated. Lists every metric, which no longer says which of them a projection accepts. List the ones you can chart with `GET /stats/time_series`. Aggregates that are not bucketed over time are reports, listed at `GET /stats/reports`.
 
         Parameters
         ----------
@@ -138,7 +138,7 @@ class RawStatsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[RetrieveStatsResponse]:
         """
-        Deprecated compatibility endpoint. Retrieve a metric's time series with `GET /stats/time_series/{metric}` instead, or rank one across a breakdown with `GET /stats/reports/{metric}`.
+        Deprecated compatibility endpoint. Retrieve a metric's time series with `GET /stats/time_series/{metric}` instead.
 
         Parameters
         ----------
@@ -455,7 +455,7 @@ class AsyncRawStatsClient:
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[ListStatsResponse]:
         """
-        Deprecated. Lists every metric, which no longer says which of them a projection accepts. List the ones you can chart with `GET /stats/time_series`, or the ones you can rank with `GET /stats/reports`.
+        Deprecated. Lists every metric, which no longer says which of them a projection accepts. List the ones you can chart with `GET /stats/time_series`. Aggregates that are not bucketed over time are reports, listed at `GET /stats/reports`.
 
         Parameters
         ----------
@@ -565,7 +565,7 @@ class AsyncRawStatsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[RetrieveStatsResponse]:
         """
-        Deprecated compatibility endpoint. Retrieve a metric's time series with `GET /stats/time_series/{metric}` instead, or rank one across a breakdown with `GET /stats/reports/{metric}`.
+        Deprecated compatibility endpoint. Retrieve a metric's time series with `GET /stats/time_series/{metric}` instead.
 
         Parameters
         ----------

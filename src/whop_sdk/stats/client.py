@@ -16,6 +16,7 @@ from .types.retrieve_stats_request_snapshot_window import RetrieveStatsRequestSn
 from .types.retrieve_stats_response import RetrieveStatsResponse
 
 if typing.TYPE_CHECKING:
+    from .reports.client import AsyncReportsClient, ReportsClient
     from .time_series.client import AsyncTimeSeriesClient, TimeSeriesClient
 
 
@@ -23,6 +24,7 @@ class StatsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._raw_client = RawStatsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
+        self._reports: typing.Optional[ReportsClient] = None
         self._time_series: typing.Optional[TimeSeriesClient] = None
 
     @property
@@ -38,7 +40,7 @@ class StatsClient:
 
     def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> ListStatsResponse:
         """
-        Deprecated. Lists every metric, which no longer says which of them a projection accepts. List the ones you can chart with `GET /stats/time_series`, or the ones you can rank with `GET /stats/reports`.
+        Deprecated. Lists every metric, which no longer says which of them a projection accepts. List the ones you can chart with `GET /stats/time_series`. Aggregates that are not bucketed over time are reports, listed at `GET /stats/reports`.
 
         Parameters
         ----------
@@ -137,7 +139,7 @@ class StatsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RetrieveStatsResponse:
         """
-        Deprecated compatibility endpoint. Retrieve a metric's time series with `GET /stats/time_series/{metric}` instead, or rank one across a breakdown with `GET /stats/reports/{metric}`.
+        Deprecated compatibility endpoint. Retrieve a metric's time series with `GET /stats/time_series/{metric}` instead.
 
         Parameters
         ----------
@@ -441,6 +443,14 @@ class StatsClient:
         return _response.data
 
     @property
+    def reports(self):
+        if self._reports is None:
+            from .reports.client import ReportsClient  # noqa: E402
+
+            self._reports = ReportsClient(client_wrapper=self._client_wrapper)
+        return self._reports
+
+    @property
     def time_series(self):
         if self._time_series is None:
             from .time_series.client import TimeSeriesClient  # noqa: E402
@@ -453,6 +463,7 @@ class AsyncStatsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._raw_client = AsyncRawStatsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
+        self._reports: typing.Optional[AsyncReportsClient] = None
         self._time_series: typing.Optional[AsyncTimeSeriesClient] = None
 
     @property
@@ -468,7 +479,7 @@ class AsyncStatsClient:
 
     async def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> ListStatsResponse:
         """
-        Deprecated. Lists every metric, which no longer says which of them a projection accepts. List the ones you can chart with `GET /stats/time_series`, or the ones you can rank with `GET /stats/reports`.
+        Deprecated. Lists every metric, which no longer says which of them a projection accepts. List the ones you can chart with `GET /stats/time_series`. Aggregates that are not bucketed over time are reports, listed at `GET /stats/reports`.
 
         Parameters
         ----------
@@ -575,7 +586,7 @@ class AsyncStatsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RetrieveStatsResponse:
         """
-        Deprecated compatibility endpoint. Retrieve a metric's time series with `GET /stats/time_series/{metric}` instead, or rank one across a breakdown with `GET /stats/reports/{metric}`.
+        Deprecated compatibility endpoint. Retrieve a metric's time series with `GET /stats/time_series/{metric}` instead.
 
         Parameters
         ----------
@@ -885,6 +896,14 @@ class AsyncStatsClient:
             request_options=request_options,
         )
         return _response.data
+
+    @property
+    def reports(self):
+        if self._reports is None:
+            from .reports.client import AsyncReportsClient  # noqa: E402
+
+            self._reports = AsyncReportsClient(client_wrapper=self._client_wrapper)
+        return self._reports
 
     @property
     def time_series(self):
