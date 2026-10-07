@@ -17,6 +17,11 @@ class PartnerReferralRequest(UniversalBaseModel):
     Business receiving the request, when one is assigned.
     """
 
+    authorized_user_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The partner's team membership this referral was created for, prefixed `ausr_`. `null` when the referral is personal.
+    """
+
     code: typing.Optional[str] = pydantic.Field(default=None)
     """
     Unique referral code, when assigned.

@@ -12,6 +12,11 @@ class CreatePartnerReferralRequestsRequestBodyAccountId(UniversalBaseModel):
     Business to request attribution for, prefixed `biz_`.
     """
 
+    authorized_user_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Your team membership on the business this referral is made for, prefixed `ausr_`. Omit for a personal referral.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

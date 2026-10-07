@@ -38,6 +38,7 @@ PaymentMethodTypes = typing.Union[
         "custom",
         "customer_balance",
         "demo_pay",
+        "duitnow_qr",
         "efecty",
         "eps",
         "eu_bank_transfer",

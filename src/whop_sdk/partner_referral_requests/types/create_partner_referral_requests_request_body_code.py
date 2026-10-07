@@ -14,6 +14,11 @@ class CreatePartnerReferralRequestsRequestBodyCode(UniversalBaseModel):
     Create your own referral link with an optional custom code and redemption limit. Without configuration, returns your oldest saved link or creates one with a random code. Only authorized staff can configure rewards or select another partner.
     """
 
+    authorized_user_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The partner's team membership on the business this link is made for, prefixed `ausr_`. Omit for a personal link.
+    """
+
     code: typing.Optional[str] = pydantic.Field(default=None)
     """
     Case-insensitive referral code containing letters, numbers, and single hyphens. New codes are stored in lowercase. Omit to generate six random letters, or reuse a saved link when no configuration is supplied.

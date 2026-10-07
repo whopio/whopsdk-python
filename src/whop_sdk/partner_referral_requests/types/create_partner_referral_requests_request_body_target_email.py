@@ -7,6 +7,11 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class CreatePartnerReferralRequestsRequestBodyTargetEmail(UniversalBaseModel):
+    authorized_user_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Your team membership on the business this referral is made for, prefixed `ausr_`. Omit for a personal referral.
+    """
+
     target_email: str = pydantic.Field()
     """
     Email address on an existing user's account. Matching is case-insensitive. The user does not need to be enrolled in the partner program.

@@ -7,6 +7,11 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class CreatePartnerReferralRequestsRequestBodyTargetUsername(UniversalBaseModel):
+    authorized_user_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Your team membership on the business this referral is made for, prefixed `ausr_`. Omit for a personal referral.
+    """
+
     target_username: str = pydantic.Field()
     """
     Username of the user to request attribution for, with or without a leading @.
