@@ -30699,6 +30699,14 @@ client.payments.create(
 <dl>
 <dd>
 
+**ip_address:** `typing.Optional[str]` — The buyer's IPv4 or IPv6 address, used to assess the charge's risk and passed to the processor. Ignored unless a saved payment method is charged with `off_session` set to false.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **member_id:** `typing.Optional[str]` — The member to charge, prefixed `mber_`. Required with `payment_method_id` unless `confirmation_token` is provided.
     
 </dd>
@@ -30708,6 +30716,14 @@ client.payments.create(
 <dd>
 
 **metadata:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — Custom metadata to attach to the payment.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**off_session:** `typing.Optional[bool]` — Whether the buyer is absent from your checkout and can't authenticate. Pass true when you charge the card without the buyer, such as a renewal on your own schedule. Pass false when the buyer is present, such as a one-click upsell right after checkout: the charge is processed as a customer-initiated card-on-file payment, and if the issuer asks the buyer to authenticate, the payment's status is `requires_action` with a `next_action` to send them to, after which they return to `return_url`. From API version 2026-10-07-1 it defaults to false when `return_url` is provided and to true otherwise; before that version it defaults to true. A saved Apple Pay, Google Pay or PayPal payment method is always charged with `off_session` true. Ignored unless `member_id` and `payment_method_id` are provided.
     
 </dd>
 </dl>
@@ -30739,7 +30755,7 @@ client.payments.create(
 <dl>
 <dd>
 
-**return_url:** `typing.Optional[str]` — Where the buyer continues after completing an off-site step. An absolute https URL without credentials, at most 2,048 characters. Ignored unless `confirmation_token` is provided.
+**return_url:** `typing.Optional[str]` — Where the buyer continues after completing an off-site step such as 3D Secure. An absolute https URL without credentials, at most 2,048 characters. Required when a saved payment method is charged with `off_session` false; otherwise ignored unless `confirmation_token` is provided.
     
 </dd>
 </dl>
