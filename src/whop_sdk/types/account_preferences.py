@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .account_economic_intelligence_offer import AccountEconomicIntelligenceOffer
+from .account_economic_intelligence_previous_period import AccountEconomicIntelligencePreviousPeriod
 from .account_preferences_preferred_settlement_currency import AccountPreferencesPreferredSettlementCurrency
 from .account_preferences_subscription_failure_behavior import AccountPreferencesSubscriptionFailureBehavior
 
@@ -56,9 +57,14 @@ class AccountPreferences(UniversalBaseModel):
     Whether Economic Intelligence is on for the account. It turns off automatically at `economic_intelligence_ends_at`.
     """
 
+    economic_intelligence_auto_renew: bool = pydantic.Field()
+    """
+    Whether Economic Intelligence renews itself every week, with no end date. Turn it on with the `weekly` offer. Set it to `false` to stop renewing, which keeps Economic Intelligence on until the end of the current week, shown in `economic_intelligence_ends_at`; set it back to `true` before then to keep renewing.
+    """
+
     economic_intelligence_ends_at: typing.Optional[str] = pydantic.Field(default=None)
     """
-    When the account's committed Economic Intelligence period ends, as an ISO 8601 timestamp. Economic Intelligence can't be turned off before then. `null` when Economic Intelligence is off or has no end date.
+    When the account's committed Economic Intelligence period ends, as an ISO 8601 timestamp. Economic Intelligence can't be turned off before then. `null` when Economic Intelligence is off or renews automatically.
     """
 
     economic_intelligence_fee_percentage: typing.Optional[float] = pydantic.Field(default=None)
@@ -66,7 +72,14 @@ class AccountPreferences(UniversalBaseModel):
     Percentage of volume charged while Economic Intelligence is on, such as `1.5` for 1.5%. `null` when Economic Intelligence is off.
     """
 
-    economic_intelligence_offers: typing.Optional[typing.List[AccountEconomicIntelligenceOffer]] = None
+    economic_intelligence_offers: typing.List[AccountEconomicIntelligenceOffer]
+    economic_intelligence_previous_period: typing.Optional[AccountEconomicIntelligencePreviousPeriod] = pydantic.Field(
+        default=None
+    )
+    """
+    The account's last Economic Intelligence period, once it has ended. `null` while Economic Intelligence is on, or when it has never been on.
+    """
+
     preferred_settlement_currency: typing.Optional[AccountPreferencesPreferredSettlementCurrency] = pydantic.Field(
         default=None
     )

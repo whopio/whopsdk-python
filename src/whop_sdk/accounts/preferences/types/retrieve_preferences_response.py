@@ -13,6 +13,9 @@ from .retrieve_preferences_response_ads_triple_whale_integration import (
 from .retrieve_preferences_response_economic_intelligence_offers_item import (
     RetrievePreferencesResponseEconomicIntelligenceOffersItem,
 )
+from .retrieve_preferences_response_economic_intelligence_previous_period import (
+    RetrievePreferencesResponseEconomicIntelligencePreviousPeriod,
+)
 from .retrieve_preferences_response_preferred_settlement_currency import (
     RetrievePreferencesResponsePreferredSettlementCurrency,
 )
@@ -72,9 +75,14 @@ class RetrievePreferencesResponse(UniversalBaseModel):
     Whether Economic Intelligence is on for the account. It turns off automatically at `economic_intelligence_ends_at`.
     """
 
+    economic_intelligence_auto_renew: bool = pydantic.Field()
+    """
+    Whether Economic Intelligence renews itself every week, with no end date. Turn it on with the `weekly` offer. Set it to `false` to stop renewing, which keeps Economic Intelligence on until the end of the current week, shown in `economic_intelligence_ends_at`; set it back to `true` before then to keep renewing.
+    """
+
     economic_intelligence_ends_at: typing.Optional[str] = pydantic.Field(default=None)
     """
-    When the account's committed Economic Intelligence period ends, as an ISO 8601 timestamp. Economic Intelligence can't be turned off before then. `null` when Economic Intelligence is off or has no end date.
+    When the account's committed Economic Intelligence period ends, as an ISO 8601 timestamp. Economic Intelligence can't be turned off before then. `null` when Economic Intelligence is off or renews automatically.
     """
 
     economic_intelligence_fee_percentage: typing.Optional[float] = pydantic.Field(default=None)
@@ -82,11 +90,18 @@ class RetrievePreferencesResponse(UniversalBaseModel):
     Percentage of volume charged while Economic Intelligence is on, such as `1.5` for 1.5%. `null` when Economic Intelligence is off.
     """
 
-    economic_intelligence_offers: typing.Optional[
-        typing.List[RetrievePreferencesResponseEconomicIntelligenceOffersItem]
+    economic_intelligence_offers: typing.List[RetrievePreferencesResponseEconomicIntelligenceOffersItem] = (
+        pydantic.Field()
+    )
+    """
+    What the account can choose now to turn on Economic Intelligence, each with its fee. Every offer while Economic Intelligence is off; only the `weekly` auto-renew offer while a committed period is running, as an upgrade; empty while it renews automatically.
+    """
+
+    economic_intelligence_previous_period: typing.Optional[
+        RetrievePreferencesResponseEconomicIntelligencePreviousPeriod
     ] = pydantic.Field(default=None)
     """
-    Durations the account can choose from to turn on Economic Intelligence, each with its fee. `null` while Economic Intelligence is on or the account is still on the Economic Intelligence waitlist.
+    The account's last Economic Intelligence period, once it has ended. `null` while Economic Intelligence is on, or when it has never been on.
     """
 
     preferred_settlement_currency: typing.Optional[RetrievePreferencesResponsePreferredSettlementCurrency] = (

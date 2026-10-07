@@ -41,6 +41,7 @@ if typing.TYPE_CHECKING:
     from .account_economic_intelligence_offer import AccountEconomicIntelligenceOffer
     from .account_economic_intelligence_offer_duration_unit import AccountEconomicIntelligenceOfferDurationUnit
     from .account_economic_intelligence_offer_key import AccountEconomicIntelligenceOfferKey
+    from .account_economic_intelligence_previous_period import AccountEconomicIntelligencePreviousPeriod
     from .account_fee import AccountFee
     from .account_fee_category import AccountFeeCategory
     from .account_fee_markup import AccountFeeMarkup
@@ -1541,6 +1542,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AccountEconomicIntelligenceOffer": ".account_economic_intelligence_offer",
     "AccountEconomicIntelligenceOfferDurationUnit": ".account_economic_intelligence_offer_duration_unit",
     "AccountEconomicIntelligenceOfferKey": ".account_economic_intelligence_offer_key",
+    "AccountEconomicIntelligencePreviousPeriod": ".account_economic_intelligence_previous_period",
     "AccountFee": ".account_fee",
     "AccountFeeCategory": ".account_fee_category",
     "AccountFeeMarkup": ".account_fee_markup",
@@ -2921,6 +2923,7 @@ __all__ = [
     "AccountEconomicIntelligenceOffer",
     "AccountEconomicIntelligenceOfferDurationUnit",
     "AccountEconomicIntelligenceOfferKey",
+    "AccountEconomicIntelligencePreviousPeriod",
     "AccountFee",
     "AccountFeeCategory",
     "AccountFeeMarkup",

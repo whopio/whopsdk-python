@@ -2,4 +2,4 @@
 
 import typing
 
-AccountEconomicIntelligenceOfferKey = typing.Union[typing.Literal["7_days", "1_day", "1_hour"], typing.Any]
+AccountEconomicIntelligenceOfferKey = typing.Union[typing.Literal["weekly", "7_days", "1_day", "1_hour"], typing.Any]

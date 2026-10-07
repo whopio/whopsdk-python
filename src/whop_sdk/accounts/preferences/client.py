@@ -65,7 +65,7 @@ class PreferencesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-1",
+            "2026-10-07-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -88,6 +88,7 @@ class PreferencesClient:
         cards_auto_top_up: typing.Optional[bool] = OMIT,
         cards_notifications: typing.Optional[bool] = OMIT,
         dispute_fighter_enabled: typing.Optional[bool] = OMIT,
+        economic_intelligence_auto_renew: typing.Optional[bool] = OMIT,
         economic_intelligence_duration_key: typing.Optional[
             UpdatePreferencesRequestEconomicIntelligenceDurationKey
         ] = OMIT,
@@ -105,7 +106,7 @@ class PreferencesClient:
         | `ads_payment_methods`, `ads_reporting_currency`, `ads_scheduling_timezone`, `ads_triple_whale_integration`, `ads_certifications` | `ad_campaign:create` |
         | `cards_auto_top_up`, `cards_notifications` | `payout:account:update` |
         | `dispute_fighter_enabled` | `payment:dispute` |
-        | `economic_intelligence_duration_key` | `company:update` |
+        | `economic_intelligence_duration_key`, `economic_intelligence_auto_renew` | `company:update` |
 
         When updating preferences from multiple rows, all corresponding scopes are required for the account.
 
@@ -138,8 +139,11 @@ class PreferencesClient:
         dispute_fighter_enabled : typing.Optional[bool]
             Whether Whop assembles and files the evidence response when this account's payments are disputed. Off by default; enabling it also opts the account into the success fee charged only on disputes it wins. Requires the `payment:dispute` scope on your API key.
 
+        economic_intelligence_auto_renew : typing.Optional[bool]
+            `false` stops renewing: Economic Intelligence stays on until the end of the current week. `true` keeps it renewing again before then, or turns it on like the `weekly` offer. Can't be combined with `economic_intelligence_duration_key`. Requires the `company:update` scope on your API key.
+
         economic_intelligence_duration_key : typing.Optional[UpdatePreferencesRequestEconomicIntelligenceDurationKey]
-            Turns on Economic Intelligence for the duration with this `key` in `economic_intelligence_offers`, at that duration's fee. It can't be changed or turned off until `economic_intelligence_ends_at`. Requires the `company:update` scope on your API key.
+            Turns on Economic Intelligence with the offer that has this `key` in `economic_intelligence_offers`, at that offer's fee. A committed duration can't be changed or turned off until `economic_intelligence_ends_at`, except to upgrade to `weekly`, which switches to auto-renew right away. Requires the `company:update` scope on your API key.
 
         preferred_settlement_currency : typing.Optional[UpdatePreferencesRequestPreferredSettlementCurrency]
             Settle every new sale into this currency, regardless of the plan's currency or what the buyer paid in; sales converted this way carry an additional 0.5% FX fee. Pass `null` to go back to settling each sale in its plan's currency. Changing it never converts money already in your balances, and it can change at most once every 7 days (see `preferred_settlement_currency_changeable_at`). Requires the `payout:account:update` scope on your API key.
@@ -160,7 +164,7 @@ class PreferencesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-1",
+            "2026-10-07-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -178,6 +182,7 @@ class PreferencesClient:
             cards_auto_top_up=cards_auto_top_up,
             cards_notifications=cards_notifications,
             dispute_fighter_enabled=dispute_fighter_enabled,
+            economic_intelligence_auto_renew=economic_intelligence_auto_renew,
             economic_intelligence_duration_key=economic_intelligence_duration_key,
             preferred_settlement_currency=preferred_settlement_currency,
             subscription_failure_behavior=subscription_failure_behavior,
@@ -227,7 +232,7 @@ class AsyncPreferencesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-1",
+            "2026-10-07-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -256,6 +261,7 @@ class AsyncPreferencesClient:
         cards_auto_top_up: typing.Optional[bool] = OMIT,
         cards_notifications: typing.Optional[bool] = OMIT,
         dispute_fighter_enabled: typing.Optional[bool] = OMIT,
+        economic_intelligence_auto_renew: typing.Optional[bool] = OMIT,
         economic_intelligence_duration_key: typing.Optional[
             UpdatePreferencesRequestEconomicIntelligenceDurationKey
         ] = OMIT,
@@ -273,7 +279,7 @@ class AsyncPreferencesClient:
         | `ads_payment_methods`, `ads_reporting_currency`, `ads_scheduling_timezone`, `ads_triple_whale_integration`, `ads_certifications` | `ad_campaign:create` |
         | `cards_auto_top_up`, `cards_notifications` | `payout:account:update` |
         | `dispute_fighter_enabled` | `payment:dispute` |
-        | `economic_intelligence_duration_key` | `company:update` |
+        | `economic_intelligence_duration_key`, `economic_intelligence_auto_renew` | `company:update` |
 
         When updating preferences from multiple rows, all corresponding scopes are required for the account.
 
@@ -306,8 +312,11 @@ class AsyncPreferencesClient:
         dispute_fighter_enabled : typing.Optional[bool]
             Whether Whop assembles and files the evidence response when this account's payments are disputed. Off by default; enabling it also opts the account into the success fee charged only on disputes it wins. Requires the `payment:dispute` scope on your API key.
 
+        economic_intelligence_auto_renew : typing.Optional[bool]
+            `false` stops renewing: Economic Intelligence stays on until the end of the current week. `true` keeps it renewing again before then, or turns it on like the `weekly` offer. Can't be combined with `economic_intelligence_duration_key`. Requires the `company:update` scope on your API key.
+
         economic_intelligence_duration_key : typing.Optional[UpdatePreferencesRequestEconomicIntelligenceDurationKey]
-            Turns on Economic Intelligence for the duration with this `key` in `economic_intelligence_offers`, at that duration's fee. It can't be changed or turned off until `economic_intelligence_ends_at`. Requires the `company:update` scope on your API key.
+            Turns on Economic Intelligence with the offer that has this `key` in `economic_intelligence_offers`, at that offer's fee. A committed duration can't be changed or turned off until `economic_intelligence_ends_at`, except to upgrade to `weekly`, which switches to auto-renew right away. Requires the `company:update` scope on your API key.
 
         preferred_settlement_currency : typing.Optional[UpdatePreferencesRequestPreferredSettlementCurrency]
             Settle every new sale into this currency, regardless of the plan's currency or what the buyer paid in; sales converted this way carry an additional 0.5% FX fee. Pass `null` to go back to settling each sale in its plan's currency. Changing it never converts money already in your balances, and it can change at most once every 7 days (see `preferred_settlement_currency_changeable_at`). Requires the `payout:account:update` scope on your API key.
@@ -330,7 +339,7 @@ class AsyncPreferencesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-1",
+            "2026-10-07-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -354,6 +363,7 @@ class AsyncPreferencesClient:
             cards_auto_top_up=cards_auto_top_up,
             cards_notifications=cards_notifications,
             dispute_fighter_enabled=dispute_fighter_enabled,
+            economic_intelligence_auto_renew=economic_intelligence_auto_renew,
             economic_intelligence_duration_key=economic_intelligence_duration_key,
             preferred_settlement_currency=preferred_settlement_currency,
             subscription_failure_behavior=subscription_failure_behavior,

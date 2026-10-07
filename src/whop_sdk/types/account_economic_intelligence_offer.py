@@ -9,9 +9,14 @@ from .account_economic_intelligence_offer_key import AccountEconomicIntelligence
 
 
 class AccountEconomicIntelligenceOffer(UniversalBaseModel):
+    auto_renew: bool = pydantic.Field()
+    """
+    Whether this offer renews every period until auto-renew is turned off, rather than ending after one.
+    """
+
     duration: int = pydantic.Field()
     """
-    What period of time Economic Intelligence stays on.
+    What period of time Economic Intelligence stays on. For an auto-renew offer, the length of each period it renews for.
     """
 
     duration_unit: AccountEconomicIntelligenceOfferDurationUnit = pydantic.Field()
@@ -26,12 +31,12 @@ class AccountEconomicIntelligenceOffer(UniversalBaseModel):
 
     key: AccountEconomicIntelligenceOfferKey = pydantic.Field()
     """
-    The unique identifier for this duration. Pass this value as `economic_intelligence_duration_key` to turn it on.
+    The unique identifier for this offer. Pass this value as `economic_intelligence_duration_key` to turn it on.
     """
 
     recommended: bool = pydantic.Field()
     """
-    Whether Whop recommends this duration. Exactly one offer is recommended.
+    Whether Whop recommends this offer. At most one offer is recommended.
     """
 
     if IS_PYDANTIC_V2:

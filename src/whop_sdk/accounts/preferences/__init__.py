@@ -24,6 +24,7 @@ if typing.TYPE_CHECKING:
         RetrievePreferencesResponseEconomicIntelligenceOffersItem,
         RetrievePreferencesResponseEconomicIntelligenceOffersItemDurationUnit,
         RetrievePreferencesResponseEconomicIntelligenceOffersItemKey,
+        RetrievePreferencesResponseEconomicIntelligencePreviousPeriod,
         RetrievePreferencesResponsePreferredSettlementCurrency,
         RetrievePreferencesResponseSubscriptionFailureBehavior,
         UpdatePreferencesRequestAdsCertificationsValue,
@@ -54,6 +55,7 @@ if typing.TYPE_CHECKING:
         UpdatePreferencesResponseEconomicIntelligenceOffersItem,
         UpdatePreferencesResponseEconomicIntelligenceOffersItemDurationUnit,
         UpdatePreferencesResponseEconomicIntelligenceOffersItemKey,
+        UpdatePreferencesResponseEconomicIntelligencePreviousPeriod,
         UpdatePreferencesResponsePreferredSettlementCurrency,
         UpdatePreferencesResponseSubscriptionFailureBehavior,
     )
@@ -75,6 +77,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrievePreferencesResponseEconomicIntelligenceOffersItem": ".types",
     "RetrievePreferencesResponseEconomicIntelligenceOffersItemDurationUnit": ".types",
     "RetrievePreferencesResponseEconomicIntelligenceOffersItemKey": ".types",
+    "RetrievePreferencesResponseEconomicIntelligencePreviousPeriod": ".types",
     "RetrievePreferencesResponsePreferredSettlementCurrency": ".types",
     "RetrievePreferencesResponseSubscriptionFailureBehavior": ".types",
     "UpdatePreferencesRequestAdsCertificationsValue": ".types",
@@ -105,6 +108,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatePreferencesResponseEconomicIntelligenceOffersItem": ".types",
     "UpdatePreferencesResponseEconomicIntelligenceOffersItemDurationUnit": ".types",
     "UpdatePreferencesResponseEconomicIntelligenceOffersItemKey": ".types",
+    "UpdatePreferencesResponseEconomicIntelligencePreviousPeriod": ".types",
     "UpdatePreferencesResponsePreferredSettlementCurrency": ".types",
     "UpdatePreferencesResponseSubscriptionFailureBehavior": ".types",
 }
@@ -149,6 +153,7 @@ __all__ = [
     "RetrievePreferencesResponseEconomicIntelligenceOffersItem",
     "RetrievePreferencesResponseEconomicIntelligenceOffersItemDurationUnit",
     "RetrievePreferencesResponseEconomicIntelligenceOffersItemKey",
+    "RetrievePreferencesResponseEconomicIntelligencePreviousPeriod",
     "RetrievePreferencesResponsePreferredSettlementCurrency",
     "RetrievePreferencesResponseSubscriptionFailureBehavior",
     "UpdatePreferencesRequestAdsCertificationsValue",
@@ -179,6 +184,7 @@ __all__ = [
     "UpdatePreferencesResponseEconomicIntelligenceOffersItem",
     "UpdatePreferencesResponseEconomicIntelligenceOffersItemDurationUnit",
     "UpdatePreferencesResponseEconomicIntelligenceOffersItemKey",
+    "UpdatePreferencesResponseEconomicIntelligencePreviousPeriod",
     "UpdatePreferencesResponsePreferredSettlementCurrency",
     "UpdatePreferencesResponseSubscriptionFailureBehavior",
 ]
