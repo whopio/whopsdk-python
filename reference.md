@@ -39665,7 +39665,7 @@ client.stats.retrieve(
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[str]` — The account this query concerns, for example biz_AbC123.
+**account_id:** `typing.Optional[str]` — Account this query concerns, prefixed `biz_`, or `platform` for all of Whop.
     
 </dd>
 </dl>
@@ -39914,6 +39914,22 @@ client.stats.retrieve(
 <dd>
 
 **event:** `typing.Optional[str]` — Filter the events metric to one or more full event names, for example payment.completed or pixel.lead. Comma-separated names match any listed event. Use group_by=event for separate groups. Available on metrics that list event.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**business_type:** `typing.Optional[str]` — Filter to one business type, for example `education`. Pair with `breakdown_by=business_type` to split by business type. Available on metrics that list `business_type`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**industry_type:** `typing.Optional[str]` — Filter to one industry type, for example `options_trading`. Pair with `breakdown_by=industry_type` to split by industry type. Available on metrics that list `industry_type`.
     
 </dd>
 </dl>
@@ -50481,7 +50497,7 @@ client.stats.time_series.retrieve(
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[str]` — The account this query concerns, for example biz_AbC123.
+**account_id:** `typing.Optional[str]` — Account this query concerns, prefixed `biz_`, or `platform` for all of Whop.
     
 </dd>
 </dl>
@@ -50730,6 +50746,22 @@ client.stats.time_series.retrieve(
 <dd>
 
 **event:** `typing.Optional[str]` — Filter the events metric to one or more full event names, for example payment.completed or pixel.lead. Comma-separated names match any listed event. Use group_by=event for separate groups. Available on metrics that list event.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**business_type:** `typing.Optional[str]` — Filter to one business type, for example `education`. Pair with `breakdown_by=business_type` to split by business type. Available on metrics that list `business_type`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**industry_type:** `typing.Optional[str]` — Filter to one industry type, for example `options_trading`. Pair with `breakdown_by=industry_type` to split by industry type. Available on metrics that list `industry_type`.
     
 </dd>
 </dl>
