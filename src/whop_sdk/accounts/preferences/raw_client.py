@@ -173,7 +173,7 @@ class RawPreferencesClient:
             Whether Whop assembles and files the evidence response when this account's payments are disputed. Off by default; enabling it also opts the account into the success fee charged only on disputes it wins. Requires the `payment:dispute` scope on your API key.
 
         economic_intelligence_auto_renew : typing.Optional[bool]
-            `false` stops renewing: Economic Intelligence stays on until the end of the current week. `true` keeps it renewing again before then, or turns it on like the `weekly` offer. Can't be combined with `economic_intelligence_duration_key`. Requires the `company:update` scope on your API key.
+            `false` stops renewing: Economic Intelligence stays on until the end of the current week, and stopping before the first renewal charges the rest of that week at the `7_days` offer's fee. `true` keeps it renewing again before then, or turns it on like the `weekly` offer. Can't be combined with `economic_intelligence_duration_key`. Requires the `company:update` scope on your API key.
 
         economic_intelligence_duration_key : typing.Optional[UpdatePreferencesRequestEconomicIntelligenceDurationKey]
             Turns on Economic Intelligence with the offer that has this `key` in `economic_intelligence_offers`, at that offer's fee. A committed duration can't be changed or turned off until `economic_intelligence_ends_at`, except to upgrade to `weekly`, which switches to auto-renew right away. Requires the `company:update` scope on your API key.
@@ -435,7 +435,7 @@ class AsyncRawPreferencesClient:
             Whether Whop assembles and files the evidence response when this account's payments are disputed. Off by default; enabling it also opts the account into the success fee charged only on disputes it wins. Requires the `payment:dispute` scope on your API key.
 
         economic_intelligence_auto_renew : typing.Optional[bool]
-            `false` stops renewing: Economic Intelligence stays on until the end of the current week. `true` keeps it renewing again before then, or turns it on like the `weekly` offer. Can't be combined with `economic_intelligence_duration_key`. Requires the `company:update` scope on your API key.
+            `false` stops renewing: Economic Intelligence stays on until the end of the current week, and stopping before the first renewal charges the rest of that week at the `7_days` offer's fee. `true` keeps it renewing again before then, or turns it on like the `weekly` offer. Can't be combined with `economic_intelligence_duration_key`. Requires the `company:update` scope on your API key.
 
         economic_intelligence_duration_key : typing.Optional[UpdatePreferencesRequestEconomicIntelligenceDurationKey]
             Turns on Economic Intelligence with the offer that has this `key` in `economic_intelligence_offers`, at that offer's fee. A committed duration can't be changed or turned off until `economic_intelligence_ends_at`, except to upgrade to `weekly`, which switches to auto-renew right away. Requires the `company:update` scope on your API key.
