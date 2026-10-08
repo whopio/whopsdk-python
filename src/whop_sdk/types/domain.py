@@ -98,7 +98,7 @@ class Domain(UniversalBaseModel):
 
     verification_expires_at: typing.Optional[str] = pydantic.Field(default=None)
     """
-    When an unverified claim is automatically deleted, 48 hours after creation, as an ISO 8601 timestamp.
+    When an unverified claim is automatically removed, 48 hours after it was claimed, as an ISO 8601 timestamp.
     """
 
     if IS_PYDANTIC_V2:
