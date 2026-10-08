@@ -12944,6 +12944,80 @@ client.checkout_configurations.delete(
 </dl>
 </details>
 
+## ClaimLinks
+<details><summary><code>client.claim_links.<a href="src/whop_sdk/claim_links/client.py">retrieve</a>(...) -> RetrieveClaimLinksResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves a funded claim link. IDs require `airdrop_link:basic:read` on the funding account, or the personal account's owner. Claim codes allow unauthenticated previews of the sender, amount, expiry, and claim availability. Treat codes as secrets: anyone holding one can claim after signing in. By ID, the code and URL require `airdrop_link:manage` on the funding company or `payout:withdraw_funds` on the personal account; read-only credentials receive null values.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.claim_links.retrieve(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — A claim-link ID (`airdrp_…`), or the public claim code from the `c` parameter in the claim URL.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## CompanyTokenTransactions
 <details><summary><code>client.company_token_transactions.<a href="src/whop_sdk/company_token_transactions/client.py">list</a>(...) -> ListCompanyTokenTransactionsResponse</code></summary>
 <dl>

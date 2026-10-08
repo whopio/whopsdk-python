@@ -8,6 +8,7 @@ import typing
 import pydantic
 import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .create_transfers_response_claim_link_sender import CreateTransfersResponseClaimLinkSender
 from .create_transfers_response_claim_link_source import CreateTransfersResponseClaimLinkSource
 from .create_transfers_response_claim_link_status import CreateTransfersResponseClaimLinkStatus
 from .create_transfers_response_send_destination import CreateTransfersResponseSendDestination
@@ -69,10 +70,16 @@ class CreateTransfersResponse_ClaimLink(UniversalBaseModel):
     object: typing.Literal["claim_link"] = "claim_link"
     amount: str
     claim_url: str
+    claimable: bool
+    code: str
+    created_at: dt.datetime
     currency: str
     expires_at: typing.Optional[dt.datetime] = None
     id: str
     redeemable_count: int
+    redeemed_count: int
+    remaining_claims: int
+    sender: CreateTransfersResponseClaimLinkSender
     source: CreateTransfersResponseClaimLinkSource
     status: CreateTransfersResponseClaimLinkStatus
 

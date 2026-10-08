@@ -15,6 +15,13 @@ if typing.TYPE_CHECKING:
         CreateTransfersResponse_Transfer,
     )
     from .create_transfers_response_claim_link import CreateTransfersResponseClaimLink
+    from .create_transfers_response_claim_link_sender import (
+        CreateTransfersResponseClaimLinkSender,
+        CreateTransfersResponseClaimLinkSender_Account,
+        CreateTransfersResponseClaimLinkSender_User,
+    )
+    from .create_transfers_response_claim_link_sender_account import CreateTransfersResponseClaimLinkSenderAccount
+    from .create_transfers_response_claim_link_sender_user import CreateTransfersResponseClaimLinkSenderUser
     from .create_transfers_response_claim_link_source import CreateTransfersResponseClaimLinkSource
     from .create_transfers_response_claim_link_status import CreateTransfersResponseClaimLinkStatus
     from .create_transfers_response_send import CreateTransfersResponseSend
@@ -144,6 +151,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateTransfersRequestType": ".create_transfers_request_type",
     "CreateTransfersResponse": ".create_transfers_response",
     "CreateTransfersResponseClaimLink": ".create_transfers_response_claim_link",
+    "CreateTransfersResponseClaimLinkSender": ".create_transfers_response_claim_link_sender",
+    "CreateTransfersResponseClaimLinkSenderAccount": ".create_transfers_response_claim_link_sender_account",
+    "CreateTransfersResponseClaimLinkSenderUser": ".create_transfers_response_claim_link_sender_user",
+    "CreateTransfersResponseClaimLinkSender_Account": ".create_transfers_response_claim_link_sender",
+    "CreateTransfersResponseClaimLinkSender_User": ".create_transfers_response_claim_link_sender",
     "CreateTransfersResponseClaimLinkSource": ".create_transfers_response_claim_link_source",
     "CreateTransfersResponseClaimLinkStatus": ".create_transfers_response_claim_link_status",
     "CreateTransfersResponseSend": ".create_transfers_response_send",
@@ -274,6 +286,11 @@ __all__ = [
     "CreateTransfersRequestType",
     "CreateTransfersResponse",
     "CreateTransfersResponseClaimLink",
+    "CreateTransfersResponseClaimLinkSender",
+    "CreateTransfersResponseClaimLinkSenderAccount",
+    "CreateTransfersResponseClaimLinkSenderUser",
+    "CreateTransfersResponseClaimLinkSender_Account",
+    "CreateTransfersResponseClaimLinkSender_User",
     "CreateTransfersResponseClaimLinkSource",
     "CreateTransfersResponseClaimLinkStatus",
     "CreateTransfersResponseSend",

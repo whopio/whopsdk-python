@@ -32,6 +32,7 @@ if typing.TYPE_CHECKING:
     from .cashback_rules.client import AsyncCashbackRulesClient, CashbackRulesClient
     from .chat_channels.client import AsyncChatChannelsClient, ChatChannelsClient
     from .checkout_configurations.client import AsyncCheckoutConfigurationsClient, CheckoutConfigurationsClient
+    from .claim_links.client import AsyncClaimLinksClient, ClaimLinksClient
     from .company_token_transactions.client import AsyncCompanyTokenTransactionsClient, CompanyTokenTransactionsClient
     from .confirmation_tokens.client import AsyncConfirmationTokensClient, ConfirmationTokensClient
     from .course_chapters.client import AsyncCourseChaptersClient, CourseChaptersClient
@@ -214,6 +215,7 @@ class Whop:
         self._cashback_rules: typing.Optional[CashbackRulesClient] = None
         self._chat_channels: typing.Optional[ChatChannelsClient] = None
         self._checkout_configurations: typing.Optional[CheckoutConfigurationsClient] = None
+        self._claim_links: typing.Optional[ClaimLinksClient] = None
         self._company_token_transactions: typing.Optional[CompanyTokenTransactionsClient] = None
         self._confirmation_tokens: typing.Optional[ConfirmationTokensClient] = None
         self._course_chapters: typing.Optional[CourseChaptersClient] = None
@@ -460,6 +462,14 @@ class Whop:
 
             self._checkout_configurations = CheckoutConfigurationsClient(client_wrapper=self._client_wrapper)
         return self._checkout_configurations
+
+    @property
+    def claim_links(self):
+        if self._claim_links is None:
+            from .claim_links.client import ClaimLinksClient  # noqa: E402
+
+            self._claim_links = ClaimLinksClient(client_wrapper=self._client_wrapper)
+        return self._claim_links
 
     @property
     def company_token_transactions(self):
@@ -1153,6 +1163,7 @@ class AsyncWhop:
         self._cashback_rules: typing.Optional[AsyncCashbackRulesClient] = None
         self._chat_channels: typing.Optional[AsyncChatChannelsClient] = None
         self._checkout_configurations: typing.Optional[AsyncCheckoutConfigurationsClient] = None
+        self._claim_links: typing.Optional[AsyncClaimLinksClient] = None
         self._company_token_transactions: typing.Optional[AsyncCompanyTokenTransactionsClient] = None
         self._confirmation_tokens: typing.Optional[AsyncConfirmationTokensClient] = None
         self._course_chapters: typing.Optional[AsyncCourseChaptersClient] = None
@@ -1399,6 +1410,14 @@ class AsyncWhop:
 
             self._checkout_configurations = AsyncCheckoutConfigurationsClient(client_wrapper=self._client_wrapper)
         return self._checkout_configurations
+
+    @property
+    def claim_links(self):
+        if self._claim_links is None:
+            from .claim_links.client import AsyncClaimLinksClient  # noqa: E402
+
+            self._claim_links = AsyncClaimLinksClient(client_wrapper=self._client_wrapper)
+        return self._claim_links
 
     @property
     def company_token_transactions(self):
