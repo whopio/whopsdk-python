@@ -16,6 +16,7 @@ class UpdateMethodsResponseRecipient(UniversalBaseModel):
     ISO 3166-1 alpha-3 country code.
     """
 
+    email: str
     first_name: str
     last_name: str
 
