@@ -4,17 +4,12 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .trade_cancellation_result import TradeCancellationResult
 from .trade_failure_code import TradeFailureCode
-from .trade_hyperliquid import TradeHyperliquid
-from .trade_instrument_type import TradeInstrumentType
-from .trade_leverage import TradeLeverage
+from .trade_funds_location import TradeFundsLocation
 from .trade_object import TradeObject
-from .trade_operation_type import TradeOperationType
-from .trade_order_result import TradeOrderResult
-from .trade_provider import TradeProvider
-from .trade_requested_order import TradeRequestedOrder
 from .trade_status import TradeStatus
+from .trade_status_detail import TradeStatusDetail
+from .trade_type import TradeType
 
 
 class Trade(UniversalBaseModel):
@@ -23,68 +18,70 @@ class Trade(UniversalBaseModel):
     The account that owns the trading wallet, prefixed `biz_`. `null` when a user owns it.
     """
 
-    cancellations: typing.Optional[typing.List[TradeCancellationResult]] = None
+    amount: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The USDT0 that a buy sends from the wallet, in native units, as a decimal string. `null` for a close.
+    """
+
+    average_price: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The average fill price of the buy, in USD. `null` when it is not known.
+    """
+
     completed_at: typing.Optional[str] = pydantic.Field(default=None)
     """
-    When the submission finished, as an ISO 8601 timestamp, or `null` while it is pending or its outcome is unknown.
+    When the trade ended as completed or failed, as an ISO 8601 timestamp. `null` before that.
     """
 
     created_at: str = pydantic.Field()
     """
-    When the trade was submitted, as an ISO 8601 timestamp.
+    When the trade was created, as an ISO 8601 timestamp.
     """
 
     failure_code: typing.Optional[TradeFailureCode] = pydantic.Field(default=None)
     """
-    Why the trade failed or has an unknown outcome, or `null` otherwise.
+    Why the trade failed, or `null`.
     """
 
-    hyperliquid: typing.Optional[TradeHyperliquid] = pydantic.Field(default=None)
+    filled_size: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Hyperliquid-specific submission details. Present when `provider` is `hyperliquid`, otherwise `null`.
+    The size that the buy order filled, in units of the market. `null` until the order fills.
+    """
+
+    funds_location: typing.Optional[TradeFundsLocation] = pydantic.Field(default=None)
+    """
+    Where the money is when the trade did not complete as asked, or after a close: `wallet`, `trading_account`, or `unknown` while a person checks it. `null` otherwise.
     """
 
     id: str = pydantic.Field()
     """
-    Trade ID, prefixed `trop_`.
+    Trade ID, prefixed `tint_`.
     """
 
-    instrument_type: TradeInstrumentType = pydantic.Field()
+    leverage: typing.Optional[int] = pydantic.Field(default=None)
     """
-    The kind of instrument traded.
-    """
-
-    leverage: typing.Optional[TradeLeverage] = pydantic.Field(default=None)
-    """
-    The leverage requested by an `update_leverage` trade. `null` for other trades.
+    The cross leverage of a buy. `null` for a close.
     """
 
-    metadata: typing.Dict[str, typing.Any] = pydantic.Field()
+    market: str = pydantic.Field()
     """
-    String-to-string annotations you provided when submitting the trade.
+    The perpetual market, for example `BTC`.
     """
 
     object: TradeObject
-    operation_type: TradeOperationType = pydantic.Field()
-    """
-    `create_orders` places orders, `cancel_orders` cancels a submitted batch, and `update_leverage` sets a market's leverage.
-    """
-
-    orders: typing.Optional[typing.List[TradeOrderResult]] = None
-    provider: TradeProvider = pydantic.Field()
-    """
-    Trading venue the trade was submitted to.
-    """
-
-    requested_orders: typing.Optional[typing.List[TradeRequestedOrder]] = None
     status: TradeStatus = pydantic.Field()
     """
-    Submission status, not fill status. `completed` means the provider response was recorded, even if individual orders were rejected. Never resubmit a `submission_unknown` trade with a new idempotency key.
+    `pending` until the trade starts. `processing` while it runs, also while a failed buy sends its money back. `completed` when it did what was asked. `failed` when it did not; `funds_location` says where the money is. `in_review` when the outcome is unknown and a person checks it.
     """
 
-    trade_id: typing.Optional[str] = pydantic.Field(default=None)
+    status_detail: typing.Optional[TradeStatusDetail] = pydantic.Field(default=None)
     """
-    For a cancellation, the ID of the canceled trade, prefixed `trop_`. `null` otherwise.
+    More about the outcome: `partial_fill` (the buy filled only part of its size), `no_position` (the close found no position), `partial_close` (part of the position is still open), or `nothing_to_return` (the close had less than 1 USDC to send back). `null` otherwise.
+    """
+
+    type: TradeType = pydantic.Field()
+    """
+    `buy` bridges USDT0 to the trading account, sets the leverage and places one market buy. `close` closes the position in one market, if one is open, and sends all withdrawable USDC back to the wallet.
     """
 
     updated_at: str = pydantic.Field()

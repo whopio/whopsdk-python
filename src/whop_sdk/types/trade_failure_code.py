@@ -3,5 +3,19 @@
 import typing
 
 TradeFailureCode = typing.Union[
-    typing.Literal["pre_submission_error", "provider_rejected", "provider_outcome_unknown"], typing.Any
+    typing.Literal[
+        "market_unavailable",
+        "leverage_too_high",
+        "amount_too_small",
+        "isolated_position_open",
+        "trading_paused",
+        "funding_failed",
+        "margin_unavailable",
+        "leverage_rejected",
+        "leverage_unconfirmed",
+        "order_rejected",
+        "close_rejected",
+        "return_failed",
+    ],
+    typing.Any,
 ]

@@ -6,17 +6,19 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .create_trades_request_type import CreateTradesRequestType
     from .list_trades_request_direction import ListTradesRequestDirection
-    from .list_trades_request_operation_type import ListTradesRequestOperationType
     from .list_trades_request_order import ListTradesRequestOrder
     from .list_trades_request_status import ListTradesRequestStatus
+    from .list_trades_request_type import ListTradesRequestType
     from .list_trades_response import ListTradesResponse
     from .list_trades_response_page_info import ListTradesResponsePageInfo
 _dynamic_imports: typing.Dict[str, str] = {
+    "CreateTradesRequestType": ".create_trades_request_type",
     "ListTradesRequestDirection": ".list_trades_request_direction",
-    "ListTradesRequestOperationType": ".list_trades_request_operation_type",
     "ListTradesRequestOrder": ".list_trades_request_order",
     "ListTradesRequestStatus": ".list_trades_request_status",
+    "ListTradesRequestType": ".list_trades_request_type",
     "ListTradesResponse": ".list_trades_response",
     "ListTradesResponsePageInfo": ".list_trades_response_page_info",
 }
@@ -44,10 +46,11 @@ def __dir__():
 
 
 __all__ = [
+    "CreateTradesRequestType",
     "ListTradesRequestDirection",
-    "ListTradesRequestOperationType",
     "ListTradesRequestOrder",
     "ListTradesRequestStatus",
+    "ListTradesRequestType",
     "ListTradesResponse",
     "ListTradesResponsePageInfo",
 ]

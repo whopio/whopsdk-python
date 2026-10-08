@@ -3,5 +3,5 @@
 import typing
 
 ListTradesRequestStatus = typing.Union[
-    typing.Literal["pending", "submitted", "completed", "failed", "submission_unknown"], typing.Any
+    typing.Literal["pending", "processing", "in_review", "completed", "failed"], typing.Any
 ]
