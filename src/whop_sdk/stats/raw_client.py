@@ -103,6 +103,8 @@ class RawStatsClient:
         ad_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         snapshot_window: typing.Optional[RetrieveStatsRequestSnapshotWindow] = None,
         event: typing.Optional[str] = None,
+        business_type: typing.Optional[str] = None,
+        industry_type: typing.Optional[str] = None,
         conversion_window: typing.Optional[str] = None,
         mature_only: typing.Optional[bool] = None,
         steps: typing.Optional[RetrieveStatsRequestSteps] = None,
@@ -152,7 +154,7 @@ class RawStatsClient:
             End of the range — a date (YYYY-MM-DD), expanded to the end of that day, or an ISO 8601 timestamp (for example 2026-07-17T16:37:00Z), used exactly. Funnel entry ranges cannot exceed 90 days.
 
         account_id : typing.Optional[str]
-            The account this query concerns, for example biz_AbC123.
+            Account this query concerns, prefixed `biz_`, or `platform` for all of Whop.
 
         user_id : typing.Optional[str]
             The user this query concerns, for example user_AbC123. Available on metrics that support user subjects, such as account_balance.
@@ -246,6 +248,12 @@ class RawStatsClient:
 
         event : typing.Optional[str]
             Filter the events metric to one or more full event names, for example payment.completed or pixel.lead. Comma-separated names match any listed event. Use group_by=event for separate groups. Available on metrics that list event.
+
+        business_type : typing.Optional[str]
+            Filter to one business type, for example `education`. Pair with `breakdown_by=business_type` to split by business type. Available on metrics that list `business_type`.
+
+        industry_type : typing.Optional[str]
+            Filter to one industry type, for example `options_trading`. Pair with `breakdown_by=industry_type` to split by industry type. Available on metrics that list `industry_type`.
 
         conversion_window : typing.Optional[str]
             Funnel only. Time allowed from the first event to the final event: integer minutes, hours, or days, up to 30d.
@@ -390,6 +398,8 @@ class RawStatsClient:
                 "ad_ids": ad_ids,
                 "snapshot_window": snapshot_window,
                 "event": event,
+                "business_type": business_type,
+                "industry_type": industry_type,
                 "conversion_window": conversion_window,
                 "mature_only": mature_only,
                 "steps": convert_and_respect_annotation_metadata(
@@ -530,6 +540,8 @@ class AsyncRawStatsClient:
         ad_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         snapshot_window: typing.Optional[RetrieveStatsRequestSnapshotWindow] = None,
         event: typing.Optional[str] = None,
+        business_type: typing.Optional[str] = None,
+        industry_type: typing.Optional[str] = None,
         conversion_window: typing.Optional[str] = None,
         mature_only: typing.Optional[bool] = None,
         steps: typing.Optional[RetrieveStatsRequestSteps] = None,
@@ -579,7 +591,7 @@ class AsyncRawStatsClient:
             End of the range — a date (YYYY-MM-DD), expanded to the end of that day, or an ISO 8601 timestamp (for example 2026-07-17T16:37:00Z), used exactly. Funnel entry ranges cannot exceed 90 days.
 
         account_id : typing.Optional[str]
-            The account this query concerns, for example biz_AbC123.
+            Account this query concerns, prefixed `biz_`, or `platform` for all of Whop.
 
         user_id : typing.Optional[str]
             The user this query concerns, for example user_AbC123. Available on metrics that support user subjects, such as account_balance.
@@ -673,6 +685,12 @@ class AsyncRawStatsClient:
 
         event : typing.Optional[str]
             Filter the events metric to one or more full event names, for example payment.completed or pixel.lead. Comma-separated names match any listed event. Use group_by=event for separate groups. Available on metrics that list event.
+
+        business_type : typing.Optional[str]
+            Filter to one business type, for example `education`. Pair with `breakdown_by=business_type` to split by business type. Available on metrics that list `business_type`.
+
+        industry_type : typing.Optional[str]
+            Filter to one industry type, for example `options_trading`. Pair with `breakdown_by=industry_type` to split by industry type. Available on metrics that list `industry_type`.
 
         conversion_window : typing.Optional[str]
             Funnel only. Time allowed from the first event to the final event: integer minutes, hours, or days, up to 30d.
@@ -817,6 +835,8 @@ class AsyncRawStatsClient:
                 "ad_ids": ad_ids,
                 "snapshot_window": snapshot_window,
                 "event": event,
+                "business_type": business_type,
+                "industry_type": industry_type,
                 "conversion_window": conversion_window,
                 "mature_only": mature_only,
                 "steps": convert_and_respect_annotation_metadata(
