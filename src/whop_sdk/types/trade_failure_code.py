@@ -11,6 +11,7 @@ TradeFailureCode = typing.Union[
         "trading_paused",
         "funding_failed",
         "margin_unavailable",
+        "builder_fee_unapproved",
         "leverage_rejected",
         "leverage_unconfirmed",
         "order_rejected",
