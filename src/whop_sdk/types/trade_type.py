@@ -2,4 +2,4 @@
 
 import typing
 
-TradeInstrumentType = typing.Union[typing.Literal["perpetual"], typing.Any]
+TradeType = typing.Union[typing.Literal["buy", "close"], typing.Any]

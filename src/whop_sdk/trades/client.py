@@ -7,11 +7,15 @@ from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
 from ..types.trade import Trade
 from .raw_client import AsyncRawTradesClient, RawTradesClient
+from .types.create_trades_request_type import CreateTradesRequestType
 from .types.list_trades_request_direction import ListTradesRequestDirection
-from .types.list_trades_request_operation_type import ListTradesRequestOperationType
 from .types.list_trades_request_order import ListTradesRequestOrder
 from .types.list_trades_request_status import ListTradesRequestStatus
+from .types.list_trades_request_type import ListTradesRequestType
 from .types.list_trades_response import ListTradesResponse
+
+# this is used as the default value for optional parameters
+OMIT = typing.cast(typing.Any, ...)
 
 
 class TradesClient:
@@ -34,7 +38,7 @@ class TradesClient:
         *,
         account_id: typing.Optional[str] = None,
         status: typing.Optional[ListTradesRequestStatus] = None,
-        operation_type: typing.Optional[ListTradesRequestOperationType] = None,
+        type: typing.Optional[ListTradesRequestType] = None,
         order: typing.Optional[ListTradesRequestOrder] = None,
         direction: typing.Optional[ListTradesRequestDirection] = None,
         first: typing.Optional[int] = None,
@@ -44,7 +48,7 @@ class TradesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Trade, ListTradesResponse]:
         """
-        Lists trades you can access, newest first. User credentials see their own trades and those of accounts they belong to, including connected accounts; account credentials see their account and its connected accounts. These are submission records, not fill or position history.
+        Lists trades you can access, newest first. User credentials see their own trades and those of accounts they belong to, including connected accounts; account credentials see their account and its connected accounts.
 
         Parameters
         ----------
@@ -52,10 +56,10 @@ class TradesClient:
             Only return trades for this account or user, prefixed `biz_` or `user_`.
 
         status : typing.Optional[ListTradesRequestStatus]
-            Only return trades with this submission status.
+            Only return trades with this status.
 
-        operation_type : typing.Optional[ListTradesRequestOperationType]
-            Only return trades of this kind, such as `create_orders` for order submissions.
+        type : typing.Optional[ListTradesRequestType]
+            Only return trades of this type.
 
         order : typing.Optional[ListTradesRequestOrder]
             Field to sort by.
@@ -102,7 +106,7 @@ class TradesClient:
         return self._raw_client.list(
             account_id=account_id,
             status=status,
-            operation_type=operation_type,
+            type=type,
             order=order,
             direction=direction,
             first=first,
@@ -112,18 +116,43 @@ class TradesClient:
             request_options=request_options,
         )
 
-    def create(self, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+    def create(
+        self,
+        *,
+        account_id: str,
+        market: str,
+        type: CreateTradesRequestType,
+        amount: typing.Optional[str] = OMIT,
+        leverage: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> Trade:
         """
-        Retired. Order batches can no longer be placed. Every caller gets `410 Gone`, whatever the body, and nothing is sent to the trading provider. List and retrieve earlier trades with `GET /trades`.
+        Creates a trade on the Whop-managed wallet of an account or user and answers `201` with the trade in `pending`. The trade runs in the background; read it with `GET /trades/{id}` until it is `completed`, `failed` or `in_review`. A `buy` bridges `amount` USDT0 to the trading account, sets `leverage` (cross) on `market`, and places one market buy. If the buy does not fill, its money goes back to the wallet. A `close` closes the position in `market`, if one is open, and sends all withdrawable USDC back to the wallet. One trade runs at a time for each wallet. A retry with the same `Idempotency-Key` returns the same trade.
 
         Parameters
         ----------
+        account_id : str
+            The account or user whose wallet trades, prefixed `biz_` or `user_`.
+
+        market : str
+            The perpetual market, for example `BTC`.
+
+        type : CreateTradesRequestType
+            `buy` or `close`.
+
+        amount : typing.Optional[str]
+            The USDT0 to send from the wallet for a buy, with at most 6 decimals. Required for a buy.
+
+        leverage : typing.Optional[int]
+            The cross leverage for a buy, from 1 to the market's maximum. Required for a buy.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        None
+        Trade
+            trade created
 
         Examples
         --------
@@ -134,46 +163,30 @@ class TradesClient:
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
-        client.trades.create()
-        """
-        _response = self._raw_client.create(request_options=request_options)
-        return _response.data
-
-    def update_leverage(self, *, request_options: typing.Optional[RequestOptions] = None) -> None:
-        """
-        Retired. Every caller gets `410 Gone`, and no leverage change is sent to the trading provider.
-
-        Parameters
-        ----------
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        None
-
-        Examples
-        --------
-        from whop_sdk import Whop
-
-        client = Whop(
-            "2026-10-07-2",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
+        client.trades.create(
+            account_id="biz_xxxxxxxxxxxxxx",
+            market="BTC",
+            type="buy",
         )
-        client.trades.update_leverage()
         """
-        _response = self._raw_client.update_leverage(request_options=request_options)
+        _response = self._raw_client.create(
+            account_id=account_id,
+            market=market,
+            type=type,
+            amount=amount,
+            leverage=leverage,
+            request_options=request_options,
+        )
         return _response.data
 
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Trade:
         """
-        Retrieves a trade. Order acknowledgements don't update as orders fill. Never resubmit a `submission_unknown` trade with a new idempotency key.
+        Retrieves a trade. Read it until its `status` is `completed`, `failed` or `in_review`.
 
         Parameters
         ----------
         id : str
-            Trade ID, prefixed `trop_`.
+            Trade ID, prefixed `tint_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -199,38 +212,6 @@ class TradesClient:
         _response = self._raw_client.retrieve(id, request_options=request_options)
         return _response.data
 
-    def cancel(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
-        """
-        Retired. Every caller gets `410 Gone`, and no cancellation is sent to the trading provider.
-
-        Parameters
-        ----------
-        id : str
-            ID of the order trade to cancel, prefixed `trop_`.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        None
-
-        Examples
-        --------
-        from whop_sdk import Whop
-
-        client = Whop(
-            "2026-10-07-2",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-        client.trades.cancel(
-            id="id",
-        )
-        """
-        _response = self._raw_client.cancel(id, request_options=request_options)
-        return _response.data
-
 
 class AsyncTradesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -252,7 +233,7 @@ class AsyncTradesClient:
         *,
         account_id: typing.Optional[str] = None,
         status: typing.Optional[ListTradesRequestStatus] = None,
-        operation_type: typing.Optional[ListTradesRequestOperationType] = None,
+        type: typing.Optional[ListTradesRequestType] = None,
         order: typing.Optional[ListTradesRequestOrder] = None,
         direction: typing.Optional[ListTradesRequestDirection] = None,
         first: typing.Optional[int] = None,
@@ -262,7 +243,7 @@ class AsyncTradesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Trade, ListTradesResponse]:
         """
-        Lists trades you can access, newest first. User credentials see their own trades and those of accounts they belong to, including connected accounts; account credentials see their account and its connected accounts. These are submission records, not fill or position history.
+        Lists trades you can access, newest first. User credentials see their own trades and those of accounts they belong to, including connected accounts; account credentials see their account and its connected accounts.
 
         Parameters
         ----------
@@ -270,10 +251,10 @@ class AsyncTradesClient:
             Only return trades for this account or user, prefixed `biz_` or `user_`.
 
         status : typing.Optional[ListTradesRequestStatus]
-            Only return trades with this submission status.
+            Only return trades with this status.
 
-        operation_type : typing.Optional[ListTradesRequestOperationType]
-            Only return trades of this kind, such as `create_orders` for order submissions.
+        type : typing.Optional[ListTradesRequestType]
+            Only return trades of this type.
 
         order : typing.Optional[ListTradesRequestOrder]
             Field to sort by.
@@ -329,7 +310,7 @@ class AsyncTradesClient:
         return await self._raw_client.list(
             account_id=account_id,
             status=status,
-            operation_type=operation_type,
+            type=type,
             order=order,
             direction=direction,
             first=first,
@@ -339,18 +320,43 @@ class AsyncTradesClient:
             request_options=request_options,
         )
 
-    async def create(self, *, request_options: typing.Optional[RequestOptions] = None) -> None:
+    async def create(
+        self,
+        *,
+        account_id: str,
+        market: str,
+        type: CreateTradesRequestType,
+        amount: typing.Optional[str] = OMIT,
+        leverage: typing.Optional[int] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> Trade:
         """
-        Retired. Order batches can no longer be placed. Every caller gets `410 Gone`, whatever the body, and nothing is sent to the trading provider. List and retrieve earlier trades with `GET /trades`.
+        Creates a trade on the Whop-managed wallet of an account or user and answers `201` with the trade in `pending`. The trade runs in the background; read it with `GET /trades/{id}` until it is `completed`, `failed` or `in_review`. A `buy` bridges `amount` USDT0 to the trading account, sets `leverage` (cross) on `market`, and places one market buy. If the buy does not fill, its money goes back to the wallet. A `close` closes the position in `market`, if one is open, and sends all withdrawable USDC back to the wallet. One trade runs at a time for each wallet. A retry with the same `Idempotency-Key` returns the same trade.
 
         Parameters
         ----------
+        account_id : str
+            The account or user whose wallet trades, prefixed `biz_` or `user_`.
+
+        market : str
+            The perpetual market, for example `BTC`.
+
+        type : CreateTradesRequestType
+            `buy` or `close`.
+
+        amount : typing.Optional[str]
+            The USDT0 to send from the wallet for a buy, with at most 6 decimals. Required for a buy.
+
+        leverage : typing.Optional[int]
+            The cross leverage for a buy, from 1 to the market's maximum. Required for a buy.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        None
+        Trade
+            trade created
 
         Examples
         --------
@@ -366,57 +372,33 @@ class AsyncTradesClient:
 
 
         async def main() -> None:
-            await client.trades.create()
+            await client.trades.create(
+                account_id="biz_xxxxxxxxxxxxxx",
+                market="BTC",
+                type="buy",
+            )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.create(request_options=request_options)
-        return _response.data
-
-    async def update_leverage(self, *, request_options: typing.Optional[RequestOptions] = None) -> None:
-        """
-        Retired. Every caller gets `410 Gone`, and no leverage change is sent to the trading provider.
-
-        Parameters
-        ----------
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        None
-
-        Examples
-        --------
-        import asyncio
-
-        from whop_sdk import AsyncWhop
-
-        client = AsyncWhop(
-            "2026-10-07-2",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
+        _response = await self._raw_client.create(
+            account_id=account_id,
+            market=market,
+            type=type,
+            amount=amount,
+            leverage=leverage,
+            request_options=request_options,
         )
-
-
-        async def main() -> None:
-            await client.trades.update_leverage()
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.update_leverage(request_options=request_options)
         return _response.data
 
     async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Trade:
         """
-        Retrieves a trade. Order acknowledgements don't update as orders fill. Never resubmit a `submission_unknown` trade with a new idempotency key.
+        Retrieves a trade. Read it until its `status` is `completed`, `failed` or `in_review`.
 
         Parameters
         ----------
         id : str
-            Trade ID, prefixed `trop_`.
+            Trade ID, prefixed `tint_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -448,44 +430,4 @@ class AsyncTradesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.retrieve(id, request_options=request_options)
-        return _response.data
-
-    async def cancel(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> None:
-        """
-        Retired. Every caller gets `410 Gone`, and no cancellation is sent to the trading provider.
-
-        Parameters
-        ----------
-        id : str
-            ID of the order trade to cancel, prefixed `trop_`.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        None
-
-        Examples
-        --------
-        import asyncio
-
-        from whop_sdk import AsyncWhop
-
-        client = AsyncWhop(
-            "2026-10-07-2",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.trades.cancel(
-                id="id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.cancel(id, request_options=request_options)
         return _response.data

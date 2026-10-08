@@ -1403,25 +1403,12 @@ if typing.TYPE_CHECKING:
     from .too_many_requests_error_body_error import TooManyRequestsErrorBodyError
     from .topup import Topup
     from .trade import Trade
-    from .trade_cancellation_result import TradeCancellationResult
-    from .trade_cancellation_result_status import TradeCancellationResultStatus
     from .trade_failure_code import TradeFailureCode
-    from .trade_hyperliquid import TradeHyperliquid
-    from .trade_instrument_type import TradeInstrumentType
-    from .trade_leverage import TradeLeverage
-    from .trade_leverage_margin_mode import TradeLeverageMarginMode
+    from .trade_funds_location import TradeFundsLocation
     from .trade_object import TradeObject
-    from .trade_operation_type import TradeOperationType
-    from .trade_order_result import TradeOrderResult
-    from .trade_order_result_object import TradeOrderResultObject
-    from .trade_order_result_order_type import TradeOrderResultOrderType
-    from .trade_order_result_side import TradeOrderResultSide
-    from .trade_order_result_status import TradeOrderResultStatus
-    from .trade_provider import TradeProvider
-    from .trade_requested_order import TradeRequestedOrder
-    from .trade_requested_order_order_type import TradeRequestedOrderOrderType
-    from .trade_requested_order_side import TradeRequestedOrderSide
     from .trade_status import TradeStatus
+    from .trade_status_detail import TradeStatusDetail
+    from .trade_type import TradeType
     from .trading_account import TradingAccount
     from .trading_account_object import TradingAccountObject
     from .trading_account_provider import TradingAccountProvider
@@ -2760,25 +2747,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "TooManyRequestsErrorBodyError": ".too_many_requests_error_body_error",
     "Topup": ".topup",
     "Trade": ".trade",
-    "TradeCancellationResult": ".trade_cancellation_result",
-    "TradeCancellationResultStatus": ".trade_cancellation_result_status",
     "TradeFailureCode": ".trade_failure_code",
-    "TradeHyperliquid": ".trade_hyperliquid",
-    "TradeInstrumentType": ".trade_instrument_type",
-    "TradeLeverage": ".trade_leverage",
-    "TradeLeverageMarginMode": ".trade_leverage_margin_mode",
+    "TradeFundsLocation": ".trade_funds_location",
     "TradeObject": ".trade_object",
-    "TradeOperationType": ".trade_operation_type",
-    "TradeOrderResult": ".trade_order_result",
-    "TradeOrderResultObject": ".trade_order_result_object",
-    "TradeOrderResultOrderType": ".trade_order_result_order_type",
-    "TradeOrderResultSide": ".trade_order_result_side",
-    "TradeOrderResultStatus": ".trade_order_result_status",
-    "TradeProvider": ".trade_provider",
-    "TradeRequestedOrder": ".trade_requested_order",
-    "TradeRequestedOrderOrderType": ".trade_requested_order_order_type",
-    "TradeRequestedOrderSide": ".trade_requested_order_side",
     "TradeStatus": ".trade_status",
+    "TradeStatusDetail": ".trade_status_detail",
+    "TradeType": ".trade_type",
     "TradingAccount": ".trading_account",
     "TradingAccountObject": ".trading_account_object",
     "TradingAccountProvider": ".trading_account_provider",
@@ -4141,25 +4115,12 @@ __all__ = [
     "TooManyRequestsErrorBodyError",
     "Topup",
     "Trade",
-    "TradeCancellationResult",
-    "TradeCancellationResultStatus",
     "TradeFailureCode",
-    "TradeHyperliquid",
-    "TradeInstrumentType",
-    "TradeLeverage",
-    "TradeLeverageMarginMode",
+    "TradeFundsLocation",
     "TradeObject",
-    "TradeOperationType",
-    "TradeOrderResult",
-    "TradeOrderResultObject",
-    "TradeOrderResultOrderType",
-    "TradeOrderResultSide",
-    "TradeOrderResultStatus",
-    "TradeProvider",
-    "TradeRequestedOrder",
-    "TradeRequestedOrderOrderType",
-    "TradeRequestedOrderSide",
     "TradeStatus",
+    "TradeStatusDetail",
+    "TradeType",
     "TradingAccount",
     "TradingAccountObject",
     "TradingAccountProvider",
