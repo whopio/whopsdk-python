@@ -10,7 +10,7 @@ PlatformTrendsReportsRequestOrder = typing.Union[
         "customers",
         "aov",
         "repeat_rate",
-        "p99_gross_revenue",
+        "median_gross_revenue",
         "new_businesses",
         "avg_business_age",
         "avg_owner_age",

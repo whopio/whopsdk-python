@@ -97,6 +97,7 @@ class TimeSeriesClient:
         event: typing.Optional[str] = None,
         business_type: typing.Optional[str] = None,
         industry_type: typing.Optional[str] = None,
+        issuer: typing.Optional[str] = None,
         conversion_window: typing.Optional[str] = None,
         mature_only: typing.Optional[bool] = None,
         steps: typing.Optional[RetrieveTimeSeriesRequestSteps] = None,
@@ -246,6 +247,9 @@ class TimeSeriesClient:
 
         industry_type : typing.Optional[str]
             Filter to one industry type, for example `options_trading`. Pair with `breakdown_by=industry_type` to split by industry type. Available on metrics that list `industry_type`.
+
+        issuer : typing.Optional[str]
+            Filter to one card-issuing bank, named as the processor reports it, for example JPMORGAN CHASE BANK N A, or unknown for payments with no reported bank. Available on metrics that list issuer.
 
         conversion_window : typing.Optional[str]
             Funnel only. Time allowed from the first event to the final event: integer minutes, hours, or days, up to 30d.
@@ -407,6 +411,7 @@ class TimeSeriesClient:
             event=event,
             business_type=business_type,
             industry_type=industry_type,
+            issuer=issuer,
             conversion_window=conversion_window,
             mature_only=mature_only,
             steps=steps,
@@ -535,6 +540,7 @@ class AsyncTimeSeriesClient:
         event: typing.Optional[str] = None,
         business_type: typing.Optional[str] = None,
         industry_type: typing.Optional[str] = None,
+        issuer: typing.Optional[str] = None,
         conversion_window: typing.Optional[str] = None,
         mature_only: typing.Optional[bool] = None,
         steps: typing.Optional[RetrieveTimeSeriesRequestSteps] = None,
@@ -684,6 +690,9 @@ class AsyncTimeSeriesClient:
 
         industry_type : typing.Optional[str]
             Filter to one industry type, for example `options_trading`. Pair with `breakdown_by=industry_type` to split by industry type. Available on metrics that list `industry_type`.
+
+        issuer : typing.Optional[str]
+            Filter to one card-issuing bank, named as the processor reports it, for example JPMORGAN CHASE BANK N A, or unknown for payments with no reported bank. Available on metrics that list issuer.
 
         conversion_window : typing.Optional[str]
             Funnel only. Time allowed from the first event to the final event: integer minutes, hours, or days, up to 30d.
@@ -853,6 +862,7 @@ class AsyncTimeSeriesClient:
             event=event,
             business_type=business_type,
             industry_type=industry_type,
+            issuer=issuer,
             conversion_window=conversion_window,
             mature_only=mature_only,
             steps=steps,

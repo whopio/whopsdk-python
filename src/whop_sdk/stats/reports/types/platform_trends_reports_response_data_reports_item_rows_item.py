@@ -3,9 +3,7 @@
 import typing
 
 import pydantic
-import typing_extensions
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ....core.serialization import FieldMetadata
 from ....types.money import Money
 from .platform_trends_reports_response_data_reports_item_rows_item_account_country import (
     PlatformTrendsReportsResponseDataReportsItemRowsItemAccountCountry,
@@ -61,21 +59,14 @@ class PlatformTrendsReportsResponseDataReportsItemRowsItem(UniversalBaseModel):
     """
 
     industry_type: typing.Optional[PlatformTrendsReportsResponseDataReportsItemRowsItemIndustryType] = None
+    median_gross_revenue: typing.Optional[Money] = pydantic.Field(default=None)
+    """
+    The median paid volume per business that sold.
+    """
+
     new_businesses: typing.Optional[int] = pydantic.Field(default=None)
     """
     Businesses created in the window that also sold in it.
-    """
-
-    p99gross_revenue: typing_extensions.Annotated[
-        typing.Optional[Money],
-        FieldMetadata(alias="p99_gross_revenue"),
-        pydantic.Field(
-            alias="p99_gross_revenue",
-            description="The 99th percentile of paid volume per business. `null` when fewer than 100 businesses sold, since below that it is the top seller's own volume.",
-        ),
-    ] = None
-    """
-    The 99th percentile of paid volume per business. `null` when fewer than 100 businesses sold, since below that it is the top seller's own volume.
     """
 
     payments: typing.Optional[int] = pydantic.Field(default=None)
