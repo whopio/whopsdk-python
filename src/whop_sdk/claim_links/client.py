@@ -5,6 +5,7 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from .raw_client import AsyncRawClaimLinksClient, RawClaimLinksClient
+from .types.claim_claim_links_response import ClaimClaimLinksResponse
 from .types.retrieve_claim_links_response import RetrieveClaimLinksResponse
 
 
@@ -56,6 +57,39 @@ class ClaimLinksClient:
         )
         """
         _response = self._raw_client.retrieve(id, request_options=request_options)
+        return _response.data
+
+    def claim(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> ClaimClaimLinksResponse:
+        """
+        Claims a funded link into the authenticated user's personal balance and returns the updated link. Requires a signed-in user and the public claim code; company API keys cannot claim on a recipient's behalf. Each user can claim a link once. Reuse the same Idempotency-Key when retrying the same request. On-chain claims wait for the existing transfer workflow and may take several minutes.
+
+        Parameters
+        ----------
+        id : str
+            The public claim code from the `c` parameter in the claim URL. A claim-link ID does not authorize redemption.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClaimClaimLinksResponse
+            claim link claimed
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-10-07-2",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.claim_links.claim(
+            id="id",
+        )
+        """
+        _response = self._raw_client.claim(id, request_options=request_options)
         return _response.data
 
 
@@ -115,4 +149,47 @@ class AsyncClaimLinksClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.retrieve(id, request_options=request_options)
+        return _response.data
+
+    async def claim(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> ClaimClaimLinksResponse:
+        """
+        Claims a funded link into the authenticated user's personal balance and returns the updated link. Requires a signed-in user and the public claim code; company API keys cannot claim on a recipient's behalf. Each user can claim a link once. Reuse the same Idempotency-Key when retrying the same request. On-chain claims wait for the existing transfer workflow and may take several minutes.
+
+        Parameters
+        ----------
+        id : str
+            The public claim code from the `c` parameter in the claim URL. A claim-link ID does not authorize redemption.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClaimClaimLinksResponse
+            claim link claimed
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-10-07-2",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.claim_links.claim(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.claim(id, request_options=request_options)
         return _response.data
