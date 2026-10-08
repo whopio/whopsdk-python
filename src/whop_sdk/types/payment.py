@@ -160,6 +160,11 @@ class Payment(UniversalBaseModel):
     How many charge attempts have failed on this payment.
     """
 
+    pdf_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    A link to download this payment's receipt (invoice) as a PDF. Fetch it with the same credential as this request to receive the file. Null until the payment is paid.
+    """
+
     plan_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The variant that was charged, prefixed `plan_`.
