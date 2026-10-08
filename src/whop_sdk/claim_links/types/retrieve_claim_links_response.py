@@ -5,12 +5,13 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .create_transfers_response_claim_link_sender import CreateTransfersResponseClaimLinkSender
-from .create_transfers_response_claim_link_source import CreateTransfersResponseClaimLinkSource
-from .create_transfers_response_claim_link_status import CreateTransfersResponseClaimLinkStatus
+from .retrieve_claim_links_response_object import RetrieveClaimLinksResponseObject
+from .retrieve_claim_links_response_sender import RetrieveClaimLinksResponseSender
+from .retrieve_claim_links_response_source import RetrieveClaimLinksResponseSource
+from .retrieve_claim_links_response_status import RetrieveClaimLinksResponseStatus
 
 
-class CreateTransfersResponseClaimLink(UniversalBaseModel):
+class RetrieveClaimLinksResponse(UniversalBaseModel):
     """
     A shareable link anyone holding its code can open to claim the funds.
     """
@@ -20,9 +21,9 @@ class CreateTransfersResponseClaimLink(UniversalBaseModel):
     Amount each claim receives.
     """
 
-    claim_url: str = pydantic.Field()
+    claim_url: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Shareable claim URL.
+    Shareable claim URL. Null when retrieving by ID without claim-link management access.
     """
 
     claimable: bool = pydantic.Field()
@@ -30,9 +31,9 @@ class CreateTransfersResponseClaimLink(UniversalBaseModel):
     Whether this link can currently be claimed.
     """
 
-    code: str = pydantic.Field()
+    code: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Redeemable claim code.
+    Redeemable claim code. Null when retrieving by ID without claim-link management access.
     """
 
     created_at: dt.datetime
@@ -43,6 +44,7 @@ class CreateTransfersResponseClaimLink(UniversalBaseModel):
     Claim-link ID, prefixed `airdrp_`.
     """
 
+    object: RetrieveClaimLinksResponseObject
     redeemable_count: int = pydantic.Field()
     """
     Maximum number of claims.
@@ -58,15 +60,15 @@ class CreateTransfersResponseClaimLink(UniversalBaseModel):
     Number of available claims, excluding slots reserved by pending claims.
     """
 
-    sender: CreateTransfersResponseClaimLinkSender = pydantic.Field()
+    sender: RetrieveClaimLinksResponseSender = pydantic.Field()
     """
     The public account or user funding the claim link.
     """
 
-    source: CreateTransfersResponseClaimLinkSource
-    status: CreateTransfersResponseClaimLinkStatus = pydantic.Field()
+    source: RetrieveClaimLinksResponseSource
+    status: RetrieveClaimLinksResponseStatus = pydantic.Field()
     """
-    The newly funded link is ready to claim.
+    The link's lifecycle status. A newly funded link is `pending`. Check `claimable` for current availability, including expiry and reserved claims.
     """
 
     if IS_PYDANTIC_V2:
