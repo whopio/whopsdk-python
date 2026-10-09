@@ -15,7 +15,6 @@ from ...errors.unauthorized_error import UnauthorizedError
 from ...types.payment import Payment
 from ...types.payment_input_line_items_item import PaymentInputLineItemsItem
 from ...types.payment_input_plan import PaymentInputPlan
-from ...types.v1error_response import V1ErrorResponse
 from .types.create_direct_request_billing_details import CreateDirectRequestBillingDetails
 from .types.create_direct_request_payment_method import CreateDirectRequestPaymentMethod
 from .types.create_direct_request_setup_future_usage import CreateDirectRequestSetupFutureUsage
@@ -182,9 +181,9 @@ class RawDirectClient:
                 raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V1ErrorResponse,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V1ErrorResponse,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -356,9 +355,9 @@ class AsyncRawDirectClient:
                 raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V1ErrorResponse,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V1ErrorResponse,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

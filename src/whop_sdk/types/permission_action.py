@@ -29,6 +29,7 @@ PermissionAction = typing.Union[
         "ad_campaign:read",
         "ad_campaign:stats:read",
         "ad_campaign:update",
+        "ad_pixel:manage",
         "audience:basic:read",
         "audience:update",
         "ad_publisher:read",

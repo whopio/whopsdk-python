@@ -20,7 +20,6 @@ from ..errors.unauthorized_error import UnauthorizedError
 from ..types.api_key import ApiKey
 from ..types.list_api_keys_request_created_after import ListApiKeysRequestCreatedAfter
 from ..types.list_api_keys_request_created_before import ListApiKeysRequestCreatedBefore
-from ..types.v1error_response import V1ErrorResponse
 from .types.create_api_keys_request_api_version_date import CreateApiKeysRequestApiVersionDate
 from .types.create_api_keys_request_permissions import CreateApiKeysRequestPermissions
 from .types.create_api_keys_request_resource_type import CreateApiKeysRequestResourceType
@@ -314,9 +313,9 @@ class RawApiKeysClient:
                 raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V1ErrorResponse,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V1ErrorResponse,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -739,9 +738,9 @@ class RawApiKeysClient:
                 raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V1ErrorResponse,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V1ErrorResponse,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1035,9 +1034,9 @@ class AsyncRawApiKeysClient:
                 raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V1ErrorResponse,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V1ErrorResponse,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -1464,9 +1463,9 @@ class AsyncRawApiKeysClient:
                 raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V1ErrorResponse,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V1ErrorResponse,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

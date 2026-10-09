@@ -17,7 +17,6 @@ from ..errors.forbidden_error import ForbiddenError
 from ..errors.not_found_error import NotFoundError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.economic_intelligence import EconomicIntelligence
-from ..types.v1error_response import V1ErrorResponse
 from .types.list_economic_intelligence_request_direction import ListEconomicIntelligenceRequestDirection
 from .types.list_economic_intelligence_request_order import ListEconomicIntelligenceRequestOrder
 from .types.list_economic_intelligence_request_status import ListEconomicIntelligenceRequestStatus
@@ -316,9 +315,9 @@ class RawEconomicIntelligenceClient:
                 raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V1ErrorResponse,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V1ErrorResponse,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -621,9 +620,9 @@ class AsyncRawEconomicIntelligenceClient:
                 raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V1ErrorResponse,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V1ErrorResponse,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

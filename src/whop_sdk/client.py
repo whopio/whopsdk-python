@@ -16,6 +16,7 @@ if typing.TYPE_CHECKING:
     from .ad_campaigns.client import AdCampaignsClient, AsyncAdCampaignsClient
     from .ad_conversion_value_rules.client import AdConversionValueRulesClient, AsyncAdConversionValueRulesClient
     from .ad_groups.client import AdGroupsClient, AsyncAdGroupsClient
+    from .ad_pixels.client import AdPixelsClient, AsyncAdPixelsClient
     from .ads.client import AdsClient, AsyncAdsClient
     from .affiliates.client import AffiliatesClient, AsyncAffiliatesClient
     from .ai_chats.client import AiChatsClient, AsyncAiChatsClient
@@ -199,6 +200,7 @@ class Whop:
         self._ad_campaigns: typing.Optional[AdCampaignsClient] = None
         self._ad_conversion_value_rules: typing.Optional[AdConversionValueRulesClient] = None
         self._ad_groups: typing.Optional[AdGroupsClient] = None
+        self._ad_pixels: typing.Optional[AdPixelsClient] = None
         self._ads: typing.Optional[AdsClient] = None
         self._affiliates: typing.Optional[AffiliatesClient] = None
         self._ai_chats: typing.Optional[AiChatsClient] = None
@@ -334,6 +336,14 @@ class Whop:
 
             self._ad_groups = AdGroupsClient(client_wrapper=self._client_wrapper)
         return self._ad_groups
+
+    @property
+    def ad_pixels(self):
+        if self._ad_pixels is None:
+            from .ad_pixels.client import AdPixelsClient  # noqa: E402
+
+            self._ad_pixels = AdPixelsClient(client_wrapper=self._client_wrapper)
+        return self._ad_pixels
 
     @property
     def ads(self):
@@ -1147,6 +1157,7 @@ class AsyncWhop:
         self._ad_campaigns: typing.Optional[AsyncAdCampaignsClient] = None
         self._ad_conversion_value_rules: typing.Optional[AsyncAdConversionValueRulesClient] = None
         self._ad_groups: typing.Optional[AsyncAdGroupsClient] = None
+        self._ad_pixels: typing.Optional[AsyncAdPixelsClient] = None
         self._ads: typing.Optional[AsyncAdsClient] = None
         self._affiliates: typing.Optional[AsyncAffiliatesClient] = None
         self._ai_chats: typing.Optional[AsyncAiChatsClient] = None
@@ -1282,6 +1293,14 @@ class AsyncWhop:
 
             self._ad_groups = AsyncAdGroupsClient(client_wrapper=self._client_wrapper)
         return self._ad_groups
+
+    @property
+    def ad_pixels(self):
+        if self._ad_pixels is None:
+            from .ad_pixels.client import AsyncAdPixelsClient  # noqa: E402
+
+            self._ad_pixels = AsyncAdPixelsClient(client_wrapper=self._client_wrapper)
+        return self._ad_pixels
 
     @property
     def ads(self):

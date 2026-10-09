@@ -20,7 +20,6 @@ from ..errors.unauthorized_error import UnauthorizedError
 from ..types.app_build import AppBuild
 from ..types.list_app_builds_request_created_after import ListAppBuildsRequestCreatedAfter
 from ..types.list_app_builds_request_created_before import ListAppBuildsRequestCreatedBefore
-from ..types.v1error_response import V1ErrorResponse
 from .types.create_app_builds_request_attachment import CreateAppBuildsRequestAttachment
 from .types.create_app_builds_request_platform import CreateAppBuildsRequestPlatform
 from .types.create_app_builds_request_source_attachment import CreateAppBuildsRequestSourceAttachment
@@ -305,9 +304,9 @@ class RawAppBuildsClient:
                 raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V1ErrorResponse,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V1ErrorResponse,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -477,9 +476,9 @@ class RawAppBuildsClient:
                 raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V1ErrorResponse,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V1ErrorResponse,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -766,9 +765,9 @@ class AsyncRawAppBuildsClient:
                 raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V1ErrorResponse,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V1ErrorResponse,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -942,9 +941,9 @@ class AsyncRawAppBuildsClient:
                 raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V1ErrorResponse,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V1ErrorResponse,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
