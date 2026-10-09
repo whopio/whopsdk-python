@@ -1162,6 +1162,7 @@ if typing.TYPE_CHECKING:
     from .payment_next_action_redirect import PaymentNextActionRedirect
     from .payment_next_action_redirect_data import PaymentNextActionRedirectData
     from .payment_next_action_redirect_render_item import PaymentNextActionRedirectRenderItem
+    from .payment_pdf import PaymentPdf
     from .payment_processing_details import PaymentProcessingDetails
     from .payment_providers import PaymentProviders
     from .payment_qr import PaymentQr
@@ -2517,6 +2518,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaymentNextAction_CollectCardPresent": ".payment_next_action",
     "PaymentNextAction_DisplayInstructions": ".payment_next_action",
     "PaymentNextAction_Redirect": ".payment_next_action",
+    "PaymentPdf": ".payment_pdf",
     "PaymentProcessingDetails": ".payment_processing_details",
     "PaymentProviders": ".payment_providers",
     "PaymentQr": ".payment_qr",
@@ -3894,6 +3896,7 @@ __all__ = [
     "PaymentNextAction_CollectCardPresent",
     "PaymentNextAction_DisplayInstructions",
     "PaymentNextAction_Redirect",
+    "PaymentPdf",
     "PaymentProcessingDetails",
     "PaymentProviders",
     "PaymentQr",
