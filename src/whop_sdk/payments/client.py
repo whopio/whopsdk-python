@@ -11,6 +11,7 @@ from ..core.request_options import RequestOptions
 from ..types.payment import Payment
 from ..types.payment_input_line_items_item import PaymentInputLineItemsItem
 from ..types.payment_input_plan import PaymentInputPlan
+from ..types.payment_pdf import PaymentPdf
 from ..types.payment_status import PaymentStatus
 from .raw_client import AsyncRawPaymentsClient, RawPaymentsClient
 from .types.create_payments_request_payment_method import CreatePaymentsRequestPaymentMethod
@@ -146,7 +147,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-08",
+            "2026-10-09",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -287,7 +288,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-08",
+            "2026-10-09",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -343,7 +344,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-08",
+            "2026-10-09",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -389,7 +390,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-08",
+            "2026-10-09",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -424,7 +425,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-08",
+            "2026-10-09",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -459,7 +460,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-08",
+            "2026-10-09",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -468,6 +469,39 @@ class PaymentsClient:
         )
         """
         _response = self._raw_client.list_fees(id, request_options=request_options)
+        return _response.data
+
+    def generate_pdf(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> PaymentPdf:
+        """
+        Generates the payment's receipt (invoice) as a PDF and returns a short-lived link to download it. Each call generates a new file and link, so this endpoint does not replay `Idempotency-Key` responses.
+
+        Parameters
+        ----------
+        id : str
+            The payment whose receipt to generate, prefixed `pay_`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaymentPdf
+            receipt PDF generated
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-10-09",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.payments.generate_pdf(
+            id="id",
+        )
+        """
+        _response = self._raw_client.generate_pdf(id, request_options=request_options)
         return _response.data
 
     def refund(
@@ -501,7 +535,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-08",
+            "2026-10-09",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -534,7 +568,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-08",
+            "2026-10-09",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -567,7 +601,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-08",
+            "2026-10-09",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -600,7 +634,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-08",
+            "2026-10-09",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -638,7 +672,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-08",
+            "2026-10-09",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -676,7 +710,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-08",
+            "2026-10-09",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -814,7 +848,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-08",
+            "2026-10-09",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -964,7 +998,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-08",
+            "2026-10-09",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1028,7 +1062,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-08",
+            "2026-10-09",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1082,7 +1116,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-08",
+            "2026-10-09",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1125,7 +1159,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-08",
+            "2026-10-09",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1168,7 +1202,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-08",
+            "2026-10-09",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1183,6 +1217,47 @@ class AsyncPaymentsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.list_fees(id, request_options=request_options)
+        return _response.data
+
+    async def generate_pdf(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> PaymentPdf:
+        """
+        Generates the payment's receipt (invoice) as a PDF and returns a short-lived link to download it. Each call generates a new file and link, so this endpoint does not replay `Idempotency-Key` responses.
+
+        Parameters
+        ----------
+        id : str
+            The payment whose receipt to generate, prefixed `pay_`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaymentPdf
+            receipt PDF generated
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-10-09",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.payments.generate_pdf(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.generate_pdf(id, request_options=request_options)
         return _response.data
 
     async def refund(
@@ -1218,7 +1293,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-08",
+            "2026-10-09",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1259,7 +1334,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-08",
+            "2026-10-09",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1300,7 +1375,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-08",
+            "2026-10-09",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1343,7 +1418,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-08",
+            "2026-10-09",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1389,7 +1464,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-08",
+            "2026-10-09",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1435,7 +1510,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-08",
+            "2026-10-09",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
