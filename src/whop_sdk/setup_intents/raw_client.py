@@ -20,7 +20,6 @@ from ..errors.not_found_error import NotFoundError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.setup_intent import SetupIntent
 from ..types.setup_status import SetupStatus
-from ..types.v1error_response import V1ErrorResponse
 from .types.create_setup_intents_request_purpose import CreateSetupIntentsRequestPurpose
 from .types.create_setup_intents_request_three_ds_level import CreateSetupIntentsRequestThreeDsLevel
 from .types.list_setup_intents_request_direction import ListSetupIntentsRequestDirection
@@ -317,9 +316,9 @@ class RawSetupIntentsClient:
                 raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V1ErrorResponse,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V1ErrorResponse,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -862,9 +861,9 @@ class AsyncRawSetupIntentsClient:
                 raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V1ErrorResponse,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V1ErrorResponse,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

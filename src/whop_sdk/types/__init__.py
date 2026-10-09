@@ -208,6 +208,9 @@ if typing.TYPE_CHECKING:
     from .ad_lead_form_question_option import AdLeadFormQuestionOption
     from .ad_messaging_config import AdMessagingConfig
     from .ad_music import AdMusic
+    from .ad_pixel import AdPixel
+    from .ad_pixel_platform import AdPixelPlatform
+    from .ad_pixel_status import AdPixelStatus
     from .ad_platform import AdPlatform
     from .ad_platform_issue import AdPlatformIssue
     from .ad_platform_issue_category import AdPlatformIssueCategory
@@ -1698,6 +1701,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdLeadFormQuestionOption": ".ad_lead_form_question_option",
     "AdMessagingConfig": ".ad_messaging_config",
     "AdMusic": ".ad_music",
+    "AdPixel": ".ad_pixel",
+    "AdPixelPlatform": ".ad_pixel_platform",
+    "AdPixelStatus": ".ad_pixel_status",
     "AdPlatform": ".ad_platform",
     "AdPlatformIssue": ".ad_platform_issue",
     "AdPlatformIssueCategory": ".ad_platform_issue_category",
@@ -3076,6 +3082,9 @@ __all__ = [
     "AdLeadFormQuestionOption",
     "AdMessagingConfig",
     "AdMusic",
+    "AdPixel",
+    "AdPixelPlatform",
+    "AdPixelStatus",
     "AdPlatform",
     "AdPlatformIssue",
     "AdPlatformIssueCategory",

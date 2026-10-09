@@ -19,7 +19,6 @@ from ..errors.unauthorized_error import UnauthorizedError
 from ..types.payment_input_line_items_item import PaymentInputLineItemsItem
 from ..types.payment_input_plan import PaymentInputPlan
 from ..types.payment_quote import PaymentQuote
-from ..types.v1error_response import V1ErrorResponse
 from .types.create_payment_quotes_request_address import CreatePaymentQuotesRequestAddress
 from .types.create_payment_quotes_request_shipping_address import CreatePaymentQuotesRequestShippingAddress
 from .types.create_payment_quotes_request_tax_ids_item import CreatePaymentQuotesRequestTaxIdsItem
@@ -190,9 +189,9 @@ class RawPaymentQuotesClient:
                 raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V1ErrorResponse,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V1ErrorResponse,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -445,9 +444,9 @@ class AsyncRawPaymentQuotesClient:
                 raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V1ErrorResponse,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V1ErrorResponse,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

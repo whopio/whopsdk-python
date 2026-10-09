@@ -18,7 +18,6 @@ from ..errors.payment_required_error import PaymentRequiredError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.media_asset import MediaAsset
 from ..types.payment_required_error_body import PaymentRequiredErrorBody
-from ..types.v1error_response import V1ErrorResponse
 from .types.generate_media_request_resolution import GenerateMediaRequestResolution
 from .types.generate_media_request_type import GenerateMediaRequestType
 from pydantic import ValidationError
@@ -149,9 +148,9 @@ class RawMediaClient:
                 raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V1ErrorResponse,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V1ErrorResponse,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -341,9 +340,9 @@ class AsyncRawMediaClient:
                 raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
-                        V1ErrorResponse,
+                        typing.Any,
                         parse_obj_as(
-                            type_=V1ErrorResponse,  # type: ignore
+                            type_=typing.Any,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

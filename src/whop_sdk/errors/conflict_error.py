@@ -3,9 +3,8 @@
 import typing
 
 from ..core.api_error import ApiError
-from ..types.v1error_response import V1ErrorResponse
 
 
 class ConflictError(ApiError):
-    def __init__(self, body: V1ErrorResponse, headers: typing.Optional[typing.Dict[str, str]] = None):
+    def __init__(self, body: typing.Any, headers: typing.Optional[typing.Dict[str, str]] = None):
         super().__init__(status_code=409, headers=headers, body=body)
