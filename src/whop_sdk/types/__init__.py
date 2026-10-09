@@ -508,19 +508,28 @@ if typing.TYPE_CHECKING:
     from .dms_feed_member_statuses import DmsFeedMemberStatuses
     from .dms_post_types import DmsPostTypes
     from .domain import Domain
+    from .domain_availability import DomainAvailability
     from .domain_dns_record import DomainDnsRecord
     from .domain_dns_record_type import DomainDnsRecordType
     from .domain_issue import DomainIssue
+    from .domain_issue_capability import DomainIssueCapability
     from .domain_issue_code import DomainIssueCode
     from .domain_list_item import DomainListItem
-    from .domain_list_item_mode import DomainListItemMode
     from .domain_list_item_status import DomainListItemStatus
-    from .domain_mode import DomainMode
+    from .domain_owner import DomainOwner
+    from .domain_platform import DomainPlatform
+    from .domain_platform_state import DomainPlatformState
     from .domain_public_record import DomainPublicRecord
     from .domain_registrant import DomainRegistrant
     from .domain_registrar import DomainRegistrar
-    from .domain_registration_quote import DomainRegistrationQuote
+    from .domain_registration import DomainRegistration
+    from .domain_registration_phase import DomainRegistrationPhase
+    from .domain_registration_state import DomainRegistrationState
     from .domain_status import DomainStatus
+    from .domain_verification import DomainVerification
+    from .domain_verification_state import DomainVerificationState
+    from .domain_website import DomainWebsite
+    from .domain_website_state import DomainWebsiteState
     from .economic_intelligence import EconomicIntelligence
     from .economic_intelligence_input import EconomicIntelligenceInput
     from .economic_intelligence_operation import EconomicIntelligenceOperation
@@ -1974,19 +1983,28 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DmsFeedMemberStatuses": ".dms_feed_member_statuses",
     "DmsPostTypes": ".dms_post_types",
     "Domain": ".domain",
+    "DomainAvailability": ".domain_availability",
     "DomainDnsRecord": ".domain_dns_record",
     "DomainDnsRecordType": ".domain_dns_record_type",
     "DomainIssue": ".domain_issue",
+    "DomainIssueCapability": ".domain_issue_capability",
     "DomainIssueCode": ".domain_issue_code",
     "DomainListItem": ".domain_list_item",
-    "DomainListItemMode": ".domain_list_item_mode",
     "DomainListItemStatus": ".domain_list_item_status",
-    "DomainMode": ".domain_mode",
+    "DomainOwner": ".domain_owner",
+    "DomainPlatform": ".domain_platform",
+    "DomainPlatformState": ".domain_platform_state",
     "DomainPublicRecord": ".domain_public_record",
     "DomainRegistrant": ".domain_registrant",
     "DomainRegistrar": ".domain_registrar",
-    "DomainRegistrationQuote": ".domain_registration_quote",
+    "DomainRegistration": ".domain_registration",
+    "DomainRegistrationPhase": ".domain_registration_phase",
+    "DomainRegistrationState": ".domain_registration_state",
     "DomainStatus": ".domain_status",
+    "DomainVerification": ".domain_verification",
+    "DomainVerificationState": ".domain_verification_state",
+    "DomainWebsite": ".domain_website",
+    "DomainWebsiteState": ".domain_website_state",
     "EconomicIntelligence": ".economic_intelligence",
     "EconomicIntelligenceInput": ".economic_intelligence_input",
     "EconomicIntelligenceOperation": ".economic_intelligence_operation",
@@ -3342,19 +3360,28 @@ __all__ = [
     "DmsFeedMemberStatuses",
     "DmsPostTypes",
     "Domain",
+    "DomainAvailability",
     "DomainDnsRecord",
     "DomainDnsRecordType",
     "DomainIssue",
+    "DomainIssueCapability",
     "DomainIssueCode",
     "DomainListItem",
-    "DomainListItemMode",
     "DomainListItemStatus",
-    "DomainMode",
+    "DomainOwner",
+    "DomainPlatform",
+    "DomainPlatformState",
     "DomainPublicRecord",
     "DomainRegistrant",
     "DomainRegistrar",
-    "DomainRegistrationQuote",
+    "DomainRegistration",
+    "DomainRegistrationPhase",
+    "DomainRegistrationState",
     "DomainStatus",
+    "DomainVerification",
+    "DomainVerificationState",
+    "DomainWebsite",
+    "DomainWebsiteState",
     "EconomicIntelligence",
     "EconomicIntelligenceInput",
     "EconomicIntelligenceOperation",

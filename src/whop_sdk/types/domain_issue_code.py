@@ -4,14 +4,17 @@ import typing
 
 DomainIssueCode = typing.Union[
     typing.Literal[
-        "ownership_required",
+        "verification_required",
+        "verification_expired",
+        "ownership_conflict",
+        "ownership_lost",
         "dns_required",
         "provider_validation",
         "certificate_pending",
         "expiring_soon",
-        "ownership_conflict",
         "account_unavailable",
         "check_failed",
+        "purchase_expired",
         "domain_unavailable",
         "premium_not_supported",
         "unsupported_tld",

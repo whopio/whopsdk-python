@@ -6,6 +6,8 @@ RetrieveFinancialReportsResponseRowsItemLineCategory = typing.Union[
     typing.Literal[
         "accelerated_settlement_fee",
         "account_settlement",
+        "ad_affiliate_payout",
+        "ad_affiliate_payout_received",
         "ad_balance_funding_receipt",
         "ad_budget_release",
         "ad_campaign_budget",

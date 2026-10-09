@@ -7,6 +7,7 @@ import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ...types.money import Money
 from .create_quote_payouts_response_object import CreateQuotePayoutsResponseObject
+from .create_quote_payouts_response_recommended_method import CreateQuotePayoutsResponseRecommendedMethod
 
 
 class CreateQuotePayoutsResponse(UniversalBaseModel):
@@ -49,6 +50,11 @@ class CreateQuotePayoutsResponse(UniversalBaseModel):
     quote_token: str = pydantic.Field()
     """
     Server-signed quote token to submit to POST /payouts.
+    """
+
+    recommended_method: typing.Optional[CreateQuotePayoutsResponseRecommendedMethod] = pydantic.Field(default=None)
+    """
+    An optional payout method to connect for estimated savings. The quote still uses the requested saved method.
     """
 
     if IS_PYDANTIC_V2:

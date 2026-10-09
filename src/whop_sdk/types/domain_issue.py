@@ -4,18 +4,26 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .domain_dns_record import DomainDnsRecord
+from .domain_issue_capability import DomainIssueCapability
 from .domain_issue_code import DomainIssueCode
 
 
 class DomainIssue(UniversalBaseModel):
+    capability: DomainIssueCapability = pydantic.Field()
+    """
+    The capability the issue is about.
+    """
+
     code: DomainIssueCode = pydantic.Field()
     """
     What needs attention, as a stable code.
     """
 
+    dns_records: typing.List[DomainDnsRecord]
     message: str = pydantic.Field()
     """
-    What needs attention before the domain can serve its app or renew.
+    What needs attention and how to fix it.
     """
 
     if IS_PYDANTIC_V2:

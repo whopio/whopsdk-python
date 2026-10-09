@@ -37,7 +37,6 @@ ExportResource = typing.Union[
         "resolutions",
         "entries",
         "leads",
-        "content_rewards_submissions",
         "invoices",
         "cancelation_reasons",
         "child_companies",

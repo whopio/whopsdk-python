@@ -41,7 +41,7 @@ class RawWebhooksClient:
     def list(
         self,
         *,
-        account_id: str,
+        account_id: typing.Optional[str] = None,
         app_id: typing.Optional[str] = None,
         include_app_webhooks: typing.Optional[bool] = None,
         has_failures: typing.Optional[bool] = None,
@@ -56,7 +56,7 @@ class RawWebhooksClient:
 
         Parameters
         ----------
-        account_id : str
+        account_id : typing.Optional[str]
             The unique identifier of the account to list webhooks for.
 
         app_id : typing.Optional[str]
@@ -1063,7 +1063,7 @@ class AsyncRawWebhooksClient:
     async def list(
         self,
         *,
-        account_id: str,
+        account_id: typing.Optional[str] = None,
         app_id: typing.Optional[str] = None,
         include_app_webhooks: typing.Optional[bool] = None,
         has_failures: typing.Optional[bool] = None,
@@ -1078,7 +1078,7 @@ class AsyncRawWebhooksClient:
 
         Parameters
         ----------
-        account_id : str
+        account_id : typing.Optional[str]
             The unique identifier of the account to list webhooks for.
 
         app_id : typing.Optional[str]

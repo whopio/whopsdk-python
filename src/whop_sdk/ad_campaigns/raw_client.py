@@ -43,6 +43,7 @@ from .types.update_ad_campaigns_request_special_ad_categories_item import (
     UpdateAdCampaignsRequestSpecialAdCategoriesItem,
 )
 from .types.update_ad_campaigns_request_status import UpdateAdCampaignsRequestStatus
+from .types.update_ad_campaigns_request_x_ads_platform import UpdateAdCampaignsRequestXAdsPlatform
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -505,6 +506,7 @@ class RawAdCampaignsClient:
         self,
         id: str,
         *,
+        ads_platform: typing.Optional[UpdateAdCampaignsRequestXAdsPlatform] = None,
         bid_type: typing.Optional[UpdateAdCampaignsRequestBidType] = OMIT,
         budget_amount: typing.Optional[float] = OMIT,
         budget_amount_local: typing.Optional[float] = OMIT,
@@ -525,6 +527,9 @@ class RawAdCampaignsClient:
         ----------
         id : str
             The ad campaign ID.
+
+        ads_platform : typing.Optional[UpdateAdCampaignsRequestXAdsPlatform]
+            The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
 
         bid_type : typing.Optional[UpdateAdCampaignsRequestBidType]
             How delivery bids in the ad auction: `minimum_cost` gets the most results for the budget, `average_target` holds an average cost per result, `maximum_target` never bids above a cap. Switching to `minimum_cost` clears the cap amounts stored on the campaign's ad groups. Only for campaigns that own the budget.
@@ -586,6 +591,7 @@ class RawAdCampaignsClient:
             },
             headers={
                 "content-type": "application/json",
+                "X-Ads-Platform": str(ads_platform) if ads_platform is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -1271,6 +1277,7 @@ class AsyncRawAdCampaignsClient:
         self,
         id: str,
         *,
+        ads_platform: typing.Optional[UpdateAdCampaignsRequestXAdsPlatform] = None,
         bid_type: typing.Optional[UpdateAdCampaignsRequestBidType] = OMIT,
         budget_amount: typing.Optional[float] = OMIT,
         budget_amount_local: typing.Optional[float] = OMIT,
@@ -1291,6 +1298,9 @@ class AsyncRawAdCampaignsClient:
         ----------
         id : str
             The ad campaign ID.
+
+        ads_platform : typing.Optional[UpdateAdCampaignsRequestXAdsPlatform]
+            The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
 
         bid_type : typing.Optional[UpdateAdCampaignsRequestBidType]
             How delivery bids in the ad auction: `minimum_cost` gets the most results for the budget, `average_target` holds an average cost per result, `maximum_target` never bids above a cap. Switching to `minimum_cost` clears the cap amounts stored on the campaign's ad groups. Only for campaigns that own the budget.
@@ -1352,6 +1362,7 @@ class AsyncRawAdCampaignsClient:
             },
             headers={
                 "content-type": "application/json",
+                "X-Ads-Platform": str(ads_platform) if ads_platform is not None else None,
             },
             request_options=request_options,
             omit=OMIT,

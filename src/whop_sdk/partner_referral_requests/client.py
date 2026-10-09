@@ -100,7 +100,7 @@ class PartnerReferralRequestsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -133,7 +133,7 @@ class PartnerReferralRequestsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PartnerReferralRequest:
         """
-        Creates a referral link or sends a verified partner's attribution request to an existing business or user for approval. Recipients do not need to join the partner program.
+        Creates a referral link or sends a verified partner's attribution request to an existing business or user for approval. Whop sessions creating a link with their own active `authorized_user_id` enroll automatically. Manual requests always require a verified partner. Recipients do not need to join the partner program.
 
         Parameters
         ----------
@@ -155,7 +155,7 @@ class PartnerReferralRequestsClient:
         )
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -190,7 +190,7 @@ class PartnerReferralRequestsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -223,7 +223,7 @@ class PartnerReferralRequestsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -256,7 +256,7 @@ class PartnerReferralRequestsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -289,7 +289,7 @@ class PartnerReferralRequestsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -385,7 +385,7 @@ class AsyncPartnerReferralRequestsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -425,7 +425,7 @@ class AsyncPartnerReferralRequestsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PartnerReferralRequest:
         """
-        Creates a referral link or sends a verified partner's attribution request to an existing business or user for approval. Recipients do not need to join the partner program.
+        Creates a referral link or sends a verified partner's attribution request to an existing business or user for approval. Whop sessions creating a link with their own active `authorized_user_id` enroll automatically. Manual requests always require a verified partner. Recipients do not need to join the partner program.
 
         Parameters
         ----------
@@ -449,7 +449,7 @@ class AsyncPartnerReferralRequestsClient:
         )
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -494,7 +494,7 @@ class AsyncPartnerReferralRequestsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -537,7 +537,7 @@ class AsyncPartnerReferralRequestsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -580,7 +580,7 @@ class AsyncPartnerReferralRequestsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -623,7 +623,7 @@ class AsyncPartnerReferralRequestsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

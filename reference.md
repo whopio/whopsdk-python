@@ -2267,6 +2267,14 @@ client.ad_campaigns.update(
 <dl>
 <dd>
 
+**ads_platform:** `typing.Optional[UpdateAdCampaignsRequestXAdsPlatform]` — The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **bid_type:** `typing.Optional[UpdateAdCampaignsRequestBidType]` — How delivery bids in the ad auction: `minimum_cost` gets the most results for the budget, `average_target` holds an average cost per result, `maximum_target` never bids above a cap. Switching to `minimum_cost` clears the cap amounts stored on the campaign's ad groups. Only for campaigns that own the budget.
     
 </dd>
@@ -3568,6 +3576,14 @@ client.ad_groups.create(
 <dl>
 <dd>
 
+**ads_platform:** `typing.Optional[CreateAdGroupsRequestXAdsPlatform]` — The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **audiences:** `typing.Optional[AdGroupAudiencesBody]` — Saved audiences to deliver to or exclude. Can't be combined with demographics.automatic.
     
 </dd>
@@ -4281,6 +4297,14 @@ client.ad_groups.update(
 <dd>
 
 **id:** `str` — The ad group ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ads_platform:** `typing.Optional[UpdateAdGroupsRequestXAdsPlatform]` — The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
     
 </dd>
 </dl>
@@ -5020,6 +5044,14 @@ client.ads.create()
 <dl>
 <dd>
 
+**ads_platform:** `typing.Optional[CreateAdsRequestXAdsPlatform]` — The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **ad_group:** `typing.Optional[typing.Dict[str, typing.Any]]` — An inline ad group to create (same shape as POST /ad_groups, including ad_campaign_id). Creates the ad group and the ad together. Provide this OR ad_group_id.
     
 </dd>
@@ -5416,6 +5448,14 @@ client.ads.update(
 <dd>
 
 **id:** `str` — The ad ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ads_platform:** `typing.Optional[UpdateAdsRequestXAdsPlatform]` — The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
     
 </dd>
 </dl>
@@ -17491,7 +17531,7 @@ client.dm_members.update(
 <dl>
 <dd>
 
-Lists your domains. Filter by account, app, status, or hostname.
+Lists your domains. Filter by account, app, status, hostname, or the state of a capability.
 
 Pass `search` to find domains to buy instead: the exact domain first, even when taken, then your name on popular extensions, then suggestions. Pass `tlds` to check only the extensions you choose. Results aren't reserved.
 </dd>
@@ -17544,7 +17584,7 @@ client.domains.list(
 <dl>
 <dd>
 
-**app_id:** `typing.Optional[str]` — Only domains assigned to this app, prefixed app_.
+**app_id:** `typing.Optional[str]` — Only domains whose website serves this app, prefixed app_.
     
 </dd>
 </dl>
@@ -17552,7 +17592,7 @@ client.domains.list(
 <dl>
 <dd>
 
-**status:** `typing.Optional[ListDomainsRequestStatus]` — Only domains with this lifecycle status. Removed and failed domains aren't listed; retrieve them by ID.
+**status:** `typing.Optional[ListDomainsRequestStatus]` — Only domains with this status: the most pressing state of their capabilities, or `idle` when they want nothing.
     
 </dd>
 </dl>
@@ -17608,7 +17648,7 @@ client.domains.list(
 <dl>
 <dd>
 
-**search:** `typing.Optional[str]` — A name or domain to find domains to buy, such as `example` or `example.com`; a subdomain or URL searches its registrable domain. Returns search results instead of your domains, without other filters or pagination.
+**search:** `typing.Optional[str]` — A name or domain to find domains to buy, such as `example` or `example.com`; a subdomain or URL searches its registrable domain. Returns domains with `availability` instead of your domains, without other filters or pagination.
     
 </dd>
 </dl>
@@ -17625,6 +17665,38 @@ client.domains.list(
 <dd>
 
 **domain:** `typing.Optional[str]` — Only your domain with this hostname, such as `example.com`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**verification:** `typing.Optional[ListDomainsRequestVerification]` — Only domains with verification in this state, such as `ready`, or `any` for every domain that has verification.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**registration:** `typing.Optional[ListDomainsRequestRegistration]` — Only domains with registration in this state, such as `ready`, or `any` for every domain that has registration.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**platform:** `typing.Optional[ListDomainsRequestPlatform]` — Only domains with platform in this state, such as `ready`, or `any` for every domain that has platform.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**website:** `typing.Optional[ListDomainsRequestWebsite]` — Only domains with website in this state, such as `ready`, or `any` for every domain that has website.
     
 </dd>
 </dl>
@@ -17656,13 +17728,13 @@ client.domains.list(
 <dl>
 <dd>
 
-Buys a domain through Whop, or connects one you registered elsewhere.
+Adds a domain to your account with the capabilities you want.
 
-A bought domain starts `awaiting_payment`. Pay its `amount_due` at `purchase_url`, or pass `payment_method_id` to charge a saved card. Whop then registers it, hosts its DNS, issues its certificate and serves the app, and renews it every year while `auto_renew` is on. An unpaid purchase is removed after 7 days.
+Pass `registration` to buy the domain through Whop; it's the default when you pass no capability. Pay its `amount_due` at `purchase_url`, or pass `registration.payment_method_id` to charge a saved card. Whop then registers it, runs its DNS, and renews it every year while `auto_renew` is on.
 
-With `mode: external`, Whop returns the DNS records to publish instead. Verification and certificate setup run automatically, and unverified claims are removed after 48 hours. A claim doesn't reserve the hostname.
+Pass `verification` to connect a domain you registered elsewhere: its `issues` list the TXT and routing records to publish. Pass `website` with an `app_id` to serve that app on the domain.
 
-Adding a domain this account removed or failed before revives it under its original ID, starting over as a new claim or purchase.
+To change a domain you already have, update it instead. Adding a domain this account deleted revives it under its original ID.
 </dd>
 </dl>
 </dd>
@@ -17719,14 +17791,6 @@ client.domains.create(
 <dl>
 <dd>
 
-**app_id:** `typing.Optional[str]` — App ID, prefixed app_, for the domain to serve. The app must belong to the account. Required with `mode: external`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **metadata:** `typing.Optional[typing.Dict[str, str]]` — Custom string keys and values.
     
 </dd>
@@ -17735,7 +17799,7 @@ client.domains.create(
 <dl>
 <dd>
 
-**mode:** `typing.Optional[CreateDomainsRequestMode]` — `managed` buys the domain through Whop; `external` connects a domain you registered elsewhere.
+**registration:** `typing.Optional[CreateDomainsRequestRegistration]` — Buy the domain through Whop, renew it every year, and let Whop run its DNS. Pass `null` to release an unpaid or failed purchase.
     
 </dd>
 </dl>
@@ -17743,7 +17807,7 @@ client.domains.create(
 <dl>
 <dd>
 
-**payment_method_id:** `typing.Optional[str]` — Saved card to charge for a bought domain and its renewals, prefixed `payt_`. It must belong to the signed-in user.
+**verification:** `typing.Optional[CreateDomainsRequestVerification]` — Prove you control the domain's DNS: Whop returns a TXT record to publish in `issues`, and whoever publishes it owns the domain on Whop. Pass `null` to release it. Can't be combined with `registration`.
     
 </dd>
 </dl>
@@ -17751,7 +17815,7 @@ client.domains.create(
 <dl>
 <dd>
 
-**replace_existing:** `typing.Optional[bool]` — With `mode: external`, explicitly transfer a domain from its current owner after publishing this new claim's TXT proof. Create the claim after the current owner verified.
+**website:** `typing.Optional[CreateDomainsRequestWebsite]` — Serve a Whop website on the domain. Pass `null` to stop serving it; the domain keeps its other capabilities.
     
 </dd>
 </dl>
@@ -17783,9 +17847,9 @@ client.domains.create(
 <dl>
 <dd>
 
-Retrieves a domain's status, issues, billing, and DNS records, and checks it again in the background if it isn't active yet.
+Retrieves a domain by ID or hostname. Both return the same domain, shown as fully as you can see it: everything for your own accounts, and only who has it and what it serves for anyone else.
 
-Pass a hostname instead of an ID to look up any domain, with its `registration_quote` and, if registered, its `public_record`.
+A hostname no domain on Whop has comes back with its `availability` instead.
 </dd>
 </dl>
 </dd>
@@ -17826,7 +17890,7 @@ client.domains.retrieve(
 <dl>
 <dd>
 
-**id:** `str` — Domain ID, prefixed `dom_`. To retrieve, you can pass a hostname such as `example.com` instead; a bare name looks up `.com`.
+**id:** `str` — Domain ID, prefixed `dom_`, or a hostname such as `example.com`; a bare name looks up `.com`.
     
 </dd>
 </dl>
@@ -17858,7 +17922,7 @@ client.domains.retrieve(
 <dl>
 <dd>
 
-Stops routing a connected domain to its app and starts cleanup: it returns as `deleting`; retrieve it until it's `removed`. Deleting an unpaid purchase cancels it. A registered domain can't be deleted; turn off `auto_renew` and it's released after it expires. Creating the domain on this account again revives it under the same ID.
+Removes the domain from your account and releases its capabilities in the background. Deleting an unpaid purchase cancels it. A registered domain can't be deleted; turn off `auto_renew` and it's released after it expires. Adding the domain to this account again revives it under the same ID.
 </dd>
 </dl>
 </dd>
@@ -17899,7 +17963,7 @@ client.domains.delete(
 <dl>
 <dd>
 
-**id:** `str` — Domain ID, prefixed `dom_`. To retrieve, you can pass a hostname such as `example.com` instead; a bare name looks up `.com`.
+**id:** `str` — Domain ID, prefixed `dom_`, or a hostname such as `example.com`; a bare name looks up `.com`.
     
 </dd>
 </dl>
@@ -17931,7 +17995,7 @@ client.domains.delete(
 <dl>
 <dd>
 
-Reassigns a domain to another app in the same account, replaces its metadata, or changes how a bought domain renews. The hostname and owning account cannot be edited.
+Changes a domain's capabilities or metadata. Pass a capability to add it or change its settings, or `null` to release it; capabilities you leave out don't change. Passing a capability that needs action again retries it. Releasing every capability keeps the domain, `idle`; delete it to remove it.
 </dd>
 </dl>
 </dd>
@@ -17972,23 +18036,7 @@ client.domains.update(
 <dl>
 <dd>
 
-**id:** `str` — Domain ID, prefixed `dom_`. To retrieve, you can pass a hostname such as `example.com` instead; a bare name looks up `.com`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**app_id:** `typing.Optional[str]` — App ID, prefixed app_. Must belong to the same account. Pass `null` to detach a bought domain from its app; it keeps renewing.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**auto_renew:** `typing.Optional[bool]` — For a bought domain, whether Whop charges its saved card to renew it before it expires.
+**id:** `str` — Domain ID, prefixed `dom_`, or a hostname such as `example.com`; a bare name looks up `.com`.
     
 </dd>
 </dl>
@@ -18004,7 +18052,96 @@ client.domains.update(
 <dl>
 <dd>
 
-**payment_method_id:** `typing.Optional[str]` — For a bought domain, the saved card to charge, prefixed `payt_`. It must belong to the signed-in user. Pass `null` to remove it.
+**registration:** `typing.Optional[UpdateDomainsRequestRegistration]` — Buy the domain through Whop, renew it every year, and let Whop run its DNS. Pass `null` to release an unpaid or failed purchase.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**verification:** `typing.Optional[UpdateDomainsRequestVerification]` — Prove you control the domain's DNS: Whop returns a TXT record to publish in `issues`, and whoever publishes it owns the domain on Whop. Pass `null` to release it. Can't be combined with `registration`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**website:** `typing.Optional[UpdateDomainsRequestWebsite]` — Serve a Whop website on the domain. Pass `null` to stop serving it; the domain keeps its other capabilities.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.domains.<a href="src/whop_sdk/domains/client.py">check</a>(...) -> Domain</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Checks the domain's DNS, payment, and provider state again now instead of at its next scheduled check. Returns the domain as saved; retrieve it again to see the result.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.domains.check(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Domain ID, prefixed `dom_`.
     
 </dd>
 </dl>
@@ -21199,7 +21336,7 @@ client.external_accounts.connect(
 <dl>
 <dd>
 
-**redirect_url:** `str` — Where to send the user once they finish connecting their accounts. Any `http` or `https` URL. If the connection fails, the user is redirected with a `social_account_error` query param.
+**redirect_url:** `str` — Where to send the user once they finish connecting their accounts. Any `http` or `https` URL. On success, the user is redirected with an `external_account_connected` query param naming the platform; if the connection fails, with an `external_account_error` query param instead. The same values also arrive as `social_account_connected` / `social_account_error`.
     
 </dd>
 </dl>
@@ -27950,7 +28087,7 @@ client.partner_referral_requests.list()
 <dl>
 <dd>
 
-Creates a referral link or sends a verified partner's attribution request to an existing business or user for approval. Recipients do not need to join the partner program.
+Creates a referral link or sends a verified partner's attribution request to an existing business or user for approval. Whop sessions creating a link with their own active `authorized_user_id` enroll automatically. Manual requests always require a verified partner. Recipients do not need to join the partner program.
 </dd>
 </dl>
 </dd>
@@ -28509,6 +28646,14 @@ client.partners.referred_users()
 <dd>
 
 **earning_partner_username:** `typing.Optional[str]` — The selected referring partner's exact username. Requires user_id=global; cannot be combined with earning_partner_id.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**referring_account_id:** `typing.Optional[str]` — List the users this business's team members referred, past members included, instead of the caller's own. Requires company:basic:read on that business, which every team member holds, and cannot be combined with user_id. earning_partner_id or earning_partner_username then narrows to one team member.
     
 </dd>
 </dl>
@@ -34394,7 +34539,7 @@ client.products.list(
 <dl>
 <dd>
 
-**query:** `typing.Optional[str]` — Ranked search against product title and headline. Omit to browse by recency.
+**query:** `typing.Optional[str]` — Filters products by text. The public marketplace list searches product title, account name, headline and description, ranking products that match every word first and the closest partial matches after them; an account's own list is a plain substring match over title, headline and description. Omit to browse by recency.
     
 </dd>
 </dl>
@@ -38991,7 +39136,7 @@ client.social_accounts.connect(
 <dl>
 <dd>
 
-**redirect_url:** `str` — Where to send the user once they finish connecting their accounts. Any `http` or `https` URL. If the connection fails, the user is redirected with a `social_account_error` query param.
+**redirect_url:** `str` — Where to send the user once they finish connecting their accounts. Any `http` or `https` URL. On success, the user is redirected with an `external_account_connected` query param naming the platform; if the connection fails, with an `external_account_error` query param instead. The same values also arrive as `social_account_connected` / `social_account_error`.
     
 </dd>
 </dl>
@@ -40350,6 +40495,14 @@ client.stats.retrieve(
 <dl>
 <dd>
 
+**referring_account_id:** `typing.Optional[str]` — Read a referral metric for a business instead of the caller: the referrals its team members made, past members included, for example biz_AbC123. Requires company:basic:read on that business and cannot be combined with user_id. Available on metrics that list referring_account_id.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -41125,7 +41278,7 @@ client.swaps.retrieve(
 <dl>
 <dd>
 
-Lists an account's team members, including pending invites (`status: "pending"`, `ausri_` ids; `user` is `null` for invites sent to an email with no Whop account yet). For accepted members, `email` requires the `company:authorized_user:email:read` scope and is `null` otherwise. Listing `role=workforce` is also allowed with the `bounty:create` scope.
+Lists an account's team members, including pending invites (`status: "pending"`, `ausri_` ids; `user` is `null` for invites sent to an email with no Whop account yet). For accepted members, `email` requires the `company:authorized_user:email:read` scope and is `null` otherwise. A user credential with `company:basic:read` may list only its own joined membership by passing its own `user_id` and `status=joined`. Listing `role=workforce` is also allowed with the `bounty:create` scope.
 </dd>
 </dl>
 </dd>
@@ -43299,6 +43452,8 @@ client.variants.list(
     product_ids=[
         "prod_xxxxxxxxxxxxxx"
     ],
+    presentment_currency="auto",
+    ip_address="203.0.113.7",
 )
 
 ```
@@ -43380,6 +43535,22 @@ client.variants.list(
 <dd>
 
 **created_after:** `typing.Optional[str]` — Only return variants created after this timestamp.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**presentment_currency:** `typing.Optional[str]` — The currency to state each variant's prices in. Omit it, or send null, for each variant's own currency. `auto` states them in the currency of the country Whop places the buyer in: by `ip_address` when your server sends one, and by the request's own IP address otherwise. A three-letter ISO 4217 code, such as `eur`, states them in that currency. A variant converts only where a payment quote for it would be priced in that currency, and stays in its own currency otherwise: a renewing variant, one with adaptive pricing off, a currency no payment method can collect, or `auto` for a buyer Whop cannot place in a country. Converted prices are an estimate at the current exchange rate. Nothing is held: the payment quote the buyer pays from fixes the rate.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ip_address:** `typing.Optional[str]` — The buyer's IP address, when your server reads on their behalf. Needs an API key; any other caller is placed by its own request. Where `presentment_currency` `auto` finds the buyer's local currency.
     
 </dd>
 </dl>
@@ -43747,6 +43918,8 @@ client = Whop(
 
 client.variants.retrieve(
     id="id",
+    presentment_currency="auto",
+    ip_address="203.0.113.7",
 )
 
 ```
@@ -43764,6 +43937,22 @@ client.variants.retrieve(
 <dd>
 
 **id:** `str` — Variant ID, prefixed `plan_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**presentment_currency:** `typing.Optional[str]` — The currency to state each variant's prices in. Omit it, or send null, for each variant's own currency. `auto` states them in the currency of the country Whop places the buyer in: by `ip_address` when your server sends one, and by the request's own IP address otherwise. A three-letter ISO 4217 code, such as `eur`, states them in that currency. A variant converts only where a payment quote for it would be priced in that currency, and stays in its own currency otherwise: a renewing variant, one with adaptive pricing off, a currency no payment method can collect, or `auto` for a buyer Whop cannot place in a country. Converted prices are an estimate at the current exchange rate. Nothing is held: the payment quote the buyer pays from fixes the rate.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ip_address:** `typing.Optional[str]` — The buyer's IP address, when your server reads on their behalf. Needs an API key; any other caller is placed by its own request. Where `presentment_currency` `auto` finds the buyer's local currency.
     
 </dd>
 </dl>
@@ -45255,9 +45444,7 @@ client = Whop(
     environment=WhopEnvironment.PRODUCTION,
 )
 
-client.webhooks.list(
-    account_id="account_id",
-)
+client.webhooks.list()
 
 ```
 </dd>
@@ -45273,7 +45460,7 @@ client.webhooks.list(
 <dl>
 <dd>
 
-**account_id:** `str` — The unique identifier of the account to list webhooks for.
+**account_id:** `typing.Optional[str]` — The unique identifier of the account to list webhooks for.
     
 </dd>
 </dl>
@@ -48877,6 +49064,14 @@ client.partners.businesses.list()
 <dl>
 <dd>
 
+**referring_account_id:** `typing.Optional[str]` — List the referrals this business's team members made, past members included, instead of the authenticated user's own. Requires company:basic:read on that business, which every team member holds, and cannot be combined with user_id.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **status:** `typing.Optional[ListBusinessesRequestStatus]` — Filter by referral status.
     
 </dd>
@@ -51091,6 +51286,14 @@ client.stats.time_series.retrieve(
 <dd>
 
 **event_count_lte:** `typing.Optional[float]` — People metric only: event_count less than or equal this value. Applies to the current person profile for every time bucket. LTV and AOV are in USD. Not accepted by the Events metric.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**referring_account_id:** `typing.Optional[str]` — Read a referral metric for a business instead of the caller: the referrals its team members made, past members included, for example biz_AbC123. Requires company:basic:read on that business and cannot be combined with user_id. Available on metrics that list referring_account_id.
     
 </dd>
 </dl>

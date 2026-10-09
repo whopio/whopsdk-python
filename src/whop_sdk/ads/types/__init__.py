@@ -40,6 +40,7 @@ if typing.TYPE_CHECKING:
     from .create_ads_request_post_source import CreateAdsRequestPostSource
     from .create_ads_request_primary_texts_item import CreateAdsRequestPrimaryTextsItem
     from .create_ads_request_translations import CreateAdsRequestTranslations
+    from .create_ads_request_x_ads_platform import CreateAdsRequestXAdsPlatform
     from .delete_ads_response import DeleteAdsResponse
     from .duplicate_ads_response import DuplicateAdsResponse
     from .list_ads_request_attribution_model import ListAdsRequestAttributionModel
@@ -92,6 +93,7 @@ if typing.TYPE_CHECKING:
     from .update_ads_request_post_source import UpdateAdsRequestPostSource
     from .update_ads_request_primary_texts_item import UpdateAdsRequestPrimaryTextsItem
     from .update_ads_request_translations import UpdateAdsRequestTranslations
+    from .update_ads_request_x_ads_platform import UpdateAdsRequestXAdsPlatform
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateAdsRequestCallToAction": ".create_ads_request_call_to_action",
     "CreateAdsRequestCreativesItem": ".create_ads_request_creatives_item",
@@ -119,6 +121,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateAdsRequestPostSource": ".create_ads_request_post_source",
     "CreateAdsRequestPrimaryTextsItem": ".create_ads_request_primary_texts_item",
     "CreateAdsRequestTranslations": ".create_ads_request_translations",
+    "CreateAdsRequestXAdsPlatform": ".create_ads_request_x_ads_platform",
     "DeleteAdsResponse": ".delete_ads_response",
     "DuplicateAdsResponse": ".duplicate_ads_response",
     "ListAdsRequestAttributionModel": ".list_ads_request_attribution_model",
@@ -163,6 +166,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateAdsRequestPostSource": ".update_ads_request_post_source",
     "UpdateAdsRequestPrimaryTextsItem": ".update_ads_request_primary_texts_item",
     "UpdateAdsRequestTranslations": ".update_ads_request_translations",
+    "UpdateAdsRequestXAdsPlatform": ".update_ads_request_x_ads_platform",
 }
 
 
@@ -214,6 +218,7 @@ __all__ = [
     "CreateAdsRequestPostSource",
     "CreateAdsRequestPrimaryTextsItem",
     "CreateAdsRequestTranslations",
+    "CreateAdsRequestXAdsPlatform",
     "DeleteAdsResponse",
     "DuplicateAdsResponse",
     "ListAdsRequestAttributionModel",
@@ -258,4 +263,5 @@ __all__ = [
     "UpdateAdsRequestPostSource",
     "UpdateAdsRequestPrimaryTextsItem",
     "UpdateAdsRequestTranslations",
+    "UpdateAdsRequestXAdsPlatform",
 ]

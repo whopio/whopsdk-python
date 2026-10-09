@@ -40,7 +40,7 @@ class WebhooksClient:
     def list(
         self,
         *,
-        account_id: str,
+        account_id: typing.Optional[str] = None,
         app_id: typing.Optional[str] = None,
         include_app_webhooks: typing.Optional[bool] = None,
         has_failures: typing.Optional[bool] = None,
@@ -55,7 +55,7 @@ class WebhooksClient:
 
         Parameters
         ----------
-        account_id : str
+        account_id : typing.Optional[str]
             The unique identifier of the account to list webhooks for.
 
         app_id : typing.Optional[str]
@@ -92,13 +92,11 @@ class WebhooksClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
-        response = client.webhooks.list(
-            account_id="account_id",
-        )
+        response = client.webhooks.list()
         for item in response:
             yield item
         # alternatively, you can paginate page-by-page
@@ -164,7 +162,7 @@ class WebhooksClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -205,7 +203,7 @@ class WebhooksClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -238,7 +236,7 @@ class WebhooksClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -296,7 +294,7 @@ class WebhooksClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -350,7 +348,7 @@ class WebhooksClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -400,7 +398,7 @@ class WebhooksClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -461,7 +459,7 @@ class WebhooksClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -508,7 +506,7 @@ class WebhooksClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -539,7 +537,7 @@ class AsyncWebhooksClient:
     async def list(
         self,
         *,
-        account_id: str,
+        account_id: typing.Optional[str] = None,
         app_id: typing.Optional[str] = None,
         include_app_webhooks: typing.Optional[bool] = None,
         has_failures: typing.Optional[bool] = None,
@@ -554,7 +552,7 @@ class AsyncWebhooksClient:
 
         Parameters
         ----------
-        account_id : str
+        account_id : typing.Optional[str]
             The unique identifier of the account to list webhooks for.
 
         app_id : typing.Optional[str]
@@ -593,16 +591,14 @@ class AsyncWebhooksClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
 
 
         async def main() -> None:
-            response = await client.webhooks.list(
-                account_id="account_id",
-            )
+            response = await client.webhooks.list()
             async for item in response:
                 yield item
 
@@ -674,7 +670,7 @@ class AsyncWebhooksClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -723,7 +719,7 @@ class AsyncWebhooksClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -766,7 +762,7 @@ class AsyncWebhooksClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -832,7 +828,7 @@ class AsyncWebhooksClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -894,7 +890,7 @@ class AsyncWebhooksClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -953,7 +949,7 @@ class AsyncWebhooksClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1022,7 +1018,7 @@ class AsyncWebhooksClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1077,7 +1073,7 @@ class AsyncWebhooksClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

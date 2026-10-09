@@ -40,6 +40,7 @@ class BusinessesClient:
     def list(
         self,
         *,
+        referring_account_id: typing.Optional[str] = None,
         status: typing.Optional[ListBusinessesRequestStatus] = None,
         has_earnings: typing.Optional[bool] = None,
         first: typing.Optional[int] = None,
@@ -61,6 +62,9 @@ class BusinessesClient:
 
         Parameters
         ----------
+        referring_account_id : typing.Optional[str]
+            List the referrals this business's team members made, past members included, instead of the authenticated user's own. Requires company:basic:read on that business, which every team member holds, and cannot be combined with user_id.
+
         status : typing.Optional[ListBusinessesRequestStatus]
             Filter by referral status.
 
@@ -116,7 +120,7 @@ class BusinessesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -128,6 +132,7 @@ class BusinessesClient:
             yield page
         """
         return self._raw_client.list(
+            referring_account_id=referring_account_id,
             status=status,
             has_earnings=has_earnings,
             first=first,
@@ -169,7 +174,7 @@ class BusinessesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -209,6 +214,7 @@ class AsyncBusinessesClient:
     async def list(
         self,
         *,
+        referring_account_id: typing.Optional[str] = None,
         status: typing.Optional[ListBusinessesRequestStatus] = None,
         has_earnings: typing.Optional[bool] = None,
         first: typing.Optional[int] = None,
@@ -230,6 +236,9 @@ class AsyncBusinessesClient:
 
         Parameters
         ----------
+        referring_account_id : typing.Optional[str]
+            List the referrals this business's team members made, past members included, instead of the authenticated user's own. Requires company:basic:read on that business, which every team member holds, and cannot be combined with user_id.
+
         status : typing.Optional[ListBusinessesRequestStatus]
             Filter by referral status.
 
@@ -287,7 +296,7 @@ class AsyncBusinessesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -306,6 +315,7 @@ class AsyncBusinessesClient:
         asyncio.run(main())
         """
         return await self._raw_client.list(
+            referring_account_id=referring_account_id,
             status=status,
             has_earnings=has_earnings,
             first=first,
@@ -349,7 +359,7 @@ class AsyncBusinessesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

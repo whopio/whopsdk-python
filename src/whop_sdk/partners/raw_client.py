@@ -174,6 +174,7 @@ class RawPartnersClient:
         user_id: typing.Optional[ReferredUsersPartnersRequestUserId] = None,
         earning_partner_id: typing.Optional[str] = None,
         earning_partner_username: typing.Optional[str] = None,
+        referring_account_id: typing.Optional[str] = None,
         query: typing.Optional[str] = None,
         has_businesses: typing.Optional[bool] = None,
         has_earning_businesses: typing.Optional[bool] = None,
@@ -198,6 +199,9 @@ class RawPartnersClient:
 
         earning_partner_username : typing.Optional[str]
             The selected referring partner's exact username. Requires user_id=global; cannot be combined with earning_partner_id.
+
+        referring_account_id : typing.Optional[str]
+            List the users this business's team members referred, past members included, instead of the caller's own. Requires company:basic:read on that business, which every team member holds, and cannot be combined with user_id. earning_partner_id or earning_partner_username then narrows to one team member.
 
         query : typing.Optional[str]
             Search referred users by name or username. In global mode, matches the beginning of usernames only.
@@ -242,6 +246,7 @@ class RawPartnersClient:
                 "user_id": user_id,
                 "earning_partner_id": earning_partner_id,
                 "earning_partner_username": earning_partner_username,
+                "referring_account_id": referring_account_id,
                 "query": query,
                 "has_businesses": has_businesses,
                 "has_earning_businesses": has_earning_businesses,
@@ -273,6 +278,7 @@ class RawPartnersClient:
                         user_id=user_id,
                         earning_partner_id=earning_partner_id,
                         earning_partner_username=earning_partner_username,
+                        referring_account_id=referring_account_id,
                         query=query,
                         has_businesses=has_businesses,
                         has_earning_businesses=has_earning_businesses,
@@ -559,6 +565,7 @@ class AsyncRawPartnersClient:
         user_id: typing.Optional[ReferredUsersPartnersRequestUserId] = None,
         earning_partner_id: typing.Optional[str] = None,
         earning_partner_username: typing.Optional[str] = None,
+        referring_account_id: typing.Optional[str] = None,
         query: typing.Optional[str] = None,
         has_businesses: typing.Optional[bool] = None,
         has_earning_businesses: typing.Optional[bool] = None,
@@ -583,6 +590,9 @@ class AsyncRawPartnersClient:
 
         earning_partner_username : typing.Optional[str]
             The selected referring partner's exact username. Requires user_id=global; cannot be combined with earning_partner_id.
+
+        referring_account_id : typing.Optional[str]
+            List the users this business's team members referred, past members included, instead of the caller's own. Requires company:basic:read on that business, which every team member holds, and cannot be combined with user_id. earning_partner_id or earning_partner_username then narrows to one team member.
 
         query : typing.Optional[str]
             Search referred users by name or username. In global mode, matches the beginning of usernames only.
@@ -627,6 +637,7 @@ class AsyncRawPartnersClient:
                 "user_id": user_id,
                 "earning_partner_id": earning_partner_id,
                 "earning_partner_username": earning_partner_username,
+                "referring_account_id": referring_account_id,
                 "query": query,
                 "has_businesses": has_businesses,
                 "has_earning_businesses": has_earning_businesses,
@@ -660,6 +671,7 @@ class AsyncRawPartnersClient:
                             user_id=user_id,
                             earning_partner_id=earning_partner_id,
                             earning_partner_username=earning_partner_username,
+                            referring_account_id=referring_account_id,
                             query=query,
                             has_businesses=has_businesses,
                             has_earning_businesses=has_earning_businesses,

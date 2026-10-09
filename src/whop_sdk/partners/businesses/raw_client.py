@@ -32,6 +32,7 @@ class RawBusinessesClient:
     def list(
         self,
         *,
+        referring_account_id: typing.Optional[str] = None,
         status: typing.Optional[ListBusinessesRequestStatus] = None,
         has_earnings: typing.Optional[bool] = None,
         first: typing.Optional[int] = None,
@@ -53,6 +54,9 @@ class RawBusinessesClient:
 
         Parameters
         ----------
+        referring_account_id : typing.Optional[str]
+            List the referrals this business's team members made, past members included, instead of the authenticated user's own. Requires company:basic:read on that business, which every team member holds, and cannot be combined with user_id.
+
         status : typing.Optional[ListBusinessesRequestStatus]
             Filter by referral status.
 
@@ -108,6 +112,7 @@ class RawBusinessesClient:
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
+                "referring_account_id": referring_account_id,
                 "status": status,
                 "has_earnings": has_earnings,
                 "first": first,
@@ -141,6 +146,7 @@ class RawBusinessesClient:
                     _parsed_next = _parsed_response.page_info.end_cursor
                     _has_next = _parsed_next is not None and _parsed_next != ""
                     _get_next = lambda: self.list(
+                        referring_account_id=referring_account_id,
                         status=status,
                         has_earnings=has_earnings,
                         first=first,
@@ -263,6 +269,7 @@ class AsyncRawBusinessesClient:
     async def list(
         self,
         *,
+        referring_account_id: typing.Optional[str] = None,
         status: typing.Optional[ListBusinessesRequestStatus] = None,
         has_earnings: typing.Optional[bool] = None,
         first: typing.Optional[int] = None,
@@ -284,6 +291,9 @@ class AsyncRawBusinessesClient:
 
         Parameters
         ----------
+        referring_account_id : typing.Optional[str]
+            List the referrals this business's team members made, past members included, instead of the authenticated user's own. Requires company:basic:read on that business, which every team member holds, and cannot be combined with user_id.
+
         status : typing.Optional[ListBusinessesRequestStatus]
             Filter by referral status.
 
@@ -339,6 +349,7 @@ class AsyncRawBusinessesClient:
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
+                "referring_account_id": referring_account_id,
                 "status": status,
                 "has_earnings": has_earnings,
                 "first": first,
@@ -374,6 +385,7 @@ class AsyncRawBusinessesClient:
 
                     async def _get_next():
                         return await self.list(
+                            referring_account_id=referring_account_id,
                             status=status,
                             has_earnings=has_earnings,
                             first=first,

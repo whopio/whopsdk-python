@@ -29,6 +29,7 @@ from .types.create_ads_request_music import CreateAdsRequestMusic
 from .types.create_ads_request_post_source import CreateAdsRequestPostSource
 from .types.create_ads_request_primary_texts_item import CreateAdsRequestPrimaryTextsItem
 from .types.create_ads_request_translations import CreateAdsRequestTranslations
+from .types.create_ads_request_x_ads_platform import CreateAdsRequestXAdsPlatform
 from .types.delete_ads_response import DeleteAdsResponse
 from .types.duplicate_ads_response import DuplicateAdsResponse
 from .types.list_ads_request_attribution_model import ListAdsRequestAttributionModel
@@ -48,6 +49,7 @@ from .types.update_ads_request_music import UpdateAdsRequestMusic
 from .types.update_ads_request_post_source import UpdateAdsRequestPostSource
 from .types.update_ads_request_primary_texts_item import UpdateAdsRequestPrimaryTextsItem
 from .types.update_ads_request_translations import UpdateAdsRequestTranslations
+from .types.update_ads_request_x_ads_platform import UpdateAdsRequestXAdsPlatform
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -251,6 +253,7 @@ class RawAdsClient:
     def create(
         self,
         *,
+        ads_platform: typing.Optional[CreateAdsRequestXAdsPlatform] = None,
         ad_group: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         ad_group_id: typing.Optional[str] = OMIT,
         call_to_action: typing.Optional[CreateAdsRequestCallToAction] = OMIT,
@@ -277,6 +280,9 @@ class RawAdsClient:
 
         Parameters
         ----------
+        ads_platform : typing.Optional[CreateAdsRequestXAdsPlatform]
+            The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
+
         ad_group : typing.Optional[typing.Dict[str, typing.Any]]
             An inline ad group to create (same shape as POST /ad_groups, including ad_campaign_id). Creates the ad group and the ad together. Provide this OR ad_group_id.
 
@@ -393,6 +399,7 @@ class RawAdsClient:
             },
             headers={
                 "content-type": "application/json",
+                "X-Ads-Platform": str(ads_platform) if ads_platform is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -588,6 +595,7 @@ class RawAdsClient:
         self,
         id: str,
         *,
+        ads_platform: typing.Optional[UpdateAdsRequestXAdsPlatform] = None,
         call_to_action: typing.Optional[UpdateAdsRequestCallToAction] = OMIT,
         creatives: typing.Optional[typing.Sequence[UpdateAdsRequestCreativesItem]] = OMIT,
         descriptions: typing.Optional[typing.Sequence[UpdateAdsRequestDescriptionsItem]] = OMIT,
@@ -614,6 +622,9 @@ class RawAdsClient:
         ----------
         id : str
             The ad ID.
+
+        ads_platform : typing.Optional[UpdateAdsRequestXAdsPlatform]
+            The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
 
         call_to_action : typing.Optional[UpdateAdsRequestCallToAction]
             The call-to-action button shown on the ad.
@@ -723,6 +734,7 @@ class RawAdsClient:
             },
             headers={
                 "content-type": "application/json",
+                "X-Ads-Platform": str(ads_platform) if ads_platform is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -1154,6 +1166,7 @@ class AsyncRawAdsClient:
     async def create(
         self,
         *,
+        ads_platform: typing.Optional[CreateAdsRequestXAdsPlatform] = None,
         ad_group: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         ad_group_id: typing.Optional[str] = OMIT,
         call_to_action: typing.Optional[CreateAdsRequestCallToAction] = OMIT,
@@ -1180,6 +1193,9 @@ class AsyncRawAdsClient:
 
         Parameters
         ----------
+        ads_platform : typing.Optional[CreateAdsRequestXAdsPlatform]
+            The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
+
         ad_group : typing.Optional[typing.Dict[str, typing.Any]]
             An inline ad group to create (same shape as POST /ad_groups, including ad_campaign_id). Creates the ad group and the ad together. Provide this OR ad_group_id.
 
@@ -1296,6 +1312,7 @@ class AsyncRawAdsClient:
             },
             headers={
                 "content-type": "application/json",
+                "X-Ads-Platform": str(ads_platform) if ads_platform is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -1491,6 +1508,7 @@ class AsyncRawAdsClient:
         self,
         id: str,
         *,
+        ads_platform: typing.Optional[UpdateAdsRequestXAdsPlatform] = None,
         call_to_action: typing.Optional[UpdateAdsRequestCallToAction] = OMIT,
         creatives: typing.Optional[typing.Sequence[UpdateAdsRequestCreativesItem]] = OMIT,
         descriptions: typing.Optional[typing.Sequence[UpdateAdsRequestDescriptionsItem]] = OMIT,
@@ -1517,6 +1535,9 @@ class AsyncRawAdsClient:
         ----------
         id : str
             The ad ID.
+
+        ads_platform : typing.Optional[UpdateAdsRequestXAdsPlatform]
+            The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
 
         call_to_action : typing.Optional[UpdateAdsRequestCallToAction]
             The call-to-action button shown on the ad.
@@ -1626,6 +1647,7 @@ class AsyncRawAdsClient:
             },
             headers={
                 "content-type": "application/json",
+                "X-Ads-Platform": str(ads_platform) if ads_platform is not None else None,
             },
             request_options=request_options,
             omit=OMIT,

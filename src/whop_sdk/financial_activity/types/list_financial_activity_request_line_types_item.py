@@ -5,6 +5,7 @@ import typing
 ListFinancialActivityRequestLineTypesItem = typing.Union[
     typing.Literal[
         "account_settlement",
+        "ad_affiliate_payout_received",
         "ad_budget_release",
         "ad_campaign_budget",
         "ad_publisher_payout",
