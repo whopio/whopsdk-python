@@ -95,7 +95,7 @@ class RawAppsClient:
             A search string matched against app names.
 
         order : typing.Optional[ListAppsRequestOrder]
-            The field to sort apps by. Defaults to discoverable_at, showing the most recently published apps first. `template_usage` ranks Whop-verified apps first, then by how many businesses created apps from each app as a template.
+            The field to sort apps by. Defaults to discoverable_at, showing the most recently published apps first. `template_usage` ranks Whop-verified apps first, then by how many businesses created apps from each app as a template. `template_recent_sales` ranks them by how many of those businesses processed a payment in the last 24 hours, recounted hourly, breaking ties by `template_usage`.
 
         direction : typing.Optional[ListAppsRequestDirection]
             Sort direction.
@@ -1056,7 +1056,7 @@ class AsyncRawAppsClient:
             A search string matched against app names.
 
         order : typing.Optional[ListAppsRequestOrder]
-            The field to sort apps by. Defaults to discoverable_at, showing the most recently published apps first. `template_usage` ranks Whop-verified apps first, then by how many businesses created apps from each app as a template.
+            The field to sort apps by. Defaults to discoverable_at, showing the most recently published apps first. `template_usage` ranks Whop-verified apps first, then by how many businesses created apps from each app as a template. `template_recent_sales` ranks them by how many of those businesses processed a payment in the last 24 hours, recounted hourly, breaking ties by `template_usage`.
 
         direction : typing.Optional[ListAppsRequestDirection]
             Sort direction.

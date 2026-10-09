@@ -4,7 +4,12 @@ import typing
 
 ListAppsRequestOrder = typing.Union[
     typing.Literal[
-        "created_at", "discoverable_at", "template_usage", "total_installs_last_30_days", "total_installs_last_7_days"
+        "created_at",
+        "discoverable_at",
+        "template_recent_sales",
+        "template_usage",
+        "total_installs_last_30_days",
+        "total_installs_last_7_days",
     ],
     typing.Any,
 ]

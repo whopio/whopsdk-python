@@ -40,6 +40,11 @@ class AppListItem(UniversalBaseModel):
     """
 
     businesses_created_logo_urls: typing.List[str]
+    businesses_with_recent_sales_count: int = pydantic.Field()
+    """
+    Number of businesses created from this app as a template that processed a payment in the last 24 hours. Recounted hourly, so it can be up to an hour behind.
+    """
+
     creator: AppCreator = pydantic.Field()
     """
     The user who owns the publishing account.
