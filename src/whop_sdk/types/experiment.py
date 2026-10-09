@@ -15,7 +15,7 @@ from .experiment_variants_item import ExperimentVariantsItem
 class Experiment(UniversalBaseModel):
     account_id: str = pydantic.Field()
     """
-    Owning account ID, or internal for Whop platform experiments.
+    Owning account ID.
     """
 
     assignment_seed: str = pydantic.Field()
@@ -30,7 +30,7 @@ class Experiment(UniversalBaseModel):
 
     configuration_revision: int = pydantic.Field()
     """
-    Revision of the serving configuration. Does not change the assignment seed.
+    Revision of the serving configuration. Increments on every configuration change, so a cached definition with a lower revision is stale. Does not change the assignment seed.
     """
 
     control: ExperimentControl
@@ -79,7 +79,11 @@ class Experiment(UniversalBaseModel):
     Human-readable display name.
     """
 
-    related_resource: ExperimentResourceReference
+    related_resource: ExperimentResourceReference = pydantic.Field()
+    """
+    Resource owned by the account that this experiment is bound to, such as an app or product. `null` when unbound. Fixed once the experiment first activates.
+    """
+
     started_at: typing.Optional[str] = pydantic.Field(default=None)
     """
     When the experiment began collecting data, as an ISO 8601 timestamp. `null` for drafts.

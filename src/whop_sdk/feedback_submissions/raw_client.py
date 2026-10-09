@@ -34,7 +34,7 @@ class RawFeedbackSubmissionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateFeedbackSubmissionsResponse]:
         """
-        Submits an issue or an unanswered question to Whop for internal review, recorded under the authenticated user, account, or app. Returns a receipt once the submission is accepted; processing is asynchronous and no reply is sent. Accepts user, account, and app credentials.
+        Submits an issue or an unanswered question to Whop for review, recorded under the authenticated user, account, or app. Returns a receipt once the submission is accepted; processing is asynchronous and no reply is sent. Accepts user, account, and app credentials.
 
         Parameters
         ----------
@@ -136,7 +136,7 @@ class AsyncRawFeedbackSubmissionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateFeedbackSubmissionsResponse]:
         """
-        Submits an issue or an unanswered question to Whop for internal review, recorded under the authenticated user, account, or app. Returns a receipt once the submission is accepted; processing is asynchronous and no reply is sent. Accepts user, account, and app credentials.
+        Submits an issue or an unanswered question to Whop for review, recorded under the authenticated user, account, or app. Returns a receipt once the submission is accepted; processing is asynchronous and no reply is sent. Accepts user, account, and app credentials.
 
         Parameters
         ----------

@@ -34,7 +34,7 @@ class SetNotificationsRequestPreferencesItemScope(UniversalBaseModel):
 
     topic_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Notification topic to scope the preference to, `topic_` tag.
+    Notification topic to scope the preference to, `topic_` tag. Topic IDs come from `GET /notifications/topics`.
     """
 
     if IS_PYDANTIC_V2:

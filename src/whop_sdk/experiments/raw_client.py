@@ -56,12 +56,12 @@ class RawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Experiment, ListExperimentsResponse]:
         """
-        Lists experiments for one account with experiment:read permission. Omit account_id or pass internal to list internal experiments, which requires Whop internal access.
+        Lists experiments for one account with experiment:read permission.
 
         Parameters
         ----------
         account_id : typing.Optional[str]
-            Owning account ID. Omit or pass internal for Whop internal experiments; internal access is required.
+            Owning account ID.
 
         related_resource : typing.Optional[ExperimentResourceReference]
             Filter by related resource; requires account_id.
@@ -178,18 +178,18 @@ class RawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Experiment]:
         """
-        Creates a draft experiment for the specified account. Use internal for a Whop platform experiment.
+        Creates a draft experiment for the specified account.
 
         Parameters
         ----------
         account_id : str
-            Owning account tag or internal. Required; ownership cannot change.
+            Owning account ID. Required; ownership cannot change.
 
         flag_key : str
             Developer-chosen handle referenced from code, used in evaluation and results calls. Interchangeable with the returned `expt_` id anywhere the API takes an experiment identifier.
 
         bucket_by : typing.Optional[CreateExperimentsRequestBucketBy]
-            Randomization unit, and the only identity the assignment is keyed on — evaluation fails rather than falling back to another. `user` (default) uses `subject[user_id]` for account experiments and the signed-in user for internal experiments; `account` uses `subject[account_id]`, so every user of an account gets the same arm; `anonymous` uses the anonymous id and survives sign-in. Fixed after creation.
+            Randomization unit, and the only identity the assignment is keyed on — evaluation fails rather than falling back to another. `user` (default) uses `subject[user_id]`; `account` uses `subject[account_id]`, so every user of an account gets the same arm; `anonymous` uses the anonymous id and survives sign-in. Fixed after creation.
 
         control : typing.Optional[CreateExperimentsRequestControl]
 
@@ -203,6 +203,7 @@ class RawExperimentsClient:
             Human-readable display name. Defaults to `flag_key` when omitted.
 
         related_resource : typing.Optional[ExperimentResourceReference]
+            Resource owned by the account that this experiment is bound to, such as an app or product. `null` when unbound. Fixed once the experiment first activates.
 
         targeting_rules : typing.Optional[typing.Sequence[CreateExperimentsRequestTargetingRulesItem]]
             Rules that determine which subjects qualify for the experiment.
@@ -296,9 +297,9 @@ class RawExperimentsClient:
         """
         Evaluates and records an exposure without requiring authentication. When credentials resolve, their authentication method, API key ID, and signed-in user ID are recorded on the exposure event. Pass subject for bucketing identity and account_id for experiment ownership.
 
-        Pass `flag_key` to check a single flag, or omit it to fetch active flags in the account and related resource scope. Internal anonymous callers may use the `x-whop-anonymous-id` header or `ajs_anonymous_id` cookie; explicit `subject[anonymous_id]` takes precedence.
+        Pass `flag_key` to check a single flag, or omit it to fetch active flags in the account and related resource scope.
 
-        Assignments use exactly the configured `bucket_by`: `subject[user_id]`, `subject[account_id]`, or `subject[anonymous_id]`. Internal user experiments derive identity from the signed-in session. Missing the required identity fails single evaluation and omits the experiment from batch evaluation. Subjects outside all treatment ranges receive control.
+        Assignments use exactly the configured `bucket_by`: `subject[user_id]`, `subject[account_id]`, or `subject[anonymous_id]`. Missing the required identity fails single evaluation and omits the experiment from batch evaluation. Subjects outside all treatment ranges receive control.
 
         Pass `subject[account_id]` to enable account-level targeting rules. Pass `properties` as a JSON object to supply the values that `property` targeting conditions match against.
 
@@ -307,7 +308,7 @@ class RawExperimentsClient:
         Parameters
         ----------
         subject : typing.Optional[ExposuresExperimentsRequestSubject]
-            Bucketing subject. Ownership is the top-level account_id. Account experiments accept caller-supplied subject IDs; internal experiments derive the user from the session.
+            Bucketing subject: the user, account, or anonymous ID the experiment's `bucket_by` assigns on. Ownership is the top-level account_id.
 
         related_resource : typing.Optional[ExperimentResourceReference]
             Restricts batch evaluation to this related resource; omitted batches contain only unbound experiments.
@@ -316,10 +317,10 @@ class RawExperimentsClient:
             Flag or experiment to evaluate — the flag_key handle or the `expt_` id. Omit to return all flags the caller qualifies for.
 
         account_id : typing.Optional[str]
-            Owning account ID or internal. Required when evaluating by flag_key or in a batch; optional for an expt_ ID.
+            Owning account ID. Required when evaluating by flag_key or in a batch; optional for an expt_ ID.
 
         properties : typing.Optional[str]
-            JSON-encoded scalar values that property targeting conditions match against. Numeric and boolean strings are coerced. Nested query keys such as properties[variant]=pro remain accepted for existing callers. For internal experiments, is_internal_user is derived from the session and cannot be overridden.
+            JSON-encoded scalar values that property targeting conditions match against. Numeric and boolean strings are coerced. Nested query keys such as properties[variant]=pro remain accepted for existing callers.
 
         log_exposure : typing.Optional[bool]
             Set false to evaluate without recording an exposure. Omitted records it.
@@ -377,7 +378,7 @@ class RawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Experiment]:
         """
-        Retrieves a single experiment or feature flag by its `expt_` id or flag_key handle. Requires the corresponding experiment permission on the owning account, or Whop internal access for internal experiments.
+        Retrieves a single experiment or feature flag by its `expt_` id or flag_key handle. Requires the corresponding experiment permission on the owning account.
 
         Parameters
         ----------
@@ -385,7 +386,7 @@ class RawExperimentsClient:
             The experiment identifier — the `expt_` id or the flag_key handle.
 
         account_id : typing.Optional[str]
-            Owning account or internal. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -447,7 +448,7 @@ class RawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Experiment]:
         """
-        Updates the targeting rules, treatment allocation, metrics, or hypothesis of an existing experiment or feature flag. Weights and metrics can only grow, so enrolled users never change arms and an existing metric is never dropped. Lifecycle moves through the transition endpoints (`activate`, `pause`, `end`), never through this update. Requires the corresponding experiment permission on the owning account, or Whop internal access for internal experiments.
+        Updates the targeting rules, treatment allocation, metrics, or hypothesis of an existing experiment or feature flag. Weights and metrics can only grow, so enrolled users never change arms and an existing metric is never dropped. Lifecycle moves through the transition endpoints (`activate`, `pause`, `end`), never through this update. Requires the corresponding experiment permission on the owning account.
 
         Parameters
         ----------
@@ -455,7 +456,7 @@ class RawExperimentsClient:
             The experiment identifier — the `expt_` id or the flag_key handle.
 
         account_id : typing.Optional[str]
-            Owning account or internal. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
 
         control : typing.Optional[UpdateExperimentsRequestControl]
 
@@ -463,6 +464,7 @@ class RawExperimentsClient:
             Omit to leave unchanged. Send an empty string to clear it. Not accepted on feature flags. When setting it, structure it as "If we [change] for [cohort], then [measurable behavior] will [increase/decrease], resulting in [business outcome], because [evidence]. Created by [name]." same as on create.
 
         related_resource : typing.Optional[ExperimentResourceReference]
+            Resource owned by the account that this experiment is bound to, such as an app or product. `null` when unbound. Fixed once the experiment first activates.
 
         targeting_rules : typing.Optional[typing.Sequence[UpdateExperimentsRequestTargetingRulesItem]]
             Replace the targeting rules with this set. Omit to leave unchanged.
@@ -549,7 +551,7 @@ class RawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Experiment]:
         """
-        Starts (or resumes) an experiment or feature flag so evaluation begins serving it. Activating a draft stamps `started_at`; resuming a paused experiment keeps the original start. Only drafts and paused experiments can be activated. Requires the corresponding experiment permission on the owning account, or Whop internal access for internal experiments.
+        Starts (or resumes) an experiment or feature flag so evaluation begins serving it. Activating a draft stamps `started_at`; resuming a paused experiment keeps the original start. Only drafts and paused experiments can be activated. Requires the corresponding experiment permission on the owning account.
 
         Parameters
         ----------
@@ -557,7 +559,7 @@ class RawExperimentsClient:
             The experiment identifier — the `expt_` id or the flag_key handle.
 
         account_id : typing.Optional[str]
-            Owning account or internal. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
 
         duration_days : typing.Optional[int]
             Reporting window length in days. Omit to use the default. This does not automatically end the experiment.
@@ -637,7 +639,7 @@ class RawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Experiment]:
         """
-        Concludes the experiment and records required `findings`. Pass `winning_arm` to serve the winning treatment to everyone; omit it when control won. Ended experiments cannot restart, but may be ended again to correct the winner. Requires experiment:manage on the account, or internal access for platform experiments.
+        Concludes the experiment and records required `findings`. Pass `winning_arm` to serve the winning treatment to everyone; omit it when control won. Ended experiments cannot restart, but may be ended again to correct the winner. Requires experiment:manage on the account.
 
         Parameters
         ----------
@@ -648,7 +650,7 @@ class RawExperimentsClient:
             What you learned and why you chose this outcome. Required.
 
         account_id : typing.Optional[str]
-            Owning account or internal. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
 
         winning_arm : typing.Optional[str]
             The treatment that won. Setting it rolls that arm out: every later evaluation returns it to every caller, ignoring targeting and allocation, and exposures stop being recorded. Omit it when control won — an ended experiment with no winning arm evaluates to `control` for everyone, so ending again without one also reverts a rollout recorded by mistake. Not accepted on feature flags, which evaluate to disabled once ended.
@@ -727,7 +729,7 @@ class RawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Experiment]:
         """
-        Pauses an active experiment or feature flag: evaluation stops serving it and exposures stop flowing. Assignments are keyed on stable identity, so users return to their original arm when the experiment resumes. Requires the corresponding experiment permission on the owning account, or Whop internal access for internal experiments.
+        Pauses an active experiment or feature flag: evaluation stops serving it and exposures stop flowing. Assignments are keyed on stable identity, so users return to their original arm when the experiment resumes. Requires the corresponding experiment permission on the owning account.
 
         Parameters
         ----------
@@ -735,7 +737,7 @@ class RawExperimentsClient:
             The experiment identifier — the `expt_` id or the flag_key handle.
 
         account_id : typing.Optional[str]
-            Owning account or internal. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -804,12 +806,12 @@ class AsyncRawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Experiment, ListExperimentsResponse]:
         """
-        Lists experiments for one account with experiment:read permission. Omit account_id or pass internal to list internal experiments, which requires Whop internal access.
+        Lists experiments for one account with experiment:read permission.
 
         Parameters
         ----------
         account_id : typing.Optional[str]
-            Owning account ID. Omit or pass internal for Whop internal experiments; internal access is required.
+            Owning account ID.
 
         related_resource : typing.Optional[ExperimentResourceReference]
             Filter by related resource; requires account_id.
@@ -929,18 +931,18 @@ class AsyncRawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Experiment]:
         """
-        Creates a draft experiment for the specified account. Use internal for a Whop platform experiment.
+        Creates a draft experiment for the specified account.
 
         Parameters
         ----------
         account_id : str
-            Owning account tag or internal. Required; ownership cannot change.
+            Owning account ID. Required; ownership cannot change.
 
         flag_key : str
             Developer-chosen handle referenced from code, used in evaluation and results calls. Interchangeable with the returned `expt_` id anywhere the API takes an experiment identifier.
 
         bucket_by : typing.Optional[CreateExperimentsRequestBucketBy]
-            Randomization unit, and the only identity the assignment is keyed on — evaluation fails rather than falling back to another. `user` (default) uses `subject[user_id]` for account experiments and the signed-in user for internal experiments; `account` uses `subject[account_id]`, so every user of an account gets the same arm; `anonymous` uses the anonymous id and survives sign-in. Fixed after creation.
+            Randomization unit, and the only identity the assignment is keyed on — evaluation fails rather than falling back to another. `user` (default) uses `subject[user_id]`; `account` uses `subject[account_id]`, so every user of an account gets the same arm; `anonymous` uses the anonymous id and survives sign-in. Fixed after creation.
 
         control : typing.Optional[CreateExperimentsRequestControl]
 
@@ -954,6 +956,7 @@ class AsyncRawExperimentsClient:
             Human-readable display name. Defaults to `flag_key` when omitted.
 
         related_resource : typing.Optional[ExperimentResourceReference]
+            Resource owned by the account that this experiment is bound to, such as an app or product. `null` when unbound. Fixed once the experiment first activates.
 
         targeting_rules : typing.Optional[typing.Sequence[CreateExperimentsRequestTargetingRulesItem]]
             Rules that determine which subjects qualify for the experiment.
@@ -1047,9 +1050,9 @@ class AsyncRawExperimentsClient:
         """
         Evaluates and records an exposure without requiring authentication. When credentials resolve, their authentication method, API key ID, and signed-in user ID are recorded on the exposure event. Pass subject for bucketing identity and account_id for experiment ownership.
 
-        Pass `flag_key` to check a single flag, or omit it to fetch active flags in the account and related resource scope. Internal anonymous callers may use the `x-whop-anonymous-id` header or `ajs_anonymous_id` cookie; explicit `subject[anonymous_id]` takes precedence.
+        Pass `flag_key` to check a single flag, or omit it to fetch active flags in the account and related resource scope.
 
-        Assignments use exactly the configured `bucket_by`: `subject[user_id]`, `subject[account_id]`, or `subject[anonymous_id]`. Internal user experiments derive identity from the signed-in session. Missing the required identity fails single evaluation and omits the experiment from batch evaluation. Subjects outside all treatment ranges receive control.
+        Assignments use exactly the configured `bucket_by`: `subject[user_id]`, `subject[account_id]`, or `subject[anonymous_id]`. Missing the required identity fails single evaluation and omits the experiment from batch evaluation. Subjects outside all treatment ranges receive control.
 
         Pass `subject[account_id]` to enable account-level targeting rules. Pass `properties` as a JSON object to supply the values that `property` targeting conditions match against.
 
@@ -1058,7 +1061,7 @@ class AsyncRawExperimentsClient:
         Parameters
         ----------
         subject : typing.Optional[ExposuresExperimentsRequestSubject]
-            Bucketing subject. Ownership is the top-level account_id. Account experiments accept caller-supplied subject IDs; internal experiments derive the user from the session.
+            Bucketing subject: the user, account, or anonymous ID the experiment's `bucket_by` assigns on. Ownership is the top-level account_id.
 
         related_resource : typing.Optional[ExperimentResourceReference]
             Restricts batch evaluation to this related resource; omitted batches contain only unbound experiments.
@@ -1067,10 +1070,10 @@ class AsyncRawExperimentsClient:
             Flag or experiment to evaluate — the flag_key handle or the `expt_` id. Omit to return all flags the caller qualifies for.
 
         account_id : typing.Optional[str]
-            Owning account ID or internal. Required when evaluating by flag_key or in a batch; optional for an expt_ ID.
+            Owning account ID. Required when evaluating by flag_key or in a batch; optional for an expt_ ID.
 
         properties : typing.Optional[str]
-            JSON-encoded scalar values that property targeting conditions match against. Numeric and boolean strings are coerced. Nested query keys such as properties[variant]=pro remain accepted for existing callers. For internal experiments, is_internal_user is derived from the session and cannot be overridden.
+            JSON-encoded scalar values that property targeting conditions match against. Numeric and boolean strings are coerced. Nested query keys such as properties[variant]=pro remain accepted for existing callers.
 
         log_exposure : typing.Optional[bool]
             Set false to evaluate without recording an exposure. Omitted records it.
@@ -1128,7 +1131,7 @@ class AsyncRawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Experiment]:
         """
-        Retrieves a single experiment or feature flag by its `expt_` id or flag_key handle. Requires the corresponding experiment permission on the owning account, or Whop internal access for internal experiments.
+        Retrieves a single experiment or feature flag by its `expt_` id or flag_key handle. Requires the corresponding experiment permission on the owning account.
 
         Parameters
         ----------
@@ -1136,7 +1139,7 @@ class AsyncRawExperimentsClient:
             The experiment identifier — the `expt_` id or the flag_key handle.
 
         account_id : typing.Optional[str]
-            Owning account or internal. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1198,7 +1201,7 @@ class AsyncRawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Experiment]:
         """
-        Updates the targeting rules, treatment allocation, metrics, or hypothesis of an existing experiment or feature flag. Weights and metrics can only grow, so enrolled users never change arms and an existing metric is never dropped. Lifecycle moves through the transition endpoints (`activate`, `pause`, `end`), never through this update. Requires the corresponding experiment permission on the owning account, or Whop internal access for internal experiments.
+        Updates the targeting rules, treatment allocation, metrics, or hypothesis of an existing experiment or feature flag. Weights and metrics can only grow, so enrolled users never change arms and an existing metric is never dropped. Lifecycle moves through the transition endpoints (`activate`, `pause`, `end`), never through this update. Requires the corresponding experiment permission on the owning account.
 
         Parameters
         ----------
@@ -1206,7 +1209,7 @@ class AsyncRawExperimentsClient:
             The experiment identifier — the `expt_` id or the flag_key handle.
 
         account_id : typing.Optional[str]
-            Owning account or internal. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
 
         control : typing.Optional[UpdateExperimentsRequestControl]
 
@@ -1214,6 +1217,7 @@ class AsyncRawExperimentsClient:
             Omit to leave unchanged. Send an empty string to clear it. Not accepted on feature flags. When setting it, structure it as "If we [change] for [cohort], then [measurable behavior] will [increase/decrease], resulting in [business outcome], because [evidence]. Created by [name]." same as on create.
 
         related_resource : typing.Optional[ExperimentResourceReference]
+            Resource owned by the account that this experiment is bound to, such as an app or product. `null` when unbound. Fixed once the experiment first activates.
 
         targeting_rules : typing.Optional[typing.Sequence[UpdateExperimentsRequestTargetingRulesItem]]
             Replace the targeting rules with this set. Omit to leave unchanged.
@@ -1300,7 +1304,7 @@ class AsyncRawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Experiment]:
         """
-        Starts (or resumes) an experiment or feature flag so evaluation begins serving it. Activating a draft stamps `started_at`; resuming a paused experiment keeps the original start. Only drafts and paused experiments can be activated. Requires the corresponding experiment permission on the owning account, or Whop internal access for internal experiments.
+        Starts (or resumes) an experiment or feature flag so evaluation begins serving it. Activating a draft stamps `started_at`; resuming a paused experiment keeps the original start. Only drafts and paused experiments can be activated. Requires the corresponding experiment permission on the owning account.
 
         Parameters
         ----------
@@ -1308,7 +1312,7 @@ class AsyncRawExperimentsClient:
             The experiment identifier — the `expt_` id or the flag_key handle.
 
         account_id : typing.Optional[str]
-            Owning account or internal. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
 
         duration_days : typing.Optional[int]
             Reporting window length in days. Omit to use the default. This does not automatically end the experiment.
@@ -1388,7 +1392,7 @@ class AsyncRawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Experiment]:
         """
-        Concludes the experiment and records required `findings`. Pass `winning_arm` to serve the winning treatment to everyone; omit it when control won. Ended experiments cannot restart, but may be ended again to correct the winner. Requires experiment:manage on the account, or internal access for platform experiments.
+        Concludes the experiment and records required `findings`. Pass `winning_arm` to serve the winning treatment to everyone; omit it when control won. Ended experiments cannot restart, but may be ended again to correct the winner. Requires experiment:manage on the account.
 
         Parameters
         ----------
@@ -1399,7 +1403,7 @@ class AsyncRawExperimentsClient:
             What you learned and why you chose this outcome. Required.
 
         account_id : typing.Optional[str]
-            Owning account or internal. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
 
         winning_arm : typing.Optional[str]
             The treatment that won. Setting it rolls that arm out: every later evaluation returns it to every caller, ignoring targeting and allocation, and exposures stop being recorded. Omit it when control won — an ended experiment with no winning arm evaluates to `control` for everyone, so ending again without one also reverts a rollout recorded by mistake. Not accepted on feature flags, which evaluate to disabled once ended.
@@ -1478,7 +1482,7 @@ class AsyncRawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Experiment]:
         """
-        Pauses an active experiment or feature flag: evaluation stops serving it and exposures stop flowing. Assignments are keyed on stable identity, so users return to their original arm when the experiment resumes. Requires the corresponding experiment permission on the owning account, or Whop internal access for internal experiments.
+        Pauses an active experiment or feature flag: evaluation stops serving it and exposures stop flowing. Assignments are keyed on stable identity, so users return to their original arm when the experiment resumes. Requires the corresponding experiment permission on the owning account.
 
         Parameters
         ----------
@@ -1486,7 +1490,7 @@ class AsyncRawExperimentsClient:
             The experiment identifier — the `expt_` id or the flag_key handle.
 
         account_id : typing.Optional[str]
-            Owning account or internal. Required when id is a flag key; optional for an expt_ ID.
+            Owning account ID. Required when id is a flag key; optional for an expt_ ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
