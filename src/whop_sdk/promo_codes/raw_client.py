@@ -217,7 +217,7 @@ class RawPromoCodesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PromoCode]:
         """
-        Creates a promo code for an account. First-party sessions may attach an affiliate.
+        Creates a promo code for an account.
 
         Parameters
         ----------
@@ -731,7 +731,7 @@ class AsyncRawPromoCodesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PromoCode]:
         """
-        Creates a promo code for an account. First-party sessions may attach an affiliate.
+        Creates a promo code for an account.
 
         Parameters
         ----------

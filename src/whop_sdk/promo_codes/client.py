@@ -159,7 +159,7 @@ class PromoCodesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PromoCode:
         """
-        Creates a promo code for an account. First-party sessions may attach an affiliate.
+        Creates a promo code for an account.
 
         Parameters
         ----------
@@ -520,7 +520,7 @@ class AsyncPromoCodesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PromoCode:
         """
-        Creates a promo code for an account. First-party sessions may attach an affiliate.
+        Creates a promo code for an account.
 
         Parameters
         ----------

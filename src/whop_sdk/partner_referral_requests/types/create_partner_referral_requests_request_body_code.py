@@ -11,7 +11,7 @@ from .create_partner_referral_requests_request_body_code_request_type import (
 
 class CreatePartnerReferralRequestsRequestBodyCode(UniversalBaseModel):
     """
-    Create your own referral link with an optional custom code and redemption limit. Without configuration, returns your oldest saved link for the selected team membership, or your personal context when `authorized_user_id` is omitted, creating a random code when none exists. Only authorized staff can configure rewards or select another partner.
+    Create your own referral link with an optional custom code and redemption limit. Without configuration, returns your oldest saved link for the selected team membership, or your personal context when `authorized_user_id` is omitted, creating a random code when none exists.
     """
 
     authorized_user_id: typing.Optional[str] = pydantic.Field(default=None)
@@ -31,7 +31,7 @@ class CreatePartnerReferralRequestsRequestBodyCode(UniversalBaseModel):
 
     partner_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Optional authenticated partner ID, prefixed `user_`. Ordinary credentials cannot select another partner. Staff must supply the enrolled, non-suspended partner receiving attribution.
+    Optional. Your own partner ID, prefixed `user_`; you cannot create a link for another partner.
     """
 
     request_type: CreatePartnerReferralRequestsRequestBodyCodeRequestType = pydantic.Field()

@@ -30,7 +30,7 @@ class RawTopicsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[NotificationTopic, ListTopicsResponse]:
         """
-        Lists the platform's visible notification topics — the categories users can set notification preferences on. App-created topics are internal and not returned.
+        Lists the platform's visible notification topics — the categories users can set notification preferences on. App-created topics are not returned.
 
         Parameters
         ----------
@@ -129,7 +129,7 @@ class AsyncRawTopicsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[NotificationTopic, ListTopicsResponse]:
         """
-        Lists the platform's visible notification topics — the categories users can set notification preferences on. App-created topics are internal and not returned.
+        Lists the platform's visible notification topics — the categories users can set notification preferences on. App-created topics are not returned.
 
         Parameters
         ----------
