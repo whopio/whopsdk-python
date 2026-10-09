@@ -55,6 +55,8 @@ class VariantsClient:
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
+        presentment_currency: typing.Optional[str] = None,
+        ip_address: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
@@ -93,6 +95,12 @@ class VariantsClient:
         created_after : typing.Optional[str]
             Only return variants created after this timestamp.
 
+        presentment_currency : typing.Optional[str]
+            The currency to state each variant's prices in. Omit it, or send null, for each variant's own currency. `auto` states them in the currency of the country Whop places the buyer in: by `ip_address` when your server sends one, and by the request's own IP address otherwise. A three-letter ISO 4217 code, such as `eur`, states them in that currency. A variant converts only where a payment quote for it would be priced in that currency, and stays in its own currency otherwise: a renewing variant, one with adaptive pricing off, a currency no payment method can collect, or `auto` for a buyer Whop cannot place in a country. Converted prices are an estimate at the current exchange rate. Nothing is held: the payment quote the buyer pays from fixes the rate.
+
+        ip_address : typing.Optional[str]
+            The buyer's IP address, when your server reads on their behalf. Needs an API key; any other caller is placed by its own request. Where `presentment_currency` `auto` finds the buyer's local currency.
+
         first : typing.Optional[int]
             Number of results to return from the start of the range.
 
@@ -118,7 +126,7 @@ class VariantsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -127,6 +135,8 @@ class VariantsClient:
             visibilities=["visible"],
             plan_types=["renewal"],
             product_ids=["prod_xxxxxxxxxxxxxx"],
+            presentment_currency="auto",
+            ip_address="203.0.113.7",
         )
         for item in response:
             yield item
@@ -144,6 +154,8 @@ class VariantsClient:
             product_ids=product_ids,
             created_before=created_before,
             created_after=created_after,
+            presentment_currency=presentment_currency,
+            ip_address=ip_address,
             first=first,
             after=after,
             last=last,
@@ -282,7 +294,7 @@ class VariantsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -320,7 +332,14 @@ class VariantsClient:
         )
         return _response.data
 
-    def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Variant:
+    def retrieve(
+        self,
+        id: str,
+        *,
+        presentment_currency: typing.Optional[str] = None,
+        ip_address: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> Variant:
         """
         Retrieves the details of an existing variant.
 
@@ -328,6 +347,12 @@ class VariantsClient:
         ----------
         id : str
             Variant ID, prefixed `plan_`.
+
+        presentment_currency : typing.Optional[str]
+            The currency to state each variant's prices in. Omit it, or send null, for each variant's own currency. `auto` states them in the currency of the country Whop places the buyer in: by `ip_address` when your server sends one, and by the request's own IP address otherwise. A three-letter ISO 4217 code, such as `eur`, states them in that currency. A variant converts only where a payment quote for it would be priced in that currency, and stays in its own currency otherwise: a renewing variant, one with adaptive pricing off, a currency no payment method can collect, or `auto` for a buyer Whop cannot place in a country. Converted prices are an estimate at the current exchange rate. Nothing is held: the payment quote the buyer pays from fixes the rate.
+
+        ip_address : typing.Optional[str]
+            The buyer's IP address, when your server reads on their behalf. Needs an API key; any other caller is placed by its own request. Where `presentment_currency` `auto` finds the buyer's local currency.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -342,15 +367,19 @@ class VariantsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.variants.retrieve(
             id="id",
+            presentment_currency="auto",
+            ip_address="203.0.113.7",
         )
         """
-        _response = self._raw_client.retrieve(id, request_options=request_options)
+        _response = self._raw_client.retrieve(
+            id, presentment_currency=presentment_currency, ip_address=ip_address, request_options=request_options
+        )
         return _response.data
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> DeleteVariantsResponse:
@@ -375,7 +404,7 @@ class VariantsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -525,7 +554,7 @@ class VariantsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -607,7 +636,7 @@ class VariantsClient:
         from whop_sdk.variants import CalculateTaxVariantsRequestAddress
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -652,6 +681,8 @@ class AsyncVariantsClient:
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
+        presentment_currency: typing.Optional[str] = None,
+        ip_address: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
@@ -690,6 +721,12 @@ class AsyncVariantsClient:
         created_after : typing.Optional[str]
             Only return variants created after this timestamp.
 
+        presentment_currency : typing.Optional[str]
+            The currency to state each variant's prices in. Omit it, or send null, for each variant's own currency. `auto` states them in the currency of the country Whop places the buyer in: by `ip_address` when your server sends one, and by the request's own IP address otherwise. A three-letter ISO 4217 code, such as `eur`, states them in that currency. A variant converts only where a payment quote for it would be priced in that currency, and stays in its own currency otherwise: a renewing variant, one with adaptive pricing off, a currency no payment method can collect, or `auto` for a buyer Whop cannot place in a country. Converted prices are an estimate at the current exchange rate. Nothing is held: the payment quote the buyer pays from fixes the rate.
+
+        ip_address : typing.Optional[str]
+            The buyer's IP address, when your server reads on their behalf. Needs an API key; any other caller is placed by its own request. Where `presentment_currency` `auto` finds the buyer's local currency.
+
         first : typing.Optional[int]
             Number of results to return from the start of the range.
 
@@ -717,7 +754,7 @@ class AsyncVariantsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -729,6 +766,8 @@ class AsyncVariantsClient:
                 visibilities=["visible"],
                 plan_types=["renewal"],
                 product_ids=["prod_xxxxxxxxxxxxxx"],
+                presentment_currency="auto",
+                ip_address="203.0.113.7",
             )
             async for item in response:
                 yield item
@@ -750,6 +789,8 @@ class AsyncVariantsClient:
             product_ids=product_ids,
             created_before=created_before,
             created_after=created_after,
+            presentment_currency=presentment_currency,
+            ip_address=ip_address,
             first=first,
             after=after,
             last=last,
@@ -890,7 +931,7 @@ class AsyncVariantsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -934,7 +975,14 @@ class AsyncVariantsClient:
         )
         return _response.data
 
-    async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Variant:
+    async def retrieve(
+        self,
+        id: str,
+        *,
+        presentment_currency: typing.Optional[str] = None,
+        ip_address: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> Variant:
         """
         Retrieves the details of an existing variant.
 
@@ -942,6 +990,12 @@ class AsyncVariantsClient:
         ----------
         id : str
             Variant ID, prefixed `plan_`.
+
+        presentment_currency : typing.Optional[str]
+            The currency to state each variant's prices in. Omit it, or send null, for each variant's own currency. `auto` states them in the currency of the country Whop places the buyer in: by `ip_address` when your server sends one, and by the request's own IP address otherwise. A three-letter ISO 4217 code, such as `eur`, states them in that currency. A variant converts only where a payment quote for it would be priced in that currency, and stays in its own currency otherwise: a renewing variant, one with adaptive pricing off, a currency no payment method can collect, or `auto` for a buyer Whop cannot place in a country. Converted prices are an estimate at the current exchange rate. Nothing is held: the payment quote the buyer pays from fixes the rate.
+
+        ip_address : typing.Optional[str]
+            The buyer's IP address, when your server reads on their behalf. Needs an API key; any other caller is placed by its own request. Where `presentment_currency` `auto` finds the buyer's local currency.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -958,7 +1012,7 @@ class AsyncVariantsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -967,12 +1021,16 @@ class AsyncVariantsClient:
         async def main() -> None:
             await client.variants.retrieve(
                 id="id",
+                presentment_currency="auto",
+                ip_address="203.0.113.7",
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.retrieve(id, request_options=request_options)
+        _response = await self._raw_client.retrieve(
+            id, presentment_currency=presentment_currency, ip_address=ip_address, request_options=request_options
+        )
         return _response.data
 
     async def delete(
@@ -1001,7 +1059,7 @@ class AsyncVariantsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1159,7 +1217,7 @@ class AsyncVariantsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1249,7 +1307,7 @@ class AsyncVariantsClient:
         from whop_sdk.variants import CalculateTaxVariantsRequestAddress
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

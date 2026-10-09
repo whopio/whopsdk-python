@@ -28,6 +28,7 @@ if typing.TYPE_CHECKING:
         CreateAdGroupsRequestPlacementsOneItemPlatform,
         CreateAdGroupsRequestPlacementsZero,
         CreateAdGroupsRequestStatus,
+        CreateAdGroupsRequestXAdsPlatform,
         DeleteAdGroupsResponse,
         DuplicateAdGroupsResponse,
         EstimateReachAdGroupsRequestPlatform,
@@ -64,6 +65,7 @@ if typing.TYPE_CHECKING:
         UpdateAdGroupsRequestPlacementsOneItemPlatform,
         UpdateAdGroupsRequestPlacementsZero,
         UpdateAdGroupsRequestStatus,
+        UpdateAdGroupsRequestXAdsPlatform,
     )
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateAdGroupsRequestBidType": ".types",
@@ -87,6 +89,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateAdGroupsRequestPlacementsOneItemPlatform": ".types",
     "CreateAdGroupsRequestPlacementsZero": ".types",
     "CreateAdGroupsRequestStatus": ".types",
+    "CreateAdGroupsRequestXAdsPlatform": ".types",
     "DeleteAdGroupsResponse": ".types",
     "DuplicateAdGroupsResponse": ".types",
     "EstimateReachAdGroupsRequestPlatform": ".types",
@@ -123,6 +126,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateAdGroupsRequestPlacementsOneItemPlatform": ".types",
     "UpdateAdGroupsRequestPlacementsZero": ".types",
     "UpdateAdGroupsRequestStatus": ".types",
+    "UpdateAdGroupsRequestXAdsPlatform": ".types",
 }
 
 
@@ -169,6 +173,7 @@ __all__ = [
     "CreateAdGroupsRequestPlacementsOneItemPlatform",
     "CreateAdGroupsRequestPlacementsZero",
     "CreateAdGroupsRequestStatus",
+    "CreateAdGroupsRequestXAdsPlatform",
     "DeleteAdGroupsResponse",
     "DuplicateAdGroupsResponse",
     "EstimateReachAdGroupsRequestPlatform",
@@ -205,4 +210,5 @@ __all__ = [
     "UpdateAdGroupsRequestPlacementsOneItemPlatform",
     "UpdateAdGroupsRequestPlacementsZero",
     "UpdateAdGroupsRequestStatus",
+    "UpdateAdGroupsRequestXAdsPlatform",
 ]

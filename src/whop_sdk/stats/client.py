@@ -57,7 +57,7 @@ class StatsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -139,6 +139,7 @@ class StatsClient:
         event_count_gte: typing.Optional[float] = None,
         event_count_lt: typing.Optional[float] = None,
         event_count_lte: typing.Optional[float] = None,
+        referring_account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RetrieveStatsResponse:
         """
@@ -356,6 +357,9 @@ class StatsClient:
         event_count_lte : typing.Optional[float]
             People metric only: event_count less than or equal this value. Applies to the current person profile for every time bucket. LTV and AOV are in USD. Not accepted by the Events metric.
 
+        referring_account_id : typing.Optional[str]
+            Read a referral metric for a business instead of the caller: the referrals its team members made, past members included, for example biz_AbC123. Requires company:basic:read on that business and cannot be combined with user_id. Available on metrics that list referring_account_id.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -369,7 +373,7 @@ class StatsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -453,6 +457,7 @@ class StatsClient:
             event_count_gte=event_count_gte,
             event_count_lt=event_count_lt,
             event_count_lte=event_count_lte,
+            referring_account_id=referring_account_id,
             request_options=request_options,
         )
         return _response.data
@@ -513,7 +518,7 @@ class AsyncStatsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -601,6 +606,7 @@ class AsyncStatsClient:
         event_count_gte: typing.Optional[float] = None,
         event_count_lt: typing.Optional[float] = None,
         event_count_lte: typing.Optional[float] = None,
+        referring_account_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RetrieveStatsResponse:
         """
@@ -818,6 +824,9 @@ class AsyncStatsClient:
         event_count_lte : typing.Optional[float]
             People metric only: event_count less than or equal this value. Applies to the current person profile for every time bucket. LTV and AOV are in USD. Not accepted by the Events metric.
 
+        referring_account_id : typing.Optional[str]
+            Read a referral metric for a business instead of the caller: the referrals its team members made, past members included, for example biz_AbC123. Requires company:basic:read on that business and cannot be combined with user_id. Available on metrics that list referring_account_id.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -833,7 +842,7 @@ class AsyncStatsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -923,6 +932,7 @@ class AsyncStatsClient:
             event_count_gte=event_count_gte,
             event_count_lt=event_count_lt,
             event_count_lte=event_count_lte,
+            referring_account_id=referring_account_id,
             request_options=request_options,
         )
         return _response.data

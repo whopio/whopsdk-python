@@ -116,7 +116,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -174,7 +174,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -203,7 +203,7 @@ class SocialAccountsClient:
             The platform to connect the external account on. Use `meta_business` to connect Meta Business assets, which is how Facebook Pages and Instagram accounts are connected — there is no separate `instagram` value. Use `tiktok` for TikTok accounts, `snapchat` for Snapchat Public Profiles, `linkedin` to connect the authenticated user’s LinkedIn profile, or `youtube` to connect their YouTube channel.
 
         redirect_url : str
-            Where to send the user once they finish connecting their accounts. Any `http` or `https` URL. If the connection fails, the user is redirected with a `social_account_error` query param.
+            Where to send the user once they finish connecting their accounts. Any `http` or `https` URL. On success, the user is redirected with an `external_account_connected` query param naming the platform; if the connection fails, with an `external_account_error` query param instead. The same values also arrive as `social_account_connected` / `social_account_error`.
 
         account_id : typing.Optional[str]
             The Account (biz_ identifier) to connect the external account for. An account-scoped API key may omit this to default to its own account. Omit for user profile connections.
@@ -224,7 +224,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -275,7 +275,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -312,7 +312,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -363,7 +363,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -415,7 +415,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -464,7 +464,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -519,7 +519,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -568,7 +568,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -670,7 +670,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -737,7 +737,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -774,7 +774,7 @@ class AsyncSocialAccountsClient:
             The platform to connect the external account on. Use `meta_business` to connect Meta Business assets, which is how Facebook Pages and Instagram accounts are connected — there is no separate `instagram` value. Use `tiktok` for TikTok accounts, `snapchat` for Snapchat Public Profiles, `linkedin` to connect the authenticated user’s LinkedIn profile, or `youtube` to connect their YouTube channel.
 
         redirect_url : str
-            Where to send the user once they finish connecting their accounts. Any `http` or `https` URL. If the connection fails, the user is redirected with a `social_account_error` query param.
+            Where to send the user once they finish connecting their accounts. Any `http` or `https` URL. On success, the user is redirected with an `external_account_connected` query param naming the platform; if the connection fails, with an `external_account_error` query param instead. The same values also arrive as `social_account_connected` / `social_account_error`.
 
         account_id : typing.Optional[str]
             The Account (biz_ identifier) to connect the external account for. An account-scoped API key may omit this to default to its own account. Omit for user profile connections.
@@ -797,7 +797,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -856,7 +856,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -903,7 +903,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -962,7 +962,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1023,7 +1023,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1080,7 +1080,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1143,7 +1143,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1201,7 +1201,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

@@ -18,6 +18,7 @@ from .types.create_ads_request_music import CreateAdsRequestMusic
 from .types.create_ads_request_post_source import CreateAdsRequestPostSource
 from .types.create_ads_request_primary_texts_item import CreateAdsRequestPrimaryTextsItem
 from .types.create_ads_request_translations import CreateAdsRequestTranslations
+from .types.create_ads_request_x_ads_platform import CreateAdsRequestXAdsPlatform
 from .types.delete_ads_response import DeleteAdsResponse
 from .types.duplicate_ads_response import DuplicateAdsResponse
 from .types.list_ads_request_attribution_model import ListAdsRequestAttributionModel
@@ -37,6 +38,7 @@ from .types.update_ads_request_music import UpdateAdsRequestMusic
 from .types.update_ads_request_post_source import UpdateAdsRequestPostSource
 from .types.update_ads_request_primary_texts_item import UpdateAdsRequestPrimaryTextsItem
 from .types.update_ads_request_translations import UpdateAdsRequestTranslations
+from .types.update_ads_request_x_ads_platform import UpdateAdsRequestXAdsPlatform
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -156,7 +158,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -196,6 +198,7 @@ class AdsClient:
     def create(
         self,
         *,
+        ads_platform: typing.Optional[CreateAdsRequestXAdsPlatform] = None,
         ad_group: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         ad_group_id: typing.Optional[str] = OMIT,
         call_to_action: typing.Optional[CreateAdsRequestCallToAction] = OMIT,
@@ -222,6 +225,9 @@ class AdsClient:
 
         Parameters
         ----------
+        ads_platform : typing.Optional[CreateAdsRequestXAdsPlatform]
+            The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
+
         ad_group : typing.Optional[typing.Dict[str, typing.Any]]
             An inline ad group to create (same shape as POST /ad_groups, including ad_campaign_id). Creates the ad group and the ad together. Provide this OR ad_group_id.
 
@@ -292,13 +298,14 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.ads.create()
         """
         _response = self._raw_client.create(
+            ads_platform=ads_platform,
             ad_group=ad_group,
             ad_group_id=ad_group_id,
             call_to_action=call_to_action,
@@ -365,7 +372,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -405,7 +412,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -420,6 +427,7 @@ class AdsClient:
         self,
         id: str,
         *,
+        ads_platform: typing.Optional[UpdateAdsRequestXAdsPlatform] = None,
         call_to_action: typing.Optional[UpdateAdsRequestCallToAction] = OMIT,
         creatives: typing.Optional[typing.Sequence[UpdateAdsRequestCreativesItem]] = OMIT,
         descriptions: typing.Optional[typing.Sequence[UpdateAdsRequestDescriptionsItem]] = OMIT,
@@ -446,6 +454,9 @@ class AdsClient:
         ----------
         id : str
             The ad ID.
+
+        ads_platform : typing.Optional[UpdateAdsRequestXAdsPlatform]
+            The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
 
         call_to_action : typing.Optional[UpdateAdsRequestCallToAction]
             The call-to-action button shown on the ad.
@@ -511,7 +522,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -521,6 +532,7 @@ class AdsClient:
         """
         _response = self._raw_client.update(
             id,
+            ads_platform=ads_platform,
             call_to_action=call_to_action,
             creatives=creatives,
             descriptions=descriptions,
@@ -581,7 +593,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -620,7 +632,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -653,7 +665,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -781,7 +793,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -828,6 +840,7 @@ class AsyncAdsClient:
     async def create(
         self,
         *,
+        ads_platform: typing.Optional[CreateAdsRequestXAdsPlatform] = None,
         ad_group: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         ad_group_id: typing.Optional[str] = OMIT,
         call_to_action: typing.Optional[CreateAdsRequestCallToAction] = OMIT,
@@ -854,6 +867,9 @@ class AsyncAdsClient:
 
         Parameters
         ----------
+        ads_platform : typing.Optional[CreateAdsRequestXAdsPlatform]
+            The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
+
         ad_group : typing.Optional[typing.Dict[str, typing.Any]]
             An inline ad group to create (same shape as POST /ad_groups, including ad_campaign_id). Creates the ad group and the ad together. Provide this OR ad_group_id.
 
@@ -926,7 +942,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -939,6 +955,7 @@ class AsyncAdsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.create(
+            ads_platform=ads_platform,
             ad_group=ad_group,
             ad_group_id=ad_group_id,
             call_to_action=call_to_action,
@@ -1007,7 +1024,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1055,7 +1072,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1076,6 +1093,7 @@ class AsyncAdsClient:
         self,
         id: str,
         *,
+        ads_platform: typing.Optional[UpdateAdsRequestXAdsPlatform] = None,
         call_to_action: typing.Optional[UpdateAdsRequestCallToAction] = OMIT,
         creatives: typing.Optional[typing.Sequence[UpdateAdsRequestCreativesItem]] = OMIT,
         descriptions: typing.Optional[typing.Sequence[UpdateAdsRequestDescriptionsItem]] = OMIT,
@@ -1102,6 +1120,9 @@ class AsyncAdsClient:
         ----------
         id : str
             The ad ID.
+
+        ads_platform : typing.Optional[UpdateAdsRequestXAdsPlatform]
+            The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
 
         call_to_action : typing.Optional[UpdateAdsRequestCallToAction]
             The call-to-action button shown on the ad.
@@ -1169,7 +1190,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1185,6 +1206,7 @@ class AsyncAdsClient:
         """
         _response = await self._raw_client.update(
             id,
+            ads_platform=ads_platform,
             call_to_action=call_to_action,
             creatives=creatives,
             descriptions=descriptions,
@@ -1247,7 +1269,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1294,7 +1316,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1335,7 +1357,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

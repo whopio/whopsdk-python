@@ -180,6 +180,8 @@ LedgerActivityLineType = typing.Union[
         "ad_income_receipt",
         "ad_budget_release",
         "ad_network_settlement",
+        "ad_affiliate_payout",
+        "ad_affiliate_payout_received",
         "ad_balance_funding_receipt",
         "misc_reversal",
         "fx_gain_loss",

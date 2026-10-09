@@ -8,11 +8,20 @@ from ..core.request_options import RequestOptions
 from ..types.domain import Domain
 from ..types.domain_list_item import DomainListItem
 from .raw_client import AsyncRawDomainsClient, RawDomainsClient
-from .types.create_domains_request_mode import CreateDomainsRequestMode
+from .types.create_domains_request_registration import CreateDomainsRequestRegistration
+from .types.create_domains_request_verification import CreateDomainsRequestVerification
+from .types.create_domains_request_website import CreateDomainsRequestWebsite
 from .types.list_domains_request_direction import ListDomainsRequestDirection
 from .types.list_domains_request_order import ListDomainsRequestOrder
+from .types.list_domains_request_platform import ListDomainsRequestPlatform
+from .types.list_domains_request_registration import ListDomainsRequestRegistration
 from .types.list_domains_request_status import ListDomainsRequestStatus
+from .types.list_domains_request_verification import ListDomainsRequestVerification
+from .types.list_domains_request_website import ListDomainsRequestWebsite
 from .types.list_domains_response import ListDomainsResponse
+from .types.update_domains_request_registration import UpdateDomainsRequestRegistration
+from .types.update_domains_request_verification import UpdateDomainsRequestVerification
+from .types.update_domains_request_website import UpdateDomainsRequestWebsite
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -48,10 +57,14 @@ class DomainsClient:
         search: typing.Optional[str] = None,
         tlds: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         domain: typing.Optional[str] = None,
+        verification: typing.Optional[ListDomainsRequestVerification] = None,
+        registration: typing.Optional[ListDomainsRequestRegistration] = None,
+        platform: typing.Optional[ListDomainsRequestPlatform] = None,
+        website: typing.Optional[ListDomainsRequestWebsite] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[DomainListItem, ListDomainsResponse]:
         """
-        Lists your domains. Filter by account, app, status, or hostname.
+        Lists your domains. Filter by account, app, status, hostname, or the state of a capability.
 
         Pass `search` to find domains to buy instead: the exact domain first, even when taken, then your name on popular extensions, then suggestions. Pass `tlds` to check only the extensions you choose. Results aren't reserved.
 
@@ -61,10 +74,10 @@ class DomainsClient:
             Only domains belonging to this account, prefixed biz_.
 
         app_id : typing.Optional[str]
-            Only domains assigned to this app, prefixed app_.
+            Only domains whose website serves this app, prefixed app_.
 
         status : typing.Optional[ListDomainsRequestStatus]
-            Only domains with this lifecycle status. Removed and failed domains aren't listed; retrieve them by ID.
+            Only domains with this status: the most pressing state of their capabilities, or `idle` when they want nothing.
 
         order : typing.Optional[ListDomainsRequestOrder]
             Field to sort by.
@@ -85,13 +98,25 @@ class DomainsClient:
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         search : typing.Optional[str]
-            A name or domain to find domains to buy, such as `example` or `example.com`; a subdomain or URL searches its registrable domain. Returns search results instead of your domains, without other filters or pagination.
+            A name or domain to find domains to buy, such as `example` or `example.com`; a subdomain or URL searches its registrable domain. Returns domains with `availability` instead of your domains, without other filters or pagination.
 
         tlds : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             With `search`, check only these extensions, such as `com` or `co.uk`, returned in this order. Repeat for several, up to 100.
 
         domain : typing.Optional[str]
             Only your domain with this hostname, such as `example.com`.
+
+        verification : typing.Optional[ListDomainsRequestVerification]
+            Only domains with verification in this state, such as `ready`, or `any` for every domain that has verification.
+
+        registration : typing.Optional[ListDomainsRequestRegistration]
+            Only domains with registration in this state, such as `ready`, or `any` for every domain that has registration.
+
+        platform : typing.Optional[ListDomainsRequestPlatform]
+            Only domains with platform in this state, such as `ready`, or `any` for every domain that has platform.
+
+        website : typing.Optional[ListDomainsRequestWebsite]
+            Only domains with website in this state, such as `ready`, or `any` for every domain that has website.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -106,7 +131,7 @@ class DomainsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -132,6 +157,10 @@ class DomainsClient:
             search=search,
             tlds=tlds,
             domain=domain,
+            verification=verification,
+            registration=registration,
+            platform=platform,
+            website=website,
             request_options=request_options,
         )
 
@@ -140,21 +169,20 @@ class DomainsClient:
         *,
         domain: str,
         account_id: typing.Optional[str] = OMIT,
-        app_id: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
-        mode: typing.Optional[CreateDomainsRequestMode] = OMIT,
-        payment_method_id: typing.Optional[str] = OMIT,
-        replace_existing: typing.Optional[bool] = OMIT,
+        registration: typing.Optional[CreateDomainsRequestRegistration] = OMIT,
+        verification: typing.Optional[CreateDomainsRequestVerification] = OMIT,
+        website: typing.Optional[CreateDomainsRequestWebsite] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Domain:
         """
-        Buys a domain through Whop, or connects one you registered elsewhere.
+        Adds a domain to your account with the capabilities you want.
 
-        A bought domain starts `awaiting_payment`. Pay its `amount_due` at `purchase_url`, or pass `payment_method_id` to charge a saved card. Whop then registers it, hosts its DNS, issues its certificate and serves the app, and renews it every year while `auto_renew` is on. An unpaid purchase is removed after 7 days.
+        Pass `registration` to buy the domain through Whop; it's the default when you pass no capability. Pay its `amount_due` at `purchase_url`, or pass `registration.payment_method_id` to charge a saved card. Whop then registers it, runs its DNS, and renews it every year while `auto_renew` is on.
 
-        With `mode: external`, Whop returns the DNS records to publish instead. Verification and certificate setup run automatically, and unverified claims are removed after 48 hours. A claim doesn't reserve the hostname.
+        Pass `verification` to connect a domain you registered elsewhere: its `issues` list the TXT and routing records to publish. Pass `website` with an `app_id` to serve that app on the domain.
 
-        Adding a domain this account removed or failed before revives it under its original ID, starting over as a new claim or purchase.
+        To change a domain you already have, update it instead. Adding a domain this account deleted revives it under its original ID.
 
         Parameters
         ----------
@@ -164,20 +192,17 @@ class DomainsClient:
         account_id : typing.Optional[str]
             Account ID, prefixed biz_. Required for user credentials; otherwise defaults to the credential's account.
 
-        app_id : typing.Optional[str]
-            App ID, prefixed app_, for the domain to serve. The app must belong to the account. Required with `mode: external`.
-
         metadata : typing.Optional[typing.Dict[str, str]]
             Custom string keys and values.
 
-        mode : typing.Optional[CreateDomainsRequestMode]
-            `managed` buys the domain through Whop; `external` connects a domain you registered elsewhere.
+        registration : typing.Optional[CreateDomainsRequestRegistration]
+            Buy the domain through Whop, renew it every year, and let Whop run its DNS. Pass `null` to release an unpaid or failed purchase.
 
-        payment_method_id : typing.Optional[str]
-            Saved card to charge for a bought domain and its renewals, prefixed `payt_`. It must belong to the signed-in user.
+        verification : typing.Optional[CreateDomainsRequestVerification]
+            Prove you control the domain's DNS: Whop returns a TXT record to publish in `issues`, and whoever publishes it owns the domain on Whop. Pass `null` to release it. Can't be combined with `registration`.
 
-        replace_existing : typing.Optional[bool]
-            With `mode: external`, explicitly transfer a domain from its current owner after publishing this new claim's TXT proof. Create the claim after the current owner verified.
+        website : typing.Optional[CreateDomainsRequestWebsite]
+            Serve a Whop website on the domain. Pass `null` to stop serving it; the domain keeps its other capabilities.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -192,7 +217,7 @@ class DomainsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -203,25 +228,24 @@ class DomainsClient:
         _response = self._raw_client.create(
             domain=domain,
             account_id=account_id,
-            app_id=app_id,
             metadata=metadata,
-            mode=mode,
-            payment_method_id=payment_method_id,
-            replace_existing=replace_existing,
+            registration=registration,
+            verification=verification,
+            website=website,
             request_options=request_options,
         )
         return _response.data
 
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Domain:
         """
-        Retrieves a domain's status, issues, billing, and DNS records, and checks it again in the background if it isn't active yet.
+        Retrieves a domain by ID or hostname. Both return the same domain, shown as fully as you can see it: everything for your own accounts, and only who has it and what it serves for anyone else.
 
-        Pass a hostname instead of an ID to look up any domain, with its `registration_quote` and, if registered, its `public_record`.
+        A hostname no domain on Whop has comes back with its `availability` instead.
 
         Parameters
         ----------
         id : str
-            Domain ID, prefixed `dom_`. To retrieve, you can pass a hostname such as `example.com` instead; a bare name looks up `.com`.
+            Domain ID, prefixed `dom_`, or a hostname such as `example.com`; a bare name looks up `.com`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -236,7 +260,7 @@ class DomainsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -249,12 +273,12 @@ class DomainsClient:
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Domain:
         """
-        Stops routing a connected domain to its app and starts cleanup: it returns as `deleting`; retrieve it until it's `removed`. Deleting an unpaid purchase cancels it. A registered domain can't be deleted; turn off `auto_renew` and it's released after it expires. Creating the domain on this account again revives it under the same ID.
+        Removes the domain from your account and releases its capabilities in the background. Deleting an unpaid purchase cancels it. A registered domain can't be deleted; turn off `auto_renew` and it's released after it expires. Adding the domain to this account again revives it under the same ID.
 
         Parameters
         ----------
         id : str
-            Domain ID, prefixed `dom_`. To retrieve, you can pass a hostname such as `example.com` instead; a bare name looks up `.com`.
+            Domain ID, prefixed `dom_`, or a hostname such as `example.com`; a bare name looks up `.com`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -262,14 +286,14 @@ class DomainsClient:
         Returns
         -------
         Domain
-            Domain deletion requested
+            Domain deleted
 
         Examples
         --------
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -284,31 +308,31 @@ class DomainsClient:
         self,
         id: str,
         *,
-        app_id: typing.Optional[str] = OMIT,
-        auto_renew: typing.Optional[bool] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
-        payment_method_id: typing.Optional[str] = OMIT,
+        registration: typing.Optional[UpdateDomainsRequestRegistration] = OMIT,
+        verification: typing.Optional[UpdateDomainsRequestVerification] = OMIT,
+        website: typing.Optional[UpdateDomainsRequestWebsite] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Domain:
         """
-        Reassigns a domain to another app in the same account, replaces its metadata, or changes how a bought domain renews. The hostname and owning account cannot be edited.
+        Changes a domain's capabilities or metadata. Pass a capability to add it or change its settings, or `null` to release it; capabilities you leave out don't change. Passing a capability that needs action again retries it. Releasing every capability keeps the domain, `idle`; delete it to remove it.
 
         Parameters
         ----------
         id : str
-            Domain ID, prefixed `dom_`. To retrieve, you can pass a hostname such as `example.com` instead; a bare name looks up `.com`.
-
-        app_id : typing.Optional[str]
-            App ID, prefixed app_. Must belong to the same account. Pass `null` to detach a bought domain from its app; it keeps renewing.
-
-        auto_renew : typing.Optional[bool]
-            For a bought domain, whether Whop charges its saved card to renew it before it expires.
+            Domain ID, prefixed `dom_`, or a hostname such as `example.com`; a bare name looks up `.com`.
 
         metadata : typing.Optional[typing.Dict[str, str]]
             Replacement custom string keys and values.
 
-        payment_method_id : typing.Optional[str]
-            For a bought domain, the saved card to charge, prefixed `payt_`. It must belong to the signed-in user. Pass `null` to remove it.
+        registration : typing.Optional[UpdateDomainsRequestRegistration]
+            Buy the domain through Whop, renew it every year, and let Whop run its DNS. Pass `null` to release an unpaid or failed purchase.
+
+        verification : typing.Optional[UpdateDomainsRequestVerification]
+            Prove you control the domain's DNS: Whop returns a TXT record to publish in `issues`, and whoever publishes it owns the domain on Whop. Pass `null` to release it. Can't be combined with `registration`.
+
+        website : typing.Optional[UpdateDomainsRequestWebsite]
+            Serve a Whop website on the domain. Pass `null` to stop serving it; the domain keeps its other capabilities.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -323,7 +347,7 @@ class DomainsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -333,12 +357,45 @@ class DomainsClient:
         """
         _response = self._raw_client.update(
             id,
-            app_id=app_id,
-            auto_renew=auto_renew,
             metadata=metadata,
-            payment_method_id=payment_method_id,
+            registration=registration,
+            verification=verification,
+            website=website,
             request_options=request_options,
         )
+        return _response.data
+
+    def check(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Domain:
+        """
+        Checks the domain's DNS, payment, and provider state again now instead of at its next scheduled check. Returns the domain as saved; retrieve it again to see the result.
+
+        Parameters
+        ----------
+        id : str
+            Domain ID, prefixed `dom_`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Domain
+            Domain check started
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-10-08",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.domains.check(
+            id="id",
+        )
+        """
+        _response = self._raw_client.check(id, request_options=request_options)
         return _response.data
 
 
@@ -372,10 +429,14 @@ class AsyncDomainsClient:
         search: typing.Optional[str] = None,
         tlds: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         domain: typing.Optional[str] = None,
+        verification: typing.Optional[ListDomainsRequestVerification] = None,
+        registration: typing.Optional[ListDomainsRequestRegistration] = None,
+        platform: typing.Optional[ListDomainsRequestPlatform] = None,
+        website: typing.Optional[ListDomainsRequestWebsite] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[DomainListItem, ListDomainsResponse]:
         """
-        Lists your domains. Filter by account, app, status, or hostname.
+        Lists your domains. Filter by account, app, status, hostname, or the state of a capability.
 
         Pass `search` to find domains to buy instead: the exact domain first, even when taken, then your name on popular extensions, then suggestions. Pass `tlds` to check only the extensions you choose. Results aren't reserved.
 
@@ -385,10 +446,10 @@ class AsyncDomainsClient:
             Only domains belonging to this account, prefixed biz_.
 
         app_id : typing.Optional[str]
-            Only domains assigned to this app, prefixed app_.
+            Only domains whose website serves this app, prefixed app_.
 
         status : typing.Optional[ListDomainsRequestStatus]
-            Only domains with this lifecycle status. Removed and failed domains aren't listed; retrieve them by ID.
+            Only domains with this status: the most pressing state of their capabilities, or `idle` when they want nothing.
 
         order : typing.Optional[ListDomainsRequestOrder]
             Field to sort by.
@@ -409,13 +470,25 @@ class AsyncDomainsClient:
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         search : typing.Optional[str]
-            A name or domain to find domains to buy, such as `example` or `example.com`; a subdomain or URL searches its registrable domain. Returns search results instead of your domains, without other filters or pagination.
+            A name or domain to find domains to buy, such as `example` or `example.com`; a subdomain or URL searches its registrable domain. Returns domains with `availability` instead of your domains, without other filters or pagination.
 
         tlds : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             With `search`, check only these extensions, such as `com` or `co.uk`, returned in this order. Repeat for several, up to 100.
 
         domain : typing.Optional[str]
             Only your domain with this hostname, such as `example.com`.
+
+        verification : typing.Optional[ListDomainsRequestVerification]
+            Only domains with verification in this state, such as `ready`, or `any` for every domain that has verification.
+
+        registration : typing.Optional[ListDomainsRequestRegistration]
+            Only domains with registration in this state, such as `ready`, or `any` for every domain that has registration.
+
+        platform : typing.Optional[ListDomainsRequestPlatform]
+            Only domains with platform in this state, such as `ready`, or `any` for every domain that has platform.
+
+        website : typing.Optional[ListDomainsRequestWebsite]
+            Only domains with website in this state, such as `ready`, or `any` for every domain that has website.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -432,7 +505,7 @@ class AsyncDomainsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -465,6 +538,10 @@ class AsyncDomainsClient:
             search=search,
             tlds=tlds,
             domain=domain,
+            verification=verification,
+            registration=registration,
+            platform=platform,
+            website=website,
             request_options=request_options,
         )
 
@@ -473,21 +550,20 @@ class AsyncDomainsClient:
         *,
         domain: str,
         account_id: typing.Optional[str] = OMIT,
-        app_id: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
-        mode: typing.Optional[CreateDomainsRequestMode] = OMIT,
-        payment_method_id: typing.Optional[str] = OMIT,
-        replace_existing: typing.Optional[bool] = OMIT,
+        registration: typing.Optional[CreateDomainsRequestRegistration] = OMIT,
+        verification: typing.Optional[CreateDomainsRequestVerification] = OMIT,
+        website: typing.Optional[CreateDomainsRequestWebsite] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Domain:
         """
-        Buys a domain through Whop, or connects one you registered elsewhere.
+        Adds a domain to your account with the capabilities you want.
 
-        A bought domain starts `awaiting_payment`. Pay its `amount_due` at `purchase_url`, or pass `payment_method_id` to charge a saved card. Whop then registers it, hosts its DNS, issues its certificate and serves the app, and renews it every year while `auto_renew` is on. An unpaid purchase is removed after 7 days.
+        Pass `registration` to buy the domain through Whop; it's the default when you pass no capability. Pay its `amount_due` at `purchase_url`, or pass `registration.payment_method_id` to charge a saved card. Whop then registers it, runs its DNS, and renews it every year while `auto_renew` is on.
 
-        With `mode: external`, Whop returns the DNS records to publish instead. Verification and certificate setup run automatically, and unverified claims are removed after 48 hours. A claim doesn't reserve the hostname.
+        Pass `verification` to connect a domain you registered elsewhere: its `issues` list the TXT and routing records to publish. Pass `website` with an `app_id` to serve that app on the domain.
 
-        Adding a domain this account removed or failed before revives it under its original ID, starting over as a new claim or purchase.
+        To change a domain you already have, update it instead. Adding a domain this account deleted revives it under its original ID.
 
         Parameters
         ----------
@@ -497,20 +573,17 @@ class AsyncDomainsClient:
         account_id : typing.Optional[str]
             Account ID, prefixed biz_. Required for user credentials; otherwise defaults to the credential's account.
 
-        app_id : typing.Optional[str]
-            App ID, prefixed app_, for the domain to serve. The app must belong to the account. Required with `mode: external`.
-
         metadata : typing.Optional[typing.Dict[str, str]]
             Custom string keys and values.
 
-        mode : typing.Optional[CreateDomainsRequestMode]
-            `managed` buys the domain through Whop; `external` connects a domain you registered elsewhere.
+        registration : typing.Optional[CreateDomainsRequestRegistration]
+            Buy the domain through Whop, renew it every year, and let Whop run its DNS. Pass `null` to release an unpaid or failed purchase.
 
-        payment_method_id : typing.Optional[str]
-            Saved card to charge for a bought domain and its renewals, prefixed `payt_`. It must belong to the signed-in user.
+        verification : typing.Optional[CreateDomainsRequestVerification]
+            Prove you control the domain's DNS: Whop returns a TXT record to publish in `issues`, and whoever publishes it owns the domain on Whop. Pass `null` to release it. Can't be combined with `registration`.
 
-        replace_existing : typing.Optional[bool]
-            With `mode: external`, explicitly transfer a domain from its current owner after publishing this new claim's TXT proof. Create the claim after the current owner verified.
+        website : typing.Optional[CreateDomainsRequestWebsite]
+            Serve a Whop website on the domain. Pass `null` to stop serving it; the domain keeps its other capabilities.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -527,7 +600,7 @@ class AsyncDomainsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -544,25 +617,24 @@ class AsyncDomainsClient:
         _response = await self._raw_client.create(
             domain=domain,
             account_id=account_id,
-            app_id=app_id,
             metadata=metadata,
-            mode=mode,
-            payment_method_id=payment_method_id,
-            replace_existing=replace_existing,
+            registration=registration,
+            verification=verification,
+            website=website,
             request_options=request_options,
         )
         return _response.data
 
     async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Domain:
         """
-        Retrieves a domain's status, issues, billing, and DNS records, and checks it again in the background if it isn't active yet.
+        Retrieves a domain by ID or hostname. Both return the same domain, shown as fully as you can see it: everything for your own accounts, and only who has it and what it serves for anyone else.
 
-        Pass a hostname instead of an ID to look up any domain, with its `registration_quote` and, if registered, its `public_record`.
+        A hostname no domain on Whop has comes back with its `availability` instead.
 
         Parameters
         ----------
         id : str
-            Domain ID, prefixed `dom_`. To retrieve, you can pass a hostname such as `example.com` instead; a bare name looks up `.com`.
+            Domain ID, prefixed `dom_`, or a hostname such as `example.com`; a bare name looks up `.com`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -579,7 +651,7 @@ class AsyncDomainsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -598,12 +670,12 @@ class AsyncDomainsClient:
 
     async def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Domain:
         """
-        Stops routing a connected domain to its app and starts cleanup: it returns as `deleting`; retrieve it until it's `removed`. Deleting an unpaid purchase cancels it. A registered domain can't be deleted; turn off `auto_renew` and it's released after it expires. Creating the domain on this account again revives it under the same ID.
+        Removes the domain from your account and releases its capabilities in the background. Deleting an unpaid purchase cancels it. A registered domain can't be deleted; turn off `auto_renew` and it's released after it expires. Adding the domain to this account again revives it under the same ID.
 
         Parameters
         ----------
         id : str
-            Domain ID, prefixed `dom_`. To retrieve, you can pass a hostname such as `example.com` instead; a bare name looks up `.com`.
+            Domain ID, prefixed `dom_`, or a hostname such as `example.com`; a bare name looks up `.com`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -611,7 +683,7 @@ class AsyncDomainsClient:
         Returns
         -------
         Domain
-            Domain deletion requested
+            Domain deleted
 
         Examples
         --------
@@ -620,7 +692,7 @@ class AsyncDomainsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -641,31 +713,31 @@ class AsyncDomainsClient:
         self,
         id: str,
         *,
-        app_id: typing.Optional[str] = OMIT,
-        auto_renew: typing.Optional[bool] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
-        payment_method_id: typing.Optional[str] = OMIT,
+        registration: typing.Optional[UpdateDomainsRequestRegistration] = OMIT,
+        verification: typing.Optional[UpdateDomainsRequestVerification] = OMIT,
+        website: typing.Optional[UpdateDomainsRequestWebsite] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Domain:
         """
-        Reassigns a domain to another app in the same account, replaces its metadata, or changes how a bought domain renews. The hostname and owning account cannot be edited.
+        Changes a domain's capabilities or metadata. Pass a capability to add it or change its settings, or `null` to release it; capabilities you leave out don't change. Passing a capability that needs action again retries it. Releasing every capability keeps the domain, `idle`; delete it to remove it.
 
         Parameters
         ----------
         id : str
-            Domain ID, prefixed `dom_`. To retrieve, you can pass a hostname such as `example.com` instead; a bare name looks up `.com`.
-
-        app_id : typing.Optional[str]
-            App ID, prefixed app_. Must belong to the same account. Pass `null` to detach a bought domain from its app; it keeps renewing.
-
-        auto_renew : typing.Optional[bool]
-            For a bought domain, whether Whop charges its saved card to renew it before it expires.
+            Domain ID, prefixed `dom_`, or a hostname such as `example.com`; a bare name looks up `.com`.
 
         metadata : typing.Optional[typing.Dict[str, str]]
             Replacement custom string keys and values.
 
-        payment_method_id : typing.Optional[str]
-            For a bought domain, the saved card to charge, prefixed `payt_`. It must belong to the signed-in user. Pass `null` to remove it.
+        registration : typing.Optional[UpdateDomainsRequestRegistration]
+            Buy the domain through Whop, renew it every year, and let Whop run its DNS. Pass `null` to release an unpaid or failed purchase.
+
+        verification : typing.Optional[UpdateDomainsRequestVerification]
+            Prove you control the domain's DNS: Whop returns a TXT record to publish in `issues`, and whoever publishes it owns the domain on Whop. Pass `null` to release it. Can't be combined with `registration`.
+
+        website : typing.Optional[UpdateDomainsRequestWebsite]
+            Serve a Whop website on the domain. Pass `null` to stop serving it; the domain keeps its other capabilities.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -682,7 +754,7 @@ class AsyncDomainsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -698,10 +770,51 @@ class AsyncDomainsClient:
         """
         _response = await self._raw_client.update(
             id,
-            app_id=app_id,
-            auto_renew=auto_renew,
             metadata=metadata,
-            payment_method_id=payment_method_id,
+            registration=registration,
+            verification=verification,
+            website=website,
             request_options=request_options,
         )
+        return _response.data
+
+    async def check(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Domain:
+        """
+        Checks the domain's DNS, payment, and provider state again now instead of at its next scheduled check. Returns the domain as saved; retrieve it again to see the result.
+
+        Parameters
+        ----------
+        id : str
+            Domain ID, prefixed `dom_`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Domain
+            Domain check started
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-10-08",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.domains.check(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.check(id, request_options=request_options)
         return _response.data

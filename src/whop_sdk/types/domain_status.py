@@ -2,18 +2,4 @@
 
 import typing
 
-DomainStatus = typing.Union[
-    typing.Literal[
-        "pending_verification",
-        "awaiting_payment",
-        "registering",
-        "provisioning",
-        "active",
-        "action_required",
-        "deleting",
-        "expired",
-        "failed",
-        "removed",
-    ],
-    typing.Any,
-]
+DomainStatus = typing.Union[typing.Literal["idle", "pending", "ready", "action_required", "releasing"], typing.Any]

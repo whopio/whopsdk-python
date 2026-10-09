@@ -33,6 +33,7 @@ from .types.update_ad_campaigns_request_special_ad_categories_item import (
     UpdateAdCampaignsRequestSpecialAdCategoriesItem,
 )
 from .types.update_ad_campaigns_request_status import UpdateAdCampaignsRequestStatus
+from .types.update_ad_campaigns_request_x_ads_platform import UpdateAdCampaignsRequestXAdsPlatform
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -140,7 +141,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -250,7 +251,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -322,7 +323,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -362,7 +363,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -377,6 +378,7 @@ class AdCampaignsClient:
         self,
         id: str,
         *,
+        ads_platform: typing.Optional[UpdateAdCampaignsRequestXAdsPlatform] = None,
         bid_type: typing.Optional[UpdateAdCampaignsRequestBidType] = OMIT,
         budget_amount: typing.Optional[float] = OMIT,
         budget_amount_local: typing.Optional[float] = OMIT,
@@ -397,6 +399,9 @@ class AdCampaignsClient:
         ----------
         id : str
             The ad campaign ID.
+
+        ads_platform : typing.Optional[UpdateAdCampaignsRequestXAdsPlatform]
+            The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
 
         bid_type : typing.Optional[UpdateAdCampaignsRequestBidType]
             How delivery bids in the ad auction: `minimum_cost` gets the most results for the budget, `average_target` holds an average cost per result, `maximum_target` never bids above a cap. Switching to `minimum_cost` clears the cap amounts stored on the campaign's ad groups. Only for campaigns that own the budget.
@@ -444,7 +449,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -454,6 +459,7 @@ class AdCampaignsClient:
         """
         _response = self._raw_client.update(
             id,
+            ads_platform=ads_platform,
             bid_type=bid_type,
             budget_amount=budget_amount,
             budget_amount_local=budget_amount_local,
@@ -504,7 +510,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -539,7 +545,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -572,7 +578,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -688,7 +694,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -807,7 +813,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -887,7 +893,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -937,7 +943,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -958,6 +964,7 @@ class AsyncAdCampaignsClient:
         self,
         id: str,
         *,
+        ads_platform: typing.Optional[UpdateAdCampaignsRequestXAdsPlatform] = None,
         bid_type: typing.Optional[UpdateAdCampaignsRequestBidType] = OMIT,
         budget_amount: typing.Optional[float] = OMIT,
         budget_amount_local: typing.Optional[float] = OMIT,
@@ -978,6 +985,9 @@ class AsyncAdCampaignsClient:
         ----------
         id : str
             The ad campaign ID.
+
+        ads_platform : typing.Optional[UpdateAdCampaignsRequestXAdsPlatform]
+            The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
 
         bid_type : typing.Optional[UpdateAdCampaignsRequestBidType]
             How delivery bids in the ad auction: `minimum_cost` gets the most results for the budget, `average_target` holds an average cost per result, `maximum_target` never bids above a cap. Switching to `minimum_cost` clears the cap amounts stored on the campaign's ad groups. Only for campaigns that own the budget.
@@ -1027,7 +1037,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1043,6 +1053,7 @@ class AsyncAdCampaignsClient:
         """
         _response = await self._raw_client.update(
             id,
+            ads_platform=ads_platform,
             bid_type=bid_type,
             budget_amount=budget_amount,
             budget_amount_local=budget_amount_local,
@@ -1095,7 +1106,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1138,7 +1149,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1179,7 +1190,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-07-2",
+            "2026-10-08",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

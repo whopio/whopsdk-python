@@ -7,7 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .money import Money
 
 
-class DomainRegistrationQuote(UniversalBaseModel):
+class DomainAvailability(UniversalBaseModel):
     available: bool = pydantic.Field()
     """
     Whether the domain can be registered now.

@@ -64,7 +64,7 @@ class Plan(UniversalBaseModel):
 
     currency: PlanCurrency = pydantic.Field()
     """
-    Three-letter ISO currency code for this variant's prices.
+    Three-letter ISO 4217 code of the currency every price on this variant is stated in, lowercase: the variant's own currency, or the `presentment_currency` the read asked for when the variant can be converted into it.
     """
 
     custom_fields: typing.List[PlanCustomField]
@@ -92,7 +92,7 @@ class Plan(UniversalBaseModel):
 
     formatted_price: str = pydantic.Field()
     """
-    Human-readable price for display (currency + interval), e.g. "$10 / month".
+    Human-readable price for display (currency + interval) in `currency`, e.g. "$10 / month".
     """
 
     id: str = pydantic.Field()
@@ -107,12 +107,12 @@ class Plan(UniversalBaseModel):
 
     initial_price: float = pydantic.Field()
     """
-    Initial purchase price in variant currency.
+    Initial purchase price, in `currency`.
     """
 
     initial_price_due: Money = pydantic.Field()
     """
-    Total charged at checkout for one unit, before promo codes and tax: `initial_price` plus the first `renewal_price` for recurring variants, or `initial_price` alone while a free trial applies. The trial does not apply when the viewing user has already used one for this variant.
+    Total charged at checkout for one unit, before promo codes and tax: `initial_price` plus the first `renewal_price` for recurring variants, or `initial_price` alone while a free trial applies. The trial does not apply when the viewing user has already used one for this variant. Stated in `currency`.
     """
 
     internal_notes: typing.Optional[str] = pydantic.Field(default=None)
@@ -167,7 +167,7 @@ class Plan(UniversalBaseModel):
 
     renewal_price: float = pydantic.Field()
     """
-    Recurring price charged every billing period.
+    Recurring price charged every billing period, in `currency`.
     """
 
     sku: typing.Optional[str] = pydantic.Field(default=None)
@@ -187,12 +187,12 @@ class Plan(UniversalBaseModel):
 
     strike_through_initial_price: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Original initial price shown with a strikethrough, in the variant's currency. `null` when no strikethrough is set.
+    Original initial price shown with a strikethrough, in `currency`. `null` when no strikethrough is set.
     """
 
     strike_through_renewal_price: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Original renewal price shown with a strikethrough, in the variant's currency. `null` when no strikethrough is set.
+    Original renewal price shown with a strikethrough, in `currency`. `null` when no strikethrough is set.
     """
 
     tax_type: PlanTaxType = pydantic.Field()

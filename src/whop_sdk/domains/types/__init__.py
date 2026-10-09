@@ -6,19 +6,37 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .create_domains_request_mode import CreateDomainsRequestMode
+    from .create_domains_request_registration import CreateDomainsRequestRegistration
+    from .create_domains_request_verification import CreateDomainsRequestVerification
+    from .create_domains_request_website import CreateDomainsRequestWebsite
     from .list_domains_request_direction import ListDomainsRequestDirection
     from .list_domains_request_order import ListDomainsRequestOrder
+    from .list_domains_request_platform import ListDomainsRequestPlatform
+    from .list_domains_request_registration import ListDomainsRequestRegistration
     from .list_domains_request_status import ListDomainsRequestStatus
+    from .list_domains_request_verification import ListDomainsRequestVerification
+    from .list_domains_request_website import ListDomainsRequestWebsite
     from .list_domains_response import ListDomainsResponse
     from .list_domains_response_page_info import ListDomainsResponsePageInfo
+    from .update_domains_request_registration import UpdateDomainsRequestRegistration
+    from .update_domains_request_verification import UpdateDomainsRequestVerification
+    from .update_domains_request_website import UpdateDomainsRequestWebsite
 _dynamic_imports: typing.Dict[str, str] = {
-    "CreateDomainsRequestMode": ".create_domains_request_mode",
+    "CreateDomainsRequestRegistration": ".create_domains_request_registration",
+    "CreateDomainsRequestVerification": ".create_domains_request_verification",
+    "CreateDomainsRequestWebsite": ".create_domains_request_website",
     "ListDomainsRequestDirection": ".list_domains_request_direction",
     "ListDomainsRequestOrder": ".list_domains_request_order",
+    "ListDomainsRequestPlatform": ".list_domains_request_platform",
+    "ListDomainsRequestRegistration": ".list_domains_request_registration",
     "ListDomainsRequestStatus": ".list_domains_request_status",
+    "ListDomainsRequestVerification": ".list_domains_request_verification",
+    "ListDomainsRequestWebsite": ".list_domains_request_website",
     "ListDomainsResponse": ".list_domains_response",
     "ListDomainsResponsePageInfo": ".list_domains_response_page_info",
+    "UpdateDomainsRequestRegistration": ".update_domains_request_registration",
+    "UpdateDomainsRequestVerification": ".update_domains_request_verification",
+    "UpdateDomainsRequestWebsite": ".update_domains_request_website",
 }
 
 
@@ -44,10 +62,19 @@ def __dir__():
 
 
 __all__ = [
-    "CreateDomainsRequestMode",
+    "CreateDomainsRequestRegistration",
+    "CreateDomainsRequestVerification",
+    "CreateDomainsRequestWebsite",
     "ListDomainsRequestDirection",
     "ListDomainsRequestOrder",
+    "ListDomainsRequestPlatform",
+    "ListDomainsRequestRegistration",
     "ListDomainsRequestStatus",
+    "ListDomainsRequestVerification",
+    "ListDomainsRequestWebsite",
     "ListDomainsResponse",
     "ListDomainsResponsePageInfo",
+    "UpdateDomainsRequestRegistration",
+    "UpdateDomainsRequestVerification",
+    "UpdateDomainsRequestWebsite",
 ]

@@ -3,5 +3,12 @@
 import typing
 
 AccountPaymentControlsUndatedPendingReason = typing.Union[
-    typing.Literal["kyc_incomplete", "pending_information_request", "withdrawals_disabled"], typing.Any
+    typing.Literal[
+        "kyc_incomplete",
+        "pending_information_request",
+        "update_payout_profile",
+        "compliance_review",
+        "withdrawals_disabled",
+    ],
+    typing.Any,
 ]

@@ -3,15 +3,5 @@
 import typing
 
 ListDomainsRequestStatus = typing.Union[
-    typing.Literal[
-        "pending_verification",
-        "awaiting_payment",
-        "registering",
-        "provisioning",
-        "active",
-        "action_required",
-        "deleting",
-        "expired",
-    ],
-    typing.Any,
+    typing.Literal["idle", "pending", "ready", "action_required", "releasing"], typing.Any
 ]
