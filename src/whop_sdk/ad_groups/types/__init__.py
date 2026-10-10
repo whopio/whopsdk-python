@@ -45,6 +45,18 @@ if typing.TYPE_CHECKING:
     from .list_ad_groups_request_status import ListAdGroupsRequestStatus
     from .list_ad_groups_response import ListAdGroupsResponse
     from .list_ad_groups_response_page_info import ListAdGroupsResponsePageInfo
+    from .post_ad_group_updated_payload import PostAdGroupUpdatedPayload
+    from .post_ad_group_updated_payload_api_version import PostAdGroupUpdatedPayloadApiVersion
+    from .post_ad_group_updated_payload_data import PostAdGroupUpdatedPayloadData
+    from .post_ad_group_updated_payload_data_bid_type import PostAdGroupUpdatedPayloadDataBidType
+    from .post_ad_group_updated_payload_data_budget_type import PostAdGroupUpdatedPayloadDataBudgetType
+    from .post_ad_group_updated_payload_data_conversion_location import PostAdGroupUpdatedPayloadDataConversionLocation
+    from .post_ad_group_updated_payload_data_delivery_status import PostAdGroupUpdatedPayloadDataDeliveryStatus
+    from .post_ad_group_updated_payload_data_message_apps_item import PostAdGroupUpdatedPayloadDataMessageAppsItem
+    from .post_ad_group_updated_payload_data_optimization_goal import PostAdGroupUpdatedPayloadDataOptimizationGoal
+    from .post_ad_group_updated_payload_data_platform import PostAdGroupUpdatedPayloadDataPlatform
+    from .post_ad_group_updated_payload_data_status import PostAdGroupUpdatedPayloadDataStatus
+    from .post_ad_group_updated_payload_type import PostAdGroupUpdatedPayloadType
     from .retrieve_ad_groups_request_attribution_model import RetrieveAdGroupsRequestAttributionModel
     from .search_targeting_options_ad_groups_request_location_types_item import (
         SearchTargetingOptionsAdGroupsRequestLocationTypesItem,
@@ -117,6 +129,18 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListAdGroupsRequestStatus": ".list_ad_groups_request_status",
     "ListAdGroupsResponse": ".list_ad_groups_response",
     "ListAdGroupsResponsePageInfo": ".list_ad_groups_response_page_info",
+    "PostAdGroupUpdatedPayload": ".post_ad_group_updated_payload",
+    "PostAdGroupUpdatedPayloadApiVersion": ".post_ad_group_updated_payload_api_version",
+    "PostAdGroupUpdatedPayloadData": ".post_ad_group_updated_payload_data",
+    "PostAdGroupUpdatedPayloadDataBidType": ".post_ad_group_updated_payload_data_bid_type",
+    "PostAdGroupUpdatedPayloadDataBudgetType": ".post_ad_group_updated_payload_data_budget_type",
+    "PostAdGroupUpdatedPayloadDataConversionLocation": ".post_ad_group_updated_payload_data_conversion_location",
+    "PostAdGroupUpdatedPayloadDataDeliveryStatus": ".post_ad_group_updated_payload_data_delivery_status",
+    "PostAdGroupUpdatedPayloadDataMessageAppsItem": ".post_ad_group_updated_payload_data_message_apps_item",
+    "PostAdGroupUpdatedPayloadDataOptimizationGoal": ".post_ad_group_updated_payload_data_optimization_goal",
+    "PostAdGroupUpdatedPayloadDataPlatform": ".post_ad_group_updated_payload_data_platform",
+    "PostAdGroupUpdatedPayloadDataStatus": ".post_ad_group_updated_payload_data_status",
+    "PostAdGroupUpdatedPayloadType": ".post_ad_group_updated_payload_type",
     "RetrieveAdGroupsRequestAttributionModel": ".retrieve_ad_groups_request_attribution_model",
     "SearchTargetingOptionsAdGroupsRequestLocationTypesItem": ".search_targeting_options_ad_groups_request_location_types_item",
     "SearchTargetingOptionsAdGroupsRequestPlatform": ".search_targeting_options_ad_groups_request_platform",
@@ -201,6 +225,18 @@ __all__ = [
     "ListAdGroupsRequestStatus",
     "ListAdGroupsResponse",
     "ListAdGroupsResponsePageInfo",
+    "PostAdGroupUpdatedPayload",
+    "PostAdGroupUpdatedPayloadApiVersion",
+    "PostAdGroupUpdatedPayloadData",
+    "PostAdGroupUpdatedPayloadDataBidType",
+    "PostAdGroupUpdatedPayloadDataBudgetType",
+    "PostAdGroupUpdatedPayloadDataConversionLocation",
+    "PostAdGroupUpdatedPayloadDataDeliveryStatus",
+    "PostAdGroupUpdatedPayloadDataMessageAppsItem",
+    "PostAdGroupUpdatedPayloadDataOptimizationGoal",
+    "PostAdGroupUpdatedPayloadDataPlatform",
+    "PostAdGroupUpdatedPayloadDataStatus",
+    "PostAdGroupUpdatedPayloadType",
     "RetrieveAdGroupsRequestAttributionModel",
     "SearchTargetingOptionsAdGroupsRequestLocationTypesItem",
     "SearchTargetingOptionsAdGroupsRequestPlatform",
