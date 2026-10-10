@@ -70,7 +70,7 @@ class AppListItem(UniversalBaseModel):
     Subdomain identifier for the app's proxied URL, forming https://{domain_id}.apps.whop.com.
     """
 
-    domains: typing.Optional[typing.List[AppDomain]] = None
+    domains: typing.List[AppDomain]
     experience_path: typing.Optional[str] = pydantic.Field(default=None)
     """
     URL path for the member-facing hub view, or `null` when not configured.
@@ -79,6 +79,7 @@ class AppListItem(UniversalBaseModel):
     hosted_url: typing.Optional[str] = pydantic.Field(default=None)
     """
     Full URL where the app's hosted web build is served, or `null` if no route is claimed.
+    DEPRECATED: Read `domains` instead.
     """
 
     icon: AppIcon = pydantic.Field()
@@ -106,10 +107,10 @@ class AppListItem(UniversalBaseModel):
     Full origin URL of the app's proxied domain, for example https://ab1c2d3e4f.apps.whop.com.
     """
 
-    previous_hosted_urls: typing.List[str]
     route: typing.Optional[str] = pydantic.Field(default=None)
     """
     Claimed subdomain route where hosted web builds are served (`myapp` for myapp.whop.site), or `null` if no route is claimed.
+    DEPRECATED: Read `domains` instead.
     """
 
     skills_path: typing.Optional[str] = pydantic.Field(default=None)

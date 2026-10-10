@@ -48,7 +48,7 @@ class ClaimLinksClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-09-1",
+            "2026-10-09-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -81,7 +81,7 @@ class ClaimLinksClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-09-1",
+            "2026-10-09-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -134,7 +134,7 @@ class AsyncClaimLinksClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-09-1",
+            "2026-10-09-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -177,7 +177,7 @@ class AsyncClaimLinksClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-09-1",
+            "2026-10-09-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
