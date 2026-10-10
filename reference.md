@@ -42692,7 +42692,7 @@ client.trades.retrieve(
 <dl>
 <dd>
 
-Lists an account's transfers.
+Lists transfers visible to the caller. Optional account filters narrow the results.
 </dd>
 </dl>
 </dd>
@@ -42731,7 +42731,7 @@ client.transfers.list()
 <dl>
 <dd>
 
-**origin_id:** `typing.Optional[str]` — Filter to transfers sent from this account. Provide this or destination_id.
+**origin_id:** `typing.Optional[str]` — Filter to transfers sent from this account.
     
 </dd>
 </dl>
@@ -42739,7 +42739,7 @@ client.transfers.list()
 <dl>
 <dd>
 
-**destination_id:** `typing.Optional[str]` — Filter to transfers received by this account. Provide this or origin_id.
+**destination_id:** `typing.Optional[str]` — Filter to transfers received by this account.
     
 </dd>
 </dl>
@@ -42852,6 +42852,7 @@ Moves money between accounts, or into a claim link anyone with the URL can redee
 ```python
 from whop_sdk import Whop
 from whop_sdk.environment import WhopEnvironment
+from whop_sdk.transfers import CreateTransfersRequestBody_Balance
 
 client = Whop(
     token="<token>",
@@ -42859,8 +42860,12 @@ client = Whop(
 )
 
 client.transfers.create(
-    amount=25,
-    origin_id="biz_xxxxxxxxxxxxxx",
+    request=CreateTransfersRequestBody_Balance(
+        amount=25,
+        currency="usd",
+        destination_id="user_xxxxxxxxxxxxxx",
+        origin_id="biz_xxxxxxxxxxxxxx",
+    ),
 )
 
 ```
@@ -42877,95 +42882,7 @@ client.transfers.create(
 <dl>
 <dd>
 
-**amount:** `float` — The amount to move, in the transfer currency. For example 25.00.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**origin_id:** `str` — The account sending the funds. A user ID (user_xxx), account ID (biz_xxx), or ledger account ID (ldgr_xxx).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**currency:** `typing.Optional[str]` — Currency, such as `usd`. Required for ledger transfers.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**destination_id:** `typing.Optional[str]` — The recipient. Required for ledger and wallet_send (a user_/biz_/ldgr_ ID, or — for sends — an email). Omit for claim_link.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**expires_at:** `typing.Optional[datetime.datetime]` — claim_link only. Link expiry as an ISO 8601 timestamp. Defaults to 24 hours from creation.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**feed_id:** `typing.Optional[str]` — Ledger transfers only. The feed the transfer was initiated from. Given with `feed_type`, the payment receipt posts into that feed instead of a direct message.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**feed_type:** `typing.Optional[CreateTransfersRequestFeedType]` — Ledger transfers only. The type of the feed named by `feed_id`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**idempotence_key:** `typing.Optional[str]` — Ledger transfers and wallet sends. A unique key that makes retries safe. Retrying with the same key returns the original transfer, or attaches to the original wallet send, instead of moving money twice.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**metadata:** `typing.Optional[typing.Dict[str, typing.Any]]` — Ledger transfers only. Custom key-value pairs attached to the transfer. Max 50 keys, 100 chars per key, 500 chars per string value.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**notes:** `typing.Optional[str]` — Ledger transfers only. A short note describing the transfer.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**redeemable_count:** `typing.Optional[int]` — claim_link only. How many different users can claim the link. Defaults to 1.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**type:** `typing.Optional[CreateTransfersRequestType]` — The kind of money movement, which decides what comes back. Defaults to ledger. `ledger` moves credit between two Whop balances and returns a `transfer`; `wallet_send` sends USDT from the origin account's Ethereum wallet and returns a `send`; `claim_link` funds a shareable link anyone with the URL can redeem and returns a `claim_link`. A `ledger` transfer from a stablecoin-rails account settles on-chain when covered, and still returns a `transfer`.
+**request:** `CreateTransfersRequestBody` 
     
 </dd>
 </dl>

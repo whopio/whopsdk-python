@@ -8,12 +8,10 @@ import typing
 import pydantic
 import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ...types.money import Money
 from .create_transfers_response_claim_link_sender import CreateTransfersResponseClaimLinkSender
 from .create_transfers_response_claim_link_source import CreateTransfersResponseClaimLinkSource
 from .create_transfers_response_claim_link_status import CreateTransfersResponseClaimLinkStatus
-from .create_transfers_response_send_destination import CreateTransfersResponseSendDestination
-from .create_transfers_response_send_source import CreateTransfersResponseSendSource
-from .create_transfers_response_transfer_created_by_user import CreateTransfersResponseTransferCreatedByUser
 from .create_transfers_response_transfer_destination import CreateTransfersResponseTransferDestination
 from .create_transfers_response_transfer_origin import CreateTransfersResponseTransferOrigin
 from .create_transfers_response_transfer_status import CreateTransfersResponseTransferStatus
@@ -21,40 +19,21 @@ from .create_transfers_response_transfer_status import CreateTransfersResponseTr
 
 class CreateTransfersResponse_Transfer(UniversalBaseModel):
     object: typing.Literal["transfer"] = "transfer"
-    amount: float
+    amount: typing.Optional[Money] = None
     created_at: dt.datetime
-    created_by_user: typing.Optional[CreateTransfersResponseTransferCreatedByUser] = None
-    currency: str
-    destination: CreateTransfersResponseTransferDestination
-    destination_ledger_account_id: str
+    destination: typing.Optional[CreateTransfersResponseTransferDestination] = None
     failed_at: typing.Optional[dt.datetime] = None
     failure_code: typing.Optional[str] = None
     failure_reason: typing.Optional[str] = None
-    fee_amount: typing.Optional[float] = None
+    fee: typing.Optional[Money] = None
     id: str
-    metadata: typing.Optional[typing.Dict[str, typing.Any]] = None
+    metadata: typing.Dict[str, typing.Any]
     notes: typing.Optional[str] = None
-    origin: CreateTransfersResponseTransferOrigin
-    origin_ledger_account_id: str
+    origin: typing.Optional[CreateTransfersResponseTransferOrigin] = None
     status: CreateTransfersResponseTransferStatus
-
-    if IS_PYDANTIC_V2:
-        model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
-    else:
-
-        class Config:
-            frozen = True
-            smart_union = True
-            extra = pydantic.Extra.allow
-
-
-class CreateTransfersResponse_Send(UniversalBaseModel):
-    object: typing.Literal["send"] = "send"
-    amount: str
-    currency: str
-    destination: CreateTransfersResponseSendDestination
-    source: CreateTransfersResponseSendSource
-    tx_hash: str
+    status_changed_at: typing.Optional[dt.datetime] = None
+    succeeded_at: typing.Optional[dt.datetime] = None
+    tracking_url: str
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
@@ -94,6 +73,6 @@ class CreateTransfersResponse_ClaimLink(UniversalBaseModel):
 
 
 CreateTransfersResponse = typing_extensions.Annotated[
-    typing.Union[CreateTransfersResponse_Transfer, CreateTransfersResponse_Send, CreateTransfersResponse_ClaimLink],
+    typing.Union[CreateTransfersResponse_Transfer, CreateTransfersResponse_ClaimLink],
     pydantic.Field(discriminator="object"),
 ]

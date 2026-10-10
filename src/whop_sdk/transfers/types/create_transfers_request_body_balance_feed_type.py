@@ -2,6 +2,6 @@
 
 import typing
 
-CreateTransfersRequestFeedType = typing.Union[
+CreateTransfersRequestBodyBalanceFeedType = typing.Union[
     typing.Literal["dms_feed", "chat_feed", "forum_feed", "livestream_feed", "universal_post", "user"], typing.Any
 ]
