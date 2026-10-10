@@ -2,4 +2,6 @@
 
 import typing
 
-PaymentQuoteLocatedBy = typing.Union[typing.Literal["shipping_address", "address", "ip_address"], typing.Any]
+PaymentQuoteLocatedBy = typing.Union[
+    typing.Literal["shipping_address", "address", "presentment_country", "ip_address"], typing.Any
+]
