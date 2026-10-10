@@ -5,19 +5,21 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .list_transfers_response_data_item_created_by_user import ListTransfersResponseDataItemCreatedByUser
+from ...types.money import Money
+from .list_transfers_response_data_item_destination import ListTransfersResponseDataItemDestination
 from .list_transfers_response_data_item_object import ListTransfersResponseDataItemObject
+from .list_transfers_response_data_item_origin import ListTransfersResponseDataItemOrigin
 from .list_transfers_response_data_item_status import ListTransfersResponseDataItemStatus
 
 
 class ListTransfersResponseDataItem(UniversalBaseModel):
     """
-    A transfer of credit between two ledger accounts.
+    A transfer between Whop accounts or users.
     """
 
-    amount: float = pydantic.Field()
+    amount: typing.Optional[Money] = pydantic.Field(default=None)
     """
-    Transfer amount.
+    Amount credited to the recipient. Null while the transfer has not succeeded.
     """
 
     created_at: dt.datetime = pydantic.Field()
@@ -25,39 +27,29 @@ class ListTransfersResponseDataItem(UniversalBaseModel):
     When the transfer was created.
     """
 
-    created_by_user: typing.Optional[ListTransfersResponseDataItemCreatedByUser] = pydantic.Field(default=None)
+    destination: typing.Optional[ListTransfersResponseDataItemDestination] = pydantic.Field(default=None)
     """
-    The user who initiated the transfer, such as the team member who sent a manual payout. Null if the creator is unavailable.
-    """
-
-    currency: str = pydantic.Field()
-    """
-    Transfer currency.
-    """
-
-    destination_ledger_account_id: str = pydantic.Field()
-    """
-    Destination ledger account ID.
+    Business account or user receiving the transfer.
     """
 
     failed_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
-    When the transfer failed, as an ISO 8601 timestamp. Null unless the transfer has failed.
+    Recorded failure time. Null unless the transfer has failed.
     """
 
     failure_code: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Machine-readable code for why the transfer failed. Null unless the transfer has failed.
+    Machine-readable failure code. Null unless the transfer has failed.
     """
 
     failure_reason: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Human-readable explanation of why the transfer failed. Null unless the transfer has failed.
+    Failure explanation. Null unless the transfer has failed.
     """
 
-    fee_amount: typing.Optional[float] = pydantic.Field(default=None)
+    fee: typing.Optional[Money] = pydantic.Field(default=None)
     """
-    Fee charged for the transfer.
+    All applicable transfer fees, including platform markup. Null when the authoritative total is unavailable.
     """
 
     id: str = pydantic.Field()
@@ -65,7 +57,7 @@ class ListTransfersResponseDataItem(UniversalBaseModel):
     Transfer ID.
     """
 
-    metadata: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
+    metadata: typing.Dict[str, typing.Any] = pydantic.Field()
     """
     Custom metadata attached to the transfer.
     """
@@ -80,14 +72,29 @@ class ListTransfersResponseDataItem(UniversalBaseModel):
     The object type.
     """
 
-    origin_ledger_account_id: str = pydantic.Field()
+    origin: typing.Optional[ListTransfersResponseDataItemOrigin] = pydantic.Field(default=None)
     """
-    Source ledger account ID.
+    Business account or user sending the transfer.
     """
 
     status: ListTransfersResponseDataItemStatus = pydantic.Field()
     """
-    Transfer status. `processing` means the on-chain leg is still executing — subscribe to `transfer.completed` and `transfer.failed`, or retrieve the transfer to check its current status. A `failed` transfer may be retried under the same ID and later resolve to `succeeded`.
+    Current transfer status.
+    """
+
+    status_changed_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
+    """
+    Recorded time of the current transition. Null when the historical transition time is unknown.
+    """
+
+    succeeded_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
+    """
+    Recorded success time. Null when unknown.
+    """
+
+    tracking_url: str = pydantic.Field()
+    """
+    Tracking page for the transfer. Viewing it requires sign-in and access to the transfer.
     """
 
     if IS_PYDANTIC_V2:

@@ -4,22 +4,32 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .list_transfers_response_data_item_origin_object import ListTransfersResponseDataItemOriginObject
 
 
-class PostTransferFailedPayloadDataOriginUser(UniversalBaseModel):
+class ListTransfersResponseDataItemOrigin(UniversalBaseModel):
+    """
+    Business account or user sending the transfer.
+    """
+
     id: str = pydantic.Field()
     """
-    User ID.
+    Account or user ID.
+    """
+
+    logo_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Business logo or user avatar URL. Null when no image is available.
     """
 
     name: typing.Optional[str] = pydantic.Field(default=None)
     """
-    User display name.
+    Business or user display name.
     """
 
-    username: typing.Optional[str] = pydantic.Field(default=None)
+    object: ListTransfersResponseDataItemOriginObject = pydantic.Field()
     """
-    User's username.
+    Whether the profile is a business account or a user.
     """
 
     if IS_PYDANTIC_V2:

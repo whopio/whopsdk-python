@@ -28,7 +28,7 @@ class PostTransferCreatedPayload(UniversalBaseModel):
 
     data: PostTransferCreatedPayloadData = pydantic.Field()
     """
-    A transfer of credit between two ledger accounts.
+    A transfer between Whop accounts or users.
     """
 
     id: str = pydantic.Field()

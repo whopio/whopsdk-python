@@ -6,12 +6,17 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .create_transfers_request_feed_type import CreateTransfersRequestFeedType
-    from .create_transfers_request_type import CreateTransfersRequestType
+    from .create_transfers_request_body import (
+        CreateTransfersRequestBody,
+        CreateTransfersRequestBody_Balance,
+        CreateTransfersRequestBody_ClaimLink,
+    )
+    from .create_transfers_request_body_balance import CreateTransfersRequestBodyBalance
+    from .create_transfers_request_body_balance_feed_type import CreateTransfersRequestBodyBalanceFeedType
+    from .create_transfers_request_body_claim_link import CreateTransfersRequestBodyClaimLink
     from .create_transfers_response import (
         CreateTransfersResponse,
         CreateTransfersResponse_ClaimLink,
-        CreateTransfersResponse_Send,
         CreateTransfersResponse_Transfer,
     )
     from .create_transfers_response_claim_link import CreateTransfersResponseClaimLink
@@ -24,27 +29,11 @@ if typing.TYPE_CHECKING:
     from .create_transfers_response_claim_link_sender_user import CreateTransfersResponseClaimLinkSenderUser
     from .create_transfers_response_claim_link_source import CreateTransfersResponseClaimLinkSource
     from .create_transfers_response_claim_link_status import CreateTransfersResponseClaimLinkStatus
-    from .create_transfers_response_send import CreateTransfersResponseSend
-    from .create_transfers_response_send_destination import CreateTransfersResponseSendDestination
-    from .create_transfers_response_send_source import CreateTransfersResponseSendSource
     from .create_transfers_response_transfer import CreateTransfersResponseTransfer
-    from .create_transfers_response_transfer_created_by_user import CreateTransfersResponseTransferCreatedByUser
-    from .create_transfers_response_transfer_destination import (
-        CreateTransfersResponseTransferDestination,
-        CreateTransfersResponseTransferDestination_Company,
-        CreateTransfersResponseTransferDestination_User,
-    )
-    from .create_transfers_response_transfer_destination_company import (
-        CreateTransfersResponseTransferDestinationCompany,
-    )
-    from .create_transfers_response_transfer_destination_user import CreateTransfersResponseTransferDestinationUser
-    from .create_transfers_response_transfer_origin import (
-        CreateTransfersResponseTransferOrigin,
-        CreateTransfersResponseTransferOrigin_Company,
-        CreateTransfersResponseTransferOrigin_User,
-    )
-    from .create_transfers_response_transfer_origin_company import CreateTransfersResponseTransferOriginCompany
-    from .create_transfers_response_transfer_origin_user import CreateTransfersResponseTransferOriginUser
+    from .create_transfers_response_transfer_destination import CreateTransfersResponseTransferDestination
+    from .create_transfers_response_transfer_destination_object import CreateTransfersResponseTransferDestinationObject
+    from .create_transfers_response_transfer_origin import CreateTransfersResponseTransferOrigin
+    from .create_transfers_response_transfer_origin_object import CreateTransfersResponseTransferOriginObject
     from .create_transfers_response_transfer_status import CreateTransfersResponseTransferStatus
     from .list_recipients_transfers_response import ListRecipientsTransfersResponse
     from .list_recipients_transfers_response_data_item import (
@@ -59,96 +48,59 @@ if typing.TYPE_CHECKING:
     from .list_transfers_request_order import ListTransfersRequestOrder
     from .list_transfers_response import ListTransfersResponse
     from .list_transfers_response_data_item import ListTransfersResponseDataItem
-    from .list_transfers_response_data_item_created_by_user import ListTransfersResponseDataItemCreatedByUser
+    from .list_transfers_response_data_item_destination import ListTransfersResponseDataItemDestination
+    from .list_transfers_response_data_item_destination_object import ListTransfersResponseDataItemDestinationObject
     from .list_transfers_response_data_item_object import ListTransfersResponseDataItemObject
+    from .list_transfers_response_data_item_origin import ListTransfersResponseDataItemOrigin
+    from .list_transfers_response_data_item_origin_object import ListTransfersResponseDataItemOriginObject
     from .list_transfers_response_data_item_status import ListTransfersResponseDataItemStatus
     from .list_transfers_response_page_info import ListTransfersResponsePageInfo
     from .post_transfer_completed_payload import PostTransferCompletedPayload
     from .post_transfer_completed_payload_api_version import PostTransferCompletedPayloadApiVersion
     from .post_transfer_completed_payload_data import PostTransferCompletedPayloadData
-    from .post_transfer_completed_payload_data_created_by_user import PostTransferCompletedPayloadDataCreatedByUser
-    from .post_transfer_completed_payload_data_destination import (
-        PostTransferCompletedPayloadDataDestination,
-        PostTransferCompletedPayloadDataDestination_Company,
-        PostTransferCompletedPayloadDataDestination_User,
+    from .post_transfer_completed_payload_data_destination import PostTransferCompletedPayloadDataDestination
+    from .post_transfer_completed_payload_data_destination_object import (
+        PostTransferCompletedPayloadDataDestinationObject,
     )
-    from .post_transfer_completed_payload_data_destination_company import (
-        PostTransferCompletedPayloadDataDestinationCompany,
-    )
-    from .post_transfer_completed_payload_data_destination_user import PostTransferCompletedPayloadDataDestinationUser
     from .post_transfer_completed_payload_data_object import PostTransferCompletedPayloadDataObject
-    from .post_transfer_completed_payload_data_origin import (
-        PostTransferCompletedPayloadDataOrigin,
-        PostTransferCompletedPayloadDataOrigin_Company,
-        PostTransferCompletedPayloadDataOrigin_User,
-    )
-    from .post_transfer_completed_payload_data_origin_company import PostTransferCompletedPayloadDataOriginCompany
-    from .post_transfer_completed_payload_data_origin_user import PostTransferCompletedPayloadDataOriginUser
+    from .post_transfer_completed_payload_data_origin import PostTransferCompletedPayloadDataOrigin
+    from .post_transfer_completed_payload_data_origin_object import PostTransferCompletedPayloadDataOriginObject
     from .post_transfer_completed_payload_data_status import PostTransferCompletedPayloadDataStatus
     from .post_transfer_completed_payload_type import PostTransferCompletedPayloadType
     from .post_transfer_created_payload import PostTransferCreatedPayload
     from .post_transfer_created_payload_api_version import PostTransferCreatedPayloadApiVersion
     from .post_transfer_created_payload_data import PostTransferCreatedPayloadData
-    from .post_transfer_created_payload_data_created_by_user import PostTransferCreatedPayloadDataCreatedByUser
-    from .post_transfer_created_payload_data_destination import (
-        PostTransferCreatedPayloadDataDestination,
-        PostTransferCreatedPayloadDataDestination_Company,
-        PostTransferCreatedPayloadDataDestination_User,
-    )
-    from .post_transfer_created_payload_data_destination_company import PostTransferCreatedPayloadDataDestinationCompany
-    from .post_transfer_created_payload_data_destination_user import PostTransferCreatedPayloadDataDestinationUser
+    from .post_transfer_created_payload_data_destination import PostTransferCreatedPayloadDataDestination
+    from .post_transfer_created_payload_data_destination_object import PostTransferCreatedPayloadDataDestinationObject
     from .post_transfer_created_payload_data_object import PostTransferCreatedPayloadDataObject
-    from .post_transfer_created_payload_data_origin import (
-        PostTransferCreatedPayloadDataOrigin,
-        PostTransferCreatedPayloadDataOrigin_Company,
-        PostTransferCreatedPayloadDataOrigin_User,
-    )
-    from .post_transfer_created_payload_data_origin_company import PostTransferCreatedPayloadDataOriginCompany
-    from .post_transfer_created_payload_data_origin_user import PostTransferCreatedPayloadDataOriginUser
+    from .post_transfer_created_payload_data_origin import PostTransferCreatedPayloadDataOrigin
+    from .post_transfer_created_payload_data_origin_object import PostTransferCreatedPayloadDataOriginObject
     from .post_transfer_created_payload_data_status import PostTransferCreatedPayloadDataStatus
     from .post_transfer_created_payload_type import PostTransferCreatedPayloadType
     from .post_transfer_failed_payload import PostTransferFailedPayload
     from .post_transfer_failed_payload_api_version import PostTransferFailedPayloadApiVersion
     from .post_transfer_failed_payload_data import PostTransferFailedPayloadData
-    from .post_transfer_failed_payload_data_created_by_user import PostTransferFailedPayloadDataCreatedByUser
-    from .post_transfer_failed_payload_data_destination import (
-        PostTransferFailedPayloadDataDestination,
-        PostTransferFailedPayloadDataDestination_Company,
-        PostTransferFailedPayloadDataDestination_User,
-    )
-    from .post_transfer_failed_payload_data_destination_company import PostTransferFailedPayloadDataDestinationCompany
-    from .post_transfer_failed_payload_data_destination_user import PostTransferFailedPayloadDataDestinationUser
+    from .post_transfer_failed_payload_data_destination import PostTransferFailedPayloadDataDestination
+    from .post_transfer_failed_payload_data_destination_object import PostTransferFailedPayloadDataDestinationObject
     from .post_transfer_failed_payload_data_object import PostTransferFailedPayloadDataObject
-    from .post_transfer_failed_payload_data_origin import (
-        PostTransferFailedPayloadDataOrigin,
-        PostTransferFailedPayloadDataOrigin_Company,
-        PostTransferFailedPayloadDataOrigin_User,
-    )
-    from .post_transfer_failed_payload_data_origin_company import PostTransferFailedPayloadDataOriginCompany
-    from .post_transfer_failed_payload_data_origin_user import PostTransferFailedPayloadDataOriginUser
+    from .post_transfer_failed_payload_data_origin import PostTransferFailedPayloadDataOrigin
+    from .post_transfer_failed_payload_data_origin_object import PostTransferFailedPayloadDataOriginObject
     from .post_transfer_failed_payload_data_status import PostTransferFailedPayloadDataStatus
     from .post_transfer_failed_payload_type import PostTransferFailedPayloadType
     from .retrieve_transfers_response import RetrieveTransfersResponse
-    from .retrieve_transfers_response_created_by_user import RetrieveTransfersResponseCreatedByUser
-    from .retrieve_transfers_response_destination import (
-        RetrieveTransfersResponseDestination,
-        RetrieveTransfersResponseDestination_Company,
-        RetrieveTransfersResponseDestination_User,
-    )
-    from .retrieve_transfers_response_destination_company import RetrieveTransfersResponseDestinationCompany
-    from .retrieve_transfers_response_destination_user import RetrieveTransfersResponseDestinationUser
+    from .retrieve_transfers_response_destination import RetrieveTransfersResponseDestination
+    from .retrieve_transfers_response_destination_object import RetrieveTransfersResponseDestinationObject
     from .retrieve_transfers_response_object import RetrieveTransfersResponseObject
-    from .retrieve_transfers_response_origin import (
-        RetrieveTransfersResponseOrigin,
-        RetrieveTransfersResponseOrigin_Company,
-        RetrieveTransfersResponseOrigin_User,
-    )
-    from .retrieve_transfers_response_origin_company import RetrieveTransfersResponseOriginCompany
-    from .retrieve_transfers_response_origin_user import RetrieveTransfersResponseOriginUser
+    from .retrieve_transfers_response_origin import RetrieveTransfersResponseOrigin
+    from .retrieve_transfers_response_origin_object import RetrieveTransfersResponseOriginObject
     from .retrieve_transfers_response_status import RetrieveTransfersResponseStatus
 _dynamic_imports: typing.Dict[str, str] = {
-    "CreateTransfersRequestFeedType": ".create_transfers_request_feed_type",
-    "CreateTransfersRequestType": ".create_transfers_request_type",
+    "CreateTransfersRequestBody": ".create_transfers_request_body",
+    "CreateTransfersRequestBodyBalance": ".create_transfers_request_body_balance",
+    "CreateTransfersRequestBodyBalanceFeedType": ".create_transfers_request_body_balance_feed_type",
+    "CreateTransfersRequestBodyClaimLink": ".create_transfers_request_body_claim_link",
+    "CreateTransfersRequestBody_Balance": ".create_transfers_request_body",
+    "CreateTransfersRequestBody_ClaimLink": ".create_transfers_request_body",
     "CreateTransfersResponse": ".create_transfers_response",
     "CreateTransfersResponseClaimLink": ".create_transfers_response_claim_link",
     "CreateTransfersResponseClaimLinkSender": ".create_transfers_response_claim_link_sender",
@@ -158,24 +110,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateTransfersResponseClaimLinkSender_User": ".create_transfers_response_claim_link_sender",
     "CreateTransfersResponseClaimLinkSource": ".create_transfers_response_claim_link_source",
     "CreateTransfersResponseClaimLinkStatus": ".create_transfers_response_claim_link_status",
-    "CreateTransfersResponseSend": ".create_transfers_response_send",
-    "CreateTransfersResponseSendDestination": ".create_transfers_response_send_destination",
-    "CreateTransfersResponseSendSource": ".create_transfers_response_send_source",
     "CreateTransfersResponseTransfer": ".create_transfers_response_transfer",
-    "CreateTransfersResponseTransferCreatedByUser": ".create_transfers_response_transfer_created_by_user",
     "CreateTransfersResponseTransferDestination": ".create_transfers_response_transfer_destination",
-    "CreateTransfersResponseTransferDestinationCompany": ".create_transfers_response_transfer_destination_company",
-    "CreateTransfersResponseTransferDestinationUser": ".create_transfers_response_transfer_destination_user",
-    "CreateTransfersResponseTransferDestination_Company": ".create_transfers_response_transfer_destination",
-    "CreateTransfersResponseTransferDestination_User": ".create_transfers_response_transfer_destination",
+    "CreateTransfersResponseTransferDestinationObject": ".create_transfers_response_transfer_destination_object",
     "CreateTransfersResponseTransferOrigin": ".create_transfers_response_transfer_origin",
-    "CreateTransfersResponseTransferOriginCompany": ".create_transfers_response_transfer_origin_company",
-    "CreateTransfersResponseTransferOriginUser": ".create_transfers_response_transfer_origin_user",
-    "CreateTransfersResponseTransferOrigin_Company": ".create_transfers_response_transfer_origin",
-    "CreateTransfersResponseTransferOrigin_User": ".create_transfers_response_transfer_origin",
+    "CreateTransfersResponseTransferOriginObject": ".create_transfers_response_transfer_origin_object",
     "CreateTransfersResponseTransferStatus": ".create_transfers_response_transfer_status",
     "CreateTransfersResponse_ClaimLink": ".create_transfers_response",
-    "CreateTransfersResponse_Send": ".create_transfers_response",
     "CreateTransfersResponse_Transfer": ".create_transfers_response",
     "ListRecipientsTransfersResponse": ".list_recipients_transfers_response",
     "ListRecipientsTransfersResponseDataItem": ".list_recipients_transfers_response_data_item",
@@ -188,74 +129,49 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListTransfersRequestOrder": ".list_transfers_request_order",
     "ListTransfersResponse": ".list_transfers_response",
     "ListTransfersResponseDataItem": ".list_transfers_response_data_item",
-    "ListTransfersResponseDataItemCreatedByUser": ".list_transfers_response_data_item_created_by_user",
+    "ListTransfersResponseDataItemDestination": ".list_transfers_response_data_item_destination",
+    "ListTransfersResponseDataItemDestinationObject": ".list_transfers_response_data_item_destination_object",
     "ListTransfersResponseDataItemObject": ".list_transfers_response_data_item_object",
+    "ListTransfersResponseDataItemOrigin": ".list_transfers_response_data_item_origin",
+    "ListTransfersResponseDataItemOriginObject": ".list_transfers_response_data_item_origin_object",
     "ListTransfersResponseDataItemStatus": ".list_transfers_response_data_item_status",
     "ListTransfersResponsePageInfo": ".list_transfers_response_page_info",
     "PostTransferCompletedPayload": ".post_transfer_completed_payload",
     "PostTransferCompletedPayloadApiVersion": ".post_transfer_completed_payload_api_version",
     "PostTransferCompletedPayloadData": ".post_transfer_completed_payload_data",
-    "PostTransferCompletedPayloadDataCreatedByUser": ".post_transfer_completed_payload_data_created_by_user",
     "PostTransferCompletedPayloadDataDestination": ".post_transfer_completed_payload_data_destination",
-    "PostTransferCompletedPayloadDataDestinationCompany": ".post_transfer_completed_payload_data_destination_company",
-    "PostTransferCompletedPayloadDataDestinationUser": ".post_transfer_completed_payload_data_destination_user",
-    "PostTransferCompletedPayloadDataDestination_Company": ".post_transfer_completed_payload_data_destination",
-    "PostTransferCompletedPayloadDataDestination_User": ".post_transfer_completed_payload_data_destination",
+    "PostTransferCompletedPayloadDataDestinationObject": ".post_transfer_completed_payload_data_destination_object",
     "PostTransferCompletedPayloadDataObject": ".post_transfer_completed_payload_data_object",
     "PostTransferCompletedPayloadDataOrigin": ".post_transfer_completed_payload_data_origin",
-    "PostTransferCompletedPayloadDataOriginCompany": ".post_transfer_completed_payload_data_origin_company",
-    "PostTransferCompletedPayloadDataOriginUser": ".post_transfer_completed_payload_data_origin_user",
-    "PostTransferCompletedPayloadDataOrigin_Company": ".post_transfer_completed_payload_data_origin",
-    "PostTransferCompletedPayloadDataOrigin_User": ".post_transfer_completed_payload_data_origin",
+    "PostTransferCompletedPayloadDataOriginObject": ".post_transfer_completed_payload_data_origin_object",
     "PostTransferCompletedPayloadDataStatus": ".post_transfer_completed_payload_data_status",
     "PostTransferCompletedPayloadType": ".post_transfer_completed_payload_type",
     "PostTransferCreatedPayload": ".post_transfer_created_payload",
     "PostTransferCreatedPayloadApiVersion": ".post_transfer_created_payload_api_version",
     "PostTransferCreatedPayloadData": ".post_transfer_created_payload_data",
-    "PostTransferCreatedPayloadDataCreatedByUser": ".post_transfer_created_payload_data_created_by_user",
     "PostTransferCreatedPayloadDataDestination": ".post_transfer_created_payload_data_destination",
-    "PostTransferCreatedPayloadDataDestinationCompany": ".post_transfer_created_payload_data_destination_company",
-    "PostTransferCreatedPayloadDataDestinationUser": ".post_transfer_created_payload_data_destination_user",
-    "PostTransferCreatedPayloadDataDestination_Company": ".post_transfer_created_payload_data_destination",
-    "PostTransferCreatedPayloadDataDestination_User": ".post_transfer_created_payload_data_destination",
+    "PostTransferCreatedPayloadDataDestinationObject": ".post_transfer_created_payload_data_destination_object",
     "PostTransferCreatedPayloadDataObject": ".post_transfer_created_payload_data_object",
     "PostTransferCreatedPayloadDataOrigin": ".post_transfer_created_payload_data_origin",
-    "PostTransferCreatedPayloadDataOriginCompany": ".post_transfer_created_payload_data_origin_company",
-    "PostTransferCreatedPayloadDataOriginUser": ".post_transfer_created_payload_data_origin_user",
-    "PostTransferCreatedPayloadDataOrigin_Company": ".post_transfer_created_payload_data_origin",
-    "PostTransferCreatedPayloadDataOrigin_User": ".post_transfer_created_payload_data_origin",
+    "PostTransferCreatedPayloadDataOriginObject": ".post_transfer_created_payload_data_origin_object",
     "PostTransferCreatedPayloadDataStatus": ".post_transfer_created_payload_data_status",
     "PostTransferCreatedPayloadType": ".post_transfer_created_payload_type",
     "PostTransferFailedPayload": ".post_transfer_failed_payload",
     "PostTransferFailedPayloadApiVersion": ".post_transfer_failed_payload_api_version",
     "PostTransferFailedPayloadData": ".post_transfer_failed_payload_data",
-    "PostTransferFailedPayloadDataCreatedByUser": ".post_transfer_failed_payload_data_created_by_user",
     "PostTransferFailedPayloadDataDestination": ".post_transfer_failed_payload_data_destination",
-    "PostTransferFailedPayloadDataDestinationCompany": ".post_transfer_failed_payload_data_destination_company",
-    "PostTransferFailedPayloadDataDestinationUser": ".post_transfer_failed_payload_data_destination_user",
-    "PostTransferFailedPayloadDataDestination_Company": ".post_transfer_failed_payload_data_destination",
-    "PostTransferFailedPayloadDataDestination_User": ".post_transfer_failed_payload_data_destination",
+    "PostTransferFailedPayloadDataDestinationObject": ".post_transfer_failed_payload_data_destination_object",
     "PostTransferFailedPayloadDataObject": ".post_transfer_failed_payload_data_object",
     "PostTransferFailedPayloadDataOrigin": ".post_transfer_failed_payload_data_origin",
-    "PostTransferFailedPayloadDataOriginCompany": ".post_transfer_failed_payload_data_origin_company",
-    "PostTransferFailedPayloadDataOriginUser": ".post_transfer_failed_payload_data_origin_user",
-    "PostTransferFailedPayloadDataOrigin_Company": ".post_transfer_failed_payload_data_origin",
-    "PostTransferFailedPayloadDataOrigin_User": ".post_transfer_failed_payload_data_origin",
+    "PostTransferFailedPayloadDataOriginObject": ".post_transfer_failed_payload_data_origin_object",
     "PostTransferFailedPayloadDataStatus": ".post_transfer_failed_payload_data_status",
     "PostTransferFailedPayloadType": ".post_transfer_failed_payload_type",
     "RetrieveTransfersResponse": ".retrieve_transfers_response",
-    "RetrieveTransfersResponseCreatedByUser": ".retrieve_transfers_response_created_by_user",
     "RetrieveTransfersResponseDestination": ".retrieve_transfers_response_destination",
-    "RetrieveTransfersResponseDestinationCompany": ".retrieve_transfers_response_destination_company",
-    "RetrieveTransfersResponseDestinationUser": ".retrieve_transfers_response_destination_user",
-    "RetrieveTransfersResponseDestination_Company": ".retrieve_transfers_response_destination",
-    "RetrieveTransfersResponseDestination_User": ".retrieve_transfers_response_destination",
+    "RetrieveTransfersResponseDestinationObject": ".retrieve_transfers_response_destination_object",
     "RetrieveTransfersResponseObject": ".retrieve_transfers_response_object",
     "RetrieveTransfersResponseOrigin": ".retrieve_transfers_response_origin",
-    "RetrieveTransfersResponseOriginCompany": ".retrieve_transfers_response_origin_company",
-    "RetrieveTransfersResponseOriginUser": ".retrieve_transfers_response_origin_user",
-    "RetrieveTransfersResponseOrigin_Company": ".retrieve_transfers_response_origin",
-    "RetrieveTransfersResponseOrigin_User": ".retrieve_transfers_response_origin",
+    "RetrieveTransfersResponseOriginObject": ".retrieve_transfers_response_origin_object",
     "RetrieveTransfersResponseStatus": ".retrieve_transfers_response_status",
 }
 
@@ -282,8 +198,12 @@ def __dir__():
 
 
 __all__ = [
-    "CreateTransfersRequestFeedType",
-    "CreateTransfersRequestType",
+    "CreateTransfersRequestBody",
+    "CreateTransfersRequestBodyBalance",
+    "CreateTransfersRequestBodyBalanceFeedType",
+    "CreateTransfersRequestBodyClaimLink",
+    "CreateTransfersRequestBody_Balance",
+    "CreateTransfersRequestBody_ClaimLink",
     "CreateTransfersResponse",
     "CreateTransfersResponseClaimLink",
     "CreateTransfersResponseClaimLinkSender",
@@ -293,24 +213,13 @@ __all__ = [
     "CreateTransfersResponseClaimLinkSender_User",
     "CreateTransfersResponseClaimLinkSource",
     "CreateTransfersResponseClaimLinkStatus",
-    "CreateTransfersResponseSend",
-    "CreateTransfersResponseSendDestination",
-    "CreateTransfersResponseSendSource",
     "CreateTransfersResponseTransfer",
-    "CreateTransfersResponseTransferCreatedByUser",
     "CreateTransfersResponseTransferDestination",
-    "CreateTransfersResponseTransferDestinationCompany",
-    "CreateTransfersResponseTransferDestinationUser",
-    "CreateTransfersResponseTransferDestination_Company",
-    "CreateTransfersResponseTransferDestination_User",
+    "CreateTransfersResponseTransferDestinationObject",
     "CreateTransfersResponseTransferOrigin",
-    "CreateTransfersResponseTransferOriginCompany",
-    "CreateTransfersResponseTransferOriginUser",
-    "CreateTransfersResponseTransferOrigin_Company",
-    "CreateTransfersResponseTransferOrigin_User",
+    "CreateTransfersResponseTransferOriginObject",
     "CreateTransfersResponseTransferStatus",
     "CreateTransfersResponse_ClaimLink",
-    "CreateTransfersResponse_Send",
     "CreateTransfersResponse_Transfer",
     "ListRecipientsTransfersResponse",
     "ListRecipientsTransfersResponseDataItem",
@@ -323,73 +232,48 @@ __all__ = [
     "ListTransfersRequestOrder",
     "ListTransfersResponse",
     "ListTransfersResponseDataItem",
-    "ListTransfersResponseDataItemCreatedByUser",
+    "ListTransfersResponseDataItemDestination",
+    "ListTransfersResponseDataItemDestinationObject",
     "ListTransfersResponseDataItemObject",
+    "ListTransfersResponseDataItemOrigin",
+    "ListTransfersResponseDataItemOriginObject",
     "ListTransfersResponseDataItemStatus",
     "ListTransfersResponsePageInfo",
     "PostTransferCompletedPayload",
     "PostTransferCompletedPayloadApiVersion",
     "PostTransferCompletedPayloadData",
-    "PostTransferCompletedPayloadDataCreatedByUser",
     "PostTransferCompletedPayloadDataDestination",
-    "PostTransferCompletedPayloadDataDestinationCompany",
-    "PostTransferCompletedPayloadDataDestinationUser",
-    "PostTransferCompletedPayloadDataDestination_Company",
-    "PostTransferCompletedPayloadDataDestination_User",
+    "PostTransferCompletedPayloadDataDestinationObject",
     "PostTransferCompletedPayloadDataObject",
     "PostTransferCompletedPayloadDataOrigin",
-    "PostTransferCompletedPayloadDataOriginCompany",
-    "PostTransferCompletedPayloadDataOriginUser",
-    "PostTransferCompletedPayloadDataOrigin_Company",
-    "PostTransferCompletedPayloadDataOrigin_User",
+    "PostTransferCompletedPayloadDataOriginObject",
     "PostTransferCompletedPayloadDataStatus",
     "PostTransferCompletedPayloadType",
     "PostTransferCreatedPayload",
     "PostTransferCreatedPayloadApiVersion",
     "PostTransferCreatedPayloadData",
-    "PostTransferCreatedPayloadDataCreatedByUser",
     "PostTransferCreatedPayloadDataDestination",
-    "PostTransferCreatedPayloadDataDestinationCompany",
-    "PostTransferCreatedPayloadDataDestinationUser",
-    "PostTransferCreatedPayloadDataDestination_Company",
-    "PostTransferCreatedPayloadDataDestination_User",
+    "PostTransferCreatedPayloadDataDestinationObject",
     "PostTransferCreatedPayloadDataObject",
     "PostTransferCreatedPayloadDataOrigin",
-    "PostTransferCreatedPayloadDataOriginCompany",
-    "PostTransferCreatedPayloadDataOriginUser",
-    "PostTransferCreatedPayloadDataOrigin_Company",
-    "PostTransferCreatedPayloadDataOrigin_User",
+    "PostTransferCreatedPayloadDataOriginObject",
     "PostTransferCreatedPayloadDataStatus",
     "PostTransferCreatedPayloadType",
     "PostTransferFailedPayload",
     "PostTransferFailedPayloadApiVersion",
     "PostTransferFailedPayloadData",
-    "PostTransferFailedPayloadDataCreatedByUser",
     "PostTransferFailedPayloadDataDestination",
-    "PostTransferFailedPayloadDataDestinationCompany",
-    "PostTransferFailedPayloadDataDestinationUser",
-    "PostTransferFailedPayloadDataDestination_Company",
-    "PostTransferFailedPayloadDataDestination_User",
+    "PostTransferFailedPayloadDataDestinationObject",
     "PostTransferFailedPayloadDataObject",
     "PostTransferFailedPayloadDataOrigin",
-    "PostTransferFailedPayloadDataOriginCompany",
-    "PostTransferFailedPayloadDataOriginUser",
-    "PostTransferFailedPayloadDataOrigin_Company",
-    "PostTransferFailedPayloadDataOrigin_User",
+    "PostTransferFailedPayloadDataOriginObject",
     "PostTransferFailedPayloadDataStatus",
     "PostTransferFailedPayloadType",
     "RetrieveTransfersResponse",
-    "RetrieveTransfersResponseCreatedByUser",
     "RetrieveTransfersResponseDestination",
-    "RetrieveTransfersResponseDestinationCompany",
-    "RetrieveTransfersResponseDestinationUser",
-    "RetrieveTransfersResponseDestination_Company",
-    "RetrieveTransfersResponseDestination_User",
+    "RetrieveTransfersResponseDestinationObject",
     "RetrieveTransfersResponseObject",
     "RetrieveTransfersResponseOrigin",
-    "RetrieveTransfersResponseOriginCompany",
-    "RetrieveTransfersResponseOriginUser",
-    "RetrieveTransfersResponseOrigin_Company",
-    "RetrieveTransfersResponseOrigin_User",
+    "RetrieveTransfersResponseOriginObject",
     "RetrieveTransfersResponseStatus",
 ]
