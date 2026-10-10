@@ -76,6 +76,7 @@ UpdateWebhooksRequestEventsItem = typing.Union[
         "ad_campaign.payment_failed",
         "ad_campaign.updated",
         "ad_campaign.events",
+        "ad_group.updated",
         "ad.updated",
         "chat.message.created",
         "chat.reaction.created",
