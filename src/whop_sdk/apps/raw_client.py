@@ -211,6 +211,7 @@ class RawAppsClient:
         account_id: typing.Optional[str] = OMIT,
         app_type: typing.Optional[CreateAppsRequestAppType] = OMIT,
         base_url: typing.Optional[str] = OMIT,
+        domain_id: typing.Optional[str] = OMIT,
         icon: typing.Optional[CreateAppsRequestIcon] = OMIT,
         imported_from_url: typing.Optional[str] = OMIT,
         redirect_uris: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -234,6 +235,9 @@ class RawAppsClient:
         base_url : typing.Optional[str]
             The base production URL where the app is hosted, such as `https://myapp.example.com`.
 
+        domain_id : typing.Optional[str]
+            A domain on the account (`dom_` tag) to serve the app at, such as a whop.site address claimed with `POST /domains`. Required with `template_id`.
+
         icon : typing.Optional[CreateAppsRequestIcon]
             The icon image for the app in PNG, JPEG, or GIF format, referencing an uploaded file: `{ id }` for an existing attachment or `{ direct_upload_id }` for a new direct upload.
 
@@ -244,7 +248,7 @@ class RawAppsClient:
             The whitelisted OAuth callback URLs that users are redirected to after authorizing the app.
 
         route : typing.Optional[str]
-            The subdomain route where the app's hosted web builds are served, such as `myapp` for myapp.whop.site.
+            Deprecated: claim an address with `POST /domains` and pass `domain_id`. The subdomain route where the app's hosted web builds are served, such as `myapp` for myapp.whop.site.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -262,6 +266,7 @@ class RawAppsClient:
                 "account_id": account_id,
                 "app_type": app_type,
                 "base_url": base_url,
+                "domain_id": domain_id,
                 "icon": convert_and_respect_annotation_metadata(
                     object_=icon, annotation=CreateAppsRequestIcon, direction="write"
                 ),
@@ -1175,6 +1180,7 @@ class AsyncRawAppsClient:
         account_id: typing.Optional[str] = OMIT,
         app_type: typing.Optional[CreateAppsRequestAppType] = OMIT,
         base_url: typing.Optional[str] = OMIT,
+        domain_id: typing.Optional[str] = OMIT,
         icon: typing.Optional[CreateAppsRequestIcon] = OMIT,
         imported_from_url: typing.Optional[str] = OMIT,
         redirect_uris: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -1198,6 +1204,9 @@ class AsyncRawAppsClient:
         base_url : typing.Optional[str]
             The base production URL where the app is hosted, such as `https://myapp.example.com`.
 
+        domain_id : typing.Optional[str]
+            A domain on the account (`dom_` tag) to serve the app at, such as a whop.site address claimed with `POST /domains`. Required with `template_id`.
+
         icon : typing.Optional[CreateAppsRequestIcon]
             The icon image for the app in PNG, JPEG, or GIF format, referencing an uploaded file: `{ id }` for an existing attachment or `{ direct_upload_id }` for a new direct upload.
 
@@ -1208,7 +1217,7 @@ class AsyncRawAppsClient:
             The whitelisted OAuth callback URLs that users are redirected to after authorizing the app.
 
         route : typing.Optional[str]
-            The subdomain route where the app's hosted web builds are served, such as `myapp` for myapp.whop.site.
+            Deprecated: claim an address with `POST /domains` and pass `domain_id`. The subdomain route where the app's hosted web builds are served, such as `myapp` for myapp.whop.site.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1226,6 +1235,7 @@ class AsyncRawAppsClient:
                 "account_id": account_id,
                 "app_type": app_type,
                 "base_url": base_url,
+                "domain_id": domain_id,
                 "icon": convert_and_respect_annotation_metadata(
                     object_=icon, annotation=CreateAppsRequestIcon, direction="write"
                 ),

@@ -8704,6 +8704,14 @@ client.apps.create(
 <dl>
 <dd>
 
+**domain_id:** `typing.Optional[str]` — A domain on the account (`dom_` tag) to serve the app at, such as a whop.site address claimed with `POST /domains`. Required with `template_id`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **icon:** `typing.Optional[CreateAppsRequestIcon]` — The icon image for the app in PNG, JPEG, or GIF format, referencing an uploaded file: `{ id }` for an existing attachment or `{ direct_upload_id }` for a new direct upload.
     
 </dd>
@@ -8728,7 +8736,7 @@ client.apps.create(
 <dl>
 <dd>
 
-**route:** `typing.Optional[str]` — The subdomain route where the app's hosted web builds are served, such as `myapp` for myapp.whop.site.
+**route:** `typing.Optional[str]` — Deprecated: claim an address with `POST /domains` and pass `domain_id`. The subdomain route where the app's hosted web builds are served, such as `myapp` for myapp.whop.site.
     
 </dd>
 </dl>

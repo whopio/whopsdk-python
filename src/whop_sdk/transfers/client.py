@@ -98,7 +98,7 @@ class TransfersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-09-1",
+            "2026-10-09-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -147,7 +147,7 @@ class TransfersClient:
         from whop_sdk.transfers import CreateTransfersRequestBody_Balance
 
         client = Whop(
-            "2026-10-09-1",
+            "2026-10-09-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -202,7 +202,7 @@ class TransfersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-09-1",
+            "2026-10-09-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -243,7 +243,7 @@ class TransfersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-09-1",
+            "2026-10-09-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -335,7 +335,7 @@ class AsyncTransfersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-09-1",
+            "2026-10-09-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -393,7 +393,7 @@ class AsyncTransfersClient:
         from whop_sdk.transfers import CreateTransfersRequestBody_Balance
 
         client = AsyncWhop(
-            "2026-10-09-1",
+            "2026-10-09-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -456,7 +456,7 @@ class AsyncTransfersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-09-1",
+            "2026-10-09-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -506,7 +506,7 @@ class AsyncTransfersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-09-1",
+            "2026-10-09-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

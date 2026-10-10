@@ -123,7 +123,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-09-1",
+            "2026-10-09-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -158,6 +158,7 @@ class AppsClient:
         account_id: typing.Optional[str] = OMIT,
         app_type: typing.Optional[CreateAppsRequestAppType] = OMIT,
         base_url: typing.Optional[str] = OMIT,
+        domain_id: typing.Optional[str] = OMIT,
         icon: typing.Optional[CreateAppsRequestIcon] = OMIT,
         imported_from_url: typing.Optional[str] = OMIT,
         redirect_uris: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -181,6 +182,9 @@ class AppsClient:
         base_url : typing.Optional[str]
             The base production URL where the app is hosted, such as `https://myapp.example.com`.
 
+        domain_id : typing.Optional[str]
+            A domain on the account (`dom_` tag) to serve the app at, such as a whop.site address claimed with `POST /domains`. Required with `template_id`.
+
         icon : typing.Optional[CreateAppsRequestIcon]
             The icon image for the app in PNG, JPEG, or GIF format, referencing an uploaded file: `{ id }` for an existing attachment or `{ direct_upload_id }` for a new direct upload.
 
@@ -191,7 +195,7 @@ class AppsClient:
             The whitelisted OAuth callback URLs that users are redirected to after authorizing the app.
 
         route : typing.Optional[str]
-            The subdomain route where the app's hosted web builds are served, such as `myapp` for myapp.whop.site.
+            Deprecated: claim an address with `POST /domains` and pass `domain_id`. The subdomain route where the app's hosted web builds are served, such as `myapp` for myapp.whop.site.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -206,7 +210,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-09-1",
+            "2026-10-09-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -219,6 +223,7 @@ class AppsClient:
             account_id=account_id,
             app_type=app_type,
             base_url=base_url,
+            domain_id=domain_id,
             icon=icon,
             imported_from_url=imported_from_url,
             redirect_uris=redirect_uris,
@@ -249,7 +254,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-09-1",
+            "2026-10-09-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -282,7 +287,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-09-1",
+            "2026-10-09-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -404,7 +409,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-09-1",
+            "2026-10-09-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -466,7 +471,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-09-1",
+            "2026-10-09-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -536,7 +541,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-09-1",
+            "2026-10-09-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -594,7 +599,7 @@ class AppsClient:
         from whop_sdk.apps import UpdatePermissionsAppsRequestRequestedPermissionsItem
 
         client = Whop(
-            "2026-10-09-1",
+            "2026-10-09-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -707,7 +712,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-09-1",
+            "2026-10-09-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -749,6 +754,7 @@ class AsyncAppsClient:
         account_id: typing.Optional[str] = OMIT,
         app_type: typing.Optional[CreateAppsRequestAppType] = OMIT,
         base_url: typing.Optional[str] = OMIT,
+        domain_id: typing.Optional[str] = OMIT,
         icon: typing.Optional[CreateAppsRequestIcon] = OMIT,
         imported_from_url: typing.Optional[str] = OMIT,
         redirect_uris: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -772,6 +778,9 @@ class AsyncAppsClient:
         base_url : typing.Optional[str]
             The base production URL where the app is hosted, such as `https://myapp.example.com`.
 
+        domain_id : typing.Optional[str]
+            A domain on the account (`dom_` tag) to serve the app at, such as a whop.site address claimed with `POST /domains`. Required with `template_id`.
+
         icon : typing.Optional[CreateAppsRequestIcon]
             The icon image for the app in PNG, JPEG, or GIF format, referencing an uploaded file: `{ id }` for an existing attachment or `{ direct_upload_id }` for a new direct upload.
 
@@ -782,7 +791,7 @@ class AsyncAppsClient:
             The whitelisted OAuth callback URLs that users are redirected to after authorizing the app.
 
         route : typing.Optional[str]
-            The subdomain route where the app's hosted web builds are served, such as `myapp` for myapp.whop.site.
+            Deprecated: claim an address with `POST /domains` and pass `domain_id`. The subdomain route where the app's hosted web builds are served, such as `myapp` for myapp.whop.site.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -799,7 +808,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-09-1",
+            "2026-10-09-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -818,6 +827,7 @@ class AsyncAppsClient:
             account_id=account_id,
             app_type=app_type,
             base_url=base_url,
+            domain_id=domain_id,
             icon=icon,
             imported_from_url=imported_from_url,
             redirect_uris=redirect_uris,
@@ -850,7 +860,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-09-1",
+            "2026-10-09-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -891,7 +901,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-09-1",
+            "2026-10-09-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1021,7 +1031,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-09-1",
+            "2026-10-09-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1091,7 +1101,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-09-1",
+            "2026-10-09-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1169,7 +1179,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-09-1",
+            "2026-10-09-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1236,7 +1246,7 @@ class AsyncAppsClient:
         from whop_sdk.apps import UpdatePermissionsAppsRequestRequestedPermissionsItem
 
         client = AsyncWhop(
-            "2026-10-09-1",
+            "2026-10-09-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
