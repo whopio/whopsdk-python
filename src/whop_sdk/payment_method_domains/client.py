@@ -52,7 +52,7 @@ class PaymentMethodDomainsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[PaymentMethodDomain, ListPaymentMethodDomainsResponse]:
         """
-        Lists payment method domains. Without `account_id`, returns the caller's own domains and those of every connected account.
+        Lists the payment method domains registered for your account and its connected accounts.
 
         Parameters
         ----------
@@ -140,7 +140,7 @@ class PaymentMethodDomainsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaymentMethodDomain:
         """
-        Registers a hostname with the wallet provider and attempts verification inline. Returns `verified` when the provider fetched the domain-association file (for Apple Pay, `/.well-known/apple-developer-merchantid-domain-association`), or `pending` when it could not — host the file, then retry with the verify endpoint.
+        Registers a hostname with the wallet provider and attempts verification inline. Returns `verified` when the provider fetched the domain-association file (for Apple Pay, `/.well-known/apple-developer-merchantid-domain-association`), or `pending` when it could not: host the file, then retry with `POST /payment_method_domains/:id/verify`.
 
         Parameters
         ----------
@@ -309,7 +309,7 @@ class AsyncPaymentMethodDomainsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[PaymentMethodDomain, ListPaymentMethodDomainsResponse]:
         """
-        Lists payment method domains. Without `account_id`, returns the caller's own domains and those of every connected account.
+        Lists the payment method domains registered for your account and its connected accounts.
 
         Parameters
         ----------
@@ -406,7 +406,7 @@ class AsyncPaymentMethodDomainsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaymentMethodDomain:
         """
-        Registers a hostname with the wallet provider and attempts verification inline. Returns `verified` when the provider fetched the domain-association file (for Apple Pay, `/.well-known/apple-developer-merchantid-domain-association`), or `pending` when it could not — host the file, then retry with the verify endpoint.
+        Registers a hostname with the wallet provider and attempts verification inline. Returns `verified` when the provider fetched the domain-association file (for Apple Pay, `/.well-known/apple-developer-merchantid-domain-association`), or `pending` when it could not: host the file, then retry with `POST /payment_method_domains/:id/verify`.
 
         Parameters
         ----------

@@ -52,7 +52,7 @@ class RawTransfersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ListTransfersResponseDataItem, ListTransfersResponse]:
         """
-        Lists transfers visible to the caller. Optional account filters narrow the results.
+        Lists the transfers you can see, sent or received, newest first by default. Optional account filters narrow the results.
 
         Parameters
         ----------
@@ -154,7 +154,7 @@ class RawTransfersClient:
         self, *, request: CreateTransfersRequestBody, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[CreateTransfersResponse]:
         """
-        Moves money between accounts, or into a claim link anyone with the URL can redeem.
+        Moves money between Whop balances, sends USDT from an account's wallet, or funds a claim link anyone with the URL can redeem. The `type` you send decides which object comes back.
 
         Parameters
         ----------
@@ -251,7 +251,7 @@ class RawTransfersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ListRecipientsTransfersResponseDataItem, ListRecipientsTransfersResponse]:
         """
-        Lists the people and accounts you can send money to.
+        Lists the people and accounts you can send money to from a balance. Pass a result's ID as `destination_id` when creating a transfer.
 
         Parameters
         ----------
@@ -439,7 +439,7 @@ class AsyncRawTransfersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ListTransfersResponseDataItem, ListTransfersResponse]:
         """
-        Lists transfers visible to the caller. Optional account filters narrow the results.
+        Lists the transfers you can see, sent or received, newest first by default. Optional account filters narrow the results.
 
         Parameters
         ----------
@@ -544,7 +544,7 @@ class AsyncRawTransfersClient:
         self, *, request: CreateTransfersRequestBody, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[CreateTransfersResponse]:
         """
-        Moves money between accounts, or into a claim link anyone with the URL can redeem.
+        Moves money between Whop balances, sends USDT from an account's wallet, or funds a claim link anyone with the URL can redeem. The `type` you send decides which object comes back.
 
         Parameters
         ----------
@@ -641,7 +641,7 @@ class AsyncRawTransfersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ListRecipientsTransfersResponseDataItem, ListRecipientsTransfersResponse]:
         """
-        Lists the people and accounts you can send money to.
+        Lists the people and accounts you can send money to from a balance. Pass a result's ID as `destination_id` when creating a transfer.
 
         Parameters
         ----------

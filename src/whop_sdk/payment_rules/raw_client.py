@@ -52,6 +52,8 @@ class RawPaymentRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[PaymentRule, ListPaymentRulesResponse]:
         """
+        Lists the payment rules on an account.
+
         Parameters
         ----------
         account_id : typing.Optional[str]
@@ -165,6 +167,8 @@ class RawPaymentRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PaymentRule]:
         """
+        Creates a payment rule. It is created `active` and applies its `action` to new payments that match all of its `conditions`.
+
         Parameters
         ----------
         action : CreatePaymentRulesRequestAction
@@ -265,7 +269,7 @@ class RawPaymentRulesClient:
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[ListFieldsPaymentRulesResponse]:
         """
-        Small and returned in full on one page.
+        Lists the payment attributes a rule condition can read, with the operators and values each one accepts. Small and returned in full on one page.
 
         Parameters
         ----------
@@ -306,6 +310,8 @@ class RawPaymentRulesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[PaymentRule]:
         """
+        Retrieves a payment rule.
+
         Parameters
         ----------
         id : str
@@ -357,7 +363,7 @@ class RawPaymentRulesClient:
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[None]:
         """
-        The rule stops applying to new payments and is kept, so the payments it already decided still name it.
+        Deletes a payment rule. It stops applying to new payments but is kept, so the payments it already decided still name it.
 
         Parameters
         ----------
@@ -398,7 +404,7 @@ class RawPaymentRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PaymentRule]:
         """
-        Changes the rule's name or metadata, keeping its ID and everything recorded against it. What the rule *does* is fixed once created, so the payments it decided keep naming the rule that decided them; use replace to change that.
+        Updates a payment rule's name or metadata, keeping its ID and everything recorded against it. A rule's `action` and `conditions` are fixed once created, so the payments it decided keep naming the rule that decided them; use `POST /payment_rules/:id/replace` to change them.
 
         Parameters
         ----------
@@ -456,6 +462,8 @@ class RawPaymentRulesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[PaymentRule]:
         """
+        Activates an inactive payment rule so it applies to new payments again. A deleted rule cannot be activated.
+
         Parameters
         ----------
         id : str
@@ -509,7 +517,7 @@ class RawPaymentRulesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[PaymentRule]:
         """
-        The rule stops applying to new payments. It keeps its ID and can be activated again.
+        Deactivates a payment rule so it stops applying to new payments. It keeps its ID and can be activated again.
 
         Parameters
         ----------
@@ -569,7 +577,7 @@ class RawPaymentRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PaymentRule]:
         """
-        Deletes this rule and creates its successor in one step. The successor carries a new ID and the metadata of the rule it replaced,.
+        Changes a payment rule's `action` and `conditions` by deleting it and creating its successor in one step. The successor has a new ID and keeps the replaced rule's name, metadata, and `active` or `inactive` status.
 
         Parameters
         ----------
@@ -656,6 +664,8 @@ class AsyncRawPaymentRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[PaymentRule, ListPaymentRulesResponse]:
         """
+        Lists the payment rules on an account.
+
         Parameters
         ----------
         account_id : typing.Optional[str]
@@ -772,6 +782,8 @@ class AsyncRawPaymentRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PaymentRule]:
         """
+        Creates a payment rule. It is created `active` and applies its `action` to new payments that match all of its `conditions`.
+
         Parameters
         ----------
         action : CreatePaymentRulesRequestAction
@@ -872,7 +884,7 @@ class AsyncRawPaymentRulesClient:
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[ListFieldsPaymentRulesResponse]:
         """
-        Small and returned in full on one page.
+        Lists the payment attributes a rule condition can read, with the operators and values each one accepts. Small and returned in full on one page.
 
         Parameters
         ----------
@@ -913,6 +925,8 @@ class AsyncRawPaymentRulesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[PaymentRule]:
         """
+        Retrieves a payment rule.
+
         Parameters
         ----------
         id : str
@@ -966,7 +980,7 @@ class AsyncRawPaymentRulesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[None]:
         """
-        The rule stops applying to new payments and is kept, so the payments it already decided still name it.
+        Deletes a payment rule. It stops applying to new payments but is kept, so the payments it already decided still name it.
 
         Parameters
         ----------
@@ -1007,7 +1021,7 @@ class AsyncRawPaymentRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PaymentRule]:
         """
-        Changes the rule's name or metadata, keeping its ID and everything recorded against it. What the rule *does* is fixed once created, so the payments it decided keep naming the rule that decided them; use replace to change that.
+        Updates a payment rule's name or metadata, keeping its ID and everything recorded against it. A rule's `action` and `conditions` are fixed once created, so the payments it decided keep naming the rule that decided them; use `POST /payment_rules/:id/replace` to change them.
 
         Parameters
         ----------
@@ -1065,6 +1079,8 @@ class AsyncRawPaymentRulesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[PaymentRule]:
         """
+        Activates an inactive payment rule so it applies to new payments again. A deleted rule cannot be activated.
+
         Parameters
         ----------
         id : str
@@ -1118,7 +1134,7 @@ class AsyncRawPaymentRulesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[PaymentRule]:
         """
-        The rule stops applying to new payments. It keeps its ID and can be activated again.
+        Deactivates a payment rule so it stops applying to new payments. It keeps its ID and can be activated again.
 
         Parameters
         ----------
@@ -1178,7 +1194,7 @@ class AsyncRawPaymentRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PaymentRule]:
         """
-        Deletes this rule and creates its successor in one step. The successor carries a new ID and the metadata of the rule it replaced,.
+        Changes a payment rule's `action` and `conditions` by deleting it and creating its successor in one step. The successor has a new ID and keeps the replaced rule's name, metadata, and `active` or `inactive` status.
 
         Parameters
         ----------

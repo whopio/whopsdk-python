@@ -12,7 +12,7 @@ from .create_ad_conversion_value_rules_request_events_item_event_name import (
 class CreateAdConversionValueRulesRequestEventsItem(UniversalBaseModel):
     custom_name: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Exact custom event name. Required for custom events; null for standard events.
+    Exact custom event name. Required for custom events; `null` for standard events. Google does not support named custom events.
     """
 
     event_name: CreateAdConversionValueRulesRequestEventsItemEventName

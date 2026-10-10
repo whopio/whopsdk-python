@@ -57,7 +57,7 @@ class UsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[User, ListUsersResponse]:
         """
-        Search for users by name or username, ranked by social proximity to the authenticated user. Returns the user's most recently followed users when no query is given.
+        Searches for users by name or username, ranked by social proximity to the authenticated user. Without a `query`, returns the user's most recently followed users.
 
         Parameters
         ----------
@@ -118,7 +118,7 @@ class UsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
-        Retrieves the authenticated user — the self view of the user object. Same shape as `GET /users/{id}`, with the self-only fields populated: `email` (email-read scope), `staff` (Whop staff only, staff-read scope), `balance`, `cards` and `earnings_usd` (balance-read scope), the opt-in `balance_history`, and every linked social account.
+        Retrieves the authenticated user. Same as `GET /users/:id` with the reserved id `me`: the self view, where self-only fields such as `email`, `balance`, and `cards` can be populated.
 
         Parameters
         ----------
@@ -190,7 +190,7 @@ class UsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
-        Updates the authenticated user's global profile, or their profile override for an account when account_id is given. Not available to API keys.
+        Updates the authenticated user's global profile, or their profile override for an account when `account_id` is given. Not available to API keys.
 
         Parameters
         ----------
@@ -252,7 +252,7 @@ class UsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
-        Retrieves a user by `user_` tag or username, or the authenticated user with the reserved id `me`. Profiles include linked social accounts — reading your own profile returns every linked account, other profiles only what is public on Whop (the primary Discord and the X account). The self-only fields are populated only when the id is `me`: `email` (email-read scope), `staff` (Whop staff only, staff-read scope), `balance` and `earnings_usd` (balance-read scope), and the opt-in `balance_history`. They are always `null` when addressing a user by tag or username.
+        Retrieves a user by `user_` tag or username, or the authenticated user with the reserved id `me`. Self-only fields such as `email`, `balance`, and `earnings_usd` are populated only when the id is `me`, and are always `null` when addressing a user by tag or username.
 
         Parameters
         ----------
@@ -331,7 +331,7 @@ class UsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
-        Updates a user, addressed by `user_` tag, username, or the reserved id `me` for the authenticated user. A user token updates their own global profile; an API key updates the user's account-specific profile override (account_id required).
+        Updates a user, addressed by `user_` tag, username, or the reserved id `me` for the authenticated user. A user token updates their own global profile; an API key updates the user's profile override for the account in `account_id`.
 
         Parameters
         ----------
@@ -427,7 +427,7 @@ class UsersClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> RecommendActionsUsersResponse:
         """
-        Lists the recommended actions computed for the user: personal suggestions (e.g. start a business or become an affiliate) pooled with the highest-impact actions across the accounts the user owns. Business actions are tagged with their `account_id`/`account_name`; personal actions leave those `null`. Self-only: `id` must be `me` or the authenticated user's own tag/username.
+        Lists the recommended actions computed for the authenticated user: personal suggestions, such as starting a business or becoming an affiliate, pooled with the highest-impact actions across the accounts the user owns. You can only list your own recommended actions.
 
         Parameters
         ----------
@@ -513,7 +513,7 @@ class AsyncUsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[User, ListUsersResponse]:
         """
-        Search for users by name or username, ranked by social proximity to the authenticated user. Returns the user's most recently followed users when no query is given.
+        Searches for users by name or username, ranked by social proximity to the authenticated user. Without a `query`, returns the user's most recently followed users.
 
         Parameters
         ----------
@@ -583,7 +583,7 @@ class AsyncUsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
-        Retrieves the authenticated user — the self view of the user object. Same shape as `GET /users/{id}`, with the self-only fields populated: `email` (email-read scope), `staff` (Whop staff only, staff-read scope), `balance`, `cards` and `earnings_usd` (balance-read scope), the opt-in `balance_history`, and every linked social account.
+        Retrieves the authenticated user. Same as `GET /users/:id` with the reserved id `me`: the self view, where self-only fields such as `email`, `balance`, and `cards` can be populated.
 
         Parameters
         ----------
@@ -663,7 +663,7 @@ class AsyncUsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
-        Updates the authenticated user's global profile, or their profile override for an account when account_id is given. Not available to API keys.
+        Updates the authenticated user's global profile, or their profile override for an account when `account_id` is given. Not available to API keys.
 
         Parameters
         ----------
@@ -733,7 +733,7 @@ class AsyncUsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
-        Retrieves a user by `user_` tag or username, or the authenticated user with the reserved id `me`. Profiles include linked social accounts — reading your own profile returns every linked account, other profiles only what is public on Whop (the primary Discord and the X account). The self-only fields are populated only when the id is `me`: `email` (email-read scope), `staff` (Whop staff only, staff-read scope), `balance` and `earnings_usd` (balance-read scope), and the opt-in `balance_history`. They are always `null` when addressing a user by tag or username.
+        Retrieves a user by `user_` tag or username, or the authenticated user with the reserved id `me`. Self-only fields such as `email`, `balance`, and `earnings_usd` are populated only when the id is `me`, and are always `null` when addressing a user by tag or username.
 
         Parameters
         ----------
@@ -820,7 +820,7 @@ class AsyncUsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> User:
         """
-        Updates a user, addressed by `user_` tag, username, or the reserved id `me` for the authenticated user. A user token updates their own global profile; an API key updates the user's account-specific profile override (account_id required).
+        Updates a user, addressed by `user_` tag, username, or the reserved id `me` for the authenticated user. A user token updates their own global profile; an API key updates the user's profile override for the account in `account_id`.
 
         Parameters
         ----------
@@ -932,7 +932,7 @@ class AsyncUsersClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> RecommendActionsUsersResponse:
         """
-        Lists the recommended actions computed for the user: personal suggestions (e.g. start a business or become an affiliate) pooled with the highest-impact actions across the accounts the user owns. Business actions are tagged with their `account_id`/`account_name`; personal actions leave those `null`. Self-only: `id` must be `me` or the authenticated user's own tag/username.
+        Lists the recommended actions computed for the authenticated user: personal suggestions, such as starting a business or becoming an affiliate, pooled with the highest-impact actions across the accounts the user owns. You can only list your own recommended actions.
 
         Parameters
         ----------

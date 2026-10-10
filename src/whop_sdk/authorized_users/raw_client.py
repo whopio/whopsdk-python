@@ -52,7 +52,7 @@ class RawAuthorizedUsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[AuthorizedUserListItem, ListAuthorizedUsersResponse]:
         """
-        Returns a paginated list of authorized team members for a company, with optional filtering by user, role, and creation date.
+        Lists the authorized users on an account's team.
 
         Required permissions:
          - `company:authorized_user:read`
@@ -236,7 +236,7 @@ class RawAuthorizedUsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[AuthorizedUser]:
         """
-        Add a new authorized user to a company.
+        Adds a user to an account's team as an authorized user with the given role.
 
         Required permissions:
          - `authorized_user:create`
@@ -517,7 +517,7 @@ class RawAuthorizedUsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[bool]:
         """
-        Remove an authorized user from a company.
+        Removes an authorized user from an account's team.
 
         Required permissions:
          - `authorized_user:delete`
@@ -663,7 +663,7 @@ class AsyncRawAuthorizedUsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[AuthorizedUserListItem, ListAuthorizedUsersResponse]:
         """
-        Returns a paginated list of authorized team members for a company, with optional filtering by user, role, and creation date.
+        Lists the authorized users on an account's team.
 
         Required permissions:
          - `company:authorized_user:read`
@@ -850,7 +850,7 @@ class AsyncRawAuthorizedUsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[AuthorizedUser]:
         """
-        Add a new authorized user to a company.
+        Adds a user to an account's team as an authorized user with the given role.
 
         Required permissions:
          - `authorized_user:create`
@@ -1131,7 +1131,7 @@ class AsyncRawAuthorizedUsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[bool]:
         """
-        Remove an authorized user from a company.
+        Removes an authorized user from an account's team.
 
         Required permissions:
          - `authorized_user:delete`

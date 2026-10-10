@@ -10,10 +10,14 @@ from .update_financing_applications_request_answers_item_money import UpdateFina
 class UpdateFinancingApplicationsRequestAnswersItem(UniversalBaseModel):
     file_ids: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
-    Complete replacement set of uploaded file IDs for this requirement. Empty removes all files.
+    Complete replacement set of file IDs for this requirement, prefixed `file_`. Upload documents through the Files API first: new files must belong to the caller, be ready and private, and satisfy the requirement's formats and 20 MB limit. An empty array removes all files.
     """
 
-    money: typing.Optional[UpdateFinancingApplicationsRequestAnswersItemMoney] = None
+    money: typing.Optional[UpdateFinancingApplicationsRequestAnswersItemMoney] = pydantic.Field(default=None)
+    """
+    Price answer, such as `max_product_price`. `null` clears the price.
+    """
+
     requirement_id: str = pydantic.Field()
     """
     ID of a merchant requirement returned on this application.
@@ -21,7 +25,7 @@ class UpdateFinancingApplicationsRequestAnswersItem(UniversalBaseModel):
 
     values: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
-    Text answers. Use money instead for max_product_price.
+    Text answers. Use `money` instead for `max_product_price`. An empty array clears the answer.
     """
 
     if IS_PYDANTIC_V2:

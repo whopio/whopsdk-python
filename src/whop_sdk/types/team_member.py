@@ -28,7 +28,7 @@ class TeamMember(UniversalBaseModel):
 
     email: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The member's email address. For accepted members, `null` unless the caller holds the email read scope; for invites, the invited address.
+    The member's email address. For accepted members, `null` unless the caller holds the `company:authorized_user:email:read` scope; for invites, the invited address.
     """
 
     id: str = pydantic.Field()

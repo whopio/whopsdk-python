@@ -49,7 +49,7 @@ class RawSupportChannelsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[SupportChannelListItem, ListSupportChannelsResponse]:
         """
-        Returns a paginated list of support channels for a specific company, with optional filtering by resolution status and custom sorting.
+        Lists support channels between an account's team and its customers, most recently active first by default. Pass `open=true` to find channels awaiting a support response.
 
         Required permissions:
          - `support_chat:read`
@@ -229,7 +229,7 @@ class RawSupportChannelsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[SupportChannel]:
         """
-        Open a new support channel between a company team member and a customer. Returns the existing channel if one already exists for that user.
+        Opens a support channel between an account's team and a customer. Returns the existing channel if that customer already has one.
 
         Required permissions:
          - `support_chat:create`
@@ -512,7 +512,7 @@ class AsyncRawSupportChannelsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[SupportChannelListItem, ListSupportChannelsResponse]:
         """
-        Returns a paginated list of support channels for a specific company, with optional filtering by resolution status and custom sorting.
+        Lists support channels between an account's team and its customers, most recently active first by default. Pass `open=true` to find channels awaiting a support response.
 
         Required permissions:
          - `support_chat:read`
@@ -695,7 +695,7 @@ class AsyncRawSupportChannelsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[SupportChannel]:
         """
-        Open a new support channel between a company team member and a customer. Returns the existing channel if one already exists for that user.
+        Opens a support channel between an account's team and a customer. Returns the existing channel if that customer already has one.
 
         Required permissions:
          - `support_chat:create`

@@ -48,7 +48,7 @@ class AuthorizedUsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[AuthorizedUserListItem, ListAuthorizedUsersResponse]:
         """
-        Returns a paginated list of authorized team members for a company, with optional filtering by user, role, and creation date.
+        Lists the authorized users on an account's team.
 
         Required permissions:
          - `company:authorized_user:read`
@@ -143,7 +143,7 @@ class AuthorizedUsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AuthorizedUser:
         """
-        Add a new authorized user to a company.
+        Adds a user to an account's team as an authorized user with the given role.
 
         Required permissions:
          - `authorized_user:create`
@@ -244,7 +244,7 @@ class AuthorizedUsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> bool:
         """
-        Remove an authorized user from a company.
+        Removes an authorized user from an account's team.
 
         Required permissions:
          - `authorized_user:delete`
@@ -313,7 +313,7 @@ class AsyncAuthorizedUsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[AuthorizedUserListItem, ListAuthorizedUsersResponse]:
         """
-        Returns a paginated list of authorized team members for a company, with optional filtering by user, role, and creation date.
+        Lists the authorized users on an account's team.
 
         Required permissions:
          - `company:authorized_user:read`
@@ -416,7 +416,7 @@ class AsyncAuthorizedUsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AuthorizedUser:
         """
-        Add a new authorized user to a company.
+        Adds a user to an account's team as an authorized user with the given role.
 
         Required permissions:
          - `authorized_user:create`
@@ -533,7 +533,7 @@ class AsyncAuthorizedUsersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> bool:
         """
-        Remove an authorized user from a company.
+        Removes an authorized user from an account's team.
 
         Required permissions:
          - `authorized_user:delete`

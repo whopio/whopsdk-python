@@ -39,7 +39,7 @@ class RawPayoutMethodsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[PayoutMethodListItem, ListPayoutMethodResponse]:
         """
-        Returns a list of active payout methods configured for a company, ordered by most recently created.
+        Lists the active payout methods configured for an account, newest first.
 
         Required permissions:
          - `payout:destination:read`
@@ -332,7 +332,7 @@ class AsyncRawPayoutMethodsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[PayoutMethodListItem, ListPayoutMethodResponse]:
         """
-        Returns a list of active payout methods configured for a company, ordered by most recently created.
+        Lists the active payout methods configured for an account, newest first.
 
         Required permissions:
          - `payout:destination:read`

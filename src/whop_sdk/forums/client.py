@@ -45,7 +45,7 @@ class ForumsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ForumListItem, ListForumsResponse]:
         """
-        Returns a paginated list of forums within a specific company, with optional filtering by product.
+        Returns a paginated list of forums for an account, with optional filtering by product.
 
         Required permissions:
          - `forum:read`
@@ -242,7 +242,7 @@ class AsyncForumsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ForumListItem, ListForumsResponse]:
         """
-        Returns a paginated list of forums within a specific company, with optional filtering by product.
+        Returns a paginated list of forums for an account, with optional filtering by product.
 
         Required permissions:
          - `forum:read`

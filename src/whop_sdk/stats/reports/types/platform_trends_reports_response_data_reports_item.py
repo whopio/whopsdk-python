@@ -15,7 +15,7 @@ from .platform_trends_reports_response_data_reports_item_window import (
 class PlatformTrendsReportsResponseDataReportsItem(UniversalBaseModel):
     rows: typing.List[PlatformTrendsReportsResponseDataReportsItemRowsItem] = pydantic.Field()
     """
-    The page of rows. Only the requested columns are present.
+    The page of rows. Only the requested columns are present. A breakdown value with fewer than three businesses behind it is left out, and a filtered total that small comes back with every metric `null`.
     """
 
     window: PlatformTrendsReportsResponseDataReportsItemWindow

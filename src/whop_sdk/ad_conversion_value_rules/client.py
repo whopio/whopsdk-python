@@ -62,11 +62,12 @@ class AdConversionValueRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[AdConversionValueRule, ListAdConversionValueRulesResponse]:
         """
-        List saved rules the caller can read. Filter by business with account_id.
+        Lists the conversion value rules you can read.
 
         Parameters
         ----------
         account_id : typing.Optional[str]
+            Only rules belonging to this account, prefixed `biz_`.
 
         status : typing.Optional[ListAdConversionValueRulesRequestStatus]
 
@@ -144,7 +145,7 @@ class AdConversionValueRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AdConversionValueRule:
         """
-        Create one rule covering every selected target and event combination. Active rules cannot overlap for the same platform and event. Customer prices and Whop revenue stay unchanged.
+        Creates one rule covering every selected target and event combination. Active rules cannot overlap for the same platform and event. Customer prices and Whop revenue stay unchanged.
 
         Parameters
         ----------
@@ -167,7 +168,7 @@ class AdConversionValueRulesClient:
             Signed percent change from negative 100 to 10000. The sent value cannot go below zero.
 
         replace_rule_ids : typing.Optional[typing.Sequence[str]]
-            Exact IDs of active rules whose overlapping selections will be replaced. Other selections keep their values; remaining selections may split into separate rules. Broader rules remain as fallbacks for other items. Stale or incomplete conflict selections fail.
+            Exact IDs of active rules whose overlapping selections will be replaced. Other selections keep their values; remaining selections may split into separate rules. Broader rules remain as fallbacks for other items. Rules left with no selections are paused. Stale or incomplete conflict selections fail.
 
         status : typing.Optional[CreateAdConversionValueRulesRequestStatus]
             Initial rule status. Defaults to active.
@@ -225,10 +226,12 @@ class AdConversionValueRulesClient:
 
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> AdConversionValueRule:
         """
+        Retrieves a conversion value rule with its targets, events, and value adjustment.
+
         Parameters
         ----------
         id : str
-            Conversion value rule ID.
+            Conversion value rule ID, prefixed `adcvr_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -258,12 +261,12 @@ class AdConversionValueRulesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> DeleteAdConversionValueRulesResponse:
         """
-        Soft-delete a rule and deactivate all its coverage. Preserve its stored settings.
+        Deletes a rule and deactivates all its coverage. The rule's stored settings are preserved.
 
         Parameters
         ----------
         id : str
-            Conversion value rule ID.
+            Conversion value rule ID, prefixed `adcvr_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -303,12 +306,12 @@ class AdConversionValueRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AdConversionValueRule:
         """
-        Edit a rule without changing its status. Supplied targets or events replace that selection in full. Omitted fields stay unchanged. All changes succeed or fail together.
+        Edits a rule without changing its status. Supplied `targets` or `events` replace that selection in full, and omitted fields stay unchanged. All changes succeed or fail together.
 
         Parameters
         ----------
         id : str
-            Conversion value rule ID.
+            Conversion value rule ID, prefixed `adcvr_`.
 
         adjustment_type : typing.Optional[UpdateAdConversionValueRulesRequestAdjustmentType]
 
@@ -323,7 +326,7 @@ class AdConversionValueRulesClient:
             Signed percent change from negative 100 to 10000. The sent value cannot go below zero.
 
         replace_rule_ids : typing.Optional[typing.Sequence[str]]
-            Exact IDs of active rules whose overlapping selections will be replaced. Other selections keep their values; remaining selections may split into separate rules. Broader rules remain as fallbacks for other items. Stale or incomplete conflict selections fail.
+            Exact IDs of active rules whose overlapping selections will be replaced. Other selections keep their values; remaining selections may split into separate rules. Broader rules remain as fallbacks for other items. Rules left with no selections are paused. Stale or incomplete conflict selections fail.
 
         targets : typing.Optional[typing.Sequence[UpdateAdConversionValueRulesRequestTargetsItem]]
             Targets sharing one scope. Every selected event applies to every target. At most 500 target and event combinations.
@@ -364,12 +367,12 @@ class AdConversionValueRulesClient:
 
     def pause(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> AdConversionValueRule:
         """
-        Pause the rule across all selected targets and events.
+        Pauses the rule across all selected targets and events.
 
         Parameters
         ----------
         id : str
-            Conversion value rule ID.
+            Conversion value rule ID, prefixed `adcvr_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -397,12 +400,12 @@ class AdConversionValueRulesClient:
 
     def unpause(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> AdConversionValueRule:
         """
-        Resume the rule and automatically replace overlapping selections in the same transaction. Other selections keep their values, and broader rules remain as defaults. Rules with no remaining selections are paused. Resuming an already-active rule makes no changes.
+        Resumes the rule and automatically replaces overlapping selections in the same transaction. Other selections keep their values, and broader rules remain as defaults. Rules with no remaining selections are paused. Resuming an already-active rule makes no changes.
 
         Parameters
         ----------
         id : str
-            Conversion value rule ID.
+            Conversion value rule ID, prefixed `adcvr_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -460,11 +463,12 @@ class AsyncAdConversionValueRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[AdConversionValueRule, ListAdConversionValueRulesResponse]:
         """
-        List saved rules the caller can read. Filter by business with account_id.
+        Lists the conversion value rules you can read.
 
         Parameters
         ----------
         account_id : typing.Optional[str]
+            Only rules belonging to this account, prefixed `biz_`.
 
         status : typing.Optional[ListAdConversionValueRulesRequestStatus]
 
@@ -551,7 +555,7 @@ class AsyncAdConversionValueRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AdConversionValueRule:
         """
-        Create one rule covering every selected target and event combination. Active rules cannot overlap for the same platform and event. Customer prices and Whop revenue stay unchanged.
+        Creates one rule covering every selected target and event combination. Active rules cannot overlap for the same platform and event. Customer prices and Whop revenue stay unchanged.
 
         Parameters
         ----------
@@ -574,7 +578,7 @@ class AsyncAdConversionValueRulesClient:
             Signed percent change from negative 100 to 10000. The sent value cannot go below zero.
 
         replace_rule_ids : typing.Optional[typing.Sequence[str]]
-            Exact IDs of active rules whose overlapping selections will be replaced. Other selections keep their values; remaining selections may split into separate rules. Broader rules remain as fallbacks for other items. Stale or incomplete conflict selections fail.
+            Exact IDs of active rules whose overlapping selections will be replaced. Other selections keep their values; remaining selections may split into separate rules. Broader rules remain as fallbacks for other items. Rules left with no selections are paused. Stale or incomplete conflict selections fail.
 
         status : typing.Optional[CreateAdConversionValueRulesRequestStatus]
             Initial rule status. Defaults to active.
@@ -642,10 +646,12 @@ class AsyncAdConversionValueRulesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AdConversionValueRule:
         """
+        Retrieves a conversion value rule with its targets, events, and value adjustment.
+
         Parameters
         ----------
         id : str
-            Conversion value rule ID.
+            Conversion value rule ID, prefixed `adcvr_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -683,12 +689,12 @@ class AsyncAdConversionValueRulesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> DeleteAdConversionValueRulesResponse:
         """
-        Soft-delete a rule and deactivate all its coverage. Preserve its stored settings.
+        Deletes a rule and deactivates all its coverage. The rule's stored settings are preserved.
 
         Parameters
         ----------
         id : str
-            Conversion value rule ID.
+            Conversion value rule ID, prefixed `adcvr_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -736,12 +742,12 @@ class AsyncAdConversionValueRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AdConversionValueRule:
         """
-        Edit a rule without changing its status. Supplied targets or events replace that selection in full. Omitted fields stay unchanged. All changes succeed or fail together.
+        Edits a rule without changing its status. Supplied `targets` or `events` replace that selection in full, and omitted fields stay unchanged. All changes succeed or fail together.
 
         Parameters
         ----------
         id : str
-            Conversion value rule ID.
+            Conversion value rule ID, prefixed `adcvr_`.
 
         adjustment_type : typing.Optional[UpdateAdConversionValueRulesRequestAdjustmentType]
 
@@ -756,7 +762,7 @@ class AsyncAdConversionValueRulesClient:
             Signed percent change from negative 100 to 10000. The sent value cannot go below zero.
 
         replace_rule_ids : typing.Optional[typing.Sequence[str]]
-            Exact IDs of active rules whose overlapping selections will be replaced. Other selections keep their values; remaining selections may split into separate rules. Broader rules remain as fallbacks for other items. Stale or incomplete conflict selections fail.
+            Exact IDs of active rules whose overlapping selections will be replaced. Other selections keep their values; remaining selections may split into separate rules. Broader rules remain as fallbacks for other items. Rules left with no selections are paused. Stale or incomplete conflict selections fail.
 
         targets : typing.Optional[typing.Sequence[UpdateAdConversionValueRulesRequestTargetsItem]]
             Targets sharing one scope. Every selected event applies to every target. At most 500 target and event combinations.
@@ -805,12 +811,12 @@ class AsyncAdConversionValueRulesClient:
 
     async def pause(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> AdConversionValueRule:
         """
-        Pause the rule across all selected targets and events.
+        Pauses the rule across all selected targets and events.
 
         Parameters
         ----------
         id : str
-            Conversion value rule ID.
+            Conversion value rule ID, prefixed `adcvr_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -848,12 +854,12 @@ class AsyncAdConversionValueRulesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AdConversionValueRule:
         """
-        Resume the rule and automatically replace overlapping selections in the same transaction. Other selections keep their values, and broader rules remain as defaults. Rules with no remaining selections are paused. Resuming an already-active rule makes no changes.
+        Resumes the rule and automatically replaces overlapping selections in the same transaction. Other selections keep their values, and broader rules remain as defaults. Rules with no remaining selections are paused. Resuming an already-active rule makes no changes.
 
         Parameters
         ----------
         id : str
-            Conversion value rule ID.
+            Conversion value rule ID, prefixed `adcvr_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

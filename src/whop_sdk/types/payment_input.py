@@ -20,7 +20,7 @@ class PaymentInput(UniversalBaseModel):
 
     line_items: typing.Optional[typing.List[PaymentInputLineItemsItem]] = pydantic.Field(default=None)
     """
-    What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
+    What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency. Mutually exclusive with `plan_id` and `plan`.
     """
 
     plan: typing.Optional[PaymentInputPlan] = pydantic.Field(default=None)

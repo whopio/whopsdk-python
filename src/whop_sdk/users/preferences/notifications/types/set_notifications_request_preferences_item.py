@@ -11,12 +11,12 @@ from .set_notifications_request_preferences_item_scope import SetNotificationsRe
 class SetNotificationsRequestPreferencesItem(UniversalBaseModel):
     level: typing.Optional[SetNotificationsRequestPreferencesItemLevel] = pydantic.Field(default=None)
     """
-    What the user is notified about in this scope. `mentions` is only valid for an experience level. `null` clears the preference.
+    What the user is notified about in this scope. `mentions` is only valid for an experience level; a topic override is `all` or `nothing`. `null` clears the preference, so the scope inherits its default again rather than being switched off.
     """
 
     scope: SetNotificationsRequestPreferencesItemScope = pydantic.Field()
     """
-    What the preference applies to. `null` on a dimension means the preference is not narrowed there.
+    What the preference applies to. `null` on a dimension means the preference is not narrowed there. A scope read back from either list endpoint can be sent as-is. A scope naming an experience with no topic sets that experience's level; any other scope sets a topic override.
     """
 
     if IS_PYDANTIC_V2:

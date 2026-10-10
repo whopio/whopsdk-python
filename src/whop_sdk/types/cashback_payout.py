@@ -20,7 +20,7 @@ class CashbackPayout(UniversalBaseModel):
 
     status: CashbackPayoutStatus = pydantic.Field()
     """
-    Request status. `processing` means background processing was queued, not that payment completed. `failed` means the queue rejected the request. Subsequent transaction failures retry automatically.
+    Request status. `processing` means background processing was queued, not that payment completed. `failed`, returned with HTTP `200`, means the queue rejected the request. Subsequent transaction failures retry automatically.
     """
 
     transaction_id: typing.Optional[str] = pydantic.Field(default=None)

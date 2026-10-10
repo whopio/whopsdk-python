@@ -63,7 +63,7 @@ class ProductsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ProductListItem, ListProductsResponse]:
         """
-        Returns a paginated list of products. Omit `account_id` to search the public marketplace.
+        Lists an account's products, or searches the public marketplace when you omit `account_id`.
 
         Parameters
         ----------
@@ -304,7 +304,7 @@ class ProductsClient:
 
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Product:
         """
-        Retrieves a product. Public — no credentials.
+        Retrieves a product. Requires no authentication.
 
         Parameters
         ----------
@@ -566,7 +566,7 @@ class AsyncProductsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ProductListItem, ListProductsResponse]:
         """
-        Returns a paginated list of products. Omit `account_id` to search the public marketplace.
+        Lists an account's products, or searches the public marketplace when you omit `account_id`.
 
         Parameters
         ----------
@@ -824,7 +824,7 @@ class AsyncProductsClient:
 
     async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Product:
         """
-        Retrieves a product. Public — no credentials.
+        Retrieves a product. Requires no authentication.
 
         Parameters
         ----------

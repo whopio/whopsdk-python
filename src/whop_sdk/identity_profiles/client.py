@@ -45,7 +45,7 @@ class IdentityProfilesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[IdentityProfileListItem, ListIdentityProfileResponse]:
         """
-        Returns a paginated list of identity profiles. When account_id is provided, lists IPs currently linked to that account's ledger. When omitted, lists IPs linked to any ledger the actor can read (including child accounts under a parent).
+        Lists the identity profiles currently linked to an account, or to every account you can read when `account_id` is omitted.
 
         Required permissions:
          - `identity:read`
@@ -69,7 +69,7 @@ class IdentityProfilesClient:
         status : typing.Optional[IdentityProfileStatuses]
 
         account_id : typing.Optional[str]
-            The unique identifier of the company to filter to. When omitted, returns IPs across all ledgers the actor can read.
+            Account to list identity profiles for, prefixed `biz_`. Omit to list profiles across every account you can read, including child accounts under a parent and, with a user credential, your own user.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -152,7 +152,7 @@ class IdentityProfilesClient:
         self, id: str, *, ledger_account_id: str, request_options: typing.Optional[RequestOptions] = None
     ) -> IdentityProfile:
         """
-        Unlinks an IdentityProfile from a LedgerAccount (flips the matching link to is_current=false).
+        Unlinks an identity profile from the account or user that owns `ledger_account_id`. Requires `identity:write` on that account or user.
 
         Parameters
         ----------
@@ -283,7 +283,7 @@ class AsyncIdentityProfilesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[IdentityProfileListItem, ListIdentityProfileResponse]:
         """
-        Returns a paginated list of identity profiles. When account_id is provided, lists IPs currently linked to that account's ledger. When omitted, lists IPs linked to any ledger the actor can read (including child accounts under a parent).
+        Lists the identity profiles currently linked to an account, or to every account you can read when `account_id` is omitted.
 
         Required permissions:
          - `identity:read`
@@ -307,7 +307,7 @@ class AsyncIdentityProfilesClient:
         status : typing.Optional[IdentityProfileStatuses]
 
         account_id : typing.Optional[str]
-            The unique identifier of the company to filter to. When omitted, returns IPs across all ledgers the actor can read.
+            Account to list identity profiles for, prefixed `biz_`. Omit to list profiles across every account you can read, including child accounts under a parent and, with a user credential, your own user.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -407,7 +407,7 @@ class AsyncIdentityProfilesClient:
         self, id: str, *, ledger_account_id: str, request_options: typing.Optional[RequestOptions] = None
     ) -> IdentityProfile:
         """
-        Unlinks an IdentityProfile from a LedgerAccount (flips the matching link to is_current=false).
+        Unlinks an identity profile from the account or user that owns `ledger_account_id`. Requires `identity:write` on that account or user.
 
         Parameters
         ----------

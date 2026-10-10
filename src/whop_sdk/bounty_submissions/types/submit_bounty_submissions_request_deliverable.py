@@ -8,7 +8,7 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 class SubmitBountySubmissionsRequestDeliverable(UniversalBaseModel):
     """
-    Work to attach to the submission. Combine `urls`, `file_ids`, and `caption` freely; all are optional.
+    Work to attach to a livestream attempt. Combine `urls`, `file_ids`, and `caption` freely; all are optional. If the attempt already went to review when its stream ended, the deliverable attaches to it once, until reviewers start voting. Data capture attempts take no deliverable.
     """
 
     caption: typing.Optional[str] = pydantic.Field(default=None)

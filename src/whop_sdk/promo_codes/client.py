@@ -54,7 +54,7 @@ class PromoCodesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[PromoCodeListItem, ListPromoCodesResponse]:
         """
-        Lists promo codes for an account with cursor pagination, filters, and sorting.
+        Lists an account's promo codes.
 
         Parameters
         ----------
@@ -406,7 +406,7 @@ class AsyncPromoCodesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[PromoCodeListItem, ListPromoCodesResponse]:
         """
-        Lists promo codes for an account with cursor pagination, filters, and sorting.
+        Lists an account's promo codes.
 
         Parameters
         ----------

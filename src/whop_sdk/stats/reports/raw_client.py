@@ -25,7 +25,7 @@ class RawReportsClient:
 
     def list(self, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[ListReportsResponse]:
         """
-        Lists every report: the aggregates that are not bucketed over time. Each entry names the report's path, its window kind, the breakdowns it accepts and its columns. A property column is an attribute of the row and lists the breakdowns it can ride along with. A metric column is a number measured over the row, with the unit that sets its JSON type, the aggregate that says how to combine it across rows, and the breakdowns and windows it supports. For a bucketed series, use `GET /stats/time_series`.
+        Lists every report: the aggregates that are not bucketed over time, with the breakdowns and columns each one accepts. Use it to discover what a report can return before you retrieve it. For a bucketed series, use `GET /stats/time_series`.
 
         Parameters
         ----------
@@ -92,7 +92,7 @@ class RawReportsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PlatformTrendsReportsResponse]:
         """
-        Payments across all of Whop, for up to four windows at once. Break rows down by business type, industry type, account country or customer country, and let the business type ride along on industry type rows. The report covers the whole platform, so it takes no `account_id` and any authenticated caller can read it. A breakdown value with fewer than three businesses behind it is left out, and a filtered total that small comes back with every metric `null`.
+        Retrieves payments across all of Whop for up to four windows at once, optionally broken down by business type, industry type, account country or customer country. The report covers the whole platform, so it takes no `account_id` and any authenticated caller can read it.
 
         Parameters
         ----------
@@ -100,7 +100,7 @@ class RawReportsClient:
             What each row is. Omit it for one row per window, holding the window's total.
 
         columns : typing.Optional[str]
-            Comma-separated properties and metrics to return on each row. Defaults to `gross_revenue,businesses`.
+            Comma-separated properties and metrics to return on each row. `business_type` can ride along on `industry_type` rows. Defaults to `gross_revenue,businesses`.
 
         windows : typing.Optional[str]
             Comma-separated windows, at most four: `1d`, `7d`, `30d`, `90d`, `365d`, `mtd`, `qtd`, `ytd`, `all_time`, an explicit `2026-09-01..2026-10-01`, any of these prefixed `prev:` for the equal-length period before, or suffixed `@2026-09-01` to end earlier. Defaults to `30d`.
@@ -203,7 +203,7 @@ class AsyncRawReportsClient:
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[ListReportsResponse]:
         """
-        Lists every report: the aggregates that are not bucketed over time. Each entry names the report's path, its window kind, the breakdowns it accepts and its columns. A property column is an attribute of the row and lists the breakdowns it can ride along with. A metric column is a number measured over the row, with the unit that sets its JSON type, the aggregate that says how to combine it across rows, and the breakdowns and windows it supports. For a bucketed series, use `GET /stats/time_series`.
+        Lists every report: the aggregates that are not bucketed over time, with the breakdowns and columns each one accepts. Use it to discover what a report can return before you retrieve it. For a bucketed series, use `GET /stats/time_series`.
 
         Parameters
         ----------
@@ -270,7 +270,7 @@ class AsyncRawReportsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PlatformTrendsReportsResponse]:
         """
-        Payments across all of Whop, for up to four windows at once. Break rows down by business type, industry type, account country or customer country, and let the business type ride along on industry type rows. The report covers the whole platform, so it takes no `account_id` and any authenticated caller can read it. A breakdown value with fewer than three businesses behind it is left out, and a filtered total that small comes back with every metric `null`.
+        Retrieves payments across all of Whop for up to four windows at once, optionally broken down by business type, industry type, account country or customer country. The report covers the whole platform, so it takes no `account_id` and any authenticated caller can read it.
 
         Parameters
         ----------
@@ -278,7 +278,7 @@ class AsyncRawReportsClient:
             What each row is. Omit it for one row per window, holding the window's total.
 
         columns : typing.Optional[str]
-            Comma-separated properties and metrics to return on each row. Defaults to `gross_revenue,businesses`.
+            Comma-separated properties and metrics to return on each row. `business_type` can ride along on `industry_type` rows. Defaults to `gross_revenue,businesses`.
 
         windows : typing.Optional[str]
             Comma-separated windows, at most four: `1d`, `7d`, `30d`, `90d`, `365d`, `mtd`, `qtd`, `ytd`, `all_time`, an explicit `2026-09-01..2026-10-01`, any of these prefixed `prev:` for the equal-length period before, or suffixed `@2026-09-01` to end earlier. Defaults to `30d`.

@@ -192,7 +192,7 @@ class AdCampaignsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AdCampaign:
         """
-        Creates an ad campaign for an account.
+        Creates an ad campaign in `draft` status for an account. Nothing runs until you launch it by setting `status` to `active` with `PATCH /ad_campaigns/:id`.
 
         Parameters
         ----------
@@ -393,7 +393,7 @@ class AdCampaignsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AdCampaign:
         """
-        Updates an ad campaign's editable fields (title, budget, schedule, bid strategy, special ad categories, and, before launch, budget type and budget optimization), and launches a draft campaign by setting status to active. Objective and desired cost per result are fixed at creation and cannot be changed.
+        Updates an ad campaign's settings, or launches a draft campaign by setting `status` to `active`. The objective and desired cost per result are fixed at creation and cannot be changed.
 
         Parameters
         ----------
@@ -752,7 +752,7 @@ class AsyncAdCampaignsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AdCampaign:
         """
-        Creates an ad campaign for an account.
+        Creates an ad campaign in `draft` status for an account. Nothing runs until you launch it by setting `status` to `active` with `PATCH /ad_campaigns/:id`.
 
         Parameters
         ----------
@@ -979,7 +979,7 @@ class AsyncAdCampaignsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AdCampaign:
         """
-        Updates an ad campaign's editable fields (title, budget, schedule, bid strategy, special ad categories, and, before launch, budget type and budget optimization), and launches a draft campaign by setting status to active. Objective and desired cost per result are fixed at creation and cannot be changed.
+        Updates an ad campaign's settings, or launches a draft campaign by setting `status` to `active`. The objective and desired cost per result are fixed at creation and cannot be changed.
 
         Parameters
         ----------

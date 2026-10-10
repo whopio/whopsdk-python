@@ -69,12 +69,12 @@ class RawPaymentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Payment, ListPaymentsResponse]:
         """
-        Lists payments, newest first. By default, returns account sales: a company credential's own account, or for a user every account they can read payments for. Set `mode=user_sales` to list only the sales received by the signed-in user's primary ledger account, without a company. This mode requires the user's own Whop login session and cannot be combined with `account_id`. Filters narrow by account, buyer, product, plan, membership, status, billing reason, currency, and creation window. Filtering by `billing_reason=subscription_cycle` also matches renewals recorded as `subscription_update`. `settlement_time_at` is null on list rows — retrieve the payment for it.
+        Lists payments, newest first. By default, returns sales for the accounts your credential can read: an account credential's own account, or every account a user can read payments for. Set `mode` to `user_sales` to list the sales the signed-in user received personally, outside any account.
 
         Parameters
         ----------
         mode : typing.Optional[ListPaymentsRequestMode]
-            Which sales to list. `account_sales` returns sales for the accounts the caller can read. `user_sales` returns only sales received by the signed-in user's primary ledger account, without a company; requires their own Whop login session and cannot be combined with `account_id`.
+            Which sales to list. `account_sales` returns sales for the accounts the caller can read. `user_sales` returns only sales the signed-in user received personally, outside any account; it requires the user's own Whop login session and cannot be combined with `account_id`.
 
         account_id : typing.Optional[str]
             Only payments charged by this account, prefixed `biz_`.
@@ -83,7 +83,7 @@ class RawPaymentsClient:
             Only payments in this lifecycle state.
 
         billing_reason : typing.Optional[ListPaymentsRequestBillingReason]
-            Only payments charged for this reason.
+            Only payments charged for this reason. `subscription_cycle` also matches renewals recorded as `subscription_update`.
 
         currency : typing.Optional[str]
             Only payments presented in this three-letter currency, such as `usd`.
@@ -261,7 +261,7 @@ class RawPaymentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Payment]:
         """
-        Charges a buyer for one or more variants. Pass a payment method already on file (`member_id` and `payment_method_id`), or a `confirmation_token` describing a method the buyer just supplied. Collection runs in the background: the response is the payment as created, not its outcome — poll Retrieve status for how far it has got and, for a confirmation-token payment, what the buyer must still do. Pass `line_items` for one or more variants with quantities, `plan_id` for an existing variant, or the compatibility input `plan` to find or create one inline. These inputs are mutually exclusive.
+        Charges a buyer for one or more variants with a payment method already on file (`member_id` and `payment_method_id`), or with a `confirmation_token` for a method the buyer just supplied. Collection runs in the background, so the response is the payment as created, not its outcome: poll Retrieve payment status for how far it has got and what the buyer must still do.
 
         Parameters
         ----------
@@ -314,7 +314,7 @@ class RawPaymentsClient:
             Overrides the text on the buyer's card statement for this payment only. Takes precedence over the product's and account's custom descriptors, and changes neither. Must start with `WHOP*` unless the business processes as the merchant of record. For businesses processing as the merchant of record, omit the `WHOP*` prefix; the descriptor appears as provided. Must be 5-22 characters, contain at least one letter, and use only Latin letters, numbers, spaces, underscores, hyphens, or asterisks.
 
         line_items : typing.Optional[typing.Sequence[PaymentInputLineItemsItem]]
-            What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
+            What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency. Mutually exclusive with `plan_id` and `plan`.
 
         plan : typing.Optional[PaymentInputPlan]
             The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
@@ -539,7 +539,7 @@ class RawPaymentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Payment]:
         """
-        Updates a payment's `shipping_address` or `return_url`. Send the complete `shipping_address`, because it replaces the existing address and any field you leave out is cleared.
+        Updates a payment's `shipping_address` or `return_url`.
 
         Parameters
         ----------
@@ -891,7 +891,7 @@ class RawPaymentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Payment]:
         """
-        Issues a full or partial refund for a payment. The refund is processed through the original payment processor and the membership status is updated accordingly.
+        Refunds all or part of a payment through the processor that charged it, and updates its membership to match. The buyer is emailed, the affiliate commission on the payment is clawed back, and any open Resolution Center case on the payment is closed.
 
         Parameters
         ----------
@@ -998,7 +998,7 @@ class RawPaymentsClient:
 
     def retry(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[Payment]:
         """
-        Retries a failed or pending payment. This re-attempts the charge using the original payment method and variant details.
+        Charges an unpaid payment again with its original payment method and variant. A payment can typically be retried once, and only while its membership is active, trialing or past due, or when it is a membership's failed first payment.
 
         Parameters
         ----------
@@ -1428,12 +1428,12 @@ class AsyncRawPaymentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Payment, ListPaymentsResponse]:
         """
-        Lists payments, newest first. By default, returns account sales: a company credential's own account, or for a user every account they can read payments for. Set `mode=user_sales` to list only the sales received by the signed-in user's primary ledger account, without a company. This mode requires the user's own Whop login session and cannot be combined with `account_id`. Filters narrow by account, buyer, product, plan, membership, status, billing reason, currency, and creation window. Filtering by `billing_reason=subscription_cycle` also matches renewals recorded as `subscription_update`. `settlement_time_at` is null on list rows — retrieve the payment for it.
+        Lists payments, newest first. By default, returns sales for the accounts your credential can read: an account credential's own account, or every account a user can read payments for. Set `mode` to `user_sales` to list the sales the signed-in user received personally, outside any account.
 
         Parameters
         ----------
         mode : typing.Optional[ListPaymentsRequestMode]
-            Which sales to list. `account_sales` returns sales for the accounts the caller can read. `user_sales` returns only sales received by the signed-in user's primary ledger account, without a company; requires their own Whop login session and cannot be combined with `account_id`.
+            Which sales to list. `account_sales` returns sales for the accounts the caller can read. `user_sales` returns only sales the signed-in user received personally, outside any account; it requires the user's own Whop login session and cannot be combined with `account_id`.
 
         account_id : typing.Optional[str]
             Only payments charged by this account, prefixed `biz_`.
@@ -1442,7 +1442,7 @@ class AsyncRawPaymentsClient:
             Only payments in this lifecycle state.
 
         billing_reason : typing.Optional[ListPaymentsRequestBillingReason]
-            Only payments charged for this reason.
+            Only payments charged for this reason. `subscription_cycle` also matches renewals recorded as `subscription_update`.
 
         currency : typing.Optional[str]
             Only payments presented in this three-letter currency, such as `usd`.
@@ -1623,7 +1623,7 @@ class AsyncRawPaymentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Payment]:
         """
-        Charges a buyer for one or more variants. Pass a payment method already on file (`member_id` and `payment_method_id`), or a `confirmation_token` describing a method the buyer just supplied. Collection runs in the background: the response is the payment as created, not its outcome — poll Retrieve status for how far it has got and, for a confirmation-token payment, what the buyer must still do. Pass `line_items` for one or more variants with quantities, `plan_id` for an existing variant, or the compatibility input `plan` to find or create one inline. These inputs are mutually exclusive.
+        Charges a buyer for one or more variants with a payment method already on file (`member_id` and `payment_method_id`), or with a `confirmation_token` for a method the buyer just supplied. Collection runs in the background, so the response is the payment as created, not its outcome: poll Retrieve payment status for how far it has got and what the buyer must still do.
 
         Parameters
         ----------
@@ -1676,7 +1676,7 @@ class AsyncRawPaymentsClient:
             Overrides the text on the buyer's card statement for this payment only. Takes precedence over the product's and account's custom descriptors, and changes neither. Must start with `WHOP*` unless the business processes as the merchant of record. For businesses processing as the merchant of record, omit the `WHOP*` prefix; the descriptor appears as provided. Must be 5-22 characters, contain at least one letter, and use only Latin letters, numbers, spaces, underscores, hyphens, or asterisks.
 
         line_items : typing.Optional[typing.Sequence[PaymentInputLineItemsItem]]
-            What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
+            What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency. Mutually exclusive with `plan_id` and `plan`.
 
         plan : typing.Optional[PaymentInputPlan]
             The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
@@ -1903,7 +1903,7 @@ class AsyncRawPaymentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Payment]:
         """
-        Updates a payment's `shipping_address` or `return_url`. Send the complete `shipping_address`, because it replaces the existing address and any field you leave out is cleared.
+        Updates a payment's `shipping_address` or `return_url`.
 
         Parameters
         ----------
@@ -2255,7 +2255,7 @@ class AsyncRawPaymentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Payment]:
         """
-        Issues a full or partial refund for a payment. The refund is processed through the original payment processor and the membership status is updated accordingly.
+        Refunds all or part of a payment through the processor that charged it, and updates its membership to match. The buyer is emailed, the affiliate commission on the payment is clawed back, and any open Resolution Center case on the payment is closed.
 
         Parameters
         ----------
@@ -2364,7 +2364,7 @@ class AsyncRawPaymentsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[Payment]:
         """
-        Retries a failed or pending payment. This re-attempts the charge using the original payment method and variant details.
+        Charges an unpaid payment again with its original payment method and variant. A payment can typically be retried once, and only while its membership is active, trialing or past due, or when it is a membership's failed first payment.
 
         Parameters
         ----------

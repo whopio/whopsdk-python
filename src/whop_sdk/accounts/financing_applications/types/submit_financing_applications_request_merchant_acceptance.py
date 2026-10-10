@@ -14,7 +14,7 @@ class SubmitFinancingApplicationsRequestMerchantAcceptance(UniversalBaseModel):
 
     terms_version: str = pydantic.Field()
     """
-    Exact terms.version returned by the application and presented to the merchant.
+    Exact `terms.version` returned by the application and presented to the merchant. A stale version is rejected.
     """
 
     if IS_PYDANTIC_V2:

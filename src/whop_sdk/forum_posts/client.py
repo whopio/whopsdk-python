@@ -138,7 +138,7 @@ class ForumPostsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ForumPost:
         """
-        Create a new forum post or comment within an experience. Supports text content, attachments, polls, paywalling, and pinning. Pass experience_id 'public' with an account_id to post to an account's public forum.
+        Create a new forum post or comment within an experience. Supports text content, attachments, polls, paywalling, and pinning.
 
         Required permissions:
          - `forum:post:create`
@@ -454,7 +454,7 @@ class AsyncForumPostsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ForumPost:
         """
-        Create a new forum post or comment within an experience. Supports text content, attachments, polls, paywalling, and pinning. Pass experience_id 'public' with an account_id to post to an account's public forum.
+        Create a new forum post or comment within an experience. Supports text content, attachments, polls, paywalling, and pinning.
 
         Required permissions:
          - `forum:post:create`

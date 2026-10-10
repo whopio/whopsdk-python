@@ -53,7 +53,7 @@ class RawTeamMembersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[TeamMember, ListTeamMembersResponse]:
         """
-        Lists an account's team members, including pending invites (`status: "pending"`, `ausri_` ids; `user` is `null` for invites sent to an email with no Whop account yet). For accepted members, `email` requires the `company:authorized_user:email:read` scope and is `null` otherwise. A user credential with `company:basic:read` may list only its own joined membership by passing its own `user_id` and `status=joined`. Listing `role=workforce` is also allowed with the `bounty:create` scope.
+        Lists an account's team members, including pending invites. A user credential with `company:basic:read` may list only its own joined membership by passing its own `user_id` and `status=joined`. Listing `role=workforce` is also allowed with the `bounty:create` scope.
 
         Parameters
         ----------
@@ -215,7 +215,7 @@ class RawTeamMembersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[TeamMember]:
         """
-        Adds a member to an account's team with a system role. Identify them by exactly one of `user_id` or `email`. If the person has not yet accepted — or the email does not belong to a Whop account yet — an invitation is sent instead and the response is `202` with `{ "object": "team_member_invite", "invitation_sent": true }`. If they already have a pending invite, the request fails with a `400`. Custom roles cannot be granted via the API. Granting the `workforce` role is also allowed with the `bounty:create` scope.
+        Adds a member to an account's team with a system role. Identify them by exactly one of `user_id` or `email`. If the person has not yet accepted — or the email does not belong to a Whop account yet — an invitation is sent instead and the response is `202` with an `object` of `team_member_invite`. If they already have a pending invite, the request fails with a `400`. Granting the `workforce` role is also allowed with the `bounty:create` scope.
 
         Parameters
         ----------
@@ -223,7 +223,7 @@ class RawTeamMembersClient:
             Account ID, prefixed `biz_`.
 
         role : CreateTeamMembersRequestRole
-            The system role to grant. The Partner role can only be granted to the account's attached, verified partner.
+            The system role to grant. Custom roles cannot be granted through the API. The Partner role can only be granted to the account's attached, verified partner.
 
         email : typing.Optional[str]
             Email address to invite. Mutually exclusive with `user_id`. If the email already belongs to a Whop account it is treated the same as passing that account's `user_id`; otherwise a pending invite is created for the email.
@@ -309,7 +309,7 @@ class RawTeamMembersClient:
 
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[TeamMember]:
         """
-        Retrieves a team member by ID. `email` requires the `company:authorized_user:email:read` scope and is `null` otherwise.
+        Retrieves a team member or pending invite by ID.
 
         Parameters
         ----------
@@ -453,7 +453,7 @@ class RawTeamMembersClient:
             Team member ID — `ausr_` for accepted members, `ausri_` for pending invites.
 
         role : typing.Optional[UpdateTeamMembersRequestRole]
-            The system role to grant. The Partner role can only be granted to the account's attached, verified partner.
+            The system role to grant. Custom roles cannot be granted through the API. The Partner role can only be granted to the account's attached, verified partner.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -540,7 +540,7 @@ class AsyncRawTeamMembersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[TeamMember, ListTeamMembersResponse]:
         """
-        Lists an account's team members, including pending invites (`status: "pending"`, `ausri_` ids; `user` is `null` for invites sent to an email with no Whop account yet). For accepted members, `email` requires the `company:authorized_user:email:read` scope and is `null` otherwise. A user credential with `company:basic:read` may list only its own joined membership by passing its own `user_id` and `status=joined`. Listing `role=workforce` is also allowed with the `bounty:create` scope.
+        Lists an account's team members, including pending invites. A user credential with `company:basic:read` may list only its own joined membership by passing its own `user_id` and `status=joined`. Listing `role=workforce` is also allowed with the `bounty:create` scope.
 
         Parameters
         ----------
@@ -705,7 +705,7 @@ class AsyncRawTeamMembersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[TeamMember]:
         """
-        Adds a member to an account's team with a system role. Identify them by exactly one of `user_id` or `email`. If the person has not yet accepted — or the email does not belong to a Whop account yet — an invitation is sent instead and the response is `202` with `{ "object": "team_member_invite", "invitation_sent": true }`. If they already have a pending invite, the request fails with a `400`. Custom roles cannot be granted via the API. Granting the `workforce` role is also allowed with the `bounty:create` scope.
+        Adds a member to an account's team with a system role. Identify them by exactly one of `user_id` or `email`. If the person has not yet accepted — or the email does not belong to a Whop account yet — an invitation is sent instead and the response is `202` with an `object` of `team_member_invite`. If they already have a pending invite, the request fails with a `400`. Granting the `workforce` role is also allowed with the `bounty:create` scope.
 
         Parameters
         ----------
@@ -713,7 +713,7 @@ class AsyncRawTeamMembersClient:
             Account ID, prefixed `biz_`.
 
         role : CreateTeamMembersRequestRole
-            The system role to grant. The Partner role can only be granted to the account's attached, verified partner.
+            The system role to grant. Custom roles cannot be granted through the API. The Partner role can only be granted to the account's attached, verified partner.
 
         email : typing.Optional[str]
             Email address to invite. Mutually exclusive with `user_id`. If the email already belongs to a Whop account it is treated the same as passing that account's `user_id`; otherwise a pending invite is created for the email.
@@ -801,7 +801,7 @@ class AsyncRawTeamMembersClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[TeamMember]:
         """
-        Retrieves a team member by ID. `email` requires the `company:authorized_user:email:read` scope and is `null` otherwise.
+        Retrieves a team member or pending invite by ID.
 
         Parameters
         ----------
@@ -945,7 +945,7 @@ class AsyncRawTeamMembersClient:
             Team member ID — `ausr_` for accepted members, `ausri_` for pending invites.
 
         role : typing.Optional[UpdateTeamMembersRequestRole]
-            The system role to grant. The Partner role can only be granted to the account's attached, verified partner.
+            The system role to grant. Custom roles cannot be granted through the API. The Partner role can only be granted to the account's attached, verified partner.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

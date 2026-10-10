@@ -34,7 +34,7 @@ class PreferencesClient:
 
     def retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> UserPreferences:
         """
-        Retrieves the authenticated user's settings document. Addressed only as `me` — the document always belongs to the session user.
+        Retrieves the authenticated user's settings document.
 
         Parameters
         ----------
@@ -142,7 +142,7 @@ class AsyncPreferencesClient:
 
     async def retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> UserPreferences:
         """
-        Retrieves the authenticated user's settings document. Addressed only as `me` — the document always belongs to the session user.
+        Retrieves the authenticated user's settings document.
 
         Parameters
         ----------

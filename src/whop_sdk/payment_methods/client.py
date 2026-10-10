@@ -56,7 +56,7 @@ class PaymentMethodsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[PaymentMethodListItem, ListPaymentMethodsResponse]:
         """
-        Returns a paginated list of payment methods for a member or company, or for the authenticated user when neither is given, with optional filtering by creation date. A payment method is a stored representation of how a customer intends to pay, such as a card, bank account, or digital wallet.
+        Returns a paginated list of saved payment methods for a member or account, or for the authenticated user when you pass neither.
 
         Required permissions:
          - `member:payment_methods:read`
@@ -175,7 +175,7 @@ class PaymentMethodsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """
-        Retrieves the details of an existing payment method. Addresses a member's wallet when member_id or account_id is given, otherwise your own.
+        Retrieves a saved payment method from a member's wallet when you pass `member_id` or `account_id`, or from your own otherwise.
 
         Required permissions:
          - `member:payment_methods:read`
@@ -312,7 +312,7 @@ class AsyncPaymentMethodsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[PaymentMethodListItem, ListPaymentMethodsResponse]:
         """
-        Returns a paginated list of payment methods for a member or company, or for the authenticated user when neither is given, with optional filtering by creation date. A payment method is a stored representation of how a customer intends to pay, such as a card, bank account, or digital wallet.
+        Returns a paginated list of saved payment methods for a member or account, or for the authenticated user when you pass neither.
 
         Required permissions:
          - `member:payment_methods:read`
@@ -439,7 +439,7 @@ class AsyncPaymentMethodsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """
-        Retrieves the details of an existing payment method. Addresses a member's wallet when member_id or account_id is given, otherwise your own.
+        Retrieves a saved payment method from a member's wallet when you pass `member_id` or `account_id`, or from your own otherwise.
 
         Required permissions:
          - `member:payment_methods:read`

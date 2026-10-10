@@ -137,7 +137,7 @@ class CheckoutConfigurationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateCheckoutConfigurationsResponse:
         """
-        Creates a reusable checkout configuration for an existing or inline variant.
+        Creates a reusable checkout configuration for an existing or inline variant. Send customers to its `purchase_url` to check out.
 
         Parameters
         ----------
@@ -401,7 +401,7 @@ class AsyncCheckoutConfigurationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateCheckoutConfigurationsResponse:
         """
-        Creates a reusable checkout configuration for an existing or inline variant.
+        Creates a reusable checkout configuration for an existing or inline variant. Send customers to its `purchase_url` to check out.
 
         Parameters
         ----------

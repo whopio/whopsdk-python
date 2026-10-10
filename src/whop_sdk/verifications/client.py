@@ -43,7 +43,7 @@ class VerificationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ListVerificationsResponse:
         """
-        Returns verifications for an account, including their status and any required actions.
+        Lists the verifications for an account or user, including their status and any required actions.
 
         Parameters
         ----------
@@ -92,7 +92,7 @@ class VerificationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateVerificationsResponse:
         """
-        Starts a hosted verification session for an account or user, or returns the active session when one already exists. Any fields you include in the request body are used to prefill the session. Send `documents` (with `document_type`) to instead verify the person from identity documents included in this request — no hosted session involved. Send `share_token` to reuse a verification another Sumsub account has already completed for this person, instead of verifying them again. Send `verification_id` to reuse a verification the signed-in user already completed on Whop. Every mode except `verification_id` is rejected once the account has an `approved` verification — unlink it first to start a new one — while `verification_id` replaces whichever verification of that kind the account currently has.
+        Starts a hosted verification session for an account or user, or returns the active session when one already exists; any fields you send prefill it. To skip the hosted session, send `documents` to verify the person from files in this request, `share_token` to reuse a verification another Sumsub account completed, or `verification_id` to reuse one the signed-in user completed on Whop. Once the account has an `approved` verification, every mode except `verification_id` is rejected — unlink it first to start a new one.
 
         Parameters
         ----------
@@ -135,7 +135,7 @@ class VerificationsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> RetrieveVerificationsResponse:
         """
-        Returns verifications for an account, including their status and any required actions.
+        Retrieves a verification by ID, including its status and any information or documents still required.
 
         Parameters
         ----------
@@ -235,7 +235,7 @@ class AsyncVerificationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ListVerificationsResponse:
         """
-        Returns verifications for an account, including their status and any required actions.
+        Lists the verifications for an account or user, including their status and any required actions.
 
         Parameters
         ----------
@@ -292,7 +292,7 @@ class AsyncVerificationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateVerificationsResponse:
         """
-        Starts a hosted verification session for an account or user, or returns the active session when one already exists. Any fields you include in the request body are used to prefill the session. Send `documents` (with `document_type`) to instead verify the person from identity documents included in this request — no hosted session involved. Send `share_token` to reuse a verification another Sumsub account has already completed for this person, instead of verifying them again. Send `verification_id` to reuse a verification the signed-in user already completed on Whop. Every mode except `verification_id` is rejected once the account has an `approved` verification — unlink it first to start a new one — while `verification_id` replaces whichever verification of that kind the account currently has.
+        Starts a hosted verification session for an account or user, or returns the active session when one already exists; any fields you send prefill it. To skip the hosted session, send `documents` to verify the person from files in this request, `share_token` to reuse a verification another Sumsub account completed, or `verification_id` to reuse one the signed-in user completed on Whop. Once the account has an `approved` verification, every mode except `verification_id` is rejected — unlink it first to start a new one.
 
         Parameters
         ----------
@@ -343,7 +343,7 @@ class AsyncVerificationsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> RetrieveVerificationsResponse:
         """
-        Returns verifications for an account, including their status and any required actions.
+        Retrieves a verification by ID, including its status and any information or documents still required.
 
         Parameters
         ----------

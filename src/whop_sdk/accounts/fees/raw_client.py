@@ -59,7 +59,7 @@ class RawFeesClient:
         self, account_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[AccountFees]:
         """
-        Retrieves the account's fees: a singleton document keyed by fee, with any markups its platform adds. Connected accounts see their effective rates, with covered payouts shown as zero; pricing provenance and comparisons are null without parent-account access. `adjustable` on each fee says what the caller may change.
+        Retrieves the account's fees as a single document keyed by fee, with any markups its platform adds. Connected accounts see the rates in effect for them. `adjustable` on each fee says what you may change with Update Account Fees.
 
         Parameters
         ----------
@@ -158,7 +158,7 @@ class RawFeesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[AccountFees]:
         """
-        Updates the account's fees. The response shows effective rates and hides pricing provenance and comparisons without parent-account access. Each key present in the body is replaced; omitted keys are left untouched. Only fees the document reports as `adjustable` can be changed.
+        Updates the account's fees. Each key present in the body is replaced; omitted keys are left untouched. Only fees that Retrieve Account Fees reports as `adjustable` can be changed.
 
         Parameters
         ----------
@@ -426,7 +426,7 @@ class AsyncRawFeesClient:
         self, account_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[AccountFees]:
         """
-        Retrieves the account's fees: a singleton document keyed by fee, with any markups its platform adds. Connected accounts see their effective rates, with covered payouts shown as zero; pricing provenance and comparisons are null without parent-account access. `adjustable` on each fee says what the caller may change.
+        Retrieves the account's fees as a single document keyed by fee, with any markups its platform adds. Connected accounts see the rates in effect for them. `adjustable` on each fee says what you may change with Update Account Fees.
 
         Parameters
         ----------
@@ -525,7 +525,7 @@ class AsyncRawFeesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[AccountFees]:
         """
-        Updates the account's fees. The response shows effective rates and hides pricing provenance and comparisons without parent-account access. Each key present in the body is replaced; omitted keys are left untouched. Only fees the document reports as `adjustable` can be changed.
+        Updates the account's fees. Each key present in the body is replaced; omitted keys are left untouched. Only fees that Retrieve Account Fees reports as `adjustable` can be changed.
 
         Parameters
         ----------

@@ -24,7 +24,6 @@ if typing.TYPE_CHECKING:
     )
     from .referred_users_partners_request_direction import ReferredUsersPartnersRequestDirection
     from .referred_users_partners_request_order import ReferredUsersPartnersRequestOrder
-    from .referred_users_partners_request_user_id import ReferredUsersPartnersRequestUserId
     from .referred_users_partners_response import ReferredUsersPartnersResponse
     from .referred_users_partners_response_data_item import ReferredUsersPartnersResponseDataItem
     from .referred_users_partners_response_data_item_user import ReferredUsersPartnersResponseDataItemUser
@@ -47,7 +46,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LeaderboardPartnersResponseNearbyItemUserProfilePicture": ".leaderboard_partners_response_nearby_item_user_profile_picture",
     "ReferredUsersPartnersRequestDirection": ".referred_users_partners_request_direction",
     "ReferredUsersPartnersRequestOrder": ".referred_users_partners_request_order",
-    "ReferredUsersPartnersRequestUserId": ".referred_users_partners_request_user_id",
     "ReferredUsersPartnersResponse": ".referred_users_partners_response",
     "ReferredUsersPartnersResponseDataItem": ".referred_users_partners_response_data_item",
     "ReferredUsersPartnersResponseDataItemUser": ".referred_users_partners_response_data_item_user",
@@ -92,7 +90,6 @@ __all__ = [
     "LeaderboardPartnersResponseNearbyItemUserProfilePicture",
     "ReferredUsersPartnersRequestDirection",
     "ReferredUsersPartnersRequestOrder",
-    "ReferredUsersPartnersRequestUserId",
     "ReferredUsersPartnersResponse",
     "ReferredUsersPartnersResponseDataItem",
     "ReferredUsersPartnersResponseDataItemUser",

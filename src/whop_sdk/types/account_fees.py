@@ -122,7 +122,7 @@ class AccountFees(UniversalBaseModel):
 
     payouts: typing.Dict[str, AccountFee] = pydantic.Field()
     """
-    Fees on withdrawals, keyed by payout method: `bank_wire`, `same_day_bank`, `next_day_bank`, `rtp`, `crypto`, and `digital_wallet`.
+    Fees on withdrawals, keyed by payout method: `bank_wire`, `same_day_bank`, `next_day_bank`, `rtp`, `crypto`, and `digital_wallet`. Payout fees the parent account covers show as zero when a connected account's fees are read without access to its parent account.
     """
 
     pending_auto_topup: AccountFee = pydantic.Field()
