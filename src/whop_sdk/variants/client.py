@@ -57,6 +57,7 @@ class VariantsClient:
         created_after: typing.Optional[str] = None,
         presentment_currency: typing.Optional[str] = None,
         ip_address: typing.Optional[str] = None,
+        presentment_country: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
@@ -96,10 +97,13 @@ class VariantsClient:
             Only return variants created after this timestamp.
 
         presentment_currency : typing.Optional[str]
-            The currency to state each variant's prices in. Omit it, or send null, for each variant's own currency. `auto` states them in the currency of the country Whop places the buyer in: by `ip_address` when your server sends one, and by the request's own IP address otherwise. A three-letter ISO 4217 code, such as `eur`, states them in that currency. A variant converts only where a payment quote for it would be priced in that currency, and stays in its own currency otherwise: a renewing variant, one with adaptive pricing off, a currency no payment method can collect, or `auto` for a buyer Whop cannot place in a country. Converted prices are an estimate at the current exchange rate. Nothing is held: the payment quote the buyer pays from fixes the rate.
+            The currency to state each variant's prices in. Omit it, or send null, for each variant's own currency. `auto` states them in the currency of the country Whop places the buyer in: by `ip_address` when your server sends one, and by the request's own IP address otherwise. To choose that country instead, send `presentment_country` in place of this. A three-letter ISO 4217 code, such as `eur`, states them in that currency. A variant converts only where a payment quote for it would be priced in that currency, and stays in its own currency otherwise: a renewing variant, one with adaptive pricing off, a currency no payment method can collect, or `auto` for a buyer Whop cannot place in a country. Converted prices are an estimate at the current exchange rate. Nothing is held: the payment quote the buyer pays from fixes the rate.
 
         ip_address : typing.Optional[str]
-            The buyer's IP address, when your server reads on their behalf. Needs an API key; any other caller is placed by its own request. Where `presentment_currency` `auto` finds the buyer's local currency.
+            The buyer's IP address, when your server reads on their behalf. Needs an API key; any other caller is placed by its own request. Where `presentment_currency` `auto` finds the buyer's local currency, and where a payment method must be able to collect it.
+
+        presentment_country : typing.Optional[str]
+            The country to state each variant's prices for, as an ISO 3166-1 alpha-2 code such as `JP`, when the buyer chose one: a store's country picker. States them in the currency `auto` would for a buyer in that country, so send it instead of `presentment_currency`, never with it. Whether a payment method can collect that currency is still judged where the buyer is: by `ip_address`, else by the request's own IP address. A country Whop has no currency for is ignored, and the prices are stated as `auto` would state them.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -137,6 +141,7 @@ class VariantsClient:
             product_ids=["prod_xxxxxxxxxxxxxx"],
             presentment_currency="auto",
             ip_address="203.0.113.7",
+            presentment_country="JP",
         )
         for item in response:
             yield item
@@ -156,6 +161,7 @@ class VariantsClient:
             created_after=created_after,
             presentment_currency=presentment_currency,
             ip_address=ip_address,
+            presentment_country=presentment_country,
             first=first,
             after=after,
             last=last,
@@ -338,6 +344,7 @@ class VariantsClient:
         *,
         presentment_currency: typing.Optional[str] = None,
         ip_address: typing.Optional[str] = None,
+        presentment_country: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Variant:
         """
@@ -349,10 +356,13 @@ class VariantsClient:
             Variant ID, prefixed `plan_`.
 
         presentment_currency : typing.Optional[str]
-            The currency to state each variant's prices in. Omit it, or send null, for each variant's own currency. `auto` states them in the currency of the country Whop places the buyer in: by `ip_address` when your server sends one, and by the request's own IP address otherwise. A three-letter ISO 4217 code, such as `eur`, states them in that currency. A variant converts only where a payment quote for it would be priced in that currency, and stays in its own currency otherwise: a renewing variant, one with adaptive pricing off, a currency no payment method can collect, or `auto` for a buyer Whop cannot place in a country. Converted prices are an estimate at the current exchange rate. Nothing is held: the payment quote the buyer pays from fixes the rate.
+            The currency to state each variant's prices in. Omit it, or send null, for each variant's own currency. `auto` states them in the currency of the country Whop places the buyer in: by `ip_address` when your server sends one, and by the request's own IP address otherwise. To choose that country instead, send `presentment_country` in place of this. A three-letter ISO 4217 code, such as `eur`, states them in that currency. A variant converts only where a payment quote for it would be priced in that currency, and stays in its own currency otherwise: a renewing variant, one with adaptive pricing off, a currency no payment method can collect, or `auto` for a buyer Whop cannot place in a country. Converted prices are an estimate at the current exchange rate. Nothing is held: the payment quote the buyer pays from fixes the rate.
 
         ip_address : typing.Optional[str]
-            The buyer's IP address, when your server reads on their behalf. Needs an API key; any other caller is placed by its own request. Where `presentment_currency` `auto` finds the buyer's local currency.
+            The buyer's IP address, when your server reads on their behalf. Needs an API key; any other caller is placed by its own request. Where `presentment_currency` `auto` finds the buyer's local currency, and where a payment method must be able to collect it.
+
+        presentment_country : typing.Optional[str]
+            The country to state each variant's prices for, as an ISO 3166-1 alpha-2 code such as `JP`, when the buyer chose one: a store's country picker. States them in the currency `auto` would for a buyer in that country, so send it instead of `presentment_currency`, never with it. Whether a payment method can collect that currency is still judged where the buyer is: by `ip_address`, else by the request's own IP address. A country Whop has no currency for is ignored, and the prices are stated as `auto` would state them.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -375,10 +385,15 @@ class VariantsClient:
             id="id",
             presentment_currency="auto",
             ip_address="203.0.113.7",
+            presentment_country="JP",
         )
         """
         _response = self._raw_client.retrieve(
-            id, presentment_currency=presentment_currency, ip_address=ip_address, request_options=request_options
+            id,
+            presentment_currency=presentment_currency,
+            ip_address=ip_address,
+            presentment_country=presentment_country,
+            request_options=request_options,
         )
         return _response.data
 
@@ -683,6 +698,7 @@ class AsyncVariantsClient:
         created_after: typing.Optional[str] = None,
         presentment_currency: typing.Optional[str] = None,
         ip_address: typing.Optional[str] = None,
+        presentment_country: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
@@ -722,10 +738,13 @@ class AsyncVariantsClient:
             Only return variants created after this timestamp.
 
         presentment_currency : typing.Optional[str]
-            The currency to state each variant's prices in. Omit it, or send null, for each variant's own currency. `auto` states them in the currency of the country Whop places the buyer in: by `ip_address` when your server sends one, and by the request's own IP address otherwise. A three-letter ISO 4217 code, such as `eur`, states them in that currency. A variant converts only where a payment quote for it would be priced in that currency, and stays in its own currency otherwise: a renewing variant, one with adaptive pricing off, a currency no payment method can collect, or `auto` for a buyer Whop cannot place in a country. Converted prices are an estimate at the current exchange rate. Nothing is held: the payment quote the buyer pays from fixes the rate.
+            The currency to state each variant's prices in. Omit it, or send null, for each variant's own currency. `auto` states them in the currency of the country Whop places the buyer in: by `ip_address` when your server sends one, and by the request's own IP address otherwise. To choose that country instead, send `presentment_country` in place of this. A three-letter ISO 4217 code, such as `eur`, states them in that currency. A variant converts only where a payment quote for it would be priced in that currency, and stays in its own currency otherwise: a renewing variant, one with adaptive pricing off, a currency no payment method can collect, or `auto` for a buyer Whop cannot place in a country. Converted prices are an estimate at the current exchange rate. Nothing is held: the payment quote the buyer pays from fixes the rate.
 
         ip_address : typing.Optional[str]
-            The buyer's IP address, when your server reads on their behalf. Needs an API key; any other caller is placed by its own request. Where `presentment_currency` `auto` finds the buyer's local currency.
+            The buyer's IP address, when your server reads on their behalf. Needs an API key; any other caller is placed by its own request. Where `presentment_currency` `auto` finds the buyer's local currency, and where a payment method must be able to collect it.
+
+        presentment_country : typing.Optional[str]
+            The country to state each variant's prices for, as an ISO 3166-1 alpha-2 code such as `JP`, when the buyer chose one: a store's country picker. States them in the currency `auto` would for a buyer in that country, so send it instead of `presentment_currency`, never with it. Whether a payment method can collect that currency is still judged where the buyer is: by `ip_address`, else by the request's own IP address. A country Whop has no currency for is ignored, and the prices are stated as `auto` would state them.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -768,6 +787,7 @@ class AsyncVariantsClient:
                 product_ids=["prod_xxxxxxxxxxxxxx"],
                 presentment_currency="auto",
                 ip_address="203.0.113.7",
+                presentment_country="JP",
             )
             async for item in response:
                 yield item
@@ -791,6 +811,7 @@ class AsyncVariantsClient:
             created_after=created_after,
             presentment_currency=presentment_currency,
             ip_address=ip_address,
+            presentment_country=presentment_country,
             first=first,
             after=after,
             last=last,
@@ -981,6 +1002,7 @@ class AsyncVariantsClient:
         *,
         presentment_currency: typing.Optional[str] = None,
         ip_address: typing.Optional[str] = None,
+        presentment_country: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Variant:
         """
@@ -992,10 +1014,13 @@ class AsyncVariantsClient:
             Variant ID, prefixed `plan_`.
 
         presentment_currency : typing.Optional[str]
-            The currency to state each variant's prices in. Omit it, or send null, for each variant's own currency. `auto` states them in the currency of the country Whop places the buyer in: by `ip_address` when your server sends one, and by the request's own IP address otherwise. A three-letter ISO 4217 code, such as `eur`, states them in that currency. A variant converts only where a payment quote for it would be priced in that currency, and stays in its own currency otherwise: a renewing variant, one with adaptive pricing off, a currency no payment method can collect, or `auto` for a buyer Whop cannot place in a country. Converted prices are an estimate at the current exchange rate. Nothing is held: the payment quote the buyer pays from fixes the rate.
+            The currency to state each variant's prices in. Omit it, or send null, for each variant's own currency. `auto` states them in the currency of the country Whop places the buyer in: by `ip_address` when your server sends one, and by the request's own IP address otherwise. To choose that country instead, send `presentment_country` in place of this. A three-letter ISO 4217 code, such as `eur`, states them in that currency. A variant converts only where a payment quote for it would be priced in that currency, and stays in its own currency otherwise: a renewing variant, one with adaptive pricing off, a currency no payment method can collect, or `auto` for a buyer Whop cannot place in a country. Converted prices are an estimate at the current exchange rate. Nothing is held: the payment quote the buyer pays from fixes the rate.
 
         ip_address : typing.Optional[str]
-            The buyer's IP address, when your server reads on their behalf. Needs an API key; any other caller is placed by its own request. Where `presentment_currency` `auto` finds the buyer's local currency.
+            The buyer's IP address, when your server reads on their behalf. Needs an API key; any other caller is placed by its own request. Where `presentment_currency` `auto` finds the buyer's local currency, and where a payment method must be able to collect it.
+
+        presentment_country : typing.Optional[str]
+            The country to state each variant's prices for, as an ISO 3166-1 alpha-2 code such as `JP`, when the buyer chose one: a store's country picker. States them in the currency `auto` would for a buyer in that country, so send it instead of `presentment_currency`, never with it. Whether a payment method can collect that currency is still judged where the buyer is: by `ip_address`, else by the request's own IP address. A country Whop has no currency for is ignored, and the prices are stated as `auto` would state them.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1023,13 +1048,18 @@ class AsyncVariantsClient:
                 id="id",
                 presentment_currency="auto",
                 ip_address="203.0.113.7",
+                presentment_country="JP",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._raw_client.retrieve(
-            id, presentment_currency=presentment_currency, ip_address=ip_address, request_options=request_options
+            id,
+            presentment_currency=presentment_currency,
+            ip_address=ip_address,
+            presentment_country=presentment_country,
+            request_options=request_options,
         )
         return _response.data
 
