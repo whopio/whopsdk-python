@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .account_cards import AccountCards
 from .trading_account import TradingAccount
 from .user_balance import UserBalance
 from .user_balance_history import UserBalanceHistory
@@ -32,6 +33,11 @@ class User(UniversalBaseModel):
     bio: typing.Optional[str] = pydantic.Field(default=None)
     """
     The user's biography
+    """
+
+    cards: typing.Optional[AccountCards] = pydantic.Field(default=None)
+    """
+    Where the user's personal card application stands. Populated only on the self view (retrieved with the reserved id `me`) for callers with balance-read scope; `null` otherwise, or when the user has never applied for a card.
     """
 
     created_at: str = pydantic.Field()

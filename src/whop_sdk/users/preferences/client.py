@@ -64,6 +64,7 @@ class PreferencesClient:
         self,
         *,
         bounty_worker_onboarding_dismissed: typing.Optional[bool] = OMIT,
+        cards_auto_top_up: typing.Optional[bool] = OMIT,
         investigation_enabled: typing.Optional[bool] = OMIT,
         terms_accepted: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -75,6 +76,9 @@ class PreferencesClient:
         ----------
         bounty_worker_onboarding_dismissed : typing.Optional[bool]
             Whether the user has dismissed the first-time bounty worker onboarding. Set to `false` to show it again.
+
+        cards_auto_top_up : typing.Optional[bool]
+            Whether incoming funds, including pending balance, are automatically moved to the user's personal cards balance. Requires a cards balance and the `payout:account:update` permission.
 
         investigation_enabled : typing.Optional[bool]
             Whether investigation mode is enabled for the user. Only meaningful for staff users with investigation access.
@@ -103,6 +107,7 @@ class PreferencesClient:
         """
         _response = self._raw_client.update(
             bounty_worker_onboarding_dismissed=bounty_worker_onboarding_dismissed,
+            cards_auto_top_up=cards_auto_top_up,
             investigation_enabled=investigation_enabled,
             terms_accepted=terms_accepted,
             request_options=request_options,
@@ -175,6 +180,7 @@ class AsyncPreferencesClient:
         self,
         *,
         bounty_worker_onboarding_dismissed: typing.Optional[bool] = OMIT,
+        cards_auto_top_up: typing.Optional[bool] = OMIT,
         investigation_enabled: typing.Optional[bool] = OMIT,
         terms_accepted: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -186,6 +192,9 @@ class AsyncPreferencesClient:
         ----------
         bounty_worker_onboarding_dismissed : typing.Optional[bool]
             Whether the user has dismissed the first-time bounty worker onboarding. Set to `false` to show it again.
+
+        cards_auto_top_up : typing.Optional[bool]
+            Whether incoming funds, including pending balance, are automatically moved to the user's personal cards balance. Requires a cards balance and the `payout:account:update` permission.
 
         investigation_enabled : typing.Optional[bool]
             Whether investigation mode is enabled for the user. Only meaningful for staff users with investigation access.
@@ -222,6 +231,7 @@ class AsyncPreferencesClient:
         """
         _response = await self._raw_client.update(
             bounty_worker_onboarding_dismissed=bounty_worker_onboarding_dismissed,
+            cards_auto_top_up=cards_auto_top_up,
             investigation_enabled=investigation_enabled,
             terms_accepted=terms_accepted,
             request_options=request_options,

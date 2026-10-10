@@ -31,6 +31,7 @@ class RawCardTransactionsClient:
         self,
         *,
         account_id: typing.Optional[str] = None,
+        user_id: typing.Optional[str] = None,
         transaction_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         card_id: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         cardholder_id: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
@@ -46,12 +47,15 @@ class RawCardTransactionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[CardTransaction, ListCardTransactionsResponse]:
         """
-        Lists an account's card transactions, newest first. Defaults to the account the credential belongs to. Covers every card the owner has ever had, including canceled cards and spend that predates a re-application, and team members only see transactions on the cards assigned to them. Pass `transaction_ids` to fetch specific transactions instead of paging for them.
+        Lists the card transactions of an account or a user, newest first. Defaults to the account the credential belongs to. Covers every card the owner has ever had, including canceled cards and spend that predates a re-application, and team members only see transactions on the cards assigned to them. Pass `transaction_ids` to fetch specific transactions instead of paging for them.
 
         Parameters
         ----------
         account_id : typing.Optional[str]
-            The account whose card transactions to list, prefixed `biz_`. Defaults to the credential's account.
+            The account whose card transactions to list, prefixed `biz_`. Provide this or `user_id`. Defaults to the credential's account.
+
+        user_id : typing.Optional[str]
+            The user whose personal card transactions to list, prefixed `user_`. Provide this or `account_id`. Only that user can read them.
 
         transaction_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Return only these card transactions, each prefixed `citx_`. Repeat the parameter, or pass one comma-separated value.
@@ -103,6 +107,7 @@ class RawCardTransactionsClient:
             method="GET",
             params={
                 "account_id": account_id,
+                "user_id": user_id,
                 "transaction_ids": transaction_ids,
                 "card_id": card_id,
                 "cardholder_id": cardholder_id,
@@ -135,6 +140,7 @@ class RawCardTransactionsClient:
                     _has_next = _parsed_next is not None and _parsed_next != ""
                     _get_next = lambda: self.list(
                         account_id=account_id,
+                        user_id=user_id,
                         transaction_ids=transaction_ids,
                         card_id=card_id,
                         cardholder_id=cardholder_id,
@@ -197,6 +203,7 @@ class RawCardTransactionsClient:
         id: str,
         *,
         account_id: typing.Optional[str] = None,
+        user_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CardTransaction]:
         """
@@ -208,7 +215,10 @@ class RawCardTransactionsClient:
             The card transaction ID, prefixed `citx_`.
 
         account_id : typing.Optional[str]
-            The account that owns the transaction, prefixed `biz_`. Defaults to the credential's account.
+            The account that owns the transaction, prefixed `biz_`. Provide this or `user_id`. Defaults to the credential's account.
+
+        user_id : typing.Optional[str]
+            The user that owns the transaction, prefixed `user_`. Provide this or `account_id`. Only that user can read it.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -224,6 +234,7 @@ class RawCardTransactionsClient:
             method="GET",
             params={
                 "account_id": account_id,
+                "user_id": user_id,
             },
             request_options=request_options,
         )
@@ -288,6 +299,7 @@ class AsyncRawCardTransactionsClient:
         self,
         *,
         account_id: typing.Optional[str] = None,
+        user_id: typing.Optional[str] = None,
         transaction_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         card_id: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         cardholder_id: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
@@ -303,12 +315,15 @@ class AsyncRawCardTransactionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[CardTransaction, ListCardTransactionsResponse]:
         """
-        Lists an account's card transactions, newest first. Defaults to the account the credential belongs to. Covers every card the owner has ever had, including canceled cards and spend that predates a re-application, and team members only see transactions on the cards assigned to them. Pass `transaction_ids` to fetch specific transactions instead of paging for them.
+        Lists the card transactions of an account or a user, newest first. Defaults to the account the credential belongs to. Covers every card the owner has ever had, including canceled cards and spend that predates a re-application, and team members only see transactions on the cards assigned to them. Pass `transaction_ids` to fetch specific transactions instead of paging for them.
 
         Parameters
         ----------
         account_id : typing.Optional[str]
-            The account whose card transactions to list, prefixed `biz_`. Defaults to the credential's account.
+            The account whose card transactions to list, prefixed `biz_`. Provide this or `user_id`. Defaults to the credential's account.
+
+        user_id : typing.Optional[str]
+            The user whose personal card transactions to list, prefixed `user_`. Provide this or `account_id`. Only that user can read them.
 
         transaction_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Return only these card transactions, each prefixed `citx_`. Repeat the parameter, or pass one comma-separated value.
@@ -360,6 +375,7 @@ class AsyncRawCardTransactionsClient:
             method="GET",
             params={
                 "account_id": account_id,
+                "user_id": user_id,
                 "transaction_ids": transaction_ids,
                 "card_id": card_id,
                 "cardholder_id": cardholder_id,
@@ -394,6 +410,7 @@ class AsyncRawCardTransactionsClient:
                     async def _get_next():
                         return await self.list(
                             account_id=account_id,
+                            user_id=user_id,
                             transaction_ids=transaction_ids,
                             card_id=card_id,
                             cardholder_id=cardholder_id,
@@ -457,6 +474,7 @@ class AsyncRawCardTransactionsClient:
         id: str,
         *,
         account_id: typing.Optional[str] = None,
+        user_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CardTransaction]:
         """
@@ -468,7 +486,10 @@ class AsyncRawCardTransactionsClient:
             The card transaction ID, prefixed `citx_`.
 
         account_id : typing.Optional[str]
-            The account that owns the transaction, prefixed `biz_`. Defaults to the credential's account.
+            The account that owns the transaction, prefixed `biz_`. Provide this or `user_id`. Defaults to the credential's account.
+
+        user_id : typing.Optional[str]
+            The user that owns the transaction, prefixed `user_`. Provide this or `account_id`. Only that user can read it.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -484,6 +505,7 @@ class AsyncRawCardTransactionsClient:
             method="GET",
             params={
                 "account_id": account_id,
+                "user_id": user_id,
             },
             request_options=request_options,
         )
