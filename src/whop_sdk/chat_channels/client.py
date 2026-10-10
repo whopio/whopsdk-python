@@ -43,7 +43,7 @@ class ChatChannelsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ChatChannelListItem, ListChatChannelsResponse]:
         """
-        Returns a paginated list of chat channels within a specific company, with optional filtering by product.
+        Lists the chat channels in an account.
 
         Required permissions:
          - `chat:read`
@@ -156,7 +156,7 @@ class ChatChannelsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ChatChannel:
         """
-        Update moderation settings for a chat channel, such as who can post, banned words, and media restrictions.
+        Updates a chat channel's moderation settings, such as who can post, banned words, and media restrictions.
 
         Required permissions:
          - `chat:moderate`
@@ -245,7 +245,7 @@ class AsyncChatChannelsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ChatChannelListItem, ListChatChannelsResponse]:
         """
-        Returns a paginated list of chat channels within a specific company, with optional filtering by product.
+        Lists the chat channels in an account.
 
         Required permissions:
          - `chat:read`
@@ -375,7 +375,7 @@ class AsyncChatChannelsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ChatChannel:
         """
-        Update moderation settings for a chat channel, such as who can post, banned words, and media restrictions.
+        Updates a chat channel's moderation settings, such as who can post, banned words, and media restrictions.
 
         Required permissions:
          - `chat:moderate`

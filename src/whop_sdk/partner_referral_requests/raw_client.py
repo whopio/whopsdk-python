@@ -194,7 +194,7 @@ class RawPartnerReferralRequestsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PartnerReferralRequest]:
         """
-        Creates a referral link or sends a verified partner's attribution request to an existing business or user for approval. Whop sessions creating a link with their own active `authorized_user_id` enroll automatically. Manual requests always require a verified partner. Recipients do not need to join the partner program.
+        Creates a referral link, or sends an attribution request to an existing business or user for approval. Links require an enrolled partner who is not suspended; attribution requests require an enrolled, verified partner. Recipients do not need to join the partner program.
 
         Parameters
         ----------
@@ -801,7 +801,7 @@ class AsyncRawPartnerReferralRequestsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PartnerReferralRequest]:
         """
-        Creates a referral link or sends a verified partner's attribution request to an existing business or user for approval. Whop sessions creating a link with their own active `authorized_user_id` enroll automatically. Manual requests always require a verified partner. Recipients do not need to join the partner program.
+        Creates a referral link, or sends an attribution request to an existing business or user for approval. Links require an enrolled partner who is not suspended; attribution requests require an enrolled, verified partner. Recipients do not need to join the partner program.
 
         Parameters
         ----------

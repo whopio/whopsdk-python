@@ -26,12 +26,12 @@ class AccountFee(UniversalBaseModel):
 
     default: AccountFeeRate = pydantic.Field()
     """
-    The platform rate before custom or inherited pricing is applied.
+    The platform rate before custom or inherited pricing is applied. Its `percentage` and `fixed` are `null` when a connected account's fees are read without access to its parent account.
     """
 
     ends_at: typing.Optional[str] = pydantic.Field(default=None)
     """
-    When a custom or inherited rate expires and the fee returns to `default`, as an ISO 8601 timestamp. `null` when the default applies or the rate does not expire.
+    When a custom or inherited rate expires and the fee returns to `default`, as an ISO 8601 timestamp. `null` when the default applies, the rate does not expire, or a connected account's fees are read without access to its parent account.
     """
 
     fixed: typing.Optional[Money] = pydantic.Field(default=None)
@@ -66,12 +66,12 @@ class AccountFee(UniversalBaseModel):
 
     reset: AccountFeeRate = pydantic.Field()
     """
-    The rate that takes effect when this account's custom rate is cleared, including inherited pricing.
+    The rate that takes effect when this account's custom rate is cleared, including inherited pricing. Its `percentage` and `fixed` are `null` when a connected account's fees are read without access to its parent account.
     """
 
     source: typing.Optional[AccountFeeSource] = pydantic.Field(default=None)
     """
-    Where the rate in effect comes from: `default` is the platform rate, `custom` a rate negotiated for this account, and `inherited` a rate negotiated by the platform this account is connected to.
+    Where the rate in effect comes from: `default` is the platform rate, `custom` a rate negotiated for this account, and `inherited` a rate negotiated by the platform this account is connected to. `null` when a connected account's fees are read without access to its parent account.
     """
 
     unadjustable_reason: typing.Optional[AccountFeeUnadjustableReason] = pydantic.Field(default=None)

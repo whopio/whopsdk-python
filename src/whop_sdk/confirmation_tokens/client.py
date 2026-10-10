@@ -27,7 +27,7 @@ class ConfirmationTokensClient:
         self, id: str, *, account_id: str, request_options: typing.Optional[RequestOptions] = None
     ) -> ConfirmationToken:
         """
-        Retrieves a token's payment method and billing details — never the underlying payment credential. Public and rate-limited: the account_id query param must match the account the token was minted for. A bearer credential with payment:basic:read on that account also receives the collected billing address.
+        Retrieves a confirmation token's payment method and billing details, never the underlying payment credential, to display what the buyer chose or check that the token is still usable. Requires no authentication and is rate-limited.
 
         Parameters
         ----------
@@ -35,7 +35,7 @@ class ConfirmationTokensClient:
             Confirmation token ID, prefixed `ctok_`.
 
         account_id : str
-            The account (biz_) the token was minted for.
+            The account the token was minted for, prefixed `biz_`. It must match the token's account.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -82,7 +82,7 @@ class AsyncConfirmationTokensClient:
         self, id: str, *, account_id: str, request_options: typing.Optional[RequestOptions] = None
     ) -> ConfirmationToken:
         """
-        Retrieves a token's payment method and billing details — never the underlying payment credential. Public and rate-limited: the account_id query param must match the account the token was minted for. A bearer credential with payment:basic:read on that account also receives the collected billing address.
+        Retrieves a confirmation token's payment method and billing details, never the underlying payment credential, to display what the buyer chose or check that the token is still usable. Requires no authentication and is rate-limited.
 
         Parameters
         ----------
@@ -90,7 +90,7 @@ class AsyncConfirmationTokensClient:
             Confirmation token ID, prefixed `ctok_`.
 
         account_id : str
-            The account (biz_) the token was minted for.
+            The account the token was minted for, prefixed `biz_`. It must match the token's account.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

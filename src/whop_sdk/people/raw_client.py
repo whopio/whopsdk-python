@@ -80,7 +80,7 @@ class RawPeopleClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ListPeopleResponseDataItem, ListPeopleResponse]:
         """
-        Lists the people (visitors and customers) of an account: the identity-linked person profiles aggregated from every pixel, payment, and platform event — identities, purchases and LTV, geo/device profile, traffic sources, and first/last marketing touches.
+        Lists the people (visitors and customers) of an account: identity-linked profiles assembled from every pixel, payment, and platform event. Filter and sort them to segment an account's audience.
 
         Parameters
         ----------
@@ -383,12 +383,12 @@ class RawPeopleClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[RetrievePeopleResponse]:
         """
-        Retrieves one person for an account. The identifier can be a person ID (prefixed `prsn_`), a user ID (prefixed `user_`), an email address, or a phone number — merged people resolve to the surviving profile.
+        Retrieves one person for an account, looked up by person ID, user ID, email address, or phone number.
 
         Parameters
         ----------
         id : str
-            The person ID, user ID, email address, or phone number to look up.
+            The person ID (prefixed `prsn_`), user ID (prefixed `user_`), email address, or phone number to look up. A merged person resolves to the surviving profile.
 
         account_id : typing.Optional[str]
             Account ID, prefixed `biz_`. Optional for account API keys; required for credentials that can access multiple accounts.
@@ -507,7 +507,7 @@ class AsyncRawPeopleClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ListPeopleResponseDataItem, ListPeopleResponse]:
         """
-        Lists the people (visitors and customers) of an account: the identity-linked person profiles aggregated from every pixel, payment, and platform event — identities, purchases and LTV, geo/device profile, traffic sources, and first/last marketing touches.
+        Lists the people (visitors and customers) of an account: identity-linked profiles assembled from every pixel, payment, and platform event. Filter and sort them to segment an account's audience.
 
         Parameters
         ----------
@@ -813,12 +813,12 @@ class AsyncRawPeopleClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[RetrievePeopleResponse]:
         """
-        Retrieves one person for an account. The identifier can be a person ID (prefixed `prsn_`), a user ID (prefixed `user_`), an email address, or a phone number — merged people resolve to the surviving profile.
+        Retrieves one person for an account, looked up by person ID, user ID, email address, or phone number.
 
         Parameters
         ----------
         id : str
-            The person ID, user ID, email address, or phone number to look up.
+            The person ID (prefixed `prsn_`), user ID (prefixed `user_`), email address, or phone number to look up. A merged person resolves to the surviving profile.
 
         account_id : typing.Optional[str]
             Account ID, prefixed `biz_`. Optional for account API keys; required for credentials that can access multiple accounts.

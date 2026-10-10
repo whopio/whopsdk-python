@@ -28,7 +28,7 @@ class RetrieveStatsResponseDataPointsItem(UniversalBaseModel):
 
     value: typing.Optional[float] = pydantic.Field(default=None)
     """
-    The metric's value for this period, in the metric's unit.
+    The metric's value for this period, in the metric's unit. For `funnel`, the final-step conversion percentage.
     """
 
     if IS_PYDANTIC_V2:

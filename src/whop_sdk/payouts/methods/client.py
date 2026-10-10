@@ -140,7 +140,7 @@ class MethodsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateMethodsResponse:
         """
-        Saves a new place an account or user can pay out to. Sensitive details are vaulted in transit and never stored raw.
+        Saves a bank account, wallet, or crypto address an account or user can pay out to, from a method listed by `GET /payouts/supported_methods`. Sensitive details are vaulted in transit and never stored raw.
 
         Parameters
         ----------
@@ -415,7 +415,7 @@ class AsyncMethodsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateMethodsResponse:
         """
-        Saves a new place an account or user can pay out to. Sensitive details are vaulted in transit and never stored raw.
+        Saves a bank account, wallet, or crypto address an account or user can pay out to, from a method listed by `GET /payouts/supported_methods`. Sensitive details are vaulted in transit and never stored raw.
 
         Parameters
         ----------

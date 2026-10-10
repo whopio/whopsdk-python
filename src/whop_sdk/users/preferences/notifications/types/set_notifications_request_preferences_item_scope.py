@@ -9,7 +9,7 @@ from .set_notifications_request_preferences_item_scope_channel import SetNotific
 
 class SetNotificationsRequestPreferencesItemScope(UniversalBaseModel):
     """
-    What the preference applies to. `null` on a dimension means the preference is not narrowed there.
+    What the preference applies to. `null` on a dimension means the preference is not narrowed there. A scope read back from either list endpoint can be sent as-is. A scope naming an experience with no topic sets that experience's level; any other scope sets a topic override.
     """
 
     account_id: typing.Optional[str] = pydantic.Field(default=None)

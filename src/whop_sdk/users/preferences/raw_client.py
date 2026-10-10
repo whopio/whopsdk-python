@@ -24,7 +24,7 @@ class RawPreferencesClient:
 
     def retrieve(self, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[UserPreferences]:
         """
-        Retrieves the authenticated user's settings document. Addressed only as `me` — the document always belongs to the session user.
+        Retrieves the authenticated user's settings document.
 
         Parameters
         ----------
@@ -172,7 +172,7 @@ class AsyncRawPreferencesClient:
         self, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[UserPreferences]:
         """
-        Retrieves the authenticated user's settings document. Addressed only as `me` — the document always belongs to the session user.
+        Retrieves the authenticated user's settings document.
 
         Parameters
         ----------

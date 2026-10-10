@@ -57,7 +57,7 @@ class SetupIntentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[SetupIntent, ListSetupIntentsResponse]:
         """
-        Lists setup intents newest first. An account API key lists its own account; a user token lists every account it can read, or one account with `account_id`. `client_secret` is always null on list rows — retrieve the setup intent for it.
+        Lists setup intents newest first. An account API key lists its own account; a user token lists every account it can read, or one account with `account_id`.
 
         Parameters
         ----------
@@ -144,7 +144,7 @@ class SetupIntentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
-        Saves a buyer's payment method for later without charging it. Pass a `confirmation_token` for a method the buyer just supplied through the payment elements in setup mode, or a `payment_method_id` already on file to re-verify it. The response is the setup intent as created, not its outcome: it is `processing` while the payment method is saved in the background, and `requires_action` when the buyer still has a step. Hand `client_secret` to the elements' `handleNextAction`, or poll Retrieve setup status, for the outcome. A buyer's own token holding `member:payment_methods:use` may create a setup intent for itself from a confirmation token.
+        Saves a buyer's payment method for later without charging it — one the buyer just supplied through the payment elements in setup mode, or one already on file to re-verify. The setup completes in the background, so the response is the setup intent as created, not its outcome: hand `client_secret` to the elements' `handleNextAction`, or poll Retrieve setup status. A buyer's own token holding `member:payment_methods:use` may create a setup intent for itself from a confirmation token.
 
         Parameters
         ----------
@@ -212,7 +212,7 @@ class SetupIntentsClient:
 
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> SetupIntent:
         """
-        Returns one setup intent. Related records are ids — once `status` is `succeeded`, `payment_method_id` is the saved method to charge or retrieve. The buyer's own token may retrieve a setup intent that belongs to it.
+        Retrieves a setup intent. Once its `status` is `succeeded`, charge the saved method by its `payment_method_id`. The buyer's own token may retrieve a setup intent that belongs to it.
 
         Parameters
         ----------
@@ -361,7 +361,7 @@ class AsyncSetupIntentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[SetupIntent, ListSetupIntentsResponse]:
         """
-        Lists setup intents newest first. An account API key lists its own account; a user token lists every account it can read, or one account with `account_id`. `client_secret` is always null on list rows — retrieve the setup intent for it.
+        Lists setup intents newest first. An account API key lists its own account; a user token lists every account it can read, or one account with `account_id`.
 
         Parameters
         ----------
@@ -457,7 +457,7 @@ class AsyncSetupIntentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
-        Saves a buyer's payment method for later without charging it. Pass a `confirmation_token` for a method the buyer just supplied through the payment elements in setup mode, or a `payment_method_id` already on file to re-verify it. The response is the setup intent as created, not its outcome: it is `processing` while the payment method is saved in the background, and `requires_action` when the buyer still has a step. Hand `client_secret` to the elements' `handleNextAction`, or poll Retrieve setup status, for the outcome. A buyer's own token holding `member:payment_methods:use` may create a setup intent for itself from a confirmation token.
+        Saves a buyer's payment method for later without charging it — one the buyer just supplied through the payment elements in setup mode, or one already on file to re-verify. The setup completes in the background, so the response is the setup intent as created, not its outcome: hand `client_secret` to the elements' `handleNextAction`, or poll Retrieve setup status. A buyer's own token holding `member:payment_methods:use` may create a setup intent for itself from a confirmation token.
 
         Parameters
         ----------
@@ -533,7 +533,7 @@ class AsyncSetupIntentsClient:
 
     async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> SetupIntent:
         """
-        Returns one setup intent. Related records are ids — once `status` is `succeeded`, `payment_method_id` is the saved method to charge or retrieve. The buyer's own token may retrieve a setup intent that belongs to it.
+        Retrieves a setup intent. Once its `status` is `succeeded`, charge the saved method by its `payment_method_id`. The buyer's own token may retrieve a setup intent that belongs to it.
 
         Parameters
         ----------

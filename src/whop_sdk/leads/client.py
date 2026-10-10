@@ -44,7 +44,7 @@ class LeadsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[LeadListItem, ListLeadsResponse]:
         """
-        Returns a paginated list of leads for a company, with optional filtering by product and creation date.
+        Lists an account's leads, newest first.
 
         Required permissions:
          - `lead:basic:read`
@@ -137,7 +137,7 @@ class LeadsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Lead:
         """
-        Record a new lead for a company, capturing a potential customer's interest in a specific product.
+        Records a lead: a potential customer's interest in an account or one of its products.
 
         Required permissions:
          - `lead:manage`
@@ -241,7 +241,7 @@ class LeadsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Lead:
         """
-        Update the metadata or referrer information on an existing lead record.
+        Updates a lead's `metadata` or `referrer`.
 
         Required permissions:
          - `lead:manage`
@@ -314,7 +314,7 @@ class AsyncLeadsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[LeadListItem, ListLeadsResponse]:
         """
-        Returns a paginated list of leads for a company, with optional filtering by product and creation date.
+        Lists an account's leads, newest first.
 
         Required permissions:
          - `lead:basic:read`
@@ -415,7 +415,7 @@ class AsyncLeadsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Lead:
         """
-        Record a new lead for a company, capturing a potential customer's interest in a specific product.
+        Records a lead: a potential customer's interest in an account or one of its products.
 
         Required permissions:
          - `lead:manage`
@@ -535,7 +535,7 @@ class AsyncLeadsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Lead:
         """
-        Update the metadata or referrer information on an existing lead record.
+        Updates a lead's `metadata` or `referrer`.
 
         Required permissions:
          - `lead:manage`

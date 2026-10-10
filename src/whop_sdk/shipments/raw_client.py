@@ -48,7 +48,7 @@ class RawShipmentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Shipment, ListShipmentsResponse]:
         """
-        Returns a paginated list of shipments for an account.
+        Lists an account's shipments.
 
         Parameters
         ----------
@@ -305,7 +305,7 @@ class RawShipmentsClient:
 
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[Shipment]:
         """
-        Retrieves a shipment by its id, or by the payment id it fulfills.
+        Retrieves a shipment by its ID, or by the ID of the payment it fulfills.
 
         Parameters
         ----------
@@ -498,7 +498,7 @@ class AsyncRawShipmentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Shipment, ListShipmentsResponse]:
         """
-        Returns a paginated list of shipments for an account.
+        Lists an account's shipments.
 
         Parameters
         ----------
@@ -760,7 +760,7 @@ class AsyncRawShipmentsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[Shipment]:
         """
-        Retrieves a shipment by its id, or by the payment id it fulfills.
+        Retrieves a shipment by its ID, or by the ID of the payment it fulfills.
 
         Parameters
         ----------

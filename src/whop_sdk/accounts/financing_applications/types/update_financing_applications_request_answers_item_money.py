@@ -10,6 +10,10 @@ from .update_financing_applications_request_answers_item_money_currency import (
 
 
 class UpdateFinancingApplicationsRequestAnswersItemMoney(UniversalBaseModel):
+    """
+    Price answer, such as `max_product_price`. `null` clears the price.
+    """
+
     amount: str = pydantic.Field()
     """
     Positive exact decimal amount in major units, such as 1234.56. At most 12 whole digits and the currency's fractional precision.

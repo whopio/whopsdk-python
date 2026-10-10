@@ -42,7 +42,7 @@ class RawCourseLessonInteractionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[CourseLessonInteractionListItem, ListCourseLessonInteractionsResponse]:
         """
-        Returns a paginated list of lesson interactions, filtered by lesson, course, user, or completion status.
+        Returns a paginated list of lesson interactions for a lesson or course. Callers without admin access to the course's experience see only their own interactions.
 
         Required permissions:
          - `courses:read`
@@ -355,7 +355,7 @@ class AsyncRawCourseLessonInteractionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[CourseLessonInteractionListItem, ListCourseLessonInteractionsResponse]:
         """
-        Returns a paginated list of lesson interactions, filtered by lesson, course, user, or completion status.
+        Returns a paginated list of lesson interactions for a lesson or course. Callers without admin access to the course's experience see only their own interactions.
 
         Required permissions:
          - `courses:read`

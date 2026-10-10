@@ -39,7 +39,7 @@ class RawSupportedMethodsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ListSupportedMethodsResponseDataItem, ListSupportedMethodsResponse]:
         """
-        Lists the payout methods an account or user is eligible to add.
+        Lists the payout methods an account or user is eligible to add. Pass a result's ID as `supported_payout_method_id` to `POST /payouts/methods` to save one.
 
         Parameters
         ----------
@@ -208,7 +208,7 @@ class AsyncRawSupportedMethodsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ListSupportedMethodsResponseDataItem, ListSupportedMethodsResponse]:
         """
-        Lists the payout methods an account or user is eligible to add.
+        Lists the payout methods an account or user is eligible to add. Pass a result's ID as `supported_payout_method_id` to `POST /payouts/methods` to save one.
 
         Parameters
         ----------

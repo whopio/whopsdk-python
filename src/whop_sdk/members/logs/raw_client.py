@@ -32,7 +32,7 @@ class RawLogsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ListLogsResponseDataItem, ListLogsResponse]:
         """
-        Lists activity for a member and all of their non-drafted memberships, most recent first.
+        Lists activity for a member and all of their memberships that are not `drafted`, most recent first.
 
         Parameters
         ----------
@@ -142,7 +142,7 @@ class AsyncRawLogsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ListLogsResponseDataItem, ListLogsResponse]:
         """
-        Lists activity for a member and all of their non-drafted memberships, most recent first.
+        Lists activity for a member and all of their memberships that are not `drafted`, most recent first.
 
         Parameters
         ----------

@@ -58,7 +58,7 @@ class InvoicesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[InvoiceListItem, ListInvoicesResponse]:
         """
-        Returns a paginated list of invoices for a company, with optional filtering by product, status, collection method, and creation date.
+        Returns a paginated list of invoices for an account, with optional filtering by product, status, collection method, and creation date.
 
         Required permissions:
          - `invoice:basic:read`
@@ -575,7 +575,7 @@ class AsyncInvoicesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[InvoiceListItem, ListInvoicesResponse]:
         """
-        Returns a paginated list of invoices for a company, with optional filtering by product, status, collection method, and creation date.
+        Returns a paginated list of invoices for an account, with optional filtering by product, status, collection method, and creation date.
 
         Required permissions:
          - `invoice:basic:read`

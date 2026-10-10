@@ -55,7 +55,7 @@ class RawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Experiment, ListExperimentsResponse]:
         """
-        Lists experiments for one account with experiment:read permission.
+        Lists the experiments and feature flags owned by an account. Requires `experiment:read` on the account.
 
         Parameters
         ----------
@@ -177,7 +177,7 @@ class RawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Experiment]:
         """
-        Creates a draft experiment for the specified account.
+        Creates an experiment or feature flag in `draft` status for an account. Nothing is served until you activate it with `POST /experiments/:id/activate`. Requires `experiment:manage` on the account.
 
         Parameters
         ----------
@@ -294,20 +294,12 @@ class RawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ExposuresExperimentsResponse]:
         """
-        Evaluates and records an exposure without requiring authentication. When credentials resolve, their authentication method, API key ID, and signed-in user ID are recorded on the exposure event. Pass subject for bucketing identity and account_id for experiment ownership.
-
-        Pass `flag_key` to check a single flag, or omit it to fetch active flags in the account and related resource scope.
-
-        Assignments use exactly the configured `bucket_by`: `subject[user_id]`, `subject[account_id]`, or `subject[anonymous_id]`. Missing the required identity fails single evaluation and omits the experiment from batch evaluation. Subjects outside all treatment ranges receive control.
-
-        Pass `subject[account_id]` to enable account-level targeting rules. Pass `properties` as a JSON object to supply the values that `property` targeting conditions match against.
-
-        Pass `log_exposure=false` to read an assignment without recording an exposure, for a client that caches assignments up front and records the exposure when the arm is actually rendered. Omitted records the exposure, so pinned callers are unchanged.
+        Evaluates experiments and feature flags for a subject and records an exposure. Pass `flag_key` to evaluate one flag, or omit it to evaluate every active flag in the account and related resource scope. Requires no authentication; when a credential resolves, its authentication method, API key ID, and signed-in user ID are recorded on the exposure event.
 
         Parameters
         ----------
         subject : typing.Optional[ExposuresExperimentsRequestSubject]
-            Bucketing subject: the user, account, or anonymous ID the experiment's `bucket_by` assigns on. Ownership is the top-level account_id.
+            Bucketing subject: the user, account, or anonymous ID the experiment's `bucket_by` assigns on. Only the identity matching `bucket_by` is used; when it is missing, evaluating a single flag fails and a batch omits that experiment. Subjects outside every treatment range receive `control`. `subject[account_id]` also enables account-level targeting rules. Experiment ownership comes from the top-level `account_id`.
 
         related_resource : typing.Optional[ExperimentResourceReference]
             Restricts batch evaluation to this related resource; omitted batches contain only unbound experiments.
@@ -322,7 +314,7 @@ class RawExperimentsClient:
             JSON-encoded scalar values that property targeting conditions match against. Numeric and boolean strings are coerced. Nested query keys such as properties[variant]=pro remain accepted for existing callers.
 
         log_exposure : typing.Optional[bool]
-            Set false to evaluate without recording an exposure. Omitted records it.
+            Set `false` to read an assignment without recording an exposure, such as when a client caches assignments up front and records the exposure when the arm is rendered. Omitted records the exposure.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -377,7 +369,7 @@ class RawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Experiment]:
         """
-        Retrieves a single experiment or feature flag by its `expt_` id or flag_key handle. Requires the corresponding experiment permission on the owning account.
+        Retrieves an experiment or feature flag by its `expt_` ID or `flag_key` handle. Requires `experiment:read` on the owning account.
 
         Parameters
         ----------
@@ -447,7 +439,7 @@ class RawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Experiment]:
         """
-        Updates the targeting rules, treatment allocation, metrics, or hypothesis of an existing experiment or feature flag. Weights and metrics can only grow, so enrolled users never change arms and an existing metric is never dropped. Lifecycle moves through the transition endpoints (`activate`, `pause`, `end`), never through this update. Requires the corresponding experiment permission on the owning account.
+        Updates the targeting rules, treatment allocation, or hypothesis of an existing experiment or feature flag. To change its lifecycle, use the `activate`, `pause`, and `end` endpoints instead. Requires `experiment:manage` on the owning account.
 
         Parameters
         ----------
@@ -550,7 +542,7 @@ class RawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Experiment]:
         """
-        Starts (or resumes) an experiment or feature flag so evaluation begins serving it. Activating a draft stamps `started_at`; resuming a paused experiment keeps the original start. Only drafts and paused experiments can be activated. Requires the corresponding experiment permission on the owning account.
+        Starts (or resumes) an experiment or feature flag so evaluation begins serving it. Activating a draft stamps `started_at`; resuming a paused experiment keeps the original start. Only drafts and paused experiments can be activated. Requires `experiment:manage` on the owning account.
 
         Parameters
         ----------
@@ -638,7 +630,7 @@ class RawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Experiment]:
         """
-        Concludes the experiment and records required `findings`. Pass `winning_arm` to serve the winning treatment to everyone; omit it when control won. Ended experiments cannot restart, but may be ended again to correct the winner. Requires experiment:manage on the account.
+        Concludes the experiment and records required `findings`. Pass `winning_arm` to serve the winning treatment to everyone; omit it when control won. Ended experiments cannot restart, but may be ended again to correct the winner. Requires `experiment:manage` on the owning account.
 
         Parameters
         ----------
@@ -728,7 +720,7 @@ class RawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Experiment]:
         """
-        Pauses an active experiment or feature flag: evaluation stops serving it and exposures stop flowing. Assignments are keyed on stable identity, so users return to their original arm when the experiment resumes. Requires the corresponding experiment permission on the owning account.
+        Pauses an active experiment or feature flag: evaluation stops serving it and exposures stop flowing. Assignments are keyed on stable identity, so users return to their original arm when the experiment resumes. Requires `experiment:manage` on the owning account.
 
         Parameters
         ----------
@@ -805,7 +797,7 @@ class AsyncRawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Experiment, ListExperimentsResponse]:
         """
-        Lists experiments for one account with experiment:read permission.
+        Lists the experiments and feature flags owned by an account. Requires `experiment:read` on the account.
 
         Parameters
         ----------
@@ -930,7 +922,7 @@ class AsyncRawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Experiment]:
         """
-        Creates a draft experiment for the specified account.
+        Creates an experiment or feature flag in `draft` status for an account. Nothing is served until you activate it with `POST /experiments/:id/activate`. Requires `experiment:manage` on the account.
 
         Parameters
         ----------
@@ -1047,20 +1039,12 @@ class AsyncRawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ExposuresExperimentsResponse]:
         """
-        Evaluates and records an exposure without requiring authentication. When credentials resolve, their authentication method, API key ID, and signed-in user ID are recorded on the exposure event. Pass subject for bucketing identity and account_id for experiment ownership.
-
-        Pass `flag_key` to check a single flag, or omit it to fetch active flags in the account and related resource scope.
-
-        Assignments use exactly the configured `bucket_by`: `subject[user_id]`, `subject[account_id]`, or `subject[anonymous_id]`. Missing the required identity fails single evaluation and omits the experiment from batch evaluation. Subjects outside all treatment ranges receive control.
-
-        Pass `subject[account_id]` to enable account-level targeting rules. Pass `properties` as a JSON object to supply the values that `property` targeting conditions match against.
-
-        Pass `log_exposure=false` to read an assignment without recording an exposure, for a client that caches assignments up front and records the exposure when the arm is actually rendered. Omitted records the exposure, so pinned callers are unchanged.
+        Evaluates experiments and feature flags for a subject and records an exposure. Pass `flag_key` to evaluate one flag, or omit it to evaluate every active flag in the account and related resource scope. Requires no authentication; when a credential resolves, its authentication method, API key ID, and signed-in user ID are recorded on the exposure event.
 
         Parameters
         ----------
         subject : typing.Optional[ExposuresExperimentsRequestSubject]
-            Bucketing subject: the user, account, or anonymous ID the experiment's `bucket_by` assigns on. Ownership is the top-level account_id.
+            Bucketing subject: the user, account, or anonymous ID the experiment's `bucket_by` assigns on. Only the identity matching `bucket_by` is used; when it is missing, evaluating a single flag fails and a batch omits that experiment. Subjects outside every treatment range receive `control`. `subject[account_id]` also enables account-level targeting rules. Experiment ownership comes from the top-level `account_id`.
 
         related_resource : typing.Optional[ExperimentResourceReference]
             Restricts batch evaluation to this related resource; omitted batches contain only unbound experiments.
@@ -1075,7 +1059,7 @@ class AsyncRawExperimentsClient:
             JSON-encoded scalar values that property targeting conditions match against. Numeric and boolean strings are coerced. Nested query keys such as properties[variant]=pro remain accepted for existing callers.
 
         log_exposure : typing.Optional[bool]
-            Set false to evaluate without recording an exposure. Omitted records it.
+            Set `false` to read an assignment without recording an exposure, such as when a client caches assignments up front and records the exposure when the arm is rendered. Omitted records the exposure.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1130,7 +1114,7 @@ class AsyncRawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Experiment]:
         """
-        Retrieves a single experiment or feature flag by its `expt_` id or flag_key handle. Requires the corresponding experiment permission on the owning account.
+        Retrieves an experiment or feature flag by its `expt_` ID or `flag_key` handle. Requires `experiment:read` on the owning account.
 
         Parameters
         ----------
@@ -1200,7 +1184,7 @@ class AsyncRawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Experiment]:
         """
-        Updates the targeting rules, treatment allocation, metrics, or hypothesis of an existing experiment or feature flag. Weights and metrics can only grow, so enrolled users never change arms and an existing metric is never dropped. Lifecycle moves through the transition endpoints (`activate`, `pause`, `end`), never through this update. Requires the corresponding experiment permission on the owning account.
+        Updates the targeting rules, treatment allocation, or hypothesis of an existing experiment or feature flag. To change its lifecycle, use the `activate`, `pause`, and `end` endpoints instead. Requires `experiment:manage` on the owning account.
 
         Parameters
         ----------
@@ -1303,7 +1287,7 @@ class AsyncRawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Experiment]:
         """
-        Starts (or resumes) an experiment or feature flag so evaluation begins serving it. Activating a draft stamps `started_at`; resuming a paused experiment keeps the original start. Only drafts and paused experiments can be activated. Requires the corresponding experiment permission on the owning account.
+        Starts (or resumes) an experiment or feature flag so evaluation begins serving it. Activating a draft stamps `started_at`; resuming a paused experiment keeps the original start. Only drafts and paused experiments can be activated. Requires `experiment:manage` on the owning account.
 
         Parameters
         ----------
@@ -1391,7 +1375,7 @@ class AsyncRawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Experiment]:
         """
-        Concludes the experiment and records required `findings`. Pass `winning_arm` to serve the winning treatment to everyone; omit it when control won. Ended experiments cannot restart, but may be ended again to correct the winner. Requires experiment:manage on the account.
+        Concludes the experiment and records required `findings`. Pass `winning_arm` to serve the winning treatment to everyone; omit it when control won. Ended experiments cannot restart, but may be ended again to correct the winner. Requires `experiment:manage` on the owning account.
 
         Parameters
         ----------
@@ -1481,7 +1465,7 @@ class AsyncRawExperimentsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Experiment]:
         """
-        Pauses an active experiment or feature flag: evaluation stops serving it and exposures stop flowing. Assignments are keyed on stable identity, so users return to their original arm when the experiment resumes. Requires the corresponding experiment permission on the owning account.
+        Pauses an active experiment or feature flag: evaluation stops serving it and exposures stop flowing. Assignments are keyed on stable identity, so users return to their original arm when the experiment resumes. Requires `experiment:manage` on the owning account.
 
         Parameters
         ----------

@@ -18,7 +18,7 @@ class AccountFeeMarkup(UniversalBaseModel):
 
     default: AccountFeeRate = pydantic.Field()
     """
-    What applies if this row is cleared: the platform's default for all its connected accounts, or zero.
+    What applies if this row is cleared: the platform's default for all its connected accounts, or zero. Its `percentage` and `fixed` are `null` when a connected account's fees are read without access to its parent account.
     """
 
     fixed: Money = pydantic.Field()
@@ -38,7 +38,7 @@ class AccountFeeMarkup(UniversalBaseModel):
 
     source: typing.Optional[AccountFeeMarkupSource] = pydantic.Field(default=None)
     """
-    `custom` when a row is set at this level, `default` when the rate falls through to the platform default or zero.
+    `custom` when a row is set at this level, `default` when the rate falls through to the platform default or zero. `null` when a connected account's fees are read without access to its parent account.
     """
 
     unadjustable_reason: typing.Optional[AccountFeeMarkupUnadjustableReason] = pydantic.Field(default=None)

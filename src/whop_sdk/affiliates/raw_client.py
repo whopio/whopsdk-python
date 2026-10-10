@@ -49,7 +49,7 @@ class RawAffiliatesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[AffiliateListItem, ListAffiliatesResponse]:
         """
-        Returns a paginated list of affiliates for the actor in context, with optional filtering by status, search, and sorting.
+        Lists the affiliates of an account.
 
         Required permissions:
          - `affiliate:basic:read`
@@ -223,7 +223,7 @@ class RawAffiliatesClient:
         self, *, account_id: str, user_identifier: str, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[Affiliate]:
         """
-        Creates or finds an affiliate for a company and user.
+        Creates an affiliate for a user on an account. If the user is already an affiliate of the account, returns that affiliate, reactivating it if it was archived.
 
         Required permissions:
          - `affiliate:create`
@@ -478,7 +478,7 @@ class RawAffiliatesClient:
 
     def archive(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[bool]:
         """
-        Archives an existing Affiliate
+        Archives an affiliate. The affiliate that handles Whop marketplace referrals cannot be archived.
 
         Required permissions:
          - `affiliate:update`
@@ -600,7 +600,7 @@ class RawAffiliatesClient:
 
     def unarchive(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[bool]:
         """
-        Unarchives an existing Affiliate
+        Unarchives an archived affiliate.
 
         Required permissions:
          - `affiliate:update`
@@ -740,7 +740,7 @@ class AsyncRawAffiliatesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[AffiliateListItem, ListAffiliatesResponse]:
         """
-        Returns a paginated list of affiliates for the actor in context, with optional filtering by status, search, and sorting.
+        Lists the affiliates of an account.
 
         Required permissions:
          - `affiliate:basic:read`
@@ -917,7 +917,7 @@ class AsyncRawAffiliatesClient:
         self, *, account_id: str, user_identifier: str, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[Affiliate]:
         """
-        Creates or finds an affiliate for a company and user.
+        Creates an affiliate for a user on an account. If the user is already an affiliate of the account, returns that affiliate, reactivating it if it was archived.
 
         Required permissions:
          - `affiliate:create`
@@ -1176,7 +1176,7 @@ class AsyncRawAffiliatesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[bool]:
         """
-        Archives an existing Affiliate
+        Archives an affiliate. The affiliate that handles Whop marketplace referrals cannot be archived.
 
         Required permissions:
          - `affiliate:update`
@@ -1300,7 +1300,7 @@ class AsyncRawAffiliatesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[bool]:
         """
-        Unarchives an existing Affiliate
+        Unarchives an archived affiliate.
 
         Required permissions:
          - `affiliate:update`

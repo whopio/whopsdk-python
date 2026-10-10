@@ -16,7 +16,7 @@ class UserRecommendedAction(UniversalBaseModel):
 
     account_name: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The account's display name, or `null`
+    The account's display name, or `null` for personal recommendations
     """
 
     action: UserRecommendedActionAction = pydantic.Field()

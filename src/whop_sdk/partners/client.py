@@ -14,7 +14,6 @@ from .types.leaderboard_partners_request_period import LeaderboardPartnersReques
 from .types.leaderboard_partners_response import LeaderboardPartnersResponse
 from .types.referred_users_partners_request_direction import ReferredUsersPartnersRequestDirection
 from .types.referred_users_partners_request_order import ReferredUsersPartnersRequestOrder
-from .types.referred_users_partners_request_user_id import ReferredUsersPartnersRequestUserId
 from .types.referred_users_partners_response import ReferredUsersPartnersResponse
 from .types.referred_users_partners_response_data_item import ReferredUsersPartnersResponseDataItem
 
@@ -74,7 +73,7 @@ class PartnersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LeaderboardPartnersResponse:
         """
-        Ranks referrers by partner business earnings — all-time by default, or over the current day, month, year, or trailing 30 days. Authentication is optional: authenticated callers also get their own standing, anonymous callers get the rankings alone.
+        Ranks referrers by partner business earnings over the chosen `period`, all-time by default. Authentication is optional: authenticated callers also get their own standing, anonymous callers get the rankings alone.
 
         Parameters
         ----------
@@ -106,7 +105,6 @@ class PartnersClient:
     def referred_users(
         self,
         *,
-        user_id: typing.Optional[ReferredUsersPartnersRequestUserId] = None,
         earning_partner_id: typing.Optional[str] = None,
         earning_partner_username: typing.Optional[str] = None,
         referring_account_id: typing.Optional[str] = None,
@@ -122,13 +120,10 @@ class PartnersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ReferredUsersPartnersResponseDataItem, ReferredUsersPartnersResponse]:
         """
-        Lists the users the caller referred onto Whop, newest first by default, each with the caller's total affiliate earnings from that user across all tiers. Earnings sorting uses cached totals. Authorized staff can set user_id=global to list referrals across partners, with earnings for each user's current primary referrer.
+        Lists the users the caller referred onto Whop, newest first by default, each with the caller's total affiliate earnings from that user across all tiers.
 
         Parameters
         ----------
-        user_id : typing.Optional[ReferredUsersPartnersRequestUserId]
-            Set to global to view referred users across partners with each primary referrer's cached total earnings. Requires an admin or partner manager session; OAuth tokens and company API keys cannot use global mode. Optionally narrow to one earning_partner_id or earning_partner_username.
-
         earning_partner_id : typing.Optional[str]
             The selected referring partner's user_ ID. Requires user_id=global; cannot be combined with earning_partner_username.
 
@@ -190,7 +185,6 @@ class PartnersClient:
             yield page
         """
         return self._raw_client.referred_users(
-            user_id=user_id,
             earning_partner_id=earning_partner_id,
             earning_partner_username=earning_partner_username,
             referring_account_id=referring_account_id,
@@ -208,7 +202,7 @@ class PartnersClient:
 
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Partner:
         """
-        Retrieves the authenticated user's public profile, enrollment date, partner verification timestamp, verification waitlist status, partner certification completion, active direct business referral count, and default payout rates. Use me or the authenticated user's own user ID; other users are not accessible. Users who have not enrolled have a null joined_at. Create and manage referral links through /partner_referral_requests.
+        Retrieves the authenticated user's partner profile: enrollment and verification status, certification completion, active direct business referral count, and default payout rates. Other users' profiles are not accessible. To create and manage referral links, use `/partner_referral_requests`.
 
         Parameters
         ----------
@@ -308,7 +302,7 @@ class AsyncPartnersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LeaderboardPartnersResponse:
         """
-        Ranks referrers by partner business earnings — all-time by default, or over the current day, month, year, or trailing 30 days. Authentication is optional: authenticated callers also get their own standing, anonymous callers get the rankings alone.
+        Ranks referrers by partner business earnings over the chosen `period`, all-time by default. Authentication is optional: authenticated callers also get their own standing, anonymous callers get the rankings alone.
 
         Parameters
         ----------
@@ -348,7 +342,6 @@ class AsyncPartnersClient:
     async def referred_users(
         self,
         *,
-        user_id: typing.Optional[ReferredUsersPartnersRequestUserId] = None,
         earning_partner_id: typing.Optional[str] = None,
         earning_partner_username: typing.Optional[str] = None,
         referring_account_id: typing.Optional[str] = None,
@@ -364,13 +357,10 @@ class AsyncPartnersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ReferredUsersPartnersResponseDataItem, ReferredUsersPartnersResponse]:
         """
-        Lists the users the caller referred onto Whop, newest first by default, each with the caller's total affiliate earnings from that user across all tiers. Earnings sorting uses cached totals. Authorized staff can set user_id=global to list referrals across partners, with earnings for each user's current primary referrer.
+        Lists the users the caller referred onto Whop, newest first by default, each with the caller's total affiliate earnings from that user across all tiers.
 
         Parameters
         ----------
-        user_id : typing.Optional[ReferredUsersPartnersRequestUserId]
-            Set to global to view referred users across partners with each primary referrer's cached total earnings. Requires an admin or partner manager session; OAuth tokens and company API keys cannot use global mode. Optionally narrow to one earning_partner_id or earning_partner_username.
-
         earning_partner_id : typing.Optional[str]
             The selected referring partner's user_ ID. Requires user_id=global; cannot be combined with earning_partner_username.
 
@@ -441,7 +431,6 @@ class AsyncPartnersClient:
         asyncio.run(main())
         """
         return await self._raw_client.referred_users(
-            user_id=user_id,
             earning_partner_id=earning_partner_id,
             earning_partner_username=earning_partner_username,
             referring_account_id=referring_account_id,
@@ -459,7 +448,7 @@ class AsyncPartnersClient:
 
     async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Partner:
         """
-        Retrieves the authenticated user's public profile, enrollment date, partner verification timestamp, verification waitlist status, partner certification completion, active direct business referral count, and default payout rates. Use me or the authenticated user's own user ID; other users are not accessible. Users who have not enrolled have a null joined_at. Create and manage referral links through /partner_referral_requests.
+        Retrieves the authenticated user's partner profile: enrollment and verification status, certification completion, active direct business referral count, and default payout rates. Other users' profiles are not accessible. To create and manage referral links, use `/partner_referral_requests`.
 
         Parameters
         ----------

@@ -45,7 +45,7 @@ class RawPasskeysClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Passkey, ListPasskeysResponse]:
         """
-        Lists the authenticated user's own passkeys, newest first. The list is always the caller's own; there is no parameter for reading another user's passkeys. Requires a user session: an API key or an OAuth token is refused, because a passkey confirms the account holder before a sensitive action and no app may enumerate one.
+        Lists the authenticated user's own passkeys, newest first. You cannot read another user's passkeys. Requires a user session: an API key or an OAuth token is refused, because a passkey confirms the account holder before a sensitive action and no app may enumerate one.
 
         Parameters
         ----------
@@ -512,7 +512,7 @@ class AsyncRawPasskeysClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Passkey, ListPasskeysResponse]:
         """
-        Lists the authenticated user's own passkeys, newest first. The list is always the caller's own; there is no parameter for reading another user's passkeys. Requires a user session: an API key or an OAuth token is refused, because a passkey confirms the account holder before a sensitive action and no app may enumerate one.
+        Lists the authenticated user's own passkeys, newest first. You cannot read another user's passkeys. Requires a user session: an API key or an OAuth token is refused, because a passkey confirms the account holder before a sensitive action and no app may enumerate one.
 
         Parameters
         ----------

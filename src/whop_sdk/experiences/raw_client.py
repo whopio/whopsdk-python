@@ -52,7 +52,7 @@ class RawExperiencesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ExperienceListItem, ListExperiencesResponse]:
         """
-        Returns a paginated list of experiences belonging to a company, with optional filtering by product and app.
+        Lists the experiences in an account, optionally filtered to those attached to one product or powered by one app.
 
         Parameters
         ----------
@@ -235,6 +235,8 @@ class RawExperiencesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Experience]:
         """
+        Creates an experience for an account, powered by an app such as courses, forums, or chat. Attach it to a product with `POST /experiences/:id/attach` to give that product's customers access.
+
         Required permissions:
          - `experience:create`
 
@@ -507,6 +509,8 @@ class RawExperiencesClient:
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[bool]:
         """
+        Deletes an experience and detaches it from every product, removing customer access to it. Returns `true` on success.
+
         Required permissions:
          - `experience:delete`
 
@@ -639,6 +643,8 @@ class RawExperiencesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Experience]:
         """
+        Updates an experience's name, logo, visibility, or notification setting, or moves it to another section or position.
+
         Required permissions:
          - `experience:update`
 
@@ -797,7 +803,7 @@ class RawExperiencesClient:
         self, id: str, *, product_id: str, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[Experience]:
         """
-        Attach an experience to a product, making it accessible to the product's customers.
+        Attaches an experience to a product, giving the product's customers access to it.
 
         Required permissions:
          - `experience:attach`
@@ -931,7 +937,7 @@ class RawExperiencesClient:
         self, id: str, *, product_id: str, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[Experience]:
         """
-        Detach an experience from a product, removing customer access to it through that product.
+        Detaches an experience from a product, removing customer access to it through that product.
 
         Required permissions:
          - `experience:detach`
@@ -1065,10 +1071,7 @@ class RawExperiencesClient:
         self, id: str, *, name: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[Experience]:
         """
-        Duplicates an existing experience. The name will be copied, unless provided. The new experience will be attached to the same products as the original experience.
-        If duplicating a Forum or Chat experience, the new experience will have the same settings as the original experience, e.g. who can post, who can comment, etc.
-        No content, e.g. posts, messages, lessons from within the original experience will be copied.
-
+        Duplicates an experience and attaches the copy to the same products as the original. Forum and chat copies keep the original's settings, such as who can post or comment. No content, such as posts, messages, or lessons, is copied.
 
         Required permissions:
          - `experience:create`
@@ -1218,7 +1221,7 @@ class AsyncRawExperiencesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ExperienceListItem, ListExperiencesResponse]:
         """
-        Returns a paginated list of experiences belonging to a company, with optional filtering by product and app.
+        Lists the experiences in an account, optionally filtered to those attached to one product or powered by one app.
 
         Parameters
         ----------
@@ -1404,6 +1407,8 @@ class AsyncRawExperiencesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Experience]:
         """
+        Creates an experience for an account, powered by an app such as courses, forums, or chat. Attach it to a product with `POST /experiences/:id/attach` to give that product's customers access.
+
         Required permissions:
          - `experience:create`
 
@@ -1680,6 +1685,8 @@ class AsyncRawExperiencesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[bool]:
         """
+        Deletes an experience and detaches it from every product, removing customer access to it. Returns `true` on success.
+
         Required permissions:
          - `experience:delete`
 
@@ -1812,6 +1819,8 @@ class AsyncRawExperiencesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Experience]:
         """
+        Updates an experience's name, logo, visibility, or notification setting, or moves it to another section or position.
+
         Required permissions:
          - `experience:update`
 
@@ -1970,7 +1979,7 @@ class AsyncRawExperiencesClient:
         self, id: str, *, product_id: str, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[Experience]:
         """
-        Attach an experience to a product, making it accessible to the product's customers.
+        Attaches an experience to a product, giving the product's customers access to it.
 
         Required permissions:
          - `experience:attach`
@@ -2104,7 +2113,7 @@ class AsyncRawExperiencesClient:
         self, id: str, *, product_id: str, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[Experience]:
         """
-        Detach an experience from a product, removing customer access to it through that product.
+        Detaches an experience from a product, removing customer access to it through that product.
 
         Required permissions:
          - `experience:detach`
@@ -2238,10 +2247,7 @@ class AsyncRawExperiencesClient:
         self, id: str, *, name: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[Experience]:
         """
-        Duplicates an existing experience. The name will be copied, unless provided. The new experience will be attached to the same products as the original experience.
-        If duplicating a Forum or Chat experience, the new experience will have the same settings as the original experience, e.g. who can post, who can comment, etc.
-        No content, e.g. posts, messages, lessons from within the original experience will be copied.
-
+        Duplicates an experience and attaches the copy to the same products as the original. Forum and chat copies keep the original's settings, such as who can post or comment. No content, such as posts, messages, or lessons, is copied.
 
         Required permissions:
          - `experience:create`

@@ -54,7 +54,7 @@ class RawWaitlistEntriesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[WaitlistEntry, ListWaitlistEntriesResponse]:
         """
-        Lists visible waitlist signups. waitlist_entry:read grants the user's own signups; plan:waitlist:read grants signups for authorized seller accounts. With both permissions, returns their union. Account credentials are limited to their account. Filters narrow this set.
+        Lists the waitlist signups you can see. `waitlist_entry:read` returns the user's own signups and `plan:waitlist:read` returns signups to the seller accounts they are authorized on; with both, you get both sets. Account credentials see only their own account's signups.
 
         Parameters
         ----------
@@ -217,7 +217,7 @@ class RawWaitlistEntriesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[WaitlistEntry]:
         """
-        Joins a free waitlist variant as the authenticated user. Requires waitlist_entry:create. Repeated joins return the existing pending entry, or an approved entry with a valid membership. Paid variants are rejected; no payment method is collected and no membership is granted.
+        Joins a free waitlist variant as the authenticated user. Requires `waitlist_entry:create`. Joining again returns the existing pending signup, or the approved one while its membership is valid. Paid variants are rejected; joining collects no payment method and grants no membership.
 
         Parameters
         ----------
@@ -339,7 +339,7 @@ class RawWaitlistEntriesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ApproveAllWaitlistEntriesResponse]:
         """
-        Queues approval of every pending signup for an account, optionally narrowed to a variant. Requires plan:waitlist:manage. Paid signups may charge saved payment methods. Approval runs asynchronously: list signups with `status` set to `pending` to follow progress, and retrieve a signup to read its outcome. Signups created after this request are excluded.
+        Queues approval of every pending signup for an account, optionally narrowed to a variant. Requires `plan:waitlist:manage`. Paid signups may charge saved payment methods. Approval runs asynchronously: list signups with `status` set to `pending` to follow progress, and retrieve a signup to read its outcome. Signups created after this request are excluded.
 
         Parameters
         ----------
@@ -449,7 +449,7 @@ class RawWaitlistEntriesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[WaitlistEntry]:
         """
-        Retrieves a signup owned by the caller with waitlist_entry:read, or submitted to an account they can read with plan:waitlist:read.
+        Retrieves a signup the caller owns, with `waitlist_entry:read`, or one submitted to an account they can read, with `plan:waitlist:read`.
 
         Parameters
         ----------
@@ -526,7 +526,7 @@ class RawWaitlistEntriesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[WaitlistEntry]:
         """
-        Queues approval of a pending signup. Requires plan:waitlist:manage on its seller account. Paid signups may charge their saved payment method. Returns the signup's current state; retrieve it to read `status` and `approval_failure_reason` after processing.
+        Queues approval of a pending signup. Requires `plan:waitlist:manage` on its seller account. Paid signups may charge their saved payment method. Returns the signup's current state; retrieve it to read `status` and `approval_failure_reason` after processing.
 
         Parameters
         ----------
@@ -614,7 +614,7 @@ class RawWaitlistEntriesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[WaitlistEntry]:
         """
-        Withdraws the caller's pending personal signup. Requires waitlist_entry:cancel. Does not cancel an approved membership.
+        Withdraws the caller's own pending signup. Requires `waitlist_entry:cancel`. Does not cancel an approved membership.
 
         Parameters
         ----------
@@ -700,7 +700,7 @@ class RawWaitlistEntriesClient:
 
     def deny(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[WaitlistEntry]:
         """
-        Denies a pending signup. Requires plan:waitlist:manage on its seller account.
+        Denies a pending signup. Requires `plan:waitlist:manage` on its seller account.
 
         Parameters
         ----------
@@ -807,7 +807,7 @@ class AsyncRawWaitlistEntriesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[WaitlistEntry, ListWaitlistEntriesResponse]:
         """
-        Lists visible waitlist signups. waitlist_entry:read grants the user's own signups; plan:waitlist:read grants signups for authorized seller accounts. With both permissions, returns their union. Account credentials are limited to their account. Filters narrow this set.
+        Lists the waitlist signups you can see. `waitlist_entry:read` returns the user's own signups and `plan:waitlist:read` returns signups to the seller accounts they are authorized on; with both, you get both sets. Account credentials see only their own account's signups.
 
         Parameters
         ----------
@@ -973,7 +973,7 @@ class AsyncRawWaitlistEntriesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[WaitlistEntry]:
         """
-        Joins a free waitlist variant as the authenticated user. Requires waitlist_entry:create. Repeated joins return the existing pending entry, or an approved entry with a valid membership. Paid variants are rejected; no payment method is collected and no membership is granted.
+        Joins a free waitlist variant as the authenticated user. Requires `waitlist_entry:create`. Joining again returns the existing pending signup, or the approved one while its membership is valid. Paid variants are rejected; joining collects no payment method and grants no membership.
 
         Parameters
         ----------
@@ -1095,7 +1095,7 @@ class AsyncRawWaitlistEntriesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ApproveAllWaitlistEntriesResponse]:
         """
-        Queues approval of every pending signup for an account, optionally narrowed to a variant. Requires plan:waitlist:manage. Paid signups may charge saved payment methods. Approval runs asynchronously: list signups with `status` set to `pending` to follow progress, and retrieve a signup to read its outcome. Signups created after this request are excluded.
+        Queues approval of every pending signup for an account, optionally narrowed to a variant. Requires `plan:waitlist:manage`. Paid signups may charge saved payment methods. Approval runs asynchronously: list signups with `status` set to `pending` to follow progress, and retrieve a signup to read its outcome. Signups created after this request are excluded.
 
         Parameters
         ----------
@@ -1205,7 +1205,7 @@ class AsyncRawWaitlistEntriesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[WaitlistEntry]:
         """
-        Retrieves a signup owned by the caller with waitlist_entry:read, or submitted to an account they can read with plan:waitlist:read.
+        Retrieves a signup the caller owns, with `waitlist_entry:read`, or one submitted to an account they can read, with `plan:waitlist:read`.
 
         Parameters
         ----------
@@ -1282,7 +1282,7 @@ class AsyncRawWaitlistEntriesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[WaitlistEntry]:
         """
-        Queues approval of a pending signup. Requires plan:waitlist:manage on its seller account. Paid signups may charge their saved payment method. Returns the signup's current state; retrieve it to read `status` and `approval_failure_reason` after processing.
+        Queues approval of a pending signup. Requires `plan:waitlist:manage` on its seller account. Paid signups may charge their saved payment method. Returns the signup's current state; retrieve it to read `status` and `approval_failure_reason` after processing.
 
         Parameters
         ----------
@@ -1370,7 +1370,7 @@ class AsyncRawWaitlistEntriesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[WaitlistEntry]:
         """
-        Withdraws the caller's pending personal signup. Requires waitlist_entry:cancel. Does not cancel an approved membership.
+        Withdraws the caller's own pending signup. Requires `waitlist_entry:cancel`. Does not cancel an approved membership.
 
         Parameters
         ----------
@@ -1458,7 +1458,7 @@ class AsyncRawWaitlistEntriesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[WaitlistEntry]:
         """
-        Denies a pending signup. Requires plan:waitlist:manage on its seller account.
+        Denies a pending signup. Requires `plan:waitlist:manage` on its seller account.
 
         Parameters
         ----------

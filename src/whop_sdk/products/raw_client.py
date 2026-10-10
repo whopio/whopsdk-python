@@ -63,7 +63,7 @@ class RawProductsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ProductListItem, ListProductsResponse]:
         """
-        Returns a paginated list of products. Omit `account_id` to search the public marketplace.
+        Lists an account's products, or searches the public marketplace when you omit `account_id`.
 
         Parameters
         ----------
@@ -395,7 +395,7 @@ class RawProductsClient:
 
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[Product]:
         """
-        Retrieves a product. Public — no credentials.
+        Retrieves a product. Requires no authentication.
 
         Parameters
         ----------
@@ -825,7 +825,7 @@ class AsyncRawProductsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ProductListItem, ListProductsResponse]:
         """
-        Returns a paginated list of products. Omit `account_id` to search the public marketplace.
+        Lists an account's products, or searches the public marketplace when you omit `account_id`.
 
         Parameters
         ----------
@@ -1162,7 +1162,7 @@ class AsyncRawProductsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[Product]:
         """
-        Retrieves a product. Public — no credentials.
+        Retrieves a product. Requires no authentication.
 
         Parameters
         ----------

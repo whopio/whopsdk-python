@@ -65,7 +65,7 @@ class VariantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[VariantListItem, ListVariantsResponse]:
         """
-        Returns a paginated list of variants. Omit `account_id` and pass `product_ids` to list a product's public buyable variants.
+        Lists an account's variants. To list a product's public, buyable variants without authentication, omit `account_id` and pass `product_ids`.
 
         Parameters
         ----------
@@ -202,7 +202,7 @@ class VariantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Variant:
         """
-        Create a new pricing variant for a product. The variant defines the billing interval, price, and availability for customers.
+        Creates a pricing variant for a product, defining the billing interval, price, and availability customers buy it with.
 
         Parameters
         ----------
@@ -348,7 +348,7 @@ class VariantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Variant:
         """
-        Retrieves the details of an existing variant.
+        Retrieves a variant. Requires no authentication; fields that need a permission are `null` for callers without it.
 
         Parameters
         ----------
@@ -399,7 +399,7 @@ class VariantsClient:
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> DeleteVariantsResponse:
         """
-        Delete a variant from a product. It stops selling immediately; existing memberships on this variant will not be affected.
+        Deletes a variant from a product. It stops selling immediately; existing memberships on it are unaffected.
 
         Parameters
         ----------
@@ -465,7 +465,7 @@ class VariantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Variant:
         """
-        Update a variant's pricing, billing interval, visibility, stock, and other settings.
+        Updates a variant's pricing, billing interval, visibility, stock, and other settings.
 
         Parameters
         ----------
@@ -706,7 +706,7 @@ class AsyncVariantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[VariantListItem, ListVariantsResponse]:
         """
-        Returns a paginated list of variants. Omit `account_id` and pass `product_ids` to list a product's public buyable variants.
+        Lists an account's variants. To list a product's public, buyable variants without authentication, omit `account_id` and pass `product_ids`.
 
         Parameters
         ----------
@@ -852,7 +852,7 @@ class AsyncVariantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Variant:
         """
-        Create a new pricing variant for a product. The variant defines the billing interval, price, and availability for customers.
+        Creates a pricing variant for a product, defining the billing interval, price, and availability customers buy it with.
 
         Parameters
         ----------
@@ -1006,7 +1006,7 @@ class AsyncVariantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Variant:
         """
-        Retrieves the details of an existing variant.
+        Retrieves a variant. Requires no authentication; fields that need a permission are `null` for callers without it.
 
         Parameters
         ----------
@@ -1067,7 +1067,7 @@ class AsyncVariantsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> DeleteVariantsResponse:
         """
-        Delete a variant from a product. It stops selling immediately; existing memberships on this variant will not be affected.
+        Deletes a variant from a product. It stops selling immediately; existing memberships on it are unaffected.
 
         Parameters
         ----------
@@ -1141,7 +1141,7 @@ class AsyncVariantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Variant:
         """
-        Update a variant's pricing, billing interval, visibility, stock, and other settings.
+        Updates a variant's pricing, billing interval, visibility, stock, and other settings.
 
         Parameters
         ----------

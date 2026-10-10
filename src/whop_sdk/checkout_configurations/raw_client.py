@@ -181,7 +181,7 @@ class RawCheckoutConfigurationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateCheckoutConfigurationsResponse]:
         """
-        Creates a reusable checkout configuration for an existing or inline variant.
+        Creates a reusable checkout configuration for an existing or inline variant. Send customers to its `purchase_url` to check out.
 
         Parameters
         ----------
@@ -563,7 +563,7 @@ class AsyncRawCheckoutConfigurationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateCheckoutConfigurationsResponse]:
         """
-        Creates a reusable checkout configuration for an existing or inline variant.
+        Creates a reusable checkout configuration for an existing or inline variant. Send customers to its `purchase_url` to check out.
 
         Parameters
         ----------

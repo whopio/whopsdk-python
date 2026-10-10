@@ -8,7 +8,7 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 class CreateAppBuildsRequestAttachment(UniversalBaseModel):
     """
-    The uploaded build file: `{ id }` for an existing file or `{ direct_upload_id }` for a completed direct upload.
+    The uploaded build file: pass `id` for an existing file or `direct_upload_id` for a completed direct upload. iOS and Android builds take a .zip bundle; web builds take a JavaScript file or a .zip archive of the hosted site.
     """
 
     direct_upload_id: typing.Optional[str] = pydantic.Field(default=None)

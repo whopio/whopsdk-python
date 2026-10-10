@@ -112,7 +112,7 @@ class ExportsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Export:
         """
-        Starts an asynchronous export of a resource for an account. Returns the export in `pending`; poll `GET /exports/{id}` until `download_url` is set.
+        Starts an asynchronous export of a resource for an account. Returns the export in `pending`; poll `GET /exports/:id` until `download_url` is set.
 
         Parameters
         ----------
@@ -299,7 +299,7 @@ class AsyncExportsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Export:
         """
-        Starts an asynchronous export of a resource for an account. Returns the export in `pending`; poll `GET /exports/{id}` until `download_url` is set.
+        Starts an asynchronous export of a resource for an account. Returns the export in `pending`; poll `GET /exports/:id` until `download_url` is set.
 
         Parameters
         ----------

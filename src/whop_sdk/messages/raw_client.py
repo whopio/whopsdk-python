@@ -48,7 +48,7 @@ class RawMessagesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[MessageListItem, ListMessagesResponse]:
         """
-        Returns a paginated list of messages within a specific experience chat, DM, or group chat channel, sorted by creation time.
+        Lists messages in an experience chat, DM, or group chat channel, sorted by creation time.
 
         Required permissions (one of):
          - `chat:read`
@@ -219,7 +219,7 @@ class RawMessagesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Message]:
         """
-        Send a new message in an experience chat, DM, or group chat channel. Supports text content, attachments, polls, and replies.
+        Sends a message in an experience chat, DM, or group chat channel. Supports text content, attachments, polls, and replies.
 
         Required permissions (one of):
          - `chat:message:create`
@@ -502,7 +502,7 @@ class RawMessagesClient:
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[bool]:
         """
-        Permanently delete a message from an experience chat, DM, or group chat channel. Only the message author or a channel admin can delete a message.
+        Permanently deletes a message from an experience chat, DM, or group chat channel. Only the message author or a channel admin can delete a message.
 
         Required permissions (one of):
          - `chat:message:create` and `chat:read`
@@ -635,7 +635,7 @@ class RawMessagesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Message]:
         """
-        Edit the content, attachments, or pinned status of an existing message in an experience chat, DM, or group chat channel.
+        Edits the content, attachments, or pinned status of a message in an experience chat, DM, or group chat channel.
 
         Required permissions (one of):
          - `chat:message:create`
@@ -797,7 +797,7 @@ class AsyncRawMessagesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[MessageListItem, ListMessagesResponse]:
         """
-        Returns a paginated list of messages within a specific experience chat, DM, or group chat channel, sorted by creation time.
+        Lists messages in an experience chat, DM, or group chat channel, sorted by creation time.
 
         Required permissions (one of):
          - `chat:read`
@@ -971,7 +971,7 @@ class AsyncRawMessagesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Message]:
         """
-        Send a new message in an experience chat, DM, or group chat channel. Supports text content, attachments, polls, and replies.
+        Sends a message in an experience chat, DM, or group chat channel. Supports text content, attachments, polls, and replies.
 
         Required permissions (one of):
          - `chat:message:create`
@@ -1258,7 +1258,7 @@ class AsyncRawMessagesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[bool]:
         """
-        Permanently delete a message from an experience chat, DM, or group chat channel. Only the message author or a channel admin can delete a message.
+        Permanently deletes a message from an experience chat, DM, or group chat channel. Only the message author or a channel admin can delete a message.
 
         Required permissions (one of):
          - `chat:message:create` and `chat:read`
@@ -1391,7 +1391,7 @@ class AsyncRawMessagesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Message]:
         """
-        Edit the content, attachments, or pinned status of an existing message in an experience chat, DM, or group chat channel.
+        Edits the content, attachments, or pinned status of a message in an experience chat, DM, or group chat channel.
 
         Required permissions (one of):
          - `chat:message:create`

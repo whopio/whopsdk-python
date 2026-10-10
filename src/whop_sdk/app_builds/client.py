@@ -137,12 +137,12 @@ class AppBuildsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AppBuild:
         """
-        Uploads a new build artifact for an app. Upload the file first (POST /files or a direct upload), then reference it here; iOS and Android take a .zip bundle, web takes a JavaScript file or a .zip archive of the hosted site.
+        Uploads a new build artifact for an app. Upload the file first with `POST /files` or a direct upload, then reference it in `attachment`.
 
         Parameters
         ----------
         attachment : CreateAppBuildsRequestAttachment
-            The uploaded build file: `{ id }` for an existing file or `{ direct_upload_id }` for a completed direct upload.
+            The uploaded build file: pass `id` for an existing file or `direct_upload_id` for a completed direct upload. iOS and Android builds take a .zip bundle; web builds take a JavaScript file or a .zip archive of the hosted site.
 
         checksum : str
             A client-generated checksum of the build file, used to verify file integrity when unpacked.
@@ -384,12 +384,12 @@ class AsyncAppBuildsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AppBuild:
         """
-        Uploads a new build artifact for an app. Upload the file first (POST /files or a direct upload), then reference it here; iOS and Android take a .zip bundle, web takes a JavaScript file or a .zip archive of the hosted site.
+        Uploads a new build artifact for an app. Upload the file first with `POST /files` or a direct upload, then reference it in `attachment`.
 
         Parameters
         ----------
         attachment : CreateAppBuildsRequestAttachment
-            The uploaded build file: `{ id }` for an existing file or `{ direct_upload_id }` for a completed direct upload.
+            The uploaded build file: pass `id` for an existing file or `direct_upload_id` for a completed direct upload. iOS and Android builds take a .zip bundle; web builds take a JavaScript file or a .zip archive of the hosted site.
 
         checksum : str
             A client-generated checksum of the build file, used to verify file integrity when unpacked.

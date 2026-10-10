@@ -138,7 +138,7 @@ class BountySubmissionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BountySubmission:
         """
-        Creates a submission on a workforce bounty. Include a `deliverable` payload — any combination of links and uploaded files, with at least one of the two — and the submission goes straight to review; create is the only step. For `data_capture` bounties, omit the deliverable: this starts a claimed attempt whose proof accumulates server-side, and the separate submit endpoint sends it to review once complete. Requires a user credential — account API keys cannot author submissions.
+        Creates a submission on a workforce bounty. Include a `deliverable` and the submission goes straight to review; create is the only step. For `data_capture` bounties, omit the deliverable: this starts a claimed attempt whose proof accumulates server-side, and `POST /bounty_submissions/:id/submit` sends it to review once complete. Requires a user credential — account API keys cannot author submissions.
 
         Parameters
         ----------
@@ -269,7 +269,7 @@ class BountySubmissionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BountySubmission:
         """
-        Submits a claimed attempt for review. A livestream attempt needs an ended proof stream and can attach an optional `deliverable` — links, files, and a caption in any combination; if the attempt already went to review when its stream ended, the payload attaches to it once, until reviewers start voting. A data capture attempt instead needs enough validated clip time and takes no payload. Only the worker who started the attempt can submit it — account API keys cannot.
+        Submits a claimed attempt for review. A livestream attempt needs an ended proof stream and can attach a `deliverable`; a data capture attempt instead needs enough validated clip time and takes no payload. Only the worker who started the attempt can submit it — account API keys cannot.
 
         Parameters
         ----------
@@ -277,7 +277,7 @@ class BountySubmissionsClient:
             The claimed attempt to submit for review (`btys_` tag).
 
         deliverable : typing.Optional[SubmitBountySubmissionsRequestDeliverable]
-            Work to attach to the submission. Combine `urls`, `file_ids`, and `caption` freely; all are optional.
+            Work to attach to a livestream attempt. Combine `urls`, `file_ids`, and `caption` freely; all are optional. If the attempt already went to review when its stream ended, the deliverable attaches to it once, until reviewers start voting. Data capture attempts take no deliverable.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -431,7 +431,7 @@ class AsyncBountySubmissionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BountySubmission:
         """
-        Creates a submission on a workforce bounty. Include a `deliverable` payload — any combination of links and uploaded files, with at least one of the two — and the submission goes straight to review; create is the only step. For `data_capture` bounties, omit the deliverable: this starts a claimed attempt whose proof accumulates server-side, and the separate submit endpoint sends it to review once complete. Requires a user credential — account API keys cannot author submissions.
+        Creates a submission on a workforce bounty. Include a `deliverable` and the submission goes straight to review; create is the only step. For `data_capture` bounties, omit the deliverable: this starts a claimed attempt whose proof accumulates server-side, and `POST /bounty_submissions/:id/submit` sends it to review once complete. Requires a user credential — account API keys cannot author submissions.
 
         Parameters
         ----------
@@ -586,7 +586,7 @@ class AsyncBountySubmissionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> BountySubmission:
         """
-        Submits a claimed attempt for review. A livestream attempt needs an ended proof stream and can attach an optional `deliverable` — links, files, and a caption in any combination; if the attempt already went to review when its stream ended, the payload attaches to it once, until reviewers start voting. A data capture attempt instead needs enough validated clip time and takes no payload. Only the worker who started the attempt can submit it — account API keys cannot.
+        Submits a claimed attempt for review. A livestream attempt needs an ended proof stream and can attach a `deliverable`; a data capture attempt instead needs enough validated clip time and takes no payload. Only the worker who started the attempt can submit it — account API keys cannot.
 
         Parameters
         ----------
@@ -594,7 +594,7 @@ class AsyncBountySubmissionsClient:
             The claimed attempt to submit for review (`btys_` tag).
 
         deliverable : typing.Optional[SubmitBountySubmissionsRequestDeliverable]
-            Work to attach to the submission. Combine `urls`, `file_ids`, and `caption` freely; all are optional.
+            Work to attach to a livestream attempt. Combine `urls`, `file_ids`, and `caption` freely; all are optional. If the attempt already went to review when its stream ended, the deliverable attaches to it once, until reviewers start voting. Data capture attempts take no deliverable.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

@@ -146,7 +146,7 @@ class RawCardsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateCardsResponse]:
         """
-        Issue a virtual card, or apply for card issuing. An account with no application files one here and gets back a `202`; call again to issue the card once it is approved.
+        Issues a virtual card, or applies for card issuing. An account with no application files one here and gets back a `202`; call again to issue the card once it is approved.
 
         Parameters
         ----------
@@ -281,7 +281,7 @@ class RawCardsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[RetrieveCardsResponse]:
         """
-        Retrieve a single card.
+        Retrieves a single card, including its `secrets` (card number, CVC, and PIN), which List Cards does not return.
 
         Parameters
         ----------
@@ -361,7 +361,7 @@ class RawCardsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateCardsResponse]:
         """
-        Update, freeze, or cancel a card. Updating the card's name, billing address, or limits requires both `payout:account:update` and `company:balance:read`; a card's assigned holder may update their own card's pin and frozen state with any user token.
+        Updates, freezes, or cancels a card. Updating the card's name, billing address, or limits requires both `payout:account:update` and `company:balance:read`; a card's assigned holder may update their own card's pin and frozen state with any user token.
 
         Parameters
         ----------
@@ -620,7 +620,7 @@ class AsyncRawCardsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateCardsResponse]:
         """
-        Issue a virtual card, or apply for card issuing. An account with no application files one here and gets back a `202`; call again to issue the card once it is approved.
+        Issues a virtual card, or applies for card issuing. An account with no application files one here and gets back a `202`; call again to issue the card once it is approved.
 
         Parameters
         ----------
@@ -755,7 +755,7 @@ class AsyncRawCardsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[RetrieveCardsResponse]:
         """
-        Retrieve a single card.
+        Retrieves a single card, including its `secrets` (card number, CVC, and PIN), which List Cards does not return.
 
         Parameters
         ----------
@@ -835,7 +835,7 @@ class AsyncRawCardsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateCardsResponse]:
         """
-        Update, freeze, or cancel a card. Updating the card's name, billing address, or limits requires both `payout:account:update` and `company:balance:read`; a card's assigned holder may update their own card's pin and frozen state with any user token.
+        Updates, freezes, or cancels a card. Updating the card's name, billing address, or limits requires both `payout:account:update` and `company:balance:read`; a card's assigned holder may update their own card's pin and frozen state with any user token.
 
         Parameters
         ----------

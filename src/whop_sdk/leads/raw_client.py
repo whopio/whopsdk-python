@@ -47,7 +47,7 @@ class RawLeadsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[LeadListItem, ListLeadsResponse]:
         """
-        Returns a paginated list of leads for a company, with optional filtering by product and creation date.
+        Lists an account's leads, newest first.
 
         Required permissions:
          - `lead:basic:read`
@@ -229,7 +229,7 @@ class RawLeadsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Lead]:
         """
-        Record a new lead for a company, capturing a potential customer's interest in a specific product.
+        Records a lead: a potential customer's interest in an account or one of its products.
 
         Required permissions:
          - `lead:manage`
@@ -509,7 +509,7 @@ class RawLeadsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Lead]:
         """
-        Update the metadata or referrer information on an existing lead record.
+        Updates a lead's `metadata` or `referrer`.
 
         Required permissions:
          - `lead:manage`
@@ -665,7 +665,7 @@ class AsyncRawLeadsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[LeadListItem, ListLeadsResponse]:
         """
-        Returns a paginated list of leads for a company, with optional filtering by product and creation date.
+        Lists an account's leads, newest first.
 
         Required permissions:
          - `lead:basic:read`
@@ -850,7 +850,7 @@ class AsyncRawLeadsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Lead]:
         """
-        Record a new lead for a company, capturing a potential customer's interest in a specific product.
+        Records a lead: a potential customer's interest in an account or one of its products.
 
         Required permissions:
          - `lead:manage`
@@ -1132,7 +1132,7 @@ class AsyncRawLeadsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Lead]:
         """
-        Update the metadata or referrer information on an existing lead record.
+        Updates a lead's `metadata` or `referrer`.
 
         Required permissions:
          - `lead:manage`

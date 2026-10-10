@@ -48,7 +48,7 @@ class AudiencesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Audience, ListAudiencesResponse]:
         """
-        List custom and lookalike audiences for an account. Pass `audience_id` to return a specific audience.
+        Lists an account's custom and lookalike audiences.
 
         Parameters
         ----------
@@ -124,7 +124,7 @@ class AudiencesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateAudiencesResponse:
         """
-        Create an audience from a customer list, your account's Whop People data, or engagement with videos, lead forms, Instagram profiles, or Facebook pages. Create lookalike audiences to reach people similar to an existing audience. Processing runs asynchronously. Custom creation returns one audience; lookalike creation returns the requested similarity bands in `data`.
+        Creates a custom audience from a customer list, your account's Whop People data, or engagement with videos, lead forms, Instagram profiles, or Facebook pages, or a lookalike audience that reaches people similar to an existing one. Processing runs asynchronously. A custom audience returns one audience; a lookalike returns the requested similarity bands in `data`.
 
         Parameters
         ----------
@@ -359,7 +359,7 @@ class AsyncAudiencesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Audience, ListAudiencesResponse]:
         """
-        List custom and lookalike audiences for an account. Pass `audience_id` to return a specific audience.
+        Lists an account's custom and lookalike audiences.
 
         Parameters
         ----------
@@ -444,7 +444,7 @@ class AsyncAudiencesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateAudiencesResponse:
         """
-        Create an audience from a customer list, your account's Whop People data, or engagement with videos, lead forms, Instagram profiles, or Facebook pages. Create lookalike audiences to reach people similar to an existing audience. Processing runs asynchronously. Custom creation returns one audience; lookalike creation returns the requested similarity bands in `data`.
+        Creates a custom audience from a customer list, your account's Whop People data, or engagement with videos, lead forms, Instagram profiles, or Facebook pages, or a lookalike audience that reaches people similar to an existing one. Processing runs asynchronously. A custom audience returns one audience; a lookalike returns the requested similarity bands in `data`.
 
         Parameters
         ----------

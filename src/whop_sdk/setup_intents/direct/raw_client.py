@@ -38,7 +38,7 @@ class RawDirectClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[SetupIntent]:
         """
-        Saves a card for later charges from card details the caller holds itself, for integrators whose own systems are PCI compliant. Card details are accepted only on the vault host, where the card is tokenized before it reaches Whop; the official SDKs route this operation there, and raw card details sent to the regular host are refused. (Whop's own clients, which tokenize with the Basis Theory SDK, send the resulting token intent id to the regular host.) The setup runs in the background: poll Retrieve setup status for its outcome and for anything the buyer must still do, such as 3D Secure. Once it succeeds, the saved payment method arrives on the `setup_intent.succeeded` webhook and in List payment methods for the member.
+        Saves a card for later charges from card details you hold yourself, for integrators whose own systems are PCI compliant. Send this operation to the vault host, which tokenizes the card before it reaches Whop; the official SDKs route it there, and raw card details sent to the regular host are refused. The setup runs in the background: poll Retrieve setup status for its outcome and for anything the buyer must still do, such as 3D Secure. Once it succeeds, the saved payment method arrives on the `setup_intent.succeeded` webhook and in List payment methods for the member.
 
         Parameters
         ----------
@@ -153,7 +153,7 @@ class AsyncRawDirectClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[SetupIntent]:
         """
-        Saves a card for later charges from card details the caller holds itself, for integrators whose own systems are PCI compliant. Card details are accepted only on the vault host, where the card is tokenized before it reaches Whop; the official SDKs route this operation there, and raw card details sent to the regular host are refused. (Whop's own clients, which tokenize with the Basis Theory SDK, send the resulting token intent id to the regular host.) The setup runs in the background: poll Retrieve setup status for its outcome and for anything the buyer must still do, such as 3D Secure. Once it succeeds, the saved payment method arrives on the `setup_intent.succeeded` webhook and in List payment methods for the member.
+        Saves a card for later charges from card details you hold yourself, for integrators whose own systems are PCI compliant. Send this operation to the vault host, which tokenizes the card before it reaches Whop; the official SDKs route it there, and raw card details sent to the regular host are refused. The setup runs in the background: poll Retrieve setup status for its outcome and for anything the buyer must still do, such as 3D Secure. Once it succeeds, the saved payment method arrives on the `setup_intent.succeeded` webhook and in List payment methods for the member.
 
         Parameters
         ----------

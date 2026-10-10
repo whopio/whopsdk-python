@@ -33,7 +33,7 @@ class RawTopicsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[UserNotificationPreference, ListTopicsResponse]:
         """
-        Lists the authenticated user's topic-scoped notification preferences, plus user-agnostic platform defaults. Each filter matches preferences scoped to its value or not narrowed on that dimension. Per-experience levels are listed separately, by `GET /users/me/preferences/notifications/experiences`.
+        Lists the authenticated user's topic-scoped notification preferences, plus user-agnostic platform defaults. Per-experience levels are listed separately, by `GET /users/me/preferences/notifications/experiences`.
 
         Parameters
         ----------
@@ -41,16 +41,16 @@ class RawTopicsClient:
             Only return preferences for this delivery channel (or not narrowed to a channel).
 
         account_id : typing.Optional[str]
-            Only return preferences scoped to this account's member notifications (`biz_` tag).
+            Only return preferences scoped to this account's member notifications (`biz_` tag), or not narrowed to an account.
 
         team_account_id : typing.Optional[str]
-            Only return preferences scoped to this account's team notifications (`biz_` tag).
+            Only return preferences scoped to this account's team notifications (`biz_` tag), or not narrowed to a team account.
 
         experience_id : typing.Optional[str]
-            Only return preferences scoped to this experience (`exp_` tag).
+            Only return preferences scoped to this experience (`exp_` tag), or not narrowed to an experience.
 
         topic_id : typing.Optional[str]
-            Only return preferences scoped to this notification topic (`topic_` tag).
+            Only return preferences scoped to this notification topic (`topic_` tag), or not narrowed to a topic.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -145,7 +145,7 @@ class AsyncRawTopicsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[UserNotificationPreference, ListTopicsResponse]:
         """
-        Lists the authenticated user's topic-scoped notification preferences, plus user-agnostic platform defaults. Each filter matches preferences scoped to its value or not narrowed on that dimension. Per-experience levels are listed separately, by `GET /users/me/preferences/notifications/experiences`.
+        Lists the authenticated user's topic-scoped notification preferences, plus user-agnostic platform defaults. Per-experience levels are listed separately, by `GET /users/me/preferences/notifications/experiences`.
 
         Parameters
         ----------
@@ -153,16 +153,16 @@ class AsyncRawTopicsClient:
             Only return preferences for this delivery channel (or not narrowed to a channel).
 
         account_id : typing.Optional[str]
-            Only return preferences scoped to this account's member notifications (`biz_` tag).
+            Only return preferences scoped to this account's member notifications (`biz_` tag), or not narrowed to an account.
 
         team_account_id : typing.Optional[str]
-            Only return preferences scoped to this account's team notifications (`biz_` tag).
+            Only return preferences scoped to this account's team notifications (`biz_` tag), or not narrowed to a team account.
 
         experience_id : typing.Optional[str]
-            Only return preferences scoped to this experience (`exp_` tag).
+            Only return preferences scoped to this experience (`exp_` tag), or not narrowed to an experience.
 
         topic_id : typing.Optional[str]
-            Only return preferences scoped to this notification topic (`topic_` tag).
+            Only return preferences scoped to this notification topic (`topic_` tag), or not narrowed to a topic.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.

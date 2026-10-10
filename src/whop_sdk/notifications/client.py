@@ -49,7 +49,7 @@ class NotificationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Notification, ListNotificationsResponse]:
         """
-        Lists the authenticated user's notifications, newest first. Requires a user credential — an account API key has no notification feed. Without filters the feed spans every experience the user belongs to plus the teams they are a member of. The `after` cursor is a notification `id` from a previous response; subsequent pages contain older notifications.
+        Lists the authenticated user's notifications, newest first. Without filters the feed spans every experience the user belongs to plus the teams they are a member of. Requires a user credential — an account API key has no notification feed.
 
         Parameters
         ----------
@@ -234,7 +234,7 @@ class NotificationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> MarkReadNotificationsResponse:
         """
-        Marks the authenticated user's notifications as read: one experience's (`experience_id`) or everything (`all: true`) — exactly one of the two. Requires a user credential. Responds with the refreshed badge rows for the affected scope.
+        Marks the authenticated user's notifications as read, for one experience or all of them, and returns the refreshed badge rows for that scope. Requires a user credential.
 
         Parameters
         ----------
@@ -268,12 +268,12 @@ class NotificationsClient:
 
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Notification:
         """
-        Retrieves a single notification by id — either an `id` returned by List Notifications, or the ephemeral id delivered with a push/websocket event. Requires a user credential.
+        Retrieves a single notification, from the feed or from a push or websocket event. Requires a user credential.
 
         Parameters
         ----------
         id : str
-            A notification `id` from List Notifications, or the id delivered with a push/websocket event.
+            A notification `id` from List Notifications, or the ephemeral id delivered with a push or websocket event.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -337,7 +337,7 @@ class AsyncNotificationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Notification, ListNotificationsResponse]:
         """
-        Lists the authenticated user's notifications, newest first. Requires a user credential — an account API key has no notification feed. Without filters the feed spans every experience the user belongs to plus the teams they are a member of. The `after` cursor is a notification `id` from a previous response; subsequent pages contain older notifications.
+        Lists the authenticated user's notifications, newest first. Without filters the feed spans every experience the user belongs to plus the teams they are a member of. Requires a user credential — an account API key has no notification feed.
 
         Parameters
         ----------
@@ -547,7 +547,7 @@ class AsyncNotificationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> MarkReadNotificationsResponse:
         """
-        Marks the authenticated user's notifications as read: one experience's (`experience_id`) or everything (`all: true`) — exactly one of the two. Requires a user credential. Responds with the refreshed badge rows for the affected scope.
+        Marks the authenticated user's notifications as read, for one experience or all of them, and returns the refreshed badge rows for that scope. Requires a user credential.
 
         Parameters
         ----------
@@ -591,12 +591,12 @@ class AsyncNotificationsClient:
 
     async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Notification:
         """
-        Retrieves a single notification by id — either an `id` returned by List Notifications, or the ephemeral id delivered with a push/websocket event. Requires a user credential.
+        Retrieves a single notification, from the feed or from a push or websocket event. Requires a user credential.
 
         Parameters
         ----------
         id : str
-            A notification `id` from List Notifications, or the id delivered with a push/websocket event.
+            A notification `id` from List Notifications, or the ephemeral id delivered with a push or websocket event.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

@@ -47,7 +47,7 @@ class RawCompanyTokenTransactionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[CompanyTokenTransactionListItem, ListCompanyTokenTransactionsResponse]:
         """
-        Returns a paginated list of token transactions for a user or company, depending on the authenticated actor, with optional filtering by user and transaction type.
+        Lists an account's token transactions, newest first.
 
         Required permissions:
          - `company_token_transaction:read`
@@ -215,7 +215,7 @@ class RawCompanyTokenTransactionsClient:
         self, *, request: CreateCompanyTokenTransactionsRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[CompanyTokenTransaction]:
         """
-        Create a token transaction to add, subtract, or transfer tokens for a member within a company.
+        Creates a token transaction that adds, subtracts, or transfers tokens for a member of an account.
 
         Required permissions:
          - `company_token_transaction:create`
@@ -347,7 +347,7 @@ class RawCompanyTokenTransactionsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[CompanyTokenTransaction]:
         """
-        Retrieves the details of an existing company token transaction.
+        Retrieves a token transaction.
 
         Required permissions:
          - `company_token_transaction:read`
@@ -487,7 +487,7 @@ class AsyncRawCompanyTokenTransactionsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[CompanyTokenTransactionListItem, ListCompanyTokenTransactionsResponse]:
         """
-        Returns a paginated list of token transactions for a user or company, depending on the authenticated actor, with optional filtering by user and transaction type.
+        Lists an account's token transactions, newest first.
 
         Required permissions:
          - `company_token_transaction:read`
@@ -658,7 +658,7 @@ class AsyncRawCompanyTokenTransactionsClient:
         self, *, request: CreateCompanyTokenTransactionsRequest, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[CompanyTokenTransaction]:
         """
-        Create a token transaction to add, subtract, or transfer tokens for a member within a company.
+        Creates a token transaction that adds, subtracts, or transfers tokens for a member of an account.
 
         Required permissions:
          - `company_token_transaction:create`
@@ -790,7 +790,7 @@ class AsyncRawCompanyTokenTransactionsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[CompanyTokenTransaction]:
         """
-        Retrieves the details of an existing company token transaction.
+        Retrieves a token transaction.
 
         Required permissions:
          - `company_token_transaction:read`
