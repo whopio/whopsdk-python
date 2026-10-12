@@ -145,7 +145,7 @@ class PaymentMethodDomainsClient:
         Parameters
         ----------
         hostname : str
-            Hostname to register (e.g. `checkout.shinetime.example`).
+            Hostname to register (e.g. `checkout.shinetime.com`).
 
         account_id : typing.Optional[str]
             Account to register the domain for (`biz_` tag). Required when authenticating as a user; an account API key supplies its own account.
@@ -168,7 +168,7 @@ class PaymentMethodDomainsClient:
             token="YOUR_TOKEN",
         )
         client.payment_method_domains.create(
-            hostname="pending.shinetime.example",
+            hostname="pending.shinetime.com",
         )
         """
         _response = self._raw_client.create(hostname=hostname, account_id=account_id, request_options=request_options)
@@ -411,7 +411,7 @@ class AsyncPaymentMethodDomainsClient:
         Parameters
         ----------
         hostname : str
-            Hostname to register (e.g. `checkout.shinetime.example`).
+            Hostname to register (e.g. `checkout.shinetime.com`).
 
         account_id : typing.Optional[str]
             Account to register the domain for (`biz_` tag). Required when authenticating as a user; an account API key supplies its own account.
@@ -439,7 +439,7 @@ class AsyncPaymentMethodDomainsClient:
 
         async def main() -> None:
             await client.payment_method_domains.create(
-                hostname="pending.shinetime.example",
+                hostname="pending.shinetime.com",
             )
 
 
