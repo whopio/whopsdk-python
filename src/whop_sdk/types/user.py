@@ -11,7 +11,6 @@ from .user_balance_history import UserBalanceHistory
 from .user_banner import UserBanner
 from .user_earnings import UserEarnings
 from .user_profile_picture import UserProfilePicture
-from .user_staff_access import UserStaffAccess
 
 
 class User(UniversalBaseModel):
@@ -68,11 +67,6 @@ class User(UniversalBaseModel):
     profile_picture: UserProfilePicture = pydantic.Field()
     """
     Avatar wrapper; its `url` is always present, using a generated placeholder when the user set no picture.
-    """
-
-    staff: typing.Optional[UserStaffAccess] = pydantic.Field(default=None)
-    """
-    Whop staff access flags. Populated only on the self view (retrieved with the reserved id `me`) for callers with staff-read scope; `null` there for every user who is not Whop staff, and always `null` elsewhere.
     """
 
     trading: typing.Optional[TradingAccount] = pydantic.Field(default=None)
