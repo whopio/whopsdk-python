@@ -1466,7 +1466,6 @@ if typing.TYPE_CHECKING:
     from .user_recommended_action import UserRecommendedAction
     from .user_recommended_action_action import UserRecommendedActionAction
     from .user_recommended_action_status import UserRecommendedActionStatus
-    from .user_staff_access import UserStaffAccess
     from .user_summary import UserSummary
     from .v1error_response import V1ErrorResponse
     from .v1error_response_error import V1ErrorResponseError
@@ -2823,7 +2822,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UserRecommendedAction": ".user_recommended_action",
     "UserRecommendedActionAction": ".user_recommended_action_action",
     "UserRecommendedActionStatus": ".user_recommended_action_status",
-    "UserStaffAccess": ".user_staff_access",
     "UserSummary": ".user_summary",
     "V1ErrorResponse": ".v1error_response",
     "V1ErrorResponseError": ".v1error_response_error",
@@ -4204,7 +4202,6 @@ __all__ = [
     "UserRecommendedAction",
     "UserRecommendedActionAction",
     "UserRecommendedActionStatus",
-    "UserStaffAccess",
     "UserSummary",
     "V1ErrorResponse",
     "V1ErrorResponseError",
