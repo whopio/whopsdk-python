@@ -6,8 +6,8 @@ ListMethodsResponseLimitsStandardErrorCode = typing.Union[
     typing.Literal[
         "account_suspended",
         "block_move_money_out_because_clawback",
-        "supportability_check_payout_status_hold",
         "card_usage_review_payout_status_hold",
+        "under_review",
         "kyc_completed",
         "rmi_clear",
         "identity_rfi_clear",
