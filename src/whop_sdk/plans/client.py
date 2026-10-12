@@ -508,7 +508,7 @@ class PlansClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CalculateTaxPlansResponse:
         """
-        Deprecated compatibility endpoint. Preview variant tax with `POST /variants/{id}/calculate_tax` instead.
+        Deprecated compatibility endpoint. Quote tax with `POST /payment_quotes` instead.
 
         Parameters
         ----------
@@ -1069,7 +1069,7 @@ class AsyncPlansClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CalculateTaxPlansResponse:
         """
-        Deprecated compatibility endpoint. Preview variant tax with `POST /variants/{id}/calculate_tax` instead.
+        Deprecated compatibility endpoint. Quote tax with `POST /payment_quotes` instead.
 
         Parameters
         ----------

@@ -797,7 +797,7 @@ class RawVariantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CalculateTaxVariantsResponse]:
         """
-        Previews tax for a variant before checkout, based on the buyer's location.
+        Deprecated. Quote tax with `POST /payment_quotes` instead. Previews tax for a variant before checkout, based on the buyer's location.
 
         Parameters
         ----------
@@ -1677,7 +1677,7 @@ class AsyncRawVariantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CalculateTaxVariantsResponse]:
         """
-        Previews tax for a variant before checkout, based on the buyer's location.
+        Deprecated. Quote tax with `POST /payment_quotes` instead. Previews tax for a variant before checkout, based on the buyer's location.
 
         Parameters
         ----------
