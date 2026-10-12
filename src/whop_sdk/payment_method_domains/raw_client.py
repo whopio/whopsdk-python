@@ -218,7 +218,7 @@ class RawPaymentMethodDomainsClient:
         Parameters
         ----------
         hostname : str
-            Hostname to register (e.g. `checkout.shinetime.example`).
+            Hostname to register (e.g. `checkout.shinetime.com`).
 
         account_id : typing.Optional[str]
             Account to register the domain for (`biz_` tag). Required when authenticating as a user; an account API key supplies its own account.
@@ -763,7 +763,7 @@ class AsyncRawPaymentMethodDomainsClient:
         Parameters
         ----------
         hostname : str
-            Hostname to register (e.g. `checkout.shinetime.example`).
+            Hostname to register (e.g. `checkout.shinetime.com`).
 
         account_id : typing.Optional[str]
             Account to register the domain for (`biz_` tag). Required when authenticating as a user; an account API key supplies its own account.

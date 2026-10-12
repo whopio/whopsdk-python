@@ -29473,7 +29473,7 @@ client = Whop(
 )
 
 client.payment_method_domains.create(
-    hostname="pending.shinetime.example",
+    hostname="pending.shinetime.com",
 )
 
 ```
@@ -29490,7 +29490,7 @@ client.payment_method_domains.create(
 <dl>
 <dd>
 
-**hostname:** `str` — Hostname to register (e.g. `checkout.shinetime.example`).
+**hostname:** `str` — Hostname to register (e.g. `checkout.shinetime.com`).
     
 </dd>
 </dl>
