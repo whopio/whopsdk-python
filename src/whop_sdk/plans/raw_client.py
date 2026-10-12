@@ -612,7 +612,7 @@ class RawPlansClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CalculateTaxPlansResponse]:
         """
-        Deprecated compatibility endpoint. Preview variant tax with `POST /variants/{id}/calculate_tax` instead.
+        Deprecated compatibility endpoint. Quote tax with `POST /payment_quotes` instead.
 
         Parameters
         ----------
@@ -1266,7 +1266,7 @@ class AsyncRawPlansClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CalculateTaxPlansResponse]:
         """
-        Deprecated compatibility endpoint. Preview variant tax with `POST /variants/{id}/calculate_tax` instead.
+        Deprecated compatibility endpoint. Quote tax with `POST /payment_quotes` instead.
 
         Parameters
         ----------

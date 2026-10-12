@@ -34834,7 +34834,7 @@ client.plans.update(
 <dl>
 <dd>
 
-Deprecated compatibility endpoint. Preview variant tax with `POST /variants/{id}/calculate_tax` instead.
+Deprecated compatibility endpoint. Quote tax with `POST /payment_quotes` instead.
 </dd>
 </dl>
 </dd>
@@ -44885,7 +44885,7 @@ client.variants.update(
 <dl>
 <dd>
 
-Previews tax for a variant before checkout, based on the buyer's location.
+Deprecated. Quote tax with `POST /payment_quotes` instead. Previews tax for a variant before checkout, based on the buyer's location.
 </dd>
 </dl>
 </dd>
