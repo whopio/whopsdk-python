@@ -11,6 +11,7 @@ PostAdCampaignUpdatedPayloadDataDeliveryStatus = typing.Union[
         "no_ad_groups",
         "no_ads",
         "paused",
+        "learning",
         "processing",
         "issues",
         "scheduled",
