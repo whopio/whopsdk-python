@@ -323,7 +323,7 @@ class RawPaymentRulesClient:
         Returns
         -------
         HttpResponse[PaymentRule]
-            A partner can read a rule without being able to write one
+            The requested rule
         """
         _response = self._client_wrapper.httpx_client.request(
             f"payment_rules/{encode_path_param(id)}",
@@ -938,7 +938,7 @@ class AsyncRawPaymentRulesClient:
         Returns
         -------
         AsyncHttpResponse[PaymentRule]
-            A partner can read a rule without being able to write one
+            The requested rule
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"payment_rules/{encode_path_param(id)}",

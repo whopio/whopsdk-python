@@ -42312,7 +42312,7 @@ client.team_members.create(
 <dl>
 <dd>
 
-**role:** `CreateTeamMembersRequestRole` — The system role to grant. Custom roles cannot be granted through the API. The Partner role can only be granted to the account's attached, verified partner.
+**role:** `CreateTeamMembersRequestRole` — The system role to grant. Custom roles cannot be granted through the API. The Partner role provides view-only access.
     
 </dd>
 </dl>
@@ -42555,7 +42555,7 @@ client.team_members.update(
 <dl>
 <dd>
 
-**role:** `typing.Optional[UpdateTeamMembersRequestRole]` — The system role to grant. Custom roles cannot be granted through the API. The Partner role can only be granted to the account's attached, verified partner.
+**role:** `typing.Optional[UpdateTeamMembersRequestRole]` — The system role to grant. Custom roles cannot be granted through the API. The Partner role provides view-only access.
     
 </dd>
 </dl>

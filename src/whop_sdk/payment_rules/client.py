@@ -238,7 +238,7 @@ class PaymentRulesClient:
         Returns
         -------
         PaymentRule
-            A partner can read a rule without being able to write one
+            The requested rule
 
         Examples
         --------
@@ -704,7 +704,7 @@ class AsyncPaymentRulesClient:
         Returns
         -------
         PaymentRule
-            A partner can read a rule without being able to write one
+            The requested rule
 
         Examples
         --------
