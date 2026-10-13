@@ -150,7 +150,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-09-2",
+            "2026-10-13",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -241,7 +241,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-09-2",
+            "2026-10-13",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -286,7 +286,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-09-2",
+            "2026-10-13",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -326,7 +326,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-09-2",
+            "2026-10-13",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -359,7 +359,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-09-2",
+            "2026-10-13",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -379,7 +379,6 @@ class AccountsClient:
         banner_image: typing.Optional[UpdateAccountsRequestBannerImage] = OMIT,
         business_address: typing.Optional[UpdateAccountsRequestBusinessAddress] = OMIT,
         business_name: typing.Optional[str] = OMIT,
-        business_type: typing.Optional[str] = OMIT,
         cancellation_policy: typing.Optional[UpdateAccountsRequestCancellationPolicy] = OMIT,
         collect_vat_id: typing.Optional[bool] = OMIT,
         country: typing.Optional[str] = OMIT,
@@ -388,8 +387,6 @@ class AccountsClient:
         eula: typing.Optional[UpdateAccountsRequestEula] = OMIT,
         featured_affiliate_product_id: typing.Optional[str] = OMIT,
         home_preferences: typing.Optional[typing.Sequence[UpdateAccountsRequestHomePreferencesItem]] = OMIT,
-        industry_group: typing.Optional[str] = OMIT,
-        industry_type: typing.Optional[str] = OMIT,
         invoice_prefix: typing.Optional[str] = OMIT,
         logo: typing.Optional[UpdateAccountsRequestLogo] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
@@ -423,6 +420,7 @@ class AccountsClient:
         title: typing.Optional[str] = OMIT,
         use_logo_as_opengraph_image_fallback: typing.Optional[bool] = OMIT,
         website: typing.Optional[str] = OMIT,
+        industry_type: typing.Optional[typing.Any] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Account:
         """
@@ -448,9 +446,6 @@ class AccountsClient:
         business_name : typing.Optional[str]
             The legal business name used with the account's tax address.
 
-        business_type : typing.Optional[str]
-            High-level business category for the account. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
-
         cancellation_policy : typing.Optional[UpdateAccountsRequestCancellationPolicy]
             The account's cancellation policy document. Attached to new disputes as the cancellation policy evidence, with the terms of service as the fallback. PDF only. Pass a JSON object containing an `id` from [Create File](/api-reference/files/create-file), or `null` to remove it.
 
@@ -474,12 +469,6 @@ class AccountsClient:
 
         home_preferences : typing.Optional[typing.Sequence[UpdateAccountsRequestHomePreferencesItem]]
             Public account home page preferences.
-
-        industry_group : typing.Optional[str]
-            Account industry group. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
-
-        industry_type : typing.Optional[str]
-            Specific industry vertical for the account. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
 
         invoice_prefix : typing.Optional[str]
             Prefix used for account invoices.
@@ -574,6 +563,8 @@ class AccountsClient:
         website : typing.Optional[str]
             The account's business website, as an `http` or `https` URL of at most 255 characters. Also added to the account's `social_links` as a `website` entry. Pass `null` to clear the website; existing social links are left unchanged.
 
+        industry_type : typing.Optional[typing.Any]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -587,7 +578,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-09-2",
+            "2026-10-13",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -602,7 +593,6 @@ class AccountsClient:
             banner_image=banner_image,
             business_address=business_address,
             business_name=business_name,
-            business_type=business_type,
             cancellation_policy=cancellation_policy,
             collect_vat_id=collect_vat_id,
             country=country,
@@ -611,8 +601,6 @@ class AccountsClient:
             eula=eula,
             featured_affiliate_product_id=featured_affiliate_product_id,
             home_preferences=home_preferences,
-            industry_group=industry_group,
-            industry_type=industry_type,
             invoice_prefix=invoice_prefix,
             logo=logo,
             metadata=metadata,
@@ -644,6 +632,7 @@ class AccountsClient:
             title=title,
             use_logo_as_opengraph_image_fallback=use_logo_as_opengraph_image_fallback,
             website=website,
+            industry_type=industry_type,
             request_options=request_options,
         )
         return _response.data
@@ -653,11 +642,8 @@ class AccountsClient:
         id: str,
         *,
         business_name: str,
-        business_type: str,
         formation_state: FormCompanyAccountsRequestFormationState,
         founders: typing.Sequence[FormCompanyAccountsRequestFoundersItem],
-        industry_group: str,
-        industry_type: str,
         business_address: typing.Optional[FormCompanyAccountsRequestBusinessAddress] = OMIT,
         business_phone: typing.Optional[str] = OMIT,
         business_website: typing.Optional[str] = OMIT,
@@ -679,20 +665,11 @@ class AccountsClient:
         business_name : str
             Legal name for the new company.
 
-        business_type : str
-            High-level business category, from the Whop business taxonomy. Valid values are listed on [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary).
-
         formation_state : FormCompanyAccountsRequestFormationState
             Two-letter code of the US state (or `DC`) to form the company in. We recommend `WY` because Wyoming formations are completed the same day.
 
         founders : typing.Sequence[FormCompanyAccountsRequestFoundersItem]
             The company's founders. Exactly one must be marked `is_primary` — the responsible party for the filing.
-
-        industry_group : str
-            Industry group, from the Whop business taxonomy. Valid values are listed on [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary).
-
-        industry_type : str
-            Specific industry vertical, from the Whop business taxonomy. Valid values are listed on [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary).
 
         business_address : typing.Optional[FormCompanyAccountsRequestBusinessAddress]
             Company mailing address. Required unless `use_registered_agent` is `true`.
@@ -737,7 +714,7 @@ class AccountsClient:
         )
 
         client = Whop(
-            "2026-10-09-2",
+            "2026-10-13",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -753,7 +730,6 @@ class AccountsClient:
             ),
             business_name="Shine Time Auto Detailing",
             business_phone="+15125550142",
-            business_type="brick_and_mortar",
             business_website="https://shinetime.example",
             entity_suffix="LLC",
             entity_type="llc",
@@ -780,8 +756,6 @@ class AccountsClient:
                     ssn="123-45-6789",
                 )
             ],
-            industry_group="automotive",
-            industry_type="car_wash_and_detailing_shop",
             share_structure=FormCompanyAccountsRequestShareStructure(
                 number_of_shares=123,
                 value=123.0,
@@ -792,11 +766,8 @@ class AccountsClient:
         _response = self._raw_client.form_company(
             id,
             business_name=business_name,
-            business_type=business_type,
             formation_state=formation_state,
             founders=founders,
-            industry_group=industry_group,
-            industry_type=industry_type,
             business_address=business_address,
             business_phone=business_phone,
             business_website=business_website,
@@ -833,7 +804,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-09-2",
+            "2026-10-13",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -866,7 +837,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-09-2",
+            "2026-10-13",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -920,7 +891,7 @@ class AccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-09-2",
+            "2026-10-13",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1069,7 +1040,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-09-2",
+            "2026-10-13",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1169,7 +1140,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-09-2",
+            "2026-10-13",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1222,7 +1193,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-09-2",
+            "2026-10-13",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1270,7 +1241,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-09-2",
+            "2026-10-13",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1315,7 +1286,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-09-2",
+            "2026-10-13",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1341,7 +1312,6 @@ class AsyncAccountsClient:
         banner_image: typing.Optional[UpdateAccountsRequestBannerImage] = OMIT,
         business_address: typing.Optional[UpdateAccountsRequestBusinessAddress] = OMIT,
         business_name: typing.Optional[str] = OMIT,
-        business_type: typing.Optional[str] = OMIT,
         cancellation_policy: typing.Optional[UpdateAccountsRequestCancellationPolicy] = OMIT,
         collect_vat_id: typing.Optional[bool] = OMIT,
         country: typing.Optional[str] = OMIT,
@@ -1350,8 +1320,6 @@ class AsyncAccountsClient:
         eula: typing.Optional[UpdateAccountsRequestEula] = OMIT,
         featured_affiliate_product_id: typing.Optional[str] = OMIT,
         home_preferences: typing.Optional[typing.Sequence[UpdateAccountsRequestHomePreferencesItem]] = OMIT,
-        industry_group: typing.Optional[str] = OMIT,
-        industry_type: typing.Optional[str] = OMIT,
         invoice_prefix: typing.Optional[str] = OMIT,
         logo: typing.Optional[UpdateAccountsRequestLogo] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
@@ -1385,6 +1353,7 @@ class AsyncAccountsClient:
         title: typing.Optional[str] = OMIT,
         use_logo_as_opengraph_image_fallback: typing.Optional[bool] = OMIT,
         website: typing.Optional[str] = OMIT,
+        industry_type: typing.Optional[typing.Any] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Account:
         """
@@ -1410,9 +1379,6 @@ class AsyncAccountsClient:
         business_name : typing.Optional[str]
             The legal business name used with the account's tax address.
 
-        business_type : typing.Optional[str]
-            High-level business category for the account. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
-
         cancellation_policy : typing.Optional[UpdateAccountsRequestCancellationPolicy]
             The account's cancellation policy document. Attached to new disputes as the cancellation policy evidence, with the terms of service as the fallback. PDF only. Pass a JSON object containing an `id` from [Create File](/api-reference/files/create-file), or `null` to remove it.
 
@@ -1436,12 +1402,6 @@ class AsyncAccountsClient:
 
         home_preferences : typing.Optional[typing.Sequence[UpdateAccountsRequestHomePreferencesItem]]
             Public account home page preferences.
-
-        industry_group : typing.Optional[str]
-            Account industry group. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
-
-        industry_type : typing.Optional[str]
-            Specific industry vertical for the account. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
 
         invoice_prefix : typing.Optional[str]
             Prefix used for account invoices.
@@ -1536,6 +1496,8 @@ class AsyncAccountsClient:
         website : typing.Optional[str]
             The account's business website, as an `http` or `https` URL of at most 255 characters. Also added to the account's `social_links` as a `website` entry. Pass `null` to clear the website; existing social links are left unchanged.
 
+        industry_type : typing.Optional[typing.Any]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1551,7 +1513,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-09-2",
+            "2026-10-13",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1572,7 +1534,6 @@ class AsyncAccountsClient:
             banner_image=banner_image,
             business_address=business_address,
             business_name=business_name,
-            business_type=business_type,
             cancellation_policy=cancellation_policy,
             collect_vat_id=collect_vat_id,
             country=country,
@@ -1581,8 +1542,6 @@ class AsyncAccountsClient:
             eula=eula,
             featured_affiliate_product_id=featured_affiliate_product_id,
             home_preferences=home_preferences,
-            industry_group=industry_group,
-            industry_type=industry_type,
             invoice_prefix=invoice_prefix,
             logo=logo,
             metadata=metadata,
@@ -1614,6 +1573,7 @@ class AsyncAccountsClient:
             title=title,
             use_logo_as_opengraph_image_fallback=use_logo_as_opengraph_image_fallback,
             website=website,
+            industry_type=industry_type,
             request_options=request_options,
         )
         return _response.data
@@ -1623,11 +1583,8 @@ class AsyncAccountsClient:
         id: str,
         *,
         business_name: str,
-        business_type: str,
         formation_state: FormCompanyAccountsRequestFormationState,
         founders: typing.Sequence[FormCompanyAccountsRequestFoundersItem],
-        industry_group: str,
-        industry_type: str,
         business_address: typing.Optional[FormCompanyAccountsRequestBusinessAddress] = OMIT,
         business_phone: typing.Optional[str] = OMIT,
         business_website: typing.Optional[str] = OMIT,
@@ -1649,20 +1606,11 @@ class AsyncAccountsClient:
         business_name : str
             Legal name for the new company.
 
-        business_type : str
-            High-level business category, from the Whop business taxonomy. Valid values are listed on [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary).
-
         formation_state : FormCompanyAccountsRequestFormationState
             Two-letter code of the US state (or `DC`) to form the company in. We recommend `WY` because Wyoming formations are completed the same day.
 
         founders : typing.Sequence[FormCompanyAccountsRequestFoundersItem]
             The company's founders. Exactly one must be marked `is_primary` — the responsible party for the filing.
-
-        industry_group : str
-            Industry group, from the Whop business taxonomy. Valid values are listed on [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary).
-
-        industry_type : str
-            Specific industry vertical, from the Whop business taxonomy. Valid values are listed on [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary).
 
         business_address : typing.Optional[FormCompanyAccountsRequestBusinessAddress]
             Company mailing address. Required unless `use_registered_agent` is `true`.
@@ -1709,7 +1657,7 @@ class AsyncAccountsClient:
         )
 
         client = AsyncWhop(
-            "2026-10-09-2",
+            "2026-10-13",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1728,7 +1676,6 @@ class AsyncAccountsClient:
                 ),
                 business_name="Shine Time Auto Detailing",
                 business_phone="+15125550142",
-                business_type="brick_and_mortar",
                 business_website="https://shinetime.example",
                 entity_suffix="LLC",
                 entity_type="llc",
@@ -1755,8 +1702,6 @@ class AsyncAccountsClient:
                         ssn="123-45-6789",
                     )
                 ],
-                industry_group="automotive",
-                industry_type="car_wash_and_detailing_shop",
                 share_structure=FormCompanyAccountsRequestShareStructure(
                     number_of_shares=123,
                     value=123.0,
@@ -1770,11 +1715,8 @@ class AsyncAccountsClient:
         _response = await self._raw_client.form_company(
             id,
             business_name=business_name,
-            business_type=business_type,
             formation_state=formation_state,
             founders=founders,
-            industry_group=industry_group,
-            industry_type=industry_type,
             business_address=business_address,
             business_phone=business_phone,
             business_website=business_website,
@@ -1813,7 +1755,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-09-2",
+            "2026-10-13",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1854,7 +1796,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-09-2",
+            "2026-10-13",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1916,7 +1858,7 @@ class AsyncAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-09-2",
+            "2026-10-13",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

@@ -833,14 +833,6 @@ client.accounts.update(
 <dl>
 <dd>
 
-**business_type:** `typing.Optional[str]` — High-level business category for the account. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **cancellation_policy:** `typing.Optional[UpdateAccountsRequestCancellationPolicy]` — The account's cancellation policy document. Attached to new disputes as the cancellation policy evidence, with the terms of service as the fallback. PDF only. Pass a JSON object containing an `id` from [Create File](/api-reference/files/create-file), or `null` to remove it.
     
 </dd>
@@ -898,22 +890,6 @@ client.accounts.update(
 <dd>
 
 **home_preferences:** `typing.Optional[typing.List[UpdateAccountsRequestHomePreferencesItem]]` — Public account home page preferences.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**industry_group:** `typing.Optional[str]` — Account industry group. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**industry_type:** `typing.Optional[str]` — Specific industry vertical for the account. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
     
 </dd>
 </dl>
@@ -1169,6 +1145,14 @@ client.accounts.update(
 <dl>
 <dd>
 
+**industry_type:** `typing.Optional[typing.Any]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -1229,7 +1213,6 @@ client.accounts.form_company(
     ),
     business_name="Shine Time Auto Detailing",
     business_phone="+15125550142",
-    business_type="brick_and_mortar",
     business_website="https://shinetime.example",
     entity_suffix="LLC",
     entity_type="llc",
@@ -1258,8 +1241,6 @@ client.accounts.form_company(
             ssn="123-45-6789",
         )
     ],
-    industry_group="automotive",
-    industry_type="car_wash_and_detailing_shop",
     share_structure=FormCompanyAccountsRequestShareStructure(
         number_of_shares=123,
         value=123,
@@ -1297,14 +1278,6 @@ client.accounts.form_company(
 <dl>
 <dd>
 
-**business_type:** `str` — High-level business category, from the Whop business taxonomy. Valid values are listed on [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **formation_state:** `FormCompanyAccountsRequestFormationState` — Two-letter code of the US state (or `DC`) to form the company in. We recommend `WY` because Wyoming formations are completed the same day.
     
 </dd>
@@ -1314,22 +1287,6 @@ client.accounts.form_company(
 <dd>
 
 **founders:** `typing.List[FormCompanyAccountsRequestFoundersItem]` — The company's founders. Exactly one must be marked `is_primary` — the responsible party for the filing.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**industry_group:** `str` — Industry group, from the Whop business taxonomy. Valid values are listed on [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**industry_type:** `str` — Specific industry vertical, from the Whop business taxonomy. Valid values are listed on [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary).
     
 </dd>
 </dl>

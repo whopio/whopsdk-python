@@ -626,7 +626,6 @@ class RawAccountsClient:
         banner_image: typing.Optional[UpdateAccountsRequestBannerImage] = OMIT,
         business_address: typing.Optional[UpdateAccountsRequestBusinessAddress] = OMIT,
         business_name: typing.Optional[str] = OMIT,
-        business_type: typing.Optional[str] = OMIT,
         cancellation_policy: typing.Optional[UpdateAccountsRequestCancellationPolicy] = OMIT,
         collect_vat_id: typing.Optional[bool] = OMIT,
         country: typing.Optional[str] = OMIT,
@@ -635,8 +634,6 @@ class RawAccountsClient:
         eula: typing.Optional[UpdateAccountsRequestEula] = OMIT,
         featured_affiliate_product_id: typing.Optional[str] = OMIT,
         home_preferences: typing.Optional[typing.Sequence[UpdateAccountsRequestHomePreferencesItem]] = OMIT,
-        industry_group: typing.Optional[str] = OMIT,
-        industry_type: typing.Optional[str] = OMIT,
         invoice_prefix: typing.Optional[str] = OMIT,
         logo: typing.Optional[UpdateAccountsRequestLogo] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
@@ -670,6 +667,7 @@ class RawAccountsClient:
         title: typing.Optional[str] = OMIT,
         use_logo_as_opengraph_image_fallback: typing.Optional[bool] = OMIT,
         website: typing.Optional[str] = OMIT,
+        industry_type: typing.Optional[typing.Any] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Account]:
         """
@@ -695,9 +693,6 @@ class RawAccountsClient:
         business_name : typing.Optional[str]
             The legal business name used with the account's tax address.
 
-        business_type : typing.Optional[str]
-            High-level business category for the account. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
-
         cancellation_policy : typing.Optional[UpdateAccountsRequestCancellationPolicy]
             The account's cancellation policy document. Attached to new disputes as the cancellation policy evidence, with the terms of service as the fallback. PDF only. Pass a JSON object containing an `id` from [Create File](/api-reference/files/create-file), or `null` to remove it.
 
@@ -721,12 +716,6 @@ class RawAccountsClient:
 
         home_preferences : typing.Optional[typing.Sequence[UpdateAccountsRequestHomePreferencesItem]]
             Public account home page preferences.
-
-        industry_group : typing.Optional[str]
-            Account industry group. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
-
-        industry_type : typing.Optional[str]
-            Specific industry vertical for the account. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
 
         invoice_prefix : typing.Optional[str]
             Prefix used for account invoices.
@@ -821,6 +810,8 @@ class RawAccountsClient:
         website : typing.Optional[str]
             The account's business website, as an `http` or `https` URL of at most 255 characters. Also added to the account's `social_links` as a `website` entry. Pass `null` to clear the website; existing social links are left unchanged.
 
+        industry_type : typing.Optional[typing.Any]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -845,7 +836,6 @@ class RawAccountsClient:
                     object_=business_address, annotation=UpdateAccountsRequestBusinessAddress, direction="write"
                 ),
                 "business_name": business_name,
-                "business_type": business_type,
                 "cancellation_policy": convert_and_respect_annotation_metadata(
                     object_=cancellation_policy,
                     annotation=typing.Optional[UpdateAccountsRequestCancellationPolicy],
@@ -860,8 +850,6 @@ class RawAccountsClient:
                 ),
                 "featured_affiliate_product_id": featured_affiliate_product_id,
                 "home_preferences": home_preferences,
-                "industry_group": industry_group,
-                "industry_type": industry_type,
                 "invoice_prefix": invoice_prefix,
                 "logo": convert_and_respect_annotation_metadata(
                     object_=logo, annotation=typing.Optional[UpdateAccountsRequestLogo], direction="write"
@@ -923,6 +911,7 @@ class RawAccountsClient:
                 "title": title,
                 "use_logo_as_opengraph_image_fallback": use_logo_as_opengraph_image_fallback,
                 "website": website,
+                "industry_type": industry_type,
             },
             headers={
                 "content-type": "application/json",
@@ -998,11 +987,8 @@ class RawAccountsClient:
         id: str,
         *,
         business_name: str,
-        business_type: str,
         formation_state: FormCompanyAccountsRequestFormationState,
         founders: typing.Sequence[FormCompanyAccountsRequestFoundersItem],
-        industry_group: str,
-        industry_type: str,
         business_address: typing.Optional[FormCompanyAccountsRequestBusinessAddress] = OMIT,
         business_phone: typing.Optional[str] = OMIT,
         business_website: typing.Optional[str] = OMIT,
@@ -1024,20 +1010,11 @@ class RawAccountsClient:
         business_name : str
             Legal name for the new company.
 
-        business_type : str
-            High-level business category, from the Whop business taxonomy. Valid values are listed on [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary).
-
         formation_state : FormCompanyAccountsRequestFormationState
             Two-letter code of the US state (or `DC`) to form the company in. We recommend `WY` because Wyoming formations are completed the same day.
 
         founders : typing.Sequence[FormCompanyAccountsRequestFoundersItem]
             The company's founders. Exactly one must be marked `is_primary` — the responsible party for the filing.
-
-        industry_group : str
-            Industry group, from the Whop business taxonomy. Valid values are listed on [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary).
-
-        industry_type : str
-            Specific industry vertical, from the Whop business taxonomy. Valid values are listed on [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary).
 
         business_address : typing.Optional[FormCompanyAccountsRequestBusinessAddress]
             Company mailing address. Required unless `use_registered_agent` is `true`.
@@ -1081,7 +1058,6 @@ class RawAccountsClient:
                 ),
                 "business_name": business_name,
                 "business_phone": business_phone,
-                "business_type": business_type,
                 "business_website": business_website,
                 "entity_suffix": entity_suffix,
                 "entity_type": entity_type,
@@ -1092,8 +1068,6 @@ class RawAccountsClient:
                     annotation=typing.Sequence[FormCompanyAccountsRequestFoundersItem],
                     direction="write",
                 ),
-                "industry_group": industry_group,
-                "industry_type": industry_type,
                 "share_structure": convert_and_respect_annotation_metadata(
                     object_=share_structure, annotation=FormCompanyAccountsRequestShareStructure, direction="write"
                 ),
@@ -2028,7 +2002,6 @@ class AsyncRawAccountsClient:
         banner_image: typing.Optional[UpdateAccountsRequestBannerImage] = OMIT,
         business_address: typing.Optional[UpdateAccountsRequestBusinessAddress] = OMIT,
         business_name: typing.Optional[str] = OMIT,
-        business_type: typing.Optional[str] = OMIT,
         cancellation_policy: typing.Optional[UpdateAccountsRequestCancellationPolicy] = OMIT,
         collect_vat_id: typing.Optional[bool] = OMIT,
         country: typing.Optional[str] = OMIT,
@@ -2037,8 +2010,6 @@ class AsyncRawAccountsClient:
         eula: typing.Optional[UpdateAccountsRequestEula] = OMIT,
         featured_affiliate_product_id: typing.Optional[str] = OMIT,
         home_preferences: typing.Optional[typing.Sequence[UpdateAccountsRequestHomePreferencesItem]] = OMIT,
-        industry_group: typing.Optional[str] = OMIT,
-        industry_type: typing.Optional[str] = OMIT,
         invoice_prefix: typing.Optional[str] = OMIT,
         logo: typing.Optional[UpdateAccountsRequestLogo] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
@@ -2072,6 +2043,7 @@ class AsyncRawAccountsClient:
         title: typing.Optional[str] = OMIT,
         use_logo_as_opengraph_image_fallback: typing.Optional[bool] = OMIT,
         website: typing.Optional[str] = OMIT,
+        industry_type: typing.Optional[typing.Any] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Account]:
         """
@@ -2097,9 +2069,6 @@ class AsyncRawAccountsClient:
         business_name : typing.Optional[str]
             The legal business name used with the account's tax address.
 
-        business_type : typing.Optional[str]
-            High-level business category for the account. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
-
         cancellation_policy : typing.Optional[UpdateAccountsRequestCancellationPolicy]
             The account's cancellation policy document. Attached to new disputes as the cancellation policy evidence, with the terms of service as the fallback. PDF only. Pass a JSON object containing an `id` from [Create File](/api-reference/files/create-file), or `null` to remove it.
 
@@ -2123,12 +2092,6 @@ class AsyncRawAccountsClient:
 
         home_preferences : typing.Optional[typing.Sequence[UpdateAccountsRequestHomePreferencesItem]]
             Public account home page preferences.
-
-        industry_group : typing.Optional[str]
-            Account industry group. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
-
-        industry_type : typing.Optional[str]
-            Specific industry vertical for the account. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
 
         invoice_prefix : typing.Optional[str]
             Prefix used for account invoices.
@@ -2223,6 +2186,8 @@ class AsyncRawAccountsClient:
         website : typing.Optional[str]
             The account's business website, as an `http` or `https` URL of at most 255 characters. Also added to the account's `social_links` as a `website` entry. Pass `null` to clear the website; existing social links are left unchanged.
 
+        industry_type : typing.Optional[typing.Any]
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -2247,7 +2212,6 @@ class AsyncRawAccountsClient:
                     object_=business_address, annotation=UpdateAccountsRequestBusinessAddress, direction="write"
                 ),
                 "business_name": business_name,
-                "business_type": business_type,
                 "cancellation_policy": convert_and_respect_annotation_metadata(
                     object_=cancellation_policy,
                     annotation=typing.Optional[UpdateAccountsRequestCancellationPolicy],
@@ -2262,8 +2226,6 @@ class AsyncRawAccountsClient:
                 ),
                 "featured_affiliate_product_id": featured_affiliate_product_id,
                 "home_preferences": home_preferences,
-                "industry_group": industry_group,
-                "industry_type": industry_type,
                 "invoice_prefix": invoice_prefix,
                 "logo": convert_and_respect_annotation_metadata(
                     object_=logo, annotation=typing.Optional[UpdateAccountsRequestLogo], direction="write"
@@ -2325,6 +2287,7 @@ class AsyncRawAccountsClient:
                 "title": title,
                 "use_logo_as_opengraph_image_fallback": use_logo_as_opengraph_image_fallback,
                 "website": website,
+                "industry_type": industry_type,
             },
             headers={
                 "content-type": "application/json",
@@ -2400,11 +2363,8 @@ class AsyncRawAccountsClient:
         id: str,
         *,
         business_name: str,
-        business_type: str,
         formation_state: FormCompanyAccountsRequestFormationState,
         founders: typing.Sequence[FormCompanyAccountsRequestFoundersItem],
-        industry_group: str,
-        industry_type: str,
         business_address: typing.Optional[FormCompanyAccountsRequestBusinessAddress] = OMIT,
         business_phone: typing.Optional[str] = OMIT,
         business_website: typing.Optional[str] = OMIT,
@@ -2426,20 +2386,11 @@ class AsyncRawAccountsClient:
         business_name : str
             Legal name for the new company.
 
-        business_type : str
-            High-level business category, from the Whop business taxonomy. Valid values are listed on [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary).
-
         formation_state : FormCompanyAccountsRequestFormationState
             Two-letter code of the US state (or `DC`) to form the company in. We recommend `WY` because Wyoming formations are completed the same day.
 
         founders : typing.Sequence[FormCompanyAccountsRequestFoundersItem]
             The company's founders. Exactly one must be marked `is_primary` — the responsible party for the filing.
-
-        industry_group : str
-            Industry group, from the Whop business taxonomy. Valid values are listed on [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary).
-
-        industry_type : str
-            Specific industry vertical, from the Whop business taxonomy. Valid values are listed on [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary).
 
         business_address : typing.Optional[FormCompanyAccountsRequestBusinessAddress]
             Company mailing address. Required unless `use_registered_agent` is `true`.
@@ -2483,7 +2434,6 @@ class AsyncRawAccountsClient:
                 ),
                 "business_name": business_name,
                 "business_phone": business_phone,
-                "business_type": business_type,
                 "business_website": business_website,
                 "entity_suffix": entity_suffix,
                 "entity_type": entity_type,
@@ -2494,8 +2444,6 @@ class AsyncRawAccountsClient:
                     annotation=typing.Sequence[FormCompanyAccountsRequestFoundersItem],
                     direction="write",
                 ),
-                "industry_group": industry_group,
-                "industry_type": industry_type,
                 "share_structure": convert_and_respect_annotation_metadata(
                     object_=share_structure, annotation=FormCompanyAccountsRequestShareStructure, direction="write"
                 ),
