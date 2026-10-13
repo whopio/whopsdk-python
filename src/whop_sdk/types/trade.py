@@ -119,7 +119,7 @@ class Trade(UniversalBaseModel):
 
     type: TradeType = pydantic.Field()
     """
-    `order` places one order from the trading balance. `deposit` bridges USDT0 from the wallet to the trading balance. `withdraw` sends USDC from the trading balance back to the wallet. `buy` bridges USDT0 to the trading account, sets the leverage and places one market buy. `close` closes the position in one market, if one is open, and sends all withdrawable USDC back to the wallet.
+    `order` places one order from the trading balance. `deposit` bridges USDT0 from the wallet to the trading balance. `withdraw` sends USDC from the trading balance back to the wallet. `buy` bridges USDT0 to the trading account, sets the leverage and places one market buy. `close` closes the whole position in one market with a market reduce-only order; when the account is then flat, a `withdraw` trade sends the trading balance back to the wallet.
     """
 
     updated_at: str = pydantic.Field()
