@@ -42778,7 +42778,7 @@ client.trades.create(
 <dl>
 <dd>
 
-**type:** `CreateTradesRequestType` — `order` places one order from the trading balance and sets cross `leverage` first; when the balance is short, it bridges the USDT0 it needs from the wallet first. `deposit` bridges `amount` USDT0 from the wallet to the trading balance. `withdraw` sends `amount` USDC (or `all`) from the trading balance back to the wallet. `close` closes the whole position in `market` with a market reduce-only order; when the account is then flat, a `withdraw` trade sends the trading balance back to the wallet.
+**type:** `CreateTradesRequestType` — `order` places one order from the trading balance, setting cross `leverage` first on a perpetual; when the balance is short, it bridges the USDT0 it needs from the wallet first. `deposit` bridges `amount` USDT0 from the wallet to the trading balance. `withdraw` sends `amount` USDC (or `all`) from the trading balance back to the wallet. `close` closes the whole position in `market` with a market reduce-only order; when the account is then flat, a `withdraw` trade sends the trading balance back to the wallet.
     
 </dd>
 </dl>
@@ -42802,7 +42802,7 @@ client.trades.create(
 <dl>
 <dd>
 
-**instrument_type:** `typing.Optional[CreateTradesRequestInstrumentType]` — The kind of market. Required for an order.
+**instrument_type:** `typing.Optional[CreateTradesRequestInstrumentType]` — `perpetual` or `spot`. Required for an order. Spot needs the trading account in Hyperliquid's unified account mode.
     
 </dd>
 </dl>
@@ -42810,7 +42810,7 @@ client.trades.create(
 <dl>
 <dd>
 
-**leverage:** `typing.Optional[int]` — Only for an order. The cross leverage, from 1 to the market's maximum. Required unless `reduce_only`; not accepted on a reduce-only order.
+**leverage:** `typing.Optional[int]` — Only for a perpetual order. The cross leverage, from 1 to the market's maximum. Required unless `reduce_only`; not accepted on a reduce-only order.
     
 </dd>
 </dl>
@@ -42818,7 +42818,7 @@ client.trades.create(
 <dl>
 <dd>
 
-**market:** `typing.Optional[str]` — The perpetual market, for example `BTC`. Required for an order or close; not accepted for a deposit or withdraw.
+**market:** `typing.Optional[str]` — The market: a perpetual such as `BTC`, or for spot a pair priced in USDC such as `HYPE/USDC`. Required for an order or close, and a close takes only a perpetual; not accepted for a deposit or withdraw.
     
 </dd>
 </dl>
@@ -42858,7 +42858,7 @@ client.trades.create(
 <dl>
 <dd>
 
-**reduce_only:** `typing.Optional[bool]` — Only for an order. Only reduce an open position; defaults to `false`. A reduce-only order takes no `leverage`.
+**reduce_only:** `typing.Optional[bool]` — Only for a perpetual order. Only reduce an open position; defaults to `false`. A reduce-only order takes no `leverage`.
     
 </dd>
 </dl>

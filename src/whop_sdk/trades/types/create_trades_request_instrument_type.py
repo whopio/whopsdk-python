@@ -2,4 +2,4 @@
 
 import typing
 
-CreateTradesRequestInstrumentType = typing.Union[typing.Literal["perpetual"], typing.Any]
+CreateTradesRequestInstrumentType = typing.Union[typing.Literal["perpetual", "spot"], typing.Any]

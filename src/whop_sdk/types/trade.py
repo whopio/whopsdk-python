@@ -7,6 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .money import Money
 from .trade_failure_code import TradeFailureCode
 from .trade_funds_location import TradeFundsLocation
+from .trade_instrument_type import TradeInstrumentType
 from .trade_object import TradeObject
 from .trade_order_type import TradeOrderType
 from .trade_side import TradeSide
@@ -66,14 +67,19 @@ class Trade(UniversalBaseModel):
     Trade ID, prefixed `tint_`.
     """
 
+    instrument_type: typing.Optional[TradeInstrumentType] = pydantic.Field(default=None)
+    """
+    `perpetual` or `spot` for an order, `perpetual` for a close. `null` for a deposit or withdraw.
+    """
+
     leverage: typing.Optional[int] = pydantic.Field(default=None)
     """
-    The cross leverage set before an opening order. `null` for a close, deposit, withdraw or reduce-only order.
+    The cross leverage set before an opening perpetual order. `null` for a spot order, close, deposit, withdraw or reduce-only order.
     """
 
     market: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The perpetual market, for example `BTC`. `null` for a deposit or withdraw.
+    The market, for example `BTC` for a perpetual or `HYPE/USDC` for spot. `null` for a deposit or withdraw.
     """
 
     metadata: typing.Dict[str, typing.Any] = pydantic.Field()

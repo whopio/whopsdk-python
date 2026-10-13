@@ -1447,6 +1447,7 @@ if typing.TYPE_CHECKING:
     from .trade import Trade
     from .trade_failure_code import TradeFailureCode
     from .trade_funds_location import TradeFundsLocation
+    from .trade_instrument_type import TradeInstrumentType
     from .trade_object import TradeObject
     from .trade_order_type import TradeOrderType
     from .trade_side import TradeSide
@@ -2832,6 +2833,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Trade": ".trade",
     "TradeFailureCode": ".trade_failure_code",
     "TradeFundsLocation": ".trade_funds_location",
+    "TradeInstrumentType": ".trade_instrument_type",
     "TradeObject": ".trade_object",
     "TradeOrderType": ".trade_order_type",
     "TradeSide": ".trade_side",
@@ -4241,6 +4243,7 @@ __all__ = [
     "Trade",
     "TradeFailureCode",
     "TradeFundsLocation",
+    "TradeInstrumentType",
     "TradeObject",
     "TradeOrderType",
     "TradeSide",
