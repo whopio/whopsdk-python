@@ -11,6 +11,7 @@ from .raw_client import AsyncRawDomainsClient, RawDomainsClient
 from .types.create_domains_request_registration import CreateDomainsRequestRegistration
 from .types.create_domains_request_verification import CreateDomainsRequestVerification
 from .types.create_domains_request_website import CreateDomainsRequestWebsite
+from .types.list_domains_request_apple_pay import ListDomainsRequestApplePay
 from .types.list_domains_request_direction import ListDomainsRequestDirection
 from .types.list_domains_request_order import ListDomainsRequestOrder
 from .types.list_domains_request_platform import ListDomainsRequestPlatform
@@ -61,6 +62,7 @@ class DomainsClient:
         registration: typing.Optional[ListDomainsRequestRegistration] = None,
         platform: typing.Optional[ListDomainsRequestPlatform] = None,
         website: typing.Optional[ListDomainsRequestWebsite] = None,
+        apple_pay: typing.Optional[ListDomainsRequestApplePay] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[DomainListItem, ListDomainsResponse]:
         """
@@ -118,6 +120,9 @@ class DomainsClient:
         website : typing.Optional[ListDomainsRequestWebsite]
             Only domains with website in this state, such as `ready`, or `any` for every domain that has website.
 
+        apple_pay : typing.Optional[ListDomainsRequestApplePay]
+            Only domains with apple_pay in this state, such as `ready`, or `any` for every domain that has apple_pay.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -161,6 +166,7 @@ class DomainsClient:
             registration=registration,
             platform=platform,
             website=website,
+            apple_pay=apple_pay,
             request_options=request_options,
         )
 
@@ -433,6 +439,7 @@ class AsyncDomainsClient:
         registration: typing.Optional[ListDomainsRequestRegistration] = None,
         platform: typing.Optional[ListDomainsRequestPlatform] = None,
         website: typing.Optional[ListDomainsRequestWebsite] = None,
+        apple_pay: typing.Optional[ListDomainsRequestApplePay] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[DomainListItem, ListDomainsResponse]:
         """
@@ -490,6 +497,9 @@ class AsyncDomainsClient:
         website : typing.Optional[ListDomainsRequestWebsite]
             Only domains with website in this state, such as `ready`, or `any` for every domain that has website.
 
+        apple_pay : typing.Optional[ListDomainsRequestApplePay]
+            Only domains with apple_pay in this state, such as `ready`, or `any` for every domain that has apple_pay.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -542,6 +552,7 @@ class AsyncDomainsClient:
             registration=registration,
             platform=platform,
             website=website,
+            apple_pay=apple_pay,
             request_options=request_options,
         )
 
