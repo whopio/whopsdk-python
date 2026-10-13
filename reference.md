@@ -29667,7 +29667,7 @@ client.payment_method_domains.retrieve(
 <dl>
 <dd>
 
-**id:** `str` — The unique identifier of the payment method domain, prefixed `pmd_`.
+**id:** `str` — The unique identifier of the payment method domain, prefixed `pmd_` or `dom_`.
     
 </dd>
 </dl>
@@ -29740,7 +29740,7 @@ client.payment_method_domains.delete(
 <dl>
 <dd>
 
-**id:** `str` — The unique identifier of the payment method domain, prefixed `pmd_`.
+**id:** `str` — The unique identifier of the payment method domain, prefixed `pmd_` or `dom_`.
     
 </dd>
 </dl>
@@ -29813,7 +29813,7 @@ client.payment_method_domains.verify(
 <dl>
 <dd>
 
-**id:** `str` — The unique identifier of the payment method domain, prefixed `pmd_`.
+**id:** `str` — The unique identifier of the payment method domain, prefixed `pmd_` or `dom_`.
     
 </dd>
 </dl>
