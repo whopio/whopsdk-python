@@ -2,6 +2,4 @@
 
 import typing
 
-TradeStatusDetail = typing.Union[
-    typing.Literal["partial_fill", "no_position", "partial_close", "nothing_to_return"], typing.Any
-]
+TradeStatusDetail = typing.Union[typing.Literal["partial_fill"], typing.Any]

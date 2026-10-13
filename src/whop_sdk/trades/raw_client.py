@@ -200,7 +200,7 @@ class RawTradesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Trade]:
         """
-        Places an order, deposits to or withdraws from the trading balance, or buys or closes a perpetual position, from the Whop-managed wallet of an account or user. Answers `201` with the trade in `pending`; it runs in the background, so read it with `GET /trades/:id` until its `status` is `completed`, `failed` or `in_review`. A buy or close waits for the wallet's other trades; orders run alongside each other, except a second order on one market at a different leverage, which answers `409`. A retry with the same `Idempotency-Key` returns the same trade.
+        Places an order, closes a perpetual position, or deposits to or withdraws from the trading balance, from the Whop-managed wallet of an account or user. Answers `201` with the trade in `pending`; it runs in the background, so read it with `GET /trades/:id` until its `status` is `completed`, `failed` or `in_review`. Trades run alongside each other, except a second order on one market at a different leverage, which answers `409`. A retry with the same `Idempotency-Key` returns the same trade.
 
         Parameters
         ----------
@@ -208,10 +208,10 @@ class RawTradesClient:
             The account or user whose wallet trades, prefixed `biz_` or `user_`.
 
         type : CreateTradesRequestType
-            `order` places one order from the trading balance and sets cross `leverage` first. `deposit` bridges `amount` USDT0 from the wallet to the trading balance. `withdraw` sends `amount` USDC (or `all`) from the trading balance back to the wallet. `buy` bridges `amount` USDT0 to the trading account, sets cross `leverage` on `market`, and places one market buy; if it does not fill, its money goes back to the wallet. `close` closes the whole position in `market` with a market reduce-only order; when the account is then flat, a `withdraw` trade sends the trading balance back to the wallet.
+            `order` places one order from the trading balance and sets cross `leverage` first; when the balance is short, it bridges the USDT0 it needs from the wallet first. `deposit` bridges `amount` USDT0 from the wallet to the trading balance. `withdraw` sends `amount` USDC (or `all`) from the trading balance back to the wallet. `close` closes the whole position in `market` with a market reduce-only order; when the account is then flat, a `withdraw` trade sends the trading balance back to the wallet.
 
         amount : typing.Optional[str]
-            For a buy or deposit, the USDT0 to send from the wallet, with at most 6 decimals. For a withdraw, the USDC to send back, at least 1 with at most 6 decimals, or `all`. Required for buy, deposit and withdraw.
+            Only for a deposit or withdraw, and required for both. For a deposit, the USDT0 to send from the wallet, with at most 6 decimals. For a withdraw, the USDC to send back, at least 1 with at most 6 decimals, or `all`.
 
         client_order_id : typing.Optional[str]
             Only for an order. Your own ID for the trade, 1 to 128 characters, unique for the account. Sending it again with the same order returns the same trade; with a different order it answers `409`.
@@ -220,10 +220,10 @@ class RawTradesClient:
             The kind of market. Required for an order.
 
         leverage : typing.Optional[int]
-            The cross leverage, from 1 to the market's maximum. Required for a buy and for an order that is not `reduce_only`; not accepted on a reduce-only order.
+            Only for an order. The cross leverage, from 1 to the market's maximum. Required unless `reduce_only`; not accepted on a reduce-only order.
 
         market : typing.Optional[str]
-            The perpetual market, for example `BTC`. Required for a buy, close or order; not accepted for a deposit or withdraw.
+            The perpetual market, for example `BTC`. Required for an order or close; not accepted for a deposit or withdraw.
 
         metadata : typing.Optional[typing.Dict[str, str]]
             Only for an order. Free-form string-to-string annotations: up to 50 keys of at most 40 characters, values up to 500 characters.
@@ -603,7 +603,7 @@ class AsyncRawTradesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Trade]:
         """
-        Places an order, deposits to or withdraws from the trading balance, or buys or closes a perpetual position, from the Whop-managed wallet of an account or user. Answers `201` with the trade in `pending`; it runs in the background, so read it with `GET /trades/:id` until its `status` is `completed`, `failed` or `in_review`. A buy or close waits for the wallet's other trades; orders run alongside each other, except a second order on one market at a different leverage, which answers `409`. A retry with the same `Idempotency-Key` returns the same trade.
+        Places an order, closes a perpetual position, or deposits to or withdraws from the trading balance, from the Whop-managed wallet of an account or user. Answers `201` with the trade in `pending`; it runs in the background, so read it with `GET /trades/:id` until its `status` is `completed`, `failed` or `in_review`. Trades run alongside each other, except a second order on one market at a different leverage, which answers `409`. A retry with the same `Idempotency-Key` returns the same trade.
 
         Parameters
         ----------
@@ -611,10 +611,10 @@ class AsyncRawTradesClient:
             The account or user whose wallet trades, prefixed `biz_` or `user_`.
 
         type : CreateTradesRequestType
-            `order` places one order from the trading balance and sets cross `leverage` first. `deposit` bridges `amount` USDT0 from the wallet to the trading balance. `withdraw` sends `amount` USDC (or `all`) from the trading balance back to the wallet. `buy` bridges `amount` USDT0 to the trading account, sets cross `leverage` on `market`, and places one market buy; if it does not fill, its money goes back to the wallet. `close` closes the whole position in `market` with a market reduce-only order; when the account is then flat, a `withdraw` trade sends the trading balance back to the wallet.
+            `order` places one order from the trading balance and sets cross `leverage` first; when the balance is short, it bridges the USDT0 it needs from the wallet first. `deposit` bridges `amount` USDT0 from the wallet to the trading balance. `withdraw` sends `amount` USDC (or `all`) from the trading balance back to the wallet. `close` closes the whole position in `market` with a market reduce-only order; when the account is then flat, a `withdraw` trade sends the trading balance back to the wallet.
 
         amount : typing.Optional[str]
-            For a buy or deposit, the USDT0 to send from the wallet, with at most 6 decimals. For a withdraw, the USDC to send back, at least 1 with at most 6 decimals, or `all`. Required for buy, deposit and withdraw.
+            Only for a deposit or withdraw, and required for both. For a deposit, the USDT0 to send from the wallet, with at most 6 decimals. For a withdraw, the USDC to send back, at least 1 with at most 6 decimals, or `all`.
 
         client_order_id : typing.Optional[str]
             Only for an order. Your own ID for the trade, 1 to 128 characters, unique for the account. Sending it again with the same order returns the same trade; with a different order it answers `409`.
@@ -623,10 +623,10 @@ class AsyncRawTradesClient:
             The kind of market. Required for an order.
 
         leverage : typing.Optional[int]
-            The cross leverage, from 1 to the market's maximum. Required for a buy and for an order that is not `reduce_only`; not accepted on a reduce-only order.
+            Only for an order. The cross leverage, from 1 to the market's maximum. Required unless `reduce_only`; not accepted on a reduce-only order.
 
         market : typing.Optional[str]
-            The perpetual market, for example `BTC`. Required for a buy, close or order; not accepted for a deposit or withdraw.
+            The perpetual market, for example `BTC`. Required for an order or close; not accepted for a deposit or withdraw.
 
         metadata : typing.Optional[typing.Dict[str, str]]
             Only for an order. Free-form string-to-string annotations: up to 50 keys of at most 40 characters, values up to 500 characters.

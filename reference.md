@@ -42608,7 +42608,7 @@ client.trades.list()
 <dl>
 <dd>
 
-Places an order, deposits to or withdraws from the trading balance, or buys or closes a perpetual position, from the Whop-managed wallet of an account or user. Answers `201` with the trade in `pending`; it runs in the background, so read it with `GET /trades/:id` until its `status` is `completed`, `failed` or `in_review`. A buy or close waits for the wallet's other trades; orders run alongside each other, except a second order on one market at a different leverage, which answers `409`. A retry with the same `Idempotency-Key` returns the same trade.
+Places an order, closes a perpetual position, or deposits to or withdraws from the trading balance, from the Whop-managed wallet of an account or user. Answers `201` with the trade in `pending`; it runs in the background, so read it with `GET /trades/:id` until its `status` is `completed`, `failed` or `in_review`. Trades run alongside each other, except a second order on one market at a different leverage, which answers `409`. A retry with the same `Idempotency-Key` returns the same trade.
 </dd>
 </dl>
 </dd>
@@ -42633,7 +42633,7 @@ client = Whop(
 
 client.trades.create(
     account_id="biz_xxxxxxxxxxxxxx",
-    type="buy",
+    type="close",
 )
 
 ```
@@ -42658,7 +42658,7 @@ client.trades.create(
 <dl>
 <dd>
 
-**type:** `CreateTradesRequestType` — `order` places one order from the trading balance and sets cross `leverage` first. `deposit` bridges `amount` USDT0 from the wallet to the trading balance. `withdraw` sends `amount` USDC (or `all`) from the trading balance back to the wallet. `buy` bridges `amount` USDT0 to the trading account, sets cross `leverage` on `market`, and places one market buy; if it does not fill, its money goes back to the wallet. `close` closes the whole position in `market` with a market reduce-only order; when the account is then flat, a `withdraw` trade sends the trading balance back to the wallet.
+**type:** `CreateTradesRequestType` — `order` places one order from the trading balance and sets cross `leverage` first; when the balance is short, it bridges the USDT0 it needs from the wallet first. `deposit` bridges `amount` USDT0 from the wallet to the trading balance. `withdraw` sends `amount` USDC (or `all`) from the trading balance back to the wallet. `close` closes the whole position in `market` with a market reduce-only order; when the account is then flat, a `withdraw` trade sends the trading balance back to the wallet.
     
 </dd>
 </dl>
@@ -42666,7 +42666,7 @@ client.trades.create(
 <dl>
 <dd>
 
-**amount:** `typing.Optional[str]` — For a buy or deposit, the USDT0 to send from the wallet, with at most 6 decimals. For a withdraw, the USDC to send back, at least 1 with at most 6 decimals, or `all`. Required for buy, deposit and withdraw.
+**amount:** `typing.Optional[str]` — Only for a deposit or withdraw, and required for both. For a deposit, the USDT0 to send from the wallet, with at most 6 decimals. For a withdraw, the USDC to send back, at least 1 with at most 6 decimals, or `all`.
     
 </dd>
 </dl>
@@ -42690,7 +42690,7 @@ client.trades.create(
 <dl>
 <dd>
 
-**leverage:** `typing.Optional[int]` — The cross leverage, from 1 to the market's maximum. Required for a buy and for an order that is not `reduce_only`; not accepted on a reduce-only order.
+**leverage:** `typing.Optional[int]` — Only for an order. The cross leverage, from 1 to the market's maximum. Required unless `reduce_only`; not accepted on a reduce-only order.
     
 </dd>
 </dl>
@@ -42698,7 +42698,7 @@ client.trades.create(
 <dl>
 <dd>
 
-**market:** `typing.Optional[str]` — The perpetual market, for example `BTC`. Required for a buy, close or order; not accepted for a deposit or withdraw.
+**market:** `typing.Optional[str]` — The perpetual market, for example `BTC`. Required for an order or close; not accepted for a deposit or withdraw.
     
 </dd>
 </dl>
