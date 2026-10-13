@@ -7,11 +7,13 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .create_payment_quotes_request_address import CreatePaymentQuotesRequestAddress
+    from .create_payment_quotes_request_line_items_item import CreatePaymentQuotesRequestLineItemsItem
     from .create_payment_quotes_request_shipping_address import CreatePaymentQuotesRequestShippingAddress
     from .create_payment_quotes_request_tax_ids_item import CreatePaymentQuotesRequestTaxIdsItem
     from .create_payment_quotes_request_tax_ids_item_type import CreatePaymentQuotesRequestTaxIdsItemType
 _dynamic_imports: typing.Dict[str, str] = {
     "CreatePaymentQuotesRequestAddress": ".create_payment_quotes_request_address",
+    "CreatePaymentQuotesRequestLineItemsItem": ".create_payment_quotes_request_line_items_item",
     "CreatePaymentQuotesRequestShippingAddress": ".create_payment_quotes_request_shipping_address",
     "CreatePaymentQuotesRequestTaxIdsItem": ".create_payment_quotes_request_tax_ids_item",
     "CreatePaymentQuotesRequestTaxIdsItemType": ".create_payment_quotes_request_tax_ids_item_type",
@@ -41,6 +43,7 @@ def __dir__():
 
 __all__ = [
     "CreatePaymentQuotesRequestAddress",
+    "CreatePaymentQuotesRequestLineItemsItem",
     "CreatePaymentQuotesRequestShippingAddress",
     "CreatePaymentQuotesRequestTaxIdsItem",
     "CreatePaymentQuotesRequestTaxIdsItemType",

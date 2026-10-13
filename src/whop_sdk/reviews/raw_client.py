@@ -15,13 +15,13 @@ from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..errors.bad_request_error import BadRequestError
 from ..errors.forbidden_error import ForbiddenError
-from ..errors.internal_server_error import InternalServerError
 from ..errors.not_found_error import NotFoundError
-from ..errors.too_many_requests_error import TooManyRequestsError
 from ..errors.unauthorized_error import UnauthorizedError
-from ..errors.unprocessable_entity_error import UnprocessableEntityError
 from ..types.review import Review
 from ..types.review_list_item import ReviewListItem
+from .types.delete_reviews_response import DeleteReviewsResponse
+from .types.list_reviews_request_direction import ListReviewsRequestDirection
+from .types.list_reviews_request_order import ListReviewsRequestOrder
 from .types.list_reviews_response import ListReviewsResponse
 from pydantic import ValidationError
 
@@ -33,36 +33,30 @@ class RawReviewsClient:
     def list(
         self,
         *,
-        product_id: str,
-        after: typing.Optional[str] = None,
-        before: typing.Optional[str] = None,
-        first: typing.Optional[int] = None,
-        last: typing.Optional[int] = None,
+        account_id: typing.Optional[str] = None,
+        product_id: typing.Optional[str] = None,
         min_stars: typing.Optional[int] = None,
         max_stars: typing.Optional[int] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
+        order: typing.Optional[ListReviewsRequestOrder] = None,
+        direction: typing.Optional[ListReviewsRequestDirection] = None,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        last: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ReviewListItem, ListReviewsResponse]:
         """
-        Lists the customer reviews for a product.
+        Lists the published reviews for a product or account. Without `account_id` or `product_id`, a user lists the reviews they wrote, an account or app API key lists its account's reviews, and a request without credentials returns 400.
 
         Parameters
         ----------
-        product_id : str
+        account_id : typing.Optional[str]
+            The unique identifier of the account to list reviews for.
+
+        product_id : typing.Optional[str]
             The unique identifier of the product to list reviews for.
-
-        after : typing.Optional[str]
-            Returns the elements in the list that come after the specified cursor.
-
-        before : typing.Optional[str]
-            Returns the elements in the list that come before the specified cursor.
-
-        first : typing.Optional[int]
-            Returns the first _n_ elements from the list.
-
-        last : typing.Optional[int]
-            Returns the last _n_ elements from the list.
 
         min_stars : typing.Optional[int]
             The minimum star rating to include in results, from 1 to 5 inclusive.
@@ -76,28 +70,49 @@ class RawReviewsClient:
         created_after : typing.Optional[dt.datetime]
             Only return reviews created after this timestamp.
 
+        order : typing.Optional[ListReviewsRequestOrder]
+            The field to sort reviews by.
+
+        direction : typing.Optional[ListReviewsRequestDirection]
+            The sort direction.
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        last : typing.Optional[int]
+            Number of results to return from the end of the range.
+
+        before : typing.Optional[str]
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
         SyncPager[ReviewListItem, ListReviewsResponse]
-            A successful response
+            Reviews for the product
         """
         _response = self._client_wrapper.httpx_client.request(
             "reviews",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
-                "after": after,
-                "before": before,
-                "first": first,
-                "last": last,
+                "account_id": account_id,
                 "product_id": product_id,
                 "min_stars": min_stars,
                 "max_stars": max_stars,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "order": order,
+                "direction": direction,
+                "first": first,
+                "after": after,
+                "last": last,
+                "before": before,
             },
             request_options=request_options,
         )
@@ -117,15 +132,18 @@ class RawReviewsClient:
                     _parsed_next = _parsed_response.page_info.end_cursor
                     _has_next = _parsed_next is not None and _parsed_next != ""
                     _get_next = lambda: self.list(
+                        account_id=account_id,
                         product_id=product_id,
-                        after=_parsed_next,
-                        before=before,
-                        first=first,
-                        last=last,
                         min_stars=min_stars,
                         max_stars=max_stars,
                         created_before=created_before,
                         created_after=created_after,
+                        order=order,
+                        direction=direction,
+                        first=first,
+                        after=_parsed_next,
+                        last=last,
+                        before=before,
                         request_options=request_options,
                     )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
@@ -140,63 +158,8 @@ class RawReviewsClient:
                         ),
                     ),
                 )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             if _response.status_code == 404:
                 raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -217,12 +180,12 @@ class RawReviewsClient:
 
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[Review]:
         """
-        Retrieves the details of an existing review.
+        Retrieves a published review. Reviews that are not published return 404.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the review to retrieve.
+            The unique identifier of the review.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -230,7 +193,7 @@ class RawReviewsClient:
         Returns
         -------
         HttpResponse[Review]
-            A successful response
+            Review details
         """
         _response = self._client_wrapper.httpx_client.request(
             f"reviews/{encode_path_param(id)}",
@@ -248,8 +211,8 @@ class RawReviewsClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -259,6 +222,50 @@ class RawReviewsClient:
                         ),
                     ),
                 )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def delete(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[DeleteReviewsResponse]:
+        """
+        Deletes a review the signed-in user wrote. Requires the `review:delete` scope, and returns 404 for a review another user wrote.
+
+        Parameters
+        ----------
+        id : str
+            The unique identifier of the review.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[DeleteReviewsResponse]
+            Review deleted
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"reviews/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
+            method="DELETE",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    DeleteReviewsResponse,
+                    parse_obj_as(
+                        type_=DeleteReviewsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
@@ -283,39 +290,6 @@ class RawReviewsClient:
                 )
             if _response.status_code == 404:
                 raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -342,36 +316,30 @@ class AsyncRawReviewsClient:
     async def list(
         self,
         *,
-        product_id: str,
-        after: typing.Optional[str] = None,
-        before: typing.Optional[str] = None,
-        first: typing.Optional[int] = None,
-        last: typing.Optional[int] = None,
+        account_id: typing.Optional[str] = None,
+        product_id: typing.Optional[str] = None,
         min_stars: typing.Optional[int] = None,
         max_stars: typing.Optional[int] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
+        order: typing.Optional[ListReviewsRequestOrder] = None,
+        direction: typing.Optional[ListReviewsRequestDirection] = None,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        last: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ReviewListItem, ListReviewsResponse]:
         """
-        Lists the customer reviews for a product.
+        Lists the published reviews for a product or account. Without `account_id` or `product_id`, a user lists the reviews they wrote, an account or app API key lists its account's reviews, and a request without credentials returns 400.
 
         Parameters
         ----------
-        product_id : str
+        account_id : typing.Optional[str]
+            The unique identifier of the account to list reviews for.
+
+        product_id : typing.Optional[str]
             The unique identifier of the product to list reviews for.
-
-        after : typing.Optional[str]
-            Returns the elements in the list that come after the specified cursor.
-
-        before : typing.Optional[str]
-            Returns the elements in the list that come before the specified cursor.
-
-        first : typing.Optional[int]
-            Returns the first _n_ elements from the list.
-
-        last : typing.Optional[int]
-            Returns the last _n_ elements from the list.
 
         min_stars : typing.Optional[int]
             The minimum star rating to include in results, from 1 to 5 inclusive.
@@ -385,28 +353,49 @@ class AsyncRawReviewsClient:
         created_after : typing.Optional[dt.datetime]
             Only return reviews created after this timestamp.
 
+        order : typing.Optional[ListReviewsRequestOrder]
+            The field to sort reviews by.
+
+        direction : typing.Optional[ListReviewsRequestDirection]
+            The sort direction.
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        last : typing.Optional[int]
+            Number of results to return from the end of the range.
+
+        before : typing.Optional[str]
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
         AsyncPager[ReviewListItem, ListReviewsResponse]
-            A successful response
+            Reviews for the product
         """
         _response = await self._client_wrapper.httpx_client.request(
             "reviews",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
-                "after": after,
-                "before": before,
-                "first": first,
-                "last": last,
+                "account_id": account_id,
                 "product_id": product_id,
                 "min_stars": min_stars,
                 "max_stars": max_stars,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "order": order,
+                "direction": direction,
+                "first": first,
+                "after": after,
+                "last": last,
+                "before": before,
             },
             request_options=request_options,
         )
@@ -428,15 +417,18 @@ class AsyncRawReviewsClient:
 
                     async def _get_next():
                         return await self.list(
+                            account_id=account_id,
                             product_id=product_id,
-                            after=_parsed_next,
-                            before=before,
-                            first=first,
-                            last=last,
                             min_stars=min_stars,
                             max_stars=max_stars,
                             created_before=created_before,
                             created_after=created_after,
+                            order=order,
+                            direction=direction,
+                            first=first,
+                            after=_parsed_next,
+                            last=last,
+                            before=before,
                             request_options=request_options,
                         )
 
@@ -452,63 +444,8 @@ class AsyncRawReviewsClient:
                         ),
                     ),
                 )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
             if _response.status_code == 404:
                 raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -531,12 +468,12 @@ class AsyncRawReviewsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[Review]:
         """
-        Retrieves the details of an existing review.
+        Retrieves a published review. Reviews that are not published return 404.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the review to retrieve.
+            The unique identifier of the review.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -544,7 +481,7 @@ class AsyncRawReviewsClient:
         Returns
         -------
         AsyncHttpResponse[Review]
-            A successful response
+            Review details
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"reviews/{encode_path_param(id)}",
@@ -562,8 +499,8 @@ class AsyncRawReviewsClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -573,6 +510,50 @@ class AsyncRawReviewsClient:
                         ),
                     ),
                 )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def delete(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[DeleteReviewsResponse]:
+        """
+        Deletes a review the signed-in user wrote. Requires the `review:delete` scope, and returns 404 for a review another user wrote.
+
+        Parameters
+        ----------
+        id : str
+            The unique identifier of the review.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[DeleteReviewsResponse]
+            Review deleted
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"reviews/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
+            method="DELETE",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    DeleteReviewsResponse,
+                    parse_obj_as(
+                        type_=DeleteReviewsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 401:
                 raise UnauthorizedError(
                     headers=dict(_response.headers),
@@ -597,39 +578,6 @@ class AsyncRawReviewsClient:
                 )
             if _response.status_code == 404:
                 raise NotFoundError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 422:
-                raise UnprocessableEntityError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 429:
-                raise TooManyRequestsError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 500:
-                raise InternalServerError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,

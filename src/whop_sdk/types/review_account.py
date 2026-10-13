@@ -6,24 +6,20 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class ReviewListItemUser(UniversalBaseModel):
-    """
-    The user account of the person who wrote this review.
-    """
-
+class ReviewAccount(UniversalBaseModel):
     id: str = pydantic.Field()
     """
-    The unique identifier for the user.
+    The unique identifier for the account.
     """
 
-    name: typing.Optional[str] = pydantic.Field(default=None)
+    route: str = pydantic.Field()
     """
-    The user's display name shown on their public profile.
+    URL slug for the account's store page, e.g. `pickaxe` in whop.com/pickaxe.
     """
 
-    username: str = pydantic.Field()
+    title: str = pydantic.Field()
     """
-    The user's unique username shown on their public profile.
+    The display name of the account shown to customers.
     """
 
     if IS_PYDANTIC_V2:

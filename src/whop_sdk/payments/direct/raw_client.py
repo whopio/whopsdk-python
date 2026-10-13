@@ -13,9 +13,9 @@ from ...core.serialization import convert_and_respect_annotation_metadata
 from ...errors.conflict_error import ConflictError
 from ...errors.unauthorized_error import UnauthorizedError
 from ...types.payment import Payment
-from ...types.payment_input_line_items_item import PaymentInputLineItemsItem
 from ...types.payment_input_plan import PaymentInputPlan
 from .types.create_direct_request_billing_details import CreateDirectRequestBillingDetails
+from .types.create_direct_request_line_items_item import CreateDirectRequestLineItemsItem
 from .types.create_direct_request_payment_method import CreateDirectRequestPaymentMethod
 from .types.create_direct_request_setup_future_usage import CreateDirectRequestSetupFutureUsage
 from pydantic import ValidationError
@@ -37,6 +37,7 @@ class RawDirectClient:
         affiliate_code: typing.Optional[str] = OMIT,
         auto_capture_after_minutes: typing.Optional[int] = OMIT,
         capture: typing.Optional[bool] = OMIT,
+        line_items: typing.Optional[typing.Sequence[CreateDirectRequestLineItemsItem]] = OMIT,
         member_id: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         off_session: typing.Optional[bool] = OMIT,
@@ -44,7 +45,6 @@ class RawDirectClient:
         return_url: typing.Optional[str] = OMIT,
         setup_future_usage: typing.Optional[CreateDirectRequestSetupFutureUsage] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
-        line_items: typing.Optional[typing.Sequence[PaymentInputLineItemsItem]] = OMIT,
         plan: typing.Optional[PaymentInputPlan] = OMIT,
         plan_id: typing.Optional[str] = OMIT,
         promo_code: typing.Optional[str] = OMIT,
@@ -74,6 +74,9 @@ class RawDirectClient:
         capture : typing.Optional[bool]
             Whether to capture the payment immediately. Defaults to true. Pass false to place an authorization hold that must be captured in full within five days via the capture endpoint, or automatically after `auto_capture_after_minutes`.
 
+        line_items : typing.Optional[typing.Sequence[CreateDirectRequestLineItemsItem]]
+            What the buyer is purchasing. Each entry names an existing variant by plan_id. Several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
+
         member_id : typing.Optional[str]
             The member to charge, prefixed `mber_`. When omitted the buyer is resolved from `billing_details.email`.
 
@@ -94,9 +97,6 @@ class RawDirectClient:
 
         statement_descriptor : typing.Optional[str]
             Overrides the text on the buyer's card statement for this payment only. Must start with `WHOP*`, be 5-22 characters, contain at least one letter, and use only Latin letters, numbers, spaces, underscores, hyphens, or asterisks.
-
-        line_items : typing.Optional[typing.Sequence[PaymentInputLineItemsItem]]
-            What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency. Mutually exclusive with `plan_id` and `plan`.
 
         plan : typing.Optional[PaymentInputPlan]
             The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
@@ -129,6 +129,9 @@ class RawDirectClient:
                     object_=billing_details, annotation=CreateDirectRequestBillingDetails, direction="write"
                 ),
                 "capture": capture,
+                "line_items": convert_and_respect_annotation_metadata(
+                    object_=line_items, annotation=typing.Sequence[CreateDirectRequestLineItemsItem], direction="write"
+                ),
                 "member_id": member_id,
                 "metadata": metadata,
                 "off_session": off_session,
@@ -140,9 +143,6 @@ class RawDirectClient:
                 "setup_future_usage": setup_future_usage,
                 "statement_descriptor": statement_descriptor,
                 "account_id": account_id,
-                "line_items": convert_and_respect_annotation_metadata(
-                    object_=line_items, annotation=typing.Sequence[PaymentInputLineItemsItem], direction="write"
-                ),
                 "plan": convert_and_respect_annotation_metadata(
                     object_=plan, annotation=PaymentInputPlan, direction="write"
                 ),
@@ -211,6 +211,7 @@ class AsyncRawDirectClient:
         affiliate_code: typing.Optional[str] = OMIT,
         auto_capture_after_minutes: typing.Optional[int] = OMIT,
         capture: typing.Optional[bool] = OMIT,
+        line_items: typing.Optional[typing.Sequence[CreateDirectRequestLineItemsItem]] = OMIT,
         member_id: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         off_session: typing.Optional[bool] = OMIT,
@@ -218,7 +219,6 @@ class AsyncRawDirectClient:
         return_url: typing.Optional[str] = OMIT,
         setup_future_usage: typing.Optional[CreateDirectRequestSetupFutureUsage] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
-        line_items: typing.Optional[typing.Sequence[PaymentInputLineItemsItem]] = OMIT,
         plan: typing.Optional[PaymentInputPlan] = OMIT,
         plan_id: typing.Optional[str] = OMIT,
         promo_code: typing.Optional[str] = OMIT,
@@ -248,6 +248,9 @@ class AsyncRawDirectClient:
         capture : typing.Optional[bool]
             Whether to capture the payment immediately. Defaults to true. Pass false to place an authorization hold that must be captured in full within five days via the capture endpoint, or automatically after `auto_capture_after_minutes`.
 
+        line_items : typing.Optional[typing.Sequence[CreateDirectRequestLineItemsItem]]
+            What the buyer is purchasing. Each entry names an existing variant by plan_id. Several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
+
         member_id : typing.Optional[str]
             The member to charge, prefixed `mber_`. When omitted the buyer is resolved from `billing_details.email`.
 
@@ -268,9 +271,6 @@ class AsyncRawDirectClient:
 
         statement_descriptor : typing.Optional[str]
             Overrides the text on the buyer's card statement for this payment only. Must start with `WHOP*`, be 5-22 characters, contain at least one letter, and use only Latin letters, numbers, spaces, underscores, hyphens, or asterisks.
-
-        line_items : typing.Optional[typing.Sequence[PaymentInputLineItemsItem]]
-            What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency. Mutually exclusive with `plan_id` and `plan`.
 
         plan : typing.Optional[PaymentInputPlan]
             The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
@@ -303,6 +303,9 @@ class AsyncRawDirectClient:
                     object_=billing_details, annotation=CreateDirectRequestBillingDetails, direction="write"
                 ),
                 "capture": capture,
+                "line_items": convert_and_respect_annotation_metadata(
+                    object_=line_items, annotation=typing.Sequence[CreateDirectRequestLineItemsItem], direction="write"
+                ),
                 "member_id": member_id,
                 "metadata": metadata,
                 "off_session": off_session,
@@ -314,9 +317,6 @@ class AsyncRawDirectClient:
                 "setup_future_usage": setup_future_usage,
                 "statement_descriptor": statement_descriptor,
                 "account_id": account_id,
-                "line_items": convert_and_respect_annotation_metadata(
-                    object_=line_items, annotation=typing.Sequence[PaymentInputLineItemsItem], direction="write"
-                ),
                 "plan": convert_and_respect_annotation_metadata(
                     object_=plan, annotation=PaymentInputPlan, direction="write"
                 ),

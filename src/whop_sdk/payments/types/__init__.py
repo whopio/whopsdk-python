@@ -6,6 +6,23 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .create_payments_request_line_items_item import CreatePaymentsRequestLineItemsItem
+    from .create_payments_request_line_items_item_plan import CreatePaymentsRequestLineItemsItemPlan
+    from .create_payments_request_line_items_item_plan_currency import CreatePaymentsRequestLineItemsItemPlanCurrency
+    from .create_payments_request_line_items_item_plan_override_tax_type import (
+        CreatePaymentsRequestLineItemsItemPlanOverrideTaxType,
+    )
+    from .create_payments_request_line_items_item_plan_plan_type import CreatePaymentsRequestLineItemsItemPlanPlanType
+    from .create_payments_request_line_items_item_plan_product import CreatePaymentsRequestLineItemsItemPlanProduct
+    from .create_payments_request_line_items_item_plan_product_global_affiliate_status import (
+        CreatePaymentsRequestLineItemsItemPlanProductGlobalAffiliateStatus,
+    )
+    from .create_payments_request_line_items_item_plan_product_visibility import (
+        CreatePaymentsRequestLineItemsItemPlanProductVisibility,
+    )
+    from .create_payments_request_line_items_item_plan_visibility import (
+        CreatePaymentsRequestLineItemsItemPlanVisibility,
+    )
     from .create_payments_request_payment_method import CreatePaymentsRequestPaymentMethod
     from .create_payments_request_payment_method_card_present import CreatePaymentsRequestPaymentMethodCardPresent
     from .create_payments_request_payment_method_card_present_platform import (
@@ -45,6 +62,15 @@ if typing.TYPE_CHECKING:
     from .post_payment_succeeded_payload_type import PostPaymentSucceededPayloadType
     from .update_payments_request_shipping_address import UpdatePaymentsRequestShippingAddress
 _dynamic_imports: typing.Dict[str, str] = {
+    "CreatePaymentsRequestLineItemsItem": ".create_payments_request_line_items_item",
+    "CreatePaymentsRequestLineItemsItemPlan": ".create_payments_request_line_items_item_plan",
+    "CreatePaymentsRequestLineItemsItemPlanCurrency": ".create_payments_request_line_items_item_plan_currency",
+    "CreatePaymentsRequestLineItemsItemPlanOverrideTaxType": ".create_payments_request_line_items_item_plan_override_tax_type",
+    "CreatePaymentsRequestLineItemsItemPlanPlanType": ".create_payments_request_line_items_item_plan_plan_type",
+    "CreatePaymentsRequestLineItemsItemPlanProduct": ".create_payments_request_line_items_item_plan_product",
+    "CreatePaymentsRequestLineItemsItemPlanProductGlobalAffiliateStatus": ".create_payments_request_line_items_item_plan_product_global_affiliate_status",
+    "CreatePaymentsRequestLineItemsItemPlanProductVisibility": ".create_payments_request_line_items_item_plan_product_visibility",
+    "CreatePaymentsRequestLineItemsItemPlanVisibility": ".create_payments_request_line_items_item_plan_visibility",
     "CreatePaymentsRequestPaymentMethod": ".create_payments_request_payment_method",
     "CreatePaymentsRequestPaymentMethodCardPresent": ".create_payments_request_payment_method_card_present",
     "CreatePaymentsRequestPaymentMethodCardPresentPlatform": ".create_payments_request_payment_method_card_present_platform",
@@ -106,6 +132,15 @@ def __dir__():
 
 
 __all__ = [
+    "CreatePaymentsRequestLineItemsItem",
+    "CreatePaymentsRequestLineItemsItemPlan",
+    "CreatePaymentsRequestLineItemsItemPlanCurrency",
+    "CreatePaymentsRequestLineItemsItemPlanOverrideTaxType",
+    "CreatePaymentsRequestLineItemsItemPlanPlanType",
+    "CreatePaymentsRequestLineItemsItemPlanProduct",
+    "CreatePaymentsRequestLineItemsItemPlanProductGlobalAffiliateStatus",
+    "CreatePaymentsRequestLineItemsItemPlanProductVisibility",
+    "CreatePaymentsRequestLineItemsItemPlanVisibility",
     "CreatePaymentsRequestPaymentMethod",
     "CreatePaymentsRequestPaymentMethodCardPresent",
     "CreatePaymentsRequestPaymentMethodCardPresentPlatform",

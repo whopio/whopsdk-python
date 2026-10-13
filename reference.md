@@ -30237,7 +30237,7 @@ client.payment_methods.delete_payment_method(
 <dl>
 <dd>
 
-Prices a purchase the way a payment for it will be charged. The body is the `PaymentInput` a payment takes plus where the buyer is, which a seller that collects no tax on the purchase can leave out. The purchase is priced from exactly what you send: no buyer is looked up, so no stored registration or purchase history applies. Pass the quote's `id` as `quote_id` when you create the payment to charge exactly the purchase, promo code, and tax shown here. A quote is priced once and may be consumed by one payment before `expires_at`.
+Prices a purchase the way a payment for it will be charged. The body is the `PaymentInput` a payment takes plus where the buyer is, which a seller that collects no tax on the purchase can leave out. The purchase is priced from exactly what you send: no buyer is looked up, so no stored registration or purchase history applies. Pass the quote's `id` as `quote_id` when you create the payment to charge exactly the purchase, promo code, and tax shown here. A quote is priced once and may be consumed by one payment before `expires_at`. Cart entries must name existing variants with `plan_id`.
 </dd>
 </dl>
 </dd>
@@ -30286,14 +30286,6 @@ client.payment_quotes.create(
 <dl>
 <dd>
 
-**line_items:** `typing.Optional[typing.List[PaymentInputLineItemsItem]]` — What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency. Mutually exclusive with `plan_id` and `plan`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **plan:** `typing.Optional[PaymentInputPlan]` — The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
     
 </dd>
@@ -30335,6 +30327,14 @@ client.payment_quotes.create(
 <dd>
 
 **ip_address:** `typing.Optional[str]` — The buyer's IP address, when your server makes the call on their behalf. Locates the buyer when neither address carries a country and no `presentment_country` is sent. A quote located this way (`located_by` is `ip_address`) is a preview: a payment refuses it with `quote_preview_only`, so quote again with the buyer's address before paying. Also where `presentment_currency` `auto` and `recommended_currencies` find the buyer's local currency, and where a payment method must be able to collect it.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**line_items:** `typing.Optional[typing.List[CreatePaymentQuotesRequestLineItemsItem]]` — What the buyer is purchasing. Each entry names an existing variant by plan_id. Several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
     
 </dd>
 </dl>
@@ -31532,14 +31532,6 @@ client.payments.create(
 <dl>
 <dd>
 
-**line_items:** `typing.Optional[typing.List[PaymentInputLineItemsItem]]` — What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency. Mutually exclusive with `plan_id` and `plan`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **plan:** `typing.Optional[PaymentInputPlan]` — The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
     
 </dd>
@@ -31613,6 +31605,14 @@ client.payments.create(
 <dd>
 
 **ip_address:** `typing.Optional[str]` — The buyer's IPv4 or IPv6 address, used to assess the charge's risk and passed to the processor. Ignored unless a saved payment method is charged with `off_session` set to false.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**line_items:** `typing.Optional[typing.List[CreatePaymentsRequestLineItemsItem]]` — What the buyer is purchasing. Each entry takes exactly one of `plan_id` or an inline `plan`. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency. Mutually exclusive with `plan_id` and `plan`.
     
 </dd>
 </dl>
@@ -38410,7 +38410,7 @@ client.resolution_center_cases.withdraw(
 <dl>
 <dd>
 
-Lists the customer reviews for a product.
+Lists the published reviews for a product or account. Without `account_id` or `product_id`, a user lists the reviews they wrote, an account or app API key lists its account's reviews, and a request without credentials returns 400.
 </dd>
 </dl>
 </dd>
@@ -38427,7 +38427,6 @@ Lists the customer reviews for a product.
 ```python
 from whop_sdk import Whop
 from whop_sdk.environment import WhopEnvironment
-import datetime
 
 client = Whop(
     token="<token>",
@@ -38435,13 +38434,8 @@ client = Whop(
 )
 
 client.reviews.list(
-    first=42,
-    last=42,
+    account_id="biz_xxxxxxxxxxxxxx",
     product_id="prod_xxxxxxxxxxxxx",
-    min_stars=42,
-    max_stars=42,
-    created_before=datetime.datetime.fromisoformat("2023-12-01T05:00:00+00:00"),
-    created_after=datetime.datetime.fromisoformat("2023-12-01T05:00:00+00:00"),
 )
 
 ```
@@ -38458,7 +38452,7 @@ client.reviews.list(
 <dl>
 <dd>
 
-**product_id:** `str` — The unique identifier of the product to list reviews for.
+**account_id:** `typing.Optional[str]` — The unique identifier of the account to list reviews for.
     
 </dd>
 </dl>
@@ -38466,31 +38460,7 @@ client.reviews.list(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Returns the elements in the list that come after the specified cursor.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**before:** `typing.Optional[str]` — Returns the elements in the list that come before the specified cursor.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**first:** `typing.Optional[int]` — Returns the first _n_ elements from the list.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**last:** `typing.Optional[int]` — Returns the last _n_ elements from the list.
+**product_id:** `typing.Optional[str]` — The unique identifier of the product to list reviews for.
     
 </dd>
 </dl>
@@ -38530,6 +38500,54 @@ client.reviews.list(
 <dl>
 <dd>
 
+**order:** `typing.Optional[ListReviewsRequestOrder]` — The field to sort reviews by.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**direction:** `typing.Optional[ListReviewsRequestDirection]` — The sort direction.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -38554,7 +38572,7 @@ client.reviews.list(
 <dl>
 <dd>
 
-Retrieves the details of an existing review.
+Retrieves a published review. Reviews that are not published return 404.
 </dd>
 </dl>
 </dd>
@@ -38595,7 +38613,80 @@ client.reviews.retrieve(
 <dl>
 <dd>
 
-**id:** `str` — The unique identifier of the review to retrieve.
+**id:** `str` — The unique identifier of the review.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.reviews.<a href="src/whop_sdk/reviews/client.py">delete</a>(...) -> DeleteReviewsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a review the signed-in user wrote. Requires the `review:delete` scope, and returns 404 for a review another user wrote.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.reviews.delete(
+    id="rev_xxxxxxxxxxxxxx",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The unique identifier of the review.
     
 </dd>
 </dl>
@@ -50439,14 +50530,6 @@ client.payments.direct.create(
 <dl>
 <dd>
 
-**line_items:** `typing.Optional[typing.List[PaymentInputLineItemsItem]]` — What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency. Mutually exclusive with `plan_id` and `plan`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **plan:** `typing.Optional[PaymentInputPlan]` — The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
     
 </dd>
@@ -50496,6 +50579,14 @@ client.payments.direct.create(
 <dd>
 
 **capture:** `typing.Optional[bool]` — Whether to capture the payment immediately. Defaults to true. Pass false to place an authorization hold that must be captured in full within five days via the capture endpoint, or automatically after `auto_capture_after_minutes`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**line_items:** `typing.Optional[typing.List[CreateDirectRequestLineItemsItem]]` — What the buyer is purchasing. Each entry names an existing variant by plan_id. Several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
     
 </dd>
 </dl>

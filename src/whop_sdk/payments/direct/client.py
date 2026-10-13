@@ -5,10 +5,10 @@ import typing
 from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
 from ...types.payment import Payment
-from ...types.payment_input_line_items_item import PaymentInputLineItemsItem
 from ...types.payment_input_plan import PaymentInputPlan
 from .raw_client import AsyncRawDirectClient, RawDirectClient
 from .types.create_direct_request_billing_details import CreateDirectRequestBillingDetails
+from .types.create_direct_request_line_items_item import CreateDirectRequestLineItemsItem
 from .types.create_direct_request_payment_method import CreateDirectRequestPaymentMethod
 from .types.create_direct_request_setup_future_usage import CreateDirectRequestSetupFutureUsage
 
@@ -40,6 +40,7 @@ class DirectClient:
         affiliate_code: typing.Optional[str] = OMIT,
         auto_capture_after_minutes: typing.Optional[int] = OMIT,
         capture: typing.Optional[bool] = OMIT,
+        line_items: typing.Optional[typing.Sequence[CreateDirectRequestLineItemsItem]] = OMIT,
         member_id: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         off_session: typing.Optional[bool] = OMIT,
@@ -47,7 +48,6 @@ class DirectClient:
         return_url: typing.Optional[str] = OMIT,
         setup_future_usage: typing.Optional[CreateDirectRequestSetupFutureUsage] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
-        line_items: typing.Optional[typing.Sequence[PaymentInputLineItemsItem]] = OMIT,
         plan: typing.Optional[PaymentInputPlan] = OMIT,
         plan_id: typing.Optional[str] = OMIT,
         promo_code: typing.Optional[str] = OMIT,
@@ -77,6 +77,9 @@ class DirectClient:
         capture : typing.Optional[bool]
             Whether to capture the payment immediately. Defaults to true. Pass false to place an authorization hold that must be captured in full within five days via the capture endpoint, or automatically after `auto_capture_after_minutes`.
 
+        line_items : typing.Optional[typing.Sequence[CreateDirectRequestLineItemsItem]]
+            What the buyer is purchasing. Each entry names an existing variant by plan_id. Several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
+
         member_id : typing.Optional[str]
             The member to charge, prefixed `mber_`. When omitted the buyer is resolved from `billing_details.email`.
 
@@ -97,9 +100,6 @@ class DirectClient:
 
         statement_descriptor : typing.Optional[str]
             Overrides the text on the buyer's card statement for this payment only. Must start with `WHOP*`, be 5-22 characters, contain at least one letter, and use only Latin letters, numbers, spaces, underscores, hyphens, or asterisks.
-
-        line_items : typing.Optional[typing.Sequence[PaymentInputLineItemsItem]]
-            What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency. Mutually exclusive with `plan_id` and `plan`.
 
         plan : typing.Optional[PaymentInputPlan]
             The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
@@ -131,7 +131,7 @@ class DirectClient:
         )
 
         client = Whop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -157,6 +157,7 @@ class DirectClient:
             affiliate_code=affiliate_code,
             auto_capture_after_minutes=auto_capture_after_minutes,
             capture=capture,
+            line_items=line_items,
             member_id=member_id,
             metadata=metadata,
             off_session=off_session,
@@ -164,7 +165,6 @@ class DirectClient:
             return_url=return_url,
             setup_future_usage=setup_future_usage,
             statement_descriptor=statement_descriptor,
-            line_items=line_items,
             plan=plan,
             plan_id=plan_id,
             promo_code=promo_code,
@@ -198,6 +198,7 @@ class AsyncDirectClient:
         affiliate_code: typing.Optional[str] = OMIT,
         auto_capture_after_minutes: typing.Optional[int] = OMIT,
         capture: typing.Optional[bool] = OMIT,
+        line_items: typing.Optional[typing.Sequence[CreateDirectRequestLineItemsItem]] = OMIT,
         member_id: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         off_session: typing.Optional[bool] = OMIT,
@@ -205,7 +206,6 @@ class AsyncDirectClient:
         return_url: typing.Optional[str] = OMIT,
         setup_future_usage: typing.Optional[CreateDirectRequestSetupFutureUsage] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
-        line_items: typing.Optional[typing.Sequence[PaymentInputLineItemsItem]] = OMIT,
         plan: typing.Optional[PaymentInputPlan] = OMIT,
         plan_id: typing.Optional[str] = OMIT,
         promo_code: typing.Optional[str] = OMIT,
@@ -235,6 +235,9 @@ class AsyncDirectClient:
         capture : typing.Optional[bool]
             Whether to capture the payment immediately. Defaults to true. Pass false to place an authorization hold that must be captured in full within five days via the capture endpoint, or automatically after `auto_capture_after_minutes`.
 
+        line_items : typing.Optional[typing.Sequence[CreateDirectRequestLineItemsItem]]
+            What the buyer is purchasing. Each entry names an existing variant by plan_id. Several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
+
         member_id : typing.Optional[str]
             The member to charge, prefixed `mber_`. When omitted the buyer is resolved from `billing_details.email`.
 
@@ -255,9 +258,6 @@ class AsyncDirectClient:
 
         statement_descriptor : typing.Optional[str]
             Overrides the text on the buyer's card statement for this payment only. Must start with `WHOP*`, be 5-22 characters, contain at least one letter, and use only Latin letters, numbers, spaces, underscores, hyphens, or asterisks.
-
-        line_items : typing.Optional[typing.Sequence[PaymentInputLineItemsItem]]
-            What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency. Mutually exclusive with `plan_id` and `plan`.
 
         plan : typing.Optional[PaymentInputPlan]
             The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
@@ -291,7 +291,7 @@ class AsyncDirectClient:
         )
 
         client = AsyncWhop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -323,6 +323,7 @@ class AsyncDirectClient:
             affiliate_code=affiliate_code,
             auto_capture_after_minutes=auto_capture_after_minutes,
             capture=capture,
+            line_items=line_items,
             member_id=member_id,
             metadata=metadata,
             off_session=off_session,
@@ -330,7 +331,6 @@ class AsyncDirectClient:
             return_url=return_url,
             setup_future_usage=setup_future_usage,
             statement_descriptor=statement_descriptor,
-            line_items=line_items,
             plan=plan,
             plan_id=plan_id,
             promo_code=promo_code,

@@ -103,6 +103,11 @@ class Payment(UniversalBaseModel):
     Payment ID, prefixed `pay_`.
     """
 
+    ip_address: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The buyer's IP address at checkout, as identified by Whop's fraud screening. Null when the payment was not screened at checkout, such as a subscription renewal or a charge made without the buyer present.
+    """
+
     last_payment_attempt_at: typing.Optional[str] = pydantic.Field(default=None)
     """
     When the most recent charge attempt ran, or null.

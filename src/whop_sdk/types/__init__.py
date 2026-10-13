@@ -880,7 +880,6 @@ if typing.TYPE_CHECKING:
     from .payment_hold import PaymentHold
     from .payment_hold_type import PaymentHoldType
     from .payment_input import PaymentInput
-    from .payment_input_line_items_item import PaymentInputLineItemsItem
     from .payment_input_plan import PaymentInputPlan
     from .payment_input_plan_currency import PaymentInputPlanCurrency
     from .payment_input_plan_override_tax_type import PaymentInputPlanOverrideTaxType
@@ -1371,11 +1370,10 @@ if typing.TYPE_CHECKING:
     from .retrieve_stats_request_steps import RetrieveStatsRequestSteps
     from .retrieve_time_series_request_steps import RetrieveTimeSeriesRequestSteps
     from .review import Review
-    from .review_attachments_item import ReviewAttachmentsItem
-    from .review_company import ReviewCompany
+    from .review_account import ReviewAccount
+    from .review_attachment import ReviewAttachment
     from .review_list_item import ReviewListItem
-    from .review_list_item_attachments_item import ReviewListItemAttachmentsItem
-    from .review_list_item_user import ReviewListItemUser
+    from .review_list_item_status import ReviewListItemStatus
     from .review_product import ReviewProduct
     from .review_status import ReviewStatus
     from .review_user import ReviewUser
@@ -2414,7 +2412,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaymentHold": ".payment_hold",
     "PaymentHoldType": ".payment_hold_type",
     "PaymentInput": ".payment_input",
-    "PaymentInputLineItemsItem": ".payment_input_line_items_item",
     "PaymentInputPlan": ".payment_input_plan",
     "PaymentInputPlanCurrency": ".payment_input_plan_currency",
     "PaymentInputPlanOverrideTaxType": ".payment_input_plan_override_tax_type",
@@ -2791,11 +2788,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrieveStatsRequestSteps": ".retrieve_stats_request_steps",
     "RetrieveTimeSeriesRequestSteps": ".retrieve_time_series_request_steps",
     "Review": ".review",
-    "ReviewAttachmentsItem": ".review_attachments_item",
-    "ReviewCompany": ".review_company",
+    "ReviewAccount": ".review_account",
+    "ReviewAttachment": ".review_attachment",
     "ReviewListItem": ".review_list_item",
-    "ReviewListItemAttachmentsItem": ".review_list_item_attachments_item",
-    "ReviewListItemUser": ".review_list_item_user",
+    "ReviewListItemStatus": ".review_list_item_status",
     "ReviewProduct": ".review_product",
     "ReviewStatus": ".review_status",
     "ReviewUser": ".review_user",
@@ -3852,7 +3848,6 @@ __all__ = [
     "PaymentHold",
     "PaymentHoldType",
     "PaymentInput",
-    "PaymentInputLineItemsItem",
     "PaymentInputPlan",
     "PaymentInputPlanCurrency",
     "PaymentInputPlanOverrideTaxType",
@@ -4229,11 +4224,10 @@ __all__ = [
     "RetrieveStatsRequestSteps",
     "RetrieveTimeSeriesRequestSteps",
     "Review",
-    "ReviewAttachmentsItem",
-    "ReviewCompany",
+    "ReviewAccount",
+    "ReviewAttachment",
     "ReviewListItem",
-    "ReviewListItemAttachmentsItem",
-    "ReviewListItemUser",
+    "ReviewListItemStatus",
     "ReviewProduct",
     "ReviewStatus",
     "ReviewUser",

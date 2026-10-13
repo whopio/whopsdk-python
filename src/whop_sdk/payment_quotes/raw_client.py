@@ -16,10 +16,10 @@ from ..errors.conflict_error import ConflictError
 from ..errors.forbidden_error import ForbiddenError
 from ..errors.not_found_error import NotFoundError
 from ..errors.unauthorized_error import UnauthorizedError
-from ..types.payment_input_line_items_item import PaymentInputLineItemsItem
 from ..types.payment_input_plan import PaymentInputPlan
 from ..types.payment_quote import PaymentQuote
 from .types.create_payment_quotes_request_address import CreatePaymentQuotesRequestAddress
+from .types.create_payment_quotes_request_line_items_item import CreatePaymentQuotesRequestLineItemsItem
 from .types.create_payment_quotes_request_shipping_address import CreatePaymentQuotesRequestShippingAddress
 from .types.create_payment_quotes_request_tax_ids_item import CreatePaymentQuotesRequestTaxIdsItem
 from pydantic import ValidationError
@@ -38,11 +38,11 @@ class RawPaymentQuotesClient:
         account_id: str,
         address: typing.Optional[CreatePaymentQuotesRequestAddress] = OMIT,
         ip_address: typing.Optional[str] = OMIT,
+        line_items: typing.Optional[typing.Sequence[CreatePaymentQuotesRequestLineItemsItem]] = OMIT,
         presentment_country: typing.Optional[str] = OMIT,
         presentment_currency: typing.Optional[str] = OMIT,
         shipping_address: typing.Optional[CreatePaymentQuotesRequestShippingAddress] = OMIT,
         tax_ids: typing.Optional[typing.Sequence[CreatePaymentQuotesRequestTaxIdsItem]] = OMIT,
-        line_items: typing.Optional[typing.Sequence[PaymentInputLineItemsItem]] = OMIT,
         plan: typing.Optional[PaymentInputPlan] = OMIT,
         plan_id: typing.Optional[str] = OMIT,
         promo_code: typing.Optional[str] = OMIT,
@@ -50,7 +50,7 @@ class RawPaymentQuotesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PaymentQuote]:
         """
-        Prices a purchase the way a payment for it will be charged. The body is the `PaymentInput` a payment takes plus where the buyer is, which a seller that collects no tax on the purchase can leave out. The purchase is priced from exactly what you send: no buyer is looked up, so no stored registration or purchase history applies. Pass the quote's `id` as `quote_id` when you create the payment to charge exactly the purchase, promo code, and tax shown here. A quote is priced once and may be consumed by one payment before `expires_at`.
+        Prices a purchase the way a payment for it will be charged. The body is the `PaymentInput` a payment takes plus where the buyer is, which a seller that collects no tax on the purchase can leave out. The purchase is priced from exactly what you send: no buyer is looked up, so no stored registration or purchase history applies. Pass the quote's `id` as `quote_id` when you create the payment to charge exactly the purchase, promo code, and tax shown here. A quote is priced once and may be consumed by one payment before `expires_at`. Cart entries must name existing variants with `plan_id`.
 
         Parameters
         ----------
@@ -63,6 +63,9 @@ class RawPaymentQuotesClient:
         ip_address : typing.Optional[str]
             The buyer's IP address, when your server makes the call on their behalf. Locates the buyer when neither address carries a country and no `presentment_country` is sent. A quote located this way (`located_by` is `ip_address`) is a preview: a payment refuses it with `quote_preview_only`, so quote again with the buyer's address before paying. Also where `presentment_currency` `auto` and `recommended_currencies` find the buyer's local currency, and where a payment method must be able to collect it.
 
+        line_items : typing.Optional[typing.Sequence[CreatePaymentQuotesRequestLineItemsItem]]
+            What the buyer is purchasing. Each entry names an existing variant by plan_id. Several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
+
         presentment_country : typing.Optional[str]
             The country to price the purchase for, as an ISO 3166-1 alpha-2 code such as `JP`, when the buyer chose one: a store's country picker. Prices in the currency `auto` would pick for a buyer in that country, so send it instead of `presentment_currency`, never with it. Whether a payment method can collect that currency is still judged where the buyer is: by `ip_address`, and by this country only without one. With no address that carries a country, tax is estimated for this country (`located_by` is `presentment_country`) at the country level, and a quote located this way is a preview a payment refuses with `quote_preview_only`. Send it only once the buyer has chosen a country: without it, an `ip_address` estimates more precisely, such as for a US state. For a country Whop has no currency for, the quote is priced as `auto` for the buyer's `ip_address`, and tax is still estimated for the country.
 
@@ -74,9 +77,6 @@ class RawPaymentQuotesClient:
 
         tax_ids : typing.Optional[typing.Sequence[CreatePaymentQuotesRequestTaxIdsItem]]
             The buyer's tax registration, for a business purchase. One entry. Prices the purchase as business-to-business where that applies (EU reverse charge, for one) and requires an `address` to belong to.
-
-        line_items : typing.Optional[typing.Sequence[PaymentInputLineItemsItem]]
-            What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency. Mutually exclusive with `plan_id` and `plan`.
 
         plan : typing.Optional[PaymentInputPlan]
             The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
@@ -107,6 +107,11 @@ class RawPaymentQuotesClient:
                     object_=address, annotation=typing.Optional[CreatePaymentQuotesRequestAddress], direction="write"
                 ),
                 "ip_address": ip_address,
+                "line_items": convert_and_respect_annotation_metadata(
+                    object_=line_items,
+                    annotation=typing.Sequence[CreatePaymentQuotesRequestLineItemsItem],
+                    direction="write",
+                ),
                 "presentment_country": presentment_country,
                 "presentment_currency": presentment_currency,
                 "shipping_address": convert_and_respect_annotation_metadata(
@@ -120,9 +125,6 @@ class RawPaymentQuotesClient:
                     direction="write",
                 ),
                 "account_id": account_id,
-                "line_items": convert_and_respect_annotation_metadata(
-                    object_=line_items, annotation=typing.Sequence[PaymentInputLineItemsItem], direction="write"
-                ),
                 "plan": convert_and_respect_annotation_metadata(
                     object_=plan, annotation=PaymentInputPlan, direction="write"
                 ),
@@ -298,11 +300,11 @@ class AsyncRawPaymentQuotesClient:
         account_id: str,
         address: typing.Optional[CreatePaymentQuotesRequestAddress] = OMIT,
         ip_address: typing.Optional[str] = OMIT,
+        line_items: typing.Optional[typing.Sequence[CreatePaymentQuotesRequestLineItemsItem]] = OMIT,
         presentment_country: typing.Optional[str] = OMIT,
         presentment_currency: typing.Optional[str] = OMIT,
         shipping_address: typing.Optional[CreatePaymentQuotesRequestShippingAddress] = OMIT,
         tax_ids: typing.Optional[typing.Sequence[CreatePaymentQuotesRequestTaxIdsItem]] = OMIT,
-        line_items: typing.Optional[typing.Sequence[PaymentInputLineItemsItem]] = OMIT,
         plan: typing.Optional[PaymentInputPlan] = OMIT,
         plan_id: typing.Optional[str] = OMIT,
         promo_code: typing.Optional[str] = OMIT,
@@ -310,7 +312,7 @@ class AsyncRawPaymentQuotesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PaymentQuote]:
         """
-        Prices a purchase the way a payment for it will be charged. The body is the `PaymentInput` a payment takes plus where the buyer is, which a seller that collects no tax on the purchase can leave out. The purchase is priced from exactly what you send: no buyer is looked up, so no stored registration or purchase history applies. Pass the quote's `id` as `quote_id` when you create the payment to charge exactly the purchase, promo code, and tax shown here. A quote is priced once and may be consumed by one payment before `expires_at`.
+        Prices a purchase the way a payment for it will be charged. The body is the `PaymentInput` a payment takes plus where the buyer is, which a seller that collects no tax on the purchase can leave out. The purchase is priced from exactly what you send: no buyer is looked up, so no stored registration or purchase history applies. Pass the quote's `id` as `quote_id` when you create the payment to charge exactly the purchase, promo code, and tax shown here. A quote is priced once and may be consumed by one payment before `expires_at`. Cart entries must name existing variants with `plan_id`.
 
         Parameters
         ----------
@@ -323,6 +325,9 @@ class AsyncRawPaymentQuotesClient:
         ip_address : typing.Optional[str]
             The buyer's IP address, when your server makes the call on their behalf. Locates the buyer when neither address carries a country and no `presentment_country` is sent. A quote located this way (`located_by` is `ip_address`) is a preview: a payment refuses it with `quote_preview_only`, so quote again with the buyer's address before paying. Also where `presentment_currency` `auto` and `recommended_currencies` find the buyer's local currency, and where a payment method must be able to collect it.
 
+        line_items : typing.Optional[typing.Sequence[CreatePaymentQuotesRequestLineItemsItem]]
+            What the buyer is purchasing. Each entry names an existing variant by plan_id. Several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
+
         presentment_country : typing.Optional[str]
             The country to price the purchase for, as an ISO 3166-1 alpha-2 code such as `JP`, when the buyer chose one: a store's country picker. Prices in the currency `auto` would pick for a buyer in that country, so send it instead of `presentment_currency`, never with it. Whether a payment method can collect that currency is still judged where the buyer is: by `ip_address`, and by this country only without one. With no address that carries a country, tax is estimated for this country (`located_by` is `presentment_country`) at the country level, and a quote located this way is a preview a payment refuses with `quote_preview_only`. Send it only once the buyer has chosen a country: without it, an `ip_address` estimates more precisely, such as for a US state. For a country Whop has no currency for, the quote is priced as `auto` for the buyer's `ip_address`, and tax is still estimated for the country.
 
@@ -334,9 +339,6 @@ class AsyncRawPaymentQuotesClient:
 
         tax_ids : typing.Optional[typing.Sequence[CreatePaymentQuotesRequestTaxIdsItem]]
             The buyer's tax registration, for a business purchase. One entry. Prices the purchase as business-to-business where that applies (EU reverse charge, for one) and requires an `address` to belong to.
-
-        line_items : typing.Optional[typing.Sequence[PaymentInputLineItemsItem]]
-            What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency. Mutually exclusive with `plan_id` and `plan`.
 
         plan : typing.Optional[PaymentInputPlan]
             The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
@@ -367,6 +369,11 @@ class AsyncRawPaymentQuotesClient:
                     object_=address, annotation=typing.Optional[CreatePaymentQuotesRequestAddress], direction="write"
                 ),
                 "ip_address": ip_address,
+                "line_items": convert_and_respect_annotation_metadata(
+                    object_=line_items,
+                    annotation=typing.Sequence[CreatePaymentQuotesRequestLineItemsItem],
+                    direction="write",
+                ),
                 "presentment_country": presentment_country,
                 "presentment_currency": presentment_currency,
                 "shipping_address": convert_and_respect_annotation_metadata(
@@ -380,9 +387,6 @@ class AsyncRawPaymentQuotesClient:
                     direction="write",
                 ),
                 "account_id": account_id,
-                "line_items": convert_and_respect_annotation_metadata(
-                    object_=line_items, annotation=typing.Sequence[PaymentInputLineItemsItem], direction="write"
-                ),
                 "plan": convert_and_respect_annotation_metadata(
                     object_=plan, annotation=PaymentInputPlan, direction="write"
                 ),
