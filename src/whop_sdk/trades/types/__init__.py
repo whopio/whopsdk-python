@@ -6,6 +6,9 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .create_trades_request_instrument_type import CreateTradesRequestInstrumentType
+    from .create_trades_request_order_type import CreateTradesRequestOrderType
+    from .create_trades_request_side import CreateTradesRequestSide
     from .create_trades_request_type import CreateTradesRequestType
     from .list_trades_request_direction import ListTradesRequestDirection
     from .list_trades_request_order import ListTradesRequestOrder
@@ -14,6 +17,9 @@ if typing.TYPE_CHECKING:
     from .list_trades_response import ListTradesResponse
     from .list_trades_response_page_info import ListTradesResponsePageInfo
 _dynamic_imports: typing.Dict[str, str] = {
+    "CreateTradesRequestInstrumentType": ".create_trades_request_instrument_type",
+    "CreateTradesRequestOrderType": ".create_trades_request_order_type",
+    "CreateTradesRequestSide": ".create_trades_request_side",
     "CreateTradesRequestType": ".create_trades_request_type",
     "ListTradesRequestDirection": ".list_trades_request_direction",
     "ListTradesRequestOrder": ".list_trades_request_order",
@@ -46,6 +52,9 @@ def __dir__():
 
 
 __all__ = [
+    "CreateTradesRequestInstrumentType",
+    "CreateTradesRequestOrderType",
+    "CreateTradesRequestSide",
     "CreateTradesRequestType",
     "ListTradesRequestDirection",
     "ListTradesRequestOrder",
