@@ -10,9 +10,14 @@ from .file_visibility import FileVisibility
 
 
 class File(UniversalBaseModel):
+    blurhash: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    BlurHash placeholder for an image or video. Null when unavailable or removed by moderation.
+    """
+
     content_type: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The file's MIME type, e.g. `application/pdf`.
+    The original file's MIME type, preserved when removed by moderation, e.g. `application/pdf`.
     """
 
     created_at: str = pydantic.Field()
@@ -20,9 +25,19 @@ class File(UniversalBaseModel):
     When the file was created, as an ISO 8601 timestamp.
     """
 
+    duration_seconds: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Audio or video duration in seconds. Null when unavailable or removed by moderation.
+    """
+
     filename: typing.Optional[str] = pydantic.Field(default=None)
     """
     The original filename, including its extension.
+    """
+
+    height: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Image or video height in pixels. Null when unavailable or removed by moderation.
     """
 
     id: str = pydantic.Field()
@@ -44,6 +59,11 @@ class File(UniversalBaseModel):
     object: str = pydantic.Field()
     """
     The type of this object, always `file`.
+    """
+
+    removed_by_moderation: bool = pydantic.Field()
+    """
+    Whether moderation removed the file. When true, `url` serves a replacement image; filename, size, and content type still describe the original file.
     """
 
     size: typing.Optional[int] = pydantic.Field(default=None)
@@ -68,12 +88,22 @@ class File(UniversalBaseModel):
 
     url: typing.Optional[str] = pydantic.Field(default=None)
     """
-    A URL to download the file: a permanent CDN URL for public files, a signed expiring URL for private ones. `null` until the upload has finished.
+    A URL to download the file: a permanent CDN URL for public files, a signed expiring URL for private ones. Null until the upload has finished; a replacement image URL when removed by moderation.
     """
 
     visibility: FileVisibility = pydantic.Field()
     """
     `public` files are served via an unsigned CDN URL; `private` files via a signed, expiring URL.
+    """
+
+    waveform_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Audio waveform URL. Null when unavailable or removed by moderation.
+    """
+
+    width: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Image or video width in pixels. Null when unavailable or removed by moderation.
     """
 
     if IS_PYDANTIC_V2:

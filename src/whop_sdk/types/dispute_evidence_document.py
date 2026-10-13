@@ -12,6 +12,11 @@ from .file_multipart_url import FileMultipartUrl
 
 
 class DisputeEvidenceDocument(UniversalBaseModel):
+    blurhash: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    BlurHash placeholder for an image or video. Null when unavailable or removed by moderation.
+    """
+
     content_type: typing.Optional[DisputeEvidenceDocumentContentType] = pydantic.Field(default=None)
     """
     The uploaded file's MIME type. Uploads are restricted to the types the processor accepts, and rejected without one — never null.
@@ -27,9 +32,19 @@ class DisputeEvidenceDocument(UniversalBaseModel):
     What this document proves, in the processor's own evidence vocabulary. `return_policy`, `cancellation_policy`, and `terms_of_service` are the seller's policy documents — uploading one overrides the account's copy for this dispute (`return_policy`, `cancellation_policy`, and `customer_communication` also override the matching fixed evidence slot). `shipping_policy` is the seller's shipping terms. `customer_communication` is correspondence with the buyer — a support thread or chat log. `product_image` is a photo of the product or service the buyer received. `physical_fulfillment` is proof a physical order shipped and arrived; `digital_fulfillment` is proof the buyer accessed a digital product. `customer_order_history` is the buyer's past orders with this seller; `prior_transactions` is their broader payment history across the platform, for a fraud defense. `customer_session` is checkout forensics — IP, device fingerprint, AVS/CVV, 3D Secure result. `subscription` is membership lifecycle evidence — renewals, cancellation, reminders sent.
     """
 
+    duration_seconds: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Audio or video duration in seconds. Null when unavailable or removed by moderation.
+    """
+
     filename: typing.Optional[str] = pydantic.Field(default=None)
     """
     The original filename, including its extension.
+    """
+
+    height: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Image or video height in pixels. Null when unavailable or removed by moderation.
     """
 
     id: str = pydantic.Field()
@@ -51,6 +66,11 @@ class DisputeEvidenceDocument(UniversalBaseModel):
     object: str = pydantic.Field()
     """
     The type of this object, always `file`.
+    """
+
+    removed_by_moderation: bool = pydantic.Field()
+    """
+    Whether moderation removed the file. When true, `url` serves a replacement image; filename, size, and content type still describe the original file.
     """
 
     size: typing.Optional[int] = pydantic.Field(default=None)
@@ -75,12 +95,22 @@ class DisputeEvidenceDocument(UniversalBaseModel):
 
     url: typing.Optional[str] = pydantic.Field(default=None)
     """
-    A URL to download the file: a permanent CDN URL for public files, a signed expiring URL for private ones. `null` until the upload has finished.
+    A URL to download the file: a permanent CDN URL for public files, a signed expiring URL for private ones. Null until the upload has finished; a replacement image URL when removed by moderation.
     """
 
     visibility: DisputeEvidenceDocumentVisibility = pydantic.Field()
     """
     `public` files are served via an unsigned CDN URL; `private` files via a signed, expiring URL.
+    """
+
+    waveform_url: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Audio waveform URL. Null when unavailable or removed by moderation.
+    """
+
+    width: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Image or video width in pixels. Null when unavailable or removed by moderation.
     """
 
     if IS_PYDANTIC_V2:

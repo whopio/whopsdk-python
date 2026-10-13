@@ -357,10 +357,27 @@ if typing.TYPE_CHECKING:
     from .cashback_payout import CashbackPayout
     from .cashback_payout_status import CashbackPayoutStatus
     from .cashback_rule import CashbackRule
+    from .channel import Channel
+    from .channel_kind import ChannelKind
+    from .channel_list_item import ChannelListItem
+    from .channel_list_item_kind import ChannelListItemKind
+    from .channel_member import ChannelMember
+    from .channel_member_inbox_status import ChannelMemberInboxStatus
+    from .channel_member_notification_preference import ChannelMemberNotificationPreference
+    from .channel_moderation import ChannelModeration
+    from .channel_moderation_who_can_post import ChannelModerationWhoCanPost
+    from .channel_moderation_who_can_react import ChannelModerationWhoCanReact
+    from .channel_support_state import ChannelSupportState
+    from .channel_support_state_last_message_by import ChannelSupportStateLastMessageBy
+    from .channel_support_state_status import ChannelSupportStateStatus
     from .chat_channel import ChatChannel
     from .chat_channel_experience import ChatChannelExperience
     from .chat_channel_list_item import ChatChannelListItem
     from .chat_channel_list_item_experience import ChatChannelListItemExperience
+    from .chat_message import ChatMessage
+    from .chat_message_message_type import ChatMessageMessageType
+    from .chat_message_poll import ChatMessagePoll
+    from .chat_message_poll_option import ChatMessagePollOption
     from .checkout_configuration import CheckoutConfiguration
     from .checkout_configuration_currency import CheckoutConfigurationCurrency
     from .checkout_configuration_list_item import CheckoutConfigurationListItem
@@ -543,6 +560,10 @@ if typing.TYPE_CHECKING:
     from .economic_intelligence_operation import EconomicIntelligenceOperation
     from .economic_intelligence_sentiment import EconomicIntelligenceSentiment
     from .economic_intelligence_status import EconomicIntelligenceStatus
+    from .embed import Embed
+    from .embed_field import EmbedField
+    from .embed_footer import EmbedFooter
+    from .embed_image import EmbedImage
     from .embed_types import EmbedTypes
     from .entry import Entry
     from .entry_custom_field_responses_item import EntryCustomFieldResponsesItem
@@ -636,6 +657,7 @@ if typing.TYPE_CHECKING:
     from .funnel_step import FunnelStep
     from .funnel_step_result import FunnelStepResult
     from .future_usage_types import FutureUsageTypes
+    from .gif import Gif
     from .global_affiliate_statuses import GlobalAffiliateStatuses
     from .grantable_authorized_user_roles import GrantableAuthorizedUserRoles
     from .identity_profile import IdentityProfile
@@ -793,6 +815,9 @@ if typing.TYPE_CHECKING:
     from .memberships_sortable_columns import MembershipsSortableColumns
     from .message import Message
     from .message_channel_order import MessageChannelOrder
+    from .message_custom_author import MessageCustomAuthor
+    from .message_link_footer import MessageLinkFooter
+    from .message_link_preview import MessageLinkPreview
     from .message_list_item import MessageListItem
     from .message_list_item_poll import MessageListItemPoll
     from .message_list_item_poll_options_item import MessageListItemPollOptionsItem
@@ -802,6 +827,8 @@ if typing.TYPE_CHECKING:
     from .message_poll import MessagePoll
     from .message_poll_options_item import MessagePollOptionsItem
     from .message_poll_votes_item import MessagePollVotesItem
+    from .message_reaction_count import MessageReactionCount
+    from .message_reaction_count_kind import MessageReactionCountKind
     from .message_reaction_counts_item import MessageReactionCountsItem
     from .message_user import MessageUser
     from .money import Money
@@ -1881,10 +1908,27 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CashbackPayout": ".cashback_payout",
     "CashbackPayoutStatus": ".cashback_payout_status",
     "CashbackRule": ".cashback_rule",
+    "Channel": ".channel",
+    "ChannelKind": ".channel_kind",
+    "ChannelListItem": ".channel_list_item",
+    "ChannelListItemKind": ".channel_list_item_kind",
+    "ChannelMember": ".channel_member",
+    "ChannelMemberInboxStatus": ".channel_member_inbox_status",
+    "ChannelMemberNotificationPreference": ".channel_member_notification_preference",
+    "ChannelModeration": ".channel_moderation",
+    "ChannelModerationWhoCanPost": ".channel_moderation_who_can_post",
+    "ChannelModerationWhoCanReact": ".channel_moderation_who_can_react",
+    "ChannelSupportState": ".channel_support_state",
+    "ChannelSupportStateLastMessageBy": ".channel_support_state_last_message_by",
+    "ChannelSupportStateStatus": ".channel_support_state_status",
     "ChatChannel": ".chat_channel",
     "ChatChannelExperience": ".chat_channel_experience",
     "ChatChannelListItem": ".chat_channel_list_item",
     "ChatChannelListItemExperience": ".chat_channel_list_item_experience",
+    "ChatMessage": ".chat_message",
+    "ChatMessageMessageType": ".chat_message_message_type",
+    "ChatMessagePoll": ".chat_message_poll",
+    "ChatMessagePollOption": ".chat_message_poll_option",
     "CheckoutConfiguration": ".checkout_configuration",
     "CheckoutConfigurationCurrency": ".checkout_configuration_currency",
     "CheckoutConfigurationListItem": ".checkout_configuration_list_item",
@@ -2055,6 +2099,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EconomicIntelligenceOperation": ".economic_intelligence_operation",
     "EconomicIntelligenceSentiment": ".economic_intelligence_sentiment",
     "EconomicIntelligenceStatus": ".economic_intelligence_status",
+    "Embed": ".embed",
+    "EmbedField": ".embed_field",
+    "EmbedFooter": ".embed_footer",
+    "EmbedImage": ".embed_image",
     "EmbedTypes": ".embed_types",
     "Entry": ".entry",
     "EntryCustomFieldResponsesItem": ".entry_custom_field_responses_item",
@@ -2146,6 +2194,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "FunnelStep": ".funnel_step",
     "FunnelStepResult": ".funnel_step_result",
     "FutureUsageTypes": ".future_usage_types",
+    "Gif": ".gif",
     "GlobalAffiliateStatuses": ".global_affiliate_statuses",
     "GrantableAuthorizedUserRoles": ".grantable_authorized_user_roles",
     "IdentityProfile": ".identity_profile",
@@ -2299,6 +2348,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MembershipsSortableColumns": ".memberships_sortable_columns",
     "Message": ".message",
     "MessageChannelOrder": ".message_channel_order",
+    "MessageCustomAuthor": ".message_custom_author",
+    "MessageLinkFooter": ".message_link_footer",
+    "MessageLinkPreview": ".message_link_preview",
     "MessageListItem": ".message_list_item",
     "MessageListItemPoll": ".message_list_item_poll",
     "MessageListItemPollOptionsItem": ".message_list_item_poll_options_item",
@@ -2308,6 +2360,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MessagePoll": ".message_poll",
     "MessagePollOptionsItem": ".message_poll_options_item",
     "MessagePollVotesItem": ".message_poll_votes_item",
+    "MessageReactionCount": ".message_reaction_count",
+    "MessageReactionCountKind": ".message_reaction_count_kind",
     "MessageReactionCountsItem": ".message_reaction_counts_item",
     "MessageUser": ".message_user",
     "Money": ".money",
@@ -3291,10 +3345,27 @@ __all__ = [
     "CashbackPayout",
     "CashbackPayoutStatus",
     "CashbackRule",
+    "Channel",
+    "ChannelKind",
+    "ChannelListItem",
+    "ChannelListItemKind",
+    "ChannelMember",
+    "ChannelMemberInboxStatus",
+    "ChannelMemberNotificationPreference",
+    "ChannelModeration",
+    "ChannelModerationWhoCanPost",
+    "ChannelModerationWhoCanReact",
+    "ChannelSupportState",
+    "ChannelSupportStateLastMessageBy",
+    "ChannelSupportStateStatus",
     "ChatChannel",
     "ChatChannelExperience",
     "ChatChannelListItem",
     "ChatChannelListItemExperience",
+    "ChatMessage",
+    "ChatMessageMessageType",
+    "ChatMessagePoll",
+    "ChatMessagePollOption",
     "CheckoutConfiguration",
     "CheckoutConfigurationCurrency",
     "CheckoutConfigurationListItem",
@@ -3465,6 +3536,10 @@ __all__ = [
     "EconomicIntelligenceOperation",
     "EconomicIntelligenceSentiment",
     "EconomicIntelligenceStatus",
+    "Embed",
+    "EmbedField",
+    "EmbedFooter",
+    "EmbedImage",
     "EmbedTypes",
     "Entry",
     "EntryCustomFieldResponsesItem",
@@ -3556,6 +3631,7 @@ __all__ = [
     "FunnelStep",
     "FunnelStepResult",
     "FutureUsageTypes",
+    "Gif",
     "GlobalAffiliateStatuses",
     "GrantableAuthorizedUserRoles",
     "IdentityProfile",
@@ -3709,6 +3785,9 @@ __all__ = [
     "MembershipsSortableColumns",
     "Message",
     "MessageChannelOrder",
+    "MessageCustomAuthor",
+    "MessageLinkFooter",
+    "MessageLinkPreview",
     "MessageListItem",
     "MessageListItemPoll",
     "MessageListItemPollOptionsItem",
@@ -3718,6 +3797,8 @@ __all__ = [
     "MessagePoll",
     "MessagePollOptionsItem",
     "MessagePollVotesItem",
+    "MessageReactionCount",
+    "MessageReactionCountKind",
     "MessageReactionCountsItem",
     "MessageUser",
     "Money",
