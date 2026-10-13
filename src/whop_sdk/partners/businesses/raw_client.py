@@ -12,9 +12,15 @@ from ...core.parse_error import ParsingError
 from ...core.pydantic_utilities import parse_obj_as
 from ...core.request_options import RequestOptions
 from ...errors.bad_request_error import BadRequestError
+from ...errors.conflict_error import ConflictError
 from ...errors.forbidden_error import ForbiddenError
 from ...errors.not_found_error import NotFoundError
 from ...errors.unauthorized_error import UnauthorizedError
+from .types.accept_commission_advance_businesses_request_acknowledgments_item import (
+    AcceptCommissionAdvanceBusinessesRequestAcknowledgmentsItem,
+)
+from .types.accept_commission_advance_businesses_response import AcceptCommissionAdvanceBusinessesResponse
+from .types.list_businesses_request_advance_status import ListBusinessesRequestAdvanceStatus
 from .types.list_businesses_request_direction import ListBusinessesRequestDirection
 from .types.list_businesses_request_order import ListBusinessesRequestOrder
 from .types.list_businesses_request_status import ListBusinessesRequestStatus
@@ -22,7 +28,11 @@ from .types.list_businesses_request_tier import ListBusinessesRequestTier
 from .types.list_businesses_response import ListBusinessesResponse
 from .types.list_businesses_response_data_item import ListBusinessesResponseDataItem
 from .types.retrieve_businesses_response import RetrieveBusinessesResponse
+from .types.update_businesses_response import UpdateBusinessesResponse
 from pydantic import ValidationError
+
+# this is used as the default value for optional parameters
+OMIT = typing.cast(typing.Any, ...)
 
 
 class RawBusinessesClient:
@@ -33,6 +43,7 @@ class RawBusinessesClient:
         self,
         *,
         referring_account_id: typing.Optional[str] = None,
+        advance_status: typing.Optional[ListBusinessesRequestAdvanceStatus] = None,
         status: typing.Optional[ListBusinessesRequestStatus] = None,
         has_earnings: typing.Optional[bool] = None,
         first: typing.Optional[int] = None,
@@ -56,6 +67,9 @@ class RawBusinessesClient:
         ----------
         referring_account_id : typing.Optional[str]
             List the referrals this business's team members made, past members included, instead of the authenticated user's own. Requires company:basic:read on that business, which every team member holds, and cannot be combined with user_id.
+
+        advance_status : typing.Optional[ListBusinessesRequestAdvanceStatus]
+            Filter the authenticated partner's CPA offers by status. Use offered for every state after qualification.
 
         status : typing.Optional[ListBusinessesRequestStatus]
             Filter by referral status.
@@ -113,6 +127,7 @@ class RawBusinessesClient:
             method="GET",
             params={
                 "referring_account_id": referring_account_id,
+                "advance_status": advance_status,
                 "status": status,
                 "has_earnings": has_earnings,
                 "first": first,
@@ -147,6 +162,7 @@ class RawBusinessesClient:
                     _has_next = _parsed_next is not None and _parsed_next != ""
                     _get_next = lambda: self.list(
                         referring_account_id=referring_account_id,
+                        advance_status=advance_status,
                         status=status,
                         has_earnings=has_earnings,
                         first=first,
@@ -261,6 +277,152 @@ class RawBusinessesClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def update(
+        self,
+        id: str,
+        *,
+        annual_ads_usd: str,
+        annual_processing_usd: str,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[UpdateBusinessesResponse]:
+        """
+        Save annual projections for a business referred by the authenticated partner. Projections cannot be changed after saving; repeating the same values is allowed. Public API access requires a partner OAuth token; business API keys are not supported.
+
+        Parameters
+        ----------
+        id : str
+            The partner business ID (a coma_ identifier).
+
+        annual_ads_usd : str
+            Annual projected Whop Ads spend in USD.
+
+        annual_processing_usd : str
+            Annual projected processing on Whop in USD.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[UpdateBusinessesResponse]
+            CPA projections saved
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"partners/businesses/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
+            method="PATCH",
+            json={
+                "annual_ads_usd": annual_ads_usd,
+                "annual_processing_usd": annual_processing_usd,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    UpdateBusinessesResponse,
+                    parse_obj_as(
+                        type_=UpdateBusinessesResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def accept_commission_advance(
+        self,
+        id: str,
+        *,
+        acknowledgments: typing.Sequence[AcceptCommissionAdvanceBusinessesRequestAcknowledgmentsItem],
+        expected_amount_usd: str,
+        offer_token: str,
+        terms_version: str,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[AcceptCommissionAdvanceBusinessesResponse]:
+        """
+        Accept the authenticated partner's CPA offer with the reviewed terms and signed offer token. Public API access requires a partner OAuth token; business API keys are not supported.
+
+        Parameters
+        ----------
+        id : str
+            The referred business relationship ID.
+
+        acknowledgments : typing.Sequence[AcceptCommissionAdvanceBusinessesRequestAcknowledgmentsItem]
+
+        expected_amount_usd : str
+            Reviewed payment amount in USD.
+
+        offer_token : str
+            Signed offer token returned by the partner business response. Requires partner:commission_advance:accept permission to retrieve.
+
+        terms_version : str
+            Reviewed CPA terms version.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[AcceptCommissionAdvanceBusinessesResponse]
+            CPA offer accepted
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"partners/businesses/{encode_path_param(id)}/accept_commission_advance",
+            base_url=self._client_wrapper.get_environment().api,
+            method="POST",
+            json={
+                "acknowledgments": acknowledgments,
+                "expected_amount_usd": expected_amount_usd,
+                "offer_token": offer_token,
+                "terms_version": terms_version,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    AcceptCommissionAdvanceBusinessesResponse,
+                    parse_obj_as(
+                        type_=AcceptCommissionAdvanceBusinessesResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
 
 class AsyncRawBusinessesClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -270,6 +432,7 @@ class AsyncRawBusinessesClient:
         self,
         *,
         referring_account_id: typing.Optional[str] = None,
+        advance_status: typing.Optional[ListBusinessesRequestAdvanceStatus] = None,
         status: typing.Optional[ListBusinessesRequestStatus] = None,
         has_earnings: typing.Optional[bool] = None,
         first: typing.Optional[int] = None,
@@ -293,6 +456,9 @@ class AsyncRawBusinessesClient:
         ----------
         referring_account_id : typing.Optional[str]
             List the referrals this business's team members made, past members included, instead of the authenticated user's own. Requires company:basic:read on that business, which every team member holds, and cannot be combined with user_id.
+
+        advance_status : typing.Optional[ListBusinessesRequestAdvanceStatus]
+            Filter the authenticated partner's CPA offers by status. Use offered for every state after qualification.
 
         status : typing.Optional[ListBusinessesRequestStatus]
             Filter by referral status.
@@ -350,6 +516,7 @@ class AsyncRawBusinessesClient:
             method="GET",
             params={
                 "referring_account_id": referring_account_id,
+                "advance_status": advance_status,
                 "status": status,
                 "has_earnings": has_earnings,
                 "first": first,
@@ -386,6 +553,7 @@ class AsyncRawBusinessesClient:
                     async def _get_next():
                         return await self.list(
                             referring_account_id=referring_account_id,
+                            advance_status=advance_status,
                             status=status,
                             has_earnings=has_earnings,
                             first=first,
@@ -483,6 +651,152 @@ class AsyncRawBusinessesClient:
                 return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 404:
                 raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def update(
+        self,
+        id: str,
+        *,
+        annual_ads_usd: str,
+        annual_processing_usd: str,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[UpdateBusinessesResponse]:
+        """
+        Save annual projections for a business referred by the authenticated partner. Projections cannot be changed after saving; repeating the same values is allowed. Public API access requires a partner OAuth token; business API keys are not supported.
+
+        Parameters
+        ----------
+        id : str
+            The partner business ID (a coma_ identifier).
+
+        annual_ads_usd : str
+            Annual projected Whop Ads spend in USD.
+
+        annual_processing_usd : str
+            Annual projected processing on Whop in USD.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[UpdateBusinessesResponse]
+            CPA projections saved
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"partners/businesses/{encode_path_param(id)}",
+            base_url=self._client_wrapper.get_environment().api,
+            method="PATCH",
+            json={
+                "annual_ads_usd": annual_ads_usd,
+                "annual_processing_usd": annual_processing_usd,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    UpdateBusinessesResponse,
+                    parse_obj_as(
+                        type_=UpdateBusinessesResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def accept_commission_advance(
+        self,
+        id: str,
+        *,
+        acknowledgments: typing.Sequence[AcceptCommissionAdvanceBusinessesRequestAcknowledgmentsItem],
+        expected_amount_usd: str,
+        offer_token: str,
+        terms_version: str,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[AcceptCommissionAdvanceBusinessesResponse]:
+        """
+        Accept the authenticated partner's CPA offer with the reviewed terms and signed offer token. Public API access requires a partner OAuth token; business API keys are not supported.
+
+        Parameters
+        ----------
+        id : str
+            The referred business relationship ID.
+
+        acknowledgments : typing.Sequence[AcceptCommissionAdvanceBusinessesRequestAcknowledgmentsItem]
+
+        expected_amount_usd : str
+            Reviewed payment amount in USD.
+
+        offer_token : str
+            Signed offer token returned by the partner business response. Requires partner:commission_advance:accept permission to retrieve.
+
+        terms_version : str
+            Reviewed CPA terms version.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[AcceptCommissionAdvanceBusinessesResponse]
+            CPA offer accepted
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"partners/businesses/{encode_path_param(id)}/accept_commission_advance",
+            base_url=self._client_wrapper.get_environment().api,
+            method="POST",
+            json={
+                "acknowledgments": acknowledgments,
+                "expected_amount_usd": expected_amount_usd,
+                "offer_token": offer_token,
+                "terms_version": terms_version,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    AcceptCommissionAdvanceBusinessesResponse,
+                    parse_obj_as(
+                        type_=AcceptCommissionAdvanceBusinessesResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 409:
+                raise ConflictError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,

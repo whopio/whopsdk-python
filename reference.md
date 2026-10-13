@@ -50089,6 +50089,14 @@ client.partners.businesses.list()
 <dl>
 <dd>
 
+**advance_status:** `typing.Optional[ListBusinessesRequestAdvanceStatus]` — Filter the authenticated partner's CPA offers by status. Use offered for every state after qualification.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **status:** `typing.Optional[ListBusinessesRequestStatus]` — Filter by referral status.
     
 </dd>
@@ -50267,6 +50275,210 @@ client.partners.businesses.retrieve(
 <dd>
 
 **id:** `str` — The partner business ID (a coma_ identifier).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.partners.businesses.<a href="src/whop_sdk/partners/businesses/client.py">update</a>(...) -> UpdateBusinessesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Save annual projections for a business referred by the authenticated partner. Projections cannot be changed after saving; repeating the same values is allowed. Public API access requires a partner OAuth token; business API keys are not supported.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.partners.businesses.update(
+    id="id",
+    annual_ads_usd="120000",
+    annual_processing_usd="1200000",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The partner business ID (a coma_ identifier).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**annual_ads_usd:** `str` — Annual projected Whop Ads spend in USD.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**annual_processing_usd:** `str` — Annual projected processing on Whop in USD.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.partners.businesses.<a href="src/whop_sdk/partners/businesses/client.py">accept_commission_advance</a>(...) -> AcceptCommissionAdvanceBusinessesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Accept the authenticated partner's CPA offer with the reviewed terms and signed offer token. Public API access requires a partner OAuth token; business API keys are not supported.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.partners.businesses.accept_commission_advance(
+    id="id",
+    acknowledgments=[
+        "commission_replacement",
+        "clawback",
+        "term"
+    ],
+    expected_amount_usd="1439.99",
+    offer_token="eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    terms_version="2026-01-01",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The referred business relationship ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**acknowledgments:** `typing.List[AcceptCommissionAdvanceBusinessesRequestAcknowledgmentsItem]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expected_amount_usd:** `str` — Reviewed payment amount in USD.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**offer_token:** `str` — Signed offer token returned by the partner business response. Requires partner:commission_advance:accept permission to retrieve.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**terms_version:** `str` — Reviewed CPA terms version.
     
 </dd>
 </dl>

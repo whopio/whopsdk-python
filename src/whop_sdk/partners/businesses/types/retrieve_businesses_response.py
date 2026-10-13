@@ -5,6 +5,7 @@ import typing
 
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ....types.partner_advance import PartnerAdvance
 from .retrieve_businesses_response_account import RetrieveBusinessesResponseAccount
 from .retrieve_businesses_response_blueprint_partner import RetrieveBusinessesResponseBlueprintPartner
 from .retrieve_businesses_response_earnings_usd import RetrieveBusinessesResponseEarningsUsd
@@ -27,6 +28,11 @@ class RetrieveBusinessesResponse(UniversalBaseModel):
     blueprint_partner: typing.Optional[RetrieveBusinessesResponseBlueprintPartner] = pydantic.Field(default=None)
     """
     The partner whose blueprint the business deployed. Null unless this is a blueprint referral.
+    """
+
+    commission_advance: typing.Optional[PartnerAdvance] = pydantic.Field(default=None)
+    """
+    CPA terms for the referring partner. Omitted for other callers. An offer token requires partner:commission_advance:accept permission.
     """
 
     created_at: dt.datetime = pydantic.Field()

@@ -12,6 +12,7 @@ ListEarningsRequestIncomeSourceItem = typing.Union[
         "onboarding_reward",
         "partner_reward",
         "verified_partner_referral_payback",
+        "commission_advance",
     ],
     typing.Any,
 ]
