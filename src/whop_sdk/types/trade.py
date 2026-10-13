@@ -23,7 +23,7 @@ class Trade(UniversalBaseModel):
 
     amount: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The USDT0 that a deposit, or an order short of trading balance, sends from the wallet, or the USDC that a withdraw sends back, in native units, as a decimal string. `null` otherwise, and for a withdraw of `all`.
+    The USDT0 that a deposit, or an order short of trading balance, sends from the wallet, or the USDC that a withdraw sends back, in native units, as a decimal string. A withdraw of `all` shows what it sent once it finishes. `null` otherwise.
     """
 
     average_price: typing.Optional[str] = pydantic.Field(default=None)
