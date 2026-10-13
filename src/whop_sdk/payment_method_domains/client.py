@@ -181,7 +181,7 @@ class PaymentMethodDomainsClient:
         Parameters
         ----------
         id : str
-            The unique identifier of the payment method domain, prefixed `pmd_`.
+            The unique identifier of the payment method domain, prefixed `pmd_` or `dom_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -216,7 +216,7 @@ class PaymentMethodDomainsClient:
         Parameters
         ----------
         id : str
-            The unique identifier of the payment method domain, prefixed `pmd_`.
+            The unique identifier of the payment method domain, prefixed `pmd_` or `dom_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -249,7 +249,7 @@ class PaymentMethodDomainsClient:
         Parameters
         ----------
         id : str
-            The unique identifier of the payment method domain, prefixed `pmd_`.
+            The unique identifier of the payment method domain, prefixed `pmd_` or `dom_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -459,7 +459,7 @@ class AsyncPaymentMethodDomainsClient:
         Parameters
         ----------
         id : str
-            The unique identifier of the payment method domain, prefixed `pmd_`.
+            The unique identifier of the payment method domain, prefixed `pmd_` or `dom_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -502,7 +502,7 @@ class AsyncPaymentMethodDomainsClient:
         Parameters
         ----------
         id : str
-            The unique identifier of the payment method domain, prefixed `pmd_`.
+            The unique identifier of the payment method domain, prefixed `pmd_` or `dom_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -543,7 +543,7 @@ class AsyncPaymentMethodDomainsClient:
         Parameters
         ----------
         id : str
-            The unique identifier of the payment method domain, prefixed `pmd_`.
+            The unique identifier of the payment method domain, prefixed `pmd_` or `dom_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
