@@ -136,11 +136,6 @@ class Account(UniversalBaseModel):
     Account ID, prefixed `biz_`.
     """
 
-    industry_group: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    Account industry group. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
-    """
-
     industry_type: typing.Optional[str] = pydantic.Field(default=None)
     """
     Specific industry vertical for the account. See the [business types and industries glossary](/api-reference/beta/accounts/account#business-types-and-industries-glossary) for valid values.
