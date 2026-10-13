@@ -9,11 +9,11 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
 from ..types.payment import Payment
-from ..types.payment_input_line_items_item import PaymentInputLineItemsItem
 from ..types.payment_input_plan import PaymentInputPlan
 from ..types.payment_pdf import PaymentPdf
 from ..types.payment_status import PaymentStatus
 from .raw_client import AsyncRawPaymentsClient, RawPaymentsClient
+from .types.create_payments_request_line_items_item import CreatePaymentsRequestLineItemsItem
 from .types.create_payments_request_payment_method import CreatePaymentsRequestPaymentMethod
 from .types.create_payments_request_shipping_address import CreatePaymentsRequestShippingAddress
 from .types.list_fees_payments_response import ListFeesPaymentsResponse
@@ -147,7 +147,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -191,6 +191,7 @@ class PaymentsClient:
         confirmation_token: typing.Optional[str] = OMIT,
         email: typing.Optional[str] = OMIT,
         ip_address: typing.Optional[str] = OMIT,
+        line_items: typing.Optional[typing.Sequence[CreatePaymentsRequestLineItemsItem]] = OMIT,
         member_id: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         off_session: typing.Optional[bool] = OMIT,
@@ -200,7 +201,6 @@ class PaymentsClient:
         return_url: typing.Optional[str] = OMIT,
         shipping_address: typing.Optional[CreatePaymentsRequestShippingAddress] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
-        line_items: typing.Optional[typing.Sequence[PaymentInputLineItemsItem]] = OMIT,
         plan: typing.Optional[PaymentInputPlan] = OMIT,
         plan_id: typing.Optional[str] = OMIT,
         promo_code: typing.Optional[str] = OMIT,
@@ -233,6 +233,9 @@ class PaymentsClient:
         ip_address : typing.Optional[str]
             The buyer's IPv4 or IPv6 address, used to assess the charge's risk and passed to the processor. Ignored unless a saved payment method is charged with `off_session` set to false.
 
+        line_items : typing.Optional[typing.Sequence[CreatePaymentsRequestLineItemsItem]]
+            What the buyer is purchasing. Each entry takes exactly one of `plan_id` or an inline `plan`. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency. Mutually exclusive with `plan_id` and `plan`.
+
         member_id : typing.Optional[str]
             The member to charge, prefixed `mber_`. Required with `payment_method_id` unless `confirmation_token` is provided.
 
@@ -260,9 +263,6 @@ class PaymentsClient:
         statement_descriptor : typing.Optional[str]
             Overrides the text on the buyer's card statement for this payment only. Takes precedence over the product's and account's custom descriptors, and changes neither. Must start with `WHOP*` unless the business processes as the merchant of record. For businesses processing as the merchant of record, omit the `WHOP*` prefix; the descriptor appears as provided. Must be 5-22 characters, contain at least one letter, and use only Latin letters, numbers, spaces, underscores, hyphens, or asterisks.
 
-        line_items : typing.Optional[typing.Sequence[PaymentInputLineItemsItem]]
-            What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency. Mutually exclusive with `plan_id` and `plan`.
-
         plan : typing.Optional[PaymentInputPlan]
             The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
 
@@ -288,7 +288,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -304,6 +304,7 @@ class PaymentsClient:
             confirmation_token=confirmation_token,
             email=email,
             ip_address=ip_address,
+            line_items=line_items,
             member_id=member_id,
             metadata=metadata,
             off_session=off_session,
@@ -313,7 +314,6 @@ class PaymentsClient:
             return_url=return_url,
             shipping_address=shipping_address,
             statement_descriptor=statement_descriptor,
-            line_items=line_items,
             plan=plan,
             plan_id=plan_id,
             promo_code=promo_code,
@@ -344,7 +344,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -390,7 +390,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -425,7 +425,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -460,7 +460,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -493,7 +493,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -535,7 +535,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -568,7 +568,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -601,7 +601,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -634,7 +634,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -672,7 +672,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -710,7 +710,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -848,7 +848,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -899,6 +899,7 @@ class AsyncPaymentsClient:
         confirmation_token: typing.Optional[str] = OMIT,
         email: typing.Optional[str] = OMIT,
         ip_address: typing.Optional[str] = OMIT,
+        line_items: typing.Optional[typing.Sequence[CreatePaymentsRequestLineItemsItem]] = OMIT,
         member_id: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         off_session: typing.Optional[bool] = OMIT,
@@ -908,7 +909,6 @@ class AsyncPaymentsClient:
         return_url: typing.Optional[str] = OMIT,
         shipping_address: typing.Optional[CreatePaymentsRequestShippingAddress] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
-        line_items: typing.Optional[typing.Sequence[PaymentInputLineItemsItem]] = OMIT,
         plan: typing.Optional[PaymentInputPlan] = OMIT,
         plan_id: typing.Optional[str] = OMIT,
         promo_code: typing.Optional[str] = OMIT,
@@ -941,6 +941,9 @@ class AsyncPaymentsClient:
         ip_address : typing.Optional[str]
             The buyer's IPv4 or IPv6 address, used to assess the charge's risk and passed to the processor. Ignored unless a saved payment method is charged with `off_session` set to false.
 
+        line_items : typing.Optional[typing.Sequence[CreatePaymentsRequestLineItemsItem]]
+            What the buyer is purchasing. Each entry takes exactly one of `plan_id` or an inline `plan`. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency. Mutually exclusive with `plan_id` and `plan`.
+
         member_id : typing.Optional[str]
             The member to charge, prefixed `mber_`. Required with `payment_method_id` unless `confirmation_token` is provided.
 
@@ -967,9 +970,6 @@ class AsyncPaymentsClient:
 
         statement_descriptor : typing.Optional[str]
             Overrides the text on the buyer's card statement for this payment only. Takes precedence over the product's and account's custom descriptors, and changes neither. Must start with `WHOP*` unless the business processes as the merchant of record. For businesses processing as the merchant of record, omit the `WHOP*` prefix; the descriptor appears as provided. Must be 5-22 characters, contain at least one letter, and use only Latin letters, numbers, spaces, underscores, hyphens, or asterisks.
-
-        line_items : typing.Optional[typing.Sequence[PaymentInputLineItemsItem]]
-            What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency. Mutually exclusive with `plan_id` and `plan`.
 
         plan : typing.Optional[PaymentInputPlan]
             The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
@@ -998,7 +998,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1020,6 +1020,7 @@ class AsyncPaymentsClient:
             confirmation_token=confirmation_token,
             email=email,
             ip_address=ip_address,
+            line_items=line_items,
             member_id=member_id,
             metadata=metadata,
             off_session=off_session,
@@ -1029,7 +1030,6 @@ class AsyncPaymentsClient:
             return_url=return_url,
             shipping_address=shipping_address,
             statement_descriptor=statement_descriptor,
-            line_items=line_items,
             plan=plan,
             plan_id=plan_id,
             promo_code=promo_code,
@@ -1062,7 +1062,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1116,7 +1116,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1159,7 +1159,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1202,7 +1202,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1243,7 +1243,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1293,7 +1293,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1334,7 +1334,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1375,7 +1375,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1418,7 +1418,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1464,7 +1464,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1510,7 +1510,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

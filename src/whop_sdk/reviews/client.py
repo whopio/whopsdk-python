@@ -9,6 +9,9 @@ from ..core.request_options import RequestOptions
 from ..types.review import Review
 from ..types.review_list_item import ReviewListItem
 from .raw_client import AsyncRawReviewsClient, RawReviewsClient
+from .types.delete_reviews_response import DeleteReviewsResponse
+from .types.list_reviews_request_direction import ListReviewsRequestDirection
+from .types.list_reviews_request_order import ListReviewsRequestOrder
 from .types.list_reviews_response import ListReviewsResponse
 
 
@@ -30,36 +33,30 @@ class ReviewsClient:
     def list(
         self,
         *,
-        product_id: str,
-        after: typing.Optional[str] = None,
-        before: typing.Optional[str] = None,
-        first: typing.Optional[int] = None,
-        last: typing.Optional[int] = None,
+        account_id: typing.Optional[str] = None,
+        product_id: typing.Optional[str] = None,
         min_stars: typing.Optional[int] = None,
         max_stars: typing.Optional[int] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
+        order: typing.Optional[ListReviewsRequestOrder] = None,
+        direction: typing.Optional[ListReviewsRequestDirection] = None,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        last: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[ReviewListItem, ListReviewsResponse]:
         """
-        Lists the customer reviews for a product.
+        Lists the published reviews for a product or account. Without `account_id` or `product_id`, a user lists the reviews they wrote, an account or app API key lists its account's reviews, and a request without credentials returns 400.
 
         Parameters
         ----------
-        product_id : str
+        account_id : typing.Optional[str]
+            The unique identifier of the account to list reviews for.
+
+        product_id : typing.Optional[str]
             The unique identifier of the product to list reviews for.
-
-        after : typing.Optional[str]
-            Returns the elements in the list that come after the specified cursor.
-
-        before : typing.Optional[str]
-            Returns the elements in the list that come before the specified cursor.
-
-        first : typing.Optional[int]
-            Returns the first _n_ elements from the list.
-
-        last : typing.Optional[int]
-            Returns the last _n_ elements from the list.
 
         min_stars : typing.Optional[int]
             The minimum star rating to include in results, from 1 to 5 inclusive.
@@ -73,37 +70,44 @@ class ReviewsClient:
         created_after : typing.Optional[dt.datetime]
             Only return reviews created after this timestamp.
 
+        order : typing.Optional[ListReviewsRequestOrder]
+            The field to sort reviews by.
+
+        direction : typing.Optional[ListReviewsRequestDirection]
+            The sort direction.
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        last : typing.Optional[int]
+            Number of results to return from the end of the range.
+
+        before : typing.Optional[str]
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
         SyncPager[ReviewListItem, ListReviewsResponse]
-            A successful response
+            Reviews for the product
 
         Examples
         --------
-        import datetime
-
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         response = client.reviews.list(
-            first=42,
-            last=42,
+            account_id="biz_xxxxxxxxxxxxxx",
             product_id="prod_xxxxxxxxxxxxx",
-            min_stars=42,
-            max_stars=42,
-            created_before=datetime.datetime.fromisoformat(
-                "2023-12-01 05:00:00+00:00",
-            ),
-            created_after=datetime.datetime.fromisoformat(
-                "2023-12-01 05:00:00+00:00",
-            ),
         )
         for item in response:
             yield item
@@ -112,26 +116,29 @@ class ReviewsClient:
             yield page
         """
         return self._raw_client.list(
+            account_id=account_id,
             product_id=product_id,
-            after=after,
-            before=before,
-            first=first,
-            last=last,
             min_stars=min_stars,
             max_stars=max_stars,
             created_before=created_before,
             created_after=created_after,
+            order=order,
+            direction=direction,
+            first=first,
+            after=after,
+            last=last,
+            before=before,
             request_options=request_options,
         )
 
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Review:
         """
-        Retrieves the details of an existing review.
+        Retrieves a published review. Reviews that are not published return 404.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the review to retrieve.
+            The unique identifier of the review.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -139,14 +146,14 @@ class ReviewsClient:
         Returns
         -------
         Review
-            A successful response
+            Review details
 
         Examples
         --------
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -155,6 +162,39 @@ class ReviewsClient:
         )
         """
         _response = self._raw_client.retrieve(id, request_options=request_options)
+        return _response.data
+
+    def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> DeleteReviewsResponse:
+        """
+        Deletes a review the signed-in user wrote. Requires the `review:delete` scope, and returns 404 for a review another user wrote.
+
+        Parameters
+        ----------
+        id : str
+            The unique identifier of the review.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        DeleteReviewsResponse
+            Review deleted
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-10-13-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.reviews.delete(
+            id="rev_xxxxxxxxxxxxxx",
+        )
+        """
+        _response = self._raw_client.delete(id, request_options=request_options)
         return _response.data
 
 
@@ -176,36 +216,30 @@ class AsyncReviewsClient:
     async def list(
         self,
         *,
-        product_id: str,
-        after: typing.Optional[str] = None,
-        before: typing.Optional[str] = None,
-        first: typing.Optional[int] = None,
-        last: typing.Optional[int] = None,
+        account_id: typing.Optional[str] = None,
+        product_id: typing.Optional[str] = None,
         min_stars: typing.Optional[int] = None,
         max_stars: typing.Optional[int] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
+        order: typing.Optional[ListReviewsRequestOrder] = None,
+        direction: typing.Optional[ListReviewsRequestDirection] = None,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        last: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[ReviewListItem, ListReviewsResponse]:
         """
-        Lists the customer reviews for a product.
+        Lists the published reviews for a product or account. Without `account_id` or `product_id`, a user lists the reviews they wrote, an account or app API key lists its account's reviews, and a request without credentials returns 400.
 
         Parameters
         ----------
-        product_id : str
+        account_id : typing.Optional[str]
+            The unique identifier of the account to list reviews for.
+
+        product_id : typing.Optional[str]
             The unique identifier of the product to list reviews for.
-
-        after : typing.Optional[str]
-            Returns the elements in the list that come after the specified cursor.
-
-        before : typing.Optional[str]
-            Returns the elements in the list that come before the specified cursor.
-
-        first : typing.Optional[int]
-            Returns the first _n_ elements from the list.
-
-        last : typing.Optional[int]
-            Returns the last _n_ elements from the list.
 
         min_stars : typing.Optional[int]
             The minimum star rating to include in results, from 1 to 5 inclusive.
@@ -219,23 +253,40 @@ class AsyncReviewsClient:
         created_after : typing.Optional[dt.datetime]
             Only return reviews created after this timestamp.
 
+        order : typing.Optional[ListReviewsRequestOrder]
+            The field to sort reviews by.
+
+        direction : typing.Optional[ListReviewsRequestDirection]
+            The sort direction.
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        last : typing.Optional[int]
+            Number of results to return from the end of the range.
+
+        before : typing.Optional[str]
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
         AsyncPager[ReviewListItem, ListReviewsResponse]
-            A successful response
+            Reviews for the product
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -243,17 +294,8 @@ class AsyncReviewsClient:
 
         async def main() -> None:
             response = await client.reviews.list(
-                first=42,
-                last=42,
+                account_id="biz_xxxxxxxxxxxxxx",
                 product_id="prod_xxxxxxxxxxxxx",
-                min_stars=42,
-                max_stars=42,
-                created_before=datetime.datetime.fromisoformat(
-                    "2023-12-01 05:00:00+00:00",
-                ),
-                created_after=datetime.datetime.fromisoformat(
-                    "2023-12-01 05:00:00+00:00",
-                ),
             )
             async for item in response:
                 yield item
@@ -266,26 +308,29 @@ class AsyncReviewsClient:
         asyncio.run(main())
         """
         return await self._raw_client.list(
+            account_id=account_id,
             product_id=product_id,
-            after=after,
-            before=before,
-            first=first,
-            last=last,
             min_stars=min_stars,
             max_stars=max_stars,
             created_before=created_before,
             created_after=created_after,
+            order=order,
+            direction=direction,
+            first=first,
+            after=after,
+            last=last,
+            before=before,
             request_options=request_options,
         )
 
     async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Review:
         """
-        Retrieves the details of an existing review.
+        Retrieves a published review. Reviews that are not published return 404.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the review to retrieve.
+            The unique identifier of the review.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -293,7 +338,7 @@ class AsyncReviewsClient:
         Returns
         -------
         Review
-            A successful response
+            Review details
 
         Examples
         --------
@@ -302,7 +347,7 @@ class AsyncReviewsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-13",
+            "2026-10-13-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -317,4 +362,47 @@ class AsyncReviewsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.retrieve(id, request_options=request_options)
+        return _response.data
+
+    async def delete(
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> DeleteReviewsResponse:
+        """
+        Deletes a review the signed-in user wrote. Requires the `review:delete` scope, and returns 404 for a review another user wrote.
+
+        Parameters
+        ----------
+        id : str
+            The unique identifier of the review.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        DeleteReviewsResponse
+            Review deleted
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-10-13-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.reviews.delete(
+                id="rev_xxxxxxxxxxxxxx",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.delete(id, request_options=request_options)
         return _response.data

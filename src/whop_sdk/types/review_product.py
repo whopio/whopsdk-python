@@ -7,10 +7,6 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class ReviewProduct(UniversalBaseModel):
-    """
-    The product that this review was written for.
-    """
-
     id: str = pydantic.Field()
     """
     The unique identifier for the product.

@@ -7,10 +7,6 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class ReviewUser(UniversalBaseModel):
-    """
-    The user account of the person who wrote this review.
-    """
-
     id: str = pydantic.Field()
     """
     The unique identifier for the user.

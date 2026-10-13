@@ -4,24 +4,13 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ...types.page_info import PageInfo
 from ...types.review_list_item import ReviewListItem
+from .list_reviews_response_page_info import ListReviewsResponsePageInfo
 
 
 class ListReviewsResponse(UniversalBaseModel):
-    """
-    The connection type for Review.
-    """
-
-    data: typing.List[ReviewListItem] = pydantic.Field()
-    """
-    A list of nodes.
-    """
-
-    page_info: PageInfo = pydantic.Field()
-    """
-    Information to aid in pagination.
-    """
+    data: typing.List[ReviewListItem]
+    page_info: ListReviewsResponsePageInfo
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

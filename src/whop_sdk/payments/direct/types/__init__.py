@@ -8,6 +8,7 @@ from importlib import import_module
 if typing.TYPE_CHECKING:
     from .create_direct_request_billing_details import CreateDirectRequestBillingDetails
     from .create_direct_request_billing_details_address import CreateDirectRequestBillingDetailsAddress
+    from .create_direct_request_line_items_item import CreateDirectRequestLineItemsItem
     from .create_direct_request_payment_method import CreateDirectRequestPaymentMethod
     from .create_direct_request_payment_method_card import CreateDirectRequestPaymentMethodCard
     from .create_direct_request_payment_method_card_details import CreateDirectRequestPaymentMethodCardDetails
@@ -16,6 +17,7 @@ if typing.TYPE_CHECKING:
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateDirectRequestBillingDetails": ".create_direct_request_billing_details",
     "CreateDirectRequestBillingDetailsAddress": ".create_direct_request_billing_details_address",
+    "CreateDirectRequestLineItemsItem": ".create_direct_request_line_items_item",
     "CreateDirectRequestPaymentMethod": ".create_direct_request_payment_method",
     "CreateDirectRequestPaymentMethodCard": ".create_direct_request_payment_method_card",
     "CreateDirectRequestPaymentMethodCardDetails": ".create_direct_request_payment_method_card_details",
@@ -48,6 +50,7 @@ def __dir__():
 __all__ = [
     "CreateDirectRequestBillingDetails",
     "CreateDirectRequestBillingDetailsAddress",
+    "CreateDirectRequestLineItemsItem",
     "CreateDirectRequestPaymentMethod",
     "CreateDirectRequestPaymentMethodCard",
     "CreateDirectRequestPaymentMethodCardDetails",

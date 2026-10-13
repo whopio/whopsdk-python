@@ -9,6 +9,7 @@ if typing.TYPE_CHECKING:
     from .types import (
         CreateDirectRequestBillingDetails,
         CreateDirectRequestBillingDetailsAddress,
+        CreateDirectRequestLineItemsItem,
         CreateDirectRequestPaymentMethod,
         CreateDirectRequestPaymentMethodCard,
         CreateDirectRequestPaymentMethodCardDetails,
@@ -18,6 +19,7 @@ if typing.TYPE_CHECKING:
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateDirectRequestBillingDetails": ".types",
     "CreateDirectRequestBillingDetailsAddress": ".types",
+    "CreateDirectRequestLineItemsItem": ".types",
     "CreateDirectRequestPaymentMethod": ".types",
     "CreateDirectRequestPaymentMethodCard": ".types",
     "CreateDirectRequestPaymentMethodCardDetails": ".types",
@@ -50,6 +52,7 @@ def __dir__():
 __all__ = [
     "CreateDirectRequestBillingDetails",
     "CreateDirectRequestBillingDetailsAddress",
+    "CreateDirectRequestLineItemsItem",
     "CreateDirectRequestPaymentMethod",
     "CreateDirectRequestPaymentMethodCard",
     "CreateDirectRequestPaymentMethodCardDetails",

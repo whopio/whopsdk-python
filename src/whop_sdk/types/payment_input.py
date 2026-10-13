@@ -4,23 +4,17 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .payment_input_line_items_item import PaymentInputLineItemsItem
 from .payment_input_plan import PaymentInputPlan
 
 
 class PaymentInput(UniversalBaseModel):
     """
-    The purchase: the account it belongs to, what is bought, and the promo code applied. The same shape prices a purchase and pays for it.
+    The account, variant and promo code for a purchase.
     """
 
     account_id: str = pydantic.Field()
     """
     The account the purchase belongs to, prefixed `biz_`.
-    """
-
-    line_items: typing.Optional[typing.List[PaymentInputLineItemsItem]] = pydantic.Field(default=None)
-    """
-    What the buyer is purchasing. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency. Mutually exclusive with `plan_id` and `plan`.
     """
 
     plan: typing.Optional[PaymentInputPlan] = pydantic.Field(default=None)

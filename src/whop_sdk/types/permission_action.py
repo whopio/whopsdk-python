@@ -7,6 +7,7 @@ PermissionAction = typing.Union[
         "waitlist_entry:read",
         "waitlist_entry:create",
         "waitlist_entry:cancel",
+        "review:delete",
         "experiment:manage",
         "experiment:read",
         "domain:manage",
