@@ -2,4 +2,6 @@
 
 import typing
 
-DomainIssueCapability = typing.Union[typing.Literal["verification", "registration", "platform", "website"], typing.Any]
+DomainIssueCapability = typing.Union[
+    typing.Literal["verification", "registration", "platform", "website", "apple_pay"], typing.Any
+]

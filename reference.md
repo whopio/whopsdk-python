@@ -18176,6 +18176,14 @@ client.domains.list(
 <dl>
 <dd>
 
+**apple_pay:** `typing.Optional[ListDomainsRequestApplePay]` — Only domains with apple_pay in this state, such as `ready`, or `any` for every domain that has apple_pay.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>

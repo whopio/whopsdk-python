@@ -21,6 +21,7 @@ DomainIssueCode = typing.Union[
         "registration_failed",
         "renewal_failed",
         "payment_action_required",
+        "apple_pay_unverified",
     ],
     typing.Any,
 ]

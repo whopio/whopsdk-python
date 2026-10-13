@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .domain_apple_pay import DomainApplePay
 from .domain_availability import DomainAvailability
 from .domain_issue import DomainIssue
 from .domain_list_item_status import DomainListItemStatus
@@ -18,6 +19,11 @@ class DomainListItem(UniversalBaseModel):
     account_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     ID of the account the domain belongs to, prefixed `biz_`.
+    """
+
+    apple_pay: typing.Optional[DomainApplePay] = pydantic.Field(default=None)
+    """
+    Offering Apple Pay at checkouts served from the domain, managed in checkout settings. `null` when not enrolled or not visible to you.
     """
 
     availability: typing.Optional[DomainAvailability] = pydantic.Field(default=None)

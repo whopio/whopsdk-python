@@ -9,6 +9,7 @@ if typing.TYPE_CHECKING:
     from .create_domains_request_registration import CreateDomainsRequestRegistration
     from .create_domains_request_verification import CreateDomainsRequestVerification
     from .create_domains_request_website import CreateDomainsRequestWebsite
+    from .list_domains_request_apple_pay import ListDomainsRequestApplePay
     from .list_domains_request_direction import ListDomainsRequestDirection
     from .list_domains_request_order import ListDomainsRequestOrder
     from .list_domains_request_platform import ListDomainsRequestPlatform
@@ -25,6 +26,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateDomainsRequestRegistration": ".create_domains_request_registration",
     "CreateDomainsRequestVerification": ".create_domains_request_verification",
     "CreateDomainsRequestWebsite": ".create_domains_request_website",
+    "ListDomainsRequestApplePay": ".list_domains_request_apple_pay",
     "ListDomainsRequestDirection": ".list_domains_request_direction",
     "ListDomainsRequestOrder": ".list_domains_request_order",
     "ListDomainsRequestPlatform": ".list_domains_request_platform",
@@ -65,6 +67,7 @@ __all__ = [
     "CreateDomainsRequestRegistration",
     "CreateDomainsRequestVerification",
     "CreateDomainsRequestWebsite",
+    "ListDomainsRequestApplePay",
     "ListDomainsRequestDirection",
     "ListDomainsRequestOrder",
     "ListDomainsRequestPlatform",

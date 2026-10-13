@@ -511,6 +511,8 @@ if typing.TYPE_CHECKING:
     from .dms_feed_member_statuses import DmsFeedMemberStatuses
     from .dms_post_types import DmsPostTypes
     from .domain import Domain
+    from .domain_apple_pay import DomainApplePay
+    from .domain_apple_pay_state import DomainApplePayState
     from .domain_availability import DomainAvailability
     from .domain_dns_record import DomainDnsRecord
     from .domain_dns_record_type import DomainDnsRecordType
@@ -1996,6 +1998,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DmsFeedMemberStatuses": ".dms_feed_member_statuses",
     "DmsPostTypes": ".dms_post_types",
     "Domain": ".domain",
+    "DomainApplePay": ".domain_apple_pay",
+    "DomainApplePayState": ".domain_apple_pay_state",
     "DomainAvailability": ".domain_availability",
     "DomainDnsRecord": ".domain_dns_record",
     "DomainDnsRecordType": ".domain_dns_record_type",
@@ -3383,6 +3387,8 @@ __all__ = [
     "DmsFeedMemberStatuses",
     "DmsPostTypes",
     "Domain",
+    "DomainApplePay",
+    "DomainApplePayState",
     "DomainAvailability",
     "DomainDnsRecord",
     "DomainDnsRecordType",
