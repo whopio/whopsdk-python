@@ -7,6 +7,9 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
+        CreateTradesRequestInstrumentType,
+        CreateTradesRequestOrderType,
+        CreateTradesRequestSide,
         CreateTradesRequestType,
         ListTradesRequestDirection,
         ListTradesRequestOrder,
@@ -16,6 +19,9 @@ if typing.TYPE_CHECKING:
         ListTradesResponsePageInfo,
     )
 _dynamic_imports: typing.Dict[str, str] = {
+    "CreateTradesRequestInstrumentType": ".types",
+    "CreateTradesRequestOrderType": ".types",
+    "CreateTradesRequestSide": ".types",
     "CreateTradesRequestType": ".types",
     "ListTradesRequestDirection": ".types",
     "ListTradesRequestOrder": ".types",
@@ -48,6 +54,9 @@ def __dir__():
 
 
 __all__ = [
+    "CreateTradesRequestInstrumentType",
+    "CreateTradesRequestOrderType",
+    "CreateTradesRequestSide",
     "CreateTradesRequestType",
     "ListTradesRequestDirection",
     "ListTradesRequestOrder",

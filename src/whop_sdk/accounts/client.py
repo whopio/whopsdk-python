@@ -781,7 +781,7 @@ class AccountsClient:
                 )
             ],
             industry_group="automotive",
-            industry_type="car_wash",
+            industry_type="car_wash_and_detailing_shop",
             share_structure=FormCompanyAccountsRequestShareStructure(
                 number_of_shares=123,
                 value=123.0,
@@ -1747,7 +1747,7 @@ class AsyncAccountsClient:
                     )
                 ],
                 industry_group="automotive",
-                industry_type="car_wash",
+                industry_type="car_wash_and_detailing_shop",
                 share_structure=FormCompanyAccountsRequestShareStructure(
                     number_of_shares=123,
                     value=123.0,
