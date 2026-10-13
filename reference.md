@@ -1637,6 +1637,14 @@ client.accounts.transfer_ownership(
 <dl>
 <dd>
 
+**authorized_user_id:** `typing.Optional[str]` — Your team membership on the business this referral is made for, prefixed `ausr_`. The referral then credits that team instead of you personally. Requires `as_partner`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **message:** `typing.Optional[str]` — A note from the partner, shown as a quote in the invite email and signed with their name. Requires `as_partner`; sending it on an ordinary transfer is a 400. Omit it and the email sends without a note.
     
 </dd>
