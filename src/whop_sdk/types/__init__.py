@@ -536,6 +536,7 @@ if typing.TYPE_CHECKING:
     from .domain_verification import DomainVerification
     from .domain_verification_state import DomainVerificationState
     from .domain_website import DomainWebsite
+    from .domain_website_app import DomainWebsiteApp
     from .domain_website_state import DomainWebsiteState
     from .economic_intelligence import EconomicIntelligence
     from .economic_intelligence_input import EconomicIntelligenceInput
@@ -2025,6 +2026,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DomainVerification": ".domain_verification",
     "DomainVerificationState": ".domain_verification_state",
     "DomainWebsite": ".domain_website",
+    "DomainWebsiteApp": ".domain_website_app",
     "DomainWebsiteState": ".domain_website_state",
     "EconomicIntelligence": ".economic_intelligence",
     "EconomicIntelligenceInput": ".economic_intelligence_input",
@@ -3416,6 +3418,7 @@ __all__ = [
     "DomainVerification",
     "DomainVerificationState",
     "DomainWebsite",
+    "DomainWebsiteApp",
     "DomainWebsiteState",
     "EconomicIntelligence",
     "EconomicIntelligenceInput",
