@@ -7,6 +7,7 @@ WebhookEventsItem = typing.Union[
         "account.updated",
         "account.financing_approved",
         "account.financing_denied",
+        "account.financing_disabled",
         "invoice.created",
         "invoice.marked_uncollectible",
         "invoice.paid",
