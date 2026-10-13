@@ -43,6 +43,10 @@ class RawSupportChannelsClient:
         last: typing.Optional[int] = None,
         view: typing.Optional[SupportChannelView] = None,
         open: typing.Optional[bool] = None,
+        customer_user_id: typing.Optional[str] = None,
+        participated: typing.Optional[bool] = None,
+        include_last_message: typing.Optional[bool] = None,
+        include_participated: typing.Optional[bool] = None,
         direction: typing.Optional[Direction] = None,
         order: typing.Optional[MessageChannelOrder] = None,
         account_id: typing.Optional[str] = None,
@@ -73,6 +77,18 @@ class RawSupportChannelsClient:
         open : typing.Optional[bool]
             Whether to filter by open or resolved support channels. Set to true to only return channels awaiting a response, or false for resolved channels.
 
+        customer_user_id : typing.Optional[str]
+            Only return support channels opened by this customer.
+
+        participated : typing.Optional[bool]
+            Set to true to only return channels the authenticated user has joined as a participant. Requires a user.
+
+        include_last_message : typing.Optional[bool]
+            Set to true to return `last_message` and `unread` on each channel. Both are `null` otherwise, which keeps large lists fast.
+
+        include_participated : typing.Optional[bool]
+            Set to true to return `participated` on each channel. It is `null` otherwise, which keeps large lists fast.
+
         direction : typing.Optional[Direction]
 
         order : typing.Optional[MessageChannelOrder]
@@ -99,6 +115,10 @@ class RawSupportChannelsClient:
                 "last": last,
                 "view": view,
                 "open": open,
+                "customer_user_id": customer_user_id,
+                "participated": participated,
+                "include_last_message": include_last_message,
+                "include_participated": include_participated,
                 "direction": direction,
                 "order": order,
                 "account_id": account_id,
@@ -127,6 +147,10 @@ class RawSupportChannelsClient:
                         last=last,
                         view=view,
                         open=open,
+                        customer_user_id=customer_user_id,
+                        participated=participated,
+                        include_last_message=include_last_message,
+                        include_participated=include_participated,
                         direction=direction,
                         order=order,
                         account_id=account_id,
@@ -506,6 +530,10 @@ class AsyncRawSupportChannelsClient:
         last: typing.Optional[int] = None,
         view: typing.Optional[SupportChannelView] = None,
         open: typing.Optional[bool] = None,
+        customer_user_id: typing.Optional[str] = None,
+        participated: typing.Optional[bool] = None,
+        include_last_message: typing.Optional[bool] = None,
+        include_participated: typing.Optional[bool] = None,
         direction: typing.Optional[Direction] = None,
         order: typing.Optional[MessageChannelOrder] = None,
         account_id: typing.Optional[str] = None,
@@ -536,6 +564,18 @@ class AsyncRawSupportChannelsClient:
         open : typing.Optional[bool]
             Whether to filter by open or resolved support channels. Set to true to only return channels awaiting a response, or false for resolved channels.
 
+        customer_user_id : typing.Optional[str]
+            Only return support channels opened by this customer.
+
+        participated : typing.Optional[bool]
+            Set to true to only return channels the authenticated user has joined as a participant. Requires a user.
+
+        include_last_message : typing.Optional[bool]
+            Set to true to return `last_message` and `unread` on each channel. Both are `null` otherwise, which keeps large lists fast.
+
+        include_participated : typing.Optional[bool]
+            Set to true to return `participated` on each channel. It is `null` otherwise, which keeps large lists fast.
+
         direction : typing.Optional[Direction]
 
         order : typing.Optional[MessageChannelOrder]
@@ -562,6 +602,10 @@ class AsyncRawSupportChannelsClient:
                 "last": last,
                 "view": view,
                 "open": open,
+                "customer_user_id": customer_user_id,
+                "participated": participated,
+                "include_last_message": include_last_message,
+                "include_participated": include_participated,
                 "direction": direction,
                 "order": order,
                 "account_id": account_id,
@@ -592,6 +636,10 @@ class AsyncRawSupportChannelsClient:
                             last=last,
                             view=view,
                             open=open,
+                            customer_user_id=customer_user_id,
+                            participated=participated,
+                            include_last_message=include_last_message,
+                            include_participated=include_participated,
                             direction=direction,
                             order=order,
                             account_id=account_id,

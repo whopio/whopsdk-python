@@ -5,8 +5,12 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .membership_affiliate import MembershipAffiliate
+from .membership_collection_method import MembershipCollectionMethod
 from .membership_member import MembershipMember
+from .membership_most_recent_action import MembershipMostRecentAction
+from .membership_product import MembershipProduct
 from .membership_status import MembershipStatus
+from .money import Money
 from .storefront_account import StorefrontAccount
 
 
@@ -41,6 +45,11 @@ class Membership(UniversalBaseModel):
     Free-text explanation provided when canceling. `null` when no reason was provided.
     """
 
+    collection_method: typing.Optional[MembershipCollectionMethod] = pydantic.Field(default=None)
+    """
+    How renewals are collected. `charge_automatically` charges the saved payment method each period; `send_invoice` emails the buyer an invoice each period. `null` when not set.
+    """
+
     created_at: str = pydantic.Field()
     """
     When the membership was created, as an ISO 8601 timestamp.
@@ -56,9 +65,19 @@ class Membership(UniversalBaseModel):
     When the current billing period started, as an ISO 8601 timestamp. `null` when no billing period is recorded.
     """
 
+    expires_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When access ends for a membership with a fixed expiration, as an ISO 8601 timestamp. `null` when the membership has no expiration, such as a renewing membership.
+    """
+
     id: str = pydantic.Field()
     """
     Membership ID, prefixed `mem_`.
+    """
+
+    initial_price: Money = pydantic.Field()
+    """
+    The variant's current up-front price, in the variant's currency. A list price, not necessarily what the buyer paid. `amount` is `"0.00"` when the first charge is free.
     """
 
     license_key: typing.Optional[str] = pydantic.Field(default=None)
@@ -76,9 +95,24 @@ class Membership(UniversalBaseModel):
     The caller's member row on the account. Present only when the membership belongs to the caller; `null` on seller-side reads.
     """
 
+    member_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The buyer's member record on the account, prefixed `mber_`. `null` when the membership has no member record, such as an unclaimed membership.
+    """
+
     metadata: typing.Dict[str, typing.Any] = pydantic.Field()
     """
     Custom key-value pairs stored on the membership, commonly used for software licensing.
+    """
+
+    most_recent_action: typing.Optional[MembershipMostRecentAction] = pydantic.Field(default=None)
+    """
+    The membership's latest lifecycle event, such as `renewing_on` or `canceled_on`. Pair it with `most_recent_action_at`. `null` when none is recorded.
+    """
+
+    most_recent_action_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When `most_recent_action` happened or is scheduled to happen, as an ISO 8601 timestamp. A future time for upcoming events such as `renewing_on`. `null` when no action is recorded.
     """
 
     phone_number: typing.Optional[str] = pydantic.Field(default=None)
@@ -91,6 +125,11 @@ class Membership(UniversalBaseModel):
     The variant the buyer purchased, prefixed `plan_`.
     """
 
+    product: MembershipProduct = pydantic.Field()
+    """
+    The product this membership grants access to.
+    """
+
     product_id: str = pydantic.Field()
     """
     The product this membership grants access to, prefixed `prod_`.
@@ -99,6 +138,21 @@ class Membership(UniversalBaseModel):
     promo_code_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The promo code discounting this membership, prefixed `promo_`. `null` when none is applied. Set at checkout or by Apply Promo Code to Membership.
+    """
+
+    renewal_price: typing.Optional[Money] = pydantic.Field(default=None)
+    """
+    What the next renewal charges, after any promo code that still applies. `null` for non-renewing memberships.
+    """
+
+    split_pay_current_payments: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Paid installments counted so far on a split pay membership. `null` when the membership is not on split pay, or before its first installment is counted.
+    """
+
+    split_pay_required_payments: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Installment payments required before the membership stops billing. `null` when the membership is not on split pay.
     """
 
     status: MembershipStatus = pydantic.Field()

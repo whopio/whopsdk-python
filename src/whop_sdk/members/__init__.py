@@ -9,6 +9,8 @@ if typing.TYPE_CHECKING:
     from .types import (
         ListMembersRequestAccessLevel,
         ListMembersRequestDirection,
+        ListMembersRequestMembershipStatus,
+        ListMembersRequestMostRecentActionsItem,
         ListMembersRequestOrder,
         ListMembersRequestStatus,
         ListMembersResponse,
@@ -20,13 +22,14 @@ if typing.TYPE_CHECKING:
         PostMemberUpdatedPayloadApiVersion,
         PostMemberUpdatedPayloadType,
     )
-    from . import logs
+    from . import logs, notes
     from .logs import (
         ListLogsResponse,
         ListLogsResponseDataItem,
         ListLogsResponseDataItemActor,
         ListLogsResponsePageInfo,
     )
+    from .notes import ListNotesResponse, ListNotesResponsePageInfo
 _dynamic_imports: typing.Dict[str, str] = {
     "ListLogsResponse": ".logs",
     "ListLogsResponseDataItem": ".logs",
@@ -34,10 +37,14 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListLogsResponsePageInfo": ".logs",
     "ListMembersRequestAccessLevel": ".types",
     "ListMembersRequestDirection": ".types",
+    "ListMembersRequestMembershipStatus": ".types",
+    "ListMembersRequestMostRecentActionsItem": ".types",
     "ListMembersRequestOrder": ".types",
     "ListMembersRequestStatus": ".types",
     "ListMembersResponse": ".types",
     "ListMembersResponsePageInfo": ".types",
+    "ListNotesResponse": ".notes",
+    "ListNotesResponsePageInfo": ".notes",
     "PostMemberCreatedPayload": ".types",
     "PostMemberCreatedPayloadApiVersion": ".types",
     "PostMemberCreatedPayloadType": ".types",
@@ -45,6 +52,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostMemberUpdatedPayloadApiVersion": ".types",
     "PostMemberUpdatedPayloadType": ".types",
     "logs": ".logs",
+    "notes": ".notes",
 }
 
 
@@ -76,10 +84,14 @@ __all__ = [
     "ListLogsResponsePageInfo",
     "ListMembersRequestAccessLevel",
     "ListMembersRequestDirection",
+    "ListMembersRequestMembershipStatus",
+    "ListMembersRequestMostRecentActionsItem",
     "ListMembersRequestOrder",
     "ListMembersRequestStatus",
     "ListMembersResponse",
     "ListMembersResponsePageInfo",
+    "ListNotesResponse",
+    "ListNotesResponsePageInfo",
     "PostMemberCreatedPayload",
     "PostMemberCreatedPayloadApiVersion",
     "PostMemberCreatedPayloadType",
@@ -87,4 +99,5 @@ __all__ = [
     "PostMemberUpdatedPayloadApiVersion",
     "PostMemberUpdatedPayloadType",
     "logs",
+    "notes",
 ]

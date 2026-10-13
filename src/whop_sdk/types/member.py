@@ -5,7 +5,9 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .member_access_level import MemberAccessLevel
+from .member_most_recent_action import MemberMostRecentAction
 from .member_status import MemberStatus
+from .money import Money
 from .user_summary import UserSummary
 
 
@@ -25,6 +27,16 @@ class Member(UniversalBaseModel):
     When the member record was created, as an ISO 8601 timestamp.
     """
 
+    display_name: str = pydantic.Field()
+    """
+    The name to show for this member: the user's name, or their username when they have not set one. The buying business's name when `user` is `null`.
+    """
+
+    email: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The user's email address. `null` without `member:email:read` on the account, when the buyer is another business, or when the user has no assigned email.
+    """
+
     id: str = pydantic.Field()
     """
     Member ID, prefixed `mber_`.
@@ -40,6 +52,16 @@ class Member(UniversalBaseModel):
     When the member last opened the account's content, as an ISO 8601 timestamp. `null` if they never have.
     """
 
+    most_recent_action: typing.Optional[MemberMostRecentAction] = pydantic.Field(default=None)
+    """
+    The member's latest lifecycle state on the account, derived from their memberships, such as `paid_subscriber`, `canceling`, or `churned`. `null` until it is first computed.
+    """
+
+    most_recent_action_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When `most_recent_action` took effect, as an ISO 8601 timestamp. `null` when `most_recent_action` is `null`.
+    """
+
     phone_number: typing.Optional[str] = pydantic.Field(default=None)
     """
     The member's phone number, or `null`. Their account number when they have shared one with this seller; otherwise the most recent number collected (or verified) at checkout.
@@ -53,6 +75,11 @@ class Member(UniversalBaseModel):
     token_balance: float = pydantic.Field()
     """
     The member's current token balance for this account, computed from token transactions.
+    """
+
+    usd_total_spent: Money = pydantic.Field()
+    """
+    How much the member has spent on the account's products, in USD.
     """
 
     user: typing.Optional[UserSummary] = pydantic.Field(default=None)
