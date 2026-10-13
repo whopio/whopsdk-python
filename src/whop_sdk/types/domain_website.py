@@ -8,9 +8,9 @@ from .domain_website_state import DomainWebsiteState
 
 
 class DomainWebsite(UniversalBaseModel):
-    app_id: str = pydantic.Field()
+    app_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    ID of the app the domain serves, prefixed `app_`.
+    ID of the app the domain serves, prefixed `app_`. `null` until you choose one; the domain shows a placeholder page meanwhile.
     """
 
     state: DomainWebsiteState = pydantic.Field()

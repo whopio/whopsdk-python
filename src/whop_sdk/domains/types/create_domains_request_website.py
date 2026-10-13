@@ -13,7 +13,7 @@ class CreateDomainsRequestWebsite(UniversalBaseModel):
 
     app_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    App ID, prefixed app_, of the website to serve. The app must belong to the account.
+    App ID, prefixed app_, of the website to serve. The app must belong to the account. Leave it out to point the domain at Whop before the website exists; it shows a placeholder until you choose one. Pass `null` to detach the app and keep the domain pointed at Whop.
     """
 
     if IS_PYDANTIC_V2:
