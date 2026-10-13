@@ -758,7 +758,9 @@ if typing.TYPE_CHECKING:
     from .member_legacy_user import MemberLegacyUser
     from .member_list_item import MemberListItem
     from .member_list_item_user import MemberListItemUser
+    from .member_most_recent_action import MemberMostRecentAction
     from .member_most_recent_actions import MemberMostRecentActions
+    from .member_note import MemberNote
     from .member_status import MemberStatus
     from .member_statuses import MemberStatuses
     from .members_sortable_columns import MembersSortableColumns
@@ -767,6 +769,7 @@ if typing.TYPE_CHECKING:
     from .membership_affiliate_applies_to_payments import MembershipAffiliateAppliesToPayments
     from .membership_affiliate_commission_type import MembershipAffiliateCommissionType
     from .membership_cancellation_modes import MembershipCancellationModes
+    from .membership_collection_method import MembershipCollectionMethod
     from .membership_legacy import MembershipLegacy
     from .membership_legacy_company import MembershipLegacyCompany
     from .membership_legacy_custom_field_responses_item import MembershipLegacyCustomFieldResponsesItem
@@ -784,6 +787,8 @@ if typing.TYPE_CHECKING:
     from .membership_list_item_user import MembershipListItemUser
     from .membership_member import MembershipMember
     from .membership_member_access_level import MembershipMemberAccessLevel
+    from .membership_most_recent_action import MembershipMostRecentAction
+    from .membership_product import MembershipProduct
     from .membership_status import MembershipStatus
     from .memberships_sortable_columns import MembershipsSortableColumns
     from .message import Message
@@ -1396,8 +1401,22 @@ if typing.TYPE_CHECKING:
     from .storefront_account import StorefrontAccount
     from .support_channel import SupportChannel
     from .support_channel_customer_user import SupportChannelCustomerUser
+    from .support_channel_last_message import SupportChannelLastMessage
+    from .support_channel_last_message_attachments_item import SupportChannelLastMessageAttachmentsItem
+    from .support_channel_last_message_gifs_item import SupportChannelLastMessageGifsItem
+    from .support_channel_last_message_poll import SupportChannelLastMessagePoll
+    from .support_channel_last_message_poll_options_item import SupportChannelLastMessagePollOptionsItem
     from .support_channel_list_item import SupportChannelListItem
     from .support_channel_list_item_customer_user import SupportChannelListItemCustomerUser
+    from .support_channel_list_item_last_message import SupportChannelListItemLastMessage
+    from .support_channel_list_item_last_message_attachments_item import (
+        SupportChannelListItemLastMessageAttachmentsItem,
+    )
+    from .support_channel_list_item_last_message_gifs_item import SupportChannelListItemLastMessageGifsItem
+    from .support_channel_list_item_last_message_poll import SupportChannelListItemLastMessagePoll
+    from .support_channel_list_item_last_message_poll_options_item import (
+        SupportChannelListItemLastMessagePollOptionsItem,
+    )
     from .support_channel_view import SupportChannelView
     from .targeting_option import (
         TargetingOption,
@@ -1478,6 +1497,8 @@ if typing.TYPE_CHECKING:
     from .user_recommended_action import UserRecommendedAction
     from .user_recommended_action_action import UserRecommendedActionAction
     from .user_recommended_action_status import UserRecommendedActionStatus
+    from .user_social_link import UserSocialLink
+    from .user_social_link_website import UserSocialLinkWebsite
     from .user_summary import UserSummary
     from .v1error_response import V1ErrorResponse
     from .v1error_response_error import V1ErrorResponseError
@@ -2242,7 +2263,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MemberLegacyUser": ".member_legacy_user",
     "MemberListItem": ".member_list_item",
     "MemberListItemUser": ".member_list_item_user",
+    "MemberMostRecentAction": ".member_most_recent_action",
     "MemberMostRecentActions": ".member_most_recent_actions",
+    "MemberNote": ".member_note",
     "MemberStatus": ".member_status",
     "MemberStatuses": ".member_statuses",
     "MembersSortableColumns": ".members_sortable_columns",
@@ -2251,6 +2274,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MembershipAffiliateAppliesToPayments": ".membership_affiliate_applies_to_payments",
     "MembershipAffiliateCommissionType": ".membership_affiliate_commission_type",
     "MembershipCancellationModes": ".membership_cancellation_modes",
+    "MembershipCollectionMethod": ".membership_collection_method",
     "MembershipLegacy": ".membership_legacy",
     "MembershipLegacyCompany": ".membership_legacy_company",
     "MembershipLegacyCustomFieldResponsesItem": ".membership_legacy_custom_field_responses_item",
@@ -2268,6 +2292,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MembershipListItemUser": ".membership_list_item_user",
     "MembershipMember": ".membership_member",
     "MembershipMemberAccessLevel": ".membership_member_access_level",
+    "MembershipMostRecentAction": ".membership_most_recent_action",
+    "MembershipProduct": ".membership_product",
     "MembershipStatus": ".membership_status",
     "MembershipsSortableColumns": ".memberships_sortable_columns",
     "Message": ".message",
@@ -2766,8 +2792,18 @@ _dynamic_imports: typing.Dict[str, str] = {
     "StorefrontAccount": ".storefront_account",
     "SupportChannel": ".support_channel",
     "SupportChannelCustomerUser": ".support_channel_customer_user",
+    "SupportChannelLastMessage": ".support_channel_last_message",
+    "SupportChannelLastMessageAttachmentsItem": ".support_channel_last_message_attachments_item",
+    "SupportChannelLastMessageGifsItem": ".support_channel_last_message_gifs_item",
+    "SupportChannelLastMessagePoll": ".support_channel_last_message_poll",
+    "SupportChannelLastMessagePollOptionsItem": ".support_channel_last_message_poll_options_item",
     "SupportChannelListItem": ".support_channel_list_item",
     "SupportChannelListItemCustomerUser": ".support_channel_list_item_customer_user",
+    "SupportChannelListItemLastMessage": ".support_channel_list_item_last_message",
+    "SupportChannelListItemLastMessageAttachmentsItem": ".support_channel_list_item_last_message_attachments_item",
+    "SupportChannelListItemLastMessageGifsItem": ".support_channel_list_item_last_message_gifs_item",
+    "SupportChannelListItemLastMessagePoll": ".support_channel_list_item_last_message_poll",
+    "SupportChannelListItemLastMessagePollOptionsItem": ".support_channel_list_item_last_message_poll_options_item",
     "SupportChannelView": ".support_channel_view",
     "TargetingOption": ".targeting_option",
     "TargetingOption_Behaviors": ".targeting_option",
@@ -2846,6 +2882,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UserRecommendedAction": ".user_recommended_action",
     "UserRecommendedActionAction": ".user_recommended_action_action",
     "UserRecommendedActionStatus": ".user_recommended_action_status",
+    "UserSocialLink": ".user_social_link",
+    "UserSocialLinkWebsite": ".user_social_link_website",
     "UserSummary": ".user_summary",
     "V1ErrorResponse": ".v1error_response",
     "V1ErrorResponseError": ".v1error_response_error",
@@ -3634,7 +3672,9 @@ __all__ = [
     "MemberLegacyUser",
     "MemberListItem",
     "MemberListItemUser",
+    "MemberMostRecentAction",
     "MemberMostRecentActions",
+    "MemberNote",
     "MemberStatus",
     "MemberStatuses",
     "MembersSortableColumns",
@@ -3643,6 +3683,7 @@ __all__ = [
     "MembershipAffiliateAppliesToPayments",
     "MembershipAffiliateCommissionType",
     "MembershipCancellationModes",
+    "MembershipCollectionMethod",
     "MembershipLegacy",
     "MembershipLegacyCompany",
     "MembershipLegacyCustomFieldResponsesItem",
@@ -3660,6 +3701,8 @@ __all__ = [
     "MembershipListItemUser",
     "MembershipMember",
     "MembershipMemberAccessLevel",
+    "MembershipMostRecentAction",
+    "MembershipProduct",
     "MembershipStatus",
     "MembershipsSortableColumns",
     "Message",
@@ -4158,8 +4201,18 @@ __all__ = [
     "StorefrontAccount",
     "SupportChannel",
     "SupportChannelCustomerUser",
+    "SupportChannelLastMessage",
+    "SupportChannelLastMessageAttachmentsItem",
+    "SupportChannelLastMessageGifsItem",
+    "SupportChannelLastMessagePoll",
+    "SupportChannelLastMessagePollOptionsItem",
     "SupportChannelListItem",
     "SupportChannelListItemCustomerUser",
+    "SupportChannelListItemLastMessage",
+    "SupportChannelListItemLastMessageAttachmentsItem",
+    "SupportChannelListItemLastMessageGifsItem",
+    "SupportChannelListItemLastMessagePoll",
+    "SupportChannelListItemLastMessagePollOptionsItem",
     "SupportChannelView",
     "TargetingOption",
     "TargetingOption_Behaviors",
@@ -4238,6 +4291,8 @@ __all__ = [
     "UserRecommendedAction",
     "UserRecommendedActionAction",
     "UserRecommendedActionStatus",
+    "UserSocialLink",
+    "UserSocialLinkWebsite",
     "UserSummary",
     "V1ErrorResponse",
     "V1ErrorResponseError",

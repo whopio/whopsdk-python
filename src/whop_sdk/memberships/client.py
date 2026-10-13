@@ -13,6 +13,7 @@ from .types.invite_memberships_response import InviteMembershipsResponse
 from .types.list_memberships_request_direction import ListMembershipsRequestDirection
 from .types.list_memberships_request_order import ListMembershipsRequestOrder
 from .types.list_memberships_request_status import ListMembershipsRequestStatus
+from .types.list_memberships_request_statuses_item import ListMembershipsRequestStatusesItem
 from .types.list_memberships_response import ListMembershipsResponse
 from .types.transfer_memberships_response import TransferMembershipsResponse
 
@@ -40,9 +41,16 @@ class MembershipsClient:
         *,
         account_id: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
+        member_id: typing.Optional[str] = None,
         status: typing.Optional[ListMembershipsRequestStatus] = None,
+        statuses: typing.Optional[
+            typing.Union[ListMembershipsRequestStatusesItem, typing.Sequence[ListMembershipsRequestStatusesItem]]
+        ] = None,
         product_id: typing.Optional[str] = None,
+        product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         plan_id: typing.Optional[str] = None,
+        plan_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        promo_code_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         created_after: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
         order: typing.Optional[ListMembershipsRequestOrder] = None,
@@ -64,14 +72,29 @@ class MembershipsClient:
         user_id : typing.Optional[str]
             Narrow to one user's memberships (`user_` tag, or `me` for the caller). A user outside the caller's visible set returns an empty list.
 
+        member_id : typing.Optional[str]
+            Narrow to one member's memberships (`mber_` tag), including memberships bought by another business. A member outside the caller's visible set returns an empty list.
+
         status : typing.Optional[ListMembershipsRequestStatus]
-            Filter by billing state. `canceling` matches active memberships set to cancel at period end; `paused` matches memberships with payment collection paused.
+            Filter by billing state. `trialing`, `active`, `past_due`, `completed`, `canceled`, and `expired` match the membership's `status`; `active`, `trialing`, and `past_due` exclude memberships set to cancel at period end. The other values are derived buckets that never appear as a `status`: `canceling` matches memberships set to cancel at period end; `paused` matches memberships with payment collection paused; `expiring` matches one-time purchases that have not yet expired; `one_time` matches one-time purchases that never expire; `unclaimed` matches memberships with no buyer user, including memberships bought by another business; `banned` matches memberships whose buyer is banned from the account.
+
+        statuses : typing.Optional[typing.Union[ListMembershipsRequestStatusesItem, typing.Sequence[ListMembershipsRequestStatusesItem]]]
+            Filter to memberships matching any of these billing states, with the same meanings as `status`. Repeat the parameter to pass several. Combined with `status` when both are sent.
 
         product_id : typing.Optional[str]
-            Filter to memberships of this product (`prod_` tag). Repeat as product_ids[] for several.
+            Filter to memberships of this product (`prod_` tag).
+
+        product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter to memberships of any of these products, each prefixed `prod_`. Repeat the parameter to pass several.
 
         plan_id : typing.Optional[str]
-            Filter to memberships of this variant (`plan_` tag). Repeat as plan_ids[] for several.
+            Filter to memberships of this variant (`plan_` tag).
+
+        plan_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter to memberships of any of these variants, each prefixed `plan_`. Repeat the parameter to pass several.
+
+        promo_code_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter to memberships discounted by any of these promo codes, each prefixed `promo_`. Repeat the parameter to pass several.
 
         created_after : typing.Optional[str]
             Only memberships created after this ISO 8601 timestamp.
@@ -114,7 +137,11 @@ class MembershipsClient:
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
-        response = client.memberships.list()
+        response = client.memberships.list(
+            product_ids=["prod_xxxxxxxxxxxxx"],
+            plan_ids=["plan_xxxxxxxxxxxxx"],
+            promo_code_ids=["promo_xxxxxxxxxxxxxx"],
+        )
         for item in response:
             yield item
         # alternatively, you can paginate page-by-page
@@ -124,9 +151,14 @@ class MembershipsClient:
         return self._raw_client.list(
             account_id=account_id,
             user_id=user_id,
+            member_id=member_id,
             status=status,
+            statuses=statuses,
             product_id=product_id,
+            product_ids=product_ids,
             plan_id=plan_id,
+            plan_ids=plan_ids,
+            promo_code_ids=promo_code_ids,
             created_after=created_after,
             created_before=created_before,
             order=order,
@@ -662,9 +694,16 @@ class AsyncMembershipsClient:
         *,
         account_id: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
+        member_id: typing.Optional[str] = None,
         status: typing.Optional[ListMembershipsRequestStatus] = None,
+        statuses: typing.Optional[
+            typing.Union[ListMembershipsRequestStatusesItem, typing.Sequence[ListMembershipsRequestStatusesItem]]
+        ] = None,
         product_id: typing.Optional[str] = None,
+        product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         plan_id: typing.Optional[str] = None,
+        plan_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        promo_code_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         created_after: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
         order: typing.Optional[ListMembershipsRequestOrder] = None,
@@ -686,14 +725,29 @@ class AsyncMembershipsClient:
         user_id : typing.Optional[str]
             Narrow to one user's memberships (`user_` tag, or `me` for the caller). A user outside the caller's visible set returns an empty list.
 
+        member_id : typing.Optional[str]
+            Narrow to one member's memberships (`mber_` tag), including memberships bought by another business. A member outside the caller's visible set returns an empty list.
+
         status : typing.Optional[ListMembershipsRequestStatus]
-            Filter by billing state. `canceling` matches active memberships set to cancel at period end; `paused` matches memberships with payment collection paused.
+            Filter by billing state. `trialing`, `active`, `past_due`, `completed`, `canceled`, and `expired` match the membership's `status`; `active`, `trialing`, and `past_due` exclude memberships set to cancel at period end. The other values are derived buckets that never appear as a `status`: `canceling` matches memberships set to cancel at period end; `paused` matches memberships with payment collection paused; `expiring` matches one-time purchases that have not yet expired; `one_time` matches one-time purchases that never expire; `unclaimed` matches memberships with no buyer user, including memberships bought by another business; `banned` matches memberships whose buyer is banned from the account.
+
+        statuses : typing.Optional[typing.Union[ListMembershipsRequestStatusesItem, typing.Sequence[ListMembershipsRequestStatusesItem]]]
+            Filter to memberships matching any of these billing states, with the same meanings as `status`. Repeat the parameter to pass several. Combined with `status` when both are sent.
 
         product_id : typing.Optional[str]
-            Filter to memberships of this product (`prod_` tag). Repeat as product_ids[] for several.
+            Filter to memberships of this product (`prod_` tag).
+
+        product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter to memberships of any of these products, each prefixed `prod_`. Repeat the parameter to pass several.
 
         plan_id : typing.Optional[str]
-            Filter to memberships of this variant (`plan_` tag). Repeat as plan_ids[] for several.
+            Filter to memberships of this variant (`plan_` tag).
+
+        plan_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter to memberships of any of these variants, each prefixed `plan_`. Repeat the parameter to pass several.
+
+        promo_code_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Filter to memberships discounted by any of these promo codes, each prefixed `promo_`. Repeat the parameter to pass several.
 
         created_after : typing.Optional[str]
             Only memberships created after this ISO 8601 timestamp.
@@ -741,7 +795,11 @@ class AsyncMembershipsClient:
 
 
         async def main() -> None:
-            response = await client.memberships.list()
+            response = await client.memberships.list(
+                product_ids=["prod_xxxxxxxxxxxxx"],
+                plan_ids=["plan_xxxxxxxxxxxxx"],
+                promo_code_ids=["promo_xxxxxxxxxxxxxx"],
+            )
             async for item in response:
                 yield item
 
@@ -755,9 +813,14 @@ class AsyncMembershipsClient:
         return await self._raw_client.list(
             account_id=account_id,
             user_id=user_id,
+            member_id=member_id,
             status=status,
+            statuses=statuses,
             product_id=product_id,
+            product_ids=product_ids,
             plan_id=plan_id,
+            plan_ids=plan_ids,
+            promo_code_ids=promo_code_ids,
             created_after=created_after,
             created_before=created_before,
             order=order,

@@ -6,6 +6,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .support_channel_list_item_customer_user import SupportChannelListItemCustomerUser
+from .support_channel_list_item_last_message import SupportChannelListItemLastMessage
 
 
 class SupportChannelListItem(UniversalBaseModel):
@@ -38,14 +39,34 @@ class SupportChannelListItem(UniversalBaseModel):
     The unique identifier for the entity
     """
 
+    last_message: typing.Optional[SupportChannelListItemLastMessage] = pydantic.Field(default=None)
+    """
+    The most recent message in this channel. Null if no messages have been sent, or when listing support channels without `include_last_message`.
+    """
+
     last_message_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The timestamp when the most recent message was sent in this channel. Null if no messages have been sent.
     """
 
+    needs_reply: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether the customer sent the latest message and the linked support ticket is unresolved. Null if not a support chat.
+    """
+
+    participated: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether the authenticated user has joined this channel as a participant. Null when the caller is not a user, or when listing support channels without `include_participated`.
+    """
+
     resolved_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     The timestamp when the linked support ticket was marked as resolved. Null if unresolved or not a support chat.
+    """
+
+    unread: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether this channel has a message from someone else that the authenticated user has not viewed yet. Null when the caller is not a user, or when listing support channels without `include_last_message`.
     """
 
     if IS_PYDANTIC_V2:

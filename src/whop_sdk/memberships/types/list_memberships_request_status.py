@@ -3,6 +3,19 @@
 import typing
 
 ListMembershipsRequestStatus = typing.Union[
-    typing.Literal["active", "trialing", "past_due", "completed", "canceled", "expired", "canceling", "paused"],
+    typing.Literal[
+        "active",
+        "trialing",
+        "past_due",
+        "completed",
+        "canceled",
+        "expired",
+        "canceling",
+        "paused",
+        "expiring",
+        "one_time",
+        "unclaimed",
+        "banned",
+    ],
     typing.Any,
 ]

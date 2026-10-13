@@ -11,6 +11,7 @@ from .user_balance_history import UserBalanceHistory
 from .user_banner import UserBanner
 from .user_earnings import UserEarnings
 from .user_profile_picture import UserProfilePicture
+from .user_social_link import UserSocialLink
 
 
 class User(UniversalBaseModel):
@@ -69,6 +70,7 @@ class User(UniversalBaseModel):
     Avatar wrapper; its `url` is always present, using a generated placeholder when the user set no picture.
     """
 
+    social_links: typing.List[UserSocialLink]
     trading: typing.Optional[TradingAccount] = pydantic.Field(default=None)
     """
     The trading account address and its WebSocket subscriptions. Opt in with `include_trading=true` when retrieving `me`. `null` otherwise, without trading permission, or without an Ethereum wallet.

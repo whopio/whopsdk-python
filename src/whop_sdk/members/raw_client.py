@@ -18,6 +18,8 @@ from ..errors.unauthorized_error import UnauthorizedError
 from ..types.member import Member
 from .types.list_members_request_access_level import ListMembersRequestAccessLevel
 from .types.list_members_request_direction import ListMembersRequestDirection
+from .types.list_members_request_membership_status import ListMembersRequestMembershipStatus
+from .types.list_members_request_most_recent_actions_item import ListMembersRequestMostRecentActionsItem
 from .types.list_members_request_order import ListMembersRequestOrder
 from .types.list_members_request_status import ListMembersRequestStatus
 from .types.list_members_response import ListMembersResponse
@@ -35,6 +37,15 @@ class RawMembersClient:
         access_level: typing.Optional[ListMembersRequestAccessLevel] = None,
         status: typing.Optional[ListMembersRequestStatus] = None,
         user_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        most_recent_actions: typing.Optional[
+            typing.Union[
+                ListMembersRequestMostRecentActionsItem, typing.Sequence[ListMembersRequestMostRecentActionsItem]
+            ]
+        ] = None,
+        membership_status: typing.Optional[ListMembersRequestMembershipStatus] = None,
+        product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        plan_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        promo_code_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         query: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
@@ -63,6 +74,21 @@ class RawMembersClient:
         user_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only return members whose users match these `user_` identifiers.
 
+        most_recent_actions : typing.Optional[typing.Union[ListMembersRequestMostRecentActionsItem, typing.Sequence[ListMembersRequestMostRecentActionsItem]]]
+            Only return members whose `most_recent_action` is one of these values.
+
+        membership_status : typing.Optional[ListMembersRequestMembershipStatus]
+            `active` returns members holding at least one membership that currently grants access; `inactive` returns members holding at least one membership that does not. Combined with `product_ids`, `plan_ids`, or `promo_code_ids`, one membership must match all of them.
+
+        product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return members holding a membership to one of these products, prefixed `prod_`. Unknown IDs match nothing.
+
+        plan_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return members holding a membership on one of these plans, prefixed `plan_`. Unknown IDs match nothing.
+
+        promo_code_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return members holding a membership bought with one of these promo codes, prefixed `promo_`. Unknown IDs match nothing.
+
         query : typing.Optional[str]
             Search members by name or username. An exact email address also matches when the credential holds the member:email:read scope.
 
@@ -73,7 +99,7 @@ class RawMembersClient:
             Only members who joined before this ISO 8601 timestamp.
 
         order : typing.Optional[ListMembersRequestOrder]
-            Sort field.
+            Sort field. `most_recent_action_at` places members without one first when ascending and last when descending.
 
         direction : typing.Optional[ListMembersRequestDirection]
             Sort direction.
@@ -107,6 +133,11 @@ class RawMembersClient:
                 "access_level": access_level,
                 "status": status,
                 "user_ids": user_ids,
+                "most_recent_actions": most_recent_actions,
+                "membership_status": membership_status,
+                "product_ids": product_ids,
+                "plan_ids": plan_ids,
+                "promo_code_ids": promo_code_ids,
                 "query": query,
                 "created_after": created_after,
                 "created_before": created_before,
@@ -139,6 +170,11 @@ class RawMembersClient:
                         access_level=access_level,
                         status=status,
                         user_ids=user_ids,
+                        most_recent_actions=most_recent_actions,
+                        membership_status=membership_status,
+                        product_ids=product_ids,
+                        plan_ids=plan_ids,
+                        promo_code_ids=promo_code_ids,
                         query=query,
                         created_after=created_after,
                         created_before=created_before,
@@ -269,6 +305,15 @@ class AsyncRawMembersClient:
         access_level: typing.Optional[ListMembersRequestAccessLevel] = None,
         status: typing.Optional[ListMembersRequestStatus] = None,
         user_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        most_recent_actions: typing.Optional[
+            typing.Union[
+                ListMembersRequestMostRecentActionsItem, typing.Sequence[ListMembersRequestMostRecentActionsItem]
+            ]
+        ] = None,
+        membership_status: typing.Optional[ListMembersRequestMembershipStatus] = None,
+        product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        plan_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        promo_code_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         query: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
@@ -297,6 +342,21 @@ class AsyncRawMembersClient:
         user_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only return members whose users match these `user_` identifiers.
 
+        most_recent_actions : typing.Optional[typing.Union[ListMembersRequestMostRecentActionsItem, typing.Sequence[ListMembersRequestMostRecentActionsItem]]]
+            Only return members whose `most_recent_action` is one of these values.
+
+        membership_status : typing.Optional[ListMembersRequestMembershipStatus]
+            `active` returns members holding at least one membership that currently grants access; `inactive` returns members holding at least one membership that does not. Combined with `product_ids`, `plan_ids`, or `promo_code_ids`, one membership must match all of them.
+
+        product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return members holding a membership to one of these products, prefixed `prod_`. Unknown IDs match nothing.
+
+        plan_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return members holding a membership on one of these plans, prefixed `plan_`. Unknown IDs match nothing.
+
+        promo_code_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return members holding a membership bought with one of these promo codes, prefixed `promo_`. Unknown IDs match nothing.
+
         query : typing.Optional[str]
             Search members by name or username. An exact email address also matches when the credential holds the member:email:read scope.
 
@@ -307,7 +367,7 @@ class AsyncRawMembersClient:
             Only members who joined before this ISO 8601 timestamp.
 
         order : typing.Optional[ListMembersRequestOrder]
-            Sort field.
+            Sort field. `most_recent_action_at` places members without one first when ascending and last when descending.
 
         direction : typing.Optional[ListMembersRequestDirection]
             Sort direction.
@@ -341,6 +401,11 @@ class AsyncRawMembersClient:
                 "access_level": access_level,
                 "status": status,
                 "user_ids": user_ids,
+                "most_recent_actions": most_recent_actions,
+                "membership_status": membership_status,
+                "product_ids": product_ids,
+                "plan_ids": plan_ids,
+                "promo_code_ids": promo_code_ids,
                 "query": query,
                 "created_after": created_after,
                 "created_before": created_before,
@@ -375,6 +440,11 @@ class AsyncRawMembersClient:
                             access_level=access_level,
                             status=status,
                             user_ids=user_ids,
+                            most_recent_actions=most_recent_actions,
+                            membership_status=membership_status,
+                            product_ids=product_ids,
+                            plan_ids=plan_ids,
+                            promo_code_ids=promo_code_ids,
                             query=query,
                             created_after=created_after,
                             created_before=created_before,
