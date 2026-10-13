@@ -4,7 +4,14 @@ import typing
 
 CancelOptions = typing.Union[
     typing.Literal[
-        "too_expensive", "switching", "missing_features", "technical_issues", "bad_experience", "other", "testing"
+        "too_expensive",
+        "switching",
+        "missing_features",
+        "technical_issues",
+        "bad_experience",
+        "unused",
+        "other",
+        "testing",
     ],
     typing.Any,
 ]

@@ -25,6 +25,7 @@ from .types.update_preferences_request_ads_triple_whale_integration import (
 from .types.update_preferences_request_economic_intelligence_duration_key import (
     UpdatePreferencesRequestEconomicIntelligenceDurationKey,
 )
+from .types.update_preferences_request_feedback_options_item import UpdatePreferencesRequestFeedbackOptionsItem
 from .types.update_preferences_request_preferred_settlement_currency import (
     UpdatePreferencesRequestPreferredSettlementCurrency,
 )
@@ -124,6 +125,7 @@ class RawPreferencesClient:
         economic_intelligence_duration_key: typing.Optional[
             UpdatePreferencesRequestEconomicIntelligenceDurationKey
         ] = OMIT,
+        feedback_options: typing.Optional[typing.Sequence[UpdatePreferencesRequestFeedbackOptionsItem]] = OMIT,
         preferred_settlement_currency: typing.Optional[UpdatePreferencesRequestPreferredSettlementCurrency] = OMIT,
         subscription_failure_behavior: typing.Optional[UpdatePreferencesRequestSubscriptionFailureBehavior] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -139,6 +141,7 @@ class RawPreferencesClient:
         | `cards_auto_top_up`, `cards_notifications` | `payout:account:update` |
         | `dispute_fighter_enabled` | `payment:dispute` |
         | `economic_intelligence_duration_key`, `economic_intelligence_auto_renew` | `company:update` |
+        | `feedback_options` | `company:manage_checkout` |
 
         When updating preferences from multiple rows, all corresponding scopes are required for the account.
 
@@ -176,6 +179,9 @@ class RawPreferencesClient:
 
         economic_intelligence_duration_key : typing.Optional[UpdatePreferencesRequestEconomicIntelligenceDurationKey]
             Turns on Economic Intelligence with the offer that has this `key` in `economic_intelligence_offers`, at that offer's fee. A committed duration can't be changed or turned off until `economic_intelligence_ends_at`, except to upgrade to `weekly`, which switches to auto-renew right away. Requires the `company:update` scope on your API key.
+
+        feedback_options : typing.Optional[typing.Sequence[UpdatePreferencesRequestFeedbackOptionsItem]]
+            Replaces the account's own cancel reasons, shown to members in this order when they cancel. Pass an option's `id` to keep it, for example when renaming it; options without an `id` are added, and options left out are removed. Pass an empty array to go back to Whop's default reasons. Members who already picked an option keep the label they saw. Requires the `company:manage_checkout` scope on your API key.
 
         preferred_settlement_currency : typing.Optional[UpdatePreferencesRequestPreferredSettlementCurrency]
             Settle every new sale into this currency, regardless of the plan's currency or what the buyer paid in; sales converted this way carry an additional 0.5% FX fee. Pass `null` to go back to settling each sale in its plan's currency. Changing it never converts money already in your balances, and it can change at most once every 7 days (see `preferred_settlement_currency_changeable_at`). Requires the `payout:account:update` scope on your API key.
@@ -216,6 +222,11 @@ class RawPreferencesClient:
                 "dispute_fighter_enabled": dispute_fighter_enabled,
                 "economic_intelligence_auto_renew": economic_intelligence_auto_renew,
                 "economic_intelligence_duration_key": economic_intelligence_duration_key,
+                "feedback_options": convert_and_respect_annotation_metadata(
+                    object_=feedback_options,
+                    annotation=typing.Sequence[UpdatePreferencesRequestFeedbackOptionsItem],
+                    direction="write",
+                ),
                 "preferred_settlement_currency": preferred_settlement_currency,
                 "subscription_failure_behavior": subscription_failure_behavior,
             },
@@ -386,6 +397,7 @@ class AsyncRawPreferencesClient:
         economic_intelligence_duration_key: typing.Optional[
             UpdatePreferencesRequestEconomicIntelligenceDurationKey
         ] = OMIT,
+        feedback_options: typing.Optional[typing.Sequence[UpdatePreferencesRequestFeedbackOptionsItem]] = OMIT,
         preferred_settlement_currency: typing.Optional[UpdatePreferencesRequestPreferredSettlementCurrency] = OMIT,
         subscription_failure_behavior: typing.Optional[UpdatePreferencesRequestSubscriptionFailureBehavior] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -401,6 +413,7 @@ class AsyncRawPreferencesClient:
         | `cards_auto_top_up`, `cards_notifications` | `payout:account:update` |
         | `dispute_fighter_enabled` | `payment:dispute` |
         | `economic_intelligence_duration_key`, `economic_intelligence_auto_renew` | `company:update` |
+        | `feedback_options` | `company:manage_checkout` |
 
         When updating preferences from multiple rows, all corresponding scopes are required for the account.
 
@@ -438,6 +451,9 @@ class AsyncRawPreferencesClient:
 
         economic_intelligence_duration_key : typing.Optional[UpdatePreferencesRequestEconomicIntelligenceDurationKey]
             Turns on Economic Intelligence with the offer that has this `key` in `economic_intelligence_offers`, at that offer's fee. A committed duration can't be changed or turned off until `economic_intelligence_ends_at`, except to upgrade to `weekly`, which switches to auto-renew right away. Requires the `company:update` scope on your API key.
+
+        feedback_options : typing.Optional[typing.Sequence[UpdatePreferencesRequestFeedbackOptionsItem]]
+            Replaces the account's own cancel reasons, shown to members in this order when they cancel. Pass an option's `id` to keep it, for example when renaming it; options without an `id` are added, and options left out are removed. Pass an empty array to go back to Whop's default reasons. Members who already picked an option keep the label they saw. Requires the `company:manage_checkout` scope on your API key.
 
         preferred_settlement_currency : typing.Optional[UpdatePreferencesRequestPreferredSettlementCurrency]
             Settle every new sale into this currency, regardless of the plan's currency or what the buyer paid in; sales converted this way carry an additional 0.5% FX fee. Pass `null` to go back to settling each sale in its plan's currency. Changing it never converts money already in your balances, and it can change at most once every 7 days (see `preferred_settlement_currency_changeable_at`). Requires the `payout:account:update` scope on your API key.
@@ -478,6 +494,11 @@ class AsyncRawPreferencesClient:
                 "dispute_fighter_enabled": dispute_fighter_enabled,
                 "economic_intelligence_auto_renew": economic_intelligence_auto_renew,
                 "economic_intelligence_duration_key": economic_intelligence_duration_key,
+                "feedback_options": convert_and_respect_annotation_metadata(
+                    object_=feedback_options,
+                    annotation=typing.Sequence[UpdatePreferencesRequestFeedbackOptionsItem],
+                    direction="write",
+                ),
                 "preferred_settlement_currency": preferred_settlement_currency,
                 "subscription_failure_behavior": subscription_failure_behavior,
             },

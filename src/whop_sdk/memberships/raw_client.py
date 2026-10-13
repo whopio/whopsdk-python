@@ -755,6 +755,7 @@ class RawMembershipsClient:
         id: str,
         *,
         cancel_at_period_end: typing.Optional[bool] = OMIT,
+        feedback_option_id: typing.Optional[str] = OMIT,
         reason: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Membership]:
@@ -768,6 +769,9 @@ class RawMembershipsClient:
 
         cancel_at_period_end : typing.Optional[bool]
             `true` stops auto-renewal and keeps access until the current billing period ends. Omit or `false` revokes access immediately.
+
+        feedback_option_id : typing.Optional[str]
+            The ID of the feedback option the customer picked as their reason for canceling, from the account's `feedback_options` preference. The membership records the option's label as the customer saw it and its category as `cancel_option`.
 
         reason : typing.Optional[str]
             Free-form note recording why the membership was canceled.
@@ -786,6 +790,7 @@ class RawMembershipsClient:
             method="POST",
             json={
                 "cancel_at_period_end": cancel_at_period_end,
+                "feedback_option_id": feedback_option_id,
                 "reason": reason,
             },
             headers={
@@ -2095,6 +2100,7 @@ class AsyncRawMembershipsClient:
         id: str,
         *,
         cancel_at_period_end: typing.Optional[bool] = OMIT,
+        feedback_option_id: typing.Optional[str] = OMIT,
         reason: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Membership]:
@@ -2108,6 +2114,9 @@ class AsyncRawMembershipsClient:
 
         cancel_at_period_end : typing.Optional[bool]
             `true` stops auto-renewal and keeps access until the current billing period ends. Omit or `false` revokes access immediately.
+
+        feedback_option_id : typing.Optional[str]
+            The ID of the feedback option the customer picked as their reason for canceling, from the account's `feedback_options` preference. The membership records the option's label as the customer saw it and its category as `cancel_option`.
 
         reason : typing.Optional[str]
             Free-form note recording why the membership was canceled.
@@ -2126,6 +2135,7 @@ class AsyncRawMembershipsClient:
             method="POST",
             json={
                 "cancel_at_period_end": cancel_at_period_end,
+                "feedback_option_id": feedback_option_id,
                 "reason": reason,
             },
             headers={

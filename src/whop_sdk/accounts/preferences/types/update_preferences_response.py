@@ -14,6 +14,7 @@ from .update_preferences_response_economic_intelligence_offers_item import (
 from .update_preferences_response_economic_intelligence_previous_period import (
     UpdatePreferencesResponseEconomicIntelligencePreviousPeriod,
 )
+from .update_preferences_response_feedback_options_item import UpdatePreferencesResponseFeedbackOptionsItem
 from .update_preferences_response_preferred_settlement_currency import (
     UpdatePreferencesResponsePreferredSettlementCurrency,
 )
@@ -105,6 +106,11 @@ class UpdatePreferencesResponse(UniversalBaseModel):
     ] = pydantic.Field(default=None)
     """
     The account's last Economic Intelligence period, once it has ended. `null` while Economic Intelligence is on, or when it has never been on.
+    """
+
+    feedback_options: typing.List[UpdatePreferencesResponseFeedbackOptionsItem] = pydantic.Field()
+    """
+    The account's own cancel reasons, in the order members see them when they cancel. Each is filed under a standard category, saved as the membership's `cancel_option`, so reports keep grouping cancellations. Empty when the account uses Whop's default reasons.
     """
 
     preferred_settlement_currency: typing.Optional[UpdatePreferencesResponsePreferredSettlementCurrency] = (

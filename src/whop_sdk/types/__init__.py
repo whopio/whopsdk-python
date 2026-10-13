@@ -620,6 +620,8 @@ if typing.TYPE_CHECKING:
     from .fee_markup import FeeMarkup
     from .fee_markup_list_item import FeeMarkupListItem
     from .fee_markup_types import FeeMarkupTypes
+    from .feedback_option import FeedbackOption
+    from .feedback_option_category import FeedbackOptionCategory
     from .file import File
     from .file_multipart_url import FileMultipartUrl
     from .file_upload_status import FileUploadStatus
@@ -794,9 +796,11 @@ if typing.TYPE_CHECKING:
     from .membership_cancel_option import MembershipCancelOption
     from .membership_cancellation_modes import MembershipCancellationModes
     from .membership_collection_method import MembershipCollectionMethod
+    from .membership_feedback_option import MembershipFeedbackOption
     from .membership_legacy import MembershipLegacy
     from .membership_legacy_company import MembershipLegacyCompany
     from .membership_legacy_custom_field_responses_item import MembershipLegacyCustomFieldResponsesItem
+    from .membership_legacy_feedback_option import MembershipLegacyFeedbackOption
     from .membership_legacy_member import MembershipLegacyMember
     from .membership_legacy_plan import MembershipLegacyPlan
     from .membership_legacy_product import MembershipLegacyProduct
@@ -804,6 +808,7 @@ if typing.TYPE_CHECKING:
     from .membership_legacy_user import MembershipLegacyUser
     from .membership_list_item import MembershipListItem
     from .membership_list_item_company import MembershipListItemCompany
+    from .membership_list_item_feedback_option import MembershipListItemFeedbackOption
     from .membership_list_item_member import MembershipListItemMember
     from .membership_list_item_plan import MembershipListItemPlan
     from .membership_list_item_product import MembershipListItemProduct
@@ -2161,6 +2166,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "FeeMarkup": ".fee_markup",
     "FeeMarkupListItem": ".fee_markup_list_item",
     "FeeMarkupTypes": ".fee_markup_types",
+    "FeedbackOption": ".feedback_option",
+    "FeedbackOptionCategory": ".feedback_option_category",
     "File": ".file",
     "FileMultipartUrl": ".file_multipart_url",
     "FileUploadStatus": ".file_upload_status",
@@ -2331,9 +2338,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MembershipCancelOption": ".membership_cancel_option",
     "MembershipCancellationModes": ".membership_cancellation_modes",
     "MembershipCollectionMethod": ".membership_collection_method",
+    "MembershipFeedbackOption": ".membership_feedback_option",
     "MembershipLegacy": ".membership_legacy",
     "MembershipLegacyCompany": ".membership_legacy_company",
     "MembershipLegacyCustomFieldResponsesItem": ".membership_legacy_custom_field_responses_item",
+    "MembershipLegacyFeedbackOption": ".membership_legacy_feedback_option",
     "MembershipLegacyMember": ".membership_legacy_member",
     "MembershipLegacyPlan": ".membership_legacy_plan",
     "MembershipLegacyProduct": ".membership_legacy_product",
@@ -2341,6 +2350,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MembershipLegacyUser": ".membership_legacy_user",
     "MembershipListItem": ".membership_list_item",
     "MembershipListItemCompany": ".membership_list_item_company",
+    "MembershipListItemFeedbackOption": ".membership_list_item_feedback_option",
     "MembershipListItemMember": ".membership_list_item_member",
     "MembershipListItemPlan": ".membership_list_item_plan",
     "MembershipListItemProduct": ".membership_list_item_product",
@@ -3602,6 +3612,8 @@ __all__ = [
     "FeeMarkup",
     "FeeMarkupListItem",
     "FeeMarkupTypes",
+    "FeedbackOption",
+    "FeedbackOptionCategory",
     "File",
     "FileMultipartUrl",
     "FileUploadStatus",
@@ -3772,9 +3784,11 @@ __all__ = [
     "MembershipCancelOption",
     "MembershipCancellationModes",
     "MembershipCollectionMethod",
+    "MembershipFeedbackOption",
     "MembershipLegacy",
     "MembershipLegacyCompany",
     "MembershipLegacyCustomFieldResponsesItem",
+    "MembershipLegacyFeedbackOption",
     "MembershipLegacyMember",
     "MembershipLegacyPlan",
     "MembershipLegacyProduct",
@@ -3782,6 +3796,7 @@ __all__ = [
     "MembershipLegacyUser",
     "MembershipListItem",
     "MembershipListItemCompany",
+    "MembershipListItemFeedbackOption",
     "MembershipListItemMember",
     "MembershipListItemPlan",
     "MembershipListItemProduct",

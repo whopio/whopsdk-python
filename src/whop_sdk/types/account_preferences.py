@@ -8,6 +8,7 @@ from .account_economic_intelligence_offer import AccountEconomicIntelligenceOffe
 from .account_economic_intelligence_previous_period import AccountEconomicIntelligencePreviousPeriod
 from .account_preferences_preferred_settlement_currency import AccountPreferencesPreferredSettlementCurrency
 from .account_preferences_subscription_failure_behavior import AccountPreferencesSubscriptionFailureBehavior
+from .feedback_option import FeedbackOption
 
 
 class AccountPreferences(UniversalBaseModel):
@@ -85,6 +86,7 @@ class AccountPreferences(UniversalBaseModel):
     The account's last Economic Intelligence period, once it has ended. `null` while Economic Intelligence is on, or when it has never been on.
     """
 
+    feedback_options: typing.List[FeedbackOption]
     preferred_settlement_currency: typing.Optional[AccountPreferencesPreferredSettlementCurrency] = pydantic.Field(
         default=None
     )

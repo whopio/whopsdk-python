@@ -9,6 +9,7 @@ from .cancel_options import CancelOptions
 from .cancelation_status import CancelationStatus
 from .currencies import Currencies
 from .membership_list_item_company import MembershipListItemCompany
+from .membership_list_item_feedback_option import MembershipListItemFeedbackOption
 from .membership_list_item_member import MembershipListItemMember
 from .membership_list_item_plan import MembershipListItemPlan
 from .membership_list_item_product import MembershipListItemProduct
@@ -65,6 +66,11 @@ class MembershipListItem(UniversalBaseModel):
     currency: typing.Optional[Currencies] = pydantic.Field(default=None)
     """
     The three-letter ISO currency code for this membership's billing. Null if the membership is free.
+    """
+
+    feedback_option: typing.Optional[MembershipListItemFeedbackOption] = pydantic.Field(default=None)
+    """
+    The account's own cancel reason the member picked, as they saw it. `null` when the member picked a default category or gave no reason.
     """
 
     formatted_renewal_price: typing.Optional[str] = pydantic.Field(default=None)
