@@ -4,13 +4,14 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .domain_website_app import DomainWebsiteApp
 from .domain_website_state import DomainWebsiteState
 
 
 class DomainWebsite(UniversalBaseModel):
-    app_id: typing.Optional[str] = pydantic.Field(default=None)
+    app: typing.Optional[DomainWebsiteApp] = pydantic.Field(default=None)
     """
-    ID of the app the domain serves, prefixed `app_`. `null` until you choose one; the domain shows a placeholder page meanwhile.
+    The app the domain serves. `null` until you choose one; the domain shows a placeholder page meanwhile.
     """
 
     state: DomainWebsiteState = pydantic.Field()
