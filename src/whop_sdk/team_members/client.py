@@ -153,7 +153,7 @@ class TeamMembersClient:
             Account ID, prefixed `biz_`.
 
         role : CreateTeamMembersRequestRole
-            The system role to grant. Custom roles cannot be granted through the API. The Partner role can only be granted to the account's attached, verified partner.
+            The system role to grant. Custom roles cannot be granted through the API. The Partner role provides view-only access.
 
         email : typing.Optional[str]
             Email address to invite. Mutually exclusive with `user_id`. If the email already belongs to a Whop account it is treated the same as passing that account's `user_id`; otherwise a pending invite is created for the email.
@@ -270,7 +270,7 @@ class TeamMembersClient:
             Team member ID — `ausr_` for accepted members, `ausri_` for pending invites.
 
         role : typing.Optional[UpdateTeamMembersRequestRole]
-            The system role to grant. Custom roles cannot be granted through the API. The Partner role can only be granted to the account's attached, verified partner.
+            The system role to grant. Custom roles cannot be granted through the API. The Partner role provides view-only access.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -439,7 +439,7 @@ class AsyncTeamMembersClient:
             Account ID, prefixed `biz_`.
 
         role : CreateTeamMembersRequestRole
-            The system role to grant. Custom roles cannot be granted through the API. The Partner role can only be granted to the account's attached, verified partner.
+            The system role to grant. Custom roles cannot be granted through the API. The Partner role provides view-only access.
 
         email : typing.Optional[str]
             Email address to invite. Mutually exclusive with `user_id`. If the email already belongs to a Whop account it is treated the same as passing that account's `user_id`; otherwise a pending invite is created for the email.
@@ -582,7 +582,7 @@ class AsyncTeamMembersClient:
             Team member ID — `ausr_` for accepted members, `ausri_` for pending invites.
 
         role : typing.Optional[UpdateTeamMembersRequestRole]
-            The system role to grant. Custom roles cannot be granted through the API. The Partner role can only be granted to the account's attached, verified partner.
+            The system role to grant. Custom roles cannot be granted through the API. The Partner role provides view-only access.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
