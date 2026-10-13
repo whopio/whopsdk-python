@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .membership_affiliate import MembershipAffiliate
+from .membership_cancel_option import MembershipCancelOption
 from .membership_collection_method import MembershipCollectionMethod
 from .membership_member import MembershipMember
 from .membership_most_recent_action import MembershipMostRecentAction
@@ -33,6 +34,11 @@ class Membership(UniversalBaseModel):
     cancel_at_period_end: bool = pydantic.Field()
     """
     Whether the membership is set to cancel when the current billing period ends. Only meaningful for recurring variants.
+    """
+
+    cancel_option: typing.Optional[MembershipCancelOption] = pydantic.Field(default=None)
+    """
+    The category the member picked for why they canceled. `null` when no category was picked.
     """
 
     canceled_at: typing.Optional[str] = pydantic.Field(default=None)
