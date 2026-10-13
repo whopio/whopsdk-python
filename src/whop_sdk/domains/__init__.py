@@ -7,12 +7,14 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
+        CreateDomainsRequestPixel,
         CreateDomainsRequestRegistration,
         CreateDomainsRequestVerification,
         CreateDomainsRequestWebsite,
         ListDomainsRequestApplePay,
         ListDomainsRequestDirection,
         ListDomainsRequestOrder,
+        ListDomainsRequestPixel,
         ListDomainsRequestPlatform,
         ListDomainsRequestRegistration,
         ListDomainsRequestStatus,
@@ -20,17 +22,20 @@ if typing.TYPE_CHECKING:
         ListDomainsRequestWebsite,
         ListDomainsResponse,
         ListDomainsResponsePageInfo,
+        UpdateDomainsRequestPixel,
         UpdateDomainsRequestRegistration,
         UpdateDomainsRequestVerification,
         UpdateDomainsRequestWebsite,
     )
 _dynamic_imports: typing.Dict[str, str] = {
+    "CreateDomainsRequestPixel": ".types",
     "CreateDomainsRequestRegistration": ".types",
     "CreateDomainsRequestVerification": ".types",
     "CreateDomainsRequestWebsite": ".types",
     "ListDomainsRequestApplePay": ".types",
     "ListDomainsRequestDirection": ".types",
     "ListDomainsRequestOrder": ".types",
+    "ListDomainsRequestPixel": ".types",
     "ListDomainsRequestPlatform": ".types",
     "ListDomainsRequestRegistration": ".types",
     "ListDomainsRequestStatus": ".types",
@@ -38,6 +43,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListDomainsRequestWebsite": ".types",
     "ListDomainsResponse": ".types",
     "ListDomainsResponsePageInfo": ".types",
+    "UpdateDomainsRequestPixel": ".types",
     "UpdateDomainsRequestRegistration": ".types",
     "UpdateDomainsRequestVerification": ".types",
     "UpdateDomainsRequestWebsite": ".types",
@@ -66,12 +72,14 @@ def __dir__():
 
 
 __all__ = [
+    "CreateDomainsRequestPixel",
     "CreateDomainsRequestRegistration",
     "CreateDomainsRequestVerification",
     "CreateDomainsRequestWebsite",
     "ListDomainsRequestApplePay",
     "ListDomainsRequestDirection",
     "ListDomainsRequestOrder",
+    "ListDomainsRequestPixel",
     "ListDomainsRequestPlatform",
     "ListDomainsRequestRegistration",
     "ListDomainsRequestStatus",
@@ -79,6 +87,7 @@ __all__ = [
     "ListDomainsRequestWebsite",
     "ListDomainsResponse",
     "ListDomainsResponsePageInfo",
+    "UpdateDomainsRequestPixel",
     "UpdateDomainsRequestRegistration",
     "UpdateDomainsRequestVerification",
     "UpdateDomainsRequestWebsite",

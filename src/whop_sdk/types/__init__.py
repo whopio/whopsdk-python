@@ -522,6 +522,8 @@ if typing.TYPE_CHECKING:
     from .domain_list_item import DomainListItem
     from .domain_list_item_status import DomainListItemStatus
     from .domain_owner import DomainOwner
+    from .domain_pixel import DomainPixel
+    from .domain_pixel_state import DomainPixelState
     from .domain_platform import DomainPlatform
     from .domain_platform_state import DomainPlatformState
     from .domain_public_record import DomainPublicRecord
@@ -2009,6 +2011,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DomainListItem": ".domain_list_item",
     "DomainListItemStatus": ".domain_list_item_status",
     "DomainOwner": ".domain_owner",
+    "DomainPixel": ".domain_pixel",
+    "DomainPixelState": ".domain_pixel_state",
     "DomainPlatform": ".domain_platform",
     "DomainPlatformState": ".domain_platform_state",
     "DomainPublicRecord": ".domain_public_record",
@@ -3398,6 +3402,8 @@ __all__ = [
     "DomainListItem",
     "DomainListItemStatus",
     "DomainOwner",
+    "DomainPixel",
+    "DomainPixelState",
     "DomainPlatform",
     "DomainPlatformState",
     "DomainPublicRecord",

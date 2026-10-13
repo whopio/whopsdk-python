@@ -22,6 +22,11 @@ DomainIssueCode = typing.Union[
         "renewal_failed",
         "payment_action_required",
         "apple_pay_unverified",
+        "pixel_not_seen",
+        "pixel_not_installed",
+        "pixel_waiting",
+        "pixel_unreachable",
+        "pixel_quiet",
     ],
     typing.Any,
 ]

@@ -9,6 +9,7 @@ from .domain_availability import DomainAvailability
 from .domain_issue import DomainIssue
 from .domain_list_item_status import DomainListItemStatus
 from .domain_owner import DomainOwner
+from .domain_pixel import DomainPixel
 from .domain_platform import DomainPlatform
 from .domain_registration import DomainRegistration
 from .domain_verification import DomainVerification
@@ -55,6 +56,11 @@ class DomainListItem(UniversalBaseModel):
     owned_by: typing.Optional[DomainOwner] = pydantic.Field(default=None)
     """
     The other account that has proven it owns this hostname. `null` when no other account does.
+    """
+
+    pixel: typing.Optional[DomainPixel] = pydantic.Field(default=None)
+    """
+    Tracking page views on the domain with the Whop pixel. `null` when not tracked or not visible to you.
     """
 
     platform: typing.Optional[DomainPlatform] = pydantic.Field(default=None)

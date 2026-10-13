@@ -8,18 +8,21 @@ from ..core.request_options import RequestOptions
 from ..types.domain import Domain
 from ..types.domain_list_item import DomainListItem
 from .raw_client import AsyncRawDomainsClient, RawDomainsClient
+from .types.create_domains_request_pixel import CreateDomainsRequestPixel
 from .types.create_domains_request_registration import CreateDomainsRequestRegistration
 from .types.create_domains_request_verification import CreateDomainsRequestVerification
 from .types.create_domains_request_website import CreateDomainsRequestWebsite
 from .types.list_domains_request_apple_pay import ListDomainsRequestApplePay
 from .types.list_domains_request_direction import ListDomainsRequestDirection
 from .types.list_domains_request_order import ListDomainsRequestOrder
+from .types.list_domains_request_pixel import ListDomainsRequestPixel
 from .types.list_domains_request_platform import ListDomainsRequestPlatform
 from .types.list_domains_request_registration import ListDomainsRequestRegistration
 from .types.list_domains_request_status import ListDomainsRequestStatus
 from .types.list_domains_request_verification import ListDomainsRequestVerification
 from .types.list_domains_request_website import ListDomainsRequestWebsite
 from .types.list_domains_response import ListDomainsResponse
+from .types.update_domains_request_pixel import UpdateDomainsRequestPixel
 from .types.update_domains_request_registration import UpdateDomainsRequestRegistration
 from .types.update_domains_request_verification import UpdateDomainsRequestVerification
 from .types.update_domains_request_website import UpdateDomainsRequestWebsite
@@ -63,6 +66,7 @@ class DomainsClient:
         platform: typing.Optional[ListDomainsRequestPlatform] = None,
         website: typing.Optional[ListDomainsRequestWebsite] = None,
         apple_pay: typing.Optional[ListDomainsRequestApplePay] = None,
+        pixel: typing.Optional[ListDomainsRequestPixel] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[DomainListItem, ListDomainsResponse]:
         """
@@ -123,6 +127,9 @@ class DomainsClient:
         apple_pay : typing.Optional[ListDomainsRequestApplePay]
             Only domains with apple_pay in this state, such as `ready`, or `any` for every domain that has apple_pay.
 
+        pixel : typing.Optional[ListDomainsRequestPixel]
+            Only domains with pixel in this state, such as `ready`, or `any` for every domain that has pixel.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -167,6 +174,7 @@ class DomainsClient:
             platform=platform,
             website=website,
             apple_pay=apple_pay,
+            pixel=pixel,
             request_options=request_options,
         )
 
@@ -176,6 +184,7 @@ class DomainsClient:
         domain: str,
         account_id: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
+        pixel: typing.Optional[CreateDomainsRequestPixel] = OMIT,
         registration: typing.Optional[CreateDomainsRequestRegistration] = OMIT,
         verification: typing.Optional[CreateDomainsRequestVerification] = OMIT,
         website: typing.Optional[CreateDomainsRequestWebsite] = OMIT,
@@ -200,6 +209,9 @@ class DomainsClient:
 
         metadata : typing.Optional[typing.Dict[str, str]]
             Custom string keys and values.
+
+        pixel : typing.Optional[CreateDomainsRequestPixel]
+            Track page views on the domain with the Whop pixel. It needs no other capability: it stays `pending` until the pixel records a page view, and turns `action_required` if it goes 7 days without one. Pass `null` to stop tracking.
 
         registration : typing.Optional[CreateDomainsRequestRegistration]
             Buy the domain through Whop, renew it every year, and let Whop run its DNS. Pass `null` to release an unpaid or failed purchase.
@@ -235,6 +247,7 @@ class DomainsClient:
             domain=domain,
             account_id=account_id,
             metadata=metadata,
+            pixel=pixel,
             registration=registration,
             verification=verification,
             website=website,
@@ -315,6 +328,7 @@ class DomainsClient:
         id: str,
         *,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
+        pixel: typing.Optional[UpdateDomainsRequestPixel] = OMIT,
         registration: typing.Optional[UpdateDomainsRequestRegistration] = OMIT,
         verification: typing.Optional[UpdateDomainsRequestVerification] = OMIT,
         website: typing.Optional[UpdateDomainsRequestWebsite] = OMIT,
@@ -330,6 +344,9 @@ class DomainsClient:
 
         metadata : typing.Optional[typing.Dict[str, str]]
             Replacement custom string keys and values.
+
+        pixel : typing.Optional[UpdateDomainsRequestPixel]
+            Track page views on the domain with the Whop pixel. It needs no other capability: it stays `pending` until the pixel records a page view, and turns `action_required` if it goes 7 days without one. Pass `null` to stop tracking.
 
         registration : typing.Optional[UpdateDomainsRequestRegistration]
             Buy the domain through Whop, renew it every year, and let Whop run its DNS. Pass `null` to release an unpaid or failed purchase.
@@ -364,6 +381,7 @@ class DomainsClient:
         _response = self._raw_client.update(
             id,
             metadata=metadata,
+            pixel=pixel,
             registration=registration,
             verification=verification,
             website=website,
@@ -440,6 +458,7 @@ class AsyncDomainsClient:
         platform: typing.Optional[ListDomainsRequestPlatform] = None,
         website: typing.Optional[ListDomainsRequestWebsite] = None,
         apple_pay: typing.Optional[ListDomainsRequestApplePay] = None,
+        pixel: typing.Optional[ListDomainsRequestPixel] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[DomainListItem, ListDomainsResponse]:
         """
@@ -500,6 +519,9 @@ class AsyncDomainsClient:
         apple_pay : typing.Optional[ListDomainsRequestApplePay]
             Only domains with apple_pay in this state, such as `ready`, or `any` for every domain that has apple_pay.
 
+        pixel : typing.Optional[ListDomainsRequestPixel]
+            Only domains with pixel in this state, such as `ready`, or `any` for every domain that has pixel.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -553,6 +575,7 @@ class AsyncDomainsClient:
             platform=platform,
             website=website,
             apple_pay=apple_pay,
+            pixel=pixel,
             request_options=request_options,
         )
 
@@ -562,6 +585,7 @@ class AsyncDomainsClient:
         domain: str,
         account_id: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
+        pixel: typing.Optional[CreateDomainsRequestPixel] = OMIT,
         registration: typing.Optional[CreateDomainsRequestRegistration] = OMIT,
         verification: typing.Optional[CreateDomainsRequestVerification] = OMIT,
         website: typing.Optional[CreateDomainsRequestWebsite] = OMIT,
@@ -586,6 +610,9 @@ class AsyncDomainsClient:
 
         metadata : typing.Optional[typing.Dict[str, str]]
             Custom string keys and values.
+
+        pixel : typing.Optional[CreateDomainsRequestPixel]
+            Track page views on the domain with the Whop pixel. It needs no other capability: it stays `pending` until the pixel records a page view, and turns `action_required` if it goes 7 days without one. Pass `null` to stop tracking.
 
         registration : typing.Optional[CreateDomainsRequestRegistration]
             Buy the domain through Whop, renew it every year, and let Whop run its DNS. Pass `null` to release an unpaid or failed purchase.
@@ -629,6 +656,7 @@ class AsyncDomainsClient:
             domain=domain,
             account_id=account_id,
             metadata=metadata,
+            pixel=pixel,
             registration=registration,
             verification=verification,
             website=website,
@@ -725,6 +753,7 @@ class AsyncDomainsClient:
         id: str,
         *,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
+        pixel: typing.Optional[UpdateDomainsRequestPixel] = OMIT,
         registration: typing.Optional[UpdateDomainsRequestRegistration] = OMIT,
         verification: typing.Optional[UpdateDomainsRequestVerification] = OMIT,
         website: typing.Optional[UpdateDomainsRequestWebsite] = OMIT,
@@ -740,6 +769,9 @@ class AsyncDomainsClient:
 
         metadata : typing.Optional[typing.Dict[str, str]]
             Replacement custom string keys and values.
+
+        pixel : typing.Optional[UpdateDomainsRequestPixel]
+            Track page views on the domain with the Whop pixel. It needs no other capability: it stays `pending` until the pixel records a page view, and turns `action_required` if it goes 7 days without one. Pass `null` to stop tracking.
 
         registration : typing.Optional[UpdateDomainsRequestRegistration]
             Buy the domain through Whop, renew it every year, and let Whop run its DNS. Pass `null` to release an unpaid or failed purchase.
@@ -782,6 +814,7 @@ class AsyncDomainsClient:
         _response = await self._raw_client.update(
             id,
             metadata=metadata,
+            pixel=pixel,
             registration=registration,
             verification=verification,
             website=website,

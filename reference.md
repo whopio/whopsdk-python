@@ -18184,6 +18184,14 @@ client.domains.list(
 <dl>
 <dd>
 
+**pixel:** `typing.Optional[ListDomainsRequestPixel]` — Only domains with pixel in this state, such as `ready`, or `any` for every domain that has pixel.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -18272,6 +18280,14 @@ client.domains.create(
 <dd>
 
 **metadata:** `typing.Optional[typing.Dict[str, str]]` — Custom string keys and values.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pixel:** `typing.Optional[CreateDomainsRequestPixel]` — Track page views on the domain with the Whop pixel. It needs no other capability: it stays `pending` until the pixel records a page view, and turns `action_required` if it goes 7 days without one. Pass `null` to stop tracking.
     
 </dd>
 </dl>
@@ -18525,6 +18541,14 @@ client.domains.update(
 <dd>
 
 **metadata:** `typing.Optional[typing.Dict[str, str]]` — Replacement custom string keys and values.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pixel:** `typing.Optional[UpdateDomainsRequestPixel]` — Track page views on the domain with the Whop pixel. It needs no other capability: it stays `pending` until the pixel records a page view, and turns `action_required` if it goes 7 days without one. Pass `null` to stop tracking.
     
 </dd>
 </dl>
