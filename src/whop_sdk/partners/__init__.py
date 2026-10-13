@@ -29,6 +29,9 @@ if typing.TYPE_CHECKING:
     )
     from . import businesses
     from .businesses import (
+        AcceptCommissionAdvanceBusinessesRequestAcknowledgmentsItem,
+        AcceptCommissionAdvanceBusinessesResponse,
+        ListBusinessesRequestAdvanceStatus,
         ListBusinessesRequestDirection,
         ListBusinessesRequestOrder,
         ListBusinessesRequestStatus,
@@ -67,8 +70,11 @@ if typing.TYPE_CHECKING:
         RetrieveBusinessesResponseSecondTierPartnerProfilePicture,
         RetrieveBusinessesResponseStatus,
         RetrieveBusinessesResponseVolumeUsd,
+        UpdateBusinessesResponse,
     )
 _dynamic_imports: typing.Dict[str, str] = {
+    "AcceptCommissionAdvanceBusinessesRequestAcknowledgmentsItem": ".businesses",
+    "AcceptCommissionAdvanceBusinessesResponse": ".businesses",
     "CreatePartnersResponse": ".types",
     "LeaderboardPartnersRequestPeriod": ".types",
     "LeaderboardPartnersResponse": ".types",
@@ -81,6 +87,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LeaderboardPartnersResponseNearbyItem": ".types",
     "LeaderboardPartnersResponseNearbyItemUser": ".types",
     "LeaderboardPartnersResponseNearbyItemUserProfilePicture": ".types",
+    "ListBusinessesRequestAdvanceStatus": ".businesses",
     "ListBusinessesRequestDirection": ".businesses",
     "ListBusinessesRequestOrder": ".businesses",
     "ListBusinessesRequestStatus": ".businesses",
@@ -126,6 +133,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrieveBusinessesResponseSecondTierPartnerProfilePicture": ".businesses",
     "RetrieveBusinessesResponseStatus": ".businesses",
     "RetrieveBusinessesResponseVolumeUsd": ".businesses",
+    "UpdateBusinessesResponse": ".businesses",
     "businesses": ".businesses",
 }
 
@@ -152,6 +160,8 @@ def __dir__():
 
 
 __all__ = [
+    "AcceptCommissionAdvanceBusinessesRequestAcknowledgmentsItem",
+    "AcceptCommissionAdvanceBusinessesResponse",
     "CreatePartnersResponse",
     "LeaderboardPartnersRequestPeriod",
     "LeaderboardPartnersResponse",
@@ -164,6 +174,7 @@ __all__ = [
     "LeaderboardPartnersResponseNearbyItem",
     "LeaderboardPartnersResponseNearbyItemUser",
     "LeaderboardPartnersResponseNearbyItemUserProfilePicture",
+    "ListBusinessesRequestAdvanceStatus",
     "ListBusinessesRequestDirection",
     "ListBusinessesRequestOrder",
     "ListBusinessesRequestStatus",
@@ -209,5 +220,6 @@ __all__ = [
     "RetrieveBusinessesResponseSecondTierPartnerProfilePicture",
     "RetrieveBusinessesResponseStatus",
     "RetrieveBusinessesResponseVolumeUsd",
+    "UpdateBusinessesResponse",
     "businesses",
 ]

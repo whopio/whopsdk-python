@@ -8,6 +8,11 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.pagination import AsyncPager, SyncPager
 from ...core.request_options import RequestOptions
 from .raw_client import AsyncRawBusinessesClient, RawBusinessesClient
+from .types.accept_commission_advance_businesses_request_acknowledgments_item import (
+    AcceptCommissionAdvanceBusinessesRequestAcknowledgmentsItem,
+)
+from .types.accept_commission_advance_businesses_response import AcceptCommissionAdvanceBusinessesResponse
+from .types.list_businesses_request_advance_status import ListBusinessesRequestAdvanceStatus
 from .types.list_businesses_request_direction import ListBusinessesRequestDirection
 from .types.list_businesses_request_order import ListBusinessesRequestOrder
 from .types.list_businesses_request_status import ListBusinessesRequestStatus
@@ -15,9 +20,12 @@ from .types.list_businesses_request_tier import ListBusinessesRequestTier
 from .types.list_businesses_response import ListBusinessesResponse
 from .types.list_businesses_response_data_item import ListBusinessesResponseDataItem
 from .types.retrieve_businesses_response import RetrieveBusinessesResponse
+from .types.update_businesses_response import UpdateBusinessesResponse
 
 if typing.TYPE_CHECKING:
     from .earnings.client import AsyncEarningsClient, EarningsClient
+# this is used as the default value for optional parameters
+OMIT = typing.cast(typing.Any, ...)
 
 
 class BusinessesClient:
@@ -41,6 +49,7 @@ class BusinessesClient:
         self,
         *,
         referring_account_id: typing.Optional[str] = None,
+        advance_status: typing.Optional[ListBusinessesRequestAdvanceStatus] = None,
         status: typing.Optional[ListBusinessesRequestStatus] = None,
         has_earnings: typing.Optional[bool] = None,
         first: typing.Optional[int] = None,
@@ -64,6 +73,9 @@ class BusinessesClient:
         ----------
         referring_account_id : typing.Optional[str]
             List the referrals this business's team members made, past members included, instead of the authenticated user's own. Requires company:basic:read on that business, which every team member holds, and cannot be combined with user_id.
+
+        advance_status : typing.Optional[ListBusinessesRequestAdvanceStatus]
+            Filter the authenticated partner's CPA offers by status. Use offered for every state after qualification.
 
         status : typing.Optional[ListBusinessesRequestStatus]
             Filter by referral status.
@@ -133,6 +145,7 @@ class BusinessesClient:
         """
         return self._raw_client.list(
             referring_account_id=referring_account_id,
+            advance_status=advance_status,
             status=status,
             has_earnings=has_earnings,
             first=first,
@@ -185,6 +198,123 @@ class BusinessesClient:
         _response = self._raw_client.retrieve(id, request_options=request_options)
         return _response.data
 
+    def update(
+        self,
+        id: str,
+        *,
+        annual_ads_usd: str,
+        annual_processing_usd: str,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> UpdateBusinessesResponse:
+        """
+        Save annual projections for a business referred by the authenticated partner. Projections cannot be changed after saving; repeating the same values is allowed. Public API access requires a partner OAuth token; business API keys are not supported.
+
+        Parameters
+        ----------
+        id : str
+            The partner business ID (a coma_ identifier).
+
+        annual_ads_usd : str
+            Annual projected Whop Ads spend in USD.
+
+        annual_processing_usd : str
+            Annual projected processing on Whop in USD.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        UpdateBusinessesResponse
+            CPA projections saved
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-10-13-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.partners.businesses.update(
+            id="id",
+            annual_ads_usd="120000",
+            annual_processing_usd="1200000",
+        )
+        """
+        _response = self._raw_client.update(
+            id,
+            annual_ads_usd=annual_ads_usd,
+            annual_processing_usd=annual_processing_usd,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def accept_commission_advance(
+        self,
+        id: str,
+        *,
+        acknowledgments: typing.Sequence[AcceptCommissionAdvanceBusinessesRequestAcknowledgmentsItem],
+        expected_amount_usd: str,
+        offer_token: str,
+        terms_version: str,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AcceptCommissionAdvanceBusinessesResponse:
+        """
+        Accept the authenticated partner's CPA offer with the reviewed terms and signed offer token. Public API access requires a partner OAuth token; business API keys are not supported.
+
+        Parameters
+        ----------
+        id : str
+            The referred business relationship ID.
+
+        acknowledgments : typing.Sequence[AcceptCommissionAdvanceBusinessesRequestAcknowledgmentsItem]
+
+        expected_amount_usd : str
+            Reviewed payment amount in USD.
+
+        offer_token : str
+            Signed offer token returned by the partner business response. Requires partner:commission_advance:accept permission to retrieve.
+
+        terms_version : str
+            Reviewed CPA terms version.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AcceptCommissionAdvanceBusinessesResponse
+            CPA offer accepted
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-10-13-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.partners.businesses.accept_commission_advance(
+            id="id",
+            acknowledgments=["commission_replacement", "clawback", "term"],
+            expected_amount_usd="1439.99",
+            offer_token="eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            terms_version="2026-01-01",
+        )
+        """
+        _response = self._raw_client.accept_commission_advance(
+            id,
+            acknowledgments=acknowledgments,
+            expected_amount_usd=expected_amount_usd,
+            offer_token=offer_token,
+            terms_version=terms_version,
+            request_options=request_options,
+        )
+        return _response.data
+
     @property
     def earnings(self):
         if self._earnings is None:
@@ -215,6 +345,7 @@ class AsyncBusinessesClient:
         self,
         *,
         referring_account_id: typing.Optional[str] = None,
+        advance_status: typing.Optional[ListBusinessesRequestAdvanceStatus] = None,
         status: typing.Optional[ListBusinessesRequestStatus] = None,
         has_earnings: typing.Optional[bool] = None,
         first: typing.Optional[int] = None,
@@ -238,6 +369,9 @@ class AsyncBusinessesClient:
         ----------
         referring_account_id : typing.Optional[str]
             List the referrals this business's team members made, past members included, instead of the authenticated user's own. Requires company:basic:read on that business, which every team member holds, and cannot be combined with user_id.
+
+        advance_status : typing.Optional[ListBusinessesRequestAdvanceStatus]
+            Filter the authenticated partner's CPA offers by status. Use offered for every state after qualification.
 
         status : typing.Optional[ListBusinessesRequestStatus]
             Filter by referral status.
@@ -316,6 +450,7 @@ class AsyncBusinessesClient:
         """
         return await self._raw_client.list(
             referring_account_id=referring_account_id,
+            advance_status=advance_status,
             status=status,
             has_earnings=has_earnings,
             first=first,
@@ -374,6 +509,139 @@ class AsyncBusinessesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.retrieve(id, request_options=request_options)
+        return _response.data
+
+    async def update(
+        self,
+        id: str,
+        *,
+        annual_ads_usd: str,
+        annual_processing_usd: str,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> UpdateBusinessesResponse:
+        """
+        Save annual projections for a business referred by the authenticated partner. Projections cannot be changed after saving; repeating the same values is allowed. Public API access requires a partner OAuth token; business API keys are not supported.
+
+        Parameters
+        ----------
+        id : str
+            The partner business ID (a coma_ identifier).
+
+        annual_ads_usd : str
+            Annual projected Whop Ads spend in USD.
+
+        annual_processing_usd : str
+            Annual projected processing on Whop in USD.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        UpdateBusinessesResponse
+            CPA projections saved
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-10-13-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.partners.businesses.update(
+                id="id",
+                annual_ads_usd="120000",
+                annual_processing_usd="1200000",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.update(
+            id,
+            annual_ads_usd=annual_ads_usd,
+            annual_processing_usd=annual_processing_usd,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def accept_commission_advance(
+        self,
+        id: str,
+        *,
+        acknowledgments: typing.Sequence[AcceptCommissionAdvanceBusinessesRequestAcknowledgmentsItem],
+        expected_amount_usd: str,
+        offer_token: str,
+        terms_version: str,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AcceptCommissionAdvanceBusinessesResponse:
+        """
+        Accept the authenticated partner's CPA offer with the reviewed terms and signed offer token. Public API access requires a partner OAuth token; business API keys are not supported.
+
+        Parameters
+        ----------
+        id : str
+            The referred business relationship ID.
+
+        acknowledgments : typing.Sequence[AcceptCommissionAdvanceBusinessesRequestAcknowledgmentsItem]
+
+        expected_amount_usd : str
+            Reviewed payment amount in USD.
+
+        offer_token : str
+            Signed offer token returned by the partner business response. Requires partner:commission_advance:accept permission to retrieve.
+
+        terms_version : str
+            Reviewed CPA terms version.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AcceptCommissionAdvanceBusinessesResponse
+            CPA offer accepted
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-10-13-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.partners.businesses.accept_commission_advance(
+                id="id",
+                acknowledgments=["commission_replacement", "clawback", "term"],
+                expected_amount_usd="1439.99",
+                offer_token="eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+                terms_version="2026-01-01",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.accept_commission_advance(
+            id,
+            acknowledgments=acknowledgments,
+            expected_amount_usd=expected_amount_usd,
+            offer_token=offer_token,
+            terms_version=terms_version,
+            request_options=request_options,
+        )
         return _response.data
 
     @property

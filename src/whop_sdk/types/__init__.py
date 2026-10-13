@@ -858,6 +858,8 @@ if typing.TYPE_CHECKING:
     from .page_info import PageInfo
     from .pagination import Pagination
     from .partner import Partner
+    from .partner_advance import PartnerAdvance
+    from .partner_advance_status import PartnerAdvanceStatus
     from .partner_payout_duration import PartnerPayoutDuration
     from .partner_payout_duration_unit import PartnerPayoutDurationUnit
     from .partner_payout_rate import PartnerPayoutRate
@@ -2393,6 +2395,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PageInfo": ".page_info",
     "Pagination": ".pagination",
     "Partner": ".partner",
+    "PartnerAdvance": ".partner_advance",
+    "PartnerAdvanceStatus": ".partner_advance_status",
     "PartnerPayoutDuration": ".partner_payout_duration",
     "PartnerPayoutDurationUnit": ".partner_payout_duration_unit",
     "PartnerPayoutRate": ".partner_payout_rate",
@@ -3832,6 +3836,8 @@ __all__ = [
     "PageInfo",
     "Pagination",
     "Partner",
+    "PartnerAdvance",
+    "PartnerAdvanceStatus",
     "PartnerPayoutDuration",
     "PartnerPayoutDurationUnit",
     "PartnerPayoutRate",
