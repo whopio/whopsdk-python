@@ -178,7 +178,7 @@ class PaymentRulesClient:
                     CreatePaymentRulesRequestConditionsAllItem(
                         field="risk_score",
                         operator="gte",
-                        value=70,
+                        value=70.0,
                     )
                 ],
             ),
@@ -451,7 +451,7 @@ class PaymentRulesClient:
                     ReplacePaymentRulesRequestConditionsAllItem(
                         field="risk_score",
                         operator="gte",
-                        value=70,
+                        value=70.0,
                     )
                 ],
             ),
@@ -631,7 +631,7 @@ class AsyncPaymentRulesClient:
                         CreatePaymentRulesRequestConditionsAllItem(
                             field="risk_score",
                             operator="gte",
-                            value=70,
+                            value=70.0,
                         )
                     ],
                 ),
@@ -962,7 +962,7 @@ class AsyncPaymentRulesClient:
                         ReplacePaymentRulesRequestConditionsAllItem(
                             field="risk_score",
                             operator="gte",
-                            value=70,
+                            value=70.0,
                         )
                     ],
                 ),

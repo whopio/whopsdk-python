@@ -2,4 +2,4 @@
 
 import typing
 
-PaymentRuleConditionValue = typing.Union[int, str, typing.List[str]]
+PaymentRuleConditionValue = typing.Union[float, str, typing.List[str]]
