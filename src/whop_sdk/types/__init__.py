@@ -597,6 +597,11 @@ if typing.TYPE_CHECKING:
     from .file_multipart_url import FileMultipartUrl
     from .file_upload_status import FileUploadStatus
     from .file_visibility import FileVisibility
+    from .financing_access_change import FinancingAccessChange
+    from .financing_access_change_disabled_payment_methods_item import FinancingAccessChangeDisabledPaymentMethodsItem
+    from .financing_access_change_object import FinancingAccessChangeObject
+    from .financing_access_change_provider import FinancingAccessChangeProvider
+    from .financing_access_change_reason import FinancingAccessChangeReason
     from .financing_application import FinancingApplication
     from .financing_application_status import FinancingApplicationStatus
     from .financing_requirement import FinancingRequirement
@@ -2075,6 +2080,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "FileMultipartUrl": ".file_multipart_url",
     "FileUploadStatus": ".file_upload_status",
     "FileVisibility": ".file_visibility",
+    "FinancingAccessChange": ".financing_access_change",
+    "FinancingAccessChangeDisabledPaymentMethodsItem": ".financing_access_change_disabled_payment_methods_item",
+    "FinancingAccessChangeObject": ".financing_access_change_object",
+    "FinancingAccessChangeProvider": ".financing_access_change_provider",
+    "FinancingAccessChangeReason": ".financing_access_change_reason",
     "FinancingApplication": ".financing_application",
     "FinancingApplicationStatus": ".financing_application_status",
     "FinancingRequirement": ".financing_requirement",
@@ -3457,6 +3467,11 @@ __all__ = [
     "FileMultipartUrl",
     "FileUploadStatus",
     "FileVisibility",
+    "FinancingAccessChange",
+    "FinancingAccessChangeDisabledPaymentMethodsItem",
+    "FinancingAccessChangeObject",
+    "FinancingAccessChangeProvider",
+    "FinancingAccessChangeReason",
     "FinancingApplication",
     "FinancingApplicationStatus",
     "FinancingRequirement",
