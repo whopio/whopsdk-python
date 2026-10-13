@@ -2,4 +2,4 @@
 
 import typing
 
-TradeType = typing.Union[typing.Literal["buy", "close", "order"], typing.Any]
+TradeType = typing.Union[typing.Literal["buy", "close", "order", "deposit", "withdraw"], typing.Any]
