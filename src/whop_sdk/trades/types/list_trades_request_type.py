@@ -2,4 +2,4 @@
 
 import typing
 
-ListTradesRequestType = typing.Union[typing.Literal["buy", "close", "order", "deposit", "withdraw"], typing.Any]
+ListTradesRequestType = typing.Union[typing.Literal["close", "order", "deposit", "withdraw"], typing.Any]

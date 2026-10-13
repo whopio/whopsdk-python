@@ -23,12 +23,12 @@ class Trade(UniversalBaseModel):
 
     amount: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The USDT0 that a buy or deposit sends from the wallet, or the USDC that a withdraw sends back, in native units, as a decimal string. `null` for other types and for a withdraw of `all`.
+    The USDT0 that a deposit, or an order short of trading balance, sends from the wallet, or the USDC that a withdraw sends back, in native units, as a decimal string. `null` otherwise, and for a withdraw of `all`.
     """
 
     average_price: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The average fill price of the buy or order, in USD, as a decimal string. `null` when it is not known.
+    The average fill price of the order, in USD, as a decimal string. `null` when it is not known.
     """
 
     client_order_id: typing.Optional[str] = pydantic.Field(default=None)
@@ -53,12 +53,12 @@ class Trade(UniversalBaseModel):
 
     filled_size: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The size the buy or order filled, in units of the market, as a decimal string. `null` until it fills.
+    The size the order filled, in units of the market, as a decimal string. `null` until it fills.
     """
 
     funds_location: typing.Optional[TradeFundsLocation] = pydantic.Field(default=None)
     """
-    Where the money is when the trade did not complete as asked, or after a close: `wallet`, `trading_account`, or `unknown` while a person checks it. `null` otherwise.
+    Where the money is when the trade did not complete as asked: `wallet`, `trading_account`, or `unknown` while a person checks it. `null` otherwise.
     """
 
     id: str = pydantic.Field()
@@ -68,7 +68,7 @@ class Trade(UniversalBaseModel):
 
     leverage: typing.Optional[int] = pydantic.Field(default=None)
     """
-    The cross leverage set before a buy or an opening order. `null` for a close, deposit, withdraw or reduce-only order.
+    The cross leverage set before an opening order. `null` for a close, deposit, withdraw or reduce-only order.
     """
 
     market: typing.Optional[str] = pydantic.Field(default=None)
@@ -109,17 +109,17 @@ class Trade(UniversalBaseModel):
 
     status: TradeStatus = pydantic.Field()
     """
-    `pending` until the trade starts. `processing` while it runs, also while a failed buy sends its money back. `completed` when it did what was asked. `failed` when it did not; `funds_location` says where the money is. `in_review` when the outcome is unknown and a person checks it.
+    `pending` until the trade starts. `processing` while it runs, also while an order that did not fill sends the money it bridged in back to the wallet. `completed` when it did what was asked. `failed` when it did not; `funds_location` says where the money is. `in_review` when the outcome is unknown and a person checks it.
     """
 
     status_detail: typing.Optional[TradeStatusDetail] = pydantic.Field(default=None)
     """
-    More about the outcome: `partial_fill` (the buy filled only part of its size), `no_position` (the close found no position), `partial_close` (part of the position is still open), or `nothing_to_return` (the close had less than 1 USDC to send back). `null` otherwise.
+    `partial_fill` when the order filled only part of its size. `null` otherwise.
     """
 
     type: TradeType = pydantic.Field()
     """
-    `order` places one order from the trading balance. `deposit` bridges USDT0 from the wallet to the trading balance. `withdraw` sends USDC from the trading balance back to the wallet. `buy` bridges USDT0 to the trading account, sets the leverage and places one market buy. `close` closes the whole position in one market with a market reduce-only order; when the account is then flat, a `withdraw` trade sends the trading balance back to the wallet.
+    `order` places one order from the trading balance. `deposit` bridges USDT0 from the wallet to the trading balance. `withdraw` sends USDC from the trading balance back to the wallet. `close` closes the whole position in one market with a market reduce-only order; when the account is then flat, a `withdraw` trade sends the trading balance back to the wallet.
     """
 
     updated_at: str = pydantic.Field()
