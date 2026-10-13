@@ -20,6 +20,11 @@ class DomainIssue(UniversalBaseModel):
     What needs attention, as a stable code.
     """
 
+    code_block: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Code to add to the site to fix the issue, ready to copy. `null` when the issue needs none.
+    """
+
     dns_records: typing.List[DomainDnsRecord]
     message: str = pydantic.Field()
     """
