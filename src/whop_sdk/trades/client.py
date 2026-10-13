@@ -148,7 +148,7 @@ class TradesClient:
             The account or user whose wallet trades, prefixed `biz_` or `user_`.
 
         type : CreateTradesRequestType
-            `order` places one order from the trading balance and sets cross `leverage` first; when the balance is short, it bridges the USDT0 it needs from the wallet first. `deposit` bridges `amount` USDT0 from the wallet to the trading balance. `withdraw` sends `amount` USDC (or `all`) from the trading balance back to the wallet. `close` closes the whole position in `market` with a market reduce-only order; when the account is then flat, a `withdraw` trade sends the trading balance back to the wallet.
+            `order` places one order from the trading balance, setting cross `leverage` first on a perpetual; when the balance is short, it bridges the USDT0 it needs from the wallet first. `deposit` bridges `amount` USDT0 from the wallet to the trading balance. `withdraw` sends `amount` USDC (or `all`) from the trading balance back to the wallet. `close` closes the whole position in `market` with a market reduce-only order; when the account is then flat, a `withdraw` trade sends the trading balance back to the wallet.
 
         amount : typing.Optional[str]
             Only for a deposit or withdraw, and required for both. For a deposit, the USDT0 to send from the wallet, with at most 6 decimals. For a withdraw, the USDC to send back, at least 1 with at most 6 decimals, or `all`.
@@ -157,13 +157,13 @@ class TradesClient:
             Only for an order. Your own ID for the trade, 1 to 128 characters, unique for the account. Sending it again with the same order returns the same trade; with a different order it answers `409`.
 
         instrument_type : typing.Optional[CreateTradesRequestInstrumentType]
-            The kind of market. Required for an order.
+            `perpetual` or `spot`. Required for an order. Spot needs the trading account in Hyperliquid's unified account mode.
 
         leverage : typing.Optional[int]
-            Only for an order. The cross leverage, from 1 to the market's maximum. Required unless `reduce_only`; not accepted on a reduce-only order.
+            Only for a perpetual order. The cross leverage, from 1 to the market's maximum. Required unless `reduce_only`; not accepted on a reduce-only order.
 
         market : typing.Optional[str]
-            The perpetual market, for example `BTC`. Required for an order or close; not accepted for a deposit or withdraw.
+            The market: a perpetual such as `BTC`, or for spot a pair priced in USDC such as `HYPE/USDC`. Required for an order or close, and a close takes only a perpetual; not accepted for a deposit or withdraw.
 
         metadata : typing.Optional[typing.Dict[str, str]]
             Only for an order. Free-form string-to-string annotations: up to 50 keys of at most 40 characters, values up to 500 characters.
@@ -178,7 +178,7 @@ class TradesClient:
             Only for an order. The limit price in USD, as a decimal string Hyperliquid accepts without rounding. Required for a limit order; not accepted for a market order.
 
         reduce_only : typing.Optional[bool]
-            Only for an order. Only reduce an open position; defaults to `false`. A reduce-only order takes no `leverage`.
+            Only for a perpetual order. Only reduce an open position; defaults to `false`. A reduce-only order takes no `leverage`.
 
         side : typing.Optional[CreateTradesRequestSide]
             `buy` or `sell`. Required for an order.
@@ -401,7 +401,7 @@ class AsyncTradesClient:
             The account or user whose wallet trades, prefixed `biz_` or `user_`.
 
         type : CreateTradesRequestType
-            `order` places one order from the trading balance and sets cross `leverage` first; when the balance is short, it bridges the USDT0 it needs from the wallet first. `deposit` bridges `amount` USDT0 from the wallet to the trading balance. `withdraw` sends `amount` USDC (or `all`) from the trading balance back to the wallet. `close` closes the whole position in `market` with a market reduce-only order; when the account is then flat, a `withdraw` trade sends the trading balance back to the wallet.
+            `order` places one order from the trading balance, setting cross `leverage` first on a perpetual; when the balance is short, it bridges the USDT0 it needs from the wallet first. `deposit` bridges `amount` USDT0 from the wallet to the trading balance. `withdraw` sends `amount` USDC (or `all`) from the trading balance back to the wallet. `close` closes the whole position in `market` with a market reduce-only order; when the account is then flat, a `withdraw` trade sends the trading balance back to the wallet.
 
         amount : typing.Optional[str]
             Only for a deposit or withdraw, and required for both. For a deposit, the USDT0 to send from the wallet, with at most 6 decimals. For a withdraw, the USDC to send back, at least 1 with at most 6 decimals, or `all`.
@@ -410,13 +410,13 @@ class AsyncTradesClient:
             Only for an order. Your own ID for the trade, 1 to 128 characters, unique for the account. Sending it again with the same order returns the same trade; with a different order it answers `409`.
 
         instrument_type : typing.Optional[CreateTradesRequestInstrumentType]
-            The kind of market. Required for an order.
+            `perpetual` or `spot`. Required for an order. Spot needs the trading account in Hyperliquid's unified account mode.
 
         leverage : typing.Optional[int]
-            Only for an order. The cross leverage, from 1 to the market's maximum. Required unless `reduce_only`; not accepted on a reduce-only order.
+            Only for a perpetual order. The cross leverage, from 1 to the market's maximum. Required unless `reduce_only`; not accepted on a reduce-only order.
 
         market : typing.Optional[str]
-            The perpetual market, for example `BTC`. Required for an order or close; not accepted for a deposit or withdraw.
+            The market: a perpetual such as `BTC`, or for spot a pair priced in USDC such as `HYPE/USDC`. Required for an order or close, and a close takes only a perpetual; not accepted for a deposit or withdraw.
 
         metadata : typing.Optional[typing.Dict[str, str]]
             Only for an order. Free-form string-to-string annotations: up to 50 keys of at most 40 characters, values up to 500 characters.
@@ -431,7 +431,7 @@ class AsyncTradesClient:
             Only for an order. The limit price in USD, as a decimal string Hyperliquid accepts without rounding. Required for a limit order; not accepted for a market order.
 
         reduce_only : typing.Optional[bool]
-            Only for an order. Only reduce an open position; defaults to `false`. A reduce-only order takes no `leverage`.
+            Only for a perpetual order. Only reduce an open position; defaults to `false`. A reduce-only order takes no `leverage`.
 
         side : typing.Optional[CreateTradesRequestSide]
             `buy` or `sell`. Required for an order.
