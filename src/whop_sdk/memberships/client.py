@@ -416,6 +416,7 @@ class MembershipsClient:
         id: str,
         *,
         cancel_at_period_end: typing.Optional[bool] = OMIT,
+        feedback_option_id: typing.Optional[str] = OMIT,
         reason: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Membership:
@@ -429,6 +430,9 @@ class MembershipsClient:
 
         cancel_at_period_end : typing.Optional[bool]
             `true` stops auto-renewal and keeps access until the current billing period ends. Omit or `false` revokes access immediately.
+
+        feedback_option_id : typing.Optional[str]
+            The ID of the feedback option the customer picked as their reason for canceling, from the account's `feedback_options` preference. The membership records the option's label as the customer saw it and its category as `cancel_option`.
 
         reason : typing.Optional[str]
             Free-form note recording why the membership was canceled.
@@ -455,7 +459,11 @@ class MembershipsClient:
         )
         """
         _response = self._raw_client.cancel(
-            id, cancel_at_period_end=cancel_at_period_end, reason=reason, request_options=request_options
+            id,
+            cancel_at_period_end=cancel_at_period_end,
+            feedback_option_id=feedback_option_id,
+            reason=reason,
+            request_options=request_options,
         )
         return _response.data
 
@@ -1118,6 +1126,7 @@ class AsyncMembershipsClient:
         id: str,
         *,
         cancel_at_period_end: typing.Optional[bool] = OMIT,
+        feedback_option_id: typing.Optional[str] = OMIT,
         reason: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Membership:
@@ -1131,6 +1140,9 @@ class AsyncMembershipsClient:
 
         cancel_at_period_end : typing.Optional[bool]
             `true` stops auto-renewal and keeps access until the current billing period ends. Omit or `false` revokes access immediately.
+
+        feedback_option_id : typing.Optional[str]
+            The ID of the feedback option the customer picked as their reason for canceling, from the account's `feedback_options` preference. The membership records the option's label as the customer saw it and its category as `cancel_option`.
 
         reason : typing.Optional[str]
             Free-form note recording why the membership was canceled.
@@ -1165,7 +1177,11 @@ class AsyncMembershipsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.cancel(
-            id, cancel_at_period_end=cancel_at_period_end, reason=reason, request_options=request_options
+            id,
+            cancel_at_period_end=cancel_at_period_end,
+            feedback_option_id=feedback_option_id,
+            reason=reason,
+            request_options=request_options,
         )
         return _response.data
 

@@ -50,6 +50,10 @@ if typing.TYPE_CHECKING:
     from .retrieve_preferences_response_economic_intelligence_previous_period import (
         RetrievePreferencesResponseEconomicIntelligencePreviousPeriod,
     )
+    from .retrieve_preferences_response_feedback_options_item import RetrievePreferencesResponseFeedbackOptionsItem
+    from .retrieve_preferences_response_feedback_options_item_category import (
+        RetrievePreferencesResponseFeedbackOptionsItemCategory,
+    )
     from .retrieve_preferences_response_preferred_settlement_currency import (
         RetrievePreferencesResponsePreferredSettlementCurrency,
     )
@@ -74,6 +78,10 @@ if typing.TYPE_CHECKING:
     )
     from .update_preferences_request_economic_intelligence_duration_key import (
         UpdatePreferencesRequestEconomicIntelligenceDurationKey,
+    )
+    from .update_preferences_request_feedback_options_item import UpdatePreferencesRequestFeedbackOptionsItem
+    from .update_preferences_request_feedback_options_item_category import (
+        UpdatePreferencesRequestFeedbackOptionsItemCategory,
     )
     from .update_preferences_request_preferred_settlement_currency import (
         UpdatePreferencesRequestPreferredSettlementCurrency,
@@ -123,6 +131,10 @@ if typing.TYPE_CHECKING:
     from .update_preferences_response_economic_intelligence_previous_period import (
         UpdatePreferencesResponseEconomicIntelligencePreviousPeriod,
     )
+    from .update_preferences_response_feedback_options_item import UpdatePreferencesResponseFeedbackOptionsItem
+    from .update_preferences_response_feedback_options_item_category import (
+        UpdatePreferencesResponseFeedbackOptionsItemCategory,
+    )
     from .update_preferences_response_preferred_settlement_currency import (
         UpdatePreferencesResponsePreferredSettlementCurrency,
     )
@@ -148,6 +160,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrievePreferencesResponseEconomicIntelligenceOffersItemDurationUnit": ".retrieve_preferences_response_economic_intelligence_offers_item_duration_unit",
     "RetrievePreferencesResponseEconomicIntelligenceOffersItemKey": ".retrieve_preferences_response_economic_intelligence_offers_item_key",
     "RetrievePreferencesResponseEconomicIntelligencePreviousPeriod": ".retrieve_preferences_response_economic_intelligence_previous_period",
+    "RetrievePreferencesResponseFeedbackOptionsItem": ".retrieve_preferences_response_feedback_options_item",
+    "RetrievePreferencesResponseFeedbackOptionsItemCategory": ".retrieve_preferences_response_feedback_options_item_category",
     "RetrievePreferencesResponsePreferredSettlementCurrency": ".retrieve_preferences_response_preferred_settlement_currency",
     "RetrievePreferencesResponseSubscriptionFailureBehavior": ".retrieve_preferences_response_subscription_failure_behavior",
     "UpdatePreferencesRequestAdsCertificationsValue": ".update_preferences_request_ads_certifications_value",
@@ -159,6 +173,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatePreferencesRequestAdsPaymentMethodsPrimaryType": ".update_preferences_request_ads_payment_methods_primary_type",
     "UpdatePreferencesRequestAdsTripleWhaleIntegration": ".update_preferences_request_ads_triple_whale_integration",
     "UpdatePreferencesRequestEconomicIntelligenceDurationKey": ".update_preferences_request_economic_intelligence_duration_key",
+    "UpdatePreferencesRequestFeedbackOptionsItem": ".update_preferences_request_feedback_options_item",
+    "UpdatePreferencesRequestFeedbackOptionsItemCategory": ".update_preferences_request_feedback_options_item_category",
     "UpdatePreferencesRequestPreferredSettlementCurrency": ".update_preferences_request_preferred_settlement_currency",
     "UpdatePreferencesRequestSubscriptionFailureBehavior": ".update_preferences_request_subscription_failure_behavior",
     "UpdatePreferencesResponse": ".update_preferences_response",
@@ -179,6 +195,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatePreferencesResponseEconomicIntelligenceOffersItemDurationUnit": ".update_preferences_response_economic_intelligence_offers_item_duration_unit",
     "UpdatePreferencesResponseEconomicIntelligenceOffersItemKey": ".update_preferences_response_economic_intelligence_offers_item_key",
     "UpdatePreferencesResponseEconomicIntelligencePreviousPeriod": ".update_preferences_response_economic_intelligence_previous_period",
+    "UpdatePreferencesResponseFeedbackOptionsItem": ".update_preferences_response_feedback_options_item",
+    "UpdatePreferencesResponseFeedbackOptionsItemCategory": ".update_preferences_response_feedback_options_item_category",
     "UpdatePreferencesResponsePreferredSettlementCurrency": ".update_preferences_response_preferred_settlement_currency",
     "UpdatePreferencesResponseSubscriptionFailureBehavior": ".update_preferences_response_subscription_failure_behavior",
 }
@@ -224,6 +242,8 @@ __all__ = [
     "RetrievePreferencesResponseEconomicIntelligenceOffersItemDurationUnit",
     "RetrievePreferencesResponseEconomicIntelligenceOffersItemKey",
     "RetrievePreferencesResponseEconomicIntelligencePreviousPeriod",
+    "RetrievePreferencesResponseFeedbackOptionsItem",
+    "RetrievePreferencesResponseFeedbackOptionsItemCategory",
     "RetrievePreferencesResponsePreferredSettlementCurrency",
     "RetrievePreferencesResponseSubscriptionFailureBehavior",
     "UpdatePreferencesRequestAdsCertificationsValue",
@@ -235,6 +255,8 @@ __all__ = [
     "UpdatePreferencesRequestAdsPaymentMethodsPrimaryType",
     "UpdatePreferencesRequestAdsTripleWhaleIntegration",
     "UpdatePreferencesRequestEconomicIntelligenceDurationKey",
+    "UpdatePreferencesRequestFeedbackOptionsItem",
+    "UpdatePreferencesRequestFeedbackOptionsItemCategory",
     "UpdatePreferencesRequestPreferredSettlementCurrency",
     "UpdatePreferencesRequestSubscriptionFailureBehavior",
     "UpdatePreferencesResponse",
@@ -255,6 +277,8 @@ __all__ = [
     "UpdatePreferencesResponseEconomicIntelligenceOffersItemDurationUnit",
     "UpdatePreferencesResponseEconomicIntelligenceOffersItemKey",
     "UpdatePreferencesResponseEconomicIntelligencePreviousPeriod",
+    "UpdatePreferencesResponseFeedbackOptionsItem",
+    "UpdatePreferencesResponseFeedbackOptionsItemCategory",
     "UpdatePreferencesResponsePreferredSettlementCurrency",
     "UpdatePreferencesResponseSubscriptionFailureBehavior",
 ]

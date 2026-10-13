@@ -27024,6 +27024,14 @@ client.memberships.cancel(
 <dl>
 <dd>
 
+**feedback_option_id:** `typing.Optional[str]` — The ID of the feedback option the customer picked as their reason for canceling, from the account's `feedback_options` preference. The membership records the option's label as the customer saw it and its category as `cancel_option`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **reason:** `typing.Optional[str]` — Free-form note recording why the membership was canceled.
     
 </dd>
@@ -48087,6 +48095,7 @@ Required scopes depend on the preferences being updated:
 | `cards_auto_top_up`, `cards_notifications` | `payout:account:update` |
 | `dispute_fighter_enabled` | `payment:dispute` |
 | `economic_intelligence_duration_key`, `economic_intelligence_auto_renew` | `company:update` |
+| `feedback_options` | `company:manage_checkout` |
 
 When updating preferences from multiple rows, all corresponding scopes are required for the account.
 </dd>
@@ -48210,6 +48219,14 @@ client.accounts.preferences.update(
 <dd>
 
 **economic_intelligence_duration_key:** `typing.Optional[UpdatePreferencesRequestEconomicIntelligenceDurationKey]` — Turns on Economic Intelligence with the offer that has this `key` in `economic_intelligence_offers`, at that offer's fee. A committed duration can't be changed or turned off until `economic_intelligence_ends_at`, except to upgrade to `weekly`, which switches to auto-renew right away. Requires the `company:update` scope on your API key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**feedback_options:** `typing.Optional[typing.List[UpdatePreferencesRequestFeedbackOptionsItem]]` — Replaces the account's own cancel reasons, shown to members in this order when they cancel. Pass an option's `id` to keep it, for example when renaming it; options without an `id` are added, and options left out are removed. Pass an empty array to go back to Whop's default reasons. Members who already picked an option keep the label they saw. Requires the `company:manage_checkout` scope on your API key.
     
 </dd>
 </dl>
