@@ -208,7 +208,7 @@ class RawTradesClient:
             The account or user whose wallet trades, prefixed `biz_` or `user_`.
 
         type : CreateTradesRequestType
-            `order` places one order from the trading balance and sets cross `leverage` first. `deposit` bridges `amount` USDT0 from the wallet to the trading balance. `withdraw` sends `amount` USDC (or `all`) from the trading balance back to the wallet. `buy` bridges `amount` USDT0 to the trading account, sets cross `leverage` on `market`, and places one market buy; if it does not fill, its money goes back to the wallet. `close` closes the position in `market`, if one is open, and sends all withdrawable USDC back to the wallet.
+            `order` places one order from the trading balance and sets cross `leverage` first. `deposit` bridges `amount` USDT0 from the wallet to the trading balance. `withdraw` sends `amount` USDC (or `all`) from the trading balance back to the wallet. `buy` bridges `amount` USDT0 to the trading account, sets cross `leverage` on `market`, and places one market buy; if it does not fill, its money goes back to the wallet. `close` closes the whole position in `market` with a market reduce-only order; when the account is then flat, a `withdraw` trade sends the trading balance back to the wallet.
 
         amount : typing.Optional[str]
             For a buy or deposit, the USDT0 to send from the wallet, with at most 6 decimals. For a withdraw, the USDC to send back, at least 1 with at most 6 decimals, or `all`. Required for buy, deposit and withdraw.
@@ -247,7 +247,7 @@ class RawTradesClient:
             Only for an order. The size in units of the market, as a decimal string, with at most the market's size decimals. Send exactly one of `size` or `notional`. The order must be worth at least 10 USD, unless reduce-only, and at most 5000 USD.
 
         slippage_bps : typing.Optional[int]
-            Only for a market order. The worst price as basis points from the mid price, from 1 to 1000; defaults to 100.
+            Only for a market order or a close. The worst price as basis points from the mid price, from 1 to 1000; defaults to 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -611,7 +611,7 @@ class AsyncRawTradesClient:
             The account or user whose wallet trades, prefixed `biz_` or `user_`.
 
         type : CreateTradesRequestType
-            `order` places one order from the trading balance and sets cross `leverage` first. `deposit` bridges `amount` USDT0 from the wallet to the trading balance. `withdraw` sends `amount` USDC (or `all`) from the trading balance back to the wallet. `buy` bridges `amount` USDT0 to the trading account, sets cross `leverage` on `market`, and places one market buy; if it does not fill, its money goes back to the wallet. `close` closes the position in `market`, if one is open, and sends all withdrawable USDC back to the wallet.
+            `order` places one order from the trading balance and sets cross `leverage` first. `deposit` bridges `amount` USDT0 from the wallet to the trading balance. `withdraw` sends `amount` USDC (or `all`) from the trading balance back to the wallet. `buy` bridges `amount` USDT0 to the trading account, sets cross `leverage` on `market`, and places one market buy; if it does not fill, its money goes back to the wallet. `close` closes the whole position in `market` with a market reduce-only order; when the account is then flat, a `withdraw` trade sends the trading balance back to the wallet.
 
         amount : typing.Optional[str]
             For a buy or deposit, the USDT0 to send from the wallet, with at most 6 decimals. For a withdraw, the USDC to send back, at least 1 with at most 6 decimals, or `all`. Required for buy, deposit and withdraw.
@@ -650,7 +650,7 @@ class AsyncRawTradesClient:
             Only for an order. The size in units of the market, as a decimal string, with at most the market's size decimals. Send exactly one of `size` or `notional`. The order must be worth at least 10 USD, unless reduce-only, and at most 5000 USD.
 
         slippage_bps : typing.Optional[int]
-            Only for a market order. The worst price as basis points from the mid price, from 1 to 1000; defaults to 100.
+            Only for a market order or a close. The worst price as basis points from the mid price, from 1 to 1000; defaults to 100.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

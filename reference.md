@@ -42650,7 +42650,7 @@ client.trades.create(
 <dl>
 <dd>
 
-**type:** `CreateTradesRequestType` — `order` places one order from the trading balance and sets cross `leverage` first. `deposit` bridges `amount` USDT0 from the wallet to the trading balance. `withdraw` sends `amount` USDC (or `all`) from the trading balance back to the wallet. `buy` bridges `amount` USDT0 to the trading account, sets cross `leverage` on `market`, and places one market buy; if it does not fill, its money goes back to the wallet. `close` closes the position in `market`, if one is open, and sends all withdrawable USDC back to the wallet.
+**type:** `CreateTradesRequestType` — `order` places one order from the trading balance and sets cross `leverage` first. `deposit` bridges `amount` USDT0 from the wallet to the trading balance. `withdraw` sends `amount` USDC (or `all`) from the trading balance back to the wallet. `buy` bridges `amount` USDT0 to the trading account, sets cross `leverage` on `market`, and places one market buy; if it does not fill, its money goes back to the wallet. `close` closes the whole position in `market` with a market reduce-only order; when the account is then flat, a `withdraw` trade sends the trading balance back to the wallet.
     
 </dd>
 </dl>
@@ -42754,7 +42754,7 @@ client.trades.create(
 <dl>
 <dd>
 
-**slippage_bps:** `typing.Optional[int]` — Only for a market order. The worst price as basis points from the mid price, from 1 to 1000; defaults to 100.
+**slippage_bps:** `typing.Optional[int]` — Only for a market order or a close. The worst price as basis points from the mid price, from 1 to 1000; defaults to 100.
     
 </dd>
 </dl>
