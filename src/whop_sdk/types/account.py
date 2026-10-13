@@ -12,6 +12,7 @@ from .account_cards import AccountCards
 from .account_company_formation import AccountCompanyFormation
 from .account_financing import AccountFinancing
 from .account_home_preferences_item import AccountHomePreferencesItem
+from .account_level import AccountLevel
 from .account_onboarding_type import AccountOnboardingType
 from .account_opengraph_image_variant import AccountOpengraphImageVariant
 from .account_parent import AccountParent
@@ -144,6 +145,11 @@ class Account(UniversalBaseModel):
     invoice_prefix: typing.Optional[str] = pydantic.Field(default=None)
     """
     Prefix used for account invoices.
+    """
+
+    level: typing.Optional[AccountLevel] = pydantic.Field(default=None)
+    """
+    The Whop Levels progress of the account's `owner`, counted across every account they own, so all of them show the same level. Computed only on `retrieve` and `me` for callers with `company:basic:read` scope; `null` otherwise, and when the account is not in Whop Levels.
     """
 
     logo_url: typing.Optional[str] = pydantic.Field(default=None)

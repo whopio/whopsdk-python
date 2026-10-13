@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .account_cards import AccountCards
+from .owner_level import OwnerLevel
 from .trading_account import TradingAccount
 from .user_balance import UserBalance
 from .user_balance_history import UserBalanceHistory
@@ -58,6 +59,11 @@ class User(UniversalBaseModel):
     id: str = pydantic.Field()
     """
     User ID, prefixed `user_`.
+    """
+
+    level: typing.Optional[OwnerLevel] = pydantic.Field(default=None)
+    """
+    The user's Whop Levels progress, counted across every account they own. Populated only on the self view (retrieved with the reserved id `me`) for callers with balance-read scope; `null` otherwise, and when none of their accounts are in Whop Levels.
     """
 
     name: typing.Optional[str] = pydantic.Field(default=None)
