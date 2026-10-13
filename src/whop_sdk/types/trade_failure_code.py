@@ -17,6 +17,7 @@ TradeFailureCode = typing.Union[
         "order_rejected",
         "close_rejected",
         "return_failed",
+        "withdraw_failed",
     ],
     typing.Any,
 ]

@@ -23,7 +23,7 @@ class Trade(UniversalBaseModel):
 
     amount: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The USDT0 that a buy sends from the wallet, in native units, as a decimal string. `null` for other types.
+    The USDT0 that a buy or deposit sends from the wallet, or the USDC that a withdraw sends back, in native units, as a decimal string. `null` for other types and for a withdraw of `all`.
     """
 
     average_price: typing.Optional[str] = pydantic.Field(default=None)
@@ -68,12 +68,12 @@ class Trade(UniversalBaseModel):
 
     leverage: typing.Optional[int] = pydantic.Field(default=None)
     """
-    The cross leverage set before a buy or an opening order. `null` for a close or a reduce-only order.
+    The cross leverage set before a buy or an opening order. `null` for a close, deposit, withdraw or reduce-only order.
     """
 
-    market: str = pydantic.Field()
+    market: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The perpetual market, for example `BTC`.
+    The perpetual market, for example `BTC`. `null` for a deposit or withdraw.
     """
 
     metadata: typing.Dict[str, typing.Any] = pydantic.Field()
@@ -119,7 +119,7 @@ class Trade(UniversalBaseModel):
 
     type: TradeType = pydantic.Field()
     """
-    `order` places one order from the trading balance. `buy` bridges USDT0 to the trading account, sets the leverage and places one market buy. `close` closes the position in one market, if one is open, and sends all withdrawable USDC back to the wallet.
+    `order` places one order from the trading balance. `deposit` bridges USDT0 from the wallet to the trading balance. `withdraw` sends USDC from the trading balance back to the wallet. `buy` bridges USDT0 to the trading account, sets the leverage and places one market buy. `close` closes the position in one market, if one is open, and sends all withdrawable USDC back to the wallet.
     """
 
     updated_at: str = pydantic.Field()
