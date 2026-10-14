@@ -3,5 +3,5 @@
 import typing
 
 ConnectExternalAccountsRequestPlatform = typing.Union[
-    typing.Literal["meta_business", "tiktok", "linkedin", "youtube", "snapchat"], typing.Any
+    typing.Literal["meta_business", "tiktok", "linkedin", "youtube", "x", "snapchat"], typing.Any
 ]
