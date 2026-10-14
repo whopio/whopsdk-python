@@ -26,6 +26,11 @@ class TeamMember(UniversalBaseModel):
     When the member joined or the invite was sent, as an ISO 8601 timestamp.
     """
 
+    direct_reports_count: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    How many team members report directly to this member. `null` for invites.
+    """
+
     email: typing.Optional[str] = pydantic.Field(default=None)
     """
     The member's email address. For accepted members, `null` unless the caller holds the `company:authorized_user:email:read` scope; for invites, the invited address.
@@ -39,6 +44,11 @@ class TeamMember(UniversalBaseModel):
     is_agent: bool = pydantic.Field()
     """
     Whether this member is an agent (app-controlled account) rather than a human team member. Always `false` for invites.
+    """
+
+    reports_to_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The team member this member reports to, prefixed `ausr_`. `null` when the member reports to the business directly, and for invites.
     """
 
     role: TeamMemberRole = pydantic.Field()

@@ -106,6 +106,11 @@ class Account(UniversalBaseModel):
     Account promotional description.
     """
 
+    direct_reports_count: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    How many team members report to the business directly, with no manager above them. Present on single-account reads.
+    """
+
     dispute_fighter_enabled: bool = pydantic.Field()
     """
     Whether Whop assembles and files dispute evidence for this account. Enabling it opts the account into the success fee charged on disputes it wins.

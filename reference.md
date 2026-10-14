@@ -42188,7 +42188,7 @@ client.swaps.retrieve(
 <dl>
 <dd>
 
-Lists an account's team members, including pending invites. A user credential with `company:basic:read` may list only its own joined membership by passing its own `user_id` and `status=joined`. Listing `role=workforce` is also allowed with the `bounty:create` scope.
+Lists an account's team members, including pending invites. A user credential with `company:basic:read` may list only its own joined membership by passing its own `user_id` and `status=joined`. Listing `role=workforce` is also allowed with the `bounty:create` scope. Members with the view-only Partner role are listed after all other members.
 </dd>
 </dl>
 </dd>
@@ -42261,6 +42261,38 @@ client.team_members.list(
 <dl>
 <dd>
 
+**query:** `typing.Optional[str]` — Only return members whose name or username contains this text, and invites whose email contains it.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**reports_to_id:** `typing.Optional[str]` — Only return the direct reports of this team member, prefixed `ausr_`. Pass the account ID, prefixed `biz_`, for the members who report to the business directly. Pending invites are excluded, and the list pages in `created_at` order without moving Partner-role members last.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**direct_reports_min:** `typing.Optional[int]` — Only return members with at least this many direct reports. Pending invites are excluded, and the list pages in `created_at` order without moving Partner-role members last.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**direct_reports_max:** `typing.Optional[int]` — Only return members with at most this many direct reports; `0` returns the people who manage no one. Pending invites are excluded, and the list pages in `created_at` order without moving Partner-role members last.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **created_before:** `typing.Optional[str]` — Only return members added before this ISO 8601 timestamp.
     
 </dd>
@@ -42277,7 +42309,7 @@ client.team_members.list(
 <dl>
 <dd>
 
-**order:** `typing.Optional[ListTeamMembersRequestOrder]` — Field used to sort members.
+**order:** `typing.Optional[ListTeamMembersRequestOrder]` — Field used to sort members. Members with the view-only Partner role are listed after all other members whichever way the list is sorted.
     
 </dd>
 </dl>
