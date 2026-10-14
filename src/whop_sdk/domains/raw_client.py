@@ -19,6 +19,7 @@ from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..types.domain import Domain
 from ..types.domain_list_item import DomainListItem
 from ..types.v1error_response import V1ErrorResponse
+from .types.create_domains_request_apple_pay import CreateDomainsRequestApplePay
 from .types.create_domains_request_pixel import CreateDomainsRequestPixel
 from .types.create_domains_request_registration import CreateDomainsRequestRegistration
 from .types.create_domains_request_verification import CreateDomainsRequestVerification
@@ -33,6 +34,7 @@ from .types.list_domains_request_status import ListDomainsRequestStatus
 from .types.list_domains_request_verification import ListDomainsRequestVerification
 from .types.list_domains_request_website import ListDomainsRequestWebsite
 from .types.list_domains_response import ListDomainsResponse
+from .types.update_domains_request_apple_pay import UpdateDomainsRequestApplePay
 from .types.update_domains_request_pixel import UpdateDomainsRequestPixel
 from .types.update_domains_request_registration import UpdateDomainsRequestRegistration
 from .types.update_domains_request_verification import UpdateDomainsRequestVerification
@@ -249,6 +251,7 @@ class RawDomainsClient:
         *,
         domain: str,
         account_id: typing.Optional[str] = OMIT,
+        apple_pay: typing.Optional[CreateDomainsRequestApplePay] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         pixel: typing.Optional[CreateDomainsRequestPixel] = OMIT,
         registration: typing.Optional[CreateDomainsRequestRegistration] = OMIT,
@@ -272,6 +275,9 @@ class RawDomainsClient:
 
         account_id : typing.Optional[str]
             Account ID, prefixed biz_. Required for user credentials; otherwise defaults to the credential's account.
+
+        apple_pay : typing.Optional[CreateDomainsRequestApplePay]
+            Accept Apple Pay at checkout on the domain. It needs no other capability. Whop registers the domain with Apple: it stays `pending` until Apple answers, then turns `ready`, or `action_required` when Apple couldn't fetch the domain association file. Serve the file, then check the domain to register it again. Pass `null` to turn Apple Pay off: Whop removes the domain from Apple, and the domain stays, like releasing any other capability.
 
         metadata : typing.Optional[typing.Dict[str, str]]
             Custom string keys and values.
@@ -302,6 +308,9 @@ class RawDomainsClient:
             method="POST",
             json={
                 "account_id": account_id,
+                "apple_pay": convert_and_respect_annotation_metadata(
+                    object_=apple_pay, annotation=typing.Optional[CreateDomainsRequestApplePay], direction="write"
+                ),
                 "domain": domain,
                 "metadata": metadata,
                 "pixel": convert_and_respect_annotation_metadata(
@@ -491,6 +500,7 @@ class RawDomainsClient:
         self,
         id: str,
         *,
+        apple_pay: typing.Optional[UpdateDomainsRequestApplePay] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         pixel: typing.Optional[UpdateDomainsRequestPixel] = OMIT,
         registration: typing.Optional[UpdateDomainsRequestRegistration] = OMIT,
@@ -505,6 +515,9 @@ class RawDomainsClient:
         ----------
         id : str
             Domain ID, prefixed `dom_`, or a hostname such as `example.com`; a bare name looks up `.com`.
+
+        apple_pay : typing.Optional[UpdateDomainsRequestApplePay]
+            Accept Apple Pay at checkout on the domain. It needs no other capability. Whop registers the domain with Apple: it stays `pending` until Apple answers, then turns `ready`, or `action_required` when Apple couldn't fetch the domain association file. Serve the file, then check the domain to register it again. Pass `null` to turn Apple Pay off: Whop removes the domain from Apple, and the domain stays, like releasing any other capability.
 
         metadata : typing.Optional[typing.Dict[str, str]]
             Replacement custom string keys and values.
@@ -534,6 +547,9 @@ class RawDomainsClient:
             base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
+                "apple_pay": convert_and_respect_annotation_metadata(
+                    object_=apple_pay, annotation=typing.Optional[UpdateDomainsRequestApplePay], direction="write"
+                ),
                 "metadata": metadata,
                 "pixel": convert_and_respect_annotation_metadata(
                     object_=pixel, annotation=typing.Optional[UpdateDomainsRequestPixel], direction="write"
@@ -851,6 +867,7 @@ class AsyncRawDomainsClient:
         *,
         domain: str,
         account_id: typing.Optional[str] = OMIT,
+        apple_pay: typing.Optional[CreateDomainsRequestApplePay] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         pixel: typing.Optional[CreateDomainsRequestPixel] = OMIT,
         registration: typing.Optional[CreateDomainsRequestRegistration] = OMIT,
@@ -874,6 +891,9 @@ class AsyncRawDomainsClient:
 
         account_id : typing.Optional[str]
             Account ID, prefixed biz_. Required for user credentials; otherwise defaults to the credential's account.
+
+        apple_pay : typing.Optional[CreateDomainsRequestApplePay]
+            Accept Apple Pay at checkout on the domain. It needs no other capability. Whop registers the domain with Apple: it stays `pending` until Apple answers, then turns `ready`, or `action_required` when Apple couldn't fetch the domain association file. Serve the file, then check the domain to register it again. Pass `null` to turn Apple Pay off: Whop removes the domain from Apple, and the domain stays, like releasing any other capability.
 
         metadata : typing.Optional[typing.Dict[str, str]]
             Custom string keys and values.
@@ -904,6 +924,9 @@ class AsyncRawDomainsClient:
             method="POST",
             json={
                 "account_id": account_id,
+                "apple_pay": convert_and_respect_annotation_metadata(
+                    object_=apple_pay, annotation=typing.Optional[CreateDomainsRequestApplePay], direction="write"
+                ),
                 "domain": domain,
                 "metadata": metadata,
                 "pixel": convert_and_respect_annotation_metadata(
@@ -1097,6 +1120,7 @@ class AsyncRawDomainsClient:
         self,
         id: str,
         *,
+        apple_pay: typing.Optional[UpdateDomainsRequestApplePay] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         pixel: typing.Optional[UpdateDomainsRequestPixel] = OMIT,
         registration: typing.Optional[UpdateDomainsRequestRegistration] = OMIT,
@@ -1111,6 +1135,9 @@ class AsyncRawDomainsClient:
         ----------
         id : str
             Domain ID, prefixed `dom_`, or a hostname such as `example.com`; a bare name looks up `.com`.
+
+        apple_pay : typing.Optional[UpdateDomainsRequestApplePay]
+            Accept Apple Pay at checkout on the domain. It needs no other capability. Whop registers the domain with Apple: it stays `pending` until Apple answers, then turns `ready`, or `action_required` when Apple couldn't fetch the domain association file. Serve the file, then check the domain to register it again. Pass `null` to turn Apple Pay off: Whop removes the domain from Apple, and the domain stays, like releasing any other capability.
 
         metadata : typing.Optional[typing.Dict[str, str]]
             Replacement custom string keys and values.
@@ -1140,6 +1167,9 @@ class AsyncRawDomainsClient:
             base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
+                "apple_pay": convert_and_respect_annotation_metadata(
+                    object_=apple_pay, annotation=typing.Optional[UpdateDomainsRequestApplePay], direction="write"
+                ),
                 "metadata": metadata,
                 "pixel": convert_and_respect_annotation_metadata(
                     object_=pixel, annotation=typing.Optional[UpdateDomainsRequestPixel], direction="write"

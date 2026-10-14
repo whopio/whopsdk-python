@@ -25,7 +25,7 @@ class Domain(UniversalBaseModel):
 
     apple_pay: typing.Optional[DomainApplePay] = pydantic.Field(default=None)
     """
-    Offering Apple Pay at checkouts served from the domain, managed in checkout settings. `null` when not enrolled or not visible to you.
+    Offering Apple Pay at checkouts served from the domain. `null` when not enrolled or not visible to you.
     """
 
     availability: typing.Optional[DomainAvailability] = pydantic.Field(default=None)

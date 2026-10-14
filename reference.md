@@ -18244,6 +18244,14 @@ client.domains.create(
 <dl>
 <dd>
 
+**apple_pay:** `typing.Optional[CreateDomainsRequestApplePay]` — Accept Apple Pay at checkout on the domain. It needs no other capability. Whop registers the domain with Apple: it stays `pending` until Apple answers, then turns `ready`, or `action_required` when Apple couldn't fetch the domain association file. Serve the file, then check the domain to register it again. Pass `null` to turn Apple Pay off: Whop removes the domain from Apple, and the domain stays, like releasing any other capability.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **metadata:** `typing.Optional[typing.Dict[str, str]]` — Custom string keys and values.
     
 </dd>
@@ -18498,6 +18506,14 @@ client.domains.update(
 <dd>
 
 **id:** `str` — Domain ID, prefixed `dom_`, or a hostname such as `example.com`; a bare name looks up `.com`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**apple_pay:** `typing.Optional[UpdateDomainsRequestApplePay]` — Accept Apple Pay at checkout on the domain. It needs no other capability. Whop registers the domain with Apple: it stays `pending` until Apple answers, then turns `ready`, or `action_required` when Apple couldn't fetch the domain association file. Serve the file, then check the domain to register it again. Pass `null` to turn Apple Pay off: Whop removes the domain from Apple, and the domain stays, like releasing any other capability.
     
 </dd>
 </dl>
