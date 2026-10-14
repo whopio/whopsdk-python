@@ -338,6 +338,9 @@ class RawIdentityProfilesClient:
         """
         Unlinks an identity profile from the account or user that owns `ledger_account_id`. Requires `identity:write` on that account or user.
 
+        Required permissions:
+         - `identity:write`
+
         Parameters
         ----------
         id : str
@@ -933,6 +936,9 @@ class AsyncRawIdentityProfilesClient:
     ) -> AsyncHttpResponse[IdentityProfile]:
         """
         Unlinks an identity profile from the account or user that owns `ledger_account_id`. Requires `identity:write` on that account or user.
+
+        Required permissions:
+         - `identity:write`
 
         Parameters
         ----------
