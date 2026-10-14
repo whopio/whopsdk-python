@@ -90,7 +90,7 @@ class AdCampaignsClient:
             Filter campaigns by a title or ID substring.
 
         order : typing.Optional[ListAdCampaignsRequestOrder]
-            The field to sort by. Defaults to created_at. Stat columns (spend, impressions, …) rank over the stats_from/stats_to window across the whole list, not just the current page. results, cost_per_result and return_on_ad_spend rank by the same Whop pixel-attributed values the response reports.
+            The field to sort by. Defaults to created_at. Stat columns (spend, impressions, …) rank over the stats_from/stats_to window across the whole list, not just the current page. results, cost_per_result and return_on_ad_spend rank by the same Whop pixel-attributed values the response reports, and link_clicks by the same Whop pixel page views.
 
         direction : typing.Optional[ListAdCampaignsRequestDirection]
             The sort direction. Defaults to desc.
@@ -641,7 +641,7 @@ class AsyncAdCampaignsClient:
             Filter campaigns by a title or ID substring.
 
         order : typing.Optional[ListAdCampaignsRequestOrder]
-            The field to sort by. Defaults to created_at. Stat columns (spend, impressions, …) rank over the stats_from/stats_to window across the whole list, not just the current page. results, cost_per_result and return_on_ad_spend rank by the same Whop pixel-attributed values the response reports.
+            The field to sort by. Defaults to created_at. Stat columns (spend, impressions, …) rank over the stats_from/stats_to window across the whole list, not just the current page. results, cost_per_result and return_on_ad_spend rank by the same Whop pixel-attributed values the response reports, and link_clicks by the same Whop pixel page views.
 
         direction : typing.Optional[ListAdCampaignsRequestDirection]
             The sort direction. Defaults to desc.
