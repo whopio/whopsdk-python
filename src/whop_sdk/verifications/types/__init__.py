@@ -13,6 +13,7 @@ if typing.TYPE_CHECKING:
     )
     from .create_verifications_request_body_business import CreateVerificationsRequestBodyBusiness
     from .create_verifications_request_body_business_address import CreateVerificationsRequestBodyBusinessAddress
+    from .create_verifications_request_body_business_documents import CreateVerificationsRequestBodyBusinessDocuments
     from .create_verifications_request_body_individual import CreateVerificationsRequestBodyIndividual
     from .create_verifications_request_body_individual_address import CreateVerificationsRequestBodyIndividualAddress
     from .create_verifications_request_body_individual_document_type import (
@@ -152,6 +153,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateVerificationsRequestBody": ".create_verifications_request_body",
     "CreateVerificationsRequestBodyBusiness": ".create_verifications_request_body_business",
     "CreateVerificationsRequestBodyBusinessAddress": ".create_verifications_request_body_business_address",
+    "CreateVerificationsRequestBodyBusinessDocuments": ".create_verifications_request_body_business_documents",
     "CreateVerificationsRequestBodyIndividual": ".create_verifications_request_body_individual",
     "CreateVerificationsRequestBodyIndividualAddress": ".create_verifications_request_body_individual_address",
     "CreateVerificationsRequestBodyIndividualDocumentType": ".create_verifications_request_body_individual_document_type",
@@ -249,6 +251,7 @@ __all__ = [
     "CreateVerificationsRequestBody",
     "CreateVerificationsRequestBodyBusiness",
     "CreateVerificationsRequestBodyBusinessAddress",
+    "CreateVerificationsRequestBodyBusinessDocuments",
     "CreateVerificationsRequestBodyIndividual",
     "CreateVerificationsRequestBodyIndividualAddress",
     "CreateVerificationsRequestBodyIndividualDocumentType",
