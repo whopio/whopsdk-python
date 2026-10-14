@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .create_deposits_response_card import CreateDepositsResponseCard
 from .create_deposits_response_methods import CreateDepositsResponseMethods
 from .create_deposits_response_object import CreateDepositsResponseObject
 
@@ -17,6 +18,11 @@ class CreateDepositsResponse(UniversalBaseModel):
     amount: typing.Optional[str] = pydantic.Field(default=None)
     """
     Requested deposit amount.
+    """
+
+    card: typing.Optional[CreateDepositsResponseCard] = pydantic.Field(default=None)
+    """
+    The charge to a saved payment method. Null unless `payment_method_id` was passed.
     """
 
     hosted_url: typing.Optional[str] = pydantic.Field(default=None)
