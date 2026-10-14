@@ -22,6 +22,7 @@ from .types.retrieve_payouts_response import RetrievePayoutsResponse
 
 if typing.TYPE_CHECKING:
     from .methods.client import AsyncMethodsClient, MethodsClient
+    from .paypal_link_sessions.client import AsyncPaypalLinkSessionsClient, PaypalLinkSessionsClient
     from .supported_methods.client import AsyncSupportedMethodsClient, SupportedMethodsClient
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -32,6 +33,7 @@ class PayoutsClient:
         self._raw_client = RawPayoutsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._methods: typing.Optional[MethodsClient] = None
+        self._paypal_link_sessions: typing.Optional[PaypalLinkSessionsClient] = None
         self._supported_methods: typing.Optional[SupportedMethodsClient] = None
 
     @property
@@ -420,6 +422,14 @@ class PayoutsClient:
         return self._methods
 
     @property
+    def paypal_link_sessions(self):
+        if self._paypal_link_sessions is None:
+            from .paypal_link_sessions.client import PaypalLinkSessionsClient  # noqa: E402
+
+            self._paypal_link_sessions = PaypalLinkSessionsClient(client_wrapper=self._client_wrapper)
+        return self._paypal_link_sessions
+
+    @property
     def supported_methods(self):
         if self._supported_methods is None:
             from .supported_methods.client import SupportedMethodsClient  # noqa: E402
@@ -433,6 +443,7 @@ class AsyncPayoutsClient:
         self._raw_client = AsyncRawPayoutsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._methods: typing.Optional[AsyncMethodsClient] = None
+        self._paypal_link_sessions: typing.Optional[AsyncPaypalLinkSessionsClient] = None
         self._supported_methods: typing.Optional[AsyncSupportedMethodsClient] = None
 
     @property
@@ -862,6 +873,14 @@ class AsyncPayoutsClient:
 
             self._methods = AsyncMethodsClient(client_wrapper=self._client_wrapper)
         return self._methods
+
+    @property
+    def paypal_link_sessions(self):
+        if self._paypal_link_sessions is None:
+            from .paypal_link_sessions.client import AsyncPaypalLinkSessionsClient  # noqa: E402
+
+            self._paypal_link_sessions = AsyncPaypalLinkSessionsClient(client_wrapper=self._client_wrapper)
+        return self._paypal_link_sessions
 
     @property
     def supported_methods(self):

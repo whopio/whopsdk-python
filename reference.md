@@ -51152,6 +51152,14 @@ client.payouts.methods.create(
 <dl>
 <dd>
 
+**paypal_link_token:** `typing.Optional[str]` — The token your `return_url` received after a Log in with PayPal session started with `POST /payouts/paypal_link_sessions`. Use it for a PayPal supported payout method instead of `fields`. Sending `fields` or `plaid_public_token` alongside it is rejected, and `nickname` is ignored because Whop names the method after the PayPal email. The PayPal account must be verified with a confirmed email, and its holder name must match the name on the account's payout setup. Single use; expires 15 minutes after the login.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **recipient:** `typing.Optional[CreateMethodsRequestRecipient]` — Creates a recipient payout account linked to the funding ledger as a non-default account, then saves the bank method on it. No Whop user, company, or recipient ledger is created. A valid recipient email is required. Recipient methods cannot be default or recurring methods and cannot use Plaid.
     
 </dd>
@@ -51323,6 +51331,113 @@ client.payouts.methods.update(
 <dd>
 
 **nickname:** `typing.Optional[str]` — New label for the payout method, with at least one non-whitespace character and a maximum of 100 characters.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Payouts PaypalLinkSessions
+<details><summary><code>client.payouts.paypal_link_sessions.<a href="src/whop_sdk/payouts/paypal_link_sessions/client.py">create</a>(...) -> CreatePaypalLinkSessionsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Starts a Log in with PayPal session so PayPal itself can confirm the account holder owns a verified PayPal account. Send the holder to `authorize_url`; after they log in, PayPal returns them to Whop, and Whop redirects the browser to your `return_url` with a `paypal_link_token` query parameter to pass to `POST /payouts/methods`. If the login fails or is canceled, `return_url` receives an `error` query parameter (`paypal_login_canceled` or `paypal_login_failed`) instead. The payout method saved this way pays the email on the PayPal account, and its holder name must match the name on the account's payout setup. PayPal login is rolling out per account: until it is enabled for the account this answers `403 forbidden`, and `supports_paypal_login` on `GET /payouts/supported_methods` is false.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.payouts.paypal_link_sessions.create(
+    return_url="https://example.com/settings/payouts",
+    supported_payout_method_id="podst_xxxxxxxxxxxxxx",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**return_url:** `str` — Where to send the holder once the PayPal login finishes. Must be an `https` URL; it receives `paypal_link_token` on success or `error` on failure.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**supported_payout_method_id:** `str` — The PayPal supported payout method to connect (a `podst_` identifier whose `supports_paypal_login` is true).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — The account that will own the PayPal payout method, prefixed `biz_`. Provide this or `user_id`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**destination_currency:** `typing.Optional[str]` — Currency the PayPal payout method will deliver payouts in.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_id:** `typing.Optional[str]` — The user who will own the PayPal payout method, prefixed `user_`. Provide this or `account_id`.
     
 </dd>
 </dl>
