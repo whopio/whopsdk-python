@@ -1453,7 +1453,6 @@ if typing.TYPE_CHECKING:
     from .team_member_status import TeamMemberStatus
     from .too_many_requests_error_body import TooManyRequestsErrorBody
     from .too_many_requests_error_body_error import TooManyRequestsErrorBodyError
-    from .topup import Topup
     from .trade import Trade
     from .trade_failure_code import TradeFailureCode
     from .trade_funds_location import TradeFundsLocation
@@ -2849,7 +2848,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "TeamMemberStatus": ".team_member_status",
     "TooManyRequestsErrorBody": ".too_many_requests_error_body",
     "TooManyRequestsErrorBodyError": ".too_many_requests_error_body_error",
-    "Topup": ".topup",
     "Trade": ".trade",
     "TradeFailureCode": ".trade_failure_code",
     "TradeFundsLocation": ".trade_funds_location",
@@ -4269,7 +4267,6 @@ __all__ = [
     "TeamMemberStatus",
     "TooManyRequestsErrorBody",
     "TooManyRequestsErrorBodyError",
-    "Topup",
     "Trade",
     "TradeFailureCode",
     "TradeFundsLocation",

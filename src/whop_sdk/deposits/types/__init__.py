@@ -7,6 +7,7 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .create_deposits_response import CreateDepositsResponse
+    from .create_deposits_response_card import CreateDepositsResponseCard
     from .create_deposits_response_methods import CreateDepositsResponseMethods
     from .create_deposits_response_methods_bank import CreateDepositsResponseMethodsBank
     from .create_deposits_response_methods_bank_currencies_item import CreateDepositsResponseMethodsBankCurrenciesItem
@@ -27,6 +28,7 @@ if typing.TYPE_CHECKING:
     from .post_deposit_succeeded_payload_type import PostDepositSucceededPayloadType
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateDepositsResponse": ".create_deposits_response",
+    "CreateDepositsResponseCard": ".create_deposits_response_card",
     "CreateDepositsResponseMethods": ".create_deposits_response_methods",
     "CreateDepositsResponseMethodsBank": ".create_deposits_response_methods_bank",
     "CreateDepositsResponseMethodsBankCurrenciesItem": ".create_deposits_response_methods_bank_currencies_item",
@@ -65,6 +67,7 @@ def __dir__():
 
 __all__ = [
     "CreateDepositsResponse",
+    "CreateDepositsResponseCard",
     "CreateDepositsResponseMethods",
     "CreateDepositsResponseMethodsBank",
     "CreateDepositsResponseMethodsBankCurrenciesItem",
