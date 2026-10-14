@@ -374,6 +374,11 @@ class Account(UniversalBaseModel):
     The account's business website URL, or `null` if none has been provided. Setting it also adds a `website` entry to `social_links`.
     """
 
+    whop_partner_enabled_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When the account turned on Whop Partner mode, as an ISO 8601 timestamp. Present on single-account reads and update responses; `null` until the account turns Whop Partner mode on by sending `whop_partner_enabled: true` on update.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:

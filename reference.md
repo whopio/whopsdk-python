@@ -1145,6 +1145,14 @@ client.accounts.update(
 <dl>
 <dd>
 
+**whop_partner_enabled:** `typing.Optional[bool]` — Set to `true` to turn on Whop Partner mode for the account, so its team can refer businesses and the account is paid partner commission on their sales. Recorded once; `false` is rejected.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **industry_type:** `typing.Optional[typing.Any]` 
     
 </dd>
