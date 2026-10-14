@@ -6,6 +6,7 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .create_domains_request_apple_pay import CreateDomainsRequestApplePay
     from .create_domains_request_pixel import CreateDomainsRequestPixel
     from .create_domains_request_registration import CreateDomainsRequestRegistration
     from .create_domains_request_verification import CreateDomainsRequestVerification
@@ -21,11 +22,13 @@ if typing.TYPE_CHECKING:
     from .list_domains_request_website import ListDomainsRequestWebsite
     from .list_domains_response import ListDomainsResponse
     from .list_domains_response_page_info import ListDomainsResponsePageInfo
+    from .update_domains_request_apple_pay import UpdateDomainsRequestApplePay
     from .update_domains_request_pixel import UpdateDomainsRequestPixel
     from .update_domains_request_registration import UpdateDomainsRequestRegistration
     from .update_domains_request_verification import UpdateDomainsRequestVerification
     from .update_domains_request_website import UpdateDomainsRequestWebsite
 _dynamic_imports: typing.Dict[str, str] = {
+    "CreateDomainsRequestApplePay": ".create_domains_request_apple_pay",
     "CreateDomainsRequestPixel": ".create_domains_request_pixel",
     "CreateDomainsRequestRegistration": ".create_domains_request_registration",
     "CreateDomainsRequestVerification": ".create_domains_request_verification",
@@ -41,6 +44,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListDomainsRequestWebsite": ".list_domains_request_website",
     "ListDomainsResponse": ".list_domains_response",
     "ListDomainsResponsePageInfo": ".list_domains_response_page_info",
+    "UpdateDomainsRequestApplePay": ".update_domains_request_apple_pay",
     "UpdateDomainsRequestPixel": ".update_domains_request_pixel",
     "UpdateDomainsRequestRegistration": ".update_domains_request_registration",
     "UpdateDomainsRequestVerification": ".update_domains_request_verification",
@@ -70,6 +74,7 @@ def __dir__():
 
 
 __all__ = [
+    "CreateDomainsRequestApplePay",
     "CreateDomainsRequestPixel",
     "CreateDomainsRequestRegistration",
     "CreateDomainsRequestVerification",
@@ -85,6 +90,7 @@ __all__ = [
     "ListDomainsRequestWebsite",
     "ListDomainsResponse",
     "ListDomainsResponsePageInfo",
+    "UpdateDomainsRequestApplePay",
     "UpdateDomainsRequestPixel",
     "UpdateDomainsRequestRegistration",
     "UpdateDomainsRequestVerification",

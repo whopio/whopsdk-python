@@ -7,6 +7,7 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
+        CreateDomainsRequestApplePay,
         CreateDomainsRequestPixel,
         CreateDomainsRequestRegistration,
         CreateDomainsRequestVerification,
@@ -22,12 +23,14 @@ if typing.TYPE_CHECKING:
         ListDomainsRequestWebsite,
         ListDomainsResponse,
         ListDomainsResponsePageInfo,
+        UpdateDomainsRequestApplePay,
         UpdateDomainsRequestPixel,
         UpdateDomainsRequestRegistration,
         UpdateDomainsRequestVerification,
         UpdateDomainsRequestWebsite,
     )
 _dynamic_imports: typing.Dict[str, str] = {
+    "CreateDomainsRequestApplePay": ".types",
     "CreateDomainsRequestPixel": ".types",
     "CreateDomainsRequestRegistration": ".types",
     "CreateDomainsRequestVerification": ".types",
@@ -43,6 +46,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListDomainsRequestWebsite": ".types",
     "ListDomainsResponse": ".types",
     "ListDomainsResponsePageInfo": ".types",
+    "UpdateDomainsRequestApplePay": ".types",
     "UpdateDomainsRequestPixel": ".types",
     "UpdateDomainsRequestRegistration": ".types",
     "UpdateDomainsRequestVerification": ".types",
@@ -72,6 +76,7 @@ def __dir__():
 
 
 __all__ = [
+    "CreateDomainsRequestApplePay",
     "CreateDomainsRequestPixel",
     "CreateDomainsRequestRegistration",
     "CreateDomainsRequestVerification",
@@ -87,6 +92,7 @@ __all__ = [
     "ListDomainsRequestWebsite",
     "ListDomainsResponse",
     "ListDomainsResponsePageInfo",
+    "UpdateDomainsRequestApplePay",
     "UpdateDomainsRequestPixel",
     "UpdateDomainsRequestRegistration",
     "UpdateDomainsRequestVerification",

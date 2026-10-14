@@ -2,4 +2,4 @@
 
 import typing
 
-DomainApplePayState = typing.Union[typing.Literal["ready", "action_required"], typing.Any]
+DomainApplePayState = typing.Union[typing.Literal["pending", "ready", "action_required", "releasing"], typing.Any]

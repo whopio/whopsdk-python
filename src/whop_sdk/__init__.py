@@ -2199,6 +2199,7 @@ if typing.TYPE_CHECKING:
     from .dm_channels import ListDmChannelsResponse
     from .dm_members import ListDmMembersResponse
     from .domains import (
+        CreateDomainsRequestApplePay,
         CreateDomainsRequestPixel,
         CreateDomainsRequestRegistration,
         CreateDomainsRequestVerification,
@@ -2214,6 +2215,7 @@ if typing.TYPE_CHECKING:
         ListDomainsRequestWebsite,
         ListDomainsResponse,
         ListDomainsResponsePageInfo,
+        UpdateDomainsRequestApplePay,
         UpdateDomainsRequestPixel,
         UpdateDomainsRequestRegistration,
         UpdateDomainsRequestVerification,
@@ -3844,6 +3846,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateDepositsResponseMethodsCryptoItemSupportedCurrenciesItem": ".deposits",
     "CreateDepositsResponseMethodsCryptoItemSupportedCurrenciesItemName": ".deposits",
     "CreateDepositsResponseObject": ".deposits",
+    "CreateDomainsRequestApplePay": ".domains",
     "CreateDomainsRequestPixel": ".domains",
     "CreateDomainsRequestRegistration": ".domains",
     "CreateDomainsRequestVerification": ".domains",
@@ -6104,6 +6107,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateDisputesRequestEvidenceDocumentsItemDocumentType": ".disputes",
     "UpdateDisputesRequestEvidenceRefundPolicyAttachment": ".disputes",
     "UpdateDisputesRequestEvidenceUncategorizedAttachment": ".disputes",
+    "UpdateDomainsRequestApplePay": ".domains",
     "UpdateDomainsRequestPixel": ".domains",
     "UpdateDomainsRequestRegistration": ".domains",
     "UpdateDomainsRequestVerification": ".domains",
@@ -6959,6 +6963,7 @@ __all__ = [
     "CreateDepositsResponseMethodsCryptoItemSupportedCurrenciesItem",
     "CreateDepositsResponseMethodsCryptoItemSupportedCurrenciesItemName",
     "CreateDepositsResponseObject",
+    "CreateDomainsRequestApplePay",
     "CreateDomainsRequestPixel",
     "CreateDomainsRequestRegistration",
     "CreateDomainsRequestVerification",
@@ -9219,6 +9224,7 @@ __all__ = [
     "UpdateDisputesRequestEvidenceDocumentsItemDocumentType",
     "UpdateDisputesRequestEvidenceRefundPolicyAttachment",
     "UpdateDisputesRequestEvidenceUncategorizedAttachment",
+    "UpdateDomainsRequestApplePay",
     "UpdateDomainsRequestPixel",
     "UpdateDomainsRequestRegistration",
     "UpdateDomainsRequestVerification",

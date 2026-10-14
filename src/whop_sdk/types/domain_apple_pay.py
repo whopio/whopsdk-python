@@ -10,7 +10,7 @@ from .domain_apple_pay_state import DomainApplePayState
 class DomainApplePay(UniversalBaseModel):
     state: DomainApplePayState = pydantic.Field()
     """
-    `ready` once Apple verified the domain, `action_required` when Apple couldn't; its issue says how to fix it.
+    `pending` while Whop registers the domain with Apple, `ready` once Apple verified it, and `action_required` when Apple couldn't; its issue says how to fix it. `releasing` while Whop removes it from Apple.
     """
 
     if IS_PYDANTIC_V2:
