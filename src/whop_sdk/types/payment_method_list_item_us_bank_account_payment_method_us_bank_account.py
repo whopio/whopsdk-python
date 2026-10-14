@@ -11,17 +11,17 @@ class PaymentMethodListItemUsBankAccountPaymentMethodUsBankAccount(UniversalBase
     The bank account-specific details for this payment method, including bank name and last four digits.
     """
 
-    account_type: str = pydantic.Field()
+    account_type: typing.Optional[str] = pydantic.Field(default=None)
     """
     The type of bank account (e.g., checking, savings).
     """
 
-    bank_name: str = pydantic.Field()
+    bank_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     The name of the financial institution holding the account.
     """
 
-    last4: str = pydantic.Field()
+    last4: typing.Optional[str] = pydantic.Field(default=None)
     """
     The last four digits of the bank account number.
     """
