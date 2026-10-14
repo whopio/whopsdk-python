@@ -115,7 +115,7 @@ if typing.TYPE_CHECKING:
         RetrievePayoutsResponseTimelineItem,
         RetrievePayoutsResponseTimelineItemStatus,
     )
-    from . import methods, supported_methods
+    from . import methods, paypal_link_sessions, supported_methods
     from .methods import (
         CreateMethodsRequestRecipient,
         CreateMethodsResponse,
@@ -159,6 +159,7 @@ if typing.TYPE_CHECKING:
         UpdateMethodsResponseSupportedPayoutMethodDeliveryType,
         UpdateMethodsResponseUnavailableReason,
     )
+    from .paypal_link_sessions import CreatePaypalLinkSessionsResponse
     from .supported_methods import (
         ListSupportedMethodsResponse,
         ListSupportedMethodsResponseDataItem,
@@ -202,6 +203,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreatePayoutsResponseSource": ".types",
     "CreatePayoutsResponseSpeed": ".types",
     "CreatePayoutsResponseStatus": ".types",
+    "CreatePaypalLinkSessionsResponse": ".paypal_link_sessions",
     "CreateQuotePayoutsRequestSpeed": ".types",
     "CreateQuotePayoutsResponse": ".types",
     "CreateQuotePayoutsResponseObject": ".types",
@@ -331,6 +333,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateMethodsResponseSupportedPayoutMethodDeliveryType": ".methods",
     "UpdateMethodsResponseUnavailableReason": ".methods",
     "methods": ".methods",
+    "paypal_link_sessions": ".paypal_link_sessions",
     "supported_methods": ".supported_methods",
 }
 
@@ -387,6 +390,7 @@ __all__ = [
     "CreatePayoutsResponseSource",
     "CreatePayoutsResponseSpeed",
     "CreatePayoutsResponseStatus",
+    "CreatePaypalLinkSessionsResponse",
     "CreateQuotePayoutsRequestSpeed",
     "CreateQuotePayoutsResponse",
     "CreateQuotePayoutsResponseObject",
@@ -516,5 +520,6 @@ __all__ = [
     "UpdateMethodsResponseSupportedPayoutMethodDeliveryType",
     "UpdateMethodsResponseUnavailableReason",
     "methods",
+    "paypal_link_sessions",
     "supported_methods",
 ]
