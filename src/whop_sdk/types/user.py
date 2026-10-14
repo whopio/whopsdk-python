@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .account_balance_token import AccountBalanceToken
 from .account_cards import AccountCards
 from .owner_level import OwnerLevel
 from .trading_account import TradingAccount
@@ -26,6 +27,7 @@ class User(UniversalBaseModel):
     The user's cumulative wallet balance over time (USD `{ t, v }` points plus last/min/max), for the balance chart. Opt in with `include_balance_history=true` when retrieving yourself with the reserved id `me`; populated only for callers with balance-read scope and `null` otherwise. A user with no wallet activity returns an empty series.
     """
 
+    balances: typing.List[AccountBalanceToken]
     banner: typing.Optional[UserBanner] = pydantic.Field(default=None)
     """
     The user's profile banner wrapper. `null` when the user has no banner.
@@ -77,6 +79,11 @@ class User(UniversalBaseModel):
     """
 
     social_links: typing.List[UserSocialLink]
+    total_usd: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Total USD value of the user's personal holdings in `balances`, across those with known exchange rates. Computed only on the self view (retrieved with the reserved id `me`) for callers with balance-read scope; `null` otherwise, when `include_balance=false`, or when the balance source is unavailable.
+    """
+
     trading: typing.Optional[TradingAccount] = pydantic.Field(default=None)
     """
     The trading account address and its WebSocket subscriptions. Opt in with `include_trading=true` when retrieving `me`. `null` otherwise, without trading permission, or without an Ethereum wallet.
