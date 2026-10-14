@@ -2,4 +2,6 @@
 
 import typing
 
-ListDomainsRequestOrder = typing.Union[typing.Literal["created_at", "updated_at"], typing.Any]
+ListDomainsRequestOrder = typing.Union[
+    typing.Literal["unique_visitors_last_7_days", "created_at", "updated_at", "domain"], typing.Any
+]

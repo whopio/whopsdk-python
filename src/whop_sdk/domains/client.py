@@ -88,7 +88,7 @@ class DomainsClient:
             Only domains with this status: the most pressing state of their capabilities, or `idle` when they want nothing.
 
         order : typing.Optional[ListDomainsRequestOrder]
-            Field to sort by.
+            Field to sort by. Domains with the same value keep their creation order in the same direction.
 
         direction : typing.Optional[ListDomainsRequestDirection]
             Sort direction.
@@ -490,7 +490,7 @@ class AsyncDomainsClient:
             Only domains with this status: the most pressing state of their capabilities, or `idle` when they want nothing.
 
         order : typing.Optional[ListDomainsRequestOrder]
-            Field to sort by.
+            Field to sort by. Domains with the same value keep their creation order in the same direction.
 
         direction : typing.Optional[ListDomainsRequestDirection]
             Sort direction.
