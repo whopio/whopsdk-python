@@ -420,6 +420,7 @@ class AccountsClient:
         title: typing.Optional[str] = OMIT,
         use_logo_as_opengraph_image_fallback: typing.Optional[bool] = OMIT,
         website: typing.Optional[str] = OMIT,
+        whop_partner_enabled: typing.Optional[bool] = OMIT,
         industry_type: typing.Optional[typing.Any] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Account:
@@ -563,6 +564,9 @@ class AccountsClient:
         website : typing.Optional[str]
             The account's business website, as an `http` or `https` URL of at most 255 characters. Also added to the account's `social_links` as a `website` entry. Pass `null` to clear the website; existing social links are left unchanged.
 
+        whop_partner_enabled : typing.Optional[bool]
+            Set to `true` to turn on Whop Partner mode for the account, so its team can refer businesses and the account is paid partner commission on their sales. Recorded once; `false` is rejected.
+
         industry_type : typing.Optional[typing.Any]
 
         request_options : typing.Optional[RequestOptions]
@@ -632,6 +636,7 @@ class AccountsClient:
             title=title,
             use_logo_as_opengraph_image_fallback=use_logo_as_opengraph_image_fallback,
             website=website,
+            whop_partner_enabled=whop_partner_enabled,
             industry_type=industry_type,
             request_options=request_options,
         )
@@ -1353,6 +1358,7 @@ class AsyncAccountsClient:
         title: typing.Optional[str] = OMIT,
         use_logo_as_opengraph_image_fallback: typing.Optional[bool] = OMIT,
         website: typing.Optional[str] = OMIT,
+        whop_partner_enabled: typing.Optional[bool] = OMIT,
         industry_type: typing.Optional[typing.Any] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Account:
@@ -1496,6 +1502,9 @@ class AsyncAccountsClient:
         website : typing.Optional[str]
             The account's business website, as an `http` or `https` URL of at most 255 characters. Also added to the account's `social_links` as a `website` entry. Pass `null` to clear the website; existing social links are left unchanged.
 
+        whop_partner_enabled : typing.Optional[bool]
+            Set to `true` to turn on Whop Partner mode for the account, so its team can refer businesses and the account is paid partner commission on their sales. Recorded once; `false` is rejected.
+
         industry_type : typing.Optional[typing.Any]
 
         request_options : typing.Optional[RequestOptions]
@@ -1573,6 +1582,7 @@ class AsyncAccountsClient:
             title=title,
             use_logo_as_opengraph_image_fallback=use_logo_as_opengraph_image_fallback,
             website=website,
+            whop_partner_enabled=whop_partner_enabled,
             industry_type=industry_type,
             request_options=request_options,
         )
