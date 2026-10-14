@@ -127,6 +127,8 @@ RetrieveFinancialReportsResponseRowsItemLineCategory = typing.Union[
         "onboarding_reward",
         "onchain_deposit",
         "onchain_deposit_offset",
+        "onchain_internal_transfer_incoming",
+        "onchain_internal_transfer_outgoing",
         "onchain_swap_offset",
         "onchain_swap_source",
         "onchain_swap_target",

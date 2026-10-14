@@ -74,6 +74,8 @@ ListFinancialActivityRequestLineTypesItem = typing.Union[
         "misc_reversal",
         "onboarding_reward",
         "onchain_deposit",
+        "onchain_internal_transfer_incoming",
+        "onchain_internal_transfer_outgoing",
         "onchain_swap_source",
         "onchain_swap_target",
         "onchain_wallet_transfer_incoming",
