@@ -54,7 +54,7 @@ class Payment(UniversalBaseModel):
 
     client_secret: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The credential a buyer's surface presents to poll this payment and set its return URL. Only on payments created from a confirmation token, and always null in list responses — retrieve the payment for it.
+    The credential a buyer's surface presents to poll this payment, set its return URL and resume it when the bank asked the customer to authenticate. Only on payments created from a confirmation token or waiting on that authentication, and always null in list responses — retrieve the payment for it.
     """
 
     created_at: str = pydantic.Field()
