@@ -14,6 +14,7 @@ from .retrieve_businesses_response_my_partner_tier import RetrieveBusinessesResp
 from .retrieve_businesses_response_object import RetrieveBusinessesResponseObject
 from .retrieve_businesses_response_owner import RetrieveBusinessesResponseOwner
 from .retrieve_businesses_response_payout_percentages import RetrieveBusinessesResponsePayoutPercentages
+from .retrieve_businesses_response_pending_owner_invites_item import RetrieveBusinessesResponsePendingOwnerInvitesItem
 from .retrieve_businesses_response_second_tier_partner import RetrieveBusinessesResponseSecondTierPartner
 from .retrieve_businesses_response_status import RetrieveBusinessesResponseStatus
 from .retrieve_businesses_response_volume_usd import RetrieveBusinessesResponseVolumeUsd
@@ -65,6 +66,13 @@ class RetrieveBusinessesResponse(UniversalBaseModel):
     payout_percentages: RetrieveBusinessesResponsePayoutPercentages = pydantic.Field()
     """
     The referrer's commission rate for each income source, expressed as a fraction (0.3 = 30%).
+    """
+
+    pending_owner_invites: typing.Optional[typing.List[RetrieveBusinessesResponsePendingOwnerInvitesItem]] = (
+        pydantic.Field(default=None)
+    )
+    """
+    Outstanding invites to claim ownership of this business. Present only to the first-tier partner's whop.com session, or the Whop CLI or MCP with the `partner:handoff` scope, and empty once every invite has been accepted.
     """
 
     referral_expires_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
