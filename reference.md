@@ -18037,7 +18037,7 @@ client.domains.list(
 <dl>
 <dd>
 
-**order:** `typing.Optional[ListDomainsRequestOrder]` — Field to sort by.
+**order:** `typing.Optional[ListDomainsRequestOrder]` — Field to sort by. Domains with the same value keep their creation order in the same direction.
     
 </dd>
 </dl>

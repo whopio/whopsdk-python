@@ -12,6 +12,7 @@ from .domain_owner import DomainOwner
 from .domain_pixel import DomainPixel
 from .domain_platform import DomainPlatform
 from .domain_registration import DomainRegistration
+from .domain_stats import DomainStats
 from .domain_verification import DomainVerification
 from .domain_website import DomainWebsite
 
@@ -71,6 +72,11 @@ class DomainListItem(UniversalBaseModel):
     registration: typing.Optional[DomainRegistration] = pydantic.Field(default=None)
     """
     Buying the domain through Whop, renewing it, and running its DNS. `null` when not wanted or not visible to you.
+    """
+
+    stats: typing.Optional[DomainStats] = pydantic.Field(default=None)
+    """
+    Traffic on the domain. `null` when the domain isn't on Whop or isn't visible to you.
     """
 
     status: typing.Optional[DomainListItemStatus] = pydantic.Field(default=None)

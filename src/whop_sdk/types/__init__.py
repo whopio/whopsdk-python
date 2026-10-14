@@ -533,6 +533,7 @@ if typing.TYPE_CHECKING:
     from .domain_registration import DomainRegistration
     from .domain_registration_phase import DomainRegistrationPhase
     from .domain_registration_state import DomainRegistrationState
+    from .domain_stats import DomainStats
     from .domain_status import DomainStatus
     from .domain_verification import DomainVerification
     from .domain_verification_state import DomainVerificationState
@@ -2054,6 +2055,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DomainRegistration": ".domain_registration",
     "DomainRegistrationPhase": ".domain_registration_phase",
     "DomainRegistrationState": ".domain_registration_state",
+    "DomainStats": ".domain_stats",
     "DomainStatus": ".domain_status",
     "DomainVerification": ".domain_verification",
     "DomainVerificationState": ".domain_verification_state",
@@ -3473,6 +3475,7 @@ __all__ = [
     "DomainRegistration",
     "DomainRegistrationPhase",
     "DomainRegistrationState",
+    "DomainStats",
     "DomainStatus",
     "DomainVerification",
     "DomainVerificationState",
