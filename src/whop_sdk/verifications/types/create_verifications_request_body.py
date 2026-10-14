@@ -2,12 +2,14 @@
 
 from __future__ import annotations
 
+import datetime as dt
 import typing
 
 import pydantic
 import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .create_verifications_request_body_business_address import CreateVerificationsRequestBodyBusinessAddress
+from .create_verifications_request_body_business_documents import CreateVerificationsRequestBodyBusinessDocuments
 from .create_verifications_request_body_individual_address import CreateVerificationsRequestBodyIndividualAddress
 from .create_verifications_request_body_individual_document_type import (
     CreateVerificationsRequestBodyIndividualDocumentType,
@@ -52,9 +54,12 @@ class CreateVerificationsRequestBody_Business(UniversalBaseModel):
     business_website: typing.Optional[str] = None
     country: typing.Optional[str] = None
     date_of_birth: typing.Optional[str] = None
+    documents: typing.Optional[CreateVerificationsRequestBodyBusinessDocuments] = None
     first_name: typing.Optional[str] = None
+    incorporation_date: typing.Optional[dt.date] = None
     last_name: typing.Optional[str] = None
     place_of_incorporation: typing.Optional[str] = None
+    registration_number: typing.Optional[str] = None
     share_token: typing.Optional[str] = None
     tax_identification_number: typing.Optional[str] = None
     verification_id: typing.Optional[str] = None

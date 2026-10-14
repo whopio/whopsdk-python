@@ -62,6 +62,11 @@ class CreateVerificationsResponse(UniversalBaseModel):
     Phone number on the verification profile.
     """
 
+    registration_number: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Number the business was registered under in its place of incorporation, such as a state file number in the US or a Company Number in the UK. Business verifications only; `null` until the business verification is approved.
+    """
+
     requested_information: typing.Optional[typing.List[CreateVerificationsResponseRequestedInformationItem]] = (
         pydantic.Field(default=None)
     )
@@ -73,7 +78,7 @@ class CreateVerificationsResponse(UniversalBaseModel):
         default=None
     )
     """
-    Documents for a document-upload verification and their progress. Present only on verifications created by sending `documents`. `pending_upload` documents were not accepted yet — send the full set again with another Create Verification call.
+    Documents for a document-upload verification and their progress. Present only on individual verifications created by sending `documents`. `pending_upload` documents were not accepted yet — send the full set again with another Create Verification call.
     """
 
     session_url: typing.Optional[str] = pydantic.Field(default=None)
