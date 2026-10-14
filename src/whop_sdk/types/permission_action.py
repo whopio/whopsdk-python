@@ -198,6 +198,7 @@ PermissionAction = typing.Union[
         "partner:referral_request:accept",
         "partner:referral_request:decline",
         "partner:referral_request:cancel",
+        "partner:handoff",
         "partner:create",
         "stats:read",
         "support_chat:read",

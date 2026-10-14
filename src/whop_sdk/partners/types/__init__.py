@@ -7,6 +7,19 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .create_partners_response import CreatePartnersResponse
+    from .fee_options_partners_response import FeeOptionsPartnersResponse
+    from .fee_options_partners_response_object import FeeOptionsPartnersResponseObject
+    from .fee_options_partners_response_streams_item import FeeOptionsPartnersResponseStreamsItem
+    from .fee_options_partners_response_streams_item_fee import FeeOptionsPartnersResponseStreamsItemFee
+    from .fee_options_partners_response_streams_item_fee_regions_item import (
+        FeeOptionsPartnersResponseStreamsItemFeeRegionsItem,
+    )
+    from .fee_options_partners_response_streams_item_income_stream import (
+        FeeOptionsPartnersResponseStreamsItemIncomeStream,
+    )
+    from .fee_options_partners_response_streams_item_unadjustable_reason import (
+        FeeOptionsPartnersResponseStreamsItemUnadjustableReason,
+    )
     from .leaderboard_partners_request_period import LeaderboardPartnersRequestPeriod
     from .leaderboard_partners_response import LeaderboardPartnersResponse
     from .leaderboard_partners_response_leaders_item import LeaderboardPartnersResponseLeadersItem
@@ -33,6 +46,13 @@ if typing.TYPE_CHECKING:
     from .referred_users_partners_response_page_info import ReferredUsersPartnersResponsePageInfo
 _dynamic_imports: typing.Dict[str, str] = {
     "CreatePartnersResponse": ".create_partners_response",
+    "FeeOptionsPartnersResponse": ".fee_options_partners_response",
+    "FeeOptionsPartnersResponseObject": ".fee_options_partners_response_object",
+    "FeeOptionsPartnersResponseStreamsItem": ".fee_options_partners_response_streams_item",
+    "FeeOptionsPartnersResponseStreamsItemFee": ".fee_options_partners_response_streams_item_fee",
+    "FeeOptionsPartnersResponseStreamsItemFeeRegionsItem": ".fee_options_partners_response_streams_item_fee_regions_item",
+    "FeeOptionsPartnersResponseStreamsItemIncomeStream": ".fee_options_partners_response_streams_item_income_stream",
+    "FeeOptionsPartnersResponseStreamsItemUnadjustableReason": ".fee_options_partners_response_streams_item_unadjustable_reason",
     "LeaderboardPartnersRequestPeriod": ".leaderboard_partners_request_period",
     "LeaderboardPartnersResponse": ".leaderboard_partners_response",
     "LeaderboardPartnersResponseLeadersItem": ".leaderboard_partners_response_leaders_item",
@@ -77,6 +97,13 @@ def __dir__():
 
 __all__ = [
     "CreatePartnersResponse",
+    "FeeOptionsPartnersResponse",
+    "FeeOptionsPartnersResponseObject",
+    "FeeOptionsPartnersResponseStreamsItem",
+    "FeeOptionsPartnersResponseStreamsItemFee",
+    "FeeOptionsPartnersResponseStreamsItemFeeRegionsItem",
+    "FeeOptionsPartnersResponseStreamsItemIncomeStream",
+    "FeeOptionsPartnersResponseStreamsItemUnadjustableReason",
     "LeaderboardPartnersRequestPeriod",
     "LeaderboardPartnersResponse",
     "LeaderboardPartnersResponseLeadersItem",

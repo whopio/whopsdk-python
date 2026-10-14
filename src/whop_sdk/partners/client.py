@@ -10,6 +10,7 @@ from ..core.request_options import RequestOptions
 from ..types.partner import Partner
 from .raw_client import AsyncRawPartnersClient, RawPartnersClient
 from .types.create_partners_response import CreatePartnersResponse
+from .types.fee_options_partners_response import FeeOptionsPartnersResponse
 from .types.leaderboard_partners_request_period import LeaderboardPartnersRequestPeriod
 from .types.leaderboard_partners_response import LeaderboardPartnersResponse
 from .types.referred_users_partners_request_direction import ReferredUsersPartnersRequestDirection
@@ -64,6 +65,34 @@ class PartnersClient:
         client.partners.create()
         """
         _response = self._raw_client.create(request_options=request_options)
+        return _response.data
+
+    def fee_options(self, *, request_options: typing.Optional[RequestOptions] = None) -> FeeOptionsPartnersResponse:
+        """
+        Lists, per income stream, the fee a business the caller refers would be charged, how low the caller may price it, and the commission the caller earns on that stream. Answers for a referral that does not exist yet, so a referral flow can price the deal before the business is created. Requires `partner:fees:update`, since the floors a partner may price down to are only for a credential that can set them.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        FeeOptionsPartnersResponse
+            fee terms retrieved
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-10-13-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.partners.fee_options()
+        """
+        _response = self._raw_client.fee_options(request_options=request_options)
         return _response.data
 
     def leaderboard(
@@ -293,6 +322,44 @@ class AsyncPartnersClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.create(request_options=request_options)
+        return _response.data
+
+    async def fee_options(
+        self, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> FeeOptionsPartnersResponse:
+        """
+        Lists, per income stream, the fee a business the caller refers would be charged, how low the caller may price it, and the commission the caller earns on that stream. Answers for a referral that does not exist yet, so a referral flow can price the deal before the business is created. Requires `partner:fees:update`, since the floors a partner may price down to are only for a credential that can set them.
+
+        Parameters
+        ----------
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        FeeOptionsPartnersResponse
+            fee terms retrieved
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-10-13-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.partners.fee_options()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.fee_options(request_options=request_options)
         return _response.data
 
     async def leaderboard(

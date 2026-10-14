@@ -19,6 +19,7 @@ from .types.list_businesses_request_status import ListBusinessesRequestStatus
 from .types.list_businesses_request_tier import ListBusinessesRequestTier
 from .types.list_businesses_response import ListBusinessesResponse
 from .types.list_businesses_response_data_item import ListBusinessesResponseDataItem
+from .types.resend_invite_businesses_response import ResendInviteBusinessesResponse
 from .types.retrieve_businesses_response import RetrieveBusinessesResponse
 from .types.update_businesses_response import UpdateBusinessesResponse
 
@@ -313,6 +314,45 @@ class BusinessesClient:
             terms_version=terms_version,
             request_options=request_options,
         )
+        return _response.data
+
+    def resend_invite(
+        self, id: str, *, invite_id: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> ResendInviteBusinessesResponse:
+        """
+        Re-emails an outstanding invite to claim ownership of a referred business. Find the invite in the business's `pending_owner_invites`. Only the first-tier partner can resend, from a whop.com session or the Whop CLI or MCP with `partner:handoff`. Rate limited to one resend per invite every five minutes.
+
+        Parameters
+        ----------
+        id : str
+            The partner business ID (a coma_ identifier).
+
+        invite_id : str
+            The outstanding invite to resend (an ausri_ identifier from `pending_owner_invites`).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ResendInviteBusinessesResponse
+            invite resent
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-10-13-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.partners.businesses.resend_invite(
+            id="id",
+            invite_id="ausri_xxxxxxxxxxxxxx",
+        )
+        """
+        _response = self._raw_client.resend_invite(id, invite_id=invite_id, request_options=request_options)
         return _response.data
 
     @property
@@ -642,6 +682,53 @@ class AsyncBusinessesClient:
             terms_version=terms_version,
             request_options=request_options,
         )
+        return _response.data
+
+    async def resend_invite(
+        self, id: str, *, invite_id: str, request_options: typing.Optional[RequestOptions] = None
+    ) -> ResendInviteBusinessesResponse:
+        """
+        Re-emails an outstanding invite to claim ownership of a referred business. Find the invite in the business's `pending_owner_invites`. Only the first-tier partner can resend, from a whop.com session or the Whop CLI or MCP with `partner:handoff`. Rate limited to one resend per invite every five minutes.
+
+        Parameters
+        ----------
+        id : str
+            The partner business ID (a coma_ identifier).
+
+        invite_id : str
+            The outstanding invite to resend (an ausri_ identifier from `pending_owner_invites`).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ResendInviteBusinessesResponse
+            invite resent
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-10-13-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.partners.businesses.resend_invite(
+                id="id",
+                invite_id="ausri_xxxxxxxxxxxxxx",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.resend_invite(id, invite_id=invite_id, request_options=request_options)
         return _response.data
 
     @property
