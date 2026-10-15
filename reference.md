@@ -352,6 +352,14 @@ client.accounts.list()
 <dl>
 <dd>
 
+**owner_id:** `typing.Optional[str]` — Return only accounts owned by this user (`user_...`), the account's `owner`. Cannot be combined with `parent_account_id`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
