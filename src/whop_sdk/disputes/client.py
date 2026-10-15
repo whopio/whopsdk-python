@@ -274,6 +274,39 @@ class DisputesClient:
         _response = self._raw_client.update(id, evidence=evidence, request_options=request_options)
         return _response.data
 
+    def accept(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Dispute:
+        """
+        Accepts a chargeback, conceding it to the customer instead of contesting it. The payment processor closes the dispute as `lost`. This is final — the dispute cannot be contested afterwards. Only a dispute whose `acceptable` is true can be accepted.
+
+        Parameters
+        ----------
+        id : str
+            The dispute ID (`dspt_` tag).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Dispute
+            dispute accepted
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-10-15",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.disputes.accept(
+            id="id",
+        )
+        """
+        _response = self._raw_client.accept(id, request_options=request_options)
+        return _response.data
+
     def submit(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Dispute:
         """
         Sends a dispute's evidence to the payment processor. This is final — it cannot be edited or sent again.
@@ -640,6 +673,47 @@ class AsyncDisputesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.update(id, evidence=evidence, request_options=request_options)
+        return _response.data
+
+    async def accept(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Dispute:
+        """
+        Accepts a chargeback, conceding it to the customer instead of contesting it. The payment processor closes the dispute as `lost`. This is final — the dispute cannot be contested afterwards. Only a dispute whose `acceptable` is true can be accepted.
+
+        Parameters
+        ----------
+        id : str
+            The dispute ID (`dspt_` tag).
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Dispute
+            dispute accepted
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-10-15",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.disputes.accept(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.accept(id, request_options=request_options)
         return _response.data
 
     async def submit(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Dispute:
