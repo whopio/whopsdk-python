@@ -10,6 +10,7 @@ import typing_extensions
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .create_verifications_request_body_business_address import CreateVerificationsRequestBodyBusinessAddress
 from .create_verifications_request_body_business_documents import CreateVerificationsRequestBodyBusinessDocuments
+from .create_verifications_request_body_business_owners_item import CreateVerificationsRequestBodyBusinessOwnersItem
 from .create_verifications_request_body_individual_address import CreateVerificationsRequestBodyIndividualAddress
 from .create_verifications_request_body_individual_document_type import (
     CreateVerificationsRequestBodyIndividualDocumentType,
@@ -58,6 +59,7 @@ class CreateVerificationsRequestBody_Business(UniversalBaseModel):
     first_name: typing.Optional[str] = None
     incorporation_date: typing.Optional[dt.date] = None
     last_name: typing.Optional[str] = None
+    owners: typing.Optional[typing.List[CreateVerificationsRequestBodyBusinessOwnersItem]] = None
     place_of_incorporation: typing.Optional[str] = None
     registration_number: typing.Optional[str] = None
     share_token: typing.Optional[str] = None

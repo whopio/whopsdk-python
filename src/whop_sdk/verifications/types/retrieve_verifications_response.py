@@ -6,6 +6,7 @@ import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .retrieve_verifications_response_address import RetrieveVerificationsResponseAddress
 from .retrieve_verifications_response_kind import RetrieveVerificationsResponseKind
+from .retrieve_verifications_response_owners_item import RetrieveVerificationsResponseOwnersItem
 from .retrieve_verifications_response_requested_information_item import (
     RetrieveVerificationsResponseRequestedInformationItem,
 )
@@ -57,6 +58,11 @@ class RetrieveVerificationsResponse(UniversalBaseModel):
 
     kind: typing.Optional[RetrieveVerificationsResponseKind] = None
     last_name: typing.Optional[str] = None
+    owners: typing.List[RetrieveVerificationsResponseOwnersItem] = pydantic.Field()
+    """
+    Owners of the business and the progress of each one's own verification. Empty for individual verifications.
+    """
+
     phone: typing.Optional[str] = pydantic.Field(default=None)
     """
     Phone number on the verification profile.
