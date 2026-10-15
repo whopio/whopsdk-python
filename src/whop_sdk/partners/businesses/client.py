@@ -168,7 +168,7 @@ class BusinessesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> RetrieveBusinessesResponse:
         """
-        Retrieves a single referred business and its referral terms.
+        Retrieves a single referred business and its referral terms. The original referrer or a caller with company:basic:read on the business credited for the referral can read it.
 
         Parameters
         ----------
@@ -512,7 +512,7 @@ class AsyncBusinessesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> RetrieveBusinessesResponse:
         """
-        Retrieves a single referred business and its referral terms.
+        Retrieves a single referred business and its referral terms. The original referrer or a caller with company:basic:read on the business credited for the referral can read it.
 
         Parameters
         ----------

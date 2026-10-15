@@ -227,7 +227,7 @@ class RawBusinessesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[RetrieveBusinessesResponse]:
         """
-        Retrieves a single referred business and its referral terms.
+        Retrieves a single referred business and its referral terms. The original referrer or a caller with company:basic:read on the business credited for the referral can read it.
 
         Parameters
         ----------
@@ -717,7 +717,7 @@ class AsyncRawBusinessesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[RetrieveBusinessesResponse]:
         """
-        Retrieves a single referred business and its referral terms.
+        Retrieves a single referred business and its referral terms. The original referrer or a caller with company:basic:read on the business credited for the referral can read it.
 
         Parameters
         ----------
