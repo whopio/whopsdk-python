@@ -61,7 +61,7 @@ class DepositsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-14",
+            "2026-10-14-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -127,7 +127,7 @@ class AsyncDepositsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-14",
+            "2026-10-14-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

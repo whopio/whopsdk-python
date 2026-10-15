@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .create_deposits_response_methods_bank import CreateDepositsResponseMethodsBank
+from .create_deposits_response_methods_card import CreateDepositsResponseMethodsCard
 from .create_deposits_response_methods_crypto_item import CreateDepositsResponseMethodsCryptoItem
 
 
@@ -16,6 +17,11 @@ class CreateDepositsResponseMethods(UniversalBaseModel):
     bank: typing.Optional[CreateDepositsResponseMethodsBank] = pydantic.Field(default=None)
     """
     Bank deposit details. Only present when bank deposits are active for the destination account.
+    """
+
+    card: typing.Optional[CreateDepositsResponseMethodsCard] = pydantic.Field(default=None)
+    """
+    The charge to a saved payment method. Null unless `payment_method_id` was passed.
     """
 
     crypto: typing.List[CreateDepositsResponseMethodsCryptoItem] = pydantic.Field()
