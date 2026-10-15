@@ -282,11 +282,6 @@ class Account(UniversalBaseModel):
     """
 
     social_links: typing.List[AccountSocialLink]
-    stablecoin_rails: bool = pydantic.Field()
-    """
-    Whether the account settles on stablecoin rails — its balance is held on-chain as USDT and paid out over crypto, rather than as fiat cash.
-    """
-
     status: typing.Optional[str] = pydantic.Field(default=None)
     """
     Whether the account can operate on Whop: `active` or `suspended`. Computed on `list`, `retrieve`, `me`, and `suspend`; `null` otherwise.

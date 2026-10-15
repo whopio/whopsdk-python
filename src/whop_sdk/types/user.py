@@ -19,7 +19,7 @@ from .user_social_link import UserSocialLink
 class User(UniversalBaseModel):
     balance: typing.Optional[UserBalance] = pydantic.Field(default=None)
     """
-    The user's balance: personal cash + crypto + in-flight treasury deposits, plus account balances for accounts they own. Computed only on the self view (retrieved with the reserved id `me`) for callers with balance-read scope; `null` otherwise, or when `include_balance=false`.
+    The user's balance: personal cash + other holdings + deposits still in flight, plus account balances for accounts they own. Computed only on the self view (retrieved with the reserved id `me`) for callers with balance-read scope; `null` otherwise, or when `include_balance=false`.
     """
 
     balance_history: typing.Optional[UserBalanceHistory] = pydantic.Field(default=None)

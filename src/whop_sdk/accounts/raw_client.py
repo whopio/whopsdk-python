@@ -472,7 +472,7 @@ class RawAccountsClient:
         Returns
         -------
         HttpResponse[Account]
-            account settling on stablecoin rails
+            account with an individual card application
         """
         _response = self._client_wrapper.httpx_client.request(
             f"accounts/{encode_path_param(id)}",
@@ -1859,7 +1859,7 @@ class AsyncRawAccountsClient:
         Returns
         -------
         AsyncHttpResponse[Account]
-            account settling on stablecoin rails
+            account with an individual card application
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"accounts/{encode_path_param(id)}",

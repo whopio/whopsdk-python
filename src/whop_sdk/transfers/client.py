@@ -98,7 +98,7 @@ class TransfersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15",
+            "2026-10-15-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -127,7 +127,7 @@ class TransfersClient:
         self, *, request: CreateTransfersRequestBody, request_options: typing.Optional[RequestOptions] = None
     ) -> CreateTransfersResponse:
         """
-        Moves money between Whop balances, sends USDT from an account's wallet, or funds a claim link anyone with the URL can redeem. The `type` you send decides which object comes back.
+        Moves money between Whop balances or funds a claim link anyone with the URL can redeem. The `type` you send decides which object comes back.
 
         Parameters
         ----------
@@ -147,7 +147,7 @@ class TransfersClient:
         from whop_sdk.transfers import CreateTransfersRequestBody_Balance
 
         client = Whop(
-            "2026-10-15",
+            "2026-10-15-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -202,7 +202,7 @@ class TransfersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15",
+            "2026-10-15-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -243,7 +243,7 @@ class TransfersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15",
+            "2026-10-15-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -335,7 +335,7 @@ class AsyncTransfersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15",
+            "2026-10-15-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -371,7 +371,7 @@ class AsyncTransfersClient:
         self, *, request: CreateTransfersRequestBody, request_options: typing.Optional[RequestOptions] = None
     ) -> CreateTransfersResponse:
         """
-        Moves money between Whop balances, sends USDT from an account's wallet, or funds a claim link anyone with the URL can redeem. The `type` you send decides which object comes back.
+        Moves money between Whop balances or funds a claim link anyone with the URL can redeem. The `type` you send decides which object comes back.
 
         Parameters
         ----------
@@ -393,7 +393,7 @@ class AsyncTransfersClient:
         from whop_sdk.transfers import CreateTransfersRequestBody_Balance
 
         client = AsyncWhop(
-            "2026-10-15",
+            "2026-10-15-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -456,7 +456,7 @@ class AsyncTransfersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15",
+            "2026-10-15-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -506,7 +506,7 @@ class AsyncTransfersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15",
+            "2026-10-15-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
