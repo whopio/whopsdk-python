@@ -52,7 +52,7 @@ class PaymentMethodDomainsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[PaymentMethodDomain, ListPaymentMethodDomainsResponse]:
         """
-        Lists the payment method domains registered for your account and its connected accounts.
+        Lists the payment method domains registered for your account and its connected accounts. Deprecated: list domains with `GET /domains` and the `apple_pay` filter instead.
 
         Parameters
         ----------
@@ -105,7 +105,7 @@ class PaymentMethodDomainsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-13-1",
+            "2026-10-14",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -140,7 +140,7 @@ class PaymentMethodDomainsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaymentMethodDomain:
         """
-        Registers a hostname with the wallet provider and attempts verification inline. Returns `verified` when the provider fetched the domain-association file (for Apple Pay, `/.well-known/apple-developer-merchantid-domain-association`), or `pending` when it could not: host the file, then retry with `POST /payment_method_domains/:id/verify`.
+        Registers a hostname with the wallet provider and attempts verification inline. Returns `verified` when the provider fetched the domain-association file (for Apple Pay, `/.well-known/apple-developer-merchantid-domain-association`), or `pending` when it could not: host the file, then retry with `POST /payment_method_domains/:id/verify`. Deprecated: add Apple Pay with `POST /domains` and `apple_pay: {}` instead.
 
         Parameters
         ----------
@@ -163,7 +163,7 @@ class PaymentMethodDomainsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-13-1",
+            "2026-10-14",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -176,7 +176,7 @@ class PaymentMethodDomainsClient:
 
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> PaymentMethodDomain:
         """
-        Retrieves a payment method domain to check its verification status.
+        Retrieves a payment method domain to check its verification status. Deprecated: retrieve the domain with `GET /domains/{id}` instead, using the same ID.
 
         Parameters
         ----------
@@ -196,7 +196,7 @@ class PaymentMethodDomainsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-13-1",
+            "2026-10-14",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -211,7 +211,7 @@ class PaymentMethodDomainsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> DeletePaymentMethodDomainsResponse:
         """
-        Unregisters a payment method domain so its wallet payment methods stop rendering there.
+        Unregisters a payment method domain so its wallet payment methods stop rendering there. Deprecated: remove Apple Pay with `PATCH /domains/{id}` and `apple_pay: null` instead. `DELETE /domains/{id}` removes the whole domain, including any website on it.
 
         Parameters
         ----------
@@ -231,7 +231,7 @@ class PaymentMethodDomainsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-13-1",
+            "2026-10-14",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -244,7 +244,7 @@ class PaymentMethodDomainsClient:
 
     def verify(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> PaymentMethodDomain:
         """
-        Re-attempts provider verification of a pending domain once the association file is hosted. Fails with a `bad_request` explaining what to fix; verifying an already `verified` domain is a no-op.
+        Re-attempts provider verification of a pending domain once the association file is hosted. Fails with a `bad_request` explaining what to fix; verifying an already `verified` domain is a no-op. Deprecated: check the domain with `POST /domains/{id}/check` instead.
 
         Parameters
         ----------
@@ -264,7 +264,7 @@ class PaymentMethodDomainsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-13-1",
+            "2026-10-14",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -309,7 +309,7 @@ class AsyncPaymentMethodDomainsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[PaymentMethodDomain, ListPaymentMethodDomainsResponse]:
         """
-        Lists the payment method domains registered for your account and its connected accounts.
+        Lists the payment method domains registered for your account and its connected accounts. Deprecated: list domains with `GET /domains` and the `apple_pay` filter instead.
 
         Parameters
         ----------
@@ -364,7 +364,7 @@ class AsyncPaymentMethodDomainsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-13-1",
+            "2026-10-14",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -406,7 +406,7 @@ class AsyncPaymentMethodDomainsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PaymentMethodDomain:
         """
-        Registers a hostname with the wallet provider and attempts verification inline. Returns `verified` when the provider fetched the domain-association file (for Apple Pay, `/.well-known/apple-developer-merchantid-domain-association`), or `pending` when it could not: host the file, then retry with `POST /payment_method_domains/:id/verify`.
+        Registers a hostname with the wallet provider and attempts verification inline. Returns `verified` when the provider fetched the domain-association file (for Apple Pay, `/.well-known/apple-developer-merchantid-domain-association`), or `pending` when it could not: host the file, then retry with `POST /payment_method_domains/:id/verify`. Deprecated: add Apple Pay with `POST /domains` and `apple_pay: {}` instead.
 
         Parameters
         ----------
@@ -431,7 +431,7 @@ class AsyncPaymentMethodDomainsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-13-1",
+            "2026-10-14",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -454,7 +454,7 @@ class AsyncPaymentMethodDomainsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> PaymentMethodDomain:
         """
-        Retrieves a payment method domain to check its verification status.
+        Retrieves a payment method domain to check its verification status. Deprecated: retrieve the domain with `GET /domains/{id}` instead, using the same ID.
 
         Parameters
         ----------
@@ -476,7 +476,7 @@ class AsyncPaymentMethodDomainsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-13-1",
+            "2026-10-14",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -497,7 +497,7 @@ class AsyncPaymentMethodDomainsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> DeletePaymentMethodDomainsResponse:
         """
-        Unregisters a payment method domain so its wallet payment methods stop rendering there.
+        Unregisters a payment method domain so its wallet payment methods stop rendering there. Deprecated: remove Apple Pay with `PATCH /domains/{id}` and `apple_pay: null` instead. `DELETE /domains/{id}` removes the whole domain, including any website on it.
 
         Parameters
         ----------
@@ -519,7 +519,7 @@ class AsyncPaymentMethodDomainsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-13-1",
+            "2026-10-14",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -538,7 +538,7 @@ class AsyncPaymentMethodDomainsClient:
 
     async def verify(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> PaymentMethodDomain:
         """
-        Re-attempts provider verification of a pending domain once the association file is hosted. Fails with a `bad_request` explaining what to fix; verifying an already `verified` domain is a no-op.
+        Re-attempts provider verification of a pending domain once the association file is hosted. Fails with a `bad_request` explaining what to fix; verifying an already `verified` domain is a no-op. Deprecated: check the domain with `POST /domains/{id}/check` instead.
 
         Parameters
         ----------
@@ -560,7 +560,7 @@ class AsyncPaymentMethodDomainsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-13-1",
+            "2026-10-14",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

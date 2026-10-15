@@ -84,7 +84,7 @@ class IdentityProfilesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-13-1",
+            "2026-10-14",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -137,7 +137,7 @@ class IdentityProfilesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-13-1",
+            "2026-10-14",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -178,7 +178,7 @@ class IdentityProfilesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-13-1",
+            "2026-10-14",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -238,7 +238,7 @@ class IdentityProfilesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-13-1",
+            "2026-10-14",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -327,7 +327,7 @@ class AsyncIdentityProfilesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-13-1",
+            "2026-10-14",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -389,7 +389,7 @@ class AsyncIdentityProfilesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-13-1",
+            "2026-10-14",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -438,7 +438,7 @@ class AsyncIdentityProfilesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-13-1",
+            "2026-10-14",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -506,7 +506,7 @@ class AsyncIdentityProfilesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-13-1",
+            "2026-10-14",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
