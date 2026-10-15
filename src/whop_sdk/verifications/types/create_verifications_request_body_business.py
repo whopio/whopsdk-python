@@ -61,7 +61,7 @@ class CreateVerificationsRequestBodyBusiness(UniversalBaseModel):
 
     incorporation_date: typing.Optional[dt.date] = pydantic.Field(default=None)
     """
-    Date the business was incorporated, formatted as `YYYY-MM-DD`. Cannot be in the future.
+    Date the business was incorporated, formatted as `YYYY-MM-DD`. Cannot be in the future. Sent to the verification provider and not returned in the response.
     """
 
     last_name: typing.Optional[str] = pydantic.Field(default=None)
@@ -71,12 +71,12 @@ class CreateVerificationsRequestBodyBusiness(UniversalBaseModel):
 
     place_of_incorporation: typing.Optional[str] = pydantic.Field(default=None)
     """
-    State or region where the business is incorporated.
+    State or region where the business is incorporated. Sent to the verification provider and not returned in the response.
     """
 
     registration_number: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Number the business was registered under in its place of incorporation, such as a state file number in the US or a Company Number in the UK.
+    Number the business was registered under in its place of incorporation, such as a state file number in the US or a Company Number in the UK. Sent to the verification provider; `registration_number` in the response shows the verified number once the business verification is approved.
     """
 
     share_token: typing.Optional[str] = pydantic.Field(default=None)
