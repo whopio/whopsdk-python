@@ -16,6 +16,11 @@ from .receipt_line_item import ReceiptLineItem
 
 
 class Dispute(UniversalBaseModel):
+    acceptable: bool = pydantic.Field()
+    """
+    Whether the dispute can be conceded to the customer with `POST /disputes/{id}/accept`. True only for a chargeback still awaiting a response, before `evidence_due_at`, whose payment processor supports accepting disputes. Inquiries are never acceptable.
+    """
+
     account_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The account the dispute was filed against, prefixed `biz_`.
