@@ -91,6 +91,7 @@ class AccountsClient:
         volume_min: typing.Optional[float] = None,
         volume_max: typing.Optional[float] = None,
         parent_account_id: typing.Optional[str] = None,
+        owner_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Account, ListAccountsResponse]:
         """
@@ -137,6 +138,9 @@ class AccountsClient:
         parent_account_id : typing.Optional[str]
             For platforms: the parent account ID whose direct connected accounts to return. Requires `payout:account:read` on the parent account.
 
+        owner_id : typing.Optional[str]
+            Return only accounts owned by this user (`user_...`), the account's `owner`. Cannot be combined with `parent_account_id`.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -175,6 +179,7 @@ class AccountsClient:
             volume_min=volume_min,
             volume_max=volume_max,
             parent_account_id=parent_account_id,
+            owner_id=owner_id,
             request_options=request_options,
         )
 
@@ -984,6 +989,7 @@ class AsyncAccountsClient:
         volume_min: typing.Optional[float] = None,
         volume_max: typing.Optional[float] = None,
         parent_account_id: typing.Optional[str] = None,
+        owner_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Account, ListAccountsResponse]:
         """
@@ -1029,6 +1035,9 @@ class AsyncAccountsClient:
 
         parent_account_id : typing.Optional[str]
             For platforms: the parent account ID whose direct connected accounts to return. Requires `payout:account:read` on the parent account.
+
+        owner_id : typing.Optional[str]
+            Return only accounts owned by this user (`user_...`), the account's `owner`. Cannot be combined with `parent_account_id`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1077,6 +1086,7 @@ class AsyncAccountsClient:
             volume_min=volume_min,
             volume_max=volume_max,
             parent_account_id=parent_account_id,
+            owner_id=owner_id,
             request_options=request_options,
         )
 
