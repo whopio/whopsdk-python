@@ -105,6 +105,7 @@ class RawStatsClient:
         event: typing.Optional[str] = None,
         business_type: typing.Optional[str] = None,
         industry_type: typing.Optional[str] = None,
+        product_category: typing.Optional[str] = None,
         issuer: typing.Optional[str] = None,
         conversion_window: typing.Optional[str] = None,
         mature_only: typing.Optional[bool] = None,
@@ -257,6 +258,9 @@ class RawStatsClient:
         industry_type : typing.Optional[str]
             Filter to one industry type, for example `options_trading`. Pair with `breakdown_by=industry_type` to split by industry type. Available on metrics that list `industry_type`.
 
+        product_category : typing.Optional[str]
+            Filter to one product category, for example `algo_trading_course`. Pair with `breakdown_by=product_category` to split by product category. Available on metrics that list `product_category`.
+
         issuer : typing.Optional[str]
             Filter to one card-issuing bank, named as the processor reports it, for example JPMORGAN CHASE BANK N A, or unknown for payments with no reported bank. Available on metrics that list issuer.
 
@@ -408,6 +412,7 @@ class RawStatsClient:
                 "event": event,
                 "business_type": business_type,
                 "industry_type": industry_type,
+                "product_category": product_category,
                 "issuer": issuer,
                 "conversion_window": conversion_window,
                 "mature_only": mature_only,
@@ -552,6 +557,7 @@ class AsyncRawStatsClient:
         event: typing.Optional[str] = None,
         business_type: typing.Optional[str] = None,
         industry_type: typing.Optional[str] = None,
+        product_category: typing.Optional[str] = None,
         issuer: typing.Optional[str] = None,
         conversion_window: typing.Optional[str] = None,
         mature_only: typing.Optional[bool] = None,
@@ -704,6 +710,9 @@ class AsyncRawStatsClient:
         industry_type : typing.Optional[str]
             Filter to one industry type, for example `options_trading`. Pair with `breakdown_by=industry_type` to split by industry type. Available on metrics that list `industry_type`.
 
+        product_category : typing.Optional[str]
+            Filter to one product category, for example `algo_trading_course`. Pair with `breakdown_by=product_category` to split by product category. Available on metrics that list `product_category`.
+
         issuer : typing.Optional[str]
             Filter to one card-issuing bank, named as the processor reports it, for example JPMORGAN CHASE BANK N A, or unknown for payments with no reported bank. Available on metrics that list issuer.
 
@@ -855,6 +864,7 @@ class AsyncRawStatsClient:
                 "event": event,
                 "business_type": business_type,
                 "industry_type": industry_type,
+                "product_category": product_category,
                 "issuer": issuer,
                 "conversion_window": conversion_window,
                 "mature_only": mature_only,

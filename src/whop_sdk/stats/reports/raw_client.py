@@ -85,6 +85,7 @@ class RawReportsClient:
         convert_to: typing.Optional[str] = None,
         business_type: typing.Optional[str] = None,
         industry_type: typing.Optional[str] = None,
+        product_category: typing.Optional[str] = None,
         account_country: typing.Optional[str] = None,
         customer_country: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -92,7 +93,7 @@ class RawReportsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PlatformTrendsReportsResponse]:
         """
-        Retrieves payments across all of Whop for up to four windows at once, optionally broken down by business type, industry type, account country or customer country. The report covers the whole platform, so it takes no `account_id` and any authenticated caller can read it.
+        Retrieves payments across all of Whop for up to four windows at once, optionally broken down by business type, industry type, product category, account country or customer country. The report covers the whole platform, so it takes no `account_id` and any authenticated caller can read it.
 
         Parameters
         ----------
@@ -122,6 +123,9 @@ class RawReportsClient:
 
         industry_type : typing.Optional[str]
             Only counts payments to businesses in these comma-separated industry types, such as `options_trading`.
+
+        product_category : typing.Optional[str]
+            Only counts payments for products in these comma-separated product categories, such as `algo_trading_course`.
 
         account_country : typing.Optional[str]
             Only counts payments to accounts located in these comma-separated countries, as ISO 3166-1 alpha-2 codes such as `US`.
@@ -157,6 +161,7 @@ class RawReportsClient:
                 "convert_to": convert_to,
                 "business_type": business_type,
                 "industry_type": industry_type,
+                "product_category": product_category,
                 "account_country": account_country,
                 "customer_country": customer_country,
                 "first": first,
@@ -263,6 +268,7 @@ class AsyncRawReportsClient:
         convert_to: typing.Optional[str] = None,
         business_type: typing.Optional[str] = None,
         industry_type: typing.Optional[str] = None,
+        product_category: typing.Optional[str] = None,
         account_country: typing.Optional[str] = None,
         customer_country: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
@@ -270,7 +276,7 @@ class AsyncRawReportsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PlatformTrendsReportsResponse]:
         """
-        Retrieves payments across all of Whop for up to four windows at once, optionally broken down by business type, industry type, account country or customer country. The report covers the whole platform, so it takes no `account_id` and any authenticated caller can read it.
+        Retrieves payments across all of Whop for up to four windows at once, optionally broken down by business type, industry type, product category, account country or customer country. The report covers the whole platform, so it takes no `account_id` and any authenticated caller can read it.
 
         Parameters
         ----------
@@ -300,6 +306,9 @@ class AsyncRawReportsClient:
 
         industry_type : typing.Optional[str]
             Only counts payments to businesses in these comma-separated industry types, such as `options_trading`.
+
+        product_category : typing.Optional[str]
+            Only counts payments for products in these comma-separated product categories, such as `algo_trading_course`.
 
         account_country : typing.Optional[str]
             Only counts payments to accounts located in these comma-separated countries, as ISO 3166-1 alpha-2 codes such as `US`.
@@ -335,6 +344,7 @@ class AsyncRawReportsClient:
                 "convert_to": convert_to,
                 "business_type": business_type,
                 "industry_type": industry_type,
+                "product_category": product_category,
                 "account_country": account_country,
                 "customer_country": customer_country,
                 "first": first,
