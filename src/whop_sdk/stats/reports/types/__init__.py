@@ -45,6 +45,9 @@ if typing.TYPE_CHECKING:
     from .platform_trends_reports_response_data_reports_item_rows_item_industry_type import (
         PlatformTrendsReportsResponseDataReportsItemRowsItemIndustryType,
     )
+    from .platform_trends_reports_response_data_reports_item_rows_item_product_category import (
+        PlatformTrendsReportsResponseDataReportsItemRowsItemProductCategory,
+    )
     from .platform_trends_reports_response_data_reports_item_window import (
         PlatformTrendsReportsResponseDataReportsItemWindow,
     )
@@ -76,6 +79,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PlatformTrendsReportsResponseDataReportsItemRowsItemBusinessType": ".platform_trends_reports_response_data_reports_item_rows_item_business_type",
     "PlatformTrendsReportsResponseDataReportsItemRowsItemCustomerCountry": ".platform_trends_reports_response_data_reports_item_rows_item_customer_country",
     "PlatformTrendsReportsResponseDataReportsItemRowsItemIndustryType": ".platform_trends_reports_response_data_reports_item_rows_item_industry_type",
+    "PlatformTrendsReportsResponseDataReportsItemRowsItemProductCategory": ".platform_trends_reports_response_data_reports_item_rows_item_product_category",
     "PlatformTrendsReportsResponseDataReportsItemWindow": ".platform_trends_reports_response_data_reports_item_window",
     "PlatformTrendsReportsResponseDataReportsItemWindowKind": ".platform_trends_reports_response_data_reports_item_window_kind",
     "PlatformTrendsReportsResponsePageInfo": ".platform_trends_reports_response_page_info",
@@ -127,6 +131,7 @@ __all__ = [
     "PlatformTrendsReportsResponseDataReportsItemRowsItemBusinessType",
     "PlatformTrendsReportsResponseDataReportsItemRowsItemCustomerCountry",
     "PlatformTrendsReportsResponseDataReportsItemRowsItemIndustryType",
+    "PlatformTrendsReportsResponseDataReportsItemRowsItemProductCategory",
     "PlatformTrendsReportsResponseDataReportsItemWindow",
     "PlatformTrendsReportsResponseDataReportsItemWindowKind",
     "PlatformTrendsReportsResponsePageInfo",

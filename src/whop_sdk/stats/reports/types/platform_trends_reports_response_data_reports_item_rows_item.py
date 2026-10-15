@@ -17,6 +17,9 @@ from .platform_trends_reports_response_data_reports_item_rows_item_customer_coun
 from .platform_trends_reports_response_data_reports_item_rows_item_industry_type import (
     PlatformTrendsReportsResponseDataReportsItemRowsItemIndustryType,
 )
+from .platform_trends_reports_response_data_reports_item_rows_item_product_category import (
+    PlatformTrendsReportsResponseDataReportsItemRowsItemProductCategory,
+)
 
 
 class PlatformTrendsReportsResponseDataReportsItemRowsItem(UniversalBaseModel):
@@ -74,6 +77,7 @@ class PlatformTrendsReportsResponseDataReportsItemRowsItem(UniversalBaseModel):
     Paid payments.
     """
 
+    product_category: typing.Optional[PlatformTrendsReportsResponseDataReportsItemRowsItemProductCategory] = None
     repeat_rate: typing.Optional[float] = pydantic.Field(default=None)
     """
     Share of customers who paid more than once, as a fraction.

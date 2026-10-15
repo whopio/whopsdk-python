@@ -3,5 +3,6 @@
 import typing
 
 PlatformTrendsReportsRequestBreakdownBy = typing.Union[
-    typing.Literal["business_type", "industry_type", "account_country", "customer_country"], typing.Any
+    typing.Literal["business_type", "industry_type", "product_category", "account_country", "customer_country"],
+    typing.Any,
 ]
