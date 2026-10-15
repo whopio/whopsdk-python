@@ -6,7 +6,7 @@ import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
-class CreateDepositsResponseCard(UniversalBaseModel):
+class CreateDepositsResponseMethodsCard(UniversalBaseModel):
     """
     The charge to a saved payment method. Null unless `payment_method_id` was passed.
     """
