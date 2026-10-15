@@ -57,7 +57,7 @@ class Domain(UniversalBaseModel):
 
     owned_by: typing.Optional[DomainOwner] = pydantic.Field(default=None)
     """
-    The other account that has proven it owns this hostname. `null` when no other account does.
+    The account that has proven it owns this hostname on Whop, which can be your own. `null` when no account has.
     """
 
     pixel: typing.Optional[DomainPixel] = pydantic.Field(default=None)
