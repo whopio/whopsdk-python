@@ -46,7 +46,7 @@ class DepositsClient:
             Amount to prefill on hosted deposit page. Crypto deposits require a $10 minimum. With `payment_method_id`, the amount in USD to charge, and required.
 
         payment_method_id : typing.Optional[str]
-            A saved payment method of the business to charge for `amount`, prefixed `payt_`. Only for a `biz_` destination, and requires authentication with the `payment:charge` scope. A declined charge fails the request with 400.
+            A saved payment method of the business to charge for `amount`, prefixed `payt_`. Save one with Create setup intent and `owner_id` set to the account. Only for a `biz_` destination, and requires authentication with the `payment:charge` scope. A declined charge fails the request with 400.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -110,7 +110,7 @@ class AsyncDepositsClient:
             Amount to prefill on hosted deposit page. Crypto deposits require a $10 minimum. With `payment_method_id`, the amount in USD to charge, and required.
 
         payment_method_id : typing.Optional[str]
-            A saved payment method of the business to charge for `amount`, prefixed `payt_`. Only for a `biz_` destination, and requires authentication with the `payment:charge` scope. A declined charge fails the request with 400.
+            A saved payment method of the business to charge for `amount`, prefixed `payt_`. Save one with Create setup intent and `owner_id` set to the account. Only for a `biz_` destination, and requires authentication with the `payment:charge` scope. A declined charge fails the request with 400.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
