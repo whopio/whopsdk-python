@@ -66,7 +66,7 @@ class AccountCapabilities(UniversalBaseModel):
 
     run_ads: AccountCapabilitiesRunAds = pydantic.Field()
     """
-    Launching ad campaigns through Whop Ads. `inactive` while a requested ads services agreement is awaiting the account's signature.
+    Launching ad campaigns through Whop Ads. `inactive` until the account's identity or business is verified, and while a requested ads services agreement is awaiting the account's signature.
     """
 
     standard_payout: AccountCapabilitiesStandardPayout = pydantic.Field()
