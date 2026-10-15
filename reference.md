@@ -29492,7 +29492,7 @@ client.partners.retrieve(
 <dl>
 <dd>
 
-Lists the payment method domains registered for your account and its connected accounts.
+Lists the payment method domains registered for your account and its connected accounts. Deprecated: list domains with `GET /domains` and the `apple_pay` filter instead.
 </dd>
 </dl>
 </dd>
@@ -29651,7 +29651,7 @@ client.payment_method_domains.list()
 <dl>
 <dd>
 
-Registers a hostname with the wallet provider and attempts verification inline. Returns `verified` when the provider fetched the domain-association file (for Apple Pay, `/.well-known/apple-developer-merchantid-domain-association`), or `pending` when it could not: host the file, then retry with `POST /payment_method_domains/:id/verify`.
+Registers a hostname with the wallet provider and attempts verification inline. Returns `verified` when the provider fetched the domain-association file (for Apple Pay, `/.well-known/apple-developer-merchantid-domain-association`), or `pending` when it could not: host the file, then retry with `POST /payment_method_domains/:id/verify`. Deprecated: add Apple Pay with `POST /domains` and `apple_pay: {}` instead.
 </dd>
 </dl>
 </dd>
@@ -29732,7 +29732,7 @@ client.payment_method_domains.create(
 <dl>
 <dd>
 
-Retrieves a payment method domain to check its verification status.
+Retrieves a payment method domain to check its verification status. Deprecated: retrieve the domain with `GET /domains/{id}` instead, using the same ID.
 </dd>
 </dl>
 </dd>
@@ -29805,7 +29805,7 @@ client.payment_method_domains.retrieve(
 <dl>
 <dd>
 
-Unregisters a payment method domain so its wallet payment methods stop rendering there.
+Unregisters a payment method domain so its wallet payment methods stop rendering there. Deprecated: remove Apple Pay with `PATCH /domains/{id}` and `apple_pay: null` instead. `DELETE /domains/{id}` removes the whole domain, including any website on it.
 </dd>
 </dl>
 </dd>
@@ -29878,7 +29878,7 @@ client.payment_method_domains.delete(
 <dl>
 <dd>
 
-Re-attempts provider verification of a pending domain once the association file is hosted. Fails with a `bad_request` explaining what to fix; verifying an already `verified` domain is a no-op.
+Re-attempts provider verification of a pending domain once the association file is hosted. Fails with a `bad_request` explaining what to fix; verifying an already `verified` domain is a no-op. Deprecated: check the domain with `POST /domains/{id}/check` instead.
 </dd>
 </dl>
 </dd>
