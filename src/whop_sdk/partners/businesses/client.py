@@ -200,12 +200,7 @@ class BusinessesClient:
         return _response.data
 
     def update(
-        self,
-        id: str,
-        *,
-        annual_ads_usd: str,
-        annual_processing_usd: str,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, id: str, *, annual_processing_usd: str, request_options: typing.Optional[RequestOptions] = None
     ) -> UpdateBusinessesResponse:
         """
         Save annual projections for a business referred by the authenticated partner. Projections cannot be changed after saving; repeating the same values is allowed. Public API access requires a partner OAuth token; business API keys are not supported.
@@ -215,11 +210,8 @@ class BusinessesClient:
         id : str
             The partner business ID (a coma_ identifier).
 
-        annual_ads_usd : str
-            Annual projected Whop Ads spend in USD.
-
         annual_processing_usd : str
-            Annual projected processing on Whop in USD.
+            Annual projected card and BNPL payment volume on Whop in USD.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -240,15 +232,11 @@ class BusinessesClient:
         )
         client.partners.businesses.update(
             id="id",
-            annual_ads_usd="120000",
             annual_processing_usd="1200000",
         )
         """
         _response = self._raw_client.update(
-            id,
-            annual_ads_usd=annual_ads_usd,
-            annual_processing_usd=annual_processing_usd,
-            request_options=request_options,
+            id, annual_processing_usd=annual_processing_usd, request_options=request_options
         )
         return _response.data
 
@@ -301,7 +289,7 @@ class BusinessesClient:
         client.partners.businesses.accept_commission_advance(
             id="id",
             acknowledgments=["commission_replacement", "clawback", "term"],
-            expected_amount_usd="1439.99",
+            expected_amount_usd="1079.99",
             offer_token="eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             terms_version="2026-01-01",
         )
@@ -552,12 +540,7 @@ class AsyncBusinessesClient:
         return _response.data
 
     async def update(
-        self,
-        id: str,
-        *,
-        annual_ads_usd: str,
-        annual_processing_usd: str,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, id: str, *, annual_processing_usd: str, request_options: typing.Optional[RequestOptions] = None
     ) -> UpdateBusinessesResponse:
         """
         Save annual projections for a business referred by the authenticated partner. Projections cannot be changed after saving; repeating the same values is allowed. Public API access requires a partner OAuth token; business API keys are not supported.
@@ -567,11 +550,8 @@ class AsyncBusinessesClient:
         id : str
             The partner business ID (a coma_ identifier).
 
-        annual_ads_usd : str
-            Annual projected Whop Ads spend in USD.
-
         annual_processing_usd : str
-            Annual projected processing on Whop in USD.
+            Annual projected card and BNPL payment volume on Whop in USD.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -597,7 +577,6 @@ class AsyncBusinessesClient:
         async def main() -> None:
             await client.partners.businesses.update(
                 id="id",
-                annual_ads_usd="120000",
                 annual_processing_usd="1200000",
             )
 
@@ -605,10 +584,7 @@ class AsyncBusinessesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.update(
-            id,
-            annual_ads_usd=annual_ads_usd,
-            annual_processing_usd=annual_processing_usd,
-            request_options=request_options,
+            id, annual_processing_usd=annual_processing_usd, request_options=request_options
         )
         return _response.data
 
@@ -666,7 +642,7 @@ class AsyncBusinessesClient:
             await client.partners.businesses.accept_commission_advance(
                 id="id",
                 acknowledgments=["commission_replacement", "clawback", "term"],
-                expected_amount_usd="1439.99",
+                expected_amount_usd="1079.99",
                 offer_token="eyJfcmFpbHMiOnsiZGF0YSI6MSwicHVyIjoiYmxvYl9pZCJ9fQ==--xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
                 terms_version="2026-01-01",
             )

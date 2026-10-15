@@ -16,21 +16,16 @@ class PartnerAdvance(UniversalBaseModel):
         FieldMetadata(alias="activity_60_day"),
         pydantic.Field(
             alias="activity_60_day",
-            description="Actual processing plus ads spend in the preceding 60 days, in USD. Null when unavailable.",
+            description="Actual payment volume (cards and BNPL) in the preceding 60 days, in USD. Null when unavailable.",
         ),
     ] = None
     """
-    Actual processing plus ads spend in the preceding 60 days, in USD. Null when unavailable.
+    Actual payment volume (cards and BNPL) in the preceding 60 days, in USD. Null when unavailable.
     """
 
     amount: typing.Optional[Money] = pydantic.Field(default=None)
     """
     The offered or accepted upfront CPA payment in USD.
-    """
-
-    annual_ads: Money = pydantic.Field()
-    """
-    Annual projected Whop Ads spend in USD.
     """
 
     annual_processing: Money = pydantic.Field()
@@ -67,16 +62,12 @@ class PartnerAdvance(UniversalBaseModel):
         typing.Optional[Money],
         FieldMetadata(alias="projected_60_day_activity"),
         pydantic.Field(
-            alias="projected_60_day_activity", description="Projected processing plus ads spend over 60 days, in USD."
+            alias="projected_60_day_activity",
+            description="Projected payment volume (cards and BNPL) over 60 days, in USD.",
         ),
     ] = None
     """
-    Projected processing plus ads spend over 60 days, in USD.
-    """
-
-    projected_ads_commissions: typing.Optional[Money] = pydantic.Field(default=None)
-    """
-    Ads commissions projected for the remaining CPA term, in USD.
+    Projected payment volume (cards and BNPL) over 60 days, in USD.
     """
 
     projected_commissions: typing.Optional[Money] = pydantic.Field(default=None)
@@ -96,7 +87,7 @@ class PartnerAdvance(UniversalBaseModel):
 
     recovery_threshold: typing.Optional[Money] = pydantic.Field(default=None)
     """
-    20% of projected 60-day processing plus ads spend. Performance checks begin 60 days after funding.
+    20% of projected 60-day payment volume (cards and BNPL). Performance checks begin 60 days after funding.
     """
 
     status: PartnerAdvanceStatus = pydantic.Field()

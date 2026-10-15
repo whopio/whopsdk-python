@@ -279,12 +279,7 @@ class RawBusinessesClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def update(
-        self,
-        id: str,
-        *,
-        annual_ads_usd: str,
-        annual_processing_usd: str,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, id: str, *, annual_processing_usd: str, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[UpdateBusinessesResponse]:
         """
         Save annual projections for a business referred by the authenticated partner. Projections cannot be changed after saving; repeating the same values is allowed. Public API access requires a partner OAuth token; business API keys are not supported.
@@ -294,11 +289,8 @@ class RawBusinessesClient:
         id : str
             The partner business ID (a coma_ identifier).
 
-        annual_ads_usd : str
-            Annual projected Whop Ads spend in USD.
-
         annual_processing_usd : str
-            Annual projected processing on Whop in USD.
+            Annual projected card and BNPL payment volume on Whop in USD.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -313,7 +305,6 @@ class RawBusinessesClient:
             base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
-                "annual_ads_usd": annual_ads_usd,
                 "annual_processing_usd": annual_processing_usd,
             },
             headers={
@@ -769,12 +760,7 @@ class AsyncRawBusinessesClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def update(
-        self,
-        id: str,
-        *,
-        annual_ads_usd: str,
-        annual_processing_usd: str,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, id: str, *, annual_processing_usd: str, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[UpdateBusinessesResponse]:
         """
         Save annual projections for a business referred by the authenticated partner. Projections cannot be changed after saving; repeating the same values is allowed. Public API access requires a partner OAuth token; business API keys are not supported.
@@ -784,11 +770,8 @@ class AsyncRawBusinessesClient:
         id : str
             The partner business ID (a coma_ identifier).
 
-        annual_ads_usd : str
-            Annual projected Whop Ads spend in USD.
-
         annual_processing_usd : str
-            Annual projected processing on Whop in USD.
+            Annual projected card and BNPL payment volume on Whop in USD.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -803,7 +786,6 @@ class AsyncRawBusinessesClient:
             base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
-                "annual_ads_usd": annual_ads_usd,
                 "annual_processing_usd": annual_processing_usd,
             },
             headers={
