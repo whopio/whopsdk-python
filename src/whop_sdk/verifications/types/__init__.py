@@ -101,6 +101,9 @@ if typing.TYPE_CHECKING:
     from .update_verifications_request_body_business_address_business_address import (
         UpdateVerificationsRequestBodyBusinessAddressBusinessAddress,
     )
+    from .update_verifications_request_body_business_address_documents import (
+        UpdateVerificationsRequestBodyBusinessAddressDocuments,
+    )
     from .update_verifications_request_body_business_address_requested_information_item import (
         UpdateVerificationsRequestBodyBusinessAddressRequestedInformationItem,
     )
@@ -203,6 +206,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateVerificationsRequestBody": ".update_verifications_request_body",
     "UpdateVerificationsRequestBodyBusinessAddress": ".update_verifications_request_body_business_address",
     "UpdateVerificationsRequestBodyBusinessAddressBusinessAddress": ".update_verifications_request_body_business_address_business_address",
+    "UpdateVerificationsRequestBodyBusinessAddressDocuments": ".update_verifications_request_body_business_address_documents",
     "UpdateVerificationsRequestBodyBusinessAddressRequestedInformationItem": ".update_verifications_request_body_business_address_requested_information_item",
     "UpdateVerificationsRequestBodyBusinessAddressRequestedInformationItemAddress": ".update_verifications_request_body_business_address_requested_information_item_address",
     "UpdateVerificationsRequestBodyBusinessAddressRequestedInformationItemDocuments": ".update_verifications_request_body_business_address_requested_information_item_documents",
@@ -301,6 +305,7 @@ __all__ = [
     "UpdateVerificationsRequestBody",
     "UpdateVerificationsRequestBodyBusinessAddress",
     "UpdateVerificationsRequestBodyBusinessAddressBusinessAddress",
+    "UpdateVerificationsRequestBodyBusinessAddressDocuments",
     "UpdateVerificationsRequestBodyBusinessAddressRequestedInformationItem",
     "UpdateVerificationsRequestBodyBusinessAddressRequestedInformationItemAddress",
     "UpdateVerificationsRequestBodyBusinessAddressRequestedInformationItemDocuments",
