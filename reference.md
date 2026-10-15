@@ -16252,7 +16252,7 @@ client.deposits.create(
 <dl>
 <dd>
 
-**payment_method_id:** `typing.Optional[str]` — A saved payment method of the business to charge for `amount`, prefixed `payt_`. Only for a `biz_` destination, and requires authentication with the `payment:charge` scope. A declined charge fails the request with 400.
+**payment_method_id:** `typing.Optional[str]` — A saved payment method of the business to charge for `amount`, prefixed `payt_`. Save one with Create setup intent and `owner_id` set to the account. Only for a `biz_` destination, and requires authentication with the `payment:charge` scope. A declined charge fails the request with 400.
     
 </dd>
 </dl>
@@ -39050,6 +39050,14 @@ client.setup_intents.create(
 <dd>
 
 **metadata:** `typing.Optional[typing.Dict[str, typing.Optional[str]]]` — Custom metadata to attach to the setup intent. Returned on the setup intent and its webhooks.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**owner_id:** `typing.Optional[str]` — Who the saved payment method belongs to. Pass `account_id` to save it on the account itself, which needs `payment:charge` on the account. Pass your own user ID, prefixed `user_`, to save it on the authenticated user. Omit it to save it on the buyer: the caller when it is the buyer, otherwise the user the confirmation token names. Not available with `payment_method_id`, which keeps its current owner, or with `purpose`.
     
 </dd>
 </dl>

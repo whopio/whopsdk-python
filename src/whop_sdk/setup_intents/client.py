@@ -137,6 +137,7 @@ class SetupIntentsClient:
         currency: typing.Optional[str] = OMIT,
         email: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
+        owner_id: typing.Optional[str] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         purpose: typing.Optional[CreateSetupIntentsRequestPurpose] = OMIT,
         return_url: typing.Optional[str] = OMIT,
@@ -162,6 +163,9 @@ class SetupIntentsClient:
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             Custom metadata to attach to the setup intent. Returned on the setup intent and its webhooks.
+
+        owner_id : typing.Optional[str]
+            Who the saved payment method belongs to. Pass `account_id` to save it on the account itself, which needs `payment:charge` on the account. Pass your own user ID, prefixed `user_`, to save it on the authenticated user. Omit it to save it on the buyer: the caller when it is the buyer, otherwise the user the confirmation token names. Not available with `payment_method_id`, which keeps its current owner, or with `purpose`.
 
         payment_method_id : typing.Optional[str]
             An existing payment method to re-verify and save, prefixed `payt_`. Provide this or `confirmation_token`, not both. Not available to a buyer credential.
@@ -202,6 +206,7 @@ class SetupIntentsClient:
             currency=currency,
             email=email,
             metadata=metadata,
+            owner_id=owner_id,
             payment_method_id=payment_method_id,
             purpose=purpose,
             return_url=return_url,
@@ -450,6 +455,7 @@ class AsyncSetupIntentsClient:
         currency: typing.Optional[str] = OMIT,
         email: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
+        owner_id: typing.Optional[str] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         purpose: typing.Optional[CreateSetupIntentsRequestPurpose] = OMIT,
         return_url: typing.Optional[str] = OMIT,
@@ -475,6 +481,9 @@ class AsyncSetupIntentsClient:
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[str]]]
             Custom metadata to attach to the setup intent. Returned on the setup intent and its webhooks.
+
+        owner_id : typing.Optional[str]
+            Who the saved payment method belongs to. Pass `account_id` to save it on the account itself, which needs `payment:charge` on the account. Pass your own user ID, prefixed `user_`, to save it on the authenticated user. Omit it to save it on the buyer: the caller when it is the buyer, otherwise the user the confirmation token names. Not available with `payment_method_id`, which keeps its current owner, or with `purpose`.
 
         payment_method_id : typing.Optional[str]
             An existing payment method to re-verify and save, prefixed `payt_`. Provide this or `confirmation_token`, not both. Not available to a buyer credential.
@@ -523,6 +532,7 @@ class AsyncSetupIntentsClient:
             currency=currency,
             email=email,
             metadata=metadata,
+            owner_id=owner_id,
             payment_method_id=payment_method_id,
             purpose=purpose,
             return_url=return_url,
