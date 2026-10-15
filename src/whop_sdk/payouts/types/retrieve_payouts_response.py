@@ -21,6 +21,11 @@ class RetrievePayoutsResponse(UniversalBaseModel):
     The payout amount in whole currency units, as a decimal string. Only returned to callers with payout:withdrawal:read on the owning ledger.
     """
 
+    cancelable: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether `POST /payouts/{id}/cancel` would act on this payout right now: `true` while it is `in_review`, while it is `processing` with nothing yet submitted to the payout provider, or while a submitted payout can still be asked to cancel at the provider. `false` once the money has arrived or the payout has already ended. Only returned to callers with payout:withdrawal:read on the owning ledger.
+    """
+
     created_at: dt.datetime = pydantic.Field()
     """
     When the payout was created.
