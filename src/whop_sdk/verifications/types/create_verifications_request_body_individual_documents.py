@@ -13,37 +13,37 @@ class CreateVerificationsRequestBodyIndividualDocuments(UniversalBaseModel):
 
     drivers_back: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Back of the driver's license, base64-encoded. Required when `document_type` is `DRIVERS`.
+    Back of the driver's license, base64-encoded. Required when `document_type` is `drivers`.
     """
 
     drivers_front: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Front of the driver's license, base64-encoded. Required when `document_type` is `DRIVERS`.
+    Front of the driver's license, base64-encoded. Required when `document_type` is `drivers`.
     """
 
     id_card_back: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Back of the ID card, base64-encoded. Required when `document_type` is `ID_CARD`.
+    Back of the ID card, base64-encoded. Required when `document_type` is `id_card`.
     """
 
     id_card_front: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Front of the ID card, base64-encoded. Required when `document_type` is `ID_CARD`.
+    Front of the ID card, base64-encoded. Required when `document_type` is `id_card`.
     """
 
     passport_front: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Photo page of the passport, base64-encoded. Required when `document_type` is `PASSPORT`.
+    Photo page of the passport, base64-encoded. Required when `document_type` is `passport`.
     """
 
     residence_permit_back: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Back of the residence permit, base64-encoded. Required when `document_type` is `RESIDENCE_PERMIT`.
+    Back of the residence permit, base64-encoded. Required when `document_type` is `residence_permit`.
     """
 
     residence_permit_front: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Front of the residence permit, base64-encoded. Required when `document_type` is `RESIDENCE_PERMIT`.
+    Front of the residence permit, base64-encoded. Required when `document_type` is `residence_permit`.
     """
 
     selfie: typing.Optional[str] = pydantic.Field(default=None)

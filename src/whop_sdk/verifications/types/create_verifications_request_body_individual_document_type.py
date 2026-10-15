@@ -3,5 +3,5 @@
 import typing
 
 CreateVerificationsRequestBodyIndividualDocumentType = typing.Union[
-    typing.Literal["ID_CARD", "DRIVERS", "RESIDENCE_PERMIT", "PASSPORT"], typing.Any
+    typing.Literal["id_card", "drivers", "residence_permit", "passport"], typing.Any
 ]

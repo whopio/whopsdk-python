@@ -7,6 +7,7 @@ import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .create_verifications_request_body_business_address import CreateVerificationsRequestBodyBusinessAddress
 from .create_verifications_request_body_business_documents import CreateVerificationsRequestBodyBusinessDocuments
+from .create_verifications_request_body_business_owners_item import CreateVerificationsRequestBodyBusinessOwnersItem
 
 
 class CreateVerificationsRequestBodyBusiness(UniversalBaseModel):
@@ -67,6 +68,13 @@ class CreateVerificationsRequestBodyBusiness(UniversalBaseModel):
     last_name: typing.Optional[str] = pydantic.Field(default=None)
     """
     Last name of the business representative, used to prefill the verification session.
+    """
+
+    owners: typing.Optional[typing.List[CreateVerificationsRequestBodyBusinessOwnersItem]] = pydantic.Field(
+        default=None
+    )
+    """
+    Owners of the business, up to 10 per request. Once the company details, the company documents, and the owners are in and every new owner's documents were sent, Create Verification sends the business for review: in the request that completes it, as soon as the last owner's documents finish sending in the background, or when called again after Update Verification. Owners can still be added, changed, or removed while the review waits on them.
     """
 
     place_of_incorporation: typing.Optional[str] = pydantic.Field(default=None)

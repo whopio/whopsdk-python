@@ -14,6 +14,19 @@ if typing.TYPE_CHECKING:
     from .create_verifications_request_body_business import CreateVerificationsRequestBodyBusiness
     from .create_verifications_request_body_business_address import CreateVerificationsRequestBodyBusinessAddress
     from .create_verifications_request_body_business_documents import CreateVerificationsRequestBodyBusinessDocuments
+    from .create_verifications_request_body_business_owners_item import CreateVerificationsRequestBodyBusinessOwnersItem
+    from .create_verifications_request_body_business_owners_item_address import (
+        CreateVerificationsRequestBodyBusinessOwnersItemAddress,
+    )
+    from .create_verifications_request_body_business_owners_item_document_type import (
+        CreateVerificationsRequestBodyBusinessOwnersItemDocumentType,
+    )
+    from .create_verifications_request_body_business_owners_item_documents import (
+        CreateVerificationsRequestBodyBusinessOwnersItemDocuments,
+    )
+    from .create_verifications_request_body_business_owners_item_roles_item import (
+        CreateVerificationsRequestBodyBusinessOwnersItemRolesItem,
+    )
     from .create_verifications_request_body_individual import CreateVerificationsRequestBodyIndividual
     from .create_verifications_request_body_individual_address import CreateVerificationsRequestBodyIndividualAddress
     from .create_verifications_request_body_individual_document_type import (
@@ -25,6 +38,15 @@ if typing.TYPE_CHECKING:
     from .create_verifications_response import CreateVerificationsResponse
     from .create_verifications_response_address import CreateVerificationsResponseAddress
     from .create_verifications_response_kind import CreateVerificationsResponseKind
+    from .create_verifications_response_owners_item import CreateVerificationsResponseOwnersItem
+    from .create_verifications_response_owners_item_required_documents_item import (
+        CreateVerificationsResponseOwnersItemRequiredDocumentsItem,
+    )
+    from .create_verifications_response_owners_item_required_documents_item_status import (
+        CreateVerificationsResponseOwnersItemRequiredDocumentsItemStatus,
+    )
+    from .create_verifications_response_owners_item_roles_item import CreateVerificationsResponseOwnersItemRolesItem
+    from .create_verifications_response_owners_item_status import CreateVerificationsResponseOwnersItemStatus
     from .create_verifications_response_requested_information_item import (
         CreateVerificationsResponseRequestedInformationItem,
     )
@@ -48,6 +70,19 @@ if typing.TYPE_CHECKING:
     from .list_verifications_response_data_item import ListVerificationsResponseDataItem
     from .list_verifications_response_data_item_address import ListVerificationsResponseDataItemAddress
     from .list_verifications_response_data_item_kind import ListVerificationsResponseDataItemKind
+    from .list_verifications_response_data_item_owners_item import ListVerificationsResponseDataItemOwnersItem
+    from .list_verifications_response_data_item_owners_item_required_documents_item import (
+        ListVerificationsResponseDataItemOwnersItemRequiredDocumentsItem,
+    )
+    from .list_verifications_response_data_item_owners_item_required_documents_item_status import (
+        ListVerificationsResponseDataItemOwnersItemRequiredDocumentsItemStatus,
+    )
+    from .list_verifications_response_data_item_owners_item_roles_item import (
+        ListVerificationsResponseDataItemOwnersItemRolesItem,
+    )
+    from .list_verifications_response_data_item_owners_item_status import (
+        ListVerificationsResponseDataItemOwnersItemStatus,
+    )
     from .list_verifications_response_data_item_requested_information_item import (
         ListVerificationsResponseDataItemRequestedInformationItem,
     )
@@ -77,6 +112,15 @@ if typing.TYPE_CHECKING:
     from .retrieve_verifications_response import RetrieveVerificationsResponse
     from .retrieve_verifications_response_address import RetrieveVerificationsResponseAddress
     from .retrieve_verifications_response_kind import RetrieveVerificationsResponseKind
+    from .retrieve_verifications_response_owners_item import RetrieveVerificationsResponseOwnersItem
+    from .retrieve_verifications_response_owners_item_required_documents_item import (
+        RetrieveVerificationsResponseOwnersItemRequiredDocumentsItem,
+    )
+    from .retrieve_verifications_response_owners_item_required_documents_item_status import (
+        RetrieveVerificationsResponseOwnersItemRequiredDocumentsItemStatus,
+    )
+    from .retrieve_verifications_response_owners_item_roles_item import RetrieveVerificationsResponseOwnersItemRolesItem
+    from .retrieve_verifications_response_owners_item_status import RetrieveVerificationsResponseOwnersItemStatus
     from .retrieve_verifications_response_requested_information_item import (
         RetrieveVerificationsResponseRequestedInformationItem,
     )
@@ -103,6 +147,21 @@ if typing.TYPE_CHECKING:
     )
     from .update_verifications_request_body_business_address_documents import (
         UpdateVerificationsRequestBodyBusinessAddressDocuments,
+    )
+    from .update_verifications_request_body_business_address_owners_item import (
+        UpdateVerificationsRequestBodyBusinessAddressOwnersItem,
+    )
+    from .update_verifications_request_body_business_address_owners_item_address import (
+        UpdateVerificationsRequestBodyBusinessAddressOwnersItemAddress,
+    )
+    from .update_verifications_request_body_business_address_owners_item_document_type import (
+        UpdateVerificationsRequestBodyBusinessAddressOwnersItemDocumentType,
+    )
+    from .update_verifications_request_body_business_address_owners_item_documents import (
+        UpdateVerificationsRequestBodyBusinessAddressOwnersItemDocuments,
+    )
+    from .update_verifications_request_body_business_address_owners_item_roles_item import (
+        UpdateVerificationsRequestBodyBusinessAddressOwnersItemRolesItem,
     )
     from .update_verifications_request_body_business_address_requested_information_item import (
         UpdateVerificationsRequestBodyBusinessAddressRequestedInformationItem,
@@ -135,6 +194,15 @@ if typing.TYPE_CHECKING:
     from .update_verifications_response import UpdateVerificationsResponse
     from .update_verifications_response_address import UpdateVerificationsResponseAddress
     from .update_verifications_response_kind import UpdateVerificationsResponseKind
+    from .update_verifications_response_owners_item import UpdateVerificationsResponseOwnersItem
+    from .update_verifications_response_owners_item_required_documents_item import (
+        UpdateVerificationsResponseOwnersItemRequiredDocumentsItem,
+    )
+    from .update_verifications_response_owners_item_required_documents_item_status import (
+        UpdateVerificationsResponseOwnersItemRequiredDocumentsItemStatus,
+    )
+    from .update_verifications_response_owners_item_roles_item import UpdateVerificationsResponseOwnersItemRolesItem
+    from .update_verifications_response_owners_item_status import UpdateVerificationsResponseOwnersItemStatus
     from .update_verifications_response_requested_information_item import (
         UpdateVerificationsResponseRequestedInformationItem,
     )
@@ -157,6 +225,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateVerificationsRequestBodyBusiness": ".create_verifications_request_body_business",
     "CreateVerificationsRequestBodyBusinessAddress": ".create_verifications_request_body_business_address",
     "CreateVerificationsRequestBodyBusinessDocuments": ".create_verifications_request_body_business_documents",
+    "CreateVerificationsRequestBodyBusinessOwnersItem": ".create_verifications_request_body_business_owners_item",
+    "CreateVerificationsRequestBodyBusinessOwnersItemAddress": ".create_verifications_request_body_business_owners_item_address",
+    "CreateVerificationsRequestBodyBusinessOwnersItemDocumentType": ".create_verifications_request_body_business_owners_item_document_type",
+    "CreateVerificationsRequestBodyBusinessOwnersItemDocuments": ".create_verifications_request_body_business_owners_item_documents",
+    "CreateVerificationsRequestBodyBusinessOwnersItemRolesItem": ".create_verifications_request_body_business_owners_item_roles_item",
     "CreateVerificationsRequestBodyIndividual": ".create_verifications_request_body_individual",
     "CreateVerificationsRequestBodyIndividualAddress": ".create_verifications_request_body_individual_address",
     "CreateVerificationsRequestBodyIndividualDocumentType": ".create_verifications_request_body_individual_document_type",
@@ -166,6 +239,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateVerificationsResponse": ".create_verifications_response",
     "CreateVerificationsResponseAddress": ".create_verifications_response_address",
     "CreateVerificationsResponseKind": ".create_verifications_response_kind",
+    "CreateVerificationsResponseOwnersItem": ".create_verifications_response_owners_item",
+    "CreateVerificationsResponseOwnersItemRequiredDocumentsItem": ".create_verifications_response_owners_item_required_documents_item",
+    "CreateVerificationsResponseOwnersItemRequiredDocumentsItemStatus": ".create_verifications_response_owners_item_required_documents_item_status",
+    "CreateVerificationsResponseOwnersItemRolesItem": ".create_verifications_response_owners_item_roles_item",
+    "CreateVerificationsResponseOwnersItemStatus": ".create_verifications_response_owners_item_status",
     "CreateVerificationsResponseRequestedInformationItem": ".create_verifications_response_requested_information_item",
     "CreateVerificationsResponseRequestedInformationItemErrorsItem": ".create_verifications_response_requested_information_item_errors_item",
     "CreateVerificationsResponseRequestedInformationItemResponseType": ".create_verifications_response_requested_information_item_response_type",
@@ -179,6 +257,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListVerificationsResponseDataItem": ".list_verifications_response_data_item",
     "ListVerificationsResponseDataItemAddress": ".list_verifications_response_data_item_address",
     "ListVerificationsResponseDataItemKind": ".list_verifications_response_data_item_kind",
+    "ListVerificationsResponseDataItemOwnersItem": ".list_verifications_response_data_item_owners_item",
+    "ListVerificationsResponseDataItemOwnersItemRequiredDocumentsItem": ".list_verifications_response_data_item_owners_item_required_documents_item",
+    "ListVerificationsResponseDataItemOwnersItemRequiredDocumentsItemStatus": ".list_verifications_response_data_item_owners_item_required_documents_item_status",
+    "ListVerificationsResponseDataItemOwnersItemRolesItem": ".list_verifications_response_data_item_owners_item_roles_item",
+    "ListVerificationsResponseDataItemOwnersItemStatus": ".list_verifications_response_data_item_owners_item_status",
     "ListVerificationsResponseDataItemRequestedInformationItem": ".list_verifications_response_data_item_requested_information_item",
     "ListVerificationsResponseDataItemRequestedInformationItemErrorsItem": ".list_verifications_response_data_item_requested_information_item_errors_item",
     "ListVerificationsResponseDataItemRequestedInformationItemResponseType": ".list_verifications_response_data_item_requested_information_item_response_type",
@@ -196,6 +279,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrieveVerificationsResponse": ".retrieve_verifications_response",
     "RetrieveVerificationsResponseAddress": ".retrieve_verifications_response_address",
     "RetrieveVerificationsResponseKind": ".retrieve_verifications_response_kind",
+    "RetrieveVerificationsResponseOwnersItem": ".retrieve_verifications_response_owners_item",
+    "RetrieveVerificationsResponseOwnersItemRequiredDocumentsItem": ".retrieve_verifications_response_owners_item_required_documents_item",
+    "RetrieveVerificationsResponseOwnersItemRequiredDocumentsItemStatus": ".retrieve_verifications_response_owners_item_required_documents_item_status",
+    "RetrieveVerificationsResponseOwnersItemRolesItem": ".retrieve_verifications_response_owners_item_roles_item",
+    "RetrieveVerificationsResponseOwnersItemStatus": ".retrieve_verifications_response_owners_item_status",
     "RetrieveVerificationsResponseRequestedInformationItem": ".retrieve_verifications_response_requested_information_item",
     "RetrieveVerificationsResponseRequestedInformationItemErrorsItem": ".retrieve_verifications_response_requested_information_item_errors_item",
     "RetrieveVerificationsResponseRequestedInformationItemResponseType": ".retrieve_verifications_response_requested_information_item_response_type",
@@ -207,6 +295,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateVerificationsRequestBodyBusinessAddress": ".update_verifications_request_body_business_address",
     "UpdateVerificationsRequestBodyBusinessAddressBusinessAddress": ".update_verifications_request_body_business_address_business_address",
     "UpdateVerificationsRequestBodyBusinessAddressDocuments": ".update_verifications_request_body_business_address_documents",
+    "UpdateVerificationsRequestBodyBusinessAddressOwnersItem": ".update_verifications_request_body_business_address_owners_item",
+    "UpdateVerificationsRequestBodyBusinessAddressOwnersItemAddress": ".update_verifications_request_body_business_address_owners_item_address",
+    "UpdateVerificationsRequestBodyBusinessAddressOwnersItemDocumentType": ".update_verifications_request_body_business_address_owners_item_document_type",
+    "UpdateVerificationsRequestBodyBusinessAddressOwnersItemDocuments": ".update_verifications_request_body_business_address_owners_item_documents",
+    "UpdateVerificationsRequestBodyBusinessAddressOwnersItemRolesItem": ".update_verifications_request_body_business_address_owners_item_roles_item",
     "UpdateVerificationsRequestBodyBusinessAddressRequestedInformationItem": ".update_verifications_request_body_business_address_requested_information_item",
     "UpdateVerificationsRequestBodyBusinessAddressRequestedInformationItemAddress": ".update_verifications_request_body_business_address_requested_information_item_address",
     "UpdateVerificationsRequestBodyBusinessAddressRequestedInformationItemDocuments": ".update_verifications_request_body_business_address_requested_information_item_documents",
@@ -220,6 +313,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateVerificationsResponse": ".update_verifications_response",
     "UpdateVerificationsResponseAddress": ".update_verifications_response_address",
     "UpdateVerificationsResponseKind": ".update_verifications_response_kind",
+    "UpdateVerificationsResponseOwnersItem": ".update_verifications_response_owners_item",
+    "UpdateVerificationsResponseOwnersItemRequiredDocumentsItem": ".update_verifications_response_owners_item_required_documents_item",
+    "UpdateVerificationsResponseOwnersItemRequiredDocumentsItemStatus": ".update_verifications_response_owners_item_required_documents_item_status",
+    "UpdateVerificationsResponseOwnersItemRolesItem": ".update_verifications_response_owners_item_roles_item",
+    "UpdateVerificationsResponseOwnersItemStatus": ".update_verifications_response_owners_item_status",
     "UpdateVerificationsResponseRequestedInformationItem": ".update_verifications_response_requested_information_item",
     "UpdateVerificationsResponseRequestedInformationItemErrorsItem": ".update_verifications_response_requested_information_item_errors_item",
     "UpdateVerificationsResponseRequestedInformationItemResponseType": ".update_verifications_response_requested_information_item_response_type",
@@ -256,6 +354,11 @@ __all__ = [
     "CreateVerificationsRequestBodyBusiness",
     "CreateVerificationsRequestBodyBusinessAddress",
     "CreateVerificationsRequestBodyBusinessDocuments",
+    "CreateVerificationsRequestBodyBusinessOwnersItem",
+    "CreateVerificationsRequestBodyBusinessOwnersItemAddress",
+    "CreateVerificationsRequestBodyBusinessOwnersItemDocumentType",
+    "CreateVerificationsRequestBodyBusinessOwnersItemDocuments",
+    "CreateVerificationsRequestBodyBusinessOwnersItemRolesItem",
     "CreateVerificationsRequestBodyIndividual",
     "CreateVerificationsRequestBodyIndividualAddress",
     "CreateVerificationsRequestBodyIndividualDocumentType",
@@ -265,6 +368,11 @@ __all__ = [
     "CreateVerificationsResponse",
     "CreateVerificationsResponseAddress",
     "CreateVerificationsResponseKind",
+    "CreateVerificationsResponseOwnersItem",
+    "CreateVerificationsResponseOwnersItemRequiredDocumentsItem",
+    "CreateVerificationsResponseOwnersItemRequiredDocumentsItemStatus",
+    "CreateVerificationsResponseOwnersItemRolesItem",
+    "CreateVerificationsResponseOwnersItemStatus",
     "CreateVerificationsResponseRequestedInformationItem",
     "CreateVerificationsResponseRequestedInformationItemErrorsItem",
     "CreateVerificationsResponseRequestedInformationItemResponseType",
@@ -278,6 +386,11 @@ __all__ = [
     "ListVerificationsResponseDataItem",
     "ListVerificationsResponseDataItemAddress",
     "ListVerificationsResponseDataItemKind",
+    "ListVerificationsResponseDataItemOwnersItem",
+    "ListVerificationsResponseDataItemOwnersItemRequiredDocumentsItem",
+    "ListVerificationsResponseDataItemOwnersItemRequiredDocumentsItemStatus",
+    "ListVerificationsResponseDataItemOwnersItemRolesItem",
+    "ListVerificationsResponseDataItemOwnersItemStatus",
     "ListVerificationsResponseDataItemRequestedInformationItem",
     "ListVerificationsResponseDataItemRequestedInformationItemErrorsItem",
     "ListVerificationsResponseDataItemRequestedInformationItemResponseType",
@@ -295,6 +408,11 @@ __all__ = [
     "RetrieveVerificationsResponse",
     "RetrieveVerificationsResponseAddress",
     "RetrieveVerificationsResponseKind",
+    "RetrieveVerificationsResponseOwnersItem",
+    "RetrieveVerificationsResponseOwnersItemRequiredDocumentsItem",
+    "RetrieveVerificationsResponseOwnersItemRequiredDocumentsItemStatus",
+    "RetrieveVerificationsResponseOwnersItemRolesItem",
+    "RetrieveVerificationsResponseOwnersItemStatus",
     "RetrieveVerificationsResponseRequestedInformationItem",
     "RetrieveVerificationsResponseRequestedInformationItemErrorsItem",
     "RetrieveVerificationsResponseRequestedInformationItemResponseType",
@@ -306,6 +424,11 @@ __all__ = [
     "UpdateVerificationsRequestBodyBusinessAddress",
     "UpdateVerificationsRequestBodyBusinessAddressBusinessAddress",
     "UpdateVerificationsRequestBodyBusinessAddressDocuments",
+    "UpdateVerificationsRequestBodyBusinessAddressOwnersItem",
+    "UpdateVerificationsRequestBodyBusinessAddressOwnersItemAddress",
+    "UpdateVerificationsRequestBodyBusinessAddressOwnersItemDocumentType",
+    "UpdateVerificationsRequestBodyBusinessAddressOwnersItemDocuments",
+    "UpdateVerificationsRequestBodyBusinessAddressOwnersItemRolesItem",
     "UpdateVerificationsRequestBodyBusinessAddressRequestedInformationItem",
     "UpdateVerificationsRequestBodyBusinessAddressRequestedInformationItemAddress",
     "UpdateVerificationsRequestBodyBusinessAddressRequestedInformationItemDocuments",
@@ -319,6 +442,11 @@ __all__ = [
     "UpdateVerificationsResponse",
     "UpdateVerificationsResponseAddress",
     "UpdateVerificationsResponseKind",
+    "UpdateVerificationsResponseOwnersItem",
+    "UpdateVerificationsResponseOwnersItemRequiredDocumentsItem",
+    "UpdateVerificationsResponseOwnersItemRequiredDocumentsItemStatus",
+    "UpdateVerificationsResponseOwnersItemRolesItem",
+    "UpdateVerificationsResponseOwnersItemStatus",
     "UpdateVerificationsResponseRequestedInformationItem",
     "UpdateVerificationsResponseRequestedInformationItemErrorsItem",
     "UpdateVerificationsResponseRequestedInformationItemResponseType",

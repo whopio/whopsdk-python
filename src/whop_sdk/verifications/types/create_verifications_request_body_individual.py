@@ -55,7 +55,7 @@ class CreateVerificationsRequestBodyIndividual(UniversalBaseModel):
 
     document_type: typing.Optional[CreateVerificationsRequestBodyIndividualDocumentType] = pydantic.Field(default=None)
     """
-    Identity document being sent, when verifying with `documents`. Decides exactly which file slots to send: `ID_CARD` → `id_card_front` + `id_card_back` + `selfie`; `DRIVERS` → `drivers_front` + `drivers_back` + `selfie`; `RESIDENCE_PERMIT` → `residence_permit_front` + `residence_permit_back` + `selfie`; `PASSPORT` → `passport_front` + `selfie`. See [Identity documents](/developer/verification/identity-documents).
+    Identity document being sent, when verifying with `documents`. Decides exactly which file slots to send: `id_card` → `id_card_front` + `id_card_back` + `selfie`; `drivers` → `drivers_front` + `drivers_back` + `selfie`; `residence_permit` → `residence_permit_front` + `residence_permit_back` + `selfie`; `passport` → `passport_front` + `selfie`. See [Identity documents](/developer/verification/identity-documents).
     """
 
     documents: typing.Optional[CreateVerificationsRequestBodyIndividualDocuments] = pydantic.Field(default=None)
