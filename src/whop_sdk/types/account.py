@@ -359,6 +359,11 @@ class Account(UniversalBaseModel):
     Account identity verification status for the `individual` (KYC) and `business` (KYB) profiles. Each is `null` until created, otherwise a `status` of `not_started`, `pending`, `manual_review`, `approved`, or `rejected`.
     """
 
+    volume_l30d_usd: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    Volume through the account in the last 30 days (GMV from paid receipts), normalized to USD. Computed only on `list` for callers with `stats:read` on the account; `null` otherwise.
+    """
+
     volume_usd: typing.Optional[float] = pydantic.Field(default=None)
     """
     Lifetime volume through the account — sales plus transfers received — normalized to USD. Computed only on `list` for callers with `stats:read` on the account; `null` otherwise.
