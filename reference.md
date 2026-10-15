@@ -41527,6 +41527,14 @@ client.support_channels.list(
 <dl>
 <dd>
 
+**customer_user_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only return support channels opened by any of these customers. Maximum 100 IDs per request.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **participated:** `typing.Optional[bool]` — Set to true to only return channels the authenticated user has joined as a participant. Requires a user.
     
 </dd>
