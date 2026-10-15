@@ -19,6 +19,7 @@ AccountRequiredActionAction = typing.Union[
         "add_vat_registration",
         "accept_payout_terms",
         "enable_two_factor_authentication",
+        "respond_to_abuse_report",
     ],
     typing.Any,
 ]
