@@ -44,6 +44,7 @@ class RawSupportChannelsClient:
         view: typing.Optional[SupportChannelView] = None,
         open: typing.Optional[bool] = None,
         customer_user_id: typing.Optional[str] = None,
+        customer_user_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         participated: typing.Optional[bool] = None,
         include_last_message: typing.Optional[bool] = None,
         include_participated: typing.Optional[bool] = None,
@@ -79,6 +80,9 @@ class RawSupportChannelsClient:
 
         customer_user_id : typing.Optional[str]
             Only return support channels opened by this customer.
+
+        customer_user_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return support channels opened by any of these customers. Maximum 100 IDs per request.
 
         participated : typing.Optional[bool]
             Set to true to only return channels the authenticated user has joined as a participant. Requires a user.
@@ -116,6 +120,7 @@ class RawSupportChannelsClient:
                 "view": view,
                 "open": open,
                 "customer_user_id": customer_user_id,
+                "customer_user_ids": customer_user_ids,
                 "participated": participated,
                 "include_last_message": include_last_message,
                 "include_participated": include_participated,
@@ -148,6 +153,7 @@ class RawSupportChannelsClient:
                         view=view,
                         open=open,
                         customer_user_id=customer_user_id,
+                        customer_user_ids=customer_user_ids,
                         participated=participated,
                         include_last_message=include_last_message,
                         include_participated=include_participated,
@@ -531,6 +537,7 @@ class AsyncRawSupportChannelsClient:
         view: typing.Optional[SupportChannelView] = None,
         open: typing.Optional[bool] = None,
         customer_user_id: typing.Optional[str] = None,
+        customer_user_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         participated: typing.Optional[bool] = None,
         include_last_message: typing.Optional[bool] = None,
         include_participated: typing.Optional[bool] = None,
@@ -566,6 +573,9 @@ class AsyncRawSupportChannelsClient:
 
         customer_user_id : typing.Optional[str]
             Only return support channels opened by this customer.
+
+        customer_user_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return support channels opened by any of these customers. Maximum 100 IDs per request.
 
         participated : typing.Optional[bool]
             Set to true to only return channels the authenticated user has joined as a participant. Requires a user.
@@ -603,6 +613,7 @@ class AsyncRawSupportChannelsClient:
                 "view": view,
                 "open": open,
                 "customer_user_id": customer_user_id,
+                "customer_user_ids": customer_user_ids,
                 "participated": participated,
                 "include_last_message": include_last_message,
                 "include_participated": include_participated,
@@ -637,6 +648,7 @@ class AsyncRawSupportChannelsClient:
                             view=view,
                             open=open,
                             customer_user_id=customer_user_id,
+                            customer_user_ids=customer_user_ids,
                             participated=participated,
                             include_last_message=include_last_message,
                             include_participated=include_participated,
