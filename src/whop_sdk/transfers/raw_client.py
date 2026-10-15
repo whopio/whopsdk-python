@@ -154,7 +154,7 @@ class RawTransfersClient:
         self, *, request: CreateTransfersRequestBody, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[CreateTransfersResponse]:
         """
-        Moves money between Whop balances, sends USDT from an account's wallet, or funds a claim link anyone with the URL can redeem. The `type` you send decides which object comes back.
+        Moves money between Whop balances or funds a claim link anyone with the URL can redeem. The `type` you send decides which object comes back.
 
         Parameters
         ----------
@@ -544,7 +544,7 @@ class AsyncRawTransfersClient:
         self, *, request: CreateTransfersRequestBody, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[CreateTransfersResponse]:
         """
-        Moves money between Whop balances, sends USDT from an account's wallet, or funds a claim link anyone with the URL can redeem. The `type` you send decides which object comes back.
+        Moves money between Whop balances or funds a claim link anyone with the URL can redeem. The `type` you send decides which object comes back.
 
         Parameters
         ----------

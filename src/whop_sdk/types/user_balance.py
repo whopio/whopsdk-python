@@ -35,12 +35,12 @@ class UserBalance(UniversalBaseModel):
 
     total_usd: str = pydantic.Field()
     """
-    The user's personal balance in USD: cash (available + pending + in-transit + reserve) + crypto + in-flight treasury deposits. Excludes account balances (see businesses_total_usd).
+    The user's personal balance in USD: cash (available + pending + in-transit + reserve) + other holdings + deposits still in flight. Excludes account balances (see businesses_total_usd).
     """
 
     treasury_pending_usd: str = pydantic.Field()
     """
-    Balance-to-wallet USDT0 payouts still in flight, in USD.
+    Balance moves into the user's wallet still in flight, in USD.
     """
 
     if IS_PYDANTIC_V2:

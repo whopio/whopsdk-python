@@ -73,7 +73,7 @@ class CreateTransfersResponseTransfer(UniversalBaseModel):
 
     status: CreateTransfersResponseTransferStatus = pydantic.Field()
     """
-    Current transfer status.
+    Current transfer status. A transfer can be created `processing` and settle a few seconds later; poll Retrieve Transfer or listen for the `transfer.completed` and `transfer.failed` webhooks instead of treating the create response as final. `succeeded` and `failed` are final.
     """
 
     status_changed_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)

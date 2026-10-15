@@ -11,7 +11,7 @@ from .account_reserve_unlock import AccountReserveUnlock
 class AccountReserve(UniversalBaseModel):
     amount: str = pydantic.Field()
     """
-    Total held in this currency, in native units, as a decimal string. `usd` and `usdt` are reported as one `usd` entry, matching how the balance row groups them.
+    Total held in this currency, in native units, as a decimal string. All dollar holdings are reported as one `usd` entry, matching how the balance row groups them.
     """
 
     by_type: typing.List[AccountReserveType]

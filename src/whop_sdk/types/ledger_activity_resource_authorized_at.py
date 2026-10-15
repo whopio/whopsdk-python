@@ -72,7 +72,7 @@ class LedgerActivityResourceAuthorizedAt(UniversalBaseModel):
 
     usd_amount: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The processor-settled USD amount as a decimal string. The ledger's USDT leg is posted 1:1 from this value.
+    The processor-settled USD amount as a decimal string.
     """
 
     if IS_PYDANTIC_V2:

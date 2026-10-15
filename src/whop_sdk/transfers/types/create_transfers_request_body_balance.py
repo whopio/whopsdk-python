@@ -9,7 +9,7 @@ from .create_transfers_request_body_balance_feed_type import CreateTransfersRequ
 
 class CreateTransfersRequestBodyBalance(UniversalBaseModel):
     """
-    Moves credit between two Whop balances and returns a `transfer`. A transfer from a stablecoin-rails account settles on-chain when covered, and still returns a `transfer`.
+    Moves credit between two Whop balances and returns a `transfer`. The transfer can come back `processing` and reach `succeeded` or `failed` asynchronously, usually within seconds.
     """
 
     amount: float = pydantic.Field()

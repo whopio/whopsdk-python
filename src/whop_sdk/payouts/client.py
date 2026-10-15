@@ -118,7 +118,7 @@ class PayoutsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15",
+            "2026-10-15-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -216,7 +216,7 @@ class PayoutsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15",
+            "2026-10-15-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -297,7 +297,7 @@ class PayoutsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15",
+            "2026-10-15-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -328,7 +328,7 @@ class PayoutsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RetrievePayoutsResponse:
         """
-        Retrieves a payout by its `wdrl_` ID, or by the `cofr_` conversion request ID a stablecoin payout carries as `payout_request_id`. Authentication is optional: anyone with the ID can view tracking details, including notes, trace code, exchange rate, and payout request ID, while accounting fields require `payout:withdrawal:read` on the account or user that owns the payout. A supplied invalid credential returns 401.
+        Retrieves a payout by its `wdrl_` ID, or by the `cofr_` conversion request ID a payout carries as `payout_request_id`. Authentication is optional: anyone with the ID can view tracking details, including notes, trace code, exchange rate, and payout request ID, while accounting fields require `payout:withdrawal:read` on the account or user that owns the payout. A supplied invalid credential returns 401.
 
         Parameters
         ----------
@@ -354,7 +354,7 @@ class PayoutsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15",
+            "2026-10-15-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -402,7 +402,7 @@ class PayoutsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15",
+            "2026-10-15-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -530,7 +530,7 @@ class AsyncPayoutsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15",
+            "2026-10-15-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -637,7 +637,7 @@ class AsyncPayoutsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15",
+            "2026-10-15-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -726,7 +726,7 @@ class AsyncPayoutsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15",
+            "2026-10-15-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -763,7 +763,7 @@ class AsyncPayoutsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> RetrievePayoutsResponse:
         """
-        Retrieves a payout by its `wdrl_` ID, or by the `cofr_` conversion request ID a stablecoin payout carries as `payout_request_id`. Authentication is optional: anyone with the ID can view tracking details, including notes, trace code, exchange rate, and payout request ID, while accounting fields require `payout:withdrawal:read` on the account or user that owns the payout. A supplied invalid credential returns 401.
+        Retrieves a payout by its `wdrl_` ID, or by the `cofr_` conversion request ID a payout carries as `payout_request_id`. Authentication is optional: anyone with the ID can view tracking details, including notes, trace code, exchange rate, and payout request ID, while accounting fields require `payout:withdrawal:read` on the account or user that owns the payout. A supplied invalid credential returns 401.
 
         Parameters
         ----------
@@ -791,7 +791,7 @@ class AsyncPayoutsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15",
+            "2026-10-15-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -847,7 +847,7 @@ class AsyncPayoutsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15",
+            "2026-10-15-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
