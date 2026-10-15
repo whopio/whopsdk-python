@@ -19,7 +19,7 @@ if typing.TYPE_CHECKING:
         UpdateUsersRequestBanner,
         UpdateUsersRequestProfilePicture,
     )
-    from . import oauth_grants, passkeys, preferences
+    from . import fees, oauth_grants, passkeys, preferences
     from .oauth_grants import (
         CreateOauthGrantsRequestCodeChallengeMethod,
         CreateOauthGrantsRequestMcpClient,
@@ -64,6 +64,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateMeUsersRequestProfilePicture": ".types",
     "UpdateUsersRequestBanner": ".types",
     "UpdateUsersRequestProfilePicture": ".types",
+    "fees": ".fees",
     "oauth_grants": ".oauth_grants",
     "passkeys": ".passkeys",
     "preferences": ".preferences",
@@ -117,6 +118,7 @@ __all__ = [
     "UpdateMeUsersRequestProfilePicture",
     "UpdateUsersRequestBanner",
     "UpdateUsersRequestProfilePicture",
+    "fees",
     "oauth_grants",
     "passkeys",
     "preferences",

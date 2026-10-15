@@ -127,7 +127,7 @@ class AccountFees(UniversalBaseModel):
 
     pending_auto_topup: AccountFee = pydantic.Field()
     """
-    Charged on a Whop Ads auto top-up that is funded from pending balance.
+    Charged when pending, not-yet-settled balance is advanced to fund the account's cards balance.
     """
 
     platform_processing: AccountFee = pydantic.Field()
@@ -142,7 +142,7 @@ class AccountFees(UniversalBaseModel):
 
     revshare: AccountFee = pydantic.Field()
     """
-    Charged on revenue shared with the account.
+    Charged on payments where the account shares revenue with revshare affiliates.
     """
 
     tax_calculation: AccountFee = pydantic.Field()

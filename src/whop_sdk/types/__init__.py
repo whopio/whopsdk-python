@@ -1499,6 +1499,7 @@ if typing.TYPE_CHECKING:
     from .user_banner import UserBanner
     from .user_earnings import UserEarnings
     from .user_earnings_amount import UserEarningsAmount
+    from .user_fees import UserFees
     from .user_notification_preference import UserNotificationPreference
     from .user_notification_preference_level import UserNotificationPreferenceLevel
     from .user_notification_preference_object import UserNotificationPreferenceObject
@@ -2894,6 +2895,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UserBanner": ".user_banner",
     "UserEarnings": ".user_earnings",
     "UserEarningsAmount": ".user_earnings_amount",
+    "UserFees": ".user_fees",
     "UserNotificationPreference": ".user_notification_preference",
     "UserNotificationPreferenceLevel": ".user_notification_preference_level",
     "UserNotificationPreferenceObject": ".user_notification_preference_object",
@@ -4313,6 +4315,7 @@ __all__ = [
     "UserBanner",
     "UserEarnings",
     "UserEarningsAmount",
+    "UserFees",
     "UserNotificationPreference",
     "UserNotificationPreferenceLevel",
     "UserNotificationPreferenceObject",
