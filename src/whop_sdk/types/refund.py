@@ -43,6 +43,11 @@ class Refund(UniversalBaseModel):
     Refund ID, prefixed `rf_`.
     """
 
+    metadata: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
+    """
+    Your own key-value data attached when the refund was requested.
+    """
+
     original_amount: Money = pydantic.Field()
     """
     The refunded amount in the currency the processor moved.
