@@ -14,7 +14,6 @@ AccountRequiredActionAction = typing.Union[
         "verify_identity",
         "scale_account_setup",
         "sign_formation_documents",
-        "setup_apple_pay_domains",
         "configure_tax_remitter",
         "add_vat_registration",
         "accept_payout_terms",
