@@ -3,5 +3,6 @@
 import typing
 
 PartnerAdvanceStatus = typing.Union[
-    typing.Literal["projected", "available", "accepted", "funded", "clawed_back", "completed", "expired"], typing.Any
+    typing.Literal["projected", "available", "accepted", "funded", "clawed_back", "completed", "expired", "withdrawn"],
+    typing.Any,
 ]

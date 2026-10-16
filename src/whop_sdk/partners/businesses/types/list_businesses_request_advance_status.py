@@ -3,6 +3,8 @@
 import typing
 
 ListBusinessesRequestAdvanceStatus = typing.Union[
-    typing.Literal["projected", "available", "accepted", "funded", "clawed_back", "completed", "expired", "offered"],
+    typing.Literal[
+        "projected", "available", "accepted", "funded", "clawed_back", "completed", "expired", "withdrawn", "offered"
+    ],
     typing.Any,
 ]

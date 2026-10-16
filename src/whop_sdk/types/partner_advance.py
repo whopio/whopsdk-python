@@ -11,6 +11,18 @@ from .partner_advance_status import PartnerAdvanceStatus
 
 
 class PartnerAdvance(UniversalBaseModel):
+    activity30day: typing_extensions.Annotated[
+        typing.Optional[Money],
+        FieldMetadata(alias="activity_30_day"),
+        pydantic.Field(
+            alias="activity_30_day",
+            description="Qualifying card and BNPL payment volume in the preceding 30 days, in USD. Available on business detail responses before acceptance.",
+        ),
+    ] = None
+    """
+    Qualifying card and BNPL payment volume in the preceding 30 days, in USD. Available on business detail responses before acceptance.
+    """
+
     activity60day: typing_extensions.Annotated[
         typing.Optional[Money],
         FieldMetadata(alias="activity_60_day"),
@@ -41,6 +53,11 @@ class PartnerAdvance(UniversalBaseModel):
     deadline_at: typing.Optional[str] = pydantic.Field(default=None)
     """
     End of the nine-month CPA term. Normal commissions resume prospectively without backfill.
+    """
+
+    estimated_amount: typing.Optional[Money] = pydantic.Field(default=None)
+    """
+    Estimated advance using the current CPA formula and observed payout rates. Available for unqualified projections on business detail responses.
     """
 
     funded_at: typing.Optional[str] = pydantic.Field(default=None)
