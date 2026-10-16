@@ -91,6 +91,7 @@ if typing.TYPE_CHECKING:
     from .account_reserve_unlock_type import AccountReserveUnlockType
     from .account_reserve_unlock_type_type import AccountReserveUnlockTypeType
     from .account_resolution_center_auto_refund_control import AccountResolutionCenterAutoRefundControl
+    from .account_search_result import AccountSearchResult
     from .account_social_link import AccountSocialLink
     from .account_social_link_website import AccountSocialLinkWebsite
     from .account_store_page_config import AccountStorePageConfig
@@ -1633,6 +1634,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AccountReserveUnlockType": ".account_reserve_unlock_type",
     "AccountReserveUnlockTypeType": ".account_reserve_unlock_type_type",
     "AccountResolutionCenterAutoRefundControl": ".account_resolution_center_auto_refund_control",
+    "AccountSearchResult": ".account_search_result",
     "AccountSocialLink": ".account_social_link",
     "AccountSocialLinkWebsite": ".account_social_link_website",
     "AccountStorePageConfig": ".account_store_page_config",
@@ -3053,6 +3055,7 @@ __all__ = [
     "AccountReserveUnlockType",
     "AccountReserveUnlockTypeType",
     "AccountResolutionCenterAutoRefundControl",
+    "AccountSearchResult",
     "AccountSocialLink",
     "AccountSocialLinkWebsite",
     "AccountStorePageConfig",

@@ -9,6 +9,7 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
 from ..types.account import Account
+from ..types.account_search_result import AccountSearchResult
 from .raw_client import AsyncRawAccountsClient, RawAccountsClient
 from .types.delete_accounts_response import DeleteAccountsResponse
 from .types.form_company_accounts_request_business_address import FormCompanyAccountsRequestBusinessAddress
@@ -23,6 +24,9 @@ from .types.list_accounts_request_order import ListAccountsRequestOrder
 from .types.list_accounts_request_status import ListAccountsRequestStatus
 from .types.list_accounts_response import ListAccountsResponse
 from .types.retry_ads_payment_accounts_response import RetryAdsPaymentAccountsResponse
+from .types.search_accounts_request_direction import SearchAccountsRequestDirection
+from .types.search_accounts_request_order import SearchAccountsRequestOrder
+from .types.search_accounts_response import SearchAccountsResponse
 from .types.transfer_ownership_accounts_response import TransferOwnershipAccountsResponse
 from .types.update_accounts_request_banner_image import UpdateAccountsRequestBannerImage
 from .types.update_accounts_request_business_address import UpdateAccountsRequestBusinessAddress
@@ -299,6 +303,81 @@ class AccountsClient:
         """
         _response = self._raw_client.me(include_trading=include_trading, request_options=request_options)
         return _response.data
+
+    def search(
+        self,
+        *,
+        query: str,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        last: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
+        order: typing.Optional[SearchAccountsRequestOrder] = None,
+        direction: typing.Optional[SearchAccountsRequestDirection] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SyncPager[AccountSearchResult, SearchAccountsResponse]:
+        """
+        Finds accounts by name among the accounts the credential can list. Support searches cover every company and return only the 50 best matches.
+
+        Parameters
+        ----------
+        query : str
+            The account name to search for.
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        last : typing.Optional[int]
+            Number of results to return from the end of the range.
+
+        before : typing.Optional[str]
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+
+        order : typing.Optional[SearchAccountsRequestOrder]
+            Sort field. Without it, support searches return the best match first and other searches return the newest account first.
+
+        direction : typing.Optional[SearchAccountsRequestDirection]
+            Sort direction.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SyncPager[AccountSearchResult, SearchAccountsResponse]
+            accounts found
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-10-15-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        response = client.accounts.search(
+            query="query",
+        )
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
+        """
+        return self._raw_client.search(
+            query=query,
+            first=first,
+            after=after,
+            last=last,
+            before=before,
+            order=order,
+            direction=direction,
+            request_options=request_options,
+        )
 
     def retrieve(
         self,
@@ -1222,6 +1301,90 @@ class AsyncAccountsClient:
         """
         _response = await self._raw_client.me(include_trading=include_trading, request_options=request_options)
         return _response.data
+
+    async def search(
+        self,
+        *,
+        query: str,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        last: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
+        order: typing.Optional[SearchAccountsRequestOrder] = None,
+        direction: typing.Optional[SearchAccountsRequestDirection] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncPager[AccountSearchResult, SearchAccountsResponse]:
+        """
+        Finds accounts by name among the accounts the credential can list. Support searches cover every company and return only the 50 best matches.
+
+        Parameters
+        ----------
+        query : str
+            The account name to search for.
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        last : typing.Optional[int]
+            Number of results to return from the end of the range.
+
+        before : typing.Optional[str]
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+
+        order : typing.Optional[SearchAccountsRequestOrder]
+            Sort field. Without it, support searches return the best match first and other searches return the newest account first.
+
+        direction : typing.Optional[SearchAccountsRequestDirection]
+            Sort direction.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncPager[AccountSearchResult, SearchAccountsResponse]
+            accounts found
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-10-15-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            response = await client.accounts.search(
+                query="query",
+            )
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
+
+
+        asyncio.run(main())
+        """
+        return await self._raw_client.search(
+            query=query,
+            first=first,
+            after=after,
+            last=last,
+            before=before,
+            order=order,
+            direction=direction,
+            request_options=request_options,
+        )
 
     async def retrieve(
         self,
