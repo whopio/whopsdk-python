@@ -20,6 +20,7 @@ from ..errors.forbidden_error import ForbiddenError
 from ..errors.not_found_error import NotFoundError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.account import Account
+from ..types.account_search_result import AccountSearchResult
 from .types.delete_accounts_response import DeleteAccountsResponse
 from .types.form_company_accounts_request_business_address import FormCompanyAccountsRequestBusinessAddress
 from .types.form_company_accounts_request_entity_suffix import FormCompanyAccountsRequestEntitySuffix
@@ -33,6 +34,9 @@ from .types.list_accounts_request_order import ListAccountsRequestOrder
 from .types.list_accounts_request_status import ListAccountsRequestStatus
 from .types.list_accounts_response import ListAccountsResponse
 from .types.retry_ads_payment_accounts_response import RetryAdsPaymentAccountsResponse
+from .types.search_accounts_request_direction import SearchAccountsRequestDirection
+from .types.search_accounts_request_order import SearchAccountsRequestOrder
+from .types.search_accounts_response import SearchAccountsResponse
 from .types.transfer_ownership_accounts_response import TransferOwnershipAccountsResponse
 from .types.update_accounts_request_banner_image import UpdateAccountsRequestBannerImage
 from .types.update_accounts_request_business_address import UpdateAccountsRequestBusinessAddress
@@ -430,6 +434,124 @@ class RawAccountsClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def search(
+        self,
+        *,
+        query: str,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        last: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
+        order: typing.Optional[SearchAccountsRequestOrder] = None,
+        direction: typing.Optional[SearchAccountsRequestDirection] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SyncPager[AccountSearchResult, SearchAccountsResponse]:
+        """
+        Finds accounts by name among the accounts the credential can list. Support searches cover every company and return only the 50 best matches.
+
+        Parameters
+        ----------
+        query : str
+            The account name to search for.
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        last : typing.Optional[int]
+            Number of results to return from the end of the range.
+
+        before : typing.Optional[str]
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+
+        order : typing.Optional[SearchAccountsRequestOrder]
+            Sort field. Without it, support searches return the best match first and other searches return the newest account first.
+
+        direction : typing.Optional[SearchAccountsRequestDirection]
+            Sort direction.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SyncPager[AccountSearchResult, SearchAccountsResponse]
+            accounts found
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "accounts/search",
+            base_url=self._client_wrapper.get_environment().api,
+            method="GET",
+            params={
+                "first": first,
+                "after": after,
+                "last": last,
+                "before": before,
+                "query": query,
+                "order": order,
+                "direction": direction,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _parsed_response = typing.cast(
+                    SearchAccountsResponse,
+                    parse_obj_as(
+                        type_=SearchAccountsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                _items = _parsed_response.data
+                _has_next = False
+                _get_next = None
+                if _parsed_response.page_info is not None:
+                    _parsed_next = _parsed_response.page_info.end_cursor
+                    _has_next = _parsed_next is not None and _parsed_next != ""
+                    _get_next = lambda: self.search(
+                        query=query,
+                        first=first,
+                        after=_parsed_next,
+                        last=last,
+                        before=before,
+                        order=order,
+                        direction=direction,
+                        request_options=request_options,
+                    )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1817,6 +1939,127 @@ class AsyncRawAccountsClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def search(
+        self,
+        *,
+        query: str,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        last: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
+        order: typing.Optional[SearchAccountsRequestOrder] = None,
+        direction: typing.Optional[SearchAccountsRequestDirection] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncPager[AccountSearchResult, SearchAccountsResponse]:
+        """
+        Finds accounts by name among the accounts the credential can list. Support searches cover every company and return only the 50 best matches.
+
+        Parameters
+        ----------
+        query : str
+            The account name to search for.
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        last : typing.Optional[int]
+            Number of results to return from the end of the range.
+
+        before : typing.Optional[str]
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+
+        order : typing.Optional[SearchAccountsRequestOrder]
+            Sort field. Without it, support searches return the best match first and other searches return the newest account first.
+
+        direction : typing.Optional[SearchAccountsRequestDirection]
+            Sort direction.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncPager[AccountSearchResult, SearchAccountsResponse]
+            accounts found
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "accounts/search",
+            base_url=self._client_wrapper.get_environment().api,
+            method="GET",
+            params={
+                "first": first,
+                "after": after,
+                "last": last,
+                "before": before,
+                "query": query,
+                "order": order,
+                "direction": direction,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _parsed_response = typing.cast(
+                    SearchAccountsResponse,
+                    parse_obj_as(
+                        type_=SearchAccountsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                _items = _parsed_response.data
+                _has_next = False
+                _get_next = None
+                if _parsed_response.page_info is not None:
+                    _parsed_next = _parsed_response.page_info.end_cursor
+                    _has_next = _parsed_next is not None and _parsed_next != ""
+
+                    async def _get_next():
+                        return await self.search(
+                            query=query,
+                            first=first,
+                            after=_parsed_next,
+                            last=last,
+                            before=before,
+                            order=order,
+                            direction=direction,
+                            request_options=request_options,
+                        )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
