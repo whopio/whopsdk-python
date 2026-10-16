@@ -38,6 +38,11 @@ class RefundLegacy(UniversalBaseModel):
     The unique identifier for the refund.
     """
 
+    metadata: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
+    """
+    The custom metadata attached when this refund was requested.
+    """
+
     payment: typing.Optional[RefundLegacyPayment] = pydantic.Field(default=None)
     """
     The original payment that this refund was issued against. Null if the payment is no longer available.
