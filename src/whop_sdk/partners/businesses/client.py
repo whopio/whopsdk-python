@@ -200,18 +200,26 @@ class BusinessesClient:
         return _response.data
 
     def update(
-        self, id: str, *, annual_processing_usd: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        id: str,
+        *,
+        annual_processing_usd: typing.Optional[str] = OMIT,
+        withdraw_projections: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateBusinessesResponse:
         """
-        Save annual projections for a business referred by the authenticated partner. Projections cannot be changed after saving; repeating the same values is allowed. Public API access requires a partner OAuth token; business API keys are not supported.
+        Save annual payment projections for a business referred by the authenticated partner. Unaccepted projections can be replaced with updated annual card and BNPL payment volume. To qualify, payment volume over the last 30 days must reach 5% of the annual payment projection. Ads are excluded from CPA; ordinary ad commissions continue. Pass withdraw_projections: true without projection amounts to remove unaccepted projections. Accepted projections are immutable. Public API access requires a partner OAuth token; business API keys are not supported.
 
         Parameters
         ----------
         id : str
             The partner business ID (a coma_ identifier).
 
-        annual_processing_usd : str
-            Annual projected card and BNPL payment volume on Whop in USD.
+        annual_processing_usd : typing.Optional[str]
+            Annual projected card and BNPL processing combined, in USD.
+
+        withdraw_projections : typing.Optional[bool]
+            Remove unaccepted projections and invalidate the offer. The original CPA term is retained if projections are later added again.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -232,11 +240,13 @@ class BusinessesClient:
         )
         client.partners.businesses.update(
             id="id",
-            annual_processing_usd="1200000",
         )
         """
         _response = self._raw_client.update(
-            id, annual_processing_usd=annual_processing_usd, request_options=request_options
+            id,
+            annual_processing_usd=annual_processing_usd,
+            withdraw_projections=withdraw_projections,
+            request_options=request_options,
         )
         return _response.data
 
@@ -540,18 +550,26 @@ class AsyncBusinessesClient:
         return _response.data
 
     async def update(
-        self, id: str, *, annual_processing_usd: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        id: str,
+        *,
+        annual_processing_usd: typing.Optional[str] = OMIT,
+        withdraw_projections: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateBusinessesResponse:
         """
-        Save annual projections for a business referred by the authenticated partner. Projections cannot be changed after saving; repeating the same values is allowed. Public API access requires a partner OAuth token; business API keys are not supported.
+        Save annual payment projections for a business referred by the authenticated partner. Unaccepted projections can be replaced with updated annual card and BNPL payment volume. To qualify, payment volume over the last 30 days must reach 5% of the annual payment projection. Ads are excluded from CPA; ordinary ad commissions continue. Pass withdraw_projections: true without projection amounts to remove unaccepted projections. Accepted projections are immutable. Public API access requires a partner OAuth token; business API keys are not supported.
 
         Parameters
         ----------
         id : str
             The partner business ID (a coma_ identifier).
 
-        annual_processing_usd : str
-            Annual projected card and BNPL payment volume on Whop in USD.
+        annual_processing_usd : typing.Optional[str]
+            Annual projected card and BNPL processing combined, in USD.
+
+        withdraw_projections : typing.Optional[bool]
+            Remove unaccepted projections and invalidate the offer. The original CPA term is retained if projections are later added again.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -577,14 +595,16 @@ class AsyncBusinessesClient:
         async def main() -> None:
             await client.partners.businesses.update(
                 id="id",
-                annual_processing_usd="1200000",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._raw_client.update(
-            id, annual_processing_usd=annual_processing_usd, request_options=request_options
+            id,
+            annual_processing_usd=annual_processing_usd,
+            withdraw_projections=withdraw_projections,
+            request_options=request_options,
         )
         return _response.data
 
