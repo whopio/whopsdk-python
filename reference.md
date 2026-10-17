@@ -1988,7 +1988,7 @@ client = Whop(
 
 client.ad_campaigns.create(
     objective="awareness",
-    platform="meta",
+    platform="whop",
     title="Now hiring mobile detailers — Austin",
 )
 

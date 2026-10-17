@@ -257,7 +257,7 @@ class AdCampaignsClient:
         )
         client.ad_campaigns.create(
             objective="awareness",
-            platform="meta",
+            platform="whop",
             title="Now hiring mobile detailers — Austin",
         )
         """
@@ -822,7 +822,7 @@ class AsyncAdCampaignsClient:
         async def main() -> None:
             await client.ad_campaigns.create(
                 objective="awareness",
-                platform="meta",
+                platform="whop",
                 title="Now hiring mobile detailers — Austin",
             )
 

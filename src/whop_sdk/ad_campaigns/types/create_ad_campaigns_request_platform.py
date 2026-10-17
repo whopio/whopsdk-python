@@ -2,4 +2,4 @@
 
 import typing
 
-CreateAdCampaignsRequestPlatform = typing.Union[typing.Literal["meta"], typing.Any]
+CreateAdCampaignsRequestPlatform = typing.Union[typing.Literal["whop"], typing.Any]
