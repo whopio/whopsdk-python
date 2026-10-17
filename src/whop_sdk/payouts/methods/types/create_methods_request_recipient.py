@@ -4,11 +4,17 @@ import typing
 
 import pydantic
 from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .create_methods_request_recipient_address import CreateMethodsRequestRecipientAddress
 
 
 class CreateMethodsRequestRecipient(UniversalBaseModel):
     """
     Creates a recipient payout account linked to the funding ledger as a non-default account, then saves the bank method on it. No Whop user, company, or recipient ledger is created. A valid recipient email is required. Recipient methods cannot be default or recurring methods and cannot use Plaid.
+    """
+
+    address: typing.Optional[CreateMethodsRequestRecipientAddress] = pydantic.Field(default=None)
+    """
+    The recipient's address in recipient.country. Saved on the recipient payout account and supplied to bank methods that require address fields. Omit to retain the existing address when reusing a recipient.
     """
 
     country: str = pydantic.Field()

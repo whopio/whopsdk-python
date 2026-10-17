@@ -118,6 +118,7 @@ if typing.TYPE_CHECKING:
     from . import methods, paypal_link_sessions, supported_methods
     from .methods import (
         CreateMethodsRequestRecipient,
+        CreateMethodsRequestRecipientAddress,
         CreateMethodsResponse,
         CreateMethodsResponseBankVerificationState,
         CreateMethodsResponseObject,
@@ -184,6 +185,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CancelPayoutsResponseSpeed": ".types",
     "CancelPayoutsResponseStatus": ".types",
     "CreateMethodsRequestRecipient": ".methods",
+    "CreateMethodsRequestRecipientAddress": ".methods",
     "CreateMethodsResponse": ".methods",
     "CreateMethodsResponseBankVerificationState": ".methods",
     "CreateMethodsResponseObject": ".methods",
@@ -371,6 +373,7 @@ __all__ = [
     "CancelPayoutsResponseSpeed",
     "CancelPayoutsResponseStatus",
     "CreateMethodsRequestRecipient",
+    "CreateMethodsRequestRecipientAddress",
     "CreateMethodsResponse",
     "CreateMethodsResponseBankVerificationState",
     "CreateMethodsResponseObject",
