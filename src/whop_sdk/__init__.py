@@ -1914,6 +1914,8 @@ if typing.TYPE_CHECKING:
         ListCardTransactionsResponsePageInfo,
     )
     from .cards import (
+        CreateCardsRequestBilling,
+        CreateCardsRequestCardholder,
         CreateCardsRequestSpendLimitFrequency,
         CreateCardsResponse,
         CreateCardsResponseBilling,
@@ -3845,6 +3847,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateBountySubmissionsRequestDeliverable": ".bounty_submissions",
     "CreateBountySubmissionsRequestDeliverableType": ".bounty_submissions",
     "CreateBountySubmissionsRequestMetadata": ".bounty_submissions",
+    "CreateCardsRequestBilling": ".cards",
+    "CreateCardsRequestCardholder": ".cards",
     "CreateCardsRequestSpendLimitFrequency": ".cards",
     "CreateCardsResponse": ".cards",
     "CreateCardsResponseBilling": ".cards",
@@ -7007,6 +7011,8 @@ __all__ = [
     "CreateBountySubmissionsRequestDeliverable",
     "CreateBountySubmissionsRequestDeliverableType",
     "CreateBountySubmissionsRequestMetadata",
+    "CreateCardsRequestBilling",
+    "CreateCardsRequestCardholder",
     "CreateCardsRequestSpendLimitFrequency",
     "CreateCardsResponse",
     "CreateCardsResponseBilling",

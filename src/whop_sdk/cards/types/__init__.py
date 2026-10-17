@@ -6,6 +6,8 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .create_cards_request_billing import CreateCardsRequestBilling
+    from .create_cards_request_cardholder import CreateCardsRequestCardholder
     from .create_cards_request_spend_limit_frequency import CreateCardsRequestSpendLimitFrequency
     from .create_cards_response import CreateCardsResponse
     from .create_cards_response_billing import CreateCardsResponseBilling
@@ -127,6 +129,8 @@ if typing.TYPE_CHECKING:
     from .update_cards_response_status import UpdateCardsResponseStatus
     from .update_cards_response_type import UpdateCardsResponseType
 _dynamic_imports: typing.Dict[str, str] = {
+    "CreateCardsRequestBilling": ".create_cards_request_billing",
+    "CreateCardsRequestCardholder": ".create_cards_request_cardholder",
     "CreateCardsRequestSpendLimitFrequency": ".create_cards_request_spend_limit_frequency",
     "CreateCardsResponse": ".create_cards_response",
     "CreateCardsResponseBilling": ".create_cards_response_billing",
@@ -272,6 +276,8 @@ def __dir__():
 
 
 __all__ = [
+    "CreateCardsRequestBilling",
+    "CreateCardsRequestCardholder",
     "CreateCardsRequestSpendLimitFrequency",
     "CreateCardsResponse",
     "CreateCardsResponseBilling",
