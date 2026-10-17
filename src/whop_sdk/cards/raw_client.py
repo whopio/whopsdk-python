@@ -16,6 +16,8 @@ from ..errors.conflict_error import ConflictError
 from ..errors.forbidden_error import ForbiddenError
 from ..errors.not_found_error import NotFoundError
 from ..errors.unauthorized_error import UnauthorizedError
+from .types.create_cards_request_billing import CreateCardsRequestBilling
+from .types.create_cards_request_cardholder import CreateCardsRequestCardholder
 from .types.create_cards_request_spend_limit_frequency import CreateCardsRequestSpendLimitFrequency
 from .types.create_cards_response import CreateCardsResponse
 from .types.list_cards_response import ListCardsResponse
@@ -138,6 +140,8 @@ class RawCardsClient:
         *,
         account_id: typing.Optional[str] = OMIT,
         assigned_user_id: typing.Optional[str] = OMIT,
+        billing: typing.Optional[CreateCardsRequestBilling] = OMIT,
+        cardholder: typing.Optional[CreateCardsRequestCardholder] = OMIT,
         name: typing.Optional[str] = OMIT,
         spend_limit: typing.Optional[float] = OMIT,
         spend_limit_frequency: typing.Optional[CreateCardsRequestSpendLimitFrequency] = OMIT,
@@ -155,6 +159,12 @@ class RawCardsClient:
 
         assigned_user_id : typing.Optional[str]
             The account member (a user_ identifier) to assign the card to. Required for business card issuing accounts, and whenever a company API key files an account's first card application.
+
+        billing : typing.Optional[CreateCardsRequestBilling]
+            The card's initial billing address. On a company card it also registers the assigned member as a cardholder if they are not one yet. For an individual card, region is also required.
+
+        cardholder : typing.Optional[CreateCardsRequestCardholder]
+            Details for a company card's assigned member when they are not registered as a cardholder yet. Send with billing to register them and start provisioning in one call instead of sending them an onboarding invitation. The legal name comes from the member's approved identity verification when they have one, and from these fields when they do not.
 
         name : typing.Optional[str]
             A display name for the card.
@@ -186,6 +196,12 @@ class RawCardsClient:
             json={
                 "account_id": account_id,
                 "assigned_user_id": assigned_user_id,
+                "billing": convert_and_respect_annotation_metadata(
+                    object_=billing, annotation=CreateCardsRequestBilling, direction="write"
+                ),
+                "cardholder": convert_and_respect_annotation_metadata(
+                    object_=cardholder, annotation=CreateCardsRequestCardholder, direction="write"
+                ),
                 "name": name,
                 "spend_limit": spend_limit,
                 "spend_limit_frequency": spend_limit_frequency,
@@ -612,6 +628,8 @@ class AsyncRawCardsClient:
         *,
         account_id: typing.Optional[str] = OMIT,
         assigned_user_id: typing.Optional[str] = OMIT,
+        billing: typing.Optional[CreateCardsRequestBilling] = OMIT,
+        cardholder: typing.Optional[CreateCardsRequestCardholder] = OMIT,
         name: typing.Optional[str] = OMIT,
         spend_limit: typing.Optional[float] = OMIT,
         spend_limit_frequency: typing.Optional[CreateCardsRequestSpendLimitFrequency] = OMIT,
@@ -629,6 +647,12 @@ class AsyncRawCardsClient:
 
         assigned_user_id : typing.Optional[str]
             The account member (a user_ identifier) to assign the card to. Required for business card issuing accounts, and whenever a company API key files an account's first card application.
+
+        billing : typing.Optional[CreateCardsRequestBilling]
+            The card's initial billing address. On a company card it also registers the assigned member as a cardholder if they are not one yet. For an individual card, region is also required.
+
+        cardholder : typing.Optional[CreateCardsRequestCardholder]
+            Details for a company card's assigned member when they are not registered as a cardholder yet. Send with billing to register them and start provisioning in one call instead of sending them an onboarding invitation. The legal name comes from the member's approved identity verification when they have one, and from these fields when they do not.
 
         name : typing.Optional[str]
             A display name for the card.
@@ -660,6 +684,12 @@ class AsyncRawCardsClient:
             json={
                 "account_id": account_id,
                 "assigned_user_id": assigned_user_id,
+                "billing": convert_and_respect_annotation_metadata(
+                    object_=billing, annotation=CreateCardsRequestBilling, direction="write"
+                ),
+                "cardholder": convert_and_respect_annotation_metadata(
+                    object_=cardholder, annotation=CreateCardsRequestCardholder, direction="write"
+                ),
                 "name": name,
                 "spend_limit": spend_limit,
                 "spend_limit_frequency": spend_limit_frequency,
