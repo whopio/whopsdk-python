@@ -50,6 +50,7 @@ if typing.TYPE_CHECKING:
     from .list_methods_response_limits_standard import ListMethodsResponseLimitsStandard
     from .list_methods_response_limits_standard_error_code import ListMethodsResponseLimitsStandardErrorCode
     from .list_methods_response_page_info import ListMethodsResponsePageInfo
+    from .update_methods_request_address import UpdateMethodsRequestAddress
     from .update_methods_response import UpdateMethodsResponse
     from .update_methods_response_bank_verification_state import UpdateMethodsResponseBankVerificationState
     from .update_methods_response_object import UpdateMethodsResponseObject
@@ -95,6 +96,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListMethodsResponseLimitsStandard": ".list_methods_response_limits_standard",
     "ListMethodsResponseLimitsStandardErrorCode": ".list_methods_response_limits_standard_error_code",
     "ListMethodsResponsePageInfo": ".list_methods_response_page_info",
+    "UpdateMethodsRequestAddress": ".update_methods_request_address",
     "UpdateMethodsResponse": ".update_methods_response",
     "UpdateMethodsResponseBankVerificationState": ".update_methods_response_bank_verification_state",
     "UpdateMethodsResponseObject": ".update_methods_response_object",
@@ -162,6 +164,7 @@ __all__ = [
     "ListMethodsResponseLimitsStandard",
     "ListMethodsResponseLimitsStandardErrorCode",
     "ListMethodsResponsePageInfo",
+    "UpdateMethodsRequestAddress",
     "UpdateMethodsResponse",
     "UpdateMethodsResponseBankVerificationState",
     "UpdateMethodsResponseObject",
