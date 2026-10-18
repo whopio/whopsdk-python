@@ -38,6 +38,11 @@ class ResendInviteBusinessesResponse(UniversalBaseModel):
     CPA terms for the referring partner. Omitted for other callers. An offer token requires partner:commission_advance:accept permission.
     """
 
+    commission_advance_projections_allowed: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether this referral meets the partner and ownership requirements for saving commission advance projections. Returned only to the referring partner; existing advance terms and update permissions still apply.
+    """
+
     created_at: dt.datetime = pydantic.Field()
     """
     When the partner business was created.
