@@ -57,7 +57,7 @@ class PartnerAdvance(UniversalBaseModel):
 
     estimated_amount: typing.Optional[Money] = pydantic.Field(default=None)
     """
-    Estimated advance using the current CPA formula and observed payout rates. Available for unqualified projections on business detail responses.
+    Estimated advance using the current CPA formula and observed payout rates, or current reference card pricing when qualifying payment history is unavailable. Available for unqualified projections on business detail responses; not a final offer.
     """
 
     funded_at: typing.Optional[str] = pydantic.Field(default=None)
