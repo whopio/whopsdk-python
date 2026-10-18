@@ -36,6 +36,16 @@ class RetrieveBusinessesResponse(UniversalBaseModel):
     CPA terms for the referring partner. Omitted for other callers. An offer token requires partner:commission_advance:accept permission.
     """
 
+    commission_advance_projections_allowed: typing.Optional[bool] = pydantic.Field(default=None)
+    """
+    Whether this referral meets the partner and ownership requirements for saving commission advance projections. Returned only to the referring partner; existing advance terms and update permissions still apply.
+    """
+
+    commission_advance_rate: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Estimated upfront commission advance per USD of annual projected card and BNPL payments, including the advance share and remaining term. Multiply annual payments by this decimal rate, cap at 2500 USD, and round down to cents. Null when projections are unavailable or qualifying payment history is missing. Returned only to the referring partner; the final offer is calculated separately.
+    """
+
     created_at: dt.datetime = pydantic.Field()
     """
     When the partner business was created.
