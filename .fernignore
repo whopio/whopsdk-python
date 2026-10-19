@@ -44,6 +44,8 @@
 .github/workflows/auto-merge.yml
 .github/workflows/publish-main.yml
 src/whop_sdk/lib
+# Remove when the configured Fern Python generator follows continuation through empty pages.
+src/whop_sdk/core/pagination.py
 tests/custom
 .fern/replay.lock
 .fern/replay.yml
