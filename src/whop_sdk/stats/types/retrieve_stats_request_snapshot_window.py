@@ -2,4 +2,4 @@
 
 import typing
 
-RetrieveStatsRequestSnapshotWindow = typing.Union[typing.Literal["7d", "28d", "30d"], typing.Any]
+RetrieveStatsRequestSnapshotWindow = typing.Union[typing.Literal["7d", "14d", "28d", "30d", "56d"], typing.Any]
