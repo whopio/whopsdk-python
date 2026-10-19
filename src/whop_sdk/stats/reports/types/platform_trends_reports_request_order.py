@@ -6,6 +6,7 @@ PlatformTrendsReportsRequestOrder = typing.Union[
     typing.Literal[
         "gross_revenue",
         "businesses",
+        "products",
         "payments",
         "customers",
         "aov",
