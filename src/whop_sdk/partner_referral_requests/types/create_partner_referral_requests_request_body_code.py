@@ -29,11 +29,6 @@ class CreatePartnerReferralRequestsRequestBodyCode(UniversalBaseModel):
     Maximum permitted redemptions, or null for no configured limit.
     """
 
-    member_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The partner's member record on the business this link is made for, prefixed `mber_`, when their role there is held on their member record. Send this or `authorized_user_id`, not both.
-    """
-
     partner_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     Optional. Your own partner ID, prefixed `user_`; you cannot create a link for another partner.

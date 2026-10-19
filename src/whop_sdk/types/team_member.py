@@ -38,7 +38,7 @@ class TeamMember(UniversalBaseModel):
 
     id: str = pydantic.Field()
     """
-    Team member ID — `ausr_` for accepted members, `mber_` for members whose role is held on their member record, `ausri_` for pending invites.
+    Team member ID — `ausr_` for accepted members, `ausri_` for pending invites.
     """
 
     is_agent: bool = pydantic.Field()
@@ -48,7 +48,7 @@ class TeamMember(UniversalBaseModel):
 
     reports_to_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The team member this member reports to, prefixed `ausr_`, or `mber_` when that manager's role is held on their member record. `null` when the member reports to the business directly, and for invites.
+    The team member this member reports to, prefixed `ausr_`. `null` when the member reports to the business directly, and for invites.
     """
 
     role: TeamMemberRole = pydantic.Field()

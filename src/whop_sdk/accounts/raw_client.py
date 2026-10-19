@@ -1478,7 +1478,6 @@ class RawAccountsClient:
         identifier: str,
         as_partner: typing.Optional[bool] = OMIT,
         authorized_user_id: typing.Optional[str] = OMIT,
-        member_id: typing.Optional[str] = OMIT,
         message: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[TransferOwnershipAccountsResponse]:
@@ -1499,9 +1498,6 @@ class RawAccountsClient:
         authorized_user_id : typing.Optional[str]
             Your team membership on the business this referral is made for, prefixed `ausr_`. The referral then credits that team instead of you personally. Requires `as_partner`.
 
-        member_id : typing.Optional[str]
-            Your member record on the business this referral is made for, prefixed `mber_`, when your role there is held on your member record. Send this or `authorized_user_id`, not both. Requires `as_partner`.
-
         message : typing.Optional[str]
             A note from the partner, shown as a quote in the invite email and signed with their name. Requires `as_partner`; sending it on an ordinary transfer is a 400. Omit it and the email sends without a note.
 
@@ -1521,7 +1517,6 @@ class RawAccountsClient:
                 "as_partner": as_partner,
                 "authorized_user_id": authorized_user_id,
                 "identifier": identifier,
-                "member_id": member_id,
                 "message": message,
             },
             headers={
@@ -2993,7 +2988,6 @@ class AsyncRawAccountsClient:
         identifier: str,
         as_partner: typing.Optional[bool] = OMIT,
         authorized_user_id: typing.Optional[str] = OMIT,
-        member_id: typing.Optional[str] = OMIT,
         message: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[TransferOwnershipAccountsResponse]:
@@ -3014,9 +3008,6 @@ class AsyncRawAccountsClient:
         authorized_user_id : typing.Optional[str]
             Your team membership on the business this referral is made for, prefixed `ausr_`. The referral then credits that team instead of you personally. Requires `as_partner`.
 
-        member_id : typing.Optional[str]
-            Your member record on the business this referral is made for, prefixed `mber_`, when your role there is held on your member record. Send this or `authorized_user_id`, not both. Requires `as_partner`.
-
         message : typing.Optional[str]
             A note from the partner, shown as a quote in the invite email and signed with their name. Requires `as_partner`; sending it on an ordinary transfer is a 400. Omit it and the email sends without a note.
 
@@ -3036,7 +3027,6 @@ class AsyncRawAccountsClient:
                 "as_partner": as_partner,
                 "authorized_user_id": authorized_user_id,
                 "identifier": identifier,
-                "member_id": member_id,
                 "message": message,
             },
             headers={
