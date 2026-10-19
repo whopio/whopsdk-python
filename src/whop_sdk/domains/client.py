@@ -9,12 +9,14 @@ from ..types.domain import Domain
 from ..types.domain_list_item import DomainListItem
 from .raw_client import AsyncRawDomainsClient, RawDomainsClient
 from .types.create_domains_request_apple_pay import CreateDomainsRequestApplePay
+from .types.create_domains_request_email import CreateDomainsRequestEmail
 from .types.create_domains_request_pixel import CreateDomainsRequestPixel
 from .types.create_domains_request_registration import CreateDomainsRequestRegistration
 from .types.create_domains_request_verification import CreateDomainsRequestVerification
 from .types.create_domains_request_website import CreateDomainsRequestWebsite
 from .types.list_domains_request_apple_pay import ListDomainsRequestApplePay
 from .types.list_domains_request_direction import ListDomainsRequestDirection
+from .types.list_domains_request_email import ListDomainsRequestEmail
 from .types.list_domains_request_order import ListDomainsRequestOrder
 from .types.list_domains_request_pixel import ListDomainsRequestPixel
 from .types.list_domains_request_platform import ListDomainsRequestPlatform
@@ -24,6 +26,7 @@ from .types.list_domains_request_verification import ListDomainsRequestVerificat
 from .types.list_domains_request_website import ListDomainsRequestWebsite
 from .types.list_domains_response import ListDomainsResponse
 from .types.update_domains_request_apple_pay import UpdateDomainsRequestApplePay
+from .types.update_domains_request_email import UpdateDomainsRequestEmail
 from .types.update_domains_request_pixel import UpdateDomainsRequestPixel
 from .types.update_domains_request_registration import UpdateDomainsRequestRegistration
 from .types.update_domains_request_verification import UpdateDomainsRequestVerification
@@ -69,6 +72,7 @@ class DomainsClient:
         website: typing.Optional[ListDomainsRequestWebsite] = None,
         apple_pay: typing.Optional[ListDomainsRequestApplePay] = None,
         pixel: typing.Optional[ListDomainsRequestPixel] = None,
+        email: typing.Optional[ListDomainsRequestEmail] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[DomainListItem, ListDomainsResponse]:
         """
@@ -132,6 +136,9 @@ class DomainsClient:
         pixel : typing.Optional[ListDomainsRequestPixel]
             Only domains with pixel in this state, such as `ready`, or `any` for every domain that has pixel.
 
+        email : typing.Optional[ListDomainsRequestEmail]
+            Only domains with email in this state, such as `ready`, or `any` for every domain that has email.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -177,6 +184,7 @@ class DomainsClient:
             website=website,
             apple_pay=apple_pay,
             pixel=pixel,
+            email=email,
             request_options=request_options,
         )
 
@@ -186,6 +194,7 @@ class DomainsClient:
         domain: str,
         account_id: typing.Optional[str] = OMIT,
         apple_pay: typing.Optional[CreateDomainsRequestApplePay] = OMIT,
+        email: typing.Optional[CreateDomainsRequestEmail] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         pixel: typing.Optional[CreateDomainsRequestPixel] = OMIT,
         registration: typing.Optional[CreateDomainsRequestRegistration] = OMIT,
@@ -212,6 +221,9 @@ class DomainsClient:
 
         apple_pay : typing.Optional[CreateDomainsRequestApplePay]
             Accept Apple Pay at checkout on the domain. It needs no other capability. Whop registers the domain with Apple: it stays `pending` until Apple answers, then turns `ready`, or `action_required` when Apple couldn't fetch the domain association file. Serve the file, then check the domain to register it again. Pass `null` to turn Apple Pay off: Whop removes the domain from Apple, and the domain stays, like releasing any other capability.
+
+        email : typing.Optional[CreateDomainsRequestEmail]
+            Send and receive email on the domain. Only a domain bought through Whop, or a subdomain of one in the same account, can have it. Whop publishes the DNS records and stays `pending` until its email provider verifies them, then turns `ready`. Pass `null` to remove email.
 
         metadata : typing.Optional[typing.Dict[str, str]]
             Custom string keys and values.
@@ -253,6 +265,7 @@ class DomainsClient:
             domain=domain,
             account_id=account_id,
             apple_pay=apple_pay,
+            email=email,
             metadata=metadata,
             pixel=pixel,
             registration=registration,
@@ -335,6 +348,7 @@ class DomainsClient:
         id: str,
         *,
         apple_pay: typing.Optional[UpdateDomainsRequestApplePay] = OMIT,
+        email: typing.Optional[UpdateDomainsRequestEmail] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         pixel: typing.Optional[UpdateDomainsRequestPixel] = OMIT,
         registration: typing.Optional[UpdateDomainsRequestRegistration] = OMIT,
@@ -352,6 +366,9 @@ class DomainsClient:
 
         apple_pay : typing.Optional[UpdateDomainsRequestApplePay]
             Accept Apple Pay at checkout on the domain. It needs no other capability. Whop registers the domain with Apple: it stays `pending` until Apple answers, then turns `ready`, or `action_required` when Apple couldn't fetch the domain association file. Serve the file, then check the domain to register it again. Pass `null` to turn Apple Pay off: Whop removes the domain from Apple, and the domain stays, like releasing any other capability.
+
+        email : typing.Optional[UpdateDomainsRequestEmail]
+            Send and receive email on the domain. Only a domain bought through Whop, or a subdomain of one in the same account, can have it. Whop publishes the DNS records and stays `pending` until its email provider verifies them, then turns `ready`. Pass `null` to remove email.
 
         metadata : typing.Optional[typing.Dict[str, str]]
             Replacement custom string keys and values.
@@ -392,6 +409,7 @@ class DomainsClient:
         _response = self._raw_client.update(
             id,
             apple_pay=apple_pay,
+            email=email,
             metadata=metadata,
             pixel=pixel,
             registration=registration,
@@ -471,6 +489,7 @@ class AsyncDomainsClient:
         website: typing.Optional[ListDomainsRequestWebsite] = None,
         apple_pay: typing.Optional[ListDomainsRequestApplePay] = None,
         pixel: typing.Optional[ListDomainsRequestPixel] = None,
+        email: typing.Optional[ListDomainsRequestEmail] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[DomainListItem, ListDomainsResponse]:
         """
@@ -534,6 +553,9 @@ class AsyncDomainsClient:
         pixel : typing.Optional[ListDomainsRequestPixel]
             Only domains with pixel in this state, such as `ready`, or `any` for every domain that has pixel.
 
+        email : typing.Optional[ListDomainsRequestEmail]
+            Only domains with email in this state, such as `ready`, or `any` for every domain that has email.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -588,6 +610,7 @@ class AsyncDomainsClient:
             website=website,
             apple_pay=apple_pay,
             pixel=pixel,
+            email=email,
             request_options=request_options,
         )
 
@@ -597,6 +620,7 @@ class AsyncDomainsClient:
         domain: str,
         account_id: typing.Optional[str] = OMIT,
         apple_pay: typing.Optional[CreateDomainsRequestApplePay] = OMIT,
+        email: typing.Optional[CreateDomainsRequestEmail] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         pixel: typing.Optional[CreateDomainsRequestPixel] = OMIT,
         registration: typing.Optional[CreateDomainsRequestRegistration] = OMIT,
@@ -623,6 +647,9 @@ class AsyncDomainsClient:
 
         apple_pay : typing.Optional[CreateDomainsRequestApplePay]
             Accept Apple Pay at checkout on the domain. It needs no other capability. Whop registers the domain with Apple: it stays `pending` until Apple answers, then turns `ready`, or `action_required` when Apple couldn't fetch the domain association file. Serve the file, then check the domain to register it again. Pass `null` to turn Apple Pay off: Whop removes the domain from Apple, and the domain stays, like releasing any other capability.
+
+        email : typing.Optional[CreateDomainsRequestEmail]
+            Send and receive email on the domain. Only a domain bought through Whop, or a subdomain of one in the same account, can have it. Whop publishes the DNS records and stays `pending` until its email provider verifies them, then turns `ready`. Pass `null` to remove email.
 
         metadata : typing.Optional[typing.Dict[str, str]]
             Custom string keys and values.
@@ -672,6 +699,7 @@ class AsyncDomainsClient:
             domain=domain,
             account_id=account_id,
             apple_pay=apple_pay,
+            email=email,
             metadata=metadata,
             pixel=pixel,
             registration=registration,
@@ -770,6 +798,7 @@ class AsyncDomainsClient:
         id: str,
         *,
         apple_pay: typing.Optional[UpdateDomainsRequestApplePay] = OMIT,
+        email: typing.Optional[UpdateDomainsRequestEmail] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         pixel: typing.Optional[UpdateDomainsRequestPixel] = OMIT,
         registration: typing.Optional[UpdateDomainsRequestRegistration] = OMIT,
@@ -787,6 +816,9 @@ class AsyncDomainsClient:
 
         apple_pay : typing.Optional[UpdateDomainsRequestApplePay]
             Accept Apple Pay at checkout on the domain. It needs no other capability. Whop registers the domain with Apple: it stays `pending` until Apple answers, then turns `ready`, or `action_required` when Apple couldn't fetch the domain association file. Serve the file, then check the domain to register it again. Pass `null` to turn Apple Pay off: Whop removes the domain from Apple, and the domain stays, like releasing any other capability.
+
+        email : typing.Optional[UpdateDomainsRequestEmail]
+            Send and receive email on the domain. Only a domain bought through Whop, or a subdomain of one in the same account, can have it. Whop publishes the DNS records and stays `pending` until its email provider verifies them, then turns `ready`. Pass `null` to remove email.
 
         metadata : typing.Optional[typing.Dict[str, str]]
             Replacement custom string keys and values.
@@ -835,6 +867,7 @@ class AsyncDomainsClient:
         _response = await self._raw_client.update(
             id,
             apple_pay=apple_pay,
+            email=email,
             metadata=metadata,
             pixel=pixel,
             registration=registration,

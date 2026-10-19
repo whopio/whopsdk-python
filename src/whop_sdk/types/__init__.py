@@ -518,6 +518,8 @@ if typing.TYPE_CHECKING:
     from .domain_availability import DomainAvailability
     from .domain_dns_record import DomainDnsRecord
     from .domain_dns_record_type import DomainDnsRecordType
+    from .domain_email import DomainEmail
+    from .domain_email_state import DomainEmailState
     from .domain_issue import DomainIssue
     from .domain_issue_capability import DomainIssueCapability
     from .domain_issue_code import DomainIssueCode
@@ -2041,6 +2043,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DomainAvailability": ".domain_availability",
     "DomainDnsRecord": ".domain_dns_record",
     "DomainDnsRecordType": ".domain_dns_record_type",
+    "DomainEmail": ".domain_email",
+    "DomainEmailState": ".domain_email_state",
     "DomainIssue": ".domain_issue",
     "DomainIssueCapability": ".domain_issue_capability",
     "DomainIssueCode": ".domain_issue_code",
@@ -3462,6 +3466,8 @@ __all__ = [
     "DomainAvailability",
     "DomainDnsRecord",
     "DomainDnsRecordType",
+    "DomainEmail",
+    "DomainEmailState",
     "DomainIssue",
     "DomainIssueCapability",
     "DomainIssueCode",

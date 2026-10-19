@@ -27,6 +27,10 @@ DomainIssueCode = typing.Union[
         "pixel_waiting",
         "pixel_unreachable",
         "pixel_quiet",
+        "email_needs_whop_dns",
+        "email_unreachable",
+        "email_identity_in_use",
+        "email_verification_failed",
     ],
     typing.Any,
 ]

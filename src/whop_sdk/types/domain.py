@@ -6,6 +6,7 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .domain_apple_pay import DomainApplePay
 from .domain_availability import DomainAvailability
+from .domain_email import DomainEmail
 from .domain_issue import DomainIssue
 from .domain_owner import DomainOwner
 from .domain_pixel import DomainPixel
@@ -42,6 +43,11 @@ class Domain(UniversalBaseModel):
     domain: str = pydantic.Field()
     """
     Normalized hostname, such as checkout.example.com.
+    """
+
+    email: typing.Optional[DomainEmail] = pydantic.Field(default=None)
+    """
+    Sending and receiving email on the domain through Whop. `null` when not wanted, or when the domain belongs to an account you can't read.
     """
 
     id: typing.Optional[str] = pydantic.Field(default=None)
