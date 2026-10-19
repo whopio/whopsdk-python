@@ -78,6 +78,11 @@ class PlatformTrendsReportsResponseDataReportsItemRowsItem(UniversalBaseModel):
     """
 
     product_category: typing.Optional[PlatformTrendsReportsResponseDataReportsItemRowsItemProductCategory] = None
+    products: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Products with a paid payment.
+    """
+
     repeat_rate: typing.Optional[float] = pydantic.Field(default=None)
     """
     Share of customers who paid more than once, as a fraction.
