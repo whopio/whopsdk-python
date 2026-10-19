@@ -1739,6 +1739,14 @@ client.accounts.transfer_ownership(
 <dl>
 <dd>
 
+**member_id:** `typing.Optional[str]` — Your member record on the business this referral is made for, prefixed `mber_`, when your role there is held on your member record. Send this or `authorized_user_id`, not both. Requires `as_partner`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **message:** `typing.Optional[str]` — A note from the partner, shown as a quote in the invite email and signed with their name. Requires `as_partner`; sending it on an ordinary transfer is a 400. Omit it and the email sends without a note.
     
 </dd>
