@@ -17,6 +17,11 @@ class CreatePartnerReferralRequestsRequestBodyAccountUrl(UniversalBaseModel):
     Your team membership on the business this referral is made for, prefixed `ausr_`. Omit for a personal referral.
     """
 
+    member_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Your member record on the business this referral is made for, prefixed `mber_`, when your role there is held on your member record. Send this or `authorized_user_id`, not both.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:
