@@ -284,6 +284,7 @@ PermissionAction = typing.Union[
         "ai_chat:update",
         "user:notifications:read",
         "user:abuse_report:create",
+        "user:abuse_report:read",
         "user:notifications:update",
         "user:profile:update",
     ],
