@@ -85,6 +85,8 @@ LedgerActivityLineType = typing.Union[
         "trading_account_deposit_offset",
         "onchain_wallet_transfer_outgoing",
         "onchain_wallet_transfer_incoming",
+        "onchain_platform_transfer_outgoing",
+        "onchain_platform_transfer_incoming",
         "onchain_internal_transfer_outgoing",
         "onchain_internal_transfer_incoming",
         "onchain_swap_source",
