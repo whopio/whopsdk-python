@@ -12,11 +12,6 @@ class CreatePartnerReferralRequestsRequestBodyTargetUserId(UniversalBaseModel):
     Your team membership on the business this referral is made for, prefixed `ausr_`. Omit for a personal referral.
     """
 
-    member_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    Your member record on the business this referral is made for, prefixed `mber_`, when your role there is held on your member record. Send this or `authorized_user_id`, not both.
-    """
-
     target_user_id: str = pydantic.Field()
     """
     User to request attribution for, prefixed `user_`.

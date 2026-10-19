@@ -42,11 +42,6 @@ class PartnerReferralRequest(UniversalBaseModel):
     Maximum permitted redemptions, when limited.
     """
 
-    member_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The partner's member record this referral was created for, prefixed `mber_`, when their role on that business is held on their member record. `null` otherwise.
-    """
-
     partner: UserSummary = pydantic.Field()
     """
     Public profile of the requesting partner.
