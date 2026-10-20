@@ -32,6 +32,11 @@ class Payment(UniversalBaseModel):
     What the account keeps: the total less Whop's fees.
     """
 
+    auto_capture_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When Whop will capture this authorized card payment automatically unless it is voided first, as an ISO 8601 timestamp. Null when no automatic capture was requested.
+    """
+
     auto_refunded: bool = pydantic.Field()
     """
     True when Whop refunded the payment automatically, for example on a dispute alert.
@@ -45,6 +50,11 @@ class Payment(UniversalBaseModel):
     billing_reason: typing.Optional[BillingReasons] = pydantic.Field(default=None)
     """
     Why the charge was created: a first purchase, a renewal, a one-time payment, or a manual charge.
+    """
+
+    capture_expires_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When the hold on this authorized card payment expires if it is not captured first, as an ISO 8601 timestamp. Null when the payment was not created for later capture.
     """
 
     checkout_configuration_id: typing.Optional[str] = pydantic.Field(default=None)
@@ -85,6 +95,11 @@ class Payment(UniversalBaseModel):
     dispute_alerted_at: typing.Optional[str] = pydantic.Field(default=None)
     """
     When an issuer warned that this payment will be disputed, or null.
+    """
+
+    dispute_created_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When the most recent dispute on this payment was opened, as an ISO 8601 timestamp. Null when the payment was never disputed, or without the payment:dispute:read permission.
     """
 
     failure_message: typing.Optional[str] = pydantic.Field(default=None)
@@ -170,6 +185,16 @@ class Payment(UniversalBaseModel):
     The variant that was charged, prefixed `plan_`.
     """
 
+    presentment_refunded_amount: typing.Optional[Money] = pydantic.Field(default=None)
+    """
+    How much has been refunded so far, in the currency presented to the buyer. Zero when nothing has been refunded.
+    """
+
+    presentment_tax_amount: typing.Optional[Money] = pydantic.Field(default=None)
+    """
+    The sales tax or VAT collected, in the currency presented to the buyer. Null when no tax applied.
+    """
+
     presentment_total: typing.Optional[Money] = pydantic.Field(default=None)
     """
     The account-facing total in the currency presented to the buyer, before conversion into the settlement currency. Excludes buyer fees.
@@ -208,6 +233,11 @@ class Payment(UniversalBaseModel):
     refunded_at: typing.Optional[str] = pydantic.Field(default=None)
     """
     When the payment was refunded, or null.
+    """
+
+    response_due_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When the earliest response is due on a dispute or Resolution Center case awaiting the account's response, as an ISO 8601 timestamp. Null when nothing awaits a response, or without the permission to read that dispute or case.
     """
 
     retryable: bool = pydantic.Field()
