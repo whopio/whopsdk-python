@@ -18,10 +18,15 @@ from .types.create_payments_request_payment_method import CreatePaymentsRequestP
 from .types.create_payments_request_shipping_address import CreatePaymentsRequestShippingAddress
 from .types.list_fees_payments_response import ListFeesPaymentsResponse
 from .types.list_payments_request_billing_reason import ListPaymentsRequestBillingReason
+from .types.list_payments_request_billing_reasons_item import ListPaymentsRequestBillingReasonsItem
 from .types.list_payments_request_direction import ListPaymentsRequestDirection
 from .types.list_payments_request_mode import ListPaymentsRequestMode
 from .types.list_payments_request_order import ListPaymentsRequestOrder
+from .types.list_payments_request_payment_methods_item import ListPaymentsRequestPaymentMethodsItem
 from .types.list_payments_request_status import ListPaymentsRequestStatus
+from .types.list_payments_request_statuses_item import ListPaymentsRequestStatusesItem
+from .types.list_payments_request_substatuses_item import ListPaymentsRequestSubstatusesItem
+from .types.list_payments_request_tracking_states_item import ListPaymentsRequestTrackingStatesItem
 from .types.list_payments_response import ListPaymentsResponse
 from .types.update_payments_request_shipping_address import UpdatePaymentsRequestShippingAddress
 
@@ -64,6 +69,30 @@ class PaymentsClient:
         plan_id: typing.Optional[str] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
+        statuses: typing.Optional[
+            typing.Union[ListPaymentsRequestStatusesItem, typing.Sequence[ListPaymentsRequestStatusesItem]]
+        ] = None,
+        substatuses: typing.Optional[
+            typing.Union[ListPaymentsRequestSubstatusesItem, typing.Sequence[ListPaymentsRequestSubstatusesItem]]
+        ] = None,
+        billing_reasons: typing.Optional[
+            typing.Union[ListPaymentsRequestBillingReasonsItem, typing.Sequence[ListPaymentsRequestBillingReasonsItem]]
+        ] = None,
+        currencies: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        plan_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        payment_methods: typing.Optional[
+            typing.Union[ListPaymentsRequestPaymentMethodsItem, typing.Sequence[ListPaymentsRequestPaymentMethodsItem]]
+        ] = None,
+        tracking_states: typing.Optional[
+            typing.Union[ListPaymentsRequestTrackingStatesItem, typing.Sequence[ListPaymentsRequestTrackingStatesItem]]
+        ] = None,
+        refunded_after: typing.Optional[dt.datetime] = None,
+        refunded_before: typing.Optional[dt.datetime] = None,
+        dispute_alerted_after: typing.Optional[dt.datetime] = None,
+        dispute_alerted_before: typing.Optional[dt.datetime] = None,
+        dispute_created_after: typing.Optional[dt.datetime] = None,
+        dispute_created_before: typing.Optional[dt.datetime] = None,
         order: typing.Optional[ListPaymentsRequestOrder] = None,
         direction: typing.Optional[ListPaymentsRequestDirection] = None,
         first: typing.Optional[int] = None,
@@ -116,8 +145,50 @@ class PaymentsClient:
         created_after : typing.Optional[dt.datetime]
             Only payments created after this ISO 8601 timestamp.
 
+        statuses : typing.Optional[typing.Union[ListPaymentsRequestStatusesItem, typing.Sequence[ListPaymentsRequestStatusesItem]]]
+            Only payments in any of these lifecycle states, with the same meanings as `status`. Repeat the parameter to pass several. Combined with `status` when both are sent.
+
+        substatuses : typing.Optional[typing.Union[ListPaymentsRequestSubstatusesItem, typing.Sequence[ListPaymentsRequestSubstatusesItem]]]
+            Only payments whose `substatus` is any of these. Repeat the parameter to pass several. `incomplete` also matches payments that report `incomplete` because no finer status was recorded.
+
+        billing_reasons : typing.Optional[typing.Union[ListPaymentsRequestBillingReasonsItem, typing.Sequence[ListPaymentsRequestBillingReasonsItem]]]
+            Only payments charged for any of these reasons, with the same meanings as `billing_reason`. Repeat the parameter to pass several. Combined with `billing_reason` when both are sent.
+
+        currencies : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only payments presented in any of these three-letter currencies. Repeat the parameter to pass several. Combined with `currency` when both are sent.
+
+        plan_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only payments priced by any of these variants, each prefixed `plan_`. Repeat the parameter to pass several. Combined with `plan_id` when both are sent.
+
+        product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only payments for any of these products, each prefixed `prod_`. Repeat the parameter to pass several. Combined with `product_id` when both are sent.
+
+        payment_methods : typing.Optional[typing.Union[ListPaymentsRequestPaymentMethodsItem, typing.Sequence[ListPaymentsRequestPaymentMethodsItem]]]
+            Only payments paid with any of these methods: a card brand such as `amex`, a wallet such as `apple_pay`, or a payment method type such as `paypal`. Repeat the parameter to pass several.
+
+        tracking_states : typing.Optional[typing.Union[ListPaymentsRequestTrackingStatesItem, typing.Sequence[ListPaymentsRequestTrackingStatesItem]]]
+            Only payments whose shipment is in any of these tracking states, or that still need a tracking number (`needs_tracking`). Repeat the parameter to pass several. Requires `account_id` and the shipment:basic:read permission.
+
+        refunded_after : typing.Optional[dt.datetime]
+            Only payments refunded after this ISO 8601 timestamp.
+
+        refunded_before : typing.Optional[dt.datetime]
+            Only payments refunded before this ISO 8601 timestamp.
+
+        dispute_alerted_after : typing.Optional[dt.datetime]
+            Only payments with a dispute alert after this ISO 8601 timestamp.
+
+        dispute_alerted_before : typing.Optional[dt.datetime]
+            Only payments with a dispute alert before this ISO 8601 timestamp.
+
+        dispute_created_after : typing.Optional[dt.datetime]
+            Only payments with a dispute opened after this ISO 8601 timestamp.
+
+        dispute_created_before : typing.Optional[dt.datetime]
+            Only payments with a dispute opened before this ISO 8601 timestamp.
+
         order : typing.Optional[ListPaymentsRequestOrder]
-            The field to sort by.
+            The field to sort by. `amount` sorts by the amount charged, in the currency it was charged in.
 
         direction : typing.Optional[ListPaymentsRequestDirection]
             The sort direction.
@@ -151,7 +222,11 @@ class PaymentsClient:
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
-        response = client.payments.list()
+        response = client.payments.list(
+            currencies=["eur"],
+            plan_ids=["plan_xxxxxxxxxxxxx"],
+            product_ids=["prod_xxxxxxxxxxxxx"],
+        )
         for item in response:
             yield item
         # alternatively, you can paginate page-by-page
@@ -172,6 +247,20 @@ class PaymentsClient:
             plan_id=plan_id,
             created_before=created_before,
             created_after=created_after,
+            statuses=statuses,
+            substatuses=substatuses,
+            billing_reasons=billing_reasons,
+            currencies=currencies,
+            plan_ids=plan_ids,
+            product_ids=product_ids,
+            payment_methods=payment_methods,
+            tracking_states=tracking_states,
+            refunded_after=refunded_after,
+            refunded_before=refunded_before,
+            dispute_alerted_after=dispute_alerted_after,
+            dispute_alerted_before=dispute_alerted_before,
+            dispute_created_after=dispute_created_after,
+            dispute_created_before=dispute_created_before,
             order=order,
             direction=direction,
             first=first,
@@ -778,6 +867,30 @@ class AsyncPaymentsClient:
         plan_id: typing.Optional[str] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
+        statuses: typing.Optional[
+            typing.Union[ListPaymentsRequestStatusesItem, typing.Sequence[ListPaymentsRequestStatusesItem]]
+        ] = None,
+        substatuses: typing.Optional[
+            typing.Union[ListPaymentsRequestSubstatusesItem, typing.Sequence[ListPaymentsRequestSubstatusesItem]]
+        ] = None,
+        billing_reasons: typing.Optional[
+            typing.Union[ListPaymentsRequestBillingReasonsItem, typing.Sequence[ListPaymentsRequestBillingReasonsItem]]
+        ] = None,
+        currencies: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        plan_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        payment_methods: typing.Optional[
+            typing.Union[ListPaymentsRequestPaymentMethodsItem, typing.Sequence[ListPaymentsRequestPaymentMethodsItem]]
+        ] = None,
+        tracking_states: typing.Optional[
+            typing.Union[ListPaymentsRequestTrackingStatesItem, typing.Sequence[ListPaymentsRequestTrackingStatesItem]]
+        ] = None,
+        refunded_after: typing.Optional[dt.datetime] = None,
+        refunded_before: typing.Optional[dt.datetime] = None,
+        dispute_alerted_after: typing.Optional[dt.datetime] = None,
+        dispute_alerted_before: typing.Optional[dt.datetime] = None,
+        dispute_created_after: typing.Optional[dt.datetime] = None,
+        dispute_created_before: typing.Optional[dt.datetime] = None,
         order: typing.Optional[ListPaymentsRequestOrder] = None,
         direction: typing.Optional[ListPaymentsRequestDirection] = None,
         first: typing.Optional[int] = None,
@@ -830,8 +943,50 @@ class AsyncPaymentsClient:
         created_after : typing.Optional[dt.datetime]
             Only payments created after this ISO 8601 timestamp.
 
+        statuses : typing.Optional[typing.Union[ListPaymentsRequestStatusesItem, typing.Sequence[ListPaymentsRequestStatusesItem]]]
+            Only payments in any of these lifecycle states, with the same meanings as `status`. Repeat the parameter to pass several. Combined with `status` when both are sent.
+
+        substatuses : typing.Optional[typing.Union[ListPaymentsRequestSubstatusesItem, typing.Sequence[ListPaymentsRequestSubstatusesItem]]]
+            Only payments whose `substatus` is any of these. Repeat the parameter to pass several. `incomplete` also matches payments that report `incomplete` because no finer status was recorded.
+
+        billing_reasons : typing.Optional[typing.Union[ListPaymentsRequestBillingReasonsItem, typing.Sequence[ListPaymentsRequestBillingReasonsItem]]]
+            Only payments charged for any of these reasons, with the same meanings as `billing_reason`. Repeat the parameter to pass several. Combined with `billing_reason` when both are sent.
+
+        currencies : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only payments presented in any of these three-letter currencies. Repeat the parameter to pass several. Combined with `currency` when both are sent.
+
+        plan_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only payments priced by any of these variants, each prefixed `plan_`. Repeat the parameter to pass several. Combined with `plan_id` when both are sent.
+
+        product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only payments for any of these products, each prefixed `prod_`. Repeat the parameter to pass several. Combined with `product_id` when both are sent.
+
+        payment_methods : typing.Optional[typing.Union[ListPaymentsRequestPaymentMethodsItem, typing.Sequence[ListPaymentsRequestPaymentMethodsItem]]]
+            Only payments paid with any of these methods: a card brand such as `amex`, a wallet such as `apple_pay`, or a payment method type such as `paypal`. Repeat the parameter to pass several.
+
+        tracking_states : typing.Optional[typing.Union[ListPaymentsRequestTrackingStatesItem, typing.Sequence[ListPaymentsRequestTrackingStatesItem]]]
+            Only payments whose shipment is in any of these tracking states, or that still need a tracking number (`needs_tracking`). Repeat the parameter to pass several. Requires `account_id` and the shipment:basic:read permission.
+
+        refunded_after : typing.Optional[dt.datetime]
+            Only payments refunded after this ISO 8601 timestamp.
+
+        refunded_before : typing.Optional[dt.datetime]
+            Only payments refunded before this ISO 8601 timestamp.
+
+        dispute_alerted_after : typing.Optional[dt.datetime]
+            Only payments with a dispute alert after this ISO 8601 timestamp.
+
+        dispute_alerted_before : typing.Optional[dt.datetime]
+            Only payments with a dispute alert before this ISO 8601 timestamp.
+
+        dispute_created_after : typing.Optional[dt.datetime]
+            Only payments with a dispute opened after this ISO 8601 timestamp.
+
+        dispute_created_before : typing.Optional[dt.datetime]
+            Only payments with a dispute opened before this ISO 8601 timestamp.
+
         order : typing.Optional[ListPaymentsRequestOrder]
-            The field to sort by.
+            The field to sort by. `amount` sorts by the amount charged, in the currency it was charged in.
 
         direction : typing.Optional[ListPaymentsRequestDirection]
             The sort direction.
@@ -870,7 +1025,11 @@ class AsyncPaymentsClient:
 
 
         async def main() -> None:
-            response = await client.payments.list()
+            response = await client.payments.list(
+                currencies=["eur"],
+                plan_ids=["plan_xxxxxxxxxxxxx"],
+                product_ids=["prod_xxxxxxxxxxxxx"],
+            )
             async for item in response:
                 yield item
 
@@ -895,6 +1054,20 @@ class AsyncPaymentsClient:
             plan_id=plan_id,
             created_before=created_before,
             created_after=created_after,
+            statuses=statuses,
+            substatuses=substatuses,
+            billing_reasons=billing_reasons,
+            currencies=currencies,
+            plan_ids=plan_ids,
+            product_ids=product_ids,
+            payment_methods=payment_methods,
+            tracking_states=tracking_states,
+            refunded_after=refunded_after,
+            refunded_before=refunded_before,
+            dispute_alerted_after=dispute_alerted_after,
+            dispute_alerted_before=dispute_alerted_before,
+            dispute_created_after=dispute_created_after,
+            dispute_created_before=dispute_created_before,
             order=order,
             direction=direction,
             first=first,
