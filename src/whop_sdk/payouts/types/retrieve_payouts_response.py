@@ -83,7 +83,7 @@ class RetrievePayoutsResponse(UniversalBaseModel):
 
     id: str = pydantic.Field()
     """
-    Payout ID, prefixed `wdrl_` for a payout returned by `GET /payouts` or `cofr_` for a payout request returned by `POST /payouts`.
+    Payout ID, prefixed `wdrl_` for a payout returned by `GET /payouts`, `cofr_` for a payout request returned by `POST /payouts`, or `pay_` for a payout funded by a card payment that has not been submitted yet.
     """
 
     markup_fee: typing.Optional[str] = pydantic.Field(default=None)

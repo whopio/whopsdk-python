@@ -155,6 +155,7 @@ class PayoutsClient:
         currency: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         notes: typing.Optional[str] = OMIT,
+        payment_method_id: typing.Optional[str] = OMIT,
         platform_covers_fees: typing.Optional[bool] = OMIT,
         quote_token: typing.Optional[str] = OMIT,
         speed: typing.Optional[CreatePayoutsRequestSpeed] = OMIT,
@@ -187,6 +188,9 @@ class PayoutsClient:
 
         notes : typing.Optional[str]
             Free-form notes to attach to the payout, with a maximum of 255 characters. Omit or pass `null` for no notes.
+
+        payment_method_id : typing.Optional[str]
+            A saved card of the account, prefixed `payt_`, to charge for this payout instead of paying from the balance. Requires a `quote_token` from `POST /payouts/quotes` made with the same card and `amount`. Only for business accounts paying a saved recipient in `usd` at `standard` speed. The payout is returned under the card payment's `pay_` id until it is submitted, then `GET /payouts/{id}` returns the submitted payout.
 
         platform_covers_fees : typing.Optional[bool]
             Whether the parent platform covers the payout fee instead of the account being paid out. Omit to use the platform's configured fee coverage policy; pass `false` to opt out of it. `true` is only accepted for accounts that belong to a platform, and requires the platform's policy to cover this payout method's category or a caller authorized to manage the platform's child account fees.
@@ -233,6 +237,7 @@ class PayoutsClient:
             currency=currency,
             metadata=metadata,
             notes=notes,
+            payment_method_id=payment_method_id,
             platform_covers_fees=platform_covers_fees,
             quote_token=quote_token,
             speed=speed,
@@ -262,7 +267,7 @@ class PayoutsClient:
         Parameters
         ----------
         amount : float
-            The amount to pay out in the specified currency. With `payment_method_id`, the amount to charge the card.
+            The amount to pay out in the specified currency.
 
         payout_method_id : str
             The saved payout method to quote (a potk_ identifier).
@@ -579,6 +584,7 @@ class AsyncPayoutsClient:
         currency: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         notes: typing.Optional[str] = OMIT,
+        payment_method_id: typing.Optional[str] = OMIT,
         platform_covers_fees: typing.Optional[bool] = OMIT,
         quote_token: typing.Optional[str] = OMIT,
         speed: typing.Optional[CreatePayoutsRequestSpeed] = OMIT,
@@ -611,6 +617,9 @@ class AsyncPayoutsClient:
 
         notes : typing.Optional[str]
             Free-form notes to attach to the payout, with a maximum of 255 characters. Omit or pass `null` for no notes.
+
+        payment_method_id : typing.Optional[str]
+            A saved card of the account, prefixed `payt_`, to charge for this payout instead of paying from the balance. Requires a `quote_token` from `POST /payouts/quotes` made with the same card and `amount`. Only for business accounts paying a saved recipient in `usd` at `standard` speed. The payout is returned under the card payment's `pay_` id until it is submitted, then `GET /payouts/{id}` returns the submitted payout.
 
         platform_covers_fees : typing.Optional[bool]
             Whether the parent platform covers the payout fee instead of the account being paid out. Omit to use the platform's configured fee coverage policy; pass `false` to opt out of it. `true` is only accepted for accounts that belong to a platform, and requires the platform's policy to cover this payout method's category or a caller authorized to manage the platform's child account fees.
@@ -665,6 +674,7 @@ class AsyncPayoutsClient:
             currency=currency,
             metadata=metadata,
             notes=notes,
+            payment_method_id=payment_method_id,
             platform_covers_fees=platform_covers_fees,
             quote_token=quote_token,
             speed=speed,
@@ -694,7 +704,7 @@ class AsyncPayoutsClient:
         Parameters
         ----------
         amount : float
-            The amount to pay out in the specified currency. With `payment_method_id`, the amount to charge the card.
+            The amount to pay out in the specified currency.
 
         payout_method_id : str
             The saved payout method to quote (a potk_ identifier).

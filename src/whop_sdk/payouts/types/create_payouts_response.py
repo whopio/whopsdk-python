@@ -72,7 +72,7 @@ class CreatePayoutsResponse(UniversalBaseModel):
 
     id: str = pydantic.Field()
     """
-    Payout ID, prefixed `wdrl_` — the id POST returns is the id GET /payouts lists. Conversion requests created before this version keep answering under their `cofr_` id.
+    Payout ID, prefixed `wdrl_` — the id POST returns is the id GET /payouts lists. Conversion requests created before this version keep answering under their `cofr_` id. A payout paid from a card with `payment_method_id` answers under its card payment's `pay_` id until it is submitted.
     """
 
     markup_fee: str = pydantic.Field()
