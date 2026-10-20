@@ -30,7 +30,7 @@ class Refund(UniversalBaseModel):
 
     failure_message: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The provider's own explanation of the failure, or null.
+    A merchant-facing explanation of why the refund failed, in the request's language. Null unless the refund failed or was canceled.
     """
 
     failure_reason: typing.Optional[RefundFailureReason] = pydantic.Field(default=None)
