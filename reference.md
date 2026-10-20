@@ -49382,7 +49382,7 @@ Required scopes depend on the preferences being updated:
 | Preferences | Required scope |
 | --- | --- |
 | `ads_payment_methods`, `ads_reporting_currency`, `ads_scheduling_timezone`, `ads_triple_whale_integration`, `ads_certifications` | `ad_campaign:create` |
-| `cards_auto_top_up`, `cards_notifications` | `payout:account:update` |
+| `cards_auto_top_up`, `cards_notifications`, `covers_connected_account_negative_balances` | `payout:account:update` |
 | `dispute_fighter_enabled` | `payment:dispute` |
 | `economic_intelligence_duration_key`, `economic_intelligence_auto_renew` | `company:update` |
 | `feedback_options` | `company:manage_checkout` |
@@ -49485,6 +49485,14 @@ client.accounts.preferences.update(
 <dd>
 
 **cards_notifications:** `typing.Optional[bool]` — Whether Whop Card notifications reach this account's team. Set it to `false` to stop every card email and push notification for the account — application status, verification and action-required alerts, card-ready alerts, declines, large charges, and cashback summaries. Cardholder onboarding invitations still send, because they carry the only link an invited cardholder can onboard with. Requesting a card is rejected while notifications are off, since the request reaches nobody. Cards on personal accounts are unaffected. Requires a cards balance on the account and the `payout:account:update` scope on your API key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**covers_connected_account_negative_balances:** `typing.Optional[bool]` — Whether this account covers its connected accounts' negative balances. When a connected account's balance drops below zero (from refunds, disputes, or fees), this account's available balance in the same currency pays it back, up to what is available. Only accounts with connected accounts can set it. Requires the `payout:account:update` scope on your API key.
     
 </dd>
 </dl>
