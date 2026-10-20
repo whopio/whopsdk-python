@@ -48,6 +48,7 @@ if typing.TYPE_CHECKING:
     from .dm_members.client import AsyncDmMembersClient, DmMembersClient
     from .domains.client import AsyncDomainsClient, DomainsClient
     from .economic_intelligence.client import AsyncEconomicIntelligenceClient, EconomicIntelligenceClient
+    from .email_addresses.client import AsyncEmailAddressesClient, EmailAddressesClient
     from .events.client import AsyncEventsClient, EventsClient
     from .experiences.client import AsyncExperiencesClient, ExperiencesClient
     from .experiments.client import AsyncExperimentsClient, ExperimentsClient
@@ -231,6 +232,7 @@ class Whop:
         self._dm_members: typing.Optional[DmMembersClient] = None
         self._domains: typing.Optional[DomainsClient] = None
         self._economic_intelligence: typing.Optional[EconomicIntelligenceClient] = None
+        self._email_addresses: typing.Optional[EmailAddressesClient] = None
         self._events: typing.Optional[EventsClient] = None
         self._experiences: typing.Optional[ExperiencesClient] = None
         self._experiments: typing.Optional[ExperimentsClient] = None
@@ -590,6 +592,14 @@ class Whop:
 
             self._economic_intelligence = EconomicIntelligenceClient(client_wrapper=self._client_wrapper)
         return self._economic_intelligence
+
+    @property
+    def email_addresses(self):
+        if self._email_addresses is None:
+            from .email_addresses.client import EmailAddressesClient  # noqa: E402
+
+            self._email_addresses = EmailAddressesClient(client_wrapper=self._client_wrapper)
+        return self._email_addresses
 
     @property
     def events(self):
@@ -1179,6 +1189,7 @@ class AsyncWhop:
         self._dm_members: typing.Optional[AsyncDmMembersClient] = None
         self._domains: typing.Optional[AsyncDomainsClient] = None
         self._economic_intelligence: typing.Optional[AsyncEconomicIntelligenceClient] = None
+        self._email_addresses: typing.Optional[AsyncEmailAddressesClient] = None
         self._events: typing.Optional[AsyncEventsClient] = None
         self._experiences: typing.Optional[AsyncExperiencesClient] = None
         self._experiments: typing.Optional[AsyncExperimentsClient] = None
@@ -1538,6 +1549,14 @@ class AsyncWhop:
 
             self._economic_intelligence = AsyncEconomicIntelligenceClient(client_wrapper=self._client_wrapper)
         return self._economic_intelligence
+
+    @property
+    def email_addresses(self):
+        if self._email_addresses is None:
+            from .email_addresses.client import AsyncEmailAddressesClient  # noqa: E402
+
+            self._email_addresses = AsyncEmailAddressesClient(client_wrapper=self._client_wrapper)
+        return self._email_addresses
 
     @property
     def events(self):

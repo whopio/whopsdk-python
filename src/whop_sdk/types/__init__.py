@@ -549,6 +549,7 @@ if typing.TYPE_CHECKING:
     from .economic_intelligence_operation import EconomicIntelligenceOperation
     from .economic_intelligence_sentiment import EconomicIntelligenceSentiment
     from .economic_intelligence_status import EconomicIntelligenceStatus
+    from .email_address import EmailAddress
     from .embed_types import EmbedTypes
     from .entry import Entry
     from .entry_custom_field_responses_item import EntryCustomFieldResponsesItem
@@ -2084,6 +2085,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "EconomicIntelligenceOperation": ".economic_intelligence_operation",
     "EconomicIntelligenceSentiment": ".economic_intelligence_sentiment",
     "EconomicIntelligenceStatus": ".economic_intelligence_status",
+    "EmailAddress": ".email_address",
     "EmbedTypes": ".embed_types",
     "Entry": ".entry",
     "EntryCustomFieldResponsesItem": ".entry_custom_field_responses_item",
@@ -3517,6 +3519,7 @@ __all__ = [
     "EconomicIntelligenceOperation",
     "EconomicIntelligenceSentiment",
     "EconomicIntelligenceStatus",
+    "EmailAddress",
     "EmbedTypes",
     "Entry",
     "EntryCustomFieldResponsesItem",
