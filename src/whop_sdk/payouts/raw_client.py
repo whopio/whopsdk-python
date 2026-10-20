@@ -379,6 +379,7 @@ class RawPayoutsClient:
         payout_method_id: str,
         account_id: typing.Optional[str] = OMIT,
         currency: typing.Optional[str] = OMIT,
+        payment_method_id: typing.Optional[str] = OMIT,
         platform_covers_fees: typing.Optional[bool] = OMIT,
         speed: typing.Optional[CreateQuotePayoutsRequestSpeed] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
@@ -391,7 +392,7 @@ class RawPayoutsClient:
         Parameters
         ----------
         amount : float
-            The amount to pay out in the specified currency.
+            The amount to pay out in the specified currency. With `payment_method_id`, the amount to charge the card.
 
         payout_method_id : str
             The saved payout method to quote (a potk_ identifier).
@@ -401,6 +402,9 @@ class RawPayoutsClient:
 
         currency : typing.Optional[str]
             The currency to pay out. When omitted, uses `usd` if that balance can cover a withdrawal, otherwise the account's only other funded currency.
+
+        payment_method_id : typing.Optional[str]
+            A saved card of the account, prefixed `payt_`, to quote paying this payout from. The quote's `amount` is the card charge, `fee` adds the estimated card fees to the payout fee, and `net_amount` is what the recipient receives.
 
         platform_covers_fees : typing.Optional[bool]
             Whether the parent platform covers the payout fee instead of the account being paid out.
@@ -430,6 +434,7 @@ class RawPayoutsClient:
                 "account_id": account_id,
                 "amount": amount,
                 "currency": currency,
+                "payment_method_id": payment_method_id,
                 "payout_method_id": payout_method_id,
                 "platform_covers_fees": platform_covers_fees,
                 "speed": speed,
@@ -1038,6 +1043,7 @@ class AsyncRawPayoutsClient:
         payout_method_id: str,
         account_id: typing.Optional[str] = OMIT,
         currency: typing.Optional[str] = OMIT,
+        payment_method_id: typing.Optional[str] = OMIT,
         platform_covers_fees: typing.Optional[bool] = OMIT,
         speed: typing.Optional[CreateQuotePayoutsRequestSpeed] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
@@ -1050,7 +1056,7 @@ class AsyncRawPayoutsClient:
         Parameters
         ----------
         amount : float
-            The amount to pay out in the specified currency.
+            The amount to pay out in the specified currency. With `payment_method_id`, the amount to charge the card.
 
         payout_method_id : str
             The saved payout method to quote (a potk_ identifier).
@@ -1060,6 +1066,9 @@ class AsyncRawPayoutsClient:
 
         currency : typing.Optional[str]
             The currency to pay out. When omitted, uses `usd` if that balance can cover a withdrawal, otherwise the account's only other funded currency.
+
+        payment_method_id : typing.Optional[str]
+            A saved card of the account, prefixed `payt_`, to quote paying this payout from. The quote's `amount` is the card charge, `fee` adds the estimated card fees to the payout fee, and `net_amount` is what the recipient receives.
 
         platform_covers_fees : typing.Optional[bool]
             Whether the parent platform covers the payout fee instead of the account being paid out.
@@ -1089,6 +1098,7 @@ class AsyncRawPayoutsClient:
                 "account_id": account_id,
                 "amount": amount,
                 "currency": currency,
+                "payment_method_id": payment_method_id,
                 "payout_method_id": payout_method_id,
                 "platform_covers_fees": platform_covers_fees,
                 "speed": speed,

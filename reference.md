@@ -34128,7 +34128,7 @@ client.payouts.create_quote(
 <dl>
 <dd>
 
-**amount:** `float` — The amount to pay out in the specified currency.
+**amount:** `float` — The amount to pay out in the specified currency. With `payment_method_id`, the amount to charge the card.
     
 </dd>
 </dl>
@@ -34153,6 +34153,14 @@ client.payouts.create_quote(
 <dd>
 
 **currency:** `typing.Optional[str]` — The currency to pay out. When omitted, uses `usd` if that balance can cover a withdrawal, otherwise the account's only other funded currency.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment_method_id:** `typing.Optional[str]` — A saved card of the account, prefixed `payt_`, to quote paying this payout from. The quote's `amount` is the card charge, `fee` adds the estimated card fees to the payout fee, and `net_amount` is what the recipient receives.
     
 </dd>
 </dl>
