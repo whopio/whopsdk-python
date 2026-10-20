@@ -45,6 +45,7 @@ class WaitlistEntriesClient:
         plan_id: typing.Optional[str] = None,
         account_id: typing.Optional[str] = None,
         product_id: typing.Optional[str] = None,
+        buyer_account_id: typing.Optional[str] = None,
         status: typing.Optional[ListWaitlistEntriesRequestStatus] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
@@ -53,7 +54,7 @@ class WaitlistEntriesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[WaitlistEntry, ListWaitlistEntriesResponse]:
         """
-        Lists the waitlist signups you can see. `waitlist_entry:read` returns the user's own signups and `plan:waitlist:read` returns signups to the seller accounts they are authorized on; with both, you get both sets. Account credentials see only their own account's signups.
+        Lists the waitlist signups you can see. `waitlist_entry:read` returns your own signups, and `plan:waitlist:read` returns signups to the seller accounts you are authorized on; with both, you get both sets. Signups submitted on behalf of an account are not in this list; pass `buyer_account_id` to list them instead, which needs `waitlist_entry:read` on that account. Account credentials see the signups submitted to their own account, and pass their own account as `buyer_account_id` to see the ones it submitted.
 
         Parameters
         ----------
@@ -77,6 +78,9 @@ class WaitlistEntriesClient:
 
         product_id : typing.Optional[str]
             Only return signups for variants on this product, prefixed `prod_`.
+
+        buyer_account_id : typing.Optional[str]
+            List the signups submitted on behalf of this account, prefixed `biz_`, instead of your own and seller signups. Requires `waitlist_entry:read` on the account. The other filters still apply.
 
         status : typing.Optional[ListWaitlistEntriesRequestStatus]
             Only return signups in this state. Canceled signups are returned only when `status` is `canceled`.
@@ -125,6 +129,7 @@ class WaitlistEntriesClient:
             plan_id=plan_id,
             account_id=account_id,
             product_id=product_id,
+            buyer_account_id=buyer_account_id,
             status=status,
             created_before=created_before,
             created_after=created_after,
@@ -137,6 +142,7 @@ class WaitlistEntriesClient:
         self,
         *,
         plan_id: str,
+        buyer_account_id: typing.Optional[str] = OMIT,
         custom_field_responses: typing.Optional[
             typing.Sequence[CreateWaitlistEntriesRequestCustomFieldResponsesItem]
         ] = OMIT,
@@ -144,12 +150,15 @@ class WaitlistEntriesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> WaitlistEntry:
         """
-        Joins a free waitlist variant as the authenticated user. Requires `waitlist_entry:create`. Joining again returns the existing pending signup, or the approved one while its membership is valid. Paid variants are rejected; joining collects no payment method and grants no membership.
+        Joins a free waitlist variant as the authenticated user, or on behalf of an account with `buyer_account_id`. Requires `waitlist_entry:create`, on that account when one is given. Joining again returns the existing pending signup, or the approved one while its membership is valid. Paid variants are rejected; joining collects no payment method and grants no membership.
 
         Parameters
         ----------
         plan_id : str
             The free waitlist variant to join, prefixed `plan_`.
+
+        buyer_account_id : typing.Optional[str]
+            The account to join on behalf of, prefixed `biz_`. Leave it out to join as yourself. Required with an account credential, which passes its own account and records the account's owner as the user who joined.
 
         custom_field_responses : typing.Optional[typing.Sequence[CreateWaitlistEntriesRequestCustomFieldResponsesItem]]
             Answers to the variant's checkout questions. Every required question must be answered.
@@ -180,6 +189,7 @@ class WaitlistEntriesClient:
         """
         _response = self._raw_client.create(
             plan_id=plan_id,
+            buyer_account_id=buyer_account_id,
             custom_field_responses=custom_field_responses,
             metadata=metadata,
             request_options=request_options,
@@ -232,7 +242,7 @@ class WaitlistEntriesClient:
 
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> WaitlistEntry:
         """
-        Retrieves a signup the caller owns, with `waitlist_entry:read`, or one submitted to an account they can read, with `plan:waitlist:read`.
+        Retrieves your own signup or one submitted on behalf of an account you hold `waitlist_entry:read` on, or one submitted to an account you can read, with `plan:waitlist:read`.
 
         Parameters
         ----------
@@ -298,7 +308,7 @@ class WaitlistEntriesClient:
 
     def cancel(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> WaitlistEntry:
         """
-        Withdraws the caller's own pending signup. Requires `waitlist_entry:cancel`. Does not cancel an approved membership.
+        Withdraws a pending signup: your own, or one submitted on behalf of an account you hold `waitlist_entry:cancel` on. Requires `waitlist_entry:cancel`, on that account for an account's signup. Does not cancel an approved membership.
 
         Parameters
         ----------
@@ -388,6 +398,7 @@ class AsyncWaitlistEntriesClient:
         plan_id: typing.Optional[str] = None,
         account_id: typing.Optional[str] = None,
         product_id: typing.Optional[str] = None,
+        buyer_account_id: typing.Optional[str] = None,
         status: typing.Optional[ListWaitlistEntriesRequestStatus] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
@@ -396,7 +407,7 @@ class AsyncWaitlistEntriesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[WaitlistEntry, ListWaitlistEntriesResponse]:
         """
-        Lists the waitlist signups you can see. `waitlist_entry:read` returns the user's own signups and `plan:waitlist:read` returns signups to the seller accounts they are authorized on; with both, you get both sets. Account credentials see only their own account's signups.
+        Lists the waitlist signups you can see. `waitlist_entry:read` returns your own signups, and `plan:waitlist:read` returns signups to the seller accounts you are authorized on; with both, you get both sets. Signups submitted on behalf of an account are not in this list; pass `buyer_account_id` to list them instead, which needs `waitlist_entry:read` on that account. Account credentials see the signups submitted to their own account, and pass their own account as `buyer_account_id` to see the ones it submitted.
 
         Parameters
         ----------
@@ -420,6 +431,9 @@ class AsyncWaitlistEntriesClient:
 
         product_id : typing.Optional[str]
             Only return signups for variants on this product, prefixed `prod_`.
+
+        buyer_account_id : typing.Optional[str]
+            List the signups submitted on behalf of this account, prefixed `biz_`, instead of your own and seller signups. Requires `waitlist_entry:read` on the account. The other filters still apply.
 
         status : typing.Optional[ListWaitlistEntriesRequestStatus]
             Only return signups in this state. Canceled signups are returned only when `status` is `canceled`.
@@ -477,6 +491,7 @@ class AsyncWaitlistEntriesClient:
             plan_id=plan_id,
             account_id=account_id,
             product_id=product_id,
+            buyer_account_id=buyer_account_id,
             status=status,
             created_before=created_before,
             created_after=created_after,
@@ -489,6 +504,7 @@ class AsyncWaitlistEntriesClient:
         self,
         *,
         plan_id: str,
+        buyer_account_id: typing.Optional[str] = OMIT,
         custom_field_responses: typing.Optional[
             typing.Sequence[CreateWaitlistEntriesRequestCustomFieldResponsesItem]
         ] = OMIT,
@@ -496,12 +512,15 @@ class AsyncWaitlistEntriesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> WaitlistEntry:
         """
-        Joins a free waitlist variant as the authenticated user. Requires `waitlist_entry:create`. Joining again returns the existing pending signup, or the approved one while its membership is valid. Paid variants are rejected; joining collects no payment method and grants no membership.
+        Joins a free waitlist variant as the authenticated user, or on behalf of an account with `buyer_account_id`. Requires `waitlist_entry:create`, on that account when one is given. Joining again returns the existing pending signup, or the approved one while its membership is valid. Paid variants are rejected; joining collects no payment method and grants no membership.
 
         Parameters
         ----------
         plan_id : str
             The free waitlist variant to join, prefixed `plan_`.
+
+        buyer_account_id : typing.Optional[str]
+            The account to join on behalf of, prefixed `biz_`. Leave it out to join as yourself. Required with an account credential, which passes its own account and records the account's owner as the user who joined.
 
         custom_field_responses : typing.Optional[typing.Sequence[CreateWaitlistEntriesRequestCustomFieldResponsesItem]]
             Answers to the variant's checkout questions. Every required question must be answered.
@@ -540,6 +559,7 @@ class AsyncWaitlistEntriesClient:
         """
         _response = await self._raw_client.create(
             plan_id=plan_id,
+            buyer_account_id=buyer_account_id,
             custom_field_responses=custom_field_responses,
             metadata=metadata,
             request_options=request_options,
@@ -600,7 +620,7 @@ class AsyncWaitlistEntriesClient:
 
     async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> WaitlistEntry:
         """
-        Retrieves a signup the caller owns, with `waitlist_entry:read`, or one submitted to an account they can read, with `plan:waitlist:read`.
+        Retrieves your own signup or one submitted on behalf of an account you hold `waitlist_entry:read` on, or one submitted to an account you can read, with `plan:waitlist:read`.
 
         Parameters
         ----------
@@ -682,7 +702,7 @@ class AsyncWaitlistEntriesClient:
 
     async def cancel(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> WaitlistEntry:
         """
-        Withdraws the caller's own pending signup. Requires `waitlist_entry:cancel`. Does not cancel an approved membership.
+        Withdraws a pending signup: your own, or one submitted on behalf of an account you hold `waitlist_entry:cancel` on. Requires `waitlist_entry:cancel`, on that account for an account's signup. Does not cancel an approved membership.
 
         Parameters
         ----------

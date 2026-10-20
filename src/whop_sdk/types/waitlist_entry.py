@@ -68,7 +68,7 @@ class WaitlistEntry(UniversalBaseModel):
 
     user_id: str = pydantic.Field()
     """
-    The user who submitted this signup, prefixed `user_`.
+    The user who submitted this signup, prefixed `user_`. For a signup an account's own credential submitted, the account's owner.
     """
 
     if IS_PYDANTIC_V2:
