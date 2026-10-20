@@ -59,6 +59,7 @@ if typing.TYPE_CHECKING:
     from .files.client import AsyncFilesClient, FilesClient
     from .financial_activity.client import AsyncFinancialActivityClient, FinancialActivityClient
     from .financial_reports.client import AsyncFinancialReportsClient, FinancialReportsClient
+    from .financing_applications.client import AsyncFinancingApplicationsClient, FinancingApplicationsClient
     from .forum_posts.client import AsyncForumPostsClient, ForumPostsClient
     from .forums.client import AsyncForumsClient, ForumsClient
     from .identity_profiles.client import AsyncIdentityProfilesClient, IdentityProfilesClient
@@ -243,6 +244,7 @@ class Whop:
         self._files: typing.Optional[FilesClient] = None
         self._financial_activity: typing.Optional[FinancialActivityClient] = None
         self._financial_reports: typing.Optional[FinancialReportsClient] = None
+        self._financing_applications: typing.Optional[FinancingApplicationsClient] = None
         self._forum_posts: typing.Optional[ForumPostsClient] = None
         self._forums: typing.Optional[ForumsClient] = None
         self._identity_profiles: typing.Optional[IdentityProfilesClient] = None
@@ -680,6 +682,14 @@ class Whop:
 
             self._financial_reports = FinancialReportsClient(client_wrapper=self._client_wrapper)
         return self._financial_reports
+
+    @property
+    def financing_applications(self):
+        if self._financing_applications is None:
+            from .financing_applications.client import FinancingApplicationsClient  # noqa: E402
+
+            self._financing_applications = FinancingApplicationsClient(client_wrapper=self._client_wrapper)
+        return self._financing_applications
 
     @property
     def forum_posts(self):
@@ -1200,6 +1210,7 @@ class AsyncWhop:
         self._files: typing.Optional[AsyncFilesClient] = None
         self._financial_activity: typing.Optional[AsyncFinancialActivityClient] = None
         self._financial_reports: typing.Optional[AsyncFinancialReportsClient] = None
+        self._financing_applications: typing.Optional[AsyncFinancingApplicationsClient] = None
         self._forum_posts: typing.Optional[AsyncForumPostsClient] = None
         self._forums: typing.Optional[AsyncForumsClient] = None
         self._identity_profiles: typing.Optional[AsyncIdentityProfilesClient] = None
@@ -1637,6 +1648,14 @@ class AsyncWhop:
 
             self._financial_reports = AsyncFinancialReportsClient(client_wrapper=self._client_wrapper)
         return self._financial_reports
+
+    @property
+    def financing_applications(self):
+        if self._financing_applications is None:
+            from .financing_applications.client import AsyncFinancingApplicationsClient  # noqa: E402
+
+            self._financing_applications = AsyncFinancingApplicationsClient(client_wrapper=self._client_wrapper)
+        return self._financing_applications
 
     @property
     def forum_posts(self):

@@ -3,8 +3,8 @@
 import typing
 
 import pydantic
-from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ....types.financing_application import FinancingApplication
+from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ...types.financing_application import FinancingApplication
 from .list_financing_applications_response_page_info import ListFinancingApplicationsResponsePageInfo
 
 

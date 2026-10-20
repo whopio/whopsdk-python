@@ -2,10 +2,10 @@
 
 import typing
 
-from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
-from ...core.pagination import AsyncPager, SyncPager
-from ...core.request_options import RequestOptions
-from ...types.financing_application import FinancingApplication
+from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from ..core.pagination import AsyncPager, SyncPager
+from ..core.request_options import RequestOptions
+from ..types.financing_application import FinancingApplication
 from .raw_client import AsyncRawFinancingApplicationsClient, RawFinancingApplicationsClient
 from .types.list_financing_applications_request_direction import ListFinancingApplicationsRequestDirection
 from .types.list_financing_applications_request_order import ListFinancingApplicationsRequestOrder
@@ -37,8 +37,8 @@ class FinancingApplicationsClient:
 
     def list(
         self,
-        account_id: str,
         *,
+        account_id: typing.Optional[str] = None,
         status: typing.Optional[ListFinancingApplicationsRequestStatus] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
@@ -51,12 +51,12 @@ class FinancingApplicationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[FinancingApplication, ListFinancingApplicationsResponse]:
         """
-        Lists payment-financing applications for an account. Account credentials can list their own account and its direct connected accounts, but not deeper descendants; user credentials need read access to the account.
+        Lists payment-financing applications. Without `account_id`, an account credential lists its own account and its direct connected accounts, but not deeper descendants, and a user credential lists every account it can read applications for.
 
         Parameters
         ----------
-        account_id : str
-            Merchant account ID, prefixed `biz_`.
+        account_id : typing.Optional[str]
+            Only applications for this account, prefixed `biz_`.
 
         status : typing.Optional[ListFinancingApplicationsRequestStatus]
             Only applications in this review state.
@@ -102,9 +102,7 @@ class FinancingApplicationsClient:
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
-        response = client.accounts.financing_applications.list(
-            account_id="account_id",
-        )
+        response = client.financing_applications.list()
         for item in response:
             yield item
         # alternatively, you can paginate page-by-page
@@ -112,7 +110,7 @@ class FinancingApplicationsClient:
             yield page
         """
         return self._raw_client.list(
-            account_id,
+            account_id=account_id,
             status=status,
             created_before=created_before,
             created_after=created_after,
@@ -126,15 +124,15 @@ class FinancingApplicationsClient:
         )
 
     def create(
-        self, account_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, *, account_id: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
     ) -> FinancingApplication:
         """
         Starts an application for payment-financing approval, or returns the account's open one: an application in `awaiting_review` takes precedence over one in `requires_collection`, and the open application is reused across different `Idempotency-Key` values. Creating an application does not submit it for review. The account must have a Whop balance set up, and accounts in restricted industries cannot apply. Once an application closes, the account can apply again.
 
         Parameters
         ----------
-        account_id : str
-            Merchant account ID, prefixed `biz_`.
+        account_id : typing.Optional[str]
+            The account applying, prefixed `biz_`. Defaults to the account behind an account credential; required with a user credential.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -153,24 +151,17 @@ class FinancingApplicationsClient:
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
-        client.accounts.financing_applications.create(
-            account_id="account_id",
-        )
+        client.financing_applications.create()
         """
-        _response = self._raw_client.create(account_id, request_options=request_options)
+        _response = self._raw_client.create(account_id=account_id, request_options=request_options)
         return _response.data
 
-    def retrieve(
-        self, account_id: str, id: str, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> FinancingApplication:
+    def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> FinancingApplication:
         """
         Retrieves a payment-financing application with its review state, requirements, saved answers, documents, current terms, and review feedback. Requires read access to the account that owns it.
 
         Parameters
         ----------
-        account_id : str
-            Merchant account ID, prefixed `biz_`.
-
         id : str
             Financing application ID, prefixed `inrq_`.
 
@@ -191,17 +182,15 @@ class FinancingApplicationsClient:
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
-        client.accounts.financing_applications.retrieve(
-            account_id="account_id",
+        client.financing_applications.retrieve(
             id="id",
         )
         """
-        _response = self._raw_client.retrieve(account_id, id, request_options=request_options)
+        _response = self._raw_client.retrieve(id, request_options=request_options)
         return _response.data
 
     def update(
         self,
-        account_id: str,
         id: str,
         *,
         answers: typing.Sequence[UpdateFinancingApplicationsRequestAnswersItem],
@@ -212,9 +201,6 @@ class FinancingApplicationsClient:
 
         Parameters
         ----------
-        account_id : str
-            Merchant account ID, prefixed `biz_`.
-
         id : str
             Financing application ID, prefixed `inrq_`.
 
@@ -231,7 +217,7 @@ class FinancingApplicationsClient:
         Examples
         --------
         from whop_sdk import Whop
-        from whop_sdk.accounts.financing_applications import (
+        from whop_sdk.financing_applications import (
             UpdateFinancingApplicationsRequestAnswersItem,
         )
 
@@ -240,8 +226,7 @@ class FinancingApplicationsClient:
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
-        client.accounts.financing_applications.update(
-            account_id="account_id",
+        client.financing_applications.update(
             id="id",
             answers=[
                 UpdateFinancingApplicationsRequestAnswersItem(
@@ -250,12 +235,11 @@ class FinancingApplicationsClient:
             ],
         )
         """
-        _response = self._raw_client.update(account_id, id, answers=answers, request_options=request_options)
+        _response = self._raw_client.update(id, answers=answers, request_options=request_options)
         return _response.data
 
     def submit(
         self,
-        account_id: str,
         id: str,
         *,
         merchant_acceptance: SubmitFinancingApplicationsRequestMerchantAcceptance,
@@ -266,9 +250,6 @@ class FinancingApplicationsClient:
 
         Parameters
         ----------
-        account_id : str
-            Merchant account ID, prefixed `biz_`.
-
         id : str
             Financing application ID, prefixed `inrq_`.
 
@@ -285,7 +266,7 @@ class FinancingApplicationsClient:
         Examples
         --------
         from whop_sdk import Whop
-        from whop_sdk.accounts.financing_applications import (
+        from whop_sdk.financing_applications import (
             SubmitFinancingApplicationsRequestMerchantAcceptance,
         )
 
@@ -294,8 +275,7 @@ class FinancingApplicationsClient:
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
-        client.accounts.financing_applications.submit(
-            account_id="account_id",
+        client.financing_applications.submit(
             id="id",
             merchant_acceptance=SubmitFinancingApplicationsRequestMerchantAcceptance(
                 accepted=True,
@@ -304,7 +284,7 @@ class FinancingApplicationsClient:
         )
         """
         _response = self._raw_client.submit(
-            account_id, id, merchant_acceptance=merchant_acceptance, request_options=request_options
+            id, merchant_acceptance=merchant_acceptance, request_options=request_options
         )
         return _response.data
 
@@ -326,8 +306,8 @@ class AsyncFinancingApplicationsClient:
 
     async def list(
         self,
-        account_id: str,
         *,
+        account_id: typing.Optional[str] = None,
         status: typing.Optional[ListFinancingApplicationsRequestStatus] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
@@ -340,12 +320,12 @@ class AsyncFinancingApplicationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[FinancingApplication, ListFinancingApplicationsResponse]:
         """
-        Lists payment-financing applications for an account. Account credentials can list their own account and its direct connected accounts, but not deeper descendants; user credentials need read access to the account.
+        Lists payment-financing applications. Without `account_id`, an account credential lists its own account and its direct connected accounts, but not deeper descendants, and a user credential lists every account it can read applications for.
 
         Parameters
         ----------
-        account_id : str
-            Merchant account ID, prefixed `biz_`.
+        account_id : typing.Optional[str]
+            Only applications for this account, prefixed `biz_`.
 
         status : typing.Optional[ListFinancingApplicationsRequestStatus]
             Only applications in this review state.
@@ -396,9 +376,7 @@ class AsyncFinancingApplicationsClient:
 
 
         async def main() -> None:
-            response = await client.accounts.financing_applications.list(
-                account_id="account_id",
-            )
+            response = await client.financing_applications.list()
             async for item in response:
                 yield item
 
@@ -410,7 +388,7 @@ class AsyncFinancingApplicationsClient:
         asyncio.run(main())
         """
         return await self._raw_client.list(
-            account_id,
+            account_id=account_id,
             status=status,
             created_before=created_before,
             created_after=created_after,
@@ -424,15 +402,15 @@ class AsyncFinancingApplicationsClient:
         )
 
     async def create(
-        self, account_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, *, account_id: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
     ) -> FinancingApplication:
         """
         Starts an application for payment-financing approval, or returns the account's open one: an application in `awaiting_review` takes precedence over one in `requires_collection`, and the open application is reused across different `Idempotency-Key` values. Creating an application does not submit it for review. The account must have a Whop balance set up, and accounts in restricted industries cannot apply. Once an application closes, the account can apply again.
 
         Parameters
         ----------
-        account_id : str
-            Merchant account ID, prefixed `biz_`.
+        account_id : typing.Optional[str]
+            The account applying, prefixed `biz_`. Defaults to the account behind an account credential; required with a user credential.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -456,27 +434,22 @@ class AsyncFinancingApplicationsClient:
 
 
         async def main() -> None:
-            await client.accounts.financing_applications.create(
-                account_id="account_id",
-            )
+            await client.financing_applications.create()
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.create(account_id, request_options=request_options)
+        _response = await self._raw_client.create(account_id=account_id, request_options=request_options)
         return _response.data
 
     async def retrieve(
-        self, account_id: str, id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> FinancingApplication:
         """
         Retrieves a payment-financing application with its review state, requirements, saved answers, documents, current terms, and review feedback. Requires read access to the account that owns it.
 
         Parameters
         ----------
-        account_id : str
-            Merchant account ID, prefixed `biz_`.
-
         id : str
             Financing application ID, prefixed `inrq_`.
 
@@ -502,20 +475,18 @@ class AsyncFinancingApplicationsClient:
 
 
         async def main() -> None:
-            await client.accounts.financing_applications.retrieve(
-                account_id="account_id",
+            await client.financing_applications.retrieve(
                 id="id",
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.retrieve(account_id, id, request_options=request_options)
+        _response = await self._raw_client.retrieve(id, request_options=request_options)
         return _response.data
 
     async def update(
         self,
-        account_id: str,
         id: str,
         *,
         answers: typing.Sequence[UpdateFinancingApplicationsRequestAnswersItem],
@@ -526,9 +497,6 @@ class AsyncFinancingApplicationsClient:
 
         Parameters
         ----------
-        account_id : str
-            Merchant account ID, prefixed `biz_`.
-
         id : str
             Financing application ID, prefixed `inrq_`.
 
@@ -547,7 +515,7 @@ class AsyncFinancingApplicationsClient:
         import asyncio
 
         from whop_sdk import AsyncWhop
-        from whop_sdk.accounts.financing_applications import (
+        from whop_sdk.financing_applications import (
             UpdateFinancingApplicationsRequestAnswersItem,
         )
 
@@ -559,8 +527,7 @@ class AsyncFinancingApplicationsClient:
 
 
         async def main() -> None:
-            await client.accounts.financing_applications.update(
-                account_id="account_id",
+            await client.financing_applications.update(
                 id="id",
                 answers=[
                     UpdateFinancingApplicationsRequestAnswersItem(
@@ -572,12 +539,11 @@ class AsyncFinancingApplicationsClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.update(account_id, id, answers=answers, request_options=request_options)
+        _response = await self._raw_client.update(id, answers=answers, request_options=request_options)
         return _response.data
 
     async def submit(
         self,
-        account_id: str,
         id: str,
         *,
         merchant_acceptance: SubmitFinancingApplicationsRequestMerchantAcceptance,
@@ -588,9 +554,6 @@ class AsyncFinancingApplicationsClient:
 
         Parameters
         ----------
-        account_id : str
-            Merchant account ID, prefixed `biz_`.
-
         id : str
             Financing application ID, prefixed `inrq_`.
 
@@ -609,7 +572,7 @@ class AsyncFinancingApplicationsClient:
         import asyncio
 
         from whop_sdk import AsyncWhop
-        from whop_sdk.accounts.financing_applications import (
+        from whop_sdk.financing_applications import (
             SubmitFinancingApplicationsRequestMerchantAcceptance,
         )
 
@@ -621,8 +584,7 @@ class AsyncFinancingApplicationsClient:
 
 
         async def main() -> None:
-            await client.accounts.financing_applications.submit(
-                account_id="account_id",
+            await client.financing_applications.submit(
                 id="id",
                 merchant_acceptance=SubmitFinancingApplicationsRequestMerchantAcceptance(
                     accepted=True,
@@ -634,6 +596,6 @@ class AsyncFinancingApplicationsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.submit(
-            account_id, id, merchant_acceptance=merchant_acceptance, request_options=request_options
+            id, merchant_acceptance=merchant_acceptance, request_options=request_options
         )
         return _response.data

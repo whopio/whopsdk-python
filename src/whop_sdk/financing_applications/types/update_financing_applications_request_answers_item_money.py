@@ -3,7 +3,7 @@
 import typing
 
 import pydantic
-from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .update_financing_applications_request_answers_item_money_currency import (
     UpdateFinancingApplicationsRequestAnswersItemMoneyCurrency,
 )
