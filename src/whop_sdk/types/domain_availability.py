@@ -35,7 +35,7 @@ class DomainAvailability(UniversalBaseModel):
 
     transfer_price: typing.Optional[Money] = pydantic.Field(default=None)
     """
-    What moving the domain to Whop costs if it's registered elsewhere. `null` when it's available or can't be transferred.
+    What moving the domain to Whop costs if it's registered elsewhere, including the year it adds to the domain's registration. `null` when it's available or can't be transferred.
     """
 
     if IS_PYDANTIC_V2:
