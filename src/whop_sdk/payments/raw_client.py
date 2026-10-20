@@ -38,6 +38,13 @@ from .types.list_payments_request_statuses_item import ListPaymentsRequestStatus
 from .types.list_payments_request_substatuses_item import ListPaymentsRequestSubstatusesItem
 from .types.list_payments_request_tracking_states_item import ListPaymentsRequestTrackingStatesItem
 from .types.list_payments_response import ListPaymentsResponse
+from .types.summary_payments_request_billing_reasons_item import SummaryPaymentsRequestBillingReasonsItem
+from .types.summary_payments_request_groups_item import SummaryPaymentsRequestGroupsItem
+from .types.summary_payments_request_payment_methods_item import SummaryPaymentsRequestPaymentMethodsItem
+from .types.summary_payments_request_statuses_item import SummaryPaymentsRequestStatusesItem
+from .types.summary_payments_request_substatuses_item import SummaryPaymentsRequestSubstatusesItem
+from .types.summary_payments_request_tracking_states_item import SummaryPaymentsRequestTrackingStatesItem
+from .types.summary_payments_response import SummaryPaymentsResponse
 from .types.update_payments_request_shipping_address import UpdatePaymentsRequestShippingAddress
 from pydantic import ValidationError
 
@@ -555,6 +562,134 @@ class RawPaymentsClient:
                         ),
                     ),
                 )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def summary(
+        self,
+        *,
+        groups: typing.Optional[
+            typing.Union[SummaryPaymentsRequestGroupsItem, typing.Sequence[SummaryPaymentsRequestGroupsItem]]
+        ] = None,
+        account_id: typing.Optional[str] = None,
+        statuses: typing.Optional[
+            typing.Union[SummaryPaymentsRequestStatusesItem, typing.Sequence[SummaryPaymentsRequestStatusesItem]]
+        ] = None,
+        substatuses: typing.Optional[
+            typing.Union[SummaryPaymentsRequestSubstatusesItem, typing.Sequence[SummaryPaymentsRequestSubstatusesItem]]
+        ] = None,
+        billing_reasons: typing.Optional[
+            typing.Union[
+                SummaryPaymentsRequestBillingReasonsItem, typing.Sequence[SummaryPaymentsRequestBillingReasonsItem]
+            ]
+        ] = None,
+        currencies: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        plan_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        payment_methods: typing.Optional[
+            typing.Union[
+                SummaryPaymentsRequestPaymentMethodsItem, typing.Sequence[SummaryPaymentsRequestPaymentMethodsItem]
+            ]
+        ] = None,
+        tracking_states: typing.Optional[
+            typing.Union[
+                SummaryPaymentsRequestTrackingStatesItem, typing.Sequence[SummaryPaymentsRequestTrackingStatesItem]
+            ]
+        ] = None,
+        created_after: typing.Optional[dt.datetime] = None,
+        created_before: typing.Optional[dt.datetime] = None,
+        query: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[SummaryPaymentsResponse]:
+        """
+        Totals up the same payments the list returns, so you can build status tabs and filter options without paging through them. Takes the same filters as List Payments.
+
+        Parameters
+        ----------
+        groups : typing.Optional[typing.Union[SummaryPaymentsRequestGroupsItem, typing.Sequence[SummaryPaymentsRequestGroupsItem]]]
+            Which breakdowns to return, keyed by these names under `groups`. Repeat the parameter to ask for several; omit it for all of them.
+
+        account_id : typing.Optional[str]
+            Only payments charged by this account, prefixed `biz_`.
+
+        statuses : typing.Optional[typing.Union[SummaryPaymentsRequestStatusesItem, typing.Sequence[SummaryPaymentsRequestStatusesItem]]]
+            Only payments in any of these lifecycle states. Repeat the parameter to pass several.
+
+        substatuses : typing.Optional[typing.Union[SummaryPaymentsRequestSubstatusesItem, typing.Sequence[SummaryPaymentsRequestSubstatusesItem]]]
+            Only payments whose `substatus` is any of these. Repeat the parameter to pass several.
+
+        billing_reasons : typing.Optional[typing.Union[SummaryPaymentsRequestBillingReasonsItem, typing.Sequence[SummaryPaymentsRequestBillingReasonsItem]]]
+            Only payments charged for any of these reasons. Repeat the parameter to pass several.
+
+        currencies : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only payments presented in any of these three-letter currencies. Repeat the parameter to pass several.
+
+        plan_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only payments priced by any of these variants, each prefixed `plan_`. Repeat the parameter to pass several.
+
+        product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only payments for any of these products, each prefixed `prod_`. Repeat the parameter to pass several.
+
+        payment_methods : typing.Optional[typing.Union[SummaryPaymentsRequestPaymentMethodsItem, typing.Sequence[SummaryPaymentsRequestPaymentMethodsItem]]]
+            Only payments paid with any of these methods. Repeat the parameter to pass several.
+
+        tracking_states : typing.Optional[typing.Union[SummaryPaymentsRequestTrackingStatesItem, typing.Sequence[SummaryPaymentsRequestTrackingStatesItem]]]
+            Only payments in any of these tracking states. Requires `account_id` and the shipment:basic:read permission.
+
+        created_after : typing.Optional[dt.datetime]
+            Only payments created after this ISO 8601 timestamp.
+
+        created_before : typing.Optional[dt.datetime]
+            Only payments created before this ISO 8601 timestamp.
+
+        query : typing.Optional[str]
+            Search payments by user ID, membership ID, user email, name, or username.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[SummaryPaymentsResponse]
+            summary returned
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "payments/summary",
+            base_url=self._client_wrapper.get_environment().api,
+            method="GET",
+            params={
+                "groups": groups,
+                "account_id": account_id,
+                "statuses": statuses,
+                "substatuses": substatuses,
+                "billing_reasons": billing_reasons,
+                "currencies": currencies,
+                "plan_ids": plan_ids,
+                "product_ids": product_ids,
+                "payment_methods": payment_methods,
+                "tracking_states": tracking_states,
+                "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                "query": query,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    SummaryPaymentsResponse,
+                    parse_obj_as(
+                        type_=SummaryPaymentsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -2040,6 +2175,134 @@ class AsyncRawPaymentsClient:
                         ),
                     ),
                 )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def summary(
+        self,
+        *,
+        groups: typing.Optional[
+            typing.Union[SummaryPaymentsRequestGroupsItem, typing.Sequence[SummaryPaymentsRequestGroupsItem]]
+        ] = None,
+        account_id: typing.Optional[str] = None,
+        statuses: typing.Optional[
+            typing.Union[SummaryPaymentsRequestStatusesItem, typing.Sequence[SummaryPaymentsRequestStatusesItem]]
+        ] = None,
+        substatuses: typing.Optional[
+            typing.Union[SummaryPaymentsRequestSubstatusesItem, typing.Sequence[SummaryPaymentsRequestSubstatusesItem]]
+        ] = None,
+        billing_reasons: typing.Optional[
+            typing.Union[
+                SummaryPaymentsRequestBillingReasonsItem, typing.Sequence[SummaryPaymentsRequestBillingReasonsItem]
+            ]
+        ] = None,
+        currencies: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        plan_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        payment_methods: typing.Optional[
+            typing.Union[
+                SummaryPaymentsRequestPaymentMethodsItem, typing.Sequence[SummaryPaymentsRequestPaymentMethodsItem]
+            ]
+        ] = None,
+        tracking_states: typing.Optional[
+            typing.Union[
+                SummaryPaymentsRequestTrackingStatesItem, typing.Sequence[SummaryPaymentsRequestTrackingStatesItem]
+            ]
+        ] = None,
+        created_after: typing.Optional[dt.datetime] = None,
+        created_before: typing.Optional[dt.datetime] = None,
+        query: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[SummaryPaymentsResponse]:
+        """
+        Totals up the same payments the list returns, so you can build status tabs and filter options without paging through them. Takes the same filters as List Payments.
+
+        Parameters
+        ----------
+        groups : typing.Optional[typing.Union[SummaryPaymentsRequestGroupsItem, typing.Sequence[SummaryPaymentsRequestGroupsItem]]]
+            Which breakdowns to return, keyed by these names under `groups`. Repeat the parameter to ask for several; omit it for all of them.
+
+        account_id : typing.Optional[str]
+            Only payments charged by this account, prefixed `biz_`.
+
+        statuses : typing.Optional[typing.Union[SummaryPaymentsRequestStatusesItem, typing.Sequence[SummaryPaymentsRequestStatusesItem]]]
+            Only payments in any of these lifecycle states. Repeat the parameter to pass several.
+
+        substatuses : typing.Optional[typing.Union[SummaryPaymentsRequestSubstatusesItem, typing.Sequence[SummaryPaymentsRequestSubstatusesItem]]]
+            Only payments whose `substatus` is any of these. Repeat the parameter to pass several.
+
+        billing_reasons : typing.Optional[typing.Union[SummaryPaymentsRequestBillingReasonsItem, typing.Sequence[SummaryPaymentsRequestBillingReasonsItem]]]
+            Only payments charged for any of these reasons. Repeat the parameter to pass several.
+
+        currencies : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only payments presented in any of these three-letter currencies. Repeat the parameter to pass several.
+
+        plan_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only payments priced by any of these variants, each prefixed `plan_`. Repeat the parameter to pass several.
+
+        product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only payments for any of these products, each prefixed `prod_`. Repeat the parameter to pass several.
+
+        payment_methods : typing.Optional[typing.Union[SummaryPaymentsRequestPaymentMethodsItem, typing.Sequence[SummaryPaymentsRequestPaymentMethodsItem]]]
+            Only payments paid with any of these methods. Repeat the parameter to pass several.
+
+        tracking_states : typing.Optional[typing.Union[SummaryPaymentsRequestTrackingStatesItem, typing.Sequence[SummaryPaymentsRequestTrackingStatesItem]]]
+            Only payments in any of these tracking states. Requires `account_id` and the shipment:basic:read permission.
+
+        created_after : typing.Optional[dt.datetime]
+            Only payments created after this ISO 8601 timestamp.
+
+        created_before : typing.Optional[dt.datetime]
+            Only payments created before this ISO 8601 timestamp.
+
+        query : typing.Optional[str]
+            Search payments by user ID, membership ID, user email, name, or username.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[SummaryPaymentsResponse]
+            summary returned
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "payments/summary",
+            base_url=self._client_wrapper.get_environment().api,
+            method="GET",
+            params={
+                "groups": groups,
+                "account_id": account_id,
+                "statuses": statuses,
+                "substatuses": substatuses,
+                "billing_reasons": billing_reasons,
+                "currencies": currencies,
+                "plan_ids": plan_ids,
+                "product_ids": product_ids,
+                "payment_methods": payment_methods,
+                "tracking_states": tracking_states,
+                "created_after": serialize_datetime(created_after) if created_after is not None else None,
+                "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                "query": query,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    SummaryPaymentsResponse,
+                    parse_obj_as(
+                        type_=SummaryPaymentsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)

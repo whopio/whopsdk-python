@@ -28,6 +28,13 @@ from .types.list_payments_request_statuses_item import ListPaymentsRequestStatus
 from .types.list_payments_request_substatuses_item import ListPaymentsRequestSubstatusesItem
 from .types.list_payments_request_tracking_states_item import ListPaymentsRequestTrackingStatesItem
 from .types.list_payments_response import ListPaymentsResponse
+from .types.summary_payments_request_billing_reasons_item import SummaryPaymentsRequestBillingReasonsItem
+from .types.summary_payments_request_groups_item import SummaryPaymentsRequestGroupsItem
+from .types.summary_payments_request_payment_methods_item import SummaryPaymentsRequestPaymentMethodsItem
+from .types.summary_payments_request_statuses_item import SummaryPaymentsRequestStatusesItem
+from .types.summary_payments_request_substatuses_item import SummaryPaymentsRequestSubstatusesItem
+from .types.summary_payments_request_tracking_states_item import SummaryPaymentsRequestTrackingStatesItem
+from .types.summary_payments_response import SummaryPaymentsResponse
 from .types.update_payments_request_shipping_address import UpdatePaymentsRequestShippingAddress
 
 if typing.TYPE_CHECKING:
@@ -407,6 +414,127 @@ class PaymentsClient:
             plan_id=plan_id,
             promo_code=promo_code,
             promo_code_id=promo_code_id,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def summary(
+        self,
+        *,
+        groups: typing.Optional[
+            typing.Union[SummaryPaymentsRequestGroupsItem, typing.Sequence[SummaryPaymentsRequestGroupsItem]]
+        ] = None,
+        account_id: typing.Optional[str] = None,
+        statuses: typing.Optional[
+            typing.Union[SummaryPaymentsRequestStatusesItem, typing.Sequence[SummaryPaymentsRequestStatusesItem]]
+        ] = None,
+        substatuses: typing.Optional[
+            typing.Union[SummaryPaymentsRequestSubstatusesItem, typing.Sequence[SummaryPaymentsRequestSubstatusesItem]]
+        ] = None,
+        billing_reasons: typing.Optional[
+            typing.Union[
+                SummaryPaymentsRequestBillingReasonsItem, typing.Sequence[SummaryPaymentsRequestBillingReasonsItem]
+            ]
+        ] = None,
+        currencies: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        plan_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        payment_methods: typing.Optional[
+            typing.Union[
+                SummaryPaymentsRequestPaymentMethodsItem, typing.Sequence[SummaryPaymentsRequestPaymentMethodsItem]
+            ]
+        ] = None,
+        tracking_states: typing.Optional[
+            typing.Union[
+                SummaryPaymentsRequestTrackingStatesItem, typing.Sequence[SummaryPaymentsRequestTrackingStatesItem]
+            ]
+        ] = None,
+        created_after: typing.Optional[dt.datetime] = None,
+        created_before: typing.Optional[dt.datetime] = None,
+        query: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SummaryPaymentsResponse:
+        """
+        Totals up the same payments the list returns, so you can build status tabs and filter options without paging through them. Takes the same filters as List Payments.
+
+        Parameters
+        ----------
+        groups : typing.Optional[typing.Union[SummaryPaymentsRequestGroupsItem, typing.Sequence[SummaryPaymentsRequestGroupsItem]]]
+            Which breakdowns to return, keyed by these names under `groups`. Repeat the parameter to ask for several; omit it for all of them.
+
+        account_id : typing.Optional[str]
+            Only payments charged by this account, prefixed `biz_`.
+
+        statuses : typing.Optional[typing.Union[SummaryPaymentsRequestStatusesItem, typing.Sequence[SummaryPaymentsRequestStatusesItem]]]
+            Only payments in any of these lifecycle states. Repeat the parameter to pass several.
+
+        substatuses : typing.Optional[typing.Union[SummaryPaymentsRequestSubstatusesItem, typing.Sequence[SummaryPaymentsRequestSubstatusesItem]]]
+            Only payments whose `substatus` is any of these. Repeat the parameter to pass several.
+
+        billing_reasons : typing.Optional[typing.Union[SummaryPaymentsRequestBillingReasonsItem, typing.Sequence[SummaryPaymentsRequestBillingReasonsItem]]]
+            Only payments charged for any of these reasons. Repeat the parameter to pass several.
+
+        currencies : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only payments presented in any of these three-letter currencies. Repeat the parameter to pass several.
+
+        plan_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only payments priced by any of these variants, each prefixed `plan_`. Repeat the parameter to pass several.
+
+        product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only payments for any of these products, each prefixed `prod_`. Repeat the parameter to pass several.
+
+        payment_methods : typing.Optional[typing.Union[SummaryPaymentsRequestPaymentMethodsItem, typing.Sequence[SummaryPaymentsRequestPaymentMethodsItem]]]
+            Only payments paid with any of these methods. Repeat the parameter to pass several.
+
+        tracking_states : typing.Optional[typing.Union[SummaryPaymentsRequestTrackingStatesItem, typing.Sequence[SummaryPaymentsRequestTrackingStatesItem]]]
+            Only payments in any of these tracking states. Requires `account_id` and the shipment:basic:read permission.
+
+        created_after : typing.Optional[dt.datetime]
+            Only payments created after this ISO 8601 timestamp.
+
+        created_before : typing.Optional[dt.datetime]
+            Only payments created before this ISO 8601 timestamp.
+
+        query : typing.Optional[str]
+            Search payments by user ID, membership ID, user email, name, or username.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SummaryPaymentsResponse
+            summary returned
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-10-15-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.payments.summary(
+            currencies=["usd"],
+            plan_ids=["plan_xxxxxxxxxxxxx"],
+            product_ids=["prod_xxxxxxxxxxxxx"],
+        )
+        """
+        _response = self._raw_client.summary(
+            groups=groups,
+            account_id=account_id,
+            statuses=statuses,
+            substatuses=substatuses,
+            billing_reasons=billing_reasons,
+            currencies=currencies,
+            plan_ids=plan_ids,
+            product_ids=product_ids,
+            payment_methods=payment_methods,
+            tracking_states=tracking_states,
+            created_after=created_after,
+            created_before=created_before,
+            query=query,
             request_options=request_options,
         )
         return _response.data
@@ -1222,6 +1350,135 @@ class AsyncPaymentsClient:
             plan_id=plan_id,
             promo_code=promo_code,
             promo_code_id=promo_code_id,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def summary(
+        self,
+        *,
+        groups: typing.Optional[
+            typing.Union[SummaryPaymentsRequestGroupsItem, typing.Sequence[SummaryPaymentsRequestGroupsItem]]
+        ] = None,
+        account_id: typing.Optional[str] = None,
+        statuses: typing.Optional[
+            typing.Union[SummaryPaymentsRequestStatusesItem, typing.Sequence[SummaryPaymentsRequestStatusesItem]]
+        ] = None,
+        substatuses: typing.Optional[
+            typing.Union[SummaryPaymentsRequestSubstatusesItem, typing.Sequence[SummaryPaymentsRequestSubstatusesItem]]
+        ] = None,
+        billing_reasons: typing.Optional[
+            typing.Union[
+                SummaryPaymentsRequestBillingReasonsItem, typing.Sequence[SummaryPaymentsRequestBillingReasonsItem]
+            ]
+        ] = None,
+        currencies: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        plan_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        payment_methods: typing.Optional[
+            typing.Union[
+                SummaryPaymentsRequestPaymentMethodsItem, typing.Sequence[SummaryPaymentsRequestPaymentMethodsItem]
+            ]
+        ] = None,
+        tracking_states: typing.Optional[
+            typing.Union[
+                SummaryPaymentsRequestTrackingStatesItem, typing.Sequence[SummaryPaymentsRequestTrackingStatesItem]
+            ]
+        ] = None,
+        created_after: typing.Optional[dt.datetime] = None,
+        created_before: typing.Optional[dt.datetime] = None,
+        query: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> SummaryPaymentsResponse:
+        """
+        Totals up the same payments the list returns, so you can build status tabs and filter options without paging through them. Takes the same filters as List Payments.
+
+        Parameters
+        ----------
+        groups : typing.Optional[typing.Union[SummaryPaymentsRequestGroupsItem, typing.Sequence[SummaryPaymentsRequestGroupsItem]]]
+            Which breakdowns to return, keyed by these names under `groups`. Repeat the parameter to ask for several; omit it for all of them.
+
+        account_id : typing.Optional[str]
+            Only payments charged by this account, prefixed `biz_`.
+
+        statuses : typing.Optional[typing.Union[SummaryPaymentsRequestStatusesItem, typing.Sequence[SummaryPaymentsRequestStatusesItem]]]
+            Only payments in any of these lifecycle states. Repeat the parameter to pass several.
+
+        substatuses : typing.Optional[typing.Union[SummaryPaymentsRequestSubstatusesItem, typing.Sequence[SummaryPaymentsRequestSubstatusesItem]]]
+            Only payments whose `substatus` is any of these. Repeat the parameter to pass several.
+
+        billing_reasons : typing.Optional[typing.Union[SummaryPaymentsRequestBillingReasonsItem, typing.Sequence[SummaryPaymentsRequestBillingReasonsItem]]]
+            Only payments charged for any of these reasons. Repeat the parameter to pass several.
+
+        currencies : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only payments presented in any of these three-letter currencies. Repeat the parameter to pass several.
+
+        plan_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only payments priced by any of these variants, each prefixed `plan_`. Repeat the parameter to pass several.
+
+        product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only payments for any of these products, each prefixed `prod_`. Repeat the parameter to pass several.
+
+        payment_methods : typing.Optional[typing.Union[SummaryPaymentsRequestPaymentMethodsItem, typing.Sequence[SummaryPaymentsRequestPaymentMethodsItem]]]
+            Only payments paid with any of these methods. Repeat the parameter to pass several.
+
+        tracking_states : typing.Optional[typing.Union[SummaryPaymentsRequestTrackingStatesItem, typing.Sequence[SummaryPaymentsRequestTrackingStatesItem]]]
+            Only payments in any of these tracking states. Requires `account_id` and the shipment:basic:read permission.
+
+        created_after : typing.Optional[dt.datetime]
+            Only payments created after this ISO 8601 timestamp.
+
+        created_before : typing.Optional[dt.datetime]
+            Only payments created before this ISO 8601 timestamp.
+
+        query : typing.Optional[str]
+            Search payments by user ID, membership ID, user email, name, or username.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        SummaryPaymentsResponse
+            summary returned
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-10-15-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.payments.summary(
+                currencies=["usd"],
+                plan_ids=["plan_xxxxxxxxxxxxx"],
+                product_ids=["prod_xxxxxxxxxxxxx"],
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.summary(
+            groups=groups,
+            account_id=account_id,
+            statuses=statuses,
+            substatuses=substatuses,
+            billing_reasons=billing_reasons,
+            currencies=currencies,
+            plan_ids=plan_ids,
+            product_ids=product_ids,
+            payment_methods=payment_methods,
+            tracking_states=tracking_states,
+            created_after=created_after,
+            created_before=created_before,
+            query=query,
             request_options=request_options,
         )
         return _response.data
