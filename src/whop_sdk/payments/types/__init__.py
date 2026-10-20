@@ -65,6 +65,15 @@ if typing.TYPE_CHECKING:
     from .post_payment_succeeded_payload import PostPaymentSucceededPayload
     from .post_payment_succeeded_payload_api_version import PostPaymentSucceededPayloadApiVersion
     from .post_payment_succeeded_payload_type import PostPaymentSucceededPayloadType
+    from .summary_payments_request_billing_reasons_item import SummaryPaymentsRequestBillingReasonsItem
+    from .summary_payments_request_groups_item import SummaryPaymentsRequestGroupsItem
+    from .summary_payments_request_payment_methods_item import SummaryPaymentsRequestPaymentMethodsItem
+    from .summary_payments_request_statuses_item import SummaryPaymentsRequestStatusesItem
+    from .summary_payments_request_substatuses_item import SummaryPaymentsRequestSubstatusesItem
+    from .summary_payments_request_tracking_states_item import SummaryPaymentsRequestTrackingStatesItem
+    from .summary_payments_response import SummaryPaymentsResponse
+    from .summary_payments_response_groups import SummaryPaymentsResponseGroups
+    from .summary_payments_response_groups_substatus import SummaryPaymentsResponseGroupsSubstatus
     from .update_payments_request_shipping_address import UpdatePaymentsRequestShippingAddress
 _dynamic_imports: typing.Dict[str, str] = {
     "CreatePaymentsRequestLineItemsItem": ".create_payments_request_line_items_item",
@@ -116,6 +125,15 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostPaymentSucceededPayload": ".post_payment_succeeded_payload",
     "PostPaymentSucceededPayloadApiVersion": ".post_payment_succeeded_payload_api_version",
     "PostPaymentSucceededPayloadType": ".post_payment_succeeded_payload_type",
+    "SummaryPaymentsRequestBillingReasonsItem": ".summary_payments_request_billing_reasons_item",
+    "SummaryPaymentsRequestGroupsItem": ".summary_payments_request_groups_item",
+    "SummaryPaymentsRequestPaymentMethodsItem": ".summary_payments_request_payment_methods_item",
+    "SummaryPaymentsRequestStatusesItem": ".summary_payments_request_statuses_item",
+    "SummaryPaymentsRequestSubstatusesItem": ".summary_payments_request_substatuses_item",
+    "SummaryPaymentsRequestTrackingStatesItem": ".summary_payments_request_tracking_states_item",
+    "SummaryPaymentsResponse": ".summary_payments_response",
+    "SummaryPaymentsResponseGroups": ".summary_payments_response_groups",
+    "SummaryPaymentsResponseGroupsSubstatus": ".summary_payments_response_groups_substatus",
     "UpdatePaymentsRequestShippingAddress": ".update_payments_request_shipping_address",
 }
 
@@ -191,5 +209,14 @@ __all__ = [
     "PostPaymentSucceededPayload",
     "PostPaymentSucceededPayloadApiVersion",
     "PostPaymentSucceededPayloadType",
+    "SummaryPaymentsRequestBillingReasonsItem",
+    "SummaryPaymentsRequestGroupsItem",
+    "SummaryPaymentsRequestPaymentMethodsItem",
+    "SummaryPaymentsRequestStatusesItem",
+    "SummaryPaymentsRequestSubstatusesItem",
+    "SummaryPaymentsRequestTrackingStatesItem",
+    "SummaryPaymentsResponse",
+    "SummaryPaymentsResponseGroups",
+    "SummaryPaymentsResponseGroupsSubstatus",
     "UpdatePaymentsRequestShippingAddress",
 ]

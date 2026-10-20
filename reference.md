@@ -33219,6 +33219,183 @@ client.payments.create(
 </dl>
 </details>
 
+<details><summary><code>client.payments.<a href="src/whop_sdk/payments/client.py">summary</a>(...) -> SummaryPaymentsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Totals up the same payments the list returns, so you can build status tabs and filter options without paging through them. Takes the same filters as List Payments.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.payments.summary(
+    currencies=[
+        "usd"
+    ],
+    plan_ids=[
+        "plan_xxxxxxxxxxxxx"
+    ],
+    product_ids=[
+        "prod_xxxxxxxxxxxxx"
+    ],
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**groups:** `typing.Optional[typing.Union[SummaryPaymentsRequestGroupsItem, typing.Sequence[SummaryPaymentsRequestGroupsItem]]]` — Which breakdowns to return, keyed by these names under `groups`. Repeat the parameter to ask for several; omit it for all of them.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — Only payments charged by this account, prefixed `biz_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**statuses:** `typing.Optional[typing.Union[SummaryPaymentsRequestStatusesItem, typing.Sequence[SummaryPaymentsRequestStatusesItem]]]` — Only payments in any of these lifecycle states. Repeat the parameter to pass several.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**substatuses:** `typing.Optional[typing.Union[SummaryPaymentsRequestSubstatusesItem, typing.Sequence[SummaryPaymentsRequestSubstatusesItem]]]` — Only payments whose `substatus` is any of these. Repeat the parameter to pass several.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**billing_reasons:** `typing.Optional[typing.Union[SummaryPaymentsRequestBillingReasonsItem, typing.Sequence[SummaryPaymentsRequestBillingReasonsItem]]]` — Only payments charged for any of these reasons. Repeat the parameter to pass several.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**currencies:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only payments presented in any of these three-letter currencies. Repeat the parameter to pass several.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**plan_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only payments priced by any of these variants, each prefixed `plan_`. Repeat the parameter to pass several.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**product_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only payments for any of these products, each prefixed `prod_`. Repeat the parameter to pass several.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment_methods:** `typing.Optional[typing.Union[SummaryPaymentsRequestPaymentMethodsItem, typing.Sequence[SummaryPaymentsRequestPaymentMethodsItem]]]` — Only payments paid with any of these methods. Repeat the parameter to pass several.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tracking_states:** `typing.Optional[typing.Union[SummaryPaymentsRequestTrackingStatesItem, typing.Sequence[SummaryPaymentsRequestTrackingStatesItem]]]` — Only payments in any of these tracking states. Requires `account_id` and the shipment:basic:read permission.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_after:** `typing.Optional[datetime.datetime]` — Only payments created after this ISO 8601 timestamp.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**created_before:** `typing.Optional[datetime.datetime]` — Only payments created before this ISO 8601 timestamp.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**query:** `typing.Optional[str]` — Search payments by user ID, membership ID, user email, name, or username.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.payments.<a href="src/whop_sdk/payments/client.py">retrieve</a>(...) -> Payment</code></summary>
 <dl>
 <dd>
