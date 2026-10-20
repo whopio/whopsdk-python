@@ -98,6 +98,7 @@ class TimeSeriesClient:
         business_type: typing.Optional[str] = None,
         industry_type: typing.Optional[str] = None,
         product_category: typing.Optional[str] = None,
+        account_country: typing.Optional[str] = None,
         issuer: typing.Optional[str] = None,
         conversion_window: typing.Optional[str] = None,
         mature_only: typing.Optional[bool] = None,
@@ -252,6 +253,9 @@ class TimeSeriesClient:
 
         product_category : typing.Optional[str]
             Filter to one product category, for example `algo_trading_course`. Pair with `breakdown_by=product_category` to split by product category. Available on metrics that list `product_category`.
+
+        account_country : typing.Optional[str]
+            Filter to accounts located in one country, as an ISO 3166-1 alpha-2 code such as `US`. Pair with `breakdown_by=account_country` to split by account country. Available on metrics that list `account_country`.
 
         issuer : typing.Optional[str]
             Filter to one card-issuing bank, named as the processor reports it, for example JPMORGAN CHASE BANK N A, or unknown for payments with no reported bank. Available on metrics that list issuer.
@@ -420,6 +424,7 @@ class TimeSeriesClient:
             business_type=business_type,
             industry_type=industry_type,
             product_category=product_category,
+            account_country=account_country,
             issuer=issuer,
             conversion_window=conversion_window,
             mature_only=mature_only,
@@ -551,6 +556,7 @@ class AsyncTimeSeriesClient:
         business_type: typing.Optional[str] = None,
         industry_type: typing.Optional[str] = None,
         product_category: typing.Optional[str] = None,
+        account_country: typing.Optional[str] = None,
         issuer: typing.Optional[str] = None,
         conversion_window: typing.Optional[str] = None,
         mature_only: typing.Optional[bool] = None,
@@ -705,6 +711,9 @@ class AsyncTimeSeriesClient:
 
         product_category : typing.Optional[str]
             Filter to one product category, for example `algo_trading_course`. Pair with `breakdown_by=product_category` to split by product category. Available on metrics that list `product_category`.
+
+        account_country : typing.Optional[str]
+            Filter to accounts located in one country, as an ISO 3166-1 alpha-2 code such as `US`. Pair with `breakdown_by=account_country` to split by account country. Available on metrics that list `account_country`.
 
         issuer : typing.Optional[str]
             Filter to one card-issuing bank, named as the processor reports it, for example JPMORGAN CHASE BANK N A, or unknown for payments with no reported bank. Available on metrics that list issuer.
@@ -881,6 +890,7 @@ class AsyncTimeSeriesClient:
             business_type=business_type,
             industry_type=industry_type,
             product_category=product_category,
+            account_country=account_country,
             issuer=issuer,
             conversion_window=conversion_window,
             mature_only=mature_only,
