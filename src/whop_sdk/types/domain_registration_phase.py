@@ -3,5 +3,8 @@
 import typing
 
 DomainRegistrationPhase = typing.Union[
-    typing.Literal["awaiting_payment", "ordering", "delegating", "held", "expired", "failed", "releasing"], typing.Any
+    typing.Literal[
+        "awaiting_payment", "ordering", "transferring", "delegating", "held", "expired", "failed", "releasing"
+    ],
+    typing.Any,
 ]
