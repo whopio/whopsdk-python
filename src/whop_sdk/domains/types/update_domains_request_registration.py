@@ -8,7 +8,12 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 class UpdateDomainsRequestRegistration(UniversalBaseModel):
     """
-    Buy the domain through Whop, renew it every year, and let Whop run its DNS. Pass `null` to release an unpaid or failed purchase.
+    Buy the domain through Whop, or transfer in a domain you own elsewhere with `auth_code`, then renew it every year and let Whop run its DNS. Pass `null` to release an unpaid or failed purchase, or to cancel a transfer while its current registrar can still stop it.
+    """
+
+    auth_code: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Transfer the domain to Whop instead of buying it. This is the transfer authorization code (also called an EPP code) from the domain's current registrar, which you usually find in its domain settings after unlocking the domain. For a domain at name.com, unlock it and copy the code in that name.com account. Whop becomes the domain's registrant, and the domain moves to Whop DNS once the transfer completes, so its current DNS records, including email, stop working. After the transfer, the registry may lock the domain against another transfer for 60 days. While it's `transferring`, pass the same or a new code again to resubmit. Whop never returns the code.
     """
 
     auto_renew: typing.Optional[bool] = pydantic.Field(default=None)
