@@ -3,21 +3,21 @@
 import typing
 from json.decoder import JSONDecodeError
 
-from ...core.api_error import ApiError
-from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
-from ...core.http_response import AsyncHttpResponse, HttpResponse
-from ...core.jsonable_encoder import encode_path_param
-from ...core.pagination import AsyncPager, SyncPager
-from ...core.parse_error import ParsingError
-from ...core.pydantic_utilities import parse_obj_as
-from ...core.request_options import RequestOptions
-from ...core.serialization import convert_and_respect_annotation_metadata
-from ...errors.bad_request_error import BadRequestError
-from ...errors.conflict_error import ConflictError
-from ...errors.forbidden_error import ForbiddenError
-from ...errors.not_found_error import NotFoundError
-from ...errors.unauthorized_error import UnauthorizedError
-from ...types.financing_application import FinancingApplication
+from ..core.api_error import ApiError
+from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from ..core.http_response import AsyncHttpResponse, HttpResponse
+from ..core.jsonable_encoder import encode_path_param
+from ..core.pagination import AsyncPager, SyncPager
+from ..core.parse_error import ParsingError
+from ..core.pydantic_utilities import parse_obj_as
+from ..core.request_options import RequestOptions
+from ..core.serialization import convert_and_respect_annotation_metadata
+from ..errors.bad_request_error import BadRequestError
+from ..errors.conflict_error import ConflictError
+from ..errors.forbidden_error import ForbiddenError
+from ..errors.not_found_error import NotFoundError
+from ..errors.unauthorized_error import UnauthorizedError
+from ..types.financing_application import FinancingApplication
 from .types.list_financing_applications_request_direction import ListFinancingApplicationsRequestDirection
 from .types.list_financing_applications_request_order import ListFinancingApplicationsRequestOrder
 from .types.list_financing_applications_request_status import ListFinancingApplicationsRequestStatus
@@ -38,8 +38,8 @@ class RawFinancingApplicationsClient:
 
     def list(
         self,
-        account_id: str,
         *,
+        account_id: typing.Optional[str] = None,
         status: typing.Optional[ListFinancingApplicationsRequestStatus] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
@@ -52,12 +52,12 @@ class RawFinancingApplicationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[FinancingApplication, ListFinancingApplicationsResponse]:
         """
-        Lists payment-financing applications for an account. Account credentials can list their own account and its direct connected accounts, but not deeper descendants; user credentials need read access to the account.
+        Lists payment-financing applications. Without `account_id`, an account credential lists its own account and its direct connected accounts, but not deeper descendants, and a user credential lists every account it can read applications for.
 
         Parameters
         ----------
-        account_id : str
-            Merchant account ID, prefixed `biz_`.
+        account_id : typing.Optional[str]
+            Only applications for this account, prefixed `biz_`.
 
         status : typing.Optional[ListFinancingApplicationsRequestStatus]
             Only applications in this review state.
@@ -95,10 +95,11 @@ class RawFinancingApplicationsClient:
             Applications returned
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"accounts/{encode_path_param(account_id)}/financing_applications",
+            "financing_applications",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
+                "account_id": account_id,
                 "status": status,
                 "created_before": created_before,
                 "created_after": created_after,
@@ -127,7 +128,7 @@ class RawFinancingApplicationsClient:
                     _parsed_next = _parsed_response.page_info.end_cursor
                     _has_next = _parsed_next is not None and _parsed_next != ""
                     _get_next = lambda: self.list(
-                        account_id,
+                        account_id=account_id,
                         status=status,
                         created_before=created_before,
                         created_after=created_after,
@@ -183,15 +184,15 @@ class RawFinancingApplicationsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def create(
-        self, account_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, *, account_id: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[FinancingApplication]:
         """
         Starts an application for payment-financing approval, or returns the account's open one: an application in `awaiting_review` takes precedence over one in `requires_collection`, and the open application is reused across different `Idempotency-Key` values. Creating an application does not submit it for review. The account must have a Whop balance set up, and accounts in restricted industries cannot apply. Once an application closes, the account can apply again.
 
         Parameters
         ----------
-        account_id : str
-            Merchant account ID, prefixed `biz_`.
+        account_id : typing.Optional[str]
+            The account applying, prefixed `biz_`. Defaults to the account behind an account credential; required with a user credential.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -202,10 +203,12 @@ class RawFinancingApplicationsClient:
             Open application reused
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"accounts/{encode_path_param(account_id)}/financing_applications",
+            "financing_applications",
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
-            json={},
+            json={
+                "account_id": account_id,
+            },
             headers={
                 "content-type": "application/json",
             },
@@ -287,16 +290,13 @@ class RawFinancingApplicationsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def retrieve(
-        self, account_id: str, id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[FinancingApplication]:
         """
         Retrieves a payment-financing application with its review state, requirements, saved answers, documents, current terms, and review feedback. Requires read access to the account that owns it.
 
         Parameters
         ----------
-        account_id : str
-            Merchant account ID, prefixed `biz_`.
-
         id : str
             Financing application ID, prefixed `inrq_`.
 
@@ -309,7 +309,7 @@ class RawFinancingApplicationsClient:
             Application returned
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"accounts/{encode_path_param(account_id)}/financing_applications/{encode_path_param(id)}",
+            f"financing_applications/{encode_path_param(id)}",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
@@ -368,7 +368,6 @@ class RawFinancingApplicationsClient:
 
     def update(
         self,
-        account_id: str,
         id: str,
         *,
         answers: typing.Sequence[UpdateFinancingApplicationsRequestAnswersItem],
@@ -379,9 +378,6 @@ class RawFinancingApplicationsClient:
 
         Parameters
         ----------
-        account_id : str
-            Merchant account ID, prefixed `biz_`.
-
         id : str
             Financing application ID, prefixed `inrq_`.
 
@@ -396,7 +392,7 @@ class RawFinancingApplicationsClient:
             Answers saved
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"accounts/{encode_path_param(account_id)}/financing_applications/{encode_path_param(id)}",
+            f"financing_applications/{encode_path_param(id)}",
             base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
@@ -477,7 +473,6 @@ class RawFinancingApplicationsClient:
 
     def submit(
         self,
-        account_id: str,
         id: str,
         *,
         merchant_acceptance: SubmitFinancingApplicationsRequestMerchantAcceptance,
@@ -488,9 +483,6 @@ class RawFinancingApplicationsClient:
 
         Parameters
         ----------
-        account_id : str
-            Merchant account ID, prefixed `biz_`.
-
         id : str
             Financing application ID, prefixed `inrq_`.
 
@@ -505,7 +497,7 @@ class RawFinancingApplicationsClient:
             Application submitted
         """
         _response = self._client_wrapper.httpx_client.request(
-            f"accounts/{encode_path_param(account_id)}/financing_applications/{encode_path_param(id)}/submit",
+            f"financing_applications/{encode_path_param(id)}/submit",
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
@@ -602,8 +594,8 @@ class AsyncRawFinancingApplicationsClient:
 
     async def list(
         self,
-        account_id: str,
         *,
+        account_id: typing.Optional[str] = None,
         status: typing.Optional[ListFinancingApplicationsRequestStatus] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
@@ -616,12 +608,12 @@ class AsyncRawFinancingApplicationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[FinancingApplication, ListFinancingApplicationsResponse]:
         """
-        Lists payment-financing applications for an account. Account credentials can list their own account and its direct connected accounts, but not deeper descendants; user credentials need read access to the account.
+        Lists payment-financing applications. Without `account_id`, an account credential lists its own account and its direct connected accounts, but not deeper descendants, and a user credential lists every account it can read applications for.
 
         Parameters
         ----------
-        account_id : str
-            Merchant account ID, prefixed `biz_`.
+        account_id : typing.Optional[str]
+            Only applications for this account, prefixed `biz_`.
 
         status : typing.Optional[ListFinancingApplicationsRequestStatus]
             Only applications in this review state.
@@ -659,10 +651,11 @@ class AsyncRawFinancingApplicationsClient:
             Applications returned
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"accounts/{encode_path_param(account_id)}/financing_applications",
+            "financing_applications",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             params={
+                "account_id": account_id,
                 "status": status,
                 "created_before": created_before,
                 "created_after": created_after,
@@ -693,7 +686,7 @@ class AsyncRawFinancingApplicationsClient:
 
                     async def _get_next():
                         return await self.list(
-                            account_id,
+                            account_id=account_id,
                             status=status,
                             created_before=created_before,
                             created_after=created_after,
@@ -750,15 +743,15 @@ class AsyncRawFinancingApplicationsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def create(
-        self, account_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, *, account_id: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[FinancingApplication]:
         """
         Starts an application for payment-financing approval, or returns the account's open one: an application in `awaiting_review` takes precedence over one in `requires_collection`, and the open application is reused across different `Idempotency-Key` values. Creating an application does not submit it for review. The account must have a Whop balance set up, and accounts in restricted industries cannot apply. Once an application closes, the account can apply again.
 
         Parameters
         ----------
-        account_id : str
-            Merchant account ID, prefixed `biz_`.
+        account_id : typing.Optional[str]
+            The account applying, prefixed `biz_`. Defaults to the account behind an account credential; required with a user credential.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -769,10 +762,12 @@ class AsyncRawFinancingApplicationsClient:
             Open application reused
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"accounts/{encode_path_param(account_id)}/financing_applications",
+            "financing_applications",
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
-            json={},
+            json={
+                "account_id": account_id,
+            },
             headers={
                 "content-type": "application/json",
             },
@@ -854,16 +849,13 @@ class AsyncRawFinancingApplicationsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def retrieve(
-        self, account_id: str, id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[FinancingApplication]:
         """
         Retrieves a payment-financing application with its review state, requirements, saved answers, documents, current terms, and review feedback. Requires read access to the account that owns it.
 
         Parameters
         ----------
-        account_id : str
-            Merchant account ID, prefixed `biz_`.
-
         id : str
             Financing application ID, prefixed `inrq_`.
 
@@ -876,7 +868,7 @@ class AsyncRawFinancingApplicationsClient:
             Application returned
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"accounts/{encode_path_param(account_id)}/financing_applications/{encode_path_param(id)}",
+            f"financing_applications/{encode_path_param(id)}",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
             request_options=request_options,
@@ -935,7 +927,6 @@ class AsyncRawFinancingApplicationsClient:
 
     async def update(
         self,
-        account_id: str,
         id: str,
         *,
         answers: typing.Sequence[UpdateFinancingApplicationsRequestAnswersItem],
@@ -946,9 +937,6 @@ class AsyncRawFinancingApplicationsClient:
 
         Parameters
         ----------
-        account_id : str
-            Merchant account ID, prefixed `biz_`.
-
         id : str
             Financing application ID, prefixed `inrq_`.
 
@@ -963,7 +951,7 @@ class AsyncRawFinancingApplicationsClient:
             Answers saved
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"accounts/{encode_path_param(account_id)}/financing_applications/{encode_path_param(id)}",
+            f"financing_applications/{encode_path_param(id)}",
             base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
@@ -1044,7 +1032,6 @@ class AsyncRawFinancingApplicationsClient:
 
     async def submit(
         self,
-        account_id: str,
         id: str,
         *,
         merchant_acceptance: SubmitFinancingApplicationsRequestMerchantAcceptance,
@@ -1055,9 +1042,6 @@ class AsyncRawFinancingApplicationsClient:
 
         Parameters
         ----------
-        account_id : str
-            Merchant account ID, prefixed `biz_`.
-
         id : str
             Financing application ID, prefixed `inrq_`.
 
@@ -1072,7 +1056,7 @@ class AsyncRawFinancingApplicationsClient:
             Application submitted
         """
         _response = await self._client_wrapper.httpx_client.request(
-            f"accounts/{encode_path_param(account_id)}/financing_applications/{encode_path_param(id)}/submit",
+            f"financing_applications/{encode_path_param(id)}/submit",
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={

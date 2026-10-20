@@ -52,7 +52,6 @@ from .types.update_accounts_request_three_ds_level import UpdateAccountsRequestT
 
 if typing.TYPE_CHECKING:
     from .fees.client import AsyncFeesClient, FeesClient
-    from .financing_applications.client import AsyncFinancingApplicationsClient, FinancingApplicationsClient
     from .financing_providers.client import AsyncFinancingProvidersClient, FinancingProvidersClient
     from .preferences.client import AsyncPreferencesClient, PreferencesClient
     from .reserves.client import AsyncReservesClient, ReservesClient
@@ -65,7 +64,6 @@ class AccountsClient:
         self._raw_client = RawAccountsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._fees: typing.Optional[FeesClient] = None
-        self._financing_applications: typing.Optional[FinancingApplicationsClient] = None
         self._financing_providers: typing.Optional[FinancingProvidersClient] = None
         self._preferences: typing.Optional[PreferencesClient] = None
         self._reserves: typing.Optional[ReservesClient] = None
@@ -1010,14 +1008,6 @@ class AccountsClient:
         return self._fees
 
     @property
-    def financing_applications(self):
-        if self._financing_applications is None:
-            from .financing_applications.client import FinancingApplicationsClient  # noqa: E402
-
-            self._financing_applications = FinancingApplicationsClient(client_wrapper=self._client_wrapper)
-        return self._financing_applications
-
-    @property
     def financing_providers(self):
         if self._financing_providers is None:
             from .financing_providers.client import FinancingProvidersClient  # noqa: E402
@@ -1047,7 +1037,6 @@ class AsyncAccountsClient:
         self._raw_client = AsyncRawAccountsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._fees: typing.Optional[AsyncFeesClient] = None
-        self._financing_applications: typing.Optional[AsyncFinancingApplicationsClient] = None
         self._financing_providers: typing.Optional[AsyncFinancingProvidersClient] = None
         self._preferences: typing.Optional[AsyncPreferencesClient] = None
         self._reserves: typing.Optional[AsyncReservesClient] = None
@@ -2084,14 +2073,6 @@ class AsyncAccountsClient:
 
             self._fees = AsyncFeesClient(client_wrapper=self._client_wrapper)
         return self._fees
-
-    @property
-    def financing_applications(self):
-        if self._financing_applications is None:
-            from .financing_applications.client import AsyncFinancingApplicationsClient  # noqa: E402
-
-            self._financing_applications = AsyncFinancingApplicationsClient(client_wrapper=self._client_wrapper)
-        return self._financing_applications
 
     @property
     def financing_providers(self):
