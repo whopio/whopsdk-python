@@ -617,6 +617,15 @@ if typing.TYPE_CHECKING:
     from .financing_access_change_reason import FinancingAccessChangeReason
     from .financing_application import FinancingApplication
     from .financing_application_status import FinancingApplicationStatus
+    from .financing_provider import FinancingProvider
+    from .financing_provider_action import FinancingProviderAction
+    from .financing_provider_currency import FinancingProviderCurrency
+    from .financing_provider_currency_currency import FinancingProviderCurrencyCurrency
+    from .financing_provider_details import FinancingProviderDetails
+    from .financing_provider_details_source_provider import FinancingProviderDetailsSourceProvider
+    from .financing_provider_provider import FinancingProviderProvider
+    from .financing_provider_reason import FinancingProviderReason
+    from .financing_provider_status import FinancingProviderStatus
     from .financing_requirement import FinancingRequirement
     from .financing_requirement_file_collection_type import FinancingRequirementFileCollectionType
     from .financing_requirement_text_collection_type import FinancingRequirementTextCollectionType
@@ -2141,6 +2150,15 @@ _dynamic_imports: typing.Dict[str, str] = {
     "FinancingAccessChangeReason": ".financing_access_change_reason",
     "FinancingApplication": ".financing_application",
     "FinancingApplicationStatus": ".financing_application_status",
+    "FinancingProvider": ".financing_provider",
+    "FinancingProviderAction": ".financing_provider_action",
+    "FinancingProviderCurrency": ".financing_provider_currency",
+    "FinancingProviderCurrencyCurrency": ".financing_provider_currency_currency",
+    "FinancingProviderDetails": ".financing_provider_details",
+    "FinancingProviderDetailsSourceProvider": ".financing_provider_details_source_provider",
+    "FinancingProviderProvider": ".financing_provider_provider",
+    "FinancingProviderReason": ".financing_provider_reason",
+    "FinancingProviderStatus": ".financing_provider_status",
     "FinancingRequirement": ".financing_requirement",
     "FinancingRequirementFileCollectionType": ".financing_requirement_file_collection_type",
     "FinancingRequirementTextCollectionType": ".financing_requirement_text_collection_type",
@@ -3565,6 +3583,15 @@ __all__ = [
     "FinancingAccessChangeReason",
     "FinancingApplication",
     "FinancingApplicationStatus",
+    "FinancingProvider",
+    "FinancingProviderAction",
+    "FinancingProviderCurrency",
+    "FinancingProviderCurrencyCurrency",
+    "FinancingProviderDetails",
+    "FinancingProviderDetailsSourceProvider",
+    "FinancingProviderProvider",
+    "FinancingProviderReason",
+    "FinancingProviderStatus",
     "FinancingRequirement",
     "FinancingRequirementFileCollectionType",
     "FinancingRequirementTextCollectionType",

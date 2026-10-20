@@ -64,7 +64,7 @@ if typing.TYPE_CHECKING:
         UpdateAccountsRequestTermsOfService,
         UpdateAccountsRequestThreeDsLevel,
     )
-    from . import fees, financing_applications, preferences, reserves
+    from . import fees, financing_applications, financing_providers, preferences, reserves
     from .fees import (
         UpdateFeesRequestBankDeposit,
         UpdateFeesRequestBankDepositRegionsValue,
@@ -144,6 +144,11 @@ if typing.TYPE_CHECKING:
         UpdateFinancingApplicationsRequestAnswersItem,
         UpdateFinancingApplicationsRequestAnswersItemMoney,
         UpdateFinancingApplicationsRequestAnswersItemMoneyCurrency,
+    )
+    from .financing_providers import (
+        ListFinancingProvidersRequestStatus,
+        ListFinancingProvidersResponse,
+        ListFinancingProvidersResponsePageInfo,
     )
     from .preferences import (
         RetrievePreferencesResponse,
@@ -226,6 +231,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListFinancingApplicationsRequestStatus": ".financing_applications",
     "ListFinancingApplicationsResponse": ".financing_applications",
     "ListFinancingApplicationsResponsePageInfo": ".financing_applications",
+    "ListFinancingProvidersRequestStatus": ".financing_providers",
+    "ListFinancingProvidersResponse": ".financing_providers",
+    "ListFinancingProvidersResponsePageInfo": ".financing_providers",
     "ListReservesResponse": ".reserves",
     "PostAccountFinancingApprovedPayload": ".types",
     "PostAccountFinancingApprovedPayloadApiVersion": ".types",
@@ -398,6 +406,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatePreferencesResponseSubscriptionFailureBehavior": ".preferences",
     "fees": ".fees",
     "financing_applications": ".financing_applications",
+    "financing_providers": ".financing_providers",
     "preferences": ".preferences",
     "reserves": ".reserves",
 }
@@ -445,6 +454,9 @@ __all__ = [
     "ListFinancingApplicationsRequestStatus",
     "ListFinancingApplicationsResponse",
     "ListFinancingApplicationsResponsePageInfo",
+    "ListFinancingProvidersRequestStatus",
+    "ListFinancingProvidersResponse",
+    "ListFinancingProvidersResponsePageInfo",
     "ListReservesResponse",
     "PostAccountFinancingApprovedPayload",
     "PostAccountFinancingApprovedPayloadApiVersion",
@@ -617,6 +629,7 @@ __all__ = [
     "UpdatePreferencesResponseSubscriptionFailureBehavior",
     "fees",
     "financing_applications",
+    "financing_providers",
     "preferences",
     "reserves",
 ]
