@@ -19187,6 +19187,588 @@ client.economic_intelligence.update(
 </dl>
 </details>
 
+## Email addresses
+<details><summary><code>client.email_addresses.<a href="src/whop_sdk/email_addresses/client.py">list</a>(...) -> ListEmailAddressesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the email addresses of the accounts you can read, and the mailboxes you own. A password is included only for mailboxes you can use.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.email_addresses.list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — Only addresses belonging to this account, prefixed biz_.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `typing.Optional[ListEmailAddressesRequestOrder]` — Field to sort by.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**direction:** `typing.Optional[ListEmailAddressesRequestDirection]` — Sort direction.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.email_addresses.<a href="src/whop_sdk/email_addresses/client.py">create</a>(...) -> EmailAddress</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a mailbox on one of the account's domains. The domain needs the `email` capability in the `ready` state. Give it to a team member with `user_id`, or leave it out to share the mailbox with the account. Creating an address this account deleted brings the mailbox back, with its mail and a new password.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.email_addresses.create(
+    address="marcus@shinetime.example",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**address:** `str` — The full address, such as support@example.com. The part before the @ can use letters, numbers, dots, dashes, underscores and plus signs.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — Account ID, prefixed biz_. Required for user credentials; otherwise defaults to the credential's account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_id:** `typing.Optional[str]` — ID of the team member who owns the mailbox, prefixed `user_`. Only they can read it or send from it. Leave it out, or pass `null`, to share the mailbox with the account. Giving an owned mailbox to someone else empties it: the owner's mail is never shown to anyone else.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.email_addresses.<a href="src/whop_sdk/email_addresses/client.py">retrieve</a>(...) -> EmailAddress</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves an email address. Its owner can always retrieve it; anyone else needs `email:read`. The password is included only if you can use the mailbox.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.email_addresses.retrieve(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Email address ID, prefixed `emaddr_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.email_addresses.<a href="src/whop_sdk/email_addresses/client.py">delete</a>(...) -> EmailAddress</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes the address. Mail apps signed in to it lose access, and mail sent to it is no longer received. Its mail is kept, and creating the address again in this account brings the mailbox back.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.email_addresses.delete(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Email address ID, prefixed `emaddr_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.email_addresses.<a href="src/whop_sdk/email_addresses/client.py">update</a>(...) -> EmailAddress</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Gives the mailbox to a team member, or shares it with the account, under a new password. A mailbox that had an owner starts empty, because its earlier mail is private to that owner; mail apps sync it again from the start.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.email_addresses.update(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Email address ID, prefixed `emaddr_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_id:** `typing.Optional[str]` — ID of the team member who owns the mailbox, prefixed `user_`. Only they can read it or send from it. Leave it out, or pass `null`, to share the mailbox with the account. Giving an owned mailbox to someone else empties it: the owner's mail is never shown to anyone else.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.email_addresses.<a href="src/whop_sdk/email_addresses/client.py">mobileconfig</a>(...) -> typing.Iterator[bytes]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Downloads an Apple configuration profile that adds the mailbox to Mail on a Mac, iPhone or iPad, signed in and ready to send. Only the owner can download it for an owned mailbox; a shared one needs `email:read` and `email:send`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.email_addresses.mobileconfig(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Email address ID, prefixed `emaddr_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.email_addresses.<a href="src/whop_sdk/email_addresses/client.py">reset_password</a>(...) -> EmailAddress</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Gives the mailbox a new password. Every mail app signed in with the old one loses access. Only the owner can reset an owned mailbox; a shared one needs `email:read` and `email:send`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.email_addresses.reset_password(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — Email address ID, prefixed `emaddr_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Events
 <details><summary><code>client.events.<a href="src/whop_sdk/events/client.py">list</a>(...) -> ListEventsResponse</code></summary>
 <dl>
