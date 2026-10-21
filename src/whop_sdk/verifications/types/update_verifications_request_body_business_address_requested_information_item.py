@@ -37,7 +37,7 @@ class UpdateVerificationsRequestBodyBusinessAddressRequestedInformationItem(Univ
 
     files: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
-    Answer for a `files` item, or optional supporting documents for `text_with_files` — a list of pages, first page first. Each entry is a direct upload ID, or a `file_`-prefixed attachment ID to reuse an uploaded document.
+    Answer for a `files` item, optional supporting documents for `text_with_files`, or the document an item's `alternative_document_label` names — a list of pages, first page first. Each entry is a direct upload ID, or a `file_`-prefixed attachment ID to reuse an uploaded document.
     """
 
     id: str = pydantic.Field()
