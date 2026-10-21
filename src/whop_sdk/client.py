@@ -66,6 +66,7 @@ if typing.TYPE_CHECKING:
     from .invoices.client import AsyncInvoicesClient, InvoicesClient
     from .leads.client import AsyncLeadsClient, LeadsClient
     from .ledger_accounts.client import AsyncLedgerAccountsClient, LedgerAccountsClient
+    from .livestreams.client import AsyncLivestreamsClient, LivestreamsClient
     from .media.client import AsyncMediaClient, MediaClient
     from .members.client import AsyncMembersClient, MembersClient
     from .memberships.client import AsyncMembershipsClient, MembershipsClient
@@ -251,6 +252,7 @@ class Whop:
         self._invoices: typing.Optional[InvoicesClient] = None
         self._leads: typing.Optional[LeadsClient] = None
         self._ledger_accounts: typing.Optional[LedgerAccountsClient] = None
+        self._livestreams: typing.Optional[LivestreamsClient] = None
         self._media: typing.Optional[MediaClient] = None
         self._members: typing.Optional[MembersClient] = None
         self._memberships: typing.Optional[MembershipsClient] = None
@@ -740,6 +742,14 @@ class Whop:
         return self._ledger_accounts
 
     @property
+    def livestreams(self):
+        if self._livestreams is None:
+            from .livestreams.client import LivestreamsClient  # noqa: E402
+
+            self._livestreams = LivestreamsClient(client_wrapper=self._client_wrapper)
+        return self._livestreams
+
+    @property
     def media(self):
         if self._media is None:
             from .media.client import MediaClient  # noqa: E402
@@ -1217,6 +1227,7 @@ class AsyncWhop:
         self._invoices: typing.Optional[AsyncInvoicesClient] = None
         self._leads: typing.Optional[AsyncLeadsClient] = None
         self._ledger_accounts: typing.Optional[AsyncLedgerAccountsClient] = None
+        self._livestreams: typing.Optional[AsyncLivestreamsClient] = None
         self._media: typing.Optional[AsyncMediaClient] = None
         self._members: typing.Optional[AsyncMembersClient] = None
         self._memberships: typing.Optional[AsyncMembershipsClient] = None
@@ -1704,6 +1715,14 @@ class AsyncWhop:
 
             self._ledger_accounts = AsyncLedgerAccountsClient(client_wrapper=self._client_wrapper)
         return self._ledger_accounts
+
+    @property
+    def livestreams(self):
+        if self._livestreams is None:
+            from .livestreams.client import AsyncLivestreamsClient  # noqa: E402
+
+            self._livestreams = AsyncLivestreamsClient(client_wrapper=self._client_wrapper)
+        return self._livestreams
 
     @property
     def media(self):

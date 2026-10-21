@@ -759,6 +759,8 @@ if typing.TYPE_CHECKING:
     from .list_api_keys_request_created_before import ListApiKeysRequestCreatedBefore
     from .list_app_builds_request_created_after import ListAppBuildsRequestCreatedAfter
     from .list_app_builds_request_created_before import ListAppBuildsRequestCreatedBefore
+    from .livestream import Livestream
+    from .livestream_recording_status import LivestreamRecordingStatus
     from .location_targeting_option import LocationTargetingOption
     from .location_targeting_option_location_type import LocationTargetingOptionLocationType
     from .marketplace_statuses import MarketplaceStatuses
@@ -2289,6 +2291,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListApiKeysRequestCreatedBefore": ".list_api_keys_request_created_before",
     "ListAppBuildsRequestCreatedAfter": ".list_app_builds_request_created_after",
     "ListAppBuildsRequestCreatedBefore": ".list_app_builds_request_created_before",
+    "Livestream": ".livestream",
+    "LivestreamRecordingStatus": ".livestream_recording_status",
     "LocationTargetingOption": ".location_targeting_option",
     "LocationTargetingOptionLocationType": ".location_targeting_option_location_type",
     "MarketplaceStatuses": ".marketplace_statuses",
@@ -3723,6 +3727,8 @@ __all__ = [
     "ListApiKeysRequestCreatedBefore",
     "ListAppBuildsRequestCreatedAfter",
     "ListAppBuildsRequestCreatedBefore",
+    "Livestream",
+    "LivestreamRecordingStatus",
     "LocationTargetingOption",
     "LocationTargetingOptionLocationType",
     "MarketplaceStatuses",
