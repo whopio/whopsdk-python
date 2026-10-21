@@ -610,6 +610,12 @@ class RawPaymentsClient:
         ] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
+        refunded_after: typing.Optional[dt.datetime] = None,
+        refunded_before: typing.Optional[dt.datetime] = None,
+        dispute_alerted_after: typing.Optional[dt.datetime] = None,
+        dispute_alerted_before: typing.Optional[dt.datetime] = None,
+        dispute_created_after: typing.Optional[dt.datetime] = None,
+        dispute_created_before: typing.Optional[dt.datetime] = None,
         query: typing.Optional[str] = None,
         include_connected_accounts: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -655,6 +661,24 @@ class RawPaymentsClient:
         created_before : typing.Optional[dt.datetime]
             Only payments created before this ISO 8601 timestamp.
 
+        refunded_after : typing.Optional[dt.datetime]
+            Only payments refunded after this ISO 8601 timestamp.
+
+        refunded_before : typing.Optional[dt.datetime]
+            Only payments refunded before this ISO 8601 timestamp.
+
+        dispute_alerted_after : typing.Optional[dt.datetime]
+            Only payments with a dispute alert after this ISO 8601 timestamp.
+
+        dispute_alerted_before : typing.Optional[dt.datetime]
+            Only payments with a dispute alert before this ISO 8601 timestamp.
+
+        dispute_created_after : typing.Optional[dt.datetime]
+            Only payments with a dispute opened after this ISO 8601 timestamp.
+
+        dispute_created_before : typing.Optional[dt.datetime]
+            Only payments with a dispute opened before this ISO 8601 timestamp.
+
         query : typing.Optional[str]
             Search payments by user ID, membership ID, user email, name, or username.
 
@@ -686,6 +710,20 @@ class RawPaymentsClient:
                 "tracking_states": tracking_states,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                "refunded_after": serialize_datetime(refunded_after) if refunded_after is not None else None,
+                "refunded_before": serialize_datetime(refunded_before) if refunded_before is not None else None,
+                "dispute_alerted_after": serialize_datetime(dispute_alerted_after)
+                if dispute_alerted_after is not None
+                else None,
+                "dispute_alerted_before": serialize_datetime(dispute_alerted_before)
+                if dispute_alerted_before is not None
+                else None,
+                "dispute_created_after": serialize_datetime(dispute_created_after)
+                if dispute_created_after is not None
+                else None,
+                "dispute_created_before": serialize_datetime(dispute_created_before)
+                if dispute_created_before is not None
+                else None,
                 "query": query,
                 "include_connected_accounts": include_connected_accounts,
             },
@@ -2234,6 +2272,12 @@ class AsyncRawPaymentsClient:
         ] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
+        refunded_after: typing.Optional[dt.datetime] = None,
+        refunded_before: typing.Optional[dt.datetime] = None,
+        dispute_alerted_after: typing.Optional[dt.datetime] = None,
+        dispute_alerted_before: typing.Optional[dt.datetime] = None,
+        dispute_created_after: typing.Optional[dt.datetime] = None,
+        dispute_created_before: typing.Optional[dt.datetime] = None,
         query: typing.Optional[str] = None,
         include_connected_accounts: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -2279,6 +2323,24 @@ class AsyncRawPaymentsClient:
         created_before : typing.Optional[dt.datetime]
             Only payments created before this ISO 8601 timestamp.
 
+        refunded_after : typing.Optional[dt.datetime]
+            Only payments refunded after this ISO 8601 timestamp.
+
+        refunded_before : typing.Optional[dt.datetime]
+            Only payments refunded before this ISO 8601 timestamp.
+
+        dispute_alerted_after : typing.Optional[dt.datetime]
+            Only payments with a dispute alert after this ISO 8601 timestamp.
+
+        dispute_alerted_before : typing.Optional[dt.datetime]
+            Only payments with a dispute alert before this ISO 8601 timestamp.
+
+        dispute_created_after : typing.Optional[dt.datetime]
+            Only payments with a dispute opened after this ISO 8601 timestamp.
+
+        dispute_created_before : typing.Optional[dt.datetime]
+            Only payments with a dispute opened before this ISO 8601 timestamp.
+
         query : typing.Optional[str]
             Search payments by user ID, membership ID, user email, name, or username.
 
@@ -2310,6 +2372,20 @@ class AsyncRawPaymentsClient:
                 "tracking_states": tracking_states,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
+                "refunded_after": serialize_datetime(refunded_after) if refunded_after is not None else None,
+                "refunded_before": serialize_datetime(refunded_before) if refunded_before is not None else None,
+                "dispute_alerted_after": serialize_datetime(dispute_alerted_after)
+                if dispute_alerted_after is not None
+                else None,
+                "dispute_alerted_before": serialize_datetime(dispute_alerted_before)
+                if dispute_alerted_before is not None
+                else None,
+                "dispute_created_after": serialize_datetime(dispute_created_after)
+                if dispute_created_after is not None
+                else None,
+                "dispute_created_before": serialize_datetime(dispute_created_before)
+                if dispute_created_before is not None
+                else None,
                 "query": query,
                 "include_connected_accounts": include_connected_accounts,
             },

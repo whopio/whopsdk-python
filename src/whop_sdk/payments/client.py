@@ -456,6 +456,12 @@ class PaymentsClient:
         ] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
+        refunded_after: typing.Optional[dt.datetime] = None,
+        refunded_before: typing.Optional[dt.datetime] = None,
+        dispute_alerted_after: typing.Optional[dt.datetime] = None,
+        dispute_alerted_before: typing.Optional[dt.datetime] = None,
+        dispute_created_after: typing.Optional[dt.datetime] = None,
+        dispute_created_before: typing.Optional[dt.datetime] = None,
         query: typing.Optional[str] = None,
         include_connected_accounts: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -501,6 +507,24 @@ class PaymentsClient:
         created_before : typing.Optional[dt.datetime]
             Only payments created before this ISO 8601 timestamp.
 
+        refunded_after : typing.Optional[dt.datetime]
+            Only payments refunded after this ISO 8601 timestamp.
+
+        refunded_before : typing.Optional[dt.datetime]
+            Only payments refunded before this ISO 8601 timestamp.
+
+        dispute_alerted_after : typing.Optional[dt.datetime]
+            Only payments with a dispute alert after this ISO 8601 timestamp.
+
+        dispute_alerted_before : typing.Optional[dt.datetime]
+            Only payments with a dispute alert before this ISO 8601 timestamp.
+
+        dispute_created_after : typing.Optional[dt.datetime]
+            Only payments with a dispute opened after this ISO 8601 timestamp.
+
+        dispute_created_before : typing.Optional[dt.datetime]
+            Only payments with a dispute opened before this ISO 8601 timestamp.
+
         query : typing.Optional[str]
             Search payments by user ID, membership ID, user email, name, or username.
 
@@ -543,6 +567,12 @@ class PaymentsClient:
             tracking_states=tracking_states,
             created_after=created_after,
             created_before=created_before,
+            refunded_after=refunded_after,
+            refunded_before=refunded_before,
+            dispute_alerted_after=dispute_alerted_after,
+            dispute_alerted_before=dispute_alerted_before,
+            dispute_created_after=dispute_created_after,
+            dispute_created_before=dispute_created_before,
             query=query,
             include_connected_accounts=include_connected_accounts,
             request_options=request_options,
@@ -1402,6 +1432,12 @@ class AsyncPaymentsClient:
         ] = None,
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
+        refunded_after: typing.Optional[dt.datetime] = None,
+        refunded_before: typing.Optional[dt.datetime] = None,
+        dispute_alerted_after: typing.Optional[dt.datetime] = None,
+        dispute_alerted_before: typing.Optional[dt.datetime] = None,
+        dispute_created_after: typing.Optional[dt.datetime] = None,
+        dispute_created_before: typing.Optional[dt.datetime] = None,
         query: typing.Optional[str] = None,
         include_connected_accounts: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1446,6 +1482,24 @@ class AsyncPaymentsClient:
 
         created_before : typing.Optional[dt.datetime]
             Only payments created before this ISO 8601 timestamp.
+
+        refunded_after : typing.Optional[dt.datetime]
+            Only payments refunded after this ISO 8601 timestamp.
+
+        refunded_before : typing.Optional[dt.datetime]
+            Only payments refunded before this ISO 8601 timestamp.
+
+        dispute_alerted_after : typing.Optional[dt.datetime]
+            Only payments with a dispute alert after this ISO 8601 timestamp.
+
+        dispute_alerted_before : typing.Optional[dt.datetime]
+            Only payments with a dispute alert before this ISO 8601 timestamp.
+
+        dispute_created_after : typing.Optional[dt.datetime]
+            Only payments with a dispute opened after this ISO 8601 timestamp.
+
+        dispute_created_before : typing.Optional[dt.datetime]
+            Only payments with a dispute opened before this ISO 8601 timestamp.
 
         query : typing.Optional[str]
             Search payments by user ID, membership ID, user email, name, or username.
@@ -1497,6 +1551,12 @@ class AsyncPaymentsClient:
             tracking_states=tracking_states,
             created_after=created_after,
             created_before=created_before,
+            refunded_after=refunded_after,
+            refunded_before=refunded_before,
+            dispute_alerted_after=dispute_alerted_after,
+            dispute_alerted_before=dispute_alerted_before,
+            dispute_created_after=dispute_created_after,
+            dispute_created_before=dispute_created_before,
             query=query,
             include_connected_accounts=include_connected_accounts,
             request_options=request_options,
