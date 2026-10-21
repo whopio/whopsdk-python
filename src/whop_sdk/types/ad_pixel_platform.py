@@ -2,4 +2,4 @@
 
 import typing
 
-AdPixelPlatform = typing.Union[typing.Literal["meta"], typing.Any]
+AdPixelPlatform = typing.Union[typing.Literal["meta", "tiktok"], typing.Any]

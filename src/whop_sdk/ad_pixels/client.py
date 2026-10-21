@@ -50,7 +50,7 @@ class AdPixelsClient:
         Parameters
         ----------
         account_id : typing.Optional[str]
-            Only return the pixel for this business, prefixed `biz_`.
+            Only return the pixels for this business, prefixed `biz_`.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -113,18 +113,18 @@ class AdPixelsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AdPixel:
         """
-        Add your pixel for a business whose campaigns you claimed. Whop checks the access token with the ad platform, then sends the pixel the conversions credited to your claimed campaigns for that business. Each business takes one pixel, and each pixel can serve one business.
+        Add your pixel for a business whose campaigns you claimed. Whop checks the access token with the ad platform, then sends the pixel the conversions credited to your claimed campaigns for that business. Each business takes one pixel per ad platform, and each pixel can serve one business.
 
         Parameters
         ----------
         access_token : str
-            An access token that can send events to the pixel on the ad platform. Whop never returns it.
+            An access token that can send events to the pixel on the ad platform: a Meta Conversions API access token or a TikTok Events API access token. Whop never returns it.
 
         account_id : str
             The business whose claimed campaigns send conversions to this pixel, prefixed `biz_`. You must have claimed at least one of its campaigns.
 
         external_id : str
-            The pixel's ID on the ad platform.
+            The pixel's ID on the ad platform: the Meta pixel or dataset ID, or the TikTok pixel code.
 
         platform : CreateAdPixelsRequestPlatform
             The ad platform the pixel belongs to.
@@ -236,7 +236,7 @@ class AdPixelsClient:
             Ad pixel ID, prefixed `adpx_`.
 
         access_token : str
-            An access token that can send events to the pixel on the ad platform. Whop never returns it.
+            An access token that can send events to the pixel on the ad platform: a Meta Conversions API access token or a TikTok Events API access token. Whop never returns it.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -297,7 +297,7 @@ class AsyncAdPixelsClient:
         Parameters
         ----------
         account_id : typing.Optional[str]
-            Only return the pixel for this business, prefixed `biz_`.
+            Only return the pixels for this business, prefixed `biz_`.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -369,18 +369,18 @@ class AsyncAdPixelsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AdPixel:
         """
-        Add your pixel for a business whose campaigns you claimed. Whop checks the access token with the ad platform, then sends the pixel the conversions credited to your claimed campaigns for that business. Each business takes one pixel, and each pixel can serve one business.
+        Add your pixel for a business whose campaigns you claimed. Whop checks the access token with the ad platform, then sends the pixel the conversions credited to your claimed campaigns for that business. Each business takes one pixel per ad platform, and each pixel can serve one business.
 
         Parameters
         ----------
         access_token : str
-            An access token that can send events to the pixel on the ad platform. Whop never returns it.
+            An access token that can send events to the pixel on the ad platform: a Meta Conversions API access token or a TikTok Events API access token. Whop never returns it.
 
         account_id : str
             The business whose claimed campaigns send conversions to this pixel, prefixed `biz_`. You must have claimed at least one of its campaigns.
 
         external_id : str
-            The pixel's ID on the ad platform.
+            The pixel's ID on the ad platform: the Meta pixel or dataset ID, or the TikTok pixel code.
 
         platform : CreateAdPixelsRequestPlatform
             The ad platform the pixel belongs to.
@@ -520,7 +520,7 @@ class AsyncAdPixelsClient:
             Ad pixel ID, prefixed `adpx_`.
 
         access_token : str
-            An access token that can send events to the pixel on the ad platform. Whop never returns it.
+            An access token that can send events to the pixel on the ad platform: a Meta Conversions API access token or a TikTok Events API access token. Whop never returns it.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
