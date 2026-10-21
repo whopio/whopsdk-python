@@ -52,6 +52,7 @@ class DisputesClient:
         currency: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
+        query: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Dispute, ListDisputesResponse]:
         """
@@ -92,6 +93,9 @@ class DisputesClient:
         created_after : typing.Optional[str]
             Only disputes opened after this ISO 8601 timestamp.
 
+        query : typing.Optional[str]
+            Search disputes by dispute ID, payment ID, user ID, membership ID, user email, name, or username. Email filtering requires the member:email:read permission.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -128,6 +132,7 @@ class DisputesClient:
             currency=currency,
             created_before=created_before,
             created_after=created_after,
+            query=query,
             request_options=request_options,
         )
 
@@ -144,6 +149,7 @@ class DisputesClient:
         currency: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
+        query: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SummaryDisputesResponse:
         """
@@ -168,6 +174,9 @@ class DisputesClient:
 
         created_after : typing.Optional[str]
             Only disputes opened after this ISO 8601 timestamp.
+
+        query : typing.Optional[str]
+            Search disputes by dispute ID, payment ID, user ID, membership ID, user email, name, or username. Email filtering requires the member:email:read permission.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -195,6 +204,7 @@ class DisputesClient:
             currency=currency,
             created_before=created_before,
             created_after=created_after,
+            query=query,
             request_options=request_options,
         )
         return _response.data
@@ -420,6 +430,7 @@ class AsyncDisputesClient:
         currency: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
+        query: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Dispute, ListDisputesResponse]:
         """
@@ -459,6 +470,9 @@ class AsyncDisputesClient:
 
         created_after : typing.Optional[str]
             Only disputes opened after this ISO 8601 timestamp.
+
+        query : typing.Optional[str]
+            Search disputes by dispute ID, payment ID, user ID, membership ID, user email, name, or username. Email filtering requires the member:email:read permission.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -505,6 +519,7 @@ class AsyncDisputesClient:
             currency=currency,
             created_before=created_before,
             created_after=created_after,
+            query=query,
             request_options=request_options,
         )
 
@@ -521,6 +536,7 @@ class AsyncDisputesClient:
         currency: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
+        query: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SummaryDisputesResponse:
         """
@@ -545,6 +561,9 @@ class AsyncDisputesClient:
 
         created_after : typing.Optional[str]
             Only disputes opened after this ISO 8601 timestamp.
+
+        query : typing.Optional[str]
+            Search disputes by dispute ID, payment ID, user ID, membership ID, user email, name, or username. Email filtering requires the member:email:read permission.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -580,6 +599,7 @@ class AsyncDisputesClient:
             currency=currency,
             created_before=created_before,
             created_after=created_after,
+            query=query,
             request_options=request_options,
         )
         return _response.data
