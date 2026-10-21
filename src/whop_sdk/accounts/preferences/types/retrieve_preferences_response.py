@@ -129,7 +129,7 @@ class RetrievePreferencesResponse(UniversalBaseModel):
 
     preferred_settlement_currency_changeable_at: typing.Optional[str] = pydantic.Field(default=None)
     """
-    When `preferred_settlement_currency` may next be changed or turned off, as an ISO 8601 timestamp. It can change at most once every 7 days. `null` when it may change now.
+    When `preferred_settlement_currency` may next be changed or turned off, as an ISO 8601 timestamp. It can change at most once a day. `null` when it may change now.
     """
 
     subscription_failure_behavior: RetrievePreferencesResponseSubscriptionFailureBehavior = pydantic.Field()
