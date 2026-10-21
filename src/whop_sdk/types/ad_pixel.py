@@ -26,7 +26,7 @@ class AdPixel(UniversalBaseModel):
 
     external_id: str = pydantic.Field()
     """
-    The pixel's ID on the ad platform.
+    The pixel's ID on the ad platform: the Meta pixel or dataset ID, or the TikTok pixel code.
     """
 
     id: str = pydantic.Field()

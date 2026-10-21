@@ -4946,7 +4946,7 @@ client.ad_pixels.list()
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[str]` — Only return the pixel for this business, prefixed `biz_`.
+**account_id:** `typing.Optional[str]` — Only return the pixels for this business, prefixed `biz_`.
     
 </dd>
 </dl>
@@ -5026,7 +5026,7 @@ client.ad_pixels.list()
 <dl>
 <dd>
 
-Add your pixel for a business whose campaigns you claimed. Whop checks the access token with the ad platform, then sends the pixel the conversions credited to your claimed campaigns for that business. Each business takes one pixel, and each pixel can serve one business.
+Add your pixel for a business whose campaigns you claimed. Whop checks the access token with the ad platform, then sends the pixel the conversions credited to your claimed campaigns for that business. Each business takes one pixel per ad platform, and each pixel can serve one business.
 </dd>
 </dl>
 </dd>
@@ -5070,7 +5070,7 @@ client.ad_pixels.create(
 <dl>
 <dd>
 
-**access_token:** `str` — An access token that can send events to the pixel on the ad platform. Whop never returns it.
+**access_token:** `str` — An access token that can send events to the pixel on the ad platform: a Meta Conversions API access token or a TikTok Events API access token. Whop never returns it.
     
 </dd>
 </dl>
@@ -5086,7 +5086,7 @@ client.ad_pixels.create(
 <dl>
 <dd>
 
-**external_id:** `str` — The pixel's ID on the ad platform.
+**external_id:** `str` — The pixel's ID on the ad platform: the Meta pixel or dataset ID, or the TikTok pixel code.
     
 </dd>
 </dl>
@@ -5308,7 +5308,7 @@ client.ad_pixels.update(
 <dl>
 <dd>
 
-**access_token:** `str` — An access token that can send events to the pixel on the ad platform. Whop never returns it.
+**access_token:** `str` — An access token that can send events to the pixel on the ad platform: a Meta Conversions API access token or a TikTok Events API access token. Whop never returns it.
     
 </dd>
 </dl>
