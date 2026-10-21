@@ -283,6 +283,7 @@ class RawBusinessesClient:
         id: str,
         *,
         annual_processing_usd: typing.Optional[str] = OMIT,
+        deal_closed_reason: typing.Optional[str] = OMIT,
         withdraw_projections: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdateBusinessesResponse]:
@@ -296,6 +297,9 @@ class RawBusinessesClient:
 
         annual_processing_usd : typing.Optional[str]
             Annual projected card and BNPL processing combined, in USD.
+
+        deal_closed_reason : typing.Optional[str]
+            How the partner closed this business. Send it on its own to save it; the response is then the business ID and the saved reason.
 
         withdraw_projections : typing.Optional[bool]
             Remove unaccepted projections and invalidate the offer. The original CPA term is retained if projections are later added again.
@@ -314,6 +318,7 @@ class RawBusinessesClient:
             method="PATCH",
             json={
                 "annual_processing_usd": annual_processing_usd,
+                "deal_closed_reason": deal_closed_reason,
                 "withdraw_projections": withdraw_projections,
             },
             headers={
@@ -773,6 +778,7 @@ class AsyncRawBusinessesClient:
         id: str,
         *,
         annual_processing_usd: typing.Optional[str] = OMIT,
+        deal_closed_reason: typing.Optional[str] = OMIT,
         withdraw_projections: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdateBusinessesResponse]:
@@ -786,6 +792,9 @@ class AsyncRawBusinessesClient:
 
         annual_processing_usd : typing.Optional[str]
             Annual projected card and BNPL processing combined, in USD.
+
+        deal_closed_reason : typing.Optional[str]
+            How the partner closed this business. Send it on its own to save it; the response is then the business ID and the saved reason.
 
         withdraw_projections : typing.Optional[bool]
             Remove unaccepted projections and invalidate the offer. The original CPA term is retained if projections are later added again.
@@ -804,6 +813,7 @@ class AsyncRawBusinessesClient:
             method="PATCH",
             json={
                 "annual_processing_usd": annual_processing_usd,
+                "deal_closed_reason": deal_closed_reason,
                 "withdraw_projections": withdraw_projections,
             },
             headers={
