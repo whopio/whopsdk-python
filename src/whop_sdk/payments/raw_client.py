@@ -66,6 +66,7 @@ class RawPaymentsClient:
         currency: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
         query: typing.Optional[str] = None,
+        include_connected_accounts: typing.Optional[bool] = None,
         member_id: typing.Optional[str] = None,
         membership_id: typing.Optional[str] = None,
         product_id: typing.Optional[str] = None,
@@ -129,6 +130,9 @@ class RawPaymentsClient:
 
         query : typing.Optional[str]
             Search payments by user ID, membership ID, user email, name, or username. Email filtering requires the member:email:read permission.
+
+        include_connected_accounts : typing.Optional[bool]
+            Only for searches: with `query`, also search the account's connected accounts. Requires `account_id` and `query`, and is a 400 without either; it never lists connected accounts' payments on its own. Matches on payment, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`). Free-text queries such as a name search only the named account. Connected accounts' payments are returned only for connected accounts you can read payments on.
 
         member_id : typing.Optional[str]
             Only payments made by this member, prefixed `mber_`.
@@ -228,6 +232,7 @@ class RawPaymentsClient:
                 "currency": currency,
                 "user_id": user_id,
                 "query": query,
+                "include_connected_accounts": include_connected_accounts,
                 "member_id": member_id,
                 "membership_id": membership_id,
                 "product_id": product_id,
@@ -288,6 +293,7 @@ class RawPaymentsClient:
                         currency=currency,
                         user_id=user_id,
                         query=query,
+                        include_connected_accounts=include_connected_accounts,
                         member_id=member_id,
                         membership_id=membership_id,
                         product_id=product_id,
@@ -605,6 +611,7 @@ class RawPaymentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         query: typing.Optional[str] = None,
+        include_connected_accounts: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[SummaryPaymentsResponse]:
         """
@@ -651,6 +658,9 @@ class RawPaymentsClient:
         query : typing.Optional[str]
             Search payments by user ID, membership ID, user email, name, or username.
 
+        include_connected_accounts : typing.Optional[bool]
+            Only for searches: with `query`, also search the account's connected accounts. Requires `account_id` and `query`, and is a 400 without either; it never lists connected accounts' payments on its own. Matches on payment, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`). Free-text queries such as a name search only the named account. Connected accounts' payments are returned only for connected accounts you can read payments on.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -677,6 +687,7 @@ class RawPaymentsClient:
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "query": query,
+                "include_connected_accounts": include_connected_accounts,
             },
             request_options=request_options,
         )
@@ -1676,6 +1687,7 @@ class AsyncRawPaymentsClient:
         currency: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
         query: typing.Optional[str] = None,
+        include_connected_accounts: typing.Optional[bool] = None,
         member_id: typing.Optional[str] = None,
         membership_id: typing.Optional[str] = None,
         product_id: typing.Optional[str] = None,
@@ -1739,6 +1751,9 @@ class AsyncRawPaymentsClient:
 
         query : typing.Optional[str]
             Search payments by user ID, membership ID, user email, name, or username. Email filtering requires the member:email:read permission.
+
+        include_connected_accounts : typing.Optional[bool]
+            Only for searches: with `query`, also search the account's connected accounts. Requires `account_id` and `query`, and is a 400 without either; it never lists connected accounts' payments on its own. Matches on payment, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`). Free-text queries such as a name search only the named account. Connected accounts' payments are returned only for connected accounts you can read payments on.
 
         member_id : typing.Optional[str]
             Only payments made by this member, prefixed `mber_`.
@@ -1838,6 +1853,7 @@ class AsyncRawPaymentsClient:
                 "currency": currency,
                 "user_id": user_id,
                 "query": query,
+                "include_connected_accounts": include_connected_accounts,
                 "member_id": member_id,
                 "membership_id": membership_id,
                 "product_id": product_id,
@@ -1900,6 +1916,7 @@ class AsyncRawPaymentsClient:
                             currency=currency,
                             user_id=user_id,
                             query=query,
+                            include_connected_accounts=include_connected_accounts,
                             member_id=member_id,
                             membership_id=membership_id,
                             product_id=product_id,
@@ -2218,6 +2235,7 @@ class AsyncRawPaymentsClient:
         created_after: typing.Optional[dt.datetime] = None,
         created_before: typing.Optional[dt.datetime] = None,
         query: typing.Optional[str] = None,
+        include_connected_accounts: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[SummaryPaymentsResponse]:
         """
@@ -2264,6 +2282,9 @@ class AsyncRawPaymentsClient:
         query : typing.Optional[str]
             Search payments by user ID, membership ID, user email, name, or username.
 
+        include_connected_accounts : typing.Optional[bool]
+            Only for searches: with `query`, also search the account's connected accounts. Requires `account_id` and `query`, and is a 400 without either; it never lists connected accounts' payments on its own. Matches on payment, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`). Free-text queries such as a name search only the named account. Connected accounts' payments are returned only for connected accounts you can read payments on.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -2290,6 +2311,7 @@ class AsyncRawPaymentsClient:
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "query": query,
+                "include_connected_accounts": include_connected_accounts,
             },
             request_options=request_options,
         )
