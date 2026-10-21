@@ -22,6 +22,11 @@ class UpdateVerificationsResponseRequestedInformationItem(UniversalBaseModel):
     URL for a related action, such as completing liveness verification or viewing a payment. Absent when no action is available.
     """
 
+    alternative_document_label: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    A document that answers this item in place of `value`, such as an IRS EIN letter when the EIN could not be matched. Send its pages in `files`, with or without a corrected `value`. Absent when only `value` is accepted.
+    """
+
     details_label: typing.Optional[str] = pydantic.Field(default=None)
     """
     Follow-up prompt shown with this requirement.
