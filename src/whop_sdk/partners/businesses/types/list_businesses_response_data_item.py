@@ -45,6 +45,11 @@ class ListBusinessesResponseDataItem(UniversalBaseModel):
     When the partner business was created.
     """
 
+    deal_closed_reason: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    How the partner closed this business, in their own words. Null until the partner saves one.
+    """
+
     earnings_usd: ListBusinessesResponseDataItemEarningsUsd
     first_tier_partner: typing.Optional[ListBusinessesResponseDataItemFirstTierPartner] = pydantic.Field(default=None)
     """

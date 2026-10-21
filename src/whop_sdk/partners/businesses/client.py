@@ -204,6 +204,7 @@ class BusinessesClient:
         id: str,
         *,
         annual_processing_usd: typing.Optional[str] = OMIT,
+        deal_closed_reason: typing.Optional[str] = OMIT,
         withdraw_projections: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateBusinessesResponse:
@@ -217,6 +218,9 @@ class BusinessesClient:
 
         annual_processing_usd : typing.Optional[str]
             Annual projected card and BNPL processing combined, in USD.
+
+        deal_closed_reason : typing.Optional[str]
+            How the partner closed this business. Send it on its own to save it; the response is then the business ID and the saved reason.
 
         withdraw_projections : typing.Optional[bool]
             Remove unaccepted projections and invalidate the offer. The original CPA term is retained if projections are later added again.
@@ -245,6 +249,7 @@ class BusinessesClient:
         _response = self._raw_client.update(
             id,
             annual_processing_usd=annual_processing_usd,
+            deal_closed_reason=deal_closed_reason,
             withdraw_projections=withdraw_projections,
             request_options=request_options,
         )
@@ -554,6 +559,7 @@ class AsyncBusinessesClient:
         id: str,
         *,
         annual_processing_usd: typing.Optional[str] = OMIT,
+        deal_closed_reason: typing.Optional[str] = OMIT,
         withdraw_projections: typing.Optional[bool] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> UpdateBusinessesResponse:
@@ -567,6 +573,9 @@ class AsyncBusinessesClient:
 
         annual_processing_usd : typing.Optional[str]
             Annual projected card and BNPL processing combined, in USD.
+
+        deal_closed_reason : typing.Optional[str]
+            How the partner closed this business. Send it on its own to save it; the response is then the business ID and the saved reason.
 
         withdraw_projections : typing.Optional[bool]
             Remove unaccepted projections and invalidate the offer. The original CPA term is retained if projections are later added again.
@@ -603,6 +612,7 @@ class AsyncBusinessesClient:
         _response = await self._raw_client.update(
             id,
             annual_processing_usd=annual_processing_usd,
+            deal_closed_reason=deal_closed_reason,
             withdraw_projections=withdraw_projections,
             request_options=request_options,
         )
