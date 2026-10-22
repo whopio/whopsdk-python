@@ -46,6 +46,11 @@ class DomainRegistration(UniversalBaseModel):
     Link to pay what the domain owes now: its registration or transfer, or a yearly renewal. `null` when nothing is owed.
     """
 
+    renewal_price: typing.Optional[Money] = pydantic.Field(default=None)
+    """
+    What each yearly renewal costs at the registrar's current price. Set when the response is a single domain; `null` in lists, while the domain is being released, or when the price can't be read right now.
+    """
+
     state: DomainRegistrationState = pydantic.Field()
     """
     How far registering and keeping the domain has got.
