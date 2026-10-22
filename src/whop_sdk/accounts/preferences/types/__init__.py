@@ -76,6 +76,7 @@ if typing.TYPE_CHECKING:
     from .update_preferences_request_ads_triple_whale_integration import (
         UpdatePreferencesRequestAdsTripleWhaleIntegration,
     )
+    from .update_preferences_request_customer_tracking import UpdatePreferencesRequestCustomerTracking
     from .update_preferences_request_economic_intelligence_duration_key import (
         UpdatePreferencesRequestEconomicIntelligenceDurationKey,
     )
@@ -172,6 +173,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatePreferencesRequestAdsPaymentMethodsPrimary": ".update_preferences_request_ads_payment_methods_primary",
     "UpdatePreferencesRequestAdsPaymentMethodsPrimaryType": ".update_preferences_request_ads_payment_methods_primary_type",
     "UpdatePreferencesRequestAdsTripleWhaleIntegration": ".update_preferences_request_ads_triple_whale_integration",
+    "UpdatePreferencesRequestCustomerTracking": ".update_preferences_request_customer_tracking",
     "UpdatePreferencesRequestEconomicIntelligenceDurationKey": ".update_preferences_request_economic_intelligence_duration_key",
     "UpdatePreferencesRequestFeedbackOptionsItem": ".update_preferences_request_feedback_options_item",
     "UpdatePreferencesRequestFeedbackOptionsItemCategory": ".update_preferences_request_feedback_options_item_category",
@@ -254,6 +256,7 @@ __all__ = [
     "UpdatePreferencesRequestAdsPaymentMethodsPrimary",
     "UpdatePreferencesRequestAdsPaymentMethodsPrimaryType",
     "UpdatePreferencesRequestAdsTripleWhaleIntegration",
+    "UpdatePreferencesRequestCustomerTracking",
     "UpdatePreferencesRequestEconomicIntelligenceDurationKey",
     "UpdatePreferencesRequestFeedbackOptionsItem",
     "UpdatePreferencesRequestFeedbackOptionsItemCategory",

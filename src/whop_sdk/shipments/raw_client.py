@@ -17,6 +17,7 @@ from ..errors.forbidden_error import ForbiddenError
 from ..errors.not_found_error import NotFoundError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.shipment import Shipment
+from ..types.shipment_lookup import ShipmentLookup
 from .types.list_shipments_request_direction import ListShipmentsRequestDirection
 from .types.list_shipments_request_order import ListShipmentsRequestOrder
 from .types.list_shipments_request_status import ListShipmentsRequestStatus
@@ -274,6 +275,108 @@ class RawShipmentsClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def lookup(
+        self,
+        *,
+        account_id: str,
+        email: str,
+        order_number: typing.Optional[str] = OMIT,
+        tracking_number: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[ShipmentLookup]:
+        """
+        Finds the delivery for a purchase from an account with customer tracking turned on, using exactly one order or tracking number plus the buyer's current receipt email. No authentication is required and no sign-in or session is created. Email matching ignores case and surrounding whitespace, but dots and +tags must match. Every miss returns the same 404: an unknown account, tracking turned off, a wrong number or email, an unpaid order or a purchase with nothing to ship. `shipment` is `null` while a paid physical purchase has no tracking yet. Limited to 30 attempts per five minutes per client IP. Responses are never cached or replayed with Idempotency-Key.
+
+        Parameters
+        ----------
+        account_id : str
+            The selling account, prefixed `biz_`.
+
+        email : str
+            The buyer's current receipt email.
+
+        order_number : typing.Optional[str]
+            The payment ID prefixed `pay_`, or the order number printed on the receipt (optional leading `#`). Supply this or `tracking_number`, not both.
+
+        tracking_number : typing.Optional[str]
+            The exact carrier tracking number. Supply this or `order_number`, not both.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ShipmentLookup]
+            shipment found
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "shipments/lookup",
+            base_url=self._client_wrapper.get_environment().api,
+            method="POST",
+            json={
+                "account_id": account_id,
+                "email": email,
+                "order_number": order_number,
+                "tracking_number": tracking_number,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ShipmentLookup,
+                    parse_obj_as(
+                        type_=ShipmentLookup,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -727,6 +830,108 @@ class AsyncRawShipmentsClient:
                 )
             if _response.status_code == 403:
                 raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def lookup(
+        self,
+        *,
+        account_id: str,
+        email: str,
+        order_number: typing.Optional[str] = OMIT,
+        tracking_number: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[ShipmentLookup]:
+        """
+        Finds the delivery for a purchase from an account with customer tracking turned on, using exactly one order or tracking number plus the buyer's current receipt email. No authentication is required and no sign-in or session is created. Email matching ignores case and surrounding whitespace, but dots and +tags must match. Every miss returns the same 404: an unknown account, tracking turned off, a wrong number or email, an unpaid order or a purchase with nothing to ship. `shipment` is `null` while a paid physical purchase has no tracking yet. Limited to 30 attempts per five minutes per client IP. Responses are never cached or replayed with Idempotency-Key.
+
+        Parameters
+        ----------
+        account_id : str
+            The selling account, prefixed `biz_`.
+
+        email : str
+            The buyer's current receipt email.
+
+        order_number : typing.Optional[str]
+            The payment ID prefixed `pay_`, or the order number printed on the receipt (optional leading `#`). Supply this or `tracking_number`, not both.
+
+        tracking_number : typing.Optional[str]
+            The exact carrier tracking number. Supply this or `order_number`, not both.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[ShipmentLookup]
+            shipment found
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "shipments/lookup",
+            base_url=self._client_wrapper.get_environment().api,
+            method="POST",
+            json={
+                "account_id": account_id,
+                "email": email,
+                "order_number": order_number,
+                "tracking_number": tracking_number,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ShipmentLookup,
+                    parse_obj_as(
+                        type_=ShipmentLookup,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
