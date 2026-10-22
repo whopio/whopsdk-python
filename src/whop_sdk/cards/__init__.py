@@ -9,6 +9,7 @@ if typing.TYPE_CHECKING:
     from .types import (
         CreateCardsRequestBilling,
         CreateCardsRequestCardholder,
+        CreateCardsRequestKind,
         CreateCardsRequestSpendLimitFrequency,
         CreateCardsResponse,
         CreateCardsResponseBilling,
@@ -133,6 +134,7 @@ if typing.TYPE_CHECKING:
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateCardsRequestBilling": ".types",
     "CreateCardsRequestCardholder": ".types",
+    "CreateCardsRequestKind": ".types",
     "CreateCardsRequestSpendLimitFrequency": ".types",
     "CreateCardsResponse": ".types",
     "CreateCardsResponseBilling": ".types",
@@ -280,6 +282,7 @@ def __dir__():
 __all__ = [
     "CreateCardsRequestBilling",
     "CreateCardsRequestCardholder",
+    "CreateCardsRequestKind",
     "CreateCardsRequestSpendLimitFrequency",
     "CreateCardsResponse",
     "CreateCardsResponseBilling",
