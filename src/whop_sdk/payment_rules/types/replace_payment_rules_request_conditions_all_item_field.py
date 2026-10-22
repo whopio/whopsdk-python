@@ -3,6 +3,8 @@
 import typing
 
 ReplacePaymentRulesRequestConditionsAllItemField = typing.Union[
-    typing.Literal["risk_score", "amount_in_usd", "card_country", "card_bin", "customer_email", "ip_address"],
+    typing.Literal[
+        "risk_score", "amount_in_usd", "card_country", "card_brand", "card_bin", "customer_email", "ip_address"
+    ],
     typing.Any,
 ]
