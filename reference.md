@@ -33139,7 +33139,7 @@ client.payments.list(
 <dl>
 <dd>
 
-**query:** `typing.Optional[str]` — Search payments by user ID, membership ID, user email, name, or username. Email filtering requires the member:email:read permission.
+**query:** `typing.Optional[str]` — Search payments by payment ID, dispute ID, user ID, membership ID, user email, name, or username. Email filtering requires the member:email:read permission.
     
 </dd>
 </dl>
@@ -33147,7 +33147,7 @@ client.payments.list(
 <dl>
 <dd>
 
-**include_connected_accounts:** `typing.Optional[bool]` — Only for searches: with `query`, also search the account's connected accounts. Requires `account_id` and `query`, and is a 400 without either; it never lists connected accounts' payments on its own. Matches on payment, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`). Free-text queries such as a name search only the named account. Connected accounts' payments are returned only for connected accounts you can read payments on.
+**include_connected_accounts:** `typing.Optional[bool]` — Only for searches: with `query`, also search the account's connected accounts. Requires `account_id` and `query`, and is a 400 without either; it never lists connected accounts' payments on its own. Matches on payment, dispute, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`). Free-text queries such as a name search only the named account. Connected accounts' payments are returned only for connected accounts you can read payments on.
     
 </dd>
 </dl>
@@ -33813,7 +33813,7 @@ client.payments.summary(
 <dl>
 <dd>
 
-**query:** `typing.Optional[str]` — Search payments by user ID, membership ID, user email, name, or username.
+**query:** `typing.Optional[str]` — Search payments by payment ID, dispute ID, user ID, membership ID, user email, name, or username.
     
 </dd>
 </dl>
@@ -33821,7 +33821,7 @@ client.payments.summary(
 <dl>
 <dd>
 
-**include_connected_accounts:** `typing.Optional[bool]` — Only for searches: with `query`, also search the account's connected accounts. Requires `account_id` and `query`, and is a 400 without either; it never lists connected accounts' payments on its own. Matches on payment, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`). Free-text queries such as a name search only the named account. Connected accounts' payments are returned only for connected accounts you can read payments on.
+**include_connected_accounts:** `typing.Optional[bool]` — Only for searches: with `query`, also search the account's connected accounts. Requires `account_id` and `query`, and is a 400 without either; it never lists connected accounts' payments on its own. Matches on payment, dispute, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`). Free-text queries such as a name search only the named account. Connected accounts' payments are returned only for connected accounts you can read payments on.
     
 </dd>
 </dl>
