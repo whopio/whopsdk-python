@@ -55,7 +55,7 @@ if typing.TYPE_CHECKING:
         UpdateAccountsRequestTermsOfService,
         UpdateAccountsRequestThreeDsLevel,
     )
-    from . import fees, financing_providers, preferences, reserves
+    from . import customer_tracking, fees, financing_providers, preferences, reserves
     from .fees import (
         UpdateFeesRequestBankDeposit,
         UpdateFeesRequestBankDepositRegionsValue,
@@ -161,6 +161,7 @@ if typing.TYPE_CHECKING:
         UpdatePreferencesRequestAdsPaymentMethodsPrimary,
         UpdatePreferencesRequestAdsPaymentMethodsPrimaryType,
         UpdatePreferencesRequestAdsTripleWhaleIntegration,
+        UpdatePreferencesRequestCustomerTracking,
         UpdatePreferencesRequestEconomicIntelligenceDurationKey,
         UpdatePreferencesRequestFeedbackOptionsItem,
         UpdatePreferencesRequestFeedbackOptionsItemCategory,
@@ -339,6 +340,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatePreferencesRequestAdsPaymentMethodsPrimary": ".preferences",
     "UpdatePreferencesRequestAdsPaymentMethodsPrimaryType": ".preferences",
     "UpdatePreferencesRequestAdsTripleWhaleIntegration": ".preferences",
+    "UpdatePreferencesRequestCustomerTracking": ".preferences",
     "UpdatePreferencesRequestEconomicIntelligenceDurationKey": ".preferences",
     "UpdatePreferencesRequestFeedbackOptionsItem": ".preferences",
     "UpdatePreferencesRequestFeedbackOptionsItemCategory": ".preferences",
@@ -366,6 +368,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdatePreferencesResponseFeedbackOptionsItemCategory": ".preferences",
     "UpdatePreferencesResponsePreferredSettlementCurrency": ".preferences",
     "UpdatePreferencesResponseSubscriptionFailureBehavior": ".preferences",
+    "customer_tracking": ".customer_tracking",
     "fees": ".fees",
     "financing_providers": ".financing_providers",
     "preferences": ".preferences",
@@ -543,6 +546,7 @@ __all__ = [
     "UpdatePreferencesRequestAdsPaymentMethodsPrimary",
     "UpdatePreferencesRequestAdsPaymentMethodsPrimaryType",
     "UpdatePreferencesRequestAdsTripleWhaleIntegration",
+    "UpdatePreferencesRequestCustomerTracking",
     "UpdatePreferencesRequestEconomicIntelligenceDurationKey",
     "UpdatePreferencesRequestFeedbackOptionsItem",
     "UpdatePreferencesRequestFeedbackOptionsItemCategory",
@@ -570,6 +574,7 @@ __all__ = [
     "UpdatePreferencesResponseFeedbackOptionsItemCategory",
     "UpdatePreferencesResponsePreferredSettlementCurrency",
     "UpdatePreferencesResponseSubscriptionFailureBehavior",
+    "customer_tracking",
     "fees",
     "financing_providers",
     "preferences",

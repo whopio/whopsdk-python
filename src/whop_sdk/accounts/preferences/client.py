@@ -11,6 +11,7 @@ from .types.update_preferences_request_ads_payment_methods import UpdatePreferen
 from .types.update_preferences_request_ads_triple_whale_integration import (
     UpdatePreferencesRequestAdsTripleWhaleIntegration,
 )
+from .types.update_preferences_request_customer_tracking import UpdatePreferencesRequestCustomerTracking
 from .types.update_preferences_request_economic_intelligence_duration_key import (
     UpdatePreferencesRequestEconomicIntelligenceDurationKey,
 )
@@ -89,6 +90,7 @@ class PreferencesClient:
         cards_auto_top_up: typing.Optional[bool] = OMIT,
         cards_notifications: typing.Optional[bool] = OMIT,
         covers_connected_account_negative_balances: typing.Optional[bool] = OMIT,
+        customer_tracking: typing.Optional[UpdatePreferencesRequestCustomerTracking] = OMIT,
         dispute_fighter_enabled: typing.Optional[bool] = OMIT,
         economic_intelligence_auto_renew: typing.Optional[bool] = OMIT,
         economic_intelligence_duration_key: typing.Optional[
@@ -110,7 +112,7 @@ class PreferencesClient:
         | `cards_auto_top_up`, `cards_notifications`, `covers_connected_account_negative_balances` | `payout:account:update` |
         | `dispute_fighter_enabled` | `payment:dispute` |
         | `economic_intelligence_duration_key`, `economic_intelligence_auto_renew` | `company:update` |
-        | `feedback_options` | `company:manage_checkout` |
+        | `feedback_options`, `customer_tracking` | `company:manage_checkout` |
 
         When updating preferences from multiple rows, all corresponding scopes are required for the account.
 
@@ -142,6 +144,9 @@ class PreferencesClient:
 
         covers_connected_account_negative_balances : typing.Optional[bool]
             Whether this account covers its connected accounts' negative balances. When a connected account's balance drops below zero (from refunds, disputes, or fees), this account's available balance in the same currency pays it back, up to what is available. Only accounts with connected accounts can set it. Requires the `payout:account:update` scope on your API key.
+
+        customer_tracking : typing.Optional[UpdatePreferencesRequestCustomerTracking]
+            Customer tracking settings for the hosted tracking page and Element, replaced as a whole: fields left out are saved as unset. Pass null to clear them, which turns tracking off. Tracking is off unless `enabled` is `true`. Requires the `company:manage_checkout` scope on your API key.
 
         dispute_fighter_enabled : typing.Optional[bool]
             Whether Whop assembles and files the evidence response when this account's payments are disputed. Off by default; enabling it also opts the account into the success fee charged only on disputes it wins. Requires the `payment:dispute` scope on your API key.
@@ -192,6 +197,7 @@ class PreferencesClient:
             cards_auto_top_up=cards_auto_top_up,
             cards_notifications=cards_notifications,
             covers_connected_account_negative_balances=covers_connected_account_negative_balances,
+            customer_tracking=customer_tracking,
             dispute_fighter_enabled=dispute_fighter_enabled,
             economic_intelligence_auto_renew=economic_intelligence_auto_renew,
             economic_intelligence_duration_key=economic_intelligence_duration_key,
@@ -273,6 +279,7 @@ class AsyncPreferencesClient:
         cards_auto_top_up: typing.Optional[bool] = OMIT,
         cards_notifications: typing.Optional[bool] = OMIT,
         covers_connected_account_negative_balances: typing.Optional[bool] = OMIT,
+        customer_tracking: typing.Optional[UpdatePreferencesRequestCustomerTracking] = OMIT,
         dispute_fighter_enabled: typing.Optional[bool] = OMIT,
         economic_intelligence_auto_renew: typing.Optional[bool] = OMIT,
         economic_intelligence_duration_key: typing.Optional[
@@ -294,7 +301,7 @@ class AsyncPreferencesClient:
         | `cards_auto_top_up`, `cards_notifications`, `covers_connected_account_negative_balances` | `payout:account:update` |
         | `dispute_fighter_enabled` | `payment:dispute` |
         | `economic_intelligence_duration_key`, `economic_intelligence_auto_renew` | `company:update` |
-        | `feedback_options` | `company:manage_checkout` |
+        | `feedback_options`, `customer_tracking` | `company:manage_checkout` |
 
         When updating preferences from multiple rows, all corresponding scopes are required for the account.
 
@@ -326,6 +333,9 @@ class AsyncPreferencesClient:
 
         covers_connected_account_negative_balances : typing.Optional[bool]
             Whether this account covers its connected accounts' negative balances. When a connected account's balance drops below zero (from refunds, disputes, or fees), this account's available balance in the same currency pays it back, up to what is available. Only accounts with connected accounts can set it. Requires the `payout:account:update` scope on your API key.
+
+        customer_tracking : typing.Optional[UpdatePreferencesRequestCustomerTracking]
+            Customer tracking settings for the hosted tracking page and Element, replaced as a whole: fields left out are saved as unset. Pass null to clear them, which turns tracking off. Tracking is off unless `enabled` is `true`. Requires the `company:manage_checkout` scope on your API key.
 
         dispute_fighter_enabled : typing.Optional[bool]
             Whether Whop assembles and files the evidence response when this account's payments are disputed. Off by default; enabling it also opts the account into the success fee charged only on disputes it wins. Requires the `payment:dispute` scope on your API key.
@@ -384,6 +394,7 @@ class AsyncPreferencesClient:
             cards_auto_top_up=cards_auto_top_up,
             cards_notifications=cards_notifications,
             covers_connected_account_negative_balances=covers_connected_account_negative_balances,
+            customer_tracking=customer_tracking,
             dispute_fighter_enabled=dispute_fighter_enabled,
             economic_intelligence_auto_renew=economic_intelligence_auto_renew,
             economic_intelligence_duration_key=economic_intelligence_duration_key,

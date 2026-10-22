@@ -6,6 +6,7 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
 from ..types.shipment import Shipment
+from ..types.shipment_lookup import ShipmentLookup
 from .raw_client import AsyncRawShipmentsClient, RawShipmentsClient
 from .types.list_shipments_request_direction import ListShipmentsRequestDirection
 from .types.list_shipments_request_order import ListShipmentsRequestOrder
@@ -174,6 +175,63 @@ class ShipmentsClient:
             payment_id=payment_id,
             tracking_number=tracking_number,
             account_id=account_id,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def lookup(
+        self,
+        *,
+        account_id: str,
+        email: str,
+        order_number: typing.Optional[str] = OMIT,
+        tracking_number: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ShipmentLookup:
+        """
+        Finds the delivery for a purchase from an account with customer tracking turned on, using exactly one order or tracking number plus the buyer's current receipt email. No authentication is required and no sign-in or session is created. Email matching ignores case and surrounding whitespace, but dots and +tags must match. Every miss returns the same 404: an unknown account, tracking turned off, a wrong number or email, an unpaid order or a purchase with nothing to ship. `shipment` is `null` while a paid physical purchase has no tracking yet. Limited to 30 attempts per five minutes per client IP. Responses are never cached or replayed with Idempotency-Key.
+
+        Parameters
+        ----------
+        account_id : str
+            The selling account, prefixed `biz_`.
+
+        email : str
+            The buyer's current receipt email.
+
+        order_number : typing.Optional[str]
+            The payment ID prefixed `pay_`, or the order number printed on the receipt (optional leading `#`). Supply this or `tracking_number`, not both.
+
+        tracking_number : typing.Optional[str]
+            The exact carrier tracking number. Supply this or `order_number`, not both.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ShipmentLookup
+            shipment found
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-10-15-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.shipments.lookup(
+            account_id="biz_xxxxxxxxxxxxxx",
+            email="marcus@shinetime.example",
+        )
+        """
+        _response = self._raw_client.lookup(
+            account_id=account_id,
+            email=email,
+            order_number=order_number,
+            tracking_number=tracking_number,
             request_options=request_options,
         )
         return _response.data
@@ -426,6 +484,71 @@ class AsyncShipmentsClient:
             payment_id=payment_id,
             tracking_number=tracking_number,
             account_id=account_id,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def lookup(
+        self,
+        *,
+        account_id: str,
+        email: str,
+        order_number: typing.Optional[str] = OMIT,
+        tracking_number: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ShipmentLookup:
+        """
+        Finds the delivery for a purchase from an account with customer tracking turned on, using exactly one order or tracking number plus the buyer's current receipt email. No authentication is required and no sign-in or session is created. Email matching ignores case and surrounding whitespace, but dots and +tags must match. Every miss returns the same 404: an unknown account, tracking turned off, a wrong number or email, an unpaid order or a purchase with nothing to ship. `shipment` is `null` while a paid physical purchase has no tracking yet. Limited to 30 attempts per five minutes per client IP. Responses are never cached or replayed with Idempotency-Key.
+
+        Parameters
+        ----------
+        account_id : str
+            The selling account, prefixed `biz_`.
+
+        email : str
+            The buyer's current receipt email.
+
+        order_number : typing.Optional[str]
+            The payment ID prefixed `pay_`, or the order number printed on the receipt (optional leading `#`). Supply this or `tracking_number`, not both.
+
+        tracking_number : typing.Optional[str]
+            The exact carrier tracking number. Supply this or `order_number`, not both.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ShipmentLookup
+            shipment found
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-10-15-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.shipments.lookup(
+                account_id="biz_xxxxxxxxxxxxxx",
+                email="marcus@shinetime.example",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.lookup(
+            account_id=account_id,
+            email=email,
+            order_number=order_number,
+            tracking_number=tracking_number,
             request_options=request_options,
         )
         return _response.data

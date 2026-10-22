@@ -37,6 +37,8 @@ if typing.TYPE_CHECKING:
     from .account_company_formation_signatures import AccountCompanyFormationSignatures
     from .account_company_formation_status import AccountCompanyFormationStatus
     from .account_covered_payout_fees import AccountCoveredPayoutFees
+    from .account_customer_tracking import AccountCustomerTracking
+    from .account_customer_tracking_button_text_color import AccountCustomerTrackingButtonTextColor
     from .account_dispute_alert_auto_refund_control import AccountDisputeAlertAutoRefundControl
     from .account_economic_intelligence_offer import AccountEconomicIntelligenceOffer
     from .account_economic_intelligence_offer_duration_unit import AccountEconomicIntelligenceOfferDurationUnit
@@ -440,6 +442,7 @@ if typing.TYPE_CHECKING:
     from .currencies import Currencies
     from .custom_ctas import CustomCtas
     from .custom_field_types import CustomFieldTypes
+    from .customer_tracking_preferences import CustomerTrackingPreferences
     from .detailed_targeting_option import DetailedTargetingOption
     from .detailed_targeting_option_behavior_type import DetailedTargetingOptionBehaviorType
     from .direction import Direction
@@ -1410,6 +1413,7 @@ if typing.TYPE_CHECKING:
     from .shipment_legacy_payment import ShipmentLegacyPayment
     from .shipment_list_item import ShipmentListItem
     from .shipment_list_item_payment import ShipmentListItemPayment
+    from .shipment_lookup import ShipmentLookup
     from .shipment_status import ShipmentStatus
     from .shipment_statuses import ShipmentStatuses
     from .shipment_substatuses import ShipmentSubstatuses
@@ -1599,6 +1603,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AccountCompanyFormationSignatures": ".account_company_formation_signatures",
     "AccountCompanyFormationStatus": ".account_company_formation_status",
     "AccountCoveredPayoutFees": ".account_covered_payout_fees",
+    "AccountCustomerTracking": ".account_customer_tracking",
+    "AccountCustomerTrackingButtonTextColor": ".account_customer_tracking_button_text_color",
     "AccountDisputeAlertAutoRefundControl": ".account_dispute_alert_auto_refund_control",
     "AccountEconomicIntelligenceOffer": ".account_economic_intelligence_offer",
     "AccountEconomicIntelligenceOfferDurationUnit": ".account_economic_intelligence_offer_duration_unit",
@@ -1990,6 +1996,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Currencies": ".currencies",
     "CustomCtas": ".custom_ctas",
     "CustomFieldTypes": ".custom_field_types",
+    "CustomerTrackingPreferences": ".customer_tracking_preferences",
     "DetailedTargetingOption": ".detailed_targeting_option",
     "DetailedTargetingOptionBehaviorType": ".detailed_targeting_option_behavior_type",
     "Direction": ".direction",
@@ -2830,6 +2837,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ShipmentLegacyPayment": ".shipment_legacy_payment",
     "ShipmentListItem": ".shipment_list_item",
     "ShipmentListItemPayment": ".shipment_list_item_payment",
+    "ShipmentLookup": ".shipment_lookup",
     "ShipmentStatus": ".shipment_status",
     "ShipmentStatuses": ".shipment_statuses",
     "ShipmentSubstatuses": ".shipment_substatuses",
@@ -3037,6 +3045,8 @@ __all__ = [
     "AccountCompanyFormationSignatures",
     "AccountCompanyFormationStatus",
     "AccountCoveredPayoutFees",
+    "AccountCustomerTracking",
+    "AccountCustomerTrackingButtonTextColor",
     "AccountDisputeAlertAutoRefundControl",
     "AccountEconomicIntelligenceOffer",
     "AccountEconomicIntelligenceOfferDurationUnit",
@@ -3428,6 +3438,7 @@ __all__ = [
     "Currencies",
     "CustomCtas",
     "CustomFieldTypes",
+    "CustomerTrackingPreferences",
     "DetailedTargetingOption",
     "DetailedTargetingOptionBehaviorType",
     "Direction",
@@ -4268,6 +4279,7 @@ __all__ = [
     "ShipmentLegacyPayment",
     "ShipmentListItem",
     "ShipmentListItemPayment",
+    "ShipmentLookup",
     "ShipmentStatus",
     "ShipmentStatuses",
     "ShipmentSubstatuses",
