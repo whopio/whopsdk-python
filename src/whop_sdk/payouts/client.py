@@ -250,12 +250,13 @@ class PayoutsClient:
     def create_quote(
         self,
         *,
-        amount: float,
         payout_method_id: str,
         account_id: typing.Optional[str] = OMIT,
+        amount: typing.Optional[float] = OMIT,
         currency: typing.Optional[str] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         platform_covers_fees: typing.Optional[bool] = OMIT,
+        recipient_amount: typing.Optional[float] = OMIT,
         speed: typing.Optional[CreateQuotePayoutsRequestSpeed] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
         user_id: typing.Optional[str] = OMIT,
@@ -266,14 +267,14 @@ class PayoutsClient:
 
         Parameters
         ----------
-        amount : float
-            The amount to pay out in the specified currency.
-
         payout_method_id : str
             The saved payout method to quote (a potk_ identifier).
 
         account_id : typing.Optional[str]
             Account to pay out from, prefixed `biz_`. Provide exactly one of `account_id` or `user_id`.
+
+        amount : typing.Optional[float]
+            The amount to pay out in the specified currency, fees included. Provide exactly one of `amount` or `recipient_amount`.
 
         currency : typing.Optional[str]
             The currency to pay out. When omitted, uses `usd` if that balance can cover a withdrawal, otherwise the account's only other funded currency.
@@ -283,6 +284,9 @@ class PayoutsClient:
 
         platform_covers_fees : typing.Optional[bool]
             Whether the parent platform covers the payout fee instead of the account being paid out.
+
+        recipient_amount : typing.Optional[float]
+            The amount the recipient should receive, with fees added on top. When the payout method pays out in `currency`, the quote's `destination_amount` covers it; otherwise its `net_amount` does. Provide exactly one of `amount` or `recipient_amount`.
 
         speed : typing.Optional[CreateQuotePayoutsRequestSpeed]
             How fast the funds should arrive.
@@ -311,17 +315,17 @@ class PayoutsClient:
             token="YOUR_TOKEN",
         )
         client.payouts.create_quote(
-            amount=6762.41,
             payout_method_id="potk_xxxxxxxxxxxxxx",
         )
         """
         _response = self._raw_client.create_quote(
-            amount=amount,
             payout_method_id=payout_method_id,
             account_id=account_id,
+            amount=amount,
             currency=currency,
             payment_method_id=payment_method_id,
             platform_covers_fees=platform_covers_fees,
+            recipient_amount=recipient_amount,
             speed=speed,
             statement_descriptor=statement_descriptor,
             user_id=user_id,
@@ -687,12 +691,13 @@ class AsyncPayoutsClient:
     async def create_quote(
         self,
         *,
-        amount: float,
         payout_method_id: str,
         account_id: typing.Optional[str] = OMIT,
+        amount: typing.Optional[float] = OMIT,
         currency: typing.Optional[str] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         platform_covers_fees: typing.Optional[bool] = OMIT,
+        recipient_amount: typing.Optional[float] = OMIT,
         speed: typing.Optional[CreateQuotePayoutsRequestSpeed] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
         user_id: typing.Optional[str] = OMIT,
@@ -703,14 +708,14 @@ class AsyncPayoutsClient:
 
         Parameters
         ----------
-        amount : float
-            The amount to pay out in the specified currency.
-
         payout_method_id : str
             The saved payout method to quote (a potk_ identifier).
 
         account_id : typing.Optional[str]
             Account to pay out from, prefixed `biz_`. Provide exactly one of `account_id` or `user_id`.
+
+        amount : typing.Optional[float]
+            The amount to pay out in the specified currency, fees included. Provide exactly one of `amount` or `recipient_amount`.
 
         currency : typing.Optional[str]
             The currency to pay out. When omitted, uses `usd` if that balance can cover a withdrawal, otherwise the account's only other funded currency.
@@ -720,6 +725,9 @@ class AsyncPayoutsClient:
 
         platform_covers_fees : typing.Optional[bool]
             Whether the parent platform covers the payout fee instead of the account being paid out.
+
+        recipient_amount : typing.Optional[float]
+            The amount the recipient should receive, with fees added on top. When the payout method pays out in `currency`, the quote's `destination_amount` covers it; otherwise its `net_amount` does. Provide exactly one of `amount` or `recipient_amount`.
 
         speed : typing.Optional[CreateQuotePayoutsRequestSpeed]
             How fast the funds should arrive.
@@ -753,7 +761,6 @@ class AsyncPayoutsClient:
 
         async def main() -> None:
             await client.payouts.create_quote(
-                amount=6762.41,
                 payout_method_id="potk_xxxxxxxxxxxxxx",
             )
 
@@ -761,12 +768,13 @@ class AsyncPayoutsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.create_quote(
-            amount=amount,
             payout_method_id=payout_method_id,
             account_id=account_id,
+            amount=amount,
             currency=currency,
             payment_method_id=payment_method_id,
             platform_covers_fees=platform_covers_fees,
+            recipient_amount=recipient_amount,
             speed=speed,
             statement_descriptor=statement_descriptor,
             user_id=user_id,
