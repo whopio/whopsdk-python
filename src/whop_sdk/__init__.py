@@ -1942,6 +1942,7 @@ if typing.TYPE_CHECKING:
     from .cards import (
         CreateCardsRequestBilling,
         CreateCardsRequestCardholder,
+        CreateCardsRequestKind,
         CreateCardsRequestSpendLimitFrequency,
         CreateCardsResponse,
         CreateCardsResponseBilling,
@@ -3924,6 +3925,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateBountySubmissionsRequestMetadata": ".bounty_submissions",
     "CreateCardsRequestBilling": ".cards",
     "CreateCardsRequestCardholder": ".cards",
+    "CreateCardsRequestKind": ".cards",
     "CreateCardsRequestSpendLimitFrequency": ".cards",
     "CreateCardsResponse": ".cards",
     "CreateCardsResponseBilling": ".cards",
@@ -7154,6 +7156,7 @@ __all__ = [
     "CreateBountySubmissionsRequestMetadata",
     "CreateCardsRequestBilling",
     "CreateCardsRequestCardholder",
+    "CreateCardsRequestKind",
     "CreateCardsRequestSpendLimitFrequency",
     "CreateCardsResponse",
     "CreateCardsResponseBilling",

@@ -18,6 +18,7 @@ from ..errors.not_found_error import NotFoundError
 from ..errors.unauthorized_error import UnauthorizedError
 from .types.create_cards_request_billing import CreateCardsRequestBilling
 from .types.create_cards_request_cardholder import CreateCardsRequestCardholder
+from .types.create_cards_request_kind import CreateCardsRequestKind
 from .types.create_cards_request_spend_limit_frequency import CreateCardsRequestSpendLimitFrequency
 from .types.create_cards_response import CreateCardsResponse
 from .types.list_cards_response import ListCardsResponse
@@ -142,6 +143,7 @@ class RawCardsClient:
         assigned_user_id: typing.Optional[str] = OMIT,
         billing: typing.Optional[CreateCardsRequestBilling] = OMIT,
         cardholder: typing.Optional[CreateCardsRequestCardholder] = OMIT,
+        kind: typing.Optional[CreateCardsRequestKind] = OMIT,
         name: typing.Optional[str] = OMIT,
         spend_limit: typing.Optional[float] = OMIT,
         spend_limit_frequency: typing.Optional[CreateCardsRequestSpendLimitFrequency] = OMIT,
@@ -158,13 +160,16 @@ class RawCardsClient:
             The owning account ID (a biz_ identifier). Provide this or user_id.
 
         assigned_user_id : typing.Optional[str]
-            The account member (a user_ identifier) to assign the card to. Required for business card issuing accounts, and whenever a company API key files an account's first card application.
+            The account member (a user_ identifier) to assign the card to. Required for business card issuing accounts. When this call files the card application, the member applies with their identity; a company API key that sends neither this nor kind is refused.
 
         billing : typing.Optional[CreateCardsRequestBilling]
             The card's initial billing address. On a company card it also registers the assigned member as a cardholder if they are not one yet. For an individual card, region is also required.
 
         cardholder : typing.Optional[CreateCardsRequestCardholder]
             Details for a company card's assigned member when they are not registered as a cardholder yet. Send with billing to register them and start provisioning in one call instead of sending them an onboarding invitation. The legal name comes from the member's approved identity verification when they have one, and from these fields when they do not.
+
+        kind : typing.Optional[CreateCardsRequestKind]
+            Who the card application verifies, set only on the call that files it; sending it once the account has an application is a 400. `business` applies as the account with its approved KYB. `individual` applies as a person: assigned_user_id when given, otherwise the account owner, using the identity verified on the account. Omit it to apply as the business when its KYB is approved, and as an individual otherwise.
 
         name : typing.Optional[str]
             A display name for the card.
@@ -202,6 +207,7 @@ class RawCardsClient:
                 "cardholder": convert_and_respect_annotation_metadata(
                     object_=cardholder, annotation=CreateCardsRequestCardholder, direction="write"
                 ),
+                "kind": kind,
                 "name": name,
                 "spend_limit": spend_limit,
                 "spend_limit_frequency": spend_limit_frequency,
@@ -630,6 +636,7 @@ class AsyncRawCardsClient:
         assigned_user_id: typing.Optional[str] = OMIT,
         billing: typing.Optional[CreateCardsRequestBilling] = OMIT,
         cardholder: typing.Optional[CreateCardsRequestCardholder] = OMIT,
+        kind: typing.Optional[CreateCardsRequestKind] = OMIT,
         name: typing.Optional[str] = OMIT,
         spend_limit: typing.Optional[float] = OMIT,
         spend_limit_frequency: typing.Optional[CreateCardsRequestSpendLimitFrequency] = OMIT,
@@ -646,13 +653,16 @@ class AsyncRawCardsClient:
             The owning account ID (a biz_ identifier). Provide this or user_id.
 
         assigned_user_id : typing.Optional[str]
-            The account member (a user_ identifier) to assign the card to. Required for business card issuing accounts, and whenever a company API key files an account's first card application.
+            The account member (a user_ identifier) to assign the card to. Required for business card issuing accounts. When this call files the card application, the member applies with their identity; a company API key that sends neither this nor kind is refused.
 
         billing : typing.Optional[CreateCardsRequestBilling]
             The card's initial billing address. On a company card it also registers the assigned member as a cardholder if they are not one yet. For an individual card, region is also required.
 
         cardholder : typing.Optional[CreateCardsRequestCardholder]
             Details for a company card's assigned member when they are not registered as a cardholder yet. Send with billing to register them and start provisioning in one call instead of sending them an onboarding invitation. The legal name comes from the member's approved identity verification when they have one, and from these fields when they do not.
+
+        kind : typing.Optional[CreateCardsRequestKind]
+            Who the card application verifies, set only on the call that files it; sending it once the account has an application is a 400. `business` applies as the account with its approved KYB. `individual` applies as a person: assigned_user_id when given, otherwise the account owner, using the identity verified on the account. Omit it to apply as the business when its KYB is approved, and as an individual otherwise.
 
         name : typing.Optional[str]
             A display name for the card.
@@ -690,6 +700,7 @@ class AsyncRawCardsClient:
                 "cardholder": convert_and_respect_annotation_metadata(
                     object_=cardholder, annotation=CreateCardsRequestCardholder, direction="write"
                 ),
+                "kind": kind,
                 "name": name,
                 "spend_limit": spend_limit,
                 "spend_limit_frequency": spend_limit_frequency,
