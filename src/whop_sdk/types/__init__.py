@@ -267,6 +267,7 @@ if typing.TYPE_CHECKING:
     from .app_domain_status import AppDomainStatus
     from .app_elements_used_item import AppElementsUsedItem
     from .app_icon import AppIcon
+    from .app_installation import AppInstallation
     from .app_list_item import AppListItem
     from .app_list_item_app_type import AppListItemAppType
     from .app_list_item_status import AppListItemStatus
@@ -281,6 +282,7 @@ if typing.TYPE_CHECKING:
     from .app_required_scopes_item import AppRequiredScopesItem
     from .app_status import AppStatus
     from .app_statuses import AppStatuses
+    from .app_summary import AppSummary
     from .app_types import AppTypes
     from .app_usage_stats import AppUsageStats
     from .app_valid_scopes import AppValidScopes
@@ -1819,6 +1821,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AppDomainStatus": ".app_domain_status",
     "AppElementsUsedItem": ".app_elements_used_item",
     "AppIcon": ".app_icon",
+    "AppInstallation": ".app_installation",
     "AppListItem": ".app_list_item",
     "AppListItemAppType": ".app_list_item_app_type",
     "AppListItemStatus": ".app_list_item_status",
@@ -1833,6 +1836,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AppRequiredScopesItem": ".app_required_scopes_item",
     "AppStatus": ".app_status",
     "AppStatuses": ".app_statuses",
+    "AppSummary": ".app_summary",
     "AppTypes": ".app_types",
     "AppUsageStats": ".app_usage_stats",
     "AppValidScopes": ".app_valid_scopes",
@@ -3255,6 +3259,7 @@ __all__ = [
     "AppDomainStatus",
     "AppElementsUsedItem",
     "AppIcon",
+    "AppInstallation",
     "AppListItem",
     "AppListItemAppType",
     "AppListItemStatus",
@@ -3269,6 +3274,7 @@ __all__ = [
     "AppRequiredScopesItem",
     "AppStatus",
     "AppStatuses",
+    "AppSummary",
     "AppTypes",
     "AppUsageStats",
     "AppValidScopes",
