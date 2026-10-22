@@ -15,6 +15,7 @@ ListPaymentsRequestTrackingStatesItem = typing.Union[
         "cancelled",
         "error",
         "needs_tracking",
+        "missing_tracking",
     ],
     typing.Any,
 ]

@@ -42,6 +42,7 @@ if typing.TYPE_CHECKING:
     from .list_payments_request_statuses_item import ListPaymentsRequestStatusesItem
     from .list_payments_request_substatuses_item import ListPaymentsRequestSubstatusesItem
     from .list_payments_request_tracking_states_item import ListPaymentsRequestTrackingStatesItem
+    from .list_payments_request_tracking_status import ListPaymentsRequestTrackingStatus
     from .list_payments_response import ListPaymentsResponse
     from .list_payments_response_page_info import ListPaymentsResponsePageInfo
     from .post_payment_authorized_payload import PostPaymentAuthorizedPayload
@@ -102,6 +103,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListPaymentsRequestStatusesItem": ".list_payments_request_statuses_item",
     "ListPaymentsRequestSubstatusesItem": ".list_payments_request_substatuses_item",
     "ListPaymentsRequestTrackingStatesItem": ".list_payments_request_tracking_states_item",
+    "ListPaymentsRequestTrackingStatus": ".list_payments_request_tracking_status",
     "ListPaymentsResponse": ".list_payments_response",
     "ListPaymentsResponsePageInfo": ".list_payments_response_page_info",
     "PostPaymentAuthorizedPayload": ".post_payment_authorized_payload",
@@ -186,6 +188,7 @@ __all__ = [
     "ListPaymentsRequestStatusesItem",
     "ListPaymentsRequestSubstatusesItem",
     "ListPaymentsRequestTrackingStatesItem",
+    "ListPaymentsRequestTrackingStatus",
     "ListPaymentsResponse",
     "ListPaymentsResponsePageInfo",
     "PostPaymentAuthorizedPayload",

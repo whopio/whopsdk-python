@@ -37,6 +37,7 @@ from .types.list_payments_request_status import ListPaymentsRequestStatus
 from .types.list_payments_request_statuses_item import ListPaymentsRequestStatusesItem
 from .types.list_payments_request_substatuses_item import ListPaymentsRequestSubstatusesItem
 from .types.list_payments_request_tracking_states_item import ListPaymentsRequestTrackingStatesItem
+from .types.list_payments_request_tracking_status import ListPaymentsRequestTrackingStatus
 from .types.list_payments_response import ListPaymentsResponse
 from .types.summary_payments_request_billing_reasons_item import SummaryPaymentsRequestBillingReasonsItem
 from .types.summary_payments_request_groups_item import SummaryPaymentsRequestGroupsItem
@@ -62,6 +63,7 @@ class RawPaymentsClient:
         mode: typing.Optional[ListPaymentsRequestMode] = None,
         account_id: typing.Optional[str] = None,
         status: typing.Optional[ListPaymentsRequestStatus] = None,
+        tracking_status: typing.Optional[ListPaymentsRequestTrackingStatus] = None,
         billing_reason: typing.Optional[ListPaymentsRequestBillingReason] = None,
         currency: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
@@ -118,6 +120,9 @@ class RawPaymentsClient:
 
         status : typing.Optional[ListPaymentsRequestStatus]
             Only payments in this lifecycle state.
+
+        tracking_status : typing.Optional[ListPaymentsRequestTrackingStatus]
+            Only payments whose most recently attached kept shipment is in this tracking state. `missing_tracking` selects paid payments with a captured shipping address and no kept shipment, excluding fully refunded payments. `needs_tracking` selects payments with an open pre-shipment funds hold and no kept shipment. Shipment states do not imply a payment or refund state. Requires `shipment:basic:read` as well as `payment:basic:read`; user-wide lists include only accounts readable under both scopes. Only supported with `mode=account_sales`.
 
         billing_reason : typing.Optional[ListPaymentsRequestBillingReason]
             Only payments charged for this reason. `subscription_cycle` also matches renewals recorded as `subscription_update`.
@@ -228,6 +233,7 @@ class RawPaymentsClient:
                 "mode": mode,
                 "account_id": account_id,
                 "status": status,
+                "tracking_status": tracking_status,
                 "billing_reason": billing_reason,
                 "currency": currency,
                 "user_id": user_id,
@@ -289,6 +295,7 @@ class RawPaymentsClient:
                         mode=mode,
                         account_id=account_id,
                         status=status,
+                        tracking_status=tracking_status,
                         billing_reason=billing_reason,
                         currency=currency,
                         user_id=user_id,
@@ -336,6 +343,17 @@ class RawPaymentsClient:
                 )
             if _response.status_code == 401:
                 raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1721,6 +1739,7 @@ class AsyncRawPaymentsClient:
         mode: typing.Optional[ListPaymentsRequestMode] = None,
         account_id: typing.Optional[str] = None,
         status: typing.Optional[ListPaymentsRequestStatus] = None,
+        tracking_status: typing.Optional[ListPaymentsRequestTrackingStatus] = None,
         billing_reason: typing.Optional[ListPaymentsRequestBillingReason] = None,
         currency: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
@@ -1777,6 +1796,9 @@ class AsyncRawPaymentsClient:
 
         status : typing.Optional[ListPaymentsRequestStatus]
             Only payments in this lifecycle state.
+
+        tracking_status : typing.Optional[ListPaymentsRequestTrackingStatus]
+            Only payments whose most recently attached kept shipment is in this tracking state. `missing_tracking` selects paid payments with a captured shipping address and no kept shipment, excluding fully refunded payments. `needs_tracking` selects payments with an open pre-shipment funds hold and no kept shipment. Shipment states do not imply a payment or refund state. Requires `shipment:basic:read` as well as `payment:basic:read`; user-wide lists include only accounts readable under both scopes. Only supported with `mode=account_sales`.
 
         billing_reason : typing.Optional[ListPaymentsRequestBillingReason]
             Only payments charged for this reason. `subscription_cycle` also matches renewals recorded as `subscription_update`.
@@ -1887,6 +1909,7 @@ class AsyncRawPaymentsClient:
                 "mode": mode,
                 "account_id": account_id,
                 "status": status,
+                "tracking_status": tracking_status,
                 "billing_reason": billing_reason,
                 "currency": currency,
                 "user_id": user_id,
@@ -1950,6 +1973,7 @@ class AsyncRawPaymentsClient:
                             mode=mode,
                             account_id=account_id,
                             status=status,
+                            tracking_status=tracking_status,
                             billing_reason=billing_reason,
                             currency=currency,
                             user_id=user_id,
@@ -1998,6 +2022,17 @@ class AsyncRawPaymentsClient:
                 )
             if _response.status_code == 401:
                 raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
