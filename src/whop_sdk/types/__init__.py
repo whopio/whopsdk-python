@@ -1555,7 +1555,10 @@ if typing.TYPE_CHECKING:
     from .waitlist_entry import WaitlistEntry
     from .waitlist_entry_approval_failure_reason import WaitlistEntryApprovalFailureReason
     from .waitlist_entry_custom_field_response import WaitlistEntryCustomFieldResponse
+    from .waitlist_entry_product import WaitlistEntryProduct
     from .waitlist_entry_status import WaitlistEntryStatus
+    from .waitlist_entry_variant import WaitlistEntryVariant
+    from .waitlist_entry_variant_plan_type import WaitlistEntryVariantPlanType
     from .webhook import Webhook
     from .webhook_api_version import WebhookApiVersion
     from .webhook_delivery import WebhookDelivery
@@ -2973,7 +2976,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "WaitlistEntry": ".waitlist_entry",
     "WaitlistEntryApprovalFailureReason": ".waitlist_entry_approval_failure_reason",
     "WaitlistEntryCustomFieldResponse": ".waitlist_entry_custom_field_response",
+    "WaitlistEntryProduct": ".waitlist_entry_product",
     "WaitlistEntryStatus": ".waitlist_entry_status",
+    "WaitlistEntryVariant": ".waitlist_entry_variant",
+    "WaitlistEntryVariantPlanType": ".waitlist_entry_variant_plan_type",
     "Webhook": ".webhook",
     "WebhookApiVersion": ".webhook_api_version",
     "WebhookDelivery": ".webhook_delivery",
@@ -4415,7 +4421,10 @@ __all__ = [
     "WaitlistEntry",
     "WaitlistEntryApprovalFailureReason",
     "WaitlistEntryCustomFieldResponse",
+    "WaitlistEntryProduct",
     "WaitlistEntryStatus",
+    "WaitlistEntryVariant",
+    "WaitlistEntryVariantPlanType",
     "Webhook",
     "WebhookApiVersion",
     "WebhookDelivery",
