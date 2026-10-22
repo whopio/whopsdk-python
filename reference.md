@@ -53260,7 +53260,7 @@ client.payouts.paypal_link_sessions.create(
 <dl>
 <dd>
 
-**return_url:** `str` — Where to send the holder once the PayPal login finishes. Must be an `https` URL; it receives `paypal_link_token` on success or `error` on failure.
+**return_url:** `str` — Where to send the holder once the PayPal login finishes. Must be an `https` URL whose host is a domain added to the account, or to its platform, with `POST /domains` and `verification: {}`; the domain doesn't need to finish verifying. Whop's own pages and `https://localhost` are also accepted; they're the only options for a `user_id` session. It receives `paypal_link_token` on success or `error` on failure.
     
 </dd>
 </dl>
