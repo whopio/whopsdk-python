@@ -8,6 +8,7 @@ from .member_access_level import MemberAccessLevel
 from .member_most_recent_action import MemberMostRecentAction
 from .member_status import MemberStatus
 from .money import Money
+from .user_earnings_amount import UserEarningsAmount
 from .user_summary import UserSummary
 
 
@@ -30,6 +31,11 @@ class Member(UniversalBaseModel):
     display_name: str = pydantic.Field()
     """
     The name to show for this member: the user's name, or their username when they have not set one. The buying business's name when `user` is `null`.
+    """
+
+    earnings_usd: typing.Optional[UserEarningsAmount] = pydantic.Field(default=None)
+    """
+    The user's gross income across Whop, in USD, refreshed periodically. `null` when the user hides their earnings or the buyer is another business.
     """
 
     email: typing.Optional[str] = pydantic.Field(default=None)
