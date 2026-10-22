@@ -23,6 +23,7 @@ if typing.TYPE_CHECKING:
     from .api_keys.client import ApiKeysClient, AsyncApiKeysClient
     from .api_logs.client import ApiLogsClient, AsyncApiLogsClient
     from .app_builds.client import AppBuildsClient, AsyncAppBuildsClient
+    from .app_installations.client import AppInstallationsClient, AsyncAppInstallationsClient
     from .apps.client import AppsClient, AsyncAppsClient
     from .audiences.client import AsyncAudiencesClient, AudiencesClient
     from .authorized_users.client import AsyncAuthorizedUsersClient, AuthorizedUsersClient
@@ -209,6 +210,7 @@ class Whop:
         self._api_keys: typing.Optional[ApiKeysClient] = None
         self._api_logs: typing.Optional[ApiLogsClient] = None
         self._app_builds: typing.Optional[AppBuildsClient] = None
+        self._app_installations: typing.Optional[AppInstallationsClient] = None
         self._apps: typing.Optional[AppsClient] = None
         self._audiences: typing.Optional[AudiencesClient] = None
         self._authorized_users: typing.Optional[AuthorizedUsersClient] = None
@@ -396,6 +398,14 @@ class Whop:
 
             self._app_builds = AppBuildsClient(client_wrapper=self._client_wrapper)
         return self._app_builds
+
+    @property
+    def app_installations(self):
+        if self._app_installations is None:
+            from .app_installations.client import AppInstallationsClient  # noqa: E402
+
+            self._app_installations = AppInstallationsClient(client_wrapper=self._client_wrapper)
+        return self._app_installations
 
     @property
     def apps(self):
@@ -1184,6 +1194,7 @@ class AsyncWhop:
         self._api_keys: typing.Optional[AsyncApiKeysClient] = None
         self._api_logs: typing.Optional[AsyncApiLogsClient] = None
         self._app_builds: typing.Optional[AsyncAppBuildsClient] = None
+        self._app_installations: typing.Optional[AsyncAppInstallationsClient] = None
         self._apps: typing.Optional[AsyncAppsClient] = None
         self._audiences: typing.Optional[AsyncAudiencesClient] = None
         self._authorized_users: typing.Optional[AsyncAuthorizedUsersClient] = None
@@ -1371,6 +1382,14 @@ class AsyncWhop:
 
             self._app_builds = AsyncAppBuildsClient(client_wrapper=self._client_wrapper)
         return self._app_builds
+
+    @property
+    def app_installations(self):
+        if self._app_installations is None:
+            from .app_installations.client import AsyncAppInstallationsClient  # noqa: E402
+
+            self._app_installations = AsyncAppInstallationsClient(client_wrapper=self._client_wrapper)
+        return self._app_installations
 
     @property
     def apps(self):

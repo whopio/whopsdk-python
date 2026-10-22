@@ -108,6 +108,8 @@ PermissionAction = typing.Union[
         "developer:manage_webhook",
         "developer:logs:read",
         "developer:manage_builds",
+        "developer:app_installation:read",
+        "developer:app_installation:update",
         "developer:update_app",
         "developer:update_app_authorization",
         "event:create",
