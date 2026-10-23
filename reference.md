@@ -12354,7 +12354,7 @@ client.cards.list()
 <dl>
 <dd>
 
-Issues a virtual card, or applies for card issuing. An account with no application files one here and gets back a `202`; call again to issue the card once it is approved.
+Issues a virtual card, or applies for card issuing. An account with no application files one here and gets back a `202`; call again to issue the card once it is approved. An account whose application was denied or canceled applies again the same way, replacing that application.
 </dd>
 </dl>
 </dd>
@@ -12425,7 +12425,7 @@ client.cards.create()
 <dl>
 <dd>
 
-**kind:** `typing.Optional[CreateCardsRequestKind]` — Who the card application verifies, set only on the call that files it; sending it once the account has an application is a 400. `business` applies as the account with its approved KYB. `individual` applies as a person: assigned_user_id when given, otherwise the account owner, using the identity verified on the account. Omit it to apply as the business when its KYB is approved, and as an individual otherwise.
+**kind:** `typing.Optional[CreateCardsRequestKind]` — Who the card application verifies, set only on the call that files it; sending it while the account's application is in progress or approved is a 400. `business` applies as the account with its approved KYB. `individual` applies as a person: assigned_user_id when given, otherwise the account owner, using the identity verified on the account. Omit it to apply as the business when its KYB is approved, and as an individual otherwise.
     
 </dd>
 </dl>
