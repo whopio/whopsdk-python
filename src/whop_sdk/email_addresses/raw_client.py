@@ -147,7 +147,7 @@ class RawEmailAddressesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[EmailAddress]:
         """
-        Creates a mailbox on one of the account's domains. The domain needs the `email` capability in the `ready` state. Give it to a team member with `user_id`, or leave it out to share the mailbox with the account. Creating an address this account deleted brings the mailbox back, with its mail and a new password.
+        Creates a mailbox on one of the account's domains. The domain needs the `email` capability turned on. The address can be created and signed in to while email is still setting up, and it can send once email is `ready`. Give it to a team member with `user_id`, or leave it out to share the mailbox with the account. Creating an address this account deleted brings the mailbox back, with its mail and a new password.
 
         Parameters
         ----------
@@ -649,7 +649,7 @@ class AsyncRawEmailAddressesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[EmailAddress]:
         """
-        Creates a mailbox on one of the account's domains. The domain needs the `email` capability in the `ready` state. Give it to a team member with `user_id`, or leave it out to share the mailbox with the account. Creating an address this account deleted brings the mailbox back, with its mail and a new password.
+        Creates a mailbox on one of the account's domains. The domain needs the `email` capability turned on. The address can be created and signed in to while email is still setting up, and it can send once email is `ready`. Give it to a team member with `user_id`, or leave it out to share the mailbox with the account. Creating an address this account deleted brings the mailbox back, with its mail and a new password.
 
         Parameters
         ----------
