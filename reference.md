@@ -26424,7 +26424,7 @@ client.invoices.create(
 <dl>
 <dd>
 
-**payment_method_id:** `typing.Optional[str]` — A saved payment method belonging to the member.
+**payment_method_id:** `typing.Optional[str]` — A saved payment method belonging to the member. Issuing the invoice charges it.
     
 </dd>
 </dl>
@@ -26642,7 +26642,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-**payment_method_id:** `typing.Optional[str]` — A saved payment method belonging to the member.
+**payment_method_id:** `typing.Optional[str]` — A saved payment method belonging to the member. Issuing the invoice charges it.
     
 </dd>
 </dl>
@@ -26682,7 +26682,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-Resolves final tax and opens a draft invoice. Issuing an open invoice again retains its totals.
+Resolves final tax and opens a draft invoice. An invoice with a `payment_method_id` is then charged to it off-session, as `POST /payments` charges a saved payment method, and issuing it requires `payment:charge`. Issuing an open invoice again retains its totals and charges nothing.
 </dd>
 </dl>
 </dd>
