@@ -4,63 +4,25 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ...types.tax_identifier_types import TaxIdentifierTypes
 
 
 class UpdateInvoicesRequestBillingAddress(UniversalBaseModel):
     """
-    Inline billing address to create or update a mailing address for this invoice.
+    Create a billing address linked to this member.
     """
 
-    city: typing.Optional[str] = pydantic.Field(default=None)
+    city: str
+    country: str = pydantic.Field()
     """
-    The city of the address.
-    """
-
-    country: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The country of the address.
+    ISO 3166-1 alpha-2 country code.
     """
 
-    line1: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The line 1 of the address.
-    """
-
-    line2: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The line 2 of the address.
-    """
-
-    name: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The name of the customer.
-    """
-
-    phone: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The phone number of the customer.
-    """
-
-    postal_code: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The postal code of the address.
-    """
-
-    state: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The state of the address.
-    """
-
-    tax_id_type: typing.Optional[TaxIdentifierTypes] = pydantic.Field(default=None)
-    """
-    The type of tax identifier.
-    """
-
-    tax_id_value: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The value of the tax identifier.
-    """
+    line1: str
+    line2: typing.Optional[str] = None
+    name: typing.Optional[str] = None
+    phone: typing.Optional[str] = None
+    postal_code: str
+    state: typing.Optional[str] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

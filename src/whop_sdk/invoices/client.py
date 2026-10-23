@@ -6,18 +6,16 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
-from ..types.direction import Direction
 from ..types.invoice import Invoice
-from ..types.invoice_collection_methods import InvoiceCollectionMethods
-from ..types.invoice_list_item import InvoiceListItem
-from ..types.invoice_statuses import InvoiceStatuses
-from ..types.invoices_sortable_columns import InvoicesSortableColumns
 from .raw_client import AsyncRawInvoicesClient, RawInvoicesClient
-from .types.create_invoices_request import CreateInvoicesRequest
+from .types.create_invoices_request_billing_address import CreateInvoicesRequestBillingAddress
+from .types.create_invoices_request_items_item import CreateInvoicesRequestItemsItem
+from .types.list_invoices_request_direction import ListInvoicesRequestDirection
+from .types.list_invoices_request_order import ListInvoicesRequestOrder
+from .types.list_invoices_request_status import ListInvoicesRequestStatus
 from .types.list_invoices_response import ListInvoicesResponse
 from .types.update_invoices_request_billing_address import UpdateInvoicesRequestBillingAddress
-from .types.update_invoices_request_line_items_item import UpdateInvoicesRequestLineItemsItem
-from .types.update_invoices_request_plan import UpdateInvoicesRequestPlan
+from .types.update_invoices_request_items_item import UpdateInvoicesRequestItemsItem
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -41,94 +39,74 @@ class InvoicesClient:
     def list(
         self,
         *,
-        after: typing.Optional[str] = None,
-        before: typing.Optional[str] = None,
-        first: typing.Optional[int] = None,
-        last: typing.Optional[int] = None,
-        direction: typing.Optional[Direction] = None,
-        product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        collection_methods: typing.Optional[
-            typing.Union[InvoiceCollectionMethods, typing.Sequence[InvoiceCollectionMethods]]
-        ] = None,
-        statuses: typing.Optional[typing.Union[InvoiceStatuses, typing.Sequence[InvoiceStatuses]]] = None,
-        order: typing.Optional[InvoicesSortableColumns] = None,
-        created_before: typing.Optional[dt.datetime] = None,
-        created_after: typing.Optional[dt.datetime] = None,
         account_id: typing.Optional[str] = None,
+        status: typing.Optional[ListInvoicesRequestStatus] = None,
+        overdue: typing.Optional[bool] = None,
+        member_id: typing.Optional[str] = None,
+        product_id: typing.Optional[str] = None,
+        created_after: typing.Optional[dt.datetime] = None,
+        created_before: typing.Optional[dt.datetime] = None,
+        order: typing.Optional[ListInvoicesRequestOrder] = None,
+        direction: typing.Optional[ListInvoicesRequestDirection] = None,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        last: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> SyncPager[InvoiceListItem, ListInvoicesResponse]:
+    ) -> SyncPager[Invoice, ListInvoicesResponse]:
         """
-        Returns a paginated list of invoices for an account, with optional filtering by product, status, collection method, and creation date.
-
-        Required permissions:
-         - `invoice:basic:read`
+        Lists receipt-backed invoices for accounts the caller can read. Legacy invoices are excluded.
 
         Parameters
         ----------
-        after : typing.Optional[str]
-            Returns the elements in the list that come after the specified cursor.
+        account_id : typing.Optional[str]
 
-        before : typing.Optional[str]
-            Returns the elements in the list that come before the specified cursor.
+        status : typing.Optional[ListInvoicesRequestStatus]
 
-        first : typing.Optional[int]
-            Returns the first _n_ elements from the list.
+        overdue : typing.Optional[bool]
 
-        last : typing.Optional[int]
-            Returns the last _n_ elements from the list.
+        member_id : typing.Optional[str]
 
-        direction : typing.Optional[Direction]
-
-        product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Filter invoices to only those associated with these specific product identifiers.
-
-        collection_methods : typing.Optional[typing.Union[InvoiceCollectionMethods, typing.Sequence[InvoiceCollectionMethods]]]
-            Filter invoices by their collection method.
-
-        statuses : typing.Optional[typing.Union[InvoiceStatuses, typing.Sequence[InvoiceStatuses]]]
-            Filter invoices by their current status.
-
-        order : typing.Optional[InvoicesSortableColumns]
-
-        created_before : typing.Optional[dt.datetime]
-            Only return invoices created before this timestamp.
+        product_id : typing.Optional[str]
 
         created_after : typing.Optional[dt.datetime]
-            Only return invoices created after this timestamp.
 
-        account_id : typing.Optional[str]
-            The unique identifier of the company to list invoices for.
+        created_before : typing.Optional[dt.datetime]
+
+        order : typing.Optional[ListInvoicesRequestOrder]
+
+        direction : typing.Optional[ListInvoicesRequestDirection]
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        last : typing.Optional[int]
+            Number of results to return from the end of the range.
+
+        before : typing.Optional[str]
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        SyncPager[InvoiceListItem, ListInvoicesResponse]
-            A successful response
+        SyncPager[Invoice, ListInvoicesResponse]
+            invoices
 
         Examples
         --------
-        import datetime
-
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-24",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
-        response = client.invoices.list(
-            first=42,
-            last=42,
-            created_before=datetime.datetime.fromisoformat(
-                "2023-12-01 05:00:00+00:00",
-            ),
-            created_after=datetime.datetime.fromisoformat(
-                "2023-12-01 05:00:00+00:00",
-            ),
-            account_id="biz_xxxxxxxxxxxxxx",
-        )
+        response = client.invoices.list()
         for item in response:
             yield item
         # alternatively, you can paginate page-by-page
@@ -136,36 +114,79 @@ class InvoicesClient:
             yield page
         """
         return self._raw_client.list(
-            after=after,
-            before=before,
-            first=first,
-            last=last,
-            direction=direction,
-            product_ids=product_ids,
-            collection_methods=collection_methods,
-            statuses=statuses,
-            order=order,
-            created_before=created_before,
-            created_after=created_after,
             account_id=account_id,
+            status=status,
+            overdue=overdue,
+            member_id=member_id,
+            product_id=product_id,
+            created_after=created_after,
+            created_before=created_before,
+            order=order,
+            direction=direction,
+            first=first,
+            after=after,
+            last=last,
+            before=before,
             request_options=request_options,
         )
 
     def create(
-        self, *, request: CreateInvoicesRequest, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        account_id: str,
+        items: typing.Sequence[CreateInvoicesRequestItemsItem],
+        billing_address: typing.Optional[CreateInvoicesRequestBillingAddress] = OMIT,
+        buyer_fee_percentage: typing.Optional[float] = OMIT,
+        customer_name: typing.Optional[str] = OMIT,
+        due_at: typing.Optional[dt.datetime] = OMIT,
+        email_address: typing.Optional[str] = OMIT,
+        mailing_address_id: typing.Optional[str] = OMIT,
+        member_id: typing.Optional[str] = OMIT,
+        metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
+        payment_method_id: typing.Optional[str] = OMIT,
+        recipient_emails: typing.Optional[typing.Sequence[str]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> Invoice:
         """
-        Create an invoice for a customer. The invoice can be charged automatically using a stored payment method, or sent to the customer for manual payment.
-
-        Required permissions:
-         - `invoice:create`
-         - `member:email:read`
-         - `member:basic:read`
-         - `payment:basic:read`
+        Creates a draft invoice backed by a receipt, with saved items, quantities, prices, and recipients. Issue the draft to resolve final tax and open the invoice. The pay_ ID stays the same when paid.
 
         Parameters
         ----------
-        request : CreateInvoicesRequest
+        account_id : str
+            The issuing account.
+
+        items : typing.Sequence[CreateInvoicesRequestItemsItem]
+            The one-time variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant. Multiple items require unlimited stock and compatible payment, tax, and access settings.
+
+        billing_address : typing.Optional[CreateInvoicesRequestBillingAddress]
+            Create a billing address linked to this member.
+
+        buyer_fee_percentage : typing.Optional[float]
+            The buyer's adjustable fee in percentage points, with at most two decimal places.
+
+        customer_name : typing.Optional[str]
+            The contact name when creating an email-only member.
+
+        due_at : typing.Optional[dt.datetime]
+            When payment is due, as an ISO 8601 timestamp.
+
+        email_address : typing.Optional[str]
+            Resolve or create the member for this email, creating a Whop user when none exists. Mutually exclusive with member_id.
+
+        mailing_address_id : typing.Optional[str]
+            An address associated with the member. Mutually exclusive with billing_address.
+
+        member_id : typing.Optional[str]
+            The billed customer, a member of the account. Changing email recipients does not change this buyer.
+
+        metadata : typing.Optional[typing.Dict[str, str]]
+            Up to 50 caller-owned string key/value pairs.
+
+        payment_method_id : typing.Optional[str]
+            A saved payment method belonging to the member.
+
+        recipient_emails : typing.Optional[typing.Sequence[str]]
+            Email addresses saved for invoice delivery, independent of the billed customer. Saving them sends no email. Defaults to the customer email when omitted on create. Can be updated on draft, open, or uncollectible invoices.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -173,50 +194,47 @@ class InvoicesClient:
         Returns
         -------
         Invoice
-            A successful response
+            invoice created
 
         Examples
         --------
         from whop_sdk import Whop
-        from whop_sdk.invoices import (
-            CreateInvoicesRequestProduct,
-            CreateInvoicesRequestProductPlan,
-            CreateInvoicesRequestProductProduct,
-        )
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-24",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.invoices.create(
-            request=CreateInvoicesRequestProduct(
-                account_id="biz_xxxxxxxxxxxxxx",
-                collection_method="send_invoice",
-                plan=CreateInvoicesRequestProductPlan(),
-                product=CreateInvoicesRequestProductProduct(
-                    title="title",
-                ),
-            ),
+            account_id="biz_xxxxxxxxxxxxxx",
+            items=[],
         )
         """
-        _response = self._raw_client.create(request=request, request_options=request_options)
+        _response = self._raw_client.create(
+            account_id=account_id,
+            items=items,
+            billing_address=billing_address,
+            buyer_fee_percentage=buyer_fee_percentage,
+            customer_name=customer_name,
+            due_at=due_at,
+            email_address=email_address,
+            mailing_address_id=mailing_address_id,
+            member_id=member_id,
+            metadata=metadata,
+            payment_method_id=payment_method_id,
+            recipient_emails=recipient_emails,
+            request_options=request_options,
+        )
         return _response.data
 
     def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Invoice:
         """
-        Retrieves the details of an existing invoice.
-
-        Required permissions:
-         - `invoice:basic:read`
-         - `member:email:read`
-         - `member:basic:read`
-         - `payment:basic:read`
+        Retrieves a receipt-backed invoice by its pay_ ID.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the invoice, or a secure token.
+            The invoice's pay_ ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -224,135 +242,73 @@ class InvoicesClient:
         Returns
         -------
         Invoice
-            A successful response
+            invoice
 
         Examples
         --------
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-24",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.invoices.retrieve(
-            id="inv_xxxxxxxxxxxxxx",
+            id="id",
         )
         """
         _response = self._raw_client.retrieve(id, request_options=request_options)
-        return _response.data
-
-    def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> bool:
-        """
-        Delete a draft invoice.
-
-        Required permissions:
-         - `invoice:update`
-
-        Parameters
-        ----------
-        id : str
-            The unique identifier of the draft invoice to delete.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        bool
-            A successful response
-
-        Examples
-        --------
-        from whop_sdk import Whop
-
-        client = Whop(
-            "2026-10-15-1",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-        client.invoices.delete(
-            id="inv_xxxxxxxxxxxxxx",
-        )
-        """
-        _response = self._raw_client.delete(id, request_options=request_options)
         return _response.data
 
     def update(
         self,
         id: str,
         *,
-        automatically_finalizes_at: typing.Optional[dt.datetime] = OMIT,
         billing_address: typing.Optional[UpdateInvoicesRequestBillingAddress] = OMIT,
-        charge_buyer_fee: typing.Optional[bool] = OMIT,
-        collection_method: typing.Optional[InvoiceCollectionMethods] = OMIT,
-        customer_name: typing.Optional[str] = OMIT,
-        due_date: typing.Optional[dt.datetime] = OMIT,
-        email_address: typing.Optional[str] = OMIT,
-        line_items: typing.Optional[typing.Sequence[UpdateInvoicesRequestLineItemsItem]] = OMIT,
+        buyer_fee_percentage: typing.Optional[float] = OMIT,
+        due_at: typing.Optional[dt.datetime] = OMIT,
+        items: typing.Optional[typing.Sequence[UpdateInvoicesRequestItemsItem]] = OMIT,
         mailing_address_id: typing.Optional[str] = OMIT,
         member_id: typing.Optional[str] = OMIT,
+        metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
-        plan: typing.Optional[UpdateInvoicesRequestPlan] = OMIT,
-        product_id: typing.Optional[str] = OMIT,
-        subscription_billing_anchor_at: typing.Optional[dt.datetime] = OMIT,
+        recipient_emails: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Invoice:
         """
-        Update a draft invoice's details.
-
-        Required permissions:
-         - `invoice:update`
-         - `member:email:read`
-         - `member:basic:read`
-         - `payment:basic:read`
+        Updates draft invoice items and billing fields. Recipient-only updates are also allowed on unpaid invoices. Edit customer contact details through the member API.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the invoice to update.
-
-        automatically_finalizes_at : typing.Optional[dt.datetime]
-            The date and time when the invoice will be automatically finalized. For charge_automatically, triggers an automatic charge. For send_invoice, sends the invoice email at the specified time.
+            The invoice's pay_ ID.
 
         billing_address : typing.Optional[UpdateInvoicesRequestBillingAddress]
-            Inline billing address to create or update a mailing address for this invoice.
+            Create a billing address linked to this member.
 
-        charge_buyer_fee : typing.Optional[bool]
-            Whether to charge the customer a buyer fee on this invoice.
+        buyer_fee_percentage : typing.Optional[float]
+            The buyer's adjustable fee in percentage points, with at most two decimal places.
 
-        collection_method : typing.Optional[InvoiceCollectionMethods]
-            How the invoice should be collected.
+        due_at : typing.Optional[dt.datetime]
+            When payment is due, as an ISO 8601 timestamp.
 
-        customer_name : typing.Optional[str]
-            The name of the customer.
-
-        due_date : typing.Optional[dt.datetime]
-            The date by which the invoice must be paid.
-
-        email_address : typing.Optional[str]
-            The email address of the customer.
-
-        line_items : typing.Optional[typing.Sequence[UpdateInvoicesRequestLineItemsItem]]
-            Line items that break down the invoice total. When provided, the sum of (quantity * unit_price) for all items must equal the plan price. Individual items may be negative to represent a credit, as long as the sum is not negative and clears the currency's minimum charge. Pass an empty list to remove the breakdown.
+        items : typing.Optional[typing.Sequence[UpdateInvoicesRequestItemsItem]]
+            The one-time variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant. Multiple items require unlimited stock and compatible payment, tax, and access settings.
 
         mailing_address_id : typing.Optional[str]
-            The unique identifier of an existing mailing address to attach.
+            An address associated with the member. Mutually exclusive with billing_address.
 
         member_id : typing.Optional[str]
-            The unique identifier of a member to assign as the customer.
+            The billed customer, a member of the account. Changing email recipients does not change this buyer.
+
+        metadata : typing.Optional[typing.Dict[str, str]]
+            Up to 50 caller-owned string key/value pairs.
 
         payment_method_id : typing.Optional[str]
-            The unique identifier of the payment method to charge.
+            A saved payment method belonging to the member.
 
-        plan : typing.Optional[UpdateInvoicesRequestPlan]
-            Updated plan attributes.
-
-        product_id : typing.Optional[str]
-            The unique identifier of an existing product to attach to this invoice. Only allowed while the invoice is still a draft.
-
-        subscription_billing_anchor_at : typing.Optional[dt.datetime]
-            The date that defines when the subscription billing cycle should start.
+        recipient_emails : typing.Optional[typing.Sequence[str]]
+            Email addresses saved for invoice delivery, independent of the billed customer. Saving them sends no email. Defaults to the customer email when omitted on create. Can be updated on draft, open, or uncollectible invoices.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -360,180 +316,130 @@ class InvoicesClient:
         Returns
         -------
         Invoice
-            A successful response
+            draft updated
 
         Examples
         --------
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-24",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.invoices.update(
-            id="inv_xxxxxxxxxxxxxx",
+            id="id",
         )
         """
         _response = self._raw_client.update(
             id,
-            automatically_finalizes_at=automatically_finalizes_at,
             billing_address=billing_address,
-            charge_buyer_fee=charge_buyer_fee,
-            collection_method=collection_method,
-            customer_name=customer_name,
-            due_date=due_date,
-            email_address=email_address,
-            line_items=line_items,
+            buyer_fee_percentage=buyer_fee_percentage,
+            due_at=due_at,
+            items=items,
             mailing_address_id=mailing_address_id,
             member_id=member_id,
+            metadata=metadata,
             payment_method_id=payment_method_id,
-            plan=plan,
-            product_id=product_id,
-            subscription_billing_anchor_at=subscription_billing_anchor_at,
+            recipient_emails=recipient_emails,
             request_options=request_options,
         )
         return _response.data
 
-    def mark_paid(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> bool:
+    def issue(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Invoice:
         """
-        Mark an open invoice as paid when payment was collected outside of Whop.
-
-        Required permissions:
-         - `invoice:update`
+        Resolves final tax and opens a draft invoice. Issuing an open invoice again retains its totals.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the invoice to mark as paid.
+            The invoice's pay_ ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        bool
-            A successful response
+        Invoice
+            invoice issued
 
         Examples
         --------
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-24",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
-        client.invoices.mark_paid(
-            id="inv_xxxxxxxxxxxxxx",
+        client.invoices.issue(
+            id="id",
         )
         """
-        _response = self._raw_client.mark_paid(id, request_options=request_options)
+        _response = self._raw_client.issue(id, request_options=request_options)
         return _response.data
 
-    def mark_uncollectible(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> bool:
+    def mark_uncollectible(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Invoice:
         """
-        Mark an open invoice as uncollectible when payment is not expected.
-
-        Required permissions:
-         - `invoice:update`
+        Marks an open invoice as uncollectible. Reminders stop, but the customer can still pay it.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the invoice to mark as uncollectible.
+            The invoice's pay_ ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        bool
-            A successful response
+        Invoice
+            invoice updated
 
         Examples
         --------
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-24",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.invoices.mark_uncollectible(
-            id="inv_xxxxxxxxxxxxxx",
+            id="id",
         )
         """
         _response = self._raw_client.mark_uncollectible(id, request_options=request_options)
         return _response.data
 
-    def resend(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> bool:
+    def void(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Invoice:
         """
-        Resend the notification email for an existing invoice to the customer.
-
-        Required permissions:
-         - `invoice:update`
+        Voids a draft or unpaid invoice.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the invoice to resend.
+            The invoice's pay_ ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        bool
-            A successful response
+        Invoice
+            invoice updated
 
         Examples
         --------
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-        client.invoices.resend(
-            id="inv_xxxxxxxxxxxxxx",
-        )
-        """
-        _response = self._raw_client.resend(id, request_options=request_options)
-        return _response.data
-
-    def void(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> bool:
-        """
-        Void an open invoice so it can no longer be paid. Voiding is permanent and cannot be undone.
-
-        Required permissions:
-         - `invoice:update`
-
-        Parameters
-        ----------
-        id : str
-            The unique identifier of the invoice to void.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        bool
-            A successful response
-
-        Examples
-        --------
-        from whop_sdk import Whop
-
-        client = Whop(
-            "2026-10-15-1",
+            "2026-10-24",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.invoices.void(
-            id="inv_xxxxxxxxxxxxxx",
+            id="id",
         )
         """
         _response = self._raw_client.void(id, request_options=request_options)
@@ -558,98 +464,79 @@ class AsyncInvoicesClient:
     async def list(
         self,
         *,
-        after: typing.Optional[str] = None,
-        before: typing.Optional[str] = None,
-        first: typing.Optional[int] = None,
-        last: typing.Optional[int] = None,
-        direction: typing.Optional[Direction] = None,
-        product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        collection_methods: typing.Optional[
-            typing.Union[InvoiceCollectionMethods, typing.Sequence[InvoiceCollectionMethods]]
-        ] = None,
-        statuses: typing.Optional[typing.Union[InvoiceStatuses, typing.Sequence[InvoiceStatuses]]] = None,
-        order: typing.Optional[InvoicesSortableColumns] = None,
-        created_before: typing.Optional[dt.datetime] = None,
-        created_after: typing.Optional[dt.datetime] = None,
         account_id: typing.Optional[str] = None,
+        status: typing.Optional[ListInvoicesRequestStatus] = None,
+        overdue: typing.Optional[bool] = None,
+        member_id: typing.Optional[str] = None,
+        product_id: typing.Optional[str] = None,
+        created_after: typing.Optional[dt.datetime] = None,
+        created_before: typing.Optional[dt.datetime] = None,
+        order: typing.Optional[ListInvoicesRequestOrder] = None,
+        direction: typing.Optional[ListInvoicesRequestDirection] = None,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        last: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncPager[InvoiceListItem, ListInvoicesResponse]:
+    ) -> AsyncPager[Invoice, ListInvoicesResponse]:
         """
-        Returns a paginated list of invoices for an account, with optional filtering by product, status, collection method, and creation date.
-
-        Required permissions:
-         - `invoice:basic:read`
+        Lists receipt-backed invoices for accounts the caller can read. Legacy invoices are excluded.
 
         Parameters
         ----------
-        after : typing.Optional[str]
-            Returns the elements in the list that come after the specified cursor.
+        account_id : typing.Optional[str]
 
-        before : typing.Optional[str]
-            Returns the elements in the list that come before the specified cursor.
+        status : typing.Optional[ListInvoicesRequestStatus]
 
-        first : typing.Optional[int]
-            Returns the first _n_ elements from the list.
+        overdue : typing.Optional[bool]
 
-        last : typing.Optional[int]
-            Returns the last _n_ elements from the list.
+        member_id : typing.Optional[str]
 
-        direction : typing.Optional[Direction]
-
-        product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Filter invoices to only those associated with these specific product identifiers.
-
-        collection_methods : typing.Optional[typing.Union[InvoiceCollectionMethods, typing.Sequence[InvoiceCollectionMethods]]]
-            Filter invoices by their collection method.
-
-        statuses : typing.Optional[typing.Union[InvoiceStatuses, typing.Sequence[InvoiceStatuses]]]
-            Filter invoices by their current status.
-
-        order : typing.Optional[InvoicesSortableColumns]
-
-        created_before : typing.Optional[dt.datetime]
-            Only return invoices created before this timestamp.
+        product_id : typing.Optional[str]
 
         created_after : typing.Optional[dt.datetime]
-            Only return invoices created after this timestamp.
 
-        account_id : typing.Optional[str]
-            The unique identifier of the company to list invoices for.
+        created_before : typing.Optional[dt.datetime]
+
+        order : typing.Optional[ListInvoicesRequestOrder]
+
+        direction : typing.Optional[ListInvoicesRequestDirection]
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        last : typing.Optional[int]
+            Number of results to return from the end of the range.
+
+        before : typing.Optional[str]
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        AsyncPager[InvoiceListItem, ListInvoicesResponse]
-            A successful response
+        AsyncPager[Invoice, ListInvoicesResponse]
+            invoices
 
         Examples
         --------
         import asyncio
-        import datetime
 
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-24",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
 
 
         async def main() -> None:
-            response = await client.invoices.list(
-                first=42,
-                last=42,
-                created_before=datetime.datetime.fromisoformat(
-                    "2023-12-01 05:00:00+00:00",
-                ),
-                created_after=datetime.datetime.fromisoformat(
-                    "2023-12-01 05:00:00+00:00",
-                ),
-                account_id="biz_xxxxxxxxxxxxxx",
-            )
+            response = await client.invoices.list()
             async for item in response:
                 yield item
 
@@ -661,36 +548,79 @@ class AsyncInvoicesClient:
         asyncio.run(main())
         """
         return await self._raw_client.list(
-            after=after,
-            before=before,
-            first=first,
-            last=last,
-            direction=direction,
-            product_ids=product_ids,
-            collection_methods=collection_methods,
-            statuses=statuses,
-            order=order,
-            created_before=created_before,
-            created_after=created_after,
             account_id=account_id,
+            status=status,
+            overdue=overdue,
+            member_id=member_id,
+            product_id=product_id,
+            created_after=created_after,
+            created_before=created_before,
+            order=order,
+            direction=direction,
+            first=first,
+            after=after,
+            last=last,
+            before=before,
             request_options=request_options,
         )
 
     async def create(
-        self, *, request: CreateInvoicesRequest, request_options: typing.Optional[RequestOptions] = None
+        self,
+        *,
+        account_id: str,
+        items: typing.Sequence[CreateInvoicesRequestItemsItem],
+        billing_address: typing.Optional[CreateInvoicesRequestBillingAddress] = OMIT,
+        buyer_fee_percentage: typing.Optional[float] = OMIT,
+        customer_name: typing.Optional[str] = OMIT,
+        due_at: typing.Optional[dt.datetime] = OMIT,
+        email_address: typing.Optional[str] = OMIT,
+        mailing_address_id: typing.Optional[str] = OMIT,
+        member_id: typing.Optional[str] = OMIT,
+        metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
+        payment_method_id: typing.Optional[str] = OMIT,
+        recipient_emails: typing.Optional[typing.Sequence[str]] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> Invoice:
         """
-        Create an invoice for a customer. The invoice can be charged automatically using a stored payment method, or sent to the customer for manual payment.
-
-        Required permissions:
-         - `invoice:create`
-         - `member:email:read`
-         - `member:basic:read`
-         - `payment:basic:read`
+        Creates a draft invoice backed by a receipt, with saved items, quantities, prices, and recipients. Issue the draft to resolve final tax and open the invoice. The pay_ ID stays the same when paid.
 
         Parameters
         ----------
-        request : CreateInvoicesRequest
+        account_id : str
+            The issuing account.
+
+        items : typing.Sequence[CreateInvoicesRequestItemsItem]
+            The one-time variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant. Multiple items require unlimited stock and compatible payment, tax, and access settings.
+
+        billing_address : typing.Optional[CreateInvoicesRequestBillingAddress]
+            Create a billing address linked to this member.
+
+        buyer_fee_percentage : typing.Optional[float]
+            The buyer's adjustable fee in percentage points, with at most two decimal places.
+
+        customer_name : typing.Optional[str]
+            The contact name when creating an email-only member.
+
+        due_at : typing.Optional[dt.datetime]
+            When payment is due, as an ISO 8601 timestamp.
+
+        email_address : typing.Optional[str]
+            Resolve or create the member for this email, creating a Whop user when none exists. Mutually exclusive with member_id.
+
+        mailing_address_id : typing.Optional[str]
+            An address associated with the member. Mutually exclusive with billing_address.
+
+        member_id : typing.Optional[str]
+            The billed customer, a member of the account. Changing email recipients does not change this buyer.
+
+        metadata : typing.Optional[typing.Dict[str, str]]
+            Up to 50 caller-owned string key/value pairs.
+
+        payment_method_id : typing.Optional[str]
+            A saved payment method belonging to the member.
+
+        recipient_emails : typing.Optional[typing.Sequence[str]]
+            Email addresses saved for invoice delivery, independent of the billed customer. Saving them sends no email. Defaults to the customer email when omitted on create. Can be updated on draft, open, or uncollectible invoices.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -698,21 +628,16 @@ class AsyncInvoicesClient:
         Returns
         -------
         Invoice
-            A successful response
+            invoice created
 
         Examples
         --------
         import asyncio
 
         from whop_sdk import AsyncWhop
-        from whop_sdk.invoices import (
-            CreateInvoicesRequestProduct,
-            CreateInvoicesRequestProductPlan,
-            CreateInvoicesRequestProductProduct,
-        )
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-24",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -720,36 +645,38 @@ class AsyncInvoicesClient:
 
         async def main() -> None:
             await client.invoices.create(
-                request=CreateInvoicesRequestProduct(
-                    account_id="biz_xxxxxxxxxxxxxx",
-                    collection_method="send_invoice",
-                    plan=CreateInvoicesRequestProductPlan(),
-                    product=CreateInvoicesRequestProductProduct(
-                        title="title",
-                    ),
-                ),
+                account_id="biz_xxxxxxxxxxxxxx",
+                items=[],
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.create(request=request, request_options=request_options)
+        _response = await self._raw_client.create(
+            account_id=account_id,
+            items=items,
+            billing_address=billing_address,
+            buyer_fee_percentage=buyer_fee_percentage,
+            customer_name=customer_name,
+            due_at=due_at,
+            email_address=email_address,
+            mailing_address_id=mailing_address_id,
+            member_id=member_id,
+            metadata=metadata,
+            payment_method_id=payment_method_id,
+            recipient_emails=recipient_emails,
+            request_options=request_options,
+        )
         return _response.data
 
     async def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Invoice:
         """
-        Retrieves the details of an existing invoice.
-
-        Required permissions:
-         - `invoice:basic:read`
-         - `member:email:read`
-         - `member:basic:read`
-         - `payment:basic:read`
+        Retrieves a receipt-backed invoice by its pay_ ID.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the invoice, or a secure token.
+            The invoice's pay_ ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -757,7 +684,7 @@ class AsyncInvoicesClient:
         Returns
         -------
         Invoice
-            A successful response
+            invoice
 
         Examples
         --------
@@ -766,7 +693,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-24",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -774,7 +701,7 @@ class AsyncInvoicesClient:
 
         async def main() -> None:
             await client.invoices.retrieve(
-                id="inv_xxxxxxxxxxxxxx",
+                id="id",
             )
 
 
@@ -783,125 +710,55 @@ class AsyncInvoicesClient:
         _response = await self._raw_client.retrieve(id, request_options=request_options)
         return _response.data
 
-    async def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> bool:
-        """
-        Delete a draft invoice.
-
-        Required permissions:
-         - `invoice:update`
-
-        Parameters
-        ----------
-        id : str
-            The unique identifier of the draft invoice to delete.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        bool
-            A successful response
-
-        Examples
-        --------
-        import asyncio
-
-        from whop_sdk import AsyncWhop
-
-        client = AsyncWhop(
-            "2026-10-15-1",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.invoices.delete(
-                id="inv_xxxxxxxxxxxxxx",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.delete(id, request_options=request_options)
-        return _response.data
-
     async def update(
         self,
         id: str,
         *,
-        automatically_finalizes_at: typing.Optional[dt.datetime] = OMIT,
         billing_address: typing.Optional[UpdateInvoicesRequestBillingAddress] = OMIT,
-        charge_buyer_fee: typing.Optional[bool] = OMIT,
-        collection_method: typing.Optional[InvoiceCollectionMethods] = OMIT,
-        customer_name: typing.Optional[str] = OMIT,
-        due_date: typing.Optional[dt.datetime] = OMIT,
-        email_address: typing.Optional[str] = OMIT,
-        line_items: typing.Optional[typing.Sequence[UpdateInvoicesRequestLineItemsItem]] = OMIT,
+        buyer_fee_percentage: typing.Optional[float] = OMIT,
+        due_at: typing.Optional[dt.datetime] = OMIT,
+        items: typing.Optional[typing.Sequence[UpdateInvoicesRequestItemsItem]] = OMIT,
         mailing_address_id: typing.Optional[str] = OMIT,
         member_id: typing.Optional[str] = OMIT,
+        metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
-        plan: typing.Optional[UpdateInvoicesRequestPlan] = OMIT,
-        product_id: typing.Optional[str] = OMIT,
-        subscription_billing_anchor_at: typing.Optional[dt.datetime] = OMIT,
+        recipient_emails: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Invoice:
         """
-        Update a draft invoice's details.
-
-        Required permissions:
-         - `invoice:update`
-         - `member:email:read`
-         - `member:basic:read`
-         - `payment:basic:read`
+        Updates draft invoice items and billing fields. Recipient-only updates are also allowed on unpaid invoices. Edit customer contact details through the member API.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the invoice to update.
-
-        automatically_finalizes_at : typing.Optional[dt.datetime]
-            The date and time when the invoice will be automatically finalized. For charge_automatically, triggers an automatic charge. For send_invoice, sends the invoice email at the specified time.
+            The invoice's pay_ ID.
 
         billing_address : typing.Optional[UpdateInvoicesRequestBillingAddress]
-            Inline billing address to create or update a mailing address for this invoice.
+            Create a billing address linked to this member.
 
-        charge_buyer_fee : typing.Optional[bool]
-            Whether to charge the customer a buyer fee on this invoice.
+        buyer_fee_percentage : typing.Optional[float]
+            The buyer's adjustable fee in percentage points, with at most two decimal places.
 
-        collection_method : typing.Optional[InvoiceCollectionMethods]
-            How the invoice should be collected.
+        due_at : typing.Optional[dt.datetime]
+            When payment is due, as an ISO 8601 timestamp.
 
-        customer_name : typing.Optional[str]
-            The name of the customer.
-
-        due_date : typing.Optional[dt.datetime]
-            The date by which the invoice must be paid.
-
-        email_address : typing.Optional[str]
-            The email address of the customer.
-
-        line_items : typing.Optional[typing.Sequence[UpdateInvoicesRequestLineItemsItem]]
-            Line items that break down the invoice total. When provided, the sum of (quantity * unit_price) for all items must equal the plan price. Individual items may be negative to represent a credit, as long as the sum is not negative and clears the currency's minimum charge. Pass an empty list to remove the breakdown.
+        items : typing.Optional[typing.Sequence[UpdateInvoicesRequestItemsItem]]
+            The one-time variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant. Multiple items require unlimited stock and compatible payment, tax, and access settings.
 
         mailing_address_id : typing.Optional[str]
-            The unique identifier of an existing mailing address to attach.
+            An address associated with the member. Mutually exclusive with billing_address.
 
         member_id : typing.Optional[str]
-            The unique identifier of a member to assign as the customer.
+            The billed customer, a member of the account. Changing email recipients does not change this buyer.
+
+        metadata : typing.Optional[typing.Dict[str, str]]
+            Up to 50 caller-owned string key/value pairs.
 
         payment_method_id : typing.Optional[str]
-            The unique identifier of the payment method to charge.
+            A saved payment method belonging to the member.
 
-        plan : typing.Optional[UpdateInvoicesRequestPlan]
-            Updated plan attributes.
-
-        product_id : typing.Optional[str]
-            The unique identifier of an existing product to attach to this invoice. Only allowed while the invoice is still a draft.
-
-        subscription_billing_anchor_at : typing.Optional[dt.datetime]
-            The date that defines when the subscription billing cycle should start.
+        recipient_emails : typing.Optional[typing.Sequence[str]]
+            Email addresses saved for invoice delivery, independent of the billed customer. Saving them sends no email. Defaults to the customer email when omitted on create. Can be updated on draft, open, or uncollectible invoices.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -909,7 +766,7 @@ class AsyncInvoicesClient:
         Returns
         -------
         Invoice
-            A successful response
+            draft updated
 
         Examples
         --------
@@ -918,7 +775,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-24",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -926,7 +783,7 @@ class AsyncInvoicesClient:
 
         async def main() -> None:
             await client.invoices.update(
-                id="inv_xxxxxxxxxxxxxx",
+                id="id",
             )
 
 
@@ -934,43 +791,35 @@ class AsyncInvoicesClient:
         """
         _response = await self._raw_client.update(
             id,
-            automatically_finalizes_at=automatically_finalizes_at,
             billing_address=billing_address,
-            charge_buyer_fee=charge_buyer_fee,
-            collection_method=collection_method,
-            customer_name=customer_name,
-            due_date=due_date,
-            email_address=email_address,
-            line_items=line_items,
+            buyer_fee_percentage=buyer_fee_percentage,
+            due_at=due_at,
+            items=items,
             mailing_address_id=mailing_address_id,
             member_id=member_id,
+            metadata=metadata,
             payment_method_id=payment_method_id,
-            plan=plan,
-            product_id=product_id,
-            subscription_billing_anchor_at=subscription_billing_anchor_at,
+            recipient_emails=recipient_emails,
             request_options=request_options,
         )
         return _response.data
 
-    async def mark_paid(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> bool:
+    async def issue(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Invoice:
         """
-        Mark an open invoice as paid when payment was collected outside of Whop.
-
-        Required permissions:
-         - `invoice:update`
+        Resolves final tax and opens a draft invoice. Issuing an open invoice again retains its totals.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the invoice to mark as paid.
+            The invoice's pay_ ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        bool
-            A successful response
+        Invoice
+            invoice issued
 
         Examples
         --------
@@ -979,42 +828,39 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-24",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
 
 
         async def main() -> None:
-            await client.invoices.mark_paid(
-                id="inv_xxxxxxxxxxxxxx",
+            await client.invoices.issue(
+                id="id",
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.mark_paid(id, request_options=request_options)
+        _response = await self._raw_client.issue(id, request_options=request_options)
         return _response.data
 
-    async def mark_uncollectible(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> bool:
+    async def mark_uncollectible(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Invoice:
         """
-        Mark an open invoice as uncollectible when payment is not expected.
-
-        Required permissions:
-         - `invoice:update`
+        Marks an open invoice as uncollectible. Reminders stop, but the customer can still pay it.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the invoice to mark as uncollectible.
+            The invoice's pay_ ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        bool
-            A successful response
+        Invoice
+            invoice updated
 
         Examples
         --------
@@ -1023,7 +869,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-24",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1031,7 +877,7 @@ class AsyncInvoicesClient:
 
         async def main() -> None:
             await client.invoices.mark_uncollectible(
-                id="inv_xxxxxxxxxxxxxx",
+                id="id",
             )
 
 
@@ -1040,25 +886,22 @@ class AsyncInvoicesClient:
         _response = await self._raw_client.mark_uncollectible(id, request_options=request_options)
         return _response.data
 
-    async def resend(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> bool:
+    async def void(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Invoice:
         """
-        Resend the notification email for an existing invoice to the customer.
-
-        Required permissions:
-         - `invoice:update`
+        Voids a draft or unpaid invoice.
 
         Parameters
         ----------
         id : str
-            The unique identifier of the invoice to resend.
+            The invoice's pay_ ID.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
         Returns
         -------
-        bool
-            A successful response
+        Invoice
+            invoice updated
 
         Examples
         --------
@@ -1067,51 +910,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.invoices.resend(
-                id="inv_xxxxxxxxxxxxxx",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.resend(id, request_options=request_options)
-        return _response.data
-
-    async def void(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> bool:
-        """
-        Void an open invoice so it can no longer be paid. Voiding is permanent and cannot be undone.
-
-        Required permissions:
-         - `invoice:update`
-
-        Parameters
-        ----------
-        id : str
-            The unique identifier of the invoice to void.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        bool
-            A successful response
-
-        Examples
-        --------
-        import asyncio
-
-        from whop_sdk import AsyncWhop
-
-        client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-24",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1119,7 +918,7 @@ class AsyncInvoicesClient:
 
         async def main() -> None:
             await client.invoices.void(
-                id="inv_xxxxxxxxxxxxxx",
+                id="id",
             )
 
 

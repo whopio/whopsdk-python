@@ -680,19 +680,20 @@ if typing.TYPE_CHECKING:
     from .internal_server_error_body_error import InternalServerErrorBodyError
     from .invoice import Invoice
     from .invoice_collection_methods import InvoiceCollectionMethods
-    from .invoice_company import InvoiceCompany
-    from .invoice_current_plan import InvoiceCurrentPlan
-    from .invoice_line_items_item import InvoiceLineItemsItem
-    from .invoice_list_item import InvoiceListItem
-    from .invoice_list_item_current_plan import InvoiceListItemCurrentPlan
-    from .invoice_list_item_line_items_item import InvoiceListItemLineItemsItem
-    from .invoice_list_item_user import InvoiceListItemUser
-    from .invoice_mailing_address import InvoiceMailingAddress
-    from .invoice_member import InvoiceMember
-    from .invoice_payment import InvoicePayment
-    from .invoice_product import InvoiceProduct
+    from .invoice_legacy import InvoiceLegacy
+    from .invoice_legacy_company import InvoiceLegacyCompany
+    from .invoice_legacy_current_plan import InvoiceLegacyCurrentPlan
+    from .invoice_legacy_line_items_item import InvoiceLegacyLineItemsItem
+    from .invoice_legacy_mailing_address import InvoiceLegacyMailingAddress
+    from .invoice_legacy_member import InvoiceLegacyMember
+    from .invoice_legacy_payment import InvoiceLegacyPayment
+    from .invoice_legacy_product import InvoiceLegacyProduct
+    from .invoice_legacy_user import InvoiceLegacyUser
+    from .invoice_line_item import InvoiceLineItem
+    from .invoice_object import InvoiceObject
+    from .invoice_status import InvoiceStatus
     from .invoice_statuses import InvoiceStatuses
-    from .invoice_user import InvoiceUser
+    from .invoice_totals_status import InvoiceTotalsStatus
     from .invoices_sortable_columns import InvoicesSortableColumns
     from .language_targeting_option import LanguageTargetingOption
     from .languages import Languages
@@ -761,6 +762,19 @@ if typing.TYPE_CHECKING:
     from .ledger_activity_source_fee_type import LedgerActivitySourceFeeType
     from .ledger_activity_source_payout_destination import LedgerActivitySourcePayoutDestination
     from .ledger_types import LedgerTypes
+    from .legacy_invoice import LegacyInvoice
+    from .legacy_invoice_company import LegacyInvoiceCompany
+    from .legacy_invoice_current_plan import LegacyInvoiceCurrentPlan
+    from .legacy_invoice_line_items_item import LegacyInvoiceLineItemsItem
+    from .legacy_invoice_list_item import LegacyInvoiceListItem
+    from .legacy_invoice_list_item_current_plan import LegacyInvoiceListItemCurrentPlan
+    from .legacy_invoice_list_item_line_items_item import LegacyInvoiceListItemLineItemsItem
+    from .legacy_invoice_list_item_user import LegacyInvoiceListItemUser
+    from .legacy_invoice_mailing_address import LegacyInvoiceMailingAddress
+    from .legacy_invoice_member import LegacyInvoiceMember
+    from .legacy_invoice_payment import LegacyInvoicePayment
+    from .legacy_invoice_product import LegacyInvoiceProduct
+    from .legacy_invoice_user import LegacyInvoiceUser
     from .lesson_types import LessonTypes
     from .lesson_visibilities import LessonVisibilities
     from .list_api_keys_request_created_after import ListApiKeysRequestCreatedAfter
@@ -2228,19 +2242,20 @@ _dynamic_imports: typing.Dict[str, str] = {
     "InternalServerErrorBodyError": ".internal_server_error_body_error",
     "Invoice": ".invoice",
     "InvoiceCollectionMethods": ".invoice_collection_methods",
-    "InvoiceCompany": ".invoice_company",
-    "InvoiceCurrentPlan": ".invoice_current_plan",
-    "InvoiceLineItemsItem": ".invoice_line_items_item",
-    "InvoiceListItem": ".invoice_list_item",
-    "InvoiceListItemCurrentPlan": ".invoice_list_item_current_plan",
-    "InvoiceListItemLineItemsItem": ".invoice_list_item_line_items_item",
-    "InvoiceListItemUser": ".invoice_list_item_user",
-    "InvoiceMailingAddress": ".invoice_mailing_address",
-    "InvoiceMember": ".invoice_member",
-    "InvoicePayment": ".invoice_payment",
-    "InvoiceProduct": ".invoice_product",
+    "InvoiceLegacy": ".invoice_legacy",
+    "InvoiceLegacyCompany": ".invoice_legacy_company",
+    "InvoiceLegacyCurrentPlan": ".invoice_legacy_current_plan",
+    "InvoiceLegacyLineItemsItem": ".invoice_legacy_line_items_item",
+    "InvoiceLegacyMailingAddress": ".invoice_legacy_mailing_address",
+    "InvoiceLegacyMember": ".invoice_legacy_member",
+    "InvoiceLegacyPayment": ".invoice_legacy_payment",
+    "InvoiceLegacyProduct": ".invoice_legacy_product",
+    "InvoiceLegacyUser": ".invoice_legacy_user",
+    "InvoiceLineItem": ".invoice_line_item",
+    "InvoiceObject": ".invoice_object",
+    "InvoiceStatus": ".invoice_status",
     "InvoiceStatuses": ".invoice_statuses",
-    "InvoiceUser": ".invoice_user",
+    "InvoiceTotalsStatus": ".invoice_totals_status",
     "InvoicesSortableColumns": ".invoices_sortable_columns",
     "LanguageTargetingOption": ".language_targeting_option",
     "Languages": ".languages",
@@ -2305,6 +2320,19 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LedgerActivitySourceFeeType": ".ledger_activity_source_fee_type",
     "LedgerActivitySourcePayoutDestination": ".ledger_activity_source_payout_destination",
     "LedgerTypes": ".ledger_types",
+    "LegacyInvoice": ".legacy_invoice",
+    "LegacyInvoiceCompany": ".legacy_invoice_company",
+    "LegacyInvoiceCurrentPlan": ".legacy_invoice_current_plan",
+    "LegacyInvoiceLineItemsItem": ".legacy_invoice_line_items_item",
+    "LegacyInvoiceListItem": ".legacy_invoice_list_item",
+    "LegacyInvoiceListItemCurrentPlan": ".legacy_invoice_list_item_current_plan",
+    "LegacyInvoiceListItemLineItemsItem": ".legacy_invoice_list_item_line_items_item",
+    "LegacyInvoiceListItemUser": ".legacy_invoice_list_item_user",
+    "LegacyInvoiceMailingAddress": ".legacy_invoice_mailing_address",
+    "LegacyInvoiceMember": ".legacy_invoice_member",
+    "LegacyInvoicePayment": ".legacy_invoice_payment",
+    "LegacyInvoiceProduct": ".legacy_invoice_product",
+    "LegacyInvoiceUser": ".legacy_invoice_user",
     "LessonTypes": ".lesson_types",
     "LessonVisibilities": ".lesson_visibilities",
     "ListApiKeysRequestCreatedAfter": ".list_api_keys_request_created_after",
@@ -3676,19 +3704,20 @@ __all__ = [
     "InternalServerErrorBodyError",
     "Invoice",
     "InvoiceCollectionMethods",
-    "InvoiceCompany",
-    "InvoiceCurrentPlan",
-    "InvoiceLineItemsItem",
-    "InvoiceListItem",
-    "InvoiceListItemCurrentPlan",
-    "InvoiceListItemLineItemsItem",
-    "InvoiceListItemUser",
-    "InvoiceMailingAddress",
-    "InvoiceMember",
-    "InvoicePayment",
-    "InvoiceProduct",
+    "InvoiceLegacy",
+    "InvoiceLegacyCompany",
+    "InvoiceLegacyCurrentPlan",
+    "InvoiceLegacyLineItemsItem",
+    "InvoiceLegacyMailingAddress",
+    "InvoiceLegacyMember",
+    "InvoiceLegacyPayment",
+    "InvoiceLegacyProduct",
+    "InvoiceLegacyUser",
+    "InvoiceLineItem",
+    "InvoiceObject",
+    "InvoiceStatus",
     "InvoiceStatuses",
-    "InvoiceUser",
+    "InvoiceTotalsStatus",
     "InvoicesSortableColumns",
     "LanguageTargetingOption",
     "Languages",
@@ -3753,6 +3782,19 @@ __all__ = [
     "LedgerActivitySourceFeeType",
     "LedgerActivitySourcePayoutDestination",
     "LedgerTypes",
+    "LegacyInvoice",
+    "LegacyInvoiceCompany",
+    "LegacyInvoiceCurrentPlan",
+    "LegacyInvoiceLineItemsItem",
+    "LegacyInvoiceListItem",
+    "LegacyInvoiceListItemCurrentPlan",
+    "LegacyInvoiceListItemLineItemsItem",
+    "LegacyInvoiceListItemUser",
+    "LegacyInvoiceMailingAddress",
+    "LegacyInvoiceMember",
+    "LegacyInvoicePayment",
+    "LegacyInvoiceProduct",
+    "LegacyInvoiceUser",
     "LessonTypes",
     "LessonVisibilities",
     "ListApiKeysRequestCreatedAfter",
