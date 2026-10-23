@@ -11,7 +11,9 @@ PaymentRuleFieldField = typing.Union[
         "card_funding",
         "card_bin",
         "customer_email",
+        "email_domain",
         "ip_address",
+        "ip_country",
     ],
     typing.Any,
 ]
