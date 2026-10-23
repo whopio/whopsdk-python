@@ -80,13 +80,13 @@ class LedgerActivitySource(UniversalBaseModel):
     id: str
     notes: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Memo attached to the transfer or payout source, or null when none was provided (on payout sources requires payout:withdrawal:read).
+    Memo attached to the transfer, payout, or bank_deposit source, or null when none was provided (on payout sources requires payout:withdrawal:read).
     """
 
     object: str
     payer_name: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Name of the entity processing the payout (payout sources only; requires payout:withdrawal:read).
+    On payout sources, the name of the entity processing the payout (requires payout:withdrawal:read). On bank_deposit sources, the name of the account that sent the deposit.
     """
 
     payment_amount: typing.Optional[Money] = pydantic.Field(default=None)
@@ -96,7 +96,7 @@ class LedgerActivitySource(UniversalBaseModel):
 
     payment_method_type: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Payment method used by the payment source.
+    Payment method used by the payment source. On bank_deposit sources, the transfer rail: `wire`, `ach`, or `rtp`.
     """
 
     payment_processor: typing.Optional[str] = pydantic.Field(default=None)
@@ -131,7 +131,7 @@ class LedgerActivitySource(UniversalBaseModel):
 
     sender_address: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Sender wallet address or onramp provider identifier (onchain_transaction sources only).
+    On onchain_transaction sources, the sender wallet address or onramp provider identifier. On bank_deposit sources, the last four digits of the sending bank account, such as `••••1547`.
     """
 
     status: typing.Optional[str] = pydantic.Field(default=None)
