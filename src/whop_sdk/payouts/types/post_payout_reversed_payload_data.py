@@ -123,7 +123,7 @@ class PostPayoutReversedPayloadData(UniversalBaseModel):
 
     statement_descriptor: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Text that appears on the recipient's bank statement, or `null` if no descriptor was set. When set, 5-22 alphanumeric characters (A-Z, a-z, 0-9).
+    The payment description sent with the payout, or `null` if no descriptor was set. When set, 5-80 printable ASCII characters.
     """
 
     status: PostPayoutReversedPayloadDataStatus = pydantic.Field()

@@ -265,7 +265,7 @@ class RawPayoutsClient:
             How fast the funds should arrive. `instant` is only accepted when the account and payout method are eligible; otherwise the payout is rejected.
 
         statement_descriptor : typing.Optional[str]
-            Text that appears on the recipient's bank statement. Must be 5-22 alphanumeric characters (A-Z, a-z, 0-9). Without a `quote_token`, omit or pass `null` to use the default descriptor. With a `quote_token`, set this value when creating the quote; the payout request may omit it but cannot add or change it.
+            Payment description sent with the payout, such as an invoice number or what it pays for. Must be 5-80 printable ASCII characters (letters, digits, spaces and punctuation); Whop sends it in upper case. Not all countries and banks show it on the recipient's statement, and it is not the sender name. Without a `quote_token`, omit or pass `null` to use the default descriptor. With a `quote_token`, set this value when creating the quote; the payout request may omit it but cannot add or change it.
 
         user_id : typing.Optional[str]
             User to pay out from, prefixed `user_`. Provide exactly one of `account_id` or `user_id`.
@@ -422,7 +422,7 @@ class RawPayoutsClient:
             How fast the funds should arrive.
 
         statement_descriptor : typing.Optional[str]
-            Text that appears on the recipient's bank statement. Must be 5-22 alphanumeric characters (A-Z, a-z, 0-9). Omit or pass `null` to use the default descriptor.
+            Payment description sent with the payout, such as an invoice number or what it pays for. Must be 5-80 printable ASCII characters (letters, digits, spaces and punctuation); Whop sends it in upper case. Not all countries and banks show it on the recipient's statement, and it is not the sender name. Omit or pass `null` to use the default descriptor.
 
         user_id : typing.Optional[str]
             User to pay out from, prefixed `user_`. Provide exactly one of `account_id` or `user_id`.
@@ -939,7 +939,7 @@ class AsyncRawPayoutsClient:
             How fast the funds should arrive. `instant` is only accepted when the account and payout method are eligible; otherwise the payout is rejected.
 
         statement_descriptor : typing.Optional[str]
-            Text that appears on the recipient's bank statement. Must be 5-22 alphanumeric characters (A-Z, a-z, 0-9). Without a `quote_token`, omit or pass `null` to use the default descriptor. With a `quote_token`, set this value when creating the quote; the payout request may omit it but cannot add or change it.
+            Payment description sent with the payout, such as an invoice number or what it pays for. Must be 5-80 printable ASCII characters (letters, digits, spaces and punctuation); Whop sends it in upper case. Not all countries and banks show it on the recipient's statement, and it is not the sender name. Without a `quote_token`, omit or pass `null` to use the default descriptor. With a `quote_token`, set this value when creating the quote; the payout request may omit it but cannot add or change it.
 
         user_id : typing.Optional[str]
             User to pay out from, prefixed `user_`. Provide exactly one of `account_id` or `user_id`.
@@ -1096,7 +1096,7 @@ class AsyncRawPayoutsClient:
             How fast the funds should arrive.
 
         statement_descriptor : typing.Optional[str]
-            Text that appears on the recipient's bank statement. Must be 5-22 alphanumeric characters (A-Z, a-z, 0-9). Omit or pass `null` to use the default descriptor.
+            Payment description sent with the payout, such as an invoice number or what it pays for. Must be 5-80 printable ASCII characters (letters, digits, spaces and punctuation); Whop sends it in upper case. Not all countries and banks show it on the recipient's statement, and it is not the sender name. Omit or pass `null` to use the default descriptor.
 
         user_id : typing.Optional[str]
             User to pay out from, prefixed `user_`. Provide exactly one of `account_id` or `user_id`.
