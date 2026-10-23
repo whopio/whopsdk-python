@@ -5,6 +5,7 @@ import typing
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
 from .raw_client import AsyncRawDepositsClient, RawDepositsClient
+from .types.create_deposits_request_metadata_value import CreateDepositsRequestMetadataValue
 from .types.create_deposits_response import CreateDepositsResponse
 
 # this is used as the default value for optional parameters
@@ -31,6 +32,7 @@ class DepositsClient:
         *,
         destination: str,
         amount: typing.Optional[float] = OMIT,
+        metadata: typing.Optional[typing.Dict[str, typing.Optional[CreateDepositsRequestMetadataValue]]] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateDepositsResponse:
@@ -44,6 +46,9 @@ class DepositsClient:
 
         amount : typing.Optional[float]
             Amount to prefill on hosted deposit page. Crypto deposits require a $10 minimum. With `payment_method_id`, the amount in USD to charge, and required.
+
+        metadata : typing.Optional[typing.Dict[str, typing.Optional[CreateDepositsRequestMetadataValue]]]
+            Custom metadata to attach to the payment the charge creates. Ignored unless `payment_method_id` is provided.
 
         payment_method_id : typing.Optional[str]
             A saved payment method of the business to charge for `amount`, prefixed `payt_`. Save one with Create setup intent and `owner_id` set to the account. Only for a `biz_` destination, and requires authentication with the `payment:charge` scope. A declined charge fails the request with 400.
@@ -70,7 +75,11 @@ class DepositsClient:
         )
         """
         _response = self._raw_client.create(
-            destination=destination, amount=amount, payment_method_id=payment_method_id, request_options=request_options
+            destination=destination,
+            amount=amount,
+            metadata=metadata,
+            payment_method_id=payment_method_id,
+            request_options=request_options,
         )
         return _response.data
 
@@ -95,6 +104,7 @@ class AsyncDepositsClient:
         *,
         destination: str,
         amount: typing.Optional[float] = OMIT,
+        metadata: typing.Optional[typing.Dict[str, typing.Optional[CreateDepositsRequestMetadataValue]]] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateDepositsResponse:
@@ -108,6 +118,9 @@ class AsyncDepositsClient:
 
         amount : typing.Optional[float]
             Amount to prefill on hosted deposit page. Crypto deposits require a $10 minimum. With `payment_method_id`, the amount in USD to charge, and required.
+
+        metadata : typing.Optional[typing.Dict[str, typing.Optional[CreateDepositsRequestMetadataValue]]]
+            Custom metadata to attach to the payment the charge creates. Ignored unless `payment_method_id` is provided.
 
         payment_method_id : typing.Optional[str]
             A saved payment method of the business to charge for `amount`, prefixed `payt_`. Save one with Create setup intent and `owner_id` set to the account. Only for a `biz_` destination, and requires authentication with the `payment:charge` scope. A declined charge fails the request with 400.
@@ -142,6 +155,10 @@ class AsyncDepositsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.create(
-            destination=destination, amount=amount, payment_method_id=payment_method_id, request_options=request_options
+            destination=destination,
+            amount=amount,
+            metadata=metadata,
+            payment_method_id=payment_method_id,
+            request_options=request_options,
         )
         return _response.data
