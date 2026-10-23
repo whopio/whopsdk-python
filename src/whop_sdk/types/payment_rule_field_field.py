@@ -4,7 +4,14 @@ import typing
 
 PaymentRuleFieldField = typing.Union[
     typing.Literal[
-        "risk_score", "amount_in_usd", "card_country", "card_brand", "card_bin", "customer_email", "ip_address"
+        "risk_score",
+        "amount_in_usd",
+        "card_country",
+        "card_brand",
+        "card_funding",
+        "card_bin",
+        "customer_email",
+        "ip_address",
     ],
     typing.Any,
 ]
