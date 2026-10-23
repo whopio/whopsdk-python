@@ -11,6 +11,11 @@ class CreateDepositsResponseMethodsCard(UniversalBaseModel):
     The charge to a saved payment method. Null unless `payment_method_id` was passed.
     """
 
+    metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = pydantic.Field(default=None)
+    """
+    The custom metadata attached to the payment the charge created. Null if none was passed.
+    """
+
     payment_id: str = pydantic.Field()
     """
     The payment the charge created, prefixed `pay_`. Retrieve it, or listen for `payment.succeeded`, to confirm the funds landed.

@@ -14,6 +14,7 @@ from .domain_pixel import DomainPixel
 from .domain_platform import DomainPlatform
 from .domain_registration import DomainRegistration
 from .domain_stats import DomainStats
+from .domain_transfer import DomainTransfer
 from .domain_verification import DomainVerification
 from .domain_website import DomainWebsite
 
@@ -88,6 +89,11 @@ class DomainListItem(UniversalBaseModel):
     status: typing.Optional[DomainListItemStatus] = pydantic.Field(default=None)
     """
     The most pressing state of the domain's capabilities: `releasing`, then `action_required`, then `pending`, then `ready`. `idle` when it wants nothing.
+    """
+
+    transfer: typing.Optional[DomainTransfer] = pydantic.Field(default=None)
+    """
+    Moving the domain to another Whop account. `null` when not turned on or not visible to you.
     """
 
     updated_at: typing.Optional[str] = pydantic.Field(default=None)

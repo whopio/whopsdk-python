@@ -23,6 +23,7 @@ from .types.create_domains_request_apple_pay import CreateDomainsRequestApplePay
 from .types.create_domains_request_email import CreateDomainsRequestEmail
 from .types.create_domains_request_pixel import CreateDomainsRequestPixel
 from .types.create_domains_request_registration import CreateDomainsRequestRegistration
+from .types.create_domains_request_transfer import CreateDomainsRequestTransfer
 from .types.create_domains_request_verification import CreateDomainsRequestVerification
 from .types.create_domains_request_website import CreateDomainsRequestWebsite
 from .types.list_domains_request_apple_pay import ListDomainsRequestApplePay
@@ -33,6 +34,7 @@ from .types.list_domains_request_pixel import ListDomainsRequestPixel
 from .types.list_domains_request_platform import ListDomainsRequestPlatform
 from .types.list_domains_request_registration import ListDomainsRequestRegistration
 from .types.list_domains_request_status import ListDomainsRequestStatus
+from .types.list_domains_request_transfer import ListDomainsRequestTransfer
 from .types.list_domains_request_verification import ListDomainsRequestVerification
 from .types.list_domains_request_website import ListDomainsRequestWebsite
 from .types.list_domains_response import ListDomainsResponse
@@ -40,6 +42,7 @@ from .types.update_domains_request_apple_pay import UpdateDomainsRequestApplePay
 from .types.update_domains_request_email import UpdateDomainsRequestEmail
 from .types.update_domains_request_pixel import UpdateDomainsRequestPixel
 from .types.update_domains_request_registration import UpdateDomainsRequestRegistration
+from .types.update_domains_request_transfer import UpdateDomainsRequestTransfer
 from .types.update_domains_request_verification import UpdateDomainsRequestVerification
 from .types.update_domains_request_website import UpdateDomainsRequestWebsite
 from pydantic import ValidationError
@@ -74,6 +77,7 @@ class RawDomainsClient:
         apple_pay: typing.Optional[ListDomainsRequestApplePay] = None,
         pixel: typing.Optional[ListDomainsRequestPixel] = None,
         email: typing.Optional[ListDomainsRequestEmail] = None,
+        transfer: typing.Optional[ListDomainsRequestTransfer] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[DomainListItem, ListDomainsResponse]:
         """
@@ -140,6 +144,9 @@ class RawDomainsClient:
         email : typing.Optional[ListDomainsRequestEmail]
             Only domains with email in this state, such as `ready`, or `any` for every domain that has email.
 
+        transfer : typing.Optional[ListDomainsRequestTransfer]
+            Only domains with transfer in this state, such as `ready`, or `any` for every domain that has transfer.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -172,6 +179,7 @@ class RawDomainsClient:
                 "apple_pay": apple_pay,
                 "pixel": pixel,
                 "email": email,
+                "transfer": transfer,
             },
             request_options=request_options,
         )
@@ -210,6 +218,7 @@ class RawDomainsClient:
                         apple_pay=apple_pay,
                         pixel=pixel,
                         email=email,
+                        transfer=transfer,
                         request_options=request_options,
                     )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
@@ -265,6 +274,7 @@ class RawDomainsClient:
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         pixel: typing.Optional[CreateDomainsRequestPixel] = OMIT,
         registration: typing.Optional[CreateDomainsRequestRegistration] = OMIT,
+        transfer: typing.Optional[CreateDomainsRequestTransfer] = OMIT,
         verification: typing.Optional[CreateDomainsRequestVerification] = OMIT,
         website: typing.Optional[CreateDomainsRequestWebsite] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -303,6 +313,9 @@ class RawDomainsClient:
         registration : typing.Optional[CreateDomainsRequestRegistration]
             Buy the domain through Whop, or transfer in a domain you own elsewhere with `auth_code`, then renew it every year and let Whop run its DNS. Pass `null` to release an unpaid or failed purchase, or to cancel a transfer while its current registrar can still stop it.
 
+        transfer : typing.Optional[CreateDomainsRequestTransfer]
+            Move a domain registered through Whop to another Whop account. Turning it on returns a code in `transfer.code`; the receiving account enters it as `registration.auth_code` on its own copy of the domain. Whop then removes the domain's email, email addresses and Apple Pay from this account, moves the registration with its expiry, stops charging this account to renew it, and removes the domain from this account. Pass `null` to turn it off and invalidate the code, until another account has entered it.
+
         verification : typing.Optional[CreateDomainsRequestVerification]
             Prove you control the domain's DNS: Whop returns a TXT record to publish in `issues`, and whoever publishes it owns the domain on Whop. Pass `null` to release it. Can't be combined with `registration`.
 
@@ -338,6 +351,9 @@ class RawDomainsClient:
                     object_=registration,
                     annotation=typing.Optional[CreateDomainsRequestRegistration],
                     direction="write",
+                ),
+                "transfer": convert_and_respect_annotation_metadata(
+                    object_=transfer, annotation=typing.Optional[CreateDomainsRequestTransfer], direction="write"
                 ),
                 "verification": convert_and_respect_annotation_metadata(
                     object_=verification,
@@ -523,6 +539,7 @@ class RawDomainsClient:
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         pixel: typing.Optional[UpdateDomainsRequestPixel] = OMIT,
         registration: typing.Optional[UpdateDomainsRequestRegistration] = OMIT,
+        transfer: typing.Optional[UpdateDomainsRequestTransfer] = OMIT,
         verification: typing.Optional[UpdateDomainsRequestVerification] = OMIT,
         website: typing.Optional[UpdateDomainsRequestWebsite] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -549,6 +566,9 @@ class RawDomainsClient:
 
         registration : typing.Optional[UpdateDomainsRequestRegistration]
             Buy the domain through Whop, or transfer in a domain you own elsewhere with `auth_code`, then renew it every year and let Whop run its DNS. Pass `null` to release an unpaid or failed purchase, or to cancel a transfer while its current registrar can still stop it.
+
+        transfer : typing.Optional[UpdateDomainsRequestTransfer]
+            Move a domain registered through Whop to another Whop account. Turning it on returns a code in `transfer.code`; the receiving account enters it as `registration.auth_code` on its own copy of the domain. Whop then removes the domain's email, email addresses and Apple Pay from this account, moves the registration with its expiry, stops charging this account to renew it, and removes the domain from this account. Pass `null` to turn it off and invalidate the code, until another account has entered it.
 
         verification : typing.Optional[UpdateDomainsRequestVerification]
             Prove you control the domain's DNS: Whop returns a TXT record to publish in `issues`, and whoever publishes it owns the domain on Whop. Pass `null` to release it. Can't be combined with `registration`.
@@ -583,6 +603,9 @@ class RawDomainsClient:
                     object_=registration,
                     annotation=typing.Optional[UpdateDomainsRequestRegistration],
                     direction="write",
+                ),
+                "transfer": convert_and_respect_annotation_metadata(
+                    object_=transfer, annotation=typing.Optional[UpdateDomainsRequestTransfer], direction="write"
                 ),
                 "verification": convert_and_respect_annotation_metadata(
                     object_=verification,
@@ -709,6 +732,7 @@ class AsyncRawDomainsClient:
         apple_pay: typing.Optional[ListDomainsRequestApplePay] = None,
         pixel: typing.Optional[ListDomainsRequestPixel] = None,
         email: typing.Optional[ListDomainsRequestEmail] = None,
+        transfer: typing.Optional[ListDomainsRequestTransfer] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[DomainListItem, ListDomainsResponse]:
         """
@@ -775,6 +799,9 @@ class AsyncRawDomainsClient:
         email : typing.Optional[ListDomainsRequestEmail]
             Only domains with email in this state, such as `ready`, or `any` for every domain that has email.
 
+        transfer : typing.Optional[ListDomainsRequestTransfer]
+            Only domains with transfer in this state, such as `ready`, or `any` for every domain that has transfer.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -807,6 +834,7 @@ class AsyncRawDomainsClient:
                 "apple_pay": apple_pay,
                 "pixel": pixel,
                 "email": email,
+                "transfer": transfer,
             },
             request_options=request_options,
         )
@@ -847,6 +875,7 @@ class AsyncRawDomainsClient:
                             apple_pay=apple_pay,
                             pixel=pixel,
                             email=email,
+                            transfer=transfer,
                             request_options=request_options,
                         )
 
@@ -903,6 +932,7 @@ class AsyncRawDomainsClient:
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         pixel: typing.Optional[CreateDomainsRequestPixel] = OMIT,
         registration: typing.Optional[CreateDomainsRequestRegistration] = OMIT,
+        transfer: typing.Optional[CreateDomainsRequestTransfer] = OMIT,
         verification: typing.Optional[CreateDomainsRequestVerification] = OMIT,
         website: typing.Optional[CreateDomainsRequestWebsite] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -941,6 +971,9 @@ class AsyncRawDomainsClient:
         registration : typing.Optional[CreateDomainsRequestRegistration]
             Buy the domain through Whop, or transfer in a domain you own elsewhere with `auth_code`, then renew it every year and let Whop run its DNS. Pass `null` to release an unpaid or failed purchase, or to cancel a transfer while its current registrar can still stop it.
 
+        transfer : typing.Optional[CreateDomainsRequestTransfer]
+            Move a domain registered through Whop to another Whop account. Turning it on returns a code in `transfer.code`; the receiving account enters it as `registration.auth_code` on its own copy of the domain. Whop then removes the domain's email, email addresses and Apple Pay from this account, moves the registration with its expiry, stops charging this account to renew it, and removes the domain from this account. Pass `null` to turn it off and invalidate the code, until another account has entered it.
+
         verification : typing.Optional[CreateDomainsRequestVerification]
             Prove you control the domain's DNS: Whop returns a TXT record to publish in `issues`, and whoever publishes it owns the domain on Whop. Pass `null` to release it. Can't be combined with `registration`.
 
@@ -976,6 +1009,9 @@ class AsyncRawDomainsClient:
                     object_=registration,
                     annotation=typing.Optional[CreateDomainsRequestRegistration],
                     direction="write",
+                ),
+                "transfer": convert_and_respect_annotation_metadata(
+                    object_=transfer, annotation=typing.Optional[CreateDomainsRequestTransfer], direction="write"
                 ),
                 "verification": convert_and_respect_annotation_metadata(
                     object_=verification,
@@ -1165,6 +1201,7 @@ class AsyncRawDomainsClient:
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         pixel: typing.Optional[UpdateDomainsRequestPixel] = OMIT,
         registration: typing.Optional[UpdateDomainsRequestRegistration] = OMIT,
+        transfer: typing.Optional[UpdateDomainsRequestTransfer] = OMIT,
         verification: typing.Optional[UpdateDomainsRequestVerification] = OMIT,
         website: typing.Optional[UpdateDomainsRequestWebsite] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -1191,6 +1228,9 @@ class AsyncRawDomainsClient:
 
         registration : typing.Optional[UpdateDomainsRequestRegistration]
             Buy the domain through Whop, or transfer in a domain you own elsewhere with `auth_code`, then renew it every year and let Whop run its DNS. Pass `null` to release an unpaid or failed purchase, or to cancel a transfer while its current registrar can still stop it.
+
+        transfer : typing.Optional[UpdateDomainsRequestTransfer]
+            Move a domain registered through Whop to another Whop account. Turning it on returns a code in `transfer.code`; the receiving account enters it as `registration.auth_code` on its own copy of the domain. Whop then removes the domain's email, email addresses and Apple Pay from this account, moves the registration with its expiry, stops charging this account to renew it, and removes the domain from this account. Pass `null` to turn it off and invalidate the code, until another account has entered it.
 
         verification : typing.Optional[UpdateDomainsRequestVerification]
             Prove you control the domain's DNS: Whop returns a TXT record to publish in `issues`, and whoever publishes it owns the domain on Whop. Pass `null` to release it. Can't be combined with `registration`.
@@ -1225,6 +1265,9 @@ class AsyncRawDomainsClient:
                     object_=registration,
                     annotation=typing.Optional[UpdateDomainsRequestRegistration],
                     direction="write",
+                ),
+                "transfer": convert_and_respect_annotation_metadata(
+                    object_=transfer, annotation=typing.Optional[UpdateDomainsRequestTransfer], direction="write"
                 ),
                 "verification": convert_and_respect_annotation_metadata(
                     object_=verification,

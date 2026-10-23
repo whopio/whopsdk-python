@@ -7,6 +7,7 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
+        CreateDepositsRequestMetadataValue,
         CreateDepositsResponse,
         CreateDepositsResponseMethods,
         CreateDepositsResponseMethodsBank,
@@ -23,6 +24,7 @@ if typing.TYPE_CHECKING:
         PostDepositSucceededPayloadType,
     )
 _dynamic_imports: typing.Dict[str, str] = {
+    "CreateDepositsRequestMetadataValue": ".types",
     "CreateDepositsResponse": ".types",
     "CreateDepositsResponseMethods": ".types",
     "CreateDepositsResponseMethodsBank": ".types",
@@ -62,6 +64,7 @@ def __dir__():
 
 
 __all__ = [
+    "CreateDepositsRequestMetadataValue",
     "CreateDepositsResponse",
     "CreateDepositsResponseMethods",
     "CreateDepositsResponseMethodsBank",

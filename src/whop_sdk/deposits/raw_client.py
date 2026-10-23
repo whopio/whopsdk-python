@@ -9,8 +9,10 @@ from ..core.http_response import AsyncHttpResponse, HttpResponse
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
+from ..core.serialization import convert_and_respect_annotation_metadata
 from ..errors.bad_request_error import BadRequestError
 from ..errors.conflict_error import ConflictError
+from .types.create_deposits_request_metadata_value import CreateDepositsRequestMetadataValue
 from .types.create_deposits_response import CreateDepositsResponse
 from pydantic import ValidationError
 
@@ -27,6 +29,7 @@ class RawDepositsClient:
         *,
         destination: str,
         amount: typing.Optional[float] = OMIT,
+        metadata: typing.Optional[typing.Dict[str, typing.Optional[CreateDepositsRequestMetadataValue]]] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateDepositsResponse]:
@@ -40,6 +43,9 @@ class RawDepositsClient:
 
         amount : typing.Optional[float]
             Amount to prefill on hosted deposit page. Crypto deposits require a $10 minimum. With `payment_method_id`, the amount in USD to charge, and required.
+
+        metadata : typing.Optional[typing.Dict[str, typing.Optional[CreateDepositsRequestMetadataValue]]]
+            Custom metadata to attach to the payment the charge creates. Ignored unless `payment_method_id` is provided.
 
         payment_method_id : typing.Optional[str]
             A saved payment method of the business to charge for `amount`, prefixed `payt_`. Save one with Create setup intent and `owner_id` set to the account. Only for a `biz_` destination, and requires authentication with the `payment:charge` scope. A declined charge fails the request with 400.
@@ -59,6 +65,11 @@ class RawDepositsClient:
             json={
                 "amount": amount,
                 "destination": destination,
+                "metadata": convert_and_respect_annotation_metadata(
+                    object_=metadata,
+                    annotation=typing.Optional[typing.Dict[str, typing.Optional[CreateDepositsRequestMetadataValue]]],
+                    direction="write",
+                ),
                 "payment_method_id": payment_method_id,
             },
             headers={
@@ -118,6 +129,7 @@ class AsyncRawDepositsClient:
         *,
         destination: str,
         amount: typing.Optional[float] = OMIT,
+        metadata: typing.Optional[typing.Dict[str, typing.Optional[CreateDepositsRequestMetadataValue]]] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateDepositsResponse]:
@@ -131,6 +143,9 @@ class AsyncRawDepositsClient:
 
         amount : typing.Optional[float]
             Amount to prefill on hosted deposit page. Crypto deposits require a $10 minimum. With `payment_method_id`, the amount in USD to charge, and required.
+
+        metadata : typing.Optional[typing.Dict[str, typing.Optional[CreateDepositsRequestMetadataValue]]]
+            Custom metadata to attach to the payment the charge creates. Ignored unless `payment_method_id` is provided.
 
         payment_method_id : typing.Optional[str]
             A saved payment method of the business to charge for `amount`, prefixed `payt_`. Save one with Create setup intent and `owner_id` set to the account. Only for a `biz_` destination, and requires authentication with the `payment:charge` scope. A declined charge fails the request with 400.
@@ -150,6 +165,11 @@ class AsyncRawDepositsClient:
             json={
                 "amount": amount,
                 "destination": destination,
+                "metadata": convert_and_respect_annotation_metadata(
+                    object_=metadata,
+                    annotation=typing.Optional[typing.Dict[str, typing.Optional[CreateDepositsRequestMetadataValue]]],
+                    direction="write",
+                ),
                 "payment_method_id": payment_method_id,
             },
             headers={

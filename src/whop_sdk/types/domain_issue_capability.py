@@ -3,5 +3,6 @@
 import typing
 
 DomainIssueCapability = typing.Union[
-    typing.Literal["verification", "registration", "platform", "website", "apple_pay", "pixel", "email"], typing.Any
+    typing.Literal["verification", "registration", "platform", "website", "apple_pay", "pixel", "email", "transfer"],
+    typing.Any,
 ]
