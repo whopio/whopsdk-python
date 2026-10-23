@@ -33,6 +33,7 @@ class DepositsClient:
         destination: str,
         amount: typing.Optional[float] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[CreateDepositsRequestMetadataValue]]] = OMIT,
+        origin_bic: typing.Optional[str] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateDepositsResponse:
@@ -49,6 +50,9 @@ class DepositsClient:
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[CreateDepositsRequestMetadataValue]]]
             Custom metadata to attach to the payment the charge creates. Ignored unless `payment_method_id` is provided.
+
+        origin_bic : typing.Optional[str]
+            SWIFT/BIC of the bank the funds are sent from, 8 or 11 characters. Fills each bank currency's `swift_bic` with the intermediary bank to route the wire through.
 
         payment_method_id : typing.Optional[str]
             A saved payment method of the business to charge for `amount`, prefixed `payt_`. Save one with Create setup intent and `owner_id` set to the account. Only for a `biz_` destination, and requires authentication with the `payment:charge` scope. A declined charge fails the request with 400.
@@ -78,6 +82,7 @@ class DepositsClient:
             destination=destination,
             amount=amount,
             metadata=metadata,
+            origin_bic=origin_bic,
             payment_method_id=payment_method_id,
             request_options=request_options,
         )
@@ -105,6 +110,7 @@ class AsyncDepositsClient:
         destination: str,
         amount: typing.Optional[float] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[CreateDepositsRequestMetadataValue]]] = OMIT,
+        origin_bic: typing.Optional[str] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateDepositsResponse:
@@ -121,6 +127,9 @@ class AsyncDepositsClient:
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[CreateDepositsRequestMetadataValue]]]
             Custom metadata to attach to the payment the charge creates. Ignored unless `payment_method_id` is provided.
+
+        origin_bic : typing.Optional[str]
+            SWIFT/BIC of the bank the funds are sent from, 8 or 11 characters. Fills each bank currency's `swift_bic` with the intermediary bank to route the wire through.
 
         payment_method_id : typing.Optional[str]
             A saved payment method of the business to charge for `amount`, prefixed `payt_`. Save one with Create setup intent and `owner_id` set to the account. Only for a `biz_` destination, and requires authentication with the `payment:charge` scope. A declined charge fails the request with 400.
@@ -158,6 +167,7 @@ class AsyncDepositsClient:
             destination=destination,
             amount=amount,
             metadata=metadata,
+            origin_bic=origin_bic,
             payment_method_id=payment_method_id,
             request_options=request_options,
         )

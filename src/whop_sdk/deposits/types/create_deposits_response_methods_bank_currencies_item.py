@@ -52,7 +52,7 @@ class CreateDepositsResponseMethodsBankCurrenciesItem(UniversalBaseModel):
 
     swift_bic: typing.Optional[str] = pydantic.Field(default=None)
     """
-    SWIFT/BIC code for international wires, when available.
+    SWIFT/BIC of the intermediary bank the sending bank routes an international wire through. Null unless `origin_bic` is provided and an intermediary is published for that bank and currency.
     """
 
     if IS_PYDANTIC_V2:
