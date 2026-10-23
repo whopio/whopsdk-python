@@ -183,7 +183,7 @@ class InvoicesClient:
             Up to 50 caller-owned string key/value pairs.
 
         payment_method_id : typing.Optional[str]
-            A saved payment method belonging to the member.
+            A saved payment method belonging to the member. Issuing the invoice charges it.
 
         recipient_emails : typing.Optional[typing.Sequence[str]]
             Email addresses saved for invoice delivery, independent of the billed customer. Saving them sends no email. Defaults to the customer email when omitted on create. Can be updated on draft, open, or uncollectible invoices.
@@ -305,7 +305,7 @@ class InvoicesClient:
             Up to 50 caller-owned string key/value pairs.
 
         payment_method_id : typing.Optional[str]
-            A saved payment method belonging to the member.
+            A saved payment method belonging to the member. Issuing the invoice charges it.
 
         recipient_emails : typing.Optional[typing.Sequence[str]]
             Email addresses saved for invoice delivery, independent of the billed customer. Saving them sends no email. Defaults to the customer email when omitted on create. Can be updated on draft, open, or uncollectible invoices.
@@ -348,7 +348,7 @@ class InvoicesClient:
 
     def issue(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Invoice:
         """
-        Resolves final tax and opens a draft invoice. Issuing an open invoice again retains its totals.
+        Resolves final tax and opens a draft invoice. An invoice with a `payment_method_id` is then charged to it off-session, as `POST /payments` charges a saved payment method, and issuing it requires `payment:charge`. Issuing an open invoice again retains its totals and charges nothing.
 
         Parameters
         ----------
@@ -617,7 +617,7 @@ class AsyncInvoicesClient:
             Up to 50 caller-owned string key/value pairs.
 
         payment_method_id : typing.Optional[str]
-            A saved payment method belonging to the member.
+            A saved payment method belonging to the member. Issuing the invoice charges it.
 
         recipient_emails : typing.Optional[typing.Sequence[str]]
             Email addresses saved for invoice delivery, independent of the billed customer. Saving them sends no email. Defaults to the customer email when omitted on create. Can be updated on draft, open, or uncollectible invoices.
@@ -755,7 +755,7 @@ class AsyncInvoicesClient:
             Up to 50 caller-owned string key/value pairs.
 
         payment_method_id : typing.Optional[str]
-            A saved payment method belonging to the member.
+            A saved payment method belonging to the member. Issuing the invoice charges it.
 
         recipient_emails : typing.Optional[typing.Sequence[str]]
             Email addresses saved for invoice delivery, independent of the billed customer. Saving them sends no email. Defaults to the customer email when omitted on create. Can be updated on draft, open, or uncollectible invoices.
@@ -806,7 +806,7 @@ class AsyncInvoicesClient:
 
     async def issue(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Invoice:
         """
-        Resolves final tax and opens a draft invoice. Issuing an open invoice again retains its totals.
+        Resolves final tax and opens a draft invoice. An invoice with a `payment_method_id` is then charged to it off-session, as `POST /payments` charges a saved payment method, and issuing it requires `payment:charge`. Issuing an open invoice again retains its totals and charges nothing.
 
         Parameters
         ----------
