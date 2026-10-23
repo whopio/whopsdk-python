@@ -101,6 +101,11 @@ class Account(UniversalBaseModel):
     When the account was created, as an ISO 8601 timestamp.
     """
 
+    customers_l30d: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Distinct customers with a paid receipt at the account in the last 30 days, refreshed every few hours. Computed only on `retrieve` for callers with `stats:read` on the account; `null` otherwise, and when the count is unavailable.
+    """
+
     description: typing.Optional[str] = pydantic.Field(default=None)
     """
     Account promotional description.
