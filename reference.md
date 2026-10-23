@@ -26135,10 +26135,7 @@ client.identity_profiles.list_verifications_identity_profile(
 <dl>
 <dd>
 
-Returns a paginated list of invoices for an account, with optional filtering by product, status, collection method, and creation date.
-
-Required permissions:
- - `invoice:basic:read`
+Lists receipt-backed invoices for accounts the caller can read. Legacy invoices are excluded.
 </dd>
 </dl>
 </dd>
@@ -26155,20 +26152,13 @@ Required permissions:
 ```python
 from whop_sdk import Whop
 from whop_sdk.environment import WhopEnvironment
-import datetime
 
 client = Whop(
     token="<token>",
     environment=WhopEnvironment.PRODUCTION,
 )
 
-client.invoices.list(
-    first=42,
-    last=42,
-    created_before=datetime.datetime.fromisoformat("2023-12-01T05:00:00+00:00"),
-    created_after=datetime.datetime.fromisoformat("2023-12-01T05:00:00+00:00"),
-    account_id="biz_xxxxxxxxxxxxxx",
-)
+client.invoices.list()
 
 ```
 </dd>
@@ -26184,7 +26174,7 @@ client.invoices.list(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Returns the elements in the list that come after the specified cursor.
+**account_id:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -26192,7 +26182,7 @@ client.invoices.list(
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Returns the elements in the list that come before the specified cursor.
+**status:** `typing.Optional[ListInvoicesRequestStatus]` 
     
 </dd>
 </dl>
@@ -26200,7 +26190,7 @@ client.invoices.list(
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — Returns the first _n_ elements from the list.
+**overdue:** `typing.Optional[bool]` 
     
 </dd>
 </dl>
@@ -26208,7 +26198,7 @@ client.invoices.list(
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — Returns the last _n_ elements from the list.
+**member_id:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -26216,7 +26206,7 @@ client.invoices.list(
 <dl>
 <dd>
 
-**direction:** `typing.Optional[Direction]` 
+**product_id:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -26224,7 +26214,7 @@ client.invoices.list(
 <dl>
 <dd>
 
-**product_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter invoices to only those associated with these specific product identifiers.
+**created_after:** `typing.Optional[datetime.datetime]` 
     
 </dd>
 </dl>
@@ -26232,7 +26222,7 @@ client.invoices.list(
 <dl>
 <dd>
 
-**collection_methods:** `typing.Optional[typing.Union[InvoiceCollectionMethods, typing.Sequence[InvoiceCollectionMethods]]]` — Filter invoices by their collection method.
+**created_before:** `typing.Optional[datetime.datetime]` 
     
 </dd>
 </dl>
@@ -26240,7 +26230,7 @@ client.invoices.list(
 <dl>
 <dd>
 
-**statuses:** `typing.Optional[typing.Union[InvoiceStatuses, typing.Sequence[InvoiceStatuses]]]` — Filter invoices by their current status.
+**order:** `typing.Optional[ListInvoicesRequestOrder]` 
     
 </dd>
 </dl>
@@ -26248,7 +26238,7 @@ client.invoices.list(
 <dl>
 <dd>
 
-**order:** `typing.Optional[InvoicesSortableColumns]` 
+**direction:** `typing.Optional[ListInvoicesRequestDirection]` 
     
 </dd>
 </dl>
@@ -26256,7 +26246,7 @@ client.invoices.list(
 <dl>
 <dd>
 
-**created_before:** `typing.Optional[datetime.datetime]` — Only return invoices created before this timestamp.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -26264,7 +26254,7 @@ client.invoices.list(
 <dl>
 <dd>
 
-**created_after:** `typing.Optional[datetime.datetime]` — Only return invoices created after this timestamp.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -26272,7 +26262,15 @@ client.invoices.list(
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[str]` — The unique identifier of the company to list invoices for.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -26304,13 +26302,7 @@ client.invoices.list(
 <dl>
 <dd>
 
-Create an invoice for a customer. The invoice can be charged automatically using a stored payment method, or sent to the customer for manual payment.
-
-Required permissions:
- - `invoice:create`
- - `member:email:read`
- - `member:basic:read`
- - `payment:basic:read`
+Creates a draft invoice backed by a receipt, with saved items, quantities, prices, and recipients. Issue the draft to resolve final tax and open the invoice. The pay_ ID stays the same when paid.
 </dd>
 </dl>
 </dd>
@@ -26327,7 +26319,6 @@ Required permissions:
 ```python
 from whop_sdk import Whop
 from whop_sdk.environment import WhopEnvironment
-from whop_sdk.invoices import CreateInvoicesRequestProduct, CreateInvoicesRequestProductPlan, CreateInvoicesRequestProductProduct
 
 client = Whop(
     token="<token>",
@@ -26335,14 +26326,8 @@ client = Whop(
 )
 
 client.invoices.create(
-    request=CreateInvoicesRequestProduct(
-        account_id="biz_xxxxxxxxxxxxxx",
-        collection_method="send_invoice",
-        plan=CreateInvoicesRequestProductPlan(),
-        product=CreateInvoicesRequestProductProduct(
-            title="title",
-        ),
-    ),
+    account_id="biz_xxxxxxxxxxxxxx",
+    items=[],
 )
 
 ```
@@ -26359,7 +26344,95 @@ client.invoices.create(
 <dl>
 <dd>
 
-**request:** `CreateInvoicesRequest` — Parameters for CreateInvoice
+**account_id:** `str` — The issuing account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**items:** `typing.List[CreateInvoicesRequestItemsItem]` — The one-time variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant. Multiple items require unlimited stock and compatible payment, tax, and access settings.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**billing_address:** `typing.Optional[CreateInvoicesRequestBillingAddress]` — Create a billing address linked to this member.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**buyer_fee_percentage:** `typing.Optional[float]` — The buyer's adjustable fee in percentage points, with at most two decimal places.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customer_name:** `typing.Optional[str]` — The contact name when creating an email-only member.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**due_at:** `typing.Optional[datetime.datetime]` — When payment is due, as an ISO 8601 timestamp.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**email_address:** `typing.Optional[str]` — Resolve or create the member for this email, creating a Whop user when none exists. Mutually exclusive with member_id.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**mailing_address_id:** `typing.Optional[str]` — An address associated with the member. Mutually exclusive with billing_address.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**member_id:** `typing.Optional[str]` — The billed customer, a member of the account. Changing email recipients does not change this buyer.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**metadata:** `typing.Optional[typing.Dict[str, str]]` — Up to 50 caller-owned string key/value pairs.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment_method_id:** `typing.Optional[str]` — A saved payment method belonging to the member.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**recipient_emails:** `typing.Optional[typing.List[str]]` — Email addresses saved for invoice delivery, independent of the billed customer. Saving them sends no email. Defaults to the customer email when omitted on create. Can be updated on draft, open, or uncollectible invoices.
     
 </dd>
 </dl>
@@ -26391,13 +26464,7 @@ client.invoices.create(
 <dl>
 <dd>
 
-Retrieves the details of an existing invoice.
-
-Required permissions:
- - `invoice:basic:read`
- - `member:email:read`
- - `member:basic:read`
- - `payment:basic:read`
+Retrieves a receipt-backed invoice by its pay_ ID.
 </dd>
 </dl>
 </dd>
@@ -26421,7 +26488,7 @@ client = Whop(
 )
 
 client.invoices.retrieve(
-    id="inv_xxxxxxxxxxxxxx",
+    id="id",
 )
 
 ```
@@ -26438,83 +26505,7 @@ client.invoices.retrieve(
 <dl>
 <dd>
 
-**id:** `str` — The unique identifier of the invoice, or a secure token.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.invoices.<a href="src/whop_sdk/invoices/client.py">delete</a>(...) -> bool</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Delete a draft invoice.
-
-Required permissions:
- - `invoice:update`
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from whop_sdk import Whop
-from whop_sdk.environment import WhopEnvironment
-
-client = Whop(
-    token="<token>",
-    environment=WhopEnvironment.PRODUCTION,
-)
-
-client.invoices.delete(
-    id="inv_xxxxxxxxxxxxxx",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — The unique identifier of the draft invoice to delete.
+**id:** `str` — The invoice's pay_ ID.
     
 </dd>
 </dl>
@@ -26546,13 +26537,7 @@ client.invoices.delete(
 <dl>
 <dd>
 
-Update a draft invoice's details.
-
-Required permissions:
- - `invoice:update`
- - `member:email:read`
- - `member:basic:read`
- - `payment:basic:read`
+Updates draft invoice items and billing fields. Recipient-only updates are also allowed on unpaid invoices. Edit customer contact details through the member API.
 </dd>
 </dl>
 </dd>
@@ -26576,7 +26561,7 @@ client = Whop(
 )
 
 client.invoices.update(
-    id="inv_xxxxxxxxxxxxxx",
+    id="id",
 )
 
 ```
@@ -26593,7 +26578,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-**id:** `str` — The unique identifier of the invoice to update.
+**id:** `str` — The invoice's pay_ ID.
     
 </dd>
 </dl>
@@ -26601,7 +26586,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-**automatically_finalizes_at:** `typing.Optional[datetime.datetime]` — The date and time when the invoice will be automatically finalized. For charge_automatically, triggers an automatic charge. For send_invoice, sends the invoice email at the specified time.
+**billing_address:** `typing.Optional[UpdateInvoicesRequestBillingAddress]` — Create a billing address linked to this member.
     
 </dd>
 </dl>
@@ -26609,7 +26594,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-**billing_address:** `typing.Optional[UpdateInvoicesRequestBillingAddress]` — Inline billing address to create or update a mailing address for this invoice.
+**buyer_fee_percentage:** `typing.Optional[float]` — The buyer's adjustable fee in percentage points, with at most two decimal places.
     
 </dd>
 </dl>
@@ -26617,7 +26602,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-**charge_buyer_fee:** `typing.Optional[bool]` — Whether to charge the customer a buyer fee on this invoice.
+**due_at:** `typing.Optional[datetime.datetime]` — When payment is due, as an ISO 8601 timestamp.
     
 </dd>
 </dl>
@@ -26625,7 +26610,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-**collection_method:** `typing.Optional[InvoiceCollectionMethods]` — How the invoice should be collected.
+**items:** `typing.Optional[typing.List[UpdateInvoicesRequestItemsItem]]` — The one-time variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant. Multiple items require unlimited stock and compatible payment, tax, and access settings.
     
 </dd>
 </dl>
@@ -26633,7 +26618,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-**customer_name:** `typing.Optional[str]` — The name of the customer.
+**mailing_address_id:** `typing.Optional[str]` — An address associated with the member. Mutually exclusive with billing_address.
     
 </dd>
 </dl>
@@ -26641,7 +26626,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-**due_date:** `typing.Optional[datetime.datetime]` — The date by which the invoice must be paid.
+**member_id:** `typing.Optional[str]` — The billed customer, a member of the account. Changing email recipients does not change this buyer.
     
 </dd>
 </dl>
@@ -26649,7 +26634,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-**email_address:** `typing.Optional[str]` — The email address of the customer.
+**metadata:** `typing.Optional[typing.Dict[str, str]]` — Up to 50 caller-owned string key/value pairs.
     
 </dd>
 </dl>
@@ -26657,7 +26642,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-**line_items:** `typing.Optional[typing.List[UpdateInvoicesRequestLineItemsItem]]` — Line items that break down the invoice total. When provided, the sum of (quantity * unit_price) for all items must equal the plan price. Individual items may be negative to represent a credit, as long as the sum is not negative and clears the currency's minimum charge. Pass an empty list to remove the breakdown.
+**payment_method_id:** `typing.Optional[str]` — A saved payment method belonging to the member.
     
 </dd>
 </dl>
@@ -26665,47 +26650,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-**mailing_address_id:** `typing.Optional[str]` — The unique identifier of an existing mailing address to attach.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**member_id:** `typing.Optional[str]` — The unique identifier of a member to assign as the customer.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payment_method_id:** `typing.Optional[str]` — The unique identifier of the payment method to charge.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**plan:** `typing.Optional[UpdateInvoicesRequestPlan]` — Updated plan attributes.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**product_id:** `typing.Optional[str]` — The unique identifier of an existing product to attach to this invoice. Only allowed while the invoice is still a draft.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**subscription_billing_anchor_at:** `typing.Optional[datetime.datetime]` — The date that defines when the subscription billing cycle should start.
+**recipient_emails:** `typing.Optional[typing.List[str]]` — Email addresses saved for invoice delivery, independent of the billed customer. Saving them sends no email. Defaults to the customer email when omitted on create. Can be updated on draft, open, or uncollectible invoices.
     
 </dd>
 </dl>
@@ -26725,7 +26670,7 @@ client.invoices.update(
 </dl>
 </details>
 
-<details><summary><code>client.invoices.<a href="src/whop_sdk/invoices/client.py">mark_paid</a>(...) -> bool</code></summary>
+<details><summary><code>client.invoices.<a href="src/whop_sdk/invoices/client.py">issue</a>(...) -> Invoice</code></summary>
 <dl>
 <dd>
 
@@ -26737,10 +26682,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-Mark an open invoice as paid when payment was collected outside of Whop.
-
-Required permissions:
- - `invoice:update`
+Resolves final tax and opens a draft invoice. Issuing an open invoice again retains its totals.
 </dd>
 </dl>
 </dd>
@@ -26763,8 +26705,8 @@ client = Whop(
     environment=WhopEnvironment.PRODUCTION,
 )
 
-client.invoices.mark_paid(
-    id="inv_xxxxxxxxxxxxxx",
+client.invoices.issue(
+    id="id",
 )
 
 ```
@@ -26781,7 +26723,7 @@ client.invoices.mark_paid(
 <dl>
 <dd>
 
-**id:** `str` — The unique identifier of the invoice to mark as paid.
+**id:** `str` — The invoice's pay_ ID.
     
 </dd>
 </dl>
@@ -26801,7 +26743,7 @@ client.invoices.mark_paid(
 </dl>
 </details>
 
-<details><summary><code>client.invoices.<a href="src/whop_sdk/invoices/client.py">mark_uncollectible</a>(...) -> bool</code></summary>
+<details><summary><code>client.invoices.<a href="src/whop_sdk/invoices/client.py">mark_uncollectible</a>(...) -> Invoice</code></summary>
 <dl>
 <dd>
 
@@ -26813,10 +26755,7 @@ client.invoices.mark_paid(
 <dl>
 <dd>
 
-Mark an open invoice as uncollectible when payment is not expected.
-
-Required permissions:
- - `invoice:update`
+Marks an open invoice as uncollectible. Reminders stop, but the customer can still pay it.
 </dd>
 </dl>
 </dd>
@@ -26840,7 +26779,7 @@ client = Whop(
 )
 
 client.invoices.mark_uncollectible(
-    id="inv_xxxxxxxxxxxxxx",
+    id="id",
 )
 
 ```
@@ -26857,7 +26796,7 @@ client.invoices.mark_uncollectible(
 <dl>
 <dd>
 
-**id:** `str` — The unique identifier of the invoice to mark as uncollectible.
+**id:** `str` — The invoice's pay_ ID.
     
 </dd>
 </dl>
@@ -26877,7 +26816,7 @@ client.invoices.mark_uncollectible(
 </dl>
 </details>
 
-<details><summary><code>client.invoices.<a href="src/whop_sdk/invoices/client.py">resend</a>(...) -> bool</code></summary>
+<details><summary><code>client.invoices.<a href="src/whop_sdk/invoices/client.py">void</a>(...) -> Invoice</code></summary>
 <dl>
 <dd>
 
@@ -26889,86 +26828,7 @@ client.invoices.mark_uncollectible(
 <dl>
 <dd>
 
-Resend the notification email for an existing invoice to the customer.
-
-Required permissions:
- - `invoice:update`
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from whop_sdk import Whop
-from whop_sdk.environment import WhopEnvironment
-
-client = Whop(
-    token="<token>",
-    environment=WhopEnvironment.PRODUCTION,
-)
-
-client.invoices.resend(
-    id="inv_xxxxxxxxxxxxxx",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — The unique identifier of the invoice to resend.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.invoices.<a href="src/whop_sdk/invoices/client.py">void</a>(...) -> bool</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Void an open invoice so it can no longer be paid. Voiding is permanent and cannot be undone.
-
-Required permissions:
- - `invoice:update`
+Voids a draft or unpaid invoice.
 </dd>
 </dl>
 </dd>
@@ -26992,7 +26852,7 @@ client = Whop(
 )
 
 client.invoices.void(
-    id="inv_xxxxxxxxxxxxxx",
+    id="id",
 )
 
 ```
@@ -27009,7 +26869,7 @@ client.invoices.void(
 <dl>
 <dd>
 
-**id:** `str` — The unique identifier of the invoice to void.
+**id:** `str` — The invoice's pay_ ID.
     
 </dd>
 </dl>

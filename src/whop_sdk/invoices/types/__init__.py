@@ -6,29 +6,27 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
-    from .create_invoices_request import CreateInvoicesRequest
-    from .create_invoices_request_product import CreateInvoicesRequestProduct
-    from .create_invoices_request_product_billing_address import CreateInvoicesRequestProductBillingAddress
-    from .create_invoices_request_product_id import CreateInvoicesRequestProductId
-    from .create_invoices_request_product_id_billing_address import CreateInvoicesRequestProductIdBillingAddress
-    from .create_invoices_request_product_id_line_items_item import CreateInvoicesRequestProductIdLineItemsItem
-    from .create_invoices_request_product_id_plan import CreateInvoicesRequestProductIdPlan
-    from .create_invoices_request_product_id_plan_custom_fields_item import (
-        CreateInvoicesRequestProductIdPlanCustomFieldsItem,
+    from .create_invoices_request_billing_address import CreateInvoicesRequestBillingAddress
+    from .create_invoices_request_items_item import CreateInvoicesRequestItemsItem
+    from .create_invoices_request_items_item_plan import CreateInvoicesRequestItemsItemPlan
+    from .create_invoices_request_items_item_plan_currency import CreateInvoicesRequestItemsItemPlanCurrency
+    from .create_invoices_request_items_item_plan_override_tax_type import (
+        CreateInvoicesRequestItemsItemPlanOverrideTaxType,
     )
-    from .create_invoices_request_product_id_plan_payment_method_configuration import (
-        CreateInvoicesRequestProductIdPlanPaymentMethodConfiguration,
+    from .create_invoices_request_items_item_plan_plan_type import CreateInvoicesRequestItemsItemPlanPlanType
+    from .create_invoices_request_items_item_plan_product import CreateInvoicesRequestItemsItemPlanProduct
+    from .create_invoices_request_items_item_plan_product_global_affiliate_status import (
+        CreateInvoicesRequestItemsItemPlanProductGlobalAffiliateStatus,
     )
-    from .create_invoices_request_product_line_items_item import CreateInvoicesRequestProductLineItemsItem
-    from .create_invoices_request_product_plan import CreateInvoicesRequestProductPlan
-    from .create_invoices_request_product_plan_custom_fields_item import (
-        CreateInvoicesRequestProductPlanCustomFieldsItem,
+    from .create_invoices_request_items_item_plan_product_visibility import (
+        CreateInvoicesRequestItemsItemPlanProductVisibility,
     )
-    from .create_invoices_request_product_plan_payment_method_configuration import (
-        CreateInvoicesRequestProductPlanPaymentMethodConfiguration,
-    )
-    from .create_invoices_request_product_product import CreateInvoicesRequestProductProduct
+    from .create_invoices_request_items_item_plan_visibility import CreateInvoicesRequestItemsItemPlanVisibility
+    from .list_invoices_request_direction import ListInvoicesRequestDirection
+    from .list_invoices_request_order import ListInvoicesRequestOrder
+    from .list_invoices_request_status import ListInvoicesRequestStatus
     from .list_invoices_response import ListInvoicesResponse
+    from .list_invoices_response_page_info import ListInvoicesResponsePageInfo
     from .post_invoice_created_payload import PostInvoiceCreatedPayload
     from .post_invoice_created_payload_api_version import PostInvoiceCreatedPayloadApiVersion
     from .post_invoice_created_payload_type import PostInvoiceCreatedPayloadType
@@ -45,28 +43,37 @@ if typing.TYPE_CHECKING:
     from .post_invoice_voided_payload_api_version import PostInvoiceVoidedPayloadApiVersion
     from .post_invoice_voided_payload_type import PostInvoiceVoidedPayloadType
     from .update_invoices_request_billing_address import UpdateInvoicesRequestBillingAddress
-    from .update_invoices_request_line_items_item import UpdateInvoicesRequestLineItemsItem
-    from .update_invoices_request_plan import UpdateInvoicesRequestPlan
-    from .update_invoices_request_plan_custom_fields_item import UpdateInvoicesRequestPlanCustomFieldsItem
-    from .update_invoices_request_plan_payment_method_configuration import (
-        UpdateInvoicesRequestPlanPaymentMethodConfiguration,
+    from .update_invoices_request_items_item import UpdateInvoicesRequestItemsItem
+    from .update_invoices_request_items_item_plan import UpdateInvoicesRequestItemsItemPlan
+    from .update_invoices_request_items_item_plan_currency import UpdateInvoicesRequestItemsItemPlanCurrency
+    from .update_invoices_request_items_item_plan_override_tax_type import (
+        UpdateInvoicesRequestItemsItemPlanOverrideTaxType,
     )
+    from .update_invoices_request_items_item_plan_plan_type import UpdateInvoicesRequestItemsItemPlanPlanType
+    from .update_invoices_request_items_item_plan_product import UpdateInvoicesRequestItemsItemPlanProduct
+    from .update_invoices_request_items_item_plan_product_global_affiliate_status import (
+        UpdateInvoicesRequestItemsItemPlanProductGlobalAffiliateStatus,
+    )
+    from .update_invoices_request_items_item_plan_product_visibility import (
+        UpdateInvoicesRequestItemsItemPlanProductVisibility,
+    )
+    from .update_invoices_request_items_item_plan_visibility import UpdateInvoicesRequestItemsItemPlanVisibility
 _dynamic_imports: typing.Dict[str, str] = {
-    "CreateInvoicesRequest": ".create_invoices_request",
-    "CreateInvoicesRequestProduct": ".create_invoices_request_product",
-    "CreateInvoicesRequestProductBillingAddress": ".create_invoices_request_product_billing_address",
-    "CreateInvoicesRequestProductId": ".create_invoices_request_product_id",
-    "CreateInvoicesRequestProductIdBillingAddress": ".create_invoices_request_product_id_billing_address",
-    "CreateInvoicesRequestProductIdLineItemsItem": ".create_invoices_request_product_id_line_items_item",
-    "CreateInvoicesRequestProductIdPlan": ".create_invoices_request_product_id_plan",
-    "CreateInvoicesRequestProductIdPlanCustomFieldsItem": ".create_invoices_request_product_id_plan_custom_fields_item",
-    "CreateInvoicesRequestProductIdPlanPaymentMethodConfiguration": ".create_invoices_request_product_id_plan_payment_method_configuration",
-    "CreateInvoicesRequestProductLineItemsItem": ".create_invoices_request_product_line_items_item",
-    "CreateInvoicesRequestProductPlan": ".create_invoices_request_product_plan",
-    "CreateInvoicesRequestProductPlanCustomFieldsItem": ".create_invoices_request_product_plan_custom_fields_item",
-    "CreateInvoicesRequestProductPlanPaymentMethodConfiguration": ".create_invoices_request_product_plan_payment_method_configuration",
-    "CreateInvoicesRequestProductProduct": ".create_invoices_request_product_product",
+    "CreateInvoicesRequestBillingAddress": ".create_invoices_request_billing_address",
+    "CreateInvoicesRequestItemsItem": ".create_invoices_request_items_item",
+    "CreateInvoicesRequestItemsItemPlan": ".create_invoices_request_items_item_plan",
+    "CreateInvoicesRequestItemsItemPlanCurrency": ".create_invoices_request_items_item_plan_currency",
+    "CreateInvoicesRequestItemsItemPlanOverrideTaxType": ".create_invoices_request_items_item_plan_override_tax_type",
+    "CreateInvoicesRequestItemsItemPlanPlanType": ".create_invoices_request_items_item_plan_plan_type",
+    "CreateInvoicesRequestItemsItemPlanProduct": ".create_invoices_request_items_item_plan_product",
+    "CreateInvoicesRequestItemsItemPlanProductGlobalAffiliateStatus": ".create_invoices_request_items_item_plan_product_global_affiliate_status",
+    "CreateInvoicesRequestItemsItemPlanProductVisibility": ".create_invoices_request_items_item_plan_product_visibility",
+    "CreateInvoicesRequestItemsItemPlanVisibility": ".create_invoices_request_items_item_plan_visibility",
+    "ListInvoicesRequestDirection": ".list_invoices_request_direction",
+    "ListInvoicesRequestOrder": ".list_invoices_request_order",
+    "ListInvoicesRequestStatus": ".list_invoices_request_status",
     "ListInvoicesResponse": ".list_invoices_response",
+    "ListInvoicesResponsePageInfo": ".list_invoices_response_page_info",
     "PostInvoiceCreatedPayload": ".post_invoice_created_payload",
     "PostInvoiceCreatedPayloadApiVersion": ".post_invoice_created_payload_api_version",
     "PostInvoiceCreatedPayloadType": ".post_invoice_created_payload_type",
@@ -83,10 +90,15 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostInvoiceVoidedPayloadApiVersion": ".post_invoice_voided_payload_api_version",
     "PostInvoiceVoidedPayloadType": ".post_invoice_voided_payload_type",
     "UpdateInvoicesRequestBillingAddress": ".update_invoices_request_billing_address",
-    "UpdateInvoicesRequestLineItemsItem": ".update_invoices_request_line_items_item",
-    "UpdateInvoicesRequestPlan": ".update_invoices_request_plan",
-    "UpdateInvoicesRequestPlanCustomFieldsItem": ".update_invoices_request_plan_custom_fields_item",
-    "UpdateInvoicesRequestPlanPaymentMethodConfiguration": ".update_invoices_request_plan_payment_method_configuration",
+    "UpdateInvoicesRequestItemsItem": ".update_invoices_request_items_item",
+    "UpdateInvoicesRequestItemsItemPlan": ".update_invoices_request_items_item_plan",
+    "UpdateInvoicesRequestItemsItemPlanCurrency": ".update_invoices_request_items_item_plan_currency",
+    "UpdateInvoicesRequestItemsItemPlanOverrideTaxType": ".update_invoices_request_items_item_plan_override_tax_type",
+    "UpdateInvoicesRequestItemsItemPlanPlanType": ".update_invoices_request_items_item_plan_plan_type",
+    "UpdateInvoicesRequestItemsItemPlanProduct": ".update_invoices_request_items_item_plan_product",
+    "UpdateInvoicesRequestItemsItemPlanProductGlobalAffiliateStatus": ".update_invoices_request_items_item_plan_product_global_affiliate_status",
+    "UpdateInvoicesRequestItemsItemPlanProductVisibility": ".update_invoices_request_items_item_plan_product_visibility",
+    "UpdateInvoicesRequestItemsItemPlanVisibility": ".update_invoices_request_items_item_plan_visibility",
 }
 
 
@@ -112,21 +124,21 @@ def __dir__():
 
 
 __all__ = [
-    "CreateInvoicesRequest",
-    "CreateInvoicesRequestProduct",
-    "CreateInvoicesRequestProductBillingAddress",
-    "CreateInvoicesRequestProductId",
-    "CreateInvoicesRequestProductIdBillingAddress",
-    "CreateInvoicesRequestProductIdLineItemsItem",
-    "CreateInvoicesRequestProductIdPlan",
-    "CreateInvoicesRequestProductIdPlanCustomFieldsItem",
-    "CreateInvoicesRequestProductIdPlanPaymentMethodConfiguration",
-    "CreateInvoicesRequestProductLineItemsItem",
-    "CreateInvoicesRequestProductPlan",
-    "CreateInvoicesRequestProductPlanCustomFieldsItem",
-    "CreateInvoicesRequestProductPlanPaymentMethodConfiguration",
-    "CreateInvoicesRequestProductProduct",
+    "CreateInvoicesRequestBillingAddress",
+    "CreateInvoicesRequestItemsItem",
+    "CreateInvoicesRequestItemsItemPlan",
+    "CreateInvoicesRequestItemsItemPlanCurrency",
+    "CreateInvoicesRequestItemsItemPlanOverrideTaxType",
+    "CreateInvoicesRequestItemsItemPlanPlanType",
+    "CreateInvoicesRequestItemsItemPlanProduct",
+    "CreateInvoicesRequestItemsItemPlanProductGlobalAffiliateStatus",
+    "CreateInvoicesRequestItemsItemPlanProductVisibility",
+    "CreateInvoicesRequestItemsItemPlanVisibility",
+    "ListInvoicesRequestDirection",
+    "ListInvoicesRequestOrder",
+    "ListInvoicesRequestStatus",
     "ListInvoicesResponse",
+    "ListInvoicesResponsePageInfo",
     "PostInvoiceCreatedPayload",
     "PostInvoiceCreatedPayloadApiVersion",
     "PostInvoiceCreatedPayloadType",
@@ -143,8 +155,13 @@ __all__ = [
     "PostInvoiceVoidedPayloadApiVersion",
     "PostInvoiceVoidedPayloadType",
     "UpdateInvoicesRequestBillingAddress",
-    "UpdateInvoicesRequestLineItemsItem",
-    "UpdateInvoicesRequestPlan",
-    "UpdateInvoicesRequestPlanCustomFieldsItem",
-    "UpdateInvoicesRequestPlanPaymentMethodConfiguration",
+    "UpdateInvoicesRequestItemsItem",
+    "UpdateInvoicesRequestItemsItemPlan",
+    "UpdateInvoicesRequestItemsItemPlanCurrency",
+    "UpdateInvoicesRequestItemsItemPlanOverrideTaxType",
+    "UpdateInvoicesRequestItemsItemPlanPlanType",
+    "UpdateInvoicesRequestItemsItemPlanProduct",
+    "UpdateInvoicesRequestItemsItemPlanProductGlobalAffiliateStatus",
+    "UpdateInvoicesRequestItemsItemPlanProductVisibility",
+    "UpdateInvoicesRequestItemsItemPlanVisibility",
 ]
