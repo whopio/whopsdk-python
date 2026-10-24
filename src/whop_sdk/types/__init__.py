@@ -1580,6 +1580,7 @@ if typing.TYPE_CHECKING:
     from .webhook import Webhook
     from .webhook_api_version import WebhookApiVersion
     from .webhook_delivery import WebhookDelivery
+    from .webhook_delivery_status import WebhookDeliveryStatus
     from .webhook_disabled_reason import WebhookDisabledReason
     from .webhook_event import WebhookEvent
     from .webhook_events_item import WebhookEventsItem
@@ -3019,6 +3020,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Webhook": ".webhook",
     "WebhookApiVersion": ".webhook_api_version",
     "WebhookDelivery": ".webhook_delivery",
+    "WebhookDeliveryStatus": ".webhook_delivery_status",
     "WebhookDisabledReason": ".webhook_disabled_reason",
     "WebhookEvent": ".webhook_event",
     "WebhookEventsItem": ".webhook_events_item",
@@ -4482,6 +4484,7 @@ __all__ = [
     "Webhook",
     "WebhookApiVersion",
     "WebhookDelivery",
+    "WebhookDeliveryStatus",
     "WebhookDisabledReason",
     "WebhookEvent",
     "WebhookEventsItem",
