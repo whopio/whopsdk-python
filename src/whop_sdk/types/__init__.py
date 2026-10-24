@@ -457,6 +457,7 @@ if typing.TYPE_CHECKING:
     from .dispute_alert_list_item import DisputeAlertListItem
     from .dispute_alert_list_item_dispute import DisputeAlertListItemDispute
     from .dispute_alert_list_item_payment import DisputeAlertListItemPayment
+    from .dispute_alert_source import DisputeAlertSource
     from .dispute_alert_type import DisputeAlertType
     from .dispute_alert_types import DisputeAlertTypes
     from .dispute_attachment import DisputeAttachment
@@ -2031,6 +2032,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DisputeAlertListItem": ".dispute_alert_list_item",
     "DisputeAlertListItemDispute": ".dispute_alert_list_item_dispute",
     "DisputeAlertListItemPayment": ".dispute_alert_list_item_payment",
+    "DisputeAlertSource": ".dispute_alert_source",
     "DisputeAlertType": ".dispute_alert_type",
     "DisputeAlertTypes": ".dispute_alert_types",
     "DisputeAttachment": ".dispute_attachment",
@@ -3493,6 +3495,7 @@ __all__ = [
     "DisputeAlertListItem",
     "DisputeAlertListItemDispute",
     "DisputeAlertListItemPayment",
+    "DisputeAlertSource",
     "DisputeAlertType",
     "DisputeAlertTypes",
     "DisputeAttachment",
