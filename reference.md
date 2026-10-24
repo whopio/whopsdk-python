@@ -48954,6 +48954,14 @@ client.webhooks.create(
 <dl>
 <dd>
 
+**title:** `typing.Optional[str]` — A label for the webhook, shown in the dashboard. Up to 255 characters.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -49198,6 +49206,14 @@ client.webhooks.update(
 <dd>
 
 **events:** `typing.Optional[typing.List[UpdateWebhooksRequestEventsItem]]` — The events to send the webhook for, in dot form (for example `payment.succeeded`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**title:** `typing.Optional[str]` — A label for the webhook, shown in the dashboard. Up to 255 characters. Pass `null` or an empty string to remove it.
     
 </dd>
 </dl>

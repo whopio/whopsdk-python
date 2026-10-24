@@ -192,6 +192,7 @@ class RawWebhooksClient:
         enabled: typing.Optional[bool] = OMIT,
         events: typing.Optional[typing.Sequence[CreateWebhooksRequestEventsItem]] = OMIT,
         resource_id: typing.Optional[str] = OMIT,
+        title: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Webhook]:
         """
@@ -217,6 +218,9 @@ class RawWebhooksClient:
         resource_id : typing.Optional[str]
             The account or app to create the webhook for. Defaults to the current account.
 
+        title : typing.Optional[str]
+            A label for the webhook, shown in the dashboard. Up to 255 characters.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -235,6 +239,7 @@ class RawWebhooksClient:
                 "enabled": enabled,
                 "events": events,
                 "resource_id": resource_id,
+                "title": title,
                 "url": url,
             },
             headers={
@@ -477,6 +482,7 @@ class RawWebhooksClient:
         child_resource_events: typing.Optional[bool] = OMIT,
         enabled: typing.Optional[bool] = OMIT,
         events: typing.Optional[typing.Sequence[UpdateWebhooksRequestEventsItem]] = OMIT,
+        title: typing.Optional[str] = OMIT,
         url: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Webhook]:
@@ -500,6 +506,9 @@ class RawWebhooksClient:
         events : typing.Optional[typing.Sequence[UpdateWebhooksRequestEventsItem]]
             The events to send the webhook for, in dot form (for example `payment.succeeded`).
 
+        title : typing.Optional[str]
+            A label for the webhook, shown in the dashboard. Up to 255 characters. Pass `null` or an empty string to remove it.
+
         url : typing.Optional[str]
             The URL to send the webhook to.
 
@@ -520,6 +529,7 @@ class RawWebhooksClient:
                 "child_resource_events": child_resource_events,
                 "enabled": enabled,
                 "events": events,
+                "title": title,
                 "url": url,
             },
             headers={
@@ -1217,6 +1227,7 @@ class AsyncRawWebhooksClient:
         enabled: typing.Optional[bool] = OMIT,
         events: typing.Optional[typing.Sequence[CreateWebhooksRequestEventsItem]] = OMIT,
         resource_id: typing.Optional[str] = OMIT,
+        title: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Webhook]:
         """
@@ -1242,6 +1253,9 @@ class AsyncRawWebhooksClient:
         resource_id : typing.Optional[str]
             The account or app to create the webhook for. Defaults to the current account.
 
+        title : typing.Optional[str]
+            A label for the webhook, shown in the dashboard. Up to 255 characters.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1260,6 +1274,7 @@ class AsyncRawWebhooksClient:
                 "enabled": enabled,
                 "events": events,
                 "resource_id": resource_id,
+                "title": title,
                 "url": url,
             },
             headers={
@@ -1504,6 +1519,7 @@ class AsyncRawWebhooksClient:
         child_resource_events: typing.Optional[bool] = OMIT,
         enabled: typing.Optional[bool] = OMIT,
         events: typing.Optional[typing.Sequence[UpdateWebhooksRequestEventsItem]] = OMIT,
+        title: typing.Optional[str] = OMIT,
         url: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Webhook]:
@@ -1527,6 +1543,9 @@ class AsyncRawWebhooksClient:
         events : typing.Optional[typing.Sequence[UpdateWebhooksRequestEventsItem]]
             The events to send the webhook for, in dot form (for example `payment.succeeded`).
 
+        title : typing.Optional[str]
+            A label for the webhook, shown in the dashboard. Up to 255 characters. Pass `null` or an empty string to remove it.
+
         url : typing.Optional[str]
             The URL to send the webhook to.
 
@@ -1547,6 +1566,7 @@ class AsyncRawWebhooksClient:
                 "child_resource_events": child_resource_events,
                 "enabled": enabled,
                 "events": events,
+                "title": title,
                 "url": url,
             },
             headers={
