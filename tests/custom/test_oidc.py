@@ -1,10 +1,12 @@
 import asyncio
+import concurrent.futures
+import gc
 import json
 import threading
 import time
 import traceback
 from types import SimpleNamespace
-from typing import Any, Callable, Dict, Iterator, List, Tuple
+from typing import Any, Awaitable, Callable, Dict, Iterator, List, Tuple
 
 import httpx
 import pytest
@@ -64,6 +66,18 @@ async def async_identity_token() -> str:
     return "id-token"
 
 
+def wait_for_renewal(token: Callable[[], str]) -> None:
+    renewal = getattr(token, "_renewal")
+    if renewal is not None:
+        concurrent.futures.wait([renewal], timeout=5)
+
+
+async def async_wait_for_renewal(token: Callable[[], Awaitable[str]]) -> None:
+    renewal = getattr(token, "_renewal")
+    if renewal is not None:
+        await asyncio.wait({renewal}, timeout=5)
+
+
 def exchange_responses(*tokens: str) -> Callable[[httpx.Request], httpx.Response]:
     queue = list(tokens)
     return lambda _request: httpx.Response(
@@ -100,7 +114,15 @@ def helper(request: pytest.FixtureRequest) -> Iterator[Helper]:
 
         def make(respond: Respond, identity_token: Callable[[], str] = lambda: "id-token") -> Any:
             client, requests = recording_client(respond)
-            return oidc_token(role_id=ROLE_ID, identity_token=identity_token, http_client=client), requests
+            token = oidc_token(role_id=ROLE_ID, identity_token=identity_token, http_client=client)
+
+            def call() -> str:
+                try:
+                    return token()
+                finally:
+                    wait_for_renewal(token)
+
+            return call, requests
 
         yield make
         return
@@ -114,7 +136,14 @@ def helper(request: pytest.FixtureRequest) -> Iterator[Helper]:
             return identity_token()
 
         token = async_oidc_token(role_id=ROLE_ID, identity_token=async_identity, http_client=client)
-        return (lambda: loop.run_until_complete(token())), requests
+
+        async def call() -> str:
+            try:
+                return await token()
+            finally:
+                await async_wait_for_renewal(token)
+
+        return (lambda: loop.run_until_complete(call())), requests
 
     yield make_async
     loop.close()
@@ -162,6 +191,8 @@ def test_reuses_the_token_until_a_random_point_two_to_ten_minutes_before_expiry_
     assert len(requests) == 1
 
     clock["value"] += 1
+    assert token() == "whop-token-1"
+    wait_for_renewal(token)
     assert token() == "whop-token-2"
     assert json.loads(requests[1].content)["subject_token"] == "id-token-2"
 
@@ -182,6 +213,7 @@ def test_renews_a_short_lived_token_no_earlier_than_halfway_through_its_life(
 
     clock["value"] += 1
     token()
+    wait_for_renewal(token)
     assert len(requests) == 2
 
 
@@ -234,10 +266,12 @@ def test_concurrent_callers_share_one_failed_exchange() -> None:
     assert len(requests) == 1
 
 
-def test_concurrent_callers_share_a_failed_renewal_and_keep_the_current_token(clock: Dict[str, float]) -> None:
+def test_callers_past_the_renewal_point_get_the_current_token_while_one_renewal_runs_in_the_background(
+    clock: Dict[str, float],
+) -> None:
     renewal_started = threading.Event()
     release_renewal = threading.Event()
-    responses = [issued("whop-token-1"), httpx.Response(503)]
+    responses = [issued("whop-token-1"), issued("whop-token-2")]
 
     def respond(_request: httpx.Request) -> httpx.Response:
         if len(responses) == 1:
@@ -249,20 +283,105 @@ def test_concurrent_callers_share_a_failed_renewal_and_keep_the_current_token(cl
     token = oidc_token(role_id=ROLE_ID, identity_token=lambda: "id-token", http_client=client)
     assert token() == "whop-token-1"
     clock["value"] += 3240
+
+    assert [token() for _ in range(5)] == ["whop-token-1"] * 5
+    assert renewal_started.wait(timeout=5)
+    release_renewal.set()
+    wait_for_renewal(token)
+
+    assert token() == "whop-token-2"
+    assert len(requests) == 2
+
+
+def test_callers_with_no_valid_token_wait_for_the_renewal_and_share_its_outcome(clock: Dict[str, float]) -> None:
+    renewal_started = threading.Event()
+    release_renewal = threading.Event()
+    responses = [issued("whop-token-1"), issued("whop-token-2")]
+
+    def respond(_request: httpx.Request) -> httpx.Response:
+        if len(responses) == 1:
+            renewal_started.set()
+            release_renewal.wait(timeout=5)
+        return responses.pop(0)
+
+    client, requests = recording_client(respond)
+    token = oidc_token(role_id=ROLE_ID, identity_token=lambda: "id-token", http_client=client)
+    assert token() == "whop-token-1"
+    clock["value"] += 3600 - 30
     results: List[str] = []
 
     threads = [threading.Thread(target=lambda: results.append(token())) for _ in range(5)]
-    threads[0].start()
-    assert renewal_started.wait(timeout=5)
-    for thread in threads[1:]:
+    for thread in threads:
         thread.start()
+    assert renewal_started.wait(timeout=5)
     time.sleep(0.2)
+    assert results == []
     release_renewal.set()
     for thread in threads:
         thread.join(timeout=5)
 
-    assert results == ["whop-token-1"] * 5
+    assert results == ["whop-token-2"] * 5
     assert len(requests) == 2
+
+
+def test_a_hung_identity_token_source_times_out_at_the_renewal_deadline_and_the_next_renewal_proceeds(
+    clock: Dict[str, float], monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(oidc, "_RENEWAL_TIMEOUT_SECONDS", 0.2)
+    release_identity_token = threading.Event()
+    calls: List[int] = []
+
+    def identity_token() -> str:
+        calls.append(1)
+        if len(calls) == 1:
+            release_identity_token.wait(timeout=5)
+        return "id-token"
+
+    client, requests = recording_client(exchange_responses("whop-token-1"))
+    token = oidc_token(role_id=ROLE_ID, identity_token=identity_token, http_client=client)
+
+    with pytest.raises(OidcTokenError) as raised:
+        token()
+    assert str(raised.value) == "The token renewal timed out after 0.2 seconds."
+    assert raised.value.retry_at == 1_002.0
+
+    clock["value"] += 2
+    assert token() == "whop-token-1"
+    assert len(calls) == 2
+    assert len(requests) == 1
+    release_identity_token.set()
+
+
+def test_a_renewal_that_hangs_while_the_current_token_is_valid_times_out_and_the_next_one_proceeds_after_the_backoff(
+    clock: Dict[str, float], monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(oidc, "_RENEWAL_TIMEOUT_SECONDS", 0.2)
+    release_identity_token = threading.Event()
+    calls: List[int] = []
+
+    def identity_token() -> str:
+        calls.append(1)
+        if len(calls) == 2:
+            release_identity_token.wait(timeout=5)
+        return "id-token"
+
+    client, requests = recording_client(exchange_responses("whop-token-1", "whop-token-2"))
+    token = oidc_token(role_id=ROLE_ID, identity_token=identity_token, http_client=client)
+    assert token() == "whop-token-1"
+    clock["value"] += 3240
+
+    assert token() == "whop-token-1"
+    wait_for_renewal(token)
+    assert token() == "whop-token-1"
+    assert len(calls) == 2
+
+    clock["value"] += 2
+    assert token() == "whop-token-1"
+    wait_for_renewal(token)
+    assert token() == "whop-token-2"
+    assert len(calls) == 3
+    assert len(requests) == 2
+    release_identity_token.set()
 
 
 def test_surfaces_the_api_error() -> None:
@@ -406,8 +525,9 @@ def test_backoff_doubles_from_two_seconds_up_to_a_minute_and_restarts_after_a_su
     assert len(requests) == 9
 
     clock["value"] += 1
-    assert token() == "whop-token-2"
+    assert token() == "whop-token-1"
     assert len(requests) == 10
+    assert token() == "whop-token-2"
 
 
 def test_keeps_returning_the_current_token_while_renewal_fails_and_renews_after_the_backoff(
@@ -435,8 +555,9 @@ def test_keeps_returning_the_current_token_while_renewal_fails_and_renews_after_
     assert len(requests) == 3
 
     clock["value"] += 1
-    assert token() == "whop-token-2"
+    assert token() == "whop-token-1"
     assert len(requests) == 4
+    assert token() == "whop-token-2"
 
 
 def test_raises_the_renewal_failure_with_its_retry_time_once_the_current_token_is_within_30_seconds_of_expiry(
@@ -565,6 +686,8 @@ async def test_async_reuses_the_token_until_a_random_point_before_expiry(
     assert len(requests) == 1
 
     clock["value"] += 1
+    assert await token() == "whop-token-1"
+    await async_wait_for_renewal(token)
     assert await token() == "whop-token-2"
 
 
@@ -605,16 +728,98 @@ async def test_async_concurrent_callers_share_one_failed_exchange_and_retry_afte
 
 
 @pytest.mark.asyncio
-async def test_async_concurrent_callers_share_a_failed_renewal_and_keep_the_current_token(
+async def test_async_callers_past_the_renewal_point_get_the_current_token_while_one_renewal_runs_in_the_background(
     clock: Dict[str, float],
 ) -> None:
-    client, requests = async_recording_client(in_order(issued("whop-token-1"), httpx.Response(503)))
+    release_renewal = asyncio.Event()
+    responses = [issued("whop-token-1"), issued("whop-token-2")]
+    requests: List[httpx.Request] = []
+
+    async def respond(request: httpx.Request) -> httpx.Response:
+        requests.append(request)
+        if len(responses) == 1:
+            await release_renewal.wait()
+        return responses.pop(0)
+
+    client = httpx.AsyncClient(transport=httpx.MockTransport(respond))
     token = async_oidc_token(role_id=ROLE_ID, identity_token=async_identity_token, http_client=client)
     assert await token() == "whop-token-1"
     clock["value"] += 3240
 
-    assert await asyncio.gather(*(token() for _ in range(5))) == ["whop-token-1"] * 5
+    results = await asyncio.wait_for(asyncio.gather(*(token() for _ in range(5))), timeout=1)
+    assert results == ["whop-token-1"] * 5
+    release_renewal.set()
+    await async_wait_for_renewal(token)
+
+    assert await token() == "whop-token-2"
     assert len(requests) == 2
+
+
+@pytest.mark.asyncio
+async def test_async_callers_with_no_valid_token_wait_for_the_renewal_and_share_its_outcome(
+    clock: Dict[str, float],
+) -> None:
+    client, requests = async_recording_client(exchange_responses("whop-token-1", "whop-token-2"))
+    token = async_oidc_token(role_id=ROLE_ID, identity_token=async_identity_token, http_client=client)
+    assert await token() == "whop-token-1"
+    clock["value"] += 3600 - 30
+
+    assert await asyncio.gather(*(token() for _ in range(5))) == ["whop-token-2"] * 5
+    assert len(requests) == 2
+
+
+@pytest.mark.asyncio
+async def test_async_a_background_renewal_that_fails_with_no_caller_waiting_reports_nothing_to_the_event_loop(
+    clock: Dict[str, float],
+) -> None:
+    reported: List[str] = []
+    asyncio.get_running_loop().set_exception_handler(lambda _loop, context: reported.append(context["message"]))
+    responses = [issued("whop-token-1"), httpx.Response(503)]
+
+    def respond(_request: httpx.Request) -> httpx.Response:
+        if len(responses) == 1:
+            clock["value"] += 30
+        return responses.pop(0)
+
+    client, requests = async_recording_client(respond)
+    token = async_oidc_token(role_id=ROLE_ID, identity_token=async_identity_token, http_client=client)
+    assert await token() == "whop-token-1"
+    clock["value"] += 3600 - 31
+
+    assert await token() == "whop-token-1"
+    await async_wait_for_renewal(token)
+    gc.collect()
+
+    assert len(requests) == 2
+    assert reported == []
+
+
+@pytest.mark.asyncio
+async def test_async_a_hung_identity_token_source_times_out_at_the_renewal_deadline_and_the_next_renewal_proceeds(
+    clock: Dict[str, float], monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(oidc, "_RENEWAL_TIMEOUT_SECONDS", 0.2)
+    never_released = asyncio.Event()
+    calls: List[int] = []
+
+    async def identity_token() -> str:
+        calls.append(1)
+        if len(calls) == 1:
+            await never_released.wait()
+        return "id-token"
+
+    client, requests = async_recording_client(exchange_responses("whop-token-1"))
+    token = async_oidc_token(role_id=ROLE_ID, identity_token=identity_token, http_client=client)
+
+    with pytest.raises(OidcTokenError) as raised:
+        await asyncio.wait_for(token(), timeout=2)
+    assert str(raised.value) == "The token renewal timed out after 0.2 seconds."
+    assert raised.value.retry_at == 1_002.0
+
+    clock["value"] += 2
+    assert await token() == "whop-token-1"
+    assert len(calls) == 2
+    assert len(requests) == 1
 
 
 @pytest.mark.asyncio

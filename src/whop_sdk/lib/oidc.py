@@ -3,12 +3,12 @@
 ``oidc_token`` returns a callable the ``Whop`` client's ``token`` argument accepts. The client calls
 it before each request; it exchanges an identity token for a short-lived Whop access token, reuses
 that token until a random point two to ten minutes before it expires, so processes started together
-don't renew together, and then exchanges a fresh identity token. Callers that arrive during an
-exchange wait for it and share its outcome. When a renewal fails while the current token still has
-more than 30 seconds left, calls keep getting the current token and the renewal is tried again after
-a backoff; once no valid token remains, calls raise the failure without exchanging until its
-``retry_at``. It depends only on ``httpx``, never on generated client code, so it survives the
-client being regenerated.
+don't renew together, and then exchanges a fresh identity token in the background. While the current
+token has more than 30 seconds left, calls get it right away; only calls with no valid token wait for
+the renewal in flight and share its outcome. A renewal, identity token included, fails after 30
+seconds. A failed renewal is tried again after a backoff; once no valid token remains, calls raise
+the failure without exchanging until its ``retry_at``. It depends only on ``httpx``, never on
+generated client code, so it survives the client being regenerated.
 
     from whop_sdk import Whop
     from whop_sdk.lib.oidc import github_actions_identity_token, oidc_token
@@ -27,7 +27,8 @@ neither the identity token request nor the exchange blocks the event loop:
         )
     )
 
-Passing ``oidc_token`` to ``AsyncWhop`` as ``token`` also works, but blocks the event loop for every exchange.
+Passing ``oidc_token`` to ``AsyncWhop`` as ``token`` also works, but blocks the event loop whenever a call
+waits for an exchange.
 """
 
 from __future__ import annotations
@@ -40,9 +41,11 @@ import random
 import threading
 import time
 from types import TracebackType
-from typing import Any, Awaitable, Callable, Dict, Optional, Tuple, Union
+from typing import Any, Awaitable, Callable, Dict, Optional, Tuple, TypeVar, Union
 
 import httpx
+
+_T = TypeVar("_T")
 
 __all__ = [
     "DEFAULT_OIDC_AUDIENCE",
@@ -67,6 +70,7 @@ _FIRST_BACKOFF_SECONDS = 2
 _MAX_BACKOFF_SECONDS = 60
 _BACKOFF_JITTER = 0.2
 _HTTP_TIMEOUT_SECONDS = 10
+_RENEWAL_TIMEOUT_SECONDS = 30
 _GOOGLE_METADATA_IDENTITY_URL = (
     "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/identity"
 )
@@ -77,9 +81,10 @@ class OidcTokenError(Exception):
     """The exchange or the identity token request failed. ``code`` is the API's error code when it sent one.
 
     ``oidc_token`` and ``async_oidc_token`` raise every failure as this error, with any other exception
-    as its ``__cause__``. Its ``retry_at`` is the Unix time before which they raise it again instead of
-    exchanging: the API's ``Retry-After`` or ``RateLimit-Reset``, up to a minute, or otherwise 2 seconds
-    doubling with each failure in a row up to a minute, give or take 10%.
+    as its ``__cause__``; a renewal that takes longer than 30 seconds fails with it too. Its
+    ``retry_at`` is the Unix time before which they raise it again instead of exchanging: the API's
+    ``Retry-After`` or ``RateLimit-Reset``, up to a minute, or otherwise 2 seconds doubling with each
+    failure in a row up to a minute, give or take 10%.
     """
 
     def __init__(
@@ -148,25 +153,24 @@ class _OidcToken:
 
     def __call__(self) -> str:
         with self._lock:
-            if self._token is not None and self._token.fresh():
-                return self._token.value
+            token = self._token
+            if token is not None and token.fresh():
+                return token.value
             if self._failure is not None and self._failure.waiting():
-                return self._failure.valid_token_or_raise(self._token)
+                return self._failure.valid_token_or_raise(token)
+            if self._renewal is None:
+                self._renewal = _in_background(self._renew)
             renewal = self._renewal
-            leads = renewal is None
-            if renewal is None:
-                renewal = self._renewal = concurrent.futures.Future()
-        if leads:
-            try:
-                renewal.set_result(self._renew())
-            except BaseException as error:
-                renewal.set_exception(error)
+        if token is not None and token.valid():
+            return token.value
         return renewal.result()
 
     def _renew(self) -> str:
         try:
-            body = _exchange_body(self._role_id, self._identity_token())
-            token = _exchanged(_send(self._http_client, "POST", self._exchange_url, json=body))
+            attempt = _in_background(self._exchange)
+            if not concurrent.futures.wait([attempt], timeout=_RENEWAL_TIMEOUT_SECONDS).done:
+                raise _timed_out()
+            token = attempt.result()
         except Exception as error:
             with self._lock:
                 self._renewal = None
@@ -179,6 +183,10 @@ class _OidcToken:
         with self._lock:
             self._token, self._failure, self._renewal = token, None, None
         return token.value
+
+    def _exchange(self) -> _AccessToken:
+        body = _exchange_body(self._role_id, self._identity_token())
+        return _exchanged(_send(self._http_client, "POST", self._exchange_url, json=body))
 
 
 class _AsyncOidcToken:
@@ -198,26 +206,37 @@ class _AsyncOidcToken:
         self._failure: Optional[_FailedRenewal] = None
 
     async def __call__(self) -> str:
-        if self._token is not None and self._token.fresh():
-            return self._token.value
+        token = self._token
+        if token is not None and token.fresh():
+            return token.value
         if self._failure is not None and self._failure.waiting():
-            return self._failure.valid_token_or_raise(self._token)
+            return self._failure.valid_token_or_raise(token)
         if self._renewal is None:
             self._renewal = asyncio.create_task(self._renew())
+            self._renewal.add_done_callback(_retrieve_outcome)
+        if token is not None and token.valid():
+            return token.value
         return await asyncio.shield(self._renewal)
 
     async def _renew(self) -> str:
+        attempt = asyncio.ensure_future(self._exchange())
         try:
-            body = _exchange_body(self._role_id, await self._identity_token())
-            response = await _async_send(self._http_client, "POST", self._exchange_url, json=body)
-            token = _exchanged(response)
+            done, _pending = await asyncio.wait({attempt}, timeout=_RENEWAL_TIMEOUT_SECONDS)
+            if not done:
+                raise _timed_out()
+            token = attempt.result()
         except Exception as error:
             self._failure = _FailedRenewal(error, self._failure)
             return self._failure.valid_token_or_raise(self._token)
         finally:
+            attempt.cancel()
             self._renewal = None
         self._token, self._failure = token, None
         return token.value
+
+    async def _exchange(self) -> _AccessToken:
+        body = _exchange_body(self._role_id, await self._identity_token())
+        return _exchanged(await _async_send(self._http_client, "POST", self._exchange_url, json=body))
 
 
 def oidc_token(
@@ -231,8 +250,9 @@ def oidc_token(
 
     ``role_id`` is the role to assume, prefixed ``aurl_``; a trust linked to it must accept the
     identity token. ``identity_token`` returns a token from your provider and is called again for
-    every exchange, so return a fresh token rather than a stored one. ``base_url`` points the
-    exchange at another environment, for example ``https://sandbox-api.whop.com/api/v1``.
+    every exchange, on a background thread, so return a fresh token rather than a stored one.
+    ``base_url`` points the exchange at another environment, for example
+    ``https://sandbox-api.whop.com/api/v1``.
     """
     _require_role(role_id)
     return _OidcToken(role_id, identity_token, base_url, http_client)
@@ -378,6 +398,28 @@ def _caused_by(error: Exception) -> OidcTokenError:
     wrapped = OidcTokenError(f"Getting an access token failed: {error!r}")
     wrapped.__cause__ = error
     return wrapped
+
+
+def _timed_out() -> OidcTokenError:
+    return OidcTokenError(f"The token renewal timed out after {_RENEWAL_TIMEOUT_SECONDS:g} seconds.")
+
+
+def _in_background(work: Callable[[], _T]) -> concurrent.futures.Future[_T]:
+    future: concurrent.futures.Future[_T] = concurrent.futures.Future()
+
+    def run() -> None:
+        try:
+            future.set_result(work())
+        except BaseException as error:
+            future.set_exception(error)
+
+    threading.Thread(target=run, name="whop-oidc-renewal", daemon=True).start()
+    return future
+
+
+def _retrieve_outcome(renewal: asyncio.Task[str]) -> None:
+    if not renewal.cancelled():
+        renewal.exception()
 
 
 def _github_actions_request(audience: str) -> Tuple[httpx.URL, Dict[str, str]]:
