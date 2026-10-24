@@ -27,6 +27,15 @@ if typing.TYPE_CHECKING:
     from .list_domains_request_website import ListDomainsRequestWebsite
     from .list_domains_response import ListDomainsResponse
     from .list_domains_response_page_info import ListDomainsResponsePageInfo
+    from .post_domain_created_payload import PostDomainCreatedPayload
+    from .post_domain_created_payload_api_version import PostDomainCreatedPayloadApiVersion
+    from .post_domain_created_payload_type import PostDomainCreatedPayloadType
+    from .post_domain_deleted_payload import PostDomainDeletedPayload
+    from .post_domain_deleted_payload_api_version import PostDomainDeletedPayloadApiVersion
+    from .post_domain_deleted_payload_type import PostDomainDeletedPayloadType
+    from .post_domain_updated_payload import PostDomainUpdatedPayload
+    from .post_domain_updated_payload_api_version import PostDomainUpdatedPayloadApiVersion
+    from .post_domain_updated_payload_type import PostDomainUpdatedPayloadType
     from .update_domains_request_apple_pay import UpdateDomainsRequestApplePay
     from .update_domains_request_email import UpdateDomainsRequestEmail
     from .update_domains_request_pixel import UpdateDomainsRequestPixel
@@ -57,6 +66,15 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListDomainsRequestWebsite": ".list_domains_request_website",
     "ListDomainsResponse": ".list_domains_response",
     "ListDomainsResponsePageInfo": ".list_domains_response_page_info",
+    "PostDomainCreatedPayload": ".post_domain_created_payload",
+    "PostDomainCreatedPayloadApiVersion": ".post_domain_created_payload_api_version",
+    "PostDomainCreatedPayloadType": ".post_domain_created_payload_type",
+    "PostDomainDeletedPayload": ".post_domain_deleted_payload",
+    "PostDomainDeletedPayloadApiVersion": ".post_domain_deleted_payload_api_version",
+    "PostDomainDeletedPayloadType": ".post_domain_deleted_payload_type",
+    "PostDomainUpdatedPayload": ".post_domain_updated_payload",
+    "PostDomainUpdatedPayloadApiVersion": ".post_domain_updated_payload_api_version",
+    "PostDomainUpdatedPayloadType": ".post_domain_updated_payload_type",
     "UpdateDomainsRequestApplePay": ".update_domains_request_apple_pay",
     "UpdateDomainsRequestEmail": ".update_domains_request_email",
     "UpdateDomainsRequestPixel": ".update_domains_request_pixel",
@@ -111,6 +129,15 @@ __all__ = [
     "ListDomainsRequestWebsite",
     "ListDomainsResponse",
     "ListDomainsResponsePageInfo",
+    "PostDomainCreatedPayload",
+    "PostDomainCreatedPayloadApiVersion",
+    "PostDomainCreatedPayloadType",
+    "PostDomainDeletedPayload",
+    "PostDomainDeletedPayloadApiVersion",
+    "PostDomainDeletedPayloadType",
+    "PostDomainUpdatedPayload",
+    "PostDomainUpdatedPayloadApiVersion",
+    "PostDomainUpdatedPayloadType",
     "UpdateDomainsRequestApplePay",
     "UpdateDomainsRequestEmail",
     "UpdateDomainsRequestPixel",
