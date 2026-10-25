@@ -47,6 +47,7 @@ class WaitlistEntriesClient:
         product_id: typing.Optional[str] = None,
         buyer_account_id: typing.Optional[str] = None,
         status: typing.Optional[ListWaitlistEntriesRequestStatus] = None,
+        query: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
         order: typing.Optional[ListWaitlistEntriesRequestOrder] = None,
@@ -84,6 +85,9 @@ class WaitlistEntriesClient:
 
         status : typing.Optional[ListWaitlistEntriesRequestStatus]
             Only return signups in this state. Canceled signups are returned only when `status` is `canceled`.
+
+        query : typing.Optional[str]
+            Search signups by the user's name or username, or the name of the account they were submitted on behalf of. An account ID, prefixed `biz_`, matches signups submitted on behalf of that account, and an exact email address matches that user's signups.
 
         created_before : typing.Optional[str]
             Only return signups submitted at or before this ISO 8601 timestamp.
@@ -131,6 +135,7 @@ class WaitlistEntriesClient:
             product_id=product_id,
             buyer_account_id=buyer_account_id,
             status=status,
+            query=query,
             created_before=created_before,
             created_after=created_after,
             order=order,
@@ -400,6 +405,7 @@ class AsyncWaitlistEntriesClient:
         product_id: typing.Optional[str] = None,
         buyer_account_id: typing.Optional[str] = None,
         status: typing.Optional[ListWaitlistEntriesRequestStatus] = None,
+        query: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
         order: typing.Optional[ListWaitlistEntriesRequestOrder] = None,
@@ -437,6 +443,9 @@ class AsyncWaitlistEntriesClient:
 
         status : typing.Optional[ListWaitlistEntriesRequestStatus]
             Only return signups in this state. Canceled signups are returned only when `status` is `canceled`.
+
+        query : typing.Optional[str]
+            Search signups by the user's name or username, or the name of the account they were submitted on behalf of. An account ID, prefixed `biz_`, matches signups submitted on behalf of that account, and an exact email address matches that user's signups.
 
         created_before : typing.Optional[str]
             Only return signups submitted at or before this ISO 8601 timestamp.
@@ -493,6 +502,7 @@ class AsyncWaitlistEntriesClient:
             product_id=product_id,
             buyer_account_id=buyer_account_id,
             status=status,
+            query=query,
             created_before=created_before,
             created_after=created_after,
             order=order,
