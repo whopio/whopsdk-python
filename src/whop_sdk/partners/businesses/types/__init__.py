@@ -34,6 +34,7 @@ if typing.TYPE_CHECKING:
         ListBusinessesResponseDataItemOwnerProfilePicture,
     )
     from .list_businesses_response_data_item_payout_percentages import ListBusinessesResponseDataItemPayoutPercentages
+    from .list_businesses_response_data_item_referring_business import ListBusinessesResponseDataItemReferringBusiness
     from .list_businesses_response_data_item_second_tier_partner import ListBusinessesResponseDataItemSecondTierPartner
     from .list_businesses_response_data_item_second_tier_partner_profile_picture import (
         ListBusinessesResponseDataItemSecondTierPartnerProfilePicture,
@@ -62,6 +63,7 @@ if typing.TYPE_CHECKING:
     from .resend_invite_businesses_response_pending_owner_invites_item import (
         ResendInviteBusinessesResponsePendingOwnerInvitesItem,
     )
+    from .resend_invite_businesses_response_referring_business import ResendInviteBusinessesResponseReferringBusiness
     from .resend_invite_businesses_response_second_tier_partner import ResendInviteBusinessesResponseSecondTierPartner
     from .resend_invite_businesses_response_second_tier_partner_profile_picture import (
         ResendInviteBusinessesResponseSecondTierPartnerProfilePicture,
@@ -87,6 +89,7 @@ if typing.TYPE_CHECKING:
     from .retrieve_businesses_response_pending_owner_invites_item import (
         RetrieveBusinessesResponsePendingOwnerInvitesItem,
     )
+    from .retrieve_businesses_response_referring_business import RetrieveBusinessesResponseReferringBusiness
     from .retrieve_businesses_response_second_tier_partner import RetrieveBusinessesResponseSecondTierPartner
     from .retrieve_businesses_response_second_tier_partner_profile_picture import (
         RetrieveBusinessesResponseSecondTierPartnerProfilePicture,
@@ -115,6 +118,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListBusinessesResponseDataItemOwner": ".list_businesses_response_data_item_owner",
     "ListBusinessesResponseDataItemOwnerProfilePicture": ".list_businesses_response_data_item_owner_profile_picture",
     "ListBusinessesResponseDataItemPayoutPercentages": ".list_businesses_response_data_item_payout_percentages",
+    "ListBusinessesResponseDataItemReferringBusiness": ".list_businesses_response_data_item_referring_business",
     "ListBusinessesResponseDataItemSecondTierPartner": ".list_businesses_response_data_item_second_tier_partner",
     "ListBusinessesResponseDataItemSecondTierPartnerProfilePicture": ".list_businesses_response_data_item_second_tier_partner_profile_picture",
     "ListBusinessesResponseDataItemStatus": ".list_businesses_response_data_item_status",
@@ -133,6 +137,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ResendInviteBusinessesResponseOwnerProfilePicture": ".resend_invite_businesses_response_owner_profile_picture",
     "ResendInviteBusinessesResponsePayoutPercentages": ".resend_invite_businesses_response_payout_percentages",
     "ResendInviteBusinessesResponsePendingOwnerInvitesItem": ".resend_invite_businesses_response_pending_owner_invites_item",
+    "ResendInviteBusinessesResponseReferringBusiness": ".resend_invite_businesses_response_referring_business",
     "ResendInviteBusinessesResponseSecondTierPartner": ".resend_invite_businesses_response_second_tier_partner",
     "ResendInviteBusinessesResponseSecondTierPartnerProfilePicture": ".resend_invite_businesses_response_second_tier_partner_profile_picture",
     "ResendInviteBusinessesResponseStatus": ".resend_invite_businesses_response_status",
@@ -150,6 +155,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrieveBusinessesResponseOwnerProfilePicture": ".retrieve_businesses_response_owner_profile_picture",
     "RetrieveBusinessesResponsePayoutPercentages": ".retrieve_businesses_response_payout_percentages",
     "RetrieveBusinessesResponsePendingOwnerInvitesItem": ".retrieve_businesses_response_pending_owner_invites_item",
+    "RetrieveBusinessesResponseReferringBusiness": ".retrieve_businesses_response_referring_business",
     "RetrieveBusinessesResponseSecondTierPartner": ".retrieve_businesses_response_second_tier_partner",
     "RetrieveBusinessesResponseSecondTierPartnerProfilePicture": ".retrieve_businesses_response_second_tier_partner_profile_picture",
     "RetrieveBusinessesResponseStatus": ".retrieve_businesses_response_status",
@@ -200,6 +206,7 @@ __all__ = [
     "ListBusinessesResponseDataItemOwner",
     "ListBusinessesResponseDataItemOwnerProfilePicture",
     "ListBusinessesResponseDataItemPayoutPercentages",
+    "ListBusinessesResponseDataItemReferringBusiness",
     "ListBusinessesResponseDataItemSecondTierPartner",
     "ListBusinessesResponseDataItemSecondTierPartnerProfilePicture",
     "ListBusinessesResponseDataItemStatus",
@@ -218,6 +225,7 @@ __all__ = [
     "ResendInviteBusinessesResponseOwnerProfilePicture",
     "ResendInviteBusinessesResponsePayoutPercentages",
     "ResendInviteBusinessesResponsePendingOwnerInvitesItem",
+    "ResendInviteBusinessesResponseReferringBusiness",
     "ResendInviteBusinessesResponseSecondTierPartner",
     "ResendInviteBusinessesResponseSecondTierPartnerProfilePicture",
     "ResendInviteBusinessesResponseStatus",
@@ -235,6 +243,7 @@ __all__ = [
     "RetrieveBusinessesResponseOwnerProfilePicture",
     "RetrieveBusinessesResponsePayoutPercentages",
     "RetrieveBusinessesResponsePendingOwnerInvitesItem",
+    "RetrieveBusinessesResponseReferringBusiness",
     "RetrieveBusinessesResponseSecondTierPartner",
     "RetrieveBusinessesResponseSecondTierPartnerProfilePicture",
     "RetrieveBusinessesResponseStatus",

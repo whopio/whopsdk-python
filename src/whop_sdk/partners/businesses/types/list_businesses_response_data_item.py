@@ -14,6 +14,7 @@ from .list_businesses_response_data_item_my_partner_tier import ListBusinessesRe
 from .list_businesses_response_data_item_object import ListBusinessesResponseDataItemObject
 from .list_businesses_response_data_item_owner import ListBusinessesResponseDataItemOwner
 from .list_businesses_response_data_item_payout_percentages import ListBusinessesResponseDataItemPayoutPercentages
+from .list_businesses_response_data_item_referring_business import ListBusinessesResponseDataItemReferringBusiness
 from .list_businesses_response_data_item_second_tier_partner import ListBusinessesResponseDataItemSecondTierPartner
 from .list_businesses_response_data_item_status import ListBusinessesResponseDataItemStatus
 from .list_businesses_response_data_item_volume_usd import ListBusinessesResponseDataItemVolumeUsd
@@ -85,6 +86,11 @@ class ListBusinessesResponseDataItem(UniversalBaseModel):
     referral_started_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the referral became active.
+    """
+
+    referring_business: typing.Optional[ListBusinessesResponseDataItemReferringBusiness] = pydantic.Field(default=None)
+    """
+    The partner business whose team member made this referral, the one its commission is paid to. Null for a solo partner's referral.
     """
 
     second_tier_partner: typing.Optional[ListBusinessesResponseDataItemSecondTierPartner] = pydantic.Field(default=None)

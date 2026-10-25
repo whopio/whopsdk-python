@@ -17,6 +17,7 @@ from .resend_invite_businesses_response_payout_percentages import ResendInviteBu
 from .resend_invite_businesses_response_pending_owner_invites_item import (
     ResendInviteBusinessesResponsePendingOwnerInvitesItem,
 )
+from .resend_invite_businesses_response_referring_business import ResendInviteBusinessesResponseReferringBusiness
 from .resend_invite_businesses_response_second_tier_partner import ResendInviteBusinessesResponseSecondTierPartner
 from .resend_invite_businesses_response_status import ResendInviteBusinessesResponseStatus
 from .resend_invite_businesses_response_volume_usd import ResendInviteBusinessesResponseVolumeUsd
@@ -95,6 +96,11 @@ class ResendInviteBusinessesResponse(UniversalBaseModel):
     referral_started_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the referral became active.
+    """
+
+    referring_business: typing.Optional[ResendInviteBusinessesResponseReferringBusiness] = pydantic.Field(default=None)
+    """
+    The partner business whose team member made this referral, the one its commission is paid to. Null for a solo partner's referral.
     """
 
     second_tier_partner: typing.Optional[ResendInviteBusinessesResponseSecondTierPartner] = pydantic.Field(default=None)
