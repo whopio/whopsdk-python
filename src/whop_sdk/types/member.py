@@ -70,7 +70,7 @@ class Member(UniversalBaseModel):
 
     phone_number: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The member's phone number, or `null`. Their account number when they have shared one with this seller; otherwise the most recent number collected (or verified) at checkout.
+    The member's phone number: the most recent number collected (or verified) at checkout, otherwise their account number when they have shared one with this seller. `null` without `member:phone:read` on the account, or when there is neither.
     """
 
     status: MemberStatus = pydantic.Field()
