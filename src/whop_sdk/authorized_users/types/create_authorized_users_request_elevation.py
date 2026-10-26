@@ -43,7 +43,7 @@ class CreateAuthorizedUsersRequestElevation(UniversalBaseModel):
 
     use_finance_session: typing.Optional[bool] = pydantic.Field(default=None)
     """
-    Reuse an existing elevated session (for SMS/email 2FA users).
+    Ignored. Kept so existing API clients that send it keep working.
     """
 
     if IS_PYDANTIC_V2:
