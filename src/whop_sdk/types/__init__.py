@@ -1321,6 +1321,8 @@ if typing.TYPE_CHECKING:
     from .product_public_plan_visibility import ProductPublicPlanVisibility
     from .product_tax_code_product_types import ProductTaxCodeProductTypes
     from .promo_code import PromoCode
+    from .promo_code_affiliate import PromoCodeAffiliate
+    from .promo_code_affiliate_user import PromoCodeAffiliateUser
     from .promo_code_currency import PromoCodeCurrency
     from .promo_code_duration import PromoCodeDuration
     from .promo_code_list_item import PromoCodeListItem
@@ -2770,6 +2772,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ProductPublicPlanVisibility": ".product_public_plan_visibility",
     "ProductTaxCodeProductTypes": ".product_tax_code_product_types",
     "PromoCode": ".promo_code",
+    "PromoCodeAffiliate": ".promo_code_affiliate",
+    "PromoCodeAffiliateUser": ".promo_code_affiliate_user",
     "PromoCodeCurrency": ".promo_code_currency",
     "PromoCodeDuration": ".promo_code_duration",
     "PromoCodeListItem": ".promo_code_list_item",
@@ -4237,6 +4241,8 @@ __all__ = [
     "ProductPublicPlanVisibility",
     "ProductTaxCodeProductTypes",
     "PromoCode",
+    "PromoCodeAffiliate",
+    "PromoCodeAffiliateUser",
     "PromoCodeCurrency",
     "PromoCodeDuration",
     "PromoCodeListItem",
