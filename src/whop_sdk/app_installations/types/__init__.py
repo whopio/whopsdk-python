@@ -11,12 +11,24 @@ if typing.TYPE_CHECKING:
     from .list_app_installations_request_view_type import ListAppInstallationsRequestViewType
     from .list_app_installations_response import ListAppInstallationsResponse
     from .list_app_installations_response_page_info import ListAppInstallationsResponsePageInfo
+    from .post_app_installation_created_payload import PostAppInstallationCreatedPayload
+    from .post_app_installation_created_payload_api_version import PostAppInstallationCreatedPayloadApiVersion
+    from .post_app_installation_created_payload_type import PostAppInstallationCreatedPayloadType
+    from .post_app_installation_deleted_payload import PostAppInstallationDeletedPayload
+    from .post_app_installation_deleted_payload_api_version import PostAppInstallationDeletedPayloadApiVersion
+    from .post_app_installation_deleted_payload_type import PostAppInstallationDeletedPayloadType
 _dynamic_imports: typing.Dict[str, str] = {
     "ListAppInstallationsRequestDirection": ".list_app_installations_request_direction",
     "ListAppInstallationsRequestOrder": ".list_app_installations_request_order",
     "ListAppInstallationsRequestViewType": ".list_app_installations_request_view_type",
     "ListAppInstallationsResponse": ".list_app_installations_response",
     "ListAppInstallationsResponsePageInfo": ".list_app_installations_response_page_info",
+    "PostAppInstallationCreatedPayload": ".post_app_installation_created_payload",
+    "PostAppInstallationCreatedPayloadApiVersion": ".post_app_installation_created_payload_api_version",
+    "PostAppInstallationCreatedPayloadType": ".post_app_installation_created_payload_type",
+    "PostAppInstallationDeletedPayload": ".post_app_installation_deleted_payload",
+    "PostAppInstallationDeletedPayloadApiVersion": ".post_app_installation_deleted_payload_api_version",
+    "PostAppInstallationDeletedPayloadType": ".post_app_installation_deleted_payload_type",
 }
 
 
@@ -47,4 +59,10 @@ __all__ = [
     "ListAppInstallationsRequestViewType",
     "ListAppInstallationsResponse",
     "ListAppInstallationsResponsePageInfo",
+    "PostAppInstallationCreatedPayload",
+    "PostAppInstallationCreatedPayloadApiVersion",
+    "PostAppInstallationCreatedPayloadType",
+    "PostAppInstallationDeletedPayload",
+    "PostAppInstallationDeletedPayloadApiVersion",
+    "PostAppInstallationDeletedPayloadType",
 ]

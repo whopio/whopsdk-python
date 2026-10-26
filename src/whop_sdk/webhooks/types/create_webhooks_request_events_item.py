@@ -85,6 +85,8 @@ CreateWebhooksRequestEventsItem = typing.Union[
         "ad_group.updated",
         "ad.created",
         "ad.updated",
+        "app_installation.created",
+        "app_installation.deleted",
         "chat.message.created",
         "chat.reaction.created",
         "payment.created",
