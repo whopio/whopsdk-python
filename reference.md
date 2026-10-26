@@ -28480,6 +28480,7 @@ client = Whop(
 )
 
 client.memberships.list(
+    external_account="discord_123456789012345678",
     product_ids=[
         "prod_xxxxxxxxxxxxx"
     ],
@@ -28522,6 +28523,14 @@ client.memberships.list(
 <dd>
 
 **member_id:** `typing.Optional[str]` — Narrow to one member's memberships (`mber_` tag), including memberships bought by another business. A member outside the caller's visible set returns an empty list.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**external_account:** `typing.Optional[str]` — Narrow to memberships linked to one Discord or Telegram account, given as the platform's user ID prefixed with `discord_` or `telegram_`. Discord matches include memberships imported with that Discord ID. Any other format is a 400.
     
 </dd>
 </dl>
