@@ -15,7 +15,7 @@
       "standardwebhooks": ">=1.0.1,<2"
     }
   },
-  "originGitCommit": "24cd6e62c4b2ef3b520fedd80f8d3e5806cf4717",
+  "originGitCommit": "4670af83f470fa68a239778f7d22ba8b776d687d",
   "originGitCommitIsDirty": false,
   "invokedBy": "ci",
   "requestedVersion": "2.6.0",

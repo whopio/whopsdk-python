@@ -232,7 +232,7 @@ class RawInvoicesClient:
             The issuing account.
 
         items : typing.Sequence[CreateInvoicesRequestItemsItem]
-            The one-time variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant. Multiple items require unlimited stock and compatible payment, tax, and access settings.
+            The variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant; a recurring variant must belong to a product, bills its renewal price and, once the invoice is paid, renews as a subscription charged to the payment method that paid it. With several items, every item that has a product must be a regular product, and all items need compatible payment, tax, and access settings.
 
         billing_address : typing.Optional[CreateInvoicesRequestBillingAddress]
             Create a billing address linked to this member.
@@ -473,7 +473,7 @@ class RawInvoicesClient:
             When payment is due, as an ISO 8601 timestamp.
 
         items : typing.Optional[typing.Sequence[UpdateInvoicesRequestItemsItem]]
-            The one-time variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant. Multiple items require unlimited stock and compatible payment, tax, and access settings.
+            The variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant; a recurring variant must belong to a product, bills its renewal price and, once the invoice is paid, renews as a subscription charged to the payment method that paid it. With several items, every item that has a product must be a regular product, and all items need compatible payment, tax, and access settings.
 
         mailing_address_id : typing.Optional[str]
             An address associated with the member. Mutually exclusive with billing_address.
@@ -1137,7 +1137,7 @@ class AsyncRawInvoicesClient:
             The issuing account.
 
         items : typing.Sequence[CreateInvoicesRequestItemsItem]
-            The one-time variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant. Multiple items require unlimited stock and compatible payment, tax, and access settings.
+            The variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant; a recurring variant must belong to a product, bills its renewal price and, once the invoice is paid, renews as a subscription charged to the payment method that paid it. With several items, every item that has a product must be a regular product, and all items need compatible payment, tax, and access settings.
 
         billing_address : typing.Optional[CreateInvoicesRequestBillingAddress]
             Create a billing address linked to this member.
@@ -1380,7 +1380,7 @@ class AsyncRawInvoicesClient:
             When payment is due, as an ISO 8601 timestamp.
 
         items : typing.Optional[typing.Sequence[UpdateInvoicesRequestItemsItem]]
-            The one-time variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant. Multiple items require unlimited stock and compatible payment, tax, and access settings.
+            The variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant; a recurring variant must belong to a product, bills its renewal price and, once the invoice is paid, renews as a subscription charged to the payment method that paid it. With several items, every item that has a product must be a regular product, and all items need compatible payment, tax, and access settings.
 
         mailing_address_id : typing.Optional[str]
             An address associated with the member. Mutually exclusive with billing_address.

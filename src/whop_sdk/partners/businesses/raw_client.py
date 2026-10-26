@@ -55,6 +55,8 @@ class RawBusinessesClient:
         direction: typing.Optional[ListBusinessesRequestDirection] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
+        first_sale_before: typing.Optional[str] = None,
+        first_sale_after: typing.Optional[str] = None,
         referred_user_id: typing.Optional[str] = None,
         referred_username: typing.Optional[str] = None,
         tier: typing.Optional[ListBusinessesRequestTier] = None,
@@ -102,6 +104,12 @@ class RawBusinessesClient:
         created_after : typing.Optional[str]
             Only return partner businesses created after this timestamp.
 
+        first_sale_before : typing.Optional[str]
+            Only return partner businesses whose first paid sale above zero happened before this timestamp.
+
+        first_sale_after : typing.Optional[str]
+            Only return partner businesses whose first paid sale above zero happened after this timestamp. Combined with first_sale_before, this is the net new set: businesses that processed their first $1 inside the window.
+
         referred_user_id : typing.Optional[str]
             Filter to referrals attributed to this user. For first-tier referrals, this is the referred account owner; for second-tier referrals, this is the partner you recruited.
 
@@ -139,6 +147,8 @@ class RawBusinessesClient:
                 "direction": direction,
                 "created_before": created_before,
                 "created_after": created_after,
+                "first_sale_before": first_sale_before,
+                "first_sale_after": first_sale_after,
                 "referred_user_id": referred_user_id,
                 "referred_username": referred_username,
                 "tier": tier,
@@ -174,6 +184,8 @@ class RawBusinessesClient:
                         direction=direction,
                         created_before=created_before,
                         created_after=created_after,
+                        first_sale_before=first_sale_before,
+                        first_sale_after=first_sale_after,
                         referred_user_id=referred_user_id,
                         referred_username=referred_username,
                         tier=tier,
@@ -547,6 +559,8 @@ class AsyncRawBusinessesClient:
         direction: typing.Optional[ListBusinessesRequestDirection] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
+        first_sale_before: typing.Optional[str] = None,
+        first_sale_after: typing.Optional[str] = None,
         referred_user_id: typing.Optional[str] = None,
         referred_username: typing.Optional[str] = None,
         tier: typing.Optional[ListBusinessesRequestTier] = None,
@@ -594,6 +608,12 @@ class AsyncRawBusinessesClient:
         created_after : typing.Optional[str]
             Only return partner businesses created after this timestamp.
 
+        first_sale_before : typing.Optional[str]
+            Only return partner businesses whose first paid sale above zero happened before this timestamp.
+
+        first_sale_after : typing.Optional[str]
+            Only return partner businesses whose first paid sale above zero happened after this timestamp. Combined with first_sale_before, this is the net new set: businesses that processed their first $1 inside the window.
+
         referred_user_id : typing.Optional[str]
             Filter to referrals attributed to this user. For first-tier referrals, this is the referred account owner; for second-tier referrals, this is the partner you recruited.
 
@@ -631,6 +651,8 @@ class AsyncRawBusinessesClient:
                 "direction": direction,
                 "created_before": created_before,
                 "created_after": created_after,
+                "first_sale_before": first_sale_before,
+                "first_sale_after": first_sale_after,
                 "referred_user_id": referred_user_id,
                 "referred_username": referred_username,
                 "tier": tier,
@@ -668,6 +690,8 @@ class AsyncRawBusinessesClient:
                             direction=direction,
                             created_before=created_before,
                             created_after=created_after,
+                            first_sale_before=first_sale_before,
+                            first_sale_after=first_sale_after,
                             referred_user_id=referred_user_id,
                             referred_username=referred_username,
                             tier=tier,
