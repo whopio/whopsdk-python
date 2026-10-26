@@ -581,7 +581,7 @@ class RawInvoicesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[InvoicePdf]:
         """
-        Generates the invoice as a PDF and returns a short-lived link to download it. A draft renders with its current estimated totals. The buyer's name, email address and billing details appear only when you have `member:basic:read`, `member:email:read` and `payment:basic:read` respectively. Each call generates a new file and link, so this endpoint does not replay `Idempotency-Key` responses.
+        Generates the invoice as a PDF and returns a short-lived link to download it. A draft shows its estimated totals. The buyer's name, email and billing details need `member:basic:read`, `member:email:read` and `payment:basic:read`, and the Pay now link on an open invoice needs `payment:charge`. Each call generates a new file and link, so this endpoint does not replay `Idempotency-Key` responses.
 
         Parameters
         ----------
@@ -1488,7 +1488,7 @@ class AsyncRawInvoicesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[InvoicePdf]:
         """
-        Generates the invoice as a PDF and returns a short-lived link to download it. A draft renders with its current estimated totals. The buyer's name, email address and billing details appear only when you have `member:basic:read`, `member:email:read` and `payment:basic:read` respectively. Each call generates a new file and link, so this endpoint does not replay `Idempotency-Key` responses.
+        Generates the invoice as a PDF and returns a short-lived link to download it. A draft shows its estimated totals. The buyer's name, email and billing details need `member:basic:read`, `member:email:read` and `payment:basic:read`, and the Pay now link on an open invoice needs `payment:charge`. Each call generates a new file and link, so this endpoint does not replay `Idempotency-Key` responses.
 
         Parameters
         ----------
