@@ -581,7 +581,7 @@ class RawInvoicesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[InvoicePdf]:
         """
-        Generates the invoice as a PDF and returns a short-lived link to download it. A draft shows its estimated totals. The buyer's name, email and billing details need `member:basic:read`, `member:email:read` and `payment:basic:read`, and the Pay now link on an open invoice needs `payment:charge`. Each call generates a new file and link, so this endpoint does not replay `Idempotency-Key` responses.
+        Generates the invoice as a PDF and returns a short-lived link to download it. A draft shows its estimated totals. The buyer's name and email need `member:basic:read` and `member:email:read`, and the Pay now link on an open invoice needs `payment:charge`. Each call generates a new file and link, so this endpoint does not replay `Idempotency-Key` responses.
 
         Parameters
         ----------
@@ -667,7 +667,7 @@ class RawInvoicesClient:
 
     def issue(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[Invoice]:
         """
-        Resolves final tax and opens a draft invoice. An invoice with a `payment_method_id` is then charged to it off-session, as `POST /payments` charges a saved payment method, and issuing it requires `payment:charge`. Issuing an open invoice again retains its totals and charges nothing.
+        Resolves final tax and opens a draft invoice. An invoice with a `payment_method_id` is then charged to it off-session, as `POST /payments` charges a saved payment method. Issuing an open invoice again retains its totals and charges nothing.
 
         Parameters
         ----------
@@ -1488,7 +1488,7 @@ class AsyncRawInvoicesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[InvoicePdf]:
         """
-        Generates the invoice as a PDF and returns a short-lived link to download it. A draft shows its estimated totals. The buyer's name, email and billing details need `member:basic:read`, `member:email:read` and `payment:basic:read`, and the Pay now link on an open invoice needs `payment:charge`. Each call generates a new file and link, so this endpoint does not replay `Idempotency-Key` responses.
+        Generates the invoice as a PDF and returns a short-lived link to download it. A draft shows its estimated totals. The buyer's name and email need `member:basic:read` and `member:email:read`, and the Pay now link on an open invoice needs `payment:charge`. Each call generates a new file and link, so this endpoint does not replay `Idempotency-Key` responses.
 
         Parameters
         ----------
@@ -1576,7 +1576,7 @@ class AsyncRawInvoicesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[Invoice]:
         """
-        Resolves final tax and opens a draft invoice. An invoice with a `payment_method_id` is then charged to it off-session, as `POST /payments` charges a saved payment method, and issuing it requires `payment:charge`. Issuing an open invoice again retains its totals and charges nothing.
+        Resolves final tax and opens a draft invoice. An invoice with a `payment_method_id` is then charged to it off-session, as `POST /payments` charges a saved payment method. Issuing an open invoice again retains its totals and charges nothing.
 
         Parameters
         ----------
