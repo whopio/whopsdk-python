@@ -7,6 +7,7 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
 from ..types.invoice import Invoice
+from ..types.invoice_pdf import InvoicePdf
 from .raw_client import AsyncRawInvoicesClient, RawInvoicesClient
 from .types.create_invoices_request_billing_address import CreateInvoicesRequestBillingAddress
 from .types.create_invoices_request_items_item import CreateInvoicesRequestItemsItem
@@ -344,6 +345,39 @@ class InvoicesClient:
             recipient_emails=recipient_emails,
             request_options=request_options,
         )
+        return _response.data
+
+    def generate_pdf(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> InvoicePdf:
+        """
+        Generates the invoice as a PDF and returns a short-lived link to download it. A draft renders with its current estimated totals. The buyer's name, email address and billing details appear only when you have `member:basic:read`, `member:email:read` and `payment:basic:read` respectively. Each call generates a new file and link, so this endpoint does not replay `Idempotency-Key` responses.
+
+        Parameters
+        ----------
+        id : str
+            The invoice's pay_ ID.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        InvoicePdf
+            invoice PDF generated
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-10-24",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.invoices.generate_pdf(
+            id="id",
+        )
+        """
+        _response = self._raw_client.generate_pdf(id, request_options=request_options)
         return _response.data
 
     def issue(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Invoice:
@@ -802,6 +836,47 @@ class AsyncInvoicesClient:
             recipient_emails=recipient_emails,
             request_options=request_options,
         )
+        return _response.data
+
+    async def generate_pdf(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> InvoicePdf:
+        """
+        Generates the invoice as a PDF and returns a short-lived link to download it. A draft renders with its current estimated totals. The buyer's name, email address and billing details appear only when you have `member:basic:read`, `member:email:read` and `payment:basic:read` respectively. Each call generates a new file and link, so this endpoint does not replay `Idempotency-Key` responses.
+
+        Parameters
+        ----------
+        id : str
+            The invoice's pay_ ID.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        InvoicePdf
+            invoice PDF generated
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-10-24",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.invoices.generate_pdf(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.generate_pdf(id, request_options=request_options)
         return _response.data
 
     async def issue(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Invoice:

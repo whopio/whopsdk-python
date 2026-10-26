@@ -26670,6 +26670,79 @@ client.invoices.update(
 </dl>
 </details>
 
+<details><summary><code>client.invoices.<a href="src/whop_sdk/invoices/client.py">generate_pdf</a>(...) -> InvoicePdf</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Generates the invoice as a PDF and returns a short-lived link to download it. A draft renders with its current estimated totals. The buyer's name, email address and billing details appear only when you have `member:basic:read`, `member:email:read` and `payment:basic:read` respectively. Each call generates a new file and link, so this endpoint does not replay `Idempotency-Key` responses.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.invoices.generate_pdf(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The invoice's pay_ ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.invoices.<a href="src/whop_sdk/invoices/client.py">issue</a>(...) -> Invoice</code></summary>
 <dl>
 <dd>
