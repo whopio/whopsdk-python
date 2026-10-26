@@ -26352,7 +26352,7 @@ client.invoices.create(
 <dl>
 <dd>
 
-**items:** `typing.List[CreateInvoicesRequestItemsItem]` — The one-time variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant. Multiple items require unlimited stock and compatible payment, tax, and access settings.
+**items:** `typing.List[CreateInvoicesRequestItemsItem]` — The variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant; a recurring variant must belong to a product, bills its renewal price and, once the invoice is paid, renews as a subscription charged to the payment method that paid it. With several items, every item that has a product must be a regular product, and all items need compatible payment, tax, and access settings.
     
 </dd>
 </dl>
@@ -26610,7 +26610,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-**items:** `typing.Optional[typing.List[UpdateInvoicesRequestItemsItem]]` — The one-time variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant. Multiple items require unlimited stock and compatible payment, tax, and access settings.
+**items:** `typing.Optional[typing.List[UpdateInvoicesRequestItemsItem]]` — The variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant; a recurring variant must belong to a product, bills its renewal price and, once the invoice is paid, renews as a subscription charged to the payment method that paid it. With several items, every item that has a product must be a regular product, and all items need compatible payment, tax, and access settings.
     
 </dd>
 </dl>
@@ -52517,6 +52517,22 @@ client.partners.businesses.list()
 <dd>
 
 **created_after:** `typing.Optional[str]` — Only return partner businesses created after this timestamp.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first_sale_before:** `typing.Optional[str]` — Only return partner businesses whose first paid sale above zero happened before this timestamp.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first_sale_after:** `typing.Optional[str]` — Only return partner businesses whose first paid sale above zero happened after this timestamp. Combined with first_sale_before, this is the net new set: businesses that processed their first $1 inside the window.
     
 </dd>
 </dl>
