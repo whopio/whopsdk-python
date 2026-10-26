@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .account_summary import AccountSummary
+from .promo_code_affiliate import PromoCodeAffiliate
 from .promo_code_currency import PromoCodeCurrency
 from .promo_code_duration import PromoCodeDuration
 from .promo_code_product import PromoCodeProduct
@@ -16,6 +17,11 @@ class PromoCode(UniversalBaseModel):
     account: AccountSummary = pydantic.Field()
     """
     Account that owns the promo code.
+    """
+
+    affiliate: typing.Optional[PromoCodeAffiliate] = pydantic.Field(default=None)
+    """
+    Affiliate credited with referrals that use the promo code, or `null` when no affiliate is attached.
     """
 
     amount_off: float = pydantic.Field()

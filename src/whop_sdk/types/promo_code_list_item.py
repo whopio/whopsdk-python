@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .promo_code_affiliate import PromoCodeAffiliate
 from .promo_code_list_item_currency import PromoCodeListItemCurrency
 from .promo_code_list_item_duration import PromoCodeListItemDuration
 from .promo_code_list_item_promo_type import PromoCodeListItemPromoType
@@ -12,6 +13,11 @@ from .promo_code_product import PromoCodeProduct
 
 
 class PromoCodeListItem(UniversalBaseModel):
+    affiliate: typing.Optional[PromoCodeAffiliate] = pydantic.Field(default=None)
+    """
+    Affiliate credited with referrals that use the promo code, or `null` when no affiliate is attached.
+    """
+
     amount_off: float = pydantic.Field()
     """
     Discount amount. Percentage discounts are represented as a decimal fraction.
