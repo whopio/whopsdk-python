@@ -55051,6 +55051,110 @@ client.stats.time_series.retrieve(
 </dl>
 </details>
 
+## Trades Markets
+<details><summary><code>client.trades.markets.<a href="src/whop_sdk/trades/markets/client.py">list</a>(...) -> ListMarketsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the markets you can trade, sorted by `id` and then `instrument_type`: Hyperliquid's main-exchange perpetuals that still trade, and spot markets for the assets Whop wallets hold, named by symbol: `BTC`, `ETH`, `SOL`, and `XAUT` (gold). A perpetual and a spot market can share an `id`, so `id` and `instrument_type` together identify a market, and there is no endpoint to retrieve one. Send a perpetual's `id` as `market` when you create a trade. No authentication is required. Each IP address can make 60 requests a minute.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.trades.markets.list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**instrument_type:** `typing.Optional[ListMarketsRequestInstrumentType]` — Only return perpetuals or only spot markets.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Users OauthGrants
 <details><summary><code>client.users.oauth_grants.<a href="src/whop_sdk/users/oauth_grants/client.py">list</a>(...) -> ListOauthGrantsResponse</code></summary>
 <dl>

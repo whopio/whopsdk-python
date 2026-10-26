@@ -786,6 +786,8 @@ if typing.TYPE_CHECKING:
     from .livestream_recording_status import LivestreamRecordingStatus
     from .location_targeting_option import LocationTargetingOption
     from .location_targeting_option_location_type import LocationTargetingOptionLocationType
+    from .market import Market
+    from .market_instrument_type import MarketInstrumentType
     from .marketplace_statuses import MarketplaceStatuses
     from .media_asset import MediaAsset
     from .media_asset_file import MediaAssetFile
@@ -2346,6 +2348,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LivestreamRecordingStatus": ".livestream_recording_status",
     "LocationTargetingOption": ".location_targeting_option",
     "LocationTargetingOptionLocationType": ".location_targeting_option_location_type",
+    "Market": ".market",
+    "MarketInstrumentType": ".market_instrument_type",
     "MarketplaceStatuses": ".marketplace_statuses",
     "MediaAsset": ".media_asset",
     "MediaAssetFile": ".media_asset_file",
@@ -3810,6 +3814,8 @@ __all__ = [
     "LivestreamRecordingStatus",
     "LocationTargetingOption",
     "LocationTargetingOptionLocationType",
+    "Market",
+    "MarketInstrumentType",
     "MarketplaceStatuses",
     "MediaAsset",
     "MediaAssetFile",
