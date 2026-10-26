@@ -36,7 +36,7 @@ class VariantListItem(UniversalBaseModel):
 
     cancel_discount_intervals: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Billing intervals the cancellation discount applies to (`0` forever, `1` first payment, or a month count). `null` when none is offered or the actor lacks the `plan:basic:read` scope.
+    How long the cancellation discount lasts: `0` forever, `1` the next payment only, or a number of calendar months from when the customer accepts it. `null` when none is offered or the actor lacks the `plan:basic:read` scope.
     """
 
     cancel_discount_percentage: typing.Optional[float] = pydantic.Field(default=None)

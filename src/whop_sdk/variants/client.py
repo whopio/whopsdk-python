@@ -176,6 +176,8 @@ class VariantsClient:
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
+        cancel_discount_intervals: typing.Optional[int] = OMIT,
+        cancel_discount_percentage: typing.Optional[int] = OMIT,
         checkout_styling: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         currency: typing.Optional[str] = OMIT,
         custom_fields: typing.Optional[typing.Sequence[CreateVariantsRequestCustomFieldsItem]] = OMIT,
@@ -185,6 +187,7 @@ class VariantsClient:
         initial_price: typing.Optional[float] = OMIT,
         internal_notes: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
+        offer_cancel_discount: typing.Optional[bool] = OMIT,
         override_tax_type: typing.Optional[str] = OMIT,
         payment_method_configuration: typing.Optional[CreateVariantsRequestPaymentMethodConfiguration] = OMIT,
         plan_type: typing.Optional[str] = OMIT,
@@ -218,6 +221,12 @@ class VariantsClient:
         billing_period : typing.Optional[int]
             Recurring billing interval in days, such as 30 for monthly or 365 for annual.
 
+        cancel_discount_intervals : typing.Optional[int]
+            How long the retention discount lasts: `0` forever, `1` the next payment only, or a number of calendar months from when the customer accepts it. Required when `offer_cancel_discount` is true.
+
+        cancel_discount_percentage : typing.Optional[int]
+            Percentage taken off each discounted renewal, as a whole number from 1 to 100. Required when `offer_cancel_discount` is true.
+
         checkout_styling : typing.Optional[typing.Dict[str, typing.Any]]
             Checkout styling overrides for this variant.
 
@@ -245,6 +254,9 @@ class VariantsClient:
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
             Custom key-value pairs to store on the variant. Included in webhook payloads for payment and membership events. Max 50 keys, 100 chars per key, 500 chars per string value. The reserved keys `custom_cta` (a checkout call-to-action button label — one of the product custom CTA values, e.g. `subscribe`, `get_offer`) and `custom_cta_url` (a URL the button links to; web or `tel:`) override the product's call to action for this variant and are validated on save.
 
+        offer_cancel_discount : typing.Optional[bool]
+            Whether to offer a retention discount when a customer attempts to cancel.
+
         override_tax_type : typing.Optional[str]
             Override the default tax classification for this specific variant.
 
@@ -267,7 +279,7 @@ class VariantsClient:
             Stock keeping unit for this variant. Maximum 100 characters. Free text, not enforced unique.
 
         split_pay_required_payments : typing.Optional[int]
-            Installment payments required before the subscription pauses.
+            Installment payments required before the subscription pauses, from 2 to 115. Only valid on `renewal` variants.
 
         stock : typing.Optional[int]
             The maximum number of units available for purchase. Ignored when unlimited_stock is true.
@@ -311,6 +323,8 @@ class VariantsClient:
             adaptive_pricing_enabled=adaptive_pricing_enabled,
             attributes=attributes,
             billing_period=billing_period,
+            cancel_discount_intervals=cancel_discount_intervals,
+            cancel_discount_percentage=cancel_discount_percentage,
             checkout_styling=checkout_styling,
             currency=currency,
             custom_fields=custom_fields,
@@ -320,6 +334,7 @@ class VariantsClient:
             initial_price=initial_price,
             internal_notes=internal_notes,
             metadata=metadata,
+            offer_cancel_discount=offer_cancel_discount,
             override_tax_type=override_tax_type,
             payment_method_configuration=payment_method_configuration,
             plan_type=plan_type,
@@ -454,6 +469,7 @@ class VariantsClient:
         release_method: typing.Optional[str] = OMIT,
         renewal_price: typing.Optional[float] = OMIT,
         sku: typing.Optional[str] = OMIT,
+        split_pay_required_payments: typing.Optional[int] = OMIT,
         stock: typing.Optional[int] = OMIT,
         strike_through_initial_price: typing.Optional[float] = OMIT,
         strike_through_renewal_price: typing.Optional[float] = OMIT,
@@ -482,10 +498,10 @@ class VariantsClient:
             Recurring billing interval in days, such as 30 for monthly or 365 for annual.
 
         cancel_discount_intervals : typing.Optional[int]
-            How many renewals the retention discount applies to. Required when `offer_cancel_discount` is true.
+            How long the retention discount lasts: `0` forever, `1` the next payment only, or a number of calendar months from when the customer accepts it. Required when `offer_cancel_discount` is true.
 
         cancel_discount_percentage : typing.Optional[int]
-            Percentage taken off each discounted renewal. Required when `offer_cancel_discount` is true.
+            Percentage taken off each discounted renewal, as a whole number from 1 to 100. Required when `offer_cancel_discount` is true.
 
         checkout_styling : typing.Optional[typing.Dict[str, typing.Any]]
             Checkout styling overrides for this variant.
@@ -531,6 +547,9 @@ class VariantsClient:
 
         sku : typing.Optional[str]
             Stock keeping unit for this variant. Maximum 100 characters. Free text, not enforced unique.
+
+        split_pay_required_payments : typing.Optional[int]
+            Installment payments required before the subscription pauses, from 2 to 115. Only valid on `renewal` variants.
 
         stock : typing.Optional[int]
             The maximum number of units available for purchase. Ignored when unlimited_stock is true.
@@ -599,6 +618,7 @@ class VariantsClient:
             release_method=release_method,
             renewal_price=renewal_price,
             sku=sku,
+            split_pay_required_payments=split_pay_required_payments,
             stock=stock,
             strike_through_initial_price=strike_through_initial_price,
             strike_through_renewal_price=strike_through_renewal_price,
@@ -826,6 +846,8 @@ class AsyncVariantsClient:
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
+        cancel_discount_intervals: typing.Optional[int] = OMIT,
+        cancel_discount_percentage: typing.Optional[int] = OMIT,
         checkout_styling: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         currency: typing.Optional[str] = OMIT,
         custom_fields: typing.Optional[typing.Sequence[CreateVariantsRequestCustomFieldsItem]] = OMIT,
@@ -835,6 +857,7 @@ class AsyncVariantsClient:
         initial_price: typing.Optional[float] = OMIT,
         internal_notes: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
+        offer_cancel_discount: typing.Optional[bool] = OMIT,
         override_tax_type: typing.Optional[str] = OMIT,
         payment_method_configuration: typing.Optional[CreateVariantsRequestPaymentMethodConfiguration] = OMIT,
         plan_type: typing.Optional[str] = OMIT,
@@ -868,6 +891,12 @@ class AsyncVariantsClient:
         billing_period : typing.Optional[int]
             Recurring billing interval in days, such as 30 for monthly or 365 for annual.
 
+        cancel_discount_intervals : typing.Optional[int]
+            How long the retention discount lasts: `0` forever, `1` the next payment only, or a number of calendar months from when the customer accepts it. Required when `offer_cancel_discount` is true.
+
+        cancel_discount_percentage : typing.Optional[int]
+            Percentage taken off each discounted renewal, as a whole number from 1 to 100. Required when `offer_cancel_discount` is true.
+
         checkout_styling : typing.Optional[typing.Dict[str, typing.Any]]
             Checkout styling overrides for this variant.
 
@@ -895,6 +924,9 @@ class AsyncVariantsClient:
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
             Custom key-value pairs to store on the variant. Included in webhook payloads for payment and membership events. Max 50 keys, 100 chars per key, 500 chars per string value. The reserved keys `custom_cta` (a checkout call-to-action button label — one of the product custom CTA values, e.g. `subscribe`, `get_offer`) and `custom_cta_url` (a URL the button links to; web or `tel:`) override the product's call to action for this variant and are validated on save.
 
+        offer_cancel_discount : typing.Optional[bool]
+            Whether to offer a retention discount when a customer attempts to cancel.
+
         override_tax_type : typing.Optional[str]
             Override the default tax classification for this specific variant.
 
@@ -917,7 +949,7 @@ class AsyncVariantsClient:
             Stock keeping unit for this variant. Maximum 100 characters. Free text, not enforced unique.
 
         split_pay_required_payments : typing.Optional[int]
-            Installment payments required before the subscription pauses.
+            Installment payments required before the subscription pauses, from 2 to 115. Only valid on `renewal` variants.
 
         stock : typing.Optional[int]
             The maximum number of units available for purchase. Ignored when unlimited_stock is true.
@@ -969,6 +1001,8 @@ class AsyncVariantsClient:
             adaptive_pricing_enabled=adaptive_pricing_enabled,
             attributes=attributes,
             billing_period=billing_period,
+            cancel_discount_intervals=cancel_discount_intervals,
+            cancel_discount_percentage=cancel_discount_percentage,
             checkout_styling=checkout_styling,
             currency=currency,
             custom_fields=custom_fields,
@@ -978,6 +1012,7 @@ class AsyncVariantsClient:
             initial_price=initial_price,
             internal_notes=internal_notes,
             metadata=metadata,
+            offer_cancel_discount=offer_cancel_discount,
             override_tax_type=override_tax_type,
             payment_method_configuration=payment_method_configuration,
             plan_type=plan_type,
@@ -1130,6 +1165,7 @@ class AsyncVariantsClient:
         release_method: typing.Optional[str] = OMIT,
         renewal_price: typing.Optional[float] = OMIT,
         sku: typing.Optional[str] = OMIT,
+        split_pay_required_payments: typing.Optional[int] = OMIT,
         stock: typing.Optional[int] = OMIT,
         strike_through_initial_price: typing.Optional[float] = OMIT,
         strike_through_renewal_price: typing.Optional[float] = OMIT,
@@ -1158,10 +1194,10 @@ class AsyncVariantsClient:
             Recurring billing interval in days, such as 30 for monthly or 365 for annual.
 
         cancel_discount_intervals : typing.Optional[int]
-            How many renewals the retention discount applies to. Required when `offer_cancel_discount` is true.
+            How long the retention discount lasts: `0` forever, `1` the next payment only, or a number of calendar months from when the customer accepts it. Required when `offer_cancel_discount` is true.
 
         cancel_discount_percentage : typing.Optional[int]
-            Percentage taken off each discounted renewal. Required when `offer_cancel_discount` is true.
+            Percentage taken off each discounted renewal, as a whole number from 1 to 100. Required when `offer_cancel_discount` is true.
 
         checkout_styling : typing.Optional[typing.Dict[str, typing.Any]]
             Checkout styling overrides for this variant.
@@ -1207,6 +1243,9 @@ class AsyncVariantsClient:
 
         sku : typing.Optional[str]
             Stock keeping unit for this variant. Maximum 100 characters. Free text, not enforced unique.
+
+        split_pay_required_payments : typing.Optional[int]
+            Installment payments required before the subscription pauses, from 2 to 115. Only valid on `renewal` variants.
 
         stock : typing.Optional[int]
             The maximum number of units available for purchase. Ignored when unlimited_stock is true.
@@ -1283,6 +1322,7 @@ class AsyncVariantsClient:
             release_method=release_method,
             renewal_price=renewal_price,
             sku=sku,
+            split_pay_required_payments=split_pay_required_payments,
             stock=stock,
             strike_through_initial_price=strike_through_initial_price,
             strike_through_renewal_price=strike_through_renewal_price,
