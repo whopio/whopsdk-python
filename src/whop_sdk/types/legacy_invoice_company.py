@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .legacy_invoice_company_logo import LegacyInvoiceCompanyLogo
 
 
 class LegacyInvoiceCompany(UniversalBaseModel):
@@ -14,6 +15,16 @@ class LegacyInvoiceCompany(UniversalBaseModel):
     id: str = pydantic.Field()
     """
     The unique identifier for the company.
+    """
+
+    logo: typing.Optional[LegacyInvoiceCompanyLogo] = pydantic.Field(default=None)
+    """
+    The company's logo.
+    """
+
+    title: str = pydantic.Field()
+    """
+    The display name of the company shown to customers.
     """
 
     if IS_PYDANTIC_V2:

@@ -5,11 +5,17 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .currencies import Currencies
+from .plan_types import PlanTypes
 
 
 class InvoiceLegacyCurrentPlan(UniversalBaseModel):
     """
     The plan that this invoice charges for.
+    """
+
+    billing_period: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Number of days between recurring charges, such as 30 for monthly or 365 for annual. `null` for one-time plans.
     """
 
     currency: Currencies = pydantic.Field()
@@ -30,6 +36,26 @@ class InvoiceLegacyCurrentPlan(UniversalBaseModel):
     id: str = pydantic.Field()
     """
     The unique identifier for the plan.
+    """
+
+    initial_price: float = pydantic.Field()
+    """
+    The initial purchase price in the plan's base_currency (e.g., 49.99 for $49.99). For one-time plans, this is the full price. For renewal plans, this is charged on top of the first renewal_price.
+    """
+
+    plan_type: PlanTypes = pydantic.Field()
+    """
+    The billing model for this plan: 'renewal' for recurring subscriptions or 'one_time' for single payments.
+    """
+
+    renewal_price: float = pydantic.Field()
+    """
+    The recurring price charged every billing_period in the plan's base_currency (e.g., 9.99 for $9.99/period). Zero for one-time plans.
+    """
+
+    trial_period_days: typing.Optional[int] = pydantic.Field(default=None)
+    """
+    Free trial days before first renewal charge. `null` if no trial is configured or the user has already used a trial for this plan.
     """
 
     if IS_PYDANTIC_V2:
