@@ -39,6 +39,7 @@ class Invoice(UniversalBaseModel):
     paid_at: typing.Optional[str] = None
     payment_method_id: typing.Optional[str] = None
     recipient_emails: typing.List[str]
+    scheduled_send_at: typing.Optional[str] = None
     status: InvoiceStatus
     subtotal: Money
     tax_amount: typing.Optional[Money] = None
