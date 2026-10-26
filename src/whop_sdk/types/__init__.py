@@ -683,6 +683,7 @@ if typing.TYPE_CHECKING:
     from .invoice_collection_methods import InvoiceCollectionMethods
     from .invoice_legacy import InvoiceLegacy
     from .invoice_legacy_company import InvoiceLegacyCompany
+    from .invoice_legacy_company_logo import InvoiceLegacyCompanyLogo
     from .invoice_legacy_current_plan import InvoiceLegacyCurrentPlan
     from .invoice_legacy_line_items_item import InvoiceLegacyLineItemsItem
     from .invoice_legacy_mailing_address import InvoiceLegacyMailingAddress
@@ -766,6 +767,7 @@ if typing.TYPE_CHECKING:
     from .ledger_types import LedgerTypes
     from .legacy_invoice import LegacyInvoice
     from .legacy_invoice_company import LegacyInvoiceCompany
+    from .legacy_invoice_company_logo import LegacyInvoiceCompanyLogo
     from .legacy_invoice_current_plan import LegacyInvoiceCurrentPlan
     from .legacy_invoice_line_items_item import LegacyInvoiceLineItemsItem
     from .legacy_invoice_list_item import LegacyInvoiceListItem
@@ -2252,6 +2254,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "InvoiceCollectionMethods": ".invoice_collection_methods",
     "InvoiceLegacy": ".invoice_legacy",
     "InvoiceLegacyCompany": ".invoice_legacy_company",
+    "InvoiceLegacyCompanyLogo": ".invoice_legacy_company_logo",
     "InvoiceLegacyCurrentPlan": ".invoice_legacy_current_plan",
     "InvoiceLegacyLineItemsItem": ".invoice_legacy_line_items_item",
     "InvoiceLegacyMailingAddress": ".invoice_legacy_mailing_address",
@@ -2331,6 +2334,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LedgerTypes": ".ledger_types",
     "LegacyInvoice": ".legacy_invoice",
     "LegacyInvoiceCompany": ".legacy_invoice_company",
+    "LegacyInvoiceCompanyLogo": ".legacy_invoice_company_logo",
     "LegacyInvoiceCurrentPlan": ".legacy_invoice_current_plan",
     "LegacyInvoiceLineItemsItem": ".legacy_invoice_line_items_item",
     "LegacyInvoiceListItem": ".legacy_invoice_list_item",
@@ -3721,6 +3725,7 @@ __all__ = [
     "InvoiceCollectionMethods",
     "InvoiceLegacy",
     "InvoiceLegacyCompany",
+    "InvoiceLegacyCompanyLogo",
     "InvoiceLegacyCurrentPlan",
     "InvoiceLegacyLineItemsItem",
     "InvoiceLegacyMailingAddress",
@@ -3800,6 +3805,7 @@ __all__ = [
     "LedgerTypes",
     "LegacyInvoice",
     "LegacyInvoiceCompany",
+    "LegacyInvoiceCompanyLogo",
     "LegacyInvoiceCurrentPlan",
     "LegacyInvoiceLineItemsItem",
     "LegacyInvoiceListItem",
