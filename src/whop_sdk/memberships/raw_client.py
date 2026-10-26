@@ -45,7 +45,6 @@ class RawMembershipsClient:
         account_id: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
         member_id: typing.Optional[str] = None,
-        discord_id: typing.Optional[str] = None,
         status: typing.Optional[ListMembershipsRequestStatus] = None,
         statuses: typing.Optional[
             typing.Union[ListMembershipsRequestStatusesItem, typing.Sequence[ListMembershipsRequestStatusesItem]]
@@ -78,9 +77,6 @@ class RawMembershipsClient:
 
         member_id : typing.Optional[str]
             Narrow to one member's memberships (`mber_` tag), including memberships bought by another business. A member outside the caller's visible set returns an empty list.
-
-        discord_id : typing.Optional[str]
-            Narrow to memberships linked to this Discord account, by its numeric Discord user ID. Includes memberships imported with that Discord ID. A Discord account with no memberships the caller can read returns an empty list.
 
         status : typing.Optional[ListMembershipsRequestStatus]
             Filter by billing state. `trialing`, `active`, `past_due`, `completed`, `canceled`, and `expired` match the membership's `status`; `active`, `trialing`, and `past_due` exclude memberships set to cancel at period end. The other values are derived buckets that never appear as a `status`: `canceling` matches memberships set to cancel at period end; `paused` matches memberships with payment collection paused; `expiring` matches one-time purchases that have not yet expired; `one_time` matches one-time purchases that never expire; `unclaimed` matches memberships with no buyer user, including memberships bought by another business; `banned` matches memberships whose buyer is banned from the account.
@@ -143,7 +139,6 @@ class RawMembershipsClient:
                 "account_id": account_id,
                 "user_id": user_id,
                 "member_id": member_id,
-                "discord_id": discord_id,
                 "status": status,
                 "statuses": statuses,
                 "product_id": product_id,
@@ -181,7 +176,6 @@ class RawMembershipsClient:
                         account_id=account_id,
                         user_id=user_id,
                         member_id=member_id,
-                        discord_id=discord_id,
                         status=status,
                         statuses=statuses,
                         product_id=product_id,
@@ -1391,7 +1385,6 @@ class AsyncRawMembershipsClient:
         account_id: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
         member_id: typing.Optional[str] = None,
-        discord_id: typing.Optional[str] = None,
         status: typing.Optional[ListMembershipsRequestStatus] = None,
         statuses: typing.Optional[
             typing.Union[ListMembershipsRequestStatusesItem, typing.Sequence[ListMembershipsRequestStatusesItem]]
@@ -1424,9 +1417,6 @@ class AsyncRawMembershipsClient:
 
         member_id : typing.Optional[str]
             Narrow to one member's memberships (`mber_` tag), including memberships bought by another business. A member outside the caller's visible set returns an empty list.
-
-        discord_id : typing.Optional[str]
-            Narrow to memberships linked to this Discord account, by its numeric Discord user ID. Includes memberships imported with that Discord ID. A Discord account with no memberships the caller can read returns an empty list.
 
         status : typing.Optional[ListMembershipsRequestStatus]
             Filter by billing state. `trialing`, `active`, `past_due`, `completed`, `canceled`, and `expired` match the membership's `status`; `active`, `trialing`, and `past_due` exclude memberships set to cancel at period end. The other values are derived buckets that never appear as a `status`: `canceling` matches memberships set to cancel at period end; `paused` matches memberships with payment collection paused; `expiring` matches one-time purchases that have not yet expired; `one_time` matches one-time purchases that never expire; `unclaimed` matches memberships with no buyer user, including memberships bought by another business; `banned` matches memberships whose buyer is banned from the account.
@@ -1489,7 +1479,6 @@ class AsyncRawMembershipsClient:
                 "account_id": account_id,
                 "user_id": user_id,
                 "member_id": member_id,
-                "discord_id": discord_id,
                 "status": status,
                 "statuses": statuses,
                 "product_id": product_id,
@@ -1529,7 +1518,6 @@ class AsyncRawMembershipsClient:
                             account_id=account_id,
                             user_id=user_id,
                             member_id=member_id,
-                            discord_id=discord_id,
                             status=status,
                             statuses=statuses,
                             product_id=product_id,
