@@ -142,6 +142,7 @@ class PlansClient:
         *,
         account_id: typing.Optional[str] = OMIT,
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
+        allow_multiple_quantity: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
         billing_type: typing.Optional[str] = OMIT,
@@ -180,6 +181,8 @@ class PlansClient:
         account_id : typing.Optional[str]
 
         adaptive_pricing_enabled : typing.Optional[bool]
+
+        allow_multiple_quantity : typing.Optional[bool]
 
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
 
@@ -259,6 +262,7 @@ class PlansClient:
         _response = self._raw_client.create(
             account_id=account_id,
             adaptive_pricing_enabled=adaptive_pricing_enabled,
+            allow_multiple_quantity=allow_multiple_quantity,
             attributes=attributes,
             billing_period=billing_period,
             billing_type=billing_type,
@@ -362,6 +366,7 @@ class PlansClient:
         id: str,
         *,
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
+        allow_multiple_quantity: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
         cancel_discount_intervals: typing.Optional[int] = OMIT,
@@ -401,6 +406,8 @@ class PlansClient:
             Variant ID, prefixed `plan_`.
 
         adaptive_pricing_enabled : typing.Optional[bool]
+
+        allow_multiple_quantity : typing.Optional[bool]
 
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
 
@@ -482,6 +489,7 @@ class PlansClient:
         _response = self._raw_client.update(
             id,
             adaptive_pricing_enabled=adaptive_pricing_enabled,
+            allow_multiple_quantity=allow_multiple_quantity,
             attributes=attributes,
             billing_period=billing_period,
             cancel_discount_intervals=cancel_discount_intervals,
@@ -687,6 +695,7 @@ class AsyncPlansClient:
         *,
         account_id: typing.Optional[str] = OMIT,
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
+        allow_multiple_quantity: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
         billing_type: typing.Optional[str] = OMIT,
@@ -725,6 +734,8 @@ class AsyncPlansClient:
         account_id : typing.Optional[str]
 
         adaptive_pricing_enabled : typing.Optional[bool]
+
+        allow_multiple_quantity : typing.Optional[bool]
 
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
 
@@ -812,6 +823,7 @@ class AsyncPlansClient:
         _response = await self._raw_client.create(
             account_id=account_id,
             adaptive_pricing_enabled=adaptive_pricing_enabled,
+            allow_multiple_quantity=allow_multiple_quantity,
             attributes=attributes,
             billing_period=billing_period,
             billing_type=billing_type,
@@ -931,6 +943,7 @@ class AsyncPlansClient:
         id: str,
         *,
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
+        allow_multiple_quantity: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
         cancel_discount_intervals: typing.Optional[int] = OMIT,
@@ -970,6 +983,8 @@ class AsyncPlansClient:
             Variant ID, prefixed `plan_`.
 
         adaptive_pricing_enabled : typing.Optional[bool]
+
+        allow_multiple_quantity : typing.Optional[bool]
 
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
 
@@ -1059,6 +1074,7 @@ class AsyncPlansClient:
         _response = await self._raw_client.update(
             id,
             adaptive_pricing_enabled=adaptive_pricing_enabled,
+            allow_multiple_quantity=allow_multiple_quantity,
             attributes=attributes,
             billing_period=billing_period,
             cancel_discount_intervals=cancel_discount_intervals,
