@@ -18,7 +18,7 @@ class CreateDirectRequestPlan(UniversalBaseModel):
 
     allow_multiple_quantity: typing.Optional[bool] = pydantic.Field(default=None)
     """
-    Whether more than one unit can be purchased in an order.
+    Whether more than one unit can be purchased in an order. Renewal variants cannot enable it. When `false`, checkouts, carts, and invoices reject a quantity above 1.
     """
 
     application_fee_amount: typing.Optional[float] = pydantic.Field(default=None)
