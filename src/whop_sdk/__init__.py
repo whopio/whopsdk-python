@@ -2243,6 +2243,7 @@ if typing.TYPE_CHECKING:
         PostDepositSucceededPayload,
         PostDepositSucceededPayloadApiVersion,
         PostDepositSucceededPayloadType,
+        ReverseDepositsRequestMetadataValue,
     )
     from .dispute_alerts import (
         ListDisputeAlertsRequestDirection,
@@ -6157,6 +6158,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrieveVerificationsResponseRequiredDocumentsItemStatus": ".verifications",
     "RetrieveVerificationsResponseStatus": ".verifications",
     "RetryAdsPaymentAccountsResponse": ".accounts",
+    "ReverseDepositsRequestMetadataValue": ".deposits",
     "Review": ".types",
     "ReviewAccount": ".types",
     "ReviewAttachment": ".types",
@@ -9461,6 +9463,7 @@ __all__ = [
     "RetrieveVerificationsResponseRequiredDocumentsItemStatus",
     "RetrieveVerificationsResponseStatus",
     "RetryAdsPaymentAccountsResponse",
+    "ReverseDepositsRequestMetadataValue",
     "Review",
     "ReviewAccount",
     "ReviewAttachment",
