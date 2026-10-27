@@ -74,7 +74,7 @@ class PostAdCampaignPaymentFailedPayloadData(UniversalBaseModel):
 
     desired_cost_per_result: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Google only: the target cost per conversion in USD when `bid_type` is `average_target`. `null` otherwise.
+    The cost per result, in USD, the advertiser wants this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. `null` when no target is set.
     """
 
     ends_at: typing.Optional[str] = pydantic.Field(default=None)

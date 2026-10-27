@@ -227,7 +227,7 @@ class AdCampaignsClient:
             The kind of campaign to create. `standard` is the ad network's standard campaign; `search` shows text ads on search results for the ad groups' keywords. Defaults to `standard`. Can't be changed after creation.
 
         desired_cost_per_result : typing.Optional[float]
-            Cost per result to aim for (`average_target`) or never exceed (`maximum_target`). Only for campaigns that own the budget.
+            The cost per result, in USD, you want this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. Ad groups set cost and bid caps with their own `desired_cost_per_result`. Omit or send `null` for no target.
 
         ends_at : typing.Optional[str]
             When the campaign stops delivering, as an ISO 8601 timestamp. Only for campaigns that own the budget.
@@ -385,6 +385,7 @@ class AdCampaignsClient:
         budget_optimization: typing.Optional[UpdateAdCampaignsRequestBudgetOptimization] = OMIT,
         budget_type: typing.Optional[UpdateAdCampaignsRequestBudgetType] = OMIT,
         campaign_type: typing.Optional[UpdateAdCampaignsRequestCampaignType] = OMIT,
+        desired_cost_per_result: typing.Optional[float] = OMIT,
         ends_at: typing.Optional[str] = OMIT,
         special_ad_categories: typing.Optional[typing.Sequence[UpdateAdCampaignsRequestSpecialAdCategoriesItem]] = OMIT,
         starts_at: typing.Optional[str] = OMIT,
@@ -393,7 +394,7 @@ class AdCampaignsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AdCampaign:
         """
-        Updates an ad campaign's settings, or launches a draft campaign by setting `status` to `active`. The objective and desired cost per result are fixed at creation and cannot be changed.
+        Updates an ad campaign's settings, or launches a draft campaign by setting `status` to `active`. The objective is fixed at creation and cannot be changed.
 
         Parameters
         ----------
@@ -420,6 +421,9 @@ class AdCampaignsClient:
 
         campaign_type : typing.Optional[UpdateAdCampaignsRequestCampaignType]
             Accepted only when it matches the campaign's current type, so a read can be sent back unchanged. The type is fixed at creation.
+
+        desired_cost_per_result : typing.Optional[float]
+            The cost per result, in USD, you want this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. Ad groups set cost and bid caps with their own `desired_cost_per_result`. `null` clears it.
 
         ends_at : typing.Optional[str]
             When the campaign stops delivering, as an ISO 8601 timestamp. Only for campaigns that own the budget.
@@ -466,6 +470,7 @@ class AdCampaignsClient:
             budget_optimization=budget_optimization,
             budget_type=budget_type,
             campaign_type=campaign_type,
+            desired_cost_per_result=desired_cost_per_result,
             ends_at=ends_at,
             special_ad_categories=special_ad_categories,
             starts_at=starts_at,
@@ -787,7 +792,7 @@ class AsyncAdCampaignsClient:
             The kind of campaign to create. `standard` is the ad network's standard campaign; `search` shows text ads on search results for the ad groups' keywords. Defaults to `standard`. Can't be changed after creation.
 
         desired_cost_per_result : typing.Optional[float]
-            Cost per result to aim for (`average_target`) or never exceed (`maximum_target`). Only for campaigns that own the budget.
+            The cost per result, in USD, you want this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. Ad groups set cost and bid caps with their own `desired_cost_per_result`. Omit or send `null` for no target.
 
         ends_at : typing.Optional[str]
             When the campaign stops delivering, as an ISO 8601 timestamp. Only for campaigns that own the budget.
@@ -971,6 +976,7 @@ class AsyncAdCampaignsClient:
         budget_optimization: typing.Optional[UpdateAdCampaignsRequestBudgetOptimization] = OMIT,
         budget_type: typing.Optional[UpdateAdCampaignsRequestBudgetType] = OMIT,
         campaign_type: typing.Optional[UpdateAdCampaignsRequestCampaignType] = OMIT,
+        desired_cost_per_result: typing.Optional[float] = OMIT,
         ends_at: typing.Optional[str] = OMIT,
         special_ad_categories: typing.Optional[typing.Sequence[UpdateAdCampaignsRequestSpecialAdCategoriesItem]] = OMIT,
         starts_at: typing.Optional[str] = OMIT,
@@ -979,7 +985,7 @@ class AsyncAdCampaignsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AdCampaign:
         """
-        Updates an ad campaign's settings, or launches a draft campaign by setting `status` to `active`. The objective and desired cost per result are fixed at creation and cannot be changed.
+        Updates an ad campaign's settings, or launches a draft campaign by setting `status` to `active`. The objective is fixed at creation and cannot be changed.
 
         Parameters
         ----------
@@ -1006,6 +1012,9 @@ class AsyncAdCampaignsClient:
 
         campaign_type : typing.Optional[UpdateAdCampaignsRequestCampaignType]
             Accepted only when it matches the campaign's current type, so a read can be sent back unchanged. The type is fixed at creation.
+
+        desired_cost_per_result : typing.Optional[float]
+            The cost per result, in USD, you want this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. Ad groups set cost and bid caps with their own `desired_cost_per_result`. `null` clears it.
 
         ends_at : typing.Optional[str]
             When the campaign stops delivering, as an ISO 8601 timestamp. Only for campaigns that own the budget.
@@ -1060,6 +1069,7 @@ class AsyncAdCampaignsClient:
             budget_optimization=budget_optimization,
             budget_type=budget_type,
             campaign_type=campaign_type,
+            desired_cost_per_result=desired_cost_per_result,
             ends_at=ends_at,
             special_ad_categories=special_ad_categories,
             starts_at=starts_at,
