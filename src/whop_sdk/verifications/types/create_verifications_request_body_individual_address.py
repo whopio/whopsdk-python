@@ -14,7 +14,7 @@ class CreateVerificationsRequestBodyIndividualAddress(UniversalBaseModel):
     city: typing.Optional[str] = None
     country: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`.
+    Two-letter ISO 3166-1 country code, for example `US`, `DE`, or `GB`. An address in a [sanctioned country or region](/trust-and-safety/trust-safety-overview/sanctioned-countries) is rejected with the error code `address_country_sanctioned`.
     """
 
     line1: typing.Optional[str] = pydantic.Field(default=None)
