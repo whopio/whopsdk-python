@@ -22,6 +22,7 @@ CreateExportsRequestResource = typing.Union[
         "people",
         "plans",
         "products",
+        "receipt_invoices",
         "resolution_center_cases",
         "shipments",
         "social_accounts",
