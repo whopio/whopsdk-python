@@ -6,6 +6,7 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .create_payments_request_billing_address import CreatePaymentsRequestBillingAddress
     from .create_payments_request_line_items_item import CreatePaymentsRequestLineItemsItem
     from .create_payments_request_line_items_item_plan import CreatePaymentsRequestLineItemsItemPlan
     from .create_payments_request_line_items_item_plan_currency import CreatePaymentsRequestLineItemsItemPlanCurrency
@@ -29,6 +30,7 @@ if typing.TYPE_CHECKING:
         CreatePaymentsRequestPaymentMethodCardPresentPlatform,
     )
     from .create_payments_request_payment_method_type import CreatePaymentsRequestPaymentMethodType
+    from .create_payments_request_setup_future_usage import CreatePaymentsRequestSetupFutureUsage
     from .create_payments_request_shipping_address import CreatePaymentsRequestShippingAddress
     from .list_fees_payments_response import ListFeesPaymentsResponse
     from .list_fees_payments_response_page_info import ListFeesPaymentsResponsePageInfo
@@ -77,6 +79,7 @@ if typing.TYPE_CHECKING:
     from .summary_payments_response_groups_substatus import SummaryPaymentsResponseGroupsSubstatus
     from .update_payments_request_shipping_address import UpdatePaymentsRequestShippingAddress
 _dynamic_imports: typing.Dict[str, str] = {
+    "CreatePaymentsRequestBillingAddress": ".create_payments_request_billing_address",
     "CreatePaymentsRequestLineItemsItem": ".create_payments_request_line_items_item",
     "CreatePaymentsRequestLineItemsItemPlan": ".create_payments_request_line_items_item_plan",
     "CreatePaymentsRequestLineItemsItemPlanCurrency": ".create_payments_request_line_items_item_plan_currency",
@@ -90,6 +93,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreatePaymentsRequestPaymentMethodCardPresent": ".create_payments_request_payment_method_card_present",
     "CreatePaymentsRequestPaymentMethodCardPresentPlatform": ".create_payments_request_payment_method_card_present_platform",
     "CreatePaymentsRequestPaymentMethodType": ".create_payments_request_payment_method_type",
+    "CreatePaymentsRequestSetupFutureUsage": ".create_payments_request_setup_future_usage",
     "CreatePaymentsRequestShippingAddress": ".create_payments_request_shipping_address",
     "ListFeesPaymentsResponse": ".list_fees_payments_response",
     "ListFeesPaymentsResponsePageInfo": ".list_fees_payments_response_page_info",
@@ -162,6 +166,7 @@ def __dir__():
 
 
 __all__ = [
+    "CreatePaymentsRequestBillingAddress",
     "CreatePaymentsRequestLineItemsItem",
     "CreatePaymentsRequestLineItemsItemPlan",
     "CreatePaymentsRequestLineItemsItemPlanCurrency",
@@ -175,6 +180,7 @@ __all__ = [
     "CreatePaymentsRequestPaymentMethodCardPresent",
     "CreatePaymentsRequestPaymentMethodCardPresentPlatform",
     "CreatePaymentsRequestPaymentMethodType",
+    "CreatePaymentsRequestSetupFutureUsage",
     "CreatePaymentsRequestShippingAddress",
     "ListFeesPaymentsResponse",
     "ListFeesPaymentsResponsePageInfo",

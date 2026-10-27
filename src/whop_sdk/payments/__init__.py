@@ -7,6 +7,7 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
+        CreatePaymentsRequestBillingAddress,
         CreatePaymentsRequestLineItemsItem,
         CreatePaymentsRequestLineItemsItemPlan,
         CreatePaymentsRequestLineItemsItemPlanCurrency,
@@ -20,6 +21,7 @@ if typing.TYPE_CHECKING:
         CreatePaymentsRequestPaymentMethodCardPresent,
         CreatePaymentsRequestPaymentMethodCardPresentPlatform,
         CreatePaymentsRequestPaymentMethodType,
+        CreatePaymentsRequestSetupFutureUsage,
         CreatePaymentsRequestShippingAddress,
         ListFeesPaymentsResponse,
         ListFeesPaymentsResponsePageInfo,
@@ -88,6 +90,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateDirectRequestPaymentMethodCardDetails": ".direct",
     "CreateDirectRequestPaymentMethodType": ".direct",
     "CreateDirectRequestSetupFutureUsage": ".direct",
+    "CreatePaymentsRequestBillingAddress": ".types",
     "CreatePaymentsRequestLineItemsItem": ".types",
     "CreatePaymentsRequestLineItemsItemPlan": ".types",
     "CreatePaymentsRequestLineItemsItemPlanCurrency": ".types",
@@ -101,6 +104,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreatePaymentsRequestPaymentMethodCardPresent": ".types",
     "CreatePaymentsRequestPaymentMethodCardPresentPlatform": ".types",
     "CreatePaymentsRequestPaymentMethodType": ".types",
+    "CreatePaymentsRequestSetupFutureUsage": ".types",
     "CreatePaymentsRequestShippingAddress": ".types",
     "ListFeesPaymentsResponse": ".types",
     "ListFeesPaymentsResponsePageInfo": ".types",
@@ -182,6 +186,7 @@ __all__ = [
     "CreateDirectRequestPaymentMethodCardDetails",
     "CreateDirectRequestPaymentMethodType",
     "CreateDirectRequestSetupFutureUsage",
+    "CreatePaymentsRequestBillingAddress",
     "CreatePaymentsRequestLineItemsItem",
     "CreatePaymentsRequestLineItemsItemPlan",
     "CreatePaymentsRequestLineItemsItemPlanCurrency",
@@ -195,6 +200,7 @@ __all__ = [
     "CreatePaymentsRequestPaymentMethodCardPresent",
     "CreatePaymentsRequestPaymentMethodCardPresentPlatform",
     "CreatePaymentsRequestPaymentMethodType",
+    "CreatePaymentsRequestSetupFutureUsage",
     "CreatePaymentsRequestShippingAddress",
     "ListFeesPaymentsResponse",
     "ListFeesPaymentsResponsePageInfo",
