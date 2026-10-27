@@ -4,6 +4,9 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .retrieve_verifications_response_owners_item_rejected_checks_item import (
+    RetrieveVerificationsResponseOwnersItemRejectedChecksItem,
+)
 from .retrieve_verifications_response_owners_item_required_documents_item import (
     RetrieveVerificationsResponseOwnersItemRequiredDocumentsItem,
 )
@@ -12,6 +15,11 @@ from .retrieve_verifications_response_owners_item_status import RetrieveVerifica
 
 
 class RetrieveVerificationsResponseOwnersItem(UniversalBaseModel):
+    date_of_birth: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The owner's date of birth on file, formatted as `YYYY-MM-DD`.
+    """
+
     first_name: typing.Optional[str] = None
     id: str = pydantic.Field()
     """
@@ -22,6 +30,11 @@ class RetrieveVerificationsResponseOwnersItem(UniversalBaseModel):
     ownership_percentage: typing.Optional[float] = pydantic.Field(default=None)
     """
     Share of the business the person owns, from 0 to 100.
+    """
+
+    rejected_checks: typing.List[RetrieveVerificationsResponseOwnersItemRejectedChecksItem] = pydantic.Field()
+    """
+    What the provider rejected when the owner's verification was sent back: `details` (their name, date of birth, or other details don't match their ID), `identity_document`, or `selfie`. Fix only these with Update Verification. Empty otherwise.
     """
 
     required_documents: typing.List[RetrieveVerificationsResponseOwnersItemRequiredDocumentsItem] = pydantic.Field()

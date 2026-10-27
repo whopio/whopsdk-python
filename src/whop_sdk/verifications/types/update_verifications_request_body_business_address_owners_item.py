@@ -21,7 +21,7 @@ from .update_verifications_request_body_business_address_owners_item_roles_item 
 
 class UpdateVerificationsRequestBodyBusinessAddressOwnersItem(UniversalBaseModel):
     """
-    An owner to add, change, or remove. Send `id` to change an owner already on the verification: new `roles` or `ownership_percentage`, or `document_type` and `documents` when the owner's documents are still needed. Send `id` with `remove` set to `true` to remove that owner. Without `id`, the entry adds an owner as it does on Create Verification. Owners left out are not changed.
+    An owner to add, change, or remove. Send `id` to change an owner already on the verification: new `roles` or `ownership_percentage`; corrected details such as `date_of_birth` or `first_name`, or `document_type` and `documents`, while the owner's verification is waiting on them (see `rejected_checks`). Send `id` with `remove` set to `true` to remove that owner. Without `id`, the entry adds an owner as it does on Create Verification. Owners left out are not changed.
     """
 
     address: typing.Optional[UpdateVerificationsRequestBodyBusinessAddressOwnersItemAddress] = pydantic.Field(

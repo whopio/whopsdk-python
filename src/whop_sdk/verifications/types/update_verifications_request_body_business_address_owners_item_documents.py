@@ -48,7 +48,7 @@ class UpdateVerificationsRequestBodyBusinessAddressOwnersItemDocuments(Universal
 
     selfie: typing.Optional[str] = pydantic.Field(default=None)
     """
-    File ID of a photo of the owner's face. Always required. Must be a JPEG or PNG.
+    File ID of a photo of the owner's face. Must be a JPEG or PNG. Required, except on Update Verification for an owner whose selfie already passed.
     """
 
     if IS_PYDANTIC_V2:
