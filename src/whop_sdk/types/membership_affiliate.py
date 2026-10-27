@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .membership_affiliate_applies_to_payments import MembershipAffiliateAppliesToPayments
+from .membership_affiliate_commission_source import MembershipAffiliateCommissionSource
 from .membership_affiliate_commission_type import MembershipAffiliateCommissionType
 from .money import Money
 
@@ -23,6 +24,11 @@ class MembershipAffiliate(UniversalBaseModel):
     commission_percentage: typing.Optional[float] = pydantic.Field(default=None)
     """
     The percentage commission in percentage points, so `20` means 20%, or `null` for a flat fee.
+    """
+
+    commission_source: MembershipAffiliateCommissionSource = pydantic.Field()
+    """
+    How the commission rate was set: `custom` for a rate set for this affiliate, `member` for the member affiliate rate of the plan or product, `global` for the product's global affiliate rate, or `marketplace` for a Whop marketplace referral.
     """
 
     commission_type: MembershipAffiliateCommissionType = pydantic.Field()

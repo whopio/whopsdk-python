@@ -815,6 +815,7 @@ if typing.TYPE_CHECKING:
     from .membership import Membership
     from .membership_affiliate import MembershipAffiliate
     from .membership_affiliate_applies_to_payments import MembershipAffiliateAppliesToPayments
+    from .membership_affiliate_commission_source import MembershipAffiliateCommissionSource
     from .membership_affiliate_commission_type import MembershipAffiliateCommissionType
     from .membership_cancel_option import MembershipCancelOption
     from .membership_cancellation_modes import MembershipCancellationModes
@@ -2398,6 +2399,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Membership": ".membership",
     "MembershipAffiliate": ".membership_affiliate",
     "MembershipAffiliateAppliesToPayments": ".membership_affiliate_applies_to_payments",
+    "MembershipAffiliateCommissionSource": ".membership_affiliate_commission_source",
     "MembershipAffiliateCommissionType": ".membership_affiliate_commission_type",
     "MembershipCancelOption": ".membership_cancel_option",
     "MembershipCancellationModes": ".membership_cancellation_modes",
@@ -3885,6 +3887,7 @@ __all__ = [
     "Membership",
     "MembershipAffiliate",
     "MembershipAffiliateAppliesToPayments",
+    "MembershipAffiliateCommissionSource",
     "MembershipAffiliateCommissionType",
     "MembershipCancelOption",
     "MembershipCancellationModes",
