@@ -31,7 +31,6 @@ if typing.TYPE_CHECKING:
     )
     from .passkeys import (
         ChallengePasskeysRequestChallengeType,
-        ChallengePasskeysResponse,
         DeletePasskeysResponse,
         ListPasskeysRequestDirection,
         ListPasskeysRequestOrder,
@@ -40,7 +39,6 @@ if typing.TYPE_CHECKING:
     )
 _dynamic_imports: typing.Dict[str, str] = {
     "ChallengePasskeysRequestChallengeType": ".passkeys",
-    "ChallengePasskeysResponse": ".passkeys",
     "CheckAccessUsersResponse": ".types",
     "CheckAccessUsersResponseAccessLevel": ".types",
     "CreateOauthGrantsRequestCodeChallengeMethod": ".oauth_grants",
@@ -94,7 +92,6 @@ def __dir__():
 
 __all__ = [
     "ChallengePasskeysRequestChallengeType",
-    "ChallengePasskeysResponse",
     "CheckAccessUsersResponse",
     "CheckAccessUsersResponseAccessLevel",
     "CreateOauthGrantsRequestCodeChallengeMethod",
