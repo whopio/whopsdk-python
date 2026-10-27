@@ -1482,16 +1482,20 @@ class RawPaymentsClient:
         self,
         payment_id: str,
         *,
+        client_secret: typing.Optional[str] = OMIT,
         return_url: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PaymentStatus]:
         """
-        Charges the saved card again, with the buyer present, for a payment their bank declined until they authenticate (such as with 3DS). Retrieve the payment afterward to get the bank's challenge from `next_action`; once the buyer completes it, they land on `return_url`, or on Whop's hosted verification page if none was given. Only the buyer can call this, with the payment's `client_secret`, an OAuth token for their own account with the `member:payment_methods:use` scope, or the token from a verified `payment` session intent. An API key gets a `403`. Has no effect on a payment that is not waiting on authentication.
+        Charges the saved card again, with the buyer present, for a payment their bank declined until they authenticate (such as with 3DS). Retrieve the payment afterward to get the bank's challenge from `next_action`; once the buyer completes it, they land on `return_url`, or on Whop's hosted verification page if none was given. Only the buyer can call this, with the payment's `client_secret` in the body, an OAuth token for their own account with the `member:payment_methods:use` scope, or the token from a verified `payment` session intent. An API key gets a `403`. Has no effect on a payment that is not waiting on authentication.
 
         Parameters
         ----------
         payment_id : str
             The unique identifier of the payment.
+
+        client_secret : typing.Optional[str]
+            The payment's own `client_secret`, for a buyer without a token.
 
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step. Must be an absolute https URL without credentials (http is allowed for localhost), at most 2,048 characters. Defaults to Whop's hosted verification page. Ignored when the payment is not waiting on authentication.
@@ -1509,6 +1513,7 @@ class RawPaymentsClient:
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
+                "client_secret": client_secret,
                 "return_url": return_url,
             },
             headers={
@@ -1592,10 +1597,15 @@ class RawPaymentsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def update_return_url(
-        self, payment_id: str, *, return_url: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        payment_id: str,
+        *,
+        return_url: str,
+        client_secret: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PaymentStatus]:
         """
-        Changes where the buyer lands after completing an off-site step, up until they return. Accepts either a secret key or the payment's own `client_secret`, so the surface that knows the final destination can set it.
+        Changes where the buyer lands after completing an off-site step, up until they return. Accepts either a secret key or the payment's own `client_secret` in the body, so the surface that knows the final destination can set it.
 
         Parameters
         ----------
@@ -1604,6 +1614,9 @@ class RawPaymentsClient:
 
         return_url : str
             Where the buyer continues after completing an off-site step. Must be an absolute https URL without credentials (http is allowed for localhost), at most 2,048 characters.
+
+        client_secret : typing.Optional[str]
+            The payment's own `client_secret`, for a caller without a secret key.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1618,6 +1631,7 @@ class RawPaymentsClient:
             base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
+                "client_secret": client_secret,
                 "return_url": return_url,
             },
             headers={
@@ -1668,15 +1682,22 @@ class RawPaymentsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def retrieve_status(
-        self, payment_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        payment_id: str,
+        *,
+        client_secret: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PaymentStatus]:
         """
-        Retrieves how far a payment has got and what the buyer must do next, if anything. A payment is collected in the background, so poll this rather than reading the create response. Accepts either a secret key or the payment's own `client_secret`, so the surface collecting the payment can poll it directly.
+        Retrieves how far a payment has got and what the buyer must do next, if anything. A payment is collected in the background, so poll this rather than reading the create response. Accepts either a secret key or the payment's own `client_secret` as a query parameter, so the surface collecting the payment can poll it directly.
 
         Parameters
         ----------
         payment_id : str
             The unique identifier of the payment.
+
+        client_secret : typing.Optional[str]
+            The payment's own `client_secret`, for a caller without a secret key.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1690,6 +1711,9 @@ class RawPaymentsClient:
             f"payments/{encode_path_param(payment_id)}/status",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
+            params={
+                "client_secret": client_secret,
+            },
             request_options=request_options,
         )
         try:
@@ -3181,16 +3205,20 @@ class AsyncRawPaymentsClient:
         self,
         payment_id: str,
         *,
+        client_secret: typing.Optional[str] = OMIT,
         return_url: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PaymentStatus]:
         """
-        Charges the saved card again, with the buyer present, for a payment their bank declined until they authenticate (such as with 3DS). Retrieve the payment afterward to get the bank's challenge from `next_action`; once the buyer completes it, they land on `return_url`, or on Whop's hosted verification page if none was given. Only the buyer can call this, with the payment's `client_secret`, an OAuth token for their own account with the `member:payment_methods:use` scope, or the token from a verified `payment` session intent. An API key gets a `403`. Has no effect on a payment that is not waiting on authentication.
+        Charges the saved card again, with the buyer present, for a payment their bank declined until they authenticate (such as with 3DS). Retrieve the payment afterward to get the bank's challenge from `next_action`; once the buyer completes it, they land on `return_url`, or on Whop's hosted verification page if none was given. Only the buyer can call this, with the payment's `client_secret` in the body, an OAuth token for their own account with the `member:payment_methods:use` scope, or the token from a verified `payment` session intent. An API key gets a `403`. Has no effect on a payment that is not waiting on authentication.
 
         Parameters
         ----------
         payment_id : str
             The unique identifier of the payment.
+
+        client_secret : typing.Optional[str]
+            The payment's own `client_secret`, for a buyer without a token.
 
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step. Must be an absolute https URL without credentials (http is allowed for localhost), at most 2,048 characters. Defaults to Whop's hosted verification page. Ignored when the payment is not waiting on authentication.
@@ -3208,6 +3236,7 @@ class AsyncRawPaymentsClient:
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
             json={
+                "client_secret": client_secret,
                 "return_url": return_url,
             },
             headers={
@@ -3291,10 +3320,15 @@ class AsyncRawPaymentsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def update_return_url(
-        self, payment_id: str, *, return_url: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        payment_id: str,
+        *,
+        return_url: str,
+        client_secret: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PaymentStatus]:
         """
-        Changes where the buyer lands after completing an off-site step, up until they return. Accepts either a secret key or the payment's own `client_secret`, so the surface that knows the final destination can set it.
+        Changes where the buyer lands after completing an off-site step, up until they return. Accepts either a secret key or the payment's own `client_secret` in the body, so the surface that knows the final destination can set it.
 
         Parameters
         ----------
@@ -3303,6 +3337,9 @@ class AsyncRawPaymentsClient:
 
         return_url : str
             Where the buyer continues after completing an off-site step. Must be an absolute https URL without credentials (http is allowed for localhost), at most 2,048 characters.
+
+        client_secret : typing.Optional[str]
+            The payment's own `client_secret`, for a caller without a secret key.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -3317,6 +3354,7 @@ class AsyncRawPaymentsClient:
             base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
+                "client_secret": client_secret,
                 "return_url": return_url,
             },
             headers={
@@ -3367,15 +3405,22 @@ class AsyncRawPaymentsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def retrieve_status(
-        self, payment_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        payment_id: str,
+        *,
+        client_secret: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PaymentStatus]:
         """
-        Retrieves how far a payment has got and what the buyer must do next, if anything. A payment is collected in the background, so poll this rather than reading the create response. Accepts either a secret key or the payment's own `client_secret`, so the surface collecting the payment can poll it directly.
+        Retrieves how far a payment has got and what the buyer must do next, if anything. A payment is collected in the background, so poll this rather than reading the create response. Accepts either a secret key or the payment's own `client_secret` as a query parameter, so the surface collecting the payment can poll it directly.
 
         Parameters
         ----------
         payment_id : str
             The unique identifier of the payment.
+
+        client_secret : typing.Optional[str]
+            The payment's own `client_secret`, for a caller without a secret key.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -3389,6 +3434,9 @@ class AsyncRawPaymentsClient:
             f"payments/{encode_path_param(payment_id)}/status",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
+            params={
+                "client_secret": client_secret,
+            },
             request_options=request_options,
         )
         try:
