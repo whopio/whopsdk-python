@@ -6,8 +6,8 @@ import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .checkout_configuration_currency import CheckoutConfigurationCurrency
 from .checkout_configuration_mode import CheckoutConfigurationMode
-from .checkout_configuration_plan import CheckoutConfigurationPlan
 from .checkout_configuration_three_ds_level import CheckoutConfigurationThreeDsLevel
+from .checkout_configuration_variant import CheckoutConfigurationVariant
 from .checkout_session_payment_method_configuration import CheckoutSessionPaymentMethodConfiguration
 
 
@@ -55,11 +55,6 @@ class CheckoutConfiguration(UniversalBaseModel):
     Payment method overrides for this checkout. `null` when it uses the variant or platform defaults.
     """
 
-    plan: typing.Optional[CheckoutConfigurationPlan] = pydantic.Field(default=None)
-    """
-    Variant used for payment checkout. `null` in setup mode.
-    """
-
     purchase_url: typing.Optional[str] = pydantic.Field(default=None)
     """
     Checkout URL you can send to customers.
@@ -78,6 +73,11 @@ class CheckoutConfiguration(UniversalBaseModel):
     updated_at: str = pydantic.Field()
     """
     When the checkout configuration was last updated, as an ISO 8601 timestamp.
+    """
+
+    variant: typing.Optional[CheckoutConfigurationVariant] = pydantic.Field(default=None)
+    """
+    Variant used for payment checkout. `null` in setup mode.
     """
 
     if IS_PYDANTIC_V2:

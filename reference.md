@@ -13552,7 +13552,7 @@ client.checkout_configurations.list(
 <dl>
 <dd>
 
-**plan_id:** `typing.Optional[str]` — Only return checkout configurations for this variant ID, prefixed `plan_`.
+**variant_id:** `typing.Optional[str]` — Only return checkout configurations for this variant ID, prefixed `plan_`.
     
 </dd>
 </dl>
@@ -13657,7 +13657,7 @@ client = Whop(
 
 client.checkout_configurations.create(
     account_id="biz_xxxxxxxxxxxxxx",
-    plan_id="plan_xxxxxxxxxxxxx",
+    variant_id="plan_xxxxxxxxxxxxx",
 )
 
 ```
@@ -13722,22 +13722,6 @@ client.checkout_configurations.create(
 <dl>
 <dd>
 
-**plan:** `typing.Optional[CreateCheckoutConfigurationsRequestPlan]` — Variant attributes used to create or find a variant for this checkout configuration. Mutually exclusive with `plan_id`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**plan_id:** `typing.Optional[str]` — Existing variant ID, prefixed `plan_`. Mutually exclusive with `plan`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **redirect_url:** `typing.Optional[str]` — URL customers are sent to after checkout.
     
 </dd>
@@ -13747,6 +13731,22 @@ client.checkout_configurations.create(
 <dd>
 
 **three_ds_level:** `typing.Optional[CreateCheckoutConfigurationsRequestThreeDsLevel]` — 3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. Applies in setup mode; `null` uses frictionless 3DS. Payment mode uses the variant policy.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variant:** `typing.Optional[CreateCheckoutConfigurationsRequestVariant]` — Variant attributes used to create or find a variant for this checkout configuration. Mutually exclusive with `variant_id`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variant_id:** `typing.Optional[str]` — Existing variant ID, prefixed `plan_`. Mutually exclusive with `variant`.
     
 </dd>
 </dl>
@@ -28297,7 +28297,7 @@ client.members.list(
     product_ids=[
         "prod_xxxxxxxxxxxxx"
     ],
-    plan_ids=[
+    variant_ids=[
         "plan_xxxxxxxxxxxxx"
     ],
     promo_code_ids=[
@@ -28359,7 +28359,7 @@ client.members.list(
 <dl>
 <dd>
 
-**membership_status:** `typing.Optional[ListMembersRequestMembershipStatus]` — `active` returns members holding at least one membership that currently grants access; `inactive` returns members holding at least one membership that does not. Combined with `product_ids`, `plan_ids`, or `promo_code_ids`, one membership must match all of them.
+**membership_status:** `typing.Optional[ListMembersRequestMembershipStatus]` — `active` returns members holding at least one membership that currently grants access; `inactive` returns members holding at least one membership that does not. Combined with `product_ids`, `variant_ids`, or `promo_code_ids`, one membership must match all of them.
     
 </dd>
 </dl>
@@ -28375,7 +28375,7 @@ client.members.list(
 <dl>
 <dd>
 
-**plan_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only return members holding a membership on one of these plans, prefixed `plan_`. Unknown IDs match nothing.
+**variant_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only return members holding a membership on one of these variants, prefixed `plan_`. Unknown IDs match nothing.
     
 </dd>
 </dl>
@@ -28589,7 +28589,7 @@ client.memberships.list(
     product_ids=[
         "prod_xxxxxxxxxxxxx"
     ],
-    plan_ids=[
+    variant_ids=[
         "plan_xxxxxxxxxxxxx"
     ],
     promo_code_ids=[
@@ -28675,7 +28675,7 @@ client.memberships.list(
 <dl>
 <dd>
 
-**plan_id:** `typing.Optional[str]` — Filter to memberships of this variant (`plan_` tag).
+**variant_id:** `typing.Optional[str]` — Filter to memberships of this variant (`plan_` tag).
     
 </dd>
 </dl>
@@ -28683,7 +28683,7 @@ client.memberships.list(
 <dl>
 <dd>
 
-**plan_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter to memberships of any of these variants, each prefixed `plan_`. Repeat the parameter to pass several.
+**variant_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter to memberships of any of these variants, each prefixed `plan_`. Repeat the parameter to pass several.
     
 </dd>
 </dl>
@@ -28813,8 +28813,8 @@ client = Whop(
 
 client.memberships.invite(
     request=InviteMembershipsRequestBodyUserId(
-        plan_id="plan_xxxxxxxxxxxxxx",
         user_id="user_xxxxxxxxxxxxxx",
+        variant_id="plan_xxxxxxxxxxxxxx",
     ),
 )
 
@@ -32582,7 +32582,7 @@ client.payment_methods.delete_payment_method(
 <dl>
 <dd>
 
-Prices a purchase the way a payment for it will be charged. The body is the `PaymentInput` a payment takes plus where the buyer is, which a seller that collects no tax on the purchase can leave out. The purchase is priced from exactly what you send: no buyer is looked up, so no stored registration or purchase history applies. Pass the quote's `id` as `quote_id` when you create the payment to charge exactly the purchase, promo code, and tax shown here. A quote is priced once and may be consumed by one payment before `expires_at`. Cart entries must name existing variants with `plan_id`.
+Prices a purchase the way a payment for it will be charged. The body is the `PaymentInput` a payment takes plus where the buyer is, which a seller that collects no tax on the purchase can leave out. The purchase is priced from exactly what you send: no buyer is looked up, so no stored registration or purchase history applies. Pass the quote's `id` as `quote_id` when you create the payment to charge exactly the purchase, promo code, and tax shown here. A quote is priced once and may be consumed by one payment before `expires_at`. Cart entries must name existing variants with `variant_id`.
 </dd>
 </dl>
 </dd>
@@ -32631,22 +32631,6 @@ client.payment_quotes.create(
 <dl>
 <dd>
 
-**plan:** `typing.Optional[PaymentInputPlan]` — The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**plan_id:** `typing.Optional[str]` — The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **promo_code:** `typing.Optional[str]` — The promo code as the buyer typed it, matched within the account regardless of case and surrounding spaces, as checkout matches it. It must be valid for the variant. Send it or `promo_code_id`, not both; an empty or whitespace-only string counts as not sent. A code the account does not have, or one that is no longer active, is refused before anything is written, with the error code `promo_invalid`. A code this purchase cannot use, such as one with no uses left or one restricted to other variants, products or buyers, is refused with `promo_invalid` too, and the error's message says why.
     
 </dd>
@@ -32656,6 +32640,22 @@ client.payment_quotes.create(
 <dd>
 
 **promo_code_id:** `typing.Optional[str]` — An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant. Send it or `promo_code`, not both. A code this purchase cannot use is refused with the error code `promo_invalid`, and the error's message says why.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variant:** `typing.Optional[PaymentInputVariant]` — The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `variant_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variant_id:** `typing.Optional[str]` — The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `variant` and `line_items`.
     
 </dd>
 </dl>
@@ -32679,7 +32679,7 @@ client.payment_quotes.create(
 <dl>
 <dd>
 
-**line_items:** `typing.Optional[typing.List[CreatePaymentQuotesRequestLineItemsItem]]` — What the buyer is purchasing. Each entry names an existing variant by plan_id. Several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
+**line_items:** `typing.Optional[typing.List[CreatePaymentQuotesRequestLineItemsItem]]` — What the buyer is purchasing. Each entry names an existing variant by `variant_id`. Several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
     
 </dd>
 </dl>
@@ -33640,7 +33640,7 @@ client.payments.list(
     currencies=[
         "eur"
     ],
-    plan_ids=[
+    variant_ids=[
         "plan_xxxxxxxxxxxxx"
     ],
     product_ids=[
@@ -33758,7 +33758,7 @@ client.payments.list(
 <dl>
 <dd>
 
-**plan_id:** `typing.Optional[str]` — Only payments priced by this variant, prefixed `plan_`.
+**variant_id:** `typing.Optional[str]` — Only payments priced by this variant, prefixed `plan_`.
     
 </dd>
 </dl>
@@ -33814,7 +33814,7 @@ client.payments.list(
 <dl>
 <dd>
 
-**plan_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only payments priced by any of these variants, each prefixed `plan_`. Repeat the parameter to pass several. Combined with `plan_id` when both are sent.
+**variant_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only payments priced by any of these variants, each prefixed `plan_`. Repeat the parameter to pass several. Combined with `variant_id` when both are sent.
     
 </dd>
 </dl>
@@ -34015,22 +34015,6 @@ client.payments.create(
 <dl>
 <dd>
 
-**plan:** `typing.Optional[PaymentInputPlan]` — The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**plan_id:** `typing.Optional[str]` — The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **promo_code:** `typing.Optional[str]` — The promo code as the buyer typed it, matched within the account regardless of case and surrounding spaces, as checkout matches it. It must be valid for the variant. Send it or `promo_code_id`, not both; an empty or whitespace-only string counts as not sent. A code the account does not have, or one that is no longer active, is refused before anything is written, with the error code `promo_invalid`. A code this purchase cannot use, such as one with no uses left or one restricted to other variants, products or buyers, is refused with `promo_invalid` too, and the error's message says why.
     
 </dd>
@@ -34040,6 +34024,22 @@ client.payments.create(
 <dd>
 
 **promo_code_id:** `typing.Optional[str]` — An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant. Send it or `promo_code`, not both. A code this purchase cannot use is refused with the error code `promo_invalid`, and the error's message says why.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variant:** `typing.Optional[PaymentInputVariant]` — The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `variant_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variant_id:** `typing.Optional[str]` — The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `variant` and `line_items`.
     
 </dd>
 </dl>
@@ -34103,7 +34103,7 @@ client.payments.create(
 <dl>
 <dd>
 
-**line_items:** `typing.Optional[typing.List[CreatePaymentsRequestLineItemsItem]]` — What the buyer is purchasing. Each entry takes exactly one of `plan_id` or an inline `plan`. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency. Mutually exclusive with `plan_id` and `plan`.
+**line_items:** `typing.Optional[typing.List[CreatePaymentsRequestLineItemsItem]]` — What the buyer is purchasing. Each entry takes exactly one of `variant_id` or an inline `variant`. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency. Mutually exclusive with `variant_id` and `variant`.
     
 </dd>
 </dl>
@@ -34151,7 +34151,7 @@ client.payments.create(
 <dl>
 <dd>
 
-**quote_id:** `typing.Optional[str]` — A payment quote from `POST /payment_quotes`, prefixed `pq_`. The payment charges exactly the quote: its purchase (its variants and quantities, or the `plan` it priced), which this body may then omit, its promo code, and its tax, the quote's `tax_amount` rather than a figure calculated now. Omit it, or send null, to have tax calculated when the payment is charged. The quote must belong to `account_id`. A purchase field you omit or send as null takes the quote's value; the buyer's email, the addresses and the payment method are this request's own, never the quote's. Whatever you do send must describe the quoted purchase: the same variants, quantities and promo code. A quote that priced `plan` takes only the same `plan` you sent to `POST /payment_quotes` (or omit the purchase to take the quoted one), never `plan_id` or `line_items`, and a quote that priced variants by id never takes `plan`. Unless the quote located no buyer (`located_by` is null), the address the payment carries (its shipping address, else its billing address) must put the buyer where the quote priced tax, by country, state and postal code; otherwise the payment is refused with 400 before the payment method is used. A quote located by IP address or by the country the buyer chose (`located_by` is `ip_address` or `presentment_country`) is a preview and cannot be paid. A quote is consumed by one payment: a declined payment keeps it and can be retried; a new payment needs a new quote. A quote cannot be charged by a processor that doesn't take quotes, such as a seller's own connected PayPal account; such a payment is refused before the payment method is used. A quote priced in a `presentment_currency` is charged in that currency at the quote's `exchange_rate`. A payment refused over its quote carries an error `code`. `quote_expired`: the quote has expired; quote again. `quote_tax_unavailable`: the quote could not price tax; quote again, or omit `quote_id`. `quote_preview_only`: the quote was located by IP address or by the country the buyer chose; quote again with the buyer's address. `quote_in_use` (409): another payment holds the quote. `quote_mismatch`: the purchase or the buyer's address is not the one quoted. `quote_rate_expired`: the exchange rate the quote was priced at has moved too far to charge; quote again. `payment_method_currency_unsupported`: the payment method cannot pay in the quote's currency; use another method, or quote again in another currency. `quote_processor_unsupported`: the payment would be processed by a processor that doesn't take quotes, such as a seller's own connected PayPal account; use another method, or omit `quote_id` to have tax calculated when the payment is charged.
+**quote_id:** `typing.Optional[str]` — A payment quote from `POST /payment_quotes`, prefixed `pq_`. The payment charges exactly the quote: its purchase (its variants and quantities, or the `variant` it priced), which this body may then omit, its promo code, and its tax, the quote's `tax_amount` rather than a figure calculated now. Omit it, or send null, to have tax calculated when the payment is charged. The quote must belong to `account_id`. A purchase field you omit or send as null takes the quote's value; the buyer's email, the addresses and the payment method are this request's own, never the quote's. Whatever you do send must describe the quoted purchase: the same variants, quantities and promo code. A quote that priced `variant` takes only the same `variant` you sent to `POST /payment_quotes` (or omit the purchase to take the quoted one), never `variant_id` or `line_items`, and a quote that priced variants by id never takes `variant`. Unless the quote located no buyer (`located_by` is null), the address the payment carries (its shipping address, else its billing address) must put the buyer where the quote priced tax, by country, state and postal code; otherwise the payment is refused with 400 before the payment method is used. A quote located by IP address or by the country the buyer chose (`located_by` is `ip_address` or `presentment_country`) is a preview and cannot be paid. A quote is consumed by one payment: a declined payment keeps it and can be retried; a new payment needs a new quote. A quote cannot be charged by a processor that doesn't take quotes, such as a seller's own connected PayPal account; such a payment is refused before the payment method is used. A quote priced in a `presentment_currency` is charged in that currency at the quote's `exchange_rate`. A payment refused over its quote carries an error `code`. `quote_expired`: the quote has expired; quote again. `quote_tax_unavailable`: the quote could not price tax; quote again, or omit `quote_id`. `quote_preview_only`: the quote was located by IP address or by the country the buyer chose; quote again with the buyer's address. `quote_in_use` (409): another payment holds the quote. `quote_mismatch`: the purchase or the buyer's address is not the one quoted. `quote_rate_expired`: the exchange rate the quote was priced at has moved too far to charge; quote again. `payment_method_currency_unsupported`: the payment method cannot pay in the quote's currency; use another method, or quote again in another currency. `quote_processor_unsupported`: the payment would be processed by a processor that doesn't take quotes, such as a seller's own connected PayPal account; use another method, or omit `quote_id` to have tax calculated when the payment is charged.
     
 </dd>
 </dl>
@@ -34242,7 +34242,7 @@ client.payments.summary(
     currencies=[
         "usd"
     ],
-    plan_ids=[
+    variant_ids=[
         "plan_xxxxxxxxxxxxx"
     ],
     product_ids=[
@@ -34312,7 +34312,7 @@ client.payments.summary(
 <dl>
 <dd>
 
-**plan_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only payments priced by any of these variants, each prefixed `plan_`. Repeat the parameter to pass several.
+**variant_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only payments priced by any of these variants, each prefixed `plan_`. Repeat the parameter to pass several.
     
 </dd>
 </dl>
@@ -38909,7 +38909,7 @@ client.promo_codes.list(
     product_ids=[
         "prod_xxxxxxxxxxxxxx"
     ],
-    plan_ids=[
+    variant_ids=[
         "plan_xxxxxxxxxxxxxx"
     ],
 )
@@ -38952,7 +38952,7 @@ client.promo_codes.list(
 <dl>
 <dd>
 
-**plan_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only promo codes scoped to these variant IDs.
+**variant_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only promo codes scoped to these variant IDs.
     
 </dd>
 </dl>
@@ -39183,14 +39183,6 @@ client.promo_codes.create(
 <dl>
 <dd>
 
-**plan_ids:** `typing.Optional[typing.List[str]]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **product_id:** `typing.Optional[str]` 
     
 </dd>
@@ -39208,6 +39200,14 @@ client.promo_codes.create(
 <dd>
 
 **unlimited_stock:** `typing.Optional[bool]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variant_ids:** `typing.Optional[typing.List[str]]` 
     
 </dd>
 </dl>
@@ -48641,7 +48641,7 @@ client.waitlist_entries.list()
 <dl>
 <dd>
 
-**plan_id:** `typing.Optional[str]` — Only return signups for this variant, prefixed `plan_`.
+**variant_id:** `typing.Optional[str]` — Only return signups for this variant, prefixed `plan_`.
     
 </dd>
 </dl>
@@ -48769,7 +48769,7 @@ client = Whop(
 )
 
 client.waitlist_entries.create(
-    plan_id="plan_xxxxxxxxxxxxxx",
+    variant_id="plan_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -48786,7 +48786,7 @@ client.waitlist_entries.create(
 <dl>
 <dd>
 
-**plan_id:** `str` — The free waitlist variant to join, prefixed `plan_`.
+**variant_id:** `str` — The free waitlist variant to join, prefixed `plan_`.
     
 </dd>
 </dl>
@@ -48891,7 +48891,7 @@ client.waitlist_entries.approve_all(
 <dl>
 <dd>
 
-**plan_id:** `typing.Optional[str]` — Only approve signups for this variant, prefixed `plan_`. Omit to include every waitlist variant on the account.
+**variant_id:** `typing.Optional[str]` — Only approve signups for this variant, prefixed `plan_`. Omit to include every waitlist variant on the account.
     
 </dd>
 </dl>
@@ -53622,22 +53622,6 @@ client.payments.direct.create(
 <dl>
 <dd>
 
-**plan:** `typing.Optional[PaymentInputPlan]` — The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**plan_id:** `typing.Optional[str]` — The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **promo_code:** `typing.Optional[str]` — The promo code as the buyer typed it, matched within the account regardless of case and surrounding spaces, as checkout matches it. It must be valid for the variant. Send it or `promo_code_id`, not both; an empty or whitespace-only string counts as not sent. A code the account does not have, or one that is no longer active, is refused before anything is written, with the error code `promo_invalid`. A code this purchase cannot use, such as one with no uses left or one restricted to other variants, products or buyers, is refused with `promo_invalid` too, and the error's message says why.
     
 </dd>
@@ -53647,6 +53631,22 @@ client.payments.direct.create(
 <dd>
 
 **promo_code_id:** `typing.Optional[str]` — An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant. Send it or `promo_code`, not both. A code this purchase cannot use is refused with the error code `promo_invalid`, and the error's message says why.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variant:** `typing.Optional[PaymentInputVariant]` — The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `variant_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variant_id:** `typing.Optional[str]` — The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `variant` and `line_items`.
     
 </dd>
 </dl>
@@ -53678,7 +53678,7 @@ client.payments.direct.create(
 <dl>
 <dd>
 
-**line_items:** `typing.Optional[typing.List[CreateDirectRequestLineItemsItem]]` — What the buyer is purchasing. Each entry names an existing variant by plan_id. Several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
+**line_items:** `typing.Optional[typing.List[CreateDirectRequestLineItemsItem]]` — What the buyer is purchasing. Each entry names an existing variant by `variant_id`. Several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
     
 </dd>
 </dl>
@@ -53710,7 +53710,23 @@ client.payments.direct.create(
 <dl>
 <dd>
 
-**quote_id:** `typing.Optional[str]` — A payment quote from `POST /payment_quotes`, prefixed `pq_`. The payment charges exactly the quote: its purchase (its variants and quantities, or the `plan` it priced), which this body may then omit, its promo code, and its tax, the quote's `tax_amount` rather than a figure calculated now. Omit it, or send null, to have tax calculated when the payment is charged. The quote must belong to `account_id`. A purchase field you omit or send as null takes the quote's value; the buyer's email, the addresses and the payment method are this request's own, never the quote's. Whatever you do send must describe the quoted purchase: the same variants, quantities and promo code. A quote that priced `plan` takes only the same `plan` you sent to `POST /payment_quotes` (or omit the purchase to take the quoted one), never `plan_id` or `line_items`, and a quote that priced variants by id never takes `plan`. Unless the quote located no buyer (`located_by` is null), the address the payment carries (its shipping address, else its billing address) must put the buyer where the quote priced tax, by country, state and postal code; otherwise the payment is refused with 400 before the payment method is used. A quote located by IP address or by the country the buyer chose (`located_by` is `ip_address` or `presentment_country`) is a preview and cannot be paid. A quote is consumed by one payment: a declined payment keeps it and can be retried; a new payment needs a new quote. A quote cannot be charged by a processor that doesn't take quotes, such as a seller's own connected PayPal account; such a payment is refused before the payment method is used. A quote priced in a `presentment_currency` is charged in that currency at the quote's `exchange_rate`. A payment refused over its quote carries an error `code`. `quote_expired`: the quote has expired; quote again. `quote_tax_unavailable`: the quote could not price tax; quote again, or omit `quote_id`. `quote_preview_only`: the quote was located by IP address or by the country the buyer chose; quote again with the buyer's address. `quote_in_use` (409): another payment holds the quote. `quote_mismatch`: the purchase or the buyer's address is not the one quoted. `quote_rate_expired`: the exchange rate the quote was priced at has moved too far to charge; quote again. `payment_method_currency_unsupported`: the payment method cannot pay in the quote's currency; use another method, or quote again in another currency. `quote_processor_unsupported`: the payment would be processed by a processor that doesn't take quotes, such as a seller's own connected PayPal account; use another method, or omit `quote_id` to have tax calculated when the payment is charged.
+**plan:** `typing.Optional[CreateDirectRequestPlan]` — Deprecated: send `variant`, which takes `billing_type` in place of `plan_type`. Accepted only from callers pinned to an API version before 2026-10-27-2.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**plan_id:** `typing.Optional[str]` — Deprecated: send `variant_id`. Accepted only from callers pinned to an API version before 2026-10-27-2.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**quote_id:** `typing.Optional[str]` — A payment quote from `POST /payment_quotes`, prefixed `pq_`. The payment charges exactly the quote: its purchase (its variants and quantities, or the `variant` it priced), which this body may then omit, its promo code, and its tax, the quote's `tax_amount` rather than a figure calculated now. Omit it, or send null, to have tax calculated when the payment is charged. The quote must belong to `account_id`. A purchase field you omit or send as null takes the quote's value; the buyer's email, the addresses and the payment method are this request's own, never the quote's. Whatever you do send must describe the quoted purchase: the same variants, quantities and promo code. A quote that priced `variant` takes only the same `variant` you sent to `POST /payment_quotes` (or omit the purchase to take the quoted one), never `variant_id` or `line_items`, and a quote that priced variants by id never takes `variant`. Unless the quote located no buyer (`located_by` is null), the address the payment carries (its shipping address, else its billing address) must put the buyer where the quote priced tax, by country, state and postal code; otherwise the payment is refused with 400 before the payment method is used. A quote located by IP address or by the country the buyer chose (`located_by` is `ip_address` or `presentment_country`) is a preview and cannot be paid. A quote is consumed by one payment: a declined payment keeps it and can be retried; a new payment needs a new quote. A quote cannot be charged by a processor that doesn't take quotes, such as a seller's own connected PayPal account; such a payment is refused before the payment method is used. A quote priced in a `presentment_currency` is charged in that currency at the quote's `exchange_rate`. A payment refused over its quote carries an error `code`. `quote_expired`: the quote has expired; quote again. `quote_tax_unavailable`: the quote could not price tax; quote again, or omit `quote_id`. `quote_preview_only`: the quote was located by IP address or by the country the buyer chose; quote again with the buyer's address. `quote_in_use` (409): another payment holds the quote. `quote_mismatch`: the purchase or the buyer's address is not the one quoted. `quote_rate_expired`: the exchange rate the quote was priced at has moved too far to charge; quote again. `payment_method_currency_unsupported`: the payment method cannot pay in the quote's currency; use another method, or quote again in another currency. `quote_processor_unsupported`: the payment would be processed by a processor that doesn't take quotes, such as a seller's own connected PayPal account; use another method, or omit `quote_id` to have tax calculated when the payment is charged.
     
 </dd>
 </dl>

@@ -375,12 +375,12 @@ if typing.TYPE_CHECKING:
     )
     from .checkout_configuration_list_item_plan import CheckoutConfigurationListItemPlan
     from .checkout_configuration_mode import CheckoutConfigurationMode
-    from .checkout_configuration_plan import CheckoutConfigurationPlan
-    from .checkout_configuration_plan_plan_type import CheckoutConfigurationPlanPlanType
-    from .checkout_configuration_plan_release_method import CheckoutConfigurationPlanReleaseMethod
-    from .checkout_configuration_plan_three_ds_level import CheckoutConfigurationPlanThreeDsLevel
-    from .checkout_configuration_plan_visibility import CheckoutConfigurationPlanVisibility
     from .checkout_configuration_three_ds_level import CheckoutConfigurationThreeDsLevel
+    from .checkout_configuration_variant import CheckoutConfigurationVariant
+    from .checkout_configuration_variant_billing_type import CheckoutConfigurationVariantBillingType
+    from .checkout_configuration_variant_release_method import CheckoutConfigurationVariantReleaseMethod
+    from .checkout_configuration_variant_three_ds_level import CheckoutConfigurationVariantThreeDsLevel
+    from .checkout_configuration_variant_visibility import CheckoutConfigurationVariantVisibility
     from .checkout_fonts import CheckoutFonts
     from .checkout_modes import CheckoutModes
     from .checkout_session_payment_method_configuration import CheckoutSessionPaymentMethodConfiguration
@@ -925,14 +925,14 @@ if typing.TYPE_CHECKING:
     from .payment_hold import PaymentHold
     from .payment_hold_type import PaymentHoldType
     from .payment_input import PaymentInput
-    from .payment_input_plan import PaymentInputPlan
-    from .payment_input_plan_currency import PaymentInputPlanCurrency
-    from .payment_input_plan_override_tax_type import PaymentInputPlanOverrideTaxType
-    from .payment_input_plan_plan_type import PaymentInputPlanPlanType
-    from .payment_input_plan_product import PaymentInputPlanProduct
-    from .payment_input_plan_product_global_affiliate_status import PaymentInputPlanProductGlobalAffiliateStatus
-    from .payment_input_plan_product_visibility import PaymentInputPlanProductVisibility
-    from .payment_input_plan_visibility import PaymentInputPlanVisibility
+    from .payment_input_variant import PaymentInputVariant
+    from .payment_input_variant_billing_type import PaymentInputVariantBillingType
+    from .payment_input_variant_currency import PaymentInputVariantCurrency
+    from .payment_input_variant_override_tax_type import PaymentInputVariantOverrideTaxType
+    from .payment_input_variant_product import PaymentInputVariantProduct
+    from .payment_input_variant_product_global_affiliate_status import PaymentInputVariantProductGlobalAffiliateStatus
+    from .payment_input_variant_product_visibility import PaymentInputVariantProductVisibility
+    from .payment_input_variant_visibility import PaymentInputVariantVisibility
     from .payment_instructions import (
         PaymentInstructions,
         PaymentInstructions_BankTransfer,
@@ -1600,7 +1600,7 @@ if typing.TYPE_CHECKING:
     from .waitlist_entry_product import WaitlistEntryProduct
     from .waitlist_entry_status import WaitlistEntryStatus
     from .waitlist_entry_variant import WaitlistEntryVariant
-    from .waitlist_entry_variant_plan_type import WaitlistEntryVariantPlanType
+    from .waitlist_entry_variant_billing_type import WaitlistEntryVariantBillingType
     from .webhook import Webhook
     from .webhook_api_version import WebhookApiVersion
     from .webhook_delivery import WebhookDelivery
@@ -1975,12 +1975,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CheckoutConfigurationListItemPaymentMethodConfiguration": ".checkout_configuration_list_item_payment_method_configuration",
     "CheckoutConfigurationListItemPlan": ".checkout_configuration_list_item_plan",
     "CheckoutConfigurationMode": ".checkout_configuration_mode",
-    "CheckoutConfigurationPlan": ".checkout_configuration_plan",
-    "CheckoutConfigurationPlanPlanType": ".checkout_configuration_plan_plan_type",
-    "CheckoutConfigurationPlanReleaseMethod": ".checkout_configuration_plan_release_method",
-    "CheckoutConfigurationPlanThreeDsLevel": ".checkout_configuration_plan_three_ds_level",
-    "CheckoutConfigurationPlanVisibility": ".checkout_configuration_plan_visibility",
     "CheckoutConfigurationThreeDsLevel": ".checkout_configuration_three_ds_level",
+    "CheckoutConfigurationVariant": ".checkout_configuration_variant",
+    "CheckoutConfigurationVariantBillingType": ".checkout_configuration_variant_billing_type",
+    "CheckoutConfigurationVariantReleaseMethod": ".checkout_configuration_variant_release_method",
+    "CheckoutConfigurationVariantThreeDsLevel": ".checkout_configuration_variant_three_ds_level",
+    "CheckoutConfigurationVariantVisibility": ".checkout_configuration_variant_visibility",
     "CheckoutFonts": ".checkout_fonts",
     "CheckoutModes": ".checkout_modes",
     "CheckoutSessionPaymentMethodConfiguration": ".checkout_session_payment_method_configuration",
@@ -2509,14 +2509,14 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaymentHold": ".payment_hold",
     "PaymentHoldType": ".payment_hold_type",
     "PaymentInput": ".payment_input",
-    "PaymentInputPlan": ".payment_input_plan",
-    "PaymentInputPlanCurrency": ".payment_input_plan_currency",
-    "PaymentInputPlanOverrideTaxType": ".payment_input_plan_override_tax_type",
-    "PaymentInputPlanPlanType": ".payment_input_plan_plan_type",
-    "PaymentInputPlanProduct": ".payment_input_plan_product",
-    "PaymentInputPlanProductGlobalAffiliateStatus": ".payment_input_plan_product_global_affiliate_status",
-    "PaymentInputPlanProductVisibility": ".payment_input_plan_product_visibility",
-    "PaymentInputPlanVisibility": ".payment_input_plan_visibility",
+    "PaymentInputVariant": ".payment_input_variant",
+    "PaymentInputVariantBillingType": ".payment_input_variant_billing_type",
+    "PaymentInputVariantCurrency": ".payment_input_variant_currency",
+    "PaymentInputVariantOverrideTaxType": ".payment_input_variant_override_tax_type",
+    "PaymentInputVariantProduct": ".payment_input_variant_product",
+    "PaymentInputVariantProductGlobalAffiliateStatus": ".payment_input_variant_product_global_affiliate_status",
+    "PaymentInputVariantProductVisibility": ".payment_input_variant_product_visibility",
+    "PaymentInputVariantVisibility": ".payment_input_variant_visibility",
     "PaymentInstructions": ".payment_instructions",
     "PaymentInstructions_BankTransfer": ".payment_instructions",
     "PaymentInstructions_Qr": ".payment_instructions",
@@ -3064,7 +3064,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "WaitlistEntryProduct": ".waitlist_entry_product",
     "WaitlistEntryStatus": ".waitlist_entry_status",
     "WaitlistEntryVariant": ".waitlist_entry_variant",
-    "WaitlistEntryVariantPlanType": ".waitlist_entry_variant_plan_type",
+    "WaitlistEntryVariantBillingType": ".waitlist_entry_variant_billing_type",
     "Webhook": ".webhook",
     "WebhookApiVersion": ".webhook_api_version",
     "WebhookDelivery": ".webhook_delivery",
@@ -3463,12 +3463,12 @@ __all__ = [
     "CheckoutConfigurationListItemPaymentMethodConfiguration",
     "CheckoutConfigurationListItemPlan",
     "CheckoutConfigurationMode",
-    "CheckoutConfigurationPlan",
-    "CheckoutConfigurationPlanPlanType",
-    "CheckoutConfigurationPlanReleaseMethod",
-    "CheckoutConfigurationPlanThreeDsLevel",
-    "CheckoutConfigurationPlanVisibility",
     "CheckoutConfigurationThreeDsLevel",
+    "CheckoutConfigurationVariant",
+    "CheckoutConfigurationVariantBillingType",
+    "CheckoutConfigurationVariantReleaseMethod",
+    "CheckoutConfigurationVariantThreeDsLevel",
+    "CheckoutConfigurationVariantVisibility",
     "CheckoutFonts",
     "CheckoutModes",
     "CheckoutSessionPaymentMethodConfiguration",
@@ -3997,14 +3997,14 @@ __all__ = [
     "PaymentHold",
     "PaymentHoldType",
     "PaymentInput",
-    "PaymentInputPlan",
-    "PaymentInputPlanCurrency",
-    "PaymentInputPlanOverrideTaxType",
-    "PaymentInputPlanPlanType",
-    "PaymentInputPlanProduct",
-    "PaymentInputPlanProductGlobalAffiliateStatus",
-    "PaymentInputPlanProductVisibility",
-    "PaymentInputPlanVisibility",
+    "PaymentInputVariant",
+    "PaymentInputVariantBillingType",
+    "PaymentInputVariantCurrency",
+    "PaymentInputVariantOverrideTaxType",
+    "PaymentInputVariantProduct",
+    "PaymentInputVariantProductGlobalAffiliateStatus",
+    "PaymentInputVariantProductVisibility",
+    "PaymentInputVariantVisibility",
     "PaymentInstructions",
     "PaymentInstructions_BankTransfer",
     "PaymentInstructions_Qr",
@@ -4552,7 +4552,7 @@ __all__ = [
     "WaitlistEntryProduct",
     "WaitlistEntryStatus",
     "WaitlistEntryVariant",
-    "WaitlistEntryVariantPlanType",
+    "WaitlistEntryVariantBillingType",
     "Webhook",
     "WebhookApiVersion",
     "WebhookDelivery",

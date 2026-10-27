@@ -43,7 +43,7 @@ class RawWaitlistEntriesClient:
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
-        plan_id: typing.Optional[str] = None,
+        variant_id: typing.Optional[str] = None,
         account_id: typing.Optional[str] = None,
         product_id: typing.Optional[str] = None,
         buyer_account_id: typing.Optional[str] = None,
@@ -72,7 +72,7 @@ class RawWaitlistEntriesClient:
         before : typing.Optional[str]
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
-        plan_id : typing.Optional[str]
+        variant_id : typing.Optional[str]
             Only return signups for this variant, prefixed `plan_`.
 
         account_id : typing.Optional[str]
@@ -119,7 +119,7 @@ class RawWaitlistEntriesClient:
                 "after": after,
                 "last": last,
                 "before": before,
-                "plan_id": plan_id,
+                "variant_id": variant_id,
                 "account_id": account_id,
                 "product_id": product_id,
                 "buyer_account_id": buyer_account_id,
@@ -152,7 +152,7 @@ class RawWaitlistEntriesClient:
                         after=_parsed_next,
                         last=last,
                         before=before,
-                        plan_id=plan_id,
+                        variant_id=variant_id,
                         account_id=account_id,
                         product_id=product_id,
                         buyer_account_id=buyer_account_id,
@@ -221,7 +221,7 @@ class RawWaitlistEntriesClient:
     def create(
         self,
         *,
-        plan_id: str,
+        variant_id: str,
         buyer_account_id: typing.Optional[str] = OMIT,
         custom_field_responses: typing.Optional[
             typing.Sequence[CreateWaitlistEntriesRequestCustomFieldResponsesItem]
@@ -234,7 +234,7 @@ class RawWaitlistEntriesClient:
 
         Parameters
         ----------
-        plan_id : str
+        variant_id : str
             The free waitlist variant to join, prefixed `plan_`.
 
         buyer_account_id : typing.Optional[str]
@@ -266,7 +266,7 @@ class RawWaitlistEntriesClient:
                     direction="write",
                 ),
                 "metadata": metadata,
-                "plan_id": plan_id,
+                "variant_id": variant_id,
             },
             headers={
                 "content-type": "application/json",
@@ -352,7 +352,7 @@ class RawWaitlistEntriesClient:
         self,
         *,
         account_id: str,
-        plan_id: typing.Optional[str] = OMIT,
+        variant_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ApproveAllWaitlistEntriesResponse]:
         """
@@ -363,7 +363,7 @@ class RawWaitlistEntriesClient:
         account_id : str
             The seller account whose pending signups to approve, prefixed `biz_`.
 
-        plan_id : typing.Optional[str]
+        variant_id : typing.Optional[str]
             Only approve signups for this variant, prefixed `plan_`. Omit to include every waitlist variant on the account.
 
         request_options : typing.Optional[RequestOptions]
@@ -380,7 +380,7 @@ class RawWaitlistEntriesClient:
             method="POST",
             json={
                 "account_id": account_id,
-                "plan_id": plan_id,
+                "variant_id": variant_id,
             },
             headers={
                 "content-type": "application/json",
@@ -813,7 +813,7 @@ class AsyncRawWaitlistEntriesClient:
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
-        plan_id: typing.Optional[str] = None,
+        variant_id: typing.Optional[str] = None,
         account_id: typing.Optional[str] = None,
         product_id: typing.Optional[str] = None,
         buyer_account_id: typing.Optional[str] = None,
@@ -842,7 +842,7 @@ class AsyncRawWaitlistEntriesClient:
         before : typing.Optional[str]
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
-        plan_id : typing.Optional[str]
+        variant_id : typing.Optional[str]
             Only return signups for this variant, prefixed `plan_`.
 
         account_id : typing.Optional[str]
@@ -889,7 +889,7 @@ class AsyncRawWaitlistEntriesClient:
                 "after": after,
                 "last": last,
                 "before": before,
-                "plan_id": plan_id,
+                "variant_id": variant_id,
                 "account_id": account_id,
                 "product_id": product_id,
                 "buyer_account_id": buyer_account_id,
@@ -924,7 +924,7 @@ class AsyncRawWaitlistEntriesClient:
                             after=_parsed_next,
                             last=last,
                             before=before,
-                            plan_id=plan_id,
+                            variant_id=variant_id,
                             account_id=account_id,
                             product_id=product_id,
                             buyer_account_id=buyer_account_id,
@@ -994,7 +994,7 @@ class AsyncRawWaitlistEntriesClient:
     async def create(
         self,
         *,
-        plan_id: str,
+        variant_id: str,
         buyer_account_id: typing.Optional[str] = OMIT,
         custom_field_responses: typing.Optional[
             typing.Sequence[CreateWaitlistEntriesRequestCustomFieldResponsesItem]
@@ -1007,7 +1007,7 @@ class AsyncRawWaitlistEntriesClient:
 
         Parameters
         ----------
-        plan_id : str
+        variant_id : str
             The free waitlist variant to join, prefixed `plan_`.
 
         buyer_account_id : typing.Optional[str]
@@ -1039,7 +1039,7 @@ class AsyncRawWaitlistEntriesClient:
                     direction="write",
                 ),
                 "metadata": metadata,
-                "plan_id": plan_id,
+                "variant_id": variant_id,
             },
             headers={
                 "content-type": "application/json",
@@ -1125,7 +1125,7 @@ class AsyncRawWaitlistEntriesClient:
         self,
         *,
         account_id: str,
-        plan_id: typing.Optional[str] = OMIT,
+        variant_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ApproveAllWaitlistEntriesResponse]:
         """
@@ -1136,7 +1136,7 @@ class AsyncRawWaitlistEntriesClient:
         account_id : str
             The seller account whose pending signups to approve, prefixed `biz_`.
 
-        plan_id : typing.Optional[str]
+        variant_id : typing.Optional[str]
             Only approve signups for this variant, prefixed `plan_`. Omit to include every waitlist variant on the account.
 
         request_options : typing.Optional[RequestOptions]
@@ -1153,7 +1153,7 @@ class AsyncRawWaitlistEntriesClient:
             method="POST",
             json={
                 "account_id": account_id,
-                "plan_id": plan_id,
+                "variant_id": variant_id,
             },
             headers={
                 "content-type": "application/json",

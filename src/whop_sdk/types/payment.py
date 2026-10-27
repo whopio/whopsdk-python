@@ -180,11 +180,6 @@ class Payment(UniversalBaseModel):
     How many charge attempts have failed on this payment.
     """
 
-    plan_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The variant that was charged, prefixed `plan_`.
-    """
-
     presentment_refunded_amount: typing.Optional[Money] = pydantic.Field(default=None)
     """
     How much has been refunded so far, in the currency presented to the buyer. Zero when nothing has been refunded.
@@ -324,6 +319,11 @@ class Payment(UniversalBaseModel):
     user: typing.Optional[UserSummary] = pydantic.Field(default=None)
     """
     The buyer. Null when the payment belongs to a company buyer rather than a user.
+    """
+
+    variant_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The variant that was charged, prefixed `plan_`.
     """
 
     verification_checks: typing.Optional[PaymentVerificationChecks] = pydantic.Field(default=None)

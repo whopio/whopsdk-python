@@ -11,8 +11,8 @@ from .retrieve_checkout_configurations_response_mode import RetrieveCheckoutConf
 from .retrieve_checkout_configurations_response_payment_method_configuration import (
     RetrieveCheckoutConfigurationsResponsePaymentMethodConfiguration,
 )
-from .retrieve_checkout_configurations_response_plan import RetrieveCheckoutConfigurationsResponsePlan
 from .retrieve_checkout_configurations_response_three_ds_level import RetrieveCheckoutConfigurationsResponseThreeDsLevel
+from .retrieve_checkout_configurations_response_variant import RetrieveCheckoutConfigurationsResponseVariant
 
 
 class RetrieveCheckoutConfigurationsResponse(UniversalBaseModel):
@@ -65,11 +65,6 @@ class RetrieveCheckoutConfigurationsResponse(UniversalBaseModel):
     Payment method overrides for this checkout. `null` when it uses the variant or platform defaults.
     """
 
-    plan: typing.Optional[RetrieveCheckoutConfigurationsResponsePlan] = pydantic.Field(default=None)
-    """
-    Variant used for payment checkout. `null` in setup mode.
-    """
-
     purchase_url: typing.Optional[str] = pydantic.Field(default=None)
     """
     Checkout URL you can send to customers.
@@ -88,6 +83,11 @@ class RetrieveCheckoutConfigurationsResponse(UniversalBaseModel):
     updated_at: str = pydantic.Field()
     """
     When the checkout configuration was last updated, as an ISO 8601 timestamp.
+    """
+
+    variant: typing.Optional[RetrieveCheckoutConfigurationsResponseVariant] = pydantic.Field(default=None)
+    """
+    Variant used for payment checkout. `null` in setup mode.
     """
 
     if IS_PYDANTIC_V2:

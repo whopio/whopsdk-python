@@ -12,7 +12,7 @@ class InviteMembershipsRequestBodyEmail(UniversalBaseModel):
     Recipient email address.
     """
 
-    plan_id: str = pydantic.Field()
+    variant_id: str = pydantic.Field()
     """
     Free variant whose membership the recipient is invited to, prefixed `plan_`.
     """

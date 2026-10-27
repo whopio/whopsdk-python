@@ -7,14 +7,14 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class InviteMembershipsRequestBodyUserId(UniversalBaseModel):
-    plan_id: str = pydantic.Field()
-    """
-    Free variant whose membership the recipient is invited to, prefixed `plan_`.
-    """
-
     user_id: str = pydantic.Field()
     """
     Recipient user ID, prefixed `user_`.
+    """
+
+    variant_id: str = pydantic.Field()
+    """
+    Free variant whose membership the recipient is invited to, prefixed `plan_`.
     """
 
     if IS_PYDANTIC_V2:

@@ -52,8 +52,8 @@ class RawMembershipsClient:
         ] = None,
         product_id: typing.Optional[str] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        plan_id: typing.Optional[str] = None,
-        plan_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        variant_id: typing.Optional[str] = None,
+        variant_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         promo_code_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         created_after: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
@@ -94,10 +94,10 @@ class RawMembershipsClient:
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to memberships of any of these products, each prefixed `prod_`. Repeat the parameter to pass several.
 
-        plan_id : typing.Optional[str]
+        variant_id : typing.Optional[str]
             Filter to memberships of this variant (`plan_` tag).
 
-        plan_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        variant_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to memberships of any of these variants, each prefixed `plan_`. Repeat the parameter to pass several.
 
         promo_code_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
@@ -148,8 +148,8 @@ class RawMembershipsClient:
                 "statuses": statuses,
                 "product_id": product_id,
                 "product_ids": product_ids,
-                "plan_id": plan_id,
-                "plan_ids": plan_ids,
+                "variant_id": variant_id,
+                "variant_ids": variant_ids,
                 "promo_code_ids": promo_code_ids,
                 "created_after": created_after,
                 "created_before": created_before,
@@ -186,8 +186,8 @@ class RawMembershipsClient:
                         statuses=statuses,
                         product_id=product_id,
                         product_ids=product_ids,
-                        plan_id=plan_id,
-                        plan_ids=plan_ids,
+                        variant_id=variant_id,
+                        variant_ids=variant_ids,
                         promo_code_ids=promo_code_ids,
                         created_after=created_after,
                         created_before=created_before,
@@ -1398,8 +1398,8 @@ class AsyncRawMembershipsClient:
         ] = None,
         product_id: typing.Optional[str] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        plan_id: typing.Optional[str] = None,
-        plan_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        variant_id: typing.Optional[str] = None,
+        variant_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         promo_code_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         created_after: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
@@ -1440,10 +1440,10 @@ class AsyncRawMembershipsClient:
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to memberships of any of these products, each prefixed `prod_`. Repeat the parameter to pass several.
 
-        plan_id : typing.Optional[str]
+        variant_id : typing.Optional[str]
             Filter to memberships of this variant (`plan_` tag).
 
-        plan_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        variant_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to memberships of any of these variants, each prefixed `plan_`. Repeat the parameter to pass several.
 
         promo_code_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
@@ -1494,8 +1494,8 @@ class AsyncRawMembershipsClient:
                 "statuses": statuses,
                 "product_id": product_id,
                 "product_ids": product_ids,
-                "plan_id": plan_id,
-                "plan_ids": plan_ids,
+                "variant_id": variant_id,
+                "variant_ids": variant_ids,
                 "promo_code_ids": promo_code_ids,
                 "created_after": created_after,
                 "created_before": created_before,
@@ -1534,8 +1534,8 @@ class AsyncRawMembershipsClient:
                             statuses=statuses,
                             product_id=product_id,
                             product_ids=product_ids,
-                            plan_id=plan_id,
-                            plan_ids=plan_ids,
+                            variant_id=variant_id,
+                            variant_ids=variant_ids,
                             promo_code_ids=promo_code_ids,
                             created_after=created_after,
                             created_before=created_before,

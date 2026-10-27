@@ -55,11 +55,6 @@ class WaitlistEntry(UniversalBaseModel):
     Custom key-value metadata associated with this signup.
     """
 
-    plan_id: str = pydantic.Field()
-    """
-    The variant this signup belongs to, prefixed `plan_`.
-    """
-
     product: typing.Optional[WaitlistEntryProduct] = pydantic.Field(default=None)
     """
     The product this signup belongs to, or `null` when the variant has no product.
@@ -93,6 +88,11 @@ class WaitlistEntry(UniversalBaseModel):
     variant: WaitlistEntryVariant = pydantic.Field()
     """
     The variant this signup belongs to.
+    """
+
+    variant_id: str = pydantic.Field()
+    """
+    The variant this signup belongs to, prefixed `plan_`.
     """
 
     if IS_PYDANTIC_V2:

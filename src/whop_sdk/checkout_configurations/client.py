@@ -10,8 +10,8 @@ from .types.create_checkout_configurations_request_mode import CreateCheckoutCon
 from .types.create_checkout_configurations_request_payment_method_configuration import (
     CreateCheckoutConfigurationsRequestPaymentMethodConfiguration,
 )
-from .types.create_checkout_configurations_request_plan import CreateCheckoutConfigurationsRequestPlan
 from .types.create_checkout_configurations_request_three_ds_level import CreateCheckoutConfigurationsRequestThreeDsLevel
+from .types.create_checkout_configurations_request_variant import CreateCheckoutConfigurationsRequestVariant
 from .types.create_checkout_configurations_response import CreateCheckoutConfigurationsResponse
 from .types.delete_checkout_configurations_response import DeleteCheckoutConfigurationsResponse
 from .types.list_checkout_configurations_request_direction import ListCheckoutConfigurationsRequestDirection
@@ -43,7 +43,7 @@ class CheckoutConfigurationsClient:
         self,
         *,
         account_id: str,
-        plan_id: typing.Optional[str] = None,
+        variant_id: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
         order: typing.Optional[ListCheckoutConfigurationsRequestOrder] = None,
@@ -60,7 +60,7 @@ class CheckoutConfigurationsClient:
         account_id : str
             Account ID, prefixed `biz_`.
 
-        plan_id : typing.Optional[str]
+        variant_id : typing.Optional[str]
             Only return checkout configurations for this variant ID, prefixed `plan_`.
 
         created_before : typing.Optional[str]
@@ -94,7 +94,7 @@ class CheckoutConfigurationsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -109,7 +109,7 @@ class CheckoutConfigurationsClient:
         """
         return self._raw_client.list(
             account_id=account_id,
-            plan_id=plan_id,
+            variant_id=variant_id,
             created_before=created_before,
             created_after=created_after,
             order=order,
@@ -130,10 +130,10 @@ class CheckoutConfigurationsClient:
         payment_method_configuration: typing.Optional[
             CreateCheckoutConfigurationsRequestPaymentMethodConfiguration
         ] = OMIT,
-        plan: typing.Optional[CreateCheckoutConfigurationsRequestPlan] = OMIT,
-        plan_id: typing.Optional[str] = OMIT,
         redirect_url: typing.Optional[str] = OMIT,
         three_ds_level: typing.Optional[CreateCheckoutConfigurationsRequestThreeDsLevel] = OMIT,
+        variant: typing.Optional[CreateCheckoutConfigurationsRequestVariant] = OMIT,
+        variant_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateCheckoutConfigurationsResponse:
         """
@@ -159,17 +159,17 @@ class CheckoutConfigurationsClient:
         payment_method_configuration : typing.Optional[CreateCheckoutConfigurationsRequestPaymentMethodConfiguration]
             Payment method overrides for this checkout. `null` uses the variant or platform defaults.
 
-        plan : typing.Optional[CreateCheckoutConfigurationsRequestPlan]
-            Variant attributes used to create or find a variant for this checkout configuration. Mutually exclusive with `plan_id`.
-
-        plan_id : typing.Optional[str]
-            Existing variant ID, prefixed `plan_`. Mutually exclusive with `plan`.
-
         redirect_url : typing.Optional[str]
             URL customers are sent to after checkout.
 
         three_ds_level : typing.Optional[CreateCheckoutConfigurationsRequestThreeDsLevel]
             3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. Applies in setup mode; `null` uses frictionless 3DS. Payment mode uses the variant policy.
+
+        variant : typing.Optional[CreateCheckoutConfigurationsRequestVariant]
+            Variant attributes used to create or find a variant for this checkout configuration. Mutually exclusive with `variant_id`.
+
+        variant_id : typing.Optional[str]
+            Existing variant ID, prefixed `plan_`. Mutually exclusive with `variant`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -184,13 +184,13 @@ class CheckoutConfigurationsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.checkout_configurations.create(
             account_id="biz_xxxxxxxxxxxxxx",
-            plan_id="plan_xxxxxxxxxxxxx",
+            variant_id="plan_xxxxxxxxxxxxx",
         )
         """
         _response = self._raw_client.create(
@@ -200,10 +200,10 @@ class CheckoutConfigurationsClient:
             metadata=metadata,
             mode=mode,
             payment_method_configuration=payment_method_configuration,
-            plan=plan,
-            plan_id=plan_id,
             redirect_url=redirect_url,
             three_ds_level=three_ds_level,
+            variant=variant,
+            variant_id=variant_id,
             request_options=request_options,
         )
         return _response.data
@@ -232,7 +232,7 @@ class CheckoutConfigurationsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -267,7 +267,7 @@ class CheckoutConfigurationsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -298,7 +298,7 @@ class AsyncCheckoutConfigurationsClient:
         self,
         *,
         account_id: str,
-        plan_id: typing.Optional[str] = None,
+        variant_id: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
         order: typing.Optional[ListCheckoutConfigurationsRequestOrder] = None,
@@ -315,7 +315,7 @@ class AsyncCheckoutConfigurationsClient:
         account_id : str
             Account ID, prefixed `biz_`.
 
-        plan_id : typing.Optional[str]
+        variant_id : typing.Optional[str]
             Only return checkout configurations for this variant ID, prefixed `plan_`.
 
         created_before : typing.Optional[str]
@@ -351,7 +351,7 @@ class AsyncCheckoutConfigurationsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -373,7 +373,7 @@ class AsyncCheckoutConfigurationsClient:
         """
         return await self._raw_client.list(
             account_id=account_id,
-            plan_id=plan_id,
+            variant_id=variant_id,
             created_before=created_before,
             created_after=created_after,
             order=order,
@@ -394,10 +394,10 @@ class AsyncCheckoutConfigurationsClient:
         payment_method_configuration: typing.Optional[
             CreateCheckoutConfigurationsRequestPaymentMethodConfiguration
         ] = OMIT,
-        plan: typing.Optional[CreateCheckoutConfigurationsRequestPlan] = OMIT,
-        plan_id: typing.Optional[str] = OMIT,
         redirect_url: typing.Optional[str] = OMIT,
         three_ds_level: typing.Optional[CreateCheckoutConfigurationsRequestThreeDsLevel] = OMIT,
+        variant: typing.Optional[CreateCheckoutConfigurationsRequestVariant] = OMIT,
+        variant_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateCheckoutConfigurationsResponse:
         """
@@ -423,17 +423,17 @@ class AsyncCheckoutConfigurationsClient:
         payment_method_configuration : typing.Optional[CreateCheckoutConfigurationsRequestPaymentMethodConfiguration]
             Payment method overrides for this checkout. `null` uses the variant or platform defaults.
 
-        plan : typing.Optional[CreateCheckoutConfigurationsRequestPlan]
-            Variant attributes used to create or find a variant for this checkout configuration. Mutually exclusive with `plan_id`.
-
-        plan_id : typing.Optional[str]
-            Existing variant ID, prefixed `plan_`. Mutually exclusive with `plan`.
-
         redirect_url : typing.Optional[str]
             URL customers are sent to after checkout.
 
         three_ds_level : typing.Optional[CreateCheckoutConfigurationsRequestThreeDsLevel]
             3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. Applies in setup mode; `null` uses frictionless 3DS. Payment mode uses the variant policy.
+
+        variant : typing.Optional[CreateCheckoutConfigurationsRequestVariant]
+            Variant attributes used to create or find a variant for this checkout configuration. Mutually exclusive with `variant_id`.
+
+        variant_id : typing.Optional[str]
+            Existing variant ID, prefixed `plan_`. Mutually exclusive with `variant`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -450,7 +450,7 @@ class AsyncCheckoutConfigurationsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -459,7 +459,7 @@ class AsyncCheckoutConfigurationsClient:
         async def main() -> None:
             await client.checkout_configurations.create(
                 account_id="biz_xxxxxxxxxxxxxx",
-                plan_id="plan_xxxxxxxxxxxxx",
+                variant_id="plan_xxxxxxxxxxxxx",
             )
 
 
@@ -472,10 +472,10 @@ class AsyncCheckoutConfigurationsClient:
             metadata=metadata,
             mode=mode,
             payment_method_configuration=payment_method_configuration,
-            plan=plan,
-            plan_id=plan_id,
             redirect_url=redirect_url,
             three_ds_level=three_ds_level,
+            variant=variant,
+            variant_id=variant_id,
             request_options=request_options,
         )
         return _response.data
@@ -506,7 +506,7 @@ class AsyncCheckoutConfigurationsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -549,7 +549,7 @@ class AsyncCheckoutConfigurationsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

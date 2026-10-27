@@ -49,8 +49,8 @@ class MembershipsClient:
         ] = None,
         product_id: typing.Optional[str] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        plan_id: typing.Optional[str] = None,
-        plan_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        variant_id: typing.Optional[str] = None,
+        variant_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         promo_code_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         created_after: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
@@ -91,10 +91,10 @@ class MembershipsClient:
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to memberships of any of these products, each prefixed `prod_`. Repeat the parameter to pass several.
 
-        plan_id : typing.Optional[str]
+        variant_id : typing.Optional[str]
             Filter to memberships of this variant (`plan_` tag).
 
-        plan_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        variant_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to memberships of any of these variants, each prefixed `plan_`. Repeat the parameter to pass several.
 
         promo_code_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
@@ -137,14 +137,14 @@ class MembershipsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         response = client.memberships.list(
             external_account="discord_123456789012345678",
             product_ids=["prod_xxxxxxxxxxxxx"],
-            plan_ids=["plan_xxxxxxxxxxxxx"],
+            variant_ids=["plan_xxxxxxxxxxxxx"],
             promo_code_ids=["promo_xxxxxxxxxxxxxx"],
         )
         for item in response:
@@ -162,8 +162,8 @@ class MembershipsClient:
             statuses=statuses,
             product_id=product_id,
             product_ids=product_ids,
-            plan_id=plan_id,
-            plan_ids=plan_ids,
+            variant_id=variant_id,
+            variant_ids=variant_ids,
             promo_code_ids=promo_code_ids,
             created_after=created_after,
             created_before=created_before,
@@ -200,14 +200,14 @@ class MembershipsClient:
         from whop_sdk.memberships import InviteMembershipsRequestBodyUserId
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.memberships.invite(
             request=InviteMembershipsRequestBodyUserId(
-                plan_id="plan_xxxxxxxxxxxxxx",
                 user_id="user_xxxxxxxxxxxxxx",
+                variant_id="plan_xxxxxxxxxxxxxx",
             ),
         )
         """
@@ -236,7 +236,7 @@ class MembershipsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -290,7 +290,7 @@ class MembershipsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -336,7 +336,7 @@ class MembershipsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -395,7 +395,7 @@ class MembershipsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -456,7 +456,7 @@ class MembershipsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -498,7 +498,7 @@ class MembershipsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -537,7 +537,7 @@ class MembershipsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -575,7 +575,7 @@ class MembershipsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -608,7 +608,7 @@ class MembershipsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -641,7 +641,7 @@ class MembershipsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -676,7 +676,7 @@ class MembershipsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -716,8 +716,8 @@ class AsyncMembershipsClient:
         ] = None,
         product_id: typing.Optional[str] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        plan_id: typing.Optional[str] = None,
-        plan_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        variant_id: typing.Optional[str] = None,
+        variant_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         promo_code_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         created_after: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
@@ -758,10 +758,10 @@ class AsyncMembershipsClient:
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to memberships of any of these products, each prefixed `prod_`. Repeat the parameter to pass several.
 
-        plan_id : typing.Optional[str]
+        variant_id : typing.Optional[str]
             Filter to memberships of this variant (`plan_` tag).
 
-        plan_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        variant_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to memberships of any of these variants, each prefixed `plan_`. Repeat the parameter to pass several.
 
         promo_code_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
@@ -806,7 +806,7 @@ class AsyncMembershipsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -816,7 +816,7 @@ class AsyncMembershipsClient:
             response = await client.memberships.list(
                 external_account="discord_123456789012345678",
                 product_ids=["prod_xxxxxxxxxxxxx"],
-                plan_ids=["plan_xxxxxxxxxxxxx"],
+                variant_ids=["plan_xxxxxxxxxxxxx"],
                 promo_code_ids=["promo_xxxxxxxxxxxxxx"],
             )
             async for item in response:
@@ -838,8 +838,8 @@ class AsyncMembershipsClient:
             statuses=statuses,
             product_id=product_id,
             product_ids=product_ids,
-            plan_id=plan_id,
-            plan_ids=plan_ids,
+            variant_id=variant_id,
+            variant_ids=variant_ids,
             promo_code_ids=promo_code_ids,
             created_after=created_after,
             created_before=created_before,
@@ -878,7 +878,7 @@ class AsyncMembershipsClient:
         from whop_sdk.memberships import InviteMembershipsRequestBodyUserId
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -887,8 +887,8 @@ class AsyncMembershipsClient:
         async def main() -> None:
             await client.memberships.invite(
                 request=InviteMembershipsRequestBodyUserId(
-                    plan_id="plan_xxxxxxxxxxxxxx",
                     user_id="user_xxxxxxxxxxxxxx",
+                    variant_id="plan_xxxxxxxxxxxxxx",
                 ),
             )
 
@@ -922,7 +922,7 @@ class AsyncMembershipsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -984,7 +984,7 @@ class AsyncMembershipsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1038,7 +1038,7 @@ class AsyncMembershipsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1105,7 +1105,7 @@ class AsyncMembershipsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1174,7 +1174,7 @@ class AsyncMembershipsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1226,7 +1226,7 @@ class AsyncMembershipsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1273,7 +1273,7 @@ class AsyncMembershipsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1319,7 +1319,7 @@ class AsyncMembershipsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1360,7 +1360,7 @@ class AsyncMembershipsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1401,7 +1401,7 @@ class AsyncMembershipsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1444,7 +1444,7 @@ class AsyncMembershipsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
