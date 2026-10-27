@@ -22,6 +22,7 @@ if typing.TYPE_CHECKING:
         PostDepositSucceededPayload,
         PostDepositSucceededPayloadApiVersion,
         PostDepositSucceededPayloadType,
+        ReverseDepositsRequestMetadataValue,
     )
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateDepositsRequestMetadataValue": ".types",
@@ -39,6 +40,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostDepositSucceededPayload": ".types",
     "PostDepositSucceededPayloadApiVersion": ".types",
     "PostDepositSucceededPayloadType": ".types",
+    "ReverseDepositsRequestMetadataValue": ".types",
 }
 
 
@@ -79,4 +81,5 @@ __all__ = [
     "PostDepositSucceededPayload",
     "PostDepositSucceededPayloadApiVersion",
     "PostDepositSucceededPayloadType",
+    "ReverseDepositsRequestMetadataValue",
 ]

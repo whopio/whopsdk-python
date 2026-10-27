@@ -136,7 +136,7 @@ class LedgerActivitySource(UniversalBaseModel):
 
     status: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Lifecycle status. On payout sources this is the payout status (requires payout:withdrawal:read); on airdrop_link sources it is the claim-link status (ungated); on payment and top-up sources it is the friendly payment status such as succeeded/pending/failed (ungated).
+    Lifecycle status. On payout sources this is the payout status (requires payout:withdrawal:read); on airdrop_link sources it is the claim-link status (ungated); on payment and top-up sources it is the friendly payment status such as succeeded/pending/failed (ungated); on bank_deposit sources it is succeeded, reversal_in_progress or reversed (ungated).
     """
 
     to_amount: typing.Optional[str] = pydantic.Field(default=None)

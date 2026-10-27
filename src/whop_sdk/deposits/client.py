@@ -4,9 +4,11 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
+from ..types.ledger_activity import LedgerActivity
 from .raw_client import AsyncRawDepositsClient, RawDepositsClient
 from .types.create_deposits_request_metadata_value import CreateDepositsRequestMetadataValue
 from .types.create_deposits_response import CreateDepositsResponse
+from .types.reverse_deposits_request_metadata_value import ReverseDepositsRequestMetadataValue
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -85,6 +87,58 @@ class DepositsClient:
             origin_bic=origin_bic,
             payment_method_id=payment_method_id,
             request_options=request_options,
+        )
+        return _response.data
+
+    def reverse(
+        self,
+        id: str,
+        *,
+        account_id: typing.Optional[str] = OMIT,
+        metadata: typing.Optional[typing.Dict[str, typing.Optional[ReverseDepositsRequestMetadataValue]]] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> LedgerActivity:
+        """
+        Sends a bank deposit back to the bank account that wired it and takes it back out of the balance. Identify the deposit by its `vbt_` ID, the `source.id` of its row in the account's financial activity. The available balance has to cover the deposit minus the deposit fee, which is refunded. Returns the reversal's own row in the financial activity: a `topup_reversal` debit for the full deposit amount, whose `source` is the bank deposit. The source's `status` is `reversal_in_progress` until the money is back with the sender, then `reversed`.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the bank deposit to reverse, prefixed `vbt_`.
+
+        account_id : typing.Optional[str]
+            The business that received the deposit, prefixed `biz_`. Pass this or `user_id`.
+
+        metadata : typing.Optional[typing.Dict[str, typing.Optional[ReverseDepositsRequestMetadataValue]]]
+            Custom metadata to store with the reversal.
+
+        user_id : typing.Optional[str]
+            The user that received the deposit, prefixed `user_`. Pass this or `account_id`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        LedgerActivity
+            deposit reversed
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-10-27-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.deposits.reverse(
+            id="vbt_xxxxxxxxxxxxxx",
+        )
+        """
+        _response = self._raw_client.reverse(
+            id, account_id=account_id, metadata=metadata, user_id=user_id, request_options=request_options
         )
         return _response.data
 
@@ -170,5 +224,65 @@ class AsyncDepositsClient:
             origin_bic=origin_bic,
             payment_method_id=payment_method_id,
             request_options=request_options,
+        )
+        return _response.data
+
+    async def reverse(
+        self,
+        id: str,
+        *,
+        account_id: typing.Optional[str] = OMIT,
+        metadata: typing.Optional[typing.Dict[str, typing.Optional[ReverseDepositsRequestMetadataValue]]] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> LedgerActivity:
+        """
+        Sends a bank deposit back to the bank account that wired it and takes it back out of the balance. Identify the deposit by its `vbt_` ID, the `source.id` of its row in the account's financial activity. The available balance has to cover the deposit minus the deposit fee, which is refunded. Returns the reversal's own row in the financial activity: a `topup_reversal` debit for the full deposit amount, whose `source` is the bank deposit. The source's `status` is `reversal_in_progress` until the money is back with the sender, then `reversed`.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the bank deposit to reverse, prefixed `vbt_`.
+
+        account_id : typing.Optional[str]
+            The business that received the deposit, prefixed `biz_`. Pass this or `user_id`.
+
+        metadata : typing.Optional[typing.Dict[str, typing.Optional[ReverseDepositsRequestMetadataValue]]]
+            Custom metadata to store with the reversal.
+
+        user_id : typing.Optional[str]
+            The user that received the deposit, prefixed `user_`. Pass this or `account_id`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        LedgerActivity
+            deposit reversed
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-10-27-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.deposits.reverse(
+                id="vbt_xxxxxxxxxxxxxx",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.reverse(
+            id, account_id=account_id, metadata=metadata, user_id=user_id, request_options=request_options
         )
         return _response.data

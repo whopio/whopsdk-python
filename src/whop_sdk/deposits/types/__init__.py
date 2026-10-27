@@ -27,6 +27,7 @@ if typing.TYPE_CHECKING:
     from .post_deposit_succeeded_payload import PostDepositSucceededPayload
     from .post_deposit_succeeded_payload_api_version import PostDepositSucceededPayloadApiVersion
     from .post_deposit_succeeded_payload_type import PostDepositSucceededPayloadType
+    from .reverse_deposits_request_metadata_value import ReverseDepositsRequestMetadataValue
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateDepositsRequestMetadataValue": ".create_deposits_request_metadata_value",
     "CreateDepositsResponse": ".create_deposits_response",
@@ -43,6 +44,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostDepositSucceededPayload": ".post_deposit_succeeded_payload",
     "PostDepositSucceededPayloadApiVersion": ".post_deposit_succeeded_payload_api_version",
     "PostDepositSucceededPayloadType": ".post_deposit_succeeded_payload_type",
+    "ReverseDepositsRequestMetadataValue": ".reverse_deposits_request_metadata_value",
 }
 
 
@@ -83,4 +85,5 @@ __all__ = [
     "PostDepositSucceededPayload",
     "PostDepositSucceededPayloadApiVersion",
     "PostDepositSucceededPayloadType",
+    "ReverseDepositsRequestMetadataValue",
 ]
