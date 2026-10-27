@@ -3,6 +3,8 @@
 import typing
 
 ListSocialAccountsRequestPlatform = typing.Union[
-    typing.Literal["x", "instagram", "youtube", "tiktok", "facebook", "discord", "telegram", "linkedin", "snapchat"],
+    typing.Literal[
+        "x", "instagram", "youtube", "tiktok", "facebook", "discord", "telegram", "linkedin", "snapchat", "klaviyo"
+    ],
     typing.Any,
 ]

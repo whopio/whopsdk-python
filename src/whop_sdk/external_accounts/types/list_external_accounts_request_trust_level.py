@@ -3,5 +3,5 @@
 import typing
 
 ListExternalAccountsRequestTrustLevel = typing.Union[
-    typing.Literal["oauth", "verified", "authorized", "claimed", "scraped"], typing.Any
+    typing.Literal["oauth", "api_key", "verified", "authorized", "claimed", "scraped"], typing.Any
 ]

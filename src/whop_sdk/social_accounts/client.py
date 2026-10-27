@@ -148,6 +148,7 @@ class SocialAccountsClient:
         *,
         platform: CreateSocialAccountsRequestPlatform,
         account_id: typing.Optional[str] = OMIT,
+        api_key: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SocialAccount:
         """
@@ -156,10 +157,13 @@ class SocialAccountsClient:
         Parameters
         ----------
         platform : CreateSocialAccountsRequestPlatform
-            The platform to create the external account on. `facebook` requires the account's `banner_image`, `logo`, and `description`, and `tiktok` requires its `logo`; configure them with [Update Account](/api-reference/beta/accounts/update-account). The account is returned before the platform has created it — its `id` is usable right away, and the rest of the profile fills in once provisioning finishes.
+            The platform to create the external account on. `facebook` requires the account's `banner_image`, `logo`, and `description`, and `tiktok` requires its `logo`; configure them with [Update Account](/api-reference/beta/accounts/update-account). The account is returned before the platform has created it — its `id` is usable right away, and the rest of the profile fills in once provisioning finishes. `klaviyo` connects the account's existing Klaviyo account with the `api_key` you pass.
 
         account_id : typing.Optional[str]
             The Account (biz_ identifier) to create the external account for. An account-scoped API key may omit this to default to its own account. Account API keys cannot update their own account's branding through Update Account; use a user-authenticated path.
+
+        api_key : typing.Optional[str]
+            A private API key for the account on the platform. Required for `klaviyo`, which needs read access to Accounts; not accepted for other platforms. Whop checks the key with the platform before connecting and never returns it.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -182,7 +186,9 @@ class SocialAccountsClient:
             platform="facebook",
         )
         """
-        _response = self._raw_client.create(platform=platform, account_id=account_id, request_options=request_options)
+        _response = self._raw_client.create(
+            platform=platform, account_id=account_id, api_key=api_key, request_options=request_options
+        )
         return _response.data
 
     def connect(
@@ -709,6 +715,7 @@ class AsyncSocialAccountsClient:
         *,
         platform: CreateSocialAccountsRequestPlatform,
         account_id: typing.Optional[str] = OMIT,
+        api_key: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SocialAccount:
         """
@@ -717,10 +724,13 @@ class AsyncSocialAccountsClient:
         Parameters
         ----------
         platform : CreateSocialAccountsRequestPlatform
-            The platform to create the external account on. `facebook` requires the account's `banner_image`, `logo`, and `description`, and `tiktok` requires its `logo`; configure them with [Update Account](/api-reference/beta/accounts/update-account). The account is returned before the platform has created it — its `id` is usable right away, and the rest of the profile fills in once provisioning finishes.
+            The platform to create the external account on. `facebook` requires the account's `banner_image`, `logo`, and `description`, and `tiktok` requires its `logo`; configure them with [Update Account](/api-reference/beta/accounts/update-account). The account is returned before the platform has created it — its `id` is usable right away, and the rest of the profile fills in once provisioning finishes. `klaviyo` connects the account's existing Klaviyo account with the `api_key` you pass.
 
         account_id : typing.Optional[str]
             The Account (biz_ identifier) to create the external account for. An account-scoped API key may omit this to default to its own account. Account API keys cannot update their own account's branding through Update Account; use a user-authenticated path.
+
+        api_key : typing.Optional[str]
+            A private API key for the account on the platform. Required for `klaviyo`, which needs read access to Accounts; not accepted for other platforms. Whop checks the key with the platform before connecting and never returns it.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -752,7 +762,7 @@ class AsyncSocialAccountsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.create(
-            platform=platform, account_id=account_id, request_options=request_options
+            platform=platform, account_id=account_id, api_key=api_key, request_options=request_options
         )
         return _response.data
 

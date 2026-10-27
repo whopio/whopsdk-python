@@ -2,4 +2,4 @@
 
 import typing
 
-CreateExternalAccountsRequestPlatform = typing.Union[typing.Literal["facebook", "tiktok"], typing.Any]
+CreateExternalAccountsRequestPlatform = typing.Union[typing.Literal["facebook", "tiktok", "klaviyo"], typing.Any]
