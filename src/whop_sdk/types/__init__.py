@@ -896,6 +896,22 @@ if typing.TYPE_CHECKING:
     from .partner_referral_reward_bot_qualification_type import PartnerReferralRewardBotQualificationType
     from .partner_referral_reward_recipient import PartnerReferralRewardRecipient
     from .passkey import Passkey
+    from .passkey_authenticator_selection import PasskeyAuthenticatorSelection
+    from .passkey_authenticator_selection_resident_key import PasskeyAuthenticatorSelectionResidentKey
+    from .passkey_authenticator_selection_user_verification import PasskeyAuthenticatorSelectionUserVerification
+    from .passkey_challenge import PasskeyChallenge
+    from .passkey_creation_extensions import PasskeyCreationExtensions
+    from .passkey_creation_options import PasskeyCreationOptions
+    from .passkey_creation_options_attestation import PasskeyCreationOptionsAttestation
+    from .passkey_credential_descriptor import PasskeyCredentialDescriptor
+    from .passkey_credential_descriptor_transports_item import PasskeyCredentialDescriptorTransportsItem
+    from .passkey_credential_descriptor_type import PasskeyCredentialDescriptorType
+    from .passkey_credential_parameter import PasskeyCredentialParameter
+    from .passkey_credential_parameter_type import PasskeyCredentialParameterType
+    from .passkey_relying_party import PasskeyRelyingParty
+    from .passkey_request_options import PasskeyRequestOptions
+    from .passkey_request_options_user_verification import PasskeyRequestOptionsUserVerification
+    from .passkey_user_entity import PasskeyUserEntity
     from .payment import Payment
     from .payment_address import PaymentAddress
     from .payment_bank_transfer import PaymentBankTransfer
@@ -2463,6 +2479,22 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PartnerReferralRewardBotQualificationType": ".partner_referral_reward_bot_qualification_type",
     "PartnerReferralRewardRecipient": ".partner_referral_reward_recipient",
     "Passkey": ".passkey",
+    "PasskeyAuthenticatorSelection": ".passkey_authenticator_selection",
+    "PasskeyAuthenticatorSelectionResidentKey": ".passkey_authenticator_selection_resident_key",
+    "PasskeyAuthenticatorSelectionUserVerification": ".passkey_authenticator_selection_user_verification",
+    "PasskeyChallenge": ".passkey_challenge",
+    "PasskeyCreationExtensions": ".passkey_creation_extensions",
+    "PasskeyCreationOptions": ".passkey_creation_options",
+    "PasskeyCreationOptionsAttestation": ".passkey_creation_options_attestation",
+    "PasskeyCredentialDescriptor": ".passkey_credential_descriptor",
+    "PasskeyCredentialDescriptorTransportsItem": ".passkey_credential_descriptor_transports_item",
+    "PasskeyCredentialDescriptorType": ".passkey_credential_descriptor_type",
+    "PasskeyCredentialParameter": ".passkey_credential_parameter",
+    "PasskeyCredentialParameterType": ".passkey_credential_parameter_type",
+    "PasskeyRelyingParty": ".passkey_relying_party",
+    "PasskeyRequestOptions": ".passkey_request_options",
+    "PasskeyRequestOptionsUserVerification": ".passkey_request_options_user_verification",
+    "PasskeyUserEntity": ".passkey_user_entity",
     "Payment": ".payment",
     "PaymentAddress": ".payment_address",
     "PaymentBankTransfer": ".payment_bank_transfer",
@@ -3934,6 +3966,22 @@ __all__ = [
     "PartnerReferralRewardBotQualificationType",
     "PartnerReferralRewardRecipient",
     "Passkey",
+    "PasskeyAuthenticatorSelection",
+    "PasskeyAuthenticatorSelectionResidentKey",
+    "PasskeyAuthenticatorSelectionUserVerification",
+    "PasskeyChallenge",
+    "PasskeyCreationExtensions",
+    "PasskeyCreationOptions",
+    "PasskeyCreationOptionsAttestation",
+    "PasskeyCredentialDescriptor",
+    "PasskeyCredentialDescriptorTransportsItem",
+    "PasskeyCredentialDescriptorType",
+    "PasskeyCredentialParameter",
+    "PasskeyCredentialParameterType",
+    "PasskeyRelyingParty",
+    "PasskeyRequestOptions",
+    "PasskeyRequestOptionsUserVerification",
+    "PasskeyUserEntity",
     "Payment",
     "PaymentAddress",
     "PaymentBankTransfer",

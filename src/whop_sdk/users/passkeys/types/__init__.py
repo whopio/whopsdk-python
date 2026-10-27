@@ -7,7 +7,6 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .challenge_passkeys_request_challenge_type import ChallengePasskeysRequestChallengeType
-    from .challenge_passkeys_response import ChallengePasskeysResponse
     from .delete_passkeys_response import DeletePasskeysResponse
     from .list_passkeys_request_direction import ListPasskeysRequestDirection
     from .list_passkeys_request_order import ListPasskeysRequestOrder
@@ -15,7 +14,6 @@ if typing.TYPE_CHECKING:
     from .list_passkeys_response_page_info import ListPasskeysResponsePageInfo
 _dynamic_imports: typing.Dict[str, str] = {
     "ChallengePasskeysRequestChallengeType": ".challenge_passkeys_request_challenge_type",
-    "ChallengePasskeysResponse": ".challenge_passkeys_response",
     "DeletePasskeysResponse": ".delete_passkeys_response",
     "ListPasskeysRequestDirection": ".list_passkeys_request_direction",
     "ListPasskeysRequestOrder": ".list_passkeys_request_order",
@@ -47,7 +45,6 @@ def __dir__():
 
 __all__ = [
     "ChallengePasskeysRequestChallengeType",
-    "ChallengePasskeysResponse",
     "DeletePasskeysResponse",
     "ListPasskeysRequestDirection",
     "ListPasskeysRequestOrder",

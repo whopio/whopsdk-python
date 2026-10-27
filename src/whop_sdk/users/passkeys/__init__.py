@@ -8,7 +8,6 @@ from importlib import import_module
 if typing.TYPE_CHECKING:
     from .types import (
         ChallengePasskeysRequestChallengeType,
-        ChallengePasskeysResponse,
         DeletePasskeysResponse,
         ListPasskeysRequestDirection,
         ListPasskeysRequestOrder,
@@ -17,7 +16,6 @@ if typing.TYPE_CHECKING:
     )
 _dynamic_imports: typing.Dict[str, str] = {
     "ChallengePasskeysRequestChallengeType": ".types",
-    "ChallengePasskeysResponse": ".types",
     "DeletePasskeysResponse": ".types",
     "ListPasskeysRequestDirection": ".types",
     "ListPasskeysRequestOrder": ".types",
@@ -49,7 +47,6 @@ def __dir__():
 
 __all__ = [
     "ChallengePasskeysRequestChallengeType",
-    "ChallengePasskeysResponse",
     "DeletePasskeysResponse",
     "ListPasskeysRequestDirection",
     "ListPasskeysRequestOrder",

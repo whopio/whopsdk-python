@@ -3,13 +3,19 @@
 import typing
 
 import pydantic
-from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .passkey_credential_parameter_type import PasskeyCredentialParameterType
 
 
-class ChallengePasskeysResponse(UniversalBaseModel):
-    challenge: str = pydantic.Field()
+class PasskeyCredentialParameter(UniversalBaseModel):
+    alg: int = pydantic.Field()
     """
-    The challenge to pass to the WebAuthn ceremony, base64url-encoded without padding.
+    A COSE algorithm identifier: `-7` is ES256, `-257` is RS256.
+    """
+
+    type: PasskeyCredentialParameterType = pydantic.Field()
+    """
+    Always `public-key`.
     """
 
     if IS_PYDANTIC_V2:
