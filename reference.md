@@ -37058,6 +37058,14 @@ client.plans.create()
 <dl>
 <dd>
 
+**allow_multiple_quantity:** `typing.Optional[bool]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **attributes:** `typing.Optional[typing.Dict[str, typing.Any]]` 
     
 </dd>
@@ -37502,6 +37510,14 @@ client.plans.update(
 <dd>
 
 **adaptive_pricing_enabled:** `typing.Optional[bool]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**allow_multiple_quantity:** `typing.Optional[bool]` 
     
 </dd>
 </dl>
@@ -47399,6 +47415,14 @@ client.variants.create()
 <dl>
 <dd>
 
+**allow_multiple_quantity:** `typing.Optional[bool]` — Whether more than one unit can be purchased in an order. Renewal variants cannot enable it. When `false`, checkouts, carts, and invoices reject a quantity above 1.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **attributes:** `typing.Optional[typing.Dict[str, typing.Any]]` — Attribute values that make this variant one variant of its product, as a map of attribute name to value, e.g. `{"size": "Large", "color": "Blue"}`. Names are normalized to snake_case identifiers (`Ring Size` becomes `ring_size`) and come back in alphabetical order. Every variant on a product must carry the same attribute names and a distinct set of values. Send `null` to make the variant an ordinary pricing option again.
     
 </dd>
@@ -47870,6 +47894,14 @@ client.variants.update(
 <dd>
 
 **adaptive_pricing_enabled:** `typing.Optional[bool]` — Whether this variant accepts local currency payments via adaptive pricing.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**allow_multiple_quantity:** `typing.Optional[bool]` — Whether more than one unit can be purchased in an order. Renewal variants cannot enable it. When `false`, checkouts, carts, and invoices reject a quantity above 1.
     
 </dd>
 </dl>

@@ -26,6 +26,11 @@ class Variant(UniversalBaseModel):
     Whether adaptive pricing is enabled for this variant. Raw setting — does not check processor compatibility or feature flags.
     """
 
+    allow_multiple_quantity: bool = pydantic.Field()
+    """
+    Whether more than one unit can be purchased in an order. Renewal variants cannot enable it. When `false`, checkouts, carts, and invoices reject a quantity above 1.
+    """
+
     attributes: typing.Optional[typing.Dict[str, typing.Optional[str]]] = pydantic.Field(default=None)
     """
     Attribute values that distinguish this variant within its product, as a map of attribute name to value, e.g. `{"color": "Blue", "size": "Large"}`. Names are snake_case identifiers and come back in alphabetical order. Every attributed variant on a product carries the same attribute names and a distinct set of values; the product lists the full option set as `variant_attributes`. `null` when the variant has no attributes.

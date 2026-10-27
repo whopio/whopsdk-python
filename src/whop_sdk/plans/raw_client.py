@@ -168,6 +168,7 @@ class RawPlansClient:
         *,
         account_id: typing.Optional[str] = OMIT,
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
+        allow_multiple_quantity: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
         billing_type: typing.Optional[str] = OMIT,
@@ -206,6 +207,8 @@ class RawPlansClient:
         account_id : typing.Optional[str]
 
         adaptive_pricing_enabled : typing.Optional[bool]
+
+        allow_multiple_quantity : typing.Optional[bool]
 
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
 
@@ -278,6 +281,7 @@ class RawPlansClient:
             json={
                 "account_id": account_id,
                 "adaptive_pricing_enabled": adaptive_pricing_enabled,
+                "allow_multiple_quantity": allow_multiple_quantity,
                 "attributes": attributes,
                 "billing_period": billing_period,
                 "billing_type": billing_type,
@@ -444,6 +448,7 @@ class RawPlansClient:
         id: str,
         *,
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
+        allow_multiple_quantity: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
         cancel_discount_intervals: typing.Optional[int] = OMIT,
@@ -483,6 +488,8 @@ class RawPlansClient:
             Variant ID, prefixed `plan_`.
 
         adaptive_pricing_enabled : typing.Optional[bool]
+
+        allow_multiple_quantity : typing.Optional[bool]
 
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
 
@@ -554,6 +561,7 @@ class RawPlansClient:
             method="PATCH",
             json={
                 "adaptive_pricing_enabled": adaptive_pricing_enabled,
+                "allow_multiple_quantity": allow_multiple_quantity,
                 "attributes": attributes,
                 "billing_period": billing_period,
                 "cancel_discount_intervals": cancel_discount_intervals,
@@ -836,6 +844,7 @@ class AsyncRawPlansClient:
         *,
         account_id: typing.Optional[str] = OMIT,
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
+        allow_multiple_quantity: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
         billing_type: typing.Optional[str] = OMIT,
@@ -874,6 +883,8 @@ class AsyncRawPlansClient:
         account_id : typing.Optional[str]
 
         adaptive_pricing_enabled : typing.Optional[bool]
+
+        allow_multiple_quantity : typing.Optional[bool]
 
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
 
@@ -946,6 +957,7 @@ class AsyncRawPlansClient:
             json={
                 "account_id": account_id,
                 "adaptive_pricing_enabled": adaptive_pricing_enabled,
+                "allow_multiple_quantity": allow_multiple_quantity,
                 "attributes": attributes,
                 "billing_period": billing_period,
                 "billing_type": billing_type,
@@ -1114,6 +1126,7 @@ class AsyncRawPlansClient:
         id: str,
         *,
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
+        allow_multiple_quantity: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
         cancel_discount_intervals: typing.Optional[int] = OMIT,
@@ -1153,6 +1166,8 @@ class AsyncRawPlansClient:
             Variant ID, prefixed `plan_`.
 
         adaptive_pricing_enabled : typing.Optional[bool]
+
+        allow_multiple_quantity : typing.Optional[bool]
 
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
 
@@ -1224,6 +1239,7 @@ class AsyncRawPlansClient:
             method="PATCH",
             json={
                 "adaptive_pricing_enabled": adaptive_pricing_enabled,
+                "allow_multiple_quantity": allow_multiple_quantity,
                 "attributes": attributes,
                 "billing_period": billing_period,
                 "cancel_discount_intervals": cancel_discount_intervals,

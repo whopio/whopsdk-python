@@ -174,6 +174,7 @@ class VariantsClient:
         *,
         account_id: typing.Optional[str] = OMIT,
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
+        allow_multiple_quantity: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
         billing_type: typing.Optional[str] = OMIT,
@@ -214,6 +215,9 @@ class VariantsClient:
 
         adaptive_pricing_enabled : typing.Optional[bool]
             Whether this variant accepts local currency payments via adaptive pricing.
+
+        allow_multiple_quantity : typing.Optional[bool]
+            Whether more than one unit can be purchased in an order. Renewal variants cannot enable it. When `false`, checkouts, carts, and invoices reject a quantity above 1.
 
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
             Attribute values that make this variant one variant of its product, as a map of attribute name to value, e.g. `{"size": "Large", "color": "Blue"}`. Names are normalized to snake_case identifiers (`Ring Size` becomes `ring_size`) and come back in alphabetical order. Every variant on a product must carry the same attribute names and a distinct set of values. Send `null` to make the variant an ordinary pricing option again.
@@ -321,6 +325,7 @@ class VariantsClient:
         _response = self._raw_client.create(
             account_id=account_id,
             adaptive_pricing_enabled=adaptive_pricing_enabled,
+            allow_multiple_quantity=allow_multiple_quantity,
             attributes=attributes,
             billing_period=billing_period,
             billing_type=billing_type,
@@ -450,6 +455,7 @@ class VariantsClient:
         id: str,
         *,
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
+        allow_multiple_quantity: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
         cancel_discount_intervals: typing.Optional[int] = OMIT,
@@ -490,6 +496,9 @@ class VariantsClient:
 
         adaptive_pricing_enabled : typing.Optional[bool]
             Whether this variant accepts local currency payments via adaptive pricing.
+
+        allow_multiple_quantity : typing.Optional[bool]
+            Whether more than one unit can be purchased in an order. Renewal variants cannot enable it. When `false`, checkouts, carts, and invoices reject a quantity above 1.
 
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
             Attribute values that make this variant one variant of its product, as a map of attribute name to value, e.g. `{"size": "Large", "color": "Blue"}`. Names are normalized to snake_case identifiers (`Ring Size` becomes `ring_size`) and come back in alphabetical order. Every variant on a product must carry the same attribute names and a distinct set of values. Send `null` to make the variant an ordinary pricing option again.
@@ -599,6 +608,7 @@ class VariantsClient:
         _response = self._raw_client.update(
             id,
             adaptive_pricing_enabled=adaptive_pricing_enabled,
+            allow_multiple_quantity=allow_multiple_quantity,
             attributes=attributes,
             billing_period=billing_period,
             cancel_discount_intervals=cancel_discount_intervals,
@@ -844,6 +854,7 @@ class AsyncVariantsClient:
         *,
         account_id: typing.Optional[str] = OMIT,
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
+        allow_multiple_quantity: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
         billing_type: typing.Optional[str] = OMIT,
@@ -884,6 +895,9 @@ class AsyncVariantsClient:
 
         adaptive_pricing_enabled : typing.Optional[bool]
             Whether this variant accepts local currency payments via adaptive pricing.
+
+        allow_multiple_quantity : typing.Optional[bool]
+            Whether more than one unit can be purchased in an order. Renewal variants cannot enable it. When `false`, checkouts, carts, and invoices reject a quantity above 1.
 
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
             Attribute values that make this variant one variant of its product, as a map of attribute name to value, e.g. `{"size": "Large", "color": "Blue"}`. Names are normalized to snake_case identifiers (`Ring Size` becomes `ring_size`) and come back in alphabetical order. Every variant on a product must carry the same attribute names and a distinct set of values. Send `null` to make the variant an ordinary pricing option again.
@@ -999,6 +1013,7 @@ class AsyncVariantsClient:
         _response = await self._raw_client.create(
             account_id=account_id,
             adaptive_pricing_enabled=adaptive_pricing_enabled,
+            allow_multiple_quantity=allow_multiple_quantity,
             attributes=attributes,
             billing_period=billing_period,
             billing_type=billing_type,
@@ -1146,6 +1161,7 @@ class AsyncVariantsClient:
         id: str,
         *,
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
+        allow_multiple_quantity: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
         cancel_discount_intervals: typing.Optional[int] = OMIT,
@@ -1186,6 +1202,9 @@ class AsyncVariantsClient:
 
         adaptive_pricing_enabled : typing.Optional[bool]
             Whether this variant accepts local currency payments via adaptive pricing.
+
+        allow_multiple_quantity : typing.Optional[bool]
+            Whether more than one unit can be purchased in an order. Renewal variants cannot enable it. When `false`, checkouts, carts, and invoices reject a quantity above 1.
 
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
             Attribute values that make this variant one variant of its product, as a map of attribute name to value, e.g. `{"size": "Large", "color": "Blue"}`. Names are normalized to snake_case identifiers (`Ring Size` becomes `ring_size`) and come back in alphabetical order. Every variant on a product must carry the same attribute names and a distinct set of values. Send `null` to make the variant an ordinary pricing option again.
@@ -1303,6 +1322,7 @@ class AsyncVariantsClient:
         _response = await self._raw_client.update(
             id,
             adaptive_pricing_enabled=adaptive_pricing_enabled,
+            allow_multiple_quantity=allow_multiple_quantity,
             attributes=attributes,
             billing_period=billing_period,
             cancel_discount_intervals=cancel_discount_intervals,
