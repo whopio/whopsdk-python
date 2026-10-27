@@ -5,14 +5,19 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .money import Money
-from .product_public_plan_plan_type import ProductPublicPlanPlanType
-from .product_public_plan_visibility import ProductPublicPlanVisibility
+from .product_public_variant_billing_type import ProductPublicVariantBillingType
+from .product_public_variant_visibility import ProductPublicVariantVisibility
 
 
-class ProductPublicPlan(UniversalBaseModel):
+class ProductPublicVariant(UniversalBaseModel):
     billing_period: typing.Optional[float] = pydantic.Field(default=None)
     """
     Number of days between recurring charges, such as 30 for monthly or 365 for annual. `null` for one-time variants.
+    """
+
+    billing_type: ProductPublicVariantBillingType = pydantic.Field()
+    """
+    Billing model for this variant: `one_time` or `renewal`.
     """
 
     expiration_days: typing.Optional[float] = pydantic.Field(default=None)
@@ -30,11 +35,6 @@ class ProductPublicPlan(UniversalBaseModel):
     What checkout charges up front. `amount` is `"0.00"` when the first charge is free, such as a trial.
     """
 
-    plan_type: ProductPublicPlanPlanType = pydantic.Field()
-    """
-    Billing model for this variant: `one_time` or `renewal`.
-    """
-
     renewal_price: Money = pydantic.Field()
     """
     The recurring charge every `billing_period` days. `amount` is `"0.00"` for one-time variants.
@@ -50,7 +50,7 @@ class ProductPublicPlan(UniversalBaseModel):
     Whether the variant has unlimited stock.
     """
 
-    visibility: ProductPublicPlanVisibility = pydantic.Field()
+    visibility: ProductPublicVariantVisibility = pydantic.Field()
     """
     Where this variant can be seen. `visible` variants appear on the product page.
     """

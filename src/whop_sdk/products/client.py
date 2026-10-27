@@ -13,8 +13,8 @@ from .types.create_products_request_gallery_images_item import CreateProductsReq
 from .types.create_products_request_global_affiliate_status import CreateProductsRequestGlobalAffiliateStatus
 from .types.create_products_request_member_affiliate_status import CreateProductsRequestMemberAffiliateStatus
 from .types.delete_products_response import DeleteProductsResponse
+from .types.list_products_request_billing_types_item import ListProductsRequestBillingTypesItem
 from .types.list_products_request_direction import ListProductsRequestDirection
-from .types.list_products_request_plan_types_item import ListProductsRequestPlanTypesItem
 from .types.list_products_response import ListProductsResponse
 from .types.update_products_request_banner_image import UpdateProductsRequestBannerImage
 from .types.update_products_request_gallery_images_item import UpdateProductsRequestGalleryImagesItem
@@ -44,8 +44,8 @@ class ProductsClient:
         account_id: typing.Optional[str] = None,
         query: typing.Optional[str] = None,
         marketplace_category_route: typing.Optional[str] = None,
-        plan_types: typing.Optional[
-            typing.Union[ListProductsRequestPlanTypesItem, typing.Sequence[ListProductsRequestPlanTypesItem]]
+        billing_types: typing.Optional[
+            typing.Union[ListProductsRequestBillingTypesItem, typing.Sequence[ListProductsRequestBillingTypesItem]]
         ] = None,
         price_minimum: typing.Optional[float] = None,
         price_maximum: typing.Optional[float] = None,
@@ -76,7 +76,7 @@ class ProductsClient:
         marketplace_category_route : typing.Optional[str]
             Only return marketplace products assigned to this category route, such as `trading`.
 
-        plan_types : typing.Optional[typing.Union[ListProductsRequestPlanTypesItem, typing.Sequence[ListProductsRequestPlanTypesItem]]]
+        billing_types : typing.Optional[typing.Union[ListProductsRequestBillingTypesItem, typing.Sequence[ListProductsRequestBillingTypesItem]]]
             Filter to products with a buyable variant of these billing models, such as `one_time` or `renewal`.
 
         price_minimum : typing.Optional[float]
@@ -131,7 +131,7 @@ class ProductsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27",
+            "2026-10-27-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -149,7 +149,7 @@ class ProductsClient:
             account_id=account_id,
             query=query,
             marketplace_category_route=marketplace_category_route,
-            plan_types=plan_types,
+            billing_types=billing_types,
             price_minimum=price_minimum,
             price_maximum=price_maximum,
             visibilities=visibilities,
@@ -269,7 +269,7 @@ class ProductsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27",
+            "2026-10-27-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -324,7 +324,7 @@ class ProductsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27",
+            "2026-10-27-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -357,7 +357,7 @@ class ProductsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27",
+            "2026-10-27-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -435,7 +435,7 @@ class ProductsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27",
+            "2026-10-27-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -481,7 +481,7 @@ class ProductsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27",
+            "2026-10-27-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -514,7 +514,7 @@ class ProductsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27",
+            "2026-10-27-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -547,8 +547,8 @@ class AsyncProductsClient:
         account_id: typing.Optional[str] = None,
         query: typing.Optional[str] = None,
         marketplace_category_route: typing.Optional[str] = None,
-        plan_types: typing.Optional[
-            typing.Union[ListProductsRequestPlanTypesItem, typing.Sequence[ListProductsRequestPlanTypesItem]]
+        billing_types: typing.Optional[
+            typing.Union[ListProductsRequestBillingTypesItem, typing.Sequence[ListProductsRequestBillingTypesItem]]
         ] = None,
         price_minimum: typing.Optional[float] = None,
         price_maximum: typing.Optional[float] = None,
@@ -579,7 +579,7 @@ class AsyncProductsClient:
         marketplace_category_route : typing.Optional[str]
             Only return marketplace products assigned to this category route, such as `trading`.
 
-        plan_types : typing.Optional[typing.Union[ListProductsRequestPlanTypesItem, typing.Sequence[ListProductsRequestPlanTypesItem]]]
+        billing_types : typing.Optional[typing.Union[ListProductsRequestBillingTypesItem, typing.Sequence[ListProductsRequestBillingTypesItem]]]
             Filter to products with a buyable variant of these billing models, such as `one_time` or `renewal`.
 
         price_minimum : typing.Optional[float]
@@ -636,7 +636,7 @@ class AsyncProductsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27",
+            "2026-10-27-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -661,7 +661,7 @@ class AsyncProductsClient:
             account_id=account_id,
             query=query,
             marketplace_category_route=marketplace_category_route,
-            plan_types=plan_types,
+            billing_types=billing_types,
             price_minimum=price_minimum,
             price_maximum=price_maximum,
             visibilities=visibilities,
@@ -783,7 +783,7 @@ class AsyncProductsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27",
+            "2026-10-27-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -846,7 +846,7 @@ class AsyncProductsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27",
+            "2026-10-27-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -889,7 +889,7 @@ class AsyncProductsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27",
+            "2026-10-27-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -975,7 +975,7 @@ class AsyncProductsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27",
+            "2026-10-27-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1029,7 +1029,7 @@ class AsyncProductsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27",
+            "2026-10-27-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1070,7 +1070,7 @@ class AsyncProductsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27",
+            "2026-10-27-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
