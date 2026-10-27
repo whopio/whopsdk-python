@@ -50190,6 +50190,22 @@ client.accounts.fees.update(
 <dl>
 <dd>
 
+**ach_dispute:** `typing.Optional[UpdateFeesRequestAchDispute]` — The fields of a fee the caller may change. Only the keys sent are replaced.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ach_return:** `typing.Optional[UpdateFeesRequestAchReturn]` — The fields of a fee the caller may change. Only the keys sent are replaced.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **bank_deposit:** `typing.Optional[UpdateFeesRequestBankDeposit]` — The fields of a fee the caller may change. Only the keys sent are replaced.
     
 </dd>
@@ -50391,6 +50407,22 @@ client.accounts.fees.update(
 <dd>
 
 **revshare:** `typing.Optional[UpdateFeesRequestRevshare]` — The fields of a fee the caller may change. Only the keys sent are replaced.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sepa_dispute:** `typing.Optional[UpdateFeesRequestSepaDispute]` — The fields of a fee the caller may change. Only the keys sent are replaced.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sepa_return:** `typing.Optional[UpdateFeesRequestSepaReturn]` — The fields of a fee the caller may change. Only the keys sent are replaced.
     
 </dd>
 </dl>

@@ -54,6 +54,7 @@ LedgerActivityLineType = typing.Union[
         "platform_covered_dispute",
         "dispute_alert_fee",
         "dispute_representment_fee",
+        "payment_return_fee",
         "dispute_hold_adjustment",
         "dispute_hold_blocked",
         "psp_dispute_payable",

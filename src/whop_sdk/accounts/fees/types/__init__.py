@@ -6,6 +6,10 @@ import typing
 from importlib import import_module
 
 if typing.TYPE_CHECKING:
+    from .update_fees_request_ach_dispute import UpdateFeesRequestAchDispute
+    from .update_fees_request_ach_dispute_regions_value import UpdateFeesRequestAchDisputeRegionsValue
+    from .update_fees_request_ach_return import UpdateFeesRequestAchReturn
+    from .update_fees_request_ach_return_regions_value import UpdateFeesRequestAchReturnRegionsValue
     from .update_fees_request_bank_deposit import UpdateFeesRequestBankDeposit
     from .update_fees_request_bank_deposit_regions_value import UpdateFeesRequestBankDepositRegionsValue
     from .update_fees_request_billing import UpdateFeesRequestBilling
@@ -69,6 +73,10 @@ if typing.TYPE_CHECKING:
     from .update_fees_request_pool_payout_regions_value import UpdateFeesRequestPoolPayoutRegionsValue
     from .update_fees_request_revshare import UpdateFeesRequestRevshare
     from .update_fees_request_revshare_regions_value import UpdateFeesRequestRevshareRegionsValue
+    from .update_fees_request_sepa_dispute import UpdateFeesRequestSepaDispute
+    from .update_fees_request_sepa_dispute_regions_value import UpdateFeesRequestSepaDisputeRegionsValue
+    from .update_fees_request_sepa_return import UpdateFeesRequestSepaReturn
+    from .update_fees_request_sepa_return_regions_value import UpdateFeesRequestSepaReturnRegionsValue
     from .update_fees_request_tax_calculation import UpdateFeesRequestTaxCalculation
     from .update_fees_request_tax_calculation_regions_value import UpdateFeesRequestTaxCalculationRegionsValue
     from .update_fees_request_tax_service import UpdateFeesRequestTaxService
@@ -78,6 +86,10 @@ if typing.TYPE_CHECKING:
     from .update_fees_request_transfers import UpdateFeesRequestTransfers
     from .update_fees_request_transfers_regions_value import UpdateFeesRequestTransfersRegionsValue
 _dynamic_imports: typing.Dict[str, str] = {
+    "UpdateFeesRequestAchDispute": ".update_fees_request_ach_dispute",
+    "UpdateFeesRequestAchDisputeRegionsValue": ".update_fees_request_ach_dispute_regions_value",
+    "UpdateFeesRequestAchReturn": ".update_fees_request_ach_return",
+    "UpdateFeesRequestAchReturnRegionsValue": ".update_fees_request_ach_return_regions_value",
     "UpdateFeesRequestBankDeposit": ".update_fees_request_bank_deposit",
     "UpdateFeesRequestBankDepositRegionsValue": ".update_fees_request_bank_deposit_regions_value",
     "UpdateFeesRequestBilling": ".update_fees_request_billing",
@@ -137,6 +149,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateFeesRequestPoolPayoutRegionsValue": ".update_fees_request_pool_payout_regions_value",
     "UpdateFeesRequestRevshare": ".update_fees_request_revshare",
     "UpdateFeesRequestRevshareRegionsValue": ".update_fees_request_revshare_regions_value",
+    "UpdateFeesRequestSepaDispute": ".update_fees_request_sepa_dispute",
+    "UpdateFeesRequestSepaDisputeRegionsValue": ".update_fees_request_sepa_dispute_regions_value",
+    "UpdateFeesRequestSepaReturn": ".update_fees_request_sepa_return",
+    "UpdateFeesRequestSepaReturnRegionsValue": ".update_fees_request_sepa_return_regions_value",
     "UpdateFeesRequestTaxCalculation": ".update_fees_request_tax_calculation",
     "UpdateFeesRequestTaxCalculationRegionsValue": ".update_fees_request_tax_calculation_regions_value",
     "UpdateFeesRequestTaxService": ".update_fees_request_tax_service",
@@ -170,6 +186,10 @@ def __dir__():
 
 
 __all__ = [
+    "UpdateFeesRequestAchDispute",
+    "UpdateFeesRequestAchDisputeRegionsValue",
+    "UpdateFeesRequestAchReturn",
+    "UpdateFeesRequestAchReturnRegionsValue",
     "UpdateFeesRequestBankDeposit",
     "UpdateFeesRequestBankDepositRegionsValue",
     "UpdateFeesRequestBilling",
@@ -229,6 +249,10 @@ __all__ = [
     "UpdateFeesRequestPoolPayoutRegionsValue",
     "UpdateFeesRequestRevshare",
     "UpdateFeesRequestRevshareRegionsValue",
+    "UpdateFeesRequestSepaDispute",
+    "UpdateFeesRequestSepaDisputeRegionsValue",
+    "UpdateFeesRequestSepaReturn",
+    "UpdateFeesRequestSepaReturnRegionsValue",
     "UpdateFeesRequestTaxCalculation",
     "UpdateFeesRequestTaxCalculationRegionsValue",
     "UpdateFeesRequestTaxService",
