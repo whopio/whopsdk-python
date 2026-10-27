@@ -7,7 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .account_summary import AccountSummary
 from .money import Money
 from .plan_custom_field import PlanCustomField
-from .plan_list_item_plan_type import PlanListItemPlanType
+from .plan_list_item_billing_type import PlanListItemBillingType
 from .plan_list_item_release_method import PlanListItemReleaseMethod
 from .plan_list_item_three_ds_level import PlanListItemThreeDsLevel
 from .plan_list_item_visibility import PlanListItemVisibility
@@ -32,6 +32,11 @@ class PlanListItem(UniversalBaseModel):
     billing_period: typing.Optional[float] = pydantic.Field(default=None)
     """
     Number of days between recurring charges, such as 30 for monthly or 365 for annual. `null` for one-time variants.
+    """
+
+    billing_type: PlanListItemBillingType = pydantic.Field()
+    """
+    Billing model for this variant.
     """
 
     cancel_discount_intervals: typing.Optional[float] = pydantic.Field(default=None)
@@ -123,11 +128,6 @@ class PlanListItem(UniversalBaseModel):
     payment_method_configuration: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
     """
     Payment method configuration (`enabled`, `disabled`, `include_platform_defaults`); `null` when variant uses default settings.
-    """
-
-    plan_type: PlanListItemPlanType = pydantic.Field()
-    """
-    Billing model for this variant.
     """
 
     product: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)

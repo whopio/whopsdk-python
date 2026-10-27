@@ -51,7 +51,7 @@ class PlansClient:
         order: typing.Optional[ListPlansRequestOrder] = None,
         release_methods: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         visibilities: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        plan_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        billing_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
@@ -76,7 +76,7 @@ class PlansClient:
 
         visibilities : typing.Optional[typing.Union[str, typing.Sequence[str]]]
 
-        plan_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        billing_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
 
@@ -109,7 +109,7 @@ class PlansClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27",
+            "2026-10-27-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -126,7 +126,7 @@ class PlansClient:
             order=order,
             release_methods=release_methods,
             visibilities=visibilities,
-            plan_types=plan_types,
+            billing_types=billing_types,
             product_ids=product_ids,
             created_before=created_before,
             created_after=created_after,
@@ -144,6 +144,7 @@ class PlansClient:
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
+        billing_type: typing.Optional[str] = OMIT,
         cancel_discount_intervals: typing.Optional[int] = OMIT,
         cancel_discount_percentage: typing.Optional[int] = OMIT,
         checkout_styling: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
@@ -158,7 +159,6 @@ class PlansClient:
         offer_cancel_discount: typing.Optional[bool] = OMIT,
         override_tax_type: typing.Optional[str] = OMIT,
         payment_method_configuration: typing.Optional[CreatePlansRequestPaymentMethodConfiguration] = OMIT,
-        plan_type: typing.Optional[str] = OMIT,
         product_id: typing.Optional[str] = OMIT,
         release_method: typing.Optional[str] = OMIT,
         renewal_price: typing.Optional[float] = OMIT,
@@ -184,6 +184,8 @@ class PlansClient:
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
 
         billing_period : typing.Optional[int]
+
+        billing_type : typing.Optional[str]
 
         cancel_discount_intervals : typing.Optional[int]
 
@@ -212,8 +214,6 @@ class PlansClient:
         override_tax_type : typing.Optional[str]
 
         payment_method_configuration : typing.Optional[CreatePlansRequestPaymentMethodConfiguration]
-
-        plan_type : typing.Optional[str]
 
         product_id : typing.Optional[str]
 
@@ -250,7 +250,7 @@ class PlansClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27",
+            "2026-10-27-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -261,6 +261,7 @@ class PlansClient:
             adaptive_pricing_enabled=adaptive_pricing_enabled,
             attributes=attributes,
             billing_period=billing_period,
+            billing_type=billing_type,
             cancel_discount_intervals=cancel_discount_intervals,
             cancel_discount_percentage=cancel_discount_percentage,
             checkout_styling=checkout_styling,
@@ -275,7 +276,6 @@ class PlansClient:
             offer_cancel_discount=offer_cancel_discount,
             override_tax_type=override_tax_type,
             payment_method_configuration=payment_method_configuration,
-            plan_type=plan_type,
             product_id=product_id,
             release_method=release_method,
             renewal_price=renewal_price,
@@ -313,7 +313,7 @@ class PlansClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27",
+            "2026-10-27-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -346,7 +346,7 @@ class PlansClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27",
+            "2026-10-27-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -471,7 +471,7 @@ class PlansClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27",
+            "2026-10-27-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -550,7 +550,7 @@ class PlansClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27",
+            "2026-10-27-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -587,7 +587,7 @@ class AsyncPlansClient:
         order: typing.Optional[ListPlansRequestOrder] = None,
         release_methods: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         visibilities: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        plan_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        billing_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
@@ -612,7 +612,7 @@ class AsyncPlansClient:
 
         visibilities : typing.Optional[typing.Union[str, typing.Sequence[str]]]
 
-        plan_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        billing_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
 
@@ -647,7 +647,7 @@ class AsyncPlansClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27",
+            "2026-10-27-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -671,7 +671,7 @@ class AsyncPlansClient:
             order=order,
             release_methods=release_methods,
             visibilities=visibilities,
-            plan_types=plan_types,
+            billing_types=billing_types,
             product_ids=product_ids,
             created_before=created_before,
             created_after=created_after,
@@ -689,6 +689,7 @@ class AsyncPlansClient:
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
+        billing_type: typing.Optional[str] = OMIT,
         cancel_discount_intervals: typing.Optional[int] = OMIT,
         cancel_discount_percentage: typing.Optional[int] = OMIT,
         checkout_styling: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
@@ -703,7 +704,6 @@ class AsyncPlansClient:
         offer_cancel_discount: typing.Optional[bool] = OMIT,
         override_tax_type: typing.Optional[str] = OMIT,
         payment_method_configuration: typing.Optional[CreatePlansRequestPaymentMethodConfiguration] = OMIT,
-        plan_type: typing.Optional[str] = OMIT,
         product_id: typing.Optional[str] = OMIT,
         release_method: typing.Optional[str] = OMIT,
         renewal_price: typing.Optional[float] = OMIT,
@@ -729,6 +729,8 @@ class AsyncPlansClient:
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
 
         billing_period : typing.Optional[int]
+
+        billing_type : typing.Optional[str]
 
         cancel_discount_intervals : typing.Optional[int]
 
@@ -757,8 +759,6 @@ class AsyncPlansClient:
         override_tax_type : typing.Optional[str]
 
         payment_method_configuration : typing.Optional[CreatePlansRequestPaymentMethodConfiguration]
-
-        plan_type : typing.Optional[str]
 
         product_id : typing.Optional[str]
 
@@ -797,7 +797,7 @@ class AsyncPlansClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27",
+            "2026-10-27-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -814,6 +814,7 @@ class AsyncPlansClient:
             adaptive_pricing_enabled=adaptive_pricing_enabled,
             attributes=attributes,
             billing_period=billing_period,
+            billing_type=billing_type,
             cancel_discount_intervals=cancel_discount_intervals,
             cancel_discount_percentage=cancel_discount_percentage,
             checkout_styling=checkout_styling,
@@ -828,7 +829,6 @@ class AsyncPlansClient:
             offer_cancel_discount=offer_cancel_discount,
             override_tax_type=override_tax_type,
             payment_method_configuration=payment_method_configuration,
-            plan_type=plan_type,
             product_id=product_id,
             release_method=release_method,
             renewal_price=renewal_price,
@@ -868,7 +868,7 @@ class AsyncPlansClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27",
+            "2026-10-27-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -909,7 +909,7 @@ class AsyncPlansClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27",
+            "2026-10-27-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1042,7 +1042,7 @@ class AsyncPlansClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27",
+            "2026-10-27-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1129,7 +1129,7 @@ class AsyncPlansClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27",
+            "2026-10-27-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

@@ -36818,7 +36818,7 @@ client.plans.list()
 <dl>
 <dd>
 
-**plan_types:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` 
+**billing_types:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` 
     
 </dd>
 </dl>
@@ -36977,6 +36977,14 @@ client.plans.create()
 <dl>
 <dd>
 
+**billing_type:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **cancel_discount_intervals:** `typing.Optional[int]` 
     
 </dd>
@@ -37082,14 +37090,6 @@ client.plans.create()
 <dd>
 
 **payment_method_configuration:** `typing.Optional[CreatePlansRequestPaymentMethodConfiguration]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**plan_type:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -37977,7 +37977,7 @@ client.products.list(
 <dl>
 <dd>
 
-**plan_types:** `typing.Optional[typing.Union[ListProductsRequestPlanTypesItem, typing.Sequence[ListProductsRequestPlanTypesItem]]]` — Filter to products with a buyable variant of these billing models, such as `one_time` or `renewal`.
+**billing_types:** `typing.Optional[typing.Union[ListProductsRequestBillingTypesItem, typing.Sequence[ListProductsRequestBillingTypesItem]]]` — Filter to products with a buyable variant of these billing models, such as `one_time` or `renewal`.
     
 </dd>
 </dl>
@@ -47070,7 +47070,7 @@ client.variants.list(
     visibilities=[
         "visible"
     ],
-    plan_types=[
+    billing_types=[
         "renewal"
     ],
     product_ids=[
@@ -47135,7 +47135,7 @@ client.variants.list(
 <dl>
 <dd>
 
-**plan_types:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter to only variants matching these billing types.
+**billing_types:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter to only variants matching these billing types.
     
 </dd>
 </dl>
@@ -47318,6 +47318,14 @@ client.variants.create()
 <dl>
 <dd>
 
+**billing_type:** `typing.Optional[str]` — Variant billing type, such as `one_time` or `renewal`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **cancel_discount_intervals:** `typing.Optional[int]` — How long the retention discount lasts: `0` forever, `1` the next payment only, or a number of calendar months from when the customer accepts it. Required when `offer_cancel_discount` is true.
     
 </dd>
@@ -47423,14 +47431,6 @@ client.variants.create()
 <dd>
 
 **payment_method_configuration:** `typing.Optional[CreateVariantsRequestPaymentMethodConfiguration]` — Explicit payment method configuration for the variant. When not provided, the account's defaults apply. Send at least one of `enabled` or `disabled`; an omitted one is empty.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**plan_type:** `typing.Optional[str]` — Variant billing type, such as `one_time` or `renewal`.
     
 </dd>
 </dl>

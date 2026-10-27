@@ -1305,15 +1305,15 @@ if typing.TYPE_CHECKING:
     from .permission_granted_to_system_roles_item import PermissionGrantedToSystemRolesItem
     from .pixel_validation import PixelValidation
     from .plan import Plan
+    from .plan_billing_type import PlanBillingType
     from .plan_currency import PlanCurrency
     from .plan_custom_field import PlanCustomField
     from .plan_custom_field_field_type import PlanCustomFieldFieldType
     from .plan_list_item import PlanListItem
-    from .plan_list_item_plan_type import PlanListItemPlanType
+    from .plan_list_item_billing_type import PlanListItemBillingType
     from .plan_list_item_release_method import PlanListItemReleaseMethod
     from .plan_list_item_three_ds_level import PlanListItemThreeDsLevel
     from .plan_list_item_visibility import PlanListItemVisibility
-    from .plan_plan_type import PlanPlanType
     from .plan_release_method import PlanReleaseMethod
     from .plan_tax_type import PlanTaxType
     from .plan_three_ds_level import PlanThreeDsLevel
@@ -1335,9 +1335,9 @@ if typing.TYPE_CHECKING:
     from .product_list_item import ProductListItem
     from .product_marketplace_status import ProductMarketplaceStatus
     from .product_member_affiliate_status import ProductMemberAffiliateStatus
-    from .product_public_plan import ProductPublicPlan
-    from .product_public_plan_plan_type import ProductPublicPlanPlanType
-    from .product_public_plan_visibility import ProductPublicPlanVisibility
+    from .product_public_variant import ProductPublicVariant
+    from .product_public_variant_billing_type import ProductPublicVariantBillingType
+    from .product_public_variant_visibility import ProductPublicVariantVisibility
     from .product_tax_code_product_types import ProductTaxCodeProductTypes
     from .promo_code import PromoCode
     from .promo_code_affiliate import PromoCodeAffiliate
@@ -1578,12 +1578,12 @@ if typing.TYPE_CHECKING:
     from .v1error_response import V1ErrorResponse
     from .v1error_response_error import V1ErrorResponseError
     from .variant import Variant
+    from .variant_billing_type import VariantBillingType
     from .variant_list_item import VariantListItem
-    from .variant_list_item_plan_type import VariantListItemPlanType
+    from .variant_list_item_billing_type import VariantListItemBillingType
     from .variant_list_item_release_method import VariantListItemReleaseMethod
     from .variant_list_item_three_ds_level import VariantListItemThreeDsLevel
     from .variant_list_item_visibility import VariantListItemVisibility
-    from .variant_plan_type import VariantPlanType
     from .variant_release_method import VariantReleaseMethod
     from .variant_tax_type import VariantTaxType
     from .variant_three_ds_level import VariantThreeDsLevel
@@ -2775,15 +2775,15 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PermissionGrantedToSystemRolesItem": ".permission_granted_to_system_roles_item",
     "PixelValidation": ".pixel_validation",
     "Plan": ".plan",
+    "PlanBillingType": ".plan_billing_type",
     "PlanCurrency": ".plan_currency",
     "PlanCustomField": ".plan_custom_field",
     "PlanCustomFieldFieldType": ".plan_custom_field_field_type",
     "PlanListItem": ".plan_list_item",
-    "PlanListItemPlanType": ".plan_list_item_plan_type",
+    "PlanListItemBillingType": ".plan_list_item_billing_type",
     "PlanListItemReleaseMethod": ".plan_list_item_release_method",
     "PlanListItemThreeDsLevel": ".plan_list_item_three_ds_level",
     "PlanListItemVisibility": ".plan_list_item_visibility",
-    "PlanPlanType": ".plan_plan_type",
     "PlanReleaseMethod": ".plan_release_method",
     "PlanTaxType": ".plan_tax_type",
     "PlanThreeDsLevel": ".plan_three_ds_level",
@@ -2805,9 +2805,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ProductListItem": ".product_list_item",
     "ProductMarketplaceStatus": ".product_marketplace_status",
     "ProductMemberAffiliateStatus": ".product_member_affiliate_status",
-    "ProductPublicPlan": ".product_public_plan",
-    "ProductPublicPlanPlanType": ".product_public_plan_plan_type",
-    "ProductPublicPlanVisibility": ".product_public_plan_visibility",
+    "ProductPublicVariant": ".product_public_variant",
+    "ProductPublicVariantBillingType": ".product_public_variant_billing_type",
+    "ProductPublicVariantVisibility": ".product_public_variant_visibility",
     "ProductTaxCodeProductTypes": ".product_tax_code_product_types",
     "PromoCode": ".promo_code",
     "PromoCodeAffiliate": ".promo_code_affiliate",
@@ -3042,12 +3042,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "V1ErrorResponse": ".v1error_response",
     "V1ErrorResponseError": ".v1error_response_error",
     "Variant": ".variant",
+    "VariantBillingType": ".variant_billing_type",
     "VariantListItem": ".variant_list_item",
-    "VariantListItemPlanType": ".variant_list_item_plan_type",
+    "VariantListItemBillingType": ".variant_list_item_billing_type",
     "VariantListItemReleaseMethod": ".variant_list_item_release_method",
     "VariantListItemThreeDsLevel": ".variant_list_item_three_ds_level",
     "VariantListItemVisibility": ".variant_list_item_visibility",
-    "VariantPlanType": ".variant_plan_type",
     "VariantReleaseMethod": ".variant_release_method",
     "VariantTaxType": ".variant_tax_type",
     "VariantThreeDsLevel": ".variant_three_ds_level",
@@ -4263,15 +4263,15 @@ __all__ = [
     "PermissionGrantedToSystemRolesItem",
     "PixelValidation",
     "Plan",
+    "PlanBillingType",
     "PlanCurrency",
     "PlanCustomField",
     "PlanCustomFieldFieldType",
     "PlanListItem",
-    "PlanListItemPlanType",
+    "PlanListItemBillingType",
     "PlanListItemReleaseMethod",
     "PlanListItemThreeDsLevel",
     "PlanListItemVisibility",
-    "PlanPlanType",
     "PlanReleaseMethod",
     "PlanTaxType",
     "PlanThreeDsLevel",
@@ -4293,9 +4293,9 @@ __all__ = [
     "ProductListItem",
     "ProductMarketplaceStatus",
     "ProductMemberAffiliateStatus",
-    "ProductPublicPlan",
-    "ProductPublicPlanPlanType",
-    "ProductPublicPlanVisibility",
+    "ProductPublicVariant",
+    "ProductPublicVariantBillingType",
+    "ProductPublicVariantVisibility",
     "ProductTaxCodeProductTypes",
     "PromoCode",
     "PromoCodeAffiliate",
@@ -4530,12 +4530,12 @@ __all__ = [
     "V1ErrorResponse",
     "V1ErrorResponseError",
     "Variant",
+    "VariantBillingType",
     "VariantListItem",
-    "VariantListItemPlanType",
+    "VariantListItemBillingType",
     "VariantListItemReleaseMethod",
     "VariantListItemThreeDsLevel",
     "VariantListItemVisibility",
-    "VariantPlanType",
     "VariantReleaseMethod",
     "VariantTaxType",
     "VariantThreeDsLevel",

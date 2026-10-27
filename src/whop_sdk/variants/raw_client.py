@@ -52,7 +52,7 @@ class RawVariantsClient:
         order: typing.Optional[ListVariantsRequestOrder] = None,
         release_methods: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         visibilities: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        plan_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        billing_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
@@ -85,7 +85,7 @@ class RawVariantsClient:
         visibilities : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to only variants matching these visibility states.
 
-        plan_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        billing_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to only variants matching these billing types.
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
@@ -136,7 +136,7 @@ class RawVariantsClient:
                 "order": order,
                 "release_methods": release_methods,
                 "visibilities": visibilities,
-                "plan_types": plan_types,
+                "billing_types": billing_types,
                 "product_ids": product_ids,
                 "created_before": created_before,
                 "created_after": created_after,
@@ -171,7 +171,7 @@ class RawVariantsClient:
                         order=order,
                         release_methods=release_methods,
                         visibilities=visibilities,
-                        plan_types=plan_types,
+                        billing_types=billing_types,
                         product_ids=product_ids,
                         created_before=created_before,
                         created_after=created_after,
@@ -223,6 +223,7 @@ class RawVariantsClient:
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
+        billing_type: typing.Optional[str] = OMIT,
         cancel_discount_intervals: typing.Optional[int] = OMIT,
         cancel_discount_percentage: typing.Optional[int] = OMIT,
         checkout_styling: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
@@ -237,7 +238,6 @@ class RawVariantsClient:
         offer_cancel_discount: typing.Optional[bool] = OMIT,
         override_tax_type: typing.Optional[str] = OMIT,
         payment_method_configuration: typing.Optional[CreateVariantsRequestPaymentMethodConfiguration] = OMIT,
-        plan_type: typing.Optional[str] = OMIT,
         product_id: typing.Optional[str] = OMIT,
         release_method: typing.Optional[str] = OMIT,
         renewal_price: typing.Optional[float] = OMIT,
@@ -267,6 +267,9 @@ class RawVariantsClient:
 
         billing_period : typing.Optional[int]
             Recurring billing interval in days, such as 30 for monthly or 365 for annual.
+
+        billing_type : typing.Optional[str]
+            Variant billing type, such as `one_time` or `renewal`.
 
         cancel_discount_intervals : typing.Optional[int]
             How long the retention discount lasts: `0` forever, `1` the next payment only, or a number of calendar months from when the customer accepts it. Required when `offer_cancel_discount` is true.
@@ -309,9 +312,6 @@ class RawVariantsClient:
 
         payment_method_configuration : typing.Optional[CreateVariantsRequestPaymentMethodConfiguration]
             Explicit payment method configuration for the variant. When not provided, the account's defaults apply. Send at least one of `enabled` or `disabled`; an omitted one is empty.
-
-        plan_type : typing.Optional[str]
-            Variant billing type, such as `one_time` or `renewal`.
 
         product_id : typing.Optional[str]
             The unique identifier of the product to attach this variant to.
@@ -363,6 +363,7 @@ class RawVariantsClient:
                 "adaptive_pricing_enabled": adaptive_pricing_enabled,
                 "attributes": attributes,
                 "billing_period": billing_period,
+                "billing_type": billing_type,
                 "cancel_discount_intervals": cancel_discount_intervals,
                 "cancel_discount_percentage": cancel_discount_percentage,
                 "checkout_styling": checkout_styling,
@@ -387,7 +388,6 @@ class RawVariantsClient:
                     annotation=typing.Optional[CreateVariantsRequestPaymentMethodConfiguration],
                     direction="write",
                 ),
-                "plan_type": plan_type,
                 "product_id": product_id,
                 "release_method": release_method,
                 "renewal_price": renewal_price,
@@ -949,7 +949,7 @@ class AsyncRawVariantsClient:
         order: typing.Optional[ListVariantsRequestOrder] = None,
         release_methods: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         visibilities: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        plan_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        billing_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
@@ -982,7 +982,7 @@ class AsyncRawVariantsClient:
         visibilities : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to only variants matching these visibility states.
 
-        plan_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        billing_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to only variants matching these billing types.
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
@@ -1033,7 +1033,7 @@ class AsyncRawVariantsClient:
                 "order": order,
                 "release_methods": release_methods,
                 "visibilities": visibilities,
-                "plan_types": plan_types,
+                "billing_types": billing_types,
                 "product_ids": product_ids,
                 "created_before": created_before,
                 "created_after": created_after,
@@ -1070,7 +1070,7 @@ class AsyncRawVariantsClient:
                             order=order,
                             release_methods=release_methods,
                             visibilities=visibilities,
-                            plan_types=plan_types,
+                            billing_types=billing_types,
                             product_ids=product_ids,
                             created_before=created_before,
                             created_after=created_after,
@@ -1123,6 +1123,7 @@ class AsyncRawVariantsClient:
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
+        billing_type: typing.Optional[str] = OMIT,
         cancel_discount_intervals: typing.Optional[int] = OMIT,
         cancel_discount_percentage: typing.Optional[int] = OMIT,
         checkout_styling: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
@@ -1137,7 +1138,6 @@ class AsyncRawVariantsClient:
         offer_cancel_discount: typing.Optional[bool] = OMIT,
         override_tax_type: typing.Optional[str] = OMIT,
         payment_method_configuration: typing.Optional[CreateVariantsRequestPaymentMethodConfiguration] = OMIT,
-        plan_type: typing.Optional[str] = OMIT,
         product_id: typing.Optional[str] = OMIT,
         release_method: typing.Optional[str] = OMIT,
         renewal_price: typing.Optional[float] = OMIT,
@@ -1167,6 +1167,9 @@ class AsyncRawVariantsClient:
 
         billing_period : typing.Optional[int]
             Recurring billing interval in days, such as 30 for monthly or 365 for annual.
+
+        billing_type : typing.Optional[str]
+            Variant billing type, such as `one_time` or `renewal`.
 
         cancel_discount_intervals : typing.Optional[int]
             How long the retention discount lasts: `0` forever, `1` the next payment only, or a number of calendar months from when the customer accepts it. Required when `offer_cancel_discount` is true.
@@ -1209,9 +1212,6 @@ class AsyncRawVariantsClient:
 
         payment_method_configuration : typing.Optional[CreateVariantsRequestPaymentMethodConfiguration]
             Explicit payment method configuration for the variant. When not provided, the account's defaults apply. Send at least one of `enabled` or `disabled`; an omitted one is empty.
-
-        plan_type : typing.Optional[str]
-            Variant billing type, such as `one_time` or `renewal`.
 
         product_id : typing.Optional[str]
             The unique identifier of the product to attach this variant to.
@@ -1263,6 +1263,7 @@ class AsyncRawVariantsClient:
                 "adaptive_pricing_enabled": adaptive_pricing_enabled,
                 "attributes": attributes,
                 "billing_period": billing_period,
+                "billing_type": billing_type,
                 "cancel_discount_intervals": cancel_discount_intervals,
                 "cancel_discount_percentage": cancel_discount_percentage,
                 "checkout_styling": checkout_styling,
@@ -1287,7 +1288,6 @@ class AsyncRawVariantsClient:
                     annotation=typing.Optional[CreateVariantsRequestPaymentMethodConfiguration],
                     direction="write",
                 ),
-                "plan_type": plan_type,
                 "product_id": product_id,
                 "release_method": release_method,
                 "renewal_price": renewal_price,

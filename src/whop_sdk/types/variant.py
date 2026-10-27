@@ -8,7 +8,7 @@ from .account_summary import AccountSummary
 from .checkout_session_payment_method_configuration import CheckoutSessionPaymentMethodConfiguration
 from .money import Money
 from .plan_custom_field import PlanCustomField
-from .variant_plan_type import VariantPlanType
+from .variant_billing_type import VariantBillingType
 from .variant_release_method import VariantReleaseMethod
 from .variant_tax_type import VariantTaxType
 from .variant_three_ds_level import VariantThreeDsLevel
@@ -34,6 +34,11 @@ class Variant(UniversalBaseModel):
     billing_period: typing.Optional[float] = pydantic.Field(default=None)
     """
     Number of days between recurring charges, such as 30 for monthly or 365 for annual. `null` for one-time variants.
+    """
+
+    billing_type: VariantBillingType = pydantic.Field()
+    """
+    Billing model for this variant.
     """
 
     cancel_discount_intervals: typing.Optional[float] = pydantic.Field(default=None)
@@ -142,11 +147,6 @@ class Variant(UniversalBaseModel):
     payment_method_configuration: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
     """
     Payment method configuration (`enabled`, `disabled`, `include_platform_defaults`); `null` when variant uses default settings.
-    """
-
-    plan_type: VariantPlanType = pydantic.Field()
-    """
-    Billing model for this variant.
     """
 
     product: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)

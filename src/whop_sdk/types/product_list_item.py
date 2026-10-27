@@ -5,7 +5,7 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .product_gallery_image import ProductGalleryImage
-from .product_public_plan import ProductPublicPlan
+from .product_public_variant import ProductPublicVariant
 
 
 class ProductListItem(UniversalBaseModel):
@@ -24,7 +24,7 @@ class ProductListItem(UniversalBaseModel):
     When the product was created, as an ISO 8601 timestamp.
     """
 
-    default_plan: typing.Optional[ProductPublicPlan] = pydantic.Field(default=None)
+    default_variant: typing.Optional[ProductPublicVariant] = pydantic.Field(default=None)
     """
     Buyable variant to show and check out with. The configured default when that variant is buyable, otherwise the first buyable variant in product-page order. `null` when none is buyable.
     """
