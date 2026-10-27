@@ -58,7 +58,7 @@ class SocialAccount(UniversalBaseModel):
 
     username: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The username of the social account on the platform. Null while a Whop-owned account is still being provisioned.
+    The username of the social account on the platform. Null while a Whop-owned account is still being provisioned, and on platforms without usernames, such as Klaviyo.
     """
 
     verified: bool = pydantic.Field()
