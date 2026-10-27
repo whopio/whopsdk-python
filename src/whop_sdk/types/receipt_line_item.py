@@ -18,16 +18,6 @@ class ReceiptLineItem(UniversalBaseModel):
     The item's name as shown at checkout — the product title, else the variant title.
     """
 
-    plan_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The variant bought, prefixed `plan_`. Null when the variant has since been deleted.
-    """
-
-    plan_title: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The variant's current title, or `null` when the variant has been deleted or has no title.
-    """
-
     product_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The product the variant belongs to, prefixed `prod_`. On a payment that predates item snapshots this falls back to the variant's product, so it can be set where the parent's own `product_id` is null. Null for a variant with no product.
@@ -51,6 +41,16 @@ class ReceiptLineItem(UniversalBaseModel):
     subtotal: typing.Optional[Money] = pydantic.Field(default=None)
     """
     The recorded amount for this item's full quantity, before discounts, tax, and fees, in its purchase currency. Returns `null` when no item amount was recorded.
+    """
+
+    variant_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The variant bought, prefixed `plan_`. Null when the variant has since been deleted.
+    """
+
+    variant_title: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The variant's current title, or `null` when the variant has been deleted or has no title.
     """
 
     if IS_PYDANTIC_V2:

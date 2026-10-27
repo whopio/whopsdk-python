@@ -132,11 +132,6 @@ class Membership(UniversalBaseModel):
     The buyer's phone number recorded for this membership, or `null`. The number collected (or verified) at checkout when the seller's phone collection is on; falls back to the buyer's account number when they have shared one with this seller.
     """
 
-    plan_id: str = pydantic.Field()
-    """
-    The variant the buyer purchased, prefixed `plan_`.
-    """
-
     product: MembershipProduct = pydantic.Field()
     """
     The product this membership grants access to.
@@ -180,6 +175,11 @@ class Membership(UniversalBaseModel):
     user_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The buyer, prefixed `user_`. `null` when the buyer is another business or the membership is unclaimed.
+    """
+
+    variant_id: str = pydantic.Field()
+    """
+    The variant the buyer purchased, prefixed `plan_`.
     """
 
     if IS_PYDANTIC_V2:

@@ -54,7 +54,7 @@ class MembersClient:
         ] = None,
         membership_status: typing.Optional[ListMembersRequestMembershipStatus] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        plan_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        variant_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         promo_code_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         query: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
@@ -88,13 +88,13 @@ class MembersClient:
             Only return members whose `most_recent_action` is one of these values.
 
         membership_status : typing.Optional[ListMembersRequestMembershipStatus]
-            `active` returns members holding at least one membership that currently grants access; `inactive` returns members holding at least one membership that does not. Combined with `product_ids`, `plan_ids`, or `promo_code_ids`, one membership must match all of them.
+            `active` returns members holding at least one membership that currently grants access; `inactive` returns members holding at least one membership that does not. Combined with `product_ids`, `variant_ids`, or `promo_code_ids`, one membership must match all of them.
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only return members holding a membership to one of these products, prefixed `prod_`. Unknown IDs match nothing.
 
-        plan_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Only return members holding a membership on one of these plans, prefixed `plan_`. Unknown IDs match nothing.
+        variant_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return members holding a membership on one of these variants, prefixed `plan_`. Unknown IDs match nothing.
 
         promo_code_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only return members holding a membership bought with one of these promo codes, prefixed `promo_`. Unknown IDs match nothing.
@@ -139,14 +139,14 @@ class MembersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         response = client.members.list(
             user_ids=["user_xxxxxxxxxxxxxx"],
             product_ids=["prod_xxxxxxxxxxxxx"],
-            plan_ids=["plan_xxxxxxxxxxxxx"],
+            variant_ids=["plan_xxxxxxxxxxxxx"],
             promo_code_ids=["promo_xxxxxxxxxxxx"],
         )
         for item in response:
@@ -163,7 +163,7 @@ class MembersClient:
             most_recent_actions=most_recent_actions,
             membership_status=membership_status,
             product_ids=product_ids,
-            plan_ids=plan_ids,
+            variant_ids=variant_ids,
             promo_code_ids=promo_code_ids,
             query=query,
             created_after=created_after,
@@ -199,7 +199,7 @@ class MembersClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -259,7 +259,7 @@ class AsyncMembersClient:
         ] = None,
         membership_status: typing.Optional[ListMembersRequestMembershipStatus] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        plan_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        variant_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         promo_code_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         query: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
@@ -293,13 +293,13 @@ class AsyncMembersClient:
             Only return members whose `most_recent_action` is one of these values.
 
         membership_status : typing.Optional[ListMembersRequestMembershipStatus]
-            `active` returns members holding at least one membership that currently grants access; `inactive` returns members holding at least one membership that does not. Combined with `product_ids`, `plan_ids`, or `promo_code_ids`, one membership must match all of them.
+            `active` returns members holding at least one membership that currently grants access; `inactive` returns members holding at least one membership that does not. Combined with `product_ids`, `variant_ids`, or `promo_code_ids`, one membership must match all of them.
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only return members holding a membership to one of these products, prefixed `prod_`. Unknown IDs match nothing.
 
-        plan_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Only return members holding a membership on one of these plans, prefixed `plan_`. Unknown IDs match nothing.
+        variant_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only return members holding a membership on one of these variants, prefixed `plan_`. Unknown IDs match nothing.
 
         promo_code_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only return members holding a membership bought with one of these promo codes, prefixed `promo_`. Unknown IDs match nothing.
@@ -346,7 +346,7 @@ class AsyncMembersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -356,7 +356,7 @@ class AsyncMembersClient:
             response = await client.members.list(
                 user_ids=["user_xxxxxxxxxxxxxx"],
                 product_ids=["prod_xxxxxxxxxxxxx"],
-                plan_ids=["plan_xxxxxxxxxxxxx"],
+                variant_ids=["plan_xxxxxxxxxxxxx"],
                 promo_code_ids=["promo_xxxxxxxxxxxx"],
             )
             async for item in response:
@@ -377,7 +377,7 @@ class AsyncMembersClient:
             most_recent_actions=most_recent_actions,
             membership_status=membership_status,
             product_ids=product_ids,
-            plan_ids=plan_ids,
+            variant_ids=variant_ids,
             promo_code_ids=promo_code_ids,
             query=query,
             created_after=created_after,
@@ -415,7 +415,7 @@ class AsyncMembersClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

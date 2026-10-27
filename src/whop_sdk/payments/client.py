@@ -9,7 +9,7 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
 from ..types.payment import Payment
-from ..types.payment_input_plan import PaymentInputPlan
+from ..types.payment_input_variant import PaymentInputVariant
 from ..types.payment_pdf import PaymentPdf
 from ..types.payment_status import PaymentStatus
 from .raw_client import AsyncRawPaymentsClient, RawPaymentsClient
@@ -78,7 +78,7 @@ class PaymentsClient:
         member_id: typing.Optional[str] = None,
         membership_id: typing.Optional[str] = None,
         product_id: typing.Optional[str] = None,
-        plan_id: typing.Optional[str] = None,
+        variant_id: typing.Optional[str] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
         statuses: typing.Optional[
@@ -91,7 +91,7 @@ class PaymentsClient:
             typing.Union[ListPaymentsRequestBillingReasonsItem, typing.Sequence[ListPaymentsRequestBillingReasonsItem]]
         ] = None,
         currencies: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        plan_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        variant_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         payment_methods: typing.Optional[
             typing.Union[ListPaymentsRequestPaymentMethodsItem, typing.Sequence[ListPaymentsRequestPaymentMethodsItem]]
@@ -154,7 +154,7 @@ class PaymentsClient:
         product_id : typing.Optional[str]
             Only payments for this product, prefixed `prod_`.
 
-        plan_id : typing.Optional[str]
+        variant_id : typing.Optional[str]
             Only payments priced by this variant, prefixed `plan_`.
 
         created_before : typing.Optional[dt.datetime]
@@ -175,8 +175,8 @@ class PaymentsClient:
         currencies : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only payments presented in any of these three-letter currencies. Repeat the parameter to pass several. Combined with `currency` when both are sent.
 
-        plan_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Only payments priced by any of these variants, each prefixed `plan_`. Repeat the parameter to pass several. Combined with `plan_id` when both are sent.
+        variant_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only payments priced by any of these variants, each prefixed `plan_`. Repeat the parameter to pass several. Combined with `variant_id` when both are sent.
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only payments for any of these products, each prefixed `prod_`. Repeat the parameter to pass several. Combined with `product_id` when both are sent.
@@ -236,13 +236,13 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         response = client.payments.list(
             currencies=["eur"],
-            plan_ids=["plan_xxxxxxxxxxxxx"],
+            variant_ids=["plan_xxxxxxxxxxxxx"],
             product_ids=["prod_xxxxxxxxxxxxx"],
         )
         for item in response:
@@ -264,14 +264,14 @@ class PaymentsClient:
             member_id=member_id,
             membership_id=membership_id,
             product_id=product_id,
-            plan_id=plan_id,
+            variant_id=variant_id,
             created_before=created_before,
             created_after=created_after,
             statuses=statuses,
             substatuses=substatuses,
             billing_reasons=billing_reasons,
             currencies=currencies,
-            plan_ids=plan_ids,
+            variant_ids=variant_ids,
             product_ids=product_ids,
             payment_methods=payment_methods,
             tracking_states=tracking_states,
@@ -312,10 +312,10 @@ class PaymentsClient:
         setup_future_usage: typing.Optional[CreatePaymentsRequestSetupFutureUsage] = OMIT,
         shipping_address: typing.Optional[CreatePaymentsRequestShippingAddress] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
-        plan: typing.Optional[PaymentInputPlan] = OMIT,
-        plan_id: typing.Optional[str] = OMIT,
         promo_code: typing.Optional[str] = OMIT,
         promo_code_id: typing.Optional[str] = OMIT,
+        variant: typing.Optional[PaymentInputVariant] = OMIT,
+        variant_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Payment:
         """
@@ -348,7 +348,7 @@ class PaymentsClient:
             The buyer's IPv4 or IPv6 address, used to assess the charge's risk and passed to the processor. Ignored unless a saved payment method is charged with `off_session` set to false.
 
         line_items : typing.Optional[typing.Sequence[CreatePaymentsRequestLineItemsItem]]
-            What the buyer is purchasing. Each entry takes exactly one of `plan_id` or an inline `plan`. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency. Mutually exclusive with `plan_id` and `plan`.
+            What the buyer is purchasing. Each entry takes exactly one of `variant_id` or an inline `variant`. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency. Mutually exclusive with `variant_id` and `variant`.
 
         member_id : typing.Optional[str]
             The member to charge, prefixed `mber_`. Required with `payment_method_id` unless `confirmation_token` is provided. With a `paypal` `payment_method` it names the buyer instead of `email`, and must belong to a user.
@@ -366,7 +366,7 @@ class PaymentsClient:
             The stored payment method to charge, prefixed `payt_`. It must belong to the member. Required unless `confirmation_token` is provided.
 
         quote_id : typing.Optional[str]
-            A payment quote from `POST /payment_quotes`, prefixed `pq_`. The payment charges exactly the quote: its purchase (its variants and quantities, or the `plan` it priced), which this body may then omit, its promo code, and its tax, the quote's `tax_amount` rather than a figure calculated now. Omit it, or send null, to have tax calculated when the payment is charged. The quote must belong to `account_id`. A purchase field you omit or send as null takes the quote's value; the buyer's email, the addresses and the payment method are this request's own, never the quote's. Whatever you do send must describe the quoted purchase: the same variants, quantities and promo code. A quote that priced `plan` takes only the same `plan` you sent to `POST /payment_quotes` (or omit the purchase to take the quoted one), never `plan_id` or `line_items`, and a quote that priced variants by id never takes `plan`. Unless the quote located no buyer (`located_by` is null), the address the payment carries (its shipping address, else its billing address) must put the buyer where the quote priced tax, by country, state and postal code; otherwise the payment is refused with 400 before the payment method is used. A quote located by IP address or by the country the buyer chose (`located_by` is `ip_address` or `presentment_country`) is a preview and cannot be paid. A quote is consumed by one payment: a declined payment keeps it and can be retried; a new payment needs a new quote. A quote cannot be charged by a processor that doesn't take quotes, such as a seller's own connected PayPal account; such a payment is refused before the payment method is used. A quote priced in a `presentment_currency` is charged in that currency at the quote's `exchange_rate`. A payment refused over its quote carries an error `code`. `quote_expired`: the quote has expired; quote again. `quote_tax_unavailable`: the quote could not price tax; quote again, or omit `quote_id`. `quote_preview_only`: the quote was located by IP address or by the country the buyer chose; quote again with the buyer's address. `quote_in_use` (409): another payment holds the quote. `quote_mismatch`: the purchase or the buyer's address is not the one quoted. `quote_rate_expired`: the exchange rate the quote was priced at has moved too far to charge; quote again. `payment_method_currency_unsupported`: the payment method cannot pay in the quote's currency; use another method, or quote again in another currency. `quote_processor_unsupported`: the payment would be processed by a processor that doesn't take quotes, such as a seller's own connected PayPal account; use another method, or omit `quote_id` to have tax calculated when the payment is charged.
+            A payment quote from `POST /payment_quotes`, prefixed `pq_`. The payment charges exactly the quote: its purchase (its variants and quantities, or the `variant` it priced), which this body may then omit, its promo code, and its tax, the quote's `tax_amount` rather than a figure calculated now. Omit it, or send null, to have tax calculated when the payment is charged. The quote must belong to `account_id`. A purchase field you omit or send as null takes the quote's value; the buyer's email, the addresses and the payment method are this request's own, never the quote's. Whatever you do send must describe the quoted purchase: the same variants, quantities and promo code. A quote that priced `variant` takes only the same `variant` you sent to `POST /payment_quotes` (or omit the purchase to take the quoted one), never `variant_id` or `line_items`, and a quote that priced variants by id never takes `variant`. Unless the quote located no buyer (`located_by` is null), the address the payment carries (its shipping address, else its billing address) must put the buyer where the quote priced tax, by country, state and postal code; otherwise the payment is refused with 400 before the payment method is used. A quote located by IP address or by the country the buyer chose (`located_by` is `ip_address` or `presentment_country`) is a preview and cannot be paid. A quote is consumed by one payment: a declined payment keeps it and can be retried; a new payment needs a new quote. A quote cannot be charged by a processor that doesn't take quotes, such as a seller's own connected PayPal account; such a payment is refused before the payment method is used. A quote priced in a `presentment_currency` is charged in that currency at the quote's `exchange_rate`. A payment refused over its quote carries an error `code`. `quote_expired`: the quote has expired; quote again. `quote_tax_unavailable`: the quote could not price tax; quote again, or omit `quote_id`. `quote_preview_only`: the quote was located by IP address or by the country the buyer chose; quote again with the buyer's address. `quote_in_use` (409): another payment holds the quote. `quote_mismatch`: the purchase or the buyer's address is not the one quoted. `quote_rate_expired`: the exchange rate the quote was priced at has moved too far to charge; quote again. `payment_method_currency_unsupported`: the payment method cannot pay in the quote's currency; use another method, or quote again in another currency. `quote_processor_unsupported`: the payment would be processed by a processor that doesn't take quotes, such as a seller's own connected PayPal account; use another method, or omit `quote_id` to have tax calculated when the payment is charged.
 
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step such as 3D Secure. An absolute https URL without credentials, at most 2,048 characters. Required when a saved payment method is charged with `off_session` false; otherwise ignored unless `confirmation_token` or a `paypal` `payment_method` is provided.
@@ -380,17 +380,17 @@ class PaymentsClient:
         statement_descriptor : typing.Optional[str]
             Overrides the text on the buyer's card statement for this payment only. Takes precedence over the product's and account's custom descriptors, and changes neither. Must start with `WHOP*` unless the business processes as the merchant of record. For businesses processing as the merchant of record, omit the `WHOP*` prefix; the descriptor appears as provided. Must be 5-22 characters, contain at least one letter, and use only Latin letters, numbers, spaces, underscores, hyphens, or asterisks.
 
-        plan : typing.Optional[PaymentInputPlan]
-            The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
-
-        plan_id : typing.Optional[str]
-            The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
-
         promo_code : typing.Optional[str]
             The promo code as the buyer typed it, matched within the account regardless of case and surrounding spaces, as checkout matches it. It must be valid for the variant. Send it or `promo_code_id`, not both; an empty or whitespace-only string counts as not sent. A code the account does not have, or one that is no longer active, is refused before anything is written, with the error code `promo_invalid`. A code this purchase cannot use, such as one with no uses left or one restricted to other variants, products or buyers, is refused with `promo_invalid` too, and the error's message says why.
 
         promo_code_id : typing.Optional[str]
             An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant. Send it or `promo_code`, not both. A code this purchase cannot use is refused with the error code `promo_invalid`, and the error's message says why.
+
+        variant : typing.Optional[PaymentInputVariant]
+            The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `variant_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
+
+        variant_id : typing.Optional[str]
+            The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `variant` and `line_items`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -405,7 +405,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -433,10 +433,10 @@ class PaymentsClient:
             setup_future_usage=setup_future_usage,
             shipping_address=shipping_address,
             statement_descriptor=statement_descriptor,
-            plan=plan,
-            plan_id=plan_id,
             promo_code=promo_code,
             promo_code_id=promo_code_id,
+            variant=variant,
+            variant_id=variant_id,
             request_options=request_options,
         )
         return _response.data
@@ -460,7 +460,7 @@ class PaymentsClient:
             ]
         ] = None,
         currencies: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        plan_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        variant_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         payment_methods: typing.Optional[
             typing.Union[
@@ -507,7 +507,7 @@ class PaymentsClient:
         currencies : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only payments presented in any of these three-letter currencies. Repeat the parameter to pass several.
 
-        plan_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        variant_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only payments priced by any of these variants, each prefixed `plan_`. Repeat the parameter to pass several.
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
@@ -562,13 +562,13 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.payments.summary(
             currencies=["usd"],
-            plan_ids=["plan_xxxxxxxxxxxxx"],
+            variant_ids=["plan_xxxxxxxxxxxxx"],
             product_ids=["prod_xxxxxxxxxxxxx"],
         )
         """
@@ -579,7 +579,7 @@ class PaymentsClient:
             substatuses=substatuses,
             billing_reasons=billing_reasons,
             currencies=currencies,
-            plan_ids=plan_ids,
+            variant_ids=variant_ids,
             product_ids=product_ids,
             payment_methods=payment_methods,
             tracking_states=tracking_states,
@@ -619,7 +619,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -665,7 +665,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -700,7 +700,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -735,7 +735,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -768,7 +768,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -814,7 +814,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -849,7 +849,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -882,7 +882,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -928,7 +928,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -976,7 +976,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1021,7 +1021,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1075,7 +1075,7 @@ class AsyncPaymentsClient:
         member_id: typing.Optional[str] = None,
         membership_id: typing.Optional[str] = None,
         product_id: typing.Optional[str] = None,
-        plan_id: typing.Optional[str] = None,
+        variant_id: typing.Optional[str] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
         statuses: typing.Optional[
@@ -1088,7 +1088,7 @@ class AsyncPaymentsClient:
             typing.Union[ListPaymentsRequestBillingReasonsItem, typing.Sequence[ListPaymentsRequestBillingReasonsItem]]
         ] = None,
         currencies: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        plan_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        variant_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         payment_methods: typing.Optional[
             typing.Union[ListPaymentsRequestPaymentMethodsItem, typing.Sequence[ListPaymentsRequestPaymentMethodsItem]]
@@ -1151,7 +1151,7 @@ class AsyncPaymentsClient:
         product_id : typing.Optional[str]
             Only payments for this product, prefixed `prod_`.
 
-        plan_id : typing.Optional[str]
+        variant_id : typing.Optional[str]
             Only payments priced by this variant, prefixed `plan_`.
 
         created_before : typing.Optional[dt.datetime]
@@ -1172,8 +1172,8 @@ class AsyncPaymentsClient:
         currencies : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only payments presented in any of these three-letter currencies. Repeat the parameter to pass several. Combined with `currency` when both are sent.
 
-        plan_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
-            Only payments priced by any of these variants, each prefixed `plan_`. Repeat the parameter to pass several. Combined with `plan_id` when both are sent.
+        variant_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+            Only payments priced by any of these variants, each prefixed `plan_`. Repeat the parameter to pass several. Combined with `variant_id` when both are sent.
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only payments for any of these products, each prefixed `prod_`. Repeat the parameter to pass several. Combined with `product_id` when both are sent.
@@ -1235,7 +1235,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1244,7 +1244,7 @@ class AsyncPaymentsClient:
         async def main() -> None:
             response = await client.payments.list(
                 currencies=["eur"],
-                plan_ids=["plan_xxxxxxxxxxxxx"],
+                variant_ids=["plan_xxxxxxxxxxxxx"],
                 product_ids=["prod_xxxxxxxxxxxxx"],
             )
             async for item in response:
@@ -1270,14 +1270,14 @@ class AsyncPaymentsClient:
             member_id=member_id,
             membership_id=membership_id,
             product_id=product_id,
-            plan_id=plan_id,
+            variant_id=variant_id,
             created_before=created_before,
             created_after=created_after,
             statuses=statuses,
             substatuses=substatuses,
             billing_reasons=billing_reasons,
             currencies=currencies,
-            plan_ids=plan_ids,
+            variant_ids=variant_ids,
             product_ids=product_ids,
             payment_methods=payment_methods,
             tracking_states=tracking_states,
@@ -1318,10 +1318,10 @@ class AsyncPaymentsClient:
         setup_future_usage: typing.Optional[CreatePaymentsRequestSetupFutureUsage] = OMIT,
         shipping_address: typing.Optional[CreatePaymentsRequestShippingAddress] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
-        plan: typing.Optional[PaymentInputPlan] = OMIT,
-        plan_id: typing.Optional[str] = OMIT,
         promo_code: typing.Optional[str] = OMIT,
         promo_code_id: typing.Optional[str] = OMIT,
+        variant: typing.Optional[PaymentInputVariant] = OMIT,
+        variant_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Payment:
         """
@@ -1354,7 +1354,7 @@ class AsyncPaymentsClient:
             The buyer's IPv4 or IPv6 address, used to assess the charge's risk and passed to the processor. Ignored unless a saved payment method is charged with `off_session` set to false.
 
         line_items : typing.Optional[typing.Sequence[CreatePaymentsRequestLineItemsItem]]
-            What the buyer is purchasing. Each entry takes exactly one of `plan_id` or an inline `plan`. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency. Mutually exclusive with `plan_id` and `plan`.
+            What the buyer is purchasing. Each entry takes exactly one of `variant_id` or an inline `variant`. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency. Mutually exclusive with `variant_id` and `variant`.
 
         member_id : typing.Optional[str]
             The member to charge, prefixed `mber_`. Required with `payment_method_id` unless `confirmation_token` is provided. With a `paypal` `payment_method` it names the buyer instead of `email`, and must belong to a user.
@@ -1372,7 +1372,7 @@ class AsyncPaymentsClient:
             The stored payment method to charge, prefixed `payt_`. It must belong to the member. Required unless `confirmation_token` is provided.
 
         quote_id : typing.Optional[str]
-            A payment quote from `POST /payment_quotes`, prefixed `pq_`. The payment charges exactly the quote: its purchase (its variants and quantities, or the `plan` it priced), which this body may then omit, its promo code, and its tax, the quote's `tax_amount` rather than a figure calculated now. Omit it, or send null, to have tax calculated when the payment is charged. The quote must belong to `account_id`. A purchase field you omit or send as null takes the quote's value; the buyer's email, the addresses and the payment method are this request's own, never the quote's. Whatever you do send must describe the quoted purchase: the same variants, quantities and promo code. A quote that priced `plan` takes only the same `plan` you sent to `POST /payment_quotes` (or omit the purchase to take the quoted one), never `plan_id` or `line_items`, and a quote that priced variants by id never takes `plan`. Unless the quote located no buyer (`located_by` is null), the address the payment carries (its shipping address, else its billing address) must put the buyer where the quote priced tax, by country, state and postal code; otherwise the payment is refused with 400 before the payment method is used. A quote located by IP address or by the country the buyer chose (`located_by` is `ip_address` or `presentment_country`) is a preview and cannot be paid. A quote is consumed by one payment: a declined payment keeps it and can be retried; a new payment needs a new quote. A quote cannot be charged by a processor that doesn't take quotes, such as a seller's own connected PayPal account; such a payment is refused before the payment method is used. A quote priced in a `presentment_currency` is charged in that currency at the quote's `exchange_rate`. A payment refused over its quote carries an error `code`. `quote_expired`: the quote has expired; quote again. `quote_tax_unavailable`: the quote could not price tax; quote again, or omit `quote_id`. `quote_preview_only`: the quote was located by IP address or by the country the buyer chose; quote again with the buyer's address. `quote_in_use` (409): another payment holds the quote. `quote_mismatch`: the purchase or the buyer's address is not the one quoted. `quote_rate_expired`: the exchange rate the quote was priced at has moved too far to charge; quote again. `payment_method_currency_unsupported`: the payment method cannot pay in the quote's currency; use another method, or quote again in another currency. `quote_processor_unsupported`: the payment would be processed by a processor that doesn't take quotes, such as a seller's own connected PayPal account; use another method, or omit `quote_id` to have tax calculated when the payment is charged.
+            A payment quote from `POST /payment_quotes`, prefixed `pq_`. The payment charges exactly the quote: its purchase (its variants and quantities, or the `variant` it priced), which this body may then omit, its promo code, and its tax, the quote's `tax_amount` rather than a figure calculated now. Omit it, or send null, to have tax calculated when the payment is charged. The quote must belong to `account_id`. A purchase field you omit or send as null takes the quote's value; the buyer's email, the addresses and the payment method are this request's own, never the quote's. Whatever you do send must describe the quoted purchase: the same variants, quantities and promo code. A quote that priced `variant` takes only the same `variant` you sent to `POST /payment_quotes` (or omit the purchase to take the quoted one), never `variant_id` or `line_items`, and a quote that priced variants by id never takes `variant`. Unless the quote located no buyer (`located_by` is null), the address the payment carries (its shipping address, else its billing address) must put the buyer where the quote priced tax, by country, state and postal code; otherwise the payment is refused with 400 before the payment method is used. A quote located by IP address or by the country the buyer chose (`located_by` is `ip_address` or `presentment_country`) is a preview and cannot be paid. A quote is consumed by one payment: a declined payment keeps it and can be retried; a new payment needs a new quote. A quote cannot be charged by a processor that doesn't take quotes, such as a seller's own connected PayPal account; such a payment is refused before the payment method is used. A quote priced in a `presentment_currency` is charged in that currency at the quote's `exchange_rate`. A payment refused over its quote carries an error `code`. `quote_expired`: the quote has expired; quote again. `quote_tax_unavailable`: the quote could not price tax; quote again, or omit `quote_id`. `quote_preview_only`: the quote was located by IP address or by the country the buyer chose; quote again with the buyer's address. `quote_in_use` (409): another payment holds the quote. `quote_mismatch`: the purchase or the buyer's address is not the one quoted. `quote_rate_expired`: the exchange rate the quote was priced at has moved too far to charge; quote again. `payment_method_currency_unsupported`: the payment method cannot pay in the quote's currency; use another method, or quote again in another currency. `quote_processor_unsupported`: the payment would be processed by a processor that doesn't take quotes, such as a seller's own connected PayPal account; use another method, or omit `quote_id` to have tax calculated when the payment is charged.
 
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step such as 3D Secure. An absolute https URL without credentials, at most 2,048 characters. Required when a saved payment method is charged with `off_session` false; otherwise ignored unless `confirmation_token` or a `paypal` `payment_method` is provided.
@@ -1386,17 +1386,17 @@ class AsyncPaymentsClient:
         statement_descriptor : typing.Optional[str]
             Overrides the text on the buyer's card statement for this payment only. Takes precedence over the product's and account's custom descriptors, and changes neither. Must start with `WHOP*` unless the business processes as the merchant of record. For businesses processing as the merchant of record, omit the `WHOP*` prefix; the descriptor appears as provided. Must be 5-22 characters, contain at least one letter, and use only Latin letters, numbers, spaces, underscores, hyphens, or asterisks.
 
-        plan : typing.Optional[PaymentInputPlan]
-            The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
-
-        plan_id : typing.Optional[str]
-            The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
-
         promo_code : typing.Optional[str]
             The promo code as the buyer typed it, matched within the account regardless of case and surrounding spaces, as checkout matches it. It must be valid for the variant. Send it or `promo_code_id`, not both; an empty or whitespace-only string counts as not sent. A code the account does not have, or one that is no longer active, is refused before anything is written, with the error code `promo_invalid`. A code this purchase cannot use, such as one with no uses left or one restricted to other variants, products or buyers, is refused with `promo_invalid` too, and the error's message says why.
 
         promo_code_id : typing.Optional[str]
             An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant. Send it or `promo_code`, not both. A code this purchase cannot use is refused with the error code `promo_invalid`, and the error's message says why.
+
+        variant : typing.Optional[PaymentInputVariant]
+            The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `variant_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
+
+        variant_id : typing.Optional[str]
+            The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `variant` and `line_items`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1413,7 +1413,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1447,10 +1447,10 @@ class AsyncPaymentsClient:
             setup_future_usage=setup_future_usage,
             shipping_address=shipping_address,
             statement_descriptor=statement_descriptor,
-            plan=plan,
-            plan_id=plan_id,
             promo_code=promo_code,
             promo_code_id=promo_code_id,
+            variant=variant,
+            variant_id=variant_id,
             request_options=request_options,
         )
         return _response.data
@@ -1474,7 +1474,7 @@ class AsyncPaymentsClient:
             ]
         ] = None,
         currencies: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        plan_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        variant_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         payment_methods: typing.Optional[
             typing.Union[
@@ -1521,7 +1521,7 @@ class AsyncPaymentsClient:
         currencies : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only payments presented in any of these three-letter currencies. Repeat the parameter to pass several.
 
-        plan_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        variant_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only payments priced by any of these variants, each prefixed `plan_`. Repeat the parameter to pass several.
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
@@ -1578,7 +1578,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1587,7 +1587,7 @@ class AsyncPaymentsClient:
         async def main() -> None:
             await client.payments.summary(
                 currencies=["usd"],
-                plan_ids=["plan_xxxxxxxxxxxxx"],
+                variant_ids=["plan_xxxxxxxxxxxxx"],
                 product_ids=["prod_xxxxxxxxxxxxx"],
             )
 
@@ -1601,7 +1601,7 @@ class AsyncPaymentsClient:
             substatuses=substatuses,
             billing_reasons=billing_reasons,
             currencies=currencies,
-            plan_ids=plan_ids,
+            variant_ids=variant_ids,
             product_ids=product_ids,
             payment_methods=payment_methods,
             tracking_states=tracking_states,
@@ -1643,7 +1643,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1697,7 +1697,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1740,7 +1740,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1783,7 +1783,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1824,7 +1824,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1878,7 +1878,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1921,7 +1921,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1962,7 +1962,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -2016,7 +2016,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -2072,7 +2072,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -2125,7 +2125,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-1",
+            "2026-10-27-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

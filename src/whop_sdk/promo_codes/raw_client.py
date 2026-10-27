@@ -42,7 +42,7 @@ class RawPromoCodesClient:
         account_id: str,
         status: typing.Optional[ListPromoCodesRequestStatus] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        plan_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        variant_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
         order: typing.Optional[ListPromoCodesRequestOrder] = None,
@@ -67,7 +67,7 @@ class RawPromoCodesClient:
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only promo codes scoped to these product IDs.
 
-        plan_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        variant_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only promo codes scoped to these variant IDs.
 
         created_before : typing.Optional[dt.datetime]
@@ -110,7 +110,7 @@ class RawPromoCodesClient:
                 "account_id": account_id,
                 "status": status,
                 "product_ids": product_ids,
-                "plan_ids": plan_ids,
+                "variant_ids": variant_ids,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "order": order,
@@ -141,7 +141,7 @@ class RawPromoCodesClient:
                         account_id=account_id,
                         status=status,
                         product_ids=product_ids,
-                        plan_ids=plan_ids,
+                        variant_ids=variant_ids,
                         created_before=created_before,
                         created_after=created_after,
                         order=order,
@@ -209,10 +209,10 @@ class RawPromoCodesClient:
         existing_memberships_only: typing.Optional[bool] = OMIT,
         expires_at: typing.Optional[str] = OMIT,
         one_per_customer: typing.Optional[bool] = OMIT,
-        plan_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         product_id: typing.Optional[str] = OMIT,
         stock: typing.Optional[int] = OMIT,
         unlimited_stock: typing.Optional[bool] = OMIT,
+        variant_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PromoCode]:
         """
@@ -242,13 +242,13 @@ class RawPromoCodesClient:
 
         one_per_customer : typing.Optional[bool]
 
-        plan_ids : typing.Optional[typing.Sequence[str]]
-
         product_id : typing.Optional[str]
 
         stock : typing.Optional[int]
 
         unlimited_stock : typing.Optional[bool]
+
+        variant_ids : typing.Optional[typing.Sequence[str]]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -272,12 +272,12 @@ class RawPromoCodesClient:
                 "expires_at": expires_at,
                 "new_users_only": new_users_only,
                 "one_per_customer": one_per_customer,
-                "plan_ids": plan_ids,
                 "product_id": product_id,
                 "promo_duration_months": promo_duration_months,
                 "promo_type": promo_type,
                 "stock": stock,
                 "unlimited_stock": unlimited_stock,
+                "variant_ids": variant_ids,
             },
             headers={
                 "content-type": "application/json",
@@ -553,7 +553,7 @@ class AsyncRawPromoCodesClient:
         account_id: str,
         status: typing.Optional[ListPromoCodesRequestStatus] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        plan_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        variant_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
         order: typing.Optional[ListPromoCodesRequestOrder] = None,
@@ -578,7 +578,7 @@ class AsyncRawPromoCodesClient:
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only promo codes scoped to these product IDs.
 
-        plan_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        variant_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only promo codes scoped to these variant IDs.
 
         created_before : typing.Optional[dt.datetime]
@@ -621,7 +621,7 @@ class AsyncRawPromoCodesClient:
                 "account_id": account_id,
                 "status": status,
                 "product_ids": product_ids,
-                "plan_ids": plan_ids,
+                "variant_ids": variant_ids,
                 "created_before": serialize_datetime(created_before) if created_before is not None else None,
                 "created_after": serialize_datetime(created_after) if created_after is not None else None,
                 "order": order,
@@ -654,7 +654,7 @@ class AsyncRawPromoCodesClient:
                             account_id=account_id,
                             status=status,
                             product_ids=product_ids,
-                            plan_ids=plan_ids,
+                            variant_ids=variant_ids,
                             created_before=created_before,
                             created_after=created_after,
                             order=order,
@@ -723,10 +723,10 @@ class AsyncRawPromoCodesClient:
         existing_memberships_only: typing.Optional[bool] = OMIT,
         expires_at: typing.Optional[str] = OMIT,
         one_per_customer: typing.Optional[bool] = OMIT,
-        plan_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         product_id: typing.Optional[str] = OMIT,
         stock: typing.Optional[int] = OMIT,
         unlimited_stock: typing.Optional[bool] = OMIT,
+        variant_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PromoCode]:
         """
@@ -756,13 +756,13 @@ class AsyncRawPromoCodesClient:
 
         one_per_customer : typing.Optional[bool]
 
-        plan_ids : typing.Optional[typing.Sequence[str]]
-
         product_id : typing.Optional[str]
 
         stock : typing.Optional[int]
 
         unlimited_stock : typing.Optional[bool]
+
+        variant_ids : typing.Optional[typing.Sequence[str]]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -786,12 +786,12 @@ class AsyncRawPromoCodesClient:
                 "expires_at": expires_at,
                 "new_users_only": new_users_only,
                 "one_per_customer": one_per_customer,
-                "plan_ids": plan_ids,
                 "product_id": product_id,
                 "promo_duration_months": promo_duration_months,
                 "promo_type": promo_type,
                 "stock": stock,
                 "unlimited_stock": unlimited_stock,
+                "variant_ids": variant_ids,
             },
             headers={
                 "content-type": "application/json",

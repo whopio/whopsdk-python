@@ -5,13 +5,18 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .money import Money
-from .waitlist_entry_variant_plan_type import WaitlistEntryVariantPlanType
+from .waitlist_entry_variant_billing_type import WaitlistEntryVariantBillingType
 
 
 class WaitlistEntryVariant(UniversalBaseModel):
     billing_period: typing.Optional[float] = pydantic.Field(default=None)
     """
     Number of days between recurring charges, such as 30 for monthly or 365 for annual. `null` for one-time variants.
+    """
+
+    billing_type: WaitlistEntryVariantBillingType = pydantic.Field()
+    """
+    Billing model for this variant: `one_time` or `renewal`.
     """
 
     description: typing.Optional[str] = pydantic.Field(default=None)
@@ -27,11 +32,6 @@ class WaitlistEntryVariant(UniversalBaseModel):
     initial_price: Money = pydantic.Field()
     """
     What checkout charges up front. `amount` is `"0.00"` when the first charge is free, such as a trial.
-    """
-
-    plan_type: WaitlistEntryVariantPlanType = pydantic.Field()
-    """
-    Billing model for this variant: `one_time` or `renewal`.
     """
 
     renewal_price: Money = pydantic.Field()

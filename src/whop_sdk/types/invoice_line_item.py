@@ -23,11 +23,6 @@ class InvoiceLineItem(UniversalBaseModel):
     The item's name as shown at checkout — the product title, else the variant title.
     """
 
-    plan_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The variant bought, prefixed `plan_`. Null when the variant has since been deleted.
-    """
-
     product_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The product the variant belongs to, prefixed `prod_`. Null for a variant with no product.
@@ -51,6 +46,11 @@ class InvoiceLineItem(UniversalBaseModel):
     unit_amount: typing.Optional[Money] = pydantic.Field(default=None)
     """
     The price of one unit before discounts, in the payment's `currency`. Null when the payment recorded no price.
+    """
+
+    variant_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The variant bought, prefixed `plan_`. Null when the variant has since been deleted.
     """
 
     if IS_PYDANTIC_V2:

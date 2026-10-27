@@ -8,20 +8,22 @@ from importlib import import_module
 if typing.TYPE_CHECKING:
     from .create_invoices_request_billing_address import CreateInvoicesRequestBillingAddress
     from .create_invoices_request_items_item import CreateInvoicesRequestItemsItem
-    from .create_invoices_request_items_item_plan import CreateInvoicesRequestItemsItemPlan
-    from .create_invoices_request_items_item_plan_currency import CreateInvoicesRequestItemsItemPlanCurrency
-    from .create_invoices_request_items_item_plan_override_tax_type import (
-        CreateInvoicesRequestItemsItemPlanOverrideTaxType,
+    from .create_invoices_request_items_item_variant import CreateInvoicesRequestItemsItemVariant
+    from .create_invoices_request_items_item_variant_billing_type import (
+        CreateInvoicesRequestItemsItemVariantBillingType,
     )
-    from .create_invoices_request_items_item_plan_plan_type import CreateInvoicesRequestItemsItemPlanPlanType
-    from .create_invoices_request_items_item_plan_product import CreateInvoicesRequestItemsItemPlanProduct
-    from .create_invoices_request_items_item_plan_product_global_affiliate_status import (
-        CreateInvoicesRequestItemsItemPlanProductGlobalAffiliateStatus,
+    from .create_invoices_request_items_item_variant_currency import CreateInvoicesRequestItemsItemVariantCurrency
+    from .create_invoices_request_items_item_variant_override_tax_type import (
+        CreateInvoicesRequestItemsItemVariantOverrideTaxType,
     )
-    from .create_invoices_request_items_item_plan_product_visibility import (
-        CreateInvoicesRequestItemsItemPlanProductVisibility,
+    from .create_invoices_request_items_item_variant_product import CreateInvoicesRequestItemsItemVariantProduct
+    from .create_invoices_request_items_item_variant_product_global_affiliate_status import (
+        CreateInvoicesRequestItemsItemVariantProductGlobalAffiliateStatus,
     )
-    from .create_invoices_request_items_item_plan_visibility import CreateInvoicesRequestItemsItemPlanVisibility
+    from .create_invoices_request_items_item_variant_product_visibility import (
+        CreateInvoicesRequestItemsItemVariantProductVisibility,
+    )
+    from .create_invoices_request_items_item_variant_visibility import CreateInvoicesRequestItemsItemVariantVisibility
     from .list_invoices_request_direction import ListInvoicesRequestDirection
     from .list_invoices_request_order import ListInvoicesRequestOrder
     from .list_invoices_request_status import ListInvoicesRequestStatus
@@ -44,31 +46,33 @@ if typing.TYPE_CHECKING:
     from .post_invoice_voided_payload_type import PostInvoiceVoidedPayloadType
     from .update_invoices_request_billing_address import UpdateInvoicesRequestBillingAddress
     from .update_invoices_request_items_item import UpdateInvoicesRequestItemsItem
-    from .update_invoices_request_items_item_plan import UpdateInvoicesRequestItemsItemPlan
-    from .update_invoices_request_items_item_plan_currency import UpdateInvoicesRequestItemsItemPlanCurrency
-    from .update_invoices_request_items_item_plan_override_tax_type import (
-        UpdateInvoicesRequestItemsItemPlanOverrideTaxType,
+    from .update_invoices_request_items_item_variant import UpdateInvoicesRequestItemsItemVariant
+    from .update_invoices_request_items_item_variant_billing_type import (
+        UpdateInvoicesRequestItemsItemVariantBillingType,
     )
-    from .update_invoices_request_items_item_plan_plan_type import UpdateInvoicesRequestItemsItemPlanPlanType
-    from .update_invoices_request_items_item_plan_product import UpdateInvoicesRequestItemsItemPlanProduct
-    from .update_invoices_request_items_item_plan_product_global_affiliate_status import (
-        UpdateInvoicesRequestItemsItemPlanProductGlobalAffiliateStatus,
+    from .update_invoices_request_items_item_variant_currency import UpdateInvoicesRequestItemsItemVariantCurrency
+    from .update_invoices_request_items_item_variant_override_tax_type import (
+        UpdateInvoicesRequestItemsItemVariantOverrideTaxType,
     )
-    from .update_invoices_request_items_item_plan_product_visibility import (
-        UpdateInvoicesRequestItemsItemPlanProductVisibility,
+    from .update_invoices_request_items_item_variant_product import UpdateInvoicesRequestItemsItemVariantProduct
+    from .update_invoices_request_items_item_variant_product_global_affiliate_status import (
+        UpdateInvoicesRequestItemsItemVariantProductGlobalAffiliateStatus,
     )
-    from .update_invoices_request_items_item_plan_visibility import UpdateInvoicesRequestItemsItemPlanVisibility
+    from .update_invoices_request_items_item_variant_product_visibility import (
+        UpdateInvoicesRequestItemsItemVariantProductVisibility,
+    )
+    from .update_invoices_request_items_item_variant_visibility import UpdateInvoicesRequestItemsItemVariantVisibility
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateInvoicesRequestBillingAddress": ".create_invoices_request_billing_address",
     "CreateInvoicesRequestItemsItem": ".create_invoices_request_items_item",
-    "CreateInvoicesRequestItemsItemPlan": ".create_invoices_request_items_item_plan",
-    "CreateInvoicesRequestItemsItemPlanCurrency": ".create_invoices_request_items_item_plan_currency",
-    "CreateInvoicesRequestItemsItemPlanOverrideTaxType": ".create_invoices_request_items_item_plan_override_tax_type",
-    "CreateInvoicesRequestItemsItemPlanPlanType": ".create_invoices_request_items_item_plan_plan_type",
-    "CreateInvoicesRequestItemsItemPlanProduct": ".create_invoices_request_items_item_plan_product",
-    "CreateInvoicesRequestItemsItemPlanProductGlobalAffiliateStatus": ".create_invoices_request_items_item_plan_product_global_affiliate_status",
-    "CreateInvoicesRequestItemsItemPlanProductVisibility": ".create_invoices_request_items_item_plan_product_visibility",
-    "CreateInvoicesRequestItemsItemPlanVisibility": ".create_invoices_request_items_item_plan_visibility",
+    "CreateInvoicesRequestItemsItemVariant": ".create_invoices_request_items_item_variant",
+    "CreateInvoicesRequestItemsItemVariantBillingType": ".create_invoices_request_items_item_variant_billing_type",
+    "CreateInvoicesRequestItemsItemVariantCurrency": ".create_invoices_request_items_item_variant_currency",
+    "CreateInvoicesRequestItemsItemVariantOverrideTaxType": ".create_invoices_request_items_item_variant_override_tax_type",
+    "CreateInvoicesRequestItemsItemVariantProduct": ".create_invoices_request_items_item_variant_product",
+    "CreateInvoicesRequestItemsItemVariantProductGlobalAffiliateStatus": ".create_invoices_request_items_item_variant_product_global_affiliate_status",
+    "CreateInvoicesRequestItemsItemVariantProductVisibility": ".create_invoices_request_items_item_variant_product_visibility",
+    "CreateInvoicesRequestItemsItemVariantVisibility": ".create_invoices_request_items_item_variant_visibility",
     "ListInvoicesRequestDirection": ".list_invoices_request_direction",
     "ListInvoicesRequestOrder": ".list_invoices_request_order",
     "ListInvoicesRequestStatus": ".list_invoices_request_status",
@@ -91,14 +95,14 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostInvoiceVoidedPayloadType": ".post_invoice_voided_payload_type",
     "UpdateInvoicesRequestBillingAddress": ".update_invoices_request_billing_address",
     "UpdateInvoicesRequestItemsItem": ".update_invoices_request_items_item",
-    "UpdateInvoicesRequestItemsItemPlan": ".update_invoices_request_items_item_plan",
-    "UpdateInvoicesRequestItemsItemPlanCurrency": ".update_invoices_request_items_item_plan_currency",
-    "UpdateInvoicesRequestItemsItemPlanOverrideTaxType": ".update_invoices_request_items_item_plan_override_tax_type",
-    "UpdateInvoicesRequestItemsItemPlanPlanType": ".update_invoices_request_items_item_plan_plan_type",
-    "UpdateInvoicesRequestItemsItemPlanProduct": ".update_invoices_request_items_item_plan_product",
-    "UpdateInvoicesRequestItemsItemPlanProductGlobalAffiliateStatus": ".update_invoices_request_items_item_plan_product_global_affiliate_status",
-    "UpdateInvoicesRequestItemsItemPlanProductVisibility": ".update_invoices_request_items_item_plan_product_visibility",
-    "UpdateInvoicesRequestItemsItemPlanVisibility": ".update_invoices_request_items_item_plan_visibility",
+    "UpdateInvoicesRequestItemsItemVariant": ".update_invoices_request_items_item_variant",
+    "UpdateInvoicesRequestItemsItemVariantBillingType": ".update_invoices_request_items_item_variant_billing_type",
+    "UpdateInvoicesRequestItemsItemVariantCurrency": ".update_invoices_request_items_item_variant_currency",
+    "UpdateInvoicesRequestItemsItemVariantOverrideTaxType": ".update_invoices_request_items_item_variant_override_tax_type",
+    "UpdateInvoicesRequestItemsItemVariantProduct": ".update_invoices_request_items_item_variant_product",
+    "UpdateInvoicesRequestItemsItemVariantProductGlobalAffiliateStatus": ".update_invoices_request_items_item_variant_product_global_affiliate_status",
+    "UpdateInvoicesRequestItemsItemVariantProductVisibility": ".update_invoices_request_items_item_variant_product_visibility",
+    "UpdateInvoicesRequestItemsItemVariantVisibility": ".update_invoices_request_items_item_variant_visibility",
 }
 
 
@@ -126,14 +130,14 @@ def __dir__():
 __all__ = [
     "CreateInvoicesRequestBillingAddress",
     "CreateInvoicesRequestItemsItem",
-    "CreateInvoicesRequestItemsItemPlan",
-    "CreateInvoicesRequestItemsItemPlanCurrency",
-    "CreateInvoicesRequestItemsItemPlanOverrideTaxType",
-    "CreateInvoicesRequestItemsItemPlanPlanType",
-    "CreateInvoicesRequestItemsItemPlanProduct",
-    "CreateInvoicesRequestItemsItemPlanProductGlobalAffiliateStatus",
-    "CreateInvoicesRequestItemsItemPlanProductVisibility",
-    "CreateInvoicesRequestItemsItemPlanVisibility",
+    "CreateInvoicesRequestItemsItemVariant",
+    "CreateInvoicesRequestItemsItemVariantBillingType",
+    "CreateInvoicesRequestItemsItemVariantCurrency",
+    "CreateInvoicesRequestItemsItemVariantOverrideTaxType",
+    "CreateInvoicesRequestItemsItemVariantProduct",
+    "CreateInvoicesRequestItemsItemVariantProductGlobalAffiliateStatus",
+    "CreateInvoicesRequestItemsItemVariantProductVisibility",
+    "CreateInvoicesRequestItemsItemVariantVisibility",
     "ListInvoicesRequestDirection",
     "ListInvoicesRequestOrder",
     "ListInvoicesRequestStatus",
@@ -156,12 +160,12 @@ __all__ = [
     "PostInvoiceVoidedPayloadType",
     "UpdateInvoicesRequestBillingAddress",
     "UpdateInvoicesRequestItemsItem",
-    "UpdateInvoicesRequestItemsItemPlan",
-    "UpdateInvoicesRequestItemsItemPlanCurrency",
-    "UpdateInvoicesRequestItemsItemPlanOverrideTaxType",
-    "UpdateInvoicesRequestItemsItemPlanPlanType",
-    "UpdateInvoicesRequestItemsItemPlanProduct",
-    "UpdateInvoicesRequestItemsItemPlanProductGlobalAffiliateStatus",
-    "UpdateInvoicesRequestItemsItemPlanProductVisibility",
-    "UpdateInvoicesRequestItemsItemPlanVisibility",
+    "UpdateInvoicesRequestItemsItemVariant",
+    "UpdateInvoicesRequestItemsItemVariantBillingType",
+    "UpdateInvoicesRequestItemsItemVariantCurrency",
+    "UpdateInvoicesRequestItemsItemVariantOverrideTaxType",
+    "UpdateInvoicesRequestItemsItemVariantProduct",
+    "UpdateInvoicesRequestItemsItemVariantProductGlobalAffiliateStatus",
+    "UpdateInvoicesRequestItemsItemVariantProductVisibility",
+    "UpdateInvoicesRequestItemsItemVariantVisibility",
 ]

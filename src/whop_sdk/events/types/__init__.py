@@ -33,9 +33,9 @@ if typing.TYPE_CHECKING:
         ListEventsResponseDataItemRelatedAudienceSourceType,
     )
     from .list_events_response_data_item_related_payment import ListEventsResponseDataItemRelatedPayment
-    from .list_events_response_data_item_related_plan import ListEventsResponseDataItemRelatedPlan
     from .list_events_response_data_item_related_product import ListEventsResponseDataItemRelatedProduct
     from .list_events_response_data_item_related_user import ListEventsResponseDataItemRelatedUser
+    from .list_events_response_data_item_related_variant import ListEventsResponseDataItemRelatedVariant
     from .list_events_response_data_item_user import ListEventsResponseDataItemUser
     from .list_events_response_page_info import ListEventsResponsePageInfo
     from .pulse_events_response import PulseEventsResponse
@@ -68,9 +68,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListEventsResponseDataItemRelatedAudienceAudienceType": ".list_events_response_data_item_related_audience_audience_type",
     "ListEventsResponseDataItemRelatedAudienceSourceType": ".list_events_response_data_item_related_audience_source_type",
     "ListEventsResponseDataItemRelatedPayment": ".list_events_response_data_item_related_payment",
-    "ListEventsResponseDataItemRelatedPlan": ".list_events_response_data_item_related_plan",
     "ListEventsResponseDataItemRelatedProduct": ".list_events_response_data_item_related_product",
     "ListEventsResponseDataItemRelatedUser": ".list_events_response_data_item_related_user",
+    "ListEventsResponseDataItemRelatedVariant": ".list_events_response_data_item_related_variant",
     "ListEventsResponseDataItemUser": ".list_events_response_data_item_user",
     "ListEventsResponsePageInfo": ".list_events_response_page_info",
     "PulseEventsResponse": ".pulse_events_response",
@@ -127,9 +127,9 @@ __all__ = [
     "ListEventsResponseDataItemRelatedAudienceAudienceType",
     "ListEventsResponseDataItemRelatedAudienceSourceType",
     "ListEventsResponseDataItemRelatedPayment",
-    "ListEventsResponseDataItemRelatedPlan",
     "ListEventsResponseDataItemRelatedProduct",
     "ListEventsResponseDataItemRelatedUser",
+    "ListEventsResponseDataItemRelatedVariant",
     "ListEventsResponseDataItemUser",
     "ListEventsResponsePageInfo",
     "PulseEventsResponse",

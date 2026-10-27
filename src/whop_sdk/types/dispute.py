@@ -93,11 +93,6 @@ class Dispute(UniversalBaseModel):
     The payment being disputed.
     """
 
-    plan_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The variant the disputed payment was made on, prefixed `plan_`.
-    """
-
     product_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The product the disputed payment was for, prefixed `prod_`.
@@ -121,6 +116,11 @@ class Dispute(UniversalBaseModel):
     updated_at: str = pydantic.Field()
     """
     When the dispute was last changed, as an ISO 8601 timestamp.
+    """
+
+    variant_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The variant the disputed payment was made on, prefixed `plan_`.
     """
 
     if IS_PYDANTIC_V2:

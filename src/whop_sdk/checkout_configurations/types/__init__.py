@@ -10,21 +10,23 @@ if typing.TYPE_CHECKING:
     from .create_checkout_configurations_request_payment_method_configuration import (
         CreateCheckoutConfigurationsRequestPaymentMethodConfiguration,
     )
-    from .create_checkout_configurations_request_plan import CreateCheckoutConfigurationsRequestPlan
-    from .create_checkout_configurations_request_plan_payment_method_configuration import (
-        CreateCheckoutConfigurationsRequestPlanPaymentMethodConfiguration,
-    )
-    from .create_checkout_configurations_request_plan_plan_type import CreateCheckoutConfigurationsRequestPlanPlanType
-    from .create_checkout_configurations_request_plan_release_method import (
-        CreateCheckoutConfigurationsRequestPlanReleaseMethod,
-    )
-    from .create_checkout_configurations_request_plan_three_ds_level import (
-        CreateCheckoutConfigurationsRequestPlanThreeDsLevel,
-    )
-    from .create_checkout_configurations_request_plan_visibility import (
-        CreateCheckoutConfigurationsRequestPlanVisibility,
-    )
     from .create_checkout_configurations_request_three_ds_level import CreateCheckoutConfigurationsRequestThreeDsLevel
+    from .create_checkout_configurations_request_variant import CreateCheckoutConfigurationsRequestVariant
+    from .create_checkout_configurations_request_variant_billing_type import (
+        CreateCheckoutConfigurationsRequestVariantBillingType,
+    )
+    from .create_checkout_configurations_request_variant_payment_method_configuration import (
+        CreateCheckoutConfigurationsRequestVariantPaymentMethodConfiguration,
+    )
+    from .create_checkout_configurations_request_variant_release_method import (
+        CreateCheckoutConfigurationsRequestVariantReleaseMethod,
+    )
+    from .create_checkout_configurations_request_variant_three_ds_level import (
+        CreateCheckoutConfigurationsRequestVariantThreeDsLevel,
+    )
+    from .create_checkout_configurations_request_variant_visibility import (
+        CreateCheckoutConfigurationsRequestVariantVisibility,
+    )
     from .create_checkout_configurations_response import CreateCheckoutConfigurationsResponse
     from .create_checkout_configurations_response_effective_payment_method_configuration import (
         CreateCheckoutConfigurationsResponseEffectivePaymentMethodConfiguration,
@@ -33,18 +35,20 @@ if typing.TYPE_CHECKING:
     from .create_checkout_configurations_response_payment_method_configuration import (
         CreateCheckoutConfigurationsResponsePaymentMethodConfiguration,
     )
-    from .create_checkout_configurations_response_plan import CreateCheckoutConfigurationsResponsePlan
-    from .create_checkout_configurations_response_plan_plan_type import CreateCheckoutConfigurationsResponsePlanPlanType
-    from .create_checkout_configurations_response_plan_release_method import (
-        CreateCheckoutConfigurationsResponsePlanReleaseMethod,
-    )
-    from .create_checkout_configurations_response_plan_three_ds_level import (
-        CreateCheckoutConfigurationsResponsePlanThreeDsLevel,
-    )
-    from .create_checkout_configurations_response_plan_visibility import (
-        CreateCheckoutConfigurationsResponsePlanVisibility,
-    )
     from .create_checkout_configurations_response_three_ds_level import CreateCheckoutConfigurationsResponseThreeDsLevel
+    from .create_checkout_configurations_response_variant import CreateCheckoutConfigurationsResponseVariant
+    from .create_checkout_configurations_response_variant_billing_type import (
+        CreateCheckoutConfigurationsResponseVariantBillingType,
+    )
+    from .create_checkout_configurations_response_variant_release_method import (
+        CreateCheckoutConfigurationsResponseVariantReleaseMethod,
+    )
+    from .create_checkout_configurations_response_variant_three_ds_level import (
+        CreateCheckoutConfigurationsResponseVariantThreeDsLevel,
+    )
+    from .create_checkout_configurations_response_variant_visibility import (
+        CreateCheckoutConfigurationsResponseVariantVisibility,
+    )
     from .delete_checkout_configurations_response import DeleteCheckoutConfigurationsResponse
     from .list_checkout_configurations_request_direction import ListCheckoutConfigurationsRequestDirection
     from .list_checkout_configurations_request_order import ListCheckoutConfigurationsRequestOrder
@@ -57,21 +61,23 @@ if typing.TYPE_CHECKING:
     from .list_checkout_configurations_response_data_item_payment_method_configuration import (
         ListCheckoutConfigurationsResponseDataItemPaymentMethodConfiguration,
     )
-    from .list_checkout_configurations_response_data_item_plan import ListCheckoutConfigurationsResponseDataItemPlan
-    from .list_checkout_configurations_response_data_item_plan_plan_type import (
-        ListCheckoutConfigurationsResponseDataItemPlanPlanType,
-    )
-    from .list_checkout_configurations_response_data_item_plan_release_method import (
-        ListCheckoutConfigurationsResponseDataItemPlanReleaseMethod,
-    )
-    from .list_checkout_configurations_response_data_item_plan_three_ds_level import (
-        ListCheckoutConfigurationsResponseDataItemPlanThreeDsLevel,
-    )
-    from .list_checkout_configurations_response_data_item_plan_visibility import (
-        ListCheckoutConfigurationsResponseDataItemPlanVisibility,
-    )
     from .list_checkout_configurations_response_data_item_three_ds_level import (
         ListCheckoutConfigurationsResponseDataItemThreeDsLevel,
+    )
+    from .list_checkout_configurations_response_data_item_variant import (
+        ListCheckoutConfigurationsResponseDataItemVariant,
+    )
+    from .list_checkout_configurations_response_data_item_variant_billing_type import (
+        ListCheckoutConfigurationsResponseDataItemVariantBillingType,
+    )
+    from .list_checkout_configurations_response_data_item_variant_release_method import (
+        ListCheckoutConfigurationsResponseDataItemVariantReleaseMethod,
+    )
+    from .list_checkout_configurations_response_data_item_variant_three_ds_level import (
+        ListCheckoutConfigurationsResponseDataItemVariantThreeDsLevel,
+    )
+    from .list_checkout_configurations_response_data_item_variant_visibility import (
+        ListCheckoutConfigurationsResponseDataItemVariantVisibility,
     )
     from .list_checkout_configurations_response_page_info import ListCheckoutConfigurationsResponsePageInfo
     from .retrieve_checkout_configurations_response import RetrieveCheckoutConfigurationsResponse
@@ -82,42 +88,42 @@ if typing.TYPE_CHECKING:
     from .retrieve_checkout_configurations_response_payment_method_configuration import (
         RetrieveCheckoutConfigurationsResponsePaymentMethodConfiguration,
     )
-    from .retrieve_checkout_configurations_response_plan import RetrieveCheckoutConfigurationsResponsePlan
-    from .retrieve_checkout_configurations_response_plan_plan_type import (
-        RetrieveCheckoutConfigurationsResponsePlanPlanType,
-    )
-    from .retrieve_checkout_configurations_response_plan_release_method import (
-        RetrieveCheckoutConfigurationsResponsePlanReleaseMethod,
-    )
-    from .retrieve_checkout_configurations_response_plan_three_ds_level import (
-        RetrieveCheckoutConfigurationsResponsePlanThreeDsLevel,
-    )
-    from .retrieve_checkout_configurations_response_plan_visibility import (
-        RetrieveCheckoutConfigurationsResponsePlanVisibility,
-    )
     from .retrieve_checkout_configurations_response_three_ds_level import (
         RetrieveCheckoutConfigurationsResponseThreeDsLevel,
+    )
+    from .retrieve_checkout_configurations_response_variant import RetrieveCheckoutConfigurationsResponseVariant
+    from .retrieve_checkout_configurations_response_variant_billing_type import (
+        RetrieveCheckoutConfigurationsResponseVariantBillingType,
+    )
+    from .retrieve_checkout_configurations_response_variant_release_method import (
+        RetrieveCheckoutConfigurationsResponseVariantReleaseMethod,
+    )
+    from .retrieve_checkout_configurations_response_variant_three_ds_level import (
+        RetrieveCheckoutConfigurationsResponseVariantThreeDsLevel,
+    )
+    from .retrieve_checkout_configurations_response_variant_visibility import (
+        RetrieveCheckoutConfigurationsResponseVariantVisibility,
     )
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateCheckoutConfigurationsRequestMode": ".create_checkout_configurations_request_mode",
     "CreateCheckoutConfigurationsRequestPaymentMethodConfiguration": ".create_checkout_configurations_request_payment_method_configuration",
-    "CreateCheckoutConfigurationsRequestPlan": ".create_checkout_configurations_request_plan",
-    "CreateCheckoutConfigurationsRequestPlanPaymentMethodConfiguration": ".create_checkout_configurations_request_plan_payment_method_configuration",
-    "CreateCheckoutConfigurationsRequestPlanPlanType": ".create_checkout_configurations_request_plan_plan_type",
-    "CreateCheckoutConfigurationsRequestPlanReleaseMethod": ".create_checkout_configurations_request_plan_release_method",
-    "CreateCheckoutConfigurationsRequestPlanThreeDsLevel": ".create_checkout_configurations_request_plan_three_ds_level",
-    "CreateCheckoutConfigurationsRequestPlanVisibility": ".create_checkout_configurations_request_plan_visibility",
     "CreateCheckoutConfigurationsRequestThreeDsLevel": ".create_checkout_configurations_request_three_ds_level",
+    "CreateCheckoutConfigurationsRequestVariant": ".create_checkout_configurations_request_variant",
+    "CreateCheckoutConfigurationsRequestVariantBillingType": ".create_checkout_configurations_request_variant_billing_type",
+    "CreateCheckoutConfigurationsRequestVariantPaymentMethodConfiguration": ".create_checkout_configurations_request_variant_payment_method_configuration",
+    "CreateCheckoutConfigurationsRequestVariantReleaseMethod": ".create_checkout_configurations_request_variant_release_method",
+    "CreateCheckoutConfigurationsRequestVariantThreeDsLevel": ".create_checkout_configurations_request_variant_three_ds_level",
+    "CreateCheckoutConfigurationsRequestVariantVisibility": ".create_checkout_configurations_request_variant_visibility",
     "CreateCheckoutConfigurationsResponse": ".create_checkout_configurations_response",
     "CreateCheckoutConfigurationsResponseEffectivePaymentMethodConfiguration": ".create_checkout_configurations_response_effective_payment_method_configuration",
     "CreateCheckoutConfigurationsResponseMode": ".create_checkout_configurations_response_mode",
     "CreateCheckoutConfigurationsResponsePaymentMethodConfiguration": ".create_checkout_configurations_response_payment_method_configuration",
-    "CreateCheckoutConfigurationsResponsePlan": ".create_checkout_configurations_response_plan",
-    "CreateCheckoutConfigurationsResponsePlanPlanType": ".create_checkout_configurations_response_plan_plan_type",
-    "CreateCheckoutConfigurationsResponsePlanReleaseMethod": ".create_checkout_configurations_response_plan_release_method",
-    "CreateCheckoutConfigurationsResponsePlanThreeDsLevel": ".create_checkout_configurations_response_plan_three_ds_level",
-    "CreateCheckoutConfigurationsResponsePlanVisibility": ".create_checkout_configurations_response_plan_visibility",
     "CreateCheckoutConfigurationsResponseThreeDsLevel": ".create_checkout_configurations_response_three_ds_level",
+    "CreateCheckoutConfigurationsResponseVariant": ".create_checkout_configurations_response_variant",
+    "CreateCheckoutConfigurationsResponseVariantBillingType": ".create_checkout_configurations_response_variant_billing_type",
+    "CreateCheckoutConfigurationsResponseVariantReleaseMethod": ".create_checkout_configurations_response_variant_release_method",
+    "CreateCheckoutConfigurationsResponseVariantThreeDsLevel": ".create_checkout_configurations_response_variant_three_ds_level",
+    "CreateCheckoutConfigurationsResponseVariantVisibility": ".create_checkout_configurations_response_variant_visibility",
     "DeleteCheckoutConfigurationsResponse": ".delete_checkout_configurations_response",
     "ListCheckoutConfigurationsRequestDirection": ".list_checkout_configurations_request_direction",
     "ListCheckoutConfigurationsRequestOrder": ".list_checkout_configurations_request_order",
@@ -126,23 +132,23 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListCheckoutConfigurationsResponseDataItemEffectivePaymentMethodConfiguration": ".list_checkout_configurations_response_data_item_effective_payment_method_configuration",
     "ListCheckoutConfigurationsResponseDataItemMode": ".list_checkout_configurations_response_data_item_mode",
     "ListCheckoutConfigurationsResponseDataItemPaymentMethodConfiguration": ".list_checkout_configurations_response_data_item_payment_method_configuration",
-    "ListCheckoutConfigurationsResponseDataItemPlan": ".list_checkout_configurations_response_data_item_plan",
-    "ListCheckoutConfigurationsResponseDataItemPlanPlanType": ".list_checkout_configurations_response_data_item_plan_plan_type",
-    "ListCheckoutConfigurationsResponseDataItemPlanReleaseMethod": ".list_checkout_configurations_response_data_item_plan_release_method",
-    "ListCheckoutConfigurationsResponseDataItemPlanThreeDsLevel": ".list_checkout_configurations_response_data_item_plan_three_ds_level",
-    "ListCheckoutConfigurationsResponseDataItemPlanVisibility": ".list_checkout_configurations_response_data_item_plan_visibility",
     "ListCheckoutConfigurationsResponseDataItemThreeDsLevel": ".list_checkout_configurations_response_data_item_three_ds_level",
+    "ListCheckoutConfigurationsResponseDataItemVariant": ".list_checkout_configurations_response_data_item_variant",
+    "ListCheckoutConfigurationsResponseDataItemVariantBillingType": ".list_checkout_configurations_response_data_item_variant_billing_type",
+    "ListCheckoutConfigurationsResponseDataItemVariantReleaseMethod": ".list_checkout_configurations_response_data_item_variant_release_method",
+    "ListCheckoutConfigurationsResponseDataItemVariantThreeDsLevel": ".list_checkout_configurations_response_data_item_variant_three_ds_level",
+    "ListCheckoutConfigurationsResponseDataItemVariantVisibility": ".list_checkout_configurations_response_data_item_variant_visibility",
     "ListCheckoutConfigurationsResponsePageInfo": ".list_checkout_configurations_response_page_info",
     "RetrieveCheckoutConfigurationsResponse": ".retrieve_checkout_configurations_response",
     "RetrieveCheckoutConfigurationsResponseEffectivePaymentMethodConfiguration": ".retrieve_checkout_configurations_response_effective_payment_method_configuration",
     "RetrieveCheckoutConfigurationsResponseMode": ".retrieve_checkout_configurations_response_mode",
     "RetrieveCheckoutConfigurationsResponsePaymentMethodConfiguration": ".retrieve_checkout_configurations_response_payment_method_configuration",
-    "RetrieveCheckoutConfigurationsResponsePlan": ".retrieve_checkout_configurations_response_plan",
-    "RetrieveCheckoutConfigurationsResponsePlanPlanType": ".retrieve_checkout_configurations_response_plan_plan_type",
-    "RetrieveCheckoutConfigurationsResponsePlanReleaseMethod": ".retrieve_checkout_configurations_response_plan_release_method",
-    "RetrieveCheckoutConfigurationsResponsePlanThreeDsLevel": ".retrieve_checkout_configurations_response_plan_three_ds_level",
-    "RetrieveCheckoutConfigurationsResponsePlanVisibility": ".retrieve_checkout_configurations_response_plan_visibility",
     "RetrieveCheckoutConfigurationsResponseThreeDsLevel": ".retrieve_checkout_configurations_response_three_ds_level",
+    "RetrieveCheckoutConfigurationsResponseVariant": ".retrieve_checkout_configurations_response_variant",
+    "RetrieveCheckoutConfigurationsResponseVariantBillingType": ".retrieve_checkout_configurations_response_variant_billing_type",
+    "RetrieveCheckoutConfigurationsResponseVariantReleaseMethod": ".retrieve_checkout_configurations_response_variant_release_method",
+    "RetrieveCheckoutConfigurationsResponseVariantThreeDsLevel": ".retrieve_checkout_configurations_response_variant_three_ds_level",
+    "RetrieveCheckoutConfigurationsResponseVariantVisibility": ".retrieve_checkout_configurations_response_variant_visibility",
 }
 
 
@@ -170,23 +176,23 @@ def __dir__():
 __all__ = [
     "CreateCheckoutConfigurationsRequestMode",
     "CreateCheckoutConfigurationsRequestPaymentMethodConfiguration",
-    "CreateCheckoutConfigurationsRequestPlan",
-    "CreateCheckoutConfigurationsRequestPlanPaymentMethodConfiguration",
-    "CreateCheckoutConfigurationsRequestPlanPlanType",
-    "CreateCheckoutConfigurationsRequestPlanReleaseMethod",
-    "CreateCheckoutConfigurationsRequestPlanThreeDsLevel",
-    "CreateCheckoutConfigurationsRequestPlanVisibility",
     "CreateCheckoutConfigurationsRequestThreeDsLevel",
+    "CreateCheckoutConfigurationsRequestVariant",
+    "CreateCheckoutConfigurationsRequestVariantBillingType",
+    "CreateCheckoutConfigurationsRequestVariantPaymentMethodConfiguration",
+    "CreateCheckoutConfigurationsRequestVariantReleaseMethod",
+    "CreateCheckoutConfigurationsRequestVariantThreeDsLevel",
+    "CreateCheckoutConfigurationsRequestVariantVisibility",
     "CreateCheckoutConfigurationsResponse",
     "CreateCheckoutConfigurationsResponseEffectivePaymentMethodConfiguration",
     "CreateCheckoutConfigurationsResponseMode",
     "CreateCheckoutConfigurationsResponsePaymentMethodConfiguration",
-    "CreateCheckoutConfigurationsResponsePlan",
-    "CreateCheckoutConfigurationsResponsePlanPlanType",
-    "CreateCheckoutConfigurationsResponsePlanReleaseMethod",
-    "CreateCheckoutConfigurationsResponsePlanThreeDsLevel",
-    "CreateCheckoutConfigurationsResponsePlanVisibility",
     "CreateCheckoutConfigurationsResponseThreeDsLevel",
+    "CreateCheckoutConfigurationsResponseVariant",
+    "CreateCheckoutConfigurationsResponseVariantBillingType",
+    "CreateCheckoutConfigurationsResponseVariantReleaseMethod",
+    "CreateCheckoutConfigurationsResponseVariantThreeDsLevel",
+    "CreateCheckoutConfigurationsResponseVariantVisibility",
     "DeleteCheckoutConfigurationsResponse",
     "ListCheckoutConfigurationsRequestDirection",
     "ListCheckoutConfigurationsRequestOrder",
@@ -195,21 +201,21 @@ __all__ = [
     "ListCheckoutConfigurationsResponseDataItemEffectivePaymentMethodConfiguration",
     "ListCheckoutConfigurationsResponseDataItemMode",
     "ListCheckoutConfigurationsResponseDataItemPaymentMethodConfiguration",
-    "ListCheckoutConfigurationsResponseDataItemPlan",
-    "ListCheckoutConfigurationsResponseDataItemPlanPlanType",
-    "ListCheckoutConfigurationsResponseDataItemPlanReleaseMethod",
-    "ListCheckoutConfigurationsResponseDataItemPlanThreeDsLevel",
-    "ListCheckoutConfigurationsResponseDataItemPlanVisibility",
     "ListCheckoutConfigurationsResponseDataItemThreeDsLevel",
+    "ListCheckoutConfigurationsResponseDataItemVariant",
+    "ListCheckoutConfigurationsResponseDataItemVariantBillingType",
+    "ListCheckoutConfigurationsResponseDataItemVariantReleaseMethod",
+    "ListCheckoutConfigurationsResponseDataItemVariantThreeDsLevel",
+    "ListCheckoutConfigurationsResponseDataItemVariantVisibility",
     "ListCheckoutConfigurationsResponsePageInfo",
     "RetrieveCheckoutConfigurationsResponse",
     "RetrieveCheckoutConfigurationsResponseEffectivePaymentMethodConfiguration",
     "RetrieveCheckoutConfigurationsResponseMode",
     "RetrieveCheckoutConfigurationsResponsePaymentMethodConfiguration",
-    "RetrieveCheckoutConfigurationsResponsePlan",
-    "RetrieveCheckoutConfigurationsResponsePlanPlanType",
-    "RetrieveCheckoutConfigurationsResponsePlanReleaseMethod",
-    "RetrieveCheckoutConfigurationsResponsePlanThreeDsLevel",
-    "RetrieveCheckoutConfigurationsResponsePlanVisibility",
     "RetrieveCheckoutConfigurationsResponseThreeDsLevel",
+    "RetrieveCheckoutConfigurationsResponseVariant",
+    "RetrieveCheckoutConfigurationsResponseVariantBillingType",
+    "RetrieveCheckoutConfigurationsResponseVariantReleaseMethod",
+    "RetrieveCheckoutConfigurationsResponseVariantThreeDsLevel",
+    "RetrieveCheckoutConfigurationsResponseVariantVisibility",
 ]
