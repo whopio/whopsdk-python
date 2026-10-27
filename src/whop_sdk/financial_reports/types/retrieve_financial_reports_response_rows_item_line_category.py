@@ -160,6 +160,7 @@ RetrieveFinancialReportsResponseRowsItemLineCategory = typing.Union[
         "payment_refund",
         "payment_refund_fee",
         "payment_refund_reversal",
+        "payment_return_fee",
         "payment_revshare",
         "payment_revshare_payout",
         "payment_revshare_refund",

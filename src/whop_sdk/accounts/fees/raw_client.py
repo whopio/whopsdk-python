@@ -16,6 +16,8 @@ from ...errors.forbidden_error import ForbiddenError
 from ...errors.not_found_error import NotFoundError
 from ...errors.unauthorized_error import UnauthorizedError
 from ...types.account_fees import AccountFees
+from .types.update_fees_request_ach_dispute import UpdateFeesRequestAchDispute
+from .types.update_fees_request_ach_return import UpdateFeesRequestAchReturn
 from .types.update_fees_request_bank_deposit import UpdateFeesRequestBankDeposit
 from .types.update_fees_request_billing import UpdateFeesRequestBilling
 from .types.update_fees_request_buyer import UpdateFeesRequestBuyer
@@ -41,6 +43,8 @@ from .types.update_fees_request_pending_auto_topup import UpdateFeesRequestPendi
 from .types.update_fees_request_platform_processing import UpdateFeesRequestPlatformProcessing
 from .types.update_fees_request_pool_payout import UpdateFeesRequestPoolPayout
 from .types.update_fees_request_revshare import UpdateFeesRequestRevshare
+from .types.update_fees_request_sepa_dispute import UpdateFeesRequestSepaDispute
+from .types.update_fees_request_sepa_return import UpdateFeesRequestSepaReturn
 from .types.update_fees_request_tax_calculation import UpdateFeesRequestTaxCalculation
 from .types.update_fees_request_tax_service import UpdateFeesRequestTaxService
 from .types.update_fees_request_three_ds import UpdateFeesRequestThreeDs
@@ -125,6 +129,8 @@ class RawFeesClient:
         self,
         account_id: str,
         *,
+        ach_dispute: typing.Optional[UpdateFeesRequestAchDispute] = OMIT,
+        ach_return: typing.Optional[UpdateFeesRequestAchReturn] = OMIT,
         bank_deposit: typing.Optional[UpdateFeesRequestBankDeposit] = OMIT,
         billing: typing.Optional[UpdateFeesRequestBilling] = OMIT,
         buyer: typing.Optional[UpdateFeesRequestBuyer] = OMIT,
@@ -151,6 +157,8 @@ class RawFeesClient:
         platform_processing: typing.Optional[UpdateFeesRequestPlatformProcessing] = OMIT,
         pool_payout: typing.Optional[UpdateFeesRequestPoolPayout] = OMIT,
         revshare: typing.Optional[UpdateFeesRequestRevshare] = OMIT,
+        sepa_dispute: typing.Optional[UpdateFeesRequestSepaDispute] = OMIT,
+        sepa_return: typing.Optional[UpdateFeesRequestSepaReturn] = OMIT,
         tax_calculation: typing.Optional[UpdateFeesRequestTaxCalculation] = OMIT,
         tax_service: typing.Optional[UpdateFeesRequestTaxService] = OMIT,
         three_ds: typing.Optional[UpdateFeesRequestThreeDs] = OMIT,
@@ -164,6 +172,12 @@ class RawFeesClient:
         ----------
         account_id : str
             Account ID, prefixed `biz_`.
+
+        ach_dispute : typing.Optional[UpdateFeesRequestAchDispute]
+            The fields of a fee the caller may change. Only the keys sent are replaced.
+
+        ach_return : typing.Optional[UpdateFeesRequestAchReturn]
+            The fields of a fee the caller may change. Only the keys sent are replaced.
 
         bank_deposit : typing.Optional[UpdateFeesRequestBankDeposit]
             The fields of a fee the caller may change. Only the keys sent are replaced.
@@ -243,6 +257,12 @@ class RawFeesClient:
         revshare : typing.Optional[UpdateFeesRequestRevshare]
             The fields of a fee the caller may change. Only the keys sent are replaced.
 
+        sepa_dispute : typing.Optional[UpdateFeesRequestSepaDispute]
+            The fields of a fee the caller may change. Only the keys sent are replaced.
+
+        sepa_return : typing.Optional[UpdateFeesRequestSepaReturn]
+            The fields of a fee the caller may change. Only the keys sent are replaced.
+
         tax_calculation : typing.Optional[UpdateFeesRequestTaxCalculation]
             The fields of a fee the caller may change. Only the keys sent are replaced.
 
@@ -268,6 +288,12 @@ class RawFeesClient:
             base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
+                "ach_dispute": convert_and_respect_annotation_metadata(
+                    object_=ach_dispute, annotation=UpdateFeesRequestAchDispute, direction="write"
+                ),
+                "ach_return": convert_and_respect_annotation_metadata(
+                    object_=ach_return, annotation=UpdateFeesRequestAchReturn, direction="write"
+                ),
                 "bank_deposit": convert_and_respect_annotation_metadata(
                     object_=bank_deposit, annotation=UpdateFeesRequestBankDeposit, direction="write"
                 ),
@@ -345,6 +371,12 @@ class RawFeesClient:
                 ),
                 "revshare": convert_and_respect_annotation_metadata(
                     object_=revshare, annotation=UpdateFeesRequestRevshare, direction="write"
+                ),
+                "sepa_dispute": convert_and_respect_annotation_metadata(
+                    object_=sepa_dispute, annotation=UpdateFeesRequestSepaDispute, direction="write"
+                ),
+                "sepa_return": convert_and_respect_annotation_metadata(
+                    object_=sepa_return, annotation=UpdateFeesRequestSepaReturn, direction="write"
                 ),
                 "tax_calculation": convert_and_respect_annotation_metadata(
                     object_=tax_calculation, annotation=UpdateFeesRequestTaxCalculation, direction="write"
@@ -492,6 +524,8 @@ class AsyncRawFeesClient:
         self,
         account_id: str,
         *,
+        ach_dispute: typing.Optional[UpdateFeesRequestAchDispute] = OMIT,
+        ach_return: typing.Optional[UpdateFeesRequestAchReturn] = OMIT,
         bank_deposit: typing.Optional[UpdateFeesRequestBankDeposit] = OMIT,
         billing: typing.Optional[UpdateFeesRequestBilling] = OMIT,
         buyer: typing.Optional[UpdateFeesRequestBuyer] = OMIT,
@@ -518,6 +552,8 @@ class AsyncRawFeesClient:
         platform_processing: typing.Optional[UpdateFeesRequestPlatformProcessing] = OMIT,
         pool_payout: typing.Optional[UpdateFeesRequestPoolPayout] = OMIT,
         revshare: typing.Optional[UpdateFeesRequestRevshare] = OMIT,
+        sepa_dispute: typing.Optional[UpdateFeesRequestSepaDispute] = OMIT,
+        sepa_return: typing.Optional[UpdateFeesRequestSepaReturn] = OMIT,
         tax_calculation: typing.Optional[UpdateFeesRequestTaxCalculation] = OMIT,
         tax_service: typing.Optional[UpdateFeesRequestTaxService] = OMIT,
         three_ds: typing.Optional[UpdateFeesRequestThreeDs] = OMIT,
@@ -531,6 +567,12 @@ class AsyncRawFeesClient:
         ----------
         account_id : str
             Account ID, prefixed `biz_`.
+
+        ach_dispute : typing.Optional[UpdateFeesRequestAchDispute]
+            The fields of a fee the caller may change. Only the keys sent are replaced.
+
+        ach_return : typing.Optional[UpdateFeesRequestAchReturn]
+            The fields of a fee the caller may change. Only the keys sent are replaced.
 
         bank_deposit : typing.Optional[UpdateFeesRequestBankDeposit]
             The fields of a fee the caller may change. Only the keys sent are replaced.
@@ -610,6 +652,12 @@ class AsyncRawFeesClient:
         revshare : typing.Optional[UpdateFeesRequestRevshare]
             The fields of a fee the caller may change. Only the keys sent are replaced.
 
+        sepa_dispute : typing.Optional[UpdateFeesRequestSepaDispute]
+            The fields of a fee the caller may change. Only the keys sent are replaced.
+
+        sepa_return : typing.Optional[UpdateFeesRequestSepaReturn]
+            The fields of a fee the caller may change. Only the keys sent are replaced.
+
         tax_calculation : typing.Optional[UpdateFeesRequestTaxCalculation]
             The fields of a fee the caller may change. Only the keys sent are replaced.
 
@@ -635,6 +683,12 @@ class AsyncRawFeesClient:
             base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
+                "ach_dispute": convert_and_respect_annotation_metadata(
+                    object_=ach_dispute, annotation=UpdateFeesRequestAchDispute, direction="write"
+                ),
+                "ach_return": convert_and_respect_annotation_metadata(
+                    object_=ach_return, annotation=UpdateFeesRequestAchReturn, direction="write"
+                ),
                 "bank_deposit": convert_and_respect_annotation_metadata(
                     object_=bank_deposit, annotation=UpdateFeesRequestBankDeposit, direction="write"
                 ),
@@ -712,6 +766,12 @@ class AsyncRawFeesClient:
                 ),
                 "revshare": convert_and_respect_annotation_metadata(
                     object_=revshare, annotation=UpdateFeesRequestRevshare, direction="write"
+                ),
+                "sepa_dispute": convert_and_respect_annotation_metadata(
+                    object_=sepa_dispute, annotation=UpdateFeesRequestSepaDispute, direction="write"
+                ),
+                "sepa_return": convert_and_respect_annotation_metadata(
+                    object_=sepa_return, annotation=UpdateFeesRequestSepaReturn, direction="write"
                 ),
                 "tax_calculation": convert_and_respect_annotation_metadata(
                     object_=tax_calculation, annotation=UpdateFeesRequestTaxCalculation, direction="write"

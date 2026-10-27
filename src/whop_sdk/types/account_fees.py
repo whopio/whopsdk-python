@@ -15,6 +15,16 @@ class AccountFees(UniversalBaseModel):
     The account these fees are charged to, prefixed `biz_`.
     """
 
+    ach_dispute: AccountFee = pydantic.Field()
+    """
+    Charged when the account holder disputes an ACH payment.
+    """
+
+    ach_return: AccountFee = pydantic.Field()
+    """
+    Charged when an ACH payment is returned by the buyer's bank.
+    """
+
     bank_deposit: AccountFee = pydantic.Field()
     """
     Charged on bank deposits into the account's balance.
@@ -143,6 +153,16 @@ class AccountFees(UniversalBaseModel):
     revshare: AccountFee = pydantic.Field()
     """
     Charged on payments where the account shares revenue with revshare affiliates.
+    """
+
+    sepa_dispute: AccountFee = pydantic.Field()
+    """
+    Charged when the account holder disputes a SEPA Direct Debit payment.
+    """
+
+    sepa_return: AccountFee = pydantic.Field()
+    """
+    Charged when a SEPA Direct Debit payment is returned by the buyer's bank.
     """
 
     tax_calculation: AccountFee = pydantic.Field()
