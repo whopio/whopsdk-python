@@ -58,6 +58,11 @@ class ListVerificationsResponseDataItem(UniversalBaseModel):
     Verification profile ID, prefixed `idpf_`.
     """
 
+    incorporation_date: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Date the business was incorporated, formatted as `YYYY-MM-DD`, as on file for the business verification. Business verifications only; `null` until it is sent.
+    """
+
     kind: typing.Optional[ListVerificationsResponseDataItemKind] = None
     last_name: typing.Optional[str] = None
     owners: typing.List[ListVerificationsResponseDataItemOwnersItem] = pydantic.Field()
@@ -70,16 +75,21 @@ class ListVerificationsResponseDataItem(UniversalBaseModel):
     Phone number on the verification profile.
     """
 
+    place_of_incorporation: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    State or region where the business is incorporated, as on file for the business verification. Business verifications only; `null` until it is sent.
+    """
+
     registration_number: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Number the business was registered under in its place of incorporation, such as a state file number in the US or a Company Number in the UK. Business verifications only; `null` until the business verification is approved.
+    Number the business was registered under in its place of incorporation, such as a state file number in the US or a Company Number in the UK. Business verifications only; as on file for the business verification, or `null` until it is sent.
     """
 
     requested_information: typing.Optional[typing.List[ListVerificationsResponseDataItemRequestedInformationItem]] = (
         pydantic.Field(default=None)
     )
     """
-    What Whop still needs before review can continue — one requirement per entry. Answer with Update Verification; nothing from the response is echoed back. Keys that don't apply are omitted.
+    What Whop still needs before review can continue — one requirement per entry. Answer with Update Verification; nothing from the response is echoed back. Keys that don't apply are omitted. For a business verification created with `documents` or `owners`, this includes the company details and documents still missing before it can be sent for review; each owner's documents are listed under that owner.
     """
 
     required_documents: typing.Optional[typing.List[ListVerificationsResponseDataItemRequiredDocumentsItem]] = (
