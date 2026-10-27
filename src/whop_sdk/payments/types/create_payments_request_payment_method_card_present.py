@@ -11,7 +11,7 @@ from .create_payments_request_payment_method_card_present_platform import (
 
 class CreatePaymentsRequestPaymentMethodCardPresent(UniversalBaseModel):
     """
-    Present when `type` is `card_present`.
+    Required when `type` is `card_present`.
     """
 
     platform: CreatePaymentsRequestPaymentMethodCardPresentPlatform = pydantic.Field()
