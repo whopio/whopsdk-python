@@ -39,6 +39,11 @@ class Invoice(UniversalBaseModel):
     paid_at: typing.Optional[str] = None
     payment_method_id: typing.Optional[str] = None
     recipient_emails: typing.List[str]
+    scheduled_charge_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When the invoice's saved payment method will be charged, as an ISO 8601 timestamp. Set to `due_at` when an invoice with a `payment_method_id` is sent before it is due; `null` otherwise, once the charge starts, and once the invoice is paid, void, or uncollectible.
+    """
+
     scheduled_send_at: typing.Optional[str] = None
     status: InvoiceStatus
     subtotal: Money
