@@ -389,7 +389,13 @@ class RawPartnersClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def retrieve(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[Partner]:
+    def retrieve(
+        self,
+        id: str,
+        *,
+        account_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[Partner]:
         """
         Retrieves the authenticated user's partner profile: enrollment and verification status, certification completion, active direct business referral count, and default payout rates. Other users' profiles are not accessible. To create and manage referral links, use `/partner_referral_requests`.
 
@@ -397,6 +403,9 @@ class RawPartnersClient:
         ----------
         id : str
             The authenticated partner's user ID, prefixed user_, or me. Other users' profiles are not accessible.
+
+        account_id : typing.Optional[str]
+            Return `payout_rates` for this business, prefixed `biz_`, instead of the caller's own: the business's rate rows, else the platform defaults. Requires company:basic:read on that business, which every team member holds. The rest of the profile stays the caller's.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -410,6 +419,9 @@ class RawPartnersClient:
             f"partners/{encode_path_param(id)}",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
+            params={
+                "account_id": account_id,
+            },
             request_options=request_options,
         )
         try:
@@ -830,7 +842,11 @@ class AsyncRawPartnersClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def retrieve(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        id: str,
+        *,
+        account_id: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Partner]:
         """
         Retrieves the authenticated user's partner profile: enrollment and verification status, certification completion, active direct business referral count, and default payout rates. Other users' profiles are not accessible. To create and manage referral links, use `/partner_referral_requests`.
@@ -839,6 +855,9 @@ class AsyncRawPartnersClient:
         ----------
         id : str
             The authenticated partner's user ID, prefixed user_, or me. Other users' profiles are not accessible.
+
+        account_id : typing.Optional[str]
+            Return `payout_rates` for this business, prefixed `biz_`, instead of the caller's own: the business's rate rows, else the platform defaults. Requires company:basic:read on that business, which every team member holds. The rest of the profile stays the caller's.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -852,6 +871,9 @@ class AsyncRawPartnersClient:
             f"partners/{encode_path_param(id)}",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
+            params={
+                "account_id": account_id,
+            },
             request_options=request_options,
         )
         try:
