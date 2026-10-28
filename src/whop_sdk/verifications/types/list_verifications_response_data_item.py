@@ -17,6 +17,11 @@ from .list_verifications_response_data_item_status import ListVerificationsRespo
 
 
 class ListVerificationsResponseDataItem(UniversalBaseModel):
+    account_ids: typing.List[str] = pydantic.Field()
+    """
+    Accounts this verification was read for, each prefixed `biz_`: the account you listed by, the account or subaccount it belongs to with `include_subaccounts`, or every account you can read that it belongs to when retrieved by ID. Usually one. Empty for a personal verification.
+    """
+
     address: typing.Optional[ListVerificationsResponseDataItemAddress] = pydantic.Field(default=None)
     """
     Address on the verification profile. `null` when no address is set.

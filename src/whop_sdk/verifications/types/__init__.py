@@ -108,6 +108,7 @@ if typing.TYPE_CHECKING:
         ListVerificationsResponseDataItemRequiredDocumentsItemStatus,
     )
     from .list_verifications_response_data_item_status import ListVerificationsResponseDataItemStatus
+    from .list_verifications_response_page_info import ListVerificationsResponsePageInfo
     from .post_identity_profile_updated_payload import PostIdentityProfileUpdatedPayload
     from .post_identity_profile_updated_payload_api_version import PostIdentityProfileUpdatedPayloadApiVersion
     from .post_identity_profile_updated_payload_data import PostIdentityProfileUpdatedPayloadData
@@ -283,6 +284,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListVerificationsResponseDataItemRequiredDocumentsItem": ".list_verifications_response_data_item_required_documents_item",
     "ListVerificationsResponseDataItemRequiredDocumentsItemStatus": ".list_verifications_response_data_item_required_documents_item_status",
     "ListVerificationsResponseDataItemStatus": ".list_verifications_response_data_item_status",
+    "ListVerificationsResponsePageInfo": ".list_verifications_response_page_info",
     "PostIdentityProfileUpdatedPayload": ".post_identity_profile_updated_payload",
     "PostIdentityProfileUpdatedPayloadApiVersion": ".post_identity_profile_updated_payload_api_version",
     "PostIdentityProfileUpdatedPayloadData": ".post_identity_profile_updated_payload_data",
@@ -416,6 +418,7 @@ __all__ = [
     "ListVerificationsResponseDataItemRequiredDocumentsItem",
     "ListVerificationsResponseDataItemRequiredDocumentsItemStatus",
     "ListVerificationsResponseDataItemStatus",
+    "ListVerificationsResponsePageInfo",
     "PostIdentityProfileUpdatedPayload",
     "PostIdentityProfileUpdatedPayloadApiVersion",
     "PostIdentityProfileUpdatedPayloadData",

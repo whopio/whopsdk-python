@@ -3,6 +3,7 @@
 import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
+from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
 from .raw_client import AsyncRawVerificationsClient, RawVerificationsClient
 from .types.create_verifications_request_body import CreateVerificationsRequestBody
@@ -10,6 +11,7 @@ from .types.create_verifications_response import CreateVerificationsResponse
 from .types.list_verifications_request_direction import ListVerificationsRequestDirection
 from .types.list_verifications_request_order import ListVerificationsRequestOrder
 from .types.list_verifications_response import ListVerificationsResponse
+from .types.list_verifications_response_data_item import ListVerificationsResponseDataItem
 from .types.retrieve_verifications_response import RetrieveVerificationsResponse
 from .types.update_verifications_request_body import UpdateVerificationsRequestBody
 from .types.update_verifications_response import UpdateVerificationsResponse
@@ -38,12 +40,17 @@ class VerificationsClient:
         *,
         account_id: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
+        include_subaccounts: typing.Optional[bool] = None,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        last: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
         order: typing.Optional[ListVerificationsRequestOrder] = None,
         direction: typing.Optional[ListVerificationsRequestDirection] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ListVerificationsResponse:
+    ) -> SyncPager[ListVerificationsResponseDataItem, ListVerificationsResponse]:
         """
-        Lists the verifications for an account or user, including their status and any required actions.
+        Lists the verifications for an account or user, including their status and any required actions. Platforms list their own and every subaccount's verifications at once with `include_subaccounts`; each one's `account_ids` names its account, and a verification shared by several accounts appears once for each.
 
         Parameters
         ----------
@@ -52,6 +59,21 @@ class VerificationsClient:
 
         user_id : typing.Optional[str]
             The caller's own user ID, prefixed `user_`, to list personal verifications. Provide this or `account_id`.
+
+        include_subaccounts : typing.Optional[bool]
+            Also cover the account's subaccounts. Requires `account_id`, and is a 400 without it. Lists the verifications of the account and every subaccount in account order, oldest account first, paging forward; `status`, `order`, `direction`, `last` and `before` are a 400. Leaves out removed subaccounts and ones you can't read verifications on. A page can hold fewer than `first` verifications while `has_next_page` is `true`; keep following `end_cursor`. On a subaccount, lists only that account's verifications.
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        last : typing.Optional[int]
+            Number of results to return from the end of the range.
+
+        before : typing.Optional[str]
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         order : typing.Optional[ListVerificationsRequestOrder]
             Field used to sort returned verifications.
@@ -64,7 +86,7 @@ class VerificationsClient:
 
         Returns
         -------
-        ListVerificationsResponse
+        SyncPager[ListVerificationsResponseDataItem, ListVerificationsResponse]
             OK
 
         Examples
@@ -76,12 +98,25 @@ class VerificationsClient:
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
-        client.verifications.list()
+        response = client.verifications.list()
+        for item in response:
+            yield item
+        # alternatively, you can paginate page-by-page
+        for page in response.iter_pages():
+            yield page
         """
-        _response = self._raw_client.list(
-            account_id=account_id, user_id=user_id, order=order, direction=direction, request_options=request_options
+        return self._raw_client.list(
+            account_id=account_id,
+            user_id=user_id,
+            include_subaccounts=include_subaccounts,
+            first=first,
+            after=after,
+            last=last,
+            before=before,
+            order=order,
+            direction=direction,
+            request_options=request_options,
         )
-        return _response.data
 
     def create(
         self,
@@ -230,12 +265,17 @@ class AsyncVerificationsClient:
         *,
         account_id: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
+        include_subaccounts: typing.Optional[bool] = None,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        last: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
         order: typing.Optional[ListVerificationsRequestOrder] = None,
         direction: typing.Optional[ListVerificationsRequestDirection] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> ListVerificationsResponse:
+    ) -> AsyncPager[ListVerificationsResponseDataItem, ListVerificationsResponse]:
         """
-        Lists the verifications for an account or user, including their status and any required actions.
+        Lists the verifications for an account or user, including their status and any required actions. Platforms list their own and every subaccount's verifications at once with `include_subaccounts`; each one's `account_ids` names its account, and a verification shared by several accounts appears once for each.
 
         Parameters
         ----------
@@ -244,6 +284,21 @@ class AsyncVerificationsClient:
 
         user_id : typing.Optional[str]
             The caller's own user ID, prefixed `user_`, to list personal verifications. Provide this or `account_id`.
+
+        include_subaccounts : typing.Optional[bool]
+            Also cover the account's subaccounts. Requires `account_id`, and is a 400 without it. Lists the verifications of the account and every subaccount in account order, oldest account first, paging forward; `status`, `order`, `direction`, `last` and `before` are a 400. Leaves out removed subaccounts and ones you can't read verifications on. A page can hold fewer than `first` verifications while `has_next_page` is `true`; keep following `end_cursor`. On a subaccount, lists only that account's verifications.
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        last : typing.Optional[int]
+            Number of results to return from the end of the range.
+
+        before : typing.Optional[str]
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         order : typing.Optional[ListVerificationsRequestOrder]
             Field used to sort returned verifications.
@@ -256,7 +311,7 @@ class AsyncVerificationsClient:
 
         Returns
         -------
-        ListVerificationsResponse
+        AsyncPager[ListVerificationsResponseDataItem, ListVerificationsResponse]
             OK
 
         Examples
@@ -273,15 +328,29 @@ class AsyncVerificationsClient:
 
 
         async def main() -> None:
-            await client.verifications.list()
+            response = await client.verifications.list()
+            async for item in response:
+                yield item
+
+            # alternatively, you can paginate page-by-page
+            async for page in response.iter_pages():
+                yield page
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.list(
-            account_id=account_id, user_id=user_id, order=order, direction=direction, request_options=request_options
+        return await self._raw_client.list(
+            account_id=account_id,
+            user_id=user_id,
+            include_subaccounts=include_subaccounts,
+            first=first,
+            after=after,
+            last=last,
+            before=before,
+            order=order,
+            direction=direction,
+            request_options=request_options,
         )
-        return _response.data
 
     async def create(
         self,

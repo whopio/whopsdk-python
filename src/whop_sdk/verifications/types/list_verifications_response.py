@@ -5,10 +5,12 @@ import typing
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .list_verifications_response_data_item import ListVerificationsResponseDataItem
+from .list_verifications_response_page_info import ListVerificationsResponsePageInfo
 
 
 class ListVerificationsResponse(UniversalBaseModel):
-    data: typing.Optional[typing.List[ListVerificationsResponseDataItem]] = None
+    data: typing.List[ListVerificationsResponseDataItem]
+    page_info: ListVerificationsResponsePageInfo
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

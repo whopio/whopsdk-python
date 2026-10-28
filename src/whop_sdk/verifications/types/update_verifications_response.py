@@ -15,6 +15,11 @@ from .update_verifications_response_status import UpdateVerificationsResponseSta
 
 
 class UpdateVerificationsResponse(UniversalBaseModel):
+    account_ids: typing.List[str] = pydantic.Field()
+    """
+    Accounts this verification was read for, each prefixed `biz_`: the account you listed by, the account or subaccount it belongs to with `include_subaccounts`, or every account you can read that it belongs to when retrieved by ID. Usually one. Empty for a personal verification.
+    """
+
     address: typing.Optional[UpdateVerificationsResponseAddress] = pydantic.Field(default=None)
     """
     Address on the verification profile. `null` when no address is set.
