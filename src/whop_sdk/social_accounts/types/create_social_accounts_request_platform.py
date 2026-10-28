@@ -2,4 +2,6 @@
 
 import typing
 
-CreateSocialAccountsRequestPlatform = typing.Union[typing.Literal["facebook", "tiktok", "klaviyo"], typing.Any]
+CreateSocialAccountsRequestPlatform = typing.Union[
+    typing.Literal["facebook", "tiktok", "klaviyo", "aimerce"], typing.Any
+]
