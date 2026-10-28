@@ -9,6 +9,11 @@ from .user_summary import UserSummary
 
 
 class Partner(UniversalBaseModel):
+    account_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The business whose `payout_rates` these are, prefixed `biz_`, when the request sent `account_id`. `null` when the rates are the caller's own.
+    """
+
     certification_complete: bool = pydantic.Field()
     """
     Whether the user finished the partner certification course: every visible quiz and knowledge check has a passing result, or, when the course has none, every visible lesson is marked completed.
