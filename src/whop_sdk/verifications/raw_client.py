@@ -7,6 +7,7 @@ from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
 from ..core.jsonable_encoder import encode_path_param
+from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
@@ -21,6 +22,7 @@ from .types.create_verifications_response import CreateVerificationsResponse
 from .types.list_verifications_request_direction import ListVerificationsRequestDirection
 from .types.list_verifications_request_order import ListVerificationsRequestOrder
 from .types.list_verifications_response import ListVerificationsResponse
+from .types.list_verifications_response_data_item import ListVerificationsResponseDataItem
 from .types.retrieve_verifications_response import RetrieveVerificationsResponse
 from .types.update_verifications_request_body import UpdateVerificationsRequestBody
 from .types.update_verifications_response import UpdateVerificationsResponse
@@ -39,12 +41,17 @@ class RawVerificationsClient:
         *,
         account_id: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
+        include_subaccounts: typing.Optional[bool] = None,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        last: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
         order: typing.Optional[ListVerificationsRequestOrder] = None,
         direction: typing.Optional[ListVerificationsRequestDirection] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[ListVerificationsResponse]:
+    ) -> SyncPager[ListVerificationsResponseDataItem, ListVerificationsResponse]:
         """
-        Lists the verifications for an account or user, including their status and any required actions.
+        Lists the verifications for an account or user, including their status and any required actions. Platforms list their own and every subaccount's verifications at once with `include_subaccounts`; each one's `account_ids` names its account, and a verification shared by several accounts appears once for each.
 
         Parameters
         ----------
@@ -53,6 +60,21 @@ class RawVerificationsClient:
 
         user_id : typing.Optional[str]
             The caller's own user ID, prefixed `user_`, to list personal verifications. Provide this or `account_id`.
+
+        include_subaccounts : typing.Optional[bool]
+            Also cover the account's subaccounts. Requires `account_id`, and is a 400 without it. Lists the verifications of the account and every subaccount in account order, oldest account first, paging forward; `status`, `order`, `direction`, `last` and `before` are a 400. Leaves out removed subaccounts and ones you can't read verifications on. A page can hold fewer than `first` verifications while `has_next_page` is `true`; keep following `end_cursor`. On a subaccount, lists only that account's verifications.
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        last : typing.Optional[int]
+            Number of results to return from the end of the range.
+
+        before : typing.Optional[str]
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         order : typing.Optional[ListVerificationsRequestOrder]
             Field used to sort returned verifications.
@@ -65,7 +87,7 @@ class RawVerificationsClient:
 
         Returns
         -------
-        HttpResponse[ListVerificationsResponse]
+        SyncPager[ListVerificationsResponseDataItem, ListVerificationsResponse]
             OK
         """
         _response = self._client_wrapper.httpx_client.request(
@@ -75,6 +97,11 @@ class RawVerificationsClient:
             params={
                 "account_id": account_id,
                 "user_id": user_id,
+                "include_subaccounts": include_subaccounts,
+                "first": first,
+                "after": after,
+                "last": last,
+                "before": before,
                 "order": order,
                 "direction": direction,
             },
@@ -82,14 +109,32 @@ class RawVerificationsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     ListVerificationsResponse,
                     parse_obj_as(
                         type_=ListVerificationsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return HttpResponse(response=_response, data=_data)
+                _items = _parsed_response.data
+                _has_next = False
+                _get_next = None
+                if _parsed_response.page_info is not None:
+                    _parsed_next = _parsed_response.page_info.end_cursor
+                    _has_next = _parsed_next is not None and _parsed_next != ""
+                    _get_next = lambda: self.list(
+                        account_id=account_id,
+                        user_id=user_id,
+                        include_subaccounts=include_subaccounts,
+                        first=first,
+                        after=_parsed_next,
+                        last=last,
+                        before=before,
+                        order=order,
+                        direction=direction,
+                        request_options=request_options,
+                    )
+                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             if _response.status_code == 400:
                 raise BadRequestError(
                     headers=dict(_response.headers),
@@ -429,12 +474,17 @@ class AsyncRawVerificationsClient:
         *,
         account_id: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
+        include_subaccounts: typing.Optional[bool] = None,
+        first: typing.Optional[int] = None,
+        after: typing.Optional[str] = None,
+        last: typing.Optional[int] = None,
+        before: typing.Optional[str] = None,
         order: typing.Optional[ListVerificationsRequestOrder] = None,
         direction: typing.Optional[ListVerificationsRequestDirection] = None,
         request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[ListVerificationsResponse]:
+    ) -> AsyncPager[ListVerificationsResponseDataItem, ListVerificationsResponse]:
         """
-        Lists the verifications for an account or user, including their status and any required actions.
+        Lists the verifications for an account or user, including their status and any required actions. Platforms list their own and every subaccount's verifications at once with `include_subaccounts`; each one's `account_ids` names its account, and a verification shared by several accounts appears once for each.
 
         Parameters
         ----------
@@ -443,6 +493,21 @@ class AsyncRawVerificationsClient:
 
         user_id : typing.Optional[str]
             The caller's own user ID, prefixed `user_`, to list personal verifications. Provide this or `account_id`.
+
+        include_subaccounts : typing.Optional[bool]
+            Also cover the account's subaccounts. Requires `account_id`, and is a 400 without it. Lists the verifications of the account and every subaccount in account order, oldest account first, paging forward; `status`, `order`, `direction`, `last` and `before` are a 400. Leaves out removed subaccounts and ones you can't read verifications on. A page can hold fewer than `first` verifications while `has_next_page` is `true`; keep following `end_cursor`. On a subaccount, lists only that account's verifications.
+
+        first : typing.Optional[int]
+            Number of results to return from the start of the range.
+
+        after : typing.Optional[str]
+            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+
+        last : typing.Optional[int]
+            Number of results to return from the end of the range.
+
+        before : typing.Optional[str]
+            Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
         order : typing.Optional[ListVerificationsRequestOrder]
             Field used to sort returned verifications.
@@ -455,7 +520,7 @@ class AsyncRawVerificationsClient:
 
         Returns
         -------
-        AsyncHttpResponse[ListVerificationsResponse]
+        AsyncPager[ListVerificationsResponseDataItem, ListVerificationsResponse]
             OK
         """
         _response = await self._client_wrapper.httpx_client.request(
@@ -465,6 +530,11 @@ class AsyncRawVerificationsClient:
             params={
                 "account_id": account_id,
                 "user_id": user_id,
+                "include_subaccounts": include_subaccounts,
+                "first": first,
+                "after": after,
+                "last": last,
+                "before": before,
                 "order": order,
                 "direction": direction,
             },
@@ -472,14 +542,35 @@ class AsyncRawVerificationsClient:
         )
         try:
             if 200 <= _response.status_code < 300:
-                _data = typing.cast(
+                _parsed_response = typing.cast(
                     ListVerificationsResponse,
                     parse_obj_as(
                         type_=ListVerificationsResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
-                return AsyncHttpResponse(response=_response, data=_data)
+                _items = _parsed_response.data
+                _has_next = False
+                _get_next = None
+                if _parsed_response.page_info is not None:
+                    _parsed_next = _parsed_response.page_info.end_cursor
+                    _has_next = _parsed_next is not None and _parsed_next != ""
+
+                    async def _get_next():
+                        return await self.list(
+                            account_id=account_id,
+                            user_id=user_id,
+                            include_subaccounts=include_subaccounts,
+                            first=first,
+                            after=_parsed_next,
+                            last=last,
+                            before=before,
+                            order=order,
+                            direction=direction,
+                            request_options=request_options,
+                        )
+
+                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             if _response.status_code == 400:
                 raise BadRequestError(
                     headers=dict(_response.headers),

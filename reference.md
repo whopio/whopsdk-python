@@ -48392,7 +48392,7 @@ client.variants.calculate_tax(
 <dl>
 <dd>
 
-Lists the verifications for an account or user, including their status and any required actions.
+Lists the verifications for an account or user, including their status and any required actions. Platforms list their own and every subaccount's verifications at once with `include_subaccounts`; each one's `account_ids` names its account, and a verification shared by several accounts appears once for each.
 </dd>
 </dl>
 </dd>
@@ -48440,6 +48440,46 @@ client.verifications.list()
 <dd>
 
 **user_id:** `typing.Optional[str]` — The caller's own user ID, prefixed `user_`, to list personal verifications. Provide this or `account_id`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_subaccounts:** `typing.Optional[bool]` — Also cover the account's subaccounts. Requires `account_id`, and is a 400 without it. Lists the verifications of the account and every subaccount in account order, oldest account first, paging forward; `status`, `order`, `direction`, `last` and `before` are a 400. Leaves out removed subaccounts and ones you can't read verifications on. A page can hold fewer than `first` verifications while `has_next_page` is `true`; keep following `end_cursor`. On a subaccount, lists only that account's verifications.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
