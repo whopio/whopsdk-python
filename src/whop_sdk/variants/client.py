@@ -65,7 +65,7 @@ class VariantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[VariantListItem, ListVariantsResponse]:
         """
-        Lists an account's variants. To list a product's public, buyable variants without authentication, omit `account_id` and pass `product_ids`.
+        Lists an account's variants, leaving out variants generated for a legacy invoice; retrieve one of those by ID. To list a product's public, buyable variants without authentication, omit `account_id` and pass `product_ids`.
 
         Parameters
         ----------
@@ -130,7 +130,7 @@ class VariantsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -316,7 +316,7 @@ class VariantsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -397,7 +397,7 @@ class VariantsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -439,7 +439,7 @@ class VariantsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -597,7 +597,7 @@ class VariantsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -681,7 +681,7 @@ class VariantsClient:
         from whop_sdk.variants import CalculateTaxVariantsRequestAddress
 
         client = Whop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -736,7 +736,7 @@ class AsyncVariantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[VariantListItem, ListVariantsResponse]:
         """
-        Lists an account's variants. To list a product's public, buyable variants without authentication, omit `account_id` and pass `product_ids`.
+        Lists an account's variants, leaving out variants generated for a legacy invoice; retrieve one of those by ID. To list a product's public, buyable variants without authentication, omit `account_id` and pass `product_ids`.
 
         Parameters
         ----------
@@ -803,7 +803,7 @@ class AsyncVariantsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -998,7 +998,7 @@ class AsyncVariantsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1087,7 +1087,7 @@ class AsyncVariantsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1139,7 +1139,7 @@ class AsyncVariantsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1305,7 +1305,7 @@ class AsyncVariantsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1397,7 +1397,7 @@ class AsyncVariantsClient:
         from whop_sdk.variants import CalculateTaxVariantsRequestAddress
 
         client = AsyncWhop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

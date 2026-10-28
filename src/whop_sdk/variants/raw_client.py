@@ -66,7 +66,7 @@ class RawVariantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[VariantListItem, ListVariantsResponse]:
         """
-        Lists an account's variants. To list a product's public, buyable variants without authentication, omit `account_id` and pass `product_ids`.
+        Lists an account's variants, leaving out variants generated for a legacy invoice; retrieve one of those by ID. To list a product's public, buyable variants without authentication, omit `account_id` and pass `product_ids`.
 
         Parameters
         ----------
@@ -973,7 +973,7 @@ class AsyncRawVariantsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[VariantListItem, ListVariantsResponse]:
         """
-        Lists an account's variants. To list a product's public, buyable variants without authentication, omit `account_id` and pass `product_ids`.
+        Lists an account's variants, leaving out variants generated for a legacy invoice; retrieve one of those by ID. To list a product's public, buyable variants without authentication, omit `account_id` and pass `product_ids`.
 
         Parameters
         ----------
