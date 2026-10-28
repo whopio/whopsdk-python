@@ -14,6 +14,11 @@ class RetrieveSwapsResponse(UniversalBaseModel):
     Account that owns the swap: a business ID prefixed `biz_`, or the user ID for a personal account.
     """
 
+    amount: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The from_token amount the swap was created to spend, as a decimal string. A swap created with `all` reports the wallet balance it read. Null for a fiat pair.
+    """
+
     error: typing.Optional[str] = pydantic.Field(default=None)
     """
     Latest error returned for a failed swap.

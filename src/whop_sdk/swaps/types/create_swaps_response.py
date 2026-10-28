@@ -16,6 +16,11 @@ class CreateSwapsResponse(UniversalBaseModel):
     Account that owns the swap: a business ID prefixed `biz_`, or the user ID for a personal account.
     """
 
+    amount: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Crypto pairs only: the from_token amount the swap spends, as a decimal string. A request for `all` returns the wallet balance it read.
+    """
+
     amount_in: typing.Optional[float] = pydantic.Field(default=None)
     """
     Fiat pairs only: amount of the source currency converted. Null while a stablecoin repayment is processing.
