@@ -9121,6 +9121,14 @@ client.apps.list()
 <dl>
 <dd>
 
+**product_category:** `typing.Optional[str]` — Only return apps whose `product_category` is this product category, such as `pressure_washing`. An unknown product category is rejected.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **order:** `typing.Optional[ListAppsRequestOrder]` — The field to sort apps by. Defaults to discoverable_at, showing the most recently published apps first. `template_usage` ranks Whop-verified apps first, then by how many businesses created apps from each app as a template. `template_recent_sales` ranks them by how many of those businesses processed a payment in the last 24 hours, recounted hourly, breaking ties by `template_usage`.
     
 </dd>
