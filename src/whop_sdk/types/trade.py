@@ -47,6 +47,11 @@ class Trade(UniversalBaseModel):
     When the trade was created, as an ISO 8601 timestamp.
     """
 
+    external_order_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    ID Whop sends to the exchange with this trade's order, so the exchange's order updates can be matched to the trade. On Hyperliquid, the order's `cloid` reported in `orderUpdates`, a `0x`-prefixed 32-character hex string. Not the caller's `client_order_id`. `null` for a deposit or withdraw.
+    """
+
     failure_code: typing.Optional[TradeFailureCode] = pydantic.Field(default=None)
     """
     Why the trade failed, or `null`.
