@@ -221,6 +221,7 @@ if typing.TYPE_CHECKING:
     from .ad_platform_issue_resource_type import AdPlatformIssueResourceType
     from .ad_post_source import AdPostSource
     from .ad_result_event import AdResultEvent
+    from .ad_stat import AdStat
     from .ad_status import AdStatus
     from .ad_text import AdText
     from .ad_translations import AdTranslations
@@ -1825,6 +1826,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdPlatformIssueResourceType": ".ad_platform_issue_resource_type",
     "AdPostSource": ".ad_post_source",
     "AdResultEvent": ".ad_result_event",
+    "AdStat": ".ad_stat",
     "AdStatus": ".ad_status",
     "AdText": ".ad_text",
     "AdTranslations": ".ad_translations",
@@ -3313,6 +3315,7 @@ __all__ = [
     "AdPlatformIssueResourceType",
     "AdPostSource",
     "AdResultEvent",
+    "AdStat",
     "AdStatus",
     "AdText",
     "AdTranslations",
