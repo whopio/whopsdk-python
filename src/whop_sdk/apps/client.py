@@ -58,6 +58,7 @@ class AppsClient:
         verified_apps_only: typing.Optional[bool] = None,
         recommended: typing.Optional[bool] = None,
         query: typing.Optional[str] = None,
+        product_category: typing.Optional[str] = None,
         order: typing.Optional[ListAppsRequestOrder] = None,
         direction: typing.Optional[ListAppsRequestDirection] = None,
         first: typing.Optional[int] = None,
@@ -91,6 +92,9 @@ class AppsClient:
 
         query : typing.Optional[str]
             A search string matched against app names.
+
+        product_category : typing.Optional[str]
+            Only return apps whose `product_category` is this product category, such as `pressure_washing`. An unknown product category is rejected.
 
         order : typing.Optional[ListAppsRequestOrder]
             The field to sort apps by. Defaults to discoverable_at, showing the most recently published apps first. `template_usage` ranks Whop-verified apps first, then by how many businesses created apps from each app as a template. `template_recent_sales` ranks them by how many of those businesses processed a payment in the last 24 hours, recounted hourly, breaking ties by `template_usage`.
@@ -142,6 +146,7 @@ class AppsClient:
             verified_apps_only=verified_apps_only,
             recommended=recommended,
             query=query,
+            product_category=product_category,
             order=order,
             direction=direction,
             first=first,
@@ -655,6 +660,7 @@ class AsyncAppsClient:
         verified_apps_only: typing.Optional[bool] = None,
         recommended: typing.Optional[bool] = None,
         query: typing.Optional[str] = None,
+        product_category: typing.Optional[str] = None,
         order: typing.Optional[ListAppsRequestOrder] = None,
         direction: typing.Optional[ListAppsRequestDirection] = None,
         first: typing.Optional[int] = None,
@@ -688,6 +694,9 @@ class AsyncAppsClient:
 
         query : typing.Optional[str]
             A search string matched against app names.
+
+        product_category : typing.Optional[str]
+            Only return apps whose `product_category` is this product category, such as `pressure_washing`. An unknown product category is rejected.
 
         order : typing.Optional[ListAppsRequestOrder]
             The field to sort apps by. Defaults to discoverable_at, showing the most recently published apps first. `template_usage` ranks Whop-verified apps first, then by how many businesses created apps from each app as a template. `template_recent_sales` ranks them by how many of those businesses processed a payment in the last 24 hours, recounted hourly, breaking ties by `template_usage`.
@@ -748,6 +757,7 @@ class AsyncAppsClient:
             verified_apps_only=verified_apps_only,
             recommended=recommended,
             query=query,
+            product_category=product_category,
             order=order,
             direction=direction,
             first=first,
