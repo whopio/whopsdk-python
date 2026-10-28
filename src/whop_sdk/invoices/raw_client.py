@@ -766,7 +766,7 @@ class RawInvoicesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[Invoice]:
         """
-        Marks an open invoice as uncollectible. Reminders stop, but the customer can still pay it.
+        Marks an open invoice as uncollectible. Its checkout link stops working.
 
         Parameters
         ----------
@@ -1830,7 +1830,7 @@ class AsyncRawInvoicesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[Invoice]:
         """
-        Marks an open invoice as uncollectible. Reminders stop, but the customer can still pay it.
+        Marks an open invoice as uncollectible. Its checkout link stops working.
 
         Parameters
         ----------

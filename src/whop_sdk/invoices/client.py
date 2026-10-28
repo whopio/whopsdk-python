@@ -103,7 +103,7 @@ class InvoicesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -202,7 +202,7 @@ class InvoicesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -250,7 +250,7 @@ class InvoicesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -324,7 +324,7 @@ class InvoicesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -369,7 +369,7 @@ class InvoicesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -402,7 +402,7 @@ class InvoicesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -415,7 +415,7 @@ class InvoicesClient:
 
     def mark_uncollectible(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Invoice:
         """
-        Marks an open invoice as uncollectible. Reminders stop, but the customer can still pay it.
+        Marks an open invoice as uncollectible. Its checkout link stops working.
 
         Parameters
         ----------
@@ -435,7 +435,7 @@ class InvoicesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -477,7 +477,7 @@ class InvoicesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -510,7 +510,7 @@ class InvoicesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -543,7 +543,7 @@ class InvoicesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -638,7 +638,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -746,7 +746,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -802,7 +802,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -884,7 +884,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -937,7 +937,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -978,7 +978,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -997,7 +997,7 @@ class AsyncInvoicesClient:
 
     async def mark_uncollectible(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Invoice:
         """
-        Marks an open invoice as uncollectible. Reminders stop, but the customer can still pay it.
+        Marks an open invoice as uncollectible. Its checkout link stops working.
 
         Parameters
         ----------
@@ -1019,7 +1019,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1069,7 +1069,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1110,7 +1110,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1151,7 +1151,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-27-3",
+            "2026-10-28",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
