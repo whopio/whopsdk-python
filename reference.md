@@ -55037,6 +55037,14 @@ client.stats.reports.platform_trends()
 <dl>
 <dd>
 
+**blueprint:** `typing.Optional[str]` — Only counts payments to businesses with an app created from one of these comma-separated blueprint app IDs, such as `app_xxxxxxxxxxxxxx`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>

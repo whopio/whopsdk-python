@@ -88,6 +88,7 @@ class RawReportsClient:
         product_category: typing.Optional[str] = None,
         account_country: typing.Optional[str] = None,
         customer_country: typing.Optional[str] = None,
+        blueprint: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -133,6 +134,9 @@ class RawReportsClient:
         customer_country : typing.Optional[str]
             Only counts payments from customers in these comma-separated countries, as ISO 3166-1 alpha-2 codes such as `US`.
 
+        blueprint : typing.Optional[str]
+            Only counts payments to businesses with an app created from one of these comma-separated blueprint app IDs, such as `app_xxxxxxxxxxxxxx`.
+
         first : typing.Optional[int]
             Number of results to return from the start of the range.
 
@@ -164,6 +168,7 @@ class RawReportsClient:
                 "product_category": product_category,
                 "account_country": account_country,
                 "customer_country": customer_country,
+                "blueprint": blueprint,
                 "first": first,
                 "after": after,
             },
@@ -271,6 +276,7 @@ class AsyncRawReportsClient:
         product_category: typing.Optional[str] = None,
         account_country: typing.Optional[str] = None,
         customer_country: typing.Optional[str] = None,
+        blueprint: typing.Optional[str] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
@@ -316,6 +322,9 @@ class AsyncRawReportsClient:
         customer_country : typing.Optional[str]
             Only counts payments from customers in these comma-separated countries, as ISO 3166-1 alpha-2 codes such as `US`.
 
+        blueprint : typing.Optional[str]
+            Only counts payments to businesses with an app created from one of these comma-separated blueprint app IDs, such as `app_xxxxxxxxxxxxxx`.
+
         first : typing.Optional[int]
             Number of results to return from the start of the range.
 
@@ -347,6 +356,7 @@ class AsyncRawReportsClient:
                 "product_category": product_category,
                 "account_country": account_country,
                 "customer_country": customer_country,
+                "blueprint": blueprint,
                 "first": first,
                 "after": after,
             },
