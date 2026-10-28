@@ -190,7 +190,7 @@ class TradesClient:
             `buy` or `sell`. Required for an order.
 
         size : typing.Optional[str]
-            Only for an order. The size in units of the market, as a decimal string, with at most the market's size decimals. Send exactly one of `size` or `notional`. The order must be worth at least 10 USD, unless reduce-only, and at most 5000 USD.
+            Only for an order. The size in units of the market, as a decimal string, with at most the market's size decimals. Send exactly one of `size` or `notional`. The order must be worth at least 10 USD, unless reduce-only.
 
         slippage_bps : typing.Optional[int]
             Only for a market order or a close. The worst price as basis points from the mid price, from 1 to 1000; defaults to 100.
@@ -453,7 +453,7 @@ class AsyncTradesClient:
             `buy` or `sell`. Required for an order.
 
         size : typing.Optional[str]
-            Only for an order. The size in units of the market, as a decimal string, with at most the market's size decimals. Send exactly one of `size` or `notional`. The order must be worth at least 10 USD, unless reduce-only, and at most 5000 USD.
+            Only for an order. The size in units of the market, as a decimal string, with at most the market's size decimals. Send exactly one of `size` or `notional`. The order must be worth at least 10 USD, unless reduce-only.
 
         slippage_bps : typing.Optional[int]
             Only for a market order or a close. The worst price as basis points from the mid price, from 1 to 1000; defaults to 100.
