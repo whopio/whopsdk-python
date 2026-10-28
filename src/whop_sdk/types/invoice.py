@@ -20,7 +20,7 @@ class Invoice(UniversalBaseModel):
     buyer_fee_percentage: float
     checkout_link: typing.Optional[str] = pydantic.Field(default=None)
     """
-    A signed link that opens this invoice in a checkout session so the buyer can pay it: pass it as `link` to `POST /checkout_sessions`. Present once the invoice is issued and open; null while it is a draft, once it is paid or void, for an invoice with no product, and when you lack `payment:charge`.
+    A signed link that opens this invoice in a checkout session so the buyer can pay it: pass it as `link` to `POST /checkout_sessions`. Present once the invoice is issued and open; null while it is a draft, once it is paid or void, and when you lack `payment:charge`.
     """
 
     created_at: str
