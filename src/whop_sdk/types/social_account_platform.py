@@ -4,7 +4,17 @@ import typing
 
 SocialAccountPlatform = typing.Union[
     typing.Literal[
-        "x", "instagram", "youtube", "tiktok", "facebook", "discord", "telegram", "linkedin", "snapchat", "klaviyo"
+        "x",
+        "instagram",
+        "youtube",
+        "tiktok",
+        "facebook",
+        "discord",
+        "telegram",
+        "linkedin",
+        "snapchat",
+        "klaviyo",
+        "quickbooks",
     ],
     typing.Any,
 ]
