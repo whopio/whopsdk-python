@@ -83,6 +83,11 @@ class PaymentBankTransfer(UniversalBaseModel):
     The rail's own step-by-step payment text, when it supplies one.
     """
 
+    intermediary_bic: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The SWIFT/BIC of the intermediary bank the buyer's bank should route the transfer through, when the buyer named the bank they are sending from.
+    """
+
     reference: typing.Optional[str] = pydantic.Field(default=None)
     """
     The reference the buyer must attach to the transfer so it can be matched to this payment.
