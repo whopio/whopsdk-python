@@ -152,6 +152,11 @@ class App(UniversalBaseModel):
     Full origin URL of the app's proxied domain, for example https://ab1c2d3e4f.apps.whop.com.
     """
 
+    per_install_schedule: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Five-field cron expression, read in UTC, on which Whop runs the production web build's `scheduled()` export once for every installation, with the installation in `ctx.props.app_installation`, no more often than every 15 minutes. Slots are skipped while the app has no production web build with a server entry. `null` when the app has no per-install schedule, or if the caller lacks the `developer:basic:read` permission on the app's account.
+    """
+
     preview_token: typing.Optional[str] = pydantic.Field(default=None)
     """
     A short-lived signed pass scoping the caller to this app's gated preview hosts — every build preview and the live dev-server sandbox. Add it to a preview host as the `__whop_preview` query param (or `x-whop-preview-token` header). `null` unless the caller is a team member who can read the app's developer settings.
@@ -184,6 +189,11 @@ class App(UniversalBaseModel):
     """
     Claimed subdomain route where hosted web builds are served (`myapp` for myapp.whop.site), or `null` if no route is claimed.
     DEPRECATED: Read `domains` instead.
+    """
+
+    schedule: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Five-field cron expression, read in UTC, on which Whop runs the production web build's `scheduled()` export once per slot. Slots are skipped while the app has no production web build with a server entry. `null` when the app has no global schedule, or if the caller lacks the `developer:basic:read` permission on the app's account.
     """
 
     secrets: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
