@@ -15,6 +15,7 @@ from .retrieve_businesses_response_object import RetrieveBusinessesResponseObjec
 from .retrieve_businesses_response_owner import RetrieveBusinessesResponseOwner
 from .retrieve_businesses_response_payout_percentages import RetrieveBusinessesResponsePayoutPercentages
 from .retrieve_businesses_response_pending_owner_invites_item import RetrieveBusinessesResponsePendingOwnerInvitesItem
+from .retrieve_businesses_response_referring_business import RetrieveBusinessesResponseReferringBusiness
 from .retrieve_businesses_response_second_tier_partner import RetrieveBusinessesResponseSecondTierPartner
 from .retrieve_businesses_response_status import RetrieveBusinessesResponseStatus
 from .retrieve_businesses_response_volume_usd import RetrieveBusinessesResponseVolumeUsd
@@ -98,6 +99,11 @@ class RetrieveBusinessesResponse(UniversalBaseModel):
     referral_started_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
     """
     When the referral became active.
+    """
+
+    referring_business: typing.Optional[RetrieveBusinessesResponseReferringBusiness] = pydantic.Field(default=None)
+    """
+    The partner business whose team member made this referral, the one its commission is paid to. Null for a solo partner's referral.
     """
 
     second_tier_partner: typing.Optional[RetrieveBusinessesResponseSecondTierPartner] = pydantic.Field(default=None)

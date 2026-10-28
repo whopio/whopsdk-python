@@ -4,7 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .payment_input_plan import PaymentInputPlan
+from .payment_input_variant import PaymentInputVariant
 
 
 class PaymentInput(UniversalBaseModel):
@@ -17,16 +17,6 @@ class PaymentInput(UniversalBaseModel):
     The account the purchase belongs to, prefixed `biz_`.
     """
 
-    plan: typing.Optional[PaymentInputPlan] = pydantic.Field(default=None)
-    """
-    The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
-    """
-
-    plan_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
-    """
-
     promo_code: typing.Optional[str] = pydantic.Field(default=None)
     """
     The promo code as the buyer typed it, matched within the account regardless of case and surrounding spaces, as checkout matches it. It must be valid for the variant. Send it or `promo_code_id`, not both; an empty or whitespace-only string counts as not sent. A code the account does not have, or one that is no longer active, is refused before anything is written, with the error code `promo_invalid`. A code this purchase cannot use, such as one with no uses left or one restricted to other variants, products or buyers, is refused with `promo_invalid` too, and the error's message says why.
@@ -35,6 +25,16 @@ class PaymentInput(UniversalBaseModel):
     promo_code_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant. Send it or `promo_code`, not both. A code this purchase cannot use is refused with the error code `promo_invalid`, and the error's message says why.
+    """
+
+    variant: typing.Optional[PaymentInputVariant] = pydantic.Field(default=None)
+    """
+    The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `variant_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
+    """
+
+    variant_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `variant` and `line_items`.
     """
 
     if IS_PYDANTIC_V2:

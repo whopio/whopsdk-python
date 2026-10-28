@@ -104,7 +104,7 @@ class SetupIntentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -192,7 +192,7 @@ class SetupIntentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -237,7 +237,7 @@ class SetupIntentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -249,10 +249,15 @@ class SetupIntentsClient:
         return _response.data
 
     def update_return_url(
-        self, setup_intent_id: str, *, return_url: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        setup_intent_id: str,
+        *,
+        return_url: str,
+        client_secret: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> SetupStatus:
         """
-        Changes where the buyer lands after completing an off-site step, up until they return. Accepts either a secret key or the setup's own `client_secret`, so the surface that knows the final destination can set it.
+        Changes where the buyer lands after completing an off-site step, up until they return. Accepts either a secret key or the setup's own `client_secret` in the body, so the surface that knows the final destination can set it.
 
         Parameters
         ----------
@@ -261,6 +266,9 @@ class SetupIntentsClient:
 
         return_url : str
             Where the buyer continues after completing an off-site step. Must be an absolute https URL without credentials (http is allowed for localhost), at most 2,048 characters.
+
+        client_secret : typing.Optional[str]
+            The setup's own `client_secret`, for a caller without a secret key.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -275,7 +283,7 @@ class SetupIntentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -285,20 +293,27 @@ class SetupIntentsClient:
         )
         """
         _response = self._raw_client.update_return_url(
-            setup_intent_id, return_url=return_url, request_options=request_options
+            setup_intent_id, return_url=return_url, client_secret=client_secret, request_options=request_options
         )
         return _response.data
 
     def retrieve_status(
-        self, setup_intent_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        setup_intent_id: str,
+        *,
+        client_secret: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> SetupStatus:
         """
-        Retrieves how far a setup has got and what the buyer must do next, if anything. Collection runs in the background, so poll this rather than reading the create response. Accepts either a secret key or the setup's own `client_secret`, so the surface collecting the payment method can poll it directly.
+        Retrieves how far a setup has got and what the buyer must do next, if anything. Collection runs in the background, so poll this rather than reading the create response. Accepts either a secret key or the setup's own `client_secret` as a query parameter, so the surface collecting the payment method can poll it directly.
 
         Parameters
         ----------
         setup_intent_id : str
             The unique identifier of the setup intent.
+
+        client_secret : typing.Optional[str]
+            The setup's own `client_secret`, for a caller without a secret key.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -313,7 +328,7 @@ class SetupIntentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -321,7 +336,9 @@ class SetupIntentsClient:
             setup_intent_id="setup_intent_id",
         )
         """
-        _response = self._raw_client.retrieve_status(setup_intent_id, request_options=request_options)
+        _response = self._raw_client.retrieve_status(
+            setup_intent_id, client_secret=client_secret, request_options=request_options
+        )
         return _response.data
 
     @property
@@ -415,7 +432,7 @@ class AsyncSetupIntentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -512,7 +529,7 @@ class AsyncSetupIntentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -565,7 +582,7 @@ class AsyncSetupIntentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -583,10 +600,15 @@ class AsyncSetupIntentsClient:
         return _response.data
 
     async def update_return_url(
-        self, setup_intent_id: str, *, return_url: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        setup_intent_id: str,
+        *,
+        return_url: str,
+        client_secret: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> SetupStatus:
         """
-        Changes where the buyer lands after completing an off-site step, up until they return. Accepts either a secret key or the setup's own `client_secret`, so the surface that knows the final destination can set it.
+        Changes where the buyer lands after completing an off-site step, up until they return. Accepts either a secret key or the setup's own `client_secret` in the body, so the surface that knows the final destination can set it.
 
         Parameters
         ----------
@@ -595,6 +617,9 @@ class AsyncSetupIntentsClient:
 
         return_url : str
             Where the buyer continues after completing an off-site step. Must be an absolute https URL without credentials (http is allowed for localhost), at most 2,048 characters.
+
+        client_secret : typing.Optional[str]
+            The setup's own `client_secret`, for a caller without a secret key.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -611,7 +636,7 @@ class AsyncSetupIntentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -627,20 +652,27 @@ class AsyncSetupIntentsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.update_return_url(
-            setup_intent_id, return_url=return_url, request_options=request_options
+            setup_intent_id, return_url=return_url, client_secret=client_secret, request_options=request_options
         )
         return _response.data
 
     async def retrieve_status(
-        self, setup_intent_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        setup_intent_id: str,
+        *,
+        client_secret: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> SetupStatus:
         """
-        Retrieves how far a setup has got and what the buyer must do next, if anything. Collection runs in the background, so poll this rather than reading the create response. Accepts either a secret key or the setup's own `client_secret`, so the surface collecting the payment method can poll it directly.
+        Retrieves how far a setup has got and what the buyer must do next, if anything. Collection runs in the background, so poll this rather than reading the create response. Accepts either a secret key or the setup's own `client_secret` as a query parameter, so the surface collecting the payment method can poll it directly.
 
         Parameters
         ----------
         setup_intent_id : str
             The unique identifier of the setup intent.
+
+        client_secret : typing.Optional[str]
+            The setup's own `client_secret`, for a caller without a secret key.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -657,7 +689,7 @@ class AsyncSetupIntentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -671,7 +703,9 @@ class AsyncSetupIntentsClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.retrieve_status(setup_intent_id, request_options=request_options)
+        _response = await self._raw_client.retrieve_status(
+            setup_intent_id, client_secret=client_secret, request_options=request_options
+        )
         return _response.data
 
     @property

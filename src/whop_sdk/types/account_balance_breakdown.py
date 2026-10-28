@@ -13,6 +13,11 @@ class AccountBalanceBreakdown(UniversalBaseModel):
     Amount you can spend, send, or withdraw now, in native units, as a decimal string.
     """
 
+    finishing_settlement: str = pydantic.Field()
+    """
+    The part of `pending` that has already settled and is waiting to move into the account's crypto wallet or Whop Card, where it becomes `available`. The move usually starts within the hour; while it runs, the amount is reported in `in_transit` instead. Money moved only to top up the account's retained minimum balance is not included. In native units, as a decimal string.
+    """
+
     in_transit: str = pydantic.Field()
     """
     Amount moving between the account's own destinations, such as a card top-up. In native units, as a decimal string.

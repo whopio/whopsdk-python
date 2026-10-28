@@ -39,6 +39,9 @@ if typing.TYPE_CHECKING:
     from .create_verifications_response_address import CreateVerificationsResponseAddress
     from .create_verifications_response_kind import CreateVerificationsResponseKind
     from .create_verifications_response_owners_item import CreateVerificationsResponseOwnersItem
+    from .create_verifications_response_owners_item_rejected_checks_item import (
+        CreateVerificationsResponseOwnersItemRejectedChecksItem,
+    )
     from .create_verifications_response_owners_item_required_documents_item import (
         CreateVerificationsResponseOwnersItemRequiredDocumentsItem,
     )
@@ -71,6 +74,9 @@ if typing.TYPE_CHECKING:
     from .list_verifications_response_data_item_address import ListVerificationsResponseDataItemAddress
     from .list_verifications_response_data_item_kind import ListVerificationsResponseDataItemKind
     from .list_verifications_response_data_item_owners_item import ListVerificationsResponseDataItemOwnersItem
+    from .list_verifications_response_data_item_owners_item_rejected_checks_item import (
+        ListVerificationsResponseDataItemOwnersItemRejectedChecksItem,
+    )
     from .list_verifications_response_data_item_owners_item_required_documents_item import (
         ListVerificationsResponseDataItemOwnersItemRequiredDocumentsItem,
     )
@@ -102,6 +108,7 @@ if typing.TYPE_CHECKING:
         ListVerificationsResponseDataItemRequiredDocumentsItemStatus,
     )
     from .list_verifications_response_data_item_status import ListVerificationsResponseDataItemStatus
+    from .list_verifications_response_page_info import ListVerificationsResponsePageInfo
     from .post_identity_profile_updated_payload import PostIdentityProfileUpdatedPayload
     from .post_identity_profile_updated_payload_api_version import PostIdentityProfileUpdatedPayloadApiVersion
     from .post_identity_profile_updated_payload_data import PostIdentityProfileUpdatedPayloadData
@@ -113,6 +120,9 @@ if typing.TYPE_CHECKING:
     from .retrieve_verifications_response_address import RetrieveVerificationsResponseAddress
     from .retrieve_verifications_response_kind import RetrieveVerificationsResponseKind
     from .retrieve_verifications_response_owners_item import RetrieveVerificationsResponseOwnersItem
+    from .retrieve_verifications_response_owners_item_rejected_checks_item import (
+        RetrieveVerificationsResponseOwnersItemRejectedChecksItem,
+    )
     from .retrieve_verifications_response_owners_item_required_documents_item import (
         RetrieveVerificationsResponseOwnersItemRequiredDocumentsItem,
     )
@@ -195,6 +205,9 @@ if typing.TYPE_CHECKING:
     from .update_verifications_response_address import UpdateVerificationsResponseAddress
     from .update_verifications_response_kind import UpdateVerificationsResponseKind
     from .update_verifications_response_owners_item import UpdateVerificationsResponseOwnersItem
+    from .update_verifications_response_owners_item_rejected_checks_item import (
+        UpdateVerificationsResponseOwnersItemRejectedChecksItem,
+    )
     from .update_verifications_response_owners_item_required_documents_item import (
         UpdateVerificationsResponseOwnersItemRequiredDocumentsItem,
     )
@@ -240,6 +253,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateVerificationsResponseAddress": ".create_verifications_response_address",
     "CreateVerificationsResponseKind": ".create_verifications_response_kind",
     "CreateVerificationsResponseOwnersItem": ".create_verifications_response_owners_item",
+    "CreateVerificationsResponseOwnersItemRejectedChecksItem": ".create_verifications_response_owners_item_rejected_checks_item",
     "CreateVerificationsResponseOwnersItemRequiredDocumentsItem": ".create_verifications_response_owners_item_required_documents_item",
     "CreateVerificationsResponseOwnersItemRequiredDocumentsItemStatus": ".create_verifications_response_owners_item_required_documents_item_status",
     "CreateVerificationsResponseOwnersItemRolesItem": ".create_verifications_response_owners_item_roles_item",
@@ -258,6 +272,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListVerificationsResponseDataItemAddress": ".list_verifications_response_data_item_address",
     "ListVerificationsResponseDataItemKind": ".list_verifications_response_data_item_kind",
     "ListVerificationsResponseDataItemOwnersItem": ".list_verifications_response_data_item_owners_item",
+    "ListVerificationsResponseDataItemOwnersItemRejectedChecksItem": ".list_verifications_response_data_item_owners_item_rejected_checks_item",
     "ListVerificationsResponseDataItemOwnersItemRequiredDocumentsItem": ".list_verifications_response_data_item_owners_item_required_documents_item",
     "ListVerificationsResponseDataItemOwnersItemRequiredDocumentsItemStatus": ".list_verifications_response_data_item_owners_item_required_documents_item_status",
     "ListVerificationsResponseDataItemOwnersItemRolesItem": ".list_verifications_response_data_item_owners_item_roles_item",
@@ -269,6 +284,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListVerificationsResponseDataItemRequiredDocumentsItem": ".list_verifications_response_data_item_required_documents_item",
     "ListVerificationsResponseDataItemRequiredDocumentsItemStatus": ".list_verifications_response_data_item_required_documents_item_status",
     "ListVerificationsResponseDataItemStatus": ".list_verifications_response_data_item_status",
+    "ListVerificationsResponsePageInfo": ".list_verifications_response_page_info",
     "PostIdentityProfileUpdatedPayload": ".post_identity_profile_updated_payload",
     "PostIdentityProfileUpdatedPayloadApiVersion": ".post_identity_profile_updated_payload_api_version",
     "PostIdentityProfileUpdatedPayloadData": ".post_identity_profile_updated_payload_data",
@@ -280,6 +296,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrieveVerificationsResponseAddress": ".retrieve_verifications_response_address",
     "RetrieveVerificationsResponseKind": ".retrieve_verifications_response_kind",
     "RetrieveVerificationsResponseOwnersItem": ".retrieve_verifications_response_owners_item",
+    "RetrieveVerificationsResponseOwnersItemRejectedChecksItem": ".retrieve_verifications_response_owners_item_rejected_checks_item",
     "RetrieveVerificationsResponseOwnersItemRequiredDocumentsItem": ".retrieve_verifications_response_owners_item_required_documents_item",
     "RetrieveVerificationsResponseOwnersItemRequiredDocumentsItemStatus": ".retrieve_verifications_response_owners_item_required_documents_item_status",
     "RetrieveVerificationsResponseOwnersItemRolesItem": ".retrieve_verifications_response_owners_item_roles_item",
@@ -314,6 +331,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateVerificationsResponseAddress": ".update_verifications_response_address",
     "UpdateVerificationsResponseKind": ".update_verifications_response_kind",
     "UpdateVerificationsResponseOwnersItem": ".update_verifications_response_owners_item",
+    "UpdateVerificationsResponseOwnersItemRejectedChecksItem": ".update_verifications_response_owners_item_rejected_checks_item",
     "UpdateVerificationsResponseOwnersItemRequiredDocumentsItem": ".update_verifications_response_owners_item_required_documents_item",
     "UpdateVerificationsResponseOwnersItemRequiredDocumentsItemStatus": ".update_verifications_response_owners_item_required_documents_item_status",
     "UpdateVerificationsResponseOwnersItemRolesItem": ".update_verifications_response_owners_item_roles_item",
@@ -369,6 +387,7 @@ __all__ = [
     "CreateVerificationsResponseAddress",
     "CreateVerificationsResponseKind",
     "CreateVerificationsResponseOwnersItem",
+    "CreateVerificationsResponseOwnersItemRejectedChecksItem",
     "CreateVerificationsResponseOwnersItemRequiredDocumentsItem",
     "CreateVerificationsResponseOwnersItemRequiredDocumentsItemStatus",
     "CreateVerificationsResponseOwnersItemRolesItem",
@@ -387,6 +406,7 @@ __all__ = [
     "ListVerificationsResponseDataItemAddress",
     "ListVerificationsResponseDataItemKind",
     "ListVerificationsResponseDataItemOwnersItem",
+    "ListVerificationsResponseDataItemOwnersItemRejectedChecksItem",
     "ListVerificationsResponseDataItemOwnersItemRequiredDocumentsItem",
     "ListVerificationsResponseDataItemOwnersItemRequiredDocumentsItemStatus",
     "ListVerificationsResponseDataItemOwnersItemRolesItem",
@@ -398,6 +418,7 @@ __all__ = [
     "ListVerificationsResponseDataItemRequiredDocumentsItem",
     "ListVerificationsResponseDataItemRequiredDocumentsItemStatus",
     "ListVerificationsResponseDataItemStatus",
+    "ListVerificationsResponsePageInfo",
     "PostIdentityProfileUpdatedPayload",
     "PostIdentityProfileUpdatedPayloadApiVersion",
     "PostIdentityProfileUpdatedPayloadData",
@@ -409,6 +430,7 @@ __all__ = [
     "RetrieveVerificationsResponseAddress",
     "RetrieveVerificationsResponseKind",
     "RetrieveVerificationsResponseOwnersItem",
+    "RetrieveVerificationsResponseOwnersItemRejectedChecksItem",
     "RetrieveVerificationsResponseOwnersItemRequiredDocumentsItem",
     "RetrieveVerificationsResponseOwnersItemRequiredDocumentsItemStatus",
     "RetrieveVerificationsResponseOwnersItemRolesItem",
@@ -443,6 +465,7 @@ __all__ = [
     "UpdateVerificationsResponseAddress",
     "UpdateVerificationsResponseKind",
     "UpdateVerificationsResponseOwnersItem",
+    "UpdateVerificationsResponseOwnersItemRejectedChecksItem",
     "UpdateVerificationsResponseOwnersItemRequiredDocumentsItem",
     "UpdateVerificationsResponseOwnersItemRequiredDocumentsItemStatus",
     "UpdateVerificationsResponseOwnersItemRolesItem",

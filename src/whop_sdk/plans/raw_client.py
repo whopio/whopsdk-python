@@ -48,7 +48,7 @@ class RawPlansClient:
         order: typing.Optional[ListPlansRequestOrder] = None,
         release_methods: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         visibilities: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        plan_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        billing_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
@@ -73,7 +73,7 @@ class RawPlansClient:
 
         visibilities : typing.Optional[typing.Union[str, typing.Sequence[str]]]
 
-        plan_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        billing_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
 
@@ -111,7 +111,7 @@ class RawPlansClient:
                 "order": order,
                 "release_methods": release_methods,
                 "visibilities": visibilities,
-                "plan_types": plan_types,
+                "billing_types": billing_types,
                 "product_ids": product_ids,
                 "created_before": created_before,
                 "created_after": created_after,
@@ -143,7 +143,7 @@ class RawPlansClient:
                         order=order,
                         release_methods=release_methods,
                         visibilities=visibilities,
-                        plan_types=plan_types,
+                        billing_types=billing_types,
                         product_ids=product_ids,
                         created_before=created_before,
                         created_after=created_after,
@@ -168,8 +168,12 @@ class RawPlansClient:
         *,
         account_id: typing.Optional[str] = OMIT,
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
+        allow_multiple_quantity: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
+        billing_type: typing.Optional[str] = OMIT,
+        cancel_discount_intervals: typing.Optional[int] = OMIT,
+        cancel_discount_percentage: typing.Optional[int] = OMIT,
         checkout_styling: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         currency: typing.Optional[str] = OMIT,
         custom_fields: typing.Optional[typing.Sequence[CreatePlansRequestCustomFieldsItem]] = OMIT,
@@ -179,9 +183,9 @@ class RawPlansClient:
         initial_price: typing.Optional[float] = OMIT,
         internal_notes: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
+        offer_cancel_discount: typing.Optional[bool] = OMIT,
         override_tax_type: typing.Optional[str] = OMIT,
         payment_method_configuration: typing.Optional[CreatePlansRequestPaymentMethodConfiguration] = OMIT,
-        plan_type: typing.Optional[str] = OMIT,
         product_id: typing.Optional[str] = OMIT,
         release_method: typing.Optional[str] = OMIT,
         renewal_price: typing.Optional[float] = OMIT,
@@ -204,9 +208,17 @@ class RawPlansClient:
 
         adaptive_pricing_enabled : typing.Optional[bool]
 
+        allow_multiple_quantity : typing.Optional[bool]
+
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
 
         billing_period : typing.Optional[int]
+
+        billing_type : typing.Optional[str]
+
+        cancel_discount_intervals : typing.Optional[int]
+
+        cancel_discount_percentage : typing.Optional[int]
 
         checkout_styling : typing.Optional[typing.Dict[str, typing.Any]]
 
@@ -226,11 +238,11 @@ class RawPlansClient:
 
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
 
+        offer_cancel_discount : typing.Optional[bool]
+
         override_tax_type : typing.Optional[str]
 
         payment_method_configuration : typing.Optional[CreatePlansRequestPaymentMethodConfiguration]
-
-        plan_type : typing.Optional[str]
 
         product_id : typing.Optional[str]
 
@@ -269,8 +281,12 @@ class RawPlansClient:
             json={
                 "account_id": account_id,
                 "adaptive_pricing_enabled": adaptive_pricing_enabled,
+                "allow_multiple_quantity": allow_multiple_quantity,
                 "attributes": attributes,
                 "billing_period": billing_period,
+                "billing_type": billing_type,
+                "cancel_discount_intervals": cancel_discount_intervals,
+                "cancel_discount_percentage": cancel_discount_percentage,
                 "checkout_styling": checkout_styling,
                 "currency": currency,
                 "custom_fields": convert_and_respect_annotation_metadata(
@@ -286,13 +302,13 @@ class RawPlansClient:
                 "initial_price": initial_price,
                 "internal_notes": internal_notes,
                 "metadata": metadata,
+                "offer_cancel_discount": offer_cancel_discount,
                 "override_tax_type": override_tax_type,
                 "payment_method_configuration": convert_and_respect_annotation_metadata(
                     object_=payment_method_configuration,
                     annotation=typing.Optional[CreatePlansRequestPaymentMethodConfiguration],
                     direction="write",
                 ),
-                "plan_type": plan_type,
                 "product_id": product_id,
                 "release_method": release_method,
                 "renewal_price": renewal_price,
@@ -432,6 +448,7 @@ class RawPlansClient:
         id: str,
         *,
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
+        allow_multiple_quantity: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
         cancel_discount_intervals: typing.Optional[int] = OMIT,
@@ -451,6 +468,7 @@ class RawPlansClient:
         release_method: typing.Optional[str] = OMIT,
         renewal_price: typing.Optional[float] = OMIT,
         sku: typing.Optional[str] = OMIT,
+        split_pay_required_payments: typing.Optional[int] = OMIT,
         stock: typing.Optional[int] = OMIT,
         strike_through_initial_price: typing.Optional[float] = OMIT,
         strike_through_renewal_price: typing.Optional[float] = OMIT,
@@ -470,6 +488,8 @@ class RawPlansClient:
             Variant ID, prefixed `plan_`.
 
         adaptive_pricing_enabled : typing.Optional[bool]
+
+        allow_multiple_quantity : typing.Optional[bool]
 
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
 
@@ -509,6 +529,8 @@ class RawPlansClient:
 
         sku : typing.Optional[str]
 
+        split_pay_required_payments : typing.Optional[int]
+
         stock : typing.Optional[int]
 
         strike_through_initial_price : typing.Optional[float]
@@ -539,6 +561,7 @@ class RawPlansClient:
             method="PATCH",
             json={
                 "adaptive_pricing_enabled": adaptive_pricing_enabled,
+                "allow_multiple_quantity": allow_multiple_quantity,
                 "attributes": attributes,
                 "billing_period": billing_period,
                 "cancel_discount_intervals": cancel_discount_intervals,
@@ -568,6 +591,7 @@ class RawPlansClient:
                 "release_method": release_method,
                 "renewal_price": renewal_price,
                 "sku": sku,
+                "split_pay_required_payments": split_pay_required_payments,
                 "stock": stock,
                 "strike_through_initial_price": strike_through_initial_price,
                 "strike_through_renewal_price": strike_through_renewal_price,
@@ -697,7 +721,7 @@ class AsyncRawPlansClient:
         order: typing.Optional[ListPlansRequestOrder] = None,
         release_methods: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         visibilities: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        plan_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        billing_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
@@ -722,7 +746,7 @@ class AsyncRawPlansClient:
 
         visibilities : typing.Optional[typing.Union[str, typing.Sequence[str]]]
 
-        plan_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        billing_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
 
@@ -760,7 +784,7 @@ class AsyncRawPlansClient:
                 "order": order,
                 "release_methods": release_methods,
                 "visibilities": visibilities,
-                "plan_types": plan_types,
+                "billing_types": billing_types,
                 "product_ids": product_ids,
                 "created_before": created_before,
                 "created_after": created_after,
@@ -794,7 +818,7 @@ class AsyncRawPlansClient:
                             order=order,
                             release_methods=release_methods,
                             visibilities=visibilities,
-                            plan_types=plan_types,
+                            billing_types=billing_types,
                             product_ids=product_ids,
                             created_before=created_before,
                             created_after=created_after,
@@ -820,8 +844,12 @@ class AsyncRawPlansClient:
         *,
         account_id: typing.Optional[str] = OMIT,
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
+        allow_multiple_quantity: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
+        billing_type: typing.Optional[str] = OMIT,
+        cancel_discount_intervals: typing.Optional[int] = OMIT,
+        cancel_discount_percentage: typing.Optional[int] = OMIT,
         checkout_styling: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         currency: typing.Optional[str] = OMIT,
         custom_fields: typing.Optional[typing.Sequence[CreatePlansRequestCustomFieldsItem]] = OMIT,
@@ -831,9 +859,9 @@ class AsyncRawPlansClient:
         initial_price: typing.Optional[float] = OMIT,
         internal_notes: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
+        offer_cancel_discount: typing.Optional[bool] = OMIT,
         override_tax_type: typing.Optional[str] = OMIT,
         payment_method_configuration: typing.Optional[CreatePlansRequestPaymentMethodConfiguration] = OMIT,
-        plan_type: typing.Optional[str] = OMIT,
         product_id: typing.Optional[str] = OMIT,
         release_method: typing.Optional[str] = OMIT,
         renewal_price: typing.Optional[float] = OMIT,
@@ -856,9 +884,17 @@ class AsyncRawPlansClient:
 
         adaptive_pricing_enabled : typing.Optional[bool]
 
+        allow_multiple_quantity : typing.Optional[bool]
+
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
 
         billing_period : typing.Optional[int]
+
+        billing_type : typing.Optional[str]
+
+        cancel_discount_intervals : typing.Optional[int]
+
+        cancel_discount_percentage : typing.Optional[int]
 
         checkout_styling : typing.Optional[typing.Dict[str, typing.Any]]
 
@@ -878,11 +914,11 @@ class AsyncRawPlansClient:
 
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
 
+        offer_cancel_discount : typing.Optional[bool]
+
         override_tax_type : typing.Optional[str]
 
         payment_method_configuration : typing.Optional[CreatePlansRequestPaymentMethodConfiguration]
-
-        plan_type : typing.Optional[str]
 
         product_id : typing.Optional[str]
 
@@ -921,8 +957,12 @@ class AsyncRawPlansClient:
             json={
                 "account_id": account_id,
                 "adaptive_pricing_enabled": adaptive_pricing_enabled,
+                "allow_multiple_quantity": allow_multiple_quantity,
                 "attributes": attributes,
                 "billing_period": billing_period,
+                "billing_type": billing_type,
+                "cancel_discount_intervals": cancel_discount_intervals,
+                "cancel_discount_percentage": cancel_discount_percentage,
                 "checkout_styling": checkout_styling,
                 "currency": currency,
                 "custom_fields": convert_and_respect_annotation_metadata(
@@ -938,13 +978,13 @@ class AsyncRawPlansClient:
                 "initial_price": initial_price,
                 "internal_notes": internal_notes,
                 "metadata": metadata,
+                "offer_cancel_discount": offer_cancel_discount,
                 "override_tax_type": override_tax_type,
                 "payment_method_configuration": convert_and_respect_annotation_metadata(
                     object_=payment_method_configuration,
                     annotation=typing.Optional[CreatePlansRequestPaymentMethodConfiguration],
                     direction="write",
                 ),
-                "plan_type": plan_type,
                 "product_id": product_id,
                 "release_method": release_method,
                 "renewal_price": renewal_price,
@@ -1086,6 +1126,7 @@ class AsyncRawPlansClient:
         id: str,
         *,
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
+        allow_multiple_quantity: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
         cancel_discount_intervals: typing.Optional[int] = OMIT,
@@ -1105,6 +1146,7 @@ class AsyncRawPlansClient:
         release_method: typing.Optional[str] = OMIT,
         renewal_price: typing.Optional[float] = OMIT,
         sku: typing.Optional[str] = OMIT,
+        split_pay_required_payments: typing.Optional[int] = OMIT,
         stock: typing.Optional[int] = OMIT,
         strike_through_initial_price: typing.Optional[float] = OMIT,
         strike_through_renewal_price: typing.Optional[float] = OMIT,
@@ -1124,6 +1166,8 @@ class AsyncRawPlansClient:
             Variant ID, prefixed `plan_`.
 
         adaptive_pricing_enabled : typing.Optional[bool]
+
+        allow_multiple_quantity : typing.Optional[bool]
 
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
 
@@ -1163,6 +1207,8 @@ class AsyncRawPlansClient:
 
         sku : typing.Optional[str]
 
+        split_pay_required_payments : typing.Optional[int]
+
         stock : typing.Optional[int]
 
         strike_through_initial_price : typing.Optional[float]
@@ -1193,6 +1239,7 @@ class AsyncRawPlansClient:
             method="PATCH",
             json={
                 "adaptive_pricing_enabled": adaptive_pricing_enabled,
+                "allow_multiple_quantity": allow_multiple_quantity,
                 "attributes": attributes,
                 "billing_period": billing_period,
                 "cancel_discount_intervals": cancel_discount_intervals,
@@ -1222,6 +1269,7 @@ class AsyncRawPlansClient:
                 "release_method": release_method,
                 "renewal_price": renewal_price,
                 "sku": sku,
+                "split_pay_required_payments": split_pay_required_payments,
                 "stock": stock,
                 "strike_through_initial_price": strike_through_initial_price,
                 "strike_through_renewal_price": strike_through_renewal_price,

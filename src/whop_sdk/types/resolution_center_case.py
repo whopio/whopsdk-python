@@ -68,11 +68,6 @@ class ResolutionCenterCase(UniversalBaseModel):
     The payment the case was opened against.
     """
 
-    plan_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The variant the payment was made on, prefixed `plan_`.
-    """
-
     product_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The product the payment was for, prefixed `prod_`.
@@ -101,6 +96,11 @@ class ResolutionCenterCase(UniversalBaseModel):
     updated_at: str = pydantic.Field()
     """
     When the case was last changed, as an ISO 8601 timestamp.
+    """
+
+    variant_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The variant the payment was made on, prefixed `plan_`.
     """
 
     if IS_PYDANTIC_V2:

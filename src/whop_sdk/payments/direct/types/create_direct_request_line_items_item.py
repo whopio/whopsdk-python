@@ -7,14 +7,14 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class CreateDirectRequestLineItemsItem(UniversalBaseModel):
-    plan_id: str = pydantic.Field()
-    """
-    An existing variant to charge for, prefixed `plan_`. Each variant may appear once — use `quantity` for multiple units.
-    """
-
     quantity: typing.Optional[int] = pydantic.Field(default=None)
     """
     How many units of the variant to purchase. Defaults to 1; more than 1 requires the variant to allow multiple quantities.
+    """
+
+    variant_id: str = pydantic.Field()
+    """
+    An existing variant to charge for, prefixed `plan_`. Each variant may appear once — use `quantity` for multiple units.
     """
 
     if IS_PYDANTIC_V2:

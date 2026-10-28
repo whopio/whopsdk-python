@@ -5,7 +5,7 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ...types.invoice import Invoice
+from ...types.invoice_legacy import InvoiceLegacy
 from .post_invoice_paid_payload_api_version import PostInvoicePaidPayloadApiVersion
 from .post_invoice_paid_payload_type import PostInvoicePaidPayloadType
 
@@ -26,7 +26,7 @@ class PostInvoicePaidPayload(UniversalBaseModel):
     The dated API version (Api-Version-Date) the payload is serialized to
     """
 
-    data: Invoice
+    data: InvoiceLegacy
     id: str = pydantic.Field()
     """
     A unique ID for every single webhook request

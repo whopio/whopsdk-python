@@ -52,7 +52,7 @@ class RawVariantsClient:
         order: typing.Optional[ListVariantsRequestOrder] = None,
         release_methods: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         visibilities: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        plan_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        billing_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
@@ -85,7 +85,7 @@ class RawVariantsClient:
         visibilities : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to only variants matching these visibility states.
 
-        plan_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        billing_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to only variants matching these billing types.
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
@@ -136,7 +136,7 @@ class RawVariantsClient:
                 "order": order,
                 "release_methods": release_methods,
                 "visibilities": visibilities,
-                "plan_types": plan_types,
+                "billing_types": billing_types,
                 "product_ids": product_ids,
                 "created_before": created_before,
                 "created_after": created_after,
@@ -171,7 +171,7 @@ class RawVariantsClient:
                         order=order,
                         release_methods=release_methods,
                         visibilities=visibilities,
-                        plan_types=plan_types,
+                        billing_types=billing_types,
                         product_ids=product_ids,
                         created_before=created_before,
                         created_after=created_after,
@@ -221,8 +221,12 @@ class RawVariantsClient:
         *,
         account_id: typing.Optional[str] = OMIT,
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
+        allow_multiple_quantity: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
+        billing_type: typing.Optional[str] = OMIT,
+        cancel_discount_intervals: typing.Optional[int] = OMIT,
+        cancel_discount_percentage: typing.Optional[int] = OMIT,
         checkout_styling: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         currency: typing.Optional[str] = OMIT,
         custom_fields: typing.Optional[typing.Sequence[CreateVariantsRequestCustomFieldsItem]] = OMIT,
@@ -232,9 +236,9 @@ class RawVariantsClient:
         initial_price: typing.Optional[float] = OMIT,
         internal_notes: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
+        offer_cancel_discount: typing.Optional[bool] = OMIT,
         override_tax_type: typing.Optional[str] = OMIT,
         payment_method_configuration: typing.Optional[CreateVariantsRequestPaymentMethodConfiguration] = OMIT,
-        plan_type: typing.Optional[str] = OMIT,
         product_id: typing.Optional[str] = OMIT,
         release_method: typing.Optional[str] = OMIT,
         renewal_price: typing.Optional[float] = OMIT,
@@ -259,11 +263,23 @@ class RawVariantsClient:
         adaptive_pricing_enabled : typing.Optional[bool]
             Whether this variant accepts local currency payments via adaptive pricing.
 
+        allow_multiple_quantity : typing.Optional[bool]
+            Whether more than one unit can be purchased in an order. Renewal variants cannot enable it. When `false`, checkouts, carts, and invoices reject a quantity above 1.
+
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
             Attribute values that make this variant one variant of its product, as a map of attribute name to value, e.g. `{"size": "Large", "color": "Blue"}`. Names are normalized to snake_case identifiers (`Ring Size` becomes `ring_size`) and come back in alphabetical order. Every variant on a product must carry the same attribute names and a distinct set of values. Send `null` to make the variant an ordinary pricing option again.
 
         billing_period : typing.Optional[int]
             Recurring billing interval in days, such as 30 for monthly or 365 for annual.
+
+        billing_type : typing.Optional[str]
+            Variant billing type, such as `one_time` or `renewal`.
+
+        cancel_discount_intervals : typing.Optional[int]
+            How long the retention discount lasts: `0` forever, `1` the next payment only, or a number of calendar months from when the customer accepts it. Required when `offer_cancel_discount` is true.
+
+        cancel_discount_percentage : typing.Optional[int]
+            Percentage taken off each discounted renewal, as a whole number from 1 to 100. Required when `offer_cancel_discount` is true.
 
         checkout_styling : typing.Optional[typing.Dict[str, typing.Any]]
             Checkout styling overrides for this variant.
@@ -292,14 +308,14 @@ class RawVariantsClient:
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
             Custom key-value pairs to store on the variant. Included in webhook payloads for payment and membership events. Max 50 keys, 100 chars per key, 500 chars per string value. The reserved keys `custom_cta` (a checkout call-to-action button label — one of the product custom CTA values, e.g. `subscribe`, `get_offer`) and `custom_cta_url` (a URL the button links to; web or `tel:`) override the product's call to action for this variant and are validated on save.
 
+        offer_cancel_discount : typing.Optional[bool]
+            Whether to offer a retention discount when a customer attempts to cancel.
+
         override_tax_type : typing.Optional[str]
             Override the default tax classification for this specific variant.
 
         payment_method_configuration : typing.Optional[CreateVariantsRequestPaymentMethodConfiguration]
             Explicit payment method configuration for the variant. When not provided, the account's defaults apply. Send at least one of `enabled` or `disabled`; an omitted one is empty.
-
-        plan_type : typing.Optional[str]
-            Variant billing type, such as `one_time` or `renewal`.
 
         product_id : typing.Optional[str]
             The unique identifier of the product to attach this variant to.
@@ -314,7 +330,7 @@ class RawVariantsClient:
             Stock keeping unit for this variant. Maximum 100 characters. Free text, not enforced unique.
 
         split_pay_required_payments : typing.Optional[int]
-            Installment payments required before the subscription pauses.
+            Installment payments required before the subscription pauses, from 2 to 115. Only valid on `renewal` variants.
 
         stock : typing.Optional[int]
             The maximum number of units available for purchase. Ignored when unlimited_stock is true.
@@ -349,8 +365,12 @@ class RawVariantsClient:
             json={
                 "account_id": account_id,
                 "adaptive_pricing_enabled": adaptive_pricing_enabled,
+                "allow_multiple_quantity": allow_multiple_quantity,
                 "attributes": attributes,
                 "billing_period": billing_period,
+                "billing_type": billing_type,
+                "cancel_discount_intervals": cancel_discount_intervals,
+                "cancel_discount_percentage": cancel_discount_percentage,
                 "checkout_styling": checkout_styling,
                 "currency": currency,
                 "custom_fields": convert_and_respect_annotation_metadata(
@@ -366,13 +386,13 @@ class RawVariantsClient:
                 "initial_price": initial_price,
                 "internal_notes": internal_notes,
                 "metadata": metadata,
+                "offer_cancel_discount": offer_cancel_discount,
                 "override_tax_type": override_tax_type,
                 "payment_method_configuration": convert_and_respect_annotation_metadata(
                     object_=payment_method_configuration,
                     annotation=typing.Optional[CreateVariantsRequestPaymentMethodConfiguration],
                     direction="write",
                 ),
-                "plan_type": plan_type,
                 "product_id": product_id,
                 "release_method": release_method,
                 "renewal_price": renewal_price,
@@ -578,6 +598,7 @@ class RawVariantsClient:
         id: str,
         *,
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
+        allow_multiple_quantity: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
         cancel_discount_intervals: typing.Optional[int] = OMIT,
@@ -597,6 +618,7 @@ class RawVariantsClient:
         release_method: typing.Optional[str] = OMIT,
         renewal_price: typing.Optional[float] = OMIT,
         sku: typing.Optional[str] = OMIT,
+        split_pay_required_payments: typing.Optional[int] = OMIT,
         stock: typing.Optional[int] = OMIT,
         strike_through_initial_price: typing.Optional[float] = OMIT,
         strike_through_renewal_price: typing.Optional[float] = OMIT,
@@ -618,6 +640,9 @@ class RawVariantsClient:
         adaptive_pricing_enabled : typing.Optional[bool]
             Whether this variant accepts local currency payments via adaptive pricing.
 
+        allow_multiple_quantity : typing.Optional[bool]
+            Whether more than one unit can be purchased in an order. Renewal variants cannot enable it. When `false`, checkouts, carts, and invoices reject a quantity above 1.
+
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
             Attribute values that make this variant one variant of its product, as a map of attribute name to value, e.g. `{"size": "Large", "color": "Blue"}`. Names are normalized to snake_case identifiers (`Ring Size` becomes `ring_size`) and come back in alphabetical order. Every variant on a product must carry the same attribute names and a distinct set of values. Send `null` to make the variant an ordinary pricing option again.
 
@@ -625,10 +650,10 @@ class RawVariantsClient:
             Recurring billing interval in days, such as 30 for monthly or 365 for annual.
 
         cancel_discount_intervals : typing.Optional[int]
-            How many renewals the retention discount applies to. Required when `offer_cancel_discount` is true.
+            How long the retention discount lasts: `0` forever, `1` the next payment only, or a number of calendar months from when the customer accepts it. Required when `offer_cancel_discount` is true.
 
         cancel_discount_percentage : typing.Optional[int]
-            Percentage taken off each discounted renewal. Required when `offer_cancel_discount` is true.
+            Percentage taken off each discounted renewal, as a whole number from 1 to 100. Required when `offer_cancel_discount` is true.
 
         checkout_styling : typing.Optional[typing.Dict[str, typing.Any]]
             Checkout styling overrides for this variant.
@@ -675,6 +700,9 @@ class RawVariantsClient:
         sku : typing.Optional[str]
             Stock keeping unit for this variant. Maximum 100 characters. Free text, not enforced unique.
 
+        split_pay_required_payments : typing.Optional[int]
+            Installment payments required before the subscription pauses, from 2 to 115. Only valid on `renewal` variants.
+
         stock : typing.Optional[int]
             The maximum number of units available for purchase. Ignored when unlimited_stock is true.
 
@@ -713,6 +741,7 @@ class RawVariantsClient:
             method="PATCH",
             json={
                 "adaptive_pricing_enabled": adaptive_pricing_enabled,
+                "allow_multiple_quantity": allow_multiple_quantity,
                 "attributes": attributes,
                 "billing_period": billing_period,
                 "cancel_discount_intervals": cancel_discount_intervals,
@@ -742,6 +771,7 @@ class RawVariantsClient:
                 "release_method": release_method,
                 "renewal_price": renewal_price,
                 "sku": sku,
+                "split_pay_required_payments": split_pay_required_payments,
                 "stock": stock,
                 "strike_through_initial_price": strike_through_initial_price,
                 "strike_through_renewal_price": strike_through_renewal_price,
@@ -929,7 +959,7 @@ class AsyncRawVariantsClient:
         order: typing.Optional[ListVariantsRequestOrder] = None,
         release_methods: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         visibilities: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        plan_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        billing_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
@@ -962,7 +992,7 @@ class AsyncRawVariantsClient:
         visibilities : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to only variants matching these visibility states.
 
-        plan_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        billing_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to only variants matching these billing types.
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
@@ -1013,7 +1043,7 @@ class AsyncRawVariantsClient:
                 "order": order,
                 "release_methods": release_methods,
                 "visibilities": visibilities,
-                "plan_types": plan_types,
+                "billing_types": billing_types,
                 "product_ids": product_ids,
                 "created_before": created_before,
                 "created_after": created_after,
@@ -1050,7 +1080,7 @@ class AsyncRawVariantsClient:
                             order=order,
                             release_methods=release_methods,
                             visibilities=visibilities,
-                            plan_types=plan_types,
+                            billing_types=billing_types,
                             product_ids=product_ids,
                             created_before=created_before,
                             created_after=created_after,
@@ -1101,8 +1131,12 @@ class AsyncRawVariantsClient:
         *,
         account_id: typing.Optional[str] = OMIT,
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
+        allow_multiple_quantity: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
+        billing_type: typing.Optional[str] = OMIT,
+        cancel_discount_intervals: typing.Optional[int] = OMIT,
+        cancel_discount_percentage: typing.Optional[int] = OMIT,
         checkout_styling: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         currency: typing.Optional[str] = OMIT,
         custom_fields: typing.Optional[typing.Sequence[CreateVariantsRequestCustomFieldsItem]] = OMIT,
@@ -1112,9 +1146,9 @@ class AsyncRawVariantsClient:
         initial_price: typing.Optional[float] = OMIT,
         internal_notes: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
+        offer_cancel_discount: typing.Optional[bool] = OMIT,
         override_tax_type: typing.Optional[str] = OMIT,
         payment_method_configuration: typing.Optional[CreateVariantsRequestPaymentMethodConfiguration] = OMIT,
-        plan_type: typing.Optional[str] = OMIT,
         product_id: typing.Optional[str] = OMIT,
         release_method: typing.Optional[str] = OMIT,
         renewal_price: typing.Optional[float] = OMIT,
@@ -1139,11 +1173,23 @@ class AsyncRawVariantsClient:
         adaptive_pricing_enabled : typing.Optional[bool]
             Whether this variant accepts local currency payments via adaptive pricing.
 
+        allow_multiple_quantity : typing.Optional[bool]
+            Whether more than one unit can be purchased in an order. Renewal variants cannot enable it. When `false`, checkouts, carts, and invoices reject a quantity above 1.
+
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
             Attribute values that make this variant one variant of its product, as a map of attribute name to value, e.g. `{"size": "Large", "color": "Blue"}`. Names are normalized to snake_case identifiers (`Ring Size` becomes `ring_size`) and come back in alphabetical order. Every variant on a product must carry the same attribute names and a distinct set of values. Send `null` to make the variant an ordinary pricing option again.
 
         billing_period : typing.Optional[int]
             Recurring billing interval in days, such as 30 for monthly or 365 for annual.
+
+        billing_type : typing.Optional[str]
+            Variant billing type, such as `one_time` or `renewal`.
+
+        cancel_discount_intervals : typing.Optional[int]
+            How long the retention discount lasts: `0` forever, `1` the next payment only, or a number of calendar months from when the customer accepts it. Required when `offer_cancel_discount` is true.
+
+        cancel_discount_percentage : typing.Optional[int]
+            Percentage taken off each discounted renewal, as a whole number from 1 to 100. Required when `offer_cancel_discount` is true.
 
         checkout_styling : typing.Optional[typing.Dict[str, typing.Any]]
             Checkout styling overrides for this variant.
@@ -1172,14 +1218,14 @@ class AsyncRawVariantsClient:
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
             Custom key-value pairs to store on the variant. Included in webhook payloads for payment and membership events. Max 50 keys, 100 chars per key, 500 chars per string value. The reserved keys `custom_cta` (a checkout call-to-action button label — one of the product custom CTA values, e.g. `subscribe`, `get_offer`) and `custom_cta_url` (a URL the button links to; web or `tel:`) override the product's call to action for this variant and are validated on save.
 
+        offer_cancel_discount : typing.Optional[bool]
+            Whether to offer a retention discount when a customer attempts to cancel.
+
         override_tax_type : typing.Optional[str]
             Override the default tax classification for this specific variant.
 
         payment_method_configuration : typing.Optional[CreateVariantsRequestPaymentMethodConfiguration]
             Explicit payment method configuration for the variant. When not provided, the account's defaults apply. Send at least one of `enabled` or `disabled`; an omitted one is empty.
-
-        plan_type : typing.Optional[str]
-            Variant billing type, such as `one_time` or `renewal`.
 
         product_id : typing.Optional[str]
             The unique identifier of the product to attach this variant to.
@@ -1194,7 +1240,7 @@ class AsyncRawVariantsClient:
             Stock keeping unit for this variant. Maximum 100 characters. Free text, not enforced unique.
 
         split_pay_required_payments : typing.Optional[int]
-            Installment payments required before the subscription pauses.
+            Installment payments required before the subscription pauses, from 2 to 115. Only valid on `renewal` variants.
 
         stock : typing.Optional[int]
             The maximum number of units available for purchase. Ignored when unlimited_stock is true.
@@ -1229,8 +1275,12 @@ class AsyncRawVariantsClient:
             json={
                 "account_id": account_id,
                 "adaptive_pricing_enabled": adaptive_pricing_enabled,
+                "allow_multiple_quantity": allow_multiple_quantity,
                 "attributes": attributes,
                 "billing_period": billing_period,
+                "billing_type": billing_type,
+                "cancel_discount_intervals": cancel_discount_intervals,
+                "cancel_discount_percentage": cancel_discount_percentage,
                 "checkout_styling": checkout_styling,
                 "currency": currency,
                 "custom_fields": convert_and_respect_annotation_metadata(
@@ -1246,13 +1296,13 @@ class AsyncRawVariantsClient:
                 "initial_price": initial_price,
                 "internal_notes": internal_notes,
                 "metadata": metadata,
+                "offer_cancel_discount": offer_cancel_discount,
                 "override_tax_type": override_tax_type,
                 "payment_method_configuration": convert_and_respect_annotation_metadata(
                     object_=payment_method_configuration,
                     annotation=typing.Optional[CreateVariantsRequestPaymentMethodConfiguration],
                     direction="write",
                 ),
-                "plan_type": plan_type,
                 "product_id": product_id,
                 "release_method": release_method,
                 "renewal_price": renewal_price,
@@ -1458,6 +1508,7 @@ class AsyncRawVariantsClient:
         id: str,
         *,
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
+        allow_multiple_quantity: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
         cancel_discount_intervals: typing.Optional[int] = OMIT,
@@ -1477,6 +1528,7 @@ class AsyncRawVariantsClient:
         release_method: typing.Optional[str] = OMIT,
         renewal_price: typing.Optional[float] = OMIT,
         sku: typing.Optional[str] = OMIT,
+        split_pay_required_payments: typing.Optional[int] = OMIT,
         stock: typing.Optional[int] = OMIT,
         strike_through_initial_price: typing.Optional[float] = OMIT,
         strike_through_renewal_price: typing.Optional[float] = OMIT,
@@ -1498,6 +1550,9 @@ class AsyncRawVariantsClient:
         adaptive_pricing_enabled : typing.Optional[bool]
             Whether this variant accepts local currency payments via adaptive pricing.
 
+        allow_multiple_quantity : typing.Optional[bool]
+            Whether more than one unit can be purchased in an order. Renewal variants cannot enable it. When `false`, checkouts, carts, and invoices reject a quantity above 1.
+
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
             Attribute values that make this variant one variant of its product, as a map of attribute name to value, e.g. `{"size": "Large", "color": "Blue"}`. Names are normalized to snake_case identifiers (`Ring Size` becomes `ring_size`) and come back in alphabetical order. Every variant on a product must carry the same attribute names and a distinct set of values. Send `null` to make the variant an ordinary pricing option again.
 
@@ -1505,10 +1560,10 @@ class AsyncRawVariantsClient:
             Recurring billing interval in days, such as 30 for monthly or 365 for annual.
 
         cancel_discount_intervals : typing.Optional[int]
-            How many renewals the retention discount applies to. Required when `offer_cancel_discount` is true.
+            How long the retention discount lasts: `0` forever, `1` the next payment only, or a number of calendar months from when the customer accepts it. Required when `offer_cancel_discount` is true.
 
         cancel_discount_percentage : typing.Optional[int]
-            Percentage taken off each discounted renewal. Required when `offer_cancel_discount` is true.
+            Percentage taken off each discounted renewal, as a whole number from 1 to 100. Required when `offer_cancel_discount` is true.
 
         checkout_styling : typing.Optional[typing.Dict[str, typing.Any]]
             Checkout styling overrides for this variant.
@@ -1555,6 +1610,9 @@ class AsyncRawVariantsClient:
         sku : typing.Optional[str]
             Stock keeping unit for this variant. Maximum 100 characters. Free text, not enforced unique.
 
+        split_pay_required_payments : typing.Optional[int]
+            Installment payments required before the subscription pauses, from 2 to 115. Only valid on `renewal` variants.
+
         stock : typing.Optional[int]
             The maximum number of units available for purchase. Ignored when unlimited_stock is true.
 
@@ -1593,6 +1651,7 @@ class AsyncRawVariantsClient:
             method="PATCH",
             json={
                 "adaptive_pricing_enabled": adaptive_pricing_enabled,
+                "allow_multiple_quantity": allow_multiple_quantity,
                 "attributes": attributes,
                 "billing_period": billing_period,
                 "cancel_discount_intervals": cancel_discount_intervals,
@@ -1622,6 +1681,7 @@ class AsyncRawVariantsClient:
                 "release_method": release_method,
                 "renewal_price": renewal_price,
                 "sku": sku,
+                "split_pay_required_payments": split_pay_required_payments,
                 "stock": stock,
                 "strike_through_initial_price": strike_through_initial_price,
                 "strike_through_renewal_price": strike_through_renewal_price,

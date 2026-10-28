@@ -4,24 +4,13 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from ...types.invoice_list_item import InvoiceListItem
-from ...types.page_info import PageInfo
+from ...types.invoice import Invoice
+from .list_invoices_response_page_info import ListInvoicesResponsePageInfo
 
 
 class ListInvoicesResponse(UniversalBaseModel):
-    """
-    The connection type for PublicInvoice.
-    """
-
-    data: typing.List[InvoiceListItem] = pydantic.Field()
-    """
-    A list of nodes.
-    """
-
-    page_info: PageInfo = pydantic.Field()
-    """
-    Information to aid in pagination.
-    """
+    data: typing.List[Invoice]
+    page_info: ListInvoicesResponsePageInfo
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

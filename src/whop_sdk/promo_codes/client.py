@@ -42,7 +42,7 @@ class PromoCodesClient:
         account_id: str,
         status: typing.Optional[ListPromoCodesRequestStatus] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        plan_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        variant_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
         order: typing.Optional[ListPromoCodesRequestOrder] = None,
@@ -67,7 +67,7 @@ class PromoCodesClient:
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only promo codes scoped to these product IDs.
 
-        plan_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        variant_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only promo codes scoped to these variant IDs.
 
         created_before : typing.Optional[dt.datetime]
@@ -107,14 +107,14 @@ class PromoCodesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         response = client.promo_codes.list(
             account_id="account_id",
             product_ids=["prod_xxxxxxxxxxxxxx"],
-            plan_ids=["plan_xxxxxxxxxxxxxx"],
+            variant_ids=["plan_xxxxxxxxxxxxxx"],
         )
         for item in response:
             yield item
@@ -126,7 +126,7 @@ class PromoCodesClient:
             account_id=account_id,
             status=status,
             product_ids=product_ids,
-            plan_ids=plan_ids,
+            variant_ids=variant_ids,
             created_before=created_before,
             created_after=created_after,
             order=order,
@@ -152,10 +152,10 @@ class PromoCodesClient:
         existing_memberships_only: typing.Optional[bool] = OMIT,
         expires_at: typing.Optional[str] = OMIT,
         one_per_customer: typing.Optional[bool] = OMIT,
-        plan_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         product_id: typing.Optional[str] = OMIT,
         stock: typing.Optional[int] = OMIT,
         unlimited_stock: typing.Optional[bool] = OMIT,
+        variant_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PromoCode:
         """
@@ -185,13 +185,13 @@ class PromoCodesClient:
 
         one_per_customer : typing.Optional[bool]
 
-        plan_ids : typing.Optional[typing.Sequence[str]]
-
         product_id : typing.Optional[str]
 
         stock : typing.Optional[int]
 
         unlimited_stock : typing.Optional[bool]
+
+        variant_ids : typing.Optional[typing.Sequence[str]]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -206,7 +206,7 @@ class PromoCodesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -232,10 +232,10 @@ class PromoCodesClient:
             existing_memberships_only=existing_memberships_only,
             expires_at=expires_at,
             one_per_customer=one_per_customer,
-            plan_ids=plan_ids,
             product_id=product_id,
             stock=stock,
             unlimited_stock=unlimited_stock,
+            variant_ids=variant_ids,
             request_options=request_options,
         )
         return _response.data
@@ -262,7 +262,7 @@ class PromoCodesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -295,7 +295,7 @@ class PromoCodesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -328,7 +328,7 @@ class PromoCodesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -361,7 +361,7 @@ class PromoCodesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -394,7 +394,7 @@ class AsyncPromoCodesClient:
         account_id: str,
         status: typing.Optional[ListPromoCodesRequestStatus] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        plan_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        variant_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         created_before: typing.Optional[dt.datetime] = None,
         created_after: typing.Optional[dt.datetime] = None,
         order: typing.Optional[ListPromoCodesRequestOrder] = None,
@@ -419,7 +419,7 @@ class AsyncPromoCodesClient:
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only promo codes scoped to these product IDs.
 
-        plan_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        variant_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Only promo codes scoped to these variant IDs.
 
         created_before : typing.Optional[dt.datetime]
@@ -461,7 +461,7 @@ class AsyncPromoCodesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -471,7 +471,7 @@ class AsyncPromoCodesClient:
             response = await client.promo_codes.list(
                 account_id="account_id",
                 product_ids=["prod_xxxxxxxxxxxxxx"],
-                plan_ids=["plan_xxxxxxxxxxxxxx"],
+                variant_ids=["plan_xxxxxxxxxxxxxx"],
             )
             async for item in response:
                 yield item
@@ -487,7 +487,7 @@ class AsyncPromoCodesClient:
             account_id=account_id,
             status=status,
             product_ids=product_ids,
-            plan_ids=plan_ids,
+            variant_ids=variant_ids,
             created_before=created_before,
             created_after=created_after,
             order=order,
@@ -513,10 +513,10 @@ class AsyncPromoCodesClient:
         existing_memberships_only: typing.Optional[bool] = OMIT,
         expires_at: typing.Optional[str] = OMIT,
         one_per_customer: typing.Optional[bool] = OMIT,
-        plan_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         product_id: typing.Optional[str] = OMIT,
         stock: typing.Optional[int] = OMIT,
         unlimited_stock: typing.Optional[bool] = OMIT,
+        variant_ids: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> PromoCode:
         """
@@ -546,13 +546,13 @@ class AsyncPromoCodesClient:
 
         one_per_customer : typing.Optional[bool]
 
-        plan_ids : typing.Optional[typing.Sequence[str]]
-
         product_id : typing.Optional[str]
 
         stock : typing.Optional[int]
 
         unlimited_stock : typing.Optional[bool]
+
+        variant_ids : typing.Optional[typing.Sequence[str]]
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -569,7 +569,7 @@ class AsyncPromoCodesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -601,10 +601,10 @@ class AsyncPromoCodesClient:
             existing_memberships_only=existing_memberships_only,
             expires_at=expires_at,
             one_per_customer=one_per_customer,
-            plan_ids=plan_ids,
             product_id=product_id,
             stock=stock,
             unlimited_stock=unlimited_stock,
+            variant_ids=variant_ids,
             request_options=request_options,
         )
         return _response.data
@@ -633,7 +633,7 @@ class AsyncPromoCodesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -676,7 +676,7 @@ class AsyncPromoCodesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -717,7 +717,7 @@ class AsyncPromoCodesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -758,7 +758,7 @@ class AsyncPromoCodesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

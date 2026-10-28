@@ -123,7 +123,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -210,7 +210,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -254,7 +254,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -287,7 +287,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -314,12 +314,14 @@ class AppsClient:
         name: typing.Optional[str] = OMIT,
         oauth_client_type: typing.Optional[UpdateAppsRequestOauthClientType] = OMIT,
         openapi_path: typing.Optional[str] = OMIT,
+        per_install_schedule: typing.Optional[str] = OMIT,
         production_android_build_id: typing.Optional[str] = OMIT,
         production_ios_build_id: typing.Optional[str] = OMIT,
         production_web_build_id: typing.Optional[str] = OMIT,
         redirect_uris: typing.Optional[typing.Sequence[str]] = OMIT,
         required_scopes: typing.Optional[typing.Sequence[str]] = OMIT,
         route: typing.Optional[str] = OMIT,
+        schedule: typing.Optional[str] = OMIT,
         secrets: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         skills_path: typing.Optional[str] = OMIT,
         status: typing.Optional[UpdateAppsRequestStatus] = OMIT,
@@ -369,6 +371,9 @@ class AppsClient:
         openapi_path : typing.Optional[str]
             The URL path to the app's OpenAPI spec file (requires the ai_chat capability).
 
+        per_install_schedule : typing.Optional[str]
+            Five-field cron expression, read in UTC, on which Whop runs the production web build's `scheduled()` export once for every installation, with the installation in `ctx.props.app_installation`. It must fire at least once and no more often than every 15 minutes. Slots are skipped while the app has no production web build with a server entry. Set to `null` or an empty string to stop the per-install schedule.
+
         production_android_build_id : typing.Optional[str]
             The app build (`abld_` tag) to serve as the Android production build, or `null` to unassign it. Same rules as `production_web_build_id`.
 
@@ -386,6 +391,9 @@ class AppsClient:
 
         route : typing.Optional[str]
             The subdomain route where the app's hosted web builds are served.
+
+        schedule : typing.Optional[str]
+            Five-field cron expression, read in UTC, on which Whop runs the production web build's `scheduled()` export once per slot, such as `* /15 * * * *`. It must fire at least once. Slots are skipped while the app has no production web build with a server entry. Set to `null` or an empty string to stop the global schedule.
 
         secrets : typing.Optional[typing.Dict[str, typing.Any]]
             Secrets to add or overwrite on the app, as an object of string values. Keys not included are left untouched; pass null or an empty string as the value to delete a secret. Encrypted at rest and injected into the app's hosted server runtime.
@@ -409,7 +417,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -431,12 +439,14 @@ class AppsClient:
             name=name,
             oauth_client_type=oauth_client_type,
             openapi_path=openapi_path,
+            per_install_schedule=per_install_schedule,
             production_android_build_id=production_android_build_id,
             production_ios_build_id=production_ios_build_id,
             production_web_build_id=production_web_build_id,
             redirect_uris=redirect_uris,
             required_scopes=required_scopes,
             route=route,
+            schedule=schedule,
             secrets=secrets,
             skills_path=skills_path,
             status=status,
@@ -471,7 +481,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -541,7 +551,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -599,7 +609,7 @@ class AppsClient:
         from whop_sdk.apps import UpdatePermissionsAppsRequestRequestedPermissionsItem
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -712,7 +722,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -808,7 +818,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -860,7 +870,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -901,7 +911,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -934,12 +944,14 @@ class AsyncAppsClient:
         name: typing.Optional[str] = OMIT,
         oauth_client_type: typing.Optional[UpdateAppsRequestOauthClientType] = OMIT,
         openapi_path: typing.Optional[str] = OMIT,
+        per_install_schedule: typing.Optional[str] = OMIT,
         production_android_build_id: typing.Optional[str] = OMIT,
         production_ios_build_id: typing.Optional[str] = OMIT,
         production_web_build_id: typing.Optional[str] = OMIT,
         redirect_uris: typing.Optional[typing.Sequence[str]] = OMIT,
         required_scopes: typing.Optional[typing.Sequence[str]] = OMIT,
         route: typing.Optional[str] = OMIT,
+        schedule: typing.Optional[str] = OMIT,
         secrets: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         skills_path: typing.Optional[str] = OMIT,
         status: typing.Optional[UpdateAppsRequestStatus] = OMIT,
@@ -989,6 +1001,9 @@ class AsyncAppsClient:
         openapi_path : typing.Optional[str]
             The URL path to the app's OpenAPI spec file (requires the ai_chat capability).
 
+        per_install_schedule : typing.Optional[str]
+            Five-field cron expression, read in UTC, on which Whop runs the production web build's `scheduled()` export once for every installation, with the installation in `ctx.props.app_installation`. It must fire at least once and no more often than every 15 minutes. Slots are skipped while the app has no production web build with a server entry. Set to `null` or an empty string to stop the per-install schedule.
+
         production_android_build_id : typing.Optional[str]
             The app build (`abld_` tag) to serve as the Android production build, or `null` to unassign it. Same rules as `production_web_build_id`.
 
@@ -1006,6 +1021,9 @@ class AsyncAppsClient:
 
         route : typing.Optional[str]
             The subdomain route where the app's hosted web builds are served.
+
+        schedule : typing.Optional[str]
+            Five-field cron expression, read in UTC, on which Whop runs the production web build's `scheduled()` export once per slot, such as `* /15 * * * *`. It must fire at least once. Slots are skipped while the app has no production web build with a server entry. Set to `null` or an empty string to stop the global schedule.
 
         secrets : typing.Optional[typing.Dict[str, typing.Any]]
             Secrets to add or overwrite on the app, as an object of string values. Keys not included are left untouched; pass null or an empty string as the value to delete a secret. Encrypted at rest and injected into the app's hosted server runtime.
@@ -1031,7 +1049,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1059,12 +1077,14 @@ class AsyncAppsClient:
             name=name,
             oauth_client_type=oauth_client_type,
             openapi_path=openapi_path,
+            per_install_schedule=per_install_schedule,
             production_android_build_id=production_android_build_id,
             production_ios_build_id=production_ios_build_id,
             production_web_build_id=production_web_build_id,
             redirect_uris=redirect_uris,
             required_scopes=required_scopes,
             route=route,
+            schedule=schedule,
             secrets=secrets,
             skills_path=skills_path,
             status=status,
@@ -1101,7 +1121,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1179,7 +1199,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1246,7 +1266,7 @@ class AsyncAppsClient:
         from whop_sdk.apps import UpdatePermissionsAppsRequestRequestedPermissionsItem
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

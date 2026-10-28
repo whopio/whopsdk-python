@@ -13,11 +13,6 @@ class PaymentQuoteLineItem(UniversalBaseModel):
     The promo code's share on this line. Zero without a code.
     """
 
-    plan_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The variant this line prices, prefixed `plan_`. Null when the purchase describes the variant by `plan` and no variant with those attributes exists yet: the payment that consumes the quote creates it, and the line names it from then on.
-    """
-
     quantity: int = pydantic.Field()
     """
     How many units of the variant the line covers.
@@ -36,6 +31,11 @@ class PaymentQuoteLineItem(UniversalBaseModel):
     total: Money = pydantic.Field()
     """
     `subtotal` minus `discount`, plus `tax_amount` when tax is added on top, or without it when the price already includes it.
+    """
+
+    variant_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The variant this line prices, prefixed `plan_`. Null when the purchase describes the variant by `variant` and no variant with those attributes exists yet: the payment that consumes the quote creates it, and the line names it from then on.
     """
 
     if IS_PYDANTIC_V2:

@@ -65,12 +65,12 @@ class PostAdCampaignUpdatedPayloadData(UniversalBaseModel):
 
     delivery_status: PostAdCampaignUpdatedPayloadDataDeliveryStatus = pydantic.Field()
     """
-    Whether the campaign's ads are delivering right now, and if not, why. Account billing failures set payment_failed without changing the configured status. Successful payment retry clears that block and recalculates delivery. When several states apply at once, the highest-precedence one is returned.
+    Whether the campaign's ads are delivering right now, and if not, why. Content review is in_review; a campaign waiting to start is processing. Account billing failures set payment_failed without changing the configured status. Successful payment retry clears that block and recalculates delivery. When several states apply at once, the highest-precedence one is returned.
     """
 
     desired_cost_per_result: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Google only: the target cost per conversion in USD when `bid_type` is `average_target`. `null` otherwise.
+    The cost per result, in USD, the advertiser wants this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. `null` when no target is set.
     """
 
     ends_at: typing.Optional[str] = pydantic.Field(default=None)

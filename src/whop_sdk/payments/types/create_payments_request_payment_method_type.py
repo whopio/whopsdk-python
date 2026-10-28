@@ -2,4 +2,4 @@
 
 import typing
 
-CreatePaymentsRequestPaymentMethodType = typing.Union[typing.Literal["card_present"], typing.Any]
+CreatePaymentsRequestPaymentMethodType = typing.Union[typing.Literal["card_present", "paypal"], typing.Any]

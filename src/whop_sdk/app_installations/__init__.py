@@ -12,6 +12,12 @@ if typing.TYPE_CHECKING:
         ListAppInstallationsRequestViewType,
         ListAppInstallationsResponse,
         ListAppInstallationsResponsePageInfo,
+        PostAppInstallationCreatedPayload,
+        PostAppInstallationCreatedPayloadApiVersion,
+        PostAppInstallationCreatedPayloadType,
+        PostAppInstallationDeletedPayload,
+        PostAppInstallationDeletedPayloadApiVersion,
+        PostAppInstallationDeletedPayloadType,
     )
 _dynamic_imports: typing.Dict[str, str] = {
     "ListAppInstallationsRequestDirection": ".types",
@@ -19,6 +25,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListAppInstallationsRequestViewType": ".types",
     "ListAppInstallationsResponse": ".types",
     "ListAppInstallationsResponsePageInfo": ".types",
+    "PostAppInstallationCreatedPayload": ".types",
+    "PostAppInstallationCreatedPayloadApiVersion": ".types",
+    "PostAppInstallationCreatedPayloadType": ".types",
+    "PostAppInstallationDeletedPayload": ".types",
+    "PostAppInstallationDeletedPayloadApiVersion": ".types",
+    "PostAppInstallationDeletedPayloadType": ".types",
 }
 
 
@@ -49,4 +61,10 @@ __all__ = [
     "ListAppInstallationsRequestViewType",
     "ListAppInstallationsResponse",
     "ListAppInstallationsResponsePageInfo",
+    "PostAppInstallationCreatedPayload",
+    "PostAppInstallationCreatedPayloadApiVersion",
+    "PostAppInstallationCreatedPayloadType",
+    "PostAppInstallationDeletedPayload",
+    "PostAppInstallationDeletedPayloadApiVersion",
+    "PostAppInstallationDeletedPayloadType",
 ]

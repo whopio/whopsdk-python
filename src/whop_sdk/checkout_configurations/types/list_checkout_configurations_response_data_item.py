@@ -11,10 +11,10 @@ from .list_checkout_configurations_response_data_item_mode import ListCheckoutCo
 from .list_checkout_configurations_response_data_item_payment_method_configuration import (
     ListCheckoutConfigurationsResponseDataItemPaymentMethodConfiguration,
 )
-from .list_checkout_configurations_response_data_item_plan import ListCheckoutConfigurationsResponseDataItemPlan
 from .list_checkout_configurations_response_data_item_three_ds_level import (
     ListCheckoutConfigurationsResponseDataItemThreeDsLevel,
 )
+from .list_checkout_configurations_response_data_item_variant import ListCheckoutConfigurationsResponseDataItemVariant
 
 
 class ListCheckoutConfigurationsResponseDataItem(UniversalBaseModel):
@@ -67,11 +67,6 @@ class ListCheckoutConfigurationsResponseDataItem(UniversalBaseModel):
     Payment method overrides for this checkout. `null` when it uses the variant or platform defaults.
     """
 
-    plan: typing.Optional[ListCheckoutConfigurationsResponseDataItemPlan] = pydantic.Field(default=None)
-    """
-    Variant used for payment checkout. `null` in setup mode.
-    """
-
     purchase_url: typing.Optional[str] = pydantic.Field(default=None)
     """
     Checkout URL you can send to customers.
@@ -92,6 +87,11 @@ class ListCheckoutConfigurationsResponseDataItem(UniversalBaseModel):
     updated_at: str = pydantic.Field()
     """
     When the checkout configuration was last updated, as an ISO 8601 timestamp.
+    """
+
+    variant: typing.Optional[ListCheckoutConfigurationsResponseDataItemVariant] = pydantic.Field(default=None)
+    """
+    Variant used for payment checkout. `null` in setup mode.
     """
 
     if IS_PYDANTIC_V2:

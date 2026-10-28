@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .webhook_delivery_status import WebhookDeliveryStatus
 
 
 class WebhookDelivery(UniversalBaseModel):
@@ -45,6 +46,11 @@ class WebhookDelivery(UniversalBaseModel):
     sent_at: str = pydantic.Field()
     """
     When the webhook was sent, as an ISO 8601 timestamp.
+    """
+
+    status: WebhookDeliveryStatus = pydantic.Field()
+    """
+    Outcome of this delivery attempt: `success` when the endpoint returned a 2xx response, `error` otherwise.
     """
 
     success: bool = pydantic.Field()

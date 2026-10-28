@@ -51,7 +51,7 @@ class VariantsClient:
         order: typing.Optional[ListVariantsRequestOrder] = None,
         release_methods: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         visibilities: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        plan_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        billing_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
@@ -84,7 +84,7 @@ class VariantsClient:
         visibilities : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to only variants matching these visibility states.
 
-        plan_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        billing_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to only variants matching these billing types.
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
@@ -130,14 +130,14 @@ class VariantsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         response = client.variants.list(
             release_methods=["buy_now"],
             visibilities=["visible"],
-            plan_types=["renewal"],
+            billing_types=["renewal"],
             product_ids=["prod_xxxxxxxxxxxxxx"],
             presentment_currency="auto",
             ip_address="203.0.113.7",
@@ -155,7 +155,7 @@ class VariantsClient:
             order=order,
             release_methods=release_methods,
             visibilities=visibilities,
-            plan_types=plan_types,
+            billing_types=billing_types,
             product_ids=product_ids,
             created_before=created_before,
             created_after=created_after,
@@ -174,8 +174,12 @@ class VariantsClient:
         *,
         account_id: typing.Optional[str] = OMIT,
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
+        allow_multiple_quantity: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
+        billing_type: typing.Optional[str] = OMIT,
+        cancel_discount_intervals: typing.Optional[int] = OMIT,
+        cancel_discount_percentage: typing.Optional[int] = OMIT,
         checkout_styling: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         currency: typing.Optional[str] = OMIT,
         custom_fields: typing.Optional[typing.Sequence[CreateVariantsRequestCustomFieldsItem]] = OMIT,
@@ -185,9 +189,9 @@ class VariantsClient:
         initial_price: typing.Optional[float] = OMIT,
         internal_notes: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
+        offer_cancel_discount: typing.Optional[bool] = OMIT,
         override_tax_type: typing.Optional[str] = OMIT,
         payment_method_configuration: typing.Optional[CreateVariantsRequestPaymentMethodConfiguration] = OMIT,
-        plan_type: typing.Optional[str] = OMIT,
         product_id: typing.Optional[str] = OMIT,
         release_method: typing.Optional[str] = OMIT,
         renewal_price: typing.Optional[float] = OMIT,
@@ -212,11 +216,23 @@ class VariantsClient:
         adaptive_pricing_enabled : typing.Optional[bool]
             Whether this variant accepts local currency payments via adaptive pricing.
 
+        allow_multiple_quantity : typing.Optional[bool]
+            Whether more than one unit can be purchased in an order. Renewal variants cannot enable it. When `false`, checkouts, carts, and invoices reject a quantity above 1.
+
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
             Attribute values that make this variant one variant of its product, as a map of attribute name to value, e.g. `{"size": "Large", "color": "Blue"}`. Names are normalized to snake_case identifiers (`Ring Size` becomes `ring_size`) and come back in alphabetical order. Every variant on a product must carry the same attribute names and a distinct set of values. Send `null` to make the variant an ordinary pricing option again.
 
         billing_period : typing.Optional[int]
             Recurring billing interval in days, such as 30 for monthly or 365 for annual.
+
+        billing_type : typing.Optional[str]
+            Variant billing type, such as `one_time` or `renewal`.
+
+        cancel_discount_intervals : typing.Optional[int]
+            How long the retention discount lasts: `0` forever, `1` the next payment only, or a number of calendar months from when the customer accepts it. Required when `offer_cancel_discount` is true.
+
+        cancel_discount_percentage : typing.Optional[int]
+            Percentage taken off each discounted renewal, as a whole number from 1 to 100. Required when `offer_cancel_discount` is true.
 
         checkout_styling : typing.Optional[typing.Dict[str, typing.Any]]
             Checkout styling overrides for this variant.
@@ -245,14 +261,14 @@ class VariantsClient:
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
             Custom key-value pairs to store on the variant. Included in webhook payloads for payment and membership events. Max 50 keys, 100 chars per key, 500 chars per string value. The reserved keys `custom_cta` (a checkout call-to-action button label — one of the product custom CTA values, e.g. `subscribe`, `get_offer`) and `custom_cta_url` (a URL the button links to; web or `tel:`) override the product's call to action for this variant and are validated on save.
 
+        offer_cancel_discount : typing.Optional[bool]
+            Whether to offer a retention discount when a customer attempts to cancel.
+
         override_tax_type : typing.Optional[str]
             Override the default tax classification for this specific variant.
 
         payment_method_configuration : typing.Optional[CreateVariantsRequestPaymentMethodConfiguration]
             Explicit payment method configuration for the variant. When not provided, the account's defaults apply. Send at least one of `enabled` or `disabled`; an omitted one is empty.
-
-        plan_type : typing.Optional[str]
-            Variant billing type, such as `one_time` or `renewal`.
 
         product_id : typing.Optional[str]
             The unique identifier of the product to attach this variant to.
@@ -267,7 +283,7 @@ class VariantsClient:
             Stock keeping unit for this variant. Maximum 100 characters. Free text, not enforced unique.
 
         split_pay_required_payments : typing.Optional[int]
-            Installment payments required before the subscription pauses.
+            Installment payments required before the subscription pauses, from 2 to 115. Only valid on `renewal` variants.
 
         stock : typing.Optional[int]
             The maximum number of units available for purchase. Ignored when unlimited_stock is true.
@@ -300,7 +316,7 @@ class VariantsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -309,8 +325,12 @@ class VariantsClient:
         _response = self._raw_client.create(
             account_id=account_id,
             adaptive_pricing_enabled=adaptive_pricing_enabled,
+            allow_multiple_quantity=allow_multiple_quantity,
             attributes=attributes,
             billing_period=billing_period,
+            billing_type=billing_type,
+            cancel_discount_intervals=cancel_discount_intervals,
+            cancel_discount_percentage=cancel_discount_percentage,
             checkout_styling=checkout_styling,
             currency=currency,
             custom_fields=custom_fields,
@@ -320,9 +340,9 @@ class VariantsClient:
             initial_price=initial_price,
             internal_notes=internal_notes,
             metadata=metadata,
+            offer_cancel_discount=offer_cancel_discount,
             override_tax_type=override_tax_type,
             payment_method_configuration=payment_method_configuration,
-            plan_type=plan_type,
             product_id=product_id,
             release_method=release_method,
             renewal_price=renewal_price,
@@ -377,7 +397,7 @@ class VariantsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -419,7 +439,7 @@ class VariantsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -435,6 +455,7 @@ class VariantsClient:
         id: str,
         *,
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
+        allow_multiple_quantity: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
         cancel_discount_intervals: typing.Optional[int] = OMIT,
@@ -454,6 +475,7 @@ class VariantsClient:
         release_method: typing.Optional[str] = OMIT,
         renewal_price: typing.Optional[float] = OMIT,
         sku: typing.Optional[str] = OMIT,
+        split_pay_required_payments: typing.Optional[int] = OMIT,
         stock: typing.Optional[int] = OMIT,
         strike_through_initial_price: typing.Optional[float] = OMIT,
         strike_through_renewal_price: typing.Optional[float] = OMIT,
@@ -475,6 +497,9 @@ class VariantsClient:
         adaptive_pricing_enabled : typing.Optional[bool]
             Whether this variant accepts local currency payments via adaptive pricing.
 
+        allow_multiple_quantity : typing.Optional[bool]
+            Whether more than one unit can be purchased in an order. Renewal variants cannot enable it. When `false`, checkouts, carts, and invoices reject a quantity above 1.
+
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
             Attribute values that make this variant one variant of its product, as a map of attribute name to value, e.g. `{"size": "Large", "color": "Blue"}`. Names are normalized to snake_case identifiers (`Ring Size` becomes `ring_size`) and come back in alphabetical order. Every variant on a product must carry the same attribute names and a distinct set of values. Send `null` to make the variant an ordinary pricing option again.
 
@@ -482,10 +507,10 @@ class VariantsClient:
             Recurring billing interval in days, such as 30 for monthly or 365 for annual.
 
         cancel_discount_intervals : typing.Optional[int]
-            How many renewals the retention discount applies to. Required when `offer_cancel_discount` is true.
+            How long the retention discount lasts: `0` forever, `1` the next payment only, or a number of calendar months from when the customer accepts it. Required when `offer_cancel_discount` is true.
 
         cancel_discount_percentage : typing.Optional[int]
-            Percentage taken off each discounted renewal. Required when `offer_cancel_discount` is true.
+            Percentage taken off each discounted renewal, as a whole number from 1 to 100. Required when `offer_cancel_discount` is true.
 
         checkout_styling : typing.Optional[typing.Dict[str, typing.Any]]
             Checkout styling overrides for this variant.
@@ -532,6 +557,9 @@ class VariantsClient:
         sku : typing.Optional[str]
             Stock keeping unit for this variant. Maximum 100 characters. Free text, not enforced unique.
 
+        split_pay_required_payments : typing.Optional[int]
+            Installment payments required before the subscription pauses, from 2 to 115. Only valid on `renewal` variants.
+
         stock : typing.Optional[int]
             The maximum number of units available for purchase. Ignored when unlimited_stock is true.
 
@@ -569,7 +597,7 @@ class VariantsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -580,6 +608,7 @@ class VariantsClient:
         _response = self._raw_client.update(
             id,
             adaptive_pricing_enabled=adaptive_pricing_enabled,
+            allow_multiple_quantity=allow_multiple_quantity,
             attributes=attributes,
             billing_period=billing_period,
             cancel_discount_intervals=cancel_discount_intervals,
@@ -599,6 +628,7 @@ class VariantsClient:
             release_method=release_method,
             renewal_price=renewal_price,
             sku=sku,
+            split_pay_required_payments=split_pay_required_payments,
             stock=stock,
             strike_through_initial_price=strike_through_initial_price,
             strike_through_renewal_price=strike_through_renewal_price,
@@ -651,7 +681,7 @@ class VariantsClient:
         from whop_sdk.variants import CalculateTaxVariantsRequestAddress
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -692,7 +722,7 @@ class AsyncVariantsClient:
         order: typing.Optional[ListVariantsRequestOrder] = None,
         release_methods: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         visibilities: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
-        plan_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
+        billing_types: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         product_ids: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
@@ -725,7 +755,7 @@ class AsyncVariantsClient:
         visibilities : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to only variants matching these visibility states.
 
-        plan_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
+        billing_types : typing.Optional[typing.Union[str, typing.Sequence[str]]]
             Filter to only variants matching these billing types.
 
         product_ids : typing.Optional[typing.Union[str, typing.Sequence[str]]]
@@ -773,7 +803,7 @@ class AsyncVariantsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -783,7 +813,7 @@ class AsyncVariantsClient:
             response = await client.variants.list(
                 release_methods=["buy_now"],
                 visibilities=["visible"],
-                plan_types=["renewal"],
+                billing_types=["renewal"],
                 product_ids=["prod_xxxxxxxxxxxxxx"],
                 presentment_currency="auto",
                 ip_address="203.0.113.7",
@@ -805,7 +835,7 @@ class AsyncVariantsClient:
             order=order,
             release_methods=release_methods,
             visibilities=visibilities,
-            plan_types=plan_types,
+            billing_types=billing_types,
             product_ids=product_ids,
             created_before=created_before,
             created_after=created_after,
@@ -824,8 +854,12 @@ class AsyncVariantsClient:
         *,
         account_id: typing.Optional[str] = OMIT,
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
+        allow_multiple_quantity: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
+        billing_type: typing.Optional[str] = OMIT,
+        cancel_discount_intervals: typing.Optional[int] = OMIT,
+        cancel_discount_percentage: typing.Optional[int] = OMIT,
         checkout_styling: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         currency: typing.Optional[str] = OMIT,
         custom_fields: typing.Optional[typing.Sequence[CreateVariantsRequestCustomFieldsItem]] = OMIT,
@@ -835,9 +869,9 @@ class AsyncVariantsClient:
         initial_price: typing.Optional[float] = OMIT,
         internal_notes: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
+        offer_cancel_discount: typing.Optional[bool] = OMIT,
         override_tax_type: typing.Optional[str] = OMIT,
         payment_method_configuration: typing.Optional[CreateVariantsRequestPaymentMethodConfiguration] = OMIT,
-        plan_type: typing.Optional[str] = OMIT,
         product_id: typing.Optional[str] = OMIT,
         release_method: typing.Optional[str] = OMIT,
         renewal_price: typing.Optional[float] = OMIT,
@@ -862,11 +896,23 @@ class AsyncVariantsClient:
         adaptive_pricing_enabled : typing.Optional[bool]
             Whether this variant accepts local currency payments via adaptive pricing.
 
+        allow_multiple_quantity : typing.Optional[bool]
+            Whether more than one unit can be purchased in an order. Renewal variants cannot enable it. When `false`, checkouts, carts, and invoices reject a quantity above 1.
+
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
             Attribute values that make this variant one variant of its product, as a map of attribute name to value, e.g. `{"size": "Large", "color": "Blue"}`. Names are normalized to snake_case identifiers (`Ring Size` becomes `ring_size`) and come back in alphabetical order. Every variant on a product must carry the same attribute names and a distinct set of values. Send `null` to make the variant an ordinary pricing option again.
 
         billing_period : typing.Optional[int]
             Recurring billing interval in days, such as 30 for monthly or 365 for annual.
+
+        billing_type : typing.Optional[str]
+            Variant billing type, such as `one_time` or `renewal`.
+
+        cancel_discount_intervals : typing.Optional[int]
+            How long the retention discount lasts: `0` forever, `1` the next payment only, or a number of calendar months from when the customer accepts it. Required when `offer_cancel_discount` is true.
+
+        cancel_discount_percentage : typing.Optional[int]
+            Percentage taken off each discounted renewal, as a whole number from 1 to 100. Required when `offer_cancel_discount` is true.
 
         checkout_styling : typing.Optional[typing.Dict[str, typing.Any]]
             Checkout styling overrides for this variant.
@@ -895,14 +941,14 @@ class AsyncVariantsClient:
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
             Custom key-value pairs to store on the variant. Included in webhook payloads for payment and membership events. Max 50 keys, 100 chars per key, 500 chars per string value. The reserved keys `custom_cta` (a checkout call-to-action button label — one of the product custom CTA values, e.g. `subscribe`, `get_offer`) and `custom_cta_url` (a URL the button links to; web or `tel:`) override the product's call to action for this variant and are validated on save.
 
+        offer_cancel_discount : typing.Optional[bool]
+            Whether to offer a retention discount when a customer attempts to cancel.
+
         override_tax_type : typing.Optional[str]
             Override the default tax classification for this specific variant.
 
         payment_method_configuration : typing.Optional[CreateVariantsRequestPaymentMethodConfiguration]
             Explicit payment method configuration for the variant. When not provided, the account's defaults apply. Send at least one of `enabled` or `disabled`; an omitted one is empty.
-
-        plan_type : typing.Optional[str]
-            Variant billing type, such as `one_time` or `renewal`.
 
         product_id : typing.Optional[str]
             The unique identifier of the product to attach this variant to.
@@ -917,7 +963,7 @@ class AsyncVariantsClient:
             Stock keeping unit for this variant. Maximum 100 characters. Free text, not enforced unique.
 
         split_pay_required_payments : typing.Optional[int]
-            Installment payments required before the subscription pauses.
+            Installment payments required before the subscription pauses, from 2 to 115. Only valid on `renewal` variants.
 
         stock : typing.Optional[int]
             The maximum number of units available for purchase. Ignored when unlimited_stock is true.
@@ -952,7 +998,7 @@ class AsyncVariantsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -967,8 +1013,12 @@ class AsyncVariantsClient:
         _response = await self._raw_client.create(
             account_id=account_id,
             adaptive_pricing_enabled=adaptive_pricing_enabled,
+            allow_multiple_quantity=allow_multiple_quantity,
             attributes=attributes,
             billing_period=billing_period,
+            billing_type=billing_type,
+            cancel_discount_intervals=cancel_discount_intervals,
+            cancel_discount_percentage=cancel_discount_percentage,
             checkout_styling=checkout_styling,
             currency=currency,
             custom_fields=custom_fields,
@@ -978,9 +1028,9 @@ class AsyncVariantsClient:
             initial_price=initial_price,
             internal_notes=internal_notes,
             metadata=metadata,
+            offer_cancel_discount=offer_cancel_discount,
             override_tax_type=override_tax_type,
             payment_method_configuration=payment_method_configuration,
-            plan_type=plan_type,
             product_id=product_id,
             release_method=release_method,
             renewal_price=renewal_price,
@@ -1037,7 +1087,7 @@ class AsyncVariantsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1089,7 +1139,7 @@ class AsyncVariantsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1111,6 +1161,7 @@ class AsyncVariantsClient:
         id: str,
         *,
         adaptive_pricing_enabled: typing.Optional[bool] = OMIT,
+        allow_multiple_quantity: typing.Optional[bool] = OMIT,
         attributes: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         billing_period: typing.Optional[int] = OMIT,
         cancel_discount_intervals: typing.Optional[int] = OMIT,
@@ -1130,6 +1181,7 @@ class AsyncVariantsClient:
         release_method: typing.Optional[str] = OMIT,
         renewal_price: typing.Optional[float] = OMIT,
         sku: typing.Optional[str] = OMIT,
+        split_pay_required_payments: typing.Optional[int] = OMIT,
         stock: typing.Optional[int] = OMIT,
         strike_through_initial_price: typing.Optional[float] = OMIT,
         strike_through_renewal_price: typing.Optional[float] = OMIT,
@@ -1151,6 +1203,9 @@ class AsyncVariantsClient:
         adaptive_pricing_enabled : typing.Optional[bool]
             Whether this variant accepts local currency payments via adaptive pricing.
 
+        allow_multiple_quantity : typing.Optional[bool]
+            Whether more than one unit can be purchased in an order. Renewal variants cannot enable it. When `false`, checkouts, carts, and invoices reject a quantity above 1.
+
         attributes : typing.Optional[typing.Dict[str, typing.Any]]
             Attribute values that make this variant one variant of its product, as a map of attribute name to value, e.g. `{"size": "Large", "color": "Blue"}`. Names are normalized to snake_case identifiers (`Ring Size` becomes `ring_size`) and come back in alphabetical order. Every variant on a product must carry the same attribute names and a distinct set of values. Send `null` to make the variant an ordinary pricing option again.
 
@@ -1158,10 +1213,10 @@ class AsyncVariantsClient:
             Recurring billing interval in days, such as 30 for monthly or 365 for annual.
 
         cancel_discount_intervals : typing.Optional[int]
-            How many renewals the retention discount applies to. Required when `offer_cancel_discount` is true.
+            How long the retention discount lasts: `0` forever, `1` the next payment only, or a number of calendar months from when the customer accepts it. Required when `offer_cancel_discount` is true.
 
         cancel_discount_percentage : typing.Optional[int]
-            Percentage taken off each discounted renewal. Required when `offer_cancel_discount` is true.
+            Percentage taken off each discounted renewal, as a whole number from 1 to 100. Required when `offer_cancel_discount` is true.
 
         checkout_styling : typing.Optional[typing.Dict[str, typing.Any]]
             Checkout styling overrides for this variant.
@@ -1208,6 +1263,9 @@ class AsyncVariantsClient:
         sku : typing.Optional[str]
             Stock keeping unit for this variant. Maximum 100 characters. Free text, not enforced unique.
 
+        split_pay_required_payments : typing.Optional[int]
+            Installment payments required before the subscription pauses, from 2 to 115. Only valid on `renewal` variants.
+
         stock : typing.Optional[int]
             The maximum number of units available for purchase. Ignored when unlimited_stock is true.
 
@@ -1247,7 +1305,7 @@ class AsyncVariantsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1264,6 +1322,7 @@ class AsyncVariantsClient:
         _response = await self._raw_client.update(
             id,
             adaptive_pricing_enabled=adaptive_pricing_enabled,
+            allow_multiple_quantity=allow_multiple_quantity,
             attributes=attributes,
             billing_period=billing_period,
             cancel_discount_intervals=cancel_discount_intervals,
@@ -1283,6 +1342,7 @@ class AsyncVariantsClient:
             release_method=release_method,
             renewal_price=renewal_price,
             sku=sku,
+            split_pay_required_payments=split_pay_required_payments,
             stock=stock,
             strike_through_initial_price=strike_through_initial_price,
             strike_through_renewal_price=strike_through_renewal_price,
@@ -1337,7 +1397,7 @@ class AsyncVariantsClient:
         from whop_sdk.variants import CalculateTaxVariantsRequestAddress
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

@@ -58,6 +58,9 @@ if typing.TYPE_CHECKING:
     from .post_ad_updated_payload_data_post_source import PostAdUpdatedPayloadDataPostSource
     from .post_ad_updated_payload_data_status import PostAdUpdatedPayloadDataStatus
     from .post_ad_updated_payload_type import PostAdUpdatedPayloadType
+    from .report_stats_ads_request_clicks import ReportStatsAdsRequestClicks
+    from .report_stats_ads_request_impressions import ReportStatsAdsRequestImpressions
+    from .report_stats_ads_request_spend import ReportStatsAdsRequestSpend
     from .retrieve_ads_request_attribution_model import RetrieveAdsRequestAttributionModel
     from .update_ads_request_call_to_action import UpdateAdsRequestCallToAction
     from .update_ads_request_creatives_item import UpdateAdsRequestCreativesItem
@@ -139,6 +142,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostAdUpdatedPayloadDataPostSource": ".post_ad_updated_payload_data_post_source",
     "PostAdUpdatedPayloadDataStatus": ".post_ad_updated_payload_data_status",
     "PostAdUpdatedPayloadType": ".post_ad_updated_payload_type",
+    "ReportStatsAdsRequestClicks": ".report_stats_ads_request_clicks",
+    "ReportStatsAdsRequestImpressions": ".report_stats_ads_request_impressions",
+    "ReportStatsAdsRequestSpend": ".report_stats_ads_request_spend",
     "RetrieveAdsRequestAttributionModel": ".retrieve_ads_request_attribution_model",
     "UpdateAdsRequestCallToAction": ".update_ads_request_call_to_action",
     "UpdateAdsRequestCreativesItem": ".update_ads_request_creatives_item",
@@ -236,6 +242,9 @@ __all__ = [
     "PostAdUpdatedPayloadDataPostSource",
     "PostAdUpdatedPayloadDataStatus",
     "PostAdUpdatedPayloadType",
+    "ReportStatsAdsRequestClicks",
+    "ReportStatsAdsRequestImpressions",
+    "ReportStatsAdsRequestSpend",
     "RetrieveAdsRequestAttributionModel",
     "UpdateAdsRequestCallToAction",
     "UpdateAdsRequestCreativesItem",

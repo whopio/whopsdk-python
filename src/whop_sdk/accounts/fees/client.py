@@ -6,6 +6,8 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.request_options import RequestOptions
 from ...types.account_fees import AccountFees
 from .raw_client import AsyncRawFeesClient, RawFeesClient
+from .types.update_fees_request_ach_dispute import UpdateFeesRequestAchDispute
+from .types.update_fees_request_ach_return import UpdateFeesRequestAchReturn
 from .types.update_fees_request_bank_deposit import UpdateFeesRequestBankDeposit
 from .types.update_fees_request_billing import UpdateFeesRequestBilling
 from .types.update_fees_request_buyer import UpdateFeesRequestBuyer
@@ -31,6 +33,8 @@ from .types.update_fees_request_pending_auto_topup import UpdateFeesRequestPendi
 from .types.update_fees_request_platform_processing import UpdateFeesRequestPlatformProcessing
 from .types.update_fees_request_pool_payout import UpdateFeesRequestPoolPayout
 from .types.update_fees_request_revshare import UpdateFeesRequestRevshare
+from .types.update_fees_request_sepa_dispute import UpdateFeesRequestSepaDispute
+from .types.update_fees_request_sepa_return import UpdateFeesRequestSepaReturn
 from .types.update_fees_request_tax_calculation import UpdateFeesRequestTaxCalculation
 from .types.update_fees_request_tax_service import UpdateFeesRequestTaxService
 from .types.update_fees_request_three_ds import UpdateFeesRequestThreeDs
@@ -77,7 +81,7 @@ class FeesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -92,6 +96,8 @@ class FeesClient:
         self,
         account_id: str,
         *,
+        ach_dispute: typing.Optional[UpdateFeesRequestAchDispute] = OMIT,
+        ach_return: typing.Optional[UpdateFeesRequestAchReturn] = OMIT,
         bank_deposit: typing.Optional[UpdateFeesRequestBankDeposit] = OMIT,
         billing: typing.Optional[UpdateFeesRequestBilling] = OMIT,
         buyer: typing.Optional[UpdateFeesRequestBuyer] = OMIT,
@@ -118,6 +124,8 @@ class FeesClient:
         platform_processing: typing.Optional[UpdateFeesRequestPlatformProcessing] = OMIT,
         pool_payout: typing.Optional[UpdateFeesRequestPoolPayout] = OMIT,
         revshare: typing.Optional[UpdateFeesRequestRevshare] = OMIT,
+        sepa_dispute: typing.Optional[UpdateFeesRequestSepaDispute] = OMIT,
+        sepa_return: typing.Optional[UpdateFeesRequestSepaReturn] = OMIT,
         tax_calculation: typing.Optional[UpdateFeesRequestTaxCalculation] = OMIT,
         tax_service: typing.Optional[UpdateFeesRequestTaxService] = OMIT,
         three_ds: typing.Optional[UpdateFeesRequestThreeDs] = OMIT,
@@ -131,6 +139,12 @@ class FeesClient:
         ----------
         account_id : str
             Account ID, prefixed `biz_`.
+
+        ach_dispute : typing.Optional[UpdateFeesRequestAchDispute]
+            The fields of a fee the caller may change. Only the keys sent are replaced.
+
+        ach_return : typing.Optional[UpdateFeesRequestAchReturn]
+            The fields of a fee the caller may change. Only the keys sent are replaced.
 
         bank_deposit : typing.Optional[UpdateFeesRequestBankDeposit]
             The fields of a fee the caller may change. Only the keys sent are replaced.
@@ -210,6 +224,12 @@ class FeesClient:
         revshare : typing.Optional[UpdateFeesRequestRevshare]
             The fields of a fee the caller may change. Only the keys sent are replaced.
 
+        sepa_dispute : typing.Optional[UpdateFeesRequestSepaDispute]
+            The fields of a fee the caller may change. Only the keys sent are replaced.
+
+        sepa_return : typing.Optional[UpdateFeesRequestSepaReturn]
+            The fields of a fee the caller may change. Only the keys sent are replaced.
+
         tax_calculation : typing.Optional[UpdateFeesRequestTaxCalculation]
             The fields of a fee the caller may change. Only the keys sent are replaced.
 
@@ -235,7 +255,7 @@ class FeesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -245,6 +265,8 @@ class FeesClient:
         """
         _response = self._raw_client.update(
             account_id,
+            ach_dispute=ach_dispute,
+            ach_return=ach_return,
             bank_deposit=bank_deposit,
             billing=billing,
             buyer=buyer,
@@ -271,6 +293,8 @@ class FeesClient:
             platform_processing=platform_processing,
             pool_payout=pool_payout,
             revshare=revshare,
+            sepa_dispute=sepa_dispute,
+            sepa_return=sepa_return,
             tax_calculation=tax_calculation,
             tax_service=tax_service,
             three_ds=three_ds,
@@ -321,7 +345,7 @@ class AsyncFeesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -342,6 +366,8 @@ class AsyncFeesClient:
         self,
         account_id: str,
         *,
+        ach_dispute: typing.Optional[UpdateFeesRequestAchDispute] = OMIT,
+        ach_return: typing.Optional[UpdateFeesRequestAchReturn] = OMIT,
         bank_deposit: typing.Optional[UpdateFeesRequestBankDeposit] = OMIT,
         billing: typing.Optional[UpdateFeesRequestBilling] = OMIT,
         buyer: typing.Optional[UpdateFeesRequestBuyer] = OMIT,
@@ -368,6 +394,8 @@ class AsyncFeesClient:
         platform_processing: typing.Optional[UpdateFeesRequestPlatformProcessing] = OMIT,
         pool_payout: typing.Optional[UpdateFeesRequestPoolPayout] = OMIT,
         revshare: typing.Optional[UpdateFeesRequestRevshare] = OMIT,
+        sepa_dispute: typing.Optional[UpdateFeesRequestSepaDispute] = OMIT,
+        sepa_return: typing.Optional[UpdateFeesRequestSepaReturn] = OMIT,
         tax_calculation: typing.Optional[UpdateFeesRequestTaxCalculation] = OMIT,
         tax_service: typing.Optional[UpdateFeesRequestTaxService] = OMIT,
         three_ds: typing.Optional[UpdateFeesRequestThreeDs] = OMIT,
@@ -381,6 +409,12 @@ class AsyncFeesClient:
         ----------
         account_id : str
             Account ID, prefixed `biz_`.
+
+        ach_dispute : typing.Optional[UpdateFeesRequestAchDispute]
+            The fields of a fee the caller may change. Only the keys sent are replaced.
+
+        ach_return : typing.Optional[UpdateFeesRequestAchReturn]
+            The fields of a fee the caller may change. Only the keys sent are replaced.
 
         bank_deposit : typing.Optional[UpdateFeesRequestBankDeposit]
             The fields of a fee the caller may change. Only the keys sent are replaced.
@@ -460,6 +494,12 @@ class AsyncFeesClient:
         revshare : typing.Optional[UpdateFeesRequestRevshare]
             The fields of a fee the caller may change. Only the keys sent are replaced.
 
+        sepa_dispute : typing.Optional[UpdateFeesRequestSepaDispute]
+            The fields of a fee the caller may change. Only the keys sent are replaced.
+
+        sepa_return : typing.Optional[UpdateFeesRequestSepaReturn]
+            The fields of a fee the caller may change. Only the keys sent are replaced.
+
         tax_calculation : typing.Optional[UpdateFeesRequestTaxCalculation]
             The fields of a fee the caller may change. Only the keys sent are replaced.
 
@@ -487,7 +527,7 @@ class AsyncFeesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -503,6 +543,8 @@ class AsyncFeesClient:
         """
         _response = await self._raw_client.update(
             account_id,
+            ach_dispute=ach_dispute,
+            ach_return=ach_return,
             bank_deposit=bank_deposit,
             billing=billing,
             buyer=buyer,
@@ -529,6 +571,8 @@ class AsyncFeesClient:
             platform_processing=platform_processing,
             pool_payout=pool_payout,
             revshare=revshare,
+            sepa_dispute=sepa_dispute,
+            sepa_return=sepa_return,
             tax_calculation=tax_calculation,
             tax_service=tax_service,
             three_ds=three_ds,

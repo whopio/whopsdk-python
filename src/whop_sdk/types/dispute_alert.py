@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .dispute_alert_source import DisputeAlertSource
 from .dispute_alert_type import DisputeAlertType
 from .money import Money
 
@@ -73,6 +74,11 @@ class DisputeAlert(UniversalBaseModel):
     reported_at: str = pydantic.Field()
     """
     When the issuer filed the report, as an ISO 8601 timestamp. Earlier than `created_at`, which is when Whop received it.
+    """
+
+    source: typing.Optional[DisputeAlertSource] = pydantic.Field(default=None)
+    """
+    The network program that sent the alert, which `type` alone doesn't tell apart. `ethoca` for Mastercard Ethoca, `cdrn` for Visa Verifi CDRN, `rdr` for Visa RDR, `tc40` / `safe` for a Visa / Mastercard fraud report, `paypal` for a PayPal alert. `null` when the network didn't say.
     """
 
     transaction_at: typing.Optional[str] = pydantic.Field(default=None)

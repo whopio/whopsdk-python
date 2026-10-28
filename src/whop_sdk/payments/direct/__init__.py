@@ -14,6 +14,14 @@ if typing.TYPE_CHECKING:
         CreateDirectRequestPaymentMethodCard,
         CreateDirectRequestPaymentMethodCardDetails,
         CreateDirectRequestPaymentMethodType,
+        CreateDirectRequestPlan,
+        CreateDirectRequestPlanCurrency,
+        CreateDirectRequestPlanOverrideTaxType,
+        CreateDirectRequestPlanPlanType,
+        CreateDirectRequestPlanProduct,
+        CreateDirectRequestPlanProductGlobalAffiliateStatus,
+        CreateDirectRequestPlanProductVisibility,
+        CreateDirectRequestPlanVisibility,
         CreateDirectRequestSetupFutureUsage,
     )
 _dynamic_imports: typing.Dict[str, str] = {
@@ -24,6 +32,14 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateDirectRequestPaymentMethodCard": ".types",
     "CreateDirectRequestPaymentMethodCardDetails": ".types",
     "CreateDirectRequestPaymentMethodType": ".types",
+    "CreateDirectRequestPlan": ".types",
+    "CreateDirectRequestPlanCurrency": ".types",
+    "CreateDirectRequestPlanOverrideTaxType": ".types",
+    "CreateDirectRequestPlanPlanType": ".types",
+    "CreateDirectRequestPlanProduct": ".types",
+    "CreateDirectRequestPlanProductGlobalAffiliateStatus": ".types",
+    "CreateDirectRequestPlanProductVisibility": ".types",
+    "CreateDirectRequestPlanVisibility": ".types",
     "CreateDirectRequestSetupFutureUsage": ".types",
 }
 
@@ -57,5 +73,13 @@ __all__ = [
     "CreateDirectRequestPaymentMethodCard",
     "CreateDirectRequestPaymentMethodCardDetails",
     "CreateDirectRequestPaymentMethodType",
+    "CreateDirectRequestPlan",
+    "CreateDirectRequestPlanCurrency",
+    "CreateDirectRequestPlanOverrideTaxType",
+    "CreateDirectRequestPlanPlanType",
+    "CreateDirectRequestPlanProduct",
+    "CreateDirectRequestPlanProductGlobalAffiliateStatus",
+    "CreateDirectRequestPlanProductVisibility",
+    "CreateDirectRequestPlanVisibility",
     "CreateDirectRequestSetupFutureUsage",
 ]

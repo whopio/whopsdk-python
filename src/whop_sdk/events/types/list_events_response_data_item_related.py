@@ -11,9 +11,9 @@ from .list_events_response_data_item_related_ad_group import ListEventsResponseD
 from .list_events_response_data_item_related_app import ListEventsResponseDataItemRelatedApp
 from .list_events_response_data_item_related_audience import ListEventsResponseDataItemRelatedAudience
 from .list_events_response_data_item_related_payment import ListEventsResponseDataItemRelatedPayment
-from .list_events_response_data_item_related_plan import ListEventsResponseDataItemRelatedPlan
 from .list_events_response_data_item_related_product import ListEventsResponseDataItemRelatedProduct
 from .list_events_response_data_item_related_user import ListEventsResponseDataItemRelatedUser
+from .list_events_response_data_item_related_variant import ListEventsResponseDataItemRelatedVariant
 
 
 class ListEventsResponseDataItemRelated(UniversalBaseModel):
@@ -44,9 +44,9 @@ class ListEventsResponseDataItemRelated(UniversalBaseModel):
     """
 
     payment: typing.Optional[ListEventsResponseDataItemRelatedPayment] = None
-    plan: typing.Optional[ListEventsResponseDataItemRelatedPlan] = None
     product: typing.Optional[ListEventsResponseDataItemRelatedProduct] = None
     user: typing.Optional[ListEventsResponseDataItemRelatedUser] = None
+    variant: typing.Optional[ListEventsResponseDataItemRelatedVariant] = None
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

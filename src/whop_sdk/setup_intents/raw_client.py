@@ -415,10 +415,15 @@ class RawSetupIntentsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def update_return_url(
-        self, setup_intent_id: str, *, return_url: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        setup_intent_id: str,
+        *,
+        return_url: str,
+        client_secret: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[SetupStatus]:
         """
-        Changes where the buyer lands after completing an off-site step, up until they return. Accepts either a secret key or the setup's own `client_secret`, so the surface that knows the final destination can set it.
+        Changes where the buyer lands after completing an off-site step, up until they return. Accepts either a secret key or the setup's own `client_secret` in the body, so the surface that knows the final destination can set it.
 
         Parameters
         ----------
@@ -427,6 +432,9 @@ class RawSetupIntentsClient:
 
         return_url : str
             Where the buyer continues after completing an off-site step. Must be an absolute https URL without credentials (http is allowed for localhost), at most 2,048 characters.
+
+        client_secret : typing.Optional[str]
+            The setup's own `client_secret`, for a caller without a secret key.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -441,6 +449,7 @@ class RawSetupIntentsClient:
             base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
+                "client_secret": client_secret,
                 "return_url": return_url,
             },
             headers={
@@ -502,15 +511,22 @@ class RawSetupIntentsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def retrieve_status(
-        self, setup_intent_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        setup_intent_id: str,
+        *,
+        client_secret: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[SetupStatus]:
         """
-        Retrieves how far a setup has got and what the buyer must do next, if anything. Collection runs in the background, so poll this rather than reading the create response. Accepts either a secret key or the setup's own `client_secret`, so the surface collecting the payment method can poll it directly.
+        Retrieves how far a setup has got and what the buyer must do next, if anything. Collection runs in the background, so poll this rather than reading the create response. Accepts either a secret key or the setup's own `client_secret` as a query parameter, so the surface collecting the payment method can poll it directly.
 
         Parameters
         ----------
         setup_intent_id : str
             The unique identifier of the setup intent.
+
+        client_secret : typing.Optional[str]
+            The setup's own `client_secret`, for a caller without a secret key.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -524,6 +540,9 @@ class RawSetupIntentsClient:
             f"setup_intents/{encode_path_param(setup_intent_id)}/status",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
+            params={
+                "client_secret": client_secret,
+            },
             request_options=request_options,
         )
         try:
@@ -965,10 +984,15 @@ class AsyncRawSetupIntentsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def update_return_url(
-        self, setup_intent_id: str, *, return_url: str, request_options: typing.Optional[RequestOptions] = None
+        self,
+        setup_intent_id: str,
+        *,
+        return_url: str,
+        client_secret: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[SetupStatus]:
         """
-        Changes where the buyer lands after completing an off-site step, up until they return. Accepts either a secret key or the setup's own `client_secret`, so the surface that knows the final destination can set it.
+        Changes where the buyer lands after completing an off-site step, up until they return. Accepts either a secret key or the setup's own `client_secret` in the body, so the surface that knows the final destination can set it.
 
         Parameters
         ----------
@@ -977,6 +1001,9 @@ class AsyncRawSetupIntentsClient:
 
         return_url : str
             Where the buyer continues after completing an off-site step. Must be an absolute https URL without credentials (http is allowed for localhost), at most 2,048 characters.
+
+        client_secret : typing.Optional[str]
+            The setup's own `client_secret`, for a caller without a secret key.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -991,6 +1018,7 @@ class AsyncRawSetupIntentsClient:
             base_url=self._client_wrapper.get_environment().api,
             method="PATCH",
             json={
+                "client_secret": client_secret,
                 "return_url": return_url,
             },
             headers={
@@ -1052,15 +1080,22 @@ class AsyncRawSetupIntentsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def retrieve_status(
-        self, setup_intent_id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        setup_intent_id: str,
+        *,
+        client_secret: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[SetupStatus]:
         """
-        Retrieves how far a setup has got and what the buyer must do next, if anything. Collection runs in the background, so poll this rather than reading the create response. Accepts either a secret key or the setup's own `client_secret`, so the surface collecting the payment method can poll it directly.
+        Retrieves how far a setup has got and what the buyer must do next, if anything. Collection runs in the background, so poll this rather than reading the create response. Accepts either a secret key or the setup's own `client_secret` as a query parameter, so the surface collecting the payment method can poll it directly.
 
         Parameters
         ----------
         setup_intent_id : str
             The unique identifier of the setup intent.
+
+        client_secret : typing.Optional[str]
+            The setup's own `client_secret`, for a caller without a secret key.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1074,6 +1109,9 @@ class AsyncRawSetupIntentsClient:
             f"setup_intents/{encode_path_param(setup_intent_id)}/status",
             base_url=self._client_wrapper.get_environment().api,
             method="GET",
+            params={
+                "client_secret": client_secret,
+            },
             request_options=request_options,
         )
         try:

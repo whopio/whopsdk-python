@@ -20,8 +20,8 @@ from .types.create_checkout_configurations_request_mode import CreateCheckoutCon
 from .types.create_checkout_configurations_request_payment_method_configuration import (
     CreateCheckoutConfigurationsRequestPaymentMethodConfiguration,
 )
-from .types.create_checkout_configurations_request_plan import CreateCheckoutConfigurationsRequestPlan
 from .types.create_checkout_configurations_request_three_ds_level import CreateCheckoutConfigurationsRequestThreeDsLevel
+from .types.create_checkout_configurations_request_variant import CreateCheckoutConfigurationsRequestVariant
 from .types.create_checkout_configurations_response import CreateCheckoutConfigurationsResponse
 from .types.delete_checkout_configurations_response import DeleteCheckoutConfigurationsResponse
 from .types.list_checkout_configurations_request_direction import ListCheckoutConfigurationsRequestDirection
@@ -43,7 +43,7 @@ class RawCheckoutConfigurationsClient:
         self,
         *,
         account_id: str,
-        plan_id: typing.Optional[str] = None,
+        variant_id: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
         order: typing.Optional[ListCheckoutConfigurationsRequestOrder] = None,
@@ -60,7 +60,7 @@ class RawCheckoutConfigurationsClient:
         account_id : str
             Account ID, prefixed `biz_`.
 
-        plan_id : typing.Optional[str]
+        variant_id : typing.Optional[str]
             Only return checkout configurations for this variant ID, prefixed `plan_`.
 
         created_before : typing.Optional[str]
@@ -95,7 +95,7 @@ class RawCheckoutConfigurationsClient:
             method="GET",
             params={
                 "account_id": account_id,
-                "plan_id": plan_id,
+                "variant_id": variant_id,
                 "created_before": created_before,
                 "created_after": created_after,
                 "order": order,
@@ -122,7 +122,7 @@ class RawCheckoutConfigurationsClient:
                     _has_next = _parsed_next is not None and _parsed_next != ""
                     _get_next = lambda: self.list(
                         account_id=account_id,
-                        plan_id=plan_id,
+                        variant_id=variant_id,
                         created_before=created_before,
                         created_after=created_after,
                         order=order,
@@ -174,10 +174,10 @@ class RawCheckoutConfigurationsClient:
         payment_method_configuration: typing.Optional[
             CreateCheckoutConfigurationsRequestPaymentMethodConfiguration
         ] = OMIT,
-        plan: typing.Optional[CreateCheckoutConfigurationsRequestPlan] = OMIT,
-        plan_id: typing.Optional[str] = OMIT,
         redirect_url: typing.Optional[str] = OMIT,
         three_ds_level: typing.Optional[CreateCheckoutConfigurationsRequestThreeDsLevel] = OMIT,
+        variant: typing.Optional[CreateCheckoutConfigurationsRequestVariant] = OMIT,
+        variant_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateCheckoutConfigurationsResponse]:
         """
@@ -203,17 +203,17 @@ class RawCheckoutConfigurationsClient:
         payment_method_configuration : typing.Optional[CreateCheckoutConfigurationsRequestPaymentMethodConfiguration]
             Payment method overrides for this checkout. `null` uses the variant or platform defaults.
 
-        plan : typing.Optional[CreateCheckoutConfigurationsRequestPlan]
-            Variant attributes used to create or find a variant for this checkout configuration. Mutually exclusive with `plan_id`.
-
-        plan_id : typing.Optional[str]
-            Existing variant ID, prefixed `plan_`. Mutually exclusive with `plan`.
-
         redirect_url : typing.Optional[str]
             URL customers are sent to after checkout.
 
         three_ds_level : typing.Optional[CreateCheckoutConfigurationsRequestThreeDsLevel]
             3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. Applies in setup mode; `null` uses frictionless 3DS. Payment mode uses the variant policy.
+
+        variant : typing.Optional[CreateCheckoutConfigurationsRequestVariant]
+            Variant attributes used to create or find a variant for this checkout configuration. Mutually exclusive with `variant_id`.
+
+        variant_id : typing.Optional[str]
+            Existing variant ID, prefixed `plan_`. Mutually exclusive with `variant`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -238,12 +238,14 @@ class RawCheckoutConfigurationsClient:
                     annotation=typing.Optional[CreateCheckoutConfigurationsRequestPaymentMethodConfiguration],
                     direction="write",
                 ),
-                "plan": convert_and_respect_annotation_metadata(
-                    object_=plan, annotation=typing.Optional[CreateCheckoutConfigurationsRequestPlan], direction="write"
-                ),
-                "plan_id": plan_id,
                 "redirect_url": redirect_url,
                 "three_ds_level": three_ds_level,
+                "variant": convert_and_respect_annotation_metadata(
+                    object_=variant,
+                    annotation=typing.Optional[CreateCheckoutConfigurationsRequestVariant],
+                    direction="write",
+                ),
+                "variant_id": variant_id,
             },
             headers={
                 "content-type": "application/json",
@@ -422,7 +424,7 @@ class AsyncRawCheckoutConfigurationsClient:
         self,
         *,
         account_id: str,
-        plan_id: typing.Optional[str] = None,
+        variant_id: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
         order: typing.Optional[ListCheckoutConfigurationsRequestOrder] = None,
@@ -439,7 +441,7 @@ class AsyncRawCheckoutConfigurationsClient:
         account_id : str
             Account ID, prefixed `biz_`.
 
-        plan_id : typing.Optional[str]
+        variant_id : typing.Optional[str]
             Only return checkout configurations for this variant ID, prefixed `plan_`.
 
         created_before : typing.Optional[str]
@@ -474,7 +476,7 @@ class AsyncRawCheckoutConfigurationsClient:
             method="GET",
             params={
                 "account_id": account_id,
-                "plan_id": plan_id,
+                "variant_id": variant_id,
                 "created_before": created_before,
                 "created_after": created_after,
                 "order": order,
@@ -503,7 +505,7 @@ class AsyncRawCheckoutConfigurationsClient:
                     async def _get_next():
                         return await self.list(
                             account_id=account_id,
-                            plan_id=plan_id,
+                            variant_id=variant_id,
                             created_before=created_before,
                             created_after=created_after,
                             order=order,
@@ -556,10 +558,10 @@ class AsyncRawCheckoutConfigurationsClient:
         payment_method_configuration: typing.Optional[
             CreateCheckoutConfigurationsRequestPaymentMethodConfiguration
         ] = OMIT,
-        plan: typing.Optional[CreateCheckoutConfigurationsRequestPlan] = OMIT,
-        plan_id: typing.Optional[str] = OMIT,
         redirect_url: typing.Optional[str] = OMIT,
         three_ds_level: typing.Optional[CreateCheckoutConfigurationsRequestThreeDsLevel] = OMIT,
+        variant: typing.Optional[CreateCheckoutConfigurationsRequestVariant] = OMIT,
+        variant_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateCheckoutConfigurationsResponse]:
         """
@@ -585,17 +587,17 @@ class AsyncRawCheckoutConfigurationsClient:
         payment_method_configuration : typing.Optional[CreateCheckoutConfigurationsRequestPaymentMethodConfiguration]
             Payment method overrides for this checkout. `null` uses the variant or platform defaults.
 
-        plan : typing.Optional[CreateCheckoutConfigurationsRequestPlan]
-            Variant attributes used to create or find a variant for this checkout configuration. Mutually exclusive with `plan_id`.
-
-        plan_id : typing.Optional[str]
-            Existing variant ID, prefixed `plan_`. Mutually exclusive with `plan`.
-
         redirect_url : typing.Optional[str]
             URL customers are sent to after checkout.
 
         three_ds_level : typing.Optional[CreateCheckoutConfigurationsRequestThreeDsLevel]
             3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. Applies in setup mode; `null` uses frictionless 3DS. Payment mode uses the variant policy.
+
+        variant : typing.Optional[CreateCheckoutConfigurationsRequestVariant]
+            Variant attributes used to create or find a variant for this checkout configuration. Mutually exclusive with `variant_id`.
+
+        variant_id : typing.Optional[str]
+            Existing variant ID, prefixed `plan_`. Mutually exclusive with `variant`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -620,12 +622,14 @@ class AsyncRawCheckoutConfigurationsClient:
                     annotation=typing.Optional[CreateCheckoutConfigurationsRequestPaymentMethodConfiguration],
                     direction="write",
                 ),
-                "plan": convert_and_respect_annotation_metadata(
-                    object_=plan, annotation=typing.Optional[CreateCheckoutConfigurationsRequestPlan], direction="write"
-                ),
-                "plan_id": plan_id,
                 "redirect_url": redirect_url,
                 "three_ds_level": three_ds_level,
+                "variant": convert_and_respect_annotation_metadata(
+                    object_=variant,
+                    annotation=typing.Optional[CreateCheckoutConfigurationsRequestVariant],
+                    direction="write",
+                ),
+                "variant_id": variant_id,
             },
             headers={
                 "content-type": "application/json",

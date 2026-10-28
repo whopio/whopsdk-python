@@ -73,6 +73,11 @@ class Webhook(UniversalBaseModel):
     """
 
     testable_events: typing.List[WebhookTestableEventsItem]
+    title: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    A label for this webhook endpoint, such as `Production`, shown in the dashboard. `null` if no title was set.
+    """
+
     url: str = pydantic.Field()
     """
     Destination URL where webhook payloads are delivered via HTTP POST.

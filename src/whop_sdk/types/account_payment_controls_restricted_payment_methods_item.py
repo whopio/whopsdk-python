@@ -47,6 +47,7 @@ AccountPaymentControlsRestrictedPaymentMethodsItem = typing.Union[
         "venmo",
         "amazon_pay",
         "link",
+        "wechat_pay",
     ],
     typing.Any,
 ]

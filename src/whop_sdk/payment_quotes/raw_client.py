@@ -16,7 +16,7 @@ from ..errors.conflict_error import ConflictError
 from ..errors.forbidden_error import ForbiddenError
 from ..errors.not_found_error import NotFoundError
 from ..errors.unauthorized_error import UnauthorizedError
-from ..types.payment_input_plan import PaymentInputPlan
+from ..types.payment_input_variant import PaymentInputVariant
 from ..types.payment_quote import PaymentQuote
 from .types.create_payment_quotes_request_address import CreatePaymentQuotesRequestAddress
 from .types.create_payment_quotes_request_line_items_item import CreatePaymentQuotesRequestLineItemsItem
@@ -43,14 +43,14 @@ class RawPaymentQuotesClient:
         presentment_currency: typing.Optional[str] = OMIT,
         shipping_address: typing.Optional[CreatePaymentQuotesRequestShippingAddress] = OMIT,
         tax_ids: typing.Optional[typing.Sequence[CreatePaymentQuotesRequestTaxIdsItem]] = OMIT,
-        plan: typing.Optional[PaymentInputPlan] = OMIT,
-        plan_id: typing.Optional[str] = OMIT,
         promo_code: typing.Optional[str] = OMIT,
         promo_code_id: typing.Optional[str] = OMIT,
+        variant: typing.Optional[PaymentInputVariant] = OMIT,
+        variant_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[PaymentQuote]:
         """
-        Prices a purchase the way a payment for it will be charged. The body is the `PaymentInput` a payment takes plus where the buyer is, which a seller that collects no tax on the purchase can leave out. The purchase is priced from exactly what you send: no buyer is looked up, so no stored registration or purchase history applies. Pass the quote's `id` as `quote_id` when you create the payment to charge exactly the purchase, promo code, and tax shown here. A quote is priced once and may be consumed by one payment before `expires_at`. Cart entries must name existing variants with `plan_id`.
+        Prices a purchase the way a payment for it will be charged. The body is the `PaymentInput` a payment takes plus where the buyer is, which a seller that collects no tax on the purchase can leave out. The purchase is priced from exactly what you send: no buyer is looked up, so no stored registration or purchase history applies. Pass the quote's `id` as `quote_id` when you create the payment to charge exactly the purchase, promo code, and tax shown here. A quote is priced once and may be consumed by one payment before `expires_at`. Cart entries must name existing variants with `variant_id`.
 
         Parameters
         ----------
@@ -64,7 +64,7 @@ class RawPaymentQuotesClient:
             The buyer's IP address, when your server makes the call on their behalf. Locates the buyer when neither address carries a country and no `presentment_country` is sent. A quote located this way (`located_by` is `ip_address`) is a preview: a payment refuses it with `quote_preview_only`, so quote again with the buyer's address before paying. Also where `presentment_currency` `auto` and `recommended_currencies` find the buyer's local currency, and where a payment method must be able to collect it.
 
         line_items : typing.Optional[typing.Sequence[CreatePaymentQuotesRequestLineItemsItem]]
-            What the buyer is purchasing. Each entry names an existing variant by plan_id. Several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
+            What the buyer is purchasing. Each entry names an existing variant by `variant_id`. Several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
 
         presentment_country : typing.Optional[str]
             The country to price the purchase for, as an ISO 3166-1 alpha-2 code such as `JP`, when the buyer chose one: a store's country picker. Prices in the currency `auto` would pick for a buyer in that country, so send it instead of `presentment_currency`, never with it. Whether a payment method can collect that currency is still judged where the buyer is: by `ip_address`, and by this country only without one. With no address that carries a country, tax is estimated for this country (`located_by` is `presentment_country`) at the country level, and a quote located this way is a preview a payment refuses with `quote_preview_only`. Send it only once the buyer has chosen a country: without it, an `ip_address` estimates more precisely, such as for a US state. For a country Whop has no currency for, the quote is priced as `auto` for the buyer's `ip_address`, and tax is still estimated for the country.
@@ -78,17 +78,17 @@ class RawPaymentQuotesClient:
         tax_ids : typing.Optional[typing.Sequence[CreatePaymentQuotesRequestTaxIdsItem]]
             The buyer's tax registration, for a business purchase. One entry. Prices the purchase as business-to-business where that applies (EU reverse charge, for one) and requires an `address` to belong to.
 
-        plan : typing.Optional[PaymentInputPlan]
-            The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
-
-        plan_id : typing.Optional[str]
-            The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
-
         promo_code : typing.Optional[str]
             The promo code as the buyer typed it, matched within the account regardless of case and surrounding spaces, as checkout matches it. It must be valid for the variant. Send it or `promo_code_id`, not both; an empty or whitespace-only string counts as not sent. A code the account does not have, or one that is no longer active, is refused before anything is written, with the error code `promo_invalid`. A code this purchase cannot use, such as one with no uses left or one restricted to other variants, products or buyers, is refused with `promo_invalid` too, and the error's message says why.
 
         promo_code_id : typing.Optional[str]
             An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant. Send it or `promo_code`, not both. A code this purchase cannot use is refused with the error code `promo_invalid`, and the error's message says why.
+
+        variant : typing.Optional[PaymentInputVariant]
+            The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `variant_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
+
+        variant_id : typing.Optional[str]
+            The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `variant` and `line_items`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -125,12 +125,12 @@ class RawPaymentQuotesClient:
                     direction="write",
                 ),
                 "account_id": account_id,
-                "plan": convert_and_respect_annotation_metadata(
-                    object_=plan, annotation=PaymentInputPlan, direction="write"
-                ),
-                "plan_id": plan_id,
                 "promo_code": promo_code,
                 "promo_code_id": promo_code_id,
+                "variant": convert_and_respect_annotation_metadata(
+                    object_=variant, annotation=PaymentInputVariant, direction="write"
+                ),
+                "variant_id": variant_id,
             },
             headers={
                 "content-type": "application/json",
@@ -305,14 +305,14 @@ class AsyncRawPaymentQuotesClient:
         presentment_currency: typing.Optional[str] = OMIT,
         shipping_address: typing.Optional[CreatePaymentQuotesRequestShippingAddress] = OMIT,
         tax_ids: typing.Optional[typing.Sequence[CreatePaymentQuotesRequestTaxIdsItem]] = OMIT,
-        plan: typing.Optional[PaymentInputPlan] = OMIT,
-        plan_id: typing.Optional[str] = OMIT,
         promo_code: typing.Optional[str] = OMIT,
         promo_code_id: typing.Optional[str] = OMIT,
+        variant: typing.Optional[PaymentInputVariant] = OMIT,
+        variant_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[PaymentQuote]:
         """
-        Prices a purchase the way a payment for it will be charged. The body is the `PaymentInput` a payment takes plus where the buyer is, which a seller that collects no tax on the purchase can leave out. The purchase is priced from exactly what you send: no buyer is looked up, so no stored registration or purchase history applies. Pass the quote's `id` as `quote_id` when you create the payment to charge exactly the purchase, promo code, and tax shown here. A quote is priced once and may be consumed by one payment before `expires_at`. Cart entries must name existing variants with `plan_id`.
+        Prices a purchase the way a payment for it will be charged. The body is the `PaymentInput` a payment takes plus where the buyer is, which a seller that collects no tax on the purchase can leave out. The purchase is priced from exactly what you send: no buyer is looked up, so no stored registration or purchase history applies. Pass the quote's `id` as `quote_id` when you create the payment to charge exactly the purchase, promo code, and tax shown here. A quote is priced once and may be consumed by one payment before `expires_at`. Cart entries must name existing variants with `variant_id`.
 
         Parameters
         ----------
@@ -326,7 +326,7 @@ class AsyncRawPaymentQuotesClient:
             The buyer's IP address, when your server makes the call on their behalf. Locates the buyer when neither address carries a country and no `presentment_country` is sent. A quote located this way (`located_by` is `ip_address`) is a preview: a payment refuses it with `quote_preview_only`, so quote again with the buyer's address before paying. Also where `presentment_currency` `auto` and `recommended_currencies` find the buyer's local currency, and where a payment method must be able to collect it.
 
         line_items : typing.Optional[typing.Sequence[CreatePaymentQuotesRequestLineItemsItem]]
-            What the buyer is purchasing. Each entry names an existing variant by plan_id. Several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
+            What the buyer is purchasing. Each entry names an existing variant by `variant_id`. Several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
 
         presentment_country : typing.Optional[str]
             The country to price the purchase for, as an ISO 3166-1 alpha-2 code such as `JP`, when the buyer chose one: a store's country picker. Prices in the currency `auto` would pick for a buyer in that country, so send it instead of `presentment_currency`, never with it. Whether a payment method can collect that currency is still judged where the buyer is: by `ip_address`, and by this country only without one. With no address that carries a country, tax is estimated for this country (`located_by` is `presentment_country`) at the country level, and a quote located this way is a preview a payment refuses with `quote_preview_only`. Send it only once the buyer has chosen a country: without it, an `ip_address` estimates more precisely, such as for a US state. For a country Whop has no currency for, the quote is priced as `auto` for the buyer's `ip_address`, and tax is still estimated for the country.
@@ -340,17 +340,17 @@ class AsyncRawPaymentQuotesClient:
         tax_ids : typing.Optional[typing.Sequence[CreatePaymentQuotesRequestTaxIdsItem]]
             The buyer's tax registration, for a business purchase. One entry. Prices the purchase as business-to-business where that applies (EU reverse charge, for one) and requires an `address` to belong to.
 
-        plan : typing.Optional[PaymentInputPlan]
-            The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
-
-        plan_id : typing.Optional[str]
-            The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
-
         promo_code : typing.Optional[str]
             The promo code as the buyer typed it, matched within the account regardless of case and surrounding spaces, as checkout matches it. It must be valid for the variant. Send it or `promo_code_id`, not both; an empty or whitespace-only string counts as not sent. A code the account does not have, or one that is no longer active, is refused before anything is written, with the error code `promo_invalid`. A code this purchase cannot use, such as one with no uses left or one restricted to other variants, products or buyers, is refused with `promo_invalid` too, and the error's message says why.
 
         promo_code_id : typing.Optional[str]
             An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant. Send it or `promo_code`, not both. A code this purchase cannot use is refused with the error code `promo_invalid`, and the error's message says why.
+
+        variant : typing.Optional[PaymentInputVariant]
+            The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `variant_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
+
+        variant_id : typing.Optional[str]
+            The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `variant` and `line_items`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -387,12 +387,12 @@ class AsyncRawPaymentQuotesClient:
                     direction="write",
                 ),
                 "account_id": account_id,
-                "plan": convert_and_respect_annotation_metadata(
-                    object_=plan, annotation=PaymentInputPlan, direction="write"
-                ),
-                "plan_id": plan_id,
                 "promo_code": promo_code,
                 "promo_code_id": promo_code_id,
+                "variant": convert_and_respect_annotation_metadata(
+                    object_=variant, annotation=PaymentInputVariant, direction="write"
+                ),
+                "variant_id": variant_id,
             },
             headers={
                 "content-type": "application/json",

@@ -9,7 +9,7 @@ from .product_gallery_image import ProductGalleryImage
 from .product_global_affiliate_status import ProductGlobalAffiliateStatus
 from .product_marketplace_status import ProductMarketplaceStatus
 from .product_member_affiliate_status import ProductMemberAffiliateStatus
-from .product_public_plan import ProductPublicPlan
+from .product_public_variant import ProductPublicVariant
 from .variant_list_item import VariantListItem
 
 
@@ -44,7 +44,7 @@ class Product(UniversalBaseModel):
     Custom text label on customer's bank statement.
     """
 
-    default_plan: typing.Optional[ProductPublicPlan] = pydantic.Field(default=None)
+    default_variant: typing.Optional[ProductPublicVariant] = pydantic.Field(default=None)
     """
     Buyable variant to show and check out with. The configured default when that variant is buyable, otherwise the first buyable variant in product-page order. `null` when none is buyable.
     """

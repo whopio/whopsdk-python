@@ -7,6 +7,10 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
+        UpdateFeesRequestAchDispute,
+        UpdateFeesRequestAchDisputeRegionsValue,
+        UpdateFeesRequestAchReturn,
+        UpdateFeesRequestAchReturnRegionsValue,
         UpdateFeesRequestBankDeposit,
         UpdateFeesRequestBankDepositRegionsValue,
         UpdateFeesRequestBilling,
@@ -66,6 +70,10 @@ if typing.TYPE_CHECKING:
         UpdateFeesRequestPoolPayoutRegionsValue,
         UpdateFeesRequestRevshare,
         UpdateFeesRequestRevshareRegionsValue,
+        UpdateFeesRequestSepaDispute,
+        UpdateFeesRequestSepaDisputeRegionsValue,
+        UpdateFeesRequestSepaReturn,
+        UpdateFeesRequestSepaReturnRegionsValue,
         UpdateFeesRequestTaxCalculation,
         UpdateFeesRequestTaxCalculationRegionsValue,
         UpdateFeesRequestTaxService,
@@ -76,6 +84,10 @@ if typing.TYPE_CHECKING:
         UpdateFeesRequestTransfersRegionsValue,
     )
 _dynamic_imports: typing.Dict[str, str] = {
+    "UpdateFeesRequestAchDispute": ".types",
+    "UpdateFeesRequestAchDisputeRegionsValue": ".types",
+    "UpdateFeesRequestAchReturn": ".types",
+    "UpdateFeesRequestAchReturnRegionsValue": ".types",
     "UpdateFeesRequestBankDeposit": ".types",
     "UpdateFeesRequestBankDepositRegionsValue": ".types",
     "UpdateFeesRequestBilling": ".types",
@@ -135,6 +147,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateFeesRequestPoolPayoutRegionsValue": ".types",
     "UpdateFeesRequestRevshare": ".types",
     "UpdateFeesRequestRevshareRegionsValue": ".types",
+    "UpdateFeesRequestSepaDispute": ".types",
+    "UpdateFeesRequestSepaDisputeRegionsValue": ".types",
+    "UpdateFeesRequestSepaReturn": ".types",
+    "UpdateFeesRequestSepaReturnRegionsValue": ".types",
     "UpdateFeesRequestTaxCalculation": ".types",
     "UpdateFeesRequestTaxCalculationRegionsValue": ".types",
     "UpdateFeesRequestTaxService": ".types",
@@ -168,6 +184,10 @@ def __dir__():
 
 
 __all__ = [
+    "UpdateFeesRequestAchDispute",
+    "UpdateFeesRequestAchDisputeRegionsValue",
+    "UpdateFeesRequestAchReturn",
+    "UpdateFeesRequestAchReturnRegionsValue",
     "UpdateFeesRequestBankDeposit",
     "UpdateFeesRequestBankDepositRegionsValue",
     "UpdateFeesRequestBilling",
@@ -227,6 +247,10 @@ __all__ = [
     "UpdateFeesRequestPoolPayoutRegionsValue",
     "UpdateFeesRequestRevshare",
     "UpdateFeesRequestRevshareRegionsValue",
+    "UpdateFeesRequestSepaDispute",
+    "UpdateFeesRequestSepaDisputeRegionsValue",
+    "UpdateFeesRequestSepaReturn",
+    "UpdateFeesRequestSepaReturnRegionsValue",
     "UpdateFeesRequestTaxCalculation",
     "UpdateFeesRequestTaxCalculationRegionsValue",
     "UpdateFeesRequestTaxService",

@@ -42,11 +42,12 @@ class WaitlistEntriesClient:
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
-        plan_id: typing.Optional[str] = None,
+        variant_id: typing.Optional[str] = None,
         account_id: typing.Optional[str] = None,
         product_id: typing.Optional[str] = None,
         buyer_account_id: typing.Optional[str] = None,
         status: typing.Optional[ListWaitlistEntriesRequestStatus] = None,
+        query: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
         order: typing.Optional[ListWaitlistEntriesRequestOrder] = None,
@@ -70,7 +71,7 @@ class WaitlistEntriesClient:
         before : typing.Optional[str]
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
-        plan_id : typing.Optional[str]
+        variant_id : typing.Optional[str]
             Only return signups for this variant, prefixed `plan_`.
 
         account_id : typing.Optional[str]
@@ -84,6 +85,9 @@ class WaitlistEntriesClient:
 
         status : typing.Optional[ListWaitlistEntriesRequestStatus]
             Only return signups in this state. Canceled signups are returned only when `status` is `canceled`.
+
+        query : typing.Optional[str]
+            Search signups by the user's name or username, or the name of the account they were submitted on behalf of. An account ID, prefixed `biz_`, matches signups submitted on behalf of that account, and an exact email address matches that user's signups.
 
         created_before : typing.Optional[str]
             Only return signups submitted at or before this ISO 8601 timestamp.
@@ -110,7 +114,7 @@ class WaitlistEntriesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -126,11 +130,12 @@ class WaitlistEntriesClient:
             after=after,
             last=last,
             before=before,
-            plan_id=plan_id,
+            variant_id=variant_id,
             account_id=account_id,
             product_id=product_id,
             buyer_account_id=buyer_account_id,
             status=status,
+            query=query,
             created_before=created_before,
             created_after=created_after,
             order=order,
@@ -141,7 +146,7 @@ class WaitlistEntriesClient:
     def create(
         self,
         *,
-        plan_id: str,
+        variant_id: str,
         buyer_account_id: typing.Optional[str] = OMIT,
         custom_field_responses: typing.Optional[
             typing.Sequence[CreateWaitlistEntriesRequestCustomFieldResponsesItem]
@@ -154,7 +159,7 @@ class WaitlistEntriesClient:
 
         Parameters
         ----------
-        plan_id : str
+        variant_id : str
             The free waitlist variant to join, prefixed `plan_`.
 
         buyer_account_id : typing.Optional[str]
@@ -179,16 +184,16 @@ class WaitlistEntriesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.waitlist_entries.create(
-            plan_id="plan_xxxxxxxxxxxxxx",
+            variant_id="plan_xxxxxxxxxxxxxx",
         )
         """
         _response = self._raw_client.create(
-            plan_id=plan_id,
+            variant_id=variant_id,
             buyer_account_id=buyer_account_id,
             custom_field_responses=custom_field_responses,
             metadata=metadata,
@@ -200,7 +205,7 @@ class WaitlistEntriesClient:
         self,
         *,
         account_id: str,
-        plan_id: typing.Optional[str] = OMIT,
+        variant_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ApproveAllWaitlistEntriesResponse:
         """
@@ -211,7 +216,7 @@ class WaitlistEntriesClient:
         account_id : str
             The seller account whose pending signups to approve, prefixed `biz_`.
 
-        plan_id : typing.Optional[str]
+        variant_id : typing.Optional[str]
             Only approve signups for this variant, prefixed `plan_`. Omit to include every waitlist variant on the account.
 
         request_options : typing.Optional[RequestOptions]
@@ -227,7 +232,7 @@ class WaitlistEntriesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -236,7 +241,7 @@ class WaitlistEntriesClient:
         )
         """
         _response = self._raw_client.approve_all(
-            account_id=account_id, plan_id=plan_id, request_options=request_options
+            account_id=account_id, variant_id=variant_id, request_options=request_options
         )
         return _response.data
 
@@ -262,7 +267,7 @@ class WaitlistEntriesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -295,7 +300,7 @@ class WaitlistEntriesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -328,7 +333,7 @@ class WaitlistEntriesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -361,7 +366,7 @@ class WaitlistEntriesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -395,11 +400,12 @@ class AsyncWaitlistEntriesClient:
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
-        plan_id: typing.Optional[str] = None,
+        variant_id: typing.Optional[str] = None,
         account_id: typing.Optional[str] = None,
         product_id: typing.Optional[str] = None,
         buyer_account_id: typing.Optional[str] = None,
         status: typing.Optional[ListWaitlistEntriesRequestStatus] = None,
+        query: typing.Optional[str] = None,
         created_before: typing.Optional[str] = None,
         created_after: typing.Optional[str] = None,
         order: typing.Optional[ListWaitlistEntriesRequestOrder] = None,
@@ -423,7 +429,7 @@ class AsyncWaitlistEntriesClient:
         before : typing.Optional[str]
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
-        plan_id : typing.Optional[str]
+        variant_id : typing.Optional[str]
             Only return signups for this variant, prefixed `plan_`.
 
         account_id : typing.Optional[str]
@@ -437,6 +443,9 @@ class AsyncWaitlistEntriesClient:
 
         status : typing.Optional[ListWaitlistEntriesRequestStatus]
             Only return signups in this state. Canceled signups are returned only when `status` is `canceled`.
+
+        query : typing.Optional[str]
+            Search signups by the user's name or username, or the name of the account they were submitted on behalf of. An account ID, prefixed `biz_`, matches signups submitted on behalf of that account, and an exact email address matches that user's signups.
 
         created_before : typing.Optional[str]
             Only return signups submitted at or before this ISO 8601 timestamp.
@@ -465,7 +474,7 @@ class AsyncWaitlistEntriesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -488,11 +497,12 @@ class AsyncWaitlistEntriesClient:
             after=after,
             last=last,
             before=before,
-            plan_id=plan_id,
+            variant_id=variant_id,
             account_id=account_id,
             product_id=product_id,
             buyer_account_id=buyer_account_id,
             status=status,
+            query=query,
             created_before=created_before,
             created_after=created_after,
             order=order,
@@ -503,7 +513,7 @@ class AsyncWaitlistEntriesClient:
     async def create(
         self,
         *,
-        plan_id: str,
+        variant_id: str,
         buyer_account_id: typing.Optional[str] = OMIT,
         custom_field_responses: typing.Optional[
             typing.Sequence[CreateWaitlistEntriesRequestCustomFieldResponsesItem]
@@ -516,7 +526,7 @@ class AsyncWaitlistEntriesClient:
 
         Parameters
         ----------
-        plan_id : str
+        variant_id : str
             The free waitlist variant to join, prefixed `plan_`.
 
         buyer_account_id : typing.Optional[str]
@@ -543,7 +553,7 @@ class AsyncWaitlistEntriesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -551,14 +561,14 @@ class AsyncWaitlistEntriesClient:
 
         async def main() -> None:
             await client.waitlist_entries.create(
-                plan_id="plan_xxxxxxxxxxxxxx",
+                variant_id="plan_xxxxxxxxxxxxxx",
             )
 
 
         asyncio.run(main())
         """
         _response = await self._raw_client.create(
-            plan_id=plan_id,
+            variant_id=variant_id,
             buyer_account_id=buyer_account_id,
             custom_field_responses=custom_field_responses,
             metadata=metadata,
@@ -570,7 +580,7 @@ class AsyncWaitlistEntriesClient:
         self,
         *,
         account_id: str,
-        plan_id: typing.Optional[str] = OMIT,
+        variant_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> ApproveAllWaitlistEntriesResponse:
         """
@@ -581,7 +591,7 @@ class AsyncWaitlistEntriesClient:
         account_id : str
             The seller account whose pending signups to approve, prefixed `biz_`.
 
-        plan_id : typing.Optional[str]
+        variant_id : typing.Optional[str]
             Only approve signups for this variant, prefixed `plan_`. Omit to include every waitlist variant on the account.
 
         request_options : typing.Optional[RequestOptions]
@@ -599,7 +609,7 @@ class AsyncWaitlistEntriesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -614,7 +624,7 @@ class AsyncWaitlistEntriesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.approve_all(
-            account_id=account_id, plan_id=plan_id, request_options=request_options
+            account_id=account_id, variant_id=variant_id, request_options=request_options
         )
         return _response.data
 
@@ -642,7 +652,7 @@ class AsyncWaitlistEntriesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -683,7 +693,7 @@ class AsyncWaitlistEntriesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -724,7 +734,7 @@ class AsyncWaitlistEntriesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -765,7 +775,7 @@ class AsyncWaitlistEntriesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-15-1",
+            "2026-10-27-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

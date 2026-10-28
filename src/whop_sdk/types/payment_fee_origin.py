@@ -38,6 +38,7 @@ PaymentFeeOrigin = typing.Union[
         "application_fee",
         "high_risk_merchant_fee",
         "economic_intelligence_percentage_fee",
+        "payment_return_fee",
     ],
     typing.Any,
 ]

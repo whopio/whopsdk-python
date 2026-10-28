@@ -6,14 +6,20 @@ from json.decoder import JSONDecodeError
 from ..core.api_error import ApiError
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.http_response import AsyncHttpResponse, HttpResponse
+from ..core.jsonable_encoder import encode_path_param
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
 from ..core.serialization import convert_and_respect_annotation_metadata
 from ..errors.bad_request_error import BadRequestError
 from ..errors.conflict_error import ConflictError
+from ..errors.forbidden_error import ForbiddenError
+from ..errors.not_found_error import NotFoundError
+from ..errors.unauthorized_error import UnauthorizedError
+from ..types.ledger_activity import LedgerActivity
 from .types.create_deposits_request_metadata_value import CreateDepositsRequestMetadataValue
 from .types.create_deposits_response import CreateDepositsResponse
+from .types.reverse_deposits_request_metadata_value import ReverseDepositsRequestMetadataValue
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -30,6 +36,7 @@ class RawDepositsClient:
         destination: str,
         amount: typing.Optional[float] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[CreateDepositsRequestMetadataValue]]] = OMIT,
+        origin_bic: typing.Optional[str] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CreateDepositsResponse]:
@@ -46,6 +53,9 @@ class RawDepositsClient:
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[CreateDepositsRequestMetadataValue]]]
             Custom metadata to attach to the payment the charge creates. Ignored unless `payment_method_id` is provided.
+
+        origin_bic : typing.Optional[str]
+            SWIFT/BIC of the bank the funds are sent from, 8 or 11 characters. Fills each bank currency's `swift_bic` with the intermediary bank to route the wire through.
 
         payment_method_id : typing.Optional[str]
             A saved payment method of the business to charge for `amount`, prefixed `payt_`. Save one with Create setup intent and `owner_id` set to the account. Only for a `biz_` destination, and requires authentication with the `payment:charge` scope. A declined charge fails the request with 400.
@@ -70,6 +80,7 @@ class RawDepositsClient:
                     annotation=typing.Optional[typing.Dict[str, typing.Optional[CreateDepositsRequestMetadataValue]]],
                     direction="write",
                 ),
+                "origin_bic": origin_bic,
                 "payment_method_id": payment_method_id,
             },
             headers={
@@ -119,6 +130,133 @@ class RawDepositsClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def reverse(
+        self,
+        id: str,
+        *,
+        account_id: typing.Optional[str] = OMIT,
+        metadata: typing.Optional[typing.Dict[str, typing.Optional[ReverseDepositsRequestMetadataValue]]] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[LedgerActivity]:
+        """
+        Sends a bank deposit back to the bank account that wired it and takes it back out of the balance. Identify the deposit by its `vbt_` ID, the `source.id` of its row in the account's financial activity. The available balance has to cover the deposit minus the deposit fee, which is refunded. Returns the reversal's own row in the financial activity: a `topup_reversal` debit for the full deposit amount, whose `source` is the bank deposit. The source's `status` is `reversal_in_progress` until the money is back with the sender, then `reversed`.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the bank deposit to reverse, prefixed `vbt_`.
+
+        account_id : typing.Optional[str]
+            The business that received the deposit, prefixed `biz_`. Pass this or `user_id`.
+
+        metadata : typing.Optional[typing.Dict[str, typing.Optional[ReverseDepositsRequestMetadataValue]]]
+            Custom metadata to store with the reversal.
+
+        user_id : typing.Optional[str]
+            The user that received the deposit, prefixed `user_`. Pass this or `account_id`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[LedgerActivity]
+            deposit reversed
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"deposits/{encode_path_param(id)}/reverse",
+            base_url=self._client_wrapper.get_environment().api,
+            method="POST",
+            json={
+                "account_id": account_id,
+                "metadata": convert_and_respect_annotation_metadata(
+                    object_=metadata,
+                    annotation=typing.Optional[typing.Dict[str, typing.Optional[ReverseDepositsRequestMetadataValue]]],
+                    direction="write",
+                ),
+                "user_id": user_id,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    LedgerActivity,
+                    parse_obj_as(
+                        type_=LedgerActivity,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
 
 class AsyncRawDepositsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
@@ -130,6 +268,7 @@ class AsyncRawDepositsClient:
         destination: str,
         amount: typing.Optional[float] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[CreateDepositsRequestMetadataValue]]] = OMIT,
+        origin_bic: typing.Optional[str] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CreateDepositsResponse]:
@@ -146,6 +285,9 @@ class AsyncRawDepositsClient:
 
         metadata : typing.Optional[typing.Dict[str, typing.Optional[CreateDepositsRequestMetadataValue]]]
             Custom metadata to attach to the payment the charge creates. Ignored unless `payment_method_id` is provided.
+
+        origin_bic : typing.Optional[str]
+            SWIFT/BIC of the bank the funds are sent from, 8 or 11 characters. Fills each bank currency's `swift_bic` with the intermediary bank to route the wire through.
 
         payment_method_id : typing.Optional[str]
             A saved payment method of the business to charge for `amount`, prefixed `payt_`. Save one with Create setup intent and `owner_id` set to the account. Only for a `biz_` destination, and requires authentication with the `payment:charge` scope. A declined charge fails the request with 400.
@@ -170,6 +312,7 @@ class AsyncRawDepositsClient:
                     annotation=typing.Optional[typing.Dict[str, typing.Optional[CreateDepositsRequestMetadataValue]]],
                     direction="write",
                 ),
+                "origin_bic": origin_bic,
                 "payment_method_id": payment_method_id,
             },
             headers={
@@ -190,6 +333,133 @@ class AsyncRawDepositsClient:
                 return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 400:
                 raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def reverse(
+        self,
+        id: str,
+        *,
+        account_id: typing.Optional[str] = OMIT,
+        metadata: typing.Optional[typing.Dict[str, typing.Optional[ReverseDepositsRequestMetadataValue]]] = OMIT,
+        user_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[LedgerActivity]:
+        """
+        Sends a bank deposit back to the bank account that wired it and takes it back out of the balance. Identify the deposit by its `vbt_` ID, the `source.id` of its row in the account's financial activity. The available balance has to cover the deposit minus the deposit fee, which is refunded. Returns the reversal's own row in the financial activity: a `topup_reversal` debit for the full deposit amount, whose `source` is the bank deposit. The source's `status` is `reversal_in_progress` until the money is back with the sender, then `reversed`.
+
+        Parameters
+        ----------
+        id : str
+            The ID of the bank deposit to reverse, prefixed `vbt_`.
+
+        account_id : typing.Optional[str]
+            The business that received the deposit, prefixed `biz_`. Pass this or `user_id`.
+
+        metadata : typing.Optional[typing.Dict[str, typing.Optional[ReverseDepositsRequestMetadataValue]]]
+            Custom metadata to store with the reversal.
+
+        user_id : typing.Optional[str]
+            The user that received the deposit, prefixed `user_`. Pass this or `account_id`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[LedgerActivity]
+            deposit reversed
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"deposits/{encode_path_param(id)}/reverse",
+            base_url=self._client_wrapper.get_environment().api,
+            method="POST",
+            json={
+                "account_id": account_id,
+                "metadata": convert_and_respect_annotation_metadata(
+                    object_=metadata,
+                    annotation=typing.Optional[typing.Dict[str, typing.Optional[ReverseDepositsRequestMetadataValue]]],
+                    direction="write",
+                ),
+                "user_id": user_id,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    LedgerActivity,
+                    parse_obj_as(
+                        type_=LedgerActivity,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,

@@ -12,14 +12,14 @@ class ApproveAllWaitlistEntriesResponse(UniversalBaseModel):
     The seller account whose signups were queued, prefixed `biz_`.
     """
 
-    plan_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The variant the request was narrowed to, prefixed `plan_`, or `null` when every waitlist variant on the account was included.
-    """
-
     queued: bool = pydantic.Field()
     """
     Whether any pending signups were queued for approval. `false` when there were none.
+    """
+
+    variant_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The variant the request was narrowed to, prefixed `plan_`, or `null` when every waitlist variant on the account was included.
     """
 
     if IS_PYDANTIC_V2:

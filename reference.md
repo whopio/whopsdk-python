@@ -2094,7 +2094,7 @@ client.ad_campaigns.create(
 <dl>
 <dd>
 
-**desired_cost_per_result:** `typing.Optional[float]` — Cost per result to aim for (`average_target`) or never exceed (`maximum_target`). Only for campaigns that own the budget.
+**desired_cost_per_result:** `typing.Optional[float]` — The cost per result, in USD, you want this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. Ad groups set cost and bid caps with their own `desired_cost_per_result`. Omit or send `null` for no target.
     
 </dd>
 </dl>
@@ -2328,7 +2328,7 @@ client.ad_campaigns.delete(
 <dl>
 <dd>
 
-Updates an ad campaign's settings, or launches a draft campaign by setting `status` to `active`. The objective and desired cost per result are fixed at creation and cannot be changed.
+Updates an ad campaign's settings, or launches a draft campaign by setting `status` to `active`. The objective is fixed at creation and cannot be changed.
 </dd>
 </dl>
 </dd>
@@ -2426,6 +2426,14 @@ client.ad_campaigns.update(
 <dd>
 
 **campaign_type:** `typing.Optional[UpdateAdCampaignsRequestCampaignType]` — Accepted only when it matches the campaign's current type, so a read can be sent back unchanged. The type is fixed at creation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**desired_cost_per_result:** `typing.Optional[float]` — The cost per result, in USD, you want this campaign to achieve. A target only: it is not a bid, cost cap, or bid cap, and doesn't change how the campaign's ads bid. Ad groups set cost and bid caps with their own `desired_cost_per_result`. `null` clears it.
     
 </dd>
 </dl>
@@ -5329,6 +5337,114 @@ client.ad_pixels.update(
 </details>
 
 ## Ads
+<details><summary><code>client.ads.<a href="src/whop_sdk/ads/client.py">report_stats</a>(...) -> AdStat</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Records a runner's stats for one of their ads in one hour, and pays them for the spend. Send the ad's totals so far for an hour that started in the last 24 hours; they replace what the ad held for that hour, and its ad group's and campaign's hours are rebuilt from their ads. The spend can go up but never down. Reporting on a campaign starts with the hour of its first recorded report; earlier hours are refused. Spend over what is left of a budget (the runner's share of the day, the campaign's daily budget or the ad group's budget) is refused with the most the ad can record. Takes the runner's Whop session or a user OAuth token with `ad_campaign:update`. A token without that scope gets a 403, and anyone not holding the ad's campaign gets a 404.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+import datetime
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.ads.report_stats(
+    ad_id="ad_xxxxxxxxxxxxxx",
+    hour_started_at=datetime.datetime.fromisoformat("2026-01-01T12:00:00+00:00"),
+    spend=1.1,
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**ad_id:** `str` — The ad's ID, prefixed `ad_`: the campaign's ad or the runner's copy of it.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**hour_started_at:** `datetime.datetime` — Start of the hour, on the hour, within the last 24 hours.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**spend:** `ReportStatsAdsRequestSpend` — USD spent on the ad in the hour so far, to the cent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**clicks:** `typing.Optional[ReportStatsAdsRequestClicks]` — The ad's clicks in the hour so far, at most `impressions`. Zero when left out.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**impressions:** `typing.Optional[ReportStatsAdsRequestImpressions]` — The ad's impressions in the hour so far. Zero when left out.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.ads.<a href="src/whop_sdk/ads/client.py">list</a>(...) -> ListAdsResponse</code></summary>
 <dl>
 <dd>
@@ -9505,6 +9621,14 @@ client.apps.update(
 <dl>
 <dd>
 
+**per_install_schedule:** `typing.Optional[str]` — Five-field cron expression, read in UTC, on which Whop runs the production web build's `scheduled()` export once for every installation, with the installation in `ctx.props.app_installation`. It must fire at least once and no more often than every 15 minutes. Slots are skipped while the app has no production web build with a server entry. Set to `null` or an empty string to stop the per-install schedule.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **production_android_build_id:** `typing.Optional[str]` — The app build (`abld_` tag) to serve as the Android production build, or `null` to unassign it. Same rules as `production_web_build_id`.
     
 </dd>
@@ -9546,6 +9670,14 @@ client.apps.update(
 <dd>
 
 **route:** `typing.Optional[str]` — The subdomain route where the app's hosted web builds are served.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**schedule:** `typing.Optional[str]` — Five-field cron expression, read in UTC, on which Whop runs the production web build's `scheduled()` export once per slot, such as `* /15 * * * *`. It must fire at least once. Slots are skipped while the app has no production web build with a server entry. Set to `null` or an empty string to stop the global schedule.
     
 </dd>
 </dl>
@@ -13552,7 +13684,7 @@ client.checkout_configurations.list(
 <dl>
 <dd>
 
-**plan_id:** `typing.Optional[str]` — Only return checkout configurations for this variant ID, prefixed `plan_`.
+**variant_id:** `typing.Optional[str]` — Only return checkout configurations for this variant ID, prefixed `plan_`.
     
 </dd>
 </dl>
@@ -13657,7 +13789,7 @@ client = Whop(
 
 client.checkout_configurations.create(
     account_id="biz_xxxxxxxxxxxxxx",
-    plan_id="plan_xxxxxxxxxxxxx",
+    variant_id="plan_xxxxxxxxxxxxx",
 )
 
 ```
@@ -13722,22 +13854,6 @@ client.checkout_configurations.create(
 <dl>
 <dd>
 
-**plan:** `typing.Optional[CreateCheckoutConfigurationsRequestPlan]` — Variant attributes used to create or find a variant for this checkout configuration. Mutually exclusive with `plan_id`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**plan_id:** `typing.Optional[str]` — Existing variant ID, prefixed `plan_`. Mutually exclusive with `plan`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **redirect_url:** `typing.Optional[str]` — URL customers are sent to after checkout.
     
 </dd>
@@ -13747,6 +13863,22 @@ client.checkout_configurations.create(
 <dd>
 
 **three_ds_level:** `typing.Optional[CreateCheckoutConfigurationsRequestThreeDsLevel]` — 3D Secure behavior for supported on-session card payments. `mandate_challenge` requires a 3DS challenge before payment processing; `mandate_if_required` mandates a challenge only when the payment processor requires it; `frictionless_if_required` uses the regular frictionless 3DS flow. Payments of $1,000 or more use `mandate_if_required` unless `mandate_challenge` is selected. Risk and authentication recovery requirements can override the preference. Applies in setup mode; `null` uses frictionless 3DS. Payment mode uses the variant policy.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variant:** `typing.Optional[CreateCheckoutConfigurationsRequestVariant]` — Variant attributes used to create or find a variant for this checkout configuration. Mutually exclusive with `variant_id`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variant_id:** `typing.Optional[str]` — Existing variant ID, prefixed `plan_`. Mutually exclusive with `variant`.
     
 </dd>
 </dl>
@@ -16743,7 +16875,112 @@ client.deposits.create(
 <dl>
 <dd>
 
+**origin_bic:** `typing.Optional[str]` — SWIFT/BIC of the bank the funds are sent from, 8 or 11 characters. Fills each bank currency's `swift_bic` with the intermediary bank to route the wire through.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **payment_method_id:** `typing.Optional[str]` — A saved payment method of the business to charge for `amount`, prefixed `payt_`. Save one with Create setup intent and `owner_id` set to the account. Only for a `biz_` destination, and requires authentication with the `payment:charge` scope. A declined charge fails the request with 400.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.deposits.<a href="src/whop_sdk/deposits/client.py">reverse</a>(...) -> LedgerActivity</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Sends a bank deposit back to the bank account that wired it and takes it back out of the balance. Identify the deposit by its `vbt_` ID, the `source.id` of its row in the account's financial activity. The available balance has to cover the deposit minus the deposit fee, which is refunded. Returns the reversal's own row in the financial activity: a `topup_reversal` debit for the full deposit amount, whose `source` is the bank deposit. The source's `status` is `reversal_in_progress` until the money is back with the sender, then `reversed`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.deposits.reverse(
+    id="vbt_xxxxxxxxxxxxxx",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The ID of the bank deposit to reverse, prefixed `vbt_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**account_id:** `typing.Optional[str]` — The business that received the deposit, prefixed `biz_`. Pass this or `user_id`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**metadata:** `typing.Optional[typing.Dict[str, typing.Optional[ReverseDepositsRequestMetadataValue]]]` — Custom metadata to store with the reversal.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_id:** `typing.Optional[str]` — The user that received the deposit, prefixed `user_`. Pass this or `account_id`.
     
 </dd>
 </dl>
@@ -17136,7 +17373,7 @@ client.disputes.list()
 <dl>
 <dd>
 
-**include_connected_accounts:** `typing.Optional[bool]` — Only for searches: with `query`, also search the account's connected accounts. Requires `account_id` and `query`, and is a 400 without either; it never lists connected accounts' disputes on its own. Matches on dispute, payment, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`). Free-text queries such as a name search only the named account. Connected accounts' disputes are returned only for connected accounts you can read disputes on.
+**include_connected_accounts:** `typing.Optional[bool]` — Also cover the account's connected accounts. Requires `account_id`, and is a 400 without it. Without `query`, covers the disputes of the account and every connected account, in any order. The listing is cut off after 10 seconds; add a `query` to narrow it. With `query`, matches on dispute, payment, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`); free-text queries such as a name search only the named account. Connected accounts' disputes are returned only for connected accounts you can read disputes on.
     
 </dd>
 </dl>
@@ -17263,7 +17500,7 @@ client.disputes.summary()
 <dl>
 <dd>
 
-**include_connected_accounts:** `typing.Optional[bool]` — Only for searches: with `query`, also search the account's connected accounts. Requires `account_id` and `query`, and is a 400 without either; it never lists connected accounts' disputes on its own. Matches on dispute, payment, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`). Free-text queries such as a name search only the named account. Connected accounts' disputes are returned only for connected accounts you can read disputes on.
+**include_connected_accounts:** `typing.Optional[bool]` — Also cover the account's connected accounts. Requires `account_id`, and is a 400 without it. Without `query`, covers the disputes of the account and every connected account, in any order. The listing is cut off after 10 seconds; add a `query` to narrow it. With `query`, matches on dispute, payment, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`); free-text queries such as a name search only the named account. Connected accounts' disputes are returned only for connected accounts you can read disputes on.
     
 </dd>
 </dl>
@@ -22929,7 +23166,7 @@ client.external_accounts.list()
 <dl>
 <dd>
 
-Creates or returns a Whop-managed Facebook page or TikTok account for an account.
+Creates or returns a Whop-managed Facebook page or TikTok account for an account, or connects the account's existing Klaviyo account with a private API key.
 </dd>
 </dl>
 </dd>
@@ -22970,7 +23207,7 @@ client.external_accounts.create(
 <dl>
 <dd>
 
-**platform:** `CreateExternalAccountsRequestPlatform` — The platform to create the external account on. `facebook` requires the account's `banner_image`, `logo`, and `description`, and `tiktok` requires its `logo`; configure them with [Update Account](/api-reference/beta/accounts/update-account). The account is returned before the platform has created it — its `id` is usable right away, and the rest of the profile fills in once provisioning finishes.
+**platform:** `CreateExternalAccountsRequestPlatform` — The platform to create the external account on. `facebook` requires the account's `banner_image`, `logo`, and `description`, and `tiktok` requires its `logo`; configure them with [Update Account](/api-reference/beta/accounts/update-account). The account is returned before the platform has created it — its `id` is usable right away, and the rest of the profile fills in once provisioning finishes. `klaviyo` connects the account's existing Klaviyo account with the `api_key` you pass.
     
 </dd>
 </dl>
@@ -22979,6 +23216,14 @@ client.external_accounts.create(
 <dd>
 
 **account_id:** `typing.Optional[str]` — The Account (biz_ identifier) to create the external account for. An account-scoped API key may omit this to default to its own account. Account API keys cannot update their own account's branding through Update Account; use a user-authenticated path.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**api_key:** `typing.Optional[str]` — A private API key for the account on the platform. Required for `klaviyo`, which needs read access to Accounts; not accepted for other platforms. Whop checks the key with the platform before connecting and never returns it.
     
 </dd>
 </dl>
@@ -26127,10 +26372,7 @@ client.identity_profiles.list_verifications_identity_profile(
 <dl>
 <dd>
 
-Returns a paginated list of invoices for an account, with optional filtering by product, status, collection method, and creation date.
-
-Required permissions:
- - `invoice:basic:read`
+Lists receipt-backed invoices for accounts the caller can read. Legacy invoices are excluded.
 </dd>
 </dl>
 </dd>
@@ -26147,20 +26389,13 @@ Required permissions:
 ```python
 from whop_sdk import Whop
 from whop_sdk.environment import WhopEnvironment
-import datetime
 
 client = Whop(
     token="<token>",
     environment=WhopEnvironment.PRODUCTION,
 )
 
-client.invoices.list(
-    first=42,
-    last=42,
-    created_before=datetime.datetime.fromisoformat("2023-12-01T05:00:00+00:00"),
-    created_after=datetime.datetime.fromisoformat("2023-12-01T05:00:00+00:00"),
-    account_id="biz_xxxxxxxxxxxxxx",
-)
+client.invoices.list()
 
 ```
 </dd>
@@ -26176,7 +26411,7 @@ client.invoices.list(
 <dl>
 <dd>
 
-**after:** `typing.Optional[str]` — Returns the elements in the list that come after the specified cursor.
+**account_id:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -26184,7 +26419,7 @@ client.invoices.list(
 <dl>
 <dd>
 
-**before:** `typing.Optional[str]` — Returns the elements in the list that come before the specified cursor.
+**status:** `typing.Optional[ListInvoicesRequestStatus]` 
     
 </dd>
 </dl>
@@ -26192,7 +26427,7 @@ client.invoices.list(
 <dl>
 <dd>
 
-**first:** `typing.Optional[int]` — Returns the first _n_ elements from the list.
+**overdue:** `typing.Optional[bool]` 
     
 </dd>
 </dl>
@@ -26200,7 +26435,7 @@ client.invoices.list(
 <dl>
 <dd>
 
-**last:** `typing.Optional[int]` — Returns the last _n_ elements from the list.
+**member_id:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -26208,7 +26443,7 @@ client.invoices.list(
 <dl>
 <dd>
 
-**direction:** `typing.Optional[Direction]` 
+**product_id:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -26216,7 +26451,7 @@ client.invoices.list(
 <dl>
 <dd>
 
-**product_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter invoices to only those associated with these specific product identifiers.
+**created_after:** `typing.Optional[datetime.datetime]` 
     
 </dd>
 </dl>
@@ -26224,7 +26459,7 @@ client.invoices.list(
 <dl>
 <dd>
 
-**collection_methods:** `typing.Optional[typing.Union[InvoiceCollectionMethods, typing.Sequence[InvoiceCollectionMethods]]]` — Filter invoices by their collection method.
+**created_before:** `typing.Optional[datetime.datetime]` 
     
 </dd>
 </dl>
@@ -26232,7 +26467,7 @@ client.invoices.list(
 <dl>
 <dd>
 
-**statuses:** `typing.Optional[typing.Union[InvoiceStatuses, typing.Sequence[InvoiceStatuses]]]` — Filter invoices by their current status.
+**order:** `typing.Optional[ListInvoicesRequestOrder]` 
     
 </dd>
 </dl>
@@ -26240,7 +26475,7 @@ client.invoices.list(
 <dl>
 <dd>
 
-**order:** `typing.Optional[InvoicesSortableColumns]` 
+**direction:** `typing.Optional[ListInvoicesRequestDirection]` 
     
 </dd>
 </dl>
@@ -26248,7 +26483,7 @@ client.invoices.list(
 <dl>
 <dd>
 
-**created_before:** `typing.Optional[datetime.datetime]` — Only return invoices created before this timestamp.
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
     
 </dd>
 </dl>
@@ -26256,7 +26491,7 @@ client.invoices.list(
 <dl>
 <dd>
 
-**created_after:** `typing.Optional[datetime.datetime]` — Only return invoices created after this timestamp.
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
     
 </dd>
 </dl>
@@ -26264,7 +26499,15 @@ client.invoices.list(
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[str]` — The unique identifier of the company to list invoices for.
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -26296,13 +26539,7 @@ client.invoices.list(
 <dl>
 <dd>
 
-Create an invoice for a customer. The invoice can be charged automatically using a stored payment method, or sent to the customer for manual payment.
-
-Required permissions:
- - `invoice:create`
- - `member:email:read`
- - `member:basic:read`
- - `payment:basic:read`
+Creates a draft invoice backed by a receipt, with saved items, quantities, prices, and recipients. Issue the draft to resolve final tax and open the invoice. The pay_ ID stays the same when paid.
 </dd>
 </dl>
 </dd>
@@ -26319,7 +26556,6 @@ Required permissions:
 ```python
 from whop_sdk import Whop
 from whop_sdk.environment import WhopEnvironment
-from whop_sdk.invoices import CreateInvoicesRequestProduct, CreateInvoicesRequestProductPlan, CreateInvoicesRequestProductProduct
 
 client = Whop(
     token="<token>",
@@ -26327,14 +26563,8 @@ client = Whop(
 )
 
 client.invoices.create(
-    request=CreateInvoicesRequestProduct(
-        account_id="biz_xxxxxxxxxxxxxx",
-        collection_method="send_invoice",
-        plan=CreateInvoicesRequestProductPlan(),
-        product=CreateInvoicesRequestProductProduct(
-            title="title",
-        ),
-    ),
+    account_id="biz_xxxxxxxxxxxxxx",
+    items=[],
 )
 
 ```
@@ -26351,7 +26581,95 @@ client.invoices.create(
 <dl>
 <dd>
 
-**request:** `CreateInvoicesRequest` — Parameters for CreateInvoice
+**account_id:** `str` — The issuing account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**items:** `typing.List[CreateInvoicesRequestItemsItem]` — The variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant; a recurring variant must belong to a product, bills its renewal price and, once the invoice is paid, renews as a subscription charged to the payment method that paid it. With several items, every item that has a product must be a regular product, and all items need compatible payment, tax, and access settings.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**billing_address:** `typing.Optional[CreateInvoicesRequestBillingAddress]` — Create a billing address linked to this member.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**buyer_fee_percentage:** `typing.Optional[float]` — The buyer's adjustable fee in percentage points, with at most two decimal places.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**customer_name:** `typing.Optional[str]` — The contact name when creating an email-only member.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**due_at:** `typing.Optional[datetime.datetime]` — When payment is due, as an ISO 8601 timestamp.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**email_address:** `typing.Optional[str]` — Resolve or create the member for this email, creating a Whop user when none exists. Mutually exclusive with member_id.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**mailing_address_id:** `typing.Optional[str]` — An address associated with the member. Mutually exclusive with billing_address.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**member_id:** `typing.Optional[str]` — The billed customer, a member of the account. Changing email recipients does not change this buyer.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**metadata:** `typing.Optional[typing.Dict[str, str]]` — Up to 50 caller-owned string key/value pairs.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**payment_method_id:** `typing.Optional[str]` — A saved payment method belonging to the member, prefixed `payt_`. Sending the invoice emails it now and charges this method on `due_at`, or right away when there is no `due_at` or it has passed. Issuing the invoice without sending it charges right away.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**recipient_emails:** `typing.Optional[typing.List[str]]` — Email addresses saved for invoice delivery, independent of the billed customer. Saving them sends no email. Defaults to the customer email when omitted on create. Can be updated on draft, open, or uncollectible invoices.
     
 </dd>
 </dl>
@@ -26383,13 +26701,7 @@ client.invoices.create(
 <dl>
 <dd>
 
-Retrieves the details of an existing invoice.
-
-Required permissions:
- - `invoice:basic:read`
- - `member:email:read`
- - `member:basic:read`
- - `payment:basic:read`
+Retrieves a receipt-backed invoice by its pay_ ID.
 </dd>
 </dl>
 </dd>
@@ -26413,7 +26725,7 @@ client = Whop(
 )
 
 client.invoices.retrieve(
-    id="inv_xxxxxxxxxxxxxx",
+    id="id",
 )
 
 ```
@@ -26430,83 +26742,7 @@ client.invoices.retrieve(
 <dl>
 <dd>
 
-**id:** `str` — The unique identifier of the invoice, or a secure token.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.invoices.<a href="src/whop_sdk/invoices/client.py">delete</a>(...) -> bool</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Delete a draft invoice.
-
-Required permissions:
- - `invoice:update`
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from whop_sdk import Whop
-from whop_sdk.environment import WhopEnvironment
-
-client = Whop(
-    token="<token>",
-    environment=WhopEnvironment.PRODUCTION,
-)
-
-client.invoices.delete(
-    id="inv_xxxxxxxxxxxxxx",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `str` — The unique identifier of the draft invoice to delete.
+**id:** `str` — The invoice's pay_ ID.
     
 </dd>
 </dl>
@@ -26538,13 +26774,7 @@ client.invoices.delete(
 <dl>
 <dd>
 
-Update a draft invoice's details.
-
-Required permissions:
- - `invoice:update`
- - `member:email:read`
- - `member:basic:read`
- - `payment:basic:read`
+Updates draft invoice items and billing fields. Recipient-only updates are also allowed on unpaid invoices. Edit customer contact details through the member API.
 </dd>
 </dl>
 </dd>
@@ -26568,7 +26798,7 @@ client = Whop(
 )
 
 client.invoices.update(
-    id="inv_xxxxxxxxxxxxxx",
+    id="id",
 )
 
 ```
@@ -26585,7 +26815,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-**id:** `str` — The unique identifier of the invoice to update.
+**id:** `str` — The invoice's pay_ ID.
     
 </dd>
 </dl>
@@ -26593,7 +26823,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-**automatically_finalizes_at:** `typing.Optional[datetime.datetime]` — The date and time when the invoice will be automatically finalized. For charge_automatically, triggers an automatic charge. For send_invoice, sends the invoice email at the specified time.
+**billing_address:** `typing.Optional[UpdateInvoicesRequestBillingAddress]` — Create a billing address linked to this member.
     
 </dd>
 </dl>
@@ -26601,7 +26831,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-**billing_address:** `typing.Optional[UpdateInvoicesRequestBillingAddress]` — Inline billing address to create or update a mailing address for this invoice.
+**buyer_fee_percentage:** `typing.Optional[float]` — The buyer's adjustable fee in percentage points, with at most two decimal places.
     
 </dd>
 </dl>
@@ -26609,7 +26839,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-**charge_buyer_fee:** `typing.Optional[bool]` — Whether to charge the customer a buyer fee on this invoice.
+**due_at:** `typing.Optional[datetime.datetime]` — When payment is due, as an ISO 8601 timestamp.
     
 </dd>
 </dl>
@@ -26617,7 +26847,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-**collection_method:** `typing.Optional[InvoiceCollectionMethods]` — How the invoice should be collected.
+**items:** `typing.Optional[typing.List[UpdateInvoicesRequestItemsItem]]` — The variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant; a recurring variant must belong to a product, bills its renewal price and, once the invoice is paid, renews as a subscription charged to the payment method that paid it. With several items, every item that has a product must be a regular product, and all items need compatible payment, tax, and access settings.
     
 </dd>
 </dl>
@@ -26625,7 +26855,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-**customer_name:** `typing.Optional[str]` — The name of the customer.
+**mailing_address_id:** `typing.Optional[str]` — An address associated with the member. Mutually exclusive with billing_address.
     
 </dd>
 </dl>
@@ -26633,7 +26863,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-**due_date:** `typing.Optional[datetime.datetime]` — The date by which the invoice must be paid.
+**member_id:** `typing.Optional[str]` — The billed customer, a member of the account. Changing email recipients does not change this buyer.
     
 </dd>
 </dl>
@@ -26641,7 +26871,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-**email_address:** `typing.Optional[str]` — The email address of the customer.
+**metadata:** `typing.Optional[typing.Dict[str, str]]` — Up to 50 caller-owned string key/value pairs.
     
 </dd>
 </dl>
@@ -26649,7 +26879,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-**line_items:** `typing.Optional[typing.List[UpdateInvoicesRequestLineItemsItem]]` — Line items that break down the invoice total. When provided, the sum of (quantity * unit_price) for all items must equal the plan price. Individual items may be negative to represent a credit, as long as the sum is not negative and clears the currency's minimum charge. Pass an empty list to remove the breakdown.
+**payment_method_id:** `typing.Optional[str]` — A saved payment method belonging to the member, prefixed `payt_`. Sending the invoice emails it now and charges this method on `due_at`, or right away when there is no `due_at` or it has passed. Issuing the invoice without sending it charges right away.
     
 </dd>
 </dl>
@@ -26657,47 +26887,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-**mailing_address_id:** `typing.Optional[str]` — The unique identifier of an existing mailing address to attach.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**member_id:** `typing.Optional[str]` — The unique identifier of a member to assign as the customer.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**payment_method_id:** `typing.Optional[str]` — The unique identifier of the payment method to charge.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**plan:** `typing.Optional[UpdateInvoicesRequestPlan]` — Updated plan attributes.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**product_id:** `typing.Optional[str]` — The unique identifier of an existing product to attach to this invoice. Only allowed while the invoice is still a draft.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**subscription_billing_anchor_at:** `typing.Optional[datetime.datetime]` — The date that defines when the subscription billing cycle should start.
+**recipient_emails:** `typing.Optional[typing.List[str]]` — Email addresses saved for invoice delivery, independent of the billed customer. Saving them sends no email. Defaults to the customer email when omitted on create. Can be updated on draft, open, or uncollectible invoices.
     
 </dd>
 </dl>
@@ -26717,7 +26907,7 @@ client.invoices.update(
 </dl>
 </details>
 
-<details><summary><code>client.invoices.<a href="src/whop_sdk/invoices/client.py">mark_paid</a>(...) -> bool</code></summary>
+<details><summary><code>client.invoices.<a href="src/whop_sdk/invoices/client.py">generate_pdf</a>(...) -> InvoicePdf</code></summary>
 <dl>
 <dd>
 
@@ -26729,10 +26919,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-Mark an open invoice as paid when payment was collected outside of Whop.
-
-Required permissions:
- - `invoice:update`
+Generates the invoice as a PDF and returns a short-lived link to download it. A draft shows its estimated totals. The buyer's name and email need `member:basic:read` and `member:email:read`, and the Pay now link on an open invoice needs `payment:charge`. Each call generates a new file and link, so this endpoint does not replay `Idempotency-Key` responses.
 </dd>
 </dl>
 </dd>
@@ -26755,8 +26942,8 @@ client = Whop(
     environment=WhopEnvironment.PRODUCTION,
 )
 
-client.invoices.mark_paid(
-    id="inv_xxxxxxxxxxxxxx",
+client.invoices.generate_pdf(
+    id="id",
 )
 
 ```
@@ -26773,7 +26960,7 @@ client.invoices.mark_paid(
 <dl>
 <dd>
 
-**id:** `str` — The unique identifier of the invoice to mark as paid.
+**id:** `str` — The invoice's pay_ ID.
     
 </dd>
 </dl>
@@ -26793,7 +26980,7 @@ client.invoices.mark_paid(
 </dl>
 </details>
 
-<details><summary><code>client.invoices.<a href="src/whop_sdk/invoices/client.py">mark_uncollectible</a>(...) -> bool</code></summary>
+<details><summary><code>client.invoices.<a href="src/whop_sdk/invoices/client.py">issue</a>(...) -> Invoice</code></summary>
 <dl>
 <dd>
 
@@ -26805,10 +26992,80 @@ client.invoices.mark_paid(
 <dl>
 <dd>
 
-Mark an open invoice as uncollectible when payment is not expected.
+Resolves final tax and opens a draft invoice. An invoice with a `payment_method_id` is then charged to it off-session, as `POST /payments` charges a saved payment method. Issuing an open invoice again retains its totals and charges nothing.
+</dd>
+</dl>
+</dd>
+</dl>
 
-Required permissions:
- - `invoice:update`
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.invoices.issue(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The invoice's pay_ ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.invoices.<a href="src/whop_sdk/invoices/client.py">mark_uncollectible</a>(...) -> Invoice</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Marks an open invoice as uncollectible. Reminders stop, but the customer can still pay it.
 </dd>
 </dl>
 </dd>
@@ -26832,7 +27089,7 @@ client = Whop(
 )
 
 client.invoices.mark_uncollectible(
-    id="inv_xxxxxxxxxxxxxx",
+    id="id",
 )
 
 ```
@@ -26849,7 +27106,7 @@ client.invoices.mark_uncollectible(
 <dl>
 <dd>
 
-**id:** `str` — The unique identifier of the invoice to mark as uncollectible.
+**id:** `str` — The invoice's pay_ ID.
     
 </dd>
 </dl>
@@ -26869,7 +27126,7 @@ client.invoices.mark_uncollectible(
 </dl>
 </details>
 
-<details><summary><code>client.invoices.<a href="src/whop_sdk/invoices/client.py">resend</a>(...) -> bool</code></summary>
+<details><summary><code>client.invoices.<a href="src/whop_sdk/invoices/client.py">send</a>(...) -> Invoice</code></summary>
 <dl>
 <dd>
 
@@ -26881,10 +27138,7 @@ client.invoices.mark_uncollectible(
 <dl>
 <dd>
 
-Resend the notification email for an existing invoice to the customer.
-
-Required permissions:
- - `invoice:update`
+Issues a draft and emails it to its recipients, with reminders after the due date. A draft with a `payment_method_id` needs `payment:charge`: when its `due_at` is still ahead, it is emailed now and charged to that method on `due_at` (see `scheduled_charge_at`); otherwise it is charged right away instead of emailed. Voiding the invoice, marking it uncollectible, or paying it first cancels the scheduled charge, and its recipients get the payment link if a charge fails. Sending an open invoice emails it again, up to three emails a day including the first send. With `send_at`, the draft is sent at that time instead, and cannot be edited, except its recipients, until it is sent or unscheduled. Each email, reminders included, is sent separately to the customer email shown on the invoice and to each address in `recipient_emails`, so recipients never see each other's addresses.
 </dd>
 </dl>
 </dd>
@@ -26907,8 +27161,8 @@ client = Whop(
     environment=WhopEnvironment.PRODUCTION,
 )
 
-client.invoices.resend(
-    id="inv_xxxxxxxxxxxxxx",
+client.invoices.send(
+    id="id",
 )
 
 ```
@@ -26925,7 +27179,15 @@ client.invoices.resend(
 <dl>
 <dd>
 
-**id:** `str` — The unique identifier of the invoice to resend.
+**id:** `str` — The invoice's pay_ ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**send_at:** `typing.Optional[datetime.datetime]` — When to send the draft, as an ISO 8601 timestamp in the future. Omit to send now.
     
 </dd>
 </dl>
@@ -26945,7 +27207,7 @@ client.invoices.resend(
 </dl>
 </details>
 
-<details><summary><code>client.invoices.<a href="src/whop_sdk/invoices/client.py">void</a>(...) -> bool</code></summary>
+<details><summary><code>client.invoices.<a href="src/whop_sdk/invoices/client.py">unschedule</a>(...) -> Invoice</code></summary>
 <dl>
 <dd>
 
@@ -26957,10 +27219,80 @@ client.invoices.resend(
 <dl>
 <dd>
 
-Void an open invoice so it can no longer be paid. Voiding is permanent and cannot be undone.
+Cancels a draft's scheduled send, so it can be edited again. An invoice with no scheduled send is returned unchanged.
+</dd>
+</dl>
+</dd>
+</dl>
 
-Required permissions:
- - `invoice:update`
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.invoices.unschedule(
+    id="id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `str` — The invoice's pay_ ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.invoices.<a href="src/whop_sdk/invoices/client.py">void</a>(...) -> Invoice</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Voids a draft or unpaid invoice.
 </dd>
 </dl>
 </dd>
@@ -26984,7 +27316,7 @@ client = Whop(
 )
 
 client.invoices.void(
-    id="inv_xxxxxxxxxxxxxx",
+    id="id",
 )
 
 ```
@@ -27001,7 +27333,7 @@ client.invoices.void(
 <dl>
 <dd>
 
-**id:** `str` — The unique identifier of the invoice to void.
+**id:** `str` — The invoice's pay_ ID.
     
 </dd>
 </dl>
@@ -28097,7 +28429,7 @@ client.members.list(
     product_ids=[
         "prod_xxxxxxxxxxxxx"
     ],
-    plan_ids=[
+    variant_ids=[
         "plan_xxxxxxxxxxxxx"
     ],
     promo_code_ids=[
@@ -28159,7 +28491,7 @@ client.members.list(
 <dl>
 <dd>
 
-**membership_status:** `typing.Optional[ListMembersRequestMembershipStatus]` — `active` returns members holding at least one membership that currently grants access; `inactive` returns members holding at least one membership that does not. Combined with `product_ids`, `plan_ids`, or `promo_code_ids`, one membership must match all of them.
+**membership_status:** `typing.Optional[ListMembersRequestMembershipStatus]` — `active` returns members holding at least one membership that currently grants access; `inactive` returns members holding at least one membership that does not. Combined with `product_ids`, `variant_ids`, or `promo_code_ids`, one membership must match all of them.
     
 </dd>
 </dl>
@@ -28175,7 +28507,7 @@ client.members.list(
 <dl>
 <dd>
 
-**plan_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only return members holding a membership on one of these plans, prefixed `plan_`. Unknown IDs match nothing.
+**variant_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only return members holding a membership on one of these variants, prefixed `plan_`. Unknown IDs match nothing.
     
 </dd>
 </dl>
@@ -28385,10 +28717,11 @@ client = Whop(
 )
 
 client.memberships.list(
+    external_account="discord_123456789012345678",
     product_ids=[
         "prod_xxxxxxxxxxxxx"
     ],
-    plan_ids=[
+    variant_ids=[
         "plan_xxxxxxxxxxxxx"
     ],
     promo_code_ids=[
@@ -28434,6 +28767,14 @@ client.memberships.list(
 <dl>
 <dd>
 
+**external_account:** `typing.Optional[str]` — Narrow to memberships linked to one Discord or Telegram account, given as the platform's user ID prefixed with `discord_` or `telegram_`. Discord matches include memberships imported with that Discord ID. Any other format is a 400.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **status:** `typing.Optional[ListMembershipsRequestStatus]` — Filter by billing state. `trialing`, `active`, `past_due`, `completed`, `canceled`, and `expired` match the membership's `status`; `active`, `trialing`, and `past_due` exclude memberships set to cancel at period end. The other values are derived buckets that never appear as a `status`: `canceling` matches memberships set to cancel at period end; `paused` matches memberships with payment collection paused; `expiring` matches one-time purchases that have not yet expired; `one_time` matches one-time purchases that never expire; `unclaimed` matches memberships with no buyer user, including memberships bought by another business; `banned` matches memberships whose buyer is banned from the account.
     
 </dd>
@@ -28466,7 +28807,7 @@ client.memberships.list(
 <dl>
 <dd>
 
-**plan_id:** `typing.Optional[str]` — Filter to memberships of this variant (`plan_` tag).
+**variant_id:** `typing.Optional[str]` — Filter to memberships of this variant (`plan_` tag).
     
 </dd>
 </dl>
@@ -28474,7 +28815,7 @@ client.memberships.list(
 <dl>
 <dd>
 
-**plan_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter to memberships of any of these variants, each prefixed `plan_`. Repeat the parameter to pass several.
+**variant_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter to memberships of any of these variants, each prefixed `plan_`. Repeat the parameter to pass several.
     
 </dd>
 </dl>
@@ -28604,8 +28945,8 @@ client = Whop(
 
 client.memberships.invite(
     request=InviteMembershipsRequestBodyUserId(
-        plan_id="plan_xxxxxxxxxxxxxx",
         user_id="user_xxxxxxxxxxxxxx",
+        variant_id="plan_xxxxxxxxxxxxxx",
     ),
 )
 
@@ -32373,7 +32714,7 @@ client.payment_methods.delete_payment_method(
 <dl>
 <dd>
 
-Prices a purchase the way a payment for it will be charged. The body is the `PaymentInput` a payment takes plus where the buyer is, which a seller that collects no tax on the purchase can leave out. The purchase is priced from exactly what you send: no buyer is looked up, so no stored registration or purchase history applies. Pass the quote's `id` as `quote_id` when you create the payment to charge exactly the purchase, promo code, and tax shown here. A quote is priced once and may be consumed by one payment before `expires_at`. Cart entries must name existing variants with `plan_id`.
+Prices a purchase the way a payment for it will be charged. The body is the `PaymentInput` a payment takes plus where the buyer is, which a seller that collects no tax on the purchase can leave out. The purchase is priced from exactly what you send: no buyer is looked up, so no stored registration or purchase history applies. Pass the quote's `id` as `quote_id` when you create the payment to charge exactly the purchase, promo code, and tax shown here. A quote is priced once and may be consumed by one payment before `expires_at`. Cart entries must name existing variants with `variant_id`.
 </dd>
 </dl>
 </dd>
@@ -32422,22 +32763,6 @@ client.payment_quotes.create(
 <dl>
 <dd>
 
-**plan:** `typing.Optional[PaymentInputPlan]` — The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**plan_id:** `typing.Optional[str]` — The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **promo_code:** `typing.Optional[str]` — The promo code as the buyer typed it, matched within the account regardless of case and surrounding spaces, as checkout matches it. It must be valid for the variant. Send it or `promo_code_id`, not both; an empty or whitespace-only string counts as not sent. A code the account does not have, or one that is no longer active, is refused before anything is written, with the error code `promo_invalid`. A code this purchase cannot use, such as one with no uses left or one restricted to other variants, products or buyers, is refused with `promo_invalid` too, and the error's message says why.
     
 </dd>
@@ -32447,6 +32772,22 @@ client.payment_quotes.create(
 <dd>
 
 **promo_code_id:** `typing.Optional[str]` — An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant. Send it or `promo_code`, not both. A code this purchase cannot use is refused with the error code `promo_invalid`, and the error's message says why.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variant:** `typing.Optional[PaymentInputVariant]` — The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `variant_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variant_id:** `typing.Optional[str]` — The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `variant` and `line_items`.
     
 </dd>
 </dl>
@@ -32470,7 +32811,7 @@ client.payment_quotes.create(
 <dl>
 <dd>
 
-**line_items:** `typing.Optional[typing.List[CreatePaymentQuotesRequestLineItemsItem]]` — What the buyer is purchasing. Each entry names an existing variant by plan_id. Several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
+**line_items:** `typing.Optional[typing.List[CreatePaymentQuotesRequestLineItemsItem]]` — What the buyer is purchasing. Each entry names an existing variant by `variant_id`. Several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
     
 </dd>
 </dl>
@@ -33431,7 +33772,7 @@ client.payments.list(
     currencies=[
         "eur"
     ],
-    plan_ids=[
+    variant_ids=[
         "plan_xxxxxxxxxxxxx"
     ],
     product_ids=[
@@ -33517,7 +33858,7 @@ client.payments.list(
 <dl>
 <dd>
 
-**include_connected_accounts:** `typing.Optional[bool]` — Only for searches: with `query`, also search the account's connected accounts. Requires `account_id` and `query`, and is a 400 without either; it never lists connected accounts' payments on its own. Matches on payment, dispute, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`). Free-text queries such as a name search only the named account. Connected accounts' payments are returned only for connected accounts you can read payments on.
+**include_connected_accounts:** `typing.Optional[bool]` — Also cover the account's connected accounts. Requires `account_id`, and is a 400 without it. Without `query`, lists the payments of the account and every connected account, newest first by `created_at` only; another `order` is a 400. The listing is cut off after 10 seconds, which a rare filter on an account with little recent activity can reach; add a `query` to narrow it. With `query`, matches on payment, dispute, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`); free-text queries such as a name search only the named account. Connected accounts' payments are returned only for connected accounts you can read payments on.
     
 </dd>
 </dl>
@@ -33549,7 +33890,7 @@ client.payments.list(
 <dl>
 <dd>
 
-**plan_id:** `typing.Optional[str]` — Only payments priced by this variant, prefixed `plan_`.
+**variant_id:** `typing.Optional[str]` — Only payments priced by this variant, prefixed `plan_`.
     
 </dd>
 </dl>
@@ -33605,7 +33946,7 @@ client.payments.list(
 <dl>
 <dd>
 
-**plan_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only payments priced by any of these variants, each prefixed `plan_`. Repeat the parameter to pass several. Combined with `plan_id` when both are sent.
+**variant_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only payments priced by any of these variants, each prefixed `plan_`. Repeat the parameter to pass several. Combined with `variant_id` when both are sent.
     
 </dd>
 </dl>
@@ -33806,22 +34147,6 @@ client.payments.create(
 <dl>
 <dd>
 
-**plan:** `typing.Optional[PaymentInputPlan]` — The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**plan_id:** `typing.Optional[str]` — The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **promo_code:** `typing.Optional[str]` — The promo code as the buyer typed it, matched within the account regardless of case and surrounding spaces, as checkout matches it. It must be valid for the variant. Send it or `promo_code_id`, not both; an empty or whitespace-only string counts as not sent. A code the account does not have, or one that is no longer active, is refused before anything is written, with the error code `promo_invalid`. A code this purchase cannot use, such as one with no uses left or one restricted to other variants, products or buyers, is refused with `promo_invalid` too, and the error's message says why.
     
 </dd>
@@ -33838,7 +34163,23 @@ client.payments.create(
 <dl>
 <dd>
 
-**affiliate_code:** `typing.Optional[str]` — The code an affiliate link carries, which is the affiliate's username. The affiliate is credited for this payment as on a checkout session. A code naming no one eligible to earn on the product is ignored, and the payment goes ahead. A promo code with its own affiliate takes precedence. No affiliate is credited on a variant without a product or on a purchase of several variants. At most 255 characters. Not supported with `payment_method`.
+**variant:** `typing.Optional[PaymentInputVariant]` — The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `variant_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variant_id:** `typing.Optional[str]` — The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `variant` and `line_items`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**affiliate_code:** `typing.Optional[str]` — The code an affiliate link carries, which is the affiliate's username. The affiliate is credited for this payment as on a checkout session. A code naming no one eligible to earn on the product is ignored, and the payment goes ahead. A promo code with its own affiliate takes precedence. No affiliate is credited on a variant without a product or on a purchase of several variants. At most 255 characters. Not supported with a `card_present` `payment_method`.
     
 </dd>
 </dl>
@@ -33847,6 +34188,14 @@ client.payments.create(
 <dd>
 
 **auto_capture_after_minutes:** `typing.Optional[int]` — Minutes after authorization at which Whop captures the hold automatically unless it has been voided. Requires `capture: false`. Between 5 and 5760 (4 days).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**billing_address:** `typing.Optional[CreatePaymentsRequestBillingAddress]` — The buyer's billing address, returned on the payment as `billing_address` and used to calculate tax when Whop calculates it for the account. Only with a `paypal` `payment_method`. Only the keys you supply are kept.
     
 </dd>
 </dl>
@@ -33870,7 +34219,7 @@ client.payments.create(
 <dl>
 <dd>
 
-**email:** `typing.Optional[str]` — The buyer's email, resolving or creating the user the payment belongs to. With `confirmation_token` it overrides the email the token carries, and is ignored when the token was created by a signed-in buyer; with `payment_method` it names a buyer the point of sale already knows, otherwise the sale belongs to a guest until a buyer is attached. Ignored with `member_id`.
+**email:** `typing.Optional[str]` — The buyer's email, resolving or creating the user the payment belongs to. With `confirmation_token` it overrides the email the token carries, and is ignored when the token was created by a signed-in buyer; with a `card_present` `payment_method` it names a buyer the point of sale already knows, otherwise the sale belongs to a guest until a buyer is attached; with a `paypal` `payment_method` it names the buyer and is required unless `member_id` is provided. Ignored with `member_id`.
     
 </dd>
 </dl>
@@ -33886,7 +34235,7 @@ client.payments.create(
 <dl>
 <dd>
 
-**line_items:** `typing.Optional[typing.List[CreatePaymentsRequestLineItemsItem]]` — What the buyer is purchasing. Each entry takes exactly one of `plan_id` or an inline `plan`. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency. Mutually exclusive with `plan_id` and `plan`.
+**line_items:** `typing.Optional[typing.List[CreatePaymentsRequestLineItemsItem]]` — What the buyer is purchasing. Each entry takes exactly one of `variant_id` or an inline `variant`. One entry charges that variant; several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency. Mutually exclusive with `variant_id` and `variant`.
     
 </dd>
 </dl>
@@ -33894,7 +34243,7 @@ client.payments.create(
 <dl>
 <dd>
 
-**member_id:** `typing.Optional[str]` — The member to charge, prefixed `mber_`. Required with `payment_method_id` unless `confirmation_token` is provided.
+**member_id:** `typing.Optional[str]` — The member to charge, prefixed `mber_`. Required with `payment_method_id` unless `confirmation_token` is provided. With a `paypal` `payment_method` it names the buyer instead of `email`, and must belong to a user.
     
 </dd>
 </dl>
@@ -33918,7 +34267,7 @@ client.payments.create(
 <dl>
 <dd>
 
-**payment_method:** `typing.Optional[CreatePaymentsRequestPaymentMethod]` — A payment method collected on the seller's device rather than described by a confirmation token. `type` names it and the member named after it carries what the device needs. Today only `card_present` (Tap to Pay): nothing is collected on this call, the payment is created first and the reader then collects against it with the client secret the status endpoint serves in `next_action`. Mutually exclusive with `confirmation_token`, `member_id` and `payment_method_id`.
+**payment_method:** `typing.Optional[CreatePaymentsRequestPaymentMethod]` — A payment method named on this call rather than described by a confirmation token. `type` names it and the member named after it carries its details. Nothing is collected on this call: the payment is created first and the buyer or device then acts on the `next_action` the status endpoint serves. `card_present` (Tap to Pay): the reader collects against the payment with the client secret in `next_action`. `paypal`: the buyer approves on PayPal's page, reached through a `redirect` `next_action`, then returns to `return_url`; `member_id` or `email` names the buyer. Mutually exclusive with `confirmation_token` and `payment_method_id`, and with `member_id` except for `paypal`.
     
 </dd>
 </dl>
@@ -33934,7 +34283,7 @@ client.payments.create(
 <dl>
 <dd>
 
-**quote_id:** `typing.Optional[str]` — A payment quote from `POST /payment_quotes`, prefixed `pq_`. The payment charges exactly the quote: its purchase (its variants and quantities, or the `plan` it priced), which this body may then omit, its promo code, and its tax, the quote's `tax_amount` rather than a figure calculated now. Omit it, or send null, to have tax calculated when the payment is charged. The quote must belong to `account_id`. A purchase field you omit or send as null takes the quote's value; the buyer's email, the addresses and the payment method are this request's own, never the quote's. Whatever you do send must describe the quoted purchase: the same variants, quantities and promo code. A quote that priced `plan` takes only the same `plan` you sent to `POST /payment_quotes` (or omit the purchase to take the quoted one), never `plan_id` or `line_items`, and a quote that priced variants by id never takes `plan`. Unless the quote located no buyer (`located_by` is null), the address the payment carries (its shipping address, else its billing address) must put the buyer where the quote priced tax, by country, state and postal code; otherwise the payment is refused with 400 before the payment method is used. A quote located by IP address or by the country the buyer chose (`located_by` is `ip_address` or `presentment_country`) is a preview and cannot be paid. A quote is consumed by one payment: a declined payment keeps it and can be retried; a new payment needs a new quote. A quote cannot be charged by a processor that doesn't take quotes, such as a seller's own connected PayPal account; such a payment is refused before the payment method is used. A quote priced in a `presentment_currency` is charged in that currency at the quote's `exchange_rate`. A payment refused over its quote carries an error `code`. `quote_expired`: the quote has expired; quote again. `quote_tax_unavailable`: the quote could not price tax; quote again, or omit `quote_id`. `quote_preview_only`: the quote was located by IP address or by the country the buyer chose; quote again with the buyer's address. `quote_in_use` (409): another payment holds the quote. `quote_mismatch`: the purchase or the buyer's address is not the one quoted. `quote_rate_expired`: the exchange rate the quote was priced at has moved too far to charge; quote again. `payment_method_currency_unsupported`: the payment method cannot pay in the quote's currency; use another method, or quote again in another currency. `quote_processor_unsupported`: the payment would be processed by a processor that doesn't take quotes, such as a seller's own connected PayPal account; use another method, or omit `quote_id` to have tax calculated when the payment is charged.
+**quote_id:** `typing.Optional[str]` — A payment quote from `POST /payment_quotes`, prefixed `pq_`. The payment charges exactly the quote: its purchase (its variants and quantities, or the `variant` it priced), which this body may then omit, its promo code, and its tax, the quote's `tax_amount` rather than a figure calculated now. Omit it, or send null, to have tax calculated when the payment is charged. The quote must belong to `account_id`. A purchase field you omit or send as null takes the quote's value; the buyer's email, the addresses and the payment method are this request's own, never the quote's. Whatever you do send must describe the quoted purchase: the same variants, quantities and promo code. A quote that priced `variant` takes only the same `variant` you sent to `POST /payment_quotes` (or omit the purchase to take the quoted one), never `variant_id` or `line_items`, and a quote that priced variants by id never takes `variant`. Unless the quote located no buyer (`located_by` is null), the address the payment carries (its shipping address, else its billing address) must put the buyer where the quote priced tax, by country, state and postal code; otherwise the payment is refused with 400 before the payment method is used. A quote located by IP address or by the country the buyer chose (`located_by` is `ip_address` or `presentment_country`) is a preview and cannot be paid. A quote is consumed by one payment: a declined payment keeps it and can be retried; a new payment needs a new quote. A quote cannot be charged by a processor that doesn't take quotes, such as a seller's own connected PayPal account; such a payment is refused before the payment method is used. A quote priced in a `presentment_currency` is charged in that currency at the quote's `exchange_rate`. A payment refused over its quote carries an error `code`. `quote_expired`: the quote has expired; quote again. `quote_tax_unavailable`: the quote could not price tax; quote again, or omit `quote_id`. `quote_preview_only`: the quote was located by IP address or by the country the buyer chose; quote again with the buyer's address. `quote_in_use` (409): another payment holds the quote. `quote_mismatch`: the purchase or the buyer's address is not the one quoted. `quote_rate_expired`: the exchange rate the quote was priced at has moved too far to charge; quote again. `payment_method_currency_unsupported`: the payment method cannot pay in the quote's currency; use another method, or quote again in another currency. `quote_processor_unsupported`: the payment would be processed by a processor that doesn't take quotes, such as a seller's own connected PayPal account; use another method, or omit `quote_id` to have tax calculated when the payment is charged.
     
 </dd>
 </dl>
@@ -33942,7 +34291,15 @@ client.payments.create(
 <dl>
 <dd>
 
-**return_url:** `typing.Optional[str]` — Where the buyer continues after completing an off-site step such as 3D Secure. An absolute https URL without credentials, at most 2,048 characters. Required when a saved payment method is charged with `off_session` false; otherwise ignored unless `confirmation_token` is provided.
+**return_url:** `typing.Optional[str]` — Where the buyer continues after completing an off-site step such as 3D Secure. An absolute https URL without credentials, at most 2,048 characters. Required when a saved payment method is charged with `off_session` false; otherwise ignored unless `confirmation_token` or a `paypal` `payment_method` is provided.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**setup_future_usage:** `typing.Optional[CreatePaymentsRequestSetupFutureUsage]` — Attests that the buyer was told the payment method will be saved for later charges, and saves it once they approve, so it can be charged with `member_id` and `payment_method_id`. PayPal shows the buyer the agreement to future charges on its approval page. Omit it for a one-time payment that saves nothing. Ignored unless a `paypal` `payment_method` is provided.
     
 </dd>
 </dl>
@@ -34017,7 +34374,7 @@ client.payments.summary(
     currencies=[
         "usd"
     ],
-    plan_ids=[
+    variant_ids=[
         "plan_xxxxxxxxxxxxx"
     ],
     product_ids=[
@@ -34087,7 +34444,7 @@ client.payments.summary(
 <dl>
 <dd>
 
-**plan_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only payments priced by any of these variants, each prefixed `plan_`. Repeat the parameter to pass several.
+**variant_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only payments priced by any of these variants, each prefixed `plan_`. Repeat the parameter to pass several.
     
 </dd>
 </dl>
@@ -34839,7 +35196,7 @@ client.payments.void(
 <dl>
 <dd>
 
-Charges the saved card again, with the buyer present, for a payment their bank declined until they authenticate (such as with 3DS). Retrieve the payment afterward to get the bank's challenge from `next_action`; once the buyer completes it, they land on `return_url`, or on Whop's hosted verification page if none was given. Only the buyer can call this, with the payment's `client_secret`, an OAuth token for their own account with the `member:payment_methods:use` scope, or the token from a verified `payment` session intent. An API key gets a `403`. Has no effect on a payment that is not waiting on authentication.
+Charges the saved card again, with the buyer present, for a payment their bank declined until they authenticate (such as with 3DS). Retrieve the payment afterward to get the bank's challenge from `next_action`; once the buyer completes it, they land on `return_url`, or on Whop's hosted verification page if none was given. Only the buyer can call this, with the payment's `client_secret` in the body, an OAuth token for their own account with the `member:payment_methods:use` scope, or the token from a verified `payment` session intent. An API key gets a `403`. Has no effect on a payment that is not waiting on authentication.
 </dd>
 </dl>
 </dd>
@@ -34888,6 +35245,14 @@ client.payments.resume(
 <dl>
 <dd>
 
+**client_secret:** `typing.Optional[str]` — The payment's own `client_secret`, for a buyer without a token.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **return_url:** `typing.Optional[str]` — Where the buyer continues after completing an off-site step. Must be an absolute https URL without credentials (http is allowed for localhost), at most 2,048 characters. Defaults to Whop's hosted verification page. Ignored when the payment is not waiting on authentication.
     
 </dd>
@@ -34920,7 +35285,7 @@ client.payments.resume(
 <dl>
 <dd>
 
-Changes where the buyer lands after completing an off-site step, up until they return. Accepts either a secret key or the payment's own `client_secret`, so the surface that knows the final destination can set it.
+Changes where the buyer lands after completing an off-site step, up until they return. Accepts either a secret key or the payment's own `client_secret` in the body, so the surface that knows the final destination can set it.
 </dd>
 </dl>
 </dd>
@@ -34978,6 +35343,14 @@ client.payments.update_return_url(
 <dl>
 <dd>
 
+**client_secret:** `typing.Optional[str]` — The payment's own `client_secret`, for a caller without a secret key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -35002,7 +35375,7 @@ client.payments.update_return_url(
 <dl>
 <dd>
 
-Retrieves how far a payment has got and what the buyer must do next, if anything. A payment is collected in the background, so poll this rather than reading the create response. Accepts either a secret key or the payment's own `client_secret`, so the surface collecting the payment can poll it directly.
+Retrieves how far a payment has got and what the buyer must do next, if anything. A payment is collected in the background, so poll this rather than reading the create response. Accepts either a secret key or the payment's own `client_secret` as a query parameter, so the surface collecting the payment can poll it directly.
 </dd>
 </dl>
 </dd>
@@ -35044,6 +35417,14 @@ client.payments.retrieve_status(
 <dd>
 
 **payment_id:** `str` — The unique identifier of the payment.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_secret:** `typing.Optional[str]` — The payment's own `client_secret`, for a caller without a secret key.
     
 </dd>
 </dl>
@@ -35629,7 +36010,7 @@ client.payouts.create(
 <dl>
 <dd>
 
-**statement_descriptor:** `typing.Optional[str]` — Text that appears on the recipient's bank statement. Must be 5-22 alphanumeric characters (A-Z, a-z, 0-9). Without a `quote_token`, omit or pass `null` to use the default descriptor. With a `quote_token`, set this value when creating the quote; the payout request may omit it but cannot add or change it.
+**statement_descriptor:** `typing.Optional[str]` — Payment description sent with the payout, such as an invoice number or what it pays for. Must be 5-80 printable ASCII characters (letters, digits, spaces and punctuation); Whop sends it in upper case. Not all countries and banks show it on the recipient's statement, and it is not the sender name. Without a `quote_token`, omit or pass `null` to use the default descriptor. With a `quote_token`, set this value when creating the quote; the payout request may omit it but cannot add or change it.
     
 </dd>
 </dl>
@@ -35774,7 +36155,7 @@ client.payouts.create_quote(
 <dl>
 <dd>
 
-**statement_descriptor:** `typing.Optional[str]` — Text that appears on the recipient's bank statement. Must be 5-22 alphanumeric characters (A-Z, a-z, 0-9). Omit or pass `null` to use the default descriptor.
+**statement_descriptor:** `typing.Optional[str]` — Payment description sent with the payout, such as an invoice number or what it pays for. Must be 5-80 printable ASCII characters (letters, digits, spaces and punctuation); Whop sends it in upper case. Not all countries and banks show it on the recipient's statement, and it is not the sender name. Omit or pass `null` to use the default descriptor.
     
 </dd>
 </dl>
@@ -36666,7 +37047,7 @@ client.plans.list()
 <dl>
 <dd>
 
-**plan_types:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` 
+**billing_types:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` 
     
 </dd>
 </dl>
@@ -36809,6 +37190,14 @@ client.plans.create()
 <dl>
 <dd>
 
+**allow_multiple_quantity:** `typing.Optional[bool]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **attributes:** `typing.Optional[typing.Dict[str, typing.Any]]` 
     
 </dd>
@@ -36818,6 +37207,30 @@ client.plans.create()
 <dd>
 
 **billing_period:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**billing_type:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cancel_discount_intervals:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cancel_discount_percentage:** `typing.Optional[int]` 
     
 </dd>
 </dl>
@@ -36897,6 +37310,14 @@ client.plans.create()
 <dl>
 <dd>
 
+**offer_cancel_discount:** `typing.Optional[bool]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **override_tax_type:** `typing.Optional[str]` 
     
 </dd>
@@ -36906,14 +37327,6 @@ client.plans.create()
 <dd>
 
 **payment_method_configuration:** `typing.Optional[CreatePlansRequestPaymentMethodConfiguration]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**plan_type:** `typing.Optional[str]` 
     
 </dd>
 </dl>
@@ -37236,6 +37649,14 @@ client.plans.update(
 <dl>
 <dd>
 
+**allow_multiple_quantity:** `typing.Optional[bool]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **attributes:** `typing.Optional[typing.Dict[str, typing.Any]]` 
     
 </dd>
@@ -37381,6 +37802,14 @@ client.plans.update(
 <dd>
 
 **sku:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**split_pay_required_payments:** `typing.Optional[int]` 
     
 </dd>
 </dl>
@@ -37793,7 +38222,7 @@ client.products.list(
 <dl>
 <dd>
 
-**plan_types:** `typing.Optional[typing.Union[ListProductsRequestPlanTypesItem, typing.Sequence[ListProductsRequestPlanTypesItem]]]` — Filter to products with a buyable variant of these billing models, such as `one_time` or `renewal`.
+**billing_types:** `typing.Optional[typing.Union[ListProductsRequestBillingTypesItem, typing.Sequence[ListProductsRequestBillingTypesItem]]]` — Filter to products with a buyable variant of these billing models, such as `one_time` or `renewal`.
     
 </dd>
 </dl>
@@ -38628,7 +39057,7 @@ client.promo_codes.list(
     product_ids=[
         "prod_xxxxxxxxxxxxxx"
     ],
-    plan_ids=[
+    variant_ids=[
         "plan_xxxxxxxxxxxxxx"
     ],
 )
@@ -38671,7 +39100,7 @@ client.promo_codes.list(
 <dl>
 <dd>
 
-**plan_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only promo codes scoped to these variant IDs.
+**variant_ids:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Only promo codes scoped to these variant IDs.
     
 </dd>
 </dl>
@@ -38902,14 +39331,6 @@ client.promo_codes.create(
 <dl>
 <dd>
 
-**plan_ids:** `typing.Optional[typing.List[str]]` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **product_id:** `typing.Optional[str]` 
     
 </dd>
@@ -38927,6 +39348,14 @@ client.promo_codes.create(
 <dd>
 
 **unlimited_stock:** `typing.Optional[bool]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variant_ids:** `typing.Optional[typing.List[str]]` 
     
 </dd>
 </dl>
@@ -41626,7 +42055,7 @@ client.setup_intents.retrieve(
 <dl>
 <dd>
 
-Changes where the buyer lands after completing an off-site step, up until they return. Accepts either a secret key or the setup's own `client_secret`, so the surface that knows the final destination can set it.
+Changes where the buyer lands after completing an off-site step, up until they return. Accepts either a secret key or the setup's own `client_secret` in the body, so the surface that knows the final destination can set it.
 </dd>
 </dl>
 </dd>
@@ -41684,6 +42113,14 @@ client.setup_intents.update_return_url(
 <dl>
 <dd>
 
+**client_secret:** `typing.Optional[str]` — The setup's own `client_secret`, for a caller without a secret key.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -41708,7 +42145,7 @@ client.setup_intents.update_return_url(
 <dl>
 <dd>
 
-Retrieves how far a setup has got and what the buyer must do next, if anything. Collection runs in the background, so poll this rather than reading the create response. Accepts either a secret key or the setup's own `client_secret`, so the surface collecting the payment method can poll it directly.
+Retrieves how far a setup has got and what the buyer must do next, if anything. Collection runs in the background, so poll this rather than reading the create response. Accepts either a secret key or the setup's own `client_secret` as a query parameter, so the surface collecting the payment method can poll it directly.
 </dd>
 </dl>
 </dd>
@@ -41750,6 +42187,14 @@ client.setup_intents.retrieve_status(
 <dd>
 
 **setup_intent_id:** `str` — The unique identifier of the setup intent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_secret:** `typing.Optional[str]` — The setup's own `client_secret`, for a caller without a secret key.
     
 </dd>
 </dl>
@@ -42481,7 +42926,7 @@ client.social_accounts.create(
 <dl>
 <dd>
 
-**platform:** `CreateSocialAccountsRequestPlatform` — The platform to create the external account on. `facebook` requires the account's `banner_image`, `logo`, and `description`, and `tiktok` requires its `logo`; configure them with [Update Account](/api-reference/beta/accounts/update-account). The account is returned before the platform has created it — its `id` is usable right away, and the rest of the profile fills in once provisioning finishes.
+**platform:** `CreateSocialAccountsRequestPlatform` — The platform to create the external account on. `facebook` requires the account's `banner_image`, `logo`, and `description`, and `tiktok` requires its `logo`; configure them with [Update Account](/api-reference/beta/accounts/update-account). The account is returned before the platform has created it — its `id` is usable right away, and the rest of the profile fills in once provisioning finishes. `klaviyo` connects the account's existing Klaviyo account with the `api_key` you pass.
     
 </dd>
 </dl>
@@ -42490,6 +42935,14 @@ client.social_accounts.create(
 <dd>
 
 **account_id:** `typing.Optional[str]` — The Account (biz_ identifier) to create the external account for. An account-scoped API key may omit this to default to its own account. Account API keys cannot update their own account's branding through Update Account; use a user-authenticated path.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**api_key:** `typing.Optional[str]` — A private API key for the account on the platform. Required for `klaviyo`, which needs read access to Accounts; not accepted for other platforms. Whop checks the key with the platform before connecting and never returns it.
     
 </dd>
 </dl>
@@ -44484,7 +44937,7 @@ client.swaps.create(
 <dl>
 <dd>
 
-**amount:** `typing.Optional[str]` — Source token amount. Required for crypto swaps. For fiat pairs: the amount of from_token to convert at the mid-market rate; omit (along with to_amount) to repay the full negative to_token balance instead.
+**amount:** `typing.Optional[str]` — Source token amount. Required for a crypto pair: a decimal amount, or `all` to swap the whole from_token balance in the account's wallet, read from the chain when the swap is created (any token but USDT). An amount above that balance is rejected when the balance can be read. For fiat pairs: the amount of from_token to convert at the mid-market rate; omit (along with to_amount) to repay the full negative to_token balance instead.
     
 </dd>
 </dl>
@@ -44962,7 +45415,7 @@ client.team_members.list(
 <dl>
 <dd>
 
-Adds a member to an account's team with a system role. Identify them by exactly one of `user_id` or `email`. If the person has not yet accepted — or the email does not belong to a Whop account yet — an invitation is sent instead and the response is `202` with an `object` of `team_member_invite`. If they already have a pending invite, the request fails with a `400`. Granting the `workforce` role is also allowed with the `bounty:create` scope.
+Adds a member to an account's team with a system role. Identify them by exactly one of `user_id` or `email`. If the person has not yet accepted, or the email does not belong to a Whop account yet, an invitation is sent instead and the response is `202` with the pending team member, whose `status` is `pending` and whose id is prefixed `ausri_`. If they already have a pending invite, the request fails with a `400`. Granting the `workforce` role is also allowed with the `bounty:create` scope.
 </dd>
 </dl>
 </dd>
@@ -44987,7 +45440,8 @@ client = Whop(
 
 client.team_members.create(
     account_id="biz_xxxxxxxxxxxxxx",
-    role="owner",
+    role="sales_manager",
+    user_id="user_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -46861,7 +47315,7 @@ client.variants.list(
     visibilities=[
         "visible"
     ],
-    plan_types=[
+    billing_types=[
         "renewal"
     ],
     product_ids=[
@@ -46926,7 +47380,7 @@ client.variants.list(
 <dl>
 <dd>
 
-**plan_types:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter to only variants matching these billing types.
+**billing_types:** `typing.Optional[typing.Union[str, typing.Sequence[str]]]` — Filter to only variants matching these billing types.
     
 </dd>
 </dl>
@@ -47093,6 +47547,14 @@ client.variants.create()
 <dl>
 <dd>
 
+**allow_multiple_quantity:** `typing.Optional[bool]` — Whether more than one unit can be purchased in an order. Renewal variants cannot enable it. When `false`, checkouts, carts, and invoices reject a quantity above 1.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **attributes:** `typing.Optional[typing.Dict[str, typing.Any]]` — Attribute values that make this variant one variant of its product, as a map of attribute name to value, e.g. `{"size": "Large", "color": "Blue"}`. Names are normalized to snake_case identifiers (`Ring Size` becomes `ring_size`) and come back in alphabetical order. Every variant on a product must carry the same attribute names and a distinct set of values. Send `null` to make the variant an ordinary pricing option again.
     
 </dd>
@@ -47102,6 +47564,30 @@ client.variants.create()
 <dd>
 
 **billing_period:** `typing.Optional[int]` — Recurring billing interval in days, such as 30 for monthly or 365 for annual.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**billing_type:** `typing.Optional[str]` — Variant billing type, such as `one_time` or `renewal`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cancel_discount_intervals:** `typing.Optional[int]` — How long the retention discount lasts: `0` forever, `1` the next payment only, or a number of calendar months from when the customer accepts it. Required when `offer_cancel_discount` is true.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cancel_discount_percentage:** `typing.Optional[int]` — Percentage taken off each discounted renewal, as a whole number from 1 to 100. Required when `offer_cancel_discount` is true.
     
 </dd>
 </dl>
@@ -47181,6 +47667,14 @@ client.variants.create()
 <dl>
 <dd>
 
+**offer_cancel_discount:** `typing.Optional[bool]` — Whether to offer a retention discount when a customer attempts to cancel.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **override_tax_type:** `typing.Optional[str]` — Override the default tax classification for this specific variant.
     
 </dd>
@@ -47190,14 +47684,6 @@ client.variants.create()
 <dd>
 
 **payment_method_configuration:** `typing.Optional[CreateVariantsRequestPaymentMethodConfiguration]` — Explicit payment method configuration for the variant. When not provided, the account's defaults apply. Send at least one of `enabled` or `disabled`; an omitted one is empty.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**plan_type:** `typing.Optional[str]` — Variant billing type, such as `one_time` or `renewal`.
     
 </dd>
 </dl>
@@ -47237,7 +47723,7 @@ client.variants.create()
 <dl>
 <dd>
 
-**split_pay_required_payments:** `typing.Optional[int]` — Installment payments required before the subscription pauses.
+**split_pay_required_payments:** `typing.Optional[int]` — Installment payments required before the subscription pauses, from 2 to 115. Only valid on `renewal` variants.
     
 </dd>
 </dl>
@@ -47547,6 +48033,14 @@ client.variants.update(
 <dl>
 <dd>
 
+**allow_multiple_quantity:** `typing.Optional[bool]` — Whether more than one unit can be purchased in an order. Renewal variants cannot enable it. When `false`, checkouts, carts, and invoices reject a quantity above 1.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **attributes:** `typing.Optional[typing.Dict[str, typing.Any]]` — Attribute values that make this variant one variant of its product, as a map of attribute name to value, e.g. `{"size": "Large", "color": "Blue"}`. Names are normalized to snake_case identifiers (`Ring Size` becomes `ring_size`) and come back in alphabetical order. Every variant on a product must carry the same attribute names and a distinct set of values. Send `null` to make the variant an ordinary pricing option again.
     
 </dd>
@@ -47563,7 +48057,7 @@ client.variants.update(
 <dl>
 <dd>
 
-**cancel_discount_intervals:** `typing.Optional[int]` — How many renewals the retention discount applies to. Required when `offer_cancel_discount` is true.
+**cancel_discount_intervals:** `typing.Optional[int]` — How long the retention discount lasts: `0` forever, `1` the next payment only, or a number of calendar months from when the customer accepts it. Required when `offer_cancel_discount` is true.
     
 </dd>
 </dl>
@@ -47571,7 +48065,7 @@ client.variants.update(
 <dl>
 <dd>
 
-**cancel_discount_percentage:** `typing.Optional[int]` — Percentage taken off each discounted renewal. Required when `offer_cancel_discount` is true.
+**cancel_discount_percentage:** `typing.Optional[int]` — Percentage taken off each discounted renewal, as a whole number from 1 to 100. Required when `offer_cancel_discount` is true.
     
 </dd>
 </dl>
@@ -47692,6 +48186,14 @@ client.variants.update(
 <dd>
 
 **sku:** `typing.Optional[str]` — Stock keeping unit for this variant. Maximum 100 characters. Free text, not enforced unique.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**split_pay_required_payments:** `typing.Optional[int]` — Installment payments required before the subscription pauses, from 2 to 115. Only valid on `renewal` variants.
     
 </dd>
 </dl>
@@ -47890,7 +48392,7 @@ client.variants.calculate_tax(
 <dl>
 <dd>
 
-Lists the verifications for an account or user, including their status and any required actions.
+Lists the verifications for an account or user, including their status and any required actions. Platforms list their own and every subaccount's verifications at once with `include_subaccounts`; each one's `account_ids` names its account, and a verification shared by several accounts appears once for each.
 </dd>
 </dl>
 </dd>
@@ -47938,6 +48440,46 @@ client.verifications.list()
 <dd>
 
 **user_id:** `typing.Optional[str]` — The caller's own user ID, prefixed `user_`, to list personal verifications. Provide this or `account_id`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_subaccounts:** `typing.Optional[bool]` — Also cover the account's subaccounts. Requires `account_id`, and is a 400 without it. Lists the verifications of the account and every subaccount in account order, oldest account first, paging forward; `status`, `order`, `direction`, `last` and `before` are a 400. Leaves out removed subaccounts and ones you can't read verifications on. A page can hold fewer than `first` verifications while `has_next_page` is `true`; keep following `end_cursor`. On a subaccount, lists only that account's verifications.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
     
 </dd>
 </dl>
@@ -48303,7 +48845,7 @@ client.waitlist_entries.list()
 <dl>
 <dd>
 
-**plan_id:** `typing.Optional[str]` — Only return signups for this variant, prefixed `plan_`.
+**variant_id:** `typing.Optional[str]` — Only return signups for this variant, prefixed `plan_`.
     
 </dd>
 </dl>
@@ -48336,6 +48878,14 @@ client.waitlist_entries.list()
 <dd>
 
 **status:** `typing.Optional[ListWaitlistEntriesRequestStatus]` — Only return signups in this state. Canceled signups are returned only when `status` is `canceled`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**query:** `typing.Optional[str]` — Search signups by the user's name or username, or the name of the account they were submitted on behalf of. An account ID, prefixed `biz_`, matches signups submitted on behalf of that account, and an exact email address matches that user's signups.
     
 </dd>
 </dl>
@@ -48423,7 +48973,7 @@ client = Whop(
 )
 
 client.waitlist_entries.create(
-    plan_id="plan_xxxxxxxxxxxxxx",
+    variant_id="plan_xxxxxxxxxxxxxx",
 )
 
 ```
@@ -48440,7 +48990,7 @@ client.waitlist_entries.create(
 <dl>
 <dd>
 
-**plan_id:** `str` — The free waitlist variant to join, prefixed `plan_`.
+**variant_id:** `str` — The free waitlist variant to join, prefixed `plan_`.
     
 </dd>
 </dl>
@@ -48545,7 +49095,7 @@ client.waitlist_entries.approve_all(
 <dl>
 <dd>
 
-**plan_id:** `typing.Optional[str]` — Only approve signups for this variant, prefixed `plan_`. Omit to include every waitlist variant on the account.
+**variant_id:** `typing.Optional[str]` — Only approve signups for this variant, prefixed `plan_`. Omit to include every waitlist variant on the account.
     
 </dd>
 </dl>
@@ -49086,6 +49636,14 @@ client.webhooks.create(
 <dl>
 <dd>
 
+**title:** `typing.Optional[str]` — A label for the webhook, shown in the dashboard. Up to 255 characters.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -49337,6 +49895,14 @@ client.webhooks.update(
 <dl>
 <dd>
 
+**title:** `typing.Optional[str]` — A label for the webhook, shown in the dashboard. Up to 255 characters. Pass `null` or an empty string to remove it.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **url:** `typing.Optional[str]` — The URL to send the webhook to.
     
 </dd>
@@ -49369,7 +49935,7 @@ client.webhooks.update(
 <dl>
 <dd>
 
-Returns a paginated list of delivery attempts for a webhook, ordered by most recent first. Includes the request payload, response body, response code, and timing for each attempt.
+Returns a paginated list of delivery attempts for a webhook, ordered by most recent first. Includes the request payload, response body, response code, and timing for each attempt. Filtered queries use a bounded read budget, so a page may be partial or empty. Continue with `page_info.end_cursor` while `page_info.has_next_page` is `true`.
 </dd>
 </dl>
 </dd>
@@ -49394,6 +49960,7 @@ client = Whop(
 
 client.webhooks.list_deliveries(
     id="id",
+    resource_id="pay_xxxxxxxxxxxxx",
 )
 
 ```
@@ -49427,6 +49994,46 @@ client.webhooks.list_deliveries(
 <dd>
 
 **after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sent_after:** `typing.Optional[datetime.datetime]` — Only deliveries sent at or after this ISO 8601 timestamp. Deliveries are retained for 30 days.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sent_before:** `typing.Optional[datetime.datetime]` — Only deliveries sent at or before this ISO 8601 timestamp.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**events:** `typing.Optional[typing.Union[ListDeliveriesWebhooksRequestEventsItem, typing.Sequence[ListDeliveriesWebhooksRequestEventsItem]]]` — Only deliveries of these event types. Repeat the parameter to pass several.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[ListDeliveriesWebhooksRequestStatus]` — Only deliveries with this outcome: `success` for a 2xx response, `error` otherwise.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**resource_id:** `typing.Optional[str]` — Only deliveries triggered by this resource.
     
 </dd>
 </dl>
@@ -49941,6 +50548,22 @@ client.accounts.fees.update(
 <dl>
 <dd>
 
+**ach_dispute:** `typing.Optional[UpdateFeesRequestAchDispute]` — The fields of a fee the caller may change. Only the keys sent are replaced.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ach_return:** `typing.Optional[UpdateFeesRequestAchReturn]` — The fields of a fee the caller may change. Only the keys sent are replaced.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **bank_deposit:** `typing.Optional[UpdateFeesRequestBankDeposit]` — The fields of a fee the caller may change. Only the keys sent are replaced.
     
 </dd>
@@ -50142,6 +50765,22 @@ client.accounts.fees.update(
 <dd>
 
 **revshare:** `typing.Optional[UpdateFeesRequestRevshare]` — The fields of a fee the caller may change. Only the keys sent are replaced.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sepa_dispute:** `typing.Optional[UpdateFeesRequestSepaDispute]` — The fields of a fee the caller may change. Only the keys sent are replaced.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sepa_return:** `typing.Optional[UpdateFeesRequestSepaReturn]` — The fields of a fee the caller may change. Only the keys sent are replaced.
     
 </dd>
 </dl>
@@ -52518,6 +53157,22 @@ client.partners.businesses.list()
 <dl>
 <dd>
 
+**first_sale_before:** `typing.Optional[str]` — Only return partner businesses whose first paid sale above zero happened before this timestamp.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first_sale_after:** `typing.Optional[str]` — Only return partner businesses whose first paid sale above zero happened after this timestamp. Combined with first_sale_before, this is the net new set: businesses that processed their first $1 inside the window.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **referred_user_id:** `typing.Optional[str]` — Filter to referrals attributed to this user. For first-tier referrals, this is the referred account owner; for second-tier referrals, this is the partner you recruited.
     
 </dd>
@@ -53171,22 +53826,6 @@ client.payments.direct.create(
 <dl>
 <dd>
 
-**plan:** `typing.Optional[PaymentInputPlan]` — The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**plan_id:** `typing.Optional[str]` — The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **promo_code:** `typing.Optional[str]` — The promo code as the buyer typed it, matched within the account regardless of case and surrounding spaces, as checkout matches it. It must be valid for the variant. Send it or `promo_code_id`, not both; an empty or whitespace-only string counts as not sent. A code the account does not have, or one that is no longer active, is refused before anything is written, with the error code `promo_invalid`. A code this purchase cannot use, such as one with no uses left or one restricted to other variants, products or buyers, is refused with `promo_invalid` too, and the error's message says why.
     
 </dd>
@@ -53196,6 +53835,22 @@ client.payments.direct.create(
 <dd>
 
 **promo_code_id:** `typing.Optional[str]` — An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant. Send it or `promo_code`, not both. A code this purchase cannot use is refused with the error code `promo_invalid`, and the error's message says why.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variant:** `typing.Optional[PaymentInputVariant]` — The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `variant_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variant_id:** `typing.Optional[str]` — The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `variant` and `line_items`.
     
 </dd>
 </dl>
@@ -53227,7 +53882,7 @@ client.payments.direct.create(
 <dl>
 <dd>
 
-**line_items:** `typing.Optional[typing.List[CreateDirectRequestLineItemsItem]]` — What the buyer is purchasing. Each entry names an existing variant by plan_id. Several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
+**line_items:** `typing.Optional[typing.List[CreateDirectRequestLineItemsItem]]` — What the buyer is purchasing. Each entry names an existing variant by `variant_id`. Several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
     
 </dd>
 </dl>
@@ -53259,7 +53914,23 @@ client.payments.direct.create(
 <dl>
 <dd>
 
-**quote_id:** `typing.Optional[str]` — A payment quote from `POST /payment_quotes`, prefixed `pq_`. The payment charges exactly the quote: its purchase (its variants and quantities, or the `plan` it priced), which this body may then omit, its promo code, and its tax, the quote's `tax_amount` rather than a figure calculated now. Omit it, or send null, to have tax calculated when the payment is charged. The quote must belong to `account_id`. A purchase field you omit or send as null takes the quote's value; the buyer's email, the addresses and the payment method are this request's own, never the quote's. Whatever you do send must describe the quoted purchase: the same variants, quantities and promo code. A quote that priced `plan` takes only the same `plan` you sent to `POST /payment_quotes` (or omit the purchase to take the quoted one), never `plan_id` or `line_items`, and a quote that priced variants by id never takes `plan`. Unless the quote located no buyer (`located_by` is null), the address the payment carries (its shipping address, else its billing address) must put the buyer where the quote priced tax, by country, state and postal code; otherwise the payment is refused with 400 before the payment method is used. A quote located by IP address or by the country the buyer chose (`located_by` is `ip_address` or `presentment_country`) is a preview and cannot be paid. A quote is consumed by one payment: a declined payment keeps it and can be retried; a new payment needs a new quote. A quote cannot be charged by a processor that doesn't take quotes, such as a seller's own connected PayPal account; such a payment is refused before the payment method is used. A quote priced in a `presentment_currency` is charged in that currency at the quote's `exchange_rate`. A payment refused over its quote carries an error `code`. `quote_expired`: the quote has expired; quote again. `quote_tax_unavailable`: the quote could not price tax; quote again, or omit `quote_id`. `quote_preview_only`: the quote was located by IP address or by the country the buyer chose; quote again with the buyer's address. `quote_in_use` (409): another payment holds the quote. `quote_mismatch`: the purchase or the buyer's address is not the one quoted. `quote_rate_expired`: the exchange rate the quote was priced at has moved too far to charge; quote again. `payment_method_currency_unsupported`: the payment method cannot pay in the quote's currency; use another method, or quote again in another currency. `quote_processor_unsupported`: the payment would be processed by a processor that doesn't take quotes, such as a seller's own connected PayPal account; use another method, or omit `quote_id` to have tax calculated when the payment is charged.
+**plan:** `typing.Optional[CreateDirectRequestPlan]` — Deprecated: send `variant`, which takes `billing_type` in place of `plan_type`. Accepted only from callers pinned to an API version before 2026-10-27-2.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**plan_id:** `typing.Optional[str]` — Deprecated: send `variant_id`. Accepted only from callers pinned to an API version before 2026-10-27-2.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**quote_id:** `typing.Optional[str]` — A payment quote from `POST /payment_quotes`, prefixed `pq_`. The payment charges exactly the quote: its purchase (its variants and quantities, or the `variant` it priced), which this body may then omit, its promo code, and its tax, the quote's `tax_amount` rather than a figure calculated now. Omit it, or send null, to have tax calculated when the payment is charged. The quote must belong to `account_id`. A purchase field you omit or send as null takes the quote's value; the buyer's email, the addresses and the payment method are this request's own, never the quote's. Whatever you do send must describe the quoted purchase: the same variants, quantities and promo code. A quote that priced `variant` takes only the same `variant` you sent to `POST /payment_quotes` (or omit the purchase to take the quoted one), never `variant_id` or `line_items`, and a quote that priced variants by id never takes `variant`. Unless the quote located no buyer (`located_by` is null), the address the payment carries (its shipping address, else its billing address) must put the buyer where the quote priced tax, by country, state and postal code; otherwise the payment is refused with 400 before the payment method is used. A quote located by IP address or by the country the buyer chose (`located_by` is `ip_address` or `presentment_country`) is a preview and cannot be paid. A quote is consumed by one payment: a declined payment keeps it and can be retried; a new payment needs a new quote. A quote cannot be charged by a processor that doesn't take quotes, such as a seller's own connected PayPal account; such a payment is refused before the payment method is used. A quote priced in a `presentment_currency` is charged in that currency at the quote's `exchange_rate`. A payment refused over its quote carries an error `code`. `quote_expired`: the quote has expired; quote again. `quote_tax_unavailable`: the quote could not price tax; quote again, or omit `quote_id`. `quote_preview_only`: the quote was located by IP address or by the country the buyer chose; quote again with the buyer's address. `quote_in_use` (409): another payment holds the quote. `quote_mismatch`: the purchase or the buyer's address is not the one quoted. `quote_rate_expired`: the exchange rate the quote was priced at has moved too far to charge; quote again. `payment_method_currency_unsupported`: the payment method cannot pay in the quote's currency; use another method, or quote again in another currency. `quote_processor_unsupported`: the payment would be processed by a processor that doesn't take quotes, such as a seller's own connected PayPal account; use another method, or omit `quote_id` to have tax calculated when the payment is charged.
     
 </dd>
 </dl>
@@ -55118,6 +55789,117 @@ client.stats.time_series.retrieve(
 </dl>
 </details>
 
+## Trades Markets
+<details><summary><code>client.trades.markets.<a href="src/whop_sdk/trades/markets/client.py">list</a>(...) -> ListMarketsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns every market you can trade on Whop.
+
+- **Spot:** listed by symbol: `BTC`, `ETH`, `SOL` and `XAUT` (gold).
+- **Perpetuals:** such as `BTC`. Send the `id` as `market` when you create a trade.
+
+The same symbol can appear twice, once as a perpetual and once as spot, so use `id` together with `instrument_type` to tell them apart. Results are sorted by `id`, then `instrument_type`.
+
+This endpoint is public: no API key is needed, and each IP address can make up to 60 requests a minute.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from whop_sdk import Whop
+from whop_sdk.environment import WhopEnvironment
+
+client = Whop(
+    token="<token>",
+    environment=WhopEnvironment.PRODUCTION,
+)
+
+client.trades.markets.list()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**instrument_type:** `typing.Optional[ListMarketsRequestInstrumentType]` — Only return perpetuals or only spot markets.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**first:** `typing.Optional[int]` — Number of results to return from the start of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**after:** `typing.Optional[str]` — Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**last:** `typing.Optional[int]` — Number of results to return from the end of the range.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Users OauthGrants
 <details><summary><code>client.users.oauth_grants.<a href="src/whop_sdk/users/oauth_grants/client.py">list</a>(...) -> ListOauthGrantsResponse</code></summary>
 <dl>
@@ -55519,7 +56301,7 @@ client.users.passkeys.list()
 <dl>
 <dd>
 
-Registers a passkey for the authenticated user from the attestation a browser produced for a `registration` challenge. Mint that challenge first with `POST /users/me/passkeys/challenge`; it is single-use and expires 5 minutes after it is issued. Requires a user session.
+Registers a passkey for the authenticated user from the attestation a browser produced for a `registration` challenge. Mint that challenge first with `POST /users/me/passkeys/challenge` and run the ceremony with its `creation_options`; it is single-use and expires 5 minutes after it is issued. Send back the `user_handle` the options carried: registering with it replaces the account's passkeys made before Whop issued options, which can only be deleted. Requires a user session that has completed step-up verification.
 </dd>
 </dl>
 </dd>
@@ -55595,6 +56377,22 @@ client.users.passkeys.create(
 <dl>
 <dd>
 
+**transports:** `typing.Optional[typing.List[str]]` — The `getTransports()` result from the registration response. Values Whop does not recognize are dropped.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_handle:** `typing.Optional[str]` — The `creation_options.user.id` the passkey was created with. Must match the challenge's options.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -55607,7 +56405,7 @@ client.users.passkeys.create(
 </dl>
 </details>
 
-<details><summary><code>client.users.passkeys.<a href="src/whop_sdk/users/passkeys/client.py">challenge</a>(...) -> ChallengePasskeysResponse</code></summary>
+<details><summary><code>client.users.passkeys.<a href="src/whop_sdk/users/passkeys/client.py">challenge</a>(...) -> PasskeyChallenge</code></summary>
 <dl>
 <dd>
 
@@ -55619,7 +56417,7 @@ client.users.passkeys.create(
 <dl>
 <dd>
 
-Mints the challenge a browser needs to run a WebAuthn ceremony against the authenticated user's own passkeys. A `registration` challenge enrolls a new passkey; a `deletion` challenge is bound to the one passkey named by `passkey_id` and proves the user still holds it. Challenges are single-use and expire 5 minutes after they are issued, so send a fresh `Idempotency-Key` per ceremony — a replayed key returns the original challenge, which may already have expired. Requires a user session.
+Mints the challenge and WebAuthn options a browser needs to run a ceremony against the authenticated user's own passkeys. A `registration` challenge enrolls a new passkey; a `deletion` challenge is bound to the one passkey named by `passkey_id` and proves the user still holds it. The options are in wire snake_case: convert the keys to camelCase before passing them to the browser. Challenges are single-use and expire 5 minutes after they are issued, so send a fresh `Idempotency-Key` per ceremony — a replayed key returns the original challenge, which may already have expired. Requires a user session. A `registration` challenge also requires step-up verification, so the user completes it before the browser ceremony.
 </dd>
 </dl>
 </dd>

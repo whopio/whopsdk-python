@@ -128,7 +128,7 @@ class RawSwapsClient:
             Business account that makes the swap, prefixed `biz_`. Provide this or `user_id`.
 
         amount : typing.Optional[str]
-            Source token amount. Required for crypto swaps. For fiat pairs: the amount of from_token to convert at the mid-market rate; omit (along with to_amount) to repay the full negative to_token balance instead.
+            Source token amount. Required for a crypto pair: a decimal amount, or `all` to swap the whole from_token balance in the account's wallet, read from the chain when the swap is created (any token but USDT). An amount above that balance is rejected when the balance can be read. For fiat pairs: the amount of from_token to convert at the mid-market rate; omit (along with to_amount) to repay the full negative to_token balance instead.
 
         from_chain : typing.Optional[CreateSwapsRequestFromChain]
             Source chain name or chain ID. Defaults to the source token's chain when omitted.
@@ -527,7 +527,7 @@ class AsyncRawSwapsClient:
             Business account that makes the swap, prefixed `biz_`. Provide this or `user_id`.
 
         amount : typing.Optional[str]
-            Source token amount. Required for crypto swaps. For fiat pairs: the amount of from_token to convert at the mid-market rate; omit (along with to_amount) to repay the full negative to_token balance instead.
+            Source token amount. Required for a crypto pair: a decimal amount, or `all` to swap the whole from_token balance in the account's wallet, read from the chain when the swap is created (any token but USDT). An amount above that balance is rejected when the balance can be read. For fiat pairs: the amount of from_token to convert at the mid-market rate; omit (along with to_amount) to repay the full negative to_token balance instead.
 
         from_chain : typing.Optional[CreateSwapsRequestFromChain]
             Source chain name or chain ID. Defaults to the source token's chain when omitted.

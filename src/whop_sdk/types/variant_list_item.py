@@ -7,7 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .account_summary import AccountSummary
 from .money import Money
 from .plan_custom_field import PlanCustomField
-from .variant_list_item_plan_type import VariantListItemPlanType
+from .variant_list_item_billing_type import VariantListItemBillingType
 from .variant_list_item_release_method import VariantListItemReleaseMethod
 from .variant_list_item_three_ds_level import VariantListItemThreeDsLevel
 from .variant_list_item_visibility import VariantListItemVisibility
@@ -24,6 +24,11 @@ class VariantListItem(UniversalBaseModel):
     Whether adaptive pricing is enabled for this variant. Raw setting — does not check processor compatibility or feature flags.
     """
 
+    allow_multiple_quantity: bool = pydantic.Field()
+    """
+    Whether more than one unit can be purchased in an order. Renewal variants cannot enable it. When `false`, checkouts, carts, and invoices reject a quantity above 1.
+    """
+
     attributes: typing.Optional[typing.Dict[str, typing.Optional[str]]] = pydantic.Field(default=None)
     """
     Attribute values that distinguish this variant within its product, as a map of attribute name to value, e.g. `{"color": "Blue", "size": "Large"}`. Names are snake_case identifiers and come back in alphabetical order. Every attributed variant on a product carries the same attribute names and a distinct set of values; the product lists the full option set as `variant_attributes`. `null` when the variant has no attributes.
@@ -34,9 +39,14 @@ class VariantListItem(UniversalBaseModel):
     Number of days between recurring charges, such as 30 for monthly or 365 for annual. `null` for one-time variants.
     """
 
+    billing_type: VariantListItemBillingType = pydantic.Field()
+    """
+    Billing model for this variant.
+    """
+
     cancel_discount_intervals: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Billing intervals the cancellation discount applies to (`0` forever, `1` first payment, or a month count). `null` when none is offered or the actor lacks the `plan:basic:read` scope.
+    How long the cancellation discount lasts: `0` forever, `1` the next payment only, or a number of calendar months from when the customer accepts it. `null` when none is offered or the actor lacks the `plan:basic:read` scope.
     """
 
     cancel_discount_percentage: typing.Optional[float] = pydantic.Field(default=None)
@@ -123,11 +133,6 @@ class VariantListItem(UniversalBaseModel):
     payment_method_configuration: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
     """
     Payment method configuration (`enabled`, `disabled`, `include_platform_defaults`); `null` when variant uses default settings.
-    """
-
-    plan_type: VariantListItemPlanType = pydantic.Field()
-    """
-    Billing model for this variant.
     """
 
     product: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)

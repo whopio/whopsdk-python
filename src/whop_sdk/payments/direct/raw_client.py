@@ -13,10 +13,11 @@ from ...core.serialization import convert_and_respect_annotation_metadata
 from ...errors.conflict_error import ConflictError
 from ...errors.unauthorized_error import UnauthorizedError
 from ...types.payment import Payment
-from ...types.payment_input_plan import PaymentInputPlan
+from ...types.payment_input_variant import PaymentInputVariant
 from .types.create_direct_request_billing_details import CreateDirectRequestBillingDetails
 from .types.create_direct_request_line_items_item import CreateDirectRequestLineItemsItem
 from .types.create_direct_request_payment_method import CreateDirectRequestPaymentMethod
+from .types.create_direct_request_plan import CreateDirectRequestPlan
 from .types.create_direct_request_setup_future_usage import CreateDirectRequestSetupFutureUsage
 from pydantic import ValidationError
 
@@ -41,14 +42,16 @@ class RawDirectClient:
         member_id: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         off_session: typing.Optional[bool] = OMIT,
+        plan: typing.Optional[CreateDirectRequestPlan] = OMIT,
+        plan_id: typing.Optional[str] = OMIT,
         quote_id: typing.Optional[str] = OMIT,
         return_url: typing.Optional[str] = OMIT,
         setup_future_usage: typing.Optional[CreateDirectRequestSetupFutureUsage] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
-        plan: typing.Optional[PaymentInputPlan] = OMIT,
-        plan_id: typing.Optional[str] = OMIT,
         promo_code: typing.Optional[str] = OMIT,
         promo_code_id: typing.Optional[str] = OMIT,
+        variant: typing.Optional[PaymentInputVariant] = OMIT,
+        variant_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Payment]:
         """
@@ -75,7 +78,7 @@ class RawDirectClient:
             Whether to capture the payment immediately. Defaults to true. Pass false to place an authorization hold that must be captured in full within five days via the capture endpoint, or automatically after `auto_capture_after_minutes`.
 
         line_items : typing.Optional[typing.Sequence[CreateDirectRequestLineItemsItem]]
-            What the buyer is purchasing. Each entry names an existing variant by plan_id. Several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
+            What the buyer is purchasing. Each entry names an existing variant by `variant_id`. Several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
 
         member_id : typing.Optional[str]
             The member to charge, prefixed `mber_`. When omitted the buyer is resolved from `billing_details.email`.
@@ -86,8 +89,14 @@ class RawDirectClient:
         off_session : typing.Optional[bool]
             Whether the charge is merchant-initiated, with the buyer not present. Defaults to false. When true, `payment_method.card.network_transaction_id` is required: a merchant-initiated charge on a card Whop has not charged before carries the id of the card's prior customer-initiated transaction. No 3D Secure step is offered: an issuer that requires the buyer to authenticate declines the charge, and the payment fails with that reason so the card can be charged again with the buyer present. A declined card is not saved.
 
+        plan : typing.Optional[CreateDirectRequestPlan]
+            Deprecated: send `variant`, which takes `billing_type` in place of `plan_type`. Accepted only from callers pinned to an API version before 2026-10-27-2.
+
+        plan_id : typing.Optional[str]
+            Deprecated: send `variant_id`. Accepted only from callers pinned to an API version before 2026-10-27-2.
+
         quote_id : typing.Optional[str]
-            A payment quote from `POST /payment_quotes`, prefixed `pq_`. The payment charges exactly the quote: its purchase (its variants and quantities, or the `plan` it priced), which this body may then omit, its promo code, and its tax, the quote's `tax_amount` rather than a figure calculated now. Omit it, or send null, to have tax calculated when the payment is charged. The quote must belong to `account_id`. A purchase field you omit or send as null takes the quote's value; the buyer's email, the addresses and the payment method are this request's own, never the quote's. Whatever you do send must describe the quoted purchase: the same variants, quantities and promo code. A quote that priced `plan` takes only the same `plan` you sent to `POST /payment_quotes` (or omit the purchase to take the quoted one), never `plan_id` or `line_items`, and a quote that priced variants by id never takes `plan`. Unless the quote located no buyer (`located_by` is null), the address the payment carries (its shipping address, else its billing address) must put the buyer where the quote priced tax, by country, state and postal code; otherwise the payment is refused with 400 before the payment method is used. A quote located by IP address or by the country the buyer chose (`located_by` is `ip_address` or `presentment_country`) is a preview and cannot be paid. A quote is consumed by one payment: a declined payment keeps it and can be retried; a new payment needs a new quote. A quote cannot be charged by a processor that doesn't take quotes, such as a seller's own connected PayPal account; such a payment is refused before the payment method is used. A quote priced in a `presentment_currency` is charged in that currency at the quote's `exchange_rate`. A payment refused over its quote carries an error `code`. `quote_expired`: the quote has expired; quote again. `quote_tax_unavailable`: the quote could not price tax; quote again, or omit `quote_id`. `quote_preview_only`: the quote was located by IP address or by the country the buyer chose; quote again with the buyer's address. `quote_in_use` (409): another payment holds the quote. `quote_mismatch`: the purchase or the buyer's address is not the one quoted. `quote_rate_expired`: the exchange rate the quote was priced at has moved too far to charge; quote again. `payment_method_currency_unsupported`: the payment method cannot pay in the quote's currency; use another method, or quote again in another currency. `quote_processor_unsupported`: the payment would be processed by a processor that doesn't take quotes, such as a seller's own connected PayPal account; use another method, or omit `quote_id` to have tax calculated when the payment is charged.
+            A payment quote from `POST /payment_quotes`, prefixed `pq_`. The payment charges exactly the quote: its purchase (its variants and quantities, or the `variant` it priced), which this body may then omit, its promo code, and its tax, the quote's `tax_amount` rather than a figure calculated now. Omit it, or send null, to have tax calculated when the payment is charged. The quote must belong to `account_id`. A purchase field you omit or send as null takes the quote's value; the buyer's email, the addresses and the payment method are this request's own, never the quote's. Whatever you do send must describe the quoted purchase: the same variants, quantities and promo code. A quote that priced `variant` takes only the same `variant` you sent to `POST /payment_quotes` (or omit the purchase to take the quoted one), never `variant_id` or `line_items`, and a quote that priced variants by id never takes `variant`. Unless the quote located no buyer (`located_by` is null), the address the payment carries (its shipping address, else its billing address) must put the buyer where the quote priced tax, by country, state and postal code; otherwise the payment is refused with 400 before the payment method is used. A quote located by IP address or by the country the buyer chose (`located_by` is `ip_address` or `presentment_country`) is a preview and cannot be paid. A quote is consumed by one payment: a declined payment keeps it and can be retried; a new payment needs a new quote. A quote cannot be charged by a processor that doesn't take quotes, such as a seller's own connected PayPal account; such a payment is refused before the payment method is used. A quote priced in a `presentment_currency` is charged in that currency at the quote's `exchange_rate`. A payment refused over its quote carries an error `code`. `quote_expired`: the quote has expired; quote again. `quote_tax_unavailable`: the quote could not price tax; quote again, or omit `quote_id`. `quote_preview_only`: the quote was located by IP address or by the country the buyer chose; quote again with the buyer's address. `quote_in_use` (409): another payment holds the quote. `quote_mismatch`: the purchase or the buyer's address is not the one quoted. `quote_rate_expired`: the exchange rate the quote was priced at has moved too far to charge; quote again. `payment_method_currency_unsupported`: the payment method cannot pay in the quote's currency; use another method, or quote again in another currency. `quote_processor_unsupported`: the payment would be processed by a processor that doesn't take quotes, such as a seller's own connected PayPal account; use another method, or omit `quote_id` to have tax calculated when the payment is charged.
 
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step such as 3D Secure. An absolute https URL without credentials, at most 2,048 characters.
@@ -98,17 +107,17 @@ class RawDirectClient:
         statement_descriptor : typing.Optional[str]
             Overrides the text on the buyer's card statement for this payment only. Must start with `WHOP*`, be 5-22 characters, contain at least one letter, and use only Latin letters, numbers, spaces, underscores, hyphens, or asterisks.
 
-        plan : typing.Optional[PaymentInputPlan]
-            The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
-
-        plan_id : typing.Optional[str]
-            The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
-
         promo_code : typing.Optional[str]
             The promo code as the buyer typed it, matched within the account regardless of case and surrounding spaces, as checkout matches it. It must be valid for the variant. Send it or `promo_code_id`, not both; an empty or whitespace-only string counts as not sent. A code the account does not have, or one that is no longer active, is refused before anything is written, with the error code `promo_invalid`. A code this purchase cannot use, such as one with no uses left or one restricted to other variants, products or buyers, is refused with `promo_invalid` too, and the error's message says why.
 
         promo_code_id : typing.Optional[str]
             An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant. Send it or `promo_code`, not both. A code this purchase cannot use is refused with the error code `promo_invalid`, and the error's message says why.
+
+        variant : typing.Optional[PaymentInputVariant]
+            The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `variant_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
+
+        variant_id : typing.Optional[str]
+            The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `variant` and `line_items`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -138,17 +147,21 @@ class RawDirectClient:
                 "payment_method": convert_and_respect_annotation_metadata(
                     object_=payment_method, annotation=CreateDirectRequestPaymentMethod, direction="write"
                 ),
+                "plan": convert_and_respect_annotation_metadata(
+                    object_=plan, annotation=CreateDirectRequestPlan, direction="write"
+                ),
+                "plan_id": plan_id,
                 "quote_id": quote_id,
                 "return_url": return_url,
                 "setup_future_usage": setup_future_usage,
                 "statement_descriptor": statement_descriptor,
                 "account_id": account_id,
-                "plan": convert_and_respect_annotation_metadata(
-                    object_=plan, annotation=PaymentInputPlan, direction="write"
-                ),
-                "plan_id": plan_id,
                 "promo_code": promo_code,
                 "promo_code_id": promo_code_id,
+                "variant": convert_and_respect_annotation_metadata(
+                    object_=variant, annotation=PaymentInputVariant, direction="write"
+                ),
+                "variant_id": variant_id,
             },
             headers={
                 "content-type": "application/json",
@@ -215,14 +228,16 @@ class AsyncRawDirectClient:
         member_id: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, typing.Optional[str]]] = OMIT,
         off_session: typing.Optional[bool] = OMIT,
+        plan: typing.Optional[CreateDirectRequestPlan] = OMIT,
+        plan_id: typing.Optional[str] = OMIT,
         quote_id: typing.Optional[str] = OMIT,
         return_url: typing.Optional[str] = OMIT,
         setup_future_usage: typing.Optional[CreateDirectRequestSetupFutureUsage] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
-        plan: typing.Optional[PaymentInputPlan] = OMIT,
-        plan_id: typing.Optional[str] = OMIT,
         promo_code: typing.Optional[str] = OMIT,
         promo_code_id: typing.Optional[str] = OMIT,
+        variant: typing.Optional[PaymentInputVariant] = OMIT,
+        variant_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Payment]:
         """
@@ -249,7 +264,7 @@ class AsyncRawDirectClient:
             Whether to capture the payment immediately. Defaults to true. Pass false to place an authorization hold that must be captured in full within five days via the capture endpoint, or automatically after `auto_capture_after_minutes`.
 
         line_items : typing.Optional[typing.Sequence[CreateDirectRequestLineItemsItem]]
-            What the buyer is purchasing. Each entry names an existing variant by plan_id. Several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
+            What the buyer is purchasing. Each entry names an existing variant by `variant_id`. Several entries form a cart, which requires every variant to be compatible, belong to this account, and use the same currency.
 
         member_id : typing.Optional[str]
             The member to charge, prefixed `mber_`. When omitted the buyer is resolved from `billing_details.email`.
@@ -260,8 +275,14 @@ class AsyncRawDirectClient:
         off_session : typing.Optional[bool]
             Whether the charge is merchant-initiated, with the buyer not present. Defaults to false. When true, `payment_method.card.network_transaction_id` is required: a merchant-initiated charge on a card Whop has not charged before carries the id of the card's prior customer-initiated transaction. No 3D Secure step is offered: an issuer that requires the buyer to authenticate declines the charge, and the payment fails with that reason so the card can be charged again with the buyer present. A declined card is not saved.
 
+        plan : typing.Optional[CreateDirectRequestPlan]
+            Deprecated: send `variant`, which takes `billing_type` in place of `plan_type`. Accepted only from callers pinned to an API version before 2026-10-27-2.
+
+        plan_id : typing.Optional[str]
+            Deprecated: send `variant_id`. Accepted only from callers pinned to an API version before 2026-10-27-2.
+
         quote_id : typing.Optional[str]
-            A payment quote from `POST /payment_quotes`, prefixed `pq_`. The payment charges exactly the quote: its purchase (its variants and quantities, or the `plan` it priced), which this body may then omit, its promo code, and its tax, the quote's `tax_amount` rather than a figure calculated now. Omit it, or send null, to have tax calculated when the payment is charged. The quote must belong to `account_id`. A purchase field you omit or send as null takes the quote's value; the buyer's email, the addresses and the payment method are this request's own, never the quote's. Whatever you do send must describe the quoted purchase: the same variants, quantities and promo code. A quote that priced `plan` takes only the same `plan` you sent to `POST /payment_quotes` (or omit the purchase to take the quoted one), never `plan_id` or `line_items`, and a quote that priced variants by id never takes `plan`. Unless the quote located no buyer (`located_by` is null), the address the payment carries (its shipping address, else its billing address) must put the buyer where the quote priced tax, by country, state and postal code; otherwise the payment is refused with 400 before the payment method is used. A quote located by IP address or by the country the buyer chose (`located_by` is `ip_address` or `presentment_country`) is a preview and cannot be paid. A quote is consumed by one payment: a declined payment keeps it and can be retried; a new payment needs a new quote. A quote cannot be charged by a processor that doesn't take quotes, such as a seller's own connected PayPal account; such a payment is refused before the payment method is used. A quote priced in a `presentment_currency` is charged in that currency at the quote's `exchange_rate`. A payment refused over its quote carries an error `code`. `quote_expired`: the quote has expired; quote again. `quote_tax_unavailable`: the quote could not price tax; quote again, or omit `quote_id`. `quote_preview_only`: the quote was located by IP address or by the country the buyer chose; quote again with the buyer's address. `quote_in_use` (409): another payment holds the quote. `quote_mismatch`: the purchase or the buyer's address is not the one quoted. `quote_rate_expired`: the exchange rate the quote was priced at has moved too far to charge; quote again. `payment_method_currency_unsupported`: the payment method cannot pay in the quote's currency; use another method, or quote again in another currency. `quote_processor_unsupported`: the payment would be processed by a processor that doesn't take quotes, such as a seller's own connected PayPal account; use another method, or omit `quote_id` to have tax calculated when the payment is charged.
+            A payment quote from `POST /payment_quotes`, prefixed `pq_`. The payment charges exactly the quote: its purchase (its variants and quantities, or the `variant` it priced), which this body may then omit, its promo code, and its tax, the quote's `tax_amount` rather than a figure calculated now. Omit it, or send null, to have tax calculated when the payment is charged. The quote must belong to `account_id`. A purchase field you omit or send as null takes the quote's value; the buyer's email, the addresses and the payment method are this request's own, never the quote's. Whatever you do send must describe the quoted purchase: the same variants, quantities and promo code. A quote that priced `variant` takes only the same `variant` you sent to `POST /payment_quotes` (or omit the purchase to take the quoted one), never `variant_id` or `line_items`, and a quote that priced variants by id never takes `variant`. Unless the quote located no buyer (`located_by` is null), the address the payment carries (its shipping address, else its billing address) must put the buyer where the quote priced tax, by country, state and postal code; otherwise the payment is refused with 400 before the payment method is used. A quote located by IP address or by the country the buyer chose (`located_by` is `ip_address` or `presentment_country`) is a preview and cannot be paid. A quote is consumed by one payment: a declined payment keeps it and can be retried; a new payment needs a new quote. A quote cannot be charged by a processor that doesn't take quotes, such as a seller's own connected PayPal account; such a payment is refused before the payment method is used. A quote priced in a `presentment_currency` is charged in that currency at the quote's `exchange_rate`. A payment refused over its quote carries an error `code`. `quote_expired`: the quote has expired; quote again. `quote_tax_unavailable`: the quote could not price tax; quote again, or omit `quote_id`. `quote_preview_only`: the quote was located by IP address or by the country the buyer chose; quote again with the buyer's address. `quote_in_use` (409): another payment holds the quote. `quote_mismatch`: the purchase or the buyer's address is not the one quoted. `quote_rate_expired`: the exchange rate the quote was priced at has moved too far to charge; quote again. `payment_method_currency_unsupported`: the payment method cannot pay in the quote's currency; use another method, or quote again in another currency. `quote_processor_unsupported`: the payment would be processed by a processor that doesn't take quotes, such as a seller's own connected PayPal account; use another method, or omit `quote_id` to have tax calculated when the payment is charged.
 
         return_url : typing.Optional[str]
             Where the buyer continues after completing an off-site step such as 3D Secure. An absolute https URL without credentials, at most 2,048 characters.
@@ -272,17 +293,17 @@ class AsyncRawDirectClient:
         statement_descriptor : typing.Optional[str]
             Overrides the text on the buyer's card statement for this payment only. Must start with `WHOP*`, be 5-22 characters, contain at least one letter, and use only Latin letters, numbers, spaces, underscores, hyphens, or asterisks.
 
-        plan : typing.Optional[PaymentInputPlan]
-            The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `plan_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
-
-        plan_id : typing.Optional[str]
-            The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `plan` and `line_items`.
-
         promo_code : typing.Optional[str]
             The promo code as the buyer typed it, matched within the account regardless of case and surrounding spaces, as checkout matches it. It must be valid for the variant. Send it or `promo_code_id`, not both; an empty or whitespace-only string counts as not sent. A code the account does not have, or one that is no longer active, is refused before anything is written, with the error code `promo_invalid`. A code this purchase cannot use, such as one with no uses left or one restricted to other variants, products or buyers, is refused with `promo_invalid` too, and the error's message says why.
 
         promo_code_id : typing.Optional[str]
             An active promo code to apply, prefixed `promo_`. It must belong to the account and be valid for the variant. Send it or `promo_code`, not both. A code this purchase cannot use is refused with the error code `promo_invalid`, and the error's message says why.
+
+        variant : typing.Optional[PaymentInputVariant]
+            The variant purchased, described by its attributes instead of an id: the variant with exactly these attributes is used, and one is created when none exists. Mutually exclusive with `variant_id` and `line_items`. Creating a variant requires `plan:create`; creating or updating a product requires the corresponding product permission.
+
+        variant_id : typing.Optional[str]
+            The variant purchased, prefixed `plan_`. It must belong to the account. Mutually exclusive with `variant` and `line_items`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -312,17 +333,21 @@ class AsyncRawDirectClient:
                 "payment_method": convert_and_respect_annotation_metadata(
                     object_=payment_method, annotation=CreateDirectRequestPaymentMethod, direction="write"
                 ),
+                "plan": convert_and_respect_annotation_metadata(
+                    object_=plan, annotation=CreateDirectRequestPlan, direction="write"
+                ),
+                "plan_id": plan_id,
                 "quote_id": quote_id,
                 "return_url": return_url,
                 "setup_future_usage": setup_future_usage,
                 "statement_descriptor": statement_descriptor,
                 "account_id": account_id,
-                "plan": convert_and_respect_annotation_metadata(
-                    object_=plan, annotation=PaymentInputPlan, direction="write"
-                ),
-                "plan_id": plan_id,
                 "promo_code": promo_code,
                 "promo_code_id": promo_code_id,
+                "variant": convert_and_respect_annotation_metadata(
+                    object_=variant, annotation=PaymentInputVariant, direction="write"
+                ),
+                "variant_id": variant_id,
             },
             headers={
                 "content-type": "application/json",

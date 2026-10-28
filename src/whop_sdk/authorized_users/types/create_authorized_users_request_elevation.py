@@ -13,17 +13,17 @@ class CreateAuthorizedUsersRequestElevation(UniversalBaseModel):
 
     authenticator_data: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The WebAuthn authenticator data (base64).
+    Ignored. Kept so existing API clients that send a passkey assertion keep working.
     """
 
     client_data_json: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The WebAuthn client data JSON (base64).
+    Ignored. Kept so existing API clients that send a passkey assertion keep working.
     """
 
     credential_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The WebAuthn credential ID (base64).
+    Ignored. Kept so existing API clients that send a passkey assertion keep working.
     """
 
     email_code: typing.Optional[str] = pydantic.Field(default=None)
@@ -33,7 +33,7 @@ class CreateAuthorizedUsersRequestElevation(UniversalBaseModel):
 
     signature: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The WebAuthn signature (base64).
+    Ignored. Kept so existing API clients that send a passkey assertion keep working.
     """
 
     totp_code: typing.Optional[str] = pydantic.Field(default=None)
@@ -43,7 +43,7 @@ class CreateAuthorizedUsersRequestElevation(UniversalBaseModel):
 
     use_finance_session: typing.Optional[bool] = pydantic.Field(default=None)
     """
-    Reuse an existing elevated session (for SMS/email 2FA users).
+    Ignored. Kept so existing API clients that send it keep working.
     """
 
     if IS_PYDANTIC_V2:
