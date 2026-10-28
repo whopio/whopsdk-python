@@ -3,6 +3,8 @@
 import typing
 
 ExternalAccountParentPlatform = typing.Union[
-    typing.Literal["x", "instagram", "youtube", "tiktok", "facebook", "linkedin", "snapchat", "klaviyo", "quickbooks"],
+    typing.Literal[
+        "x", "instagram", "youtube", "tiktok", "facebook", "linkedin", "snapchat", "klaviyo", "quickbooks", "aimerce"
+    ],
     typing.Any,
 ]

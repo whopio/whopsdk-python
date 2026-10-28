@@ -15,6 +15,7 @@ SocialAccountPlatform = typing.Union[
         "snapchat",
         "klaviyo",
         "quickbooks",
+        "aimerce",
     ],
     typing.Any,
 ]
