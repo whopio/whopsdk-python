@@ -9513,6 +9513,14 @@ client.apps.update(
 <dl>
 <dd>
 
+**per_install_schedule:** `typing.Optional[str]` — Five-field cron expression, read in UTC, on which Whop runs the production web build's `scheduled()` export once for every installation, with the installation in `ctx.props.app_installation`. It must fire at least once and no more often than every 15 minutes. Slots are skipped while the app has no production web build with a server entry. Set to `null` or an empty string to stop the per-install schedule.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **production_android_build_id:** `typing.Optional[str]` — The app build (`abld_` tag) to serve as the Android production build, or `null` to unassign it. Same rules as `production_web_build_id`.
     
 </dd>
@@ -9554,6 +9562,14 @@ client.apps.update(
 <dd>
 
 **route:** `typing.Optional[str]` — The subdomain route where the app's hosted web builds are served.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**schedule:** `typing.Optional[str]` — Five-field cron expression, read in UTC, on which Whop runs the production web build's `scheduled()` export once per slot, such as `* /15 * * * *`. It must fire at least once. Slots are skipped while the app has no production web build with a server entry. Set to `null` or an empty string to stop the global schedule.
     
 </dd>
 </dl>
