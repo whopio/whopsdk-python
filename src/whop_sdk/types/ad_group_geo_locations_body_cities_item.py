@@ -9,7 +9,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 class AdGroupGeoLocationsBodyCitiesItem(UniversalBaseModel):
     key: str = pydantic.Field()
     """
-    The ad platform's key for the city in its location taxonomy.
+    The city's key in the location taxonomy.
     """
 
     name: typing.Optional[str] = pydantic.Field(default=None)

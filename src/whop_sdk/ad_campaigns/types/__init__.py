@@ -66,7 +66,6 @@ if typing.TYPE_CHECKING:
     from .update_ad_campaigns_request_campaign_type import UpdateAdCampaignsRequestCampaignType
     from .update_ad_campaigns_request_special_ad_categories_item import UpdateAdCampaignsRequestSpecialAdCategoriesItem
     from .update_ad_campaigns_request_status import UpdateAdCampaignsRequestStatus
-    from .update_ad_campaigns_request_x_ads_platform import UpdateAdCampaignsRequestXAdsPlatform
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateAdCampaignsRequestBidType": ".create_ad_campaigns_request_bid_type",
     "CreateAdCampaignsRequestBudgetOptimization": ".create_ad_campaigns_request_budget_optimization",
@@ -114,7 +113,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateAdCampaignsRequestCampaignType": ".update_ad_campaigns_request_campaign_type",
     "UpdateAdCampaignsRequestSpecialAdCategoriesItem": ".update_ad_campaigns_request_special_ad_categories_item",
     "UpdateAdCampaignsRequestStatus": ".update_ad_campaigns_request_status",
-    "UpdateAdCampaignsRequestXAdsPlatform": ".update_ad_campaigns_request_x_ads_platform",
 }
 
 
@@ -186,5 +184,4 @@ __all__ = [
     "UpdateAdCampaignsRequestCampaignType",
     "UpdateAdCampaignsRequestSpecialAdCategoriesItem",
     "UpdateAdCampaignsRequestStatus",
-    "UpdateAdCampaignsRequestXAdsPlatform",
 ]

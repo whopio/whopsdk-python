@@ -14,47 +14,31 @@ from ..core.request_options import RequestOptions
 from ..core.serialization import convert_and_respect_annotation_metadata
 from ..errors.bad_request_error import BadRequestError
 from ..errors.conflict_error import ConflictError
-from ..errors.forbidden_error import ForbiddenError
 from ..errors.not_found_error import NotFoundError
-from ..errors.unauthorized_error import UnauthorizedError
 from ..types.ad_group import AdGroup
 from ..types.ad_group_audiences_body import AdGroupAudiencesBody
 from ..types.ad_group_demographics_body import AdGroupDemographicsBody
-from ..types.ad_group_detailed_targeting_body import AdGroupDetailedTargetingBody
 from ..types.ad_group_devices_body import AdGroupDevicesBody
 from ..types.ad_group_regions_body import AdGroupRegionsBody
 from ..types.conversion_event import ConversionEvent
-from ..types.reach_estimate import ReachEstimate
 from .types.create_ad_groups_request_bid_type import CreateAdGroupsRequestBidType
 from .types.create_ad_groups_request_budget_type import CreateAdGroupsRequestBudgetType
 from .types.create_ad_groups_request_delivery_schedule import CreateAdGroupsRequestDeliverySchedule
 from .types.create_ad_groups_request_keywords_item import CreateAdGroupsRequestKeywordsItem
 from .types.create_ad_groups_request_status import CreateAdGroupsRequestStatus
-from .types.create_ad_groups_request_x_ads_platform import CreateAdGroupsRequestXAdsPlatform
 from .types.delete_ad_groups_response import DeleteAdGroupsResponse
 from .types.duplicate_ad_groups_response import DuplicateAdGroupsResponse
-from .types.estimate_reach_ad_groups_request_platform import EstimateReachAdGroupsRequestPlatform
 from .types.list_ad_groups_request_attribution_model import ListAdGroupsRequestAttributionModel
 from .types.list_ad_groups_request_direction import ListAdGroupsRequestDirection
 from .types.list_ad_groups_request_order import ListAdGroupsRequestOrder
 from .types.list_ad_groups_request_status import ListAdGroupsRequestStatus
 from .types.list_ad_groups_response import ListAdGroupsResponse
 from .types.retrieve_ad_groups_request_attribution_model import RetrieveAdGroupsRequestAttributionModel
-from .types.search_targeting_options_ad_groups_request_location_types_item import (
-    SearchTargetingOptionsAdGroupsRequestLocationTypesItem,
-)
-from .types.search_targeting_options_ad_groups_request_platform import SearchTargetingOptionsAdGroupsRequestPlatform
-from .types.search_targeting_options_ad_groups_request_special_ad_categories_item import (
-    SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem,
-)
-from .types.search_targeting_options_ad_groups_request_types_item import SearchTargetingOptionsAdGroupsRequestTypesItem
-from .types.search_targeting_options_ad_groups_response import SearchTargetingOptionsAdGroupsResponse
 from .types.update_ad_groups_request_bid_type import UpdateAdGroupsRequestBidType
 from .types.update_ad_groups_request_budget_type import UpdateAdGroupsRequestBudgetType
 from .types.update_ad_groups_request_delivery_schedule import UpdateAdGroupsRequestDeliverySchedule
 from .types.update_ad_groups_request_keywords_item import UpdateAdGroupsRequestKeywordsItem
 from .types.update_ad_groups_request_status import UpdateAdGroupsRequestStatus
-from .types.update_ad_groups_request_x_ads_platform import UpdateAdGroupsRequestXAdsPlatform
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -225,7 +209,6 @@ class RawAdGroupsClient:
         self,
         *,
         ad_campaign_id: str,
-        ads_platform: typing.Optional[CreateAdGroupsRequestXAdsPlatform] = None,
         audiences: typing.Optional[AdGroupAudiencesBody] = OMIT,
         bid_type: typing.Optional[CreateAdGroupsRequestBidType] = OMIT,
         budget_amount: typing.Optional[float] = OMIT,
@@ -252,9 +235,6 @@ class RawAdGroupsClient:
         ----------
         ad_campaign_id : str
             The ad campaign to create the ad group in, prefixed `adcamp_`.
-
-        ads_platform : typing.Optional[CreateAdGroupsRequestXAdsPlatform]
-            The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
 
         audiences : typing.Optional[AdGroupAudiencesBody]
             Saved audiences to deliver to or exclude. Can't be combined with demographics.automatic.
@@ -356,7 +336,6 @@ class RawAdGroupsClient:
             },
             headers={
                 "content-type": "application/json",
-                "X-Ads-Platform": str(ads_platform) if ads_platform is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -384,282 +363,6 @@ class RawAdGroupsClient:
                 )
             if _response.status_code == 409:
                 raise ConflictError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def estimate_reach(
-        self,
-        *,
-        platform: EstimateReachAdGroupsRequestPlatform,
-        account_id: typing.Optional[str] = OMIT,
-        audiences: typing.Optional[AdGroupAudiencesBody] = OMIT,
-        demographics: typing.Optional[AdGroupDemographicsBody] = OMIT,
-        detailed_targeting: typing.Optional[AdGroupDetailedTargetingBody] = OMIT,
-        devices: typing.Optional[AdGroupDevicesBody] = OMIT,
-        languages: typing.Optional[typing.Sequence[str]] = OMIT,
-        regions: typing.Optional[AdGroupRegionsBody] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[ReachEstimate]:
-        """
-        Estimates how many people a draft targeting spec can reach, before an ad group is created. The body takes the same targeting fields as creating an ad group, and nothing is persisted.
-
-        Parameters
-        ----------
-        platform : EstimateReachAdGroupsRequestPlatform
-            The ad network the estimate runs on.
-
-        account_id : typing.Optional[str]
-            Account to estimate on behalf of. Defaults to the authenticated account.
-
-        audiences : typing.Optional[AdGroupAudiencesBody]
-            Saved audiences to deliver to or exclude. Can't be combined with demographics.automatic.
-
-        demographics : typing.Optional[AdGroupDemographicsBody]
-            Age, gender, and automatic-audience targeting.
-
-        detailed_targeting : typing.Optional[AdGroupDetailedTargetingBody]
-            Interest, behavior, and demographic targeting, using categories from the ad platform's targeting taxonomy. At most 100 entries per section.
-
-        devices : typing.Optional[AdGroupDevicesBody]
-            Device platforms and operating systems to target.
-
-        languages : typing.Optional[typing.Sequence[str]]
-            Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted targets all languages.
-
-        regions : typing.Optional[AdGroupRegionsBody]
-            Locations to target and exclude.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[ReachEstimate]
-            reach estimated
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            "ad_groups/estimate_reach",
-            base_url=self._client_wrapper.get_environment().api,
-            method="POST",
-            json={
-                "account_id": account_id,
-                "audiences": convert_and_respect_annotation_metadata(
-                    object_=audiences, annotation=AdGroupAudiencesBody, direction="write"
-                ),
-                "demographics": convert_and_respect_annotation_metadata(
-                    object_=demographics, annotation=AdGroupDemographicsBody, direction="write"
-                ),
-                "detailed_targeting": convert_and_respect_annotation_metadata(
-                    object_=detailed_targeting, annotation=AdGroupDetailedTargetingBody, direction="write"
-                ),
-                "devices": convert_and_respect_annotation_metadata(
-                    object_=devices, annotation=AdGroupDevicesBody, direction="write"
-                ),
-                "languages": languages,
-                "platform": platform,
-                "regions": convert_and_respect_annotation_metadata(
-                    object_=regions, annotation=AdGroupRegionsBody, direction="write"
-                ),
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    ReachEstimate,
-                    parse_obj_as(
-                        type_=ReachEstimate,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 409:
-                raise ConflictError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def search_targeting_options(
-        self,
-        *,
-        platform: SearchTargetingOptionsAdGroupsRequestPlatform,
-        account_id: typing.Optional[str] = None,
-        query: typing.Optional[str] = None,
-        types: typing.Optional[
-            typing.Union[
-                SearchTargetingOptionsAdGroupsRequestTypesItem,
-                typing.Sequence[SearchTargetingOptionsAdGroupsRequestTypesItem],
-            ]
-        ] = None,
-        location_types: typing.Optional[
-            typing.Union[
-                SearchTargetingOptionsAdGroupsRequestLocationTypesItem,
-                typing.Sequence[SearchTargetingOptionsAdGroupsRequestLocationTypesItem],
-            ]
-        ] = None,
-        country: typing.Optional[str] = None,
-        limit: typing.Optional[int] = None,
-        special_ad_categories: typing.Optional[
-            typing.Union[
-                SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem,
-                typing.Sequence[SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem],
-            ]
-        ] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> HttpResponse[SearchTargetingOptionsAdGroupsResponse]:
-        """
-        Searches the ad platform's targeting taxonomy for options to target an ad group with. Each result comes back in the exact shape the ad-group body accepts for its `type`, so it can be used in `detailed_targeting`, `regions`, or `languages` as-is.
-
-        Parameters
-        ----------
-        platform : SearchTargetingOptionsAdGroupsRequestPlatform
-            The ad network whose targeting taxonomy to search.
-
-        account_id : typing.Optional[str]
-            Account to search on behalf of. Defaults to the authenticated account.
-
-        query : typing.Optional[str]
-            The search term. Blank browses the small fixed lists (behaviors, browse demographic categories, and languages); interests, work employers, job titles, schools, majors, and locations return nothing without one.
-
-        types : typing.Optional[typing.Union[SearchTargetingOptionsAdGroupsRequestTypesItem, typing.Sequence[SearchTargetingOptionsAdGroupsRequestTypesItem]]]
-            Kinds of targeting options to search. Defaults to all of them.
-
-        location_types : typing.Optional[typing.Union[SearchTargetingOptionsAdGroupsRequestLocationTypesItem, typing.Sequence[SearchTargetingOptionsAdGroupsRequestLocationTypesItem]]]
-            Narrow location results to these kinds of places. Only applies when `types` includes `locations`.
-
-        country : typing.Optional[str]
-            Narrow location results to one country, as an ISO 3166-1 code such as `US`. Only applies when `types` includes `locations`.
-
-        limit : typing.Optional[int]
-            Maximum number of results per requested type.
-
-        special_ad_categories : typing.Optional[typing.Union[SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem, typing.Sequence[SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem]]]
-            The campaign's declared special ad categories. Under `housing`, `employment`, or `financial_products` the ad platform allows interests only, drawn from a short approved list, so results are narrowed to what such a campaign can launch with and other kinds return nothing. Blank `query` browses that approved list instead of the usual fixed lists.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[SearchTargetingOptionsAdGroupsResponse]
-            types narrows the search and accepts a comma-separated list
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            "ad_groups/targeting_options",
-            base_url=self._client_wrapper.get_environment().api,
-            method="GET",
-            params={
-                "account_id": account_id,
-                "platform": platform,
-                "query": query,
-                "types": types,
-                "location_types": location_types,
-                "country": country,
-                "limit": limit,
-                "special_ad_categories": special_ad_categories,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    SearchTargetingOptionsAdGroupsResponse,
-                    parse_obj_as(
-                        type_=SearchTargetingOptionsAdGroupsResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -762,7 +465,7 @@ class RawAdGroupsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[DeleteAdGroupsResponse]:
         """
-        Deletes an ad group, removing it from the ad platform so it stops delivering.
+        Deletes an ad group and stops its delivery.
 
         Parameters
         ----------
@@ -817,7 +520,6 @@ class RawAdGroupsClient:
         self,
         id: str,
         *,
-        ads_platform: typing.Optional[UpdateAdGroupsRequestXAdsPlatform] = None,
         audiences: typing.Optional[AdGroupAudiencesBody] = OMIT,
         bid_type: typing.Optional[UpdateAdGroupsRequestBidType] = OMIT,
         budget_amount: typing.Optional[float] = OMIT,
@@ -844,9 +546,6 @@ class RawAdGroupsClient:
         ----------
         id : str
             The ad group ID.
-
-        ads_platform : typing.Optional[UpdateAdGroupsRequestXAdsPlatform]
-            The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
 
         audiences : typing.Optional[AdGroupAudiencesBody]
             Saved audiences to deliver to or exclude. Can't be combined with demographics.automatic.
@@ -947,7 +646,6 @@ class RawAdGroupsClient:
             },
             headers={
                 "content-type": "application/json",
-                "X-Ads-Platform": str(ads_platform) if ads_platform is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -1357,7 +1055,6 @@ class AsyncRawAdGroupsClient:
         self,
         *,
         ad_campaign_id: str,
-        ads_platform: typing.Optional[CreateAdGroupsRequestXAdsPlatform] = None,
         audiences: typing.Optional[AdGroupAudiencesBody] = OMIT,
         bid_type: typing.Optional[CreateAdGroupsRequestBidType] = OMIT,
         budget_amount: typing.Optional[float] = OMIT,
@@ -1384,9 +1081,6 @@ class AsyncRawAdGroupsClient:
         ----------
         ad_campaign_id : str
             The ad campaign to create the ad group in, prefixed `adcamp_`.
-
-        ads_platform : typing.Optional[CreateAdGroupsRequestXAdsPlatform]
-            The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
 
         audiences : typing.Optional[AdGroupAudiencesBody]
             Saved audiences to deliver to or exclude. Can't be combined with demographics.automatic.
@@ -1488,7 +1182,6 @@ class AsyncRawAdGroupsClient:
             },
             headers={
                 "content-type": "application/json",
-                "X-Ads-Platform": str(ads_platform) if ads_platform is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -1516,282 +1209,6 @@ class AsyncRawAdGroupsClient:
                 )
             if _response.status_code == 409:
                 raise ConflictError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def estimate_reach(
-        self,
-        *,
-        platform: EstimateReachAdGroupsRequestPlatform,
-        account_id: typing.Optional[str] = OMIT,
-        audiences: typing.Optional[AdGroupAudiencesBody] = OMIT,
-        demographics: typing.Optional[AdGroupDemographicsBody] = OMIT,
-        detailed_targeting: typing.Optional[AdGroupDetailedTargetingBody] = OMIT,
-        devices: typing.Optional[AdGroupDevicesBody] = OMIT,
-        languages: typing.Optional[typing.Sequence[str]] = OMIT,
-        regions: typing.Optional[AdGroupRegionsBody] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[ReachEstimate]:
-        """
-        Estimates how many people a draft targeting spec can reach, before an ad group is created. The body takes the same targeting fields as creating an ad group, and nothing is persisted.
-
-        Parameters
-        ----------
-        platform : EstimateReachAdGroupsRequestPlatform
-            The ad network the estimate runs on.
-
-        account_id : typing.Optional[str]
-            Account to estimate on behalf of. Defaults to the authenticated account.
-
-        audiences : typing.Optional[AdGroupAudiencesBody]
-            Saved audiences to deliver to or exclude. Can't be combined with demographics.automatic.
-
-        demographics : typing.Optional[AdGroupDemographicsBody]
-            Age, gender, and automatic-audience targeting.
-
-        detailed_targeting : typing.Optional[AdGroupDetailedTargetingBody]
-            Interest, behavior, and demographic targeting, using categories from the ad platform's targeting taxonomy. At most 100 entries per section.
-
-        devices : typing.Optional[AdGroupDevicesBody]
-            Device platforms and operating systems to target.
-
-        languages : typing.Optional[typing.Sequence[str]]
-            Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted targets all languages.
-
-        regions : typing.Optional[AdGroupRegionsBody]
-            Locations to target and exclude.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[ReachEstimate]
-            reach estimated
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "ad_groups/estimate_reach",
-            base_url=self._client_wrapper.get_environment().api,
-            method="POST",
-            json={
-                "account_id": account_id,
-                "audiences": convert_and_respect_annotation_metadata(
-                    object_=audiences, annotation=AdGroupAudiencesBody, direction="write"
-                ),
-                "demographics": convert_and_respect_annotation_metadata(
-                    object_=demographics, annotation=AdGroupDemographicsBody, direction="write"
-                ),
-                "detailed_targeting": convert_and_respect_annotation_metadata(
-                    object_=detailed_targeting, annotation=AdGroupDetailedTargetingBody, direction="write"
-                ),
-                "devices": convert_and_respect_annotation_metadata(
-                    object_=devices, annotation=AdGroupDevicesBody, direction="write"
-                ),
-                "languages": languages,
-                "platform": platform,
-                "regions": convert_and_respect_annotation_metadata(
-                    object_=regions, annotation=AdGroupRegionsBody, direction="write"
-                ),
-            },
-            headers={
-                "content-type": "application/json",
-            },
-            request_options=request_options,
-            omit=OMIT,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    ReachEstimate,
-                    parse_obj_as(
-                        type_=ReachEstimate,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 409:
-                raise ConflictError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def search_targeting_options(
-        self,
-        *,
-        platform: SearchTargetingOptionsAdGroupsRequestPlatform,
-        account_id: typing.Optional[str] = None,
-        query: typing.Optional[str] = None,
-        types: typing.Optional[
-            typing.Union[
-                SearchTargetingOptionsAdGroupsRequestTypesItem,
-                typing.Sequence[SearchTargetingOptionsAdGroupsRequestTypesItem],
-            ]
-        ] = None,
-        location_types: typing.Optional[
-            typing.Union[
-                SearchTargetingOptionsAdGroupsRequestLocationTypesItem,
-                typing.Sequence[SearchTargetingOptionsAdGroupsRequestLocationTypesItem],
-            ]
-        ] = None,
-        country: typing.Optional[str] = None,
-        limit: typing.Optional[int] = None,
-        special_ad_categories: typing.Optional[
-            typing.Union[
-                SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem,
-                typing.Sequence[SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem],
-            ]
-        ] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncHttpResponse[SearchTargetingOptionsAdGroupsResponse]:
-        """
-        Searches the ad platform's targeting taxonomy for options to target an ad group with. Each result comes back in the exact shape the ad-group body accepts for its `type`, so it can be used in `detailed_targeting`, `regions`, or `languages` as-is.
-
-        Parameters
-        ----------
-        platform : SearchTargetingOptionsAdGroupsRequestPlatform
-            The ad network whose targeting taxonomy to search.
-
-        account_id : typing.Optional[str]
-            Account to search on behalf of. Defaults to the authenticated account.
-
-        query : typing.Optional[str]
-            The search term. Blank browses the small fixed lists (behaviors, browse demographic categories, and languages); interests, work employers, job titles, schools, majors, and locations return nothing without one.
-
-        types : typing.Optional[typing.Union[SearchTargetingOptionsAdGroupsRequestTypesItem, typing.Sequence[SearchTargetingOptionsAdGroupsRequestTypesItem]]]
-            Kinds of targeting options to search. Defaults to all of them.
-
-        location_types : typing.Optional[typing.Union[SearchTargetingOptionsAdGroupsRequestLocationTypesItem, typing.Sequence[SearchTargetingOptionsAdGroupsRequestLocationTypesItem]]]
-            Narrow location results to these kinds of places. Only applies when `types` includes `locations`.
-
-        country : typing.Optional[str]
-            Narrow location results to one country, as an ISO 3166-1 code such as `US`. Only applies when `types` includes `locations`.
-
-        limit : typing.Optional[int]
-            Maximum number of results per requested type.
-
-        special_ad_categories : typing.Optional[typing.Union[SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem, typing.Sequence[SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem]]]
-            The campaign's declared special ad categories. Under `housing`, `employment`, or `financial_products` the ad platform allows interests only, drawn from a short approved list, so results are narrowed to what such a campaign can launch with and other kinds return nothing. Blank `query` browses that approved list instead of the usual fixed lists.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[SearchTargetingOptionsAdGroupsResponse]
-            types narrows the search and accepts a comma-separated list
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            "ad_groups/targeting_options",
-            base_url=self._client_wrapper.get_environment().api,
-            method="GET",
-            params={
-                "account_id": account_id,
-                "platform": platform,
-                "query": query,
-                "types": types,
-                "location_types": location_types,
-                "country": country,
-                "limit": limit,
-                "special_ad_categories": special_ad_categories,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    SearchTargetingOptionsAdGroupsResponse,
-                    parse_obj_as(
-                        type_=SearchTargetingOptionsAdGroupsResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            if _response.status_code == 400:
-                raise BadRequestError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 401:
-                raise UnauthorizedError(
-                    headers=dict(_response.headers),
-                    body=typing.cast(
-                        typing.Any,
-                        parse_obj_as(
-                            type_=typing.Any,  # type: ignore
-                            object_=_response.json(),
-                        ),
-                    ),
-                )
-            if _response.status_code == 403:
-                raise ForbiddenError(
                     headers=dict(_response.headers),
                     body=typing.cast(
                         typing.Any,
@@ -1894,7 +1311,7 @@ class AsyncRawAdGroupsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[DeleteAdGroupsResponse]:
         """
-        Deletes an ad group, removing it from the ad platform so it stops delivering.
+        Deletes an ad group and stops its delivery.
 
         Parameters
         ----------
@@ -1949,7 +1366,6 @@ class AsyncRawAdGroupsClient:
         self,
         id: str,
         *,
-        ads_platform: typing.Optional[UpdateAdGroupsRequestXAdsPlatform] = None,
         audiences: typing.Optional[AdGroupAudiencesBody] = OMIT,
         bid_type: typing.Optional[UpdateAdGroupsRequestBidType] = OMIT,
         budget_amount: typing.Optional[float] = OMIT,
@@ -1976,9 +1392,6 @@ class AsyncRawAdGroupsClient:
         ----------
         id : str
             The ad group ID.
-
-        ads_platform : typing.Optional[UpdateAdGroupsRequestXAdsPlatform]
-            The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
 
         audiences : typing.Optional[AdGroupAudiencesBody]
             Saved audiences to deliver to or exclude. Can't be combined with demographics.automatic.
@@ -2079,7 +1492,6 @@ class AsyncRawAdGroupsClient:
             },
             headers={
                 "content-type": "application/json",
-                "X-Ads-Platform": str(ads_platform) if ads_platform is not None else None,
             },
             request_options=request_options,
             omit=OMIT,

@@ -9,7 +9,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 class AdGroupGeoLocationsBodyZipsItemKey(UniversalBaseModel):
     key: str = pydantic.Field()
     """
-    The ad platform's key for the ZIP or postal code.
+    The ZIP or postal code's key, as `COUNTRY:CODE`.
     """
 
     if IS_PYDANTIC_V2:

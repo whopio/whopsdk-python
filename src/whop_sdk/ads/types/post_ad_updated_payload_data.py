@@ -48,11 +48,6 @@ class PostAdUpdatedPayloadData(UniversalBaseModel):
     """
 
     issues: typing.List[AdPlatformIssue]
-    post_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The post the ad network serves for this ad, as `pageID_postID` on Meta — the post Meta created for an uploaded creative, or the post being promoted. Use it to open the live post. `null` until the network has created the post.
-    """
-
     primary_texts: typing.List[AdText]
     status: PostAdUpdatedPayloadDataStatus = pydantic.Field()
     """
@@ -76,7 +71,7 @@ class PostAdUpdatedPayloadData(UniversalBaseModel):
 
     url_parameters: typing.Dict[str, typing.Any] = pydantic.Field()
     """
-    Every query parameter appended to the URL, keyed by parameter name — including any you sent on `url` itself. Whop adds its own click-attribution parameters on top; those are reserved and rejected if you set them. Which keys are reserved depends on the ad's network — Meta: utm_meta_ad_id, utm_meta_adset_id, utm_meta_campaign_id, utm_source, utm_placement, utm_medium, utm_content, utm_adset, utm_whop, wacid, wasid, waid, tw_source, tw_adid; TikTok: waid, wasid, wacid, ad_id, adset_id, campaign_id, utm_source, utm_medium, utm_placement, utm_whop, tw_source, tw_adid.
+    Every query parameter appended to the URL, keyed by parameter name — including any you sent on `url` itself. Whop adds its own click-attribution parameters; those are reserved, and setting one returns an error that names it.
     """
 
     if IS_PYDANTIC_V2:

@@ -57,7 +57,7 @@ class MediaClient:
             Video length in seconds. Video only; defaults to 5.
 
         reference_media : typing.Optional[typing.Sequence[str]]
-            Optional reference image file IDs (`file_` prefixed), up to 4. For video, a single reference seeds the opening frame; multiple references guide subject and style instead.
+            Optional reference file IDs (`file_` prefixed), up to 4. Images guide the output: for video, a single image seeds the opening frame; multiple images guide subject and style instead. Include one video to remake it: its motion and scene are kept and the images are swapped in. Video only; needs an image and can't be combined with `duration_seconds`. The output matches the video's length, up to 30 seconds, and is billed on it.
 
         resolution : typing.Optional[GenerateMediaRequestResolution]
             Video resolution. Video only; defaults to `1080p`. `1080p` is not supported by Seedance 2.0 Fast or Mini; `4k` is only supported by Seedance 2.0.
@@ -75,7 +75,7 @@ class MediaClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -117,7 +117,7 @@ class MediaClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -173,7 +173,7 @@ class AsyncMediaClient:
             Video length in seconds. Video only; defaults to 5.
 
         reference_media : typing.Optional[typing.Sequence[str]]
-            Optional reference image file IDs (`file_` prefixed), up to 4. For video, a single reference seeds the opening frame; multiple references guide subject and style instead.
+            Optional reference file IDs (`file_` prefixed), up to 4. Images guide the output: for video, a single image seeds the opening frame; multiple images guide subject and style instead. Include one video to remake it: its motion and scene are kept and the images are swapped in. Video only; needs an image and can't be combined with `duration_seconds`. The output matches the video's length, up to 30 seconds, and is billed on it.
 
         resolution : typing.Optional[GenerateMediaRequestResolution]
             Video resolution. Video only; defaults to `1080p`. `1080p` is not supported by Seedance 2.0 Fast or Mini; `4k` is only supported by Seedance 2.0.
@@ -193,7 +193,7 @@ class AsyncMediaClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -243,7 +243,7 @@ class AsyncMediaClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

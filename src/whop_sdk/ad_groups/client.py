@@ -8,42 +8,28 @@ from ..core.request_options import RequestOptions
 from ..types.ad_group import AdGroup
 from ..types.ad_group_audiences_body import AdGroupAudiencesBody
 from ..types.ad_group_demographics_body import AdGroupDemographicsBody
-from ..types.ad_group_detailed_targeting_body import AdGroupDetailedTargetingBody
 from ..types.ad_group_devices_body import AdGroupDevicesBody
 from ..types.ad_group_regions_body import AdGroupRegionsBody
 from ..types.conversion_event import ConversionEvent
-from ..types.reach_estimate import ReachEstimate
 from .raw_client import AsyncRawAdGroupsClient, RawAdGroupsClient
 from .types.create_ad_groups_request_bid_type import CreateAdGroupsRequestBidType
 from .types.create_ad_groups_request_budget_type import CreateAdGroupsRequestBudgetType
 from .types.create_ad_groups_request_delivery_schedule import CreateAdGroupsRequestDeliverySchedule
 from .types.create_ad_groups_request_keywords_item import CreateAdGroupsRequestKeywordsItem
 from .types.create_ad_groups_request_status import CreateAdGroupsRequestStatus
-from .types.create_ad_groups_request_x_ads_platform import CreateAdGroupsRequestXAdsPlatform
 from .types.delete_ad_groups_response import DeleteAdGroupsResponse
 from .types.duplicate_ad_groups_response import DuplicateAdGroupsResponse
-from .types.estimate_reach_ad_groups_request_platform import EstimateReachAdGroupsRequestPlatform
 from .types.list_ad_groups_request_attribution_model import ListAdGroupsRequestAttributionModel
 from .types.list_ad_groups_request_direction import ListAdGroupsRequestDirection
 from .types.list_ad_groups_request_order import ListAdGroupsRequestOrder
 from .types.list_ad_groups_request_status import ListAdGroupsRequestStatus
 from .types.list_ad_groups_response import ListAdGroupsResponse
 from .types.retrieve_ad_groups_request_attribution_model import RetrieveAdGroupsRequestAttributionModel
-from .types.search_targeting_options_ad_groups_request_location_types_item import (
-    SearchTargetingOptionsAdGroupsRequestLocationTypesItem,
-)
-from .types.search_targeting_options_ad_groups_request_platform import SearchTargetingOptionsAdGroupsRequestPlatform
-from .types.search_targeting_options_ad_groups_request_special_ad_categories_item import (
-    SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem,
-)
-from .types.search_targeting_options_ad_groups_request_types_item import SearchTargetingOptionsAdGroupsRequestTypesItem
-from .types.search_targeting_options_ad_groups_response import SearchTargetingOptionsAdGroupsResponse
 from .types.update_ad_groups_request_bid_type import UpdateAdGroupsRequestBidType
 from .types.update_ad_groups_request_budget_type import UpdateAdGroupsRequestBudgetType
 from .types.update_ad_groups_request_delivery_schedule import UpdateAdGroupsRequestDeliverySchedule
 from .types.update_ad_groups_request_keywords_item import UpdateAdGroupsRequestKeywordsItem
 from .types.update_ad_groups_request_status import UpdateAdGroupsRequestStatus
-from .types.update_ad_groups_request_x_ads_platform import UpdateAdGroupsRequestXAdsPlatform
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -155,7 +141,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -193,7 +179,6 @@ class AdGroupsClient:
         self,
         *,
         ad_campaign_id: str,
-        ads_platform: typing.Optional[CreateAdGroupsRequestXAdsPlatform] = None,
         audiences: typing.Optional[AdGroupAudiencesBody] = OMIT,
         bid_type: typing.Optional[CreateAdGroupsRequestBidType] = OMIT,
         budget_amount: typing.Optional[float] = OMIT,
@@ -220,9 +205,6 @@ class AdGroupsClient:
         ----------
         ad_campaign_id : str
             The ad campaign to create the ad group in, prefixed `adcamp_`.
-
-        ads_platform : typing.Optional[CreateAdGroupsRequestXAdsPlatform]
-            The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
 
         audiences : typing.Optional[AdGroupAudiencesBody]
             Saved audiences to deliver to or exclude. Can't be combined with demographics.automatic.
@@ -287,7 +269,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -297,7 +279,6 @@ class AdGroupsClient:
         """
         _response = self._raw_client.create(
             ad_campaign_id=ad_campaign_id,
-            ads_platform=ads_platform,
             audiences=audiences,
             bid_type=bid_type,
             budget_amount=budget_amount,
@@ -315,173 +296,6 @@ class AdGroupsClient:
             starts_at=starts_at,
             status=status,
             title=title,
-            request_options=request_options,
-        )
-        return _response.data
-
-    def estimate_reach(
-        self,
-        *,
-        platform: EstimateReachAdGroupsRequestPlatform,
-        account_id: typing.Optional[str] = OMIT,
-        audiences: typing.Optional[AdGroupAudiencesBody] = OMIT,
-        demographics: typing.Optional[AdGroupDemographicsBody] = OMIT,
-        detailed_targeting: typing.Optional[AdGroupDetailedTargetingBody] = OMIT,
-        devices: typing.Optional[AdGroupDevicesBody] = OMIT,
-        languages: typing.Optional[typing.Sequence[str]] = OMIT,
-        regions: typing.Optional[AdGroupRegionsBody] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> ReachEstimate:
-        """
-        Estimates how many people a draft targeting spec can reach, before an ad group is created. The body takes the same targeting fields as creating an ad group, and nothing is persisted.
-
-        Parameters
-        ----------
-        platform : EstimateReachAdGroupsRequestPlatform
-            The ad network the estimate runs on.
-
-        account_id : typing.Optional[str]
-            Account to estimate on behalf of. Defaults to the authenticated account.
-
-        audiences : typing.Optional[AdGroupAudiencesBody]
-            Saved audiences to deliver to or exclude. Can't be combined with demographics.automatic.
-
-        demographics : typing.Optional[AdGroupDemographicsBody]
-            Age, gender, and automatic-audience targeting.
-
-        detailed_targeting : typing.Optional[AdGroupDetailedTargetingBody]
-            Interest, behavior, and demographic targeting, using categories from the ad platform's targeting taxonomy. At most 100 entries per section.
-
-        devices : typing.Optional[AdGroupDevicesBody]
-            Device platforms and operating systems to target.
-
-        languages : typing.Optional[typing.Sequence[str]]
-            Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted targets all languages.
-
-        regions : typing.Optional[AdGroupRegionsBody]
-            Locations to target and exclude.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ReachEstimate
-            reach estimated
-
-        Examples
-        --------
-        from whop_sdk import Whop
-
-        client = Whop(
-            "2026-10-29",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-        client.ad_groups.estimate_reach(
-            platform="meta",
-        )
-        """
-        _response = self._raw_client.estimate_reach(
-            platform=platform,
-            account_id=account_id,
-            audiences=audiences,
-            demographics=demographics,
-            detailed_targeting=detailed_targeting,
-            devices=devices,
-            languages=languages,
-            regions=regions,
-            request_options=request_options,
-        )
-        return _response.data
-
-    def search_targeting_options(
-        self,
-        *,
-        platform: SearchTargetingOptionsAdGroupsRequestPlatform,
-        account_id: typing.Optional[str] = None,
-        query: typing.Optional[str] = None,
-        types: typing.Optional[
-            typing.Union[
-                SearchTargetingOptionsAdGroupsRequestTypesItem,
-                typing.Sequence[SearchTargetingOptionsAdGroupsRequestTypesItem],
-            ]
-        ] = None,
-        location_types: typing.Optional[
-            typing.Union[
-                SearchTargetingOptionsAdGroupsRequestLocationTypesItem,
-                typing.Sequence[SearchTargetingOptionsAdGroupsRequestLocationTypesItem],
-            ]
-        ] = None,
-        country: typing.Optional[str] = None,
-        limit: typing.Optional[int] = None,
-        special_ad_categories: typing.Optional[
-            typing.Union[
-                SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem,
-                typing.Sequence[SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem],
-            ]
-        ] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> SearchTargetingOptionsAdGroupsResponse:
-        """
-        Searches the ad platform's targeting taxonomy for options to target an ad group with. Each result comes back in the exact shape the ad-group body accepts for its `type`, so it can be used in `detailed_targeting`, `regions`, or `languages` as-is.
-
-        Parameters
-        ----------
-        platform : SearchTargetingOptionsAdGroupsRequestPlatform
-            The ad network whose targeting taxonomy to search.
-
-        account_id : typing.Optional[str]
-            Account to search on behalf of. Defaults to the authenticated account.
-
-        query : typing.Optional[str]
-            The search term. Blank browses the small fixed lists (behaviors, browse demographic categories, and languages); interests, work employers, job titles, schools, majors, and locations return nothing without one.
-
-        types : typing.Optional[typing.Union[SearchTargetingOptionsAdGroupsRequestTypesItem, typing.Sequence[SearchTargetingOptionsAdGroupsRequestTypesItem]]]
-            Kinds of targeting options to search. Defaults to all of them.
-
-        location_types : typing.Optional[typing.Union[SearchTargetingOptionsAdGroupsRequestLocationTypesItem, typing.Sequence[SearchTargetingOptionsAdGroupsRequestLocationTypesItem]]]
-            Narrow location results to these kinds of places. Only applies when `types` includes `locations`.
-
-        country : typing.Optional[str]
-            Narrow location results to one country, as an ISO 3166-1 code such as `US`. Only applies when `types` includes `locations`.
-
-        limit : typing.Optional[int]
-            Maximum number of results per requested type.
-
-        special_ad_categories : typing.Optional[typing.Union[SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem, typing.Sequence[SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem]]]
-            The campaign's declared special ad categories. Under `housing`, `employment`, or `financial_products` the ad platform allows interests only, drawn from a short approved list, so results are narrowed to what such a campaign can launch with and other kinds return nothing. Blank `query` browses that approved list instead of the usual fixed lists.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        SearchTargetingOptionsAdGroupsResponse
-            types narrows the search and accepts a comma-separated list
-
-        Examples
-        --------
-        from whop_sdk import Whop
-
-        client = Whop(
-            "2026-10-29",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-        client.ad_groups.search_targeting_options(
-            platform="meta",
-        )
-        """
-        _response = self._raw_client.search_targeting_options(
-            platform=platform,
-            account_id=account_id,
-            query=query,
-            types=types,
-            location_types=location_types,
-            country=country,
-            limit=limit,
-            special_ad_categories=special_ad_categories,
             request_options=request_options,
         )
         return _response.data
@@ -529,7 +343,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -549,7 +363,7 @@ class AdGroupsClient:
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> DeleteAdGroupsResponse:
         """
-        Deletes an ad group, removing it from the ad platform so it stops delivering.
+        Deletes an ad group and stops its delivery.
 
         Parameters
         ----------
@@ -569,7 +383,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -584,7 +398,6 @@ class AdGroupsClient:
         self,
         id: str,
         *,
-        ads_platform: typing.Optional[UpdateAdGroupsRequestXAdsPlatform] = None,
         audiences: typing.Optional[AdGroupAudiencesBody] = OMIT,
         bid_type: typing.Optional[UpdateAdGroupsRequestBidType] = OMIT,
         budget_amount: typing.Optional[float] = OMIT,
@@ -611,9 +424,6 @@ class AdGroupsClient:
         ----------
         id : str
             The ad group ID.
-
-        ads_platform : typing.Optional[UpdateAdGroupsRequestXAdsPlatform]
-            The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
 
         audiences : typing.Optional[AdGroupAudiencesBody]
             Saved audiences to deliver to or exclude. Can't be combined with demographics.automatic.
@@ -678,7 +488,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -688,7 +498,6 @@ class AdGroupsClient:
         """
         _response = self._raw_client.update(
             id,
-            ads_platform=ads_platform,
             audiences=audiences,
             bid_type=bid_type,
             budget_amount=budget_amount,
@@ -749,7 +558,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -788,7 +597,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -821,7 +630,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -941,7 +750,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -986,7 +795,6 @@ class AsyncAdGroupsClient:
         self,
         *,
         ad_campaign_id: str,
-        ads_platform: typing.Optional[CreateAdGroupsRequestXAdsPlatform] = None,
         audiences: typing.Optional[AdGroupAudiencesBody] = OMIT,
         bid_type: typing.Optional[CreateAdGroupsRequestBidType] = OMIT,
         budget_amount: typing.Optional[float] = OMIT,
@@ -1013,9 +821,6 @@ class AsyncAdGroupsClient:
         ----------
         ad_campaign_id : str
             The ad campaign to create the ad group in, prefixed `adcamp_`.
-
-        ads_platform : typing.Optional[CreateAdGroupsRequestXAdsPlatform]
-            The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
 
         audiences : typing.Optional[AdGroupAudiencesBody]
             Saved audiences to deliver to or exclude. Can't be combined with demographics.automatic.
@@ -1082,7 +887,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1098,7 +903,6 @@ class AsyncAdGroupsClient:
         """
         _response = await self._raw_client.create(
             ad_campaign_id=ad_campaign_id,
-            ads_platform=ads_platform,
             audiences=audiences,
             bid_type=bid_type,
             budget_amount=budget_amount,
@@ -1116,189 +920,6 @@ class AsyncAdGroupsClient:
             starts_at=starts_at,
             status=status,
             title=title,
-            request_options=request_options,
-        )
-        return _response.data
-
-    async def estimate_reach(
-        self,
-        *,
-        platform: EstimateReachAdGroupsRequestPlatform,
-        account_id: typing.Optional[str] = OMIT,
-        audiences: typing.Optional[AdGroupAudiencesBody] = OMIT,
-        demographics: typing.Optional[AdGroupDemographicsBody] = OMIT,
-        detailed_targeting: typing.Optional[AdGroupDetailedTargetingBody] = OMIT,
-        devices: typing.Optional[AdGroupDevicesBody] = OMIT,
-        languages: typing.Optional[typing.Sequence[str]] = OMIT,
-        regions: typing.Optional[AdGroupRegionsBody] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> ReachEstimate:
-        """
-        Estimates how many people a draft targeting spec can reach, before an ad group is created. The body takes the same targeting fields as creating an ad group, and nothing is persisted.
-
-        Parameters
-        ----------
-        platform : EstimateReachAdGroupsRequestPlatform
-            The ad network the estimate runs on.
-
-        account_id : typing.Optional[str]
-            Account to estimate on behalf of. Defaults to the authenticated account.
-
-        audiences : typing.Optional[AdGroupAudiencesBody]
-            Saved audiences to deliver to or exclude. Can't be combined with demographics.automatic.
-
-        demographics : typing.Optional[AdGroupDemographicsBody]
-            Age, gender, and automatic-audience targeting.
-
-        detailed_targeting : typing.Optional[AdGroupDetailedTargetingBody]
-            Interest, behavior, and demographic targeting, using categories from the ad platform's targeting taxonomy. At most 100 entries per section.
-
-        devices : typing.Optional[AdGroupDevicesBody]
-            Device platforms and operating systems to target.
-
-        languages : typing.Optional[typing.Sequence[str]]
-            Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted targets all languages.
-
-        regions : typing.Optional[AdGroupRegionsBody]
-            Locations to target and exclude.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        ReachEstimate
-            reach estimated
-
-        Examples
-        --------
-        import asyncio
-
-        from whop_sdk import AsyncWhop
-
-        client = AsyncWhop(
-            "2026-10-29",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.ad_groups.estimate_reach(
-                platform="meta",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.estimate_reach(
-            platform=platform,
-            account_id=account_id,
-            audiences=audiences,
-            demographics=demographics,
-            detailed_targeting=detailed_targeting,
-            devices=devices,
-            languages=languages,
-            regions=regions,
-            request_options=request_options,
-        )
-        return _response.data
-
-    async def search_targeting_options(
-        self,
-        *,
-        platform: SearchTargetingOptionsAdGroupsRequestPlatform,
-        account_id: typing.Optional[str] = None,
-        query: typing.Optional[str] = None,
-        types: typing.Optional[
-            typing.Union[
-                SearchTargetingOptionsAdGroupsRequestTypesItem,
-                typing.Sequence[SearchTargetingOptionsAdGroupsRequestTypesItem],
-            ]
-        ] = None,
-        location_types: typing.Optional[
-            typing.Union[
-                SearchTargetingOptionsAdGroupsRequestLocationTypesItem,
-                typing.Sequence[SearchTargetingOptionsAdGroupsRequestLocationTypesItem],
-            ]
-        ] = None,
-        country: typing.Optional[str] = None,
-        limit: typing.Optional[int] = None,
-        special_ad_categories: typing.Optional[
-            typing.Union[
-                SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem,
-                typing.Sequence[SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem],
-            ]
-        ] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> SearchTargetingOptionsAdGroupsResponse:
-        """
-        Searches the ad platform's targeting taxonomy for options to target an ad group with. Each result comes back in the exact shape the ad-group body accepts for its `type`, so it can be used in `detailed_targeting`, `regions`, or `languages` as-is.
-
-        Parameters
-        ----------
-        platform : SearchTargetingOptionsAdGroupsRequestPlatform
-            The ad network whose targeting taxonomy to search.
-
-        account_id : typing.Optional[str]
-            Account to search on behalf of. Defaults to the authenticated account.
-
-        query : typing.Optional[str]
-            The search term. Blank browses the small fixed lists (behaviors, browse demographic categories, and languages); interests, work employers, job titles, schools, majors, and locations return nothing without one.
-
-        types : typing.Optional[typing.Union[SearchTargetingOptionsAdGroupsRequestTypesItem, typing.Sequence[SearchTargetingOptionsAdGroupsRequestTypesItem]]]
-            Kinds of targeting options to search. Defaults to all of them.
-
-        location_types : typing.Optional[typing.Union[SearchTargetingOptionsAdGroupsRequestLocationTypesItem, typing.Sequence[SearchTargetingOptionsAdGroupsRequestLocationTypesItem]]]
-            Narrow location results to these kinds of places. Only applies when `types` includes `locations`.
-
-        country : typing.Optional[str]
-            Narrow location results to one country, as an ISO 3166-1 code such as `US`. Only applies when `types` includes `locations`.
-
-        limit : typing.Optional[int]
-            Maximum number of results per requested type.
-
-        special_ad_categories : typing.Optional[typing.Union[SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem, typing.Sequence[SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem]]]
-            The campaign's declared special ad categories. Under `housing`, `employment`, or `financial_products` the ad platform allows interests only, drawn from a short approved list, so results are narrowed to what such a campaign can launch with and other kinds return nothing. Blank `query` browses that approved list instead of the usual fixed lists.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        SearchTargetingOptionsAdGroupsResponse
-            types narrows the search and accepts a comma-separated list
-
-        Examples
-        --------
-        import asyncio
-
-        from whop_sdk import AsyncWhop
-
-        client = AsyncWhop(
-            "2026-10-29",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.ad_groups.search_targeting_options(
-                platform="meta",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.search_targeting_options(
-            platform=platform,
-            account_id=account_id,
-            query=query,
-            types=types,
-            location_types=location_types,
-            country=country,
-            limit=limit,
-            special_ad_categories=special_ad_categories,
             request_options=request_options,
         )
         return _response.data
@@ -1348,7 +969,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1376,7 +997,7 @@ class AsyncAdGroupsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> DeleteAdGroupsResponse:
         """
-        Deletes an ad group, removing it from the ad platform so it stops delivering.
+        Deletes an ad group and stops its delivery.
 
         Parameters
         ----------
@@ -1398,7 +1019,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1419,7 +1040,6 @@ class AsyncAdGroupsClient:
         self,
         id: str,
         *,
-        ads_platform: typing.Optional[UpdateAdGroupsRequestXAdsPlatform] = None,
         audiences: typing.Optional[AdGroupAudiencesBody] = OMIT,
         bid_type: typing.Optional[UpdateAdGroupsRequestBidType] = OMIT,
         budget_amount: typing.Optional[float] = OMIT,
@@ -1446,9 +1066,6 @@ class AsyncAdGroupsClient:
         ----------
         id : str
             The ad group ID.
-
-        ads_platform : typing.Optional[UpdateAdGroupsRequestXAdsPlatform]
-            The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
 
         audiences : typing.Optional[AdGroupAudiencesBody]
             Saved audiences to deliver to or exclude. Can't be combined with demographics.automatic.
@@ -1515,7 +1132,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1531,7 +1148,6 @@ class AsyncAdGroupsClient:
         """
         _response = await self._raw_client.update(
             id,
-            ads_platform=ads_platform,
             audiences=audiences,
             bid_type=bid_type,
             budget_amount=budget_amount,
@@ -1594,7 +1210,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1641,7 +1257,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1682,7 +1298,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

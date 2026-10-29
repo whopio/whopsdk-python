@@ -14,7 +14,7 @@ class AdGroupDemographicsBody(UniversalBaseModel):
 
     automatic: typing.Optional[bool] = pydantic.Field(default=None)
     """
-    Turn on automatic audience targeting (Advantage+ on Meta): the platform can deliver beyond the ages, genders, and detailed targeting you set, treating them as suggestions.
+    Turn on automatic audience targeting: delivery can reach beyond the ages, genders, and detailed targeting you set, treating them as suggestions.
     """
 
     gender: typing.Optional[AdGroupDemographicsBodyGender] = pydantic.Field(default=None)

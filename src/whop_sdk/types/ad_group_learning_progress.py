@@ -9,17 +9,17 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 class AdGroupLearningProgress(UniversalBaseModel):
     conversion_threshold: int = pydantic.Field()
     """
-    The ad platform's dynamic conversion threshold for this ad group's learning phase.
+    The conversions this ad group's learning phase needs. It can change during delivery.
     """
 
     conversions: int = pydantic.Field()
     """
-    Conversions reported by the ad platform since the last significant edit during this ad group's learning phase.
+    Conversions counted since the last significant edit during this ad group's learning phase.
     """
 
     progress_percent: float = pydantic.Field()
     """
-    Conversions divided by the threshold, as a percentage clamped to 0–100. The platform's learning status remains authoritative.
+    Conversions divided by the threshold, as a percentage clamped to 0–100. The ad group's `delivery_status` remains authoritative.
     """
 
     if IS_PYDANTIC_V2:

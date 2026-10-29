@@ -121,7 +121,7 @@ class ExternalAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -174,7 +174,7 @@ class ExternalAccountsClient:
         )
 
         client = Whop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -224,7 +224,7 @@ class ExternalAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -277,7 +277,7 @@ class ExternalAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -319,7 +319,7 @@ class ExternalAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -449,7 +449,7 @@ class AsyncExternalAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -511,7 +511,7 @@ class AsyncExternalAccountsClient:
         )
 
         client = AsyncWhop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -569,7 +569,7 @@ class AsyncExternalAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -630,7 +630,7 @@ class AsyncExternalAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -682,7 +682,7 @@ class AsyncExternalAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29",
+            "2026-10-29-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

@@ -54,7 +54,7 @@ class PostAdCampaignUpdatedPayloadData(UniversalBaseModel):
 
     campaign_type: PostAdCampaignUpdatedPayloadDataCampaignType = pydantic.Field()
     """
-    The kind of campaign, fixed at creation. `standard` is the ad network's standard campaign; `search` shows text ads on search results for the ad groups' keywords.
+    The kind of campaign, fixed at creation. `standard` runs image and video ads; `search` shows text ads on search results for the ad groups' keywords.
     """
 
     created_at: str = pydantic.Field()
@@ -74,7 +74,7 @@ class PostAdCampaignUpdatedPayloadData(UniversalBaseModel):
 
     ends_at: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Google only: when the campaign stops delivering, as an ISO 8601 timestamp. `null` runs it until paused.
+    When the campaign stops delivering, as an ISO 8601 timestamp. `null` when it runs until paused, or when its ad groups set their own schedule.
     """
 
     id: str = pydantic.Field()
@@ -91,7 +91,7 @@ class PostAdCampaignUpdatedPayloadData(UniversalBaseModel):
     special_ad_categories: typing.List[PostAdCampaignUpdatedPayloadDataSpecialAdCategoriesItem]
     starts_at: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Google only: when the campaign starts delivering, as an ISO 8601 timestamp. `null` starts it as soon as it launches.
+    When the campaign starts delivering, as an ISO 8601 timestamp. `null` when it starts as soon as it launches, or when its ad groups set their own schedule.
     """
 
     status: PostAdCampaignUpdatedPayloadDataStatus = pydantic.Field()

@@ -14,7 +14,6 @@ if typing.TYPE_CHECKING:
         CreateAdsRequestDescriptionsItem,
         CreateAdsRequestHeadlinesItem,
         CreateAdsRequestPrimaryTextsItem,
-        CreateAdsRequestXAdsPlatform,
         DeleteAdsResponse,
         DuplicateAdsResponse,
         ListAdsRequestAttributionModel,
@@ -41,7 +40,6 @@ if typing.TYPE_CHECKING:
         UpdateAdsRequestDescriptionsItem,
         UpdateAdsRequestHeadlinesItem,
         UpdateAdsRequestPrimaryTextsItem,
-        UpdateAdsRequestXAdsPlatform,
     )
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateAdsRequestCallToAction": ".types",
@@ -51,7 +49,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateAdsRequestDescriptionsItem": ".types",
     "CreateAdsRequestHeadlinesItem": ".types",
     "CreateAdsRequestPrimaryTextsItem": ".types",
-    "CreateAdsRequestXAdsPlatform": ".types",
     "DeleteAdsResponse": ".types",
     "DuplicateAdsResponse": ".types",
     "ListAdsRequestAttributionModel": ".types",
@@ -78,7 +75,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateAdsRequestDescriptionsItem": ".types",
     "UpdateAdsRequestHeadlinesItem": ".types",
     "UpdateAdsRequestPrimaryTextsItem": ".types",
-    "UpdateAdsRequestXAdsPlatform": ".types",
 }
 
 
@@ -111,7 +107,6 @@ __all__ = [
     "CreateAdsRequestDescriptionsItem",
     "CreateAdsRequestHeadlinesItem",
     "CreateAdsRequestPrimaryTextsItem",
-    "CreateAdsRequestXAdsPlatform",
     "DeleteAdsResponse",
     "DuplicateAdsResponse",
     "ListAdsRequestAttributionModel",
@@ -138,5 +133,4 @@ __all__ = [
     "UpdateAdsRequestDescriptionsItem",
     "UpdateAdsRequestHeadlinesItem",
     "UpdateAdsRequestPrimaryTextsItem",
-    "UpdateAdsRequestXAdsPlatform",
 ]
