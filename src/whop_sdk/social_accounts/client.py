@@ -18,8 +18,6 @@ from .types.list_social_accounts_request_platform import ListSocialAccountsReque
 from .types.list_social_accounts_request_scopes_item import ListSocialAccountsRequestScopesItem
 from .types.list_social_accounts_request_trust_level import ListSocialAccountsRequestTrustLevel
 from .types.list_social_accounts_response import ListSocialAccountsResponse
-from .types.partners_social_accounts_response import PartnersSocialAccountsResponse
-from .types.remove_partner_social_accounts_response import RemovePartnerSocialAccountsResponse
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -113,7 +111,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-2",
+            "2026-10-29-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -164,7 +162,7 @@ class SocialAccountsClient:
         from whop_sdk.social_accounts import CreateSocialAccountsRequestBody_Facebook
 
         client = Whop(
-            "2026-10-29-2",
+            "2026-10-29-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -214,7 +212,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-2",
+            "2026-10-29-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -265,7 +263,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-2",
+            "2026-10-29-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -274,160 +272,6 @@ class SocialAccountsClient:
         )
         """
         _response = self._raw_client.delete(id, account_id=account_id, user_id=user_id, request_options=request_options)
-        return _response.data
-
-    def partners(
-        self,
-        id: str,
-        *,
-        account_id: typing.Optional[str] = None,
-        first: typing.Optional[int] = None,
-        after: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> SyncPager[SocialAccount, PartnersSocialAccountsResponse]:
-        """
-        Deprecated compatibility endpoint. List partners with `GET /external_accounts/{external_account_id}/partners` instead.
-
-        Parameters
-        ----------
-        id : str
-            The brand's Instagram social account (a sacc_ identifier).
-
-        account_id : typing.Optional[str]
-            The Account (biz_ identifier) that advertises as the Instagram account. An account-scoped API key may omit this to default to its own account.
-
-        first : typing.Optional[int]
-            Number of results to return from the start of the range.
-
-        after : typing.Optional[str]
-            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        SyncPager[SocialAccount, PartnersSocialAccountsResponse]
-            partners listed through the deprecated path
-
-        Examples
-        --------
-        from whop_sdk import Whop
-
-        client = Whop(
-            "2026-10-29-2",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-        response = client.social_accounts.partners(
-            id="id",
-        )
-        for item in response:
-            yield item
-        # alternatively, you can paginate page-by-page
-        for page in response.iter_pages():
-            yield page
-        """
-        return self._raw_client.partners(
-            id, account_id=account_id, first=first, after=after, request_options=request_options
-        )
-
-    def add_partner(
-        self,
-        id: str,
-        *,
-        username: str,
-        account_id: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> SocialAccount:
-        """
-        Deprecated compatibility endpoint. Add partners with `POST /external_accounts/{external_account_id}/partners` instead.
-
-        Parameters
-        ----------
-        id : str
-            The brand's Instagram social account (a sacc_ identifier).
-
-        username : str
-            The creator's Instagram username, with or without the leading `@`. The creator needs a professional (Business or Creator) Instagram account.
-
-        account_id : typing.Optional[str]
-            The Account (biz_ identifier) that advertises as the Instagram account. An account-scoped API key may omit this to default to its own account.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        SocialAccount
-            creator invited through the deprecated path
-
-        Examples
-        --------
-        from whop_sdk import Whop
-
-        client = Whop(
-            "2026-10-29-2",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-        client.social_accounts.add_partner(
-            id="id",
-            username="@luverahealth",
-        )
-        """
-        _response = self._raw_client.add_partner(
-            id, username=username, account_id=account_id, request_options=request_options
-        )
-        return _response.data
-
-    def remove_partner(
-        self,
-        id: str,
-        partner_id: str,
-        *,
-        account_id: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> RemovePartnerSocialAccountsResponse:
-        """
-        Deprecated compatibility endpoint. Remove partners with `DELETE /external_accounts/{external_account_id}/partners/{id}` instead.
-
-        Parameters
-        ----------
-        id : str
-            The brand's Instagram social account (a sacc_ identifier).
-
-        partner_id : str
-            The partner creator's social account (a sacc_ identifier).
-
-        account_id : typing.Optional[str]
-            The Account (biz_ identifier) that advertises as the Instagram account. An account-scoped API key may omit this to default to its own account.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        RemovePartnerSocialAccountsResponse
-            partner removed through the deprecated path
-
-        Examples
-        --------
-        from whop_sdk import Whop
-
-        client = Whop(
-            "2026-10-29-2",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-        client.social_accounts.remove_partner(
-            id="id",
-            partner_id="partner_id",
-        )
-        """
-        _response = self._raw_client.remove_partner(
-            id, partner_id, account_id=account_id, request_options=request_options
-        )
         return _response.data
 
     def refresh(
@@ -461,7 +305,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-2",
+            "2026-10-29-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -563,7 +407,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-2",
+            "2026-10-29-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -623,7 +467,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk.social_accounts import CreateSocialAccountsRequestBody_Facebook
 
         client = AsyncWhop(
-            "2026-10-29-2",
+            "2026-10-29-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -681,7 +525,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-2",
+            "2026-10-29-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -740,7 +584,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-2",
+            "2026-10-29-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -756,185 +600,6 @@ class AsyncSocialAccountsClient:
         """
         _response = await self._raw_client.delete(
             id, account_id=account_id, user_id=user_id, request_options=request_options
-        )
-        return _response.data
-
-    async def partners(
-        self,
-        id: str,
-        *,
-        account_id: typing.Optional[str] = None,
-        first: typing.Optional[int] = None,
-        after: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncPager[SocialAccount, PartnersSocialAccountsResponse]:
-        """
-        Deprecated compatibility endpoint. List partners with `GET /external_accounts/{external_account_id}/partners` instead.
-
-        Parameters
-        ----------
-        id : str
-            The brand's Instagram social account (a sacc_ identifier).
-
-        account_id : typing.Optional[str]
-            The Account (biz_ identifier) that advertises as the Instagram account. An account-scoped API key may omit this to default to its own account.
-
-        first : typing.Optional[int]
-            Number of results to return from the start of the range.
-
-        after : typing.Optional[str]
-            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncPager[SocialAccount, PartnersSocialAccountsResponse]
-            partners listed through the deprecated path
-
-        Examples
-        --------
-        import asyncio
-
-        from whop_sdk import AsyncWhop
-
-        client = AsyncWhop(
-            "2026-10-29-2",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            response = await client.social_accounts.partners(
-                id="id",
-            )
-            async for item in response:
-                yield item
-
-            # alternatively, you can paginate page-by-page
-            async for page in response.iter_pages():
-                yield page
-
-
-        asyncio.run(main())
-        """
-        return await self._raw_client.partners(
-            id, account_id=account_id, first=first, after=after, request_options=request_options
-        )
-
-    async def add_partner(
-        self,
-        id: str,
-        *,
-        username: str,
-        account_id: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> SocialAccount:
-        """
-        Deprecated compatibility endpoint. Add partners with `POST /external_accounts/{external_account_id}/partners` instead.
-
-        Parameters
-        ----------
-        id : str
-            The brand's Instagram social account (a sacc_ identifier).
-
-        username : str
-            The creator's Instagram username, with or without the leading `@`. The creator needs a professional (Business or Creator) Instagram account.
-
-        account_id : typing.Optional[str]
-            The Account (biz_ identifier) that advertises as the Instagram account. An account-scoped API key may omit this to default to its own account.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        SocialAccount
-            creator invited through the deprecated path
-
-        Examples
-        --------
-        import asyncio
-
-        from whop_sdk import AsyncWhop
-
-        client = AsyncWhop(
-            "2026-10-29-2",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.social_accounts.add_partner(
-                id="id",
-                username="@luverahealth",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.add_partner(
-            id, username=username, account_id=account_id, request_options=request_options
-        )
-        return _response.data
-
-    async def remove_partner(
-        self,
-        id: str,
-        partner_id: str,
-        *,
-        account_id: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> RemovePartnerSocialAccountsResponse:
-        """
-        Deprecated compatibility endpoint. Remove partners with `DELETE /external_accounts/{external_account_id}/partners/{id}` instead.
-
-        Parameters
-        ----------
-        id : str
-            The brand's Instagram social account (a sacc_ identifier).
-
-        partner_id : str
-            The partner creator's social account (a sacc_ identifier).
-
-        account_id : typing.Optional[str]
-            The Account (biz_ identifier) that advertises as the Instagram account. An account-scoped API key may omit this to default to its own account.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        RemovePartnerSocialAccountsResponse
-            partner removed through the deprecated path
-
-        Examples
-        --------
-        import asyncio
-
-        from whop_sdk import AsyncWhop
-
-        client = AsyncWhop(
-            "2026-10-29-2",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.social_accounts.remove_partner(
-                id="id",
-                partner_id="partner_id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.remove_partner(
-            id, partner_id, account_id=account_id, request_options=request_options
         )
         return _response.data
 
@@ -971,7 +636,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-2",
+            "2026-10-29-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

@@ -27,9 +27,6 @@ if typing.TYPE_CHECKING:
         ListSocialAccountsRequestTrustLevel,
         ListSocialAccountsResponse,
         ListSocialAccountsResponsePageInfo,
-        PartnersSocialAccountsResponse,
-        PartnersSocialAccountsResponsePageInfo,
-        RemovePartnerSocialAccountsResponse,
     )
 _dynamic_imports: typing.Dict[str, str] = {
     "ConnectSocialAccountsRequestPlatform": ".types",
@@ -52,9 +49,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListSocialAccountsRequestTrustLevel": ".types",
     "ListSocialAccountsResponse": ".types",
     "ListSocialAccountsResponsePageInfo": ".types",
-    "PartnersSocialAccountsResponse": ".types",
-    "PartnersSocialAccountsResponsePageInfo": ".types",
-    "RemovePartnerSocialAccountsResponse": ".types",
 }
 
 
@@ -100,7 +94,4 @@ __all__ = [
     "ListSocialAccountsRequestTrustLevel",
     "ListSocialAccountsResponse",
     "ListSocialAccountsResponsePageInfo",
-    "PartnersSocialAccountsResponse",
-    "PartnersSocialAccountsResponsePageInfo",
-    "RemovePartnerSocialAccountsResponse",
 ]

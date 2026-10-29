@@ -28,8 +28,6 @@ if typing.TYPE_CHECKING:
         ListExternalAccountsResponse,
         ListExternalAccountsResponsePageInfo,
     )
-    from . import partners
-    from .partners import DeletePartnersResponse, ListPartnersResponse, ListPartnersResponsePageInfo
 _dynamic_imports: typing.Dict[str, str] = {
     "ConnectExternalAccountsRequestPlatform": ".types",
     "ConnectExternalAccountsRequestScopesItem": ".types",
@@ -44,7 +42,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateExternalAccountsRequestBody_Klaviyo": ".types",
     "CreateExternalAccountsRequestBody_Tiktok": ".types",
     "DeleteExternalAccountsResponse": ".types",
-    "DeletePartnersResponse": ".partners",
     "ListExternalAccountsRequestDirection": ".types",
     "ListExternalAccountsRequestOrder": ".types",
     "ListExternalAccountsRequestPlatform": ".types",
@@ -52,9 +49,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListExternalAccountsRequestTrustLevel": ".types",
     "ListExternalAccountsResponse": ".types",
     "ListExternalAccountsResponsePageInfo": ".types",
-    "ListPartnersResponse": ".partners",
-    "ListPartnersResponsePageInfo": ".partners",
-    "partners": ".partners",
 }
 
 
@@ -93,7 +87,6 @@ __all__ = [
     "CreateExternalAccountsRequestBody_Klaviyo",
     "CreateExternalAccountsRequestBody_Tiktok",
     "DeleteExternalAccountsResponse",
-    "DeletePartnersResponse",
     "ListExternalAccountsRequestDirection",
     "ListExternalAccountsRequestOrder",
     "ListExternalAccountsRequestPlatform",
@@ -101,7 +94,4 @@ __all__ = [
     "ListExternalAccountsRequestTrustLevel",
     "ListExternalAccountsResponse",
     "ListExternalAccountsResponsePageInfo",
-    "ListPartnersResponse",
-    "ListPartnersResponsePageInfo",
-    "partners",
 ]
