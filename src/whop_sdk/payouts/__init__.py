@@ -163,6 +163,7 @@ if typing.TYPE_CHECKING:
     )
     from .paypal_link_sessions import CreatePaypalLinkSessionsResponse
     from .supported_methods import (
+        ListSupportedMethodsRequestPartyType,
         ListSupportedMethodsResponse,
         ListSupportedMethodsResponseDataItem,
         ListSupportedMethodsResponseDataItemDeliveryType,
@@ -249,6 +250,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListPayoutsResponseDataItemSpeed": ".types",
     "ListPayoutsResponseDataItemStatus": ".types",
     "ListPayoutsResponsePageInfo": ".types",
+    "ListSupportedMethodsRequestPartyType": ".supported_methods",
     "ListSupportedMethodsResponse": ".supported_methods",
     "ListSupportedMethodsResponseDataItem": ".supported_methods",
     "ListSupportedMethodsResponseDataItemDeliveryType": ".supported_methods",
@@ -438,6 +440,7 @@ __all__ = [
     "ListPayoutsResponseDataItemSpeed",
     "ListPayoutsResponseDataItemStatus",
     "ListPayoutsResponsePageInfo",
+    "ListSupportedMethodsRequestPartyType",
     "ListSupportedMethodsResponse",
     "ListSupportedMethodsResponseDataItem",
     "ListSupportedMethodsResponseDataItemDeliveryType",

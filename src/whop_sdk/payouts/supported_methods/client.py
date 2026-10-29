@@ -6,6 +6,7 @@ from ...core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ...core.pagination import AsyncPager, SyncPager
 from ...core.request_options import RequestOptions
 from .raw_client import AsyncRawSupportedMethodsClient, RawSupportedMethodsClient
+from .types.list_supported_methods_request_party_type import ListSupportedMethodsRequestPartyType
 from .types.list_supported_methods_response import ListSupportedMethodsResponse
 from .types.list_supported_methods_response_data_item import ListSupportedMethodsResponseDataItem
 
@@ -35,6 +36,7 @@ class SupportedMethodsClient:
         currency: typing.Optional[str] = None,
         supported_payout_method_id: typing.Optional[str] = None,
         destination_currency: typing.Optional[str] = None,
+        party_type: typing.Optional[ListSupportedMethodsRequestPartyType] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
@@ -66,6 +68,9 @@ class SupportedMethodsClient:
 
         destination_currency : typing.Optional[str]
             Currency the supported payout method would deliver payouts in. Only meaningful with supported_payout_method_id; required fields vary by destination currency.
+
+        party_type : typing.Optional[ListSupportedMethodsRequestPartyType]
+            Who will own the payout method. `first_party` is the account itself. `third_party` is a recipient the account pays, saved with `recipient` on `POST /payouts/methods`, which needs no identity fields. Only meaningful with supported_payout_method_id.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -111,6 +116,7 @@ class SupportedMethodsClient:
             currency=currency,
             supported_payout_method_id=supported_payout_method_id,
             destination_currency=destination_currency,
+            party_type=party_type,
             first=first,
             after=after,
             last=last,
@@ -144,6 +150,7 @@ class AsyncSupportedMethodsClient:
         currency: typing.Optional[str] = None,
         supported_payout_method_id: typing.Optional[str] = None,
         destination_currency: typing.Optional[str] = None,
+        party_type: typing.Optional[ListSupportedMethodsRequestPartyType] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
@@ -175,6 +182,9 @@ class AsyncSupportedMethodsClient:
 
         destination_currency : typing.Optional[str]
             Currency the supported payout method would deliver payouts in. Only meaningful with supported_payout_method_id; required fields vary by destination currency.
+
+        party_type : typing.Optional[ListSupportedMethodsRequestPartyType]
+            Who will own the payout method. `first_party` is the account itself. `third_party` is a recipient the account pays, saved with `recipient` on `POST /payouts/methods`, which needs no identity fields. Only meaningful with supported_payout_method_id.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -229,6 +239,7 @@ class AsyncSupportedMethodsClient:
             currency=currency,
             supported_payout_method_id=supported_payout_method_id,
             destination_currency=destination_currency,
+            party_type=party_type,
             first=first,
             after=after,
             last=last,

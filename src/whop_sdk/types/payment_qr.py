@@ -13,6 +13,11 @@ class PaymentQr(UniversalBaseModel):
     Exactly what the buyer must pay, in the charged currency.
     """
 
+    copy_code: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The code the buyer pastes into their payment app instead of scanning, such as Pix's copy-and-paste code, so they can pay from the device showing the QR. Only present for methods that accept a pasted code.
+    """
+
     document_url: typing.Optional[str] = pydantic.Field(default=None)
     """
     A hosted page with the complete, printable instructions. If you would rather not render the details yourself, send the buyer here.
