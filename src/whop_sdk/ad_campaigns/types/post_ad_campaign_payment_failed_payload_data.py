@@ -17,7 +17,6 @@ from .post_ad_campaign_payment_failed_payload_data_delivery_status import (
     PostAdCampaignPaymentFailedPayloadDataDeliveryStatus,
 )
 from .post_ad_campaign_payment_failed_payload_data_objective import PostAdCampaignPaymentFailedPayloadDataObjective
-from .post_ad_campaign_payment_failed_payload_data_platform import PostAdCampaignPaymentFailedPayloadDataPlatform
 from .post_ad_campaign_payment_failed_payload_data_special_ad_categories_item import (
     PostAdCampaignPaymentFailedPayloadDataSpecialAdCategoriesItem,
 )
@@ -90,12 +89,7 @@ class PostAdCampaignPaymentFailedPayloadData(UniversalBaseModel):
     issues: typing.List[AdPlatformIssue]
     objective: typing.Optional[PostAdCampaignPaymentFailedPayloadDataObjective] = pydantic.Field(default=None)
     """
-    The goal the campaign optimizes toward.
-    """
-
-    platform: PostAdCampaignPaymentFailedPayloadDataPlatform = pydantic.Field()
-    """
-    The ad network the campaign runs on.
+    The goal the campaign optimizes toward. `awareness` appears only on campaigns created before it was retired; those campaigns can't launch.
     """
 
     special_ad_categories: typing.List[PostAdCampaignPaymentFailedPayloadDataSpecialAdCategoriesItem]

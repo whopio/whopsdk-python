@@ -12,7 +12,6 @@ from .types.create_ad_campaigns_request_budget_optimization import CreateAdCampa
 from .types.create_ad_campaigns_request_budget_type import CreateAdCampaignsRequestBudgetType
 from .types.create_ad_campaigns_request_campaign_type import CreateAdCampaignsRequestCampaignType
 from .types.create_ad_campaigns_request_objective import CreateAdCampaignsRequestObjective
-from .types.create_ad_campaigns_request_platform import CreateAdCampaignsRequestPlatform
 from .types.create_ad_campaigns_request_special_ad_categories_item import (
     CreateAdCampaignsRequestSpecialAdCategoriesItem,
 )
@@ -141,7 +140,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-28-1",
+            "2026-10-29",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -176,7 +175,6 @@ class AdCampaignsClient:
         self,
         *,
         objective: CreateAdCampaignsRequestObjective,
-        platform: CreateAdCampaignsRequestPlatform,
         title: str,
         account_id: typing.Optional[str] = OMIT,
         bid_type: typing.Optional[CreateAdCampaignsRequestBidType] = OMIT,
@@ -198,9 +196,6 @@ class AdCampaignsClient:
         ----------
         objective : CreateAdCampaignsRequestObjective
             The goal the campaign optimizes toward.
-
-        platform : CreateAdCampaignsRequestPlatform
-            The ad network the campaign runs on.
 
         title : str
             The title of the campaign.
@@ -251,19 +246,17 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-28-1",
+            "2026-10-29",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.ad_campaigns.create(
-            objective="awareness",
-            platform="whop",
+            objective="traffic",
             title="Now hiring mobile detailers — Austin",
         )
         """
         _response = self._raw_client.create(
             objective=objective,
-            platform=platform,
             title=title,
             account_id=account_id,
             bid_type=bid_type,
@@ -323,7 +316,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-28-1",
+            "2026-10-29",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -363,7 +356,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-28-1",
+            "2026-10-29",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -453,7 +446,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-28-1",
+            "2026-10-29",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -515,7 +508,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-28-1",
+            "2026-10-29",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -550,7 +543,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-28-1",
+            "2026-10-29",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -583,7 +576,7 @@ class AdCampaignsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-28-1",
+            "2026-10-29",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -699,7 +692,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-28-1",
+            "2026-10-29",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -741,7 +734,6 @@ class AsyncAdCampaignsClient:
         self,
         *,
         objective: CreateAdCampaignsRequestObjective,
-        platform: CreateAdCampaignsRequestPlatform,
         title: str,
         account_id: typing.Optional[str] = OMIT,
         bid_type: typing.Optional[CreateAdCampaignsRequestBidType] = OMIT,
@@ -763,9 +755,6 @@ class AsyncAdCampaignsClient:
         ----------
         objective : CreateAdCampaignsRequestObjective
             The goal the campaign optimizes toward.
-
-        platform : CreateAdCampaignsRequestPlatform
-            The ad network the campaign runs on.
 
         title : str
             The title of the campaign.
@@ -818,7 +807,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-28-1",
+            "2026-10-29",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -826,8 +815,7 @@ class AsyncAdCampaignsClient:
 
         async def main() -> None:
             await client.ad_campaigns.create(
-                objective="awareness",
-                platform="whop",
+                objective="traffic",
                 title="Now hiring mobile detailers — Austin",
             )
 
@@ -836,7 +824,6 @@ class AsyncAdCampaignsClient:
         """
         _response = await self._raw_client.create(
             objective=objective,
-            platform=platform,
             title=title,
             account_id=account_id,
             bid_type=bid_type,
@@ -898,7 +885,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-28-1",
+            "2026-10-29",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -948,7 +935,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-28-1",
+            "2026-10-29",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1046,7 +1033,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-28-1",
+            "2026-10-29",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1116,7 +1103,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-28-1",
+            "2026-10-29",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1159,7 +1146,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-28-1",
+            "2026-10-29",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1200,7 +1187,7 @@ class AsyncAdCampaignsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-28-1",
+            "2026-10-29",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

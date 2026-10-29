@@ -7,11 +7,6 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 
 class CreateAdsRequestPrimaryTextsItem(UniversalBaseModel):
-    language: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    ISO 639 code of the language this text is in, such as `es`. Required on every entry of an ad with `translations`, where the ad's own copy uses `translations.source_language`. Leave it out on an ad without translations.
-    """
-
     text: str = pydantic.Field()
     """
     The text shown to viewers.

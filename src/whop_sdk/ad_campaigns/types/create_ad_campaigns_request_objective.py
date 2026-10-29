@@ -2,6 +2,4 @@
 
 import typing
 
-CreateAdCampaignsRequestObjective = typing.Union[
-    typing.Literal["awareness", "traffic", "engagement", "leads", "sales"], typing.Any
-]
+CreateAdCampaignsRequestObjective = typing.Union[typing.Literal["traffic", "engagement", "leads", "sales"], typing.Any]

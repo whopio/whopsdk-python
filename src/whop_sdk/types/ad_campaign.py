@@ -10,7 +10,6 @@ from .ad_campaign_budget_type import AdCampaignBudgetType
 from .ad_campaign_campaign_type import AdCampaignCampaignType
 from .ad_campaign_delivery_status import AdCampaignDeliveryStatus
 from .ad_campaign_objective import AdCampaignObjective
-from .ad_campaign_platform import AdCampaignPlatform
 from .ad_campaign_result_event import AdCampaignResultEvent
 from .ad_campaign_special_ad_categories_item import AdCampaignSpecialAdCategoriesItem
 from .ad_campaign_status import AdCampaignStatus
@@ -221,12 +220,7 @@ class AdCampaign(UniversalBaseModel):
 
     objective: typing.Optional[AdCampaignObjective] = pydantic.Field(default=None)
     """
-    The goal the campaign optimizes toward.
-    """
-
-    platform: AdCampaignPlatform = pydantic.Field()
-    """
-    The ad network the campaign runs on.
+    The goal the campaign optimizes toward. `awareness` appears only on campaigns created before it was retired; those campaigns can't launch.
     """
 
     purchase_value: float = pydantic.Field()
