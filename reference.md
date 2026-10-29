@@ -16305,7 +16305,10 @@ client.deposits.create(
 <dl>
 <dd>
 
-Sends a bank deposit back to the bank account that wired it and takes it back out of the balance. Identify the deposit by its `vbt_` ID, the `source.id` of its row in the account's financial activity. The available balance has to cover the deposit minus the deposit fee, which is refunded. Returns the reversal's own row in the financial activity: a `topup_reversal` debit for the full deposit amount, whose `source` is the bank deposit. The source's `status` is `reversal_in_progress` until the money is back with the sender, then `reversed`. A card deposit is identified by the `pay_` ID that [Create Deposit](/api-reference/beta/deposits/create-deposit) returned as `methods.card.payment_id`, and is refunded to the card that paid it. The available balance has to cover the rest of the deposit that has not been refunded yet, or the reversal fails and nothing is refunded. Returns the refund's row in the financial activity: a `payment_refund` debit.
+Sends a deposit back where it came from. If the available balance doesn't cover it, nothing is sent.
+
+- **Bank deposit:** pass its `vbt_` ID. The deposit fee is returned, so the balance only has to cover the rest. Returns a `topup_reversal` row.
+- **Card deposit:** pass its `pay_` ID. It's refunded to the card, and its fees aren't returned. Returns a `payment_refund` row.
 </dd>
 </dl>
 </dd>
@@ -16346,7 +16349,7 @@ client.deposits.reverse(
 <dl>
 <dd>
 
-**id:** `str` — The ID of the deposit to reverse: a bank deposit, prefixed `vbt_`, or a card deposit's payment, prefixed `pay_`.
+**id:** `str` — A bank deposit ID, prefixed `vbt_`, or a card deposit's payment ID, prefixed `pay_`.
     
 </dd>
 </dl>
