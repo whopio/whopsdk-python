@@ -107,6 +107,7 @@ PermissionAction = typing.Union[
         "developer:manage_api_key",
         "developer:manage_builds",
         "developer:manage_oauth",
+        "developer:manage_oidc_trust",
         "developer:manage_webhook",
         "developer:update_app",
         "developer:update_app_authorization",
