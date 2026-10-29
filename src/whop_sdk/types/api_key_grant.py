@@ -16,7 +16,7 @@ class ApiKeyGrant(UniversalBaseModel):
 
     resource_type: str = pydantic.Field()
     """
-    The type of resource the actions apply to, such as `account`, `product`, or `app`.
+    The type of resource the actions apply to, such as `account`, `product`, `app`, or `user`.
     """
 
     if IS_PYDANTIC_V2:

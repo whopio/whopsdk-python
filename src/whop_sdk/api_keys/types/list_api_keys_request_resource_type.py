@@ -2,4 +2,4 @@
 
 import typing
 
-ListApiKeysRequestResourceType = typing.Union[typing.Literal["account", "app"], typing.Any]
+ListApiKeysRequestResourceType = typing.Union[typing.Literal["account", "app", "user"], typing.Any]
