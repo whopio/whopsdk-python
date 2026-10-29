@@ -13,6 +13,9 @@
 # standard library and one third-party package, never on the generated client, so each
 # survives the generated client being replaced:
 #
+#   - oidc — trades a cloud provider's OIDC identity token for a short-lived Whop access token,
+#     on httpx, which the generated client already depends on. oidc_token is the `token` for
+#     Whop and async_oidc_token is the `async_token` for AsyncWhop.
 #   - verify_user_token — the x-whop-user-token verifier, on pyjwt.
 #   - verify_webhook — the Standard Webhooks signature verifier, on standardwebhooks. It
 #     restores the verification half of `client.webhooks.unwrap`, which the Stainless SDK
