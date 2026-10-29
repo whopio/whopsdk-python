@@ -103,6 +103,7 @@ SummaryPaymentsRequestPaymentMethodsItem = typing.Union[
         "id_bank_transfer",
         "ideal",
         "interac",
+        "international_bank_wire",
         "kakao_pay",
         "klarna",
         "klarna_pay_now",
