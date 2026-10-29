@@ -8,21 +8,15 @@ from ...types.ad_entity_reference import AdEntityReference
 from ...types.ad_group_audiences import AdGroupAudiences
 from ...types.ad_group_delivery_schedule import AdGroupDeliverySchedule
 from ...types.ad_group_demographics import AdGroupDemographics
-from ...types.ad_group_detailed_targeting import AdGroupDetailedTargeting
 from ...types.ad_group_devices import AdGroupDevices
-from ...types.ad_group_frequency_cap import AdGroupFrequencyCap
 from ...types.ad_group_keyword import AdGroupKeyword
 from ...types.ad_group_learning_progress import AdGroupLearningProgress
-from ...types.ad_group_placement import AdGroupPlacement
 from ...types.ad_group_regions import AdGroupRegions
 from ...types.ad_platform_issue import AdPlatformIssue
 from ...types.conversion_event import ConversionEvent
 from .post_ad_group_updated_payload_data_bid_type import PostAdGroupUpdatedPayloadDataBidType
 from .post_ad_group_updated_payload_data_budget_type import PostAdGroupUpdatedPayloadDataBudgetType
-from .post_ad_group_updated_payload_data_conversion_location import PostAdGroupUpdatedPayloadDataConversionLocation
 from .post_ad_group_updated_payload_data_delivery_status import PostAdGroupUpdatedPayloadDataDeliveryStatus
-from .post_ad_group_updated_payload_data_message_apps_item import PostAdGroupUpdatedPayloadDataMessageAppsItem
-from .post_ad_group_updated_payload_data_optimization_goal import PostAdGroupUpdatedPayloadDataOptimizationGoal
 from .post_ad_group_updated_payload_data_platform import PostAdGroupUpdatedPayloadDataPlatform
 from .post_ad_group_updated_payload_data_status import PostAdGroupUpdatedPayloadDataStatus
 
@@ -64,11 +58,6 @@ class PostAdGroupUpdatedPayloadData(UniversalBaseModel):
     """
 
     conversion_event: typing.Optional[ConversionEvent] = None
-    conversion_location: typing.Optional[PostAdGroupUpdatedPayloadDataConversionLocation] = pydantic.Field(default=None)
-    """
-    Where the outcome being optimized for occurs, such as a website visit, social-profile visit, messaging conversation, ad interaction, or lead-form submission.
-    """
-
     created_at: str = pydantic.Field()
     """
     When the ad group was created, as an ISO 8601 timestamp.
@@ -94,29 +83,14 @@ class PostAdGroupUpdatedPayloadData(UniversalBaseModel):
     Cost per result to aim for (`average_target`) or never exceed (`maximum_target`). `null` for `minimum_cost` bidding.
     """
 
-    detailed_targeting: AdGroupDetailedTargeting = pydantic.Field()
-    """
-    Interest, behavior, and demographic targeting, using categories from the ad platform's targeting taxonomy. Entries across interests, behaviors, and demographics are OR'd together (anyone matching any entry is reached), matching Ads Manager's detailed-targeting box. Can't be combined with automatic audience targeting. Special ad category campaigns are limited to approved interests.
-    """
-
     devices: AdGroupDevices = pydantic.Field()
     """
     Device platforms and operating systems targeted.
     """
 
-    dynamic_creative: typing.Optional[bool] = pydantic.Field(default=None)
-    """
-    Whether the ad platform automatically mixes and matches this ad group's creatives and copy to find the best-performing combinations.
-    """
-
     ends_at: typing.Optional[str] = pydantic.Field(default=None)
     """
     When the ad group stops delivering, as an ISO 8601 timestamp. `null` when it runs until paused.
-    """
-
-    frequency_cap: typing.Optional[AdGroupFrequencyCap] = pydantic.Field(default=None)
-    """
-    Cap on how often one person sees ads from this ad group, or from the whole campaign under a campaign budget, where every ad group shares it. Only available when the ad group optimizes for reach or ThruPlay; `null` when uncapped.
     """
 
     id: str = pydantic.Field()
@@ -132,18 +106,6 @@ class PostAdGroupUpdatedPayloadData(UniversalBaseModel):
     Progress toward the ad platform's learning conversion threshold for this ad group. Null unless it is learning or learning limited and the platform reports valid counts. Reaching the threshold does not determine delivery status.
     """
 
-    message_apps: typing.Optional[typing.List[PostAdGroupUpdatedPayloadDataMessageAppsItem]] = None
-    minimum_daily_spend: typing.Optional[float] = pydantic.Field(default=None)
-    """
-    Minimum the ad group tries to spend each day. `null` when no floor is set.
-    """
-
-    optimization_goal: typing.Optional[PostAdGroupUpdatedPayloadDataOptimizationGoal] = pydantic.Field(default=None)
-    """
-    The result the ad group's delivery is optimized to get the most of.
-    """
-
-    placements: typing.List[AdGroupPlacement]
     platform: PostAdGroupUpdatedPayloadDataPlatform = pydantic.Field()
     """
     The ad platform this ad group runs on.

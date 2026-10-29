@@ -14,9 +14,6 @@ from .types.create_ads_request_creatives_item import CreateAdsRequestCreativesIt
 from .types.create_ads_request_descriptions_item import CreateAdsRequestDescriptionsItem
 from .types.create_ads_request_external_accounts_item import CreateAdsRequestExternalAccountsItem
 from .types.create_ads_request_headlines_item import CreateAdsRequestHeadlinesItem
-from .types.create_ads_request_lead_form import CreateAdsRequestLeadForm
-from .types.create_ads_request_messaging_config import CreateAdsRequestMessagingConfig
-from .types.create_ads_request_music import CreateAdsRequestMusic
 from .types.create_ads_request_post_source import CreateAdsRequestPostSource
 from .types.create_ads_request_primary_texts_item import CreateAdsRequestPrimaryTextsItem
 from .types.create_ads_request_translations import CreateAdsRequestTranslations
@@ -37,9 +34,6 @@ from .types.update_ads_request_creatives_item import UpdateAdsRequestCreativesIt
 from .types.update_ads_request_descriptions_item import UpdateAdsRequestDescriptionsItem
 from .types.update_ads_request_external_accounts_item import UpdateAdsRequestExternalAccountsItem
 from .types.update_ads_request_headlines_item import UpdateAdsRequestHeadlinesItem
-from .types.update_ads_request_lead_form import UpdateAdsRequestLeadForm
-from .types.update_ads_request_messaging_config import UpdateAdsRequestMessagingConfig
-from .types.update_ads_request_music import UpdateAdsRequestMusic
 from .types.update_ads_request_post_source import UpdateAdsRequestPostSource
 from .types.update_ads_request_primary_texts_item import UpdateAdsRequestPrimaryTextsItem
 from .types.update_ads_request_translations import UpdateAdsRequestTranslations
@@ -109,7 +103,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-28",
+            "2026-10-28-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -230,7 +224,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-28",
+            "2026-10-28-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -279,11 +273,6 @@ class AdsClient:
         existing_post_id: typing.Optional[str] = OMIT,
         external_accounts: typing.Optional[typing.Sequence[CreateAdsRequestExternalAccountsItem]] = OMIT,
         headlines: typing.Optional[typing.Sequence[CreateAdsRequestHeadlinesItem]] = OMIT,
-        lead_form: typing.Optional[CreateAdsRequestLeadForm] = OMIT,
-        lead_form_id: typing.Optional[str] = OMIT,
-        messaging_config: typing.Optional[CreateAdsRequestMessagingConfig] = OMIT,
-        multi_advertiser_ads: typing.Optional[bool] = OMIT,
-        music: typing.Optional[CreateAdsRequestMusic] = OMIT,
         post_source: typing.Optional[CreateAdsRequestPostSource] = OMIT,
         primary_texts: typing.Optional[typing.Sequence[CreateAdsRequestPrimaryTextsItem]] = OMIT,
         title: typing.Optional[str] = OMIT,
@@ -324,21 +313,6 @@ class AdsClient:
         headlines : typing.Optional[typing.Sequence[CreateAdsRequestHeadlinesItem]]
             The headline shown on the ad. Entries without a language are the ad's own copy; add one entry per other language on a Meta ad with `translations`.
 
-        lead_form : typing.Optional[CreateAdsRequestLeadForm]
-            Instant lead form for the ad. Only allowed when the ad group's conversion_location is an instant-form destination (instant_forms, instant_forms_and_messenger, website_and_instant_forms). Mutually exclusive with lead_form_id.
-
-        lead_form_id : typing.Optional[str]
-            Use an existing instant form instead of creating one — the form's platform ID, from a form already on the ad's Facebook page. Only allowed when the ad group's conversion_location is an instant-form destination. Mutually exclusive with lead_form.
-
-        messaging_config : typing.Optional[CreateAdsRequestMessagingConfig]
-            Click-to-message welcome copy: the greeting (message) and the ice-breaker prompt (keyword).
-
-        multi_advertiser_ads : typing.Optional[bool]
-            Whether the ad can appear alongside other advertisers' ads in the same unit. Defaults to true.
-
-        music : typing.Optional[CreateAdsRequestMusic]
-            The looping track a TikTok carousel ad plays — an MP3 you uploaded, no larger than 10MB. Required for TikTok carousels (image creatives); TikTok-only.
-
         post_source : typing.Optional[CreateAdsRequestPostSource]
             Identifies the network that owns `existing_post_id`. The source is inferred from the ID shape when omitted.
 
@@ -370,7 +344,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-28",
+            "2026-10-28-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -386,11 +360,6 @@ class AdsClient:
             existing_post_id=existing_post_id,
             external_accounts=external_accounts,
             headlines=headlines,
-            lead_form=lead_form,
-            lead_form_id=lead_form_id,
-            messaging_config=messaging_config,
-            multi_advertiser_ads=multi_advertiser_ads,
-            music=music,
             post_source=post_source,
             primary_texts=primary_texts,
             title=title,
@@ -444,7 +413,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-28",
+            "2026-10-28-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -484,7 +453,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-28",
+            "2026-10-28-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -506,11 +475,6 @@ class AdsClient:
         existing_post_id: typing.Optional[str] = OMIT,
         external_accounts: typing.Optional[typing.Sequence[UpdateAdsRequestExternalAccountsItem]] = OMIT,
         headlines: typing.Optional[typing.Sequence[UpdateAdsRequestHeadlinesItem]] = OMIT,
-        lead_form: typing.Optional[UpdateAdsRequestLeadForm] = OMIT,
-        lead_form_id: typing.Optional[str] = OMIT,
-        messaging_config: typing.Optional[UpdateAdsRequestMessagingConfig] = OMIT,
-        multi_advertiser_ads: typing.Optional[bool] = OMIT,
-        music: typing.Optional[UpdateAdsRequestMusic] = OMIT,
         post_source: typing.Optional[UpdateAdsRequestPostSource] = OMIT,
         primary_texts: typing.Optional[typing.Sequence[UpdateAdsRequestPrimaryTextsItem]] = OMIT,
         title: typing.Optional[str] = OMIT,
@@ -548,21 +512,6 @@ class AdsClient:
         headlines : typing.Optional[typing.Sequence[UpdateAdsRequestHeadlinesItem]]
             The headline shown on the ad. Entries without a language are the ad's own copy; add one entry per other language on a Meta ad with `translations`.
 
-        lead_form : typing.Optional[UpdateAdsRequestLeadForm]
-            Instant lead form for the ad. Only allowed when the ad group's conversion_location is an instant-form destination (instant_forms, instant_forms_and_messenger, website_and_instant_forms). Mutually exclusive with lead_form_id.
-
-        lead_form_id : typing.Optional[str]
-            Use an existing instant form instead of creating one — the form's platform ID, from a form already on the ad's Facebook page. Only allowed when the ad group's conversion_location is an instant-form destination. Mutually exclusive with lead_form. Replaces a stored lead_form.
-
-        messaging_config : typing.Optional[UpdateAdsRequestMessagingConfig]
-            Click-to-message welcome copy: the greeting (message) and the ice-breaker prompt (keyword).
-
-        multi_advertiser_ads : typing.Optional[bool]
-            Whether the ad can appear alongside other advertisers' ads in the same unit. Defaults to true.
-
-        music : typing.Optional[UpdateAdsRequestMusic]
-            The looping track a TikTok carousel ad plays — an MP3 you uploaded, no larger than 10MB. Omitted leaves the ad's music untouched. Null removes it before launch; a submitted carousel takes a replacement track instead. TikTok-only.
-
         post_source : typing.Optional[UpdateAdsRequestPostSource]
             Identifies the network that owns `existing_post_id`. The source is inferred from the ID shape when omitted.
 
@@ -594,7 +543,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-28",
+            "2026-10-28-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -611,11 +560,6 @@ class AdsClient:
             existing_post_id=existing_post_id,
             external_accounts=external_accounts,
             headlines=headlines,
-            lead_form=lead_form,
-            lead_form_id=lead_form_id,
-            messaging_config=messaging_config,
-            multi_advertiser_ads=multi_advertiser_ads,
-            music=music,
             post_source=post_source,
             primary_texts=primary_texts,
             title=title,
@@ -665,7 +609,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-28",
+            "2026-10-28-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -704,7 +648,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-28",
+            "2026-10-28-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -737,7 +681,7 @@ class AdsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-28",
+            "2026-10-28-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -810,7 +754,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-28",
+            "2026-10-28-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -939,7 +883,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-28",
+            "2026-10-28-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -995,11 +939,6 @@ class AsyncAdsClient:
         existing_post_id: typing.Optional[str] = OMIT,
         external_accounts: typing.Optional[typing.Sequence[CreateAdsRequestExternalAccountsItem]] = OMIT,
         headlines: typing.Optional[typing.Sequence[CreateAdsRequestHeadlinesItem]] = OMIT,
-        lead_form: typing.Optional[CreateAdsRequestLeadForm] = OMIT,
-        lead_form_id: typing.Optional[str] = OMIT,
-        messaging_config: typing.Optional[CreateAdsRequestMessagingConfig] = OMIT,
-        multi_advertiser_ads: typing.Optional[bool] = OMIT,
-        music: typing.Optional[CreateAdsRequestMusic] = OMIT,
         post_source: typing.Optional[CreateAdsRequestPostSource] = OMIT,
         primary_texts: typing.Optional[typing.Sequence[CreateAdsRequestPrimaryTextsItem]] = OMIT,
         title: typing.Optional[str] = OMIT,
@@ -1040,21 +979,6 @@ class AsyncAdsClient:
         headlines : typing.Optional[typing.Sequence[CreateAdsRequestHeadlinesItem]]
             The headline shown on the ad. Entries without a language are the ad's own copy; add one entry per other language on a Meta ad with `translations`.
 
-        lead_form : typing.Optional[CreateAdsRequestLeadForm]
-            Instant lead form for the ad. Only allowed when the ad group's conversion_location is an instant-form destination (instant_forms, instant_forms_and_messenger, website_and_instant_forms). Mutually exclusive with lead_form_id.
-
-        lead_form_id : typing.Optional[str]
-            Use an existing instant form instead of creating one — the form's platform ID, from a form already on the ad's Facebook page. Only allowed when the ad group's conversion_location is an instant-form destination. Mutually exclusive with lead_form.
-
-        messaging_config : typing.Optional[CreateAdsRequestMessagingConfig]
-            Click-to-message welcome copy: the greeting (message) and the ice-breaker prompt (keyword).
-
-        multi_advertiser_ads : typing.Optional[bool]
-            Whether the ad can appear alongside other advertisers' ads in the same unit. Defaults to true.
-
-        music : typing.Optional[CreateAdsRequestMusic]
-            The looping track a TikTok carousel ad plays — an MP3 you uploaded, no larger than 10MB. Required for TikTok carousels (image creatives); TikTok-only.
-
         post_source : typing.Optional[CreateAdsRequestPostSource]
             Identifies the network that owns `existing_post_id`. The source is inferred from the ID shape when omitted.
 
@@ -1088,7 +1012,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-28",
+            "2026-10-28-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1110,11 +1034,6 @@ class AsyncAdsClient:
             existing_post_id=existing_post_id,
             external_accounts=external_accounts,
             headlines=headlines,
-            lead_form=lead_form,
-            lead_form_id=lead_form_id,
-            messaging_config=messaging_config,
-            multi_advertiser_ads=multi_advertiser_ads,
-            music=music,
             post_source=post_source,
             primary_texts=primary_texts,
             title=title,
@@ -1170,7 +1089,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-28",
+            "2026-10-28-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1218,7 +1137,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-28",
+            "2026-10-28-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1246,11 +1165,6 @@ class AsyncAdsClient:
         existing_post_id: typing.Optional[str] = OMIT,
         external_accounts: typing.Optional[typing.Sequence[UpdateAdsRequestExternalAccountsItem]] = OMIT,
         headlines: typing.Optional[typing.Sequence[UpdateAdsRequestHeadlinesItem]] = OMIT,
-        lead_form: typing.Optional[UpdateAdsRequestLeadForm] = OMIT,
-        lead_form_id: typing.Optional[str] = OMIT,
-        messaging_config: typing.Optional[UpdateAdsRequestMessagingConfig] = OMIT,
-        multi_advertiser_ads: typing.Optional[bool] = OMIT,
-        music: typing.Optional[UpdateAdsRequestMusic] = OMIT,
         post_source: typing.Optional[UpdateAdsRequestPostSource] = OMIT,
         primary_texts: typing.Optional[typing.Sequence[UpdateAdsRequestPrimaryTextsItem]] = OMIT,
         title: typing.Optional[str] = OMIT,
@@ -1288,21 +1202,6 @@ class AsyncAdsClient:
         headlines : typing.Optional[typing.Sequence[UpdateAdsRequestHeadlinesItem]]
             The headline shown on the ad. Entries without a language are the ad's own copy; add one entry per other language on a Meta ad with `translations`.
 
-        lead_form : typing.Optional[UpdateAdsRequestLeadForm]
-            Instant lead form for the ad. Only allowed when the ad group's conversion_location is an instant-form destination (instant_forms, instant_forms_and_messenger, website_and_instant_forms). Mutually exclusive with lead_form_id.
-
-        lead_form_id : typing.Optional[str]
-            Use an existing instant form instead of creating one — the form's platform ID, from a form already on the ad's Facebook page. Only allowed when the ad group's conversion_location is an instant-form destination. Mutually exclusive with lead_form. Replaces a stored lead_form.
-
-        messaging_config : typing.Optional[UpdateAdsRequestMessagingConfig]
-            Click-to-message welcome copy: the greeting (message) and the ice-breaker prompt (keyword).
-
-        multi_advertiser_ads : typing.Optional[bool]
-            Whether the ad can appear alongside other advertisers' ads in the same unit. Defaults to true.
-
-        music : typing.Optional[UpdateAdsRequestMusic]
-            The looping track a TikTok carousel ad plays — an MP3 you uploaded, no larger than 10MB. Omitted leaves the ad's music untouched. Null removes it before launch; a submitted carousel takes a replacement track instead. TikTok-only.
-
         post_source : typing.Optional[UpdateAdsRequestPostSource]
             Identifies the network that owns `existing_post_id`. The source is inferred from the ID shape when omitted.
 
@@ -1336,7 +1235,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-28",
+            "2026-10-28-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1359,11 +1258,6 @@ class AsyncAdsClient:
             existing_post_id=existing_post_id,
             external_accounts=external_accounts,
             headlines=headlines,
-            lead_form=lead_form,
-            lead_form_id=lead_form_id,
-            messaging_config=messaging_config,
-            multi_advertiser_ads=multi_advertiser_ads,
-            music=music,
             post_source=post_source,
             primary_texts=primary_texts,
             title=title,
@@ -1415,7 +1309,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-28",
+            "2026-10-28-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1462,7 +1356,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-28",
+            "2026-10-28-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1503,7 +1397,7 @@ class AsyncAdsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-28",
+            "2026-10-28-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
