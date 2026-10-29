@@ -8,18 +8,12 @@ from .ad_entity_reference import AdEntityReference
 from .ad_group_audiences import AdGroupAudiences
 from .ad_group_bid_type import AdGroupBidType
 from .ad_group_budget_type import AdGroupBudgetType
-from .ad_group_conversion_location import AdGroupConversionLocation
 from .ad_group_delivery_schedule import AdGroupDeliverySchedule
 from .ad_group_delivery_status import AdGroupDeliveryStatus
 from .ad_group_demographics import AdGroupDemographics
-from .ad_group_detailed_targeting import AdGroupDetailedTargeting
 from .ad_group_devices import AdGroupDevices
-from .ad_group_frequency_cap import AdGroupFrequencyCap
 from .ad_group_keyword import AdGroupKeyword
 from .ad_group_learning_progress import AdGroupLearningProgress
-from .ad_group_message_apps_item import AdGroupMessageAppsItem
-from .ad_group_optimization_goal import AdGroupOptimizationGoal
-from .ad_group_placement import AdGroupPlacement
 from .ad_group_platform import AdGroupPlatform
 from .ad_group_regions import AdGroupRegions
 from .ad_group_result_event import AdGroupResultEvent
@@ -105,11 +99,6 @@ class AdGroup(UniversalBaseModel):
     """
 
     conversion_event: typing.Optional[ConversionEvent] = None
-    conversion_location: typing.Optional[AdGroupConversionLocation] = pydantic.Field(default=None)
-    """
-    Where the outcome being optimized for occurs, such as a website visit, social-profile visit, messaging conversation, ad interaction, or lead-form submission.
-    """
-
     cost_per_added_to_cart: typing.Optional[float] = pydantic.Field(default=None)
     """
     Spend divided by attributed add-to-cart events; null when they are not the goal and none are attributed.
@@ -210,19 +199,9 @@ class AdGroup(UniversalBaseModel):
     Cost per result to aim for (`average_target`) or never exceed (`maximum_target`). `null` for `minimum_cost` bidding.
     """
 
-    detailed_targeting: AdGroupDetailedTargeting = pydantic.Field()
-    """
-    Interest, behavior, and demographic targeting, using categories from the ad platform's targeting taxonomy. Entries across interests, behaviors, and demographics are OR'd together (anyone matching any entry is reached), matching Ads Manager's detailed-targeting box. Can't be combined with automatic audience targeting. Special ad category campaigns are limited to approved interests.
-    """
-
     devices: AdGroupDevices = pydantic.Field()
     """
     Device platforms and operating systems targeted.
-    """
-
-    dynamic_creative: typing.Optional[bool] = pydantic.Field(default=None)
-    """
-    Whether the ad platform automatically mixes and matches this ad group's creatives and copy to find the best-performing combinations.
     """
 
     ends_at: typing.Optional[str] = pydantic.Field(default=None)
@@ -233,11 +212,6 @@ class AdGroup(UniversalBaseModel):
     frequency: typing.Optional[float] = pydantic.Field(default=None)
     """
     Platform-reported impressions divided by reach.
-    """
-
-    frequency_cap: typing.Optional[AdGroupFrequencyCap] = pydantic.Field(default=None)
-    """
-    Cap on how often one person sees ads from this ad group, or from the whole campaign under a campaign budget, where every ad group shares it. Only available when the ad group optimizes for reach or ThruPlay; `null` when uncapped.
     """
 
     id: str = pydantic.Field()
@@ -273,18 +247,6 @@ class AdGroup(UniversalBaseModel):
     Page views on your destination from people who clicked the ad, recorded by the Whop pixel. Counted the same way on every ad platform.
     """
 
-    message_apps: typing.Optional[typing.List[AdGroupMessageAppsItem]] = None
-    minimum_daily_spend: typing.Optional[float] = pydantic.Field(default=None)
-    """
-    Minimum the ad group tries to spend each day. `null` when no floor is set.
-    """
-
-    optimization_goal: typing.Optional[AdGroupOptimizationGoal] = pydantic.Field(default=None)
-    """
-    The result the ad group's delivery is optimized to get the most of.
-    """
-
-    placements: typing.List[AdGroupPlacement]
     platform: AdGroupPlatform = pydantic.Field()
     """
     The ad platform this ad group runs on.

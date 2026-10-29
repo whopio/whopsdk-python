@@ -139,24 +139,18 @@ if typing.TYPE_CHECKING:
     from .ad_group import AdGroup
     from .ad_group_audiences import AdGroupAudiences
     from .ad_group_audiences_body import AdGroupAudiencesBody
-    from .ad_group_behavior_category import AdGroupBehaviorCategory
-    from .ad_group_behavior_category_behavior_type import AdGroupBehaviorCategoryBehaviorType
     from .ad_group_bid_type import AdGroupBidType
     from .ad_group_budget_type import AdGroupBudgetType
     from .ad_group_city import AdGroupCity
-    from .ad_group_conversion_location import AdGroupConversionLocation
     from .ad_group_custom_location import AdGroupCustomLocation
     from .ad_group_custom_location_distance_unit import AdGroupCustomLocationDistanceUnit
     from .ad_group_delivery_schedule import AdGroupDeliverySchedule
     from .ad_group_delivery_status import AdGroupDeliveryStatus
     from .ad_group_delivery_window import AdGroupDeliveryWindow
-    from .ad_group_demographic_category import AdGroupDemographicCategory
-    from .ad_group_demographic_category_type import AdGroupDemographicCategoryType
     from .ad_group_demographics import AdGroupDemographics
     from .ad_group_demographics_body import AdGroupDemographicsBody
     from .ad_group_demographics_body_gender import AdGroupDemographicsBodyGender
     from .ad_group_demographics_gender import AdGroupDemographicsGender
-    from .ad_group_detailed_targeting import AdGroupDetailedTargeting
     from .ad_group_detailed_targeting_body import AdGroupDetailedTargetingBody
     from .ad_group_detailed_targeting_body_behaviors_item import AdGroupDetailedTargetingBodyBehaviorsItem
     from .ad_group_detailed_targeting_body_behaviors_item_behavior_type import (
@@ -173,7 +167,6 @@ if typing.TYPE_CHECKING:
     from .ad_group_devices_body_operating_systems_item_os import AdGroupDevicesBodyOperatingSystemsItemOs
     from .ad_group_devices_body_platforms_item import AdGroupDevicesBodyPlatformsItem
     from .ad_group_devices_platforms_item import AdGroupDevicesPlatformsItem
-    from .ad_group_frequency_cap import AdGroupFrequencyCap
     from .ad_group_geo_locations import AdGroupGeoLocations
     from .ad_group_geo_locations_body import AdGroupGeoLocationsBody
     from .ad_group_geo_locations_body_cities_item import AdGroupGeoLocationsBodyCitiesItem
@@ -186,32 +179,22 @@ if typing.TYPE_CHECKING:
     from .ad_group_keyword import AdGroupKeyword
     from .ad_group_keyword_match_type import AdGroupKeywordMatchType
     from .ad_group_learning_progress import AdGroupLearningProgress
-    from .ad_group_message_apps_item import AdGroupMessageAppsItem
     from .ad_group_operating_system import AdGroupOperatingSystem
     from .ad_group_operating_system_os import AdGroupOperatingSystemOs
-    from .ad_group_optimization_goal import AdGroupOptimizationGoal
-    from .ad_group_placement import AdGroupPlacement
-    from .ad_group_placement_platform import AdGroupPlacementPlatform
     from .ad_group_platform import AdGroupPlatform
     from .ad_group_regions import AdGroupRegions
     from .ad_group_regions_body import AdGroupRegionsBody
     from .ad_group_result_event import AdGroupResultEvent
     from .ad_group_status import AdGroupStatus
-    from .ad_group_targeting_category import AdGroupTargetingCategory
-    from .ad_lead_form import AdLeadForm
     from .ad_lead_form_completion import AdLeadFormCompletion
     from .ad_lead_form_completion_button_type import AdLeadFormCompletionButtonType
     from .ad_lead_form_disclaimer import AdLeadFormDisclaimer
     from .ad_lead_form_disclaimer_checkbox import AdLeadFormDisclaimerCheckbox
-    from .ad_lead_form_form_type import AdLeadFormFormType
     from .ad_lead_form_intro import AdLeadFormIntro
     from .ad_lead_form_option_logic import AdLeadFormOptionLogic
     from .ad_lead_form_option_logic_action import AdLeadFormOptionLogicAction
-    from .ad_lead_form_privacy_policy import AdLeadFormPrivacyPolicy
     from .ad_lead_form_question import AdLeadFormQuestion
     from .ad_lead_form_question_option import AdLeadFormQuestionOption
-    from .ad_messaging_config import AdMessagingConfig
-    from .ad_music import AdMusic
     from .ad_pixel import AdPixel
     from .ad_pixel_platform import AdPixelPlatform
     from .ad_pixel_status import AdPixelStatus
@@ -1751,24 +1734,18 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdGroup": ".ad_group",
     "AdGroupAudiences": ".ad_group_audiences",
     "AdGroupAudiencesBody": ".ad_group_audiences_body",
-    "AdGroupBehaviorCategory": ".ad_group_behavior_category",
-    "AdGroupBehaviorCategoryBehaviorType": ".ad_group_behavior_category_behavior_type",
     "AdGroupBidType": ".ad_group_bid_type",
     "AdGroupBudgetType": ".ad_group_budget_type",
     "AdGroupCity": ".ad_group_city",
-    "AdGroupConversionLocation": ".ad_group_conversion_location",
     "AdGroupCustomLocation": ".ad_group_custom_location",
     "AdGroupCustomLocationDistanceUnit": ".ad_group_custom_location_distance_unit",
     "AdGroupDeliverySchedule": ".ad_group_delivery_schedule",
     "AdGroupDeliveryStatus": ".ad_group_delivery_status",
     "AdGroupDeliveryWindow": ".ad_group_delivery_window",
-    "AdGroupDemographicCategory": ".ad_group_demographic_category",
-    "AdGroupDemographicCategoryType": ".ad_group_demographic_category_type",
     "AdGroupDemographics": ".ad_group_demographics",
     "AdGroupDemographicsBody": ".ad_group_demographics_body",
     "AdGroupDemographicsBodyGender": ".ad_group_demographics_body_gender",
     "AdGroupDemographicsGender": ".ad_group_demographics_gender",
-    "AdGroupDetailedTargeting": ".ad_group_detailed_targeting",
     "AdGroupDetailedTargetingBody": ".ad_group_detailed_targeting_body",
     "AdGroupDetailedTargetingBodyBehaviorsItem": ".ad_group_detailed_targeting_body_behaviors_item",
     "AdGroupDetailedTargetingBodyBehaviorsItemBehaviorType": ".ad_group_detailed_targeting_body_behaviors_item_behavior_type",
@@ -1781,7 +1758,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdGroupDevicesBodyOperatingSystemsItemOs": ".ad_group_devices_body_operating_systems_item_os",
     "AdGroupDevicesBodyPlatformsItem": ".ad_group_devices_body_platforms_item",
     "AdGroupDevicesPlatformsItem": ".ad_group_devices_platforms_item",
-    "AdGroupFrequencyCap": ".ad_group_frequency_cap",
     "AdGroupGeoLocations": ".ad_group_geo_locations",
     "AdGroupGeoLocationsBody": ".ad_group_geo_locations_body",
     "AdGroupGeoLocationsBodyCitiesItem": ".ad_group_geo_locations_body_cities_item",
@@ -1792,32 +1768,22 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdGroupKeyword": ".ad_group_keyword",
     "AdGroupKeywordMatchType": ".ad_group_keyword_match_type",
     "AdGroupLearningProgress": ".ad_group_learning_progress",
-    "AdGroupMessageAppsItem": ".ad_group_message_apps_item",
     "AdGroupOperatingSystem": ".ad_group_operating_system",
     "AdGroupOperatingSystemOs": ".ad_group_operating_system_os",
-    "AdGroupOptimizationGoal": ".ad_group_optimization_goal",
-    "AdGroupPlacement": ".ad_group_placement",
-    "AdGroupPlacementPlatform": ".ad_group_placement_platform",
     "AdGroupPlatform": ".ad_group_platform",
     "AdGroupRegions": ".ad_group_regions",
     "AdGroupRegionsBody": ".ad_group_regions_body",
     "AdGroupResultEvent": ".ad_group_result_event",
     "AdGroupStatus": ".ad_group_status",
-    "AdGroupTargetingCategory": ".ad_group_targeting_category",
-    "AdLeadForm": ".ad_lead_form",
     "AdLeadFormCompletion": ".ad_lead_form_completion",
     "AdLeadFormCompletionButtonType": ".ad_lead_form_completion_button_type",
     "AdLeadFormDisclaimer": ".ad_lead_form_disclaimer",
     "AdLeadFormDisclaimerCheckbox": ".ad_lead_form_disclaimer_checkbox",
-    "AdLeadFormFormType": ".ad_lead_form_form_type",
     "AdLeadFormIntro": ".ad_lead_form_intro",
     "AdLeadFormOptionLogic": ".ad_lead_form_option_logic",
     "AdLeadFormOptionLogicAction": ".ad_lead_form_option_logic_action",
-    "AdLeadFormPrivacyPolicy": ".ad_lead_form_privacy_policy",
     "AdLeadFormQuestion": ".ad_lead_form_question",
     "AdLeadFormQuestionOption": ".ad_lead_form_question_option",
-    "AdMessagingConfig": ".ad_messaging_config",
-    "AdMusic": ".ad_music",
     "AdPixel": ".ad_pixel",
     "AdPixelPlatform": ".ad_pixel_platform",
     "AdPixelStatus": ".ad_pixel_status",
@@ -3241,24 +3207,18 @@ __all__ = [
     "AdGroup",
     "AdGroupAudiences",
     "AdGroupAudiencesBody",
-    "AdGroupBehaviorCategory",
-    "AdGroupBehaviorCategoryBehaviorType",
     "AdGroupBidType",
     "AdGroupBudgetType",
     "AdGroupCity",
-    "AdGroupConversionLocation",
     "AdGroupCustomLocation",
     "AdGroupCustomLocationDistanceUnit",
     "AdGroupDeliverySchedule",
     "AdGroupDeliveryStatus",
     "AdGroupDeliveryWindow",
-    "AdGroupDemographicCategory",
-    "AdGroupDemographicCategoryType",
     "AdGroupDemographics",
     "AdGroupDemographicsBody",
     "AdGroupDemographicsBodyGender",
     "AdGroupDemographicsGender",
-    "AdGroupDetailedTargeting",
     "AdGroupDetailedTargetingBody",
     "AdGroupDetailedTargetingBodyBehaviorsItem",
     "AdGroupDetailedTargetingBodyBehaviorsItemBehaviorType",
@@ -3271,7 +3231,6 @@ __all__ = [
     "AdGroupDevicesBodyOperatingSystemsItemOs",
     "AdGroupDevicesBodyPlatformsItem",
     "AdGroupDevicesPlatformsItem",
-    "AdGroupFrequencyCap",
     "AdGroupGeoLocations",
     "AdGroupGeoLocationsBody",
     "AdGroupGeoLocationsBodyCitiesItem",
@@ -3282,32 +3241,22 @@ __all__ = [
     "AdGroupKeyword",
     "AdGroupKeywordMatchType",
     "AdGroupLearningProgress",
-    "AdGroupMessageAppsItem",
     "AdGroupOperatingSystem",
     "AdGroupOperatingSystemOs",
-    "AdGroupOptimizationGoal",
-    "AdGroupPlacement",
-    "AdGroupPlacementPlatform",
     "AdGroupPlatform",
     "AdGroupRegions",
     "AdGroupRegionsBody",
     "AdGroupResultEvent",
     "AdGroupStatus",
-    "AdGroupTargetingCategory",
-    "AdLeadForm",
     "AdLeadFormCompletion",
     "AdLeadFormCompletionButtonType",
     "AdLeadFormDisclaimer",
     "AdLeadFormDisclaimerCheckbox",
-    "AdLeadFormFormType",
     "AdLeadFormIntro",
     "AdLeadFormOptionLogic",
     "AdLeadFormOptionLogicAction",
-    "AdLeadFormPrivacyPolicy",
     "AdLeadFormQuestion",
     "AdLeadFormQuestionOption",
-    "AdMessagingConfig",
-    "AdMusic",
     "AdPixel",
     "AdPixelPlatform",
     "AdPixelStatus",

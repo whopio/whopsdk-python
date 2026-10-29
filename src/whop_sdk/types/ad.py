@@ -8,9 +8,6 @@ from .ad_call_to_action import AdCallToAction
 from .ad_creative import AdCreative
 from .ad_delivery_status import AdDeliveryStatus
 from .ad_entity_reference import AdEntityReference
-from .ad_lead_form import AdLeadForm
-from .ad_messaging_config import AdMessagingConfig
-from .ad_music import AdMusic
 from .ad_platform import AdPlatform
 from .ad_platform_issue import AdPlatformIssue
 from .ad_post_source import AdPostSource
@@ -186,16 +183,6 @@ class Ad(UniversalBaseModel):
     """
 
     issues: typing.List[AdPlatformIssue]
-    lead_form: typing.Optional[AdLeadForm] = pydantic.Field(default=None)
-    """
-    The instant lead form shown when someone taps this ad. `null` when the ad group's conversion_location is not an instant-form destination.
-    """
-
-    lead_form_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The ad platform's ID for the instant form the ad uses. Set when the ad references an existing form via `lead_form_id`, or once a form built from `lead_form` has been created on the platform.
-    """
-
     lead_value: float = pydantic.Field()
     """
     USD value attributed to lead events. Sums the value sent with each event, normalized to USD; events without a value contribute 0.
@@ -209,21 +196,6 @@ class Ad(UniversalBaseModel):
     link_clicks: float = pydantic.Field()
     """
     Page views on your destination from people who clicked the ad, recorded by the Whop pixel. Counted the same way on every ad platform.
-    """
-
-    messaging_config: typing.Optional[AdMessagingConfig] = pydantic.Field(default=None)
-    """
-    Welcome message for click-to-message ads, shown when the conversation opens. `null` when the ad has none.
-    """
-
-    multi_advertiser_ads: typing.Optional[bool] = pydantic.Field(default=None)
-    """
-    Whether the ad can appear alongside other advertisers' ads in the same unit. Defaults to true.
-    """
-
-    music: typing.Optional[AdMusic] = pydantic.Field(default=None)
-    """
-    The advertiser-uploaded MP3 a TikTok carousel ad plays. TikTok-only; `null` elsewhere and for non-carousel ads.
     """
 
     platform: AdPlatform = pydantic.Field()

@@ -27,13 +27,8 @@ from ..types.conversion_event import ConversionEvent
 from ..types.reach_estimate import ReachEstimate
 from .types.create_ad_groups_request_bid_type import CreateAdGroupsRequestBidType
 from .types.create_ad_groups_request_budget_type import CreateAdGroupsRequestBudgetType
-from .types.create_ad_groups_request_conversion_location import CreateAdGroupsRequestConversionLocation
 from .types.create_ad_groups_request_delivery_schedule import CreateAdGroupsRequestDeliverySchedule
-from .types.create_ad_groups_request_frequency_cap import CreateAdGroupsRequestFrequencyCap
 from .types.create_ad_groups_request_keywords_item import CreateAdGroupsRequestKeywordsItem
-from .types.create_ad_groups_request_message_apps_item import CreateAdGroupsRequestMessageAppsItem
-from .types.create_ad_groups_request_optimization_goal import CreateAdGroupsRequestOptimizationGoal
-from .types.create_ad_groups_request_placements import CreateAdGroupsRequestPlacements
 from .types.create_ad_groups_request_status import CreateAdGroupsRequestStatus
 from .types.create_ad_groups_request_x_ads_platform import CreateAdGroupsRequestXAdsPlatform
 from .types.delete_ad_groups_response import DeleteAdGroupsResponse
@@ -56,13 +51,8 @@ from .types.search_targeting_options_ad_groups_request_types_item import SearchT
 from .types.search_targeting_options_ad_groups_response import SearchTargetingOptionsAdGroupsResponse
 from .types.update_ad_groups_request_bid_type import UpdateAdGroupsRequestBidType
 from .types.update_ad_groups_request_budget_type import UpdateAdGroupsRequestBudgetType
-from .types.update_ad_groups_request_conversion_location import UpdateAdGroupsRequestConversionLocation
 from .types.update_ad_groups_request_delivery_schedule import UpdateAdGroupsRequestDeliverySchedule
-from .types.update_ad_groups_request_frequency_cap import UpdateAdGroupsRequestFrequencyCap
 from .types.update_ad_groups_request_keywords_item import UpdateAdGroupsRequestKeywordsItem
-from .types.update_ad_groups_request_message_apps_item import UpdateAdGroupsRequestMessageAppsItem
-from .types.update_ad_groups_request_optimization_goal import UpdateAdGroupsRequestOptimizationGoal
-from .types.update_ad_groups_request_placements import UpdateAdGroupsRequestPlacements
 from .types.update_ad_groups_request_status import UpdateAdGroupsRequestStatus
 from .types.update_ad_groups_request_x_ads_platform import UpdateAdGroupsRequestXAdsPlatform
 from pydantic import ValidationError
@@ -242,21 +232,13 @@ class RawAdGroupsClient:
         budget_amount_local: typing.Optional[float] = OMIT,
         budget_type: typing.Optional[CreateAdGroupsRequestBudgetType] = OMIT,
         conversion_event: typing.Optional[ConversionEvent] = OMIT,
-        conversion_location: typing.Optional[CreateAdGroupsRequestConversionLocation] = OMIT,
         delivery_schedule: typing.Optional[CreateAdGroupsRequestDeliverySchedule] = OMIT,
         demographics: typing.Optional[AdGroupDemographicsBody] = OMIT,
         desired_cost_per_result: typing.Optional[float] = OMIT,
-        detailed_targeting: typing.Optional[AdGroupDetailedTargetingBody] = OMIT,
         devices: typing.Optional[AdGroupDevicesBody] = OMIT,
-        dynamic_creative: typing.Optional[bool] = OMIT,
         ends_at: typing.Optional[str] = OMIT,
-        frequency_cap: typing.Optional[CreateAdGroupsRequestFrequencyCap] = OMIT,
         keywords: typing.Optional[typing.Sequence[CreateAdGroupsRequestKeywordsItem]] = OMIT,
         languages: typing.Optional[typing.Sequence[str]] = OMIT,
-        message_apps: typing.Optional[typing.Sequence[CreateAdGroupsRequestMessageAppsItem]] = OMIT,
-        minimum_daily_spend: typing.Optional[float] = OMIT,
-        optimization_goal: typing.Optional[CreateAdGroupsRequestOptimizationGoal] = OMIT,
-        placements: typing.Optional[CreateAdGroupsRequestPlacements] = OMIT,
         regions: typing.Optional[AdGroupRegionsBody] = OMIT,
         starts_at: typing.Optional[str] = OMIT,
         status: typing.Optional[CreateAdGroupsRequestStatus] = OMIT,
@@ -291,9 +273,6 @@ class RawAdGroupsClient:
 
         conversion_event : typing.Optional[ConversionEvent]
 
-        conversion_location : typing.Optional[CreateAdGroupsRequestConversionLocation]
-            Where the outcome being optimized for occurs, such as a website visit, social-profile visit, messaging conversation, ad interaction, or lead-form submission. The lead form itself is set on the ad.
-
         delivery_schedule : typing.Optional[CreateAdGroupsRequestDeliverySchedule]
             Hours the ad group delivers in each week, keyed by day. Each window runs from `start` to `end` on the hour, with `24:00` for midnight, and a day's windows can't overlap or touch. A day that's empty or left out doesn't deliver. Replaces the whole schedule; `null` delivers at every hour. Some platforms need a lifetime `budget_type` for a schedule, on the ad group or on its campaign when the campaign holds the budget.
 
@@ -303,47 +282,17 @@ class RawAdGroupsClient:
         desired_cost_per_result : typing.Optional[float]
             Cost per result to aim for (`average_target`) or never exceed (`maximum_target`).
 
-        detailed_targeting : typing.Optional[AdGroupDetailedTargetingBody]
-            Interest, behavior, and demographic targeting, using categories from the ad platform's targeting taxonomy. Entries across interests, behaviors, and demographics are OR'd together (anyone matching any entry is reached), matching Ads Manager's detailed-targeting box. At most 100 entries per section. Can't be combined with demographics.automatic, and unavailable to campaigns with special_ad_categories. Send the complete intended state — a section you omit is cleared.
-
         devices : typing.Optional[AdGroupDevicesBody]
             Device platforms and operating systems to target.
 
-        dynamic_creative : typing.Optional[bool]
-            Whether the ad platform automatically mixes and matches this ad group's creatives and copy to find the best-performing combinations. Meta has deprecated it and rejects `true`; ad groups already using it keep it, and it can't be changed afterward.
-
         ends_at : typing.Optional[str]
             When the ad group stops delivering, as an ISO 8601 timestamp. Omit to run until paused.
-
-        frequency_cap : typing.Optional[CreateAdGroupsRequestFrequencyCap]
-            Cap on how often one person sees ads from this ad group. Only available when the ad group optimizes for reach or ThruPlay. Under a campaign budget every ad group must use the same cap, which applies across the whole campaign, and only with the awareness objective (reach or ThruPlay ad groups) or engagement (ThruPlay). Fixed once the campaign launches; `null` clears it before then.
 
         keywords : typing.Optional[typing.Sequence[CreateAdGroupsRequestKeywordsItem]]
             Search terms the ad group's ads can show for, and terms they never show for. Only search campaigns take keywords, and each of their ad groups needs at least one before launch. Replaces the stored list; omit to keep it.
 
         languages : typing.Optional[typing.Sequence[str]]
             Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted targets all languages.
-
-        message_apps : typing.Optional[typing.Sequence[CreateAdGroupsRequestMessageAppsItem]]
-            Apps the conversation opens in. Required when setting `conversion_location` to `messaging`, and rejected unless the ad group's conversion location is `messaging`.
-
-        minimum_daily_spend : typing.Optional[float]
-            Minimum the ad group tries to spend each day.
-
-        optimization_goal : typing.Optional[CreateAdGroupsRequestOptimizationGoal]
-            The result the ad group's delivery is optimized to get the most of.
-
-        placements : typing.Optional[CreateAdGroupsRequestPlacements]
-            `automatic` to let the ad platform choose placements, or the list of platforms and positions to target. Omit a platform's positions to target all of them.
-
-            Valid positions per platform:
-
-            - `facebook`: `feed`, `right_hand_column`, `marketplace`, `search`, `profile_feed`, `notification`, `story`, `instream_video`, `facebook_reels`, `facebook_reels_overlay`, `biz_disco_feed`
-            - `instagram`: `stream`, `story`, `explore`, `explore_home`, `reels`, `profile_feed`, `profile_reels`, `ig_search`
-            - `messenger`: `story`
-            - `audience_network`: `classic`, `rewarded_video`
-            - `threads`: `threads_stream`
-            - `whatsapp`: `status`
 
         regions : typing.Optional[AdGroupRegionsBody]
             Locations to target and exclude.
@@ -381,7 +330,6 @@ class RawAdGroupsClient:
                 "conversion_event": convert_and_respect_annotation_metadata(
                     object_=conversion_event, annotation=typing.Optional[ConversionEvent], direction="write"
                 ),
-                "conversion_location": conversion_location,
                 "delivery_schedule": convert_and_respect_annotation_metadata(
                     object_=delivery_schedule,
                     annotation=typing.Optional[CreateAdGroupsRequestDeliverySchedule],
@@ -391,29 +339,14 @@ class RawAdGroupsClient:
                     object_=demographics, annotation=AdGroupDemographicsBody, direction="write"
                 ),
                 "desired_cost_per_result": desired_cost_per_result,
-                "detailed_targeting": convert_and_respect_annotation_metadata(
-                    object_=detailed_targeting, annotation=AdGroupDetailedTargetingBody, direction="write"
-                ),
                 "devices": convert_and_respect_annotation_metadata(
                     object_=devices, annotation=AdGroupDevicesBody, direction="write"
                 ),
-                "dynamic_creative": dynamic_creative,
                 "ends_at": ends_at,
-                "frequency_cap": convert_and_respect_annotation_metadata(
-                    object_=frequency_cap,
-                    annotation=typing.Optional[CreateAdGroupsRequestFrequencyCap],
-                    direction="write",
-                ),
                 "keywords": convert_and_respect_annotation_metadata(
                     object_=keywords, annotation=typing.Sequence[CreateAdGroupsRequestKeywordsItem], direction="write"
                 ),
                 "languages": languages,
-                "message_apps": message_apps,
-                "minimum_daily_spend": minimum_daily_spend,
-                "optimization_goal": optimization_goal,
-                "placements": convert_and_respect_annotation_metadata(
-                    object_=placements, annotation=CreateAdGroupsRequestPlacements, direction="write"
-                ),
                 "regions": convert_and_respect_annotation_metadata(
                     object_=regions, annotation=AdGroupRegionsBody, direction="write"
                 ),
@@ -891,20 +824,13 @@ class RawAdGroupsClient:
         budget_amount_local: typing.Optional[float] = OMIT,
         budget_type: typing.Optional[UpdateAdGroupsRequestBudgetType] = OMIT,
         conversion_event: typing.Optional[ConversionEvent] = OMIT,
-        conversion_location: typing.Optional[UpdateAdGroupsRequestConversionLocation] = OMIT,
         delivery_schedule: typing.Optional[UpdateAdGroupsRequestDeliverySchedule] = OMIT,
         demographics: typing.Optional[AdGroupDemographicsBody] = OMIT,
         desired_cost_per_result: typing.Optional[float] = OMIT,
-        detailed_targeting: typing.Optional[AdGroupDetailedTargetingBody] = OMIT,
         devices: typing.Optional[AdGroupDevicesBody] = OMIT,
         ends_at: typing.Optional[str] = OMIT,
-        frequency_cap: typing.Optional[UpdateAdGroupsRequestFrequencyCap] = OMIT,
         keywords: typing.Optional[typing.Sequence[UpdateAdGroupsRequestKeywordsItem]] = OMIT,
         languages: typing.Optional[typing.Sequence[str]] = OMIT,
-        message_apps: typing.Optional[typing.Sequence[UpdateAdGroupsRequestMessageAppsItem]] = OMIT,
-        minimum_daily_spend: typing.Optional[float] = OMIT,
-        optimization_goal: typing.Optional[UpdateAdGroupsRequestOptimizationGoal] = OMIT,
-        placements: typing.Optional[UpdateAdGroupsRequestPlacements] = OMIT,
         regions: typing.Optional[AdGroupRegionsBody] = OMIT,
         starts_at: typing.Optional[str] = OMIT,
         status: typing.Optional[UpdateAdGroupsRequestStatus] = OMIT,
@@ -939,9 +865,6 @@ class RawAdGroupsClient:
 
         conversion_event : typing.Optional[ConversionEvent]
 
-        conversion_location : typing.Optional[UpdateAdGroupsRequestConversionLocation]
-            Where the outcome being optimized for occurs, such as a website visit, social-profile visit, messaging conversation, ad interaction, or lead-form submission. The lead form itself is set on the ad.
-
         delivery_schedule : typing.Optional[UpdateAdGroupsRequestDeliverySchedule]
             Hours the ad group delivers in each week, keyed by day. Each window runs from `start` to `end` on the hour, with `24:00` for midnight, and a day's windows can't overlap or touch. A day that's empty or left out doesn't deliver. Replaces the whole schedule; `null` delivers at every hour. Some platforms need a lifetime `budget_type` for a schedule, on the ad group or on its campaign when the campaign holds the budget.
 
@@ -951,44 +874,17 @@ class RawAdGroupsClient:
         desired_cost_per_result : typing.Optional[float]
             Cost per result to aim for (`average_target`) or never exceed (`maximum_target`).
 
-        detailed_targeting : typing.Optional[AdGroupDetailedTargetingBody]
-            Interest, behavior, and demographic targeting, using categories from the ad platform's targeting taxonomy. Entries across interests, behaviors, and demographics are OR'd together (anyone matching any entry is reached), matching Ads Manager's detailed-targeting box. At most 100 entries per section. Can't be combined with demographics.automatic, and unavailable to campaigns with special_ad_categories. Send the complete intended state — a section you omit is cleared.
-
         devices : typing.Optional[AdGroupDevicesBody]
             Device platforms and operating systems to target.
 
         ends_at : typing.Optional[str]
             When the ad group stops delivering, as an ISO 8601 timestamp. Omit to run until paused.
 
-        frequency_cap : typing.Optional[UpdateAdGroupsRequestFrequencyCap]
-            Cap on how often one person sees ads from this ad group. Only available when the ad group optimizes for reach or ThruPlay. Under a campaign budget every ad group must use the same cap, which applies across the whole campaign, and only with the awareness objective (reach or ThruPlay ad groups) or engagement (ThruPlay). Fixed once the campaign launches; `null` clears it before then.
-
         keywords : typing.Optional[typing.Sequence[UpdateAdGroupsRequestKeywordsItem]]
             Search terms the ad group's ads can show for, and terms they never show for. Only search campaigns take keywords, and each of their ad groups needs at least one before launch. Replaces the stored list; omit to keep it.
 
         languages : typing.Optional[typing.Sequence[str]]
             Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted targets all languages.
-
-        message_apps : typing.Optional[typing.Sequence[UpdateAdGroupsRequestMessageAppsItem]]
-            Apps the conversation opens in. Required when setting `conversion_location` to `messaging`, and rejected unless the ad group's conversion location is `messaging`.
-
-        minimum_daily_spend : typing.Optional[float]
-            Minimum the ad group tries to spend each day.
-
-        optimization_goal : typing.Optional[UpdateAdGroupsRequestOptimizationGoal]
-            The result the ad group's delivery is optimized to get the most of.
-
-        placements : typing.Optional[UpdateAdGroupsRequestPlacements]
-            `automatic` to let the ad platform choose placements, or the list of platforms and positions to target. Omit a platform's positions to target all of them.
-
-            Valid positions per platform:
-
-            - `facebook`: `feed`, `right_hand_column`, `marketplace`, `search`, `profile_feed`, `notification`, `story`, `instream_video`, `facebook_reels`, `facebook_reels_overlay`, `biz_disco_feed`
-            - `instagram`: `stream`, `story`, `explore`, `explore_home`, `reels`, `profile_feed`, `profile_reels`, `ig_search`
-            - `messenger`: `story`
-            - `audience_network`: `classic`, `rewarded_video`
-            - `threads`: `threads_stream`
-            - `whatsapp`: `status`
 
         regions : typing.Optional[AdGroupRegionsBody]
             Locations to target and exclude.
@@ -1025,7 +921,6 @@ class RawAdGroupsClient:
                 "conversion_event": convert_and_respect_annotation_metadata(
                     object_=conversion_event, annotation=typing.Optional[ConversionEvent], direction="write"
                 ),
-                "conversion_location": conversion_location,
                 "delivery_schedule": convert_and_respect_annotation_metadata(
                     object_=delivery_schedule,
                     annotation=typing.Optional[UpdateAdGroupsRequestDeliverySchedule],
@@ -1035,28 +930,14 @@ class RawAdGroupsClient:
                     object_=demographics, annotation=AdGroupDemographicsBody, direction="write"
                 ),
                 "desired_cost_per_result": desired_cost_per_result,
-                "detailed_targeting": convert_and_respect_annotation_metadata(
-                    object_=detailed_targeting, annotation=AdGroupDetailedTargetingBody, direction="write"
-                ),
                 "devices": convert_and_respect_annotation_metadata(
                     object_=devices, annotation=AdGroupDevicesBody, direction="write"
                 ),
                 "ends_at": ends_at,
-                "frequency_cap": convert_and_respect_annotation_metadata(
-                    object_=frequency_cap,
-                    annotation=typing.Optional[UpdateAdGroupsRequestFrequencyCap],
-                    direction="write",
-                ),
                 "keywords": convert_and_respect_annotation_metadata(
                     object_=keywords, annotation=typing.Sequence[UpdateAdGroupsRequestKeywordsItem], direction="write"
                 ),
                 "languages": languages,
-                "message_apps": message_apps,
-                "minimum_daily_spend": minimum_daily_spend,
-                "optimization_goal": optimization_goal,
-                "placements": convert_and_respect_annotation_metadata(
-                    object_=placements, annotation=UpdateAdGroupsRequestPlacements, direction="write"
-                ),
                 "regions": convert_and_respect_annotation_metadata(
                     object_=regions, annotation=AdGroupRegionsBody, direction="write"
                 ),
@@ -1483,21 +1364,13 @@ class AsyncRawAdGroupsClient:
         budget_amount_local: typing.Optional[float] = OMIT,
         budget_type: typing.Optional[CreateAdGroupsRequestBudgetType] = OMIT,
         conversion_event: typing.Optional[ConversionEvent] = OMIT,
-        conversion_location: typing.Optional[CreateAdGroupsRequestConversionLocation] = OMIT,
         delivery_schedule: typing.Optional[CreateAdGroupsRequestDeliverySchedule] = OMIT,
         demographics: typing.Optional[AdGroupDemographicsBody] = OMIT,
         desired_cost_per_result: typing.Optional[float] = OMIT,
-        detailed_targeting: typing.Optional[AdGroupDetailedTargetingBody] = OMIT,
         devices: typing.Optional[AdGroupDevicesBody] = OMIT,
-        dynamic_creative: typing.Optional[bool] = OMIT,
         ends_at: typing.Optional[str] = OMIT,
-        frequency_cap: typing.Optional[CreateAdGroupsRequestFrequencyCap] = OMIT,
         keywords: typing.Optional[typing.Sequence[CreateAdGroupsRequestKeywordsItem]] = OMIT,
         languages: typing.Optional[typing.Sequence[str]] = OMIT,
-        message_apps: typing.Optional[typing.Sequence[CreateAdGroupsRequestMessageAppsItem]] = OMIT,
-        minimum_daily_spend: typing.Optional[float] = OMIT,
-        optimization_goal: typing.Optional[CreateAdGroupsRequestOptimizationGoal] = OMIT,
-        placements: typing.Optional[CreateAdGroupsRequestPlacements] = OMIT,
         regions: typing.Optional[AdGroupRegionsBody] = OMIT,
         starts_at: typing.Optional[str] = OMIT,
         status: typing.Optional[CreateAdGroupsRequestStatus] = OMIT,
@@ -1532,9 +1405,6 @@ class AsyncRawAdGroupsClient:
 
         conversion_event : typing.Optional[ConversionEvent]
 
-        conversion_location : typing.Optional[CreateAdGroupsRequestConversionLocation]
-            Where the outcome being optimized for occurs, such as a website visit, social-profile visit, messaging conversation, ad interaction, or lead-form submission. The lead form itself is set on the ad.
-
         delivery_schedule : typing.Optional[CreateAdGroupsRequestDeliverySchedule]
             Hours the ad group delivers in each week, keyed by day. Each window runs from `start` to `end` on the hour, with `24:00` for midnight, and a day's windows can't overlap or touch. A day that's empty or left out doesn't deliver. Replaces the whole schedule; `null` delivers at every hour. Some platforms need a lifetime `budget_type` for a schedule, on the ad group or on its campaign when the campaign holds the budget.
 
@@ -1544,47 +1414,17 @@ class AsyncRawAdGroupsClient:
         desired_cost_per_result : typing.Optional[float]
             Cost per result to aim for (`average_target`) or never exceed (`maximum_target`).
 
-        detailed_targeting : typing.Optional[AdGroupDetailedTargetingBody]
-            Interest, behavior, and demographic targeting, using categories from the ad platform's targeting taxonomy. Entries across interests, behaviors, and demographics are OR'd together (anyone matching any entry is reached), matching Ads Manager's detailed-targeting box. At most 100 entries per section. Can't be combined with demographics.automatic, and unavailable to campaigns with special_ad_categories. Send the complete intended state — a section you omit is cleared.
-
         devices : typing.Optional[AdGroupDevicesBody]
             Device platforms and operating systems to target.
 
-        dynamic_creative : typing.Optional[bool]
-            Whether the ad platform automatically mixes and matches this ad group's creatives and copy to find the best-performing combinations. Meta has deprecated it and rejects `true`; ad groups already using it keep it, and it can't be changed afterward.
-
         ends_at : typing.Optional[str]
             When the ad group stops delivering, as an ISO 8601 timestamp. Omit to run until paused.
-
-        frequency_cap : typing.Optional[CreateAdGroupsRequestFrequencyCap]
-            Cap on how often one person sees ads from this ad group. Only available when the ad group optimizes for reach or ThruPlay. Under a campaign budget every ad group must use the same cap, which applies across the whole campaign, and only with the awareness objective (reach or ThruPlay ad groups) or engagement (ThruPlay). Fixed once the campaign launches; `null` clears it before then.
 
         keywords : typing.Optional[typing.Sequence[CreateAdGroupsRequestKeywordsItem]]
             Search terms the ad group's ads can show for, and terms they never show for. Only search campaigns take keywords, and each of their ad groups needs at least one before launch. Replaces the stored list; omit to keep it.
 
         languages : typing.Optional[typing.Sequence[str]]
             Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted targets all languages.
-
-        message_apps : typing.Optional[typing.Sequence[CreateAdGroupsRequestMessageAppsItem]]
-            Apps the conversation opens in. Required when setting `conversion_location` to `messaging`, and rejected unless the ad group's conversion location is `messaging`.
-
-        minimum_daily_spend : typing.Optional[float]
-            Minimum the ad group tries to spend each day.
-
-        optimization_goal : typing.Optional[CreateAdGroupsRequestOptimizationGoal]
-            The result the ad group's delivery is optimized to get the most of.
-
-        placements : typing.Optional[CreateAdGroupsRequestPlacements]
-            `automatic` to let the ad platform choose placements, or the list of platforms and positions to target. Omit a platform's positions to target all of them.
-
-            Valid positions per platform:
-
-            - `facebook`: `feed`, `right_hand_column`, `marketplace`, `search`, `profile_feed`, `notification`, `story`, `instream_video`, `facebook_reels`, `facebook_reels_overlay`, `biz_disco_feed`
-            - `instagram`: `stream`, `story`, `explore`, `explore_home`, `reels`, `profile_feed`, `profile_reels`, `ig_search`
-            - `messenger`: `story`
-            - `audience_network`: `classic`, `rewarded_video`
-            - `threads`: `threads_stream`
-            - `whatsapp`: `status`
 
         regions : typing.Optional[AdGroupRegionsBody]
             Locations to target and exclude.
@@ -1622,7 +1462,6 @@ class AsyncRawAdGroupsClient:
                 "conversion_event": convert_and_respect_annotation_metadata(
                     object_=conversion_event, annotation=typing.Optional[ConversionEvent], direction="write"
                 ),
-                "conversion_location": conversion_location,
                 "delivery_schedule": convert_and_respect_annotation_metadata(
                     object_=delivery_schedule,
                     annotation=typing.Optional[CreateAdGroupsRequestDeliverySchedule],
@@ -1632,29 +1471,14 @@ class AsyncRawAdGroupsClient:
                     object_=demographics, annotation=AdGroupDemographicsBody, direction="write"
                 ),
                 "desired_cost_per_result": desired_cost_per_result,
-                "detailed_targeting": convert_and_respect_annotation_metadata(
-                    object_=detailed_targeting, annotation=AdGroupDetailedTargetingBody, direction="write"
-                ),
                 "devices": convert_and_respect_annotation_metadata(
                     object_=devices, annotation=AdGroupDevicesBody, direction="write"
                 ),
-                "dynamic_creative": dynamic_creative,
                 "ends_at": ends_at,
-                "frequency_cap": convert_and_respect_annotation_metadata(
-                    object_=frequency_cap,
-                    annotation=typing.Optional[CreateAdGroupsRequestFrequencyCap],
-                    direction="write",
-                ),
                 "keywords": convert_and_respect_annotation_metadata(
                     object_=keywords, annotation=typing.Sequence[CreateAdGroupsRequestKeywordsItem], direction="write"
                 ),
                 "languages": languages,
-                "message_apps": message_apps,
-                "minimum_daily_spend": minimum_daily_spend,
-                "optimization_goal": optimization_goal,
-                "placements": convert_and_respect_annotation_metadata(
-                    object_=placements, annotation=CreateAdGroupsRequestPlacements, direction="write"
-                ),
                 "regions": convert_and_respect_annotation_metadata(
                     object_=regions, annotation=AdGroupRegionsBody, direction="write"
                 ),
@@ -2132,20 +1956,13 @@ class AsyncRawAdGroupsClient:
         budget_amount_local: typing.Optional[float] = OMIT,
         budget_type: typing.Optional[UpdateAdGroupsRequestBudgetType] = OMIT,
         conversion_event: typing.Optional[ConversionEvent] = OMIT,
-        conversion_location: typing.Optional[UpdateAdGroupsRequestConversionLocation] = OMIT,
         delivery_schedule: typing.Optional[UpdateAdGroupsRequestDeliverySchedule] = OMIT,
         demographics: typing.Optional[AdGroupDemographicsBody] = OMIT,
         desired_cost_per_result: typing.Optional[float] = OMIT,
-        detailed_targeting: typing.Optional[AdGroupDetailedTargetingBody] = OMIT,
         devices: typing.Optional[AdGroupDevicesBody] = OMIT,
         ends_at: typing.Optional[str] = OMIT,
-        frequency_cap: typing.Optional[UpdateAdGroupsRequestFrequencyCap] = OMIT,
         keywords: typing.Optional[typing.Sequence[UpdateAdGroupsRequestKeywordsItem]] = OMIT,
         languages: typing.Optional[typing.Sequence[str]] = OMIT,
-        message_apps: typing.Optional[typing.Sequence[UpdateAdGroupsRequestMessageAppsItem]] = OMIT,
-        minimum_daily_spend: typing.Optional[float] = OMIT,
-        optimization_goal: typing.Optional[UpdateAdGroupsRequestOptimizationGoal] = OMIT,
-        placements: typing.Optional[UpdateAdGroupsRequestPlacements] = OMIT,
         regions: typing.Optional[AdGroupRegionsBody] = OMIT,
         starts_at: typing.Optional[str] = OMIT,
         status: typing.Optional[UpdateAdGroupsRequestStatus] = OMIT,
@@ -2180,9 +1997,6 @@ class AsyncRawAdGroupsClient:
 
         conversion_event : typing.Optional[ConversionEvent]
 
-        conversion_location : typing.Optional[UpdateAdGroupsRequestConversionLocation]
-            Where the outcome being optimized for occurs, such as a website visit, social-profile visit, messaging conversation, ad interaction, or lead-form submission. The lead form itself is set on the ad.
-
         delivery_schedule : typing.Optional[UpdateAdGroupsRequestDeliverySchedule]
             Hours the ad group delivers in each week, keyed by day. Each window runs from `start` to `end` on the hour, with `24:00` for midnight, and a day's windows can't overlap or touch. A day that's empty or left out doesn't deliver. Replaces the whole schedule; `null` delivers at every hour. Some platforms need a lifetime `budget_type` for a schedule, on the ad group or on its campaign when the campaign holds the budget.
 
@@ -2192,44 +2006,17 @@ class AsyncRawAdGroupsClient:
         desired_cost_per_result : typing.Optional[float]
             Cost per result to aim for (`average_target`) or never exceed (`maximum_target`).
 
-        detailed_targeting : typing.Optional[AdGroupDetailedTargetingBody]
-            Interest, behavior, and demographic targeting, using categories from the ad platform's targeting taxonomy. Entries across interests, behaviors, and demographics are OR'd together (anyone matching any entry is reached), matching Ads Manager's detailed-targeting box. At most 100 entries per section. Can't be combined with demographics.automatic, and unavailable to campaigns with special_ad_categories. Send the complete intended state — a section you omit is cleared.
-
         devices : typing.Optional[AdGroupDevicesBody]
             Device platforms and operating systems to target.
 
         ends_at : typing.Optional[str]
             When the ad group stops delivering, as an ISO 8601 timestamp. Omit to run until paused.
 
-        frequency_cap : typing.Optional[UpdateAdGroupsRequestFrequencyCap]
-            Cap on how often one person sees ads from this ad group. Only available when the ad group optimizes for reach or ThruPlay. Under a campaign budget every ad group must use the same cap, which applies across the whole campaign, and only with the awareness objective (reach or ThruPlay ad groups) or engagement (ThruPlay). Fixed once the campaign launches; `null` clears it before then.
-
         keywords : typing.Optional[typing.Sequence[UpdateAdGroupsRequestKeywordsItem]]
             Search terms the ad group's ads can show for, and terms they never show for. Only search campaigns take keywords, and each of their ad groups needs at least one before launch. Replaces the stored list; omit to keep it.
 
         languages : typing.Optional[typing.Sequence[str]]
             Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted targets all languages.
-
-        message_apps : typing.Optional[typing.Sequence[UpdateAdGroupsRequestMessageAppsItem]]
-            Apps the conversation opens in. Required when setting `conversion_location` to `messaging`, and rejected unless the ad group's conversion location is `messaging`.
-
-        minimum_daily_spend : typing.Optional[float]
-            Minimum the ad group tries to spend each day.
-
-        optimization_goal : typing.Optional[UpdateAdGroupsRequestOptimizationGoal]
-            The result the ad group's delivery is optimized to get the most of.
-
-        placements : typing.Optional[UpdateAdGroupsRequestPlacements]
-            `automatic` to let the ad platform choose placements, or the list of platforms and positions to target. Omit a platform's positions to target all of them.
-
-            Valid positions per platform:
-
-            - `facebook`: `feed`, `right_hand_column`, `marketplace`, `search`, `profile_feed`, `notification`, `story`, `instream_video`, `facebook_reels`, `facebook_reels_overlay`, `biz_disco_feed`
-            - `instagram`: `stream`, `story`, `explore`, `explore_home`, `reels`, `profile_feed`, `profile_reels`, `ig_search`
-            - `messenger`: `story`
-            - `audience_network`: `classic`, `rewarded_video`
-            - `threads`: `threads_stream`
-            - `whatsapp`: `status`
 
         regions : typing.Optional[AdGroupRegionsBody]
             Locations to target and exclude.
@@ -2266,7 +2053,6 @@ class AsyncRawAdGroupsClient:
                 "conversion_event": convert_and_respect_annotation_metadata(
                     object_=conversion_event, annotation=typing.Optional[ConversionEvent], direction="write"
                 ),
-                "conversion_location": conversion_location,
                 "delivery_schedule": convert_and_respect_annotation_metadata(
                     object_=delivery_schedule,
                     annotation=typing.Optional[UpdateAdGroupsRequestDeliverySchedule],
@@ -2276,28 +2062,14 @@ class AsyncRawAdGroupsClient:
                     object_=demographics, annotation=AdGroupDemographicsBody, direction="write"
                 ),
                 "desired_cost_per_result": desired_cost_per_result,
-                "detailed_targeting": convert_and_respect_annotation_metadata(
-                    object_=detailed_targeting, annotation=AdGroupDetailedTargetingBody, direction="write"
-                ),
                 "devices": convert_and_respect_annotation_metadata(
                     object_=devices, annotation=AdGroupDevicesBody, direction="write"
                 ),
                 "ends_at": ends_at,
-                "frequency_cap": convert_and_respect_annotation_metadata(
-                    object_=frequency_cap,
-                    annotation=typing.Optional[UpdateAdGroupsRequestFrequencyCap],
-                    direction="write",
-                ),
                 "keywords": convert_and_respect_annotation_metadata(
                     object_=keywords, annotation=typing.Sequence[UpdateAdGroupsRequestKeywordsItem], direction="write"
                 ),
                 "languages": languages,
-                "message_apps": message_apps,
-                "minimum_daily_spend": minimum_daily_spend,
-                "optimization_goal": optimization_goal,
-                "placements": convert_and_respect_annotation_metadata(
-                    object_=placements, annotation=UpdateAdGroupsRequestPlacements, direction="write"
-                ),
                 "regions": convert_and_respect_annotation_metadata(
                     object_=regions, annotation=AdGroupRegionsBody, direction="write"
                 ),

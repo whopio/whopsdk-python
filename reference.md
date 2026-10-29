@@ -3764,14 +3764,6 @@ client.ad_groups.create(
 <dl>
 <dd>
 
-**conversion_location:** `typing.Optional[CreateAdGroupsRequestConversionLocation]` — Where the outcome being optimized for occurs, such as a website visit, social-profile visit, messaging conversation, ad interaction, or lead-form submission. The lead form itself is set on the ad.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **delivery_schedule:** `typing.Optional[CreateAdGroupsRequestDeliverySchedule]` — Hours the ad group delivers in each week, keyed by day. Each window runs from `start` to `end` on the hour, with `24:00` for midnight, and a day's windows can't overlap or touch. A day that's empty or left out doesn't deliver. Replaces the whole schedule; `null` delivers at every hour. Some platforms need a lifetime `budget_type` for a schedule, on the ad group or on its campaign when the campaign holds the budget.
     
 </dd>
@@ -3796,14 +3788,6 @@ client.ad_groups.create(
 <dl>
 <dd>
 
-**detailed_targeting:** `typing.Optional[AdGroupDetailedTargetingBody]` — Interest, behavior, and demographic targeting, using categories from the ad platform's targeting taxonomy. Entries across interests, behaviors, and demographics are OR'd together (anyone matching any entry is reached), matching Ads Manager's detailed-targeting box. At most 100 entries per section. Can't be combined with demographics.automatic, and unavailable to campaigns with special_ad_categories. Send the complete intended state — a section you omit is cleared.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **devices:** `typing.Optional[AdGroupDevicesBody]` — Device platforms and operating systems to target.
     
 </dd>
@@ -3812,23 +3796,7 @@ client.ad_groups.create(
 <dl>
 <dd>
 
-**dynamic_creative:** `typing.Optional[bool]` — Whether the ad platform automatically mixes and matches this ad group's creatives and copy to find the best-performing combinations. Meta has deprecated it and rejects `true`; ad groups already using it keep it, and it can't be changed afterward.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **ends_at:** `typing.Optional[str]` — When the ad group stops delivering, as an ISO 8601 timestamp. Omit to run until paused.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**frequency_cap:** `typing.Optional[CreateAdGroupsRequestFrequencyCap]` — Cap on how often one person sees ads from this ad group. Only available when the ad group optimizes for reach or ThruPlay. Under a campaign budget every ad group must use the same cap, which applies across the whole campaign, and only with the awareness objective (reach or ThruPlay ad groups) or engagement (ThruPlay). Fixed once the campaign launches; `null` clears it before then.
     
 </dd>
 </dl>
@@ -3845,49 +3813,6 @@ client.ad_groups.create(
 <dd>
 
 **languages:** `typing.Optional[typing.List[str]]` — Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted targets all languages.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**message_apps:** `typing.Optional[typing.List[CreateAdGroupsRequestMessageAppsItem]]` — Apps the conversation opens in. Required when setting `conversion_location` to `messaging`, and rejected unless the ad group's conversion location is `messaging`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**minimum_daily_spend:** `typing.Optional[float]` — Minimum the ad group tries to spend each day.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**optimization_goal:** `typing.Optional[CreateAdGroupsRequestOptimizationGoal]` — The result the ad group's delivery is optimized to get the most of.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**placements:** `typing.Optional[CreateAdGroupsRequestPlacements]` 
-
-`automatic` to let the ad platform choose placements, or the list of platforms and positions to target. Omit a platform's positions to target all of them.
-
-Valid positions per platform:
-
-- `facebook`: `feed`, `right_hand_column`, `marketplace`, `search`, `profile_feed`, `notification`, `story`, `instream_video`, `facebook_reels`, `facebook_reels_overlay`, `biz_disco_feed`
-- `instagram`: `stream`, `story`, `explore`, `explore_home`, `reels`, `profile_feed`, `profile_reels`, `ig_search`
-- `messenger`: `story`
-- `audience_network`: `classic`, `rewarded_video`
-- `threads`: `threads_stream`
-- `whatsapp`: `status`
     
 </dd>
 </dl>
@@ -4492,14 +4417,6 @@ client.ad_groups.update(
 <dl>
 <dd>
 
-**conversion_location:** `typing.Optional[UpdateAdGroupsRequestConversionLocation]` — Where the outcome being optimized for occurs, such as a website visit, social-profile visit, messaging conversation, ad interaction, or lead-form submission. The lead form itself is set on the ad.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **delivery_schedule:** `typing.Optional[UpdateAdGroupsRequestDeliverySchedule]` — Hours the ad group delivers in each week, keyed by day. Each window runs from `start` to `end` on the hour, with `24:00` for midnight, and a day's windows can't overlap or touch. A day that's empty or left out doesn't deliver. Replaces the whole schedule; `null` delivers at every hour. Some platforms need a lifetime `budget_type` for a schedule, on the ad group or on its campaign when the campaign holds the budget.
     
 </dd>
@@ -4524,14 +4441,6 @@ client.ad_groups.update(
 <dl>
 <dd>
 
-**detailed_targeting:** `typing.Optional[AdGroupDetailedTargetingBody]` — Interest, behavior, and demographic targeting, using categories from the ad platform's targeting taxonomy. Entries across interests, behaviors, and demographics are OR'd together (anyone matching any entry is reached), matching Ads Manager's detailed-targeting box. At most 100 entries per section. Can't be combined with demographics.automatic, and unavailable to campaigns with special_ad_categories. Send the complete intended state — a section you omit is cleared.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **devices:** `typing.Optional[AdGroupDevicesBody]` — Device platforms and operating systems to target.
     
 </dd>
@@ -4548,14 +4457,6 @@ client.ad_groups.update(
 <dl>
 <dd>
 
-**frequency_cap:** `typing.Optional[UpdateAdGroupsRequestFrequencyCap]` — Cap on how often one person sees ads from this ad group. Only available when the ad group optimizes for reach or ThruPlay. Under a campaign budget every ad group must use the same cap, which applies across the whole campaign, and only with the awareness objective (reach or ThruPlay ad groups) or engagement (ThruPlay). Fixed once the campaign launches; `null` clears it before then.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **keywords:** `typing.Optional[typing.List[UpdateAdGroupsRequestKeywordsItem]]` — Search terms the ad group's ads can show for, and terms they never show for. Only search campaigns take keywords, and each of their ad groups needs at least one before launch. Replaces the stored list; omit to keep it.
     
 </dd>
@@ -4565,49 +4466,6 @@ client.ad_groups.update(
 <dd>
 
 **languages:** `typing.Optional[typing.List[str]]` — Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted targets all languages.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**message_apps:** `typing.Optional[typing.List[UpdateAdGroupsRequestMessageAppsItem]]` — Apps the conversation opens in. Required when setting `conversion_location` to `messaging`, and rejected unless the ad group's conversion location is `messaging`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**minimum_daily_spend:** `typing.Optional[float]` — Minimum the ad group tries to spend each day.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**optimization_goal:** `typing.Optional[UpdateAdGroupsRequestOptimizationGoal]` — The result the ad group's delivery is optimized to get the most of.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**placements:** `typing.Optional[UpdateAdGroupsRequestPlacements]` 
-
-`automatic` to let the ad platform choose placements, or the list of platforms and positions to target. Omit a platform's positions to target all of them.
-
-Valid positions per platform:
-
-- `facebook`: `feed`, `right_hand_column`, `marketplace`, `search`, `profile_feed`, `notification`, `story`, `instream_video`, `facebook_reels`, `facebook_reels_overlay`, `biz_disco_feed`
-- `instagram`: `stream`, `story`, `explore`, `explore_home`, `reels`, `profile_feed`, `profile_reels`, `ig_search`
-- `messenger`: `story`
-- `audience_network`: `classic`, `rewarded_video`
-- `threads`: `threads_stream`
-- `whatsapp`: `status`
     
 </dd>
 </dl>
@@ -5790,46 +5648,6 @@ client.ads.create()
 <dl>
 <dd>
 
-**lead_form:** `typing.Optional[CreateAdsRequestLeadForm]` — Instant lead form for the ad. Only allowed when the ad group's conversion_location is an instant-form destination (instant_forms, instant_forms_and_messenger, website_and_instant_forms). Mutually exclusive with lead_form_id.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**lead_form_id:** `typing.Optional[str]` — Use an existing instant form instead of creating one — the form's platform ID, from a form already on the ad's Facebook page. Only allowed when the ad group's conversion_location is an instant-form destination. Mutually exclusive with lead_form.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**messaging_config:** `typing.Optional[CreateAdsRequestMessagingConfig]` — Click-to-message welcome copy: the greeting (message) and the ice-breaker prompt (keyword).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**multi_advertiser_ads:** `typing.Optional[bool]` — Whether the ad can appear alongside other advertisers' ads in the same unit. Defaults to true.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**music:** `typing.Optional[CreateAdsRequestMusic]` — The looping track a TikTok carousel ad plays — an MP3 you uploaded, no larger than 10MB. Required for TikTok carousels (image creatives); TikTok-only.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **post_source:** `typing.Optional[CreateAdsRequestPostSource]` — Identifies the network that owns `existing_post_id`. The source is inferred from the ID shape when omitted.
     
 </dd>
@@ -6178,46 +5996,6 @@ client.ads.update(
 <dd>
 
 **headlines:** `typing.Optional[typing.List[UpdateAdsRequestHeadlinesItem]]` — The headline shown on the ad. Entries without a language are the ad's own copy; add one entry per other language on a Meta ad with `translations`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**lead_form:** `typing.Optional[UpdateAdsRequestLeadForm]` — Instant lead form for the ad. Only allowed when the ad group's conversion_location is an instant-form destination (instant_forms, instant_forms_and_messenger, website_and_instant_forms). Mutually exclusive with lead_form_id.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**lead_form_id:** `typing.Optional[str]` — Use an existing instant form instead of creating one — the form's platform ID, from a form already on the ad's Facebook page. Only allowed when the ad group's conversion_location is an instant-form destination. Mutually exclusive with lead_form. Replaces a stored lead_form.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**messaging_config:** `typing.Optional[UpdateAdsRequestMessagingConfig]` — Click-to-message welcome copy: the greeting (message) and the ice-breaker prompt (keyword).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**multi_advertiser_ads:** `typing.Optional[bool]` — Whether the ad can appear alongside other advertisers' ads in the same unit. Defaults to true.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**music:** `typing.Optional[UpdateAdsRequestMusic]` — The looping track a TikTok carousel ad plays — an MP3 you uploaded, no larger than 10MB. Omitted leaves the ad's music untouched. Null removes it before launch; a submitted carousel takes a replacement track instead. TikTok-only.
     
 </dd>
 </dl>

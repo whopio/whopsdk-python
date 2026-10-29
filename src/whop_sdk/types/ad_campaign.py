@@ -224,11 +224,6 @@ class AdCampaign(UniversalBaseModel):
     The goal the campaign optimizes toward.
     """
 
-    optimization_goal: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The event the campaign optimizes for when a single goal is set campaign-wide. `null` when each ad group sets its own optimization_goal.
-    """
-
     platform: AdCampaignPlatform = pydantic.Field()
     """
     The ad network the campaign runs on.

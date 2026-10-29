@@ -13,30 +13,6 @@ if typing.TYPE_CHECKING:
     from .create_ads_request_descriptions_item import CreateAdsRequestDescriptionsItem
     from .create_ads_request_external_accounts_item import CreateAdsRequestExternalAccountsItem
     from .create_ads_request_headlines_item import CreateAdsRequestHeadlinesItem
-    from .create_ads_request_lead_form import CreateAdsRequestLeadForm
-    from .create_ads_request_lead_form_completion import CreateAdsRequestLeadFormCompletion
-    from .create_ads_request_lead_form_completion_button_type import CreateAdsRequestLeadFormCompletionButtonType
-    from .create_ads_request_lead_form_disclaimer import CreateAdsRequestLeadFormDisclaimer
-    from .create_ads_request_lead_form_disclaimer_checkboxes_item import (
-        CreateAdsRequestLeadFormDisclaimerCheckboxesItem,
-    )
-    from .create_ads_request_lead_form_form_type import CreateAdsRequestLeadFormFormType
-    from .create_ads_request_lead_form_intro import CreateAdsRequestLeadFormIntro
-    from .create_ads_request_lead_form_privacy_policy import CreateAdsRequestLeadFormPrivacyPolicy
-    from .create_ads_request_lead_form_questions_item import CreateAdsRequestLeadFormQuestionsItem
-    from .create_ads_request_lead_form_questions_item_format import CreateAdsRequestLeadFormQuestionsItemFormat
-    from .create_ads_request_lead_form_questions_item_options_item import (
-        CreateAdsRequestLeadFormQuestionsItemOptionsItem,
-    )
-    from .create_ads_request_lead_form_questions_item_options_item_logic import (
-        CreateAdsRequestLeadFormQuestionsItemOptionsItemLogic,
-    )
-    from .create_ads_request_lead_form_questions_item_options_item_logic_action import (
-        CreateAdsRequestLeadFormQuestionsItemOptionsItemLogicAction,
-    )
-    from .create_ads_request_lead_form_questions_item_type import CreateAdsRequestLeadFormQuestionsItemType
-    from .create_ads_request_messaging_config import CreateAdsRequestMessagingConfig
-    from .create_ads_request_music import CreateAdsRequestMusic
     from .create_ads_request_post_source import CreateAdsRequestPostSource
     from .create_ads_request_primary_texts_item import CreateAdsRequestPrimaryTextsItem
     from .create_ads_request_translations import CreateAdsRequestTranslations
@@ -69,30 +45,6 @@ if typing.TYPE_CHECKING:
     from .update_ads_request_descriptions_item import UpdateAdsRequestDescriptionsItem
     from .update_ads_request_external_accounts_item import UpdateAdsRequestExternalAccountsItem
     from .update_ads_request_headlines_item import UpdateAdsRequestHeadlinesItem
-    from .update_ads_request_lead_form import UpdateAdsRequestLeadForm
-    from .update_ads_request_lead_form_completion import UpdateAdsRequestLeadFormCompletion
-    from .update_ads_request_lead_form_completion_button_type import UpdateAdsRequestLeadFormCompletionButtonType
-    from .update_ads_request_lead_form_disclaimer import UpdateAdsRequestLeadFormDisclaimer
-    from .update_ads_request_lead_form_disclaimer_checkboxes_item import (
-        UpdateAdsRequestLeadFormDisclaimerCheckboxesItem,
-    )
-    from .update_ads_request_lead_form_form_type import UpdateAdsRequestLeadFormFormType
-    from .update_ads_request_lead_form_intro import UpdateAdsRequestLeadFormIntro
-    from .update_ads_request_lead_form_privacy_policy import UpdateAdsRequestLeadFormPrivacyPolicy
-    from .update_ads_request_lead_form_questions_item import UpdateAdsRequestLeadFormQuestionsItem
-    from .update_ads_request_lead_form_questions_item_format import UpdateAdsRequestLeadFormQuestionsItemFormat
-    from .update_ads_request_lead_form_questions_item_options_item import (
-        UpdateAdsRequestLeadFormQuestionsItemOptionsItem,
-    )
-    from .update_ads_request_lead_form_questions_item_options_item_logic import (
-        UpdateAdsRequestLeadFormQuestionsItemOptionsItemLogic,
-    )
-    from .update_ads_request_lead_form_questions_item_options_item_logic_action import (
-        UpdateAdsRequestLeadFormQuestionsItemOptionsItemLogicAction,
-    )
-    from .update_ads_request_lead_form_questions_item_type import UpdateAdsRequestLeadFormQuestionsItemType
-    from .update_ads_request_messaging_config import UpdateAdsRequestMessagingConfig
-    from .update_ads_request_music import UpdateAdsRequestMusic
     from .update_ads_request_post_source import UpdateAdsRequestPostSource
     from .update_ads_request_primary_texts_item import UpdateAdsRequestPrimaryTextsItem
     from .update_ads_request_translations import UpdateAdsRequestTranslations
@@ -105,22 +57,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateAdsRequestDescriptionsItem": ".create_ads_request_descriptions_item",
     "CreateAdsRequestExternalAccountsItem": ".create_ads_request_external_accounts_item",
     "CreateAdsRequestHeadlinesItem": ".create_ads_request_headlines_item",
-    "CreateAdsRequestLeadForm": ".create_ads_request_lead_form",
-    "CreateAdsRequestLeadFormCompletion": ".create_ads_request_lead_form_completion",
-    "CreateAdsRequestLeadFormCompletionButtonType": ".create_ads_request_lead_form_completion_button_type",
-    "CreateAdsRequestLeadFormDisclaimer": ".create_ads_request_lead_form_disclaimer",
-    "CreateAdsRequestLeadFormDisclaimerCheckboxesItem": ".create_ads_request_lead_form_disclaimer_checkboxes_item",
-    "CreateAdsRequestLeadFormFormType": ".create_ads_request_lead_form_form_type",
-    "CreateAdsRequestLeadFormIntro": ".create_ads_request_lead_form_intro",
-    "CreateAdsRequestLeadFormPrivacyPolicy": ".create_ads_request_lead_form_privacy_policy",
-    "CreateAdsRequestLeadFormQuestionsItem": ".create_ads_request_lead_form_questions_item",
-    "CreateAdsRequestLeadFormQuestionsItemFormat": ".create_ads_request_lead_form_questions_item_format",
-    "CreateAdsRequestLeadFormQuestionsItemOptionsItem": ".create_ads_request_lead_form_questions_item_options_item",
-    "CreateAdsRequestLeadFormQuestionsItemOptionsItemLogic": ".create_ads_request_lead_form_questions_item_options_item_logic",
-    "CreateAdsRequestLeadFormQuestionsItemOptionsItemLogicAction": ".create_ads_request_lead_form_questions_item_options_item_logic_action",
-    "CreateAdsRequestLeadFormQuestionsItemType": ".create_ads_request_lead_form_questions_item_type",
-    "CreateAdsRequestMessagingConfig": ".create_ads_request_messaging_config",
-    "CreateAdsRequestMusic": ".create_ads_request_music",
     "CreateAdsRequestPostSource": ".create_ads_request_post_source",
     "CreateAdsRequestPrimaryTextsItem": ".create_ads_request_primary_texts_item",
     "CreateAdsRequestTranslations": ".create_ads_request_translations",
@@ -153,22 +89,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateAdsRequestDescriptionsItem": ".update_ads_request_descriptions_item",
     "UpdateAdsRequestExternalAccountsItem": ".update_ads_request_external_accounts_item",
     "UpdateAdsRequestHeadlinesItem": ".update_ads_request_headlines_item",
-    "UpdateAdsRequestLeadForm": ".update_ads_request_lead_form",
-    "UpdateAdsRequestLeadFormCompletion": ".update_ads_request_lead_form_completion",
-    "UpdateAdsRequestLeadFormCompletionButtonType": ".update_ads_request_lead_form_completion_button_type",
-    "UpdateAdsRequestLeadFormDisclaimer": ".update_ads_request_lead_form_disclaimer",
-    "UpdateAdsRequestLeadFormDisclaimerCheckboxesItem": ".update_ads_request_lead_form_disclaimer_checkboxes_item",
-    "UpdateAdsRequestLeadFormFormType": ".update_ads_request_lead_form_form_type",
-    "UpdateAdsRequestLeadFormIntro": ".update_ads_request_lead_form_intro",
-    "UpdateAdsRequestLeadFormPrivacyPolicy": ".update_ads_request_lead_form_privacy_policy",
-    "UpdateAdsRequestLeadFormQuestionsItem": ".update_ads_request_lead_form_questions_item",
-    "UpdateAdsRequestLeadFormQuestionsItemFormat": ".update_ads_request_lead_form_questions_item_format",
-    "UpdateAdsRequestLeadFormQuestionsItemOptionsItem": ".update_ads_request_lead_form_questions_item_options_item",
-    "UpdateAdsRequestLeadFormQuestionsItemOptionsItemLogic": ".update_ads_request_lead_form_questions_item_options_item_logic",
-    "UpdateAdsRequestLeadFormQuestionsItemOptionsItemLogicAction": ".update_ads_request_lead_form_questions_item_options_item_logic_action",
-    "UpdateAdsRequestLeadFormQuestionsItemType": ".update_ads_request_lead_form_questions_item_type",
-    "UpdateAdsRequestMessagingConfig": ".update_ads_request_messaging_config",
-    "UpdateAdsRequestMusic": ".update_ads_request_music",
     "UpdateAdsRequestPostSource": ".update_ads_request_post_source",
     "UpdateAdsRequestPrimaryTextsItem": ".update_ads_request_primary_texts_item",
     "UpdateAdsRequestTranslations": ".update_ads_request_translations",
@@ -205,22 +125,6 @@ __all__ = [
     "CreateAdsRequestDescriptionsItem",
     "CreateAdsRequestExternalAccountsItem",
     "CreateAdsRequestHeadlinesItem",
-    "CreateAdsRequestLeadForm",
-    "CreateAdsRequestLeadFormCompletion",
-    "CreateAdsRequestLeadFormCompletionButtonType",
-    "CreateAdsRequestLeadFormDisclaimer",
-    "CreateAdsRequestLeadFormDisclaimerCheckboxesItem",
-    "CreateAdsRequestLeadFormFormType",
-    "CreateAdsRequestLeadFormIntro",
-    "CreateAdsRequestLeadFormPrivacyPolicy",
-    "CreateAdsRequestLeadFormQuestionsItem",
-    "CreateAdsRequestLeadFormQuestionsItemFormat",
-    "CreateAdsRequestLeadFormQuestionsItemOptionsItem",
-    "CreateAdsRequestLeadFormQuestionsItemOptionsItemLogic",
-    "CreateAdsRequestLeadFormQuestionsItemOptionsItemLogicAction",
-    "CreateAdsRequestLeadFormQuestionsItemType",
-    "CreateAdsRequestMessagingConfig",
-    "CreateAdsRequestMusic",
     "CreateAdsRequestPostSource",
     "CreateAdsRequestPrimaryTextsItem",
     "CreateAdsRequestTranslations",
@@ -253,22 +157,6 @@ __all__ = [
     "UpdateAdsRequestDescriptionsItem",
     "UpdateAdsRequestExternalAccountsItem",
     "UpdateAdsRequestHeadlinesItem",
-    "UpdateAdsRequestLeadForm",
-    "UpdateAdsRequestLeadFormCompletion",
-    "UpdateAdsRequestLeadFormCompletionButtonType",
-    "UpdateAdsRequestLeadFormDisclaimer",
-    "UpdateAdsRequestLeadFormDisclaimerCheckboxesItem",
-    "UpdateAdsRequestLeadFormFormType",
-    "UpdateAdsRequestLeadFormIntro",
-    "UpdateAdsRequestLeadFormPrivacyPolicy",
-    "UpdateAdsRequestLeadFormQuestionsItem",
-    "UpdateAdsRequestLeadFormQuestionsItemFormat",
-    "UpdateAdsRequestLeadFormQuestionsItemOptionsItem",
-    "UpdateAdsRequestLeadFormQuestionsItemOptionsItemLogic",
-    "UpdateAdsRequestLeadFormQuestionsItemOptionsItemLogicAction",
-    "UpdateAdsRequestLeadFormQuestionsItemType",
-    "UpdateAdsRequestMessagingConfig",
-    "UpdateAdsRequestMusic",
     "UpdateAdsRequestPostSource",
     "UpdateAdsRequestPrimaryTextsItem",
     "UpdateAdsRequestTranslations",
