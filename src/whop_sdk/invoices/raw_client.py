@@ -224,7 +224,7 @@ class RawInvoicesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Invoice]:
         """
-        Creates a draft invoice backed by a receipt, with saved items, quantities, prices, and recipients. Issue the draft to resolve final tax and open the invoice. The pay_ ID stays the same when paid.
+        Creates a draft invoice backed by a receipt, with saved items, quantities, prices, and recipients. Issue the draft to resolve final tax and open the invoice. The pay_ ID stays the same when paid. Needs `invoice:create` or `payment:charge`; a `payment_method_id` needs `payment:charge`.
 
         Parameters
         ----------
@@ -259,7 +259,7 @@ class RawInvoicesClient:
             Up to 50 caller-owned string key/value pairs.
 
         payment_method_id : typing.Optional[str]
-            A saved payment method belonging to the member, prefixed `payt_`. Sending or issuing the invoice charges this method at the `charge_at` passed to that call, otherwise on `due_at`, or right away when there is no `due_at` or it has passed. Sending also emails the invoice now when the charge is later; issuing does not.
+            A saved payment method belonging to the member, prefixed `payt_`. Sending or issuing the invoice charges this method at the `charge_at` passed to that call, otherwise on `due_at`, or right away when there is no `due_at` or it has passed. Sending also emails the invoice now when the charge is later; issuing does not. Setting it needs `payment:charge`.
 
         recipient_emails : typing.Optional[typing.Sequence[str]]
             Email addresses saved for invoice delivery, independent of the billed customer. Saving them sends no email. Defaults to the customer email when omitted on create. Can be updated on draft, open, or uncollectible invoices.
@@ -456,7 +456,7 @@ class RawInvoicesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Invoice]:
         """
-        Updates draft invoice items and billing fields. Recipient-only updates are also allowed on unpaid invoices. Edit customer contact details through the member API.
+        Updates draft invoice items and billing fields. Recipient-only updates are also allowed on unpaid invoices. Edit customer contact details through the member API. A draft with no saved payment method and no scheduled send needs `invoice:update`, `invoice:create`, or `payment:charge`; every other update, and setting `payment_method_id`, needs `payment:charge`.
 
         Parameters
         ----------
@@ -485,7 +485,7 @@ class RawInvoicesClient:
             Up to 50 caller-owned string key/value pairs.
 
         payment_method_id : typing.Optional[str]
-            A saved payment method belonging to the member, prefixed `payt_`. Sending or issuing the invoice charges this method at the `charge_at` passed to that call, otherwise on `due_at`, or right away when there is no `due_at` or it has passed. Sending also emails the invoice now when the charge is later; issuing does not.
+            A saved payment method belonging to the member, prefixed `payt_`. Sending or issuing the invoice charges this method at the `charge_at` passed to that call, otherwise on `due_at`, or right away when there is no `due_at` or it has passed. Sending also emails the invoice now when the charge is later; issuing does not. Setting it needs `payment:charge`.
 
         recipient_emails : typing.Optional[typing.Sequence[str]]
             Email addresses saved for invoice delivery, independent of the billed customer. Saving them sends no email. Defaults to the customer email when omitted on create. Can be updated on draft, open, or uncollectible invoices.
@@ -581,7 +581,7 @@ class RawInvoicesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[InvoicePdf]:
         """
-        Generates the invoice as a PDF and returns a short-lived link to download it. A draft shows its estimated totals. The buyer's name and email need `member:basic:read` and `member:email:read`, and the Pay now link on an open invoice needs `payment:charge`. Each call generates a new file and link, so this endpoint does not replay `Idempotency-Key` responses.
+        Generates the invoice as a PDF and returns a short-lived link to download it. A draft shows its estimated totals. The buyer's name and email need `member:basic:read` and `member:email:read`, and the Pay now link on an open invoice needs `payment:charge`, or `invoice:create` or `invoice:update` when it has no `payment_method_id`. Each call generates a new file and link, so this endpoint does not replay `Idempotency-Key` responses.
 
         Parameters
         ----------
@@ -875,7 +875,7 @@ class RawInvoicesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Invoice]:
         """
-        Issues a draft and emails it to its recipients, with reminders after the due date. A draft with a `payment_method_id` needs `payment:charge`: with a `charge_at`, or when its `due_at` is still ahead, it is emailed now and charged to that method at that time (see `scheduled_charge_at`); otherwise it is charged right away instead of emailed. Voiding the invoice, marking it uncollectible, or paying it first cancels the scheduled charge, and its recipients get the payment link if a charge fails. Sending an open invoice emails it again, up to three emails a day including the first send. With `send_at`, the draft is sent at that time instead, and cannot be edited, except its recipients, until it is sent or unscheduled. Each email, reminders included, is sent separately to the customer email shown on the invoice and to each address in `recipient_emails`, so recipients never see each other's addresses.
+        Issues a draft and emails it to its recipients, with reminders after the due date. A draft with no `payment_method_id` needs `invoice:update`, `invoice:create`, or `payment:charge`, and is never charged. A draft with a `payment_method_id` needs `payment:charge`: with a `charge_at`, or when its `due_at` is still ahead, it is emailed now and charged to that method at that time (see `scheduled_charge_at`); otherwise it is charged right away instead of emailed. Voiding the invoice, marking it uncollectible, or paying it first cancels the scheduled charge, and its recipients get the payment link if a charge fails. Sending an open invoice needs `payment:charge` and emails it again, up to three emails a day including the first send. With `send_at`, the draft is sent at that time instead, and cannot be edited, except its recipients, until it is sent or unscheduled. Each email, reminders included, is sent separately to the customer email shown on the invoice and to each address in `recipient_emails`, so recipients never see each other's addresses.
 
         Parameters
         ----------
@@ -964,7 +964,7 @@ class RawInvoicesClient:
 
     def unschedule(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[Invoice]:
         """
-        Cancels a draft's scheduled send, so it can be edited again. An invoice with no scheduled send is returned unchanged.
+        Cancels a draft's scheduled send, so it can be edited again. An invoice with no scheduled send is returned unchanged. A draft with no `payment_method_id` needs `invoice:update`, `invoice:create`, or `payment:charge`; any other invoice needs `payment:charge`.
 
         Parameters
         ----------
@@ -1305,7 +1305,7 @@ class AsyncRawInvoicesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Invoice]:
         """
-        Creates a draft invoice backed by a receipt, with saved items, quantities, prices, and recipients. Issue the draft to resolve final tax and open the invoice. The pay_ ID stays the same when paid.
+        Creates a draft invoice backed by a receipt, with saved items, quantities, prices, and recipients. Issue the draft to resolve final tax and open the invoice. The pay_ ID stays the same when paid. Needs `invoice:create` or `payment:charge`; a `payment_method_id` needs `payment:charge`.
 
         Parameters
         ----------
@@ -1340,7 +1340,7 @@ class AsyncRawInvoicesClient:
             Up to 50 caller-owned string key/value pairs.
 
         payment_method_id : typing.Optional[str]
-            A saved payment method belonging to the member, prefixed `payt_`. Sending or issuing the invoice charges this method at the `charge_at` passed to that call, otherwise on `due_at`, or right away when there is no `due_at` or it has passed. Sending also emails the invoice now when the charge is later; issuing does not.
+            A saved payment method belonging to the member, prefixed `payt_`. Sending or issuing the invoice charges this method at the `charge_at` passed to that call, otherwise on `due_at`, or right away when there is no `due_at` or it has passed. Sending also emails the invoice now when the charge is later; issuing does not. Setting it needs `payment:charge`.
 
         recipient_emails : typing.Optional[typing.Sequence[str]]
             Email addresses saved for invoice delivery, independent of the billed customer. Saving them sends no email. Defaults to the customer email when omitted on create. Can be updated on draft, open, or uncollectible invoices.
@@ -1539,7 +1539,7 @@ class AsyncRawInvoicesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Invoice]:
         """
-        Updates draft invoice items and billing fields. Recipient-only updates are also allowed on unpaid invoices. Edit customer contact details through the member API.
+        Updates draft invoice items and billing fields. Recipient-only updates are also allowed on unpaid invoices. Edit customer contact details through the member API. A draft with no saved payment method and no scheduled send needs `invoice:update`, `invoice:create`, or `payment:charge`; every other update, and setting `payment_method_id`, needs `payment:charge`.
 
         Parameters
         ----------
@@ -1568,7 +1568,7 @@ class AsyncRawInvoicesClient:
             Up to 50 caller-owned string key/value pairs.
 
         payment_method_id : typing.Optional[str]
-            A saved payment method belonging to the member, prefixed `payt_`. Sending or issuing the invoice charges this method at the `charge_at` passed to that call, otherwise on `due_at`, or right away when there is no `due_at` or it has passed. Sending also emails the invoice now when the charge is later; issuing does not.
+            A saved payment method belonging to the member, prefixed `payt_`. Sending or issuing the invoice charges this method at the `charge_at` passed to that call, otherwise on `due_at`, or right away when there is no `due_at` or it has passed. Sending also emails the invoice now when the charge is later; issuing does not. Setting it needs `payment:charge`.
 
         recipient_emails : typing.Optional[typing.Sequence[str]]
             Email addresses saved for invoice delivery, independent of the billed customer. Saving them sends no email. Defaults to the customer email when omitted on create. Can be updated on draft, open, or uncollectible invoices.
@@ -1664,7 +1664,7 @@ class AsyncRawInvoicesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[InvoicePdf]:
         """
-        Generates the invoice as a PDF and returns a short-lived link to download it. A draft shows its estimated totals. The buyer's name and email need `member:basic:read` and `member:email:read`, and the Pay now link on an open invoice needs `payment:charge`. Each call generates a new file and link, so this endpoint does not replay `Idempotency-Key` responses.
+        Generates the invoice as a PDF and returns a short-lived link to download it. A draft shows its estimated totals. The buyer's name and email need `member:basic:read` and `member:email:read`, and the Pay now link on an open invoice needs `payment:charge`, or `invoice:create` or `invoice:update` when it has no `payment_method_id`. Each call generates a new file and link, so this endpoint does not replay `Idempotency-Key` responses.
 
         Parameters
         ----------
@@ -1958,7 +1958,7 @@ class AsyncRawInvoicesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Invoice]:
         """
-        Issues a draft and emails it to its recipients, with reminders after the due date. A draft with a `payment_method_id` needs `payment:charge`: with a `charge_at`, or when its `due_at` is still ahead, it is emailed now and charged to that method at that time (see `scheduled_charge_at`); otherwise it is charged right away instead of emailed. Voiding the invoice, marking it uncollectible, or paying it first cancels the scheduled charge, and its recipients get the payment link if a charge fails. Sending an open invoice emails it again, up to three emails a day including the first send. With `send_at`, the draft is sent at that time instead, and cannot be edited, except its recipients, until it is sent or unscheduled. Each email, reminders included, is sent separately to the customer email shown on the invoice and to each address in `recipient_emails`, so recipients never see each other's addresses.
+        Issues a draft and emails it to its recipients, with reminders after the due date. A draft with no `payment_method_id` needs `invoice:update`, `invoice:create`, or `payment:charge`, and is never charged. A draft with a `payment_method_id` needs `payment:charge`: with a `charge_at`, or when its `due_at` is still ahead, it is emailed now and charged to that method at that time (see `scheduled_charge_at`); otherwise it is charged right away instead of emailed. Voiding the invoice, marking it uncollectible, or paying it first cancels the scheduled charge, and its recipients get the payment link if a charge fails. Sending an open invoice needs `payment:charge` and emails it again, up to three emails a day including the first send. With `send_at`, the draft is sent at that time instead, and cannot be edited, except its recipients, until it is sent or unscheduled. Each email, reminders included, is sent separately to the customer email shown on the invoice and to each address in `recipient_emails`, so recipients never see each other's addresses.
 
         Parameters
         ----------
@@ -2049,7 +2049,7 @@ class AsyncRawInvoicesClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[Invoice]:
         """
-        Cancels a draft's scheduled send, so it can be edited again. An invoice with no scheduled send is returned unchanged.
+        Cancels a draft's scheduled send, so it can be edited again. An invoice with no scheduled send is returned unchanged. A draft with no `payment_method_id` needs `invoice:update`, `invoice:create`, or `payment:charge`; any other invoice needs `payment:charge`.
 
         Parameters
         ----------
