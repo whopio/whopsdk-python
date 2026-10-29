@@ -20184,14 +20184,6 @@ Use a standard event (lead, submit_application, contact, complete_registration, 
 <dl>
 <dd>
 
-**plan_id:** `typing.Optional[str]` — The variant associated with the event.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **product_id:** `typing.Optional[str]` — The product associated with the event.
     
 </dd>
@@ -20249,6 +20241,14 @@ Use a standard event (lead, submit_application, contact, complete_registration, 
 <dd>
 
 **value:** `typing.Optional[float]` — Monetary value associated with the event.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variant_id:** `typing.Optional[str]` — The variant associated with the event.
     
 </dd>
 </dl>

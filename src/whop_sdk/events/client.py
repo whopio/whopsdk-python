@@ -186,7 +186,6 @@ class EventsClient:
         duration: typing.Optional[int] = OMIT,
         event_id: typing.Optional[str] = OMIT,
         event_time: typing.Optional[dt.datetime] = OMIT,
-        plan_id: typing.Optional[str] = OMIT,
         product_id: typing.Optional[str] = OMIT,
         referrer_url: typing.Optional[str] = OMIT,
         resumed: typing.Optional[bool] = OMIT,
@@ -195,6 +194,7 @@ class EventsClient:
         url: typing.Optional[str] = OMIT,
         user: typing.Optional[CreateEventsRequestUser] = OMIT,
         value: typing.Optional[float] = OMIT,
+        variant_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateEventsResponse:
         """
@@ -237,9 +237,6 @@ class EventsClient:
         event_time : typing.Optional[dt.datetime]
             When the event occurred. Defaults to now.
 
-        plan_id : typing.Optional[str]
-            The variant associated with the event.
-
         product_id : typing.Optional[str]
             The product associated with the event.
 
@@ -263,6 +260,9 @@ class EventsClient:
 
         value : typing.Optional[float]
             Monetary value associated with the event.
+
+        variant_id : typing.Optional[str]
+            The variant associated with the event.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -298,7 +298,6 @@ class EventsClient:
             duration=duration,
             event_id=event_id,
             event_time=event_time,
-            plan_id=plan_id,
             product_id=product_id,
             referrer_url=referrer_url,
             resumed=resumed,
@@ -307,6 +306,7 @@ class EventsClient:
             url=url,
             user=user,
             value=value,
+            variant_id=variant_id,
             request_options=request_options,
         )
         return _response.data
@@ -577,7 +577,6 @@ class AsyncEventsClient:
         duration: typing.Optional[int] = OMIT,
         event_id: typing.Optional[str] = OMIT,
         event_time: typing.Optional[dt.datetime] = OMIT,
-        plan_id: typing.Optional[str] = OMIT,
         product_id: typing.Optional[str] = OMIT,
         referrer_url: typing.Optional[str] = OMIT,
         resumed: typing.Optional[bool] = OMIT,
@@ -586,6 +585,7 @@ class AsyncEventsClient:
         url: typing.Optional[str] = OMIT,
         user: typing.Optional[CreateEventsRequestUser] = OMIT,
         value: typing.Optional[float] = OMIT,
+        variant_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreateEventsResponse:
         """
@@ -628,9 +628,6 @@ class AsyncEventsClient:
         event_time : typing.Optional[dt.datetime]
             When the event occurred. Defaults to now.
 
-        plan_id : typing.Optional[str]
-            The variant associated with the event.
-
         product_id : typing.Optional[str]
             The product associated with the event.
 
@@ -654,6 +651,9 @@ class AsyncEventsClient:
 
         value : typing.Optional[float]
             Monetary value associated with the event.
+
+        variant_id : typing.Optional[str]
+            The variant associated with the event.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -697,7 +697,6 @@ class AsyncEventsClient:
             duration=duration,
             event_id=event_id,
             event_time=event_time,
-            plan_id=plan_id,
             product_id=product_id,
             referrer_url=referrer_url,
             resumed=resumed,
@@ -706,6 +705,7 @@ class AsyncEventsClient:
             url=url,
             user=user,
             value=value,
+            variant_id=variant_id,
             request_options=request_options,
         )
         return _response.data
