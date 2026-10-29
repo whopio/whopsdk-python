@@ -77,7 +77,7 @@ class TeamMembersClient:
             Only return members whose name or username contains this text, and invites whose email contains it.
 
         reports_to_id : typing.Optional[str]
-            Only return the direct reports of this team member, prefixed `ausr_`. Pass the account ID, prefixed `biz_`, for the members who report to the business directly. Pending invites are excluded, and the list pages in `created_at` order without moving Partner-role members last.
+            Only return the direct reports of this team member, whose ID may start with `ausr_` or `mber_`. Pass the account ID, prefixed `biz_`, for the members who report to the business directly. Pending invites are excluded, and the list pages in `created_at` order without moving Partner-role members last.
 
         direct_reports_min : typing.Optional[int]
             Only return members with at least this many direct reports. Pending invites are excluded, and the list pages in `created_at` order without moving Partner-role members last.
@@ -216,7 +216,7 @@ class TeamMembersClient:
         Parameters
         ----------
         id : str
-            Team member ID — `ausr_` for accepted members, `ausri_` for pending invites.
+            Team member ID. Accepted members have an ID starting with `ausr_` or `mber_`, and pending invites one starting with `ausri_`. Treat it as opaque.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -249,7 +249,7 @@ class TeamMembersClient:
         Parameters
         ----------
         id : str
-            Team member ID — `ausr_` for accepted members, `ausri_` for pending invites.
+            Team member ID. Accepted members have an ID starting with `ausr_` or `mber_`, and pending invites one starting with `ausri_`. Treat it as opaque.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -288,7 +288,7 @@ class TeamMembersClient:
         Parameters
         ----------
         id : str
-            Team member ID — `ausr_` for accepted members, `ausri_` for pending invites.
+            Team member ID. Accepted members have an ID starting with `ausr_` or `mber_`, and pending invites one starting with `ausri_`. Treat it as opaque.
 
         role : typing.Optional[UpdateTeamMembersRequestRole]
             The system role to grant. Custom roles cannot be granted through the API. The Partner role provides view-only access.
@@ -375,7 +375,7 @@ class AsyncTeamMembersClient:
             Only return members whose name or username contains this text, and invites whose email contains it.
 
         reports_to_id : typing.Optional[str]
-            Only return the direct reports of this team member, prefixed `ausr_`. Pass the account ID, prefixed `biz_`, for the members who report to the business directly. Pending invites are excluded, and the list pages in `created_at` order without moving Partner-role members last.
+            Only return the direct reports of this team member, whose ID may start with `ausr_` or `mber_`. Pass the account ID, prefixed `biz_`, for the members who report to the business directly. Pending invites are excluded, and the list pages in `created_at` order without moving Partner-role members last.
 
         direct_reports_min : typing.Optional[int]
             Only return members with at least this many direct reports. Pending invites are excluded, and the list pages in `created_at` order without moving Partner-role members last.
@@ -531,7 +531,7 @@ class AsyncTeamMembersClient:
         Parameters
         ----------
         id : str
-            Team member ID — `ausr_` for accepted members, `ausri_` for pending invites.
+            Team member ID. Accepted members have an ID starting with `ausr_` or `mber_`, and pending invites one starting with `ausri_`. Treat it as opaque.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -574,7 +574,7 @@ class AsyncTeamMembersClient:
         Parameters
         ----------
         id : str
-            Team member ID — `ausr_` for accepted members, `ausri_` for pending invites.
+            Team member ID. Accepted members have an ID starting with `ausr_` or `mber_`, and pending invites one starting with `ausri_`. Treat it as opaque.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -621,7 +621,7 @@ class AsyncTeamMembersClient:
         Parameters
         ----------
         id : str
-            Team member ID — `ausr_` for accepted members, `ausri_` for pending invites.
+            Team member ID. Accepted members have an ID starting with `ausr_` or `mber_`, and pending invites one starting with `ausri_`. Treat it as opaque.
 
         role : typing.Optional[UpdateTeamMembersRequestRole]
             The system role to grant. Custom roles cannot be granted through the API. The Partner role provides view-only access.
