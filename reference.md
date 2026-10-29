@@ -44531,7 +44531,7 @@ client.team_members.list(
 <dl>
 <dd>
 
-**reports_to_id:** `typing.Optional[str]` — Only return the direct reports of this team member, prefixed `ausr_`. Pass the account ID, prefixed `biz_`, for the members who report to the business directly. Pending invites are excluded, and the list pages in `created_at` order without moving Partner-role members last.
+**reports_to_id:** `typing.Optional[str]` — Only return the direct reports of this team member, whose ID may start with `ausr_` or `mber_`. Pass the account ID, prefixed `biz_`, for the members who report to the business directly. Pending invites are excluded, and the list pages in `created_at` order without moving Partner-role members last.
     
 </dd>
 </dl>
@@ -44783,7 +44783,7 @@ client.team_members.retrieve(
 <dl>
 <dd>
 
-**id:** `str` — Team member ID — `ausr_` for accepted members, `ausri_` for pending invites.
+**id:** `str` — Team member ID. Accepted members have an ID starting with `ausr_` or `mber_`, and pending invites one starting with `ausri_`. Treat it as opaque.
     
 </dd>
 </dl>
@@ -44856,7 +44856,7 @@ client.team_members.delete(
 <dl>
 <dd>
 
-**id:** `str` — Team member ID — `ausr_` for accepted members, `ausri_` for pending invites.
+**id:** `str` — Team member ID. Accepted members have an ID starting with `ausr_` or `mber_`, and pending invites one starting with `ausri_`. Treat it as opaque.
     
 </dd>
 </dl>
@@ -44929,7 +44929,7 @@ client.team_members.update(
 <dl>
 <dd>
 
-**id:** `str` — Team member ID — `ausr_` for accepted members, `ausri_` for pending invites.
+**id:** `str` — Team member ID. Accepted members have an ID starting with `ausr_` or `mber_`, and pending invites one starting with `ausri_`. Treat it as opaque.
     
 </dd>
 </dl>
