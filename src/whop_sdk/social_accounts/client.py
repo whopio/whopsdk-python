@@ -11,7 +11,7 @@ from .raw_client import AsyncRawSocialAccountsClient, RawSocialAccountsClient
 from .types.connect_social_accounts_request_platform import ConnectSocialAccountsRequestPlatform
 from .types.connect_social_accounts_request_scopes_item import ConnectSocialAccountsRequestScopesItem
 from .types.connect_social_accounts_response import ConnectSocialAccountsResponse
-from .types.create_social_accounts_request_platform import CreateSocialAccountsRequestPlatform
+from .types.create_social_accounts_request_body import CreateSocialAccountsRequestBody
 from .types.delete_social_accounts_response import DeleteSocialAccountsResponse
 from .types.lead_forms_social_accounts_response import LeadFormsSocialAccountsResponse
 from .types.list_social_accounts_request_direction import ListSocialAccountsRequestDirection
@@ -144,26 +144,14 @@ class SocialAccountsClient:
         )
 
     def create(
-        self,
-        *,
-        platform: CreateSocialAccountsRequestPlatform,
-        account_id: typing.Optional[str] = OMIT,
-        api_key: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, *, request: CreateSocialAccountsRequestBody, request_options: typing.Optional[RequestOptions] = None
     ) -> SocialAccount:
         """
         Deprecated compatibility endpoint. Create external accounts with `POST /external_accounts` instead.
 
         Parameters
         ----------
-        platform : CreateSocialAccountsRequestPlatform
-            The platform to create the external account on. `facebook` requires the account's `banner_image`, `logo`, and `description`, and `tiktok` requires its `logo`; configure them with [Update Account](/api-reference/beta/accounts/update-account). The account is returned before the platform has created it — its `id` is usable right away, and the rest of the profile fills in once provisioning finishes. `klaviyo` connects the account's existing Klaviyo account with the `api_key` you pass. `aimerce` connects the account's Aimerce shop with the `api_key` you pass and turns on the Aimerce tracking pixel; it requires the `company:manage_checkout` scope instead of `social_account:create`.
-
-        account_id : typing.Optional[str]
-            The Account (biz_ identifier) to create the external account for. An account-scoped API key may omit this to default to its own account. Account API keys cannot update their own account's branding through Update Account; use a user-authenticated path.
-
-        api_key : typing.Optional[str]
-            A private API key for the account on the platform. Required for `klaviyo`, which needs read access to Accounts, and for `aimerce`; not accepted for other platforms. Whop checks the key with the platform before connecting and never returns it. Connecting again replaces the saved key.
+        request : CreateSocialAccountsRequestBody
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -176,6 +164,7 @@ class SocialAccountsClient:
         Examples
         --------
         from whop_sdk import Whop
+        from whop_sdk.social_accounts import CreateSocialAccountsRequestBody_Facebook
 
         client = Whop(
             "2026-10-29",
@@ -183,12 +172,10 @@ class SocialAccountsClient:
             token="YOUR_TOKEN",
         )
         client.social_accounts.create(
-            platform="facebook",
+            request=CreateSocialAccountsRequestBody_Facebook(),
         )
         """
-        _response = self._raw_client.create(
-            platform=platform, account_id=account_id, api_key=api_key, request_options=request_options
-        )
+        _response = self._raw_client.create(request=request, request_options=request_options)
         return _response.data
 
     def connect(
@@ -711,26 +698,14 @@ class AsyncSocialAccountsClient:
         )
 
     async def create(
-        self,
-        *,
-        platform: CreateSocialAccountsRequestPlatform,
-        account_id: typing.Optional[str] = OMIT,
-        api_key: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, *, request: CreateSocialAccountsRequestBody, request_options: typing.Optional[RequestOptions] = None
     ) -> SocialAccount:
         """
         Deprecated compatibility endpoint. Create external accounts with `POST /external_accounts` instead.
 
         Parameters
         ----------
-        platform : CreateSocialAccountsRequestPlatform
-            The platform to create the external account on. `facebook` requires the account's `banner_image`, `logo`, and `description`, and `tiktok` requires its `logo`; configure them with [Update Account](/api-reference/beta/accounts/update-account). The account is returned before the platform has created it — its `id` is usable right away, and the rest of the profile fills in once provisioning finishes. `klaviyo` connects the account's existing Klaviyo account with the `api_key` you pass. `aimerce` connects the account's Aimerce shop with the `api_key` you pass and turns on the Aimerce tracking pixel; it requires the `company:manage_checkout` scope instead of `social_account:create`.
-
-        account_id : typing.Optional[str]
-            The Account (biz_ identifier) to create the external account for. An account-scoped API key may omit this to default to its own account. Account API keys cannot update their own account's branding through Update Account; use a user-authenticated path.
-
-        api_key : typing.Optional[str]
-            A private API key for the account on the platform. Required for `klaviyo`, which needs read access to Accounts, and for `aimerce`; not accepted for other platforms. Whop checks the key with the platform before connecting and never returns it. Connecting again replaces the saved key.
+        request : CreateSocialAccountsRequestBody
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -745,6 +720,7 @@ class AsyncSocialAccountsClient:
         import asyncio
 
         from whop_sdk import AsyncWhop
+        from whop_sdk.social_accounts import CreateSocialAccountsRequestBody_Facebook
 
         client = AsyncWhop(
             "2026-10-29",
@@ -755,15 +731,13 @@ class AsyncSocialAccountsClient:
 
         async def main() -> None:
             await client.social_accounts.create(
-                platform="facebook",
+                request=CreateSocialAccountsRequestBody_Facebook(),
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.create(
-            platform=platform, account_id=account_id, api_key=api_key, request_options=request_options
-        )
+        _response = await self._raw_client.create(request=request, request_options=request_options)
         return _response.data
 
     async def connect(

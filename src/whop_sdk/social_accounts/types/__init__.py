@@ -9,7 +9,17 @@ if typing.TYPE_CHECKING:
     from .connect_social_accounts_request_platform import ConnectSocialAccountsRequestPlatform
     from .connect_social_accounts_request_scopes_item import ConnectSocialAccountsRequestScopesItem
     from .connect_social_accounts_response import ConnectSocialAccountsResponse
-    from .create_social_accounts_request_platform import CreateSocialAccountsRequestPlatform
+    from .create_social_accounts_request_body import (
+        CreateSocialAccountsRequestBody,
+        CreateSocialAccountsRequestBody_Aimerce,
+        CreateSocialAccountsRequestBody_Facebook,
+        CreateSocialAccountsRequestBody_Klaviyo,
+        CreateSocialAccountsRequestBody_Tiktok,
+    )
+    from .create_social_accounts_request_body_aimerce import CreateSocialAccountsRequestBodyAimerce
+    from .create_social_accounts_request_body_facebook import CreateSocialAccountsRequestBodyFacebook
+    from .create_social_accounts_request_body_klaviyo import CreateSocialAccountsRequestBodyKlaviyo
+    from .create_social_accounts_request_body_tiktok import CreateSocialAccountsRequestBodyTiktok
     from .delete_social_accounts_response import DeleteSocialAccountsResponse
     from .lead_forms_social_accounts_response import LeadFormsSocialAccountsResponse
     from .list_social_accounts_request_direction import ListSocialAccountsRequestDirection
@@ -28,7 +38,15 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConnectSocialAccountsRequestPlatform": ".connect_social_accounts_request_platform",
     "ConnectSocialAccountsRequestScopesItem": ".connect_social_accounts_request_scopes_item",
     "ConnectSocialAccountsResponse": ".connect_social_accounts_response",
-    "CreateSocialAccountsRequestPlatform": ".create_social_accounts_request_platform",
+    "CreateSocialAccountsRequestBody": ".create_social_accounts_request_body",
+    "CreateSocialAccountsRequestBodyAimerce": ".create_social_accounts_request_body_aimerce",
+    "CreateSocialAccountsRequestBodyFacebook": ".create_social_accounts_request_body_facebook",
+    "CreateSocialAccountsRequestBodyKlaviyo": ".create_social_accounts_request_body_klaviyo",
+    "CreateSocialAccountsRequestBodyTiktok": ".create_social_accounts_request_body_tiktok",
+    "CreateSocialAccountsRequestBody_Aimerce": ".create_social_accounts_request_body",
+    "CreateSocialAccountsRequestBody_Facebook": ".create_social_accounts_request_body",
+    "CreateSocialAccountsRequestBody_Klaviyo": ".create_social_accounts_request_body",
+    "CreateSocialAccountsRequestBody_Tiktok": ".create_social_accounts_request_body",
     "DeleteSocialAccountsResponse": ".delete_social_accounts_response",
     "LeadFormsSocialAccountsResponse": ".lead_forms_social_accounts_response",
     "ListSocialAccountsRequestDirection": ".list_social_accounts_request_direction",
@@ -71,7 +89,15 @@ __all__ = [
     "ConnectSocialAccountsRequestPlatform",
     "ConnectSocialAccountsRequestScopesItem",
     "ConnectSocialAccountsResponse",
-    "CreateSocialAccountsRequestPlatform",
+    "CreateSocialAccountsRequestBody",
+    "CreateSocialAccountsRequestBodyAimerce",
+    "CreateSocialAccountsRequestBodyFacebook",
+    "CreateSocialAccountsRequestBodyKlaviyo",
+    "CreateSocialAccountsRequestBodyTiktok",
+    "CreateSocialAccountsRequestBody_Aimerce",
+    "CreateSocialAccountsRequestBody_Facebook",
+    "CreateSocialAccountsRequestBody_Klaviyo",
+    "CreateSocialAccountsRequestBody_Tiktok",
     "DeleteSocialAccountsResponse",
     "LeadFormsSocialAccountsResponse",
     "ListSocialAccountsRequestDirection",

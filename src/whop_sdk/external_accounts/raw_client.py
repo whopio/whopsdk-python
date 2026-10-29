@@ -11,17 +11,20 @@ from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
+from ..core.serialization import convert_and_respect_annotation_metadata
 from ..errors.bad_request_error import BadRequestError
 from ..errors.conflict_error import ConflictError
 from ..errors.forbidden_error import ForbiddenError
 from ..errors.not_found_error import NotFoundError
+from ..errors.service_unavailable_error import ServiceUnavailableError
 from ..errors.too_many_requests_error import TooManyRequestsError
 from ..errors.unauthorized_error import UnauthorizedError
 from ..types.external_account import ExternalAccount
+from ..types.v1error_response import V1ErrorResponse
 from .types.connect_external_accounts_request_platform import ConnectExternalAccountsRequestPlatform
 from .types.connect_external_accounts_request_scopes_item import ConnectExternalAccountsRequestScopesItem
 from .types.connect_external_accounts_response import ConnectExternalAccountsResponse
-from .types.create_external_accounts_request_platform import CreateExternalAccountsRequestPlatform
+from .types.create_external_accounts_request_body import CreateExternalAccountsRequestBody
 from .types.delete_external_accounts_response import DeleteExternalAccountsResponse
 from .types.list_external_accounts_request_direction import ListExternalAccountsRequestDirection
 from .types.list_external_accounts_request_order import ListExternalAccountsRequestOrder
@@ -190,26 +193,14 @@ class RawExternalAccountsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def create(
-        self,
-        *,
-        platform: CreateExternalAccountsRequestPlatform,
-        account_id: typing.Optional[str] = OMIT,
-        api_key: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, *, request: CreateExternalAccountsRequestBody, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[ExternalAccount]:
         """
         Creates or returns a Whop-managed Facebook page or TikTok account for an account, or connects the account's existing Klaviyo account with a private API key.
 
         Parameters
         ----------
-        platform : CreateExternalAccountsRequestPlatform
-            The platform to create the external account on. `facebook` requires the account's `banner_image`, `logo`, and `description`, and `tiktok` requires its `logo`; configure them with [Update Account](/api-reference/beta/accounts/update-account). The account is returned before the platform has created it — its `id` is usable right away, and the rest of the profile fills in once provisioning finishes. `klaviyo` connects the account's existing Klaviyo account with the `api_key` you pass. `aimerce` connects the account's Aimerce shop with the `api_key` you pass and turns on the Aimerce tracking pixel; it requires the `company:manage_checkout` scope instead of `social_account:create`.
-
-        account_id : typing.Optional[str]
-            The Account (biz_ identifier) to create the external account for. An account-scoped API key may omit this to default to its own account. Account API keys cannot update their own account's branding through Update Account; use a user-authenticated path.
-
-        api_key : typing.Optional[str]
-            A private API key for the account on the platform. Required for `klaviyo`, which needs read access to Accounts, and for `aimerce`; not accepted for other platforms. Whop checks the key with the platform before connecting and never returns it. Connecting again replaces the saved key.
+        request : CreateExternalAccountsRequestBody
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -223,14 +214,9 @@ class RawExternalAccountsClient:
             "external_accounts",
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
-            json={
-                "account_id": account_id,
-                "api_key": api_key,
-                "platform": platform,
-            },
-            headers={
-                "content-type": "application/json",
-            },
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=CreateExternalAccountsRequestBody, direction="write"
+            ),
             request_options=request_options,
             omit=OMIT,
         )
@@ -273,6 +259,17 @@ class RawExternalAccountsClient:
                         typing.Any,
                         parse_obj_as(
                             type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        V1ErrorResponse,
+                        parse_obj_as(
+                            type_=V1ErrorResponse,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),
@@ -785,26 +782,14 @@ class AsyncRawExternalAccountsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def create(
-        self,
-        *,
-        platform: CreateExternalAccountsRequestPlatform,
-        account_id: typing.Optional[str] = OMIT,
-        api_key: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, *, request: CreateExternalAccountsRequestBody, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[ExternalAccount]:
         """
         Creates or returns a Whop-managed Facebook page or TikTok account for an account, or connects the account's existing Klaviyo account with a private API key.
 
         Parameters
         ----------
-        platform : CreateExternalAccountsRequestPlatform
-            The platform to create the external account on. `facebook` requires the account's `banner_image`, `logo`, and `description`, and `tiktok` requires its `logo`; configure them with [Update Account](/api-reference/beta/accounts/update-account). The account is returned before the platform has created it — its `id` is usable right away, and the rest of the profile fills in once provisioning finishes. `klaviyo` connects the account's existing Klaviyo account with the `api_key` you pass. `aimerce` connects the account's Aimerce shop with the `api_key` you pass and turns on the Aimerce tracking pixel; it requires the `company:manage_checkout` scope instead of `social_account:create`.
-
-        account_id : typing.Optional[str]
-            The Account (biz_ identifier) to create the external account for. An account-scoped API key may omit this to default to its own account. Account API keys cannot update their own account's branding through Update Account; use a user-authenticated path.
-
-        api_key : typing.Optional[str]
-            A private API key for the account on the platform. Required for `klaviyo`, which needs read access to Accounts, and for `aimerce`; not accepted for other platforms. Whop checks the key with the platform before connecting and never returns it. Connecting again replaces the saved key.
+        request : CreateExternalAccountsRequestBody
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -818,14 +803,9 @@ class AsyncRawExternalAccountsClient:
             "external_accounts",
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
-            json={
-                "account_id": account_id,
-                "api_key": api_key,
-                "platform": platform,
-            },
-            headers={
-                "content-type": "application/json",
-            },
+            json=convert_and_respect_annotation_metadata(
+                object_=request, annotation=CreateExternalAccountsRequestBody, direction="write"
+            ),
             request_options=request_options,
             omit=OMIT,
         )
@@ -868,6 +848,17 @@ class AsyncRawExternalAccountsClient:
                         typing.Any,
                         parse_obj_as(
                             type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 503:
+                raise ServiceUnavailableError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        V1ErrorResponse,
+                        parse_obj_as(
+                            type_=V1ErrorResponse,  # type: ignore
                             object_=_response.json(),
                         ),
                     ),

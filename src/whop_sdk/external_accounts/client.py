@@ -12,7 +12,7 @@ from .raw_client import AsyncRawExternalAccountsClient, RawExternalAccountsClien
 from .types.connect_external_accounts_request_platform import ConnectExternalAccountsRequestPlatform
 from .types.connect_external_accounts_request_scopes_item import ConnectExternalAccountsRequestScopesItem
 from .types.connect_external_accounts_response import ConnectExternalAccountsResponse
-from .types.create_external_accounts_request_platform import CreateExternalAccountsRequestPlatform
+from .types.create_external_accounts_request_body import CreateExternalAccountsRequestBody
 from .types.delete_external_accounts_response import DeleteExternalAccountsResponse
 from .types.list_external_accounts_request_direction import ListExternalAccountsRequestDirection
 from .types.list_external_accounts_request_order import ListExternalAccountsRequestOrder
@@ -149,26 +149,14 @@ class ExternalAccountsClient:
         )
 
     def create(
-        self,
-        *,
-        platform: CreateExternalAccountsRequestPlatform,
-        account_id: typing.Optional[str] = OMIT,
-        api_key: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, *, request: CreateExternalAccountsRequestBody, request_options: typing.Optional[RequestOptions] = None
     ) -> ExternalAccount:
         """
         Creates or returns a Whop-managed Facebook page or TikTok account for an account, or connects the account's existing Klaviyo account with a private API key.
 
         Parameters
         ----------
-        platform : CreateExternalAccountsRequestPlatform
-            The platform to create the external account on. `facebook` requires the account's `banner_image`, `logo`, and `description`, and `tiktok` requires its `logo`; configure them with [Update Account](/api-reference/beta/accounts/update-account). The account is returned before the platform has created it — its `id` is usable right away, and the rest of the profile fills in once provisioning finishes. `klaviyo` connects the account's existing Klaviyo account with the `api_key` you pass. `aimerce` connects the account's Aimerce shop with the `api_key` you pass and turns on the Aimerce tracking pixel; it requires the `company:manage_checkout` scope instead of `social_account:create`.
-
-        account_id : typing.Optional[str]
-            The Account (biz_ identifier) to create the external account for. An account-scoped API key may omit this to default to its own account. Account API keys cannot update their own account's branding through Update Account; use a user-authenticated path.
-
-        api_key : typing.Optional[str]
-            A private API key for the account on the platform. Required for `klaviyo`, which needs read access to Accounts, and for `aimerce`; not accepted for other platforms. Whop checks the key with the platform before connecting and never returns it. Connecting again replaces the saved key.
+        request : CreateExternalAccountsRequestBody
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -181,6 +169,9 @@ class ExternalAccountsClient:
         Examples
         --------
         from whop_sdk import Whop
+        from whop_sdk.external_accounts import (
+            CreateExternalAccountsRequestBody_Facebook,
+        )
 
         client = Whop(
             "2026-10-29",
@@ -188,12 +179,10 @@ class ExternalAccountsClient:
             token="YOUR_TOKEN",
         )
         client.external_accounts.create(
-            platform="facebook",
+            request=CreateExternalAccountsRequestBody_Facebook(),
         )
         """
-        _response = self._raw_client.create(
-            platform=platform, account_id=account_id, api_key=api_key, request_options=request_options
-        )
+        _response = self._raw_client.create(request=request, request_options=request_options)
         return _response.data
 
     def connect(
@@ -495,26 +484,14 @@ class AsyncExternalAccountsClient:
         )
 
     async def create(
-        self,
-        *,
-        platform: CreateExternalAccountsRequestPlatform,
-        account_id: typing.Optional[str] = OMIT,
-        api_key: typing.Optional[str] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, *, request: CreateExternalAccountsRequestBody, request_options: typing.Optional[RequestOptions] = None
     ) -> ExternalAccount:
         """
         Creates or returns a Whop-managed Facebook page or TikTok account for an account, or connects the account's existing Klaviyo account with a private API key.
 
         Parameters
         ----------
-        platform : CreateExternalAccountsRequestPlatform
-            The platform to create the external account on. `facebook` requires the account's `banner_image`, `logo`, and `description`, and `tiktok` requires its `logo`; configure them with [Update Account](/api-reference/beta/accounts/update-account). The account is returned before the platform has created it — its `id` is usable right away, and the rest of the profile fills in once provisioning finishes. `klaviyo` connects the account's existing Klaviyo account with the `api_key` you pass. `aimerce` connects the account's Aimerce shop with the `api_key` you pass and turns on the Aimerce tracking pixel; it requires the `company:manage_checkout` scope instead of `social_account:create`.
-
-        account_id : typing.Optional[str]
-            The Account (biz_ identifier) to create the external account for. An account-scoped API key may omit this to default to its own account. Account API keys cannot update their own account's branding through Update Account; use a user-authenticated path.
-
-        api_key : typing.Optional[str]
-            A private API key for the account on the platform. Required for `klaviyo`, which needs read access to Accounts, and for `aimerce`; not accepted for other platforms. Whop checks the key with the platform before connecting and never returns it. Connecting again replaces the saved key.
+        request : CreateExternalAccountsRequestBody
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -529,6 +506,9 @@ class AsyncExternalAccountsClient:
         import asyncio
 
         from whop_sdk import AsyncWhop
+        from whop_sdk.external_accounts import (
+            CreateExternalAccountsRequestBody_Facebook,
+        )
 
         client = AsyncWhop(
             "2026-10-29",
@@ -539,15 +519,13 @@ class AsyncExternalAccountsClient:
 
         async def main() -> None:
             await client.external_accounts.create(
-                platform="facebook",
+                request=CreateExternalAccountsRequestBody_Facebook(),
             )
 
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.create(
-            platform=platform, account_id=account_id, api_key=api_key, request_options=request_options
-        )
+        _response = await self._raw_client.create(request=request, request_options=request_options)
         return _response.data
 
     async def connect(

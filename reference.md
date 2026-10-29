@@ -22896,6 +22896,7 @@ Creates or returns a Whop-managed Facebook page or TikTok account for an account
 ```python
 from whop_sdk import Whop
 from whop_sdk.environment import WhopEnvironment
+from whop_sdk.external_accounts import CreateExternalAccountsRequestBody_Facebook
 
 client = Whop(
     token="<token>",
@@ -22903,7 +22904,7 @@ client = Whop(
 )
 
 client.external_accounts.create(
-    platform="facebook",
+    request=CreateExternalAccountsRequestBody_Facebook(),
 )
 
 ```
@@ -22920,23 +22921,7 @@ client.external_accounts.create(
 <dl>
 <dd>
 
-**platform:** `CreateExternalAccountsRequestPlatform` — The platform to create the external account on. `facebook` requires the account's `banner_image`, `logo`, and `description`, and `tiktok` requires its `logo`; configure them with [Update Account](/api-reference/beta/accounts/update-account). The account is returned before the platform has created it — its `id` is usable right away, and the rest of the profile fills in once provisioning finishes. `klaviyo` connects the account's existing Klaviyo account with the `api_key` you pass. `aimerce` connects the account's Aimerce shop with the `api_key` you pass and turns on the Aimerce tracking pixel; it requires the `company:manage_checkout` scope instead of `social_account:create`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**account_id:** `typing.Optional[str]` — The Account (biz_ identifier) to create the external account for. An account-scoped API key may omit this to default to its own account. Account API keys cannot update their own account's branding through Update Account; use a user-authenticated path.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**api_key:** `typing.Optional[str]` — A private API key for the account on the platform. Required for `klaviyo`, which needs read access to Accounts, and for `aimerce`; not accepted for other platforms. Whop checks the key with the platform before connecting and never returns it. Connecting again replaces the saved key.
+**request:** `CreateExternalAccountsRequestBody` 
     
 </dd>
 </dl>
@@ -42663,6 +42648,7 @@ Deprecated compatibility endpoint. Create external accounts with `POST /external
 ```python
 from whop_sdk import Whop
 from whop_sdk.environment import WhopEnvironment
+from whop_sdk.social_accounts import CreateSocialAccountsRequestBody_Facebook
 
 client = Whop(
     token="<token>",
@@ -42670,7 +42656,7 @@ client = Whop(
 )
 
 client.social_accounts.create(
-    platform="facebook",
+    request=CreateSocialAccountsRequestBody_Facebook(),
 )
 
 ```
@@ -42687,23 +42673,7 @@ client.social_accounts.create(
 <dl>
 <dd>
 
-**platform:** `CreateSocialAccountsRequestPlatform` — The platform to create the external account on. `facebook` requires the account's `banner_image`, `logo`, and `description`, and `tiktok` requires its `logo`; configure them with [Update Account](/api-reference/beta/accounts/update-account). The account is returned before the platform has created it — its `id` is usable right away, and the rest of the profile fills in once provisioning finishes. `klaviyo` connects the account's existing Klaviyo account with the `api_key` you pass. `aimerce` connects the account's Aimerce shop with the `api_key` you pass and turns on the Aimerce tracking pixel; it requires the `company:manage_checkout` scope instead of `social_account:create`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**account_id:** `typing.Optional[str]` — The Account (biz_ identifier) to create the external account for. An account-scoped API key may omit this to default to its own account. Account API keys cannot update their own account's branding through Update Account; use a user-authenticated path.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**api_key:** `typing.Optional[str]` — A private API key for the account on the platform. Required for `klaviyo`, which needs read access to Accounts, and for `aimerce`; not accepted for other platforms. Whop checks the key with the platform before connecting and never returns it. Connecting again replaces the saved key.
+**request:** `CreateSocialAccountsRequestBody` 
     
 </dd>
 </dl>
