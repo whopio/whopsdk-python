@@ -42,6 +42,9 @@ class RawPartnerReferralRequestsClient:
         partner_id: typing.Optional[str] = None,
         status: typing.Optional[ListPartnerReferralRequestsRequestStatus] = None,
         request_type: typing.Optional[ListPartnerReferralRequestsRequestRequestType] = None,
+        authorized_user_id: typing.Optional[str] = None,
+        member_id: typing.Optional[str] = None,
+        personal: typing.Optional[bool] = None,
         order: typing.Optional[ListPartnerReferralRequestsRequestOrder] = None,
         direction: typing.Optional[ListPartnerReferralRequestsRequestDirection] = None,
         first: typing.Optional[int] = None,
@@ -69,6 +72,15 @@ class RawPartnerReferralRequestsClient:
 
         request_type : typing.Optional[ListPartnerReferralRequestsRequestRequestType]
             Only requests initiated in this way.
+
+        authorized_user_id : typing.Optional[str]
+            Only requests created for this team membership, prefixed `ausr_`.
+
+        member_id : typing.Optional[str]
+            Only requests that credit this member record, prefixed `mber_`. A request created for a team membership also credits its holder's member record.
+
+        personal : typing.Optional[bool]
+            When true, only personal requests, created for neither a team membership nor a member record. When false, only requests created for one.
 
         order : typing.Optional[ListPartnerReferralRequestsRequestOrder]
             Field used to sort requests.
@@ -106,6 +118,9 @@ class RawPartnerReferralRequestsClient:
                 "partner_id": partner_id,
                 "status": status,
                 "request_type": request_type,
+                "authorized_user_id": authorized_user_id,
+                "member_id": member_id,
+                "personal": personal,
                 "order": order,
                 "direction": direction,
                 "first": first,
@@ -136,6 +151,9 @@ class RawPartnerReferralRequestsClient:
                         partner_id=partner_id,
                         status=status,
                         request_type=request_type,
+                        authorized_user_id=authorized_user_id,
+                        member_id=member_id,
+                        personal=personal,
                         order=order,
                         direction=direction,
                         first=first,
@@ -646,6 +664,9 @@ class AsyncRawPartnerReferralRequestsClient:
         partner_id: typing.Optional[str] = None,
         status: typing.Optional[ListPartnerReferralRequestsRequestStatus] = None,
         request_type: typing.Optional[ListPartnerReferralRequestsRequestRequestType] = None,
+        authorized_user_id: typing.Optional[str] = None,
+        member_id: typing.Optional[str] = None,
+        personal: typing.Optional[bool] = None,
         order: typing.Optional[ListPartnerReferralRequestsRequestOrder] = None,
         direction: typing.Optional[ListPartnerReferralRequestsRequestDirection] = None,
         first: typing.Optional[int] = None,
@@ -673,6 +694,15 @@ class AsyncRawPartnerReferralRequestsClient:
 
         request_type : typing.Optional[ListPartnerReferralRequestsRequestRequestType]
             Only requests initiated in this way.
+
+        authorized_user_id : typing.Optional[str]
+            Only requests created for this team membership, prefixed `ausr_`.
+
+        member_id : typing.Optional[str]
+            Only requests that credit this member record, prefixed `mber_`. A request created for a team membership also credits its holder's member record.
+
+        personal : typing.Optional[bool]
+            When true, only personal requests, created for neither a team membership nor a member record. When false, only requests created for one.
 
         order : typing.Optional[ListPartnerReferralRequestsRequestOrder]
             Field used to sort requests.
@@ -710,6 +740,9 @@ class AsyncRawPartnerReferralRequestsClient:
                 "partner_id": partner_id,
                 "status": status,
                 "request_type": request_type,
+                "authorized_user_id": authorized_user_id,
+                "member_id": member_id,
+                "personal": personal,
                 "order": order,
                 "direction": direction,
                 "first": first,
@@ -742,6 +775,9 @@ class AsyncRawPartnerReferralRequestsClient:
                             partner_id=partner_id,
                             status=status,
                             request_type=request_type,
+                            authorized_user_id=authorized_user_id,
+                            member_id=member_id,
+                            personal=personal,
                             order=order,
                             direction=direction,
                             first=first,

@@ -119,7 +119,6 @@ if typing.TYPE_CHECKING:
     from .ad_campaign_campaign_type import AdCampaignCampaignType
     from .ad_campaign_delivery_status import AdCampaignDeliveryStatus
     from .ad_campaign_objective import AdCampaignObjective
-    from .ad_campaign_platform import AdCampaignPlatform
     from .ad_campaign_result_event import AdCampaignResultEvent
     from .ad_campaign_special_ad_categories_item import AdCampaignSpecialAdCategoriesItem
     from .ad_campaign_status import AdCampaignStatus
@@ -181,7 +180,6 @@ if typing.TYPE_CHECKING:
     from .ad_group_learning_progress import AdGroupLearningProgress
     from .ad_group_operating_system import AdGroupOperatingSystem
     from .ad_group_operating_system_os import AdGroupOperatingSystemOs
-    from .ad_group_platform import AdGroupPlatform
     from .ad_group_regions import AdGroupRegions
     from .ad_group_regions_body import AdGroupRegionsBody
     from .ad_group_result_event import AdGroupResultEvent
@@ -198,16 +196,13 @@ if typing.TYPE_CHECKING:
     from .ad_pixel import AdPixel
     from .ad_pixel_platform import AdPixelPlatform
     from .ad_pixel_status import AdPixelStatus
-    from .ad_platform import AdPlatform
     from .ad_platform_issue import AdPlatformIssue
     from .ad_platform_issue_category import AdPlatformIssueCategory
     from .ad_platform_issue_resource_type import AdPlatformIssueResourceType
-    from .ad_post_source import AdPostSource
     from .ad_result_event import AdResultEvent
     from .ad_stat import AdStat
     from .ad_status import AdStatus
     from .ad_text import AdText
-    from .ad_translations import AdTranslations
     from .affiliate import Affiliate
     from .affiliate_applies_to_payments import AffiliateAppliesToPayments
     from .affiliate_applies_to_products import AffiliateAppliesToProducts
@@ -1714,7 +1709,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdCampaignCampaignType": ".ad_campaign_campaign_type",
     "AdCampaignDeliveryStatus": ".ad_campaign_delivery_status",
     "AdCampaignObjective": ".ad_campaign_objective",
-    "AdCampaignPlatform": ".ad_campaign_platform",
     "AdCampaignResultEvent": ".ad_campaign_result_event",
     "AdCampaignSpecialAdCategoriesItem": ".ad_campaign_special_ad_categories_item",
     "AdCampaignStatus": ".ad_campaign_status",
@@ -1770,7 +1764,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdGroupLearningProgress": ".ad_group_learning_progress",
     "AdGroupOperatingSystem": ".ad_group_operating_system",
     "AdGroupOperatingSystemOs": ".ad_group_operating_system_os",
-    "AdGroupPlatform": ".ad_group_platform",
     "AdGroupRegions": ".ad_group_regions",
     "AdGroupRegionsBody": ".ad_group_regions_body",
     "AdGroupResultEvent": ".ad_group_result_event",
@@ -1787,16 +1780,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdPixel": ".ad_pixel",
     "AdPixelPlatform": ".ad_pixel_platform",
     "AdPixelStatus": ".ad_pixel_status",
-    "AdPlatform": ".ad_platform",
     "AdPlatformIssue": ".ad_platform_issue",
     "AdPlatformIssueCategory": ".ad_platform_issue_category",
     "AdPlatformIssueResourceType": ".ad_platform_issue_resource_type",
-    "AdPostSource": ".ad_post_source",
     "AdResultEvent": ".ad_result_event",
     "AdStat": ".ad_stat",
     "AdStatus": ".ad_status",
     "AdText": ".ad_text",
-    "AdTranslations": ".ad_translations",
     "Affiliate": ".affiliate",
     "AffiliateAppliesToPayments": ".affiliate_applies_to_payments",
     "AffiliateAppliesToProducts": ".affiliate_applies_to_products",
@@ -3187,7 +3177,6 @@ __all__ = [
     "AdCampaignCampaignType",
     "AdCampaignDeliveryStatus",
     "AdCampaignObjective",
-    "AdCampaignPlatform",
     "AdCampaignResultEvent",
     "AdCampaignSpecialAdCategoriesItem",
     "AdCampaignStatus",
@@ -3243,7 +3232,6 @@ __all__ = [
     "AdGroupLearningProgress",
     "AdGroupOperatingSystem",
     "AdGroupOperatingSystemOs",
-    "AdGroupPlatform",
     "AdGroupRegions",
     "AdGroupRegionsBody",
     "AdGroupResultEvent",
@@ -3260,16 +3248,13 @@ __all__ = [
     "AdPixel",
     "AdPixelPlatform",
     "AdPixelStatus",
-    "AdPlatform",
     "AdPlatformIssue",
     "AdPlatformIssueCategory",
     "AdPlatformIssueResourceType",
-    "AdPostSource",
     "AdResultEvent",
     "AdStat",
     "AdStatus",
     "AdText",
-    "AdTranslations",
     "Affiliate",
     "AffiliateAppliesToPayments",
     "AffiliateAppliesToProducts",

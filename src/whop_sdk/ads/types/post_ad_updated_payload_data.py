@@ -8,11 +8,8 @@ from ...types.ad_creative import AdCreative
 from ...types.ad_entity_reference import AdEntityReference
 from ...types.ad_platform_issue import AdPlatformIssue
 from ...types.ad_text import AdText
-from ...types.ad_translations import AdTranslations
 from .post_ad_updated_payload_data_call_to_action import PostAdUpdatedPayloadDataCallToAction
 from .post_ad_updated_payload_data_delivery_status import PostAdUpdatedPayloadDataDeliveryStatus
-from .post_ad_updated_payload_data_platform import PostAdUpdatedPayloadDataPlatform
-from .post_ad_updated_payload_data_post_source import PostAdUpdatedPayloadDataPostSource
 from .post_ad_updated_payload_data_status import PostAdUpdatedPayloadDataStatus
 
 
@@ -44,12 +41,6 @@ class PostAdUpdatedPayloadData(UniversalBaseModel):
     """
 
     descriptions: typing.List[AdText]
-    existing_post_id: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The post you pointed this ad at, when it promotes one you already published — a Facebook post, Instagram media, or TikTok video ID. `null` when the ad uses uploaded creatives.
-    """
-
-    external_accounts: typing.List[AdEntityReference]
     headlines: typing.List[AdText]
     id: str = pydantic.Field()
     """
@@ -57,24 +48,9 @@ class PostAdUpdatedPayloadData(UniversalBaseModel):
     """
 
     issues: typing.List[AdPlatformIssue]
-    platform: PostAdUpdatedPayloadDataPlatform = pydantic.Field()
-    """
-    The ad platform this ad runs on.
-    """
-
     post_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The post the ad network serves for this ad, as `pageID_postID` on Meta — the post Meta created for an uploaded creative, or the post being promoted. Use it to open the live post, or to promote the same post from another ad. `null` until the network has created the post.
-    """
-
-    post_source: typing.Optional[PostAdUpdatedPayloadDataPostSource] = pydantic.Field(default=None)
-    """
-    Identifies the network that owns `existing_post_id`; `null` when the ad uses uploaded creatives.
-    """
-
-    post_thumbnail_url: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    Preview image of the post named by `existing_post_id`. `null` for ads that use uploaded creatives, or until the post's media has been fetched from the network.
+    The post the ad network serves for this ad, as `pageID_postID` on Meta — the post Meta created for an uploaded creative, or the post being promoted. Use it to open the live post. `null` until the network has created the post.
     """
 
     primary_texts: typing.List[AdText]
@@ -86,11 +62,6 @@ class PostAdUpdatedPayloadData(UniversalBaseModel):
     title: typing.Optional[str] = pydantic.Field(default=None)
     """
     Display title of the ad.
-    """
-
-    translations: typing.Optional[AdTranslations] = pydantic.Field(default=None)
-    """
-    The languages a Meta ad runs in besides its own. Each viewer sees the version for their language, or the ad's own copy. `null` when the ad runs in one language.
     """
 
     updated_at: str = pydantic.Field()

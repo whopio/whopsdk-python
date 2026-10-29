@@ -26,7 +26,7 @@ class AdCreative(UniversalBaseModel):
 
     language: typing.Optional[str] = pydantic.Field(default=None)
     """
-    ISO 639 code of the language this image or video is shown for, such as `es`. On an ad with translations, the ad's own creative carries `translations.source_language`. It's `null` on an ad without translations.
+    ISO 639 code of the language this image or video is shown for, such as `es`. On an ad that runs in several languages, the ad's own creative carries the language its copy is written in. It's `null` on an ad that runs in one language.
     """
 
     media_type: typing.Optional[str] = pydantic.Field(default=None)

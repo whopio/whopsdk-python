@@ -1995,8 +1995,7 @@ client = Whop(
 )
 
 client.ad_campaigns.create(
-    objective="awareness",
-    platform="whop",
+    objective="traffic",
     title="Now hiring mobile detailers — Austin",
 )
 
@@ -2015,14 +2014,6 @@ client.ad_campaigns.create(
 <dd>
 
 **objective:** `CreateAdCampaignsRequestObjective` — The goal the campaign optimizes toward.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**platform:** `CreateAdCampaignsRequestPlatform` — The ad network the campaign runs on.
     
 </dd>
 </dl>
@@ -5616,7 +5607,7 @@ client.ads.create()
 <dl>
 <dd>
 
-**descriptions:** `typing.Optional[typing.List[CreateAdsRequestDescriptionsItem]]` — The description shown on the ad. Entries without a language are the ad's own copy; add one entry per other language on a Meta ad with `translations`.
+**descriptions:** `typing.Optional[typing.List[CreateAdsRequestDescriptionsItem]]` — The description shown on the ad.
     
 </dd>
 </dl>
@@ -5624,7 +5615,7 @@ client.ads.create()
 <dl>
 <dd>
 
-**existing_post_id:** `typing.Optional[str]` — Promote a post you already published instead of uploading creatives — a Facebook post or Instagram media id. Mutually exclusive with creatives. Pair with post_source.
+**headlines:** `typing.Optional[typing.List[CreateAdsRequestHeadlinesItem]]` — The headline shown on the ad.
     
 </dd>
 </dl>
@@ -5632,31 +5623,7 @@ client.ads.create()
 <dl>
 <dd>
 
-**external_accounts:** `typing.Optional[typing.List[CreateAdsRequestExternalAccountsItem]]` — The external accounts the ad runs under — a connected Facebook page and, optionally, an Instagram profile.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**headlines:** `typing.Optional[typing.List[CreateAdsRequestHeadlinesItem]]` — The headline shown on the ad. Entries without a language are the ad's own copy; add one entry per other language on a Meta ad with `translations`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**post_source:** `typing.Optional[CreateAdsRequestPostSource]` — Identifies the network that owns `existing_post_id`. The source is inferred from the ID shape when omitted.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**primary_texts:** `typing.Optional[typing.List[CreateAdsRequestPrimaryTextsItem]]` — The primary text shown in the ad body. Entries without a language are the ad's own copy (several make text variations); add one entry per other language on a Meta ad with `translations`.
+**primary_texts:** `typing.Optional[typing.List[CreateAdsRequestPrimaryTextsItem]]` — The primary text shown in the ad body. Several entries make text variations.
     
 </dd>
 </dl>
@@ -5665,14 +5632,6 @@ client.ads.create()
 <dd>
 
 **title:** `typing.Optional[str]` — The display name of the ad.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**translations:** `typing.Optional[CreateAdsRequestTranslations]` — Shows a Meta ad in other languages. Each viewer sees the version for their language; everyone else sees the ad's own copy. Tag every copy and creatives entry with its language: the ad's own with `source_language`, and give every other language a `primary_texts` and `headlines` entry (a `descriptions` entry and a `creatives` entry are optional), or list it in `automatic_languages`. Needs a website destination, one image or video, and exactly one primary text and headline of the ad's own (and at most one description), with no Dynamic Creative or crops. Replaced as a whole when sent, so send `automatic_languages` with `source_language`. null turns translations off and deletes their media. Meta-only.
     
 </dd>
 </dl>
@@ -5971,7 +5930,7 @@ client.ads.update(
 <dl>
 <dd>
 
-**descriptions:** `typing.Optional[typing.List[UpdateAdsRequestDescriptionsItem]]` — The description shown on the ad. Entries without a language are the ad's own copy; add one entry per other language on a Meta ad with `translations`.
+**descriptions:** `typing.Optional[typing.List[UpdateAdsRequestDescriptionsItem]]` — The description shown on the ad.
     
 </dd>
 </dl>
@@ -5979,7 +5938,7 @@ client.ads.update(
 <dl>
 <dd>
 
-**existing_post_id:** `typing.Optional[str]` — Promote a post you already published instead of uploading creatives — a Facebook post or Instagram media id. Mutually exclusive with creatives. Pair with post_source.
+**headlines:** `typing.Optional[typing.List[UpdateAdsRequestHeadlinesItem]]` — The headline shown on the ad.
     
 </dd>
 </dl>
@@ -5987,31 +5946,7 @@ client.ads.update(
 <dl>
 <dd>
 
-**external_accounts:** `typing.Optional[typing.List[UpdateAdsRequestExternalAccountsItem]]` — The external accounts the ad runs under — a connected Facebook page and, optionally, an Instagram profile.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**headlines:** `typing.Optional[typing.List[UpdateAdsRequestHeadlinesItem]]` — The headline shown on the ad. Entries without a language are the ad's own copy; add one entry per other language on a Meta ad with `translations`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**post_source:** `typing.Optional[UpdateAdsRequestPostSource]` — Identifies the network that owns `existing_post_id`. The source is inferred from the ID shape when omitted.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**primary_texts:** `typing.Optional[typing.List[UpdateAdsRequestPrimaryTextsItem]]` — The primary text shown in the ad body. Entries without a language are the ad's own copy (several make text variations); add one entry per other language on a Meta ad with `translations`.
+**primary_texts:** `typing.Optional[typing.List[UpdateAdsRequestPrimaryTextsItem]]` — The primary text shown in the ad body. Several entries make text variations.
     
 </dd>
 </dl>
@@ -6020,14 +5955,6 @@ client.ads.update(
 <dd>
 
 **title:** `typing.Optional[str]` — The display name of the ad.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**translations:** `typing.Optional[UpdateAdsRequestTranslations]` — Shows a Meta ad in other languages. Each viewer sees the version for their language; everyone else sees the ad's own copy. Tag every copy and creatives entry with its language: the ad's own with `source_language`, and give every other language a `primary_texts` and `headlines` entry (a `descriptions` entry and a `creatives` entry are optional), or list it in `automatic_languages`. Needs a website destination, one image or video, and exactly one primary text and headline of the ad's own (and at most one description), with no Dynamic Creative or crops. Replaced as a whole when sent, so send `automatic_languages` with `source_language`. null turns translations off and deletes their media. Meta-only.
     
 </dd>
 </dl>
@@ -30787,6 +30714,30 @@ client.partner_referral_requests.list()
 <dd>
 
 **request_type:** `typing.Optional[ListPartnerReferralRequestsRequestRequestType]` — Only requests initiated in this way.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**authorized_user_id:** `typing.Optional[str]` — Only requests created for this team membership, prefixed `ausr_`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**member_id:** `typing.Optional[str]` — Only requests that credit this member record, prefixed `mber_`. A request created for a team membership also credits its holder's member record.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**personal:** `typing.Optional[bool]` — When true, only personal requests, created for neither a team membership nor a member record. When false, only requests created for one.
     
 </dd>
 </dl>

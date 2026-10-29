@@ -21,7 +21,6 @@ from .types.create_ad_campaigns_request_budget_optimization import CreateAdCampa
 from .types.create_ad_campaigns_request_budget_type import CreateAdCampaignsRequestBudgetType
 from .types.create_ad_campaigns_request_campaign_type import CreateAdCampaignsRequestCampaignType
 from .types.create_ad_campaigns_request_objective import CreateAdCampaignsRequestObjective
-from .types.create_ad_campaigns_request_platform import CreateAdCampaignsRequestPlatform
 from .types.create_ad_campaigns_request_special_ad_categories_item import (
     CreateAdCampaignsRequestSpecialAdCategoriesItem,
 )
@@ -229,7 +228,6 @@ class RawAdCampaignsClient:
         self,
         *,
         objective: CreateAdCampaignsRequestObjective,
-        platform: CreateAdCampaignsRequestPlatform,
         title: str,
         account_id: typing.Optional[str] = OMIT,
         bid_type: typing.Optional[CreateAdCampaignsRequestBidType] = OMIT,
@@ -251,9 +249,6 @@ class RawAdCampaignsClient:
         ----------
         objective : CreateAdCampaignsRequestObjective
             The goal the campaign optimizes toward.
-
-        platform : CreateAdCampaignsRequestPlatform
-            The ad network the campaign runs on.
 
         title : str
             The title of the campaign.
@@ -314,7 +309,6 @@ class RawAdCampaignsClient:
                 "desired_cost_per_result": desired_cost_per_result,
                 "ends_at": ends_at,
                 "objective": objective,
-                "platform": platform,
                 "special_ad_categories": special_ad_categories,
                 "starts_at": starts_at,
                 "title": title,
@@ -1005,7 +999,6 @@ class AsyncRawAdCampaignsClient:
         self,
         *,
         objective: CreateAdCampaignsRequestObjective,
-        platform: CreateAdCampaignsRequestPlatform,
         title: str,
         account_id: typing.Optional[str] = OMIT,
         bid_type: typing.Optional[CreateAdCampaignsRequestBidType] = OMIT,
@@ -1027,9 +1020,6 @@ class AsyncRawAdCampaignsClient:
         ----------
         objective : CreateAdCampaignsRequestObjective
             The goal the campaign optimizes toward.
-
-        platform : CreateAdCampaignsRequestPlatform
-            The ad network the campaign runs on.
 
         title : str
             The title of the campaign.
@@ -1090,7 +1080,6 @@ class AsyncRawAdCampaignsClient:
                 "desired_cost_per_result": desired_cost_per_result,
                 "ends_at": ends_at,
                 "objective": objective,
-                "platform": platform,
                 "special_ad_categories": special_ad_categories,
                 "starts_at": starts_at,
                 "title": title,

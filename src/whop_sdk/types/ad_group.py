@@ -14,7 +14,6 @@ from .ad_group_demographics import AdGroupDemographics
 from .ad_group_devices import AdGroupDevices
 from .ad_group_keyword import AdGroupKeyword
 from .ad_group_learning_progress import AdGroupLearningProgress
-from .ad_group_platform import AdGroupPlatform
 from .ad_group_regions import AdGroupRegions
 from .ad_group_result_event import AdGroupResultEvent
 from .ad_group_status import AdGroupStatus
@@ -245,11 +244,6 @@ class AdGroup(UniversalBaseModel):
     link_clicks: float = pydantic.Field()
     """
     Page views on your destination from people who clicked the ad, recorded by the Whop pixel. Counted the same way on every ad platform.
-    """
-
-    platform: AdGroupPlatform = pydantic.Field()
-    """
-    The ad platform this ad group runs on.
     """
 
     purchase_value: float = pydantic.Field()

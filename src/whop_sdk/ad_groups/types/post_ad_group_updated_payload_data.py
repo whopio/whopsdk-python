@@ -17,7 +17,6 @@ from ...types.conversion_event import ConversionEvent
 from .post_ad_group_updated_payload_data_bid_type import PostAdGroupUpdatedPayloadDataBidType
 from .post_ad_group_updated_payload_data_budget_type import PostAdGroupUpdatedPayloadDataBudgetType
 from .post_ad_group_updated_payload_data_delivery_status import PostAdGroupUpdatedPayloadDataDeliveryStatus
-from .post_ad_group_updated_payload_data_platform import PostAdGroupUpdatedPayloadDataPlatform
 from .post_ad_group_updated_payload_data_status import PostAdGroupUpdatedPayloadDataStatus
 
 
@@ -104,11 +103,6 @@ class PostAdGroupUpdatedPayloadData(UniversalBaseModel):
     learning_progress: typing.Optional[AdGroupLearningProgress] = pydantic.Field(default=None)
     """
     Progress toward the ad platform's learning conversion threshold for this ad group. Null unless it is learning or learning limited and the platform reports valid counts. Reaching the threshold does not determine delivery status.
-    """
-
-    platform: PostAdGroupUpdatedPayloadDataPlatform = pydantic.Field()
-    """
-    The ad platform this ad group runs on.
     """
 
     regions: AdGroupRegions = pydantic.Field()
