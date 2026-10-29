@@ -97,7 +97,7 @@ class SupportedMethodsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-2",
+            "2026-10-29-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -213,7 +213,7 @@ class AsyncSupportedMethodsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-2",
+            "2026-10-29-3",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
