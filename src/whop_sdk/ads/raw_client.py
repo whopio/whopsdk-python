@@ -25,7 +25,6 @@ from .types.create_ads_request_creatives_item import CreateAdsRequestCreativesIt
 from .types.create_ads_request_descriptions_item import CreateAdsRequestDescriptionsItem
 from .types.create_ads_request_headlines_item import CreateAdsRequestHeadlinesItem
 from .types.create_ads_request_primary_texts_item import CreateAdsRequestPrimaryTextsItem
-from .types.create_ads_request_x_ads_platform import CreateAdsRequestXAdsPlatform
 from .types.delete_ads_response import DeleteAdsResponse
 from .types.duplicate_ads_response import DuplicateAdsResponse
 from .types.list_ads_request_attribution_model import ListAdsRequestAttributionModel
@@ -42,7 +41,6 @@ from .types.update_ads_request_creatives_item import UpdateAdsRequestCreativesIt
 from .types.update_ads_request_descriptions_item import UpdateAdsRequestDescriptionsItem
 from .types.update_ads_request_headlines_item import UpdateAdsRequestHeadlinesItem
 from .types.update_ads_request_primary_texts_item import UpdateAdsRequestPrimaryTextsItem
-from .types.update_ads_request_x_ads_platform import UpdateAdsRequestXAdsPlatform
 from pydantic import ValidationError
 
 # this is used as the default value for optional parameters
@@ -381,7 +379,6 @@ class RawAdsClient:
     def create(
         self,
         *,
-        ads_platform: typing.Optional[CreateAdsRequestXAdsPlatform] = None,
         ad_group: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         ad_group_id: typing.Optional[str] = OMIT,
         call_to_action: typing.Optional[CreateAdsRequestCallToAction] = OMIT,
@@ -399,9 +396,6 @@ class RawAdsClient:
 
         Parameters
         ----------
-        ads_platform : typing.Optional[CreateAdsRequestXAdsPlatform]
-            The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
-
         ad_group : typing.Optional[typing.Dict[str, typing.Any]]
             An inline ad group to create (same shape as POST /ad_groups, including ad_campaign_id). Creates the ad group and the ad together. Provide this OR ad_group_id.
 
@@ -412,7 +406,7 @@ class RawAdsClient:
             The call-to-action button shown on the ad.
 
         creatives : typing.Optional[typing.Sequence[CreateAdsRequestCreativesItem]]
-            The ad's creative assets. Each entry is an uploaded file id with an optional format; omit format for the original asset. Entries with no format become a carousel's ordered cards, sharing the ad's copy — 2-10 of them on Meta, while TikTok runs even a single image as a one-card carousel.
+            The ad's creative assets. Each entry is an uploaded file id with an optional format; omit format for the original asset. Entries with no format become a carousel's ordered cards, sharing the ad's copy.
 
         descriptions : typing.Optional[typing.Sequence[CreateAdsRequestDescriptionsItem]]
             The description shown on the ad.
@@ -430,7 +424,7 @@ class RawAdsClient:
             The URL the ad links to. Query parameters are merged into url_parameters, so the stored URL is always bare.
 
         url_parameters : typing.Optional[typing.Dict[str, typing.Any]]
-            Query parameters to append to the destination URL, keyed by parameter name. Merged with any query string on `url`. Whop adds its own click-attribution parameters; those are reserved and rejected if you set them. Which keys are reserved depends on the ad's network — Meta: utm_meta_ad_id, utm_meta_adset_id, utm_meta_campaign_id, utm_source, utm_placement, utm_medium, utm_content, utm_adset, utm_whop, wacid, wasid, waid, tw_source, tw_adid; TikTok: waid, wasid, wacid, ad_id, adset_id, campaign_id, utm_source, utm_medium, utm_placement, utm_whop, tw_source, tw_adid.
+            Query parameters to append to the destination URL, keyed by parameter name. Merged with any query string on `url`. Whop adds its own click-attribution parameters; those are reserved, and setting one returns an error that names it.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -470,7 +464,6 @@ class RawAdsClient:
             },
             headers={
                 "content-type": "application/json",
-                "X-Ads-Platform": str(ads_platform) if ads_platform is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -666,7 +659,6 @@ class RawAdsClient:
         self,
         id: str,
         *,
-        ads_platform: typing.Optional[UpdateAdsRequestXAdsPlatform] = None,
         call_to_action: typing.Optional[UpdateAdsRequestCallToAction] = OMIT,
         creatives: typing.Optional[typing.Sequence[UpdateAdsRequestCreativesItem]] = OMIT,
         descriptions: typing.Optional[typing.Sequence[UpdateAdsRequestDescriptionsItem]] = OMIT,
@@ -685,14 +677,11 @@ class RawAdsClient:
         id : str
             The ad ID.
 
-        ads_platform : typing.Optional[UpdateAdsRequestXAdsPlatform]
-            The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
-
         call_to_action : typing.Optional[UpdateAdsRequestCallToAction]
             The call-to-action button shown on the ad.
 
         creatives : typing.Optional[typing.Sequence[UpdateAdsRequestCreativesItem]]
-            The ad's creative assets. Each entry is an uploaded file id with an optional format; omit format for the original asset. Replaces a live ad's creative on the platform. Entries with no format replace it with a carousel's ordered cards — 2-10 of them on Meta, while TikTok runs even a single image as a one-card carousel.
+            The ad's creative assets. Each entry is an uploaded file id with an optional format; omit format for the original asset. Replaces a live ad's creative. Entries with no format replace it with a carousel's ordered cards.
 
         descriptions : typing.Optional[typing.Sequence[UpdateAdsRequestDescriptionsItem]]
             The description shown on the ad.
@@ -710,7 +699,7 @@ class RawAdsClient:
             The URL the ad links to. Query parameters are merged into url_parameters, so the stored URL is always bare.
 
         url_parameters : typing.Optional[typing.Dict[str, typing.Any]]
-            Query parameters to append to the destination URL, keyed by parameter name. Merged with any query string on `url`. Whop adds its own click-attribution parameters; those are reserved and rejected if you set them. Which keys are reserved depends on the ad's network — Meta: utm_meta_ad_id, utm_meta_adset_id, utm_meta_campaign_id, utm_source, utm_placement, utm_medium, utm_content, utm_adset, utm_whop, wacid, wasid, waid, tw_source, tw_adid; TikTok: waid, wasid, wacid, ad_id, adset_id, campaign_id, utm_source, utm_medium, utm_placement, utm_whop, tw_source, tw_adid.
+            Query parameters to append to the destination URL, keyed by parameter name. Merged with any query string on `url`. Whop adds its own click-attribution parameters; those are reserved, and setting one returns an error that names it.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -748,7 +737,6 @@ class RawAdsClient:
             },
             headers={
                 "content-type": "application/json",
-                "X-Ads-Platform": str(ads_platform) if ads_platform is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -1315,7 +1303,6 @@ class AsyncRawAdsClient:
     async def create(
         self,
         *,
-        ads_platform: typing.Optional[CreateAdsRequestXAdsPlatform] = None,
         ad_group: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         ad_group_id: typing.Optional[str] = OMIT,
         call_to_action: typing.Optional[CreateAdsRequestCallToAction] = OMIT,
@@ -1333,9 +1320,6 @@ class AsyncRawAdsClient:
 
         Parameters
         ----------
-        ads_platform : typing.Optional[CreateAdsRequestXAdsPlatform]
-            The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
-
         ad_group : typing.Optional[typing.Dict[str, typing.Any]]
             An inline ad group to create (same shape as POST /ad_groups, including ad_campaign_id). Creates the ad group and the ad together. Provide this OR ad_group_id.
 
@@ -1346,7 +1330,7 @@ class AsyncRawAdsClient:
             The call-to-action button shown on the ad.
 
         creatives : typing.Optional[typing.Sequence[CreateAdsRequestCreativesItem]]
-            The ad's creative assets. Each entry is an uploaded file id with an optional format; omit format for the original asset. Entries with no format become a carousel's ordered cards, sharing the ad's copy — 2-10 of them on Meta, while TikTok runs even a single image as a one-card carousel.
+            The ad's creative assets. Each entry is an uploaded file id with an optional format; omit format for the original asset. Entries with no format become a carousel's ordered cards, sharing the ad's copy.
 
         descriptions : typing.Optional[typing.Sequence[CreateAdsRequestDescriptionsItem]]
             The description shown on the ad.
@@ -1364,7 +1348,7 @@ class AsyncRawAdsClient:
             The URL the ad links to. Query parameters are merged into url_parameters, so the stored URL is always bare.
 
         url_parameters : typing.Optional[typing.Dict[str, typing.Any]]
-            Query parameters to append to the destination URL, keyed by parameter name. Merged with any query string on `url`. Whop adds its own click-attribution parameters; those are reserved and rejected if you set them. Which keys are reserved depends on the ad's network — Meta: utm_meta_ad_id, utm_meta_adset_id, utm_meta_campaign_id, utm_source, utm_placement, utm_medium, utm_content, utm_adset, utm_whop, wacid, wasid, waid, tw_source, tw_adid; TikTok: waid, wasid, wacid, ad_id, adset_id, campaign_id, utm_source, utm_medium, utm_placement, utm_whop, tw_source, tw_adid.
+            Query parameters to append to the destination URL, keyed by parameter name. Merged with any query string on `url`. Whop adds its own click-attribution parameters; those are reserved, and setting one returns an error that names it.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1404,7 +1388,6 @@ class AsyncRawAdsClient:
             },
             headers={
                 "content-type": "application/json",
-                "X-Ads-Platform": str(ads_platform) if ads_platform is not None else None,
             },
             request_options=request_options,
             omit=OMIT,
@@ -1600,7 +1583,6 @@ class AsyncRawAdsClient:
         self,
         id: str,
         *,
-        ads_platform: typing.Optional[UpdateAdsRequestXAdsPlatform] = None,
         call_to_action: typing.Optional[UpdateAdsRequestCallToAction] = OMIT,
         creatives: typing.Optional[typing.Sequence[UpdateAdsRequestCreativesItem]] = OMIT,
         descriptions: typing.Optional[typing.Sequence[UpdateAdsRequestDescriptionsItem]] = OMIT,
@@ -1619,14 +1601,11 @@ class AsyncRawAdsClient:
         id : str
             The ad ID.
 
-        ads_platform : typing.Optional[UpdateAdsRequestXAdsPlatform]
-            The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
-
         call_to_action : typing.Optional[UpdateAdsRequestCallToAction]
             The call-to-action button shown on the ad.
 
         creatives : typing.Optional[typing.Sequence[UpdateAdsRequestCreativesItem]]
-            The ad's creative assets. Each entry is an uploaded file id with an optional format; omit format for the original asset. Replaces a live ad's creative on the platform. Entries with no format replace it with a carousel's ordered cards — 2-10 of them on Meta, while TikTok runs even a single image as a one-card carousel.
+            The ad's creative assets. Each entry is an uploaded file id with an optional format; omit format for the original asset. Replaces a live ad's creative. Entries with no format replace it with a carousel's ordered cards.
 
         descriptions : typing.Optional[typing.Sequence[UpdateAdsRequestDescriptionsItem]]
             The description shown on the ad.
@@ -1644,7 +1623,7 @@ class AsyncRawAdsClient:
             The URL the ad links to. Query parameters are merged into url_parameters, so the stored URL is always bare.
 
         url_parameters : typing.Optional[typing.Dict[str, typing.Any]]
-            Query parameters to append to the destination URL, keyed by parameter name. Merged with any query string on `url`. Whop adds its own click-attribution parameters; those are reserved and rejected if you set them. Which keys are reserved depends on the ad's network — Meta: utm_meta_ad_id, utm_meta_adset_id, utm_meta_campaign_id, utm_source, utm_placement, utm_medium, utm_content, utm_adset, utm_whop, wacid, wasid, waid, tw_source, tw_adid; TikTok: waid, wasid, wacid, ad_id, adset_id, campaign_id, utm_source, utm_medium, utm_placement, utm_whop, tw_source, tw_adid.
+            Query parameters to append to the destination URL, keyed by parameter name. Merged with any query string on `url`. Whop adds its own click-attribution parameters; those are reserved, and setting one returns an error that names it.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1682,7 +1661,6 @@ class AsyncRawAdsClient:
             },
             headers={
                 "content-type": "application/json",
-                "X-Ads-Platform": str(ads_platform) if ads_platform is not None else None,
             },
             request_options=request_options,
             omit=OMIT,

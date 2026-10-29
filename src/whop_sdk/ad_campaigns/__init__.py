@@ -53,7 +53,6 @@ if typing.TYPE_CHECKING:
         UpdateAdCampaignsRequestCampaignType,
         UpdateAdCampaignsRequestSpecialAdCategoriesItem,
         UpdateAdCampaignsRequestStatus,
-        UpdateAdCampaignsRequestXAdsPlatform,
     )
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateAdCampaignsRequestBidType": ".types",
@@ -102,7 +101,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateAdCampaignsRequestCampaignType": ".types",
     "UpdateAdCampaignsRequestSpecialAdCategoriesItem": ".types",
     "UpdateAdCampaignsRequestStatus": ".types",
-    "UpdateAdCampaignsRequestXAdsPlatform": ".types",
 }
 
 
@@ -174,5 +172,4 @@ __all__ = [
     "UpdateAdCampaignsRequestCampaignType",
     "UpdateAdCampaignsRequestSpecialAdCategoriesItem",
     "UpdateAdCampaignsRequestStatus",
-    "UpdateAdCampaignsRequestXAdsPlatform",
 ]

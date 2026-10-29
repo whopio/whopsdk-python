@@ -9,12 +9,12 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 class AdGroupCity(UniversalBaseModel):
     key: str = pydantic.Field()
     """
-    The ad platform's key for the city in its location taxonomy.
+    The city's key in the location taxonomy.
     """
 
     name: typing.Optional[str] = pydantic.Field(default=None)
     """
-    City name, such as `Austin`. Absent when the platform doesn't return one.
+    City name, such as `Austin`. Absent when the location taxonomy has none.
     """
 
     if IS_PYDANTIC_V2:

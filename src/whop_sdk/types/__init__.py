@@ -150,16 +150,6 @@ if typing.TYPE_CHECKING:
     from .ad_group_demographics_body import AdGroupDemographicsBody
     from .ad_group_demographics_body_gender import AdGroupDemographicsBodyGender
     from .ad_group_demographics_gender import AdGroupDemographicsGender
-    from .ad_group_detailed_targeting_body import AdGroupDetailedTargetingBody
-    from .ad_group_detailed_targeting_body_behaviors_item import AdGroupDetailedTargetingBodyBehaviorsItem
-    from .ad_group_detailed_targeting_body_behaviors_item_behavior_type import (
-        AdGroupDetailedTargetingBodyBehaviorsItemBehaviorType,
-    )
-    from .ad_group_detailed_targeting_body_demographics_item import AdGroupDetailedTargetingBodyDemographicsItem
-    from .ad_group_detailed_targeting_body_demographics_item_type import (
-        AdGroupDetailedTargetingBodyDemographicsItemType,
-    )
-    from .ad_group_detailed_targeting_body_interests_item import AdGroupDetailedTargetingBodyInterestsItem
     from .ad_group_devices import AdGroupDevices
     from .ad_group_devices_body import AdGroupDevicesBody
     from .ad_group_devices_body_operating_systems_item import AdGroupDevicesBodyOperatingSystemsItem
@@ -422,8 +412,6 @@ if typing.TYPE_CHECKING:
     from .custom_ctas import CustomCtas
     from .custom_field_types import CustomFieldTypes
     from .customer_tracking_preferences import CustomerTrackingPreferences
-    from .detailed_targeting_option import DetailedTargetingOption
-    from .detailed_targeting_option_behavior_type import DetailedTargetingOptionBehaviorType
     from .direction import Direction
     from .dispute import Dispute
     from .dispute_alert import DisputeAlert
@@ -678,7 +666,6 @@ if typing.TYPE_CHECKING:
     from .invoice_statuses import InvoiceStatuses
     from .invoice_totals_status import InvoiceTotalsStatus
     from .invoices_sortable_columns import InvoicesSortableColumns
-    from .language_targeting_option import LanguageTargetingOption
     from .languages import Languages
     from .lead import Lead
     from .lead_list_item import LeadListItem
@@ -767,8 +754,6 @@ if typing.TYPE_CHECKING:
     from .list_app_builds_request_created_before import ListAppBuildsRequestCreatedBefore
     from .livestream import Livestream
     from .livestream_recording_status import LivestreamRecordingStatus
-    from .location_targeting_option import LocationTargetingOption
-    from .location_targeting_option_location_type import LocationTargetingOptionLocationType
     from .market import Market
     from .market_instrument_type import MarketInstrumentType
     from .marketplace_statuses import MarketplaceStatuses
@@ -1337,7 +1322,6 @@ if typing.TYPE_CHECKING:
     from .promo_types import PromoTypes
     from .public_bounty_submission import PublicBountySubmission
     from .public_bounty_submission_status import PublicBountySubmissionStatus
-    from .reach_estimate import ReachEstimate
     from .reaction import Reaction
     from .reaction_list_item import ReactionListItem
     from .reaction_list_item_user import ReactionListItemUser
@@ -1472,21 +1456,6 @@ if typing.TYPE_CHECKING:
         SupportChannelListItemLastMessagePollOptionsItem,
     )
     from .support_channel_view import SupportChannelView
-    from .targeting_option import (
-        TargetingOption,
-        TargetingOption_Behaviors,
-        TargetingOption_EducationMajors,
-        TargetingOption_EducationSchools,
-        TargetingOption_FamilyStatuses,
-        TargetingOption_Income,
-        TargetingOption_Industries,
-        TargetingOption_Interests,
-        TargetingOption_Languages,
-        TargetingOption_LifeEvents,
-        TargetingOption_Locations,
-        TargetingOption_WorkEmployers,
-        TargetingOption_WorkPositions,
-    )
     from .tax_id import TaxId
     from .tax_id_type import TaxIdType
     from .tax_identifier_types import TaxIdentifierTypes
@@ -1740,12 +1709,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdGroupDemographicsBody": ".ad_group_demographics_body",
     "AdGroupDemographicsBodyGender": ".ad_group_demographics_body_gender",
     "AdGroupDemographicsGender": ".ad_group_demographics_gender",
-    "AdGroupDetailedTargetingBody": ".ad_group_detailed_targeting_body",
-    "AdGroupDetailedTargetingBodyBehaviorsItem": ".ad_group_detailed_targeting_body_behaviors_item",
-    "AdGroupDetailedTargetingBodyBehaviorsItemBehaviorType": ".ad_group_detailed_targeting_body_behaviors_item_behavior_type",
-    "AdGroupDetailedTargetingBodyDemographicsItem": ".ad_group_detailed_targeting_body_demographics_item",
-    "AdGroupDetailedTargetingBodyDemographicsItemType": ".ad_group_detailed_targeting_body_demographics_item_type",
-    "AdGroupDetailedTargetingBodyInterestsItem": ".ad_group_detailed_targeting_body_interests_item",
     "AdGroupDevices": ".ad_group_devices",
     "AdGroupDevicesBody": ".ad_group_devices_body",
     "AdGroupDevicesBodyOperatingSystemsItem": ".ad_group_devices_body_operating_systems_item",
@@ -2002,8 +1965,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CustomCtas": ".custom_ctas",
     "CustomFieldTypes": ".custom_field_types",
     "CustomerTrackingPreferences": ".customer_tracking_preferences",
-    "DetailedTargetingOption": ".detailed_targeting_option",
-    "DetailedTargetingOptionBehaviorType": ".detailed_targeting_option_behavior_type",
     "Direction": ".direction",
     "Dispute": ".dispute",
     "DisputeAlert": ".dispute_alert",
@@ -2246,7 +2207,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "InvoiceStatuses": ".invoice_statuses",
     "InvoiceTotalsStatus": ".invoice_totals_status",
     "InvoicesSortableColumns": ".invoices_sortable_columns",
-    "LanguageTargetingOption": ".language_targeting_option",
     "Languages": ".languages",
     "Lead": ".lead",
     "LeadListItem": ".lead_list_item",
@@ -2331,8 +2291,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListAppBuildsRequestCreatedBefore": ".list_app_builds_request_created_before",
     "Livestream": ".livestream",
     "LivestreamRecordingStatus": ".livestream_recording_status",
-    "LocationTargetingOption": ".location_targeting_option",
-    "LocationTargetingOptionLocationType": ".location_targeting_option_location_type",
     "Market": ".market",
     "MarketInstrumentType": ".market_instrument_type",
     "MarketplaceStatuses": ".marketplace_statuses",
@@ -2787,7 +2745,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PromoTypes": ".promo_types",
     "PublicBountySubmission": ".public_bounty_submission",
     "PublicBountySubmissionStatus": ".public_bounty_submission_status",
-    "ReachEstimate": ".reach_estimate",
     "Reaction": ".reaction",
     "ReactionListItem": ".reaction_list_item",
     "ReactionListItemUser": ".reaction_list_item_user",
@@ -2918,19 +2875,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SupportChannelListItemLastMessagePoll": ".support_channel_list_item_last_message_poll",
     "SupportChannelListItemLastMessagePollOptionsItem": ".support_channel_list_item_last_message_poll_options_item",
     "SupportChannelView": ".support_channel_view",
-    "TargetingOption": ".targeting_option",
-    "TargetingOption_Behaviors": ".targeting_option",
-    "TargetingOption_EducationMajors": ".targeting_option",
-    "TargetingOption_EducationSchools": ".targeting_option",
-    "TargetingOption_FamilyStatuses": ".targeting_option",
-    "TargetingOption_Income": ".targeting_option",
-    "TargetingOption_Industries": ".targeting_option",
-    "TargetingOption_Interests": ".targeting_option",
-    "TargetingOption_Languages": ".targeting_option",
-    "TargetingOption_LifeEvents": ".targeting_option",
-    "TargetingOption_Locations": ".targeting_option",
-    "TargetingOption_WorkEmployers": ".targeting_option",
-    "TargetingOption_WorkPositions": ".targeting_option",
     "TaxId": ".tax_id",
     "TaxIdType": ".tax_id_type",
     "TaxIdentifierTypes": ".tax_identifier_types",
@@ -3208,12 +3152,6 @@ __all__ = [
     "AdGroupDemographicsBody",
     "AdGroupDemographicsBodyGender",
     "AdGroupDemographicsGender",
-    "AdGroupDetailedTargetingBody",
-    "AdGroupDetailedTargetingBodyBehaviorsItem",
-    "AdGroupDetailedTargetingBodyBehaviorsItemBehaviorType",
-    "AdGroupDetailedTargetingBodyDemographicsItem",
-    "AdGroupDetailedTargetingBodyDemographicsItemType",
-    "AdGroupDetailedTargetingBodyInterestsItem",
     "AdGroupDevices",
     "AdGroupDevicesBody",
     "AdGroupDevicesBodyOperatingSystemsItem",
@@ -3470,8 +3408,6 @@ __all__ = [
     "CustomCtas",
     "CustomFieldTypes",
     "CustomerTrackingPreferences",
-    "DetailedTargetingOption",
-    "DetailedTargetingOptionBehaviorType",
     "Direction",
     "Dispute",
     "DisputeAlert",
@@ -3714,7 +3650,6 @@ __all__ = [
     "InvoiceStatuses",
     "InvoiceTotalsStatus",
     "InvoicesSortableColumns",
-    "LanguageTargetingOption",
     "Languages",
     "Lead",
     "LeadListItem",
@@ -3799,8 +3734,6 @@ __all__ = [
     "ListAppBuildsRequestCreatedBefore",
     "Livestream",
     "LivestreamRecordingStatus",
-    "LocationTargetingOption",
-    "LocationTargetingOptionLocationType",
     "Market",
     "MarketInstrumentType",
     "MarketplaceStatuses",
@@ -4255,7 +4188,6 @@ __all__ = [
     "PromoTypes",
     "PublicBountySubmission",
     "PublicBountySubmissionStatus",
-    "ReachEstimate",
     "Reaction",
     "ReactionListItem",
     "ReactionListItemUser",
@@ -4386,19 +4318,6 @@ __all__ = [
     "SupportChannelListItemLastMessagePoll",
     "SupportChannelListItemLastMessagePollOptionsItem",
     "SupportChannelView",
-    "TargetingOption",
-    "TargetingOption_Behaviors",
-    "TargetingOption_EducationMajors",
-    "TargetingOption_EducationSchools",
-    "TargetingOption_FamilyStatuses",
-    "TargetingOption_Income",
-    "TargetingOption_Industries",
-    "TargetingOption_Interests",
-    "TargetingOption_Languages",
-    "TargetingOption_LifeEvents",
-    "TargetingOption_Locations",
-    "TargetingOption_WorkEmployers",
-    "TargetingOption_WorkPositions",
     "TaxId",
     "TaxIdType",
     "TaxIdentifierTypes",

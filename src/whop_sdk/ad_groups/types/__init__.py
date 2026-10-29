@@ -27,10 +27,8 @@ if typing.TYPE_CHECKING:
     from .create_ad_groups_request_keywords_item import CreateAdGroupsRequestKeywordsItem
     from .create_ad_groups_request_keywords_item_match_type import CreateAdGroupsRequestKeywordsItemMatchType
     from .create_ad_groups_request_status import CreateAdGroupsRequestStatus
-    from .create_ad_groups_request_x_ads_platform import CreateAdGroupsRequestXAdsPlatform
     from .delete_ad_groups_response import DeleteAdGroupsResponse
     from .duplicate_ad_groups_response import DuplicateAdGroupsResponse
-    from .estimate_reach_ad_groups_request_platform import EstimateReachAdGroupsRequestPlatform
     from .list_ad_groups_request_attribution_model import ListAdGroupsRequestAttributionModel
     from .list_ad_groups_request_direction import ListAdGroupsRequestDirection
     from .list_ad_groups_request_order import ListAdGroupsRequestOrder
@@ -46,15 +44,6 @@ if typing.TYPE_CHECKING:
     from .post_ad_group_updated_payload_data_status import PostAdGroupUpdatedPayloadDataStatus
     from .post_ad_group_updated_payload_type import PostAdGroupUpdatedPayloadType
     from .retrieve_ad_groups_request_attribution_model import RetrieveAdGroupsRequestAttributionModel
-    from .search_targeting_options_ad_groups_request_location_types_item import (
-        SearchTargetingOptionsAdGroupsRequestLocationTypesItem,
-    )
-    from .search_targeting_options_ad_groups_request_platform import SearchTargetingOptionsAdGroupsRequestPlatform
-    from .search_targeting_options_ad_groups_request_special_ad_categories_item import (
-        SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem,
-    )
-    from .search_targeting_options_ad_groups_request_types_item import SearchTargetingOptionsAdGroupsRequestTypesItem
-    from .search_targeting_options_ad_groups_response import SearchTargetingOptionsAdGroupsResponse
     from .update_ad_groups_request_bid_type import UpdateAdGroupsRequestBidType
     from .update_ad_groups_request_budget_type import UpdateAdGroupsRequestBudgetType
     from .update_ad_groups_request_delivery_schedule import UpdateAdGroupsRequestDeliverySchedule
@@ -76,7 +65,6 @@ if typing.TYPE_CHECKING:
     from .update_ad_groups_request_keywords_item import UpdateAdGroupsRequestKeywordsItem
     from .update_ad_groups_request_keywords_item_match_type import UpdateAdGroupsRequestKeywordsItemMatchType
     from .update_ad_groups_request_status import UpdateAdGroupsRequestStatus
-    from .update_ad_groups_request_x_ads_platform import UpdateAdGroupsRequestXAdsPlatform
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateAdGroupsRequestBidType": ".create_ad_groups_request_bid_type",
     "CreateAdGroupsRequestBudgetType": ".create_ad_groups_request_budget_type",
@@ -91,10 +79,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateAdGroupsRequestKeywordsItem": ".create_ad_groups_request_keywords_item",
     "CreateAdGroupsRequestKeywordsItemMatchType": ".create_ad_groups_request_keywords_item_match_type",
     "CreateAdGroupsRequestStatus": ".create_ad_groups_request_status",
-    "CreateAdGroupsRequestXAdsPlatform": ".create_ad_groups_request_x_ads_platform",
     "DeleteAdGroupsResponse": ".delete_ad_groups_response",
     "DuplicateAdGroupsResponse": ".duplicate_ad_groups_response",
-    "EstimateReachAdGroupsRequestPlatform": ".estimate_reach_ad_groups_request_platform",
     "ListAdGroupsRequestAttributionModel": ".list_ad_groups_request_attribution_model",
     "ListAdGroupsRequestDirection": ".list_ad_groups_request_direction",
     "ListAdGroupsRequestOrder": ".list_ad_groups_request_order",
@@ -110,11 +96,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostAdGroupUpdatedPayloadDataStatus": ".post_ad_group_updated_payload_data_status",
     "PostAdGroupUpdatedPayloadType": ".post_ad_group_updated_payload_type",
     "RetrieveAdGroupsRequestAttributionModel": ".retrieve_ad_groups_request_attribution_model",
-    "SearchTargetingOptionsAdGroupsRequestLocationTypesItem": ".search_targeting_options_ad_groups_request_location_types_item",
-    "SearchTargetingOptionsAdGroupsRequestPlatform": ".search_targeting_options_ad_groups_request_platform",
-    "SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem": ".search_targeting_options_ad_groups_request_special_ad_categories_item",
-    "SearchTargetingOptionsAdGroupsRequestTypesItem": ".search_targeting_options_ad_groups_request_types_item",
-    "SearchTargetingOptionsAdGroupsResponse": ".search_targeting_options_ad_groups_response",
     "UpdateAdGroupsRequestBidType": ".update_ad_groups_request_bid_type",
     "UpdateAdGroupsRequestBudgetType": ".update_ad_groups_request_budget_type",
     "UpdateAdGroupsRequestDeliverySchedule": ".update_ad_groups_request_delivery_schedule",
@@ -128,7 +109,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateAdGroupsRequestKeywordsItem": ".update_ad_groups_request_keywords_item",
     "UpdateAdGroupsRequestKeywordsItemMatchType": ".update_ad_groups_request_keywords_item_match_type",
     "UpdateAdGroupsRequestStatus": ".update_ad_groups_request_status",
-    "UpdateAdGroupsRequestXAdsPlatform": ".update_ad_groups_request_x_ads_platform",
 }
 
 
@@ -167,10 +147,8 @@ __all__ = [
     "CreateAdGroupsRequestKeywordsItem",
     "CreateAdGroupsRequestKeywordsItemMatchType",
     "CreateAdGroupsRequestStatus",
-    "CreateAdGroupsRequestXAdsPlatform",
     "DeleteAdGroupsResponse",
     "DuplicateAdGroupsResponse",
-    "EstimateReachAdGroupsRequestPlatform",
     "ListAdGroupsRequestAttributionModel",
     "ListAdGroupsRequestDirection",
     "ListAdGroupsRequestOrder",
@@ -186,11 +164,6 @@ __all__ = [
     "PostAdGroupUpdatedPayloadDataStatus",
     "PostAdGroupUpdatedPayloadType",
     "RetrieveAdGroupsRequestAttributionModel",
-    "SearchTargetingOptionsAdGroupsRequestLocationTypesItem",
-    "SearchTargetingOptionsAdGroupsRequestPlatform",
-    "SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem",
-    "SearchTargetingOptionsAdGroupsRequestTypesItem",
-    "SearchTargetingOptionsAdGroupsResponse",
     "UpdateAdGroupsRequestBidType",
     "UpdateAdGroupsRequestBudgetType",
     "UpdateAdGroupsRequestDeliverySchedule",
@@ -204,5 +177,4 @@ __all__ = [
     "UpdateAdGroupsRequestKeywordsItem",
     "UpdateAdGroupsRequestKeywordsItemMatchType",
     "UpdateAdGroupsRequestStatus",
-    "UpdateAdGroupsRequestXAdsPlatform",
 ]

@@ -59,7 +59,7 @@ class AdCampaign(UniversalBaseModel):
 
     campaign_type: AdCampaignCampaignType = pydantic.Field()
     """
-    The kind of campaign, fixed at creation. `standard` is the ad network's standard campaign; `search` shows text ads on search results for the ad groups' keywords.
+    The kind of campaign, fixed at creation. `standard` runs image and video ads; `search` shows text ads on search results for the ad groups' keywords.
     """
 
     click_through_rate: float = pydantic.Field()
@@ -184,12 +184,12 @@ class AdCampaign(UniversalBaseModel):
 
     ends_at: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Google only: when the campaign stops delivering, as an ISO 8601 timestamp. `null` runs it until paused.
+    When the campaign stops delivering, as an ISO 8601 timestamp. `null` when it runs until paused, or when its ad groups set their own schedule.
     """
 
     frequency: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Platform-reported impressions divided by reach.
+    Impressions divided by reach.
     """
 
     id: str = pydantic.Field()
@@ -281,7 +281,7 @@ class AdCampaign(UniversalBaseModel):
 
     starts_at: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Google only: when the campaign starts delivering, as an ISO 8601 timestamp. `null` starts it as soon as it launches.
+    When the campaign starts delivering, as an ISO 8601 timestamp. `null` when it starts as soon as it launches, or when its ad groups set their own schedule.
     """
 
     status: AdCampaignStatus = pydantic.Field()

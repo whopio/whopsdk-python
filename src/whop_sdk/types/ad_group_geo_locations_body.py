@@ -12,7 +12,7 @@ from .ad_group_geo_locations_body_zips_item import AdGroupGeoLocationsBodyZipsIt
 class AdGroupGeoLocationsBody(UniversalBaseModel):
     cities: typing.Optional[typing.List[AdGroupGeoLocationsBodyCitiesItem]] = pydantic.Field(default=None)
     """
-    Cities, keyed by the ad platform's location taxonomy.
+    Cities, keyed by the location taxonomy.
     """
 
     countries: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
@@ -39,7 +39,7 @@ class AdGroupGeoLocationsBody(UniversalBaseModel):
 
     zips: typing.Optional[typing.List[AdGroupGeoLocationsBodyZipsItem]] = pydantic.Field(default=None)
     """
-    ZIP and postal codes, keyed by the ad platform's location taxonomy. Meta keys these `COUNTRY:CODE`, as `US:78756` — a bare code is ambiguous, because the same one exists in several countries. TikTok takes the bare code.
+    ZIP and postal codes, keyed as `COUNTRY:CODE`, such as `US:78756`. Include the country: a bare code is ambiguous, because the same one exists in several countries.
     """
 
     if IS_PYDANTIC_V2:

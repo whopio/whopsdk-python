@@ -2077,7 +2077,7 @@ client.ad_campaigns.create(
 <dl>
 <dd>
 
-**campaign_type:** `typing.Optional[CreateAdCampaignsRequestCampaignType]` — The kind of campaign to create. `standard` is the ad network's standard campaign; `search` shows text ads on search results for the ad groups' keywords. Defaults to `standard`. Can't be changed after creation.
+**campaign_type:** `typing.Optional[CreateAdCampaignsRequestCampaignType]` — The kind of campaign to create. `standard` runs image and video ads; `search` shows text ads on search results for the ad groups' keywords. Defaults to `standard`. Can't be changed after creation.
     
 </dd>
 </dl>
@@ -2246,7 +2246,7 @@ client.ad_campaigns.retrieve(
 <dl>
 <dd>
 
-Deletes an ad campaign and archives it on the ad platform (cascades to ad groups and ads).
+Deletes an ad campaign with its ad groups and ads, and stops their delivery.
 </dd>
 </dl>
 </dd>
@@ -2368,14 +2368,6 @@ client.ad_campaigns.update(
 <dl>
 <dd>
 
-**ads_platform:** `typing.Optional[UpdateAdCampaignsRequestXAdsPlatform]` — The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **bid_type:** `typing.Optional[UpdateAdCampaignsRequestBidType]` — How delivery bids in the ad auction: `minimum_cost` gets the most results for the budget, `average_target` holds an average cost per result, `maximum_target` never bids above a cap. Switching to `minimum_cost` clears the cap amounts stored on the campaign's ad groups. Only for campaigns that own the budget.
     
 </dd>
@@ -2400,7 +2392,7 @@ client.ad_campaigns.update(
 <dl>
 <dd>
 
-**budget_optimization:** `typing.Optional[UpdateAdCampaignsRequestBudgetOptimization]` — Which level owns the budget: the whole campaign (`ad_campaign`) or each ad group individually (`ad_group`). Only changeable before the campaign is live on the ad network; switching to `ad_campaign` requires budget_amount in the same request, and switching to `ad_group` clears the campaign budget.
+**budget_optimization:** `typing.Optional[UpdateAdCampaignsRequestBudgetOptimization]` — Which level owns the budget: the whole campaign (`ad_campaign`) or each ad group individually (`ad_group`). Only changeable before the campaign launches; switching to `ad_campaign` requires budget_amount in the same request, and switching to `ad_group` clears the campaign budget.
     
 </dd>
 </dl>
@@ -2909,7 +2901,6 @@ client.ad_conversion_value_rules.create(
     ],
     targets=[
         CreateAdConversionValueRulesRequestTargetsItem(
-            platform="tiktok",
             scope="business",
         )
     ],
@@ -3699,14 +3690,6 @@ client.ad_groups.create(
 <dl>
 <dd>
 
-**ads_platform:** `typing.Optional[CreateAdGroupsRequestXAdsPlatform]` — The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **audiences:** `typing.Optional[AdGroupAudiencesBody]` — Saved audiences to deliver to or exclude. Can't be combined with demographics.automatic.
     
 </dd>
@@ -3855,264 +3838,6 @@ client.ad_groups.create(
 </dl>
 </details>
 
-<details><summary><code>client.ad_groups.<a href="src/whop_sdk/ad_groups/client.py">estimate_reach</a>(...) -> ReachEstimate</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Estimates how many people a draft targeting spec can reach, before an ad group is created. The body takes the same targeting fields as creating an ad group, and nothing is persisted.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from whop_sdk import Whop
-from whop_sdk.environment import WhopEnvironment
-
-client = Whop(
-    token="<token>",
-    environment=WhopEnvironment.PRODUCTION,
-)
-
-client.ad_groups.estimate_reach(
-    platform="meta",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**platform:** `EstimateReachAdGroupsRequestPlatform` — The ad network the estimate runs on.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**account_id:** `typing.Optional[str]` — Account to estimate on behalf of. Defaults to the authenticated account.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**audiences:** `typing.Optional[AdGroupAudiencesBody]` — Saved audiences to deliver to or exclude. Can't be combined with demographics.automatic.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**demographics:** `typing.Optional[AdGroupDemographicsBody]` — Age, gender, and automatic-audience targeting.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**detailed_targeting:** `typing.Optional[AdGroupDetailedTargetingBody]` — Interest, behavior, and demographic targeting, using categories from the ad platform's targeting taxonomy. At most 100 entries per section.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**devices:** `typing.Optional[AdGroupDevicesBody]` — Device platforms and operating systems to target.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**languages:** `typing.Optional[typing.List[str]]` — Languages to target, as ISO 639 codes such as `en` or `es`. Empty or omitted targets all languages.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**regions:** `typing.Optional[AdGroupRegionsBody]` — Locations to target and exclude.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.ad_groups.<a href="src/whop_sdk/ad_groups/client.py">search_targeting_options</a>(...) -> SearchTargetingOptionsAdGroupsResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Searches the ad platform's targeting taxonomy for options to target an ad group with. Each result comes back in the exact shape the ad-group body accepts for its `type`, so it can be used in `detailed_targeting`, `regions`, or `languages` as-is.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```python
-from whop_sdk import Whop
-from whop_sdk.environment import WhopEnvironment
-
-client = Whop(
-    token="<token>",
-    environment=WhopEnvironment.PRODUCTION,
-)
-
-client.ad_groups.search_targeting_options(
-    platform="meta",
-)
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**platform:** `SearchTargetingOptionsAdGroupsRequestPlatform` — The ad network whose targeting taxonomy to search.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**account_id:** `typing.Optional[str]` — Account to search on behalf of. Defaults to the authenticated account.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**query:** `typing.Optional[str]` — The search term. Blank browses the small fixed lists (behaviors, browse demographic categories, and languages); interests, work employers, job titles, schools, majors, and locations return nothing without one.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**types:** `typing.Optional[typing.Union[SearchTargetingOptionsAdGroupsRequestTypesItem, typing.Sequence[SearchTargetingOptionsAdGroupsRequestTypesItem]]]` — Kinds of targeting options to search. Defaults to all of them.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**location_types:** `typing.Optional[typing.Union[SearchTargetingOptionsAdGroupsRequestLocationTypesItem, typing.Sequence[SearchTargetingOptionsAdGroupsRequestLocationTypesItem]]]` — Narrow location results to these kinds of places. Only applies when `types` includes `locations`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**country:** `typing.Optional[str]` — Narrow location results to one country, as an ISO 3166-1 code such as `US`. Only applies when `types` includes `locations`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**limit:** `typing.Optional[int]` — Maximum number of results per requested type.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**special_ad_categories:** `typing.Optional[typing.Union[SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem, typing.Sequence[SearchTargetingOptionsAdGroupsRequestSpecialAdCategoriesItem]]]` — The campaign's declared special ad categories. Under `housing`, `employment`, or `financial_products` the ad platform allows interests only, drawn from a short approved list, so results are narrowed to what such a campaign can launch with and other kinds return nothing. Blank `query` browses that approved list instead of the usual fixed lists.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.ad_groups.<a href="src/whop_sdk/ad_groups/client.py">retrieve</a>(...) -> AdGroup</code></summary>
 <dl>
 <dd>
@@ -4230,7 +3955,7 @@ client.ad_groups.retrieve(
 <dl>
 <dd>
 
-Deletes an ad group, removing it from the ad platform so it stops delivering.
+Deletes an ad group and stops its delivery.
 </dd>
 </dl>
 </dd>
@@ -4345,14 +4070,6 @@ client.ad_groups.update(
 <dd>
 
 **id:** `str` — The ad group ID.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ads_platform:** `typing.Optional[UpdateAdGroupsRequestXAdsPlatform]` — The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
     
 </dd>
 </dl>
@@ -5567,14 +5284,6 @@ client.ads.create()
 <dl>
 <dd>
 
-**ads_platform:** `typing.Optional[CreateAdsRequestXAdsPlatform]` — The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **ad_group:** `typing.Optional[typing.Dict[str, typing.Any]]` — An inline ad group to create (same shape as POST /ad_groups, including ad_campaign_id). Creates the ad group and the ad together. Provide this OR ad_group_id.
     
 </dd>
@@ -5599,7 +5308,7 @@ client.ads.create()
 <dl>
 <dd>
 
-**creatives:** `typing.Optional[typing.List[CreateAdsRequestCreativesItem]]` — The ad's creative assets. Each entry is an uploaded file id with an optional format; omit format for the original asset. Entries with no format become a carousel's ordered cards, sharing the ad's copy — 2-10 of them on Meta, while TikTok runs even a single image as a one-card carousel.
+**creatives:** `typing.Optional[typing.List[CreateAdsRequestCreativesItem]]` — The ad's creative assets. Each entry is an uploaded file id with an optional format; omit format for the original asset. Entries with no format become a carousel's ordered cards, sharing the ad's copy.
     
 </dd>
 </dl>
@@ -5647,7 +5356,7 @@ client.ads.create()
 <dl>
 <dd>
 
-**url_parameters:** `typing.Optional[typing.Dict[str, typing.Any]]` — Query parameters to append to the destination URL, keyed by parameter name. Merged with any query string on `url`. Whop adds its own click-attribution parameters; those are reserved and rejected if you set them. Which keys are reserved depends on the ad's network — Meta: utm_meta_ad_id, utm_meta_adset_id, utm_meta_campaign_id, utm_source, utm_placement, utm_medium, utm_content, utm_adset, utm_whop, wacid, wasid, waid, tw_source, tw_adid; TikTok: waid, wasid, wacid, ad_id, adset_id, campaign_id, utm_source, utm_medium, utm_placement, utm_whop, tw_source, tw_adid.
+**url_parameters:** `typing.Optional[typing.Dict[str, typing.Any]]` — Query parameters to append to the destination URL, keyed by parameter name. Merged with any query string on `url`. Whop adds its own click-attribution parameters; those are reserved, and setting one returns an error that names it.
     
 </dd>
 </dl>
@@ -5906,14 +5615,6 @@ client.ads.update(
 <dl>
 <dd>
 
-**ads_platform:** `typing.Optional[UpdateAdsRequestXAdsPlatform]` — The platform returned when you last retrieved the campaign, ad group, or ad. A different current platform rejects the request with campaign_changed; retrieve the resource again before editing. Required after a delivery-platform migration when creating ads or ad groups, or changing fields other than title, status, budget, and account scope.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
 **call_to_action:** `typing.Optional[UpdateAdsRequestCallToAction]` — The call-to-action button shown on the ad.
     
 </dd>
@@ -5922,7 +5623,7 @@ client.ads.update(
 <dl>
 <dd>
 
-**creatives:** `typing.Optional[typing.List[UpdateAdsRequestCreativesItem]]` — The ad's creative assets. Each entry is an uploaded file id with an optional format; omit format for the original asset. Replaces a live ad's creative on the platform. Entries with no format replace it with a carousel's ordered cards — 2-10 of them on Meta, while TikTok runs even a single image as a one-card carousel.
+**creatives:** `typing.Optional[typing.List[UpdateAdsRequestCreativesItem]]` — The ad's creative assets. Each entry is an uploaded file id with an optional format; omit format for the original asset. Replaces a live ad's creative. Entries with no format replace it with a carousel's ordered cards.
     
 </dd>
 </dl>
@@ -5970,7 +5671,7 @@ client.ads.update(
 <dl>
 <dd>
 
-**url_parameters:** `typing.Optional[typing.Dict[str, typing.Any]]` — Query parameters to append to the destination URL, keyed by parameter name. Merged with any query string on `url`. Whop adds its own click-attribution parameters; those are reserved and rejected if you set them. Which keys are reserved depends on the ad's network — Meta: utm_meta_ad_id, utm_meta_adset_id, utm_meta_campaign_id, utm_source, utm_placement, utm_medium, utm_content, utm_adset, utm_whop, wacid, wasid, waid, tw_source, tw_adid; TikTok: waid, wasid, wacid, ad_id, adset_id, campaign_id, utm_source, utm_medium, utm_placement, utm_whop, tw_source, tw_adid.
+**url_parameters:** `typing.Optional[typing.Dict[str, typing.Any]]` — Query parameters to append to the destination URL, keyed by parameter name. Merged with any query string on `url`. Whop adds its own click-attribution parameters; those are reserved, and setting one returns an error that names it.
     
 </dd>
 </dl>
@@ -27999,7 +27700,7 @@ client.media.generate(
 <dl>
 <dd>
 
-**reference_media:** `typing.Optional[typing.List[str]]` — Optional reference image file IDs (`file_` prefixed), up to 4. For video, a single reference seeds the opening frame; multiple references guide subject and style instead.
+**reference_media:** `typing.Optional[typing.List[str]]` — Optional reference file IDs (`file_` prefixed), up to 4. Images guide the output: for video, a single image seeds the opening frame; multiple images guide subject and style instead. Include one video to remake it: its motion and scene are kept and the images are swapped in. Video only; needs an image and can't be combined with `duration_seconds`. The output matches the video's length, up to 30 seconds, and is billed on it.
     
 </dd>
 </dl>

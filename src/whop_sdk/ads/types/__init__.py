@@ -13,7 +13,6 @@ if typing.TYPE_CHECKING:
     from .create_ads_request_descriptions_item import CreateAdsRequestDescriptionsItem
     from .create_ads_request_headlines_item import CreateAdsRequestHeadlinesItem
     from .create_ads_request_primary_texts_item import CreateAdsRequestPrimaryTextsItem
-    from .create_ads_request_x_ads_platform import CreateAdsRequestXAdsPlatform
     from .delete_ads_response import DeleteAdsResponse
     from .duplicate_ads_response import DuplicateAdsResponse
     from .list_ads_request_attribution_model import ListAdsRequestAttributionModel
@@ -40,7 +39,6 @@ if typing.TYPE_CHECKING:
     from .update_ads_request_descriptions_item import UpdateAdsRequestDescriptionsItem
     from .update_ads_request_headlines_item import UpdateAdsRequestHeadlinesItem
     from .update_ads_request_primary_texts_item import UpdateAdsRequestPrimaryTextsItem
-    from .update_ads_request_x_ads_platform import UpdateAdsRequestXAdsPlatform
 _dynamic_imports: typing.Dict[str, str] = {
     "CreateAdsRequestCallToAction": ".create_ads_request_call_to_action",
     "CreateAdsRequestCreativesItem": ".create_ads_request_creatives_item",
@@ -49,7 +47,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateAdsRequestDescriptionsItem": ".create_ads_request_descriptions_item",
     "CreateAdsRequestHeadlinesItem": ".create_ads_request_headlines_item",
     "CreateAdsRequestPrimaryTextsItem": ".create_ads_request_primary_texts_item",
-    "CreateAdsRequestXAdsPlatform": ".create_ads_request_x_ads_platform",
     "DeleteAdsResponse": ".delete_ads_response",
     "DuplicateAdsResponse": ".duplicate_ads_response",
     "ListAdsRequestAttributionModel": ".list_ads_request_attribution_model",
@@ -76,7 +73,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateAdsRequestDescriptionsItem": ".update_ads_request_descriptions_item",
     "UpdateAdsRequestHeadlinesItem": ".update_ads_request_headlines_item",
     "UpdateAdsRequestPrimaryTextsItem": ".update_ads_request_primary_texts_item",
-    "UpdateAdsRequestXAdsPlatform": ".update_ads_request_x_ads_platform",
 }
 
 
@@ -109,7 +105,6 @@ __all__ = [
     "CreateAdsRequestDescriptionsItem",
     "CreateAdsRequestHeadlinesItem",
     "CreateAdsRequestPrimaryTextsItem",
-    "CreateAdsRequestXAdsPlatform",
     "DeleteAdsResponse",
     "DuplicateAdsResponse",
     "ListAdsRequestAttributionModel",
@@ -136,5 +131,4 @@ __all__ = [
     "UpdateAdsRequestDescriptionsItem",
     "UpdateAdsRequestHeadlinesItem",
     "UpdateAdsRequestPrimaryTextsItem",
-    "UpdateAdsRequestXAdsPlatform",
 ]

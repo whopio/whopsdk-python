@@ -210,7 +210,7 @@ class AdGroup(UniversalBaseModel):
 
     frequency: typing.Optional[float] = pydantic.Field(default=None)
     """
-    Platform-reported impressions divided by reach.
+    Impressions divided by reach.
     """
 
     id: str = pydantic.Field()
@@ -238,7 +238,7 @@ class AdGroup(UniversalBaseModel):
 
     learning_progress: typing.Optional[AdGroupLearningProgress] = pydantic.Field(default=None)
     """
-    Progress toward the ad platform's learning conversion threshold for this ad group. Null unless it is learning or learning limited and the platform reports valid counts. Reaching the threshold does not determine delivery status.
+    Progress toward the conversions this ad group's learning phase needs. Null unless it is learning or learning limited and valid counts are available. Reaching the threshold does not determine delivery status.
     """
 
     link_clicks: float = pydantic.Field()

@@ -13,7 +13,11 @@ from .update_ad_conversion_value_rules_request_targets_item_scope import (
 
 
 class UpdateAdConversionValueRulesRequestTargetsItem(UniversalBaseModel):
-    platform: UpdateAdConversionValueRulesRequestTargetsItemPlatform
+    platform: typing.Optional[UpdateAdConversionValueRulesRequestTargetsItemPlatform] = pydantic.Field(default=None)
+    """
+    Limits the target to one network. Omit it to cover every network Whop runs the target on.
+    """
+
     resource_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     Campaign, ad group, or ad ID. Null for a business target.
