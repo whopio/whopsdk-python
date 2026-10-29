@@ -21,7 +21,7 @@ class AuthorizedUserListItem(UniversalBaseModel):
 
     id: str = pydantic.Field()
     """
-    The unique identifier for the authorized user.
+    The team member's ID. It may start with `ausr_` or `mber_`; treat it as opaque.
     """
 
     role: AuthorizedUserRoles = pydantic.Field()
