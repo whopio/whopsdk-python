@@ -449,6 +449,7 @@ if typing.TYPE_CHECKING:
     from .direction import Direction
     from .dispute import Dispute
     from .dispute_alert import DisputeAlert
+    from .dispute_alert_category import DisputeAlertCategory
     from .dispute_alert_legacy import DisputeAlertLegacy
     from .dispute_alert_legacy_dispute import DisputeAlertLegacyDispute
     from .dispute_alert_legacy_payment import DisputeAlertLegacyPayment
@@ -2050,6 +2051,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Direction": ".direction",
     "Dispute": ".dispute",
     "DisputeAlert": ".dispute_alert",
+    "DisputeAlertCategory": ".dispute_alert_category",
     "DisputeAlertLegacy": ".dispute_alert_legacy",
     "DisputeAlertLegacyDispute": ".dispute_alert_legacy_dispute",
     "DisputeAlertLegacyPayment": ".dispute_alert_legacy_payment",
@@ -3539,6 +3541,7 @@ __all__ = [
     "Direction",
     "Dispute",
     "DisputeAlert",
+    "DisputeAlertCategory",
     "DisputeAlertLegacy",
     "DisputeAlertLegacyDispute",
     "DisputeAlertLegacyPayment",

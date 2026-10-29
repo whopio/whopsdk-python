@@ -4,6 +4,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .dispute_alert_category import DisputeAlertCategory
 from .dispute_alert_source import DisputeAlertSource
 from .dispute_alert_type import DisputeAlertType
 from .money import Money
@@ -28,6 +29,11 @@ class DisputeAlert(UniversalBaseModel):
     card_brand: typing.Optional[str] = pydantic.Field(default=None)
     """
     The card network as reported by the issuer, lowercased, such as `visa` or `mastercard`. `unknown` when the report carries neither a network nor a recognizable BIN.
+    """
+
+    category: typing.Optional[DisputeAlertCategory] = pydantic.Field(default=None)
+    """
+    What the cardholder claims. `fraud` when they say they didn't make the payment: always for an `early_fraud_warning`, and for Ethoca fraud alerts and Visa RDR cases filed under a fraud reason. `customer_dispute` when they made the payment but dispute it, such as a product not received or a canceled subscription. `null` when the alert carries no claim, such as an issuer's request for transaction documents.
     """
 
     created_at: str = pydantic.Field()
