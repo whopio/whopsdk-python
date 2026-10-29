@@ -13,6 +13,7 @@ from ...errors.bad_request_error import BadRequestError
 from ...errors.forbidden_error import ForbiddenError
 from ...errors.not_found_error import NotFoundError
 from ...errors.unauthorized_error import UnauthorizedError
+from .types.list_supported_methods_request_party_type import ListSupportedMethodsRequestPartyType
 from .types.list_supported_methods_response import ListSupportedMethodsResponse
 from .types.list_supported_methods_response_data_item import ListSupportedMethodsResponseDataItem
 from pydantic import ValidationError
@@ -32,6 +33,7 @@ class RawSupportedMethodsClient:
         currency: typing.Optional[str] = None,
         supported_payout_method_id: typing.Optional[str] = None,
         destination_currency: typing.Optional[str] = None,
+        party_type: typing.Optional[ListSupportedMethodsRequestPartyType] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
@@ -63,6 +65,9 @@ class RawSupportedMethodsClient:
 
         destination_currency : typing.Optional[str]
             Currency the supported payout method would deliver payouts in. Only meaningful with supported_payout_method_id; required fields vary by destination currency.
+
+        party_type : typing.Optional[ListSupportedMethodsRequestPartyType]
+            Who will own the payout method. `first_party` is the account itself. `third_party` is a recipient the account pays, saved with `recipient` on `POST /payouts/methods`, which needs no identity fields. Only meaningful with supported_payout_method_id.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -96,6 +101,7 @@ class RawSupportedMethodsClient:
                 "currency": currency,
                 "supported_payout_method_id": supported_payout_method_id,
                 "destination_currency": destination_currency,
+                "party_type": party_type,
                 "first": first,
                 "after": after,
                 "last": last,
@@ -126,6 +132,7 @@ class RawSupportedMethodsClient:
                         currency=currency,
                         supported_payout_method_id=supported_payout_method_id,
                         destination_currency=destination_currency,
+                        party_type=party_type,
                         first=first,
                         after=_parsed_next,
                         last=last,
@@ -201,6 +208,7 @@ class AsyncRawSupportedMethodsClient:
         currency: typing.Optional[str] = None,
         supported_payout_method_id: typing.Optional[str] = None,
         destination_currency: typing.Optional[str] = None,
+        party_type: typing.Optional[ListSupportedMethodsRequestPartyType] = None,
         first: typing.Optional[int] = None,
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
@@ -232,6 +240,9 @@ class AsyncRawSupportedMethodsClient:
 
         destination_currency : typing.Optional[str]
             Currency the supported payout method would deliver payouts in. Only meaningful with supported_payout_method_id; required fields vary by destination currency.
+
+        party_type : typing.Optional[ListSupportedMethodsRequestPartyType]
+            Who will own the payout method. `first_party` is the account itself. `third_party` is a recipient the account pays, saved with `recipient` on `POST /payouts/methods`, which needs no identity fields. Only meaningful with supported_payout_method_id.
 
         first : typing.Optional[int]
             Number of results to return from the start of the range.
@@ -265,6 +276,7 @@ class AsyncRawSupportedMethodsClient:
                 "currency": currency,
                 "supported_payout_method_id": supported_payout_method_id,
                 "destination_currency": destination_currency,
+                "party_type": party_type,
                 "first": first,
                 "after": after,
                 "last": last,
@@ -297,6 +309,7 @@ class AsyncRawSupportedMethodsClient:
                             currency=currency,
                             supported_payout_method_id=supported_payout_method_id,
                             destination_currency=destination_currency,
+                            party_type=party_type,
                             first=first,
                             after=_parsed_next,
                             last=last,
