@@ -44,6 +44,11 @@ class ListCardsResponseDataItem(UniversalBaseModel):
     Card ID, prefixed `icrd_`.
     """
 
+    issued: bool = pydantic.Field()
+    """
+    `true` once the issuer has issued the card. `false` for an invited card still waiting on its cardholder's onboarding or review, or one the issuer declined; it has no card number until it is issued.
+    """
+
     last4: typing.Optional[str] = pydantic.Field(default=None)
     """
     Last four digits of the card number. `null` for pending invitation cards.
