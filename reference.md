@@ -36155,7 +36155,7 @@ client.payouts.create_quote(
 <dl>
 <dd>
 
-**payment_method_id:** `typing.Optional[str]` — A saved card of the account, prefixed `payt_`, to quote paying this payout from. The quote's `amount` is the card charge, `fee` adds the estimated card fees to the payout fee, and `net_amount` is what the recipient receives.
+**payment_method_id:** `typing.Optional[str]` — A saved card of the account, prefixed `payt_`, to quote paying this payout from. The quote's `amount` is the card charge, `fee` adds the estimated card fees to the payout fee, and `net_amount` is what the recipient receives. Send `recipient_amount` instead of `amount` to quote the charge that delivers a set amount.
     
 </dd>
 </dl>
@@ -36171,7 +36171,7 @@ client.payouts.create_quote(
 <dl>
 <dd>
 
-**recipient_amount:** `typing.Optional[float]` — The amount the recipient should receive, with fees added on top. When the payout method pays out in `currency`, the quote's `destination_amount` covers it; otherwise its `net_amount` does. Provide exactly one of `amount` or `recipient_amount`.
+**recipient_amount:** `typing.Optional[float]` — The amount the recipient should receive, with fees added on top. When the payout method pays out in `currency`, the quote's `destination_amount` covers it; otherwise its `net_amount` does. With `payment_method_id`, the card charge is set so the quote's `net_amount` is exactly this amount, or the quote is refused. Provide exactly one of `amount` or `recipient_amount`.
     
 </dd>
 </dl>
