@@ -28484,7 +28484,7 @@ client.memberships.retrieve(
 <dl>
 <dd>
 
-Updates a membership's metadata, scheduled cancellation, renewal payment method, or renewal cadence.
+Updates a membership's metadata, scheduled cancellation, renewal payment method, renewal cadence, or next renewal date.
 </dd>
 </dl>
 </dd>
@@ -28534,7 +28534,7 @@ client.memberships.update(
 <dl>
 <dd>
 
-**billing_period_days:** `typing.Optional[int]` — Number of days between recurring charges. Sets the current period end to the current period start plus this value and applies to every recurring variant, so future renewals use the same cadence. The new period end must remain in the future. Only for active, trialing, or past-due memberships billed automatically by Whop; invoice, externally billed, and canceling memberships are not supported. Existing non-daily memberships cannot be changed to daily billing. Cannot be combined with other fields.
+**billing_period_days:** `typing.Optional[int]` — Number of days between recurring charges, applied to every recurring variant so future renewals use the same cadence. Sets the current period end to the current period start plus this value; when the value is a multiple of 30 or is 365, a membership that renews on a fixed day of the month (for example, after `current_period_end` was set) ends on that day instead. The new period end must remain in the future. Only for active, trialing, or past-due memberships billed automatically by Whop; invoice, externally billed, and canceling memberships are not supported. Existing non-daily memberships cannot be changed to daily billing. Cannot be combined with other fields.
     
 </dd>
 </dl>
@@ -28543,6 +28543,14 @@ client.memberships.update(
 <dd>
 
 **cancel_at_period_end:** `typing.Optional[bool]` — `true` cancels at the end of the current billing period (the customer keeps access until then); `false` reverses a pending cancellation.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**current_period_end:** `typing.Optional[datetime.datetime]` — When the next renewal charges, as an ISO 8601 timestamp; a date without a time means midnight UTC. Must fall after today in UTC. Later renewals follow on from this date, and a membership charged automatically on a variant billed every 30, 60, 90 … 360 or 365 days keeps renewing on this day of the month in UTC, or on the month's last day when a month is shorter. Only for active or trialing renewing memberships billed by Whop whose payments are not paused. Cannot be combined with other fields.
     
 </dd>
 </dl>
