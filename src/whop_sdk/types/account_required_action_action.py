@@ -9,6 +9,7 @@ AccountRequiredActionAction = typing.Union[
         "submit_information_request",
         "update_automatic_withdrawal_method",
         "reauthorize_payout_methods",
+        "update_payout_method",
         "update_payout_profile",
         "card_usage_review",
         "verify_identity",
