@@ -12,7 +12,7 @@ from .leaderboard_partners_response_nearby_item import LeaderboardPartnersRespon
 class LeaderboardPartnersResponse(UniversalBaseModel):
     leaders: typing.List[LeaderboardPartnersResponseLeadersItem] = pydantic.Field()
     """
-    The top referrers by total earnings, best first.
+    The top 10 referrers by total earnings, best first.
     """
 
     me: typing.Optional[LeaderboardPartnersResponseMe] = pydantic.Field(default=None)
