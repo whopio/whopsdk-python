@@ -174,15 +174,6 @@ if typing.TYPE_CHECKING:
     from .ad_group_regions_body import AdGroupRegionsBody
     from .ad_group_result_event import AdGroupResultEvent
     from .ad_group_status import AdGroupStatus
-    from .ad_lead_form_completion import AdLeadFormCompletion
-    from .ad_lead_form_completion_button_type import AdLeadFormCompletionButtonType
-    from .ad_lead_form_disclaimer import AdLeadFormDisclaimer
-    from .ad_lead_form_disclaimer_checkbox import AdLeadFormDisclaimerCheckbox
-    from .ad_lead_form_intro import AdLeadFormIntro
-    from .ad_lead_form_option_logic import AdLeadFormOptionLogic
-    from .ad_lead_form_option_logic_action import AdLeadFormOptionLogicAction
-    from .ad_lead_form_question import AdLeadFormQuestion
-    from .ad_lead_form_question_option import AdLeadFormQuestionOption
     from .ad_pixel import AdPixel
     from .ad_pixel_platform import AdPixelPlatform
     from .ad_pixel_status import AdPixelStatus
@@ -570,15 +561,10 @@ if typing.TYPE_CHECKING:
     from .export_status import ExportStatus
     from .exposures_experiments_request_subject import ExposuresExperimentsRequestSubject
     from .external_account import ExternalAccount
-    from .external_account_lead_form import ExternalAccountLeadForm
-    from .external_account_lead_form_form_type import ExternalAccountLeadFormFormType
     from .external_account_parent import ExternalAccountParent
     from .external_account_parent_platform import ExternalAccountParentPlatform
     from .external_account_partnership_status import ExternalAccountPartnershipStatus
     from .external_account_platform import ExternalAccountPlatform
-    from .external_account_post import ExternalAccountPost
-    from .external_account_post_call_to_action import ExternalAccountPostCallToAction
-    from .external_account_post_restrictions_item import ExternalAccountPostRestrictionsItem
     from .fee_markup import FeeMarkup
     from .fee_markup_list_item import FeeMarkupListItem
     from .fee_markup_types import FeeMarkupTypes
@@ -1424,15 +1410,10 @@ if typing.TYPE_CHECKING:
     from .shipment_statuses import ShipmentStatuses
     from .shipment_substatuses import ShipmentSubstatuses
     from .social_account import SocialAccount
-    from .social_account_lead_form import SocialAccountLeadForm
-    from .social_account_lead_form_form_type import SocialAccountLeadFormFormType
     from .social_account_parent import SocialAccountParent
     from .social_account_parent_platform import SocialAccountParentPlatform
     from .social_account_partnership_status import SocialAccountPartnershipStatus
     from .social_account_platform import SocialAccountPlatform
-    from .social_account_post import SocialAccountPost
-    from .social_account_post_call_to_action import SocialAccountPostCallToAction
-    from .social_account_post_restrictions_item import SocialAccountPostRestrictionsItem
     from .specific_fee_origins import SpecificFeeOrigins
     from .status import Status
     from .statuses import Statuses
@@ -1731,15 +1712,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdGroupRegionsBody": ".ad_group_regions_body",
     "AdGroupResultEvent": ".ad_group_result_event",
     "AdGroupStatus": ".ad_group_status",
-    "AdLeadFormCompletion": ".ad_lead_form_completion",
-    "AdLeadFormCompletionButtonType": ".ad_lead_form_completion_button_type",
-    "AdLeadFormDisclaimer": ".ad_lead_form_disclaimer",
-    "AdLeadFormDisclaimerCheckbox": ".ad_lead_form_disclaimer_checkbox",
-    "AdLeadFormIntro": ".ad_lead_form_intro",
-    "AdLeadFormOptionLogic": ".ad_lead_form_option_logic",
-    "AdLeadFormOptionLogicAction": ".ad_lead_form_option_logic_action",
-    "AdLeadFormQuestion": ".ad_lead_form_question",
-    "AdLeadFormQuestionOption": ".ad_lead_form_question_option",
     "AdPixel": ".ad_pixel",
     "AdPixelPlatform": ".ad_pixel_platform",
     "AdPixelStatus": ".ad_pixel_status",
@@ -2111,15 +2083,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ExportStatus": ".export_status",
     "ExposuresExperimentsRequestSubject": ".exposures_experiments_request_subject",
     "ExternalAccount": ".external_account",
-    "ExternalAccountLeadForm": ".external_account_lead_form",
-    "ExternalAccountLeadFormFormType": ".external_account_lead_form_form_type",
     "ExternalAccountParent": ".external_account_parent",
     "ExternalAccountParentPlatform": ".external_account_parent_platform",
     "ExternalAccountPartnershipStatus": ".external_account_partnership_status",
     "ExternalAccountPlatform": ".external_account_platform",
-    "ExternalAccountPost": ".external_account_post",
-    "ExternalAccountPostCallToAction": ".external_account_post_call_to_action",
-    "ExternalAccountPostRestrictionsItem": ".external_account_post_restrictions_item",
     "FeeMarkup": ".fee_markup",
     "FeeMarkupListItem": ".fee_markup_list_item",
     "FeeMarkupTypes": ".fee_markup_types",
@@ -2847,15 +2814,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ShipmentStatuses": ".shipment_statuses",
     "ShipmentSubstatuses": ".shipment_substatuses",
     "SocialAccount": ".social_account",
-    "SocialAccountLeadForm": ".social_account_lead_form",
-    "SocialAccountLeadFormFormType": ".social_account_lead_form_form_type",
     "SocialAccountParent": ".social_account_parent",
     "SocialAccountParentPlatform": ".social_account_parent_platform",
     "SocialAccountPartnershipStatus": ".social_account_partnership_status",
     "SocialAccountPlatform": ".social_account_platform",
-    "SocialAccountPost": ".social_account_post",
-    "SocialAccountPostCallToAction": ".social_account_post_call_to_action",
-    "SocialAccountPostRestrictionsItem": ".social_account_post_restrictions_item",
     "SpecificFeeOrigins": ".specific_fee_origins",
     "Status": ".status",
     "Statuses": ".statuses",
@@ -3174,15 +3136,6 @@ __all__ = [
     "AdGroupRegionsBody",
     "AdGroupResultEvent",
     "AdGroupStatus",
-    "AdLeadFormCompletion",
-    "AdLeadFormCompletionButtonType",
-    "AdLeadFormDisclaimer",
-    "AdLeadFormDisclaimerCheckbox",
-    "AdLeadFormIntro",
-    "AdLeadFormOptionLogic",
-    "AdLeadFormOptionLogicAction",
-    "AdLeadFormQuestion",
-    "AdLeadFormQuestionOption",
     "AdPixel",
     "AdPixelPlatform",
     "AdPixelStatus",
@@ -3554,15 +3507,10 @@ __all__ = [
     "ExportStatus",
     "ExposuresExperimentsRequestSubject",
     "ExternalAccount",
-    "ExternalAccountLeadForm",
-    "ExternalAccountLeadFormFormType",
     "ExternalAccountParent",
     "ExternalAccountParentPlatform",
     "ExternalAccountPartnershipStatus",
     "ExternalAccountPlatform",
-    "ExternalAccountPost",
-    "ExternalAccountPostCallToAction",
-    "ExternalAccountPostRestrictionsItem",
     "FeeMarkup",
     "FeeMarkupListItem",
     "FeeMarkupTypes",
@@ -4290,15 +4238,10 @@ __all__ = [
     "ShipmentStatuses",
     "ShipmentSubstatuses",
     "SocialAccount",
-    "SocialAccountLeadForm",
-    "SocialAccountLeadFormFormType",
     "SocialAccountParent",
     "SocialAccountParentPlatform",
     "SocialAccountPartnershipStatus",
     "SocialAccountPlatform",
-    "SocialAccountPost",
-    "SocialAccountPostCallToAction",
-    "SocialAccountPostRestrictionsItem",
     "SpecificFeeOrigins",
     "Status",
     "Statuses",

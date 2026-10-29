@@ -608,12 +608,7 @@ class RawAdCampaignsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def duplicate(
-        self,
-        id: str,
-        *,
-        count: typing.Optional[int] = OMIT,
-        preserve_engagement: typing.Optional[bool] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, id: str, *, count: typing.Optional[int] = OMIT, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[DuplicateAdCampaignsResponse]:
         """
         Creates copies of the campaign in `duplicating` status and returns them; each copy transitions to `draft` once duplication completes. Poll each returned campaign until it leaves `duplicating` — a copy that could not be completed is deleted and returns 404.
@@ -625,9 +620,6 @@ class RawAdCampaignsClient:
 
         count : typing.Optional[int]
             Number of copies to create (1-10). Defaults to 1.
-
-        preserve_engagement : typing.Optional[bool]
-            Whether the copied ads keep the original posts' engagement (likes, comments, shares). Defaults to false.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -643,7 +635,6 @@ class RawAdCampaignsClient:
             method="POST",
             json={
                 "count": count,
-                "preserve_engagement": preserve_engagement,
             },
             headers={
                 "content-type": "application/json",
@@ -1374,12 +1365,7 @@ class AsyncRawAdCampaignsClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def duplicate(
-        self,
-        id: str,
-        *,
-        count: typing.Optional[int] = OMIT,
-        preserve_engagement: typing.Optional[bool] = OMIT,
-        request_options: typing.Optional[RequestOptions] = None,
+        self, id: str, *, count: typing.Optional[int] = OMIT, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[DuplicateAdCampaignsResponse]:
         """
         Creates copies of the campaign in `duplicating` status and returns them; each copy transitions to `draft` once duplication completes. Poll each returned campaign until it leaves `duplicating` — a copy that could not be completed is deleted and returns 404.
@@ -1391,9 +1377,6 @@ class AsyncRawAdCampaignsClient:
 
         count : typing.Optional[int]
             Number of copies to create (1-10). Defaults to 1.
-
-        preserve_engagement : typing.Optional[bool]
-            Whether the copied ads keep the original posts' engagement (likes, comments, shares). Defaults to false.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1409,7 +1392,6 @@ class AsyncRawAdCampaignsClient:
             method="POST",
             json={
                 "count": count,
-                "preserve_engagement": preserve_engagement,
             },
             headers={
                 "content-type": "application/json",

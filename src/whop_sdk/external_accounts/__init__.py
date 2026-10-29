@@ -28,10 +28,8 @@ if typing.TYPE_CHECKING:
         ListExternalAccountsResponse,
         ListExternalAccountsResponsePageInfo,
     )
-    from . import lead_forms, partners, posts
-    from .lead_forms import ListLeadFormsResponse
+    from . import partners
     from .partners import DeletePartnersResponse, ListPartnersResponse, ListPartnersResponsePageInfo
-    from .posts import ListPostsResponse, ListPostsResponsePageInfo
 _dynamic_imports: typing.Dict[str, str] = {
     "ConnectExternalAccountsRequestPlatform": ".types",
     "ConnectExternalAccountsRequestScopesItem": ".types",
@@ -54,14 +52,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListExternalAccountsRequestTrustLevel": ".types",
     "ListExternalAccountsResponse": ".types",
     "ListExternalAccountsResponsePageInfo": ".types",
-    "ListLeadFormsResponse": ".lead_forms",
     "ListPartnersResponse": ".partners",
     "ListPartnersResponsePageInfo": ".partners",
-    "ListPostsResponse": ".posts",
-    "ListPostsResponsePageInfo": ".posts",
-    "lead_forms": ".lead_forms",
     "partners": ".partners",
-    "posts": ".posts",
 }
 
 
@@ -108,12 +101,7 @@ __all__ = [
     "ListExternalAccountsRequestTrustLevel",
     "ListExternalAccountsResponse",
     "ListExternalAccountsResponsePageInfo",
-    "ListLeadFormsResponse",
     "ListPartnersResponse",
     "ListPartnersResponsePageInfo",
-    "ListPostsResponse",
-    "ListPostsResponsePageInfo",
-    "lead_forms",
     "partners",
-    "posts",
 ]

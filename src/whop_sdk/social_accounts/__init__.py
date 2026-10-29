@@ -20,7 +20,6 @@ if typing.TYPE_CHECKING:
         CreateSocialAccountsRequestBody_Klaviyo,
         CreateSocialAccountsRequestBody_Tiktok,
         DeleteSocialAccountsResponse,
-        LeadFormsSocialAccountsResponse,
         ListSocialAccountsRequestDirection,
         ListSocialAccountsRequestOrder,
         ListSocialAccountsRequestPlatform,
@@ -30,8 +29,6 @@ if typing.TYPE_CHECKING:
         ListSocialAccountsResponsePageInfo,
         PartnersSocialAccountsResponse,
         PartnersSocialAccountsResponsePageInfo,
-        PostsSocialAccountsResponse,
-        PostsSocialAccountsResponsePageInfo,
         RemovePartnerSocialAccountsResponse,
     )
 _dynamic_imports: typing.Dict[str, str] = {
@@ -48,7 +45,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateSocialAccountsRequestBody_Klaviyo": ".types",
     "CreateSocialAccountsRequestBody_Tiktok": ".types",
     "DeleteSocialAccountsResponse": ".types",
-    "LeadFormsSocialAccountsResponse": ".types",
     "ListSocialAccountsRequestDirection": ".types",
     "ListSocialAccountsRequestOrder": ".types",
     "ListSocialAccountsRequestPlatform": ".types",
@@ -58,8 +54,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListSocialAccountsResponsePageInfo": ".types",
     "PartnersSocialAccountsResponse": ".types",
     "PartnersSocialAccountsResponsePageInfo": ".types",
-    "PostsSocialAccountsResponse": ".types",
-    "PostsSocialAccountsResponsePageInfo": ".types",
     "RemovePartnerSocialAccountsResponse": ".types",
 }
 
@@ -99,7 +93,6 @@ __all__ = [
     "CreateSocialAccountsRequestBody_Klaviyo",
     "CreateSocialAccountsRequestBody_Tiktok",
     "DeleteSocialAccountsResponse",
-    "LeadFormsSocialAccountsResponse",
     "ListSocialAccountsRequestDirection",
     "ListSocialAccountsRequestOrder",
     "ListSocialAccountsRequestPlatform",
@@ -109,7 +102,5 @@ __all__ = [
     "ListSocialAccountsResponsePageInfo",
     "PartnersSocialAccountsResponse",
     "PartnersSocialAccountsResponsePageInfo",
-    "PostsSocialAccountsResponse",
-    "PostsSocialAccountsResponsePageInfo",
     "RemovePartnerSocialAccountsResponse",
 ]
