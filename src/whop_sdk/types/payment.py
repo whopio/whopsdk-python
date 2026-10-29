@@ -120,7 +120,7 @@ class Payment(UniversalBaseModel):
 
     ip_address: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The buyer's IP address at checkout, as identified by Whop's fraud screening. Null when the payment was not screened at checkout, such as a subscription renewal or a charge made without the buyer present.
+    The buyer's IP address at checkout: the one Whop's fraud screening identified, otherwise the one Whop captured from the buyer's browser at checkout. Null when the buyer was not present at checkout, such as a subscription renewal or a charge made without the buyer present.
     """
 
     last_payment_attempt_at: typing.Optional[str] = pydantic.Field(default=None)
@@ -321,6 +321,11 @@ class Payment(UniversalBaseModel):
     The buyer. Null when the payment belongs to a company buyer rather than a user.
     """
 
+    user_agent: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The buyer's browser user agent at checkout. Null when the buyer was not present at checkout, such as a subscription renewal, or without the member:basic:read permission.
+    """
+
     variant_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The variant that was charged, prefixed `plan_`.
@@ -334,6 +339,11 @@ class Payment(UniversalBaseModel):
     voidable: bool = pydantic.Field()
     """
     True when the payment can be voided or canceled. The request is rejected if the payment is no longer eligible — see `POST /payments/{id}/void`.
+    """
+
+    wuid: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The Whop pixel's visitor ID for the buyer's browser at checkout, prefixed `wuid_`. Null when the checkout page had no Whop pixel, when the buyer was not present at checkout, or without the member:basic:read permission.
     """
 
     if IS_PYDANTIC_V2:
