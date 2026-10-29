@@ -108,12 +108,12 @@ class PasskeysClient:
         client_data_json: str,
         credential_id: str,
         nickname: str,
+        user_handle: str,
         transports: typing.Optional[typing.Sequence[str]] = OMIT,
-        user_handle: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Passkey:
         """
-        Registers a passkey for the authenticated user from the attestation a browser produced for a `registration` challenge. Mint that challenge first with `POST /users/me/passkeys/challenge` and run the ceremony with its `creation_options`; it is single-use and expires 5 minutes after it is issued. Send back the `user_handle` the options carried: registering with it replaces the account's passkeys made before Whop issued options, which can only be deleted. Requires a user session that has completed step-up verification.
+        Registers a passkey for the authenticated user from the attestation a browser produced for a `registration` challenge. Mint that challenge first with `POST /users/me/passkeys/challenge` and run the ceremony with its `creation_options`; it is single-use and expires 5 minutes after it is issued. Send back the `user_handle` the options carried; a registration without it is refused. Registering replaces the account's passkeys made before Whop issued options, which can only be deleted. Requires a user session that has completed step-up verification.
 
         Parameters
         ----------
@@ -129,11 +129,11 @@ class PasskeysClient:
         nickname : str
             A name for this passkey, usually the device it lives on. 255 characters or fewer.
 
+        user_handle : str
+            The `creation_options.user.id` the passkey was created with. Must match the challenge's options.
+
         transports : typing.Optional[typing.Sequence[str]]
             The `getTransports()` result from the registration response. Values Whop does not recognize are dropped.
-
-        user_handle : typing.Optional[str]
-            The `creation_options.user.id` the passkey was created with. Must match the challenge's options.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -157,6 +157,7 @@ class PasskeysClient:
             client_data_json="Y2xpZW50LWRhdGE",
             credential_id="bmV3LWNyZWRlbnRpYWw",
             nickname="Work laptop",
+            user_handle="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         )
         """
         _response = self._raw_client.create(
@@ -164,8 +165,8 @@ class PasskeysClient:
             client_data_json=client_data_json,
             credential_id=credential_id,
             nickname=nickname,
-            transports=transports,
             user_handle=user_handle,
+            transports=transports,
             request_options=request_options,
         )
         return _response.data
@@ -373,12 +374,12 @@ class AsyncPasskeysClient:
         client_data_json: str,
         credential_id: str,
         nickname: str,
+        user_handle: str,
         transports: typing.Optional[typing.Sequence[str]] = OMIT,
-        user_handle: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Passkey:
         """
-        Registers a passkey for the authenticated user from the attestation a browser produced for a `registration` challenge. Mint that challenge first with `POST /users/me/passkeys/challenge` and run the ceremony with its `creation_options`; it is single-use and expires 5 minutes after it is issued. Send back the `user_handle` the options carried: registering with it replaces the account's passkeys made before Whop issued options, which can only be deleted. Requires a user session that has completed step-up verification.
+        Registers a passkey for the authenticated user from the attestation a browser produced for a `registration` challenge. Mint that challenge first with `POST /users/me/passkeys/challenge` and run the ceremony with its `creation_options`; it is single-use and expires 5 minutes after it is issued. Send back the `user_handle` the options carried; a registration without it is refused. Registering replaces the account's passkeys made before Whop issued options, which can only be deleted. Requires a user session that has completed step-up verification.
 
         Parameters
         ----------
@@ -394,11 +395,11 @@ class AsyncPasskeysClient:
         nickname : str
             A name for this passkey, usually the device it lives on. 255 characters or fewer.
 
+        user_handle : str
+            The `creation_options.user.id` the passkey was created with. Must match the challenge's options.
+
         transports : typing.Optional[typing.Sequence[str]]
             The `getTransports()` result from the registration response. Values Whop does not recognize are dropped.
-
-        user_handle : typing.Optional[str]
-            The `creation_options.user.id` the passkey was created with. Must match the challenge's options.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -427,6 +428,7 @@ class AsyncPasskeysClient:
                 client_data_json="Y2xpZW50LWRhdGE",
                 credential_id="bmV3LWNyZWRlbnRpYWw",
                 nickname="Work laptop",
+                user_handle="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
             )
 
 
@@ -437,8 +439,8 @@ class AsyncPasskeysClient:
             client_data_json=client_data_json,
             credential_id=credential_id,
             nickname=nickname,
-            transports=transports,
             user_handle=user_handle,
+            transports=transports,
             request_options=request_options,
         )
         return _response.data
