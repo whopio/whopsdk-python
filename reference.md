@@ -1210,7 +1210,7 @@ client.accounts.update(
 <dl>
 <dd>
 
-**tax_identifiers:** `typing.Optional[typing.List[UpdateAccountsRequestTaxIdentifiersItem]]` — Account tax/VAT registrations to add or update. When `tax_remitted_by` is `self`, tax is calculated and collected only in the countries where the account holds a registration.
+**tax_identifiers:** `typing.Optional[typing.List[UpdateAccountsRequestTaxIdentifiersItem]]` — Tax IDs to add to the account, or to replace when the account already has one of that type. When `tax_remitted_by` is `self`, tax outside the US is calculated and collected only in the countries where the account has a tax ID. US collection follows `tax_collection_enabled_states`.
     
 </dd>
 </dl>

@@ -17,6 +17,7 @@ AccountRequiredActionAction = typing.Union[
         "sign_formation_documents",
         "configure_tax_remitter",
         "add_vat_registration",
+        "confirm_tax_details",
         "accept_payout_terms",
         "enable_two_factor_authentication",
         "respond_to_abuse_report",

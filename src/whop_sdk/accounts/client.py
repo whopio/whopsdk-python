@@ -627,7 +627,7 @@ class AccountsClient:
             US state codes (50 states plus `DC`) where the account collects tax. Replaces the full set on update. Only settable when `tax_remitted_by` is `self`.
 
         tax_identifiers : typing.Optional[typing.Sequence[UpdateAccountsRequestTaxIdentifiersItem]]
-            Account tax/VAT registrations to add or update. When `tax_remitted_by` is `self`, tax is calculated and collected only in the countries where the account holds a registration.
+            Tax IDs to add to the account, or to replace when the account already has one of that type. When `tax_remitted_by` is `self`, tax outside the US is calculated and collected only in the countries where the account has a tax ID. US collection follows `tax_collection_enabled_states`.
 
         tax_remitted_by : typing.Optional[UpdateAccountsRequestTaxRemittedBy]
             Determines whether Whop or the account calculates and remits tax. The account must provide a supported-country business address when it self-remits.
@@ -1668,7 +1668,7 @@ class AsyncAccountsClient:
             US state codes (50 states plus `DC`) where the account collects tax. Replaces the full set on update. Only settable when `tax_remitted_by` is `self`.
 
         tax_identifiers : typing.Optional[typing.Sequence[UpdateAccountsRequestTaxIdentifiersItem]]
-            Account tax/VAT registrations to add or update. When `tax_remitted_by` is `self`, tax is calculated and collected only in the countries where the account holds a registration.
+            Tax IDs to add to the account, or to replace when the account already has one of that type. When `tax_remitted_by` is `self`, tax outside the US is calculated and collected only in the countries where the account has a tax ID. US collection follows `tax_collection_enabled_states`.
 
         tax_remitted_by : typing.Optional[UpdateAccountsRequestTaxRemittedBy]
             Determines whether Whop or the account calculates and remits tax. The account must provide a supported-country business address when it self-remits.

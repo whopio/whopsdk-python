@@ -10,12 +10,12 @@ from .update_accounts_request_tax_identifiers_item_tax_id_type import UpdateAcco
 class UpdateAccountsRequestTaxIdentifiersItem(UniversalBaseModel):
     tax_id_type: UpdateAccountsRequestTaxIdentifiersItemTaxIdType = pydantic.Field()
     """
-    Tax ID type, for example `eu_vat`, `gb_vat`, or `us_ein`.
+    Tax ID type, for example `eu_vat`, `gb_vat`, or `us_ein`. See the [tax IDs guide](/developer/guides/tax-ids) for an example of each type.
     """
 
     tax_id_value: str = pydantic.Field()
     """
-    Tax ID value, for example `DE123456789`.
+    Tax ID value, for example `DE123456789`. An `eu_vat` number must start with its two-letter country code (Greece uses `EL`); spaces, dots, and dashes are removed and letters are uppercased. See the [tax IDs guide](/developer/guides/tax-ids).
     """
 
     if IS_PYDANTIC_V2:

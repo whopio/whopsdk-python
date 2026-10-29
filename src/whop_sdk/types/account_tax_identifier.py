@@ -20,7 +20,7 @@ class AccountTaxIdentifier(UniversalBaseModel):
 
     tax_id_value: str = pydantic.Field()
     """
-    Tax ID value.
+    Tax ID value, for example `DE123456789`. See the [tax IDs guide](/developer/guides/tax-ids).
     """
 
     if IS_PYDANTIC_V2:

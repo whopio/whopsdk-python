@@ -10,12 +10,12 @@ from .create_payment_quotes_request_tax_ids_item_type import CreatePaymentQuotes
 class CreatePaymentQuotesRequestTaxIdsItem(UniversalBaseModel):
     type: CreatePaymentQuotesRequestTaxIdsItemType = pydantic.Field()
     """
-    The registration type.
+    The registration type. See the [tax IDs guide](/developer/guides/tax-ids) for an example of each type.
     """
 
     value: str = pydantic.Field()
     """
-    The registration number as issued.
+    The registration number as issued. An `eu_vat` number must start with its two-letter country code (Greece uses `EL`). See the [tax IDs guide](/developer/guides/tax-ids).
     """
 
     if IS_PYDANTIC_V2:
