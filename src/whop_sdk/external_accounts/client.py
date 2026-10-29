@@ -22,9 +22,7 @@ from .types.list_external_accounts_request_trust_level import ListExternalAccoun
 from .types.list_external_accounts_response import ListExternalAccountsResponse
 
 if typing.TYPE_CHECKING:
-    from .lead_forms.client import AsyncLeadFormsClient, LeadFormsClient
     from .partners.client import AsyncPartnersClient, PartnersClient
-    from .posts.client import AsyncPostsClient, PostsClient
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
 
@@ -34,8 +32,6 @@ class ExternalAccountsClient:
         self._raw_client = RawExternalAccountsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._partners: typing.Optional[PartnersClient] = None
-        self._lead_forms: typing.Optional[LeadFormsClient] = None
-        self._posts: typing.Optional[PostsClient] = None
 
     @property
     def with_raw_response(self) -> RawExternalAccountsClient:
@@ -121,7 +117,7 @@ class ExternalAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -174,7 +170,7 @@ class ExternalAccountsClient:
         )
 
         client = Whop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -224,7 +220,7 @@ class ExternalAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -277,7 +273,7 @@ class ExternalAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -319,7 +315,7 @@ class ExternalAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -338,30 +334,12 @@ class ExternalAccountsClient:
             self._partners = PartnersClient(client_wrapper=self._client_wrapper)
         return self._partners
 
-    @property
-    def lead_forms(self):
-        if self._lead_forms is None:
-            from .lead_forms.client import LeadFormsClient  # noqa: E402
-
-            self._lead_forms = LeadFormsClient(client_wrapper=self._client_wrapper)
-        return self._lead_forms
-
-    @property
-    def posts(self):
-        if self._posts is None:
-            from .posts.client import PostsClient  # noqa: E402
-
-            self._posts = PostsClient(client_wrapper=self._client_wrapper)
-        return self._posts
-
 
 class AsyncExternalAccountsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._raw_client = AsyncRawExternalAccountsClient(client_wrapper=client_wrapper)
         self._client_wrapper = client_wrapper
         self._partners: typing.Optional[AsyncPartnersClient] = None
-        self._lead_forms: typing.Optional[AsyncLeadFormsClient] = None
-        self._posts: typing.Optional[AsyncPostsClient] = None
 
     @property
     def with_raw_response(self) -> AsyncRawExternalAccountsClient:
@@ -449,7 +427,7 @@ class AsyncExternalAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -511,7 +489,7 @@ class AsyncExternalAccountsClient:
         )
 
         client = AsyncWhop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -569,7 +547,7 @@ class AsyncExternalAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -630,7 +608,7 @@ class AsyncExternalAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -682,7 +660,7 @@ class AsyncExternalAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -706,19 +684,3 @@ class AsyncExternalAccountsClient:
 
             self._partners = AsyncPartnersClient(client_wrapper=self._client_wrapper)
         return self._partners
-
-    @property
-    def lead_forms(self):
-        if self._lead_forms is None:
-            from .lead_forms.client import AsyncLeadFormsClient  # noqa: E402
-
-            self._lead_forms = AsyncLeadFormsClient(client_wrapper=self._client_wrapper)
-        return self._lead_forms
-
-    @property
-    def posts(self):
-        if self._posts is None:
-            from .posts.client import AsyncPostsClient  # noqa: E402
-
-            self._posts = AsyncPostsClient(client_wrapper=self._client_wrapper)
-        return self._posts

@@ -685,7 +685,6 @@ class RawAdGroupsClient:
         id: str,
         *,
         count: typing.Optional[int] = OMIT,
-        preserve_engagement: typing.Optional[bool] = OMIT,
         target_ad_campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[DuplicateAdGroupsResponse]:
@@ -699,9 +698,6 @@ class RawAdGroupsClient:
 
         count : typing.Optional[int]
             Number of copies to create (1-10). Defaults to 1.
-
-        preserve_engagement : typing.Optional[bool]
-            Whether the copied ads keep the original posts' engagement (likes, comments, shares). Defaults to false.
 
         target_ad_campaign_id : typing.Optional[str]
             Campaign to duplicate into. Must belong to the same account and be compatible with the ad group's targeting and goals. Defaults to the ad group's own campaign.
@@ -720,7 +716,6 @@ class RawAdGroupsClient:
             method="POST",
             json={
                 "count": count,
-                "preserve_engagement": preserve_engagement,
                 "target_ad_campaign_id": target_ad_campaign_id,
             },
             headers={
@@ -1531,7 +1526,6 @@ class AsyncRawAdGroupsClient:
         id: str,
         *,
         count: typing.Optional[int] = OMIT,
-        preserve_engagement: typing.Optional[bool] = OMIT,
         target_ad_campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[DuplicateAdGroupsResponse]:
@@ -1545,9 +1539,6 @@ class AsyncRawAdGroupsClient:
 
         count : typing.Optional[int]
             Number of copies to create (1-10). Defaults to 1.
-
-        preserve_engagement : typing.Optional[bool]
-            Whether the copied ads keep the original posts' engagement (likes, comments, shares). Defaults to false.
 
         target_ad_campaign_id : typing.Optional[str]
             Campaign to duplicate into. Must belong to the same account and be compatible with the ad group's targeting and goals. Defaults to the ad group's own campaign.
@@ -1566,7 +1557,6 @@ class AsyncRawAdGroupsClient:
             method="POST",
             json={
                 "count": count,
-                "preserve_engagement": preserve_engagement,
                 "target_ad_campaign_id": target_ad_campaign_id,
             },
             headers={

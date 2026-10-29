@@ -765,7 +765,6 @@ class RawAdsClient:
         id: str,
         *,
         count: typing.Optional[int] = OMIT,
-        preserve_engagement: typing.Optional[bool] = OMIT,
         target_ad_group_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[DuplicateAdsResponse]:
@@ -779,9 +778,6 @@ class RawAdsClient:
 
         count : typing.Optional[int]
             Number of copies to create (1-10). Defaults to 1.
-
-        preserve_engagement : typing.Optional[bool]
-            Whether the copies keep the original post's engagement (likes, comments, shares). Defaults to false.
 
         target_ad_group_id : typing.Optional[str]
             Ad group to duplicate into, which must belong to the same account and be compatible with the ad. Defaults to the ad's own ad group.
@@ -800,7 +796,6 @@ class RawAdsClient:
             method="POST",
             json={
                 "count": count,
-                "preserve_engagement": preserve_engagement,
                 "target_ad_group_id": target_ad_group_id,
             },
             headers={
@@ -1689,7 +1684,6 @@ class AsyncRawAdsClient:
         id: str,
         *,
         count: typing.Optional[int] = OMIT,
-        preserve_engagement: typing.Optional[bool] = OMIT,
         target_ad_group_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[DuplicateAdsResponse]:
@@ -1703,9 +1697,6 @@ class AsyncRawAdsClient:
 
         count : typing.Optional[int]
             Number of copies to create (1-10). Defaults to 1.
-
-        preserve_engagement : typing.Optional[bool]
-            Whether the copies keep the original post's engagement (likes, comments, shares). Defaults to false.
 
         target_ad_group_id : typing.Optional[str]
             Ad group to duplicate into, which must belong to the same account and be compatible with the ad. Defaults to the ad's own ad group.
@@ -1724,7 +1715,6 @@ class AsyncRawAdsClient:
             method="POST",
             json={
                 "count": count,
-                "preserve_engagement": preserve_engagement,
                 "target_ad_group_id": target_ad_group_id,
             },
             headers={

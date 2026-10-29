@@ -141,7 +141,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -269,7 +269,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -343,7 +343,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -383,7 +383,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -488,7 +488,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -524,7 +524,6 @@ class AdGroupsClient:
         id: str,
         *,
         count: typing.Optional[int] = OMIT,
-        preserve_engagement: typing.Optional[bool] = OMIT,
         target_ad_campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> DuplicateAdGroupsResponse:
@@ -538,9 +537,6 @@ class AdGroupsClient:
 
         count : typing.Optional[int]
             Number of copies to create (1-10). Defaults to 1.
-
-        preserve_engagement : typing.Optional[bool]
-            Whether the copied ads keep the original posts' engagement (likes, comments, shares). Defaults to false.
 
         target_ad_campaign_id : typing.Optional[str]
             Campaign to duplicate into. Must belong to the same account and be compatible with the ad group's targeting and goals. Defaults to the ad group's own campaign.
@@ -558,7 +554,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -567,11 +563,7 @@ class AdGroupsClient:
         )
         """
         _response = self._raw_client.duplicate(
-            id,
-            count=count,
-            preserve_engagement=preserve_engagement,
-            target_ad_campaign_id=target_ad_campaign_id,
-            request_options=request_options,
+            id, count=count, target_ad_campaign_id=target_ad_campaign_id, request_options=request_options
         )
         return _response.data
 
@@ -597,7 +589,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -630,7 +622,7 @@ class AdGroupsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -750,7 +742,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -887,7 +879,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -969,7 +961,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1019,7 +1011,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1132,7 +1124,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1174,7 +1166,6 @@ class AsyncAdGroupsClient:
         id: str,
         *,
         count: typing.Optional[int] = OMIT,
-        preserve_engagement: typing.Optional[bool] = OMIT,
         target_ad_campaign_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> DuplicateAdGroupsResponse:
@@ -1188,9 +1179,6 @@ class AsyncAdGroupsClient:
 
         count : typing.Optional[int]
             Number of copies to create (1-10). Defaults to 1.
-
-        preserve_engagement : typing.Optional[bool]
-            Whether the copied ads keep the original posts' engagement (likes, comments, shares). Defaults to false.
 
         target_ad_campaign_id : typing.Optional[str]
             Campaign to duplicate into. Must belong to the same account and be compatible with the ad group's targeting and goals. Defaults to the ad group's own campaign.
@@ -1210,7 +1198,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1225,11 +1213,7 @@ class AsyncAdGroupsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.duplicate(
-            id,
-            count=count,
-            preserve_engagement=preserve_engagement,
-            target_ad_campaign_id=target_ad_campaign_id,
-            request_options=request_options,
+            id, count=count, target_ad_campaign_id=target_ad_campaign_id, request_options=request_options
         )
         return _response.data
 
@@ -1257,7 +1241,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1298,7 +1282,7 @@ class AsyncAdGroupsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

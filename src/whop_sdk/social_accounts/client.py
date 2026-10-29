@@ -6,14 +6,12 @@ from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.pagination import AsyncPager, SyncPager
 from ..core.request_options import RequestOptions
 from ..types.social_account import SocialAccount
-from ..types.social_account_post import SocialAccountPost
 from .raw_client import AsyncRawSocialAccountsClient, RawSocialAccountsClient
 from .types.connect_social_accounts_request_platform import ConnectSocialAccountsRequestPlatform
 from .types.connect_social_accounts_request_scopes_item import ConnectSocialAccountsRequestScopesItem
 from .types.connect_social_accounts_response import ConnectSocialAccountsResponse
 from .types.create_social_accounts_request_body import CreateSocialAccountsRequestBody
 from .types.delete_social_accounts_response import DeleteSocialAccountsResponse
-from .types.lead_forms_social_accounts_response import LeadFormsSocialAccountsResponse
 from .types.list_social_accounts_request_direction import ListSocialAccountsRequestDirection
 from .types.list_social_accounts_request_order import ListSocialAccountsRequestOrder
 from .types.list_social_accounts_request_platform import ListSocialAccountsRequestPlatform
@@ -21,7 +19,6 @@ from .types.list_social_accounts_request_scopes_item import ListSocialAccountsRe
 from .types.list_social_accounts_request_trust_level import ListSocialAccountsRequestTrustLevel
 from .types.list_social_accounts_response import ListSocialAccountsResponse
 from .types.partners_social_accounts_response import PartnersSocialAccountsResponse
-from .types.posts_social_accounts_response import PostsSocialAccountsResponse
 from .types.remove_partner_social_accounts_response import RemovePartnerSocialAccountsResponse
 
 # this is used as the default value for optional parameters
@@ -116,7 +113,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -167,7 +164,7 @@ class SocialAccountsClient:
         from whop_sdk.social_accounts import CreateSocialAccountsRequestBody_Facebook
 
         client = Whop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -217,7 +214,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -268,7 +265,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -277,44 +274,6 @@ class SocialAccountsClient:
         )
         """
         _response = self._raw_client.delete(id, account_id=account_id, user_id=user_id, request_options=request_options)
-        return _response.data
-
-    def lead_forms(
-        self, id: str, *, account_id: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> LeadFormsSocialAccountsResponse:
-        """
-        Deprecated compatibility endpoint. List lead forms with `GET /external_accounts/{id}/lead_forms` instead.
-
-        Parameters
-        ----------
-        id : str
-            The social account (a sacc_ identifier) whose lead forms to list.
-
-        account_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        LeadFormsSocialAccountsResponse
-            lead forms listed through the deprecated path
-
-        Examples
-        --------
-        from whop_sdk import Whop
-
-        client = Whop(
-            "2026-10-29-1",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-        client.social_accounts.lead_forms(
-            id="id",
-            account_id="account_id",
-        )
-        """
-        _response = self._raw_client.lead_forms(id, account_id=account_id, request_options=request_options)
         return _response.data
 
     def partners(
@@ -356,7 +315,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -408,7 +367,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -457,7 +416,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -470,65 +429,6 @@ class SocialAccountsClient:
             id, partner_id, account_id=account_id, request_options=request_options
         )
         return _response.data
-
-    def posts(
-        self,
-        id: str,
-        *,
-        account_id: str,
-        post_id: typing.Optional[str] = None,
-        first: typing.Optional[int] = None,
-        after: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> SyncPager[SocialAccountPost, PostsSocialAccountsResponse]:
-        """
-        Deprecated compatibility endpoint. List posts with `GET /external_accounts/{id}/posts` instead.
-
-        Parameters
-        ----------
-        id : str
-            The social account (a sacc_ identifier) whose posts to list.
-
-        account_id : str
-
-        post_id : typing.Optional[str]
-
-        first : typing.Optional[int]
-            Number of results to return from the start of the range.
-
-        after : typing.Optional[str]
-            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        SyncPager[SocialAccountPost, PostsSocialAccountsResponse]
-            posts listed through the deprecated path
-
-        Examples
-        --------
-        from whop_sdk import Whop
-
-        client = Whop(
-            "2026-10-29-1",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-        response = client.social_accounts.posts(
-            id="id",
-            account_id="account_id",
-        )
-        for item in response:
-            yield item
-        # alternatively, you can paginate page-by-page
-        for page in response.iter_pages():
-            yield page
-        """
-        return self._raw_client.posts(
-            id, account_id=account_id, post_id=post_id, first=first, after=after, request_options=request_options
-        )
 
     def refresh(
         self,
@@ -561,7 +461,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -663,7 +563,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -723,7 +623,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk.social_accounts import CreateSocialAccountsRequestBody_Facebook
 
         client = AsyncWhop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -781,7 +681,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -840,7 +740,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -857,52 +757,6 @@ class AsyncSocialAccountsClient:
         _response = await self._raw_client.delete(
             id, account_id=account_id, user_id=user_id, request_options=request_options
         )
-        return _response.data
-
-    async def lead_forms(
-        self, id: str, *, account_id: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> LeadFormsSocialAccountsResponse:
-        """
-        Deprecated compatibility endpoint. List lead forms with `GET /external_accounts/{id}/lead_forms` instead.
-
-        Parameters
-        ----------
-        id : str
-            The social account (a sacc_ identifier) whose lead forms to list.
-
-        account_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        LeadFormsSocialAccountsResponse
-            lead forms listed through the deprecated path
-
-        Examples
-        --------
-        import asyncio
-
-        from whop_sdk import AsyncWhop
-
-        client = AsyncWhop(
-            "2026-10-29-1",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            await client.social_accounts.lead_forms(
-                id="id",
-                account_id="account_id",
-            )
-
-
-        asyncio.run(main())
-        """
-        _response = await self._raw_client.lead_forms(id, account_id=account_id, request_options=request_options)
         return _response.data
 
     async def partners(
@@ -946,7 +800,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1007,7 +861,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1064,7 +918,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1083,74 +937,6 @@ class AsyncSocialAccountsClient:
             id, partner_id, account_id=account_id, request_options=request_options
         )
         return _response.data
-
-    async def posts(
-        self,
-        id: str,
-        *,
-        account_id: str,
-        post_id: typing.Optional[str] = None,
-        first: typing.Optional[int] = None,
-        after: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncPager[SocialAccountPost, PostsSocialAccountsResponse]:
-        """
-        Deprecated compatibility endpoint. List posts with `GET /external_accounts/{id}/posts` instead.
-
-        Parameters
-        ----------
-        id : str
-            The social account (a sacc_ identifier) whose posts to list.
-
-        account_id : str
-
-        post_id : typing.Optional[str]
-
-        first : typing.Optional[int]
-            Number of results to return from the start of the range.
-
-        after : typing.Optional[str]
-            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncPager[SocialAccountPost, PostsSocialAccountsResponse]
-            posts listed through the deprecated path
-
-        Examples
-        --------
-        import asyncio
-
-        from whop_sdk import AsyncWhop
-
-        client = AsyncWhop(
-            "2026-10-29-1",
-            idempotency_key="YOUR_IDEMPOTENCY_KEY",
-            token="YOUR_TOKEN",
-        )
-
-
-        async def main() -> None:
-            response = await client.social_accounts.posts(
-                id="id",
-                account_id="account_id",
-            )
-            async for item in response:
-                yield item
-
-            # alternatively, you can paginate page-by-page
-            async for page in response.iter_pages():
-                yield page
-
-
-        asyncio.run(main())
-        """
-        return await self._raw_client.posts(
-            id, account_id=account_id, post_id=post_id, first=first, after=after, request_options=request_options
-        )
 
     async def refresh(
         self,
@@ -1185,7 +971,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-1",
+            "2026-10-29-2",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

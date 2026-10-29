@@ -14,13 +14,11 @@ from ..core.request_options import RequestOptions
 from ..core.serialization import convert_and_respect_annotation_metadata
 from ..errors.conflict_error import ConflictError
 from ..types.social_account import SocialAccount
-from ..types.social_account_post import SocialAccountPost
 from .types.connect_social_accounts_request_platform import ConnectSocialAccountsRequestPlatform
 from .types.connect_social_accounts_request_scopes_item import ConnectSocialAccountsRequestScopesItem
 from .types.connect_social_accounts_response import ConnectSocialAccountsResponse
 from .types.create_social_accounts_request_body import CreateSocialAccountsRequestBody
 from .types.delete_social_accounts_response import DeleteSocialAccountsResponse
-from .types.lead_forms_social_accounts_response import LeadFormsSocialAccountsResponse
 from .types.list_social_accounts_request_direction import ListSocialAccountsRequestDirection
 from .types.list_social_accounts_request_order import ListSocialAccountsRequestOrder
 from .types.list_social_accounts_request_platform import ListSocialAccountsRequestPlatform
@@ -28,7 +26,6 @@ from .types.list_social_accounts_request_scopes_item import ListSocialAccountsRe
 from .types.list_social_accounts_request_trust_level import ListSocialAccountsRequestTrustLevel
 from .types.list_social_accounts_response import ListSocialAccountsResponse
 from .types.partners_social_accounts_response import PartnersSocialAccountsResponse
-from .types.posts_social_accounts_response import PostsSocialAccountsResponse
 from .types.remove_partner_social_accounts_response import RemovePartnerSocialAccountsResponse
 from pydantic import ValidationError
 
@@ -363,55 +360,6 @@ class RawSocialAccountsClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    def lead_forms(
-        self, id: str, *, account_id: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> HttpResponse[LeadFormsSocialAccountsResponse]:
-        """
-        Deprecated compatibility endpoint. List lead forms with `GET /external_accounts/{id}/lead_forms` instead.
-
-        Parameters
-        ----------
-        id : str
-            The social account (a sacc_ identifier) whose lead forms to list.
-
-        account_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        HttpResponse[LeadFormsSocialAccountsResponse]
-            lead forms listed through the deprecated path
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"social_accounts/{encode_path_param(id)}/lead_forms",
-            base_url=self._client_wrapper.get_environment().api,
-            method="GET",
-            params={
-                "account_id": account_id,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    LeadFormsSocialAccountsResponse,
-                    parse_obj_as(
-                        type_=LeadFormsSocialAccountsResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return HttpResponse(response=_response, data=_data)
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
     def partners(
         self,
         id: str,
@@ -612,87 +560,6 @@ class RawSocialAccountsClient:
                     ),
                 )
                 return HttpResponse(response=_response, data=_data)
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    def posts(
-        self,
-        id: str,
-        *,
-        account_id: str,
-        post_id: typing.Optional[str] = None,
-        first: typing.Optional[int] = None,
-        after: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> SyncPager[SocialAccountPost, PostsSocialAccountsResponse]:
-        """
-        Deprecated compatibility endpoint. List posts with `GET /external_accounts/{id}/posts` instead.
-
-        Parameters
-        ----------
-        id : str
-            The social account (a sacc_ identifier) whose posts to list.
-
-        account_id : str
-
-        post_id : typing.Optional[str]
-
-        first : typing.Optional[int]
-            Number of results to return from the start of the range.
-
-        after : typing.Optional[str]
-            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        SyncPager[SocialAccountPost, PostsSocialAccountsResponse]
-            posts listed through the deprecated path
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            f"social_accounts/{encode_path_param(id)}/posts",
-            base_url=self._client_wrapper.get_environment().api,
-            method="GET",
-            params={
-                "account_id": account_id,
-                "post_id": post_id,
-                "first": first,
-                "after": after,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _parsed_response = typing.cast(
-                    PostsSocialAccountsResponse,
-                    parse_obj_as(
-                        type_=PostsSocialAccountsResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                _items = _parsed_response.data
-                _has_next = False
-                _get_next = None
-                if _parsed_response.page_info is not None:
-                    _parsed_next = _parsed_response.page_info.end_cursor
-                    _has_next = _parsed_next is not None and _parsed_next != ""
-                    _get_next = lambda: self.posts(
-                        id,
-                        account_id=account_id,
-                        post_id=post_id,
-                        first=first,
-                        after=_parsed_next,
-                        request_options=request_options,
-                    )
-                return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
@@ -1102,55 +969,6 @@ class AsyncRawSocialAccountsClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
-    async def lead_forms(
-        self, id: str, *, account_id: str, request_options: typing.Optional[RequestOptions] = None
-    ) -> AsyncHttpResponse[LeadFormsSocialAccountsResponse]:
-        """
-        Deprecated compatibility endpoint. List lead forms with `GET /external_accounts/{id}/lead_forms` instead.
-
-        Parameters
-        ----------
-        id : str
-            The social account (a sacc_ identifier) whose lead forms to list.
-
-        account_id : str
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncHttpResponse[LeadFormsSocialAccountsResponse]
-            lead forms listed through the deprecated path
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"social_accounts/{encode_path_param(id)}/lead_forms",
-            base_url=self._client_wrapper.get_environment().api,
-            method="GET",
-            params={
-                "account_id": account_id,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _data = typing.cast(
-                    LeadFormsSocialAccountsResponse,
-                    parse_obj_as(
-                        type_=LeadFormsSocialAccountsResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                return AsyncHttpResponse(response=_response, data=_data)
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
     async def partners(
         self,
         id: str,
@@ -1354,90 +1172,6 @@ class AsyncRawSocialAccountsClient:
                     ),
                 )
                 return AsyncHttpResponse(response=_response, data=_data)
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
-        except ValidationError as e:
-            raise ParsingError(
-                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
-            )
-        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
-
-    async def posts(
-        self,
-        id: str,
-        *,
-        account_id: str,
-        post_id: typing.Optional[str] = None,
-        first: typing.Optional[int] = None,
-        after: typing.Optional[str] = None,
-        request_options: typing.Optional[RequestOptions] = None,
-    ) -> AsyncPager[SocialAccountPost, PostsSocialAccountsResponse]:
-        """
-        Deprecated compatibility endpoint. List posts with `GET /external_accounts/{id}/posts` instead.
-
-        Parameters
-        ----------
-        id : str
-            The social account (a sacc_ identifier) whose posts to list.
-
-        account_id : str
-
-        post_id : typing.Optional[str]
-
-        first : typing.Optional[int]
-            Number of results to return from the start of the range.
-
-        after : typing.Optional[str]
-            Return results after this cursor. Use `page_info.end_cursor` from the previous response to fetch the next page.
-
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        AsyncPager[SocialAccountPost, PostsSocialAccountsResponse]
-            posts listed through the deprecated path
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            f"social_accounts/{encode_path_param(id)}/posts",
-            base_url=self._client_wrapper.get_environment().api,
-            method="GET",
-            params={
-                "account_id": account_id,
-                "post_id": post_id,
-                "first": first,
-                "after": after,
-            },
-            request_options=request_options,
-        )
-        try:
-            if 200 <= _response.status_code < 300:
-                _parsed_response = typing.cast(
-                    PostsSocialAccountsResponse,
-                    parse_obj_as(
-                        type_=PostsSocialAccountsResponse,  # type: ignore
-                        object_=_response.json(),
-                    ),
-                )
-                _items = _parsed_response.data
-                _has_next = False
-                _get_next = None
-                if _parsed_response.page_info is not None:
-                    _parsed_next = _parsed_response.page_info.end_cursor
-                    _has_next = _parsed_next is not None and _parsed_next != ""
-
-                    async def _get_next():
-                        return await self.posts(
-                            id,
-                            account_id=account_id,
-                            post_id=post_id,
-                            first=first,
-                            after=_parsed_next,
-                            request_options=request_options,
-                        )
-
-                return AsyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)

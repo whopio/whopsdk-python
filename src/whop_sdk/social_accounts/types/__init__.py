@@ -21,7 +21,6 @@ if typing.TYPE_CHECKING:
     from .create_social_accounts_request_body_klaviyo import CreateSocialAccountsRequestBodyKlaviyo
     from .create_social_accounts_request_body_tiktok import CreateSocialAccountsRequestBodyTiktok
     from .delete_social_accounts_response import DeleteSocialAccountsResponse
-    from .lead_forms_social_accounts_response import LeadFormsSocialAccountsResponse
     from .list_social_accounts_request_direction import ListSocialAccountsRequestDirection
     from .list_social_accounts_request_order import ListSocialAccountsRequestOrder
     from .list_social_accounts_request_platform import ListSocialAccountsRequestPlatform
@@ -31,8 +30,6 @@ if typing.TYPE_CHECKING:
     from .list_social_accounts_response_page_info import ListSocialAccountsResponsePageInfo
     from .partners_social_accounts_response import PartnersSocialAccountsResponse
     from .partners_social_accounts_response_page_info import PartnersSocialAccountsResponsePageInfo
-    from .posts_social_accounts_response import PostsSocialAccountsResponse
-    from .posts_social_accounts_response_page_info import PostsSocialAccountsResponsePageInfo
     from .remove_partner_social_accounts_response import RemovePartnerSocialAccountsResponse
 _dynamic_imports: typing.Dict[str, str] = {
     "ConnectSocialAccountsRequestPlatform": ".connect_social_accounts_request_platform",
@@ -48,7 +45,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateSocialAccountsRequestBody_Klaviyo": ".create_social_accounts_request_body",
     "CreateSocialAccountsRequestBody_Tiktok": ".create_social_accounts_request_body",
     "DeleteSocialAccountsResponse": ".delete_social_accounts_response",
-    "LeadFormsSocialAccountsResponse": ".lead_forms_social_accounts_response",
     "ListSocialAccountsRequestDirection": ".list_social_accounts_request_direction",
     "ListSocialAccountsRequestOrder": ".list_social_accounts_request_order",
     "ListSocialAccountsRequestPlatform": ".list_social_accounts_request_platform",
@@ -58,8 +54,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListSocialAccountsResponsePageInfo": ".list_social_accounts_response_page_info",
     "PartnersSocialAccountsResponse": ".partners_social_accounts_response",
     "PartnersSocialAccountsResponsePageInfo": ".partners_social_accounts_response_page_info",
-    "PostsSocialAccountsResponse": ".posts_social_accounts_response",
-    "PostsSocialAccountsResponsePageInfo": ".posts_social_accounts_response_page_info",
     "RemovePartnerSocialAccountsResponse": ".remove_partner_social_accounts_response",
 }
 
@@ -99,7 +93,6 @@ __all__ = [
     "CreateSocialAccountsRequestBody_Klaviyo",
     "CreateSocialAccountsRequestBody_Tiktok",
     "DeleteSocialAccountsResponse",
-    "LeadFormsSocialAccountsResponse",
     "ListSocialAccountsRequestDirection",
     "ListSocialAccountsRequestOrder",
     "ListSocialAccountsRequestPlatform",
@@ -109,7 +102,5 @@ __all__ = [
     "ListSocialAccountsResponsePageInfo",
     "PartnersSocialAccountsResponse",
     "PartnersSocialAccountsResponsePageInfo",
-    "PostsSocialAccountsResponse",
-    "PostsSocialAccountsResponsePageInfo",
     "RemovePartnerSocialAccountsResponse",
 ]
