@@ -4,20 +4,12 @@ import typing
 
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .update_ad_conversion_value_rules_request_targets_item_platform import (
-    UpdateAdConversionValueRulesRequestTargetsItemPlatform,
-)
 from .update_ad_conversion_value_rules_request_targets_item_scope import (
     UpdateAdConversionValueRulesRequestTargetsItemScope,
 )
 
 
 class UpdateAdConversionValueRulesRequestTargetsItem(UniversalBaseModel):
-    platform: typing.Optional[UpdateAdConversionValueRulesRequestTargetsItemPlatform] = pydantic.Field(default=None)
-    """
-    Limits the target to one network. Omit it to cover every network Whop runs the target on.
-    """
-
     resource_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     Campaign, ad group, or ad ID. Null for a business target.

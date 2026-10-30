@@ -13,7 +13,6 @@ if typing.TYPE_CHECKING:
         CreateAdConversionValueRulesRequestFixedValue,
         CreateAdConversionValueRulesRequestStatus,
         CreateAdConversionValueRulesRequestTargetsItem,
-        CreateAdConversionValueRulesRequestTargetsItemPlatform,
         CreateAdConversionValueRulesRequestTargetsItemScope,
         DeleteAdConversionValueRulesResponse,
         ListAdConversionValueRulesRequestDirection,
@@ -27,7 +26,6 @@ if typing.TYPE_CHECKING:
         UpdateAdConversionValueRulesRequestEventsItemEventName,
         UpdateAdConversionValueRulesRequestFixedValue,
         UpdateAdConversionValueRulesRequestTargetsItem,
-        UpdateAdConversionValueRulesRequestTargetsItemPlatform,
         UpdateAdConversionValueRulesRequestTargetsItemScope,
     )
 _dynamic_imports: typing.Dict[str, str] = {
@@ -37,7 +35,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateAdConversionValueRulesRequestFixedValue": ".types",
     "CreateAdConversionValueRulesRequestStatus": ".types",
     "CreateAdConversionValueRulesRequestTargetsItem": ".types",
-    "CreateAdConversionValueRulesRequestTargetsItemPlatform": ".types",
     "CreateAdConversionValueRulesRequestTargetsItemScope": ".types",
     "DeleteAdConversionValueRulesResponse": ".types",
     "ListAdConversionValueRulesRequestDirection": ".types",
@@ -51,7 +48,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateAdConversionValueRulesRequestEventsItemEventName": ".types",
     "UpdateAdConversionValueRulesRequestFixedValue": ".types",
     "UpdateAdConversionValueRulesRequestTargetsItem": ".types",
-    "UpdateAdConversionValueRulesRequestTargetsItemPlatform": ".types",
     "UpdateAdConversionValueRulesRequestTargetsItemScope": ".types",
 }
 
@@ -84,7 +80,6 @@ __all__ = [
     "CreateAdConversionValueRulesRequestFixedValue",
     "CreateAdConversionValueRulesRequestStatus",
     "CreateAdConversionValueRulesRequestTargetsItem",
-    "CreateAdConversionValueRulesRequestTargetsItemPlatform",
     "CreateAdConversionValueRulesRequestTargetsItemScope",
     "DeleteAdConversionValueRulesResponse",
     "ListAdConversionValueRulesRequestDirection",
@@ -98,6 +93,5 @@ __all__ = [
     "UpdateAdConversionValueRulesRequestEventsItemEventName",
     "UpdateAdConversionValueRulesRequestFixedValue",
     "UpdateAdConversionValueRulesRequestTargetsItem",
-    "UpdateAdConversionValueRulesRequestTargetsItemPlatform",
     "UpdateAdConversionValueRulesRequestTargetsItemScope",
 ]

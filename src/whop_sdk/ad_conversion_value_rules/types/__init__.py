@@ -16,9 +16,6 @@ if typing.TYPE_CHECKING:
     from .create_ad_conversion_value_rules_request_fixed_value import CreateAdConversionValueRulesRequestFixedValue
     from .create_ad_conversion_value_rules_request_status import CreateAdConversionValueRulesRequestStatus
     from .create_ad_conversion_value_rules_request_targets_item import CreateAdConversionValueRulesRequestTargetsItem
-    from .create_ad_conversion_value_rules_request_targets_item_platform import (
-        CreateAdConversionValueRulesRequestTargetsItemPlatform,
-    )
     from .create_ad_conversion_value_rules_request_targets_item_scope import (
         CreateAdConversionValueRulesRequestTargetsItemScope,
     )
@@ -38,9 +35,6 @@ if typing.TYPE_CHECKING:
     )
     from .update_ad_conversion_value_rules_request_fixed_value import UpdateAdConversionValueRulesRequestFixedValue
     from .update_ad_conversion_value_rules_request_targets_item import UpdateAdConversionValueRulesRequestTargetsItem
-    from .update_ad_conversion_value_rules_request_targets_item_platform import (
-        UpdateAdConversionValueRulesRequestTargetsItemPlatform,
-    )
     from .update_ad_conversion_value_rules_request_targets_item_scope import (
         UpdateAdConversionValueRulesRequestTargetsItemScope,
     )
@@ -51,7 +45,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateAdConversionValueRulesRequestFixedValue": ".create_ad_conversion_value_rules_request_fixed_value",
     "CreateAdConversionValueRulesRequestStatus": ".create_ad_conversion_value_rules_request_status",
     "CreateAdConversionValueRulesRequestTargetsItem": ".create_ad_conversion_value_rules_request_targets_item",
-    "CreateAdConversionValueRulesRequestTargetsItemPlatform": ".create_ad_conversion_value_rules_request_targets_item_platform",
     "CreateAdConversionValueRulesRequestTargetsItemScope": ".create_ad_conversion_value_rules_request_targets_item_scope",
     "DeleteAdConversionValueRulesResponse": ".delete_ad_conversion_value_rules_response",
     "ListAdConversionValueRulesRequestDirection": ".list_ad_conversion_value_rules_request_direction",
@@ -65,7 +58,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateAdConversionValueRulesRequestEventsItemEventName": ".update_ad_conversion_value_rules_request_events_item_event_name",
     "UpdateAdConversionValueRulesRequestFixedValue": ".update_ad_conversion_value_rules_request_fixed_value",
     "UpdateAdConversionValueRulesRequestTargetsItem": ".update_ad_conversion_value_rules_request_targets_item",
-    "UpdateAdConversionValueRulesRequestTargetsItemPlatform": ".update_ad_conversion_value_rules_request_targets_item_platform",
     "UpdateAdConversionValueRulesRequestTargetsItemScope": ".update_ad_conversion_value_rules_request_targets_item_scope",
 }
 
@@ -98,7 +90,6 @@ __all__ = [
     "CreateAdConversionValueRulesRequestFixedValue",
     "CreateAdConversionValueRulesRequestStatus",
     "CreateAdConversionValueRulesRequestTargetsItem",
-    "CreateAdConversionValueRulesRequestTargetsItemPlatform",
     "CreateAdConversionValueRulesRequestTargetsItemScope",
     "DeleteAdConversionValueRulesResponse",
     "ListAdConversionValueRulesRequestDirection",
@@ -112,6 +103,5 @@ __all__ = [
     "UpdateAdConversionValueRulesRequestEventsItemEventName",
     "UpdateAdConversionValueRulesRequestFixedValue",
     "UpdateAdConversionValueRulesRequestTargetsItem",
-    "UpdateAdConversionValueRulesRequestTargetsItemPlatform",
     "UpdateAdConversionValueRulesRequestTargetsItemScope",
 ]

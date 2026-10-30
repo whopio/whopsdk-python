@@ -4,16 +4,10 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .ad_conversion_value_rule_target_platform import AdConversionValueRuleTargetPlatform
 from .ad_conversion_value_rule_target_scope import AdConversionValueRuleTargetScope
 
 
 class AdConversionValueRuleTarget(UniversalBaseModel):
-    platform: AdConversionValueRuleTargetPlatform = pydantic.Field()
-    """
-    Ad platform that receives the adjusted value.
-    """
-
     resource_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     Selected campaign, ad group, or ad ID. Null for a business target.
