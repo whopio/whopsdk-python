@@ -111,7 +111,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-5",
+            "2026-10-29-8",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -162,7 +162,7 @@ class SocialAccountsClient:
         from whop_sdk.social_accounts import CreateSocialAccountsRequestBody_Facebook
 
         client = Whop(
-            "2026-10-29-5",
+            "2026-10-29-8",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -188,7 +188,7 @@ class SocialAccountsClient:
         Parameters
         ----------
         platform : ConnectSocialAccountsRequestPlatform
-            The platform to connect the external account on. Use `meta_business` to connect Meta Business assets, which is how Facebook Pages and Instagram accounts are connected — there is no separate `instagram` value. Use `tiktok` for TikTok accounts, `snapchat` for Snapchat Public Profiles, `linkedin` to connect the authenticated user’s LinkedIn profile, `youtube` to connect their YouTube channel, or `x` to connect their X profile. Use `quickbooks` to connect the account’s QuickBooks Online company: pass `account_id`, omit `scopes`, and the user picks the company in QuickBooks.
+            The platform to connect the external account on. Use `tiktok` to connect the authenticated user’s TikTok profile, `linkedin` for their LinkedIn profile, `youtube` for their YouTube channel, or `x` for their X profile. Use `snapchat` for Snapchat Public Profiles. Use `quickbooks` to connect the account’s QuickBooks Online company: pass `account_id`, omit `scopes`, and the user picks the company in QuickBooks.
 
         redirect_url : str
             Where to send the user once they finish connecting their accounts. Must be an `https` URL on whop.com; any other host is rejected. On success, the user is redirected with an `external_account_connected` query param naming the platform; if the connection fails, with an `external_account_error` query param instead. The same values also arrive as `social_account_connected` / `social_account_error`.
@@ -197,7 +197,7 @@ class SocialAccountsClient:
             The Account (biz_ identifier) to connect the external account for. An account-scoped API key may omit this to default to its own account. Omit for user profile connections.
 
         scopes : typing.Optional[typing.Sequence[ConnectSocialAccountsRequestScopesItem]]
-            The connection purpose. For `meta_business` and `snapchat`, `advertise` is required and connects company advertising assets. For `linkedin`, `youtube`, and `x`, omit scopes to connect the authenticated user’s profile; advertising is not supported. For `tiktok`, omit scopes to connect the authenticated user’s profile, or pass `advertise` to connect company advertising assets. For `quickbooks`, omit scopes; the connection belongs to the account in `account_id`. Profile connections still request the platform permissions needed to read the profile.
+            The connection purpose. For `snapchat`, `advertise` is required and connects company advertising assets. For `linkedin`, `tiktok`, `youtube`, and `x`, omit scopes to connect the authenticated user’s profile. For `quickbooks`, omit scopes; the connection belongs to the account in `account_id`. Profile connections still request the platform permissions needed to read the profile.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -212,12 +212,12 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-5",
+            "2026-10-29-8",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.social_accounts.connect(
-            platform="meta_business",
+            platform="tiktok",
             redirect_url="https://whop.com/dashboard/biz_xxxxxxxxxxxxxx/ads/settings",
         )
         """
@@ -263,7 +263,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-5",
+            "2026-10-29-8",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -305,7 +305,7 @@ class SocialAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-5",
+            "2026-10-29-8",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -407,7 +407,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-5",
+            "2026-10-29-8",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -467,7 +467,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk.social_accounts import CreateSocialAccountsRequestBody_Facebook
 
         client = AsyncWhop(
-            "2026-10-29-5",
+            "2026-10-29-8",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -499,7 +499,7 @@ class AsyncSocialAccountsClient:
         Parameters
         ----------
         platform : ConnectSocialAccountsRequestPlatform
-            The platform to connect the external account on. Use `meta_business` to connect Meta Business assets, which is how Facebook Pages and Instagram accounts are connected — there is no separate `instagram` value. Use `tiktok` for TikTok accounts, `snapchat` for Snapchat Public Profiles, `linkedin` to connect the authenticated user’s LinkedIn profile, `youtube` to connect their YouTube channel, or `x` to connect their X profile. Use `quickbooks` to connect the account’s QuickBooks Online company: pass `account_id`, omit `scopes`, and the user picks the company in QuickBooks.
+            The platform to connect the external account on. Use `tiktok` to connect the authenticated user’s TikTok profile, `linkedin` for their LinkedIn profile, `youtube` for their YouTube channel, or `x` for their X profile. Use `snapchat` for Snapchat Public Profiles. Use `quickbooks` to connect the account’s QuickBooks Online company: pass `account_id`, omit `scopes`, and the user picks the company in QuickBooks.
 
         redirect_url : str
             Where to send the user once they finish connecting their accounts. Must be an `https` URL on whop.com; any other host is rejected. On success, the user is redirected with an `external_account_connected` query param naming the platform; if the connection fails, with an `external_account_error` query param instead. The same values also arrive as `social_account_connected` / `social_account_error`.
@@ -508,7 +508,7 @@ class AsyncSocialAccountsClient:
             The Account (biz_ identifier) to connect the external account for. An account-scoped API key may omit this to default to its own account. Omit for user profile connections.
 
         scopes : typing.Optional[typing.Sequence[ConnectSocialAccountsRequestScopesItem]]
-            The connection purpose. For `meta_business` and `snapchat`, `advertise` is required and connects company advertising assets. For `linkedin`, `youtube`, and `x`, omit scopes to connect the authenticated user’s profile; advertising is not supported. For `tiktok`, omit scopes to connect the authenticated user’s profile, or pass `advertise` to connect company advertising assets. For `quickbooks`, omit scopes; the connection belongs to the account in `account_id`. Profile connections still request the platform permissions needed to read the profile.
+            The connection purpose. For `snapchat`, `advertise` is required and connects company advertising assets. For `linkedin`, `tiktok`, `youtube`, and `x`, omit scopes to connect the authenticated user’s profile. For `quickbooks`, omit scopes; the connection belongs to the account in `account_id`. Profile connections still request the platform permissions needed to read the profile.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -525,7 +525,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-5",
+            "2026-10-29-8",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -533,7 +533,7 @@ class AsyncSocialAccountsClient:
 
         async def main() -> None:
             await client.social_accounts.connect(
-                platform="meta_business",
+                platform="tiktok",
                 redirect_url="https://whop.com/dashboard/biz_xxxxxxxxxxxxxx/ads/settings",
             )
 
@@ -584,7 +584,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-5",
+            "2026-10-29-8",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -636,7 +636,7 @@ class AsyncSocialAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-5",
+            "2026-10-29-8",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
