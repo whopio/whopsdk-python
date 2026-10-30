@@ -4,6 +4,8 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .account_processing_offer_level import AccountProcessingOfferLevel
+from .money import Money
 from .owner_level_points import OwnerLevelPoints
 
 
@@ -16,6 +18,27 @@ class AccountLevel(UniversalBaseModel):
     current: int = pydantic.Field()
     """
     Current level, from `0` before the first threshold up to `10`.
+    """
+
+    levels: typing.List[AccountProcessingOfferLevel]
+    monthly_ads_spend: Money = pydantic.Field()
+    """
+    Charged Whop Ads spend this calendar month across every account the owner owns, in USD.
+    """
+
+    monthly_card_spend: Money = pydantic.Field()
+    """
+    Effective Whop Card spend this calendar month across every account the owner owns, in USD.
+    """
+
+    monthly_qualifying_spend: Money = pydantic.Field()
+    """
+    Qualifying spend this calendar month across every account the owner owns, in USD: Whop Ads spend, Whop Card spend, and a tenth of perpetual trading volume.
+    """
+
+    monthly_trading_volume: Money = pydantic.Field()
+    """
+    Perpetual trading notional volume this calendar month across every account the owner owns, in USD.
     """
 
     points: int = pydantic.Field()
@@ -31,6 +54,11 @@ class AccountLevel(UniversalBaseModel):
     points_to_next: typing.Optional[int] = pydantic.Field(default=None)
     """
     Points still needed this month to reach the next level, or `null` at level `10`.
+    """
+
+    processing_rate_percentage: float = pydantic.Field()
+    """
+    The standard US and Canada card processing percentage at `current`, before any account's custom rate.
     """
 
     resets_at: str = pydantic.Field()
