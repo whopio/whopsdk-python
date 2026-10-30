@@ -35,6 +35,7 @@ if typing.TYPE_CHECKING:
     from .create_payments_request_payment_method_card_present_platform import (
         CreatePaymentsRequestPaymentMethodCardPresentPlatform,
     )
+    from .create_payments_request_payment_method_paypal import CreatePaymentsRequestPaymentMethodPaypal
     from .create_payments_request_payment_method_type import CreatePaymentsRequestPaymentMethodType
     from .create_payments_request_setup_future_usage import CreatePaymentsRequestSetupFutureUsage
     from .create_payments_request_shipping_address import CreatePaymentsRequestShippingAddress
@@ -98,6 +99,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreatePaymentsRequestPaymentMethod": ".create_payments_request_payment_method",
     "CreatePaymentsRequestPaymentMethodCardPresent": ".create_payments_request_payment_method_card_present",
     "CreatePaymentsRequestPaymentMethodCardPresentPlatform": ".create_payments_request_payment_method_card_present_platform",
+    "CreatePaymentsRequestPaymentMethodPaypal": ".create_payments_request_payment_method_paypal",
     "CreatePaymentsRequestPaymentMethodType": ".create_payments_request_payment_method_type",
     "CreatePaymentsRequestSetupFutureUsage": ".create_payments_request_setup_future_usage",
     "CreatePaymentsRequestShippingAddress": ".create_payments_request_shipping_address",
@@ -185,6 +187,7 @@ __all__ = [
     "CreatePaymentsRequestPaymentMethod",
     "CreatePaymentsRequestPaymentMethodCardPresent",
     "CreatePaymentsRequestPaymentMethodCardPresentPlatform",
+    "CreatePaymentsRequestPaymentMethodPaypal",
     "CreatePaymentsRequestPaymentMethodType",
     "CreatePaymentsRequestSetupFutureUsage",
     "CreatePaymentsRequestShippingAddress",

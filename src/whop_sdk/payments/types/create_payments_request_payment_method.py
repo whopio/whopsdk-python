@@ -5,6 +5,7 @@ import typing
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .create_payments_request_payment_method_card_present import CreatePaymentsRequestPaymentMethodCardPresent
+from .create_payments_request_payment_method_paypal import CreatePaymentsRequestPaymentMethodPaypal
 from .create_payments_request_payment_method_type import CreatePaymentsRequestPaymentMethodType
 
 
@@ -16,6 +17,11 @@ class CreatePaymentsRequestPaymentMethod(UniversalBaseModel):
     card_present: typing.Optional[CreatePaymentsRequestPaymentMethodCardPresent] = pydantic.Field(default=None)
     """
     Required when `type` is `card_present`.
+    """
+
+    paypal: typing.Optional[CreatePaymentsRequestPaymentMethodPaypal] = pydantic.Field(default=None)
+    """
+    Options for a `paypal` payment method.
     """
 
     type: CreatePaymentsRequestPaymentMethodType = pydantic.Field()
