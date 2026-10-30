@@ -57,6 +57,11 @@ class RetrievePreferencesResponse(UniversalBaseModel):
     The account's Triple Whale integration, which pushes Whop ad spend to Triple Whale's Data-In API so it reports as a `whop` channel. Available to any Triple Whale customer — Shopify, WooCommerce, or a custom checkout — by setting `shop_domain`. Requires the `ad_campaign:create` scope. Once connected, ad click-through URLs Whop serves carry `tw_source=whop` and `tw_adid=<ad id>` query parameters so Triple Whale's pixel attributes conversions back to the originating ad — no destination URL changes are needed.
     """
 
+    buyer_fee_percentage: typing.Optional[float] = pydantic.Field(default=None)
+    """
+    The fee added to every checkout as a percentage of the price, such as `7.5` for 7.5%, which the account keeps. Whop waives its take rate on sales that carry it. At least 5, with at most two decimal places. Some payment methods, such as buy now, pay later and crypto, don't carry it, and a subscription keeps the rate it started with. `null` when the account charges none.
+    """
+
     cards_auto_top_up: bool = pydantic.Field()
     """
     Whether incoming funds are automatically moved to the account's cards balance. `false` when the account has no cards balance.
