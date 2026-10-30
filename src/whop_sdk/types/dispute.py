@@ -73,7 +73,12 @@ class Dispute(UniversalBaseModel):
 
     fee: typing.Optional[Money] = pydantic.Field(default=None)
     """
-    The dispute fee charged to the seller, in the currency it was collected in. `null` when no fee was charged, such as for an inquiry or a Visa RDR resolution.
+    The dispute fee charged to the account, in the currency it was collected in. `null` when `fee_charged` is false.
+    """
+
+    fee_charged: bool = pydantic.Field()
+    """
+    Whether Whop charged the account a dispute fee for this one. `false` when the payment was fully refunded before the dispute was opened, for a Visa RDR resolution, and for an inquiry.
     """
 
     id: str = pydantic.Field()
