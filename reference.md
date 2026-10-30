@@ -53826,7 +53826,7 @@ client.users.oauth_grants.create(
     client_id="app_xxxxxxxxxxxxxx",
     redirect_uri="https://Booking.Shinetime.example:8443/oauth/Callback/",
     requested_scopes=[
-        "profile"
+        "openid"
     ],
 )
 
