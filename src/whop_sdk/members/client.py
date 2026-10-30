@@ -20,6 +20,8 @@ from .types.list_members_response import ListMembersResponse
 if typing.TYPE_CHECKING:
     from .logs.client import AsyncLogsClient, LogsClient
     from .notes.client import AsyncNotesClient, NotesClient
+# this is used as the default value for optional parameters
+OMIT = typing.cast(typing.Any, ...)
 
 
 class MembersClient:
@@ -208,6 +210,44 @@ class MembersClient:
         )
         """
         _response = self._raw_client.retrieve(id, request_options=request_options)
+        return _response.data
+
+    def update(
+        self, id: str, *, name: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
+    ) -> Member:
+        """
+        Sets the name the account uses for a member. Every invoice for this member shows it as the customer name, paid invoices included, in place of the user's own name. It does not change the user's Whop profile.
+
+        Parameters
+        ----------
+        id : str
+            Member ID (`mber_` tag).
+
+        name : typing.Optional[str]
+            The customer name to show on this member's invoices, at most 255 bytes. Leading and trailing spaces are trimmed. `null` or a blank string clears it, so invoices show the user's own name again.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Member
+            member updated
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-10-29-8",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.members.update(
+            id="id",
+        )
+        """
+        _response = self._raw_client.update(id, name=name, request_options=request_options)
         return _response.data
 
     @property
@@ -430,6 +470,52 @@ class AsyncMembersClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.retrieve(id, request_options=request_options)
+        return _response.data
+
+    async def update(
+        self, id: str, *, name: typing.Optional[str] = OMIT, request_options: typing.Optional[RequestOptions] = None
+    ) -> Member:
+        """
+        Sets the name the account uses for a member. Every invoice for this member shows it as the customer name, paid invoices included, in place of the user's own name. It does not change the user's Whop profile.
+
+        Parameters
+        ----------
+        id : str
+            Member ID (`mber_` tag).
+
+        name : typing.Optional[str]
+            The customer name to show on this member's invoices, at most 255 bytes. Leading and trailing spaces are trimmed. `null` or a blank string clears it, so invoices show the user's own name again.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Member
+            member updated
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-10-29-8",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.members.update(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.update(id, name=name, request_options=request_options)
         return _response.data
 
     @property
