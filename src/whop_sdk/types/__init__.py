@@ -545,7 +545,6 @@ if typing.TYPE_CHECKING:
     from .external_account import ExternalAccount
     from .external_account_parent import ExternalAccountParent
     from .external_account_parent_platform import ExternalAccountParentPlatform
-    from .external_account_partnership_status import ExternalAccountPartnershipStatus
     from .external_account_platform import ExternalAccountPlatform
     from .fee_markup import FeeMarkup
     from .fee_markup_list_item import FeeMarkupListItem
@@ -1394,7 +1393,6 @@ if typing.TYPE_CHECKING:
     from .social_account import SocialAccount
     from .social_account_parent import SocialAccountParent
     from .social_account_parent_platform import SocialAccountParentPlatform
-    from .social_account_partnership_status import SocialAccountPartnershipStatus
     from .social_account_platform import SocialAccountPlatform
     from .specific_fee_origins import SpecificFeeOrigins
     from .status import Status
@@ -2051,7 +2049,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ExternalAccount": ".external_account",
     "ExternalAccountParent": ".external_account_parent",
     "ExternalAccountParentPlatform": ".external_account_parent_platform",
-    "ExternalAccountPartnershipStatus": ".external_account_partnership_status",
     "ExternalAccountPlatform": ".external_account_platform",
     "FeeMarkup": ".fee_markup",
     "FeeMarkupListItem": ".fee_markup_list_item",
@@ -2782,7 +2779,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "SocialAccount": ".social_account",
     "SocialAccountParent": ".social_account_parent",
     "SocialAccountParentPlatform": ".social_account_parent_platform",
-    "SocialAccountPartnershipStatus": ".social_account_partnership_status",
     "SocialAccountPlatform": ".social_account_platform",
     "SpecificFeeOrigins": ".specific_fee_origins",
     "Status": ".status",
@@ -3459,7 +3455,6 @@ __all__ = [
     "ExternalAccount",
     "ExternalAccountParent",
     "ExternalAccountParentPlatform",
-    "ExternalAccountPartnershipStatus",
     "ExternalAccountPlatform",
     "FeeMarkup",
     "FeeMarkupListItem",
@@ -4190,7 +4185,6 @@ __all__ = [
     "SocialAccount",
     "SocialAccountParent",
     "SocialAccountParentPlatform",
-    "SocialAccountPartnershipStatus",
     "SocialAccountPlatform",
     "SpecificFeeOrigins",
     "Status",

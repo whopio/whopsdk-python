@@ -5,7 +5,6 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .external_account_parent import ExternalAccountParent
-from .external_account_partnership_status import ExternalAccountPartnershipStatus
 from .external_account_platform import ExternalAccountPlatform
 
 
@@ -35,9 +34,9 @@ class ExternalAccount(UniversalBaseModel):
     The external account this one belongs to on the platform, such as the Facebook page that owns an Instagram account. Null when the external account stands on its own, or when it is a partner.
     """
 
-    partnership_status: typing.Optional[ExternalAccountPartnershipStatus] = pydantic.Field(default=None)
+    partnership_status: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Where a partner creator's permission to run partnership ads stands. `pending` until the creator approves it in the Instagram app, `approved` once they have, and `revoked` once it no longer holds. Null when the external account isn't a partner.
+    Always `null`. Partnership ads are no longer available.
     """
 
     platform: ExternalAccountPlatform = pydantic.Field()
