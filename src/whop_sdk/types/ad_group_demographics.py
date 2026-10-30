@@ -10,7 +10,7 @@ from .ad_group_demographics_gender import AdGroupDemographicsGender
 class AdGroupDemographics(UniversalBaseModel):
     automatic: bool = pydantic.Field()
     """
-    Whether automatic audience targeting is on. When `true`, delivery can reach beyond the ages, genders, and detailed targeting you set, treating them as suggestions.
+    Whether automatic audience targeting is on. When `true`, delivery can reach beyond the ages and genders you set, treating them as suggestions.
     """
 
     gender: AdGroupDemographicsGender = pydantic.Field()
