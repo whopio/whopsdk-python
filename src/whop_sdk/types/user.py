@@ -48,6 +48,11 @@ class User(UniversalBaseModel):
     When the user was created, as an ISO 8601 timestamp
     """
 
+    date_of_birth: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The user's date of birth as an ISO 8601 date, like `1998-04-23`. Populated only on the self view (retrieved with the reserved id `me`) for callers with email-read scope; `null` otherwise, or when the user has not set one.
+    """
+
     earnings_usd: typing.Optional[UserEarnings] = pydantic.Field(default=None)
     """
     The user's gross USD income over time, including a Partner commission breakdown. Populated only on single-user self reads for callers with balance-read scope; `null` otherwise.

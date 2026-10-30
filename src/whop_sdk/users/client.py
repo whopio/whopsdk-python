@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import datetime as dt
 import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
@@ -186,6 +187,7 @@ class UsersClient:
         account_id: typing.Optional[str] = None,
         banner: typing.Optional[UpdateMeUsersRequestBanner] = OMIT,
         bio: typing.Optional[str] = OMIT,
+        date_of_birth: typing.Optional[dt.date] = OMIT,
         name: typing.Optional[str] = OMIT,
         profile_picture: typing.Optional[UpdateMeUsersRequestProfilePicture] = OMIT,
         username: typing.Optional[str] = OMIT,
@@ -202,6 +204,9 @@ class UsersClient:
         banner : typing.Optional[UpdateMeUsersRequestBanner]
 
         bio : typing.Optional[str]
+
+        date_of_birth : typing.Optional[dt.date]
+            The user's date of birth as an ISO 8601 date, like `1998-04-23`. The user must be at least 13. Global profile only; refused with `account_id`.
 
         name : typing.Optional[str]
 
@@ -232,6 +237,7 @@ class UsersClient:
             account_id=account_id,
             banner=banner,
             bio=bio,
+            date_of_birth=date_of_birth,
             name=name,
             profile_picture=profile_picture,
             username=username,
@@ -327,6 +333,7 @@ class UsersClient:
         account_id: typing.Optional[str] = None,
         banner: typing.Optional[UpdateUsersRequestBanner] = OMIT,
         bio: typing.Optional[str] = OMIT,
+        date_of_birth: typing.Optional[dt.date] = OMIT,
         name: typing.Optional[str] = OMIT,
         profile_picture: typing.Optional[UpdateUsersRequestProfilePicture] = OMIT,
         username: typing.Optional[str] = OMIT,
@@ -346,6 +353,9 @@ class UsersClient:
         banner : typing.Optional[UpdateUsersRequestBanner]
 
         bio : typing.Optional[str]
+
+        date_of_birth : typing.Optional[dt.date]
+            The user's date of birth as an ISO 8601 date, like `1998-04-23`. The user must be at least 13. Global profile only; refused with `account_id`.
 
         name : typing.Optional[str]
 
@@ -379,6 +389,7 @@ class UsersClient:
             account_id=account_id,
             banner=banner,
             bio=bio,
+            date_of_birth=date_of_birth,
             name=name,
             profile_picture=profile_picture,
             username=username,
@@ -668,6 +679,7 @@ class AsyncUsersClient:
         account_id: typing.Optional[str] = None,
         banner: typing.Optional[UpdateMeUsersRequestBanner] = OMIT,
         bio: typing.Optional[str] = OMIT,
+        date_of_birth: typing.Optional[dt.date] = OMIT,
         name: typing.Optional[str] = OMIT,
         profile_picture: typing.Optional[UpdateMeUsersRequestProfilePicture] = OMIT,
         username: typing.Optional[str] = OMIT,
@@ -684,6 +696,9 @@ class AsyncUsersClient:
         banner : typing.Optional[UpdateMeUsersRequestBanner]
 
         bio : typing.Optional[str]
+
+        date_of_birth : typing.Optional[dt.date]
+            The user's date of birth as an ISO 8601 date, like `1998-04-23`. The user must be at least 13. Global profile only; refused with `account_id`.
 
         name : typing.Optional[str]
 
@@ -722,6 +737,7 @@ class AsyncUsersClient:
             account_id=account_id,
             banner=banner,
             bio=bio,
+            date_of_birth=date_of_birth,
             name=name,
             profile_picture=profile_picture,
             username=username,
@@ -825,6 +841,7 @@ class AsyncUsersClient:
         account_id: typing.Optional[str] = None,
         banner: typing.Optional[UpdateUsersRequestBanner] = OMIT,
         bio: typing.Optional[str] = OMIT,
+        date_of_birth: typing.Optional[dt.date] = OMIT,
         name: typing.Optional[str] = OMIT,
         profile_picture: typing.Optional[UpdateUsersRequestProfilePicture] = OMIT,
         username: typing.Optional[str] = OMIT,
@@ -844,6 +861,9 @@ class AsyncUsersClient:
         banner : typing.Optional[UpdateUsersRequestBanner]
 
         bio : typing.Optional[str]
+
+        date_of_birth : typing.Optional[dt.date]
+            The user's date of birth as an ISO 8601 date, like `1998-04-23`. The user must be at least 13. Global profile only; refused with `account_id`.
 
         name : typing.Optional[str]
 
@@ -885,6 +905,7 @@ class AsyncUsersClient:
             account_id=account_id,
             banner=banner,
             bio=bio,
+            date_of_birth=date_of_birth,
             name=name,
             profile_picture=profile_picture,
             username=username,
