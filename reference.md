@@ -49261,7 +49261,7 @@ Required scopes depend on the preferences being updated:
 | `cards_auto_top_up`, `cards_notifications`, `covers_connected_account_negative_balances` | `payout:account:update` |
 | `dispute_fighter_enabled` | `payment:dispute` |
 | `economic_intelligence_duration_key`, `economic_intelligence_auto_renew` | `company:update` |
-| `feedback_options`, `customer_tracking`, `buyer_fee_percentage` | `company:manage_checkout` |
+| `feedback_options`, `customer_tracking` | `company:manage_checkout` |
 
 When updating preferences from multiple rows, all corresponding scopes are required for the account.
 </dd>
@@ -49345,14 +49345,6 @@ client.accounts.preferences.update(
 <dd>
 
 **ads_triple_whale_integration:** `typing.Optional[UpdatePreferencesRequestAdsTripleWhaleIntegration]` — Connects or disconnects the Triple Whale integration, or changes the shop it reports to. Requires the `ad_campaign:create` scope on your API key. Connecting requires a `shop_domain` to report spend against.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**buyer_fee_percentage:** `typing.Optional[float]` — Adds a fee to every checkout as a percentage of the price, such as `7.5` for 7.5%, which the account keeps; Whop waives its take rate on sales that carry it. At least 5, up to the most Whop allows for buyer fees, with at most two decimal places. Pass `null` to stop charging it on new purchases; subscriptions keep the rate they started with. Requires the `company:manage_checkout` scope on your API key.
     
 </dd>
 </dl>

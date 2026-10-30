@@ -39,11 +39,6 @@ class AccountPreferences(UniversalBaseModel):
     The account's Triple Whale integration, which pushes Whop ad spend to Triple Whale's Data-In API so it reports as a `whop` channel, and tags ad click-through URLs with `tw_source`/`tw_adid` so Triple Whale's pixel attributes conversions back to the right ad. `status` is `connected`, `not_connected`, or `requires_shop_domain` (Triple Whale keys records by shop, so spend only flows once `shop_domain` is set). `masked_api_key` shows the leading characters of the stored key; the full key is never returned. `shop_domain` is the shop spend is reported for.
     """
 
-    buyer_fee_percentage: typing.Optional[float] = pydantic.Field(default=None)
-    """
-    The fee added to every checkout as a percentage of the price, such as `7.5` for 7.5%, which the account keeps. Whop waives its take rate on sales that carry it. At least 5, with at most two decimal places. Some payment methods, such as buy now, pay later and crypto, don't carry it, and a subscription keeps the rate it started with. `null` when the account charges none.
-    """
-
     cards_auto_top_up: bool = pydantic.Field()
     """
     Whether incoming funds are automatically moved to the account's cards balance. `false` when the account has no cards balance.
