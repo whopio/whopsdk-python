@@ -84,7 +84,7 @@ class DirectClient:
         )
 
         client = Whop(
-            "2026-10-29-4",
+            "2026-10-29-5",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -189,7 +189,7 @@ class AsyncDirectClient:
         )
 
         client = AsyncWhop(
-            "2026-10-29-4",
+            "2026-10-29-5",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
