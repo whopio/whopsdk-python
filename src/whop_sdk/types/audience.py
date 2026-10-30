@@ -28,7 +28,7 @@ class Audience(UniversalBaseModel):
 
     error_message: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Processing error message. `null` unless processing is partial or failed.
+    Why a `pending` audience hasn't started, or why a `partial` or `failed` one isn't fully built. `null` when there is nothing to report.
     """
 
     filters: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
@@ -90,7 +90,7 @@ class Audience(UniversalBaseModel):
 
     status: AudienceStatus = pydantic.Field()
     """
-    Current state of audience creation. `syncing` means Whop is sending matched rows to connected ad accounts. When status is `partial` or `failed`, `error_message` explains what went wrong.
+    Current state of audience creation. `syncing` means Whop is sending matched rows to connected ad accounts. When a `pending` audience is waiting on something, such as an ad account to upload to, `error_message` says what. When status is `partial` or `failed`, `error_message` explains what went wrong.
     """
 
     total_rows: float = pydantic.Field()
