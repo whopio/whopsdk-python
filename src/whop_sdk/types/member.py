@@ -68,6 +68,11 @@ class Member(UniversalBaseModel):
     When `most_recent_action` took effect, as an ISO 8601 timestamp. `null` when `most_recent_action` is `null`.
     """
 
+    name: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The name the account gave this customer with `PATCH /members/:id`. Invoices show it as the customer name on every invoice for this member, in place of the user's own name. `null` when the account has not set one.
+    """
+
     phone_number: typing.Optional[str] = pydantic.Field(default=None)
     """
     The member's phone number: the most recent number collected (or verified) at checkout, otherwise their account number when they have shared one with this seller. `null` without `member:phone:read` on the account, or when there is neither.
