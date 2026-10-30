@@ -105,7 +105,7 @@ class AdConversionValueRulesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -145,7 +145,7 @@ class AdConversionValueRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AdConversionValueRule:
         """
-        Creates one rule covering every selected target and event combination. Active rules cannot overlap for the same platform and event. Customer prices and Whop revenue stay unchanged.
+        Creates one rule covering every selected target and event combination. Active rules cannot overlap for the same target and event. Customer prices and Whop revenue stay unchanged.
 
         Parameters
         ----------
@@ -155,10 +155,10 @@ class AdConversionValueRulesClient:
         adjustment_type : CreateAdConversionValueRulesRequestAdjustmentType
 
         events : typing.Sequence[CreateAdConversionValueRulesRequestEventsItem]
-            Events adjusted on every selected target. Every platform must support every selected event.
+            Events adjusted on every selected target. A network that doesn't support a named custom event leaves it out.
 
         targets : typing.Sequence[CreateAdConversionValueRulesRequestTargetsItem]
-            Targets sharing one scope. Every selected event applies to every target. At most 500 target and event combinations.
+            Targets sharing one scope. Each target covers every network Whop runs it on, and every selected event applies to every target. At most 500 target, network, and event combinations.
 
         fixed_value : typing.Optional[CreateAdConversionValueRulesRequestFixedValue]
 
@@ -190,7 +190,7 @@ class AdConversionValueRulesClient:
         )
 
         client = Whop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -245,7 +245,7 @@ class AdConversionValueRulesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -280,7 +280,7 @@ class AdConversionValueRulesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -315,7 +315,7 @@ class AdConversionValueRulesClient:
         adjustment_type : typing.Optional[UpdateAdConversionValueRulesRequestAdjustmentType]
 
         events : typing.Optional[typing.Sequence[UpdateAdConversionValueRulesRequestEventsItem]]
-            Events adjusted on every selected target. Every platform must support every selected event.
+            Events adjusted on every selected target. A network that doesn't support a named custom event leaves it out.
 
         fixed_value : typing.Optional[UpdateAdConversionValueRulesRequestFixedValue]
 
@@ -328,7 +328,7 @@ class AdConversionValueRulesClient:
             Exact IDs of active rules whose overlapping selections will be replaced. Other selections keep their values; remaining selections may split into separate rules. Broader rules remain as fallbacks for other items. Rules left with no selections are paused. Stale or incomplete conflict selections fail.
 
         targets : typing.Optional[typing.Sequence[UpdateAdConversionValueRulesRequestTargetsItem]]
-            Targets sharing one scope. Every selected event applies to every target. At most 500 target and event combinations.
+            Targets sharing one scope. Each target covers every network Whop runs it on, and every selected event applies to every target. At most 500 target, network, and event combinations.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -343,7 +343,7 @@ class AdConversionValueRulesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -386,7 +386,7 @@ class AdConversionValueRulesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -419,7 +419,7 @@ class AdConversionValueRulesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -507,7 +507,7 @@ class AsyncAdConversionValueRulesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -554,7 +554,7 @@ class AsyncAdConversionValueRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AdConversionValueRule:
         """
-        Creates one rule covering every selected target and event combination. Active rules cannot overlap for the same platform and event. Customer prices and Whop revenue stay unchanged.
+        Creates one rule covering every selected target and event combination. Active rules cannot overlap for the same target and event. Customer prices and Whop revenue stay unchanged.
 
         Parameters
         ----------
@@ -564,10 +564,10 @@ class AsyncAdConversionValueRulesClient:
         adjustment_type : CreateAdConversionValueRulesRequestAdjustmentType
 
         events : typing.Sequence[CreateAdConversionValueRulesRequestEventsItem]
-            Events adjusted on every selected target. Every platform must support every selected event.
+            Events adjusted on every selected target. A network that doesn't support a named custom event leaves it out.
 
         targets : typing.Sequence[CreateAdConversionValueRulesRequestTargetsItem]
-            Targets sharing one scope. Every selected event applies to every target. At most 500 target and event combinations.
+            Targets sharing one scope. Each target covers every network Whop runs it on, and every selected event applies to every target. At most 500 target, network, and event combinations.
 
         fixed_value : typing.Optional[CreateAdConversionValueRulesRequestFixedValue]
 
@@ -601,7 +601,7 @@ class AsyncAdConversionValueRulesClient:
         )
 
         client = AsyncWhop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -666,7 +666,7 @@ class AsyncAdConversionValueRulesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -709,7 +709,7 @@ class AsyncAdConversionValueRulesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -750,7 +750,7 @@ class AsyncAdConversionValueRulesClient:
         adjustment_type : typing.Optional[UpdateAdConversionValueRulesRequestAdjustmentType]
 
         events : typing.Optional[typing.Sequence[UpdateAdConversionValueRulesRequestEventsItem]]
-            Events adjusted on every selected target. Every platform must support every selected event.
+            Events adjusted on every selected target. A network that doesn't support a named custom event leaves it out.
 
         fixed_value : typing.Optional[UpdateAdConversionValueRulesRequestFixedValue]
 
@@ -763,7 +763,7 @@ class AsyncAdConversionValueRulesClient:
             Exact IDs of active rules whose overlapping selections will be replaced. Other selections keep their values; remaining selections may split into separate rules. Broader rules remain as fallbacks for other items. Rules left with no selections are paused. Stale or incomplete conflict selections fail.
 
         targets : typing.Optional[typing.Sequence[UpdateAdConversionValueRulesRequestTargetsItem]]
-            Targets sharing one scope. Every selected event applies to every target. At most 500 target and event combinations.
+            Targets sharing one scope. Each target covers every network Whop runs it on, and every selected event applies to every target. At most 500 target, network, and event combinations.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -780,7 +780,7 @@ class AsyncAdConversionValueRulesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -831,7 +831,7 @@ class AsyncAdConversionValueRulesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -874,7 +874,7 @@ class AsyncAdConversionValueRulesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

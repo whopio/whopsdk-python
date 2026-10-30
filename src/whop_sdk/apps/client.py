@@ -127,7 +127,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -215,7 +215,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -259,7 +259,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -292,7 +292,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -422,7 +422,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -486,7 +486,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -556,7 +556,7 @@ class AppsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -614,7 +614,7 @@ class AppsClient:
         from whop_sdk.apps import UpdatePermissionsAppsRequestRequestedPermissionsItem
 
         client = Whop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -731,7 +731,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -828,7 +828,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -880,7 +880,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -921,7 +921,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1059,7 +1059,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1131,7 +1131,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1209,7 +1209,7 @@ class AsyncAppsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1276,7 +1276,7 @@ class AsyncAppsClient:
         from whop_sdk.apps import UpdatePermissionsAppsRequestRequestedPermissionsItem
 
         client = AsyncWhop(
-            "2026-10-29-3",
+            "2026-10-29-4",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

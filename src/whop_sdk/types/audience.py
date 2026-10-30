@@ -5,7 +5,6 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .audience_audience_type import AudienceAudienceType
-from .audience_engagement import AudienceEngagement
 from .audience_match_rate import AudienceMatchRate
 from .audience_source_type import AudienceSourceType
 from .audience_status import AudienceStatus
@@ -19,17 +18,12 @@ class Audience(UniversalBaseModel):
 
     auto_refresh: bool = pydantic.Field()
     """
-    Whether Whop rebuilds membership from saved People filters twice a day. When `false`, People audiences keep the members matched at creation. Always `false` for uploaded lists, lookalikes, and engagement audiences. Engagement membership is maintained by Meta.
+    Whether Whop rebuilds membership from saved People filters twice a day. When `false`, People audiences keep the members matched at creation. Always `false` for uploaded lists, lookalikes, and engagement audiences.
     """
 
     created_at: str = pydantic.Field()
     """
     When the audience was created, as an ISO 8601 timestamp.
-    """
-
-    engagement: typing.Optional[AudienceEngagement] = pydantic.Field(default=None)
-    """
-    Social engagement rules maintained by the ad platform. `null` for other audience sources.
     """
 
     error_message: typing.Optional[str] = pydantic.Field(default=None)
@@ -91,12 +85,12 @@ class Audience(UniversalBaseModel):
 
     source_type: AudienceSourceType = pydantic.Field()
     """
-    Membership source: an uploaded CSV, Whop People filters, or social engagement.
+    Membership source: an uploaded CSV, Whop People filters, or social engagement. Engagement audiences can no longer be created.
     """
 
     status: AudienceStatus = pydantic.Field()
     """
-    Current state of audience creation. For engagement audiences, `ready` means the rules were created on Meta; membership may still be populating. `syncing` means Whop is sending matched rows to connected ad accounts. When status is `partial` or `failed`, `error_message` explains what went wrong.
+    Current state of audience creation. `syncing` means Whop is sending matched rows to connected ad accounts. When status is `partial` or `failed`, `error_message` explains what went wrong.
     """
 
     total_rows: float = pydantic.Field()
