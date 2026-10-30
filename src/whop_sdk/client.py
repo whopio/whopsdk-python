@@ -14,7 +14,6 @@ if typing.TYPE_CHECKING:
     from .account_links.client import AccountLinksClient, AsyncAccountLinksClient
     from .accounts.client import AccountsClient, AsyncAccountsClient
     from .ad_campaigns.client import AdCampaignsClient, AsyncAdCampaignsClient
-    from .ad_conversion_value_rules.client import AdConversionValueRulesClient, AsyncAdConversionValueRulesClient
     from .ad_groups.client import AdGroupsClient, AsyncAdGroupsClient
     from .ad_pixels.client import AdPixelsClient, AsyncAdPixelsClient
     from .ads.client import AdsClient, AsyncAdsClient
@@ -156,7 +155,7 @@ class Whop:
     from whop_sdk import Whop
 
     client = Whop(
-        "2026-10-29-4",
+        "2026-10-29-5",
         idempotency_key="YOUR_IDEMPOTENCY_KEY",
         token="YOUR_TOKEN",
     )
@@ -166,7 +165,7 @@ class Whop:
         self,
         *,
         environment: WhopEnvironment = WhopEnvironment.PRODUCTION,
-        api_version_date: typing.Optional[str] = "2026-10-29-4",
+        api_version_date: typing.Optional[str] = "2026-10-29-5",
         idempotency_key: typing.Optional[str] = None,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         headers: typing.Optional[typing.Dict[str, str]] = None,
@@ -201,7 +200,6 @@ class Whop:
         self._account_links: typing.Optional[AccountLinksClient] = None
         self._accounts: typing.Optional[AccountsClient] = None
         self._ad_campaigns: typing.Optional[AdCampaignsClient] = None
-        self._ad_conversion_value_rules: typing.Optional[AdConversionValueRulesClient] = None
         self._ad_groups: typing.Optional[AdGroupsClient] = None
         self._ad_pixels: typing.Optional[AdPixelsClient] = None
         self._ads: typing.Optional[AdsClient] = None
@@ -326,14 +324,6 @@ class Whop:
 
             self._ad_campaigns = AdCampaignsClient(client_wrapper=self._client_wrapper)
         return self._ad_campaigns
-
-    @property
-    def ad_conversion_value_rules(self):
-        if self._ad_conversion_value_rules is None:
-            from .ad_conversion_value_rules.client import AdConversionValueRulesClient  # noqa: E402
-
-            self._ad_conversion_value_rules = AdConversionValueRulesClient(client_wrapper=self._client_wrapper)
-        return self._ad_conversion_value_rules
 
     @property
     def ad_groups(self):
@@ -1140,7 +1130,7 @@ class AsyncWhop:
     from whop_sdk import AsyncWhop
 
     client = AsyncWhop(
-        "2026-10-29-4",
+        "2026-10-29-5",
         idempotency_key="YOUR_IDEMPOTENCY_KEY",
         token="YOUR_TOKEN",
     )
@@ -1150,7 +1140,7 @@ class AsyncWhop:
         self,
         *,
         environment: WhopEnvironment = WhopEnvironment.PRODUCTION,
-        api_version_date: typing.Optional[str] = "2026-10-29-4",
+        api_version_date: typing.Optional[str] = "2026-10-29-5",
         idempotency_key: typing.Optional[str] = None,
         token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
         headers: typing.Optional[typing.Dict[str, str]] = None,
@@ -1185,7 +1175,6 @@ class AsyncWhop:
         self._account_links: typing.Optional[AsyncAccountLinksClient] = None
         self._accounts: typing.Optional[AsyncAccountsClient] = None
         self._ad_campaigns: typing.Optional[AsyncAdCampaignsClient] = None
-        self._ad_conversion_value_rules: typing.Optional[AsyncAdConversionValueRulesClient] = None
         self._ad_groups: typing.Optional[AsyncAdGroupsClient] = None
         self._ad_pixels: typing.Optional[AsyncAdPixelsClient] = None
         self._ads: typing.Optional[AsyncAdsClient] = None
@@ -1310,14 +1299,6 @@ class AsyncWhop:
 
             self._ad_campaigns = AsyncAdCampaignsClient(client_wrapper=self._client_wrapper)
         return self._ad_campaigns
-
-    @property
-    def ad_conversion_value_rules(self):
-        if self._ad_conversion_value_rules is None:
-            from .ad_conversion_value_rules.client import AsyncAdConversionValueRulesClient  # noqa: E402
-
-            self._ad_conversion_value_rules = AsyncAdConversionValueRulesClient(client_wrapper=self._client_wrapper)
-        return self._ad_conversion_value_rules
 
     @property
     def ad_groups(self):

@@ -122,13 +122,6 @@ if typing.TYPE_CHECKING:
     from .ad_campaign_result_event import AdCampaignResultEvent
     from .ad_campaign_special_ad_categories_item import AdCampaignSpecialAdCategoriesItem
     from .ad_campaign_status import AdCampaignStatus
-    from .ad_conversion_value_rule import AdConversionValueRule
-    from .ad_conversion_value_rule_adjustment_type import AdConversionValueRuleAdjustmentType
-    from .ad_conversion_value_rule_event import AdConversionValueRuleEvent
-    from .ad_conversion_value_rule_event_event_name import AdConversionValueRuleEventEventName
-    from .ad_conversion_value_rule_status import AdConversionValueRuleStatus
-    from .ad_conversion_value_rule_target import AdConversionValueRuleTarget
-    from .ad_conversion_value_rule_target_scope import AdConversionValueRuleTargetScope
     from .ad_creative import AdCreative
     from .ad_creative_crop import AdCreativeCrop
     from .ad_creative_format import AdCreativeFormat
@@ -1642,13 +1635,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdCampaignResultEvent": ".ad_campaign_result_event",
     "AdCampaignSpecialAdCategoriesItem": ".ad_campaign_special_ad_categories_item",
     "AdCampaignStatus": ".ad_campaign_status",
-    "AdConversionValueRule": ".ad_conversion_value_rule",
-    "AdConversionValueRuleAdjustmentType": ".ad_conversion_value_rule_adjustment_type",
-    "AdConversionValueRuleEvent": ".ad_conversion_value_rule_event",
-    "AdConversionValueRuleEventEventName": ".ad_conversion_value_rule_event_event_name",
-    "AdConversionValueRuleStatus": ".ad_conversion_value_rule_status",
-    "AdConversionValueRuleTarget": ".ad_conversion_value_rule_target",
-    "AdConversionValueRuleTargetScope": ".ad_conversion_value_rule_target_scope",
     "AdCreative": ".ad_creative",
     "AdCreativeCrop": ".ad_creative_crop",
     "AdCreativeFormat": ".ad_creative_format",
@@ -3048,13 +3034,6 @@ __all__ = [
     "AdCampaignResultEvent",
     "AdCampaignSpecialAdCategoriesItem",
     "AdCampaignStatus",
-    "AdConversionValueRule",
-    "AdConversionValueRuleAdjustmentType",
-    "AdConversionValueRuleEvent",
-    "AdConversionValueRuleEventEventName",
-    "AdConversionValueRuleStatus",
-    "AdConversionValueRuleTarget",
-    "AdConversionValueRuleTargetScope",
     "AdCreative",
     "AdCreativeCrop",
     "AdCreativeFormat",
