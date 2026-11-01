@@ -347,6 +347,48 @@ class InvoicesClient:
         )
         return _response.data
 
+    def charge(
+        self,
+        id: str,
+        *,
+        payment_method_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> Invoice:
+        """
+        Charges an open invoice now to one of its customer's saved payment methods, canceling any charge scheduled for later. The charge completes asynchronously: the invoice becomes `paid`, or, if declined, stays `open` and its recipients are emailed the `checkout_link`. Refused for drafts and while another payment is in progress.
+
+        Parameters
+        ----------
+        id : str
+            The invoice's pay_ ID.
+
+        payment_method_id : typing.Optional[str]
+            The saved payment method to charge, prefixed `payt_`. It must belong to the invoice's customer and be chargeable without the customer present. Omit it to charge the invoice's own `payment_method_id`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Invoice
+            charge started
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-10-29-8",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.invoices.charge(
+            id="id",
+        )
+        """
+        _response = self._raw_client.charge(id, payment_method_id=payment_method_id, request_options=request_options)
+        return _response.data
+
     def generate_pdf(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> InvoicePdf:
         """
         Generates the invoice as a PDF and returns a short-lived link to download it. A draft shows its estimated totals. The buyer's name and email need `member:basic:read` and `member:email:read`, and the Pay now link on an open invoice needs `payment:charge`, or `invoice:create` or `invoice:update` when it has no `payment_method_id`. Each call generates a new file and link, so this endpoint does not replay `Idempotency-Key` responses.
@@ -923,6 +965,58 @@ class AsyncInvoicesClient:
             payment_method_id=payment_method_id,
             recipient_emails=recipient_emails,
             request_options=request_options,
+        )
+        return _response.data
+
+    async def charge(
+        self,
+        id: str,
+        *,
+        payment_method_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> Invoice:
+        """
+        Charges an open invoice now to one of its customer's saved payment methods, canceling any charge scheduled for later. The charge completes asynchronously: the invoice becomes `paid`, or, if declined, stays `open` and its recipients are emailed the `checkout_link`. Refused for drafts and while another payment is in progress.
+
+        Parameters
+        ----------
+        id : str
+            The invoice's pay_ ID.
+
+        payment_method_id : typing.Optional[str]
+            The saved payment method to charge, prefixed `payt_`. It must belong to the invoice's customer and be chargeable without the customer present. Omit it to charge the invoice's own `payment_method_id`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Invoice
+            charge started
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-10-29-8",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.invoices.charge(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.charge(
+            id, payment_method_id=payment_method_id, request_options=request_options
         )
         return _response.data
 
