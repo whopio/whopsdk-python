@@ -50998,7 +50998,7 @@ client.partners.businesses.list()
 <dl>
 <dd>
 
-**advance_status:** `typing.Optional[ListBusinessesRequestAdvanceStatus]` — Filter the authenticated partner's CPA offers by status. Use offered for every state after qualification.
+**advance_status:** `typing.Optional[ListBusinessesRequestAdvanceStatus]` — Filter the authenticated partner's CPA offers by status, or with referring_account_id, the CPA terms of the reps the caller manages. Use offered for every state after qualification.
     
 </dd>
 </dl>
