@@ -116,7 +116,6 @@ if typing.TYPE_CHECKING:
     from .ad import Ad
     from .ad_call_to_action import AdCallToAction
     from .ad_campaign import AdCampaign
-    from .ad_campaign_bid_type import AdCampaignBidType
     from .ad_campaign_budget_optimization import AdCampaignBudgetOptimization
     from .ad_campaign_budget_type import AdCampaignBudgetType
     from .ad_campaign_campaign_type import AdCampaignCampaignType
@@ -1632,7 +1631,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "Ad": ".ad",
     "AdCallToAction": ".ad_call_to_action",
     "AdCampaign": ".ad_campaign",
-    "AdCampaignBidType": ".ad_campaign_bid_type",
     "AdCampaignBudgetOptimization": ".ad_campaign_budget_optimization",
     "AdCampaignBudgetType": ".ad_campaign_budget_type",
     "AdCampaignCampaignType": ".ad_campaign_campaign_type",
@@ -3034,7 +3032,6 @@ __all__ = [
     "Ad",
     "AdCallToAction",
     "AdCampaign",
-    "AdCampaignBidType",
     "AdCampaignBudgetOptimization",
     "AdCampaignBudgetType",
     "AdCampaignCampaignType",

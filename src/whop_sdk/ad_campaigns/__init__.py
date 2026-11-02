@@ -7,7 +7,6 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .types import (
-        CreateAdCampaignsRequestBidType,
         CreateAdCampaignsRequestBudgetOptimization,
         CreateAdCampaignsRequestBudgetType,
         CreateAdCampaignsRequestCampaignType,
@@ -25,7 +24,6 @@ if typing.TYPE_CHECKING:
         PostAdCampaignPaymentFailedPayload,
         PostAdCampaignPaymentFailedPayloadApiVersion,
         PostAdCampaignPaymentFailedPayloadData,
-        PostAdCampaignPaymentFailedPayloadDataBidType,
         PostAdCampaignPaymentFailedPayloadDataBudgetOptimization,
         PostAdCampaignPaymentFailedPayloadDataBudgetType,
         PostAdCampaignPaymentFailedPayloadDataCampaignType,
@@ -37,7 +35,6 @@ if typing.TYPE_CHECKING:
         PostAdCampaignUpdatedPayload,
         PostAdCampaignUpdatedPayloadApiVersion,
         PostAdCampaignUpdatedPayloadData,
-        PostAdCampaignUpdatedPayloadDataBidType,
         PostAdCampaignUpdatedPayloadDataBudgetOptimization,
         PostAdCampaignUpdatedPayloadDataBudgetType,
         PostAdCampaignUpdatedPayloadDataCampaignType,
@@ -47,7 +44,6 @@ if typing.TYPE_CHECKING:
         PostAdCampaignUpdatedPayloadDataStatus,
         PostAdCampaignUpdatedPayloadType,
         RetrieveAdCampaignsRequestAttributionModel,
-        UpdateAdCampaignsRequestBidType,
         UpdateAdCampaignsRequestBudgetOptimization,
         UpdateAdCampaignsRequestBudgetType,
         UpdateAdCampaignsRequestCampaignType,
@@ -55,7 +51,6 @@ if typing.TYPE_CHECKING:
         UpdateAdCampaignsRequestStatus,
     )
 _dynamic_imports: typing.Dict[str, str] = {
-    "CreateAdCampaignsRequestBidType": ".types",
     "CreateAdCampaignsRequestBudgetOptimization": ".types",
     "CreateAdCampaignsRequestBudgetType": ".types",
     "CreateAdCampaignsRequestCampaignType": ".types",
@@ -73,7 +68,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostAdCampaignPaymentFailedPayload": ".types",
     "PostAdCampaignPaymentFailedPayloadApiVersion": ".types",
     "PostAdCampaignPaymentFailedPayloadData": ".types",
-    "PostAdCampaignPaymentFailedPayloadDataBidType": ".types",
     "PostAdCampaignPaymentFailedPayloadDataBudgetOptimization": ".types",
     "PostAdCampaignPaymentFailedPayloadDataBudgetType": ".types",
     "PostAdCampaignPaymentFailedPayloadDataCampaignType": ".types",
@@ -85,7 +79,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostAdCampaignUpdatedPayload": ".types",
     "PostAdCampaignUpdatedPayloadApiVersion": ".types",
     "PostAdCampaignUpdatedPayloadData": ".types",
-    "PostAdCampaignUpdatedPayloadDataBidType": ".types",
     "PostAdCampaignUpdatedPayloadDataBudgetOptimization": ".types",
     "PostAdCampaignUpdatedPayloadDataBudgetType": ".types",
     "PostAdCampaignUpdatedPayloadDataCampaignType": ".types",
@@ -95,7 +88,6 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostAdCampaignUpdatedPayloadDataStatus": ".types",
     "PostAdCampaignUpdatedPayloadType": ".types",
     "RetrieveAdCampaignsRequestAttributionModel": ".types",
-    "UpdateAdCampaignsRequestBidType": ".types",
     "UpdateAdCampaignsRequestBudgetOptimization": ".types",
     "UpdateAdCampaignsRequestBudgetType": ".types",
     "UpdateAdCampaignsRequestCampaignType": ".types",
@@ -126,7 +118,6 @@ def __dir__():
 
 
 __all__ = [
-    "CreateAdCampaignsRequestBidType",
     "CreateAdCampaignsRequestBudgetOptimization",
     "CreateAdCampaignsRequestBudgetType",
     "CreateAdCampaignsRequestCampaignType",
@@ -144,7 +135,6 @@ __all__ = [
     "PostAdCampaignPaymentFailedPayload",
     "PostAdCampaignPaymentFailedPayloadApiVersion",
     "PostAdCampaignPaymentFailedPayloadData",
-    "PostAdCampaignPaymentFailedPayloadDataBidType",
     "PostAdCampaignPaymentFailedPayloadDataBudgetOptimization",
     "PostAdCampaignPaymentFailedPayloadDataBudgetType",
     "PostAdCampaignPaymentFailedPayloadDataCampaignType",
@@ -156,7 +146,6 @@ __all__ = [
     "PostAdCampaignUpdatedPayload",
     "PostAdCampaignUpdatedPayloadApiVersion",
     "PostAdCampaignUpdatedPayloadData",
-    "PostAdCampaignUpdatedPayloadDataBidType",
     "PostAdCampaignUpdatedPayloadDataBudgetOptimization",
     "PostAdCampaignUpdatedPayloadDataBudgetType",
     "PostAdCampaignUpdatedPayloadDataCampaignType",
@@ -166,7 +155,6 @@ __all__ = [
     "PostAdCampaignUpdatedPayloadDataStatus",
     "PostAdCampaignUpdatedPayloadType",
     "RetrieveAdCampaignsRequestAttributionModel",
-    "UpdateAdCampaignsRequestBidType",
     "UpdateAdCampaignsRequestBudgetOptimization",
     "UpdateAdCampaignsRequestBudgetType",
     "UpdateAdCampaignsRequestCampaignType",

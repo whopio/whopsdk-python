@@ -4,7 +4,6 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
-from .ad_campaign_bid_type import AdCampaignBidType
 from .ad_campaign_budget_optimization import AdCampaignBudgetOptimization
 from .ad_campaign_budget_type import AdCampaignBudgetType
 from .ad_campaign_campaign_type import AdCampaignCampaignType
@@ -25,11 +24,6 @@ class AdCampaign(UniversalBaseModel):
     added_to_carts: float = pydantic.Field()
     """
     Whop pixel-attributed add-to-cart events, last-click.
-    """
-
-    bid_type: typing.Optional[AdCampaignBidType] = pydantic.Field(default=None)
-    """
-    How delivery bids in the ad auction: `minimum_cost` gets the most results for the budget, `average_target` holds an average cost per result, and `maximum_target` never bids above a cap.
     """
 
     budget_amount: typing.Optional[float] = pydantic.Field(default=None)
