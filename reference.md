@@ -25248,7 +25248,7 @@ client.invoices.create(
 <dl>
 <dd>
 
-**buyer_fee_percentage:** `typing.Optional[float]` — The buyer's adjustable fee in percentage points, with at most two decimal places.
+**buyer_fee_percentage:** `typing.Optional[float]` — The buyer's adjustable fee in percentage points, with at most two decimal places: `0` for none, or between 5 and 100. The account keeps it, and Whop waives its take rate on the invoice.
     
 </dd>
 </dl>
@@ -25474,7 +25474,7 @@ client.invoices.update(
 <dl>
 <dd>
 
-**buyer_fee_percentage:** `typing.Optional[float]` — The buyer's adjustable fee in percentage points, with at most two decimal places.
+**buyer_fee_percentage:** `typing.Optional[float]` — The buyer's adjustable fee in percentage points, with at most two decimal places: `0` for none, or between 5 and 100. The account keeps it, and Whop waives its take rate on the invoice.
     
 </dd>
 </dl>
