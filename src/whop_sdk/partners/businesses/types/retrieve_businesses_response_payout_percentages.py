@@ -8,7 +8,7 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 class RetrieveBusinessesResponsePayoutPercentages(UniversalBaseModel):
     """
-    The referrer's commission rate for each income source, expressed as a fraction (0.3 = 30%).
+    The commission rate this referral pays for each income source, as a fraction (0.3 = 30%). A solo partner earns it directly; the team of a referring partner business splits it by their shares.
     """
 
     ad_spend: typing.Optional[float] = pydantic.Field(default=None)

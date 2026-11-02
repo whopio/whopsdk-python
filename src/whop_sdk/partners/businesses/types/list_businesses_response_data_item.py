@@ -75,7 +75,7 @@ class ListBusinessesResponseDataItem(UniversalBaseModel):
 
     payout_percentages: ListBusinessesResponseDataItemPayoutPercentages = pydantic.Field()
     """
-    The referrer's commission rate for each income source, expressed as a fraction (0.3 = 30%).
+    The commission rate this referral pays for each income source, as a fraction (0.3 = 30%). A solo partner earns it directly; the team of a referring partner business splits it by their shares.
     """
 
     referral_expires_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
