@@ -31,6 +31,11 @@ class ListEarningsResponseDataItem(UniversalBaseModel):
     What the referrer earns, in USD. Null until the earning settles.
     """
 
+    covered_by_commission_advance: bool = pydantic.Field()
+    """
+    Whether an upfront commission advance replaces this commission, including covered earnings that are still awaiting settlement.
+    """
+
     created_at: dt.datetime
     financial_activity: typing.Optional[typing.List[ListEarningsResponseDataItemFinancialActivityItem]] = (
         pydantic.Field(default=None)
@@ -55,7 +60,7 @@ class ListEarningsResponseDataItem(UniversalBaseModel):
     product: typing.Optional[ListEarningsResponseDataItemProduct] = None
     projected_commission_amount_usd: typing.Optional[Money] = pydantic.Field(default=None)
     """
-    Estimated commission while awaiting settlement. Null when no estimate is available or the earning has settled.
+    Estimated commission while awaiting settlement. Zero when a funded commission advance covers the earning. Null when no estimate is available or the earning has settled.
     """
 
     resource: typing.Optional[ListEarningsResponseDataItemResource] = pydantic.Field(default=None)
