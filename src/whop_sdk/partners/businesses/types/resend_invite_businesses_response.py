@@ -11,6 +11,7 @@ from .resend_invite_businesses_response_blueprint_partner import ResendInviteBus
 from .resend_invite_businesses_response_earnings_usd import ResendInviteBusinessesResponseEarningsUsd
 from .resend_invite_businesses_response_first_tier_partner import ResendInviteBusinessesResponseFirstTierPartner
 from .resend_invite_businesses_response_my_partner_tier import ResendInviteBusinessesResponseMyPartnerTier
+from .resend_invite_businesses_response_my_payout_percentages import ResendInviteBusinessesResponseMyPayoutPercentages
 from .resend_invite_businesses_response_object import ResendInviteBusinessesResponseObject
 from .resend_invite_businesses_response_owner import ResendInviteBusinessesResponseOwner
 from .resend_invite_businesses_response_payout_percentages import ResendInviteBusinessesResponsePayoutPercentages
@@ -70,6 +71,13 @@ class ResendInviteBusinessesResponse(UniversalBaseModel):
     Which tier the caller earns on for this business: `first` (they referred the owner), `second` (they referred the first-tier partner), or `blueprint` (the business deployed a site from their blueprint).
     """
 
+    my_payout_percentages: typing.Optional[ResendInviteBusinessesResponseMyPayoutPercentages] = pydantic.Field(
+        default=None
+    )
+    """
+    The caller's own cut of each income source on this business, as a fraction of the same base as `payout_percentages` (0.12 = 12%). A solo partner's cut is the whole rate. On a referring partner business's deal it is the caller's team share of the rate: a closer earns their share, a manager earns their share minus the share of the person below them, and a deal participant earns their cut. Null when the caller earns nothing on this business, as with an account API key.
+    """
+
     object: ResendInviteBusinessesResponseObject
     owner: typing.Optional[ResendInviteBusinessesResponseOwner] = pydantic.Field(default=None)
     """
@@ -78,7 +86,7 @@ class ResendInviteBusinessesResponse(UniversalBaseModel):
 
     payout_percentages: ResendInviteBusinessesResponsePayoutPercentages = pydantic.Field()
     """
-    The referrer's commission rate for each income source, expressed as a fraction (0.3 = 30%).
+    The commission rate this referral pays for each income source, as a fraction (0.3 = 30%). A solo partner earns it directly; the team of a referring partner business splits it by their shares.
     """
 
     pending_owner_invites: typing.Optional[typing.List[ResendInviteBusinessesResponsePendingOwnerInvitesItem]] = (

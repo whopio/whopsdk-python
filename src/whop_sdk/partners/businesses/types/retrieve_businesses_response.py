@@ -12,6 +12,7 @@ from .retrieve_businesses_response_blueprint_partner import RetrieveBusinessesRe
 from .retrieve_businesses_response_earnings_usd import RetrieveBusinessesResponseEarningsUsd
 from .retrieve_businesses_response_first_tier_partner import RetrieveBusinessesResponseFirstTierPartner
 from .retrieve_businesses_response_my_partner_tier import RetrieveBusinessesResponseMyPartnerTier
+from .retrieve_businesses_response_my_payout_percentages import RetrieveBusinessesResponseMyPayoutPercentages
 from .retrieve_businesses_response_object import RetrieveBusinessesResponseObject
 from .retrieve_businesses_response_owner import RetrieveBusinessesResponseOwner
 from .retrieve_businesses_response_payout_percentages import RetrieveBusinessesResponsePayoutPercentages
@@ -79,6 +80,11 @@ class RetrieveBusinessesResponse(UniversalBaseModel):
     Which tier the caller earns on for this business: `first` (they referred the owner), `second` (they referred the first-tier partner), or `blueprint` (the business deployed a site from their blueprint).
     """
 
+    my_payout_percentages: typing.Optional[RetrieveBusinessesResponseMyPayoutPercentages] = pydantic.Field(default=None)
+    """
+    The caller's own cut of each income source on this business, as a fraction of the same base as `payout_percentages` (0.12 = 12%). A solo partner's cut is the whole rate. On a referring partner business's deal it is the caller's team share of the rate: a closer earns their share, a manager earns their share minus the share of the person below them, and a deal participant earns their cut. Null when the caller earns nothing on this business, as with an account API key.
+    """
+
     object: RetrieveBusinessesResponseObject
     owner: typing.Optional[RetrieveBusinessesResponseOwner] = pydantic.Field(default=None)
     """
@@ -87,7 +93,7 @@ class RetrieveBusinessesResponse(UniversalBaseModel):
 
     payout_percentages: RetrieveBusinessesResponsePayoutPercentages = pydantic.Field()
     """
-    The referrer's commission rate for each income source, expressed as a fraction (0.3 = 30%).
+    The commission rate this referral pays for each income source, as a fraction (0.3 = 30%). A solo partner earns it directly; the team of a referring partner business splits it by their shares.
     """
 
     pending_owner_invites: typing.Optional[typing.List[RetrieveBusinessesResponsePendingOwnerInvitesItem]] = (

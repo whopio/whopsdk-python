@@ -54,6 +54,9 @@ if typing.TYPE_CHECKING:
         ResendInviteBusinessesResponseFirstTierPartnerProfilePicture,
     )
     from .resend_invite_businesses_response_my_partner_tier import ResendInviteBusinessesResponseMyPartnerTier
+    from .resend_invite_businesses_response_my_payout_percentages import (
+        ResendInviteBusinessesResponseMyPayoutPercentages,
+    )
     from .resend_invite_businesses_response_object import ResendInviteBusinessesResponseObject
     from .resend_invite_businesses_response_owner import ResendInviteBusinessesResponseOwner
     from .resend_invite_businesses_response_owner_profile_picture import (
@@ -82,6 +85,7 @@ if typing.TYPE_CHECKING:
         RetrieveBusinessesResponseFirstTierPartnerProfilePicture,
     )
     from .retrieve_businesses_response_my_partner_tier import RetrieveBusinessesResponseMyPartnerTier
+    from .retrieve_businesses_response_my_payout_percentages import RetrieveBusinessesResponseMyPayoutPercentages
     from .retrieve_businesses_response_object import RetrieveBusinessesResponseObject
     from .retrieve_businesses_response_owner import RetrieveBusinessesResponseOwner
     from .retrieve_businesses_response_owner_profile_picture import RetrieveBusinessesResponseOwnerProfilePicture
@@ -132,6 +136,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ResendInviteBusinessesResponseFirstTierPartner": ".resend_invite_businesses_response_first_tier_partner",
     "ResendInviteBusinessesResponseFirstTierPartnerProfilePicture": ".resend_invite_businesses_response_first_tier_partner_profile_picture",
     "ResendInviteBusinessesResponseMyPartnerTier": ".resend_invite_businesses_response_my_partner_tier",
+    "ResendInviteBusinessesResponseMyPayoutPercentages": ".resend_invite_businesses_response_my_payout_percentages",
     "ResendInviteBusinessesResponseObject": ".resend_invite_businesses_response_object",
     "ResendInviteBusinessesResponseOwner": ".resend_invite_businesses_response_owner",
     "ResendInviteBusinessesResponseOwnerProfilePicture": ".resend_invite_businesses_response_owner_profile_picture",
@@ -150,6 +155,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RetrieveBusinessesResponseFirstTierPartner": ".retrieve_businesses_response_first_tier_partner",
     "RetrieveBusinessesResponseFirstTierPartnerProfilePicture": ".retrieve_businesses_response_first_tier_partner_profile_picture",
     "RetrieveBusinessesResponseMyPartnerTier": ".retrieve_businesses_response_my_partner_tier",
+    "RetrieveBusinessesResponseMyPayoutPercentages": ".retrieve_businesses_response_my_payout_percentages",
     "RetrieveBusinessesResponseObject": ".retrieve_businesses_response_object",
     "RetrieveBusinessesResponseOwner": ".retrieve_businesses_response_owner",
     "RetrieveBusinessesResponseOwnerProfilePicture": ".retrieve_businesses_response_owner_profile_picture",
@@ -220,6 +226,7 @@ __all__ = [
     "ResendInviteBusinessesResponseFirstTierPartner",
     "ResendInviteBusinessesResponseFirstTierPartnerProfilePicture",
     "ResendInviteBusinessesResponseMyPartnerTier",
+    "ResendInviteBusinessesResponseMyPayoutPercentages",
     "ResendInviteBusinessesResponseObject",
     "ResendInviteBusinessesResponseOwner",
     "ResendInviteBusinessesResponseOwnerProfilePicture",
@@ -238,6 +245,7 @@ __all__ = [
     "RetrieveBusinessesResponseFirstTierPartner",
     "RetrieveBusinessesResponseFirstTierPartnerProfilePicture",
     "RetrieveBusinessesResponseMyPartnerTier",
+    "RetrieveBusinessesResponseMyPayoutPercentages",
     "RetrieveBusinessesResponseObject",
     "RetrieveBusinessesResponseOwner",
     "RetrieveBusinessesResponseOwnerProfilePicture",
