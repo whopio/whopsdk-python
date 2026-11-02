@@ -78,7 +78,7 @@ class BusinessesClient:
             List the referrals this business's team members made, past members included, instead of the authenticated user's own. Requires company:basic:read on that business, which every team member holds, and cannot be combined with user_id. The owner role reads every referral; anyone else reads only the referrals made by themselves and by the people under them in the org chart.
 
         advance_status : typing.Optional[ListBusinessesRequestAdvanceStatus]
-            Filter the authenticated partner's CPA offers by status. Use offered for every state after qualification.
+            Filter the authenticated partner's CPA offers by status, or with referring_account_id, the CPA terms of the reps the caller manages. Use offered for every state after qualification.
 
         status : typing.Optional[ListBusinessesRequestStatus]
             Filter by referral status.
@@ -426,7 +426,7 @@ class AsyncBusinessesClient:
             List the referrals this business's team members made, past members included, instead of the authenticated user's own. Requires company:basic:read on that business, which every team member holds, and cannot be combined with user_id. The owner role reads every referral; anyone else reads only the referrals made by themselves and by the people under them in the org chart.
 
         advance_status : typing.Optional[ListBusinessesRequestAdvanceStatus]
-            Filter the authenticated partner's CPA offers by status. Use offered for every state after qualification.
+            Filter the authenticated partner's CPA offers by status, or with referring_account_id, the CPA terms of the reps the caller manages. Use offered for every state after qualification.
 
         status : typing.Optional[ListBusinessesRequestStatus]
             Filter by referral status.

@@ -35,7 +35,7 @@ class RetrieveBusinessesResponse(UniversalBaseModel):
 
     commission_advance: typing.Optional[PartnerAdvance] = pydantic.Field(default=None)
     """
-    CPA terms for the referring partner. Omitted for other callers. An offer token requires partner:commission_advance:accept permission.
+    CPA terms for the referring partner. Read with referring_account_id, the business's owner sees every rep's terms and a manager sees those of the reps below them, read-only. Omitted for other callers. An offer token is only for the referring partner and requires partner:commission_advance:accept permission.
     """
 
     commission_advance_cap: typing.Optional[Money] = pydantic.Field(default=None)
