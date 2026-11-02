@@ -5,7 +5,6 @@ import typing
 import pydantic
 from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from ...types.ad_platform_issue import AdPlatformIssue
-from .post_ad_campaign_updated_payload_data_bid_type import PostAdCampaignUpdatedPayloadDataBidType
 from .post_ad_campaign_updated_payload_data_budget_optimization import (
     PostAdCampaignUpdatedPayloadDataBudgetOptimization,
 )
@@ -20,11 +19,6 @@ from .post_ad_campaign_updated_payload_data_status import PostAdCampaignUpdatedP
 
 
 class PostAdCampaignUpdatedPayloadData(UniversalBaseModel):
-    bid_type: typing.Optional[PostAdCampaignUpdatedPayloadDataBidType] = pydantic.Field(default=None)
-    """
-    How delivery bids in the ad auction: `minimum_cost` gets the most results for the budget, `average_target` holds an average cost per result, and `maximum_target` never bids above a cap.
-    """
-
     budget_amount: typing.Optional[float] = pydantic.Field(default=None)
     """
     The campaign's budget in USD, which is what it is stored and billed in. `null` when each ad group sets its own budget instead.
