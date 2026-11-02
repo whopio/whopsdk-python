@@ -2243,7 +2243,6 @@ if typing.TYPE_CHECKING:
     )
     from .external_accounts import (
         ConnectExternalAccountsRequestPlatform,
-        ConnectExternalAccountsRequestScopesItem,
         ConnectExternalAccountsResponse,
         CreateExternalAccountsRequestBody,
         CreateExternalAccountsRequestBodyAimerce,
@@ -2922,7 +2921,6 @@ if typing.TYPE_CHECKING:
     )
     from .social_accounts import (
         ConnectSocialAccountsRequestPlatform,
-        ConnectSocialAccountsRequestScopesItem,
         ConnectSocialAccountsResponse,
         CreateSocialAccountsRequestBody,
         CreateSocialAccountsRequestBodyAimerce,
@@ -3627,10 +3625,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ConfirmationTokenStatus": ".types",
     "ConflictError": ".errors",
     "ConnectExternalAccountsRequestPlatform": ".external_accounts",
-    "ConnectExternalAccountsRequestScopesItem": ".external_accounts",
     "ConnectExternalAccountsResponse": ".external_accounts",
     "ConnectSocialAccountsRequestPlatform": ".social_accounts",
-    "ConnectSocialAccountsRequestScopesItem": ".social_accounts",
     "ConnectSocialAccountsResponse": ".social_accounts",
     "ConversionEvent": ".types",
     "ConversionEventZero": ".types",
@@ -6761,10 +6757,8 @@ __all__ = [
     "ConfirmationTokenStatus",
     "ConflictError",
     "ConnectExternalAccountsRequestPlatform",
-    "ConnectExternalAccountsRequestScopesItem",
     "ConnectExternalAccountsResponse",
     "ConnectSocialAccountsRequestPlatform",
-    "ConnectSocialAccountsRequestScopesItem",
     "ConnectSocialAccountsResponse",
     "ConversionEvent",
     "ConversionEventZero",

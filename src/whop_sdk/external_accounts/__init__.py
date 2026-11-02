@@ -8,7 +8,6 @@ from importlib import import_module
 if typing.TYPE_CHECKING:
     from .types import (
         ConnectExternalAccountsRequestPlatform,
-        ConnectExternalAccountsRequestScopesItem,
         ConnectExternalAccountsResponse,
         CreateExternalAccountsRequestBody,
         CreateExternalAccountsRequestBodyAimerce,
@@ -30,7 +29,6 @@ if typing.TYPE_CHECKING:
     )
 _dynamic_imports: typing.Dict[str, str] = {
     "ConnectExternalAccountsRequestPlatform": ".types",
-    "ConnectExternalAccountsRequestScopesItem": ".types",
     "ConnectExternalAccountsResponse": ".types",
     "CreateExternalAccountsRequestBody": ".types",
     "CreateExternalAccountsRequestBodyAimerce": ".types",
@@ -75,7 +73,6 @@ def __dir__():
 
 __all__ = [
     "ConnectExternalAccountsRequestPlatform",
-    "ConnectExternalAccountsRequestScopesItem",
     "ConnectExternalAccountsResponse",
     "CreateExternalAccountsRequestBody",
     "CreateExternalAccountsRequestBodyAimerce",
