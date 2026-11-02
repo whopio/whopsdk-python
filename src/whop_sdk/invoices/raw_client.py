@@ -218,6 +218,7 @@ class RawInvoicesClient:
         email_address: typing.Optional[str] = OMIT,
         mailing_address_id: typing.Optional[str] = OMIT,
         member_id: typing.Optional[str] = OMIT,
+        memo: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         recipient_emails: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -255,8 +256,11 @@ class RawInvoicesClient:
         member_id : typing.Optional[str]
             The billed customer, a member of the account. Changing email recipients does not change this buyer.
 
+        memo : typing.Optional[str]
+            A note to the customer, shown on the invoice email, PDF, and checkout page with its line breaks kept. Trimmed; `null` or blank clears it. Can be updated on draft, open, or uncollectible invoices.
+
         metadata : typing.Optional[typing.Dict[str, str]]
-            Up to 50 caller-owned string key/value pairs.
+            Up to 50 caller-owned string key/value pairs. The `invoice_memo` key is reserved and ignored; set `memo` instead.
 
         payment_method_id : typing.Optional[str]
             A saved payment method belonging to the member, prefixed `payt_`. Sending or issuing the invoice charges this method at the `charge_at` passed to that call, otherwise on `due_at`, or right away when there is no `due_at` or it has passed. Sending also emails the invoice now when the charge is later; issuing does not. Setting it needs `payment:charge`.
@@ -292,6 +296,7 @@ class RawInvoicesClient:
                 ),
                 "mailing_address_id": mailing_address_id,
                 "member_id": member_id,
+                "memo": memo,
                 "metadata": metadata,
                 "payment_method_id": payment_method_id,
                 "recipient_emails": recipient_emails,
@@ -450,13 +455,14 @@ class RawInvoicesClient:
         items: typing.Optional[typing.Sequence[UpdateInvoicesRequestItemsItem]] = OMIT,
         mailing_address_id: typing.Optional[str] = OMIT,
         member_id: typing.Optional[str] = OMIT,
+        memo: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         recipient_emails: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Invoice]:
         """
-        Updates draft invoice items and billing fields. Recipient-only updates are also allowed on unpaid invoices. Edit customer contact details through the member API. A draft with no saved payment method and no scheduled send needs `invoice:update`, `invoice:create`, or `payment:charge`; every other update, and setting `payment_method_id`, needs `payment:charge`.
+        Updates draft invoice items and billing fields. Updates of only `recipient_emails` and `memo` are also allowed on unpaid invoices. Edit customer contact details through the member API. A draft with no saved payment method and no scheduled send needs `invoice:update`, `invoice:create`, or `payment:charge`; every other update, and setting `payment_method_id`, needs `payment:charge`.
 
         Parameters
         ----------
@@ -481,8 +487,11 @@ class RawInvoicesClient:
         member_id : typing.Optional[str]
             The billed customer, a member of the account. Changing email recipients does not change this buyer.
 
+        memo : typing.Optional[str]
+            A note to the customer, shown on the invoice email, PDF, and checkout page with its line breaks kept. Trimmed; `null` or blank clears it. Can be updated on draft, open, or uncollectible invoices.
+
         metadata : typing.Optional[typing.Dict[str, str]]
-            Up to 50 caller-owned string key/value pairs.
+            Up to 50 caller-owned string key/value pairs. The `invoice_memo` key is reserved and ignored; set `memo` instead.
 
         payment_method_id : typing.Optional[str]
             A saved payment method belonging to the member, prefixed `payt_`. Sending or issuing the invoice charges this method at the `charge_at` passed to that call, otherwise on `due_at`, or right away when there is no `due_at` or it has passed. Sending also emails the invoice now when the charge is later; issuing does not. Setting it needs `payment:charge`.
@@ -515,6 +524,7 @@ class RawInvoicesClient:
                 ),
                 "mailing_address_id": mailing_address_id,
                 "member_id": member_id,
+                "memo": memo,
                 "metadata": metadata,
                 "payment_method_id": payment_method_id,
                 "recipient_emails": recipient_emails,
@@ -1412,6 +1422,7 @@ class AsyncRawInvoicesClient:
         email_address: typing.Optional[str] = OMIT,
         mailing_address_id: typing.Optional[str] = OMIT,
         member_id: typing.Optional[str] = OMIT,
+        memo: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         recipient_emails: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -1449,8 +1460,11 @@ class AsyncRawInvoicesClient:
         member_id : typing.Optional[str]
             The billed customer, a member of the account. Changing email recipients does not change this buyer.
 
+        memo : typing.Optional[str]
+            A note to the customer, shown on the invoice email, PDF, and checkout page with its line breaks kept. Trimmed; `null` or blank clears it. Can be updated on draft, open, or uncollectible invoices.
+
         metadata : typing.Optional[typing.Dict[str, str]]
-            Up to 50 caller-owned string key/value pairs.
+            Up to 50 caller-owned string key/value pairs. The `invoice_memo` key is reserved and ignored; set `memo` instead.
 
         payment_method_id : typing.Optional[str]
             A saved payment method belonging to the member, prefixed `payt_`. Sending or issuing the invoice charges this method at the `charge_at` passed to that call, otherwise on `due_at`, or right away when there is no `due_at` or it has passed. Sending also emails the invoice now when the charge is later; issuing does not. Setting it needs `payment:charge`.
@@ -1486,6 +1500,7 @@ class AsyncRawInvoicesClient:
                 ),
                 "mailing_address_id": mailing_address_id,
                 "member_id": member_id,
+                "memo": memo,
                 "metadata": metadata,
                 "payment_method_id": payment_method_id,
                 "recipient_emails": recipient_emails,
@@ -1646,13 +1661,14 @@ class AsyncRawInvoicesClient:
         items: typing.Optional[typing.Sequence[UpdateInvoicesRequestItemsItem]] = OMIT,
         mailing_address_id: typing.Optional[str] = OMIT,
         member_id: typing.Optional[str] = OMIT,
+        memo: typing.Optional[str] = OMIT,
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         recipient_emails: typing.Optional[typing.Sequence[str]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Invoice]:
         """
-        Updates draft invoice items and billing fields. Recipient-only updates are also allowed on unpaid invoices. Edit customer contact details through the member API. A draft with no saved payment method and no scheduled send needs `invoice:update`, `invoice:create`, or `payment:charge`; every other update, and setting `payment_method_id`, needs `payment:charge`.
+        Updates draft invoice items and billing fields. Updates of only `recipient_emails` and `memo` are also allowed on unpaid invoices. Edit customer contact details through the member API. A draft with no saved payment method and no scheduled send needs `invoice:update`, `invoice:create`, or `payment:charge`; every other update, and setting `payment_method_id`, needs `payment:charge`.
 
         Parameters
         ----------
@@ -1677,8 +1693,11 @@ class AsyncRawInvoicesClient:
         member_id : typing.Optional[str]
             The billed customer, a member of the account. Changing email recipients does not change this buyer.
 
+        memo : typing.Optional[str]
+            A note to the customer, shown on the invoice email, PDF, and checkout page with its line breaks kept. Trimmed; `null` or blank clears it. Can be updated on draft, open, or uncollectible invoices.
+
         metadata : typing.Optional[typing.Dict[str, str]]
-            Up to 50 caller-owned string key/value pairs.
+            Up to 50 caller-owned string key/value pairs. The `invoice_memo` key is reserved and ignored; set `memo` instead.
 
         payment_method_id : typing.Optional[str]
             A saved payment method belonging to the member, prefixed `payt_`. Sending or issuing the invoice charges this method at the `charge_at` passed to that call, otherwise on `due_at`, or right away when there is no `due_at` or it has passed. Sending also emails the invoice now when the charge is later; issuing does not. Setting it needs `payment:charge`.
@@ -1711,6 +1730,7 @@ class AsyncRawInvoicesClient:
                 ),
                 "mailing_address_id": mailing_address_id,
                 "member_id": member_id,
+                "memo": memo,
                 "metadata": metadata,
                 "payment_method_id": payment_method_id,
                 "recipient_emails": recipient_emails,

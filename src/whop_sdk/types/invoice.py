@@ -32,6 +32,11 @@ class Invoice(UniversalBaseModel):
     line_items: typing.List[InvoiceLineItem]
     mailing_address_id: typing.Optional[str] = None
     member_id: typing.Optional[str] = None
+    memo: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    A note to the customer, shown on the invoice email, PDF, and checkout page with its line breaks kept. `null` when none is set.
+    """
+
     metadata: typing.Dict[str, str]
     number: str
     object: InvoiceObject
