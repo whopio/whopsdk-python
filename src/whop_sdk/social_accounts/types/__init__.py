@@ -7,7 +7,6 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .connect_social_accounts_request_platform import ConnectSocialAccountsRequestPlatform
-    from .connect_social_accounts_request_scopes_item import ConnectSocialAccountsRequestScopesItem
     from .connect_social_accounts_response import ConnectSocialAccountsResponse
     from .create_social_accounts_request_body import (
         CreateSocialAccountsRequestBody,
@@ -30,7 +29,6 @@ if typing.TYPE_CHECKING:
     from .list_social_accounts_response_page_info import ListSocialAccountsResponsePageInfo
 _dynamic_imports: typing.Dict[str, str] = {
     "ConnectSocialAccountsRequestPlatform": ".connect_social_accounts_request_platform",
-    "ConnectSocialAccountsRequestScopesItem": ".connect_social_accounts_request_scopes_item",
     "ConnectSocialAccountsResponse": ".connect_social_accounts_response",
     "CreateSocialAccountsRequestBody": ".create_social_accounts_request_body",
     "CreateSocialAccountsRequestBodyAimerce": ".create_social_accounts_request_body_aimerce",
@@ -75,7 +73,6 @@ def __dir__():
 
 __all__ = [
     "ConnectSocialAccountsRequestPlatform",
-    "ConnectSocialAccountsRequestScopesItem",
     "ConnectSocialAccountsResponse",
     "CreateSocialAccountsRequestBody",
     "CreateSocialAccountsRequestBodyAimerce",

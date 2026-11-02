@@ -21907,7 +21907,7 @@ client = Whop(
 
 client.external_accounts.connect(
     platform="tiktok",
-    redirect_url="https://whop.com/dashboard/biz_xxxxxxxxxxxxxx/ads/settings",
+    redirect_url="https://whop.com/dashboard/biz_xxxxxxxxxxxxxx/settings",
 )
 
 ```
@@ -21924,7 +21924,7 @@ client.external_accounts.connect(
 <dl>
 <dd>
 
-**platform:** `ConnectExternalAccountsRequestPlatform` — The platform to connect the external account on. Use `tiktok` to connect the authenticated user’s TikTok profile, `linkedin` for their LinkedIn profile, `youtube` for their YouTube channel, or `x` for their X profile. Use `snapchat` for Snapchat Public Profiles. Use `quickbooks` to connect the account’s QuickBooks Online company: pass `account_id`, omit `scopes`, and the user picks the company in QuickBooks.
+**platform:** `ConnectExternalAccountsRequestPlatform` — The platform to connect the external account on. Use `tiktok` to connect the authenticated user’s TikTok profile, `linkedin` for their LinkedIn profile, `youtube` for their YouTube channel, or `x` for their X profile. Use `quickbooks` to connect the account’s QuickBooks Online company: pass `account_id`, and the user picks the company in QuickBooks.
     
 </dd>
 </dl>
@@ -21941,14 +21941,6 @@ client.external_accounts.connect(
 <dd>
 
 **account_id:** `typing.Optional[str]` — The Account (biz_ identifier) to connect the external account for. An account-scoped API key may omit this to default to its own account. Omit for user profile connections.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**scopes:** `typing.Optional[typing.List[ConnectExternalAccountsRequestScopesItem]]` — The connection purpose. For `snapchat`, `advertise` is required and connects company advertising assets. For `linkedin`, `tiktok`, `youtube`, and `x`, omit scopes to connect the authenticated user’s profile. For `quickbooks`, omit scopes; the connection belongs to the account in `account_id`. Profile connections still request the platform permissions needed to read the profile.
     
 </dd>
 </dl>
@@ -41845,7 +41837,7 @@ client = Whop(
 
 client.social_accounts.connect(
     platform="tiktok",
-    redirect_url="https://whop.com/dashboard/biz_xxxxxxxxxxxxxx/ads/settings",
+    redirect_url="https://whop.com/dashboard/biz_xxxxxxxxxxxxxx/settings",
 )
 
 ```
@@ -41862,7 +41854,7 @@ client.social_accounts.connect(
 <dl>
 <dd>
 
-**platform:** `ConnectSocialAccountsRequestPlatform` — The platform to connect the external account on. Use `tiktok` to connect the authenticated user’s TikTok profile, `linkedin` for their LinkedIn profile, `youtube` for their YouTube channel, or `x` for their X profile. Use `snapchat` for Snapchat Public Profiles. Use `quickbooks` to connect the account’s QuickBooks Online company: pass `account_id`, omit `scopes`, and the user picks the company in QuickBooks.
+**platform:** `ConnectSocialAccountsRequestPlatform` — The platform to connect the external account on. Use `tiktok` to connect the authenticated user’s TikTok profile, `linkedin` for their LinkedIn profile, `youtube` for their YouTube channel, or `x` for their X profile. Use `quickbooks` to connect the account’s QuickBooks Online company: pass `account_id`, and the user picks the company in QuickBooks.
     
 </dd>
 </dl>
@@ -41879,14 +41871,6 @@ client.social_accounts.connect(
 <dd>
 
 **account_id:** `typing.Optional[str]` — The Account (biz_ identifier) to connect the external account for. An account-scoped API key may omit this to default to its own account. Omit for user profile connections.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**scopes:** `typing.Optional[typing.List[ConnectSocialAccountsRequestScopesItem]]` — The connection purpose. For `snapchat`, `advertise` is required and connects company advertising assets. For `linkedin`, `tiktok`, `youtube`, and `x`, omit scopes to connect the authenticated user’s profile. For `quickbooks`, omit scopes; the connection belongs to the account in `account_id`. Profile connections still request the platform permissions needed to read the profile.
     
 </dd>
 </dl>

@@ -7,7 +7,6 @@ from importlib import import_module
 
 if typing.TYPE_CHECKING:
     from .connect_external_accounts_request_platform import ConnectExternalAccountsRequestPlatform
-    from .connect_external_accounts_request_scopes_item import ConnectExternalAccountsRequestScopesItem
     from .connect_external_accounts_response import ConnectExternalAccountsResponse
     from .create_external_accounts_request_body import (
         CreateExternalAccountsRequestBody,
@@ -30,7 +29,6 @@ if typing.TYPE_CHECKING:
     from .list_external_accounts_response_page_info import ListExternalAccountsResponsePageInfo
 _dynamic_imports: typing.Dict[str, str] = {
     "ConnectExternalAccountsRequestPlatform": ".connect_external_accounts_request_platform",
-    "ConnectExternalAccountsRequestScopesItem": ".connect_external_accounts_request_scopes_item",
     "ConnectExternalAccountsResponse": ".connect_external_accounts_response",
     "CreateExternalAccountsRequestBody": ".create_external_accounts_request_body",
     "CreateExternalAccountsRequestBodyAimerce": ".create_external_accounts_request_body_aimerce",
@@ -75,7 +73,6 @@ def __dir__():
 
 __all__ = [
     "ConnectExternalAccountsRequestPlatform",
-    "ConnectExternalAccountsRequestScopesItem",
     "ConnectExternalAccountsResponse",
     "CreateExternalAccountsRequestBody",
     "CreateExternalAccountsRequestBodyAimerce",

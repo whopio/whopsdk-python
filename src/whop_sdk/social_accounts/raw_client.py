@@ -15,7 +15,6 @@ from ..core.serialization import convert_and_respect_annotation_metadata
 from ..errors.conflict_error import ConflictError
 from ..types.social_account import SocialAccount
 from .types.connect_social_accounts_request_platform import ConnectSocialAccountsRequestPlatform
-from .types.connect_social_accounts_request_scopes_item import ConnectSocialAccountsRequestScopesItem
 from .types.connect_social_accounts_response import ConnectSocialAccountsResponse
 from .types.create_social_accounts_request_body import CreateSocialAccountsRequestBody
 from .types.delete_social_accounts_response import DeleteSocialAccountsResponse
@@ -227,7 +226,6 @@ class RawSocialAccountsClient:
         platform: ConnectSocialAccountsRequestPlatform,
         redirect_url: str,
         account_id: typing.Optional[str] = OMIT,
-        scopes: typing.Optional[typing.Sequence[ConnectSocialAccountsRequestScopesItem]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[ConnectSocialAccountsResponse]:
         """
@@ -236,16 +234,13 @@ class RawSocialAccountsClient:
         Parameters
         ----------
         platform : ConnectSocialAccountsRequestPlatform
-            The platform to connect the external account on. Use `tiktok` to connect the authenticated user’s TikTok profile, `linkedin` for their LinkedIn profile, `youtube` for their YouTube channel, or `x` for their X profile. Use `snapchat` for Snapchat Public Profiles. Use `quickbooks` to connect the account’s QuickBooks Online company: pass `account_id`, omit `scopes`, and the user picks the company in QuickBooks.
+            The platform to connect the external account on. Use `tiktok` to connect the authenticated user’s TikTok profile, `linkedin` for their LinkedIn profile, `youtube` for their YouTube channel, or `x` for their X profile. Use `quickbooks` to connect the account’s QuickBooks Online company: pass `account_id`, and the user picks the company in QuickBooks.
 
         redirect_url : str
             Where to send the user once they finish connecting their accounts. Must be an `https` URL on whop.com; any other host is rejected. On success, the user is redirected with an `external_account_connected` query param naming the platform; if the connection fails, with an `external_account_error` query param instead. The same values also arrive as `social_account_connected` / `social_account_error`.
 
         account_id : typing.Optional[str]
             The Account (biz_ identifier) to connect the external account for. An account-scoped API key may omit this to default to its own account. Omit for user profile connections.
-
-        scopes : typing.Optional[typing.Sequence[ConnectSocialAccountsRequestScopesItem]]
-            The connection purpose. For `snapchat`, `advertise` is required and connects company advertising assets. For `linkedin`, `tiktok`, `youtube`, and `x`, omit scopes to connect the authenticated user’s profile. For `quickbooks`, omit scopes; the connection belongs to the account in `account_id`. Profile connections still request the platform permissions needed to read the profile.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -263,7 +258,6 @@ class RawSocialAccountsClient:
                 "account_id": account_id,
                 "platform": platform,
                 "redirect_url": redirect_url,
-                "scopes": scopes,
             },
             headers={
                 "content-type": "application/json",
@@ -627,7 +621,6 @@ class AsyncRawSocialAccountsClient:
         platform: ConnectSocialAccountsRequestPlatform,
         redirect_url: str,
         account_id: typing.Optional[str] = OMIT,
-        scopes: typing.Optional[typing.Sequence[ConnectSocialAccountsRequestScopesItem]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[ConnectSocialAccountsResponse]:
         """
@@ -636,16 +629,13 @@ class AsyncRawSocialAccountsClient:
         Parameters
         ----------
         platform : ConnectSocialAccountsRequestPlatform
-            The platform to connect the external account on. Use `tiktok` to connect the authenticated user’s TikTok profile, `linkedin` for their LinkedIn profile, `youtube` for their YouTube channel, or `x` for their X profile. Use `snapchat` for Snapchat Public Profiles. Use `quickbooks` to connect the account’s QuickBooks Online company: pass `account_id`, omit `scopes`, and the user picks the company in QuickBooks.
+            The platform to connect the external account on. Use `tiktok` to connect the authenticated user’s TikTok profile, `linkedin` for their LinkedIn profile, `youtube` for their YouTube channel, or `x` for their X profile. Use `quickbooks` to connect the account’s QuickBooks Online company: pass `account_id`, and the user picks the company in QuickBooks.
 
         redirect_url : str
             Where to send the user once they finish connecting their accounts. Must be an `https` URL on whop.com; any other host is rejected. On success, the user is redirected with an `external_account_connected` query param naming the platform; if the connection fails, with an `external_account_error` query param instead. The same values also arrive as `social_account_connected` / `social_account_error`.
 
         account_id : typing.Optional[str]
             The Account (biz_ identifier) to connect the external account for. An account-scoped API key may omit this to default to its own account. Omit for user profile connections.
-
-        scopes : typing.Optional[typing.Sequence[ConnectSocialAccountsRequestScopesItem]]
-            The connection purpose. For `snapchat`, `advertise` is required and connects company advertising assets. For `linkedin`, `tiktok`, `youtube`, and `x`, omit scopes to connect the authenticated user’s profile. For `quickbooks`, omit scopes; the connection belongs to the account in `account_id`. Profile connections still request the platform permissions needed to read the profile.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -663,7 +653,6 @@ class AsyncRawSocialAccountsClient:
                 "account_id": account_id,
                 "platform": platform,
                 "redirect_url": redirect_url,
-                "scopes": scopes,
             },
             headers={
                 "content-type": "application/json",
