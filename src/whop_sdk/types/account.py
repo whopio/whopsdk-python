@@ -28,6 +28,7 @@ from .account_tax_remitted_by import AccountTaxRemittedBy
 from .account_tax_type import AccountTaxType
 from .account_three_ds_level import AccountThreeDsLevel
 from .account_wallet import AccountWallet
+from .checkout_session_payment_method_configuration import CheckoutSessionPaymentMethodConfiguration
 from .file import File
 from .money import Money
 from .trading_account import TradingAccount
@@ -220,6 +221,13 @@ class Account(UniversalBaseModel):
     payment_controls: typing.Optional[AccountPaymentControls] = pydantic.Field(default=None)
     """
     Payment health controls currently applied to the account. Computed only on `retrieve` and `me` for callers with `company:balance:read` scope; `null` otherwise.
+    """
+
+    payment_method_configuration: typing.Optional[CheckoutSessionPaymentMethodConfiguration] = pydantic.Field(
+        default=None
+    )
+    """
+    The account's default payment methods at checkout. A variant's or checkout configuration's own `payment_method_configuration` takes precedence. `null` when the account uses Whop's platform defaults.
     """
 
     platform_credits: typing.List[Money]
