@@ -57,6 +57,11 @@ class CreateQuotePayoutsResponse(UniversalBaseModel):
     An optional payout method to connect for estimated savings. The quote still uses the requested saved method.
     """
 
+    server_time: dt.datetime = pydantic.Field()
+    """
+    Server time when the response was prepared, as an ISO 8601 timestamp. Subtract it from `expires_at` to get the remaining quote lifetime without relying on your own clock.
+    """
+
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2
     else:
