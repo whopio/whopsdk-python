@@ -266,7 +266,7 @@ class RawEventsClient:
         event_name : str
             The type of event.
 
-            Use a standard event (lead, submit_application, contact, complete_registration, schedule, view_content, add_to_cart) or pass your own name directly for a custom event.
+            Use a standard event (lead, submit_application, contact, complete_registration, schedule, view_content, add_to_cart, initiate_checkout) or pass your own name directly for a custom event.
 
         action_source : typing.Optional[CreateEventsRequestActionSource]
             Where the event originated.
@@ -822,7 +822,7 @@ class AsyncRawEventsClient:
         event_name : str
             The type of event.
 
-            Use a standard event (lead, submit_application, contact, complete_registration, schedule, view_content, add_to_cart) or pass your own name directly for a custom event.
+            Use a standard event (lead, submit_application, contact, complete_registration, schedule, view_content, add_to_cart, initiate_checkout) or pass your own name directly for a custom event.
 
         action_source : typing.Optional[CreateEventsRequestActionSource]
             Where the event originated.
