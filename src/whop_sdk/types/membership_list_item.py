@@ -9,6 +9,7 @@ from .cancel_options import CancelOptions
 from .cancelation_status import CancelationStatus
 from .currencies import Currencies
 from .membership_list_item_company import MembershipListItemCompany
+from .membership_list_item_external_accounts_item import MembershipListItemExternalAccountsItem
 from .membership_list_item_feedback_option import MembershipListItemFeedbackOption
 from .membership_list_item_member import MembershipListItemMember
 from .membership_list_item_plan import MembershipListItemPlan
@@ -66,6 +67,13 @@ class MembershipListItem(UniversalBaseModel):
     currency: typing.Optional[Currencies] = pydantic.Field(default=None)
     """
     The three-letter ISO currency code for this membership's billing. Null if the membership is free.
+    """
+
+    external_accounts: typing.Optional[typing.List[MembershipListItemExternalAccountsItem]] = pydantic.Field(
+        default=None
+    )
+    """
+    The member's accounts on outside platforms, such as Discord and Telegram. Empty when the member has none linked. Null in webhooks.
     """
 
     feedback_option: typing.Optional[MembershipListItemFeedbackOption] = pydantic.Field(default=None)
