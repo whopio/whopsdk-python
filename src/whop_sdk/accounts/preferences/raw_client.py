@@ -130,6 +130,7 @@ class RawPreferencesClient:
         ] = OMIT,
         feedback_options: typing.Optional[typing.Sequence[UpdatePreferencesRequestFeedbackOptionsItem]] = OMIT,
         preferred_settlement_currency: typing.Optional[UpdatePreferencesRequestPreferredSettlementCurrency] = OMIT,
+        review_request_emails: typing.Optional[bool] = OMIT,
         subscription_failure_behavior: typing.Optional[UpdatePreferencesRequestSubscriptionFailureBehavior] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[UpdatePreferencesResponse]:
@@ -145,6 +146,7 @@ class RawPreferencesClient:
         | `dispute_fighter_enabled` | `payment:dispute` |
         | `economic_intelligence_duration_key`, `economic_intelligence_auto_renew` | `company:update` |
         | `feedback_options`, `customer_tracking` | `company:manage_checkout` |
+        | `review_request_emails` | `company:update` |
 
         When updating preferences from multiple rows, all corresponding scopes are required for the account.
 
@@ -195,6 +197,9 @@ class RawPreferencesClient:
         preferred_settlement_currency : typing.Optional[UpdatePreferencesRequestPreferredSettlementCurrency]
             Settle every new sale into this currency, regardless of the plan's currency or what the buyer paid in; sales converted this way carry an additional 0.5% FX fee. Pass `null` to go back to settling each sale in its plan's currency. Changing it never converts money already in your balances, and it can change at most once a day (see `preferred_settlement_currency_changeable_at`). Requires the `payout:account:update` scope on your API key.
 
+        review_request_emails : typing.Optional[bool]
+            Whether Whop emails customers after a purchase asking them to leave a review. Set it to `false` to stop these emails, including ones already scheduled. Requires the `company:update` scope on your API key.
+
         subscription_failure_behavior : typing.Optional[UpdatePreferencesRequestSubscriptionFailureBehavior]
             What happens to a subscription once every retry of a renewal payment has failed. `cancel` (the default) cancels it. `none` leaves it past due and keeps billing it each period; access follows the account's past-due access setting. Requires company:manage_checkout permission.
 
@@ -243,6 +248,7 @@ class RawPreferencesClient:
                     direction="write",
                 ),
                 "preferred_settlement_currency": preferred_settlement_currency,
+                "review_request_emails": review_request_emails,
                 "subscription_failure_behavior": subscription_failure_behavior,
             },
             headers={
@@ -416,6 +422,7 @@ class AsyncRawPreferencesClient:
         ] = OMIT,
         feedback_options: typing.Optional[typing.Sequence[UpdatePreferencesRequestFeedbackOptionsItem]] = OMIT,
         preferred_settlement_currency: typing.Optional[UpdatePreferencesRequestPreferredSettlementCurrency] = OMIT,
+        review_request_emails: typing.Optional[bool] = OMIT,
         subscription_failure_behavior: typing.Optional[UpdatePreferencesRequestSubscriptionFailureBehavior] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[UpdatePreferencesResponse]:
@@ -431,6 +438,7 @@ class AsyncRawPreferencesClient:
         | `dispute_fighter_enabled` | `payment:dispute` |
         | `economic_intelligence_duration_key`, `economic_intelligence_auto_renew` | `company:update` |
         | `feedback_options`, `customer_tracking` | `company:manage_checkout` |
+        | `review_request_emails` | `company:update` |
 
         When updating preferences from multiple rows, all corresponding scopes are required for the account.
 
@@ -481,6 +489,9 @@ class AsyncRawPreferencesClient:
         preferred_settlement_currency : typing.Optional[UpdatePreferencesRequestPreferredSettlementCurrency]
             Settle every new sale into this currency, regardless of the plan's currency or what the buyer paid in; sales converted this way carry an additional 0.5% FX fee. Pass `null` to go back to settling each sale in its plan's currency. Changing it never converts money already in your balances, and it can change at most once a day (see `preferred_settlement_currency_changeable_at`). Requires the `payout:account:update` scope on your API key.
 
+        review_request_emails : typing.Optional[bool]
+            Whether Whop emails customers after a purchase asking them to leave a review. Set it to `false` to stop these emails, including ones already scheduled. Requires the `company:update` scope on your API key.
+
         subscription_failure_behavior : typing.Optional[UpdatePreferencesRequestSubscriptionFailureBehavior]
             What happens to a subscription once every retry of a renewal payment has failed. `cancel` (the default) cancels it. `none` leaves it past due and keeps billing it each period; access follows the account's past-due access setting. Requires company:manage_checkout permission.
 
@@ -529,6 +540,7 @@ class AsyncRawPreferencesClient:
                     direction="write",
                 ),
                 "preferred_settlement_currency": preferred_settlement_currency,
+                "review_request_emails": review_request_emails,
                 "subscription_failure_behavior": subscription_failure_behavior,
             },
             headers={
