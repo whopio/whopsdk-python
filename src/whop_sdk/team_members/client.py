@@ -165,7 +165,7 @@ class TeamMembersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TeamMember:
         """
-        Adds a member to an account's team with a system role. Identify them by exactly one of `user_id` or `email`. If the person has not yet accepted, or the email does not belong to a Whop account yet, an invitation is sent instead and the response is `202` with the pending team member, whose `status` is `pending` and whose id is prefixed `ausri_` or `minv_`. If they already have a pending invite, the request fails with a `400`. Granting the `workforce` role is also allowed with the `bounty:create` scope.
+        Adds a member to an account's team with a system role. Identify them by exactly one of `user_id` or `email`. If the person has not yet accepted, or the email does not belong to a Whop account yet, an invitation is sent instead and the response is `202` with the pending team member, whose `status` is `pending` and whose id is prefixed `ausri_`. If they already have a pending invite, the request fails with a `400`. Granting the `workforce` role is also allowed with the `bounty:create` scope.
 
         Parameters
         ----------
@@ -216,7 +216,7 @@ class TeamMembersClient:
         Parameters
         ----------
         id : str
-            Team member ID. Accepted members have an ID starting with `ausr_` or `mber_`, and pending invites one starting with `ausri_` or `minv_`. Treat it as opaque.
+            Team member ID. Accepted members have an ID starting with `ausr_` or `mber_`, and pending invites one starting with `ausri_`. Treat it as opaque.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -244,12 +244,12 @@ class TeamMembersClient:
 
     def delete(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> DeleteTeamMembersResponse:
         """
-        Removes a team member from the account, or revokes a pending invite when given an `ausri_` or `minv_` ID. A user session may delete its own membership to leave the team without the delete scope. Removing a member on the `workforce` role is also allowed with the `bounty:create` scope. The account owner cannot be removed.
+        Removes a team member from the account, or revokes a pending invite when given an `ausri_` ID. A user session may delete its own membership to leave the team without the delete scope. Removing a member on the `workforce` role is also allowed with the `bounty:create` scope. The account owner cannot be removed.
 
         Parameters
         ----------
         id : str
-            Team member ID. Accepted members have an ID starting with `ausr_` or `mber_`, and pending invites one starting with `ausri_` or `minv_`. Treat it as opaque.
+            Team member ID. Accepted members have an ID starting with `ausr_` or `mber_`, and pending invites one starting with `ausri_`. Treat it as opaque.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -288,7 +288,7 @@ class TeamMembersClient:
         Parameters
         ----------
         id : str
-            Team member ID. Accepted members have an ID starting with `ausr_` or `mber_`, and pending invites one starting with `ausri_` or `minv_`. Treat it as opaque.
+            Team member ID. Accepted members have an ID starting with `ausr_` or `mber_`, and pending invites one starting with `ausri_`. Treat it as opaque.
 
         role : typing.Optional[UpdateTeamMembersRequestRole]
             The system role to grant. Custom roles cannot be granted through the API. The Partner role provides view-only access.
@@ -472,7 +472,7 @@ class AsyncTeamMembersClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> TeamMember:
         """
-        Adds a member to an account's team with a system role. Identify them by exactly one of `user_id` or `email`. If the person has not yet accepted, or the email does not belong to a Whop account yet, an invitation is sent instead and the response is `202` with the pending team member, whose `status` is `pending` and whose id is prefixed `ausri_` or `minv_`. If they already have a pending invite, the request fails with a `400`. Granting the `workforce` role is also allowed with the `bounty:create` scope.
+        Adds a member to an account's team with a system role. Identify them by exactly one of `user_id` or `email`. If the person has not yet accepted, or the email does not belong to a Whop account yet, an invitation is sent instead and the response is `202` with the pending team member, whose `status` is `pending` and whose id is prefixed `ausri_`. If they already have a pending invite, the request fails with a `400`. Granting the `workforce` role is also allowed with the `bounty:create` scope.
 
         Parameters
         ----------
@@ -531,7 +531,7 @@ class AsyncTeamMembersClient:
         Parameters
         ----------
         id : str
-            Team member ID. Accepted members have an ID starting with `ausr_` or `mber_`, and pending invites one starting with `ausri_` or `minv_`. Treat it as opaque.
+            Team member ID. Accepted members have an ID starting with `ausr_` or `mber_`, and pending invites one starting with `ausri_`. Treat it as opaque.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -569,12 +569,12 @@ class AsyncTeamMembersClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> DeleteTeamMembersResponse:
         """
-        Removes a team member from the account, or revokes a pending invite when given an `ausri_` or `minv_` ID. A user session may delete its own membership to leave the team without the delete scope. Removing a member on the `workforce` role is also allowed with the `bounty:create` scope. The account owner cannot be removed.
+        Removes a team member from the account, or revokes a pending invite when given an `ausri_` ID. A user session may delete its own membership to leave the team without the delete scope. Removing a member on the `workforce` role is also allowed with the `bounty:create` scope. The account owner cannot be removed.
 
         Parameters
         ----------
         id : str
-            Team member ID. Accepted members have an ID starting with `ausr_` or `mber_`, and pending invites one starting with `ausri_` or `minv_`. Treat it as opaque.
+            Team member ID. Accepted members have an ID starting with `ausr_` or `mber_`, and pending invites one starting with `ausri_`. Treat it as opaque.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -621,7 +621,7 @@ class AsyncTeamMembersClient:
         Parameters
         ----------
         id : str
-            Team member ID. Accepted members have an ID starting with `ausr_` or `mber_`, and pending invites one starting with `ausri_` or `minv_`. Treat it as opaque.
+            Team member ID. Accepted members have an ID starting with `ausr_` or `mber_`, and pending invites one starting with `ausri_`. Treat it as opaque.
 
         role : typing.Optional[UpdateTeamMembersRequestRole]
             The system role to grant. Custom roles cannot be granted through the API. The Partner role provides view-only access.
