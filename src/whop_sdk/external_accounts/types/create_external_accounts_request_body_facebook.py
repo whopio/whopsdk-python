@@ -8,7 +8,7 @@ from ...core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 class CreateExternalAccountsRequestBodyFacebook(UniversalBaseModel):
     """
-    Provisions a Whop-managed Facebook page for the account. Requires the account's `banner_image`, `logo`, and `description`; configure them with [Update Account](/api-reference/beta/accounts/update-account). The account is returned before Facebook has created the page — its `id` is usable right away, and the rest of the profile fills in once provisioning finishes.
+    Whop no longer creates Facebook pages, so this returns a `facebook_page_provisioning_retired` error.
     """
 
     account_id: typing.Optional[str] = pydantic.Field(default=None)
