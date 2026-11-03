@@ -50,7 +50,7 @@ class LedgerAccount(UniversalBaseModel):
 
     payout_quote_required: bool = pydantic.Field()
     """
-    Whether a payout from this account must be confirmed against a provider-backed quote first. When true, create a quote with POST /payouts/quotes and send its quote_token when creating the payout.
+    Whether legacy payout clients should confirm a provider-backed quote for this account. REST POST /payouts on API version 2026-11-03 or later always requires quote_token from POST /payouts/quotes, regardless of this flag.
     """
 
     settlement_time_at: typing.Optional[dt.datetime] = pydantic.Field(default=None)
