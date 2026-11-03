@@ -45,7 +45,7 @@ class RawCashbackRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CashbackRule]:
         """
-        Creates a future-dated card cashback rule for your direct connected accounts, funded by the authenticated platform account. Creating a rule does not transfer funds; pay cashback out with `POST /cashback_rules/payout`. Requires `payout:transfer_funds`. Supports `Idempotency-Key` for safe retries.
+        Creates a future-dated card cashback rule for your direct subaccounts, funded by the authenticated platform account. Creating a rule does not transfer funds; pay cashback out with `POST /cashback_rules/payout`. Requires `payout:transfer_funds`. Supports `Idempotency-Key` for safe retries.
 
         Parameters
         ----------
@@ -68,7 +68,7 @@ class RawCashbackRulesClient:
             Raw merchant name reported by the card provider, not the enriched display name. Omit or set null to match any merchant name. Supplied names must contain a non-whitespace character and match together with any MCC filter.
 
         scoped_account_id : typing.Optional[str]
-            Account ID, prefixed `biz_`, of one direct connected account to limit the rule to. Required when both merchant filters are omitted or `null`, in which case the rule matches all eligible transactions for that account. Otherwise, omit or set `null` to designate all direct connected accounts.
+            Account ID, prefixed `biz_`, of one direct subaccount to limit the rule to. Required when both merchant filters are omitted or `null`, in which case the rule matches all eligible transactions for that account. Otherwise, omit or set `null` to designate all direct subaccounts.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -303,18 +303,18 @@ class RawCashbackRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[CashbackPayout]:
         """
-        Pays out cashback on demand from the authenticated platform's available USD balance to its direct connected accounts. Covers completed, unpaid card transactions created before the request, each under its latest matching rule, which must be funded by the authenticated platform. Filters combine, and an empty body includes every eligible transaction. Payouts process in the background and amounts are calculated then, so the response confirms queuing, not payment. If a payout fails for insufficient funds, add USD to the platform's balance. Requires `payout:transfer_funds`. Supports `Idempotency-Key`, and overlapping requests cannot pay the same card transaction twice.
+        Pays out cashback on demand from the authenticated platform's available USD balance to its direct subaccounts. Covers completed, unpaid card transactions created before the request, each under its latest matching rule, which must be funded by the authenticated platform. Filters combine, and an empty body includes every eligible transaction. Payouts process in the background and amounts are calculated then, so the response confirms queuing, not payment. If a payout fails for insufficient funds, add USD to the platform's balance. Requires `payout:transfer_funds`. Supports `Idempotency-Key`, and overlapping requests cannot pay the same card transaction twice.
 
         Parameters
         ----------
         account_id : typing.Optional[str]
-            Pay only this direct connected account.
+            Pay only this direct subaccount.
 
         cashback_rule_id : typing.Optional[str]
             Pay only transactions whose winning cashback rule has this ID and is funded by the authenticated platform.
 
         transaction_id : typing.Optional[str]
-            Pay only this card transaction belonging to a direct connected account.
+            Pay only this card transaction belonging to a direct subaccount.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -526,7 +526,7 @@ class AsyncRawCashbackRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CashbackRule]:
         """
-        Creates a future-dated card cashback rule for your direct connected accounts, funded by the authenticated platform account. Creating a rule does not transfer funds; pay cashback out with `POST /cashback_rules/payout`. Requires `payout:transfer_funds`. Supports `Idempotency-Key` for safe retries.
+        Creates a future-dated card cashback rule for your direct subaccounts, funded by the authenticated platform account. Creating a rule does not transfer funds; pay cashback out with `POST /cashback_rules/payout`. Requires `payout:transfer_funds`. Supports `Idempotency-Key` for safe retries.
 
         Parameters
         ----------
@@ -549,7 +549,7 @@ class AsyncRawCashbackRulesClient:
             Raw merchant name reported by the card provider, not the enriched display name. Omit or set null to match any merchant name. Supplied names must contain a non-whitespace character and match together with any MCC filter.
 
         scoped_account_id : typing.Optional[str]
-            Account ID, prefixed `biz_`, of one direct connected account to limit the rule to. Required when both merchant filters are omitted or `null`, in which case the rule matches all eligible transactions for that account. Otherwise, omit or set `null` to designate all direct connected accounts.
+            Account ID, prefixed `biz_`, of one direct subaccount to limit the rule to. Required when both merchant filters are omitted or `null`, in which case the rule matches all eligible transactions for that account. Otherwise, omit or set `null` to designate all direct subaccounts.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -787,18 +787,18 @@ class AsyncRawCashbackRulesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[CashbackPayout]:
         """
-        Pays out cashback on demand from the authenticated platform's available USD balance to its direct connected accounts. Covers completed, unpaid card transactions created before the request, each under its latest matching rule, which must be funded by the authenticated platform. Filters combine, and an empty body includes every eligible transaction. Payouts process in the background and amounts are calculated then, so the response confirms queuing, not payment. If a payout fails for insufficient funds, add USD to the platform's balance. Requires `payout:transfer_funds`. Supports `Idempotency-Key`, and overlapping requests cannot pay the same card transaction twice.
+        Pays out cashback on demand from the authenticated platform's available USD balance to its direct subaccounts. Covers completed, unpaid card transactions created before the request, each under its latest matching rule, which must be funded by the authenticated platform. Filters combine, and an empty body includes every eligible transaction. Payouts process in the background and amounts are calculated then, so the response confirms queuing, not payment. If a payout fails for insufficient funds, add USD to the platform's balance. Requires `payout:transfer_funds`. Supports `Idempotency-Key`, and overlapping requests cannot pay the same card transaction twice.
 
         Parameters
         ----------
         account_id : typing.Optional[str]
-            Pay only this direct connected account.
+            Pay only this direct subaccount.
 
         cashback_rule_id : typing.Optional[str]
             Pay only transactions whose winning cashback rule has this ID and is funded by the authenticated platform.
 
         transaction_id : typing.Optional[str]
-            Pay only this card transaction belonging to a direct connected account.
+            Pay only this card transaction belonging to a direct subaccount.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.

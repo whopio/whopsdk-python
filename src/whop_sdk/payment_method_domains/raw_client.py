@@ -53,12 +53,12 @@ class RawPaymentMethodDomainsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[PaymentMethodDomain, ListPaymentMethodDomainsResponse]:
         """
-        Lists the payment method domains registered for your account and its connected accounts. Deprecated: list domains with `GET /domains` and the `apple_pay` filter instead.
+        Lists the payment method domains registered for your account and its subaccounts. Deprecated: list domains with `GET /domains` and the `apple_pay` filter instead.
 
         Parameters
         ----------
         account_id : typing.Optional[str]
-            Only domains registered for this account (`biz_` tag). Defaults to the caller's account plus its connected accounts.
+            Only domains registered for this account (`biz_` tag). Defaults to the caller's account plus its subaccounts.
 
         hostname : typing.Optional[str]
             Only the domain with this exact hostname.
@@ -595,12 +595,12 @@ class AsyncRawPaymentMethodDomainsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[PaymentMethodDomain, ListPaymentMethodDomainsResponse]:
         """
-        Lists the payment method domains registered for your account and its connected accounts. Deprecated: list domains with `GET /domains` and the `apple_pay` filter instead.
+        Lists the payment method domains registered for your account and its subaccounts. Deprecated: list domains with `GET /domains` and the `apple_pay` filter instead.
 
         Parameters
         ----------
         account_id : typing.Optional[str]
-            Only domains registered for this account (`biz_` tag). Defaults to the caller's account plus its connected accounts.
+            Only domains registered for this account (`biz_` tag). Defaults to the caller's account plus its subaccounts.
 
         hostname : typing.Optional[str]
             Only the domain with this exact hostname.

@@ -14,36 +14,36 @@ class AccountCoveredPayoutFees(UniversalBaseModel):
         FieldMetadata(alias="all"),
         pydantic.Field(
             alias="all",
-            description="Whether this account pays payout fees for all of its connected accounts' payout methods. Turning this off clears category coverage.",
+            description="Whether this account pays payout fees for all of its subaccounts' payout methods. Turning this off clears category coverage.",
         ),
     ]
     """
-    Whether this account pays payout fees for all of its connected accounts' payout methods. Turning this off clears category coverage.
+    Whether this account pays payout fees for all of its subaccounts' payout methods. Turning this off clears category coverage.
     """
 
     bank_wire: bool = pydantic.Field()
     """
-    Whether this account covers its connected accounts' bank wire payout fees. Individual changes have no effect while `all` is true.
+    Whether this account covers its subaccounts' bank wire payout fees. Individual changes have no effect while `all` is true.
     """
 
     crypto: bool = pydantic.Field()
     """
-    Whether this account covers its connected accounts' crypto payout fees. Individual changes have no effect while `all` is true.
+    Whether this account covers its subaccounts' crypto payout fees. Individual changes have no effect while `all` is true.
     """
 
     digital_wallet: bool = pydantic.Field()
     """
-    Whether this account covers its connected accounts' digital wallet payout fees. Individual changes have no effect while `all` is true.
+    Whether this account covers its subaccounts' digital wallet payout fees. Individual changes have no effect while `all` is true.
     """
 
     next_day_bank: bool = pydantic.Field()
     """
-    Whether this account covers its connected accounts' next day bank payout fees. Individual changes have no effect while `all` is true.
+    Whether this account covers its subaccounts' next day bank payout fees. Individual changes have no effect while `all` is true.
     """
 
     rtp: bool = pydantic.Field()
     """
-    Whether this account covers its connected accounts' real-time payment payout fees. Individual changes have no effect while `all` is true.
+    Whether this account covers its subaccounts' real-time payment payout fees. Individual changes have no effect while `all` is true.
     """
 
     if IS_PYDANTIC_V2:

@@ -10,7 +10,7 @@ from .account_parent_fees_value import AccountParentFeesValue
 class AccountParent(UniversalBaseModel):
     fees: typing.Optional[typing.Dict[str, AccountParentFeesValue]] = pydantic.Field(default=None)
     """
-    Markup rates this parent charges the connected account being read, keyed by fee type (for example `crypto_deposit_markup`), each with `percentage_fee` and `fixed_fee_usd`. Resolved with the connected account's own overrides winning over the platform default.
+    Markup rates this parent charges the subaccount being read, keyed by fee type (for example `crypto_deposit_markup`), each with `percentage_fee` and `fixed_fee_usd`. Resolved with the subaccount's own overrides winning over the platform default.
     """
 
     id: str = pydantic.Field()

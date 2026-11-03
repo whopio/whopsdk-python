@@ -14,7 +14,7 @@ class DeleteAccountsResponse(UniversalBaseModel):
 
     id: str = pydantic.Field()
     """
-    ID of the deleted connected account.
+    ID of the deleted subaccount.
     """
 
     if IS_PYDANTIC_V2:

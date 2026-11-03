@@ -8,7 +8,7 @@ from ....core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 
 class UpdateFeesRequestMarkupsCardSpend(UniversalBaseModel):
     """
-    The markup on card purchases settled by the connected account. `null` clears the custom markup.
+    The markup on card purchases settled by the subaccount. `null` clears the custom markup.
     """
 
     fixed: typing.Optional[float] = pydantic.Field(default=None)

@@ -10,7 +10,7 @@ from .cashback_payout_status import CashbackPayoutStatus
 class CashbackPayout(UniversalBaseModel):
     account_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Connected account filter from the request, prefixed `biz_`. Omitted when not supplied.
+    Subaccount filter from the request, prefixed `biz_`. Omitted when not supplied.
     """
 
     cashback_rule_id: typing.Optional[str] = pydantic.Field(default=None)

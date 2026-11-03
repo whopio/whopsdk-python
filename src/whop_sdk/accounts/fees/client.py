@@ -61,7 +61,7 @@ class FeesClient:
 
     def retrieve(self, account_id: str, *, request_options: typing.Optional[RequestOptions] = None) -> AccountFees:
         """
-        Retrieves the account's fees as a single document keyed by fee, with any markups its platform adds. Connected accounts see the rates in effect for them. `adjustable` on each fee says what you may change with Update Account Fees.
+        Retrieves the account's fees as a single document keyed by fee, with any markups its platform adds. Subaccounts see the rates in effect for them. `adjustable` on each fee says what you may change with Update Account Fees.
 
         Parameters
         ----------
@@ -81,7 +81,7 @@ class FeesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -159,10 +159,10 @@ class FeesClient:
             The fields of a fee the caller may change. Only the keys sent are replaced.
 
         child_markups : typing.Optional[UpdateFeesRequestChildMarkups]
-            Default markups for connected accounts. Available on accounts without a parent, even before any accounts connect.
+            Default markups for subaccounts. Available on accounts without a parent, even before any accounts connect.
 
         covered_payout_fees : typing.Optional[UpdateFeesRequestCoveredPayoutFees]
-            Changes to the payout fees this account covers for connected accounts. Send either all or individual category keys. Omitted categories stay unchanged; category changes have no effect while all is true.
+            Changes to the payout fees this account covers for subaccounts. Send either all or individual category keys. Omitted categories stay unchanged; category changes have no effect while all is true.
 
         cross_border : typing.Optional[UpdateFeesRequestCrossBorder]
             The fields of a fee the caller may change. Only the keys sent are replaced.
@@ -198,7 +198,7 @@ class FeesClient:
             The fields of a fee the caller may change. Only the keys sent are replaced.
 
         markups : typing.Optional[UpdateFeesRequestMarkups]
-            Markups on this connected account, set by the platform it is connected to.
+            Markups on this subaccount, set by the platform it is connected to.
 
         notes : typing.Optional[str]
             Why the fees are changing, recorded with the change. Required when a Whop Verified Partner edits the fee schedule; ignored for markups.
@@ -255,7 +255,7 @@ class FeesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -323,7 +323,7 @@ class AsyncFeesClient:
         self, account_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AccountFees:
         """
-        Retrieves the account's fees as a single document keyed by fee, with any markups its platform adds. Connected accounts see the rates in effect for them. `adjustable` on each fee says what you may change with Update Account Fees.
+        Retrieves the account's fees as a single document keyed by fee, with any markups its platform adds. Subaccounts see the rates in effect for them. `adjustable` on each fee says what you may change with Update Account Fees.
 
         Parameters
         ----------
@@ -345,7 +345,7 @@ class AsyncFeesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -429,10 +429,10 @@ class AsyncFeesClient:
             The fields of a fee the caller may change. Only the keys sent are replaced.
 
         child_markups : typing.Optional[UpdateFeesRequestChildMarkups]
-            Default markups for connected accounts. Available on accounts without a parent, even before any accounts connect.
+            Default markups for subaccounts. Available on accounts without a parent, even before any accounts connect.
 
         covered_payout_fees : typing.Optional[UpdateFeesRequestCoveredPayoutFees]
-            Changes to the payout fees this account covers for connected accounts. Send either all or individual category keys. Omitted categories stay unchanged; category changes have no effect while all is true.
+            Changes to the payout fees this account covers for subaccounts. Send either all or individual category keys. Omitted categories stay unchanged; category changes have no effect while all is true.
 
         cross_border : typing.Optional[UpdateFeesRequestCrossBorder]
             The fields of a fee the caller may change. Only the keys sent are replaced.
@@ -468,7 +468,7 @@ class AsyncFeesClient:
             The fields of a fee the caller may change. Only the keys sent are replaced.
 
         markups : typing.Optional[UpdateFeesRequestMarkups]
-            Markups on this connected account, set by the platform it is connected to.
+            Markups on this subaccount, set by the platform it is connected to.
 
         notes : typing.Optional[str]
             Why the fees are changing, recorded with the change. Required when a Whop Verified Partner edits the fee schedule; ignored for markups.
@@ -527,7 +527,7 @@ class AsyncFeesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

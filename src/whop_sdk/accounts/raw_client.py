@@ -89,7 +89,7 @@ class RawAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Account, ListAccountsResponse]:
         """
-        Lists accounts visible to the credential. User tokens return the user's business accounts; Account API keys return the requesting account and its connected accounts.
+        Lists accounts visible to the credential. User tokens return the user's business accounts; Account API keys return the requesting account and its subaccounts.
 
         Parameters
         ----------
@@ -130,7 +130,7 @@ class RawAccountsClient:
             Return only accounts whose lifetime USD volume is at most this value. Requires `stats:read` on the parent account.
 
         parent_account_id : typing.Optional[str]
-            For platforms: the parent account ID whose direct connected accounts to return. Requires `payout:account:read` on the parent account.
+            For platforms: the parent account ID whose direct subaccounts to return. Requires `payout:account:read` on the parent account.
 
         owner_id : typing.Optional[str]
             Return only accounts owned by this user (`user_...`), the account's `owner`. Cannot be combined with `parent_account_id`.
@@ -256,7 +256,7 @@ class RawAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Account]:
         """
-        Creates an account. User tokens create business accounts; Account API keys create connected accounts. Tax fields (`tax_remitted_by`, `tax_type`, `product_tax_code_id`, `business_address`, `tax_identifiers`) are configured with Update Account, not at creation.
+        Creates an account. User tokens create business accounts; Account API keys create subaccounts. Tax fields (`tax_remitted_by`, `tax_type`, `product_tax_code_id`, `business_address`, `tax_identifiers`) are configured with Update Account, not at creation.
 
         Parameters
         ----------
@@ -267,13 +267,13 @@ class RawAccountsClient:
             The blueprint App ID, prefixed `app_`. Creates a hosted website for the account and queues its deployment asynchronously; the Account response does not report deployment completion.
 
         country : typing.Optional[str]
-            The ISO 3166-1 alpha-2 country code where the account's business is located (e.g. `US`). Defaults to the parent account's country for connected accounts.
+            The ISO 3166-1 alpha-2 country code where the account's business is located (e.g. `US`). Defaults to the parent account's country for subaccounts.
 
         dispute_fighter_enabled : typing.Optional[bool]
             Whether Whop assembles and files dispute evidence for this account. Enabling it opts into the success fee charged on disputes it wins. Requires payment:dispute. Omit to preserve the existing setting or creation default.
 
         email : typing.Optional[str]
-            The email address of the account owner. Required when creating a connected account.
+            The email address of the account owner. Required when creating a subaccount.
 
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
             Arbitrary key/value metadata to store on the account.
@@ -282,7 +282,7 @@ class RawAccountsClient:
             Whether payment orchestration is enabled for this account. Requires payout:account:update. Omit to preserve the existing setting or creation default.
 
         send_customer_emails : typing.Optional[bool]
-            Whether Whop sends transactional emails to customers on behalf of the connected account.
+            Whether Whop sends transactional emails to customers on behalf of the subaccount.
 
         title : typing.Optional[str]
             The display name of the account. Defaults to `metadata.external_id` or the owner's email when omitted.
@@ -661,12 +661,12 @@ class RawAccountsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[DeleteAccountsResponse]:
         """
-        Deletes a connected account directly owned by the authenticated platform account. The account must have no settled, pending, or reserved balance in any currency and no active, trialing, or past-due memberships. The account stops resolving immediately, and its products, plans, and team access are removed in the background; payment history is retained. Deletion cannot be undone through the API. This cannot delete the platform account itself or an account owned by another platform.
+        Deletes a subaccount directly owned by the authenticated platform account. The account must have no settled, pending, or reserved balance in any currency and no active, trialing, or past-due memberships. The account stops resolving immediately, and its products, plans, and team access are removed in the background; payment history is retained. Deletion cannot be undone through the API. This cannot delete the platform account itself or an account owned by another platform.
 
         Parameters
         ----------
         id : str
-            Connected account ID, prefixed `biz_`.
+            Subaccount ID, prefixed `biz_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -674,7 +674,7 @@ class RawAccountsClient:
         Returns
         -------
         HttpResponse[DeleteAccountsResponse]
-            Connected account deleted.
+            Subaccount deleted.
         """
         _response = self._client_wrapper.httpx_client.request(
             f"accounts/{encode_path_param(id)}",
@@ -800,7 +800,7 @@ class RawAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Account]:
         """
-        Updates an account. User tokens can update business accounts; Account API keys can update connected accounts.
+        Updates an account. User tokens can update business accounts; Account API keys can update subaccounts.
 
         Parameters
         ----------
@@ -1387,12 +1387,12 @@ class RawAccountsClient:
 
     def suspend(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> HttpResponse[Account]:
         """
-        Suspends a connected account directly owned by the authenticated platform account. This cannot suspend the platform account itself or an account owned by another platform.
+        Suspends a subaccount directly owned by the authenticated platform account. This cannot suspend the platform account itself or an account owned by another platform.
 
         Parameters
         ----------
         id : str
-            Connected account ID, prefixed `biz_`.
+            Subaccount ID, prefixed `biz_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1400,7 +1400,7 @@ class RawAccountsClient:
         Returns
         -------
         HttpResponse[Account]
-            Connected account suspended.
+            Subaccount suspended.
         """
         _response = self._client_wrapper.httpx_client.request(
             f"accounts/{encode_path_param(id)}/suspend",
@@ -1596,7 +1596,7 @@ class AsyncRawAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Account, ListAccountsResponse]:
         """
-        Lists accounts visible to the credential. User tokens return the user's business accounts; Account API keys return the requesting account and its connected accounts.
+        Lists accounts visible to the credential. User tokens return the user's business accounts; Account API keys return the requesting account and its subaccounts.
 
         Parameters
         ----------
@@ -1637,7 +1637,7 @@ class AsyncRawAccountsClient:
             Return only accounts whose lifetime USD volume is at most this value. Requires `stats:read` on the parent account.
 
         parent_account_id : typing.Optional[str]
-            For platforms: the parent account ID whose direct connected accounts to return. Requires `payout:account:read` on the parent account.
+            For platforms: the parent account ID whose direct subaccounts to return. Requires `payout:account:read` on the parent account.
 
         owner_id : typing.Optional[str]
             Return only accounts owned by this user (`user_...`), the account's `owner`. Cannot be combined with `parent_account_id`.
@@ -1766,7 +1766,7 @@ class AsyncRawAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Account]:
         """
-        Creates an account. User tokens create business accounts; Account API keys create connected accounts. Tax fields (`tax_remitted_by`, `tax_type`, `product_tax_code_id`, `business_address`, `tax_identifiers`) are configured with Update Account, not at creation.
+        Creates an account. User tokens create business accounts; Account API keys create subaccounts. Tax fields (`tax_remitted_by`, `tax_type`, `product_tax_code_id`, `business_address`, `tax_identifiers`) are configured with Update Account, not at creation.
 
         Parameters
         ----------
@@ -1777,13 +1777,13 @@ class AsyncRawAccountsClient:
             The blueprint App ID, prefixed `app_`. Creates a hosted website for the account and queues its deployment asynchronously; the Account response does not report deployment completion.
 
         country : typing.Optional[str]
-            The ISO 3166-1 alpha-2 country code where the account's business is located (e.g. `US`). Defaults to the parent account's country for connected accounts.
+            The ISO 3166-1 alpha-2 country code where the account's business is located (e.g. `US`). Defaults to the parent account's country for subaccounts.
 
         dispute_fighter_enabled : typing.Optional[bool]
             Whether Whop assembles and files dispute evidence for this account. Enabling it opts into the success fee charged on disputes it wins. Requires payment:dispute. Omit to preserve the existing setting or creation default.
 
         email : typing.Optional[str]
-            The email address of the account owner. Required when creating a connected account.
+            The email address of the account owner. Required when creating a subaccount.
 
         metadata : typing.Optional[typing.Dict[str, typing.Any]]
             Arbitrary key/value metadata to store on the account.
@@ -1792,7 +1792,7 @@ class AsyncRawAccountsClient:
             Whether payment orchestration is enabled for this account. Requires payout:account:update. Omit to preserve the existing setting or creation default.
 
         send_customer_emails : typing.Optional[bool]
-            Whether Whop sends transactional emails to customers on behalf of the connected account.
+            Whether Whop sends transactional emails to customers on behalf of the subaccount.
 
         title : typing.Optional[str]
             The display name of the account. Defaults to `metadata.external_id` or the owner's email when omitted.
@@ -2174,12 +2174,12 @@ class AsyncRawAccountsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[DeleteAccountsResponse]:
         """
-        Deletes a connected account directly owned by the authenticated platform account. The account must have no settled, pending, or reserved balance in any currency and no active, trialing, or past-due memberships. The account stops resolving immediately, and its products, plans, and team access are removed in the background; payment history is retained. Deletion cannot be undone through the API. This cannot delete the platform account itself or an account owned by another platform.
+        Deletes a subaccount directly owned by the authenticated platform account. The account must have no settled, pending, or reserved balance in any currency and no active, trialing, or past-due memberships. The account stops resolving immediately, and its products, plans, and team access are removed in the background; payment history is retained. Deletion cannot be undone through the API. This cannot delete the platform account itself or an account owned by another platform.
 
         Parameters
         ----------
         id : str
-            Connected account ID, prefixed `biz_`.
+            Subaccount ID, prefixed `biz_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2187,7 +2187,7 @@ class AsyncRawAccountsClient:
         Returns
         -------
         AsyncHttpResponse[DeleteAccountsResponse]
-            Connected account deleted.
+            Subaccount deleted.
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"accounts/{encode_path_param(id)}",
@@ -2313,7 +2313,7 @@ class AsyncRawAccountsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Account]:
         """
-        Updates an account. User tokens can update business accounts; Account API keys can update connected accounts.
+        Updates an account. User tokens can update business accounts; Account API keys can update subaccounts.
 
         Parameters
         ----------
@@ -2902,12 +2902,12 @@ class AsyncRawAccountsClient:
         self, id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[Account]:
         """
-        Suspends a connected account directly owned by the authenticated platform account. This cannot suspend the platform account itself or an account owned by another platform.
+        Suspends a subaccount directly owned by the authenticated platform account. This cannot suspend the platform account itself or an account owned by another platform.
 
         Parameters
         ----------
         id : str
-            Connected account ID, prefixed `biz_`.
+            Subaccount ID, prefixed `biz_`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2915,7 +2915,7 @@ class AsyncRawAccountsClient:
         Returns
         -------
         AsyncHttpResponse[Account]
-            Connected account suspended.
+            Subaccount suspended.
         """
         _response = await self._client_wrapper.httpx_client.request(
             f"accounts/{encode_path_param(id)}/suspend",

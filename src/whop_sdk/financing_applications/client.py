@@ -51,7 +51,7 @@ class FinancingApplicationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[FinancingApplication, ListFinancingApplicationsResponse]:
         """
-        Lists payment-financing applications. Without `account_id`, an account credential lists its own account and its direct connected accounts, but not deeper descendants, and a user credential lists every account it can read applications for.
+        Lists payment-financing applications. Without `account_id`, an account credential lists its own account and its direct subaccounts, but not deeper descendants, and a user credential lists every account it can read applications for.
 
         Parameters
         ----------
@@ -98,7 +98,7 @@ class FinancingApplicationsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -147,7 +147,7 @@ class FinancingApplicationsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -178,7 +178,7 @@ class FinancingApplicationsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -222,7 +222,7 @@ class FinancingApplicationsClient:
         )
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -271,7 +271,7 @@ class FinancingApplicationsClient:
         )
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -320,7 +320,7 @@ class AsyncFinancingApplicationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[FinancingApplication, ListFinancingApplicationsResponse]:
         """
-        Lists payment-financing applications. Without `account_id`, an account credential lists its own account and its direct connected accounts, but not deeper descendants, and a user credential lists every account it can read applications for.
+        Lists payment-financing applications. Without `account_id`, an account credential lists its own account and its direct subaccounts, but not deeper descendants, and a user credential lists every account it can read applications for.
 
         Parameters
         ----------
@@ -369,7 +369,7 @@ class AsyncFinancingApplicationsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -427,7 +427,7 @@ class AsyncFinancingApplicationsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -468,7 +468,7 @@ class AsyncFinancingApplicationsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -520,7 +520,7 @@ class AsyncFinancingApplicationsClient:
         )
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -577,7 +577,7 @@ class AsyncFinancingApplicationsClient:
         )
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

@@ -121,7 +121,7 @@ class RawPreferencesClient:
         ads_triple_whale_integration: typing.Optional[UpdatePreferencesRequestAdsTripleWhaleIntegration] = OMIT,
         cards_auto_top_up: typing.Optional[bool] = OMIT,
         cards_notifications: typing.Optional[bool] = OMIT,
-        covers_connected_account_negative_balances: typing.Optional[bool] = OMIT,
+        covers_subaccount_negative_balances: typing.Optional[bool] = OMIT,
         customer_tracking: typing.Optional[UpdatePreferencesRequestCustomerTracking] = OMIT,
         dispute_fighter_enabled: typing.Optional[bool] = OMIT,
         economic_intelligence_auto_renew: typing.Optional[bool] = OMIT,
@@ -142,7 +142,7 @@ class RawPreferencesClient:
         | Preferences | Required scope |
         | --- | --- |
         | `ads_payment_methods`, `ads_reporting_currency`, `ads_scheduling_timezone`, `ads_triple_whale_integration`, `ads_certifications` | `ad_campaign:create` |
-        | `cards_auto_top_up`, `cards_notifications`, `covers_connected_account_negative_balances` | `payout:account:update` |
+        | `cards_auto_top_up`, `cards_notifications`, `covers_subaccount_negative_balances` | `payout:account:update` |
         | `dispute_fighter_enabled` | `payment:dispute` |
         | `economic_intelligence_duration_key`, `economic_intelligence_auto_renew` | `company:update` |
         | `feedback_options`, `customer_tracking` | `company:manage_checkout` |
@@ -176,8 +176,8 @@ class RawPreferencesClient:
         cards_notifications : typing.Optional[bool]
             Whether Whop Card notifications reach this account's team. Set it to `false` to stop every card email and push notification for the account — application status, verification and action-required alerts, card-ready alerts, declines, large charges, and cashback summaries. Cardholder onboarding invitations still send, because they carry the only link an invited cardholder can onboard with. Requesting a card is rejected while notifications are off, since the request reaches nobody. Cards on personal accounts are unaffected. Requires a cards balance on the account and the `payout:account:update` scope on your API key.
 
-        covers_connected_account_negative_balances : typing.Optional[bool]
-            Whether this account covers its connected accounts' negative balances. When a connected account's balance drops below zero (from refunds, disputes, or fees), this account's available balance in the same currency pays it back, up to what is available. Only accounts with connected accounts can set it. Requires the `payout:account:update` scope on your API key.
+        covers_subaccount_negative_balances : typing.Optional[bool]
+            Whether this account covers its subaccounts' negative balances. When a subaccount's balance drops below zero (from refunds, disputes, or fees), this account's available balance in the same currency pays it back, up to what is available. Only accounts with subaccounts can set it. Requires the `payout:account:update` scope on your API key.
 
         customer_tracking : typing.Optional[UpdatePreferencesRequestCustomerTracking]
             Customer tracking settings for the hosted tracking page and Element, replaced as a whole: fields left out are saved as unset. Pass null to clear them, which turns tracking off. Tracking is off unless `enabled` is `true`. Requires the `company:manage_checkout` scope on your API key.
@@ -233,7 +233,7 @@ class RawPreferencesClient:
                 ),
                 "cards_auto_top_up": cards_auto_top_up,
                 "cards_notifications": cards_notifications,
-                "covers_connected_account_negative_balances": covers_connected_account_negative_balances,
+                "covers_subaccount_negative_balances": covers_subaccount_negative_balances,
                 "customer_tracking": convert_and_respect_annotation_metadata(
                     object_=customer_tracking,
                     annotation=typing.Optional[UpdatePreferencesRequestCustomerTracking],
@@ -413,7 +413,7 @@ class AsyncRawPreferencesClient:
         ads_triple_whale_integration: typing.Optional[UpdatePreferencesRequestAdsTripleWhaleIntegration] = OMIT,
         cards_auto_top_up: typing.Optional[bool] = OMIT,
         cards_notifications: typing.Optional[bool] = OMIT,
-        covers_connected_account_negative_balances: typing.Optional[bool] = OMIT,
+        covers_subaccount_negative_balances: typing.Optional[bool] = OMIT,
         customer_tracking: typing.Optional[UpdatePreferencesRequestCustomerTracking] = OMIT,
         dispute_fighter_enabled: typing.Optional[bool] = OMIT,
         economic_intelligence_auto_renew: typing.Optional[bool] = OMIT,
@@ -434,7 +434,7 @@ class AsyncRawPreferencesClient:
         | Preferences | Required scope |
         | --- | --- |
         | `ads_payment_methods`, `ads_reporting_currency`, `ads_scheduling_timezone`, `ads_triple_whale_integration`, `ads_certifications` | `ad_campaign:create` |
-        | `cards_auto_top_up`, `cards_notifications`, `covers_connected_account_negative_balances` | `payout:account:update` |
+        | `cards_auto_top_up`, `cards_notifications`, `covers_subaccount_negative_balances` | `payout:account:update` |
         | `dispute_fighter_enabled` | `payment:dispute` |
         | `economic_intelligence_duration_key`, `economic_intelligence_auto_renew` | `company:update` |
         | `feedback_options`, `customer_tracking` | `company:manage_checkout` |
@@ -468,8 +468,8 @@ class AsyncRawPreferencesClient:
         cards_notifications : typing.Optional[bool]
             Whether Whop Card notifications reach this account's team. Set it to `false` to stop every card email and push notification for the account — application status, verification and action-required alerts, card-ready alerts, declines, large charges, and cashback summaries. Cardholder onboarding invitations still send, because they carry the only link an invited cardholder can onboard with. Requesting a card is rejected while notifications are off, since the request reaches nobody. Cards on personal accounts are unaffected. Requires a cards balance on the account and the `payout:account:update` scope on your API key.
 
-        covers_connected_account_negative_balances : typing.Optional[bool]
-            Whether this account covers its connected accounts' negative balances. When a connected account's balance drops below zero (from refunds, disputes, or fees), this account's available balance in the same currency pays it back, up to what is available. Only accounts with connected accounts can set it. Requires the `payout:account:update` scope on your API key.
+        covers_subaccount_negative_balances : typing.Optional[bool]
+            Whether this account covers its subaccounts' negative balances. When a subaccount's balance drops below zero (from refunds, disputes, or fees), this account's available balance in the same currency pays it back, up to what is available. Only accounts with subaccounts can set it. Requires the `payout:account:update` scope on your API key.
 
         customer_tracking : typing.Optional[UpdatePreferencesRequestCustomerTracking]
             Customer tracking settings for the hosted tracking page and Element, replaced as a whole: fields left out are saved as unset. Pass null to clear them, which turns tracking off. Tracking is off unless `enabled` is `true`. Requires the `company:manage_checkout` scope on your API key.
@@ -525,7 +525,7 @@ class AsyncRawPreferencesClient:
                 ),
                 "cards_auto_top_up": cards_auto_top_up,
                 "cards_notifications": cards_notifications,
-                "covers_connected_account_negative_balances": covers_connected_account_negative_balances,
+                "covers_subaccount_negative_balances": covers_subaccount_negative_balances,
                 "customer_tracking": convert_and_respect_annotation_metadata(
                     object_=customer_tracking,
                     annotation=typing.Optional[UpdatePreferencesRequestCustomerTracking],

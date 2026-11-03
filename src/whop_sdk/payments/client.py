@@ -74,7 +74,7 @@ class PaymentsClient:
         currency: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
         query: typing.Optional[str] = None,
-        include_connected_accounts: typing.Optional[bool] = None,
+        include_subaccounts: typing.Optional[bool] = None,
         member_id: typing.Optional[str] = None,
         membership_id: typing.Optional[str] = None,
         product_id: typing.Optional[str] = None,
@@ -142,8 +142,8 @@ class PaymentsClient:
         query : typing.Optional[str]
             Search payments by payment ID, dispute ID, user ID, membership ID, user email, name, or username. Email filtering requires the member:email:read permission.
 
-        include_connected_accounts : typing.Optional[bool]
-            Also cover the account's connected accounts. Requires `account_id`, and is a 400 without it. Without `query`, lists the payments of the account and every connected account, newest first by `created_at` only; another `order` is a 400. The listing is cut off after 10 seconds, which a rare filter on an account with little recent activity can reach; add a `query` to narrow it. With `query`, matches on payment, dispute, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`); free-text queries such as a name search only the named account. Connected accounts' payments are returned only for connected accounts you can read payments on.
+        include_subaccounts : typing.Optional[bool]
+            Also cover the account's subaccounts. Requires `account_id`, and is a 400 without it. Without `query`, lists the payments of the account and every subaccount, newest first by `created_at` only; another `order` is a 400. The listing is cut off after 10 seconds, which a rare filter on an account with little recent activity can reach; add a `query` to narrow it. With `query`, matches on payment, dispute, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`); free-text queries such as a name search only the named account. Subaccounts' payments are returned only for subaccounts you can read payments on.
 
         member_id : typing.Optional[str]
             Only payments made by this member, prefixed `mber_`.
@@ -236,7 +236,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -260,7 +260,7 @@ class PaymentsClient:
             currency=currency,
             user_id=user_id,
             query=query,
-            include_connected_accounts=include_connected_accounts,
+            include_subaccounts=include_subaccounts,
             member_id=member_id,
             membership_id=membership_id,
             product_id=product_id,
@@ -405,7 +405,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -481,7 +481,7 @@ class PaymentsClient:
         dispute_created_after: typing.Optional[dt.datetime] = None,
         dispute_created_before: typing.Optional[dt.datetime] = None,
         query: typing.Optional[str] = None,
-        include_connected_accounts: typing.Optional[bool] = None,
+        include_subaccounts: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SummaryPaymentsResponse:
         """
@@ -546,8 +546,8 @@ class PaymentsClient:
         query : typing.Optional[str]
             Search payments by payment ID, dispute ID, user ID, membership ID, user email, name, or username.
 
-        include_connected_accounts : typing.Optional[bool]
-            Only for searches: with `query`, also search the account's connected accounts. Requires `account_id` and `query`, and is a 400 without either; it never lists connected accounts' payments on its own. Matches on payment, dispute, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`). Free-text queries such as a name search only the named account. Connected accounts' payments are returned only for connected accounts you can read payments on.
+        include_subaccounts : typing.Optional[bool]
+            Only for searches: with `query`, also search the account's subaccounts. Requires `account_id` and `query`, and is a 400 without either; it never lists subaccounts' payments on its own. Matches on payment, dispute, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`). Free-text queries such as a name search only the named account. Subaccounts' payments are returned only for subaccounts you can read payments on.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -562,7 +562,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -592,7 +592,7 @@ class PaymentsClient:
             dispute_created_after=dispute_created_after,
             dispute_created_before=dispute_created_before,
             query=query,
-            include_connected_accounts=include_connected_accounts,
+            include_subaccounts=include_subaccounts,
             request_options=request_options,
         )
         return _response.data
@@ -619,7 +619,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -665,7 +665,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -700,7 +700,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -735,7 +735,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -768,7 +768,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -814,7 +814,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -849,7 +849,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -882,7 +882,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -928,7 +928,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -976,7 +976,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1021,7 +1021,7 @@ class PaymentsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1071,7 +1071,7 @@ class AsyncPaymentsClient:
         currency: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
         query: typing.Optional[str] = None,
-        include_connected_accounts: typing.Optional[bool] = None,
+        include_subaccounts: typing.Optional[bool] = None,
         member_id: typing.Optional[str] = None,
         membership_id: typing.Optional[str] = None,
         product_id: typing.Optional[str] = None,
@@ -1139,8 +1139,8 @@ class AsyncPaymentsClient:
         query : typing.Optional[str]
             Search payments by payment ID, dispute ID, user ID, membership ID, user email, name, or username. Email filtering requires the member:email:read permission.
 
-        include_connected_accounts : typing.Optional[bool]
-            Also cover the account's connected accounts. Requires `account_id`, and is a 400 without it. Without `query`, lists the payments of the account and every connected account, newest first by `created_at` only; another `order` is a 400. The listing is cut off after 10 seconds, which a rare filter on an account with little recent activity can reach; add a `query` to narrow it. With `query`, matches on payment, dispute, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`); free-text queries such as a name search only the named account. Connected accounts' payments are returned only for connected accounts you can read payments on.
+        include_subaccounts : typing.Optional[bool]
+            Also cover the account's subaccounts. Requires `account_id`, and is a 400 without it. Without `query`, lists the payments of the account and every subaccount, newest first by `created_at` only; another `order` is a 400. The listing is cut off after 10 seconds, which a rare filter on an account with little recent activity can reach; add a `query` to narrow it. With `query`, matches on payment, dispute, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`); free-text queries such as a name search only the named account. Subaccounts' payments are returned only for subaccounts you can read payments on.
 
         member_id : typing.Optional[str]
             Only payments made by this member, prefixed `mber_`.
@@ -1235,7 +1235,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1266,7 +1266,7 @@ class AsyncPaymentsClient:
             currency=currency,
             user_id=user_id,
             query=query,
-            include_connected_accounts=include_connected_accounts,
+            include_subaccounts=include_subaccounts,
             member_id=member_id,
             membership_id=membership_id,
             product_id=product_id,
@@ -1413,7 +1413,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1495,7 +1495,7 @@ class AsyncPaymentsClient:
         dispute_created_after: typing.Optional[dt.datetime] = None,
         dispute_created_before: typing.Optional[dt.datetime] = None,
         query: typing.Optional[str] = None,
-        include_connected_accounts: typing.Optional[bool] = None,
+        include_subaccounts: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SummaryPaymentsResponse:
         """
@@ -1560,8 +1560,8 @@ class AsyncPaymentsClient:
         query : typing.Optional[str]
             Search payments by payment ID, dispute ID, user ID, membership ID, user email, name, or username.
 
-        include_connected_accounts : typing.Optional[bool]
-            Only for searches: with `query`, also search the account's connected accounts. Requires `account_id` and `query`, and is a 400 without either; it never lists connected accounts' payments on its own. Matches on payment, dispute, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`). Free-text queries such as a name search only the named account. Connected accounts' payments are returned only for connected accounts you can read payments on.
+        include_subaccounts : typing.Optional[bool]
+            Only for searches: with `query`, also search the account's subaccounts. Requires `account_id` and `query`, and is a 400 without either; it never lists subaccounts' payments on its own. Matches on payment, dispute, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`). Free-text queries such as a name search only the named account. Subaccounts' payments are returned only for subaccounts you can read payments on.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1578,7 +1578,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1614,7 +1614,7 @@ class AsyncPaymentsClient:
             dispute_created_after=dispute_created_after,
             dispute_created_before=dispute_created_before,
             query=query,
-            include_connected_accounts=include_connected_accounts,
+            include_subaccounts=include_subaccounts,
             request_options=request_options,
         )
         return _response.data
@@ -1643,7 +1643,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1697,7 +1697,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1740,7 +1740,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1783,7 +1783,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1824,7 +1824,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1878,7 +1878,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1921,7 +1921,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1962,7 +1962,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -2016,7 +2016,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -2072,7 +2072,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -2125,7 +2125,7 @@ class AsyncPaymentsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
