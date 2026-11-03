@@ -36,6 +36,7 @@ class NotesClient:
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
+        include_total_count: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[MemberNote, ListNotesResponse]:
         """
@@ -57,6 +58,9 @@ class NotesClient:
 
         before : typing.Optional[str]
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+
+        include_total_count : typing.Optional[bool]
+            Set to `true` to return the number of matching results in `page_info.total_count`. Send `first=0` as well to return the count without any results.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -85,7 +89,13 @@ class NotesClient:
             yield page
         """
         return self._raw_client.list(
-            member_id, first=first, after=after, last=last, before=before, request_options=request_options
+            member_id,
+            first=first,
+            after=after,
+            last=last,
+            before=before,
+            include_total_count=include_total_count,
+            request_options=request_options,
         )
 
     def create(
@@ -151,6 +161,7 @@ class AsyncNotesClient:
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
+        include_total_count: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[MemberNote, ListNotesResponse]:
         """
@@ -172,6 +183,9 @@ class AsyncNotesClient:
 
         before : typing.Optional[str]
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+
+        include_total_count : typing.Optional[bool]
+            Set to `true` to return the number of matching results in `page_info.total_count`. Send `first=0` as well to return the count without any results.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -209,7 +223,13 @@ class AsyncNotesClient:
         asyncio.run(main())
         """
         return await self._raw_client.list(
-            member_id, first=first, after=after, last=last, before=before, request_options=request_options
+            member_id,
+            first=first,
+            after=after,
+            last=last,
+            before=before,
+            include_total_count=include_total_count,
+            request_options=request_options,
         )
 
     async def create(

@@ -64,6 +64,7 @@ class RawMembershipsClient:
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
+        include_total_count: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Membership, ListMembershipsResponse]:
         """
@@ -128,6 +129,9 @@ class RawMembershipsClient:
         before : typing.Optional[str]
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
+        include_total_count : typing.Optional[bool]
+            Set to `true` to return the number of matching results in `page_info.total_count`. Send `first=0` as well to return the count without any results.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -160,6 +164,7 @@ class RawMembershipsClient:
                 "after": after,
                 "last": last,
                 "before": before,
+                "include_total_count": include_total_count,
             },
             request_options=request_options,
         )
@@ -198,6 +203,7 @@ class RawMembershipsClient:
                         after=_parsed_next,
                         last=last,
                         before=before,
+                        include_total_count=include_total_count,
                         request_options=request_options,
                     )
                 return SyncPager(has_next=_has_next, items=_items, get_next=_get_next, response=_parsed_response)
@@ -1415,6 +1421,7 @@ class AsyncRawMembershipsClient:
         after: typing.Optional[str] = None,
         last: typing.Optional[int] = None,
         before: typing.Optional[str] = None,
+        include_total_count: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Membership, ListMembershipsResponse]:
         """
@@ -1479,6 +1486,9 @@ class AsyncRawMembershipsClient:
         before : typing.Optional[str]
             Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
 
+        include_total_count : typing.Optional[bool]
+            Set to `true` to return the number of matching results in `page_info.total_count`. Send `first=0` as well to return the count without any results.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -1511,6 +1521,7 @@ class AsyncRawMembershipsClient:
                 "after": after,
                 "last": last,
                 "before": before,
+                "include_total_count": include_total_count,
             },
             request_options=request_options,
         )
@@ -1551,6 +1562,7 @@ class AsyncRawMembershipsClient:
                             after=_parsed_next,
                             last=last,
                             before=before,
+                            include_total_count=include_total_count,
                             request_options=request_options,
                         )
 

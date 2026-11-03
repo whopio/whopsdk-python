@@ -25228,6 +25228,14 @@ client.invoices.list()
 <dl>
 <dd>
 
+**include_total_count:** `typing.Optional[bool]` — Set to `true` to return the number of matching results in `page_info.total_count`. Send `first=0` as well to return the count without any results.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -27445,6 +27453,14 @@ client.members.list(
 <dl>
 <dd>
 
+**include_total_count:** `typing.Optional[bool]` — Set to `true` to return the number of matching results in `page_info.total_count`. Send `first=0` as well to return the count without any results.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -27819,6 +27835,14 @@ client.memberships.list(
 <dd>
 
 **before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_total_count:** `typing.Optional[bool]` — Set to `true` to return the number of matching results in `page_info.total_count`. Send `first=0` as well to return the count without any results.
     
 </dd>
 </dl>
@@ -33045,6 +33069,14 @@ client.payments.list(
 <dl>
 <dd>
 
+**include_total_count:** `typing.Optional[bool]` — Set to `true` to return the number of matching results in `page_info.total_count`. Send `first=0` as well to return the count without any results.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>
@@ -37290,6 +37322,14 @@ client.products.list(
 <dl>
 <dd>
 
+**include_total_count:** `typing.Optional[bool]` — Set to `true` to return the number of matching results in `page_info.total_count`. Send `first=0` as well to return the count without any results.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **created_after:** `typing.Optional[str]` — Only return products created after this ISO 8601 timestamp.
     
 </dd>
@@ -38137,6 +38177,14 @@ client.promo_codes.list(
 <dd>
 
 **before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_total_count:** `typing.Optional[bool]` — Set to `true` to return the number of matching results in `page_info.total_count`. Send `first=0` as well to return the count without any results.
     
 </dd>
 </dl>
@@ -40488,6 +40536,14 @@ client.reviews.list(
 <dd>
 
 **before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_total_count:** `typing.Optional[bool]` — Set to `true` to return the number of matching results in `page_info.total_count`. Send `first=0` as well to return the count without any results.
     
 </dd>
 </dl>
@@ -50966,6 +51022,14 @@ client.members.notes.list(
 <dd>
 
 **before:** `typing.Optional[str]` — Return results before this cursor. Use `page_info.start_cursor` from the previous response to fetch the previous page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include_total_count:** `typing.Optional[bool]` — Set to `true` to return the number of matching results in `page_info.total_count`. Send `first=0` as well to return the count without any results.
     
 </dd>
 </dl>
