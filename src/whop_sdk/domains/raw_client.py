@@ -23,6 +23,7 @@ from .types.create_domains_request_apple_pay import CreateDomainsRequestApplePay
 from .types.create_domains_request_email import CreateDomainsRequestEmail
 from .types.create_domains_request_pixel import CreateDomainsRequestPixel
 from .types.create_domains_request_registration import CreateDomainsRequestRegistration
+from .types.create_domains_request_subdomain import CreateDomainsRequestSubdomain
 from .types.create_domains_request_transfer import CreateDomainsRequestTransfer
 from .types.create_domains_request_verification import CreateDomainsRequestVerification
 from .types.create_domains_request_website import CreateDomainsRequestWebsite
@@ -34,6 +35,7 @@ from .types.list_domains_request_pixel import ListDomainsRequestPixel
 from .types.list_domains_request_platform import ListDomainsRequestPlatform
 from .types.list_domains_request_registration import ListDomainsRequestRegistration
 from .types.list_domains_request_status import ListDomainsRequestStatus
+from .types.list_domains_request_subdomain import ListDomainsRequestSubdomain
 from .types.list_domains_request_transfer import ListDomainsRequestTransfer
 from .types.list_domains_request_verification import ListDomainsRequestVerification
 from .types.list_domains_request_website import ListDomainsRequestWebsite
@@ -42,6 +44,7 @@ from .types.update_domains_request_apple_pay import UpdateDomainsRequestApplePay
 from .types.update_domains_request_email import UpdateDomainsRequestEmail
 from .types.update_domains_request_pixel import UpdateDomainsRequestPixel
 from .types.update_domains_request_registration import UpdateDomainsRequestRegistration
+from .types.update_domains_request_subdomain import UpdateDomainsRequestSubdomain
 from .types.update_domains_request_transfer import UpdateDomainsRequestTransfer
 from .types.update_domains_request_verification import UpdateDomainsRequestVerification
 from .types.update_domains_request_website import UpdateDomainsRequestWebsite
@@ -73,6 +76,7 @@ class RawDomainsClient:
         verification: typing.Optional[ListDomainsRequestVerification] = None,
         registration: typing.Optional[ListDomainsRequestRegistration] = None,
         platform: typing.Optional[ListDomainsRequestPlatform] = None,
+        subdomain: typing.Optional[ListDomainsRequestSubdomain] = None,
         website: typing.Optional[ListDomainsRequestWebsite] = None,
         apple_pay: typing.Optional[ListDomainsRequestApplePay] = None,
         pixel: typing.Optional[ListDomainsRequestPixel] = None,
@@ -132,6 +136,9 @@ class RawDomainsClient:
         platform : typing.Optional[ListDomainsRequestPlatform]
             Only domains with platform in this state, such as `ready`, or `any` for every domain that has platform.
 
+        subdomain : typing.Optional[ListDomainsRequestSubdomain]
+            Only domains with subdomain in this state, such as `ready`, or `any` for every domain that has subdomain.
+
         website : typing.Optional[ListDomainsRequestWebsite]
             Only domains with website in this state, such as `ready`, or `any` for every domain that has website.
 
@@ -175,6 +182,7 @@ class RawDomainsClient:
                 "verification": verification,
                 "registration": registration,
                 "platform": platform,
+                "subdomain": subdomain,
                 "website": website,
                 "apple_pay": apple_pay,
                 "pixel": pixel,
@@ -214,6 +222,7 @@ class RawDomainsClient:
                         verification=verification,
                         registration=registration,
                         platform=platform,
+                        subdomain=subdomain,
                         website=website,
                         apple_pay=apple_pay,
                         pixel=pixel,
@@ -274,6 +283,7 @@ class RawDomainsClient:
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         pixel: typing.Optional[CreateDomainsRequestPixel] = OMIT,
         registration: typing.Optional[CreateDomainsRequestRegistration] = OMIT,
+        subdomain: typing.Optional[CreateDomainsRequestSubdomain] = OMIT,
         transfer: typing.Optional[CreateDomainsRequestTransfer] = OMIT,
         verification: typing.Optional[CreateDomainsRequestVerification] = OMIT,
         website: typing.Optional[CreateDomainsRequestWebsite] = OMIT,
@@ -286,7 +296,7 @@ class RawDomainsClient:
 
         Pass `registration.auth_code` to transfer in a domain you own at another registrar. The transfer starts once its `amount_due` is paid, or at once when `amount_due` is `null`. While `registration.phase` is `transferring`, its `issues` say what the transfer needs from you.
 
-        Pass `verification` to connect a domain you registered elsewhere: its `issues` list the TXT and routing records to publish. Pass `website` with an `app_id` to serve that app on the domain.
+        Pass `verification` to connect a domain you registered elsewhere: its `issues` list the TXT and routing records to publish. A subdomain of a domain this account bought through Whop takes `subdomain` by default, and Whop publishes its DNS records itself. Pass `website` with an `app_id` to serve that app on the domain.
 
         To change a domain you already have, update it instead. Adding a domain this account deleted revives it under its original ID.
 
@@ -302,7 +312,7 @@ class RawDomainsClient:
             Accept Apple Pay at checkout on the domain. It needs no other capability. Whop registers the domain with Apple: it stays `pending` until Apple answers, then turns `ready`, or `action_required` when Apple couldn't fetch the domain association file. Serve the file, then check the domain to register it again. Pass `null` to turn Apple Pay off: Whop removes the domain from Apple, and the domain stays, like releasing any other capability.
 
         email : typing.Optional[CreateDomainsRequestEmail]
-            Send and receive email on the domain. Only a domain bought through Whop, or a subdomain of one in the same account, can have it. Whop publishes the DNS records and stays `pending` until its email provider verifies them, then turns `ready`. Pass `null` to remove email.
+            Send and receive email on the domain. It needs `registration` or `subdomain`, so only a domain bought through Whop, or a subdomain of one in the same account, can have it. Whop publishes the DNS records and stays `pending` until its email provider verifies them, then turns `ready`. Pass `null` to remove email.
 
         metadata : typing.Optional[typing.Dict[str, str]]
             Custom string keys and values.
@@ -312,6 +322,9 @@ class RawDomainsClient:
 
         registration : typing.Optional[CreateDomainsRequestRegistration]
             Buy the domain through Whop, or transfer in a domain you own elsewhere with `auth_code`, then renew it every year and let Whop run its DNS. Pass `null` to release an unpaid or failed purchase, or to cancel a transfer while its current registrar can still stop it.
+
+        subdomain : typing.Optional[CreateDomainsRequestSubdomain]
+            Use a subdomain of a domain this account bought through Whop, such as shop.example.com under example.com. It's the default when you add such a subdomain without a capability. Whop publishes its DNS records in the root domain's zone, so it needs nothing from you: it stays `pending` until the root domain is set up, then turns `ready`. Whop releases it, and its website, when the account no longer holds the root domain, and deletes it when the root domain leaves the account. Pass `null` to release it. Can't be combined with `verification` or `registration`.
 
         transfer : typing.Optional[CreateDomainsRequestTransfer]
             Move a domain registered through Whop to another Whop account. Turning it on returns a code in `transfer.code`; the receiving account enters it as `registration.auth_code` on its own copy of the domain. Whop then removes the domain's email, email addresses and Apple Pay from this account, moves the registration with its expiry, stops charging this account to renew it, and removes the domain from this account. Pass `null` to turn it off and invalidate the code, until another account has entered it.
@@ -351,6 +364,9 @@ class RawDomainsClient:
                     object_=registration,
                     annotation=typing.Optional[CreateDomainsRequestRegistration],
                     direction="write",
+                ),
+                "subdomain": convert_and_respect_annotation_metadata(
+                    object_=subdomain, annotation=typing.Optional[CreateDomainsRequestSubdomain], direction="write"
                 ),
                 "transfer": convert_and_respect_annotation_metadata(
                     object_=transfer, annotation=typing.Optional[CreateDomainsRequestTransfer], direction="write"
@@ -539,6 +555,7 @@ class RawDomainsClient:
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         pixel: typing.Optional[UpdateDomainsRequestPixel] = OMIT,
         registration: typing.Optional[UpdateDomainsRequestRegistration] = OMIT,
+        subdomain: typing.Optional[UpdateDomainsRequestSubdomain] = OMIT,
         transfer: typing.Optional[UpdateDomainsRequestTransfer] = OMIT,
         verification: typing.Optional[UpdateDomainsRequestVerification] = OMIT,
         website: typing.Optional[UpdateDomainsRequestWebsite] = OMIT,
@@ -556,7 +573,7 @@ class RawDomainsClient:
             Accept Apple Pay at checkout on the domain. It needs no other capability. Whop registers the domain with Apple: it stays `pending` until Apple answers, then turns `ready`, or `action_required` when Apple couldn't fetch the domain association file. Serve the file, then check the domain to register it again. Pass `null` to turn Apple Pay off: Whop removes the domain from Apple, and the domain stays, like releasing any other capability.
 
         email : typing.Optional[UpdateDomainsRequestEmail]
-            Send and receive email on the domain. Only a domain bought through Whop, or a subdomain of one in the same account, can have it. Whop publishes the DNS records and stays `pending` until its email provider verifies them, then turns `ready`. Pass `null` to remove email.
+            Send and receive email on the domain. It needs `registration` or `subdomain`, so only a domain bought through Whop, or a subdomain of one in the same account, can have it. Whop publishes the DNS records and stays `pending` until its email provider verifies them, then turns `ready`. Pass `null` to remove email.
 
         metadata : typing.Optional[typing.Dict[str, str]]
             Replacement custom string keys and values.
@@ -566,6 +583,9 @@ class RawDomainsClient:
 
         registration : typing.Optional[UpdateDomainsRequestRegistration]
             Buy the domain through Whop, or transfer in a domain you own elsewhere with `auth_code`, then renew it every year and let Whop run its DNS. Pass `null` to release an unpaid or failed purchase, or to cancel a transfer while its current registrar can still stop it.
+
+        subdomain : typing.Optional[UpdateDomainsRequestSubdomain]
+            Use a subdomain of a domain this account bought through Whop, such as shop.example.com under example.com. It's the default when you add such a subdomain without a capability. Whop publishes its DNS records in the root domain's zone, so it needs nothing from you: it stays `pending` until the root domain is set up, then turns `ready`. Whop releases it, and its website, when the account no longer holds the root domain, and deletes it when the root domain leaves the account. Pass `null` to release it. Can't be combined with `verification` or `registration`.
 
         transfer : typing.Optional[UpdateDomainsRequestTransfer]
             Move a domain registered through Whop to another Whop account. Turning it on returns a code in `transfer.code`; the receiving account enters it as `registration.auth_code` on its own copy of the domain. Whop then removes the domain's email, email addresses and Apple Pay from this account, moves the registration with its expiry, stops charging this account to renew it, and removes the domain from this account. Pass `null` to turn it off and invalidate the code, until another account has entered it.
@@ -603,6 +623,9 @@ class RawDomainsClient:
                     object_=registration,
                     annotation=typing.Optional[UpdateDomainsRequestRegistration],
                     direction="write",
+                ),
+                "subdomain": convert_and_respect_annotation_metadata(
+                    object_=subdomain, annotation=typing.Optional[UpdateDomainsRequestSubdomain], direction="write"
                 ),
                 "transfer": convert_and_respect_annotation_metadata(
                     object_=transfer, annotation=typing.Optional[UpdateDomainsRequestTransfer], direction="write"
@@ -728,6 +751,7 @@ class AsyncRawDomainsClient:
         verification: typing.Optional[ListDomainsRequestVerification] = None,
         registration: typing.Optional[ListDomainsRequestRegistration] = None,
         platform: typing.Optional[ListDomainsRequestPlatform] = None,
+        subdomain: typing.Optional[ListDomainsRequestSubdomain] = None,
         website: typing.Optional[ListDomainsRequestWebsite] = None,
         apple_pay: typing.Optional[ListDomainsRequestApplePay] = None,
         pixel: typing.Optional[ListDomainsRequestPixel] = None,
@@ -787,6 +811,9 @@ class AsyncRawDomainsClient:
         platform : typing.Optional[ListDomainsRequestPlatform]
             Only domains with platform in this state, such as `ready`, or `any` for every domain that has platform.
 
+        subdomain : typing.Optional[ListDomainsRequestSubdomain]
+            Only domains with subdomain in this state, such as `ready`, or `any` for every domain that has subdomain.
+
         website : typing.Optional[ListDomainsRequestWebsite]
             Only domains with website in this state, such as `ready`, or `any` for every domain that has website.
 
@@ -830,6 +857,7 @@ class AsyncRawDomainsClient:
                 "verification": verification,
                 "registration": registration,
                 "platform": platform,
+                "subdomain": subdomain,
                 "website": website,
                 "apple_pay": apple_pay,
                 "pixel": pixel,
@@ -871,6 +899,7 @@ class AsyncRawDomainsClient:
                             verification=verification,
                             registration=registration,
                             platform=platform,
+                            subdomain=subdomain,
                             website=website,
                             apple_pay=apple_pay,
                             pixel=pixel,
@@ -932,6 +961,7 @@ class AsyncRawDomainsClient:
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         pixel: typing.Optional[CreateDomainsRequestPixel] = OMIT,
         registration: typing.Optional[CreateDomainsRequestRegistration] = OMIT,
+        subdomain: typing.Optional[CreateDomainsRequestSubdomain] = OMIT,
         transfer: typing.Optional[CreateDomainsRequestTransfer] = OMIT,
         verification: typing.Optional[CreateDomainsRequestVerification] = OMIT,
         website: typing.Optional[CreateDomainsRequestWebsite] = OMIT,
@@ -944,7 +974,7 @@ class AsyncRawDomainsClient:
 
         Pass `registration.auth_code` to transfer in a domain you own at another registrar. The transfer starts once its `amount_due` is paid, or at once when `amount_due` is `null`. While `registration.phase` is `transferring`, its `issues` say what the transfer needs from you.
 
-        Pass `verification` to connect a domain you registered elsewhere: its `issues` list the TXT and routing records to publish. Pass `website` with an `app_id` to serve that app on the domain.
+        Pass `verification` to connect a domain you registered elsewhere: its `issues` list the TXT and routing records to publish. A subdomain of a domain this account bought through Whop takes `subdomain` by default, and Whop publishes its DNS records itself. Pass `website` with an `app_id` to serve that app on the domain.
 
         To change a domain you already have, update it instead. Adding a domain this account deleted revives it under its original ID.
 
@@ -960,7 +990,7 @@ class AsyncRawDomainsClient:
             Accept Apple Pay at checkout on the domain. It needs no other capability. Whop registers the domain with Apple: it stays `pending` until Apple answers, then turns `ready`, or `action_required` when Apple couldn't fetch the domain association file. Serve the file, then check the domain to register it again. Pass `null` to turn Apple Pay off: Whop removes the domain from Apple, and the domain stays, like releasing any other capability.
 
         email : typing.Optional[CreateDomainsRequestEmail]
-            Send and receive email on the domain. Only a domain bought through Whop, or a subdomain of one in the same account, can have it. Whop publishes the DNS records and stays `pending` until its email provider verifies them, then turns `ready`. Pass `null` to remove email.
+            Send and receive email on the domain. It needs `registration` or `subdomain`, so only a domain bought through Whop, or a subdomain of one in the same account, can have it. Whop publishes the DNS records and stays `pending` until its email provider verifies them, then turns `ready`. Pass `null` to remove email.
 
         metadata : typing.Optional[typing.Dict[str, str]]
             Custom string keys and values.
@@ -970,6 +1000,9 @@ class AsyncRawDomainsClient:
 
         registration : typing.Optional[CreateDomainsRequestRegistration]
             Buy the domain through Whop, or transfer in a domain you own elsewhere with `auth_code`, then renew it every year and let Whop run its DNS. Pass `null` to release an unpaid or failed purchase, or to cancel a transfer while its current registrar can still stop it.
+
+        subdomain : typing.Optional[CreateDomainsRequestSubdomain]
+            Use a subdomain of a domain this account bought through Whop, such as shop.example.com under example.com. It's the default when you add such a subdomain without a capability. Whop publishes its DNS records in the root domain's zone, so it needs nothing from you: it stays `pending` until the root domain is set up, then turns `ready`. Whop releases it, and its website, when the account no longer holds the root domain, and deletes it when the root domain leaves the account. Pass `null` to release it. Can't be combined with `verification` or `registration`.
 
         transfer : typing.Optional[CreateDomainsRequestTransfer]
             Move a domain registered through Whop to another Whop account. Turning it on returns a code in `transfer.code`; the receiving account enters it as `registration.auth_code` on its own copy of the domain. Whop then removes the domain's email, email addresses and Apple Pay from this account, moves the registration with its expiry, stops charging this account to renew it, and removes the domain from this account. Pass `null` to turn it off and invalidate the code, until another account has entered it.
@@ -1009,6 +1042,9 @@ class AsyncRawDomainsClient:
                     object_=registration,
                     annotation=typing.Optional[CreateDomainsRequestRegistration],
                     direction="write",
+                ),
+                "subdomain": convert_and_respect_annotation_metadata(
+                    object_=subdomain, annotation=typing.Optional[CreateDomainsRequestSubdomain], direction="write"
                 ),
                 "transfer": convert_and_respect_annotation_metadata(
                     object_=transfer, annotation=typing.Optional[CreateDomainsRequestTransfer], direction="write"
@@ -1201,6 +1237,7 @@ class AsyncRawDomainsClient:
         metadata: typing.Optional[typing.Dict[str, str]] = OMIT,
         pixel: typing.Optional[UpdateDomainsRequestPixel] = OMIT,
         registration: typing.Optional[UpdateDomainsRequestRegistration] = OMIT,
+        subdomain: typing.Optional[UpdateDomainsRequestSubdomain] = OMIT,
         transfer: typing.Optional[UpdateDomainsRequestTransfer] = OMIT,
         verification: typing.Optional[UpdateDomainsRequestVerification] = OMIT,
         website: typing.Optional[UpdateDomainsRequestWebsite] = OMIT,
@@ -1218,7 +1255,7 @@ class AsyncRawDomainsClient:
             Accept Apple Pay at checkout on the domain. It needs no other capability. Whop registers the domain with Apple: it stays `pending` until Apple answers, then turns `ready`, or `action_required` when Apple couldn't fetch the domain association file. Serve the file, then check the domain to register it again. Pass `null` to turn Apple Pay off: Whop removes the domain from Apple, and the domain stays, like releasing any other capability.
 
         email : typing.Optional[UpdateDomainsRequestEmail]
-            Send and receive email on the domain. Only a domain bought through Whop, or a subdomain of one in the same account, can have it. Whop publishes the DNS records and stays `pending` until its email provider verifies them, then turns `ready`. Pass `null` to remove email.
+            Send and receive email on the domain. It needs `registration` or `subdomain`, so only a domain bought through Whop, or a subdomain of one in the same account, can have it. Whop publishes the DNS records and stays `pending` until its email provider verifies them, then turns `ready`. Pass `null` to remove email.
 
         metadata : typing.Optional[typing.Dict[str, str]]
             Replacement custom string keys and values.
@@ -1228,6 +1265,9 @@ class AsyncRawDomainsClient:
 
         registration : typing.Optional[UpdateDomainsRequestRegistration]
             Buy the domain through Whop, or transfer in a domain you own elsewhere with `auth_code`, then renew it every year and let Whop run its DNS. Pass `null` to release an unpaid or failed purchase, or to cancel a transfer while its current registrar can still stop it.
+
+        subdomain : typing.Optional[UpdateDomainsRequestSubdomain]
+            Use a subdomain of a domain this account bought through Whop, such as shop.example.com under example.com. It's the default when you add such a subdomain without a capability. Whop publishes its DNS records in the root domain's zone, so it needs nothing from you: it stays `pending` until the root domain is set up, then turns `ready`. Whop releases it, and its website, when the account no longer holds the root domain, and deletes it when the root domain leaves the account. Pass `null` to release it. Can't be combined with `verification` or `registration`.
 
         transfer : typing.Optional[UpdateDomainsRequestTransfer]
             Move a domain registered through Whop to another Whop account. Turning it on returns a code in `transfer.code`; the receiving account enters it as `registration.auth_code` on its own copy of the domain. Whop then removes the domain's email, email addresses and Apple Pay from this account, moves the registration with its expiry, stops charging this account to renew it, and removes the domain from this account. Pass `null` to turn it off and invalidate the code, until another account has entered it.
@@ -1265,6 +1305,9 @@ class AsyncRawDomainsClient:
                     object_=registration,
                     annotation=typing.Optional[UpdateDomainsRequestRegistration],
                     direction="write",
+                ),
+                "subdomain": convert_and_respect_annotation_metadata(
+                    object_=subdomain, annotation=typing.Optional[UpdateDomainsRequestSubdomain], direction="write"
                 ),
                 "transfer": convert_and_respect_annotation_metadata(
                     object_=transfer, annotation=typing.Optional[UpdateDomainsRequestTransfer], direction="write"

@@ -485,6 +485,8 @@ if typing.TYPE_CHECKING:
     from .domain_registration_state import DomainRegistrationState
     from .domain_stats import DomainStats
     from .domain_status import DomainStatus
+    from .domain_subdomain import DomainSubdomain
+    from .domain_subdomain_state import DomainSubdomainState
     from .domain_transfer import DomainTransfer
     from .domain_transfer_destination import DomainTransferDestination
     from .domain_transfer_state import DomainTransferState
@@ -1996,6 +1998,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DomainRegistrationState": ".domain_registration_state",
     "DomainStats": ".domain_stats",
     "DomainStatus": ".domain_status",
+    "DomainSubdomain": ".domain_subdomain",
+    "DomainSubdomainState": ".domain_subdomain_state",
     "DomainTransfer": ".domain_transfer",
     "DomainTransferDestination": ".domain_transfer_destination",
     "DomainTransferState": ".domain_transfer_state",
@@ -3407,6 +3411,8 @@ __all__ = [
     "DomainRegistrationState",
     "DomainStats",
     "DomainStatus",
+    "DomainSubdomain",
+    "DomainSubdomainState",
     "DomainTransfer",
     "DomainTransferDestination",
     "DomainTransferState",
