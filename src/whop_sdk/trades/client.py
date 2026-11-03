@@ -281,6 +281,39 @@ class TradesClient:
         _response = self._raw_client.retrieve(id, request_options=request_options)
         return _response.data
 
+    def cancel(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Trade:
+        """
+        Cancels the order of a trade while it rests on the book, such as a `good_til_canceled` limit order. Answers with the trade still `processing`; read it with `GET /trades/:id` until its `status` is `completed` or `failed`. A part that filled before the cancel landed stays filled, and money bridged in for an order that did not fill goes back to the wallet. Calling it again sends no second cancel. Answers `409` when the trade has no order on the book.
+
+        Parameters
+        ----------
+        id : str
+            Trade ID, prefixed `tint_`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Trade
+            cancel sent
+
+        Examples
+        --------
+        from whop_sdk import Whop
+
+        client = Whop(
+            "2026-11-02-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.trades.cancel(
+            id="id",
+        )
+        """
+        _response = self._raw_client.cancel(id, request_options=request_options)
+        return _response.data
+
     @property
     def markets(self):
         if self._markets is None:
@@ -568,6 +601,47 @@ class AsyncTradesClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.retrieve(id, request_options=request_options)
+        return _response.data
+
+    async def cancel(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> Trade:
+        """
+        Cancels the order of a trade while it rests on the book, such as a `good_til_canceled` limit order. Answers with the trade still `processing`; read it with `GET /trades/:id` until its `status` is `completed` or `failed`. A part that filled before the cancel landed stays filled, and money bridged in for an order that did not fill goes back to the wallet. Calling it again sends no second cancel. Answers `409` when the trade has no order on the book.
+
+        Parameters
+        ----------
+        id : str
+            Trade ID, prefixed `tint_`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        Trade
+            cancel sent
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+
+        client = AsyncWhop(
+            "2026-11-02-1",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.trades.cancel(
+                id="id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.cancel(id, request_options=request_options)
         return _response.data
 
     @property
