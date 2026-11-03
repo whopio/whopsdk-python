@@ -237,7 +237,7 @@ class Payment(UniversalBaseModel):
 
     retryable: bool = pydantic.Field()
     """
-    True when the payment is `open` and Whop can attempt the charge again — see `POST /payments/{id}/retry`.
+    True when the payment is `open` and can be retried by hand with `POST /payments/{id}/retry`: its membership is `active`, `trialing`, or `past_due` (or it is a failed first payment on a `drafted` membership), it is not paid through an invoice payment link, and its one manual retry is not used up. A retry can still be refused when the company cannot currently accept payments.
     """
 
     risk_score: typing.Optional[float] = pydantic.Field(default=None)
