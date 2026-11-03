@@ -11,7 +11,7 @@ from .payment_method_icons import PaymentMethodIcons
 class PaymentInstrument(UniversalBaseModel):
     card: typing.Optional[PaymentInstrumentCard] = pydantic.Field(default=None)
     """
-    Card payments only: the card's network, last four, and issuer identification number.
+    Card payments only: the card's network, last four, issuer identification number, expiry, and network transaction id.
     """
 
     display_name: str = pydantic.Field()

@@ -161,7 +161,7 @@ class Payment(UniversalBaseModel):
 
     payment_instrument: typing.Optional[PaymentInstrument] = pydantic.Field(default=None)
     """
-    The instrument shaped for display: a buyer-facing name, the standard icon set, and the card's brand, last four and issuer identification number when it was a card.
+    The instrument shaped for display: a buyer-facing name, the standard icon set, and when it was a card, the card's brand, last four, issuer identification number, and the network transaction id the account uses for the card.
     """
 
     payment_method_id: typing.Optional[str] = pydantic.Field(default=None)

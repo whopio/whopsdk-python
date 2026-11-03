@@ -55,7 +55,7 @@ class SetupIntent(UniversalBaseModel):
 
     payment_instrument: typing.Optional[PaymentInstrument] = pydantic.Field(default=None)
     """
-    The method behind this setup shaped for display: a buyer-facing name, the standard icon set, and the card's brand, last four, issuer identification number, and expiry when it was a card. Null until a method was collected.
+    The method behind this setup shaped for display: a buyer-facing name, the standard icon set, and the card's brand, last four, issuer identification number, expiry, and network transaction id when it was a card. Null until a method was collected.
     """
 
     payment_method_id: typing.Optional[str] = pydantic.Field(default=None)
