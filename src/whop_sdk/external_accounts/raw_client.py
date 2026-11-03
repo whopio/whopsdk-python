@@ -195,7 +195,7 @@ class RawExternalAccountsClient:
         self, *, request: CreateExternalAccountsRequestBody, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[ExternalAccount]:
         """
-        Creates or returns a Whop-managed Facebook page or TikTok account for an account, or connects the account's existing Klaviyo account with a private API key.
+        Creates or returns a Whop-managed TikTok account for an account, or connects the account's existing Klaviyo account with a private API key. Whop no longer creates Facebook pages.
 
         Parameters
         ----------
@@ -779,7 +779,7 @@ class AsyncRawExternalAccountsClient:
         self, *, request: CreateExternalAccountsRequestBody, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[ExternalAccount]:
         """
-        Creates or returns a Whop-managed Facebook page or TikTok account for an account, or connects the account's existing Klaviyo account with a private API key.
+        Creates or returns a Whop-managed TikTok account for an account, or connects the account's existing Klaviyo account with a private API key. Whop no longer creates Facebook pages.
 
         Parameters
         ----------

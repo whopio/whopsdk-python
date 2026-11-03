@@ -110,7 +110,7 @@ class ExternalAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -141,7 +141,7 @@ class ExternalAccountsClient:
         self, *, request: CreateExternalAccountsRequestBody, request_options: typing.Optional[RequestOptions] = None
     ) -> ExternalAccount:
         """
-        Creates or returns a Whop-managed Facebook page or TikTok account for an account, or connects the account's existing Klaviyo account with a private API key.
+        Creates or returns a Whop-managed TikTok account for an account, or connects the account's existing Klaviyo account with a private API key. Whop no longer creates Facebook pages.
 
         Parameters
         ----------
@@ -163,7 +163,7 @@ class ExternalAccountsClient:
         )
 
         client = Whop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -209,7 +209,7 @@ class ExternalAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -258,7 +258,7 @@ class ExternalAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -300,7 +300,7 @@ class ExternalAccountsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -402,7 +402,7 @@ class AsyncExternalAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -440,7 +440,7 @@ class AsyncExternalAccountsClient:
         self, *, request: CreateExternalAccountsRequestBody, request_options: typing.Optional[RequestOptions] = None
     ) -> ExternalAccount:
         """
-        Creates or returns a Whop-managed Facebook page or TikTok account for an account, or connects the account's existing Klaviyo account with a private API key.
+        Creates or returns a Whop-managed TikTok account for an account, or connects the account's existing Klaviyo account with a private API key. Whop no longer creates Facebook pages.
 
         Parameters
         ----------
@@ -464,7 +464,7 @@ class AsyncExternalAccountsClient:
         )
 
         client = AsyncWhop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -518,7 +518,7 @@ class AsyncExternalAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -575,7 +575,7 @@ class AsyncExternalAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -627,7 +627,7 @@ class AsyncExternalAccountsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

@@ -105,7 +105,7 @@ class InvoicesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -181,7 +181,7 @@ class InvoicesClient:
             An address associated with the member. Mutually exclusive with billing_address.
 
         member_id : typing.Optional[str]
-            The billed customer, a member of the account. Changing email recipients does not change this buyer.
+            The billed customer, a member of the account, prefixed `mber_`. It can't change once the draft is created. Changing email recipients does not change this buyer.
 
         memo : typing.Optional[str]
             A note to the customer, shown on the invoice email, PDF, and checkout page with its line breaks kept. Trimmed; `null` or blank clears it. Can be updated on draft, open, or uncollectible invoices.
@@ -208,7 +208,7 @@ class InvoicesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -257,7 +257,7 @@ class InvoicesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -285,7 +285,7 @@ class InvoicesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Invoice:
         """
-        Updates draft invoice items and billing fields. Updates of only `recipient_emails` and `memo` are also allowed on unpaid invoices. Edit customer contact details through the member API. A draft with no saved payment method and no scheduled send needs `invoice:update`, `invoice:create`, or `payment:charge`; every other update, and setting `payment_method_id`, needs `payment:charge`.
+        Updates draft invoice items and billing fields. Updates of only `recipient_emails` and `memo` are also allowed on unpaid invoices. The customer is set when the draft is created and can't change. To bill someone else, first void the draft. Then create a new invoice. Edit customer contact details through the member API. A draft with no saved payment method and no scheduled send needs `invoice:update`, `invoice:create`, or `payment:charge`; every other update, and setting `payment_method_id`, needs `payment:charge`.
 
         Parameters
         ----------
@@ -308,7 +308,7 @@ class InvoicesClient:
             An address associated with the member. Mutually exclusive with billing_address.
 
         member_id : typing.Optional[str]
-            The billed customer, a member of the account. Changing email recipients does not change this buyer.
+            The billed customer, a member of the account, prefixed `mber_`. The customer is set when the draft is created and can't change, so pass the draft's current customer or omit this field. A draft saved without a customer can take one here. Changing email recipients does not change this buyer.
 
         memo : typing.Optional[str]
             A note to the customer, shown on the invoice email, PDF, and checkout page with its line breaks kept. Trimmed; `null` or blank clears it. Can be updated on draft, open, or uncollectible invoices.
@@ -335,7 +335,7 @@ class InvoicesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -390,7 +390,7 @@ class InvoicesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -432,7 +432,7 @@ class InvoicesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -480,7 +480,7 @@ class InvoicesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -515,7 +515,7 @@ class InvoicesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -565,7 +565,7 @@ class InvoicesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -604,7 +604,7 @@ class InvoicesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -637,7 +637,7 @@ class InvoicesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -732,7 +732,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -815,7 +815,7 @@ class AsyncInvoicesClient:
             An address associated with the member. Mutually exclusive with billing_address.
 
         member_id : typing.Optional[str]
-            The billed customer, a member of the account. Changing email recipients does not change this buyer.
+            The billed customer, a member of the account, prefixed `mber_`. It can't change once the draft is created. Changing email recipients does not change this buyer.
 
         memo : typing.Optional[str]
             A note to the customer, shown on the invoice email, PDF, and checkout page with its line breaks kept. Trimmed; `null` or blank clears it. Can be updated on draft, open, or uncollectible invoices.
@@ -844,7 +844,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -901,7 +901,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -935,7 +935,7 @@ class AsyncInvoicesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> Invoice:
         """
-        Updates draft invoice items and billing fields. Updates of only `recipient_emails` and `memo` are also allowed on unpaid invoices. Edit customer contact details through the member API. A draft with no saved payment method and no scheduled send needs `invoice:update`, `invoice:create`, or `payment:charge`; every other update, and setting `payment_method_id`, needs `payment:charge`.
+        Updates draft invoice items and billing fields. Updates of only `recipient_emails` and `memo` are also allowed on unpaid invoices. The customer is set when the draft is created and can't change. To bill someone else, first void the draft. Then create a new invoice. Edit customer contact details through the member API. A draft with no saved payment method and no scheduled send needs `invoice:update`, `invoice:create`, or `payment:charge`; every other update, and setting `payment_method_id`, needs `payment:charge`.
 
         Parameters
         ----------
@@ -958,7 +958,7 @@ class AsyncInvoicesClient:
             An address associated with the member. Mutually exclusive with billing_address.
 
         member_id : typing.Optional[str]
-            The billed customer, a member of the account. Changing email recipients does not change this buyer.
+            The billed customer, a member of the account, prefixed `mber_`. The customer is set when the draft is created and can't change, so pass the draft's current customer or omit this field. A draft saved without a customer can take one here. Changing email recipients does not change this buyer.
 
         memo : typing.Optional[str]
             A note to the customer, shown on the invoice email, PDF, and checkout page with its line breaks kept. Trimmed; `null` or blank clears it. Can be updated on draft, open, or uncollectible invoices.
@@ -987,7 +987,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1050,7 +1050,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1102,7 +1102,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1158,7 +1158,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1201,7 +1201,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1259,7 +1259,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1306,7 +1306,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -1347,7 +1347,7 @@ class AsyncInvoicesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-02",
+            "2026-11-02-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
