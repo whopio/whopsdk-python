@@ -199,6 +199,7 @@ class RawTradesClient:
         size: typing.Optional[str] = OMIT,
         slippage_bps: typing.Optional[int] = OMIT,
         time_in_force: typing.Optional[CreateTradesRequestTimeInForce] = OMIT,
+        trigger_price: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Trade]:
         """
@@ -234,7 +235,7 @@ class RawTradesClient:
             Only for an order. The order value in USD, as a decimal string; the size is rounded down to the market's decimals. Send exactly one of `size` or `notional`; a spot buy takes `notional`, the USDT0 to spend.
 
         order_type : typing.Optional[CreateTradesRequestOrderType]
-            `market` fills now within `slippage_bps` of the mid price, and anything unfilled is canceled; `limit` fills at `price` or better, and how long it stays on the book follows `time_in_force`. Required for an order.
+            `market` fills now within `slippage_bps` of the mid price, and anything unfilled is canceled; `limit` fills at `price` or better, and how long it stays on the book follows `time_in_force`. `take_profit` and `stop_loss` reduce the open perpetual position with a market order once the price crosses `trigger_price`; the trade stays `processing` until then. Required for an order.
 
         price : typing.Optional[str]
             Only for an order. The limit price in USD, as a decimal string Hyperliquid accepts without rounding. Required for a limit order; not accepted for a market order.
@@ -243,16 +244,19 @@ class RawTradesClient:
             Only for a perpetual order. Only reduce an open position; defaults to `false`. A reduce-only order takes no `leverage`.
 
         side : typing.Optional[CreateTradesRequestSide]
-            `buy` or `sell`. Required for an order.
+            `buy` or `sell`. Required for an order, except a `take_profit` or `stop_loss`, where it defaults to the side that reduces the position.
 
         size : typing.Optional[str]
-            Only for an order. The size in units of the market, as a decimal string, with at most the market's size decimals. Send exactly one of `size` or `notional`; a spot sell takes `size`. A perpetual order must be worth at least 10 USD, unless reduce-only.
+            Only for an order. The size in units of the market, as a decimal string, with at most the market's size decimals. Send exactly one of `size` or `notional`; a spot sell takes `size`. A perpetual order must be worth at least 10 USD, unless reduce-only. A `take_profit` or `stop_loss` takes `size` or nothing for the whole position, and a set `size` must be worth at least 10 USD at `trigger_price`.
 
         slippage_bps : typing.Optional[int]
             Only for a market order or a close. The worst price as basis points from the mid price, from 1 to 1000; defaults to 100 for a perpetual, and to the swap route's own default for spot.
 
         time_in_force : typing.Optional[CreateTradesRequestTimeInForce]
             Only for a perpetual limit order. `good_til_canceled` rests on the book until it fills; `add_liquidity_only` is canceled instead of filling at once; `immediate_or_cancel` fills what it can now and cancels the rest. Defaults to `good_til_canceled`. The trade stays `processing` while the order rests.
+
+        trigger_price : typing.Optional[str]
+            Required for a `take_profit` or `stop_loss`, and only for them. The USD price, as a decimal string Hyperliquid accepts without rounding, at which it sends a market order. Closing a long, a take-profit triggers above the current price and a stop-loss below; closing a short, the reverse. It is always reduce-only, needs an open position, and takes no `price`, `notional`, `leverage`, `time_in_force` or `slippage_bps`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -282,6 +286,7 @@ class RawTradesClient:
                 "size": size,
                 "slippage_bps": slippage_bps,
                 "time_in_force": time_in_force,
+                "trigger_price": trigger_price,
                 "type": type,
             },
             headers={
@@ -607,6 +612,7 @@ class AsyncRawTradesClient:
         size: typing.Optional[str] = OMIT,
         slippage_bps: typing.Optional[int] = OMIT,
         time_in_force: typing.Optional[CreateTradesRequestTimeInForce] = OMIT,
+        trigger_price: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Trade]:
         """
@@ -642,7 +648,7 @@ class AsyncRawTradesClient:
             Only for an order. The order value in USD, as a decimal string; the size is rounded down to the market's decimals. Send exactly one of `size` or `notional`; a spot buy takes `notional`, the USDT0 to spend.
 
         order_type : typing.Optional[CreateTradesRequestOrderType]
-            `market` fills now within `slippage_bps` of the mid price, and anything unfilled is canceled; `limit` fills at `price` or better, and how long it stays on the book follows `time_in_force`. Required for an order.
+            `market` fills now within `slippage_bps` of the mid price, and anything unfilled is canceled; `limit` fills at `price` or better, and how long it stays on the book follows `time_in_force`. `take_profit` and `stop_loss` reduce the open perpetual position with a market order once the price crosses `trigger_price`; the trade stays `processing` until then. Required for an order.
 
         price : typing.Optional[str]
             Only for an order. The limit price in USD, as a decimal string Hyperliquid accepts without rounding. Required for a limit order; not accepted for a market order.
@@ -651,16 +657,19 @@ class AsyncRawTradesClient:
             Only for a perpetual order. Only reduce an open position; defaults to `false`. A reduce-only order takes no `leverage`.
 
         side : typing.Optional[CreateTradesRequestSide]
-            `buy` or `sell`. Required for an order.
+            `buy` or `sell`. Required for an order, except a `take_profit` or `stop_loss`, where it defaults to the side that reduces the position.
 
         size : typing.Optional[str]
-            Only for an order. The size in units of the market, as a decimal string, with at most the market's size decimals. Send exactly one of `size` or `notional`; a spot sell takes `size`. A perpetual order must be worth at least 10 USD, unless reduce-only.
+            Only for an order. The size in units of the market, as a decimal string, with at most the market's size decimals. Send exactly one of `size` or `notional`; a spot sell takes `size`. A perpetual order must be worth at least 10 USD, unless reduce-only. A `take_profit` or `stop_loss` takes `size` or nothing for the whole position, and a set `size` must be worth at least 10 USD at `trigger_price`.
 
         slippage_bps : typing.Optional[int]
             Only for a market order or a close. The worst price as basis points from the mid price, from 1 to 1000; defaults to 100 for a perpetual, and to the swap route's own default for spot.
 
         time_in_force : typing.Optional[CreateTradesRequestTimeInForce]
             Only for a perpetual limit order. `good_til_canceled` rests on the book until it fills; `add_liquidity_only` is canceled instead of filling at once; `immediate_or_cancel` fills what it can now and cancels the rest. Defaults to `good_til_canceled`. The trade stays `processing` while the order rests.
+
+        trigger_price : typing.Optional[str]
+            Required for a `take_profit` or `stop_loss`, and only for them. The USD price, as a decimal string Hyperliquid accepts without rounding, at which it sends a market order. Closing a long, a take-profit triggers above the current price and a stop-loss below; closing a short, the reverse. It is always reduce-only, needs an open position, and takes no `price`, `notional`, `leverage`, `time_in_force` or `slippage_bps`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -690,6 +699,7 @@ class AsyncRawTradesClient:
                 "size": size,
                 "slippage_bps": slippage_bps,
                 "time_in_force": time_in_force,
+                "trigger_price": trigger_price,
                 "type": type,
             },
             headers={

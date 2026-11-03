@@ -2,4 +2,4 @@
 
 import typing
 
-CreateTradesRequestOrderType = typing.Union[typing.Literal["market", "limit"], typing.Any]
+CreateTradesRequestOrderType = typing.Union[typing.Literal["market", "limit", "take_profit", "stop_loss"], typing.Any]
