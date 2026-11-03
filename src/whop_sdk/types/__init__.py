@@ -168,6 +168,10 @@ if typing.TYPE_CHECKING:
     from .ad_group_regions_body import AdGroupRegionsBody
     from .ad_group_result_event import AdGroupResultEvent
     from .ad_group_status import AdGroupStatus
+    from .ad_issue import AdIssue
+    from .ad_issue_policy import AdIssuePolicy
+    from .ad_issue_reason import AdIssueReason
+    from .ad_issue_resource_type import AdIssueResourceType
     from .ad_pixel import AdPixel
     from .ad_pixel_platform import AdPixelPlatform
     from .ad_pixel_status import AdPixelStatus
@@ -1681,6 +1685,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "AdGroupRegionsBody": ".ad_group_regions_body",
     "AdGroupResultEvent": ".ad_group_result_event",
     "AdGroupStatus": ".ad_group_status",
+    "AdIssue": ".ad_issue",
+    "AdIssuePolicy": ".ad_issue_policy",
+    "AdIssueReason": ".ad_issue_reason",
+    "AdIssueResourceType": ".ad_issue_resource_type",
     "AdPixel": ".ad_pixel",
     "AdPixelPlatform": ".ad_pixel_platform",
     "AdPixelStatus": ".ad_pixel_status",
@@ -3082,6 +3090,10 @@ __all__ = [
     "AdGroupRegionsBody",
     "AdGroupResultEvent",
     "AdGroupStatus",
+    "AdIssue",
+    "AdIssuePolicy",
+    "AdIssueReason",
+    "AdIssueResourceType",
     "AdPixel",
     "AdPixelPlatform",
     "AdPixelStatus",

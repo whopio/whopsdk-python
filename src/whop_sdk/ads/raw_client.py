@@ -32,6 +32,8 @@ from .types.list_ads_request_direction import ListAdsRequestDirection
 from .types.list_ads_request_order import ListAdsRequestOrder
 from .types.list_ads_request_status import ListAdsRequestStatus
 from .types.list_ads_response import ListAdsResponse
+from .types.report_issues_ads_request_issues_item import ReportIssuesAdsRequestIssuesItem
+from .types.report_issues_ads_response import ReportIssuesAdsResponse
 from .types.report_stats_ads_request_clicks import ReportStatsAdsRequestClicks
 from .types.report_stats_ads_request_impressions import ReportStatsAdsRequestImpressions
 from .types.report_stats_ads_request_spend import ReportStatsAdsRequestSpend
@@ -50,6 +52,127 @@ OMIT = typing.cast(typing.Any, ...)
 class RawAdsClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    def report_issues(
+        self,
+        *,
+        issues: typing.Sequence[ReportIssuesAdsRequestIssuesItem],
+        ad_group_id: typing.Optional[str] = OMIT,
+        ad_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[ReportIssuesAdsResponse]:
+        """
+        Reports why one of a runner's ads or ad groups can't deliver yet, and replaces what the runner reported for it before. The account running the campaign sees each issue, with what to change when it can fix it. An empty `issues` list clears the object's issues, and they also clear when the runner stops holding the campaign. Takes the runner's Whop session, a user API key, or a user OAuth token with `ad_campaign:update`. A token without that scope gets a 403, and anyone not holding the whole campaign gets a 404.
+
+        Parameters
+        ----------
+        issues : typing.Sequence[ReportIssuesAdsRequestIssuesItem]
+            Every issue the object has now, each reason once. Send an empty list when it has none.
+
+        ad_group_id : typing.Optional[str]
+            The ID of the ad group the issues are on, prefixed `adgrp_`.
+
+        ad_id : typing.Optional[str]
+            The ID of the ad the issues are on, prefixed `ad_`. Send exactly one of `ad_id` or `ad_group_id`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ReportIssuesAdsResponse]
+            issues recorded
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "ad_issues",
+            base_url=self._client_wrapper.get_environment().api,
+            method="POST",
+            json={
+                "ad_group_id": ad_group_id,
+                "ad_id": ad_id,
+                "issues": convert_and_respect_annotation_metadata(
+                    object_=issues, annotation=typing.Sequence[ReportIssuesAdsRequestIssuesItem], direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ReportIssuesAdsResponse,
+                    parse_obj_as(
+                        type_=ReportIssuesAdsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def report_stats(
         self,
@@ -966,6 +1089,127 @@ class RawAdsClient:
 class AsyncRawAdsClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    async def report_issues(
+        self,
+        *,
+        issues: typing.Sequence[ReportIssuesAdsRequestIssuesItem],
+        ad_group_id: typing.Optional[str] = OMIT,
+        ad_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[ReportIssuesAdsResponse]:
+        """
+        Reports why one of a runner's ads or ad groups can't deliver yet, and replaces what the runner reported for it before. The account running the campaign sees each issue, with what to change when it can fix it. An empty `issues` list clears the object's issues, and they also clear when the runner stops holding the campaign. Takes the runner's Whop session, a user API key, or a user OAuth token with `ad_campaign:update`. A token without that scope gets a 403, and anyone not holding the whole campaign gets a 404.
+
+        Parameters
+        ----------
+        issues : typing.Sequence[ReportIssuesAdsRequestIssuesItem]
+            Every issue the object has now, each reason once. Send an empty list when it has none.
+
+        ad_group_id : typing.Optional[str]
+            The ID of the ad group the issues are on, prefixed `adgrp_`.
+
+        ad_id : typing.Optional[str]
+            The ID of the ad the issues are on, prefixed `ad_`. Send exactly one of `ad_id` or `ad_group_id`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[ReportIssuesAdsResponse]
+            issues recorded
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "ad_issues",
+            base_url=self._client_wrapper.get_environment().api,
+            method="POST",
+            json={
+                "ad_group_id": ad_group_id,
+                "ad_id": ad_id,
+                "issues": convert_and_respect_annotation_metadata(
+                    object_=issues, annotation=typing.Sequence[ReportIssuesAdsRequestIssuesItem], direction="write"
+                ),
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ReportIssuesAdsResponse,
+                    parse_obj_as(
+                        type_=ReportIssuesAdsResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 400:
+                raise BadRequestError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 401:
+                raise UnauthorizedError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 403:
+                raise ForbiddenError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def report_stats(
         self,

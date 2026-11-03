@@ -201,8 +201,8 @@ class Whop:
         self._accounts: typing.Optional[AccountsClient] = None
         self._ad_campaigns: typing.Optional[AdCampaignsClient] = None
         self._ad_groups: typing.Optional[AdGroupsClient] = None
-        self._ad_pixels: typing.Optional[AdPixelsClient] = None
         self._ads: typing.Optional[AdsClient] = None
+        self._ad_pixels: typing.Optional[AdPixelsClient] = None
         self._affiliates: typing.Optional[AffiliatesClient] = None
         self._ai_chats: typing.Optional[AiChatsClient] = None
         self._api_keys: typing.Optional[ApiKeysClient] = None
@@ -334,20 +334,20 @@ class Whop:
         return self._ad_groups
 
     @property
-    def ad_pixels(self):
-        if self._ad_pixels is None:
-            from .ad_pixels.client import AdPixelsClient  # noqa: E402
-
-            self._ad_pixels = AdPixelsClient(client_wrapper=self._client_wrapper)
-        return self._ad_pixels
-
-    @property
     def ads(self):
         if self._ads is None:
             from .ads.client import AdsClient  # noqa: E402
 
             self._ads = AdsClient(client_wrapper=self._client_wrapper)
         return self._ads
+
+    @property
+    def ad_pixels(self):
+        if self._ad_pixels is None:
+            from .ad_pixels.client import AdPixelsClient  # noqa: E402
+
+            self._ad_pixels = AdPixelsClient(client_wrapper=self._client_wrapper)
+        return self._ad_pixels
 
     @property
     def affiliates(self):
@@ -1176,8 +1176,8 @@ class AsyncWhop:
         self._accounts: typing.Optional[AsyncAccountsClient] = None
         self._ad_campaigns: typing.Optional[AsyncAdCampaignsClient] = None
         self._ad_groups: typing.Optional[AsyncAdGroupsClient] = None
-        self._ad_pixels: typing.Optional[AsyncAdPixelsClient] = None
         self._ads: typing.Optional[AsyncAdsClient] = None
+        self._ad_pixels: typing.Optional[AsyncAdPixelsClient] = None
         self._affiliates: typing.Optional[AsyncAffiliatesClient] = None
         self._ai_chats: typing.Optional[AsyncAiChatsClient] = None
         self._api_keys: typing.Optional[AsyncApiKeysClient] = None
@@ -1309,20 +1309,20 @@ class AsyncWhop:
         return self._ad_groups
 
     @property
-    def ad_pixels(self):
-        if self._ad_pixels is None:
-            from .ad_pixels.client import AsyncAdPixelsClient  # noqa: E402
-
-            self._ad_pixels = AsyncAdPixelsClient(client_wrapper=self._client_wrapper)
-        return self._ad_pixels
-
-    @property
     def ads(self):
         if self._ads is None:
             from .ads.client import AsyncAdsClient  # noqa: E402
 
             self._ads = AsyncAdsClient(client_wrapper=self._client_wrapper)
         return self._ads
+
+    @property
+    def ad_pixels(self):
+        if self._ad_pixels is None:
+            from .ad_pixels.client import AsyncAdPixelsClient  # noqa: E402
+
+            self._ad_pixels = AsyncAdPixelsClient(client_wrapper=self._client_wrapper)
+        return self._ad_pixels
 
     @property
     def affiliates(self):

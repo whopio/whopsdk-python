@@ -28,6 +28,10 @@ if typing.TYPE_CHECKING:
     from .post_ad_updated_payload_data_delivery_status import PostAdUpdatedPayloadDataDeliveryStatus
     from .post_ad_updated_payload_data_status import PostAdUpdatedPayloadDataStatus
     from .post_ad_updated_payload_type import PostAdUpdatedPayloadType
+    from .report_issues_ads_request_issues_item import ReportIssuesAdsRequestIssuesItem
+    from .report_issues_ads_request_issues_item_policy import ReportIssuesAdsRequestIssuesItemPolicy
+    from .report_issues_ads_request_issues_item_reason import ReportIssuesAdsRequestIssuesItemReason
+    from .report_issues_ads_response import ReportIssuesAdsResponse
     from .report_stats_ads_request_clicks import ReportStatsAdsRequestClicks
     from .report_stats_ads_request_impressions import ReportStatsAdsRequestImpressions
     from .report_stats_ads_request_spend import ReportStatsAdsRequestSpend
@@ -62,6 +66,10 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PostAdUpdatedPayloadDataDeliveryStatus": ".post_ad_updated_payload_data_delivery_status",
     "PostAdUpdatedPayloadDataStatus": ".post_ad_updated_payload_data_status",
     "PostAdUpdatedPayloadType": ".post_ad_updated_payload_type",
+    "ReportIssuesAdsRequestIssuesItem": ".report_issues_ads_request_issues_item",
+    "ReportIssuesAdsRequestIssuesItemPolicy": ".report_issues_ads_request_issues_item_policy",
+    "ReportIssuesAdsRequestIssuesItemReason": ".report_issues_ads_request_issues_item_reason",
+    "ReportIssuesAdsResponse": ".report_issues_ads_response",
     "ReportStatsAdsRequestClicks": ".report_stats_ads_request_clicks",
     "ReportStatsAdsRequestImpressions": ".report_stats_ads_request_impressions",
     "ReportStatsAdsRequestSpend": ".report_stats_ads_request_spend",
@@ -120,6 +128,10 @@ __all__ = [
     "PostAdUpdatedPayloadDataDeliveryStatus",
     "PostAdUpdatedPayloadDataStatus",
     "PostAdUpdatedPayloadType",
+    "ReportIssuesAdsRequestIssuesItem",
+    "ReportIssuesAdsRequestIssuesItemPolicy",
+    "ReportIssuesAdsRequestIssuesItemReason",
+    "ReportIssuesAdsResponse",
     "ReportStatsAdsRequestClicks",
     "ReportStatsAdsRequestImpressions",
     "ReportStatsAdsRequestSpend",

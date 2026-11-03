@@ -21,6 +21,8 @@ from .types.list_ads_request_direction import ListAdsRequestDirection
 from .types.list_ads_request_order import ListAdsRequestOrder
 from .types.list_ads_request_status import ListAdsRequestStatus
 from .types.list_ads_response import ListAdsResponse
+from .types.report_issues_ads_request_issues_item import ReportIssuesAdsRequestIssuesItem
+from .types.report_issues_ads_response import ReportIssuesAdsResponse
 from .types.report_stats_ads_request_clicks import ReportStatsAdsRequestClicks
 from .types.report_stats_ads_request_impressions import ReportStatsAdsRequestImpressions
 from .types.report_stats_ads_request_spend import ReportStatsAdsRequestSpend
@@ -49,6 +51,59 @@ class AdsClient:
         RawAdsClient
         """
         return self._raw_client
+
+    def report_issues(
+        self,
+        *,
+        issues: typing.Sequence[ReportIssuesAdsRequestIssuesItem],
+        ad_group_id: typing.Optional[str] = OMIT,
+        ad_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ReportIssuesAdsResponse:
+        """
+        Reports why one of a runner's ads or ad groups can't deliver yet, and replaces what the runner reported for it before. The account running the campaign sees each issue, with what to change when it can fix it. An empty `issues` list clears the object's issues, and they also clear when the runner stops holding the campaign. Takes the runner's Whop session, a user API key, or a user OAuth token with `ad_campaign:update`. A token without that scope gets a 403, and anyone not holding the whole campaign gets a 404.
+
+        Parameters
+        ----------
+        issues : typing.Sequence[ReportIssuesAdsRequestIssuesItem]
+            Every issue the object has now, each reason once. Send an empty list when it has none.
+
+        ad_group_id : typing.Optional[str]
+            The ID of the ad group the issues are on, prefixed `adgrp_`.
+
+        ad_id : typing.Optional[str]
+            The ID of the ad the issues are on, prefixed `ad_`. Send exactly one of `ad_id` or `ad_group_id`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ReportIssuesAdsResponse
+            issues recorded
+
+        Examples
+        --------
+        from whop_sdk import Whop
+        from whop_sdk.ads import ReportIssuesAdsRequestIssuesItem
+
+        client = Whop(
+            "2026-11-02",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+        client.ads.report_issues(
+            issues=[
+                ReportIssuesAdsRequestIssuesItem(
+                    reason="content_rejected",
+                )
+            ],
+        )
+        """
+        _response = self._raw_client.report_issues(
+            issues=issues, ad_group_id=ad_group_id, ad_id=ad_id, request_options=request_options
+        )
+        return _response.data
 
     def report_stats(
         self,
@@ -641,6 +696,67 @@ class AsyncAdsClient:
         AsyncRawAdsClient
         """
         return self._raw_client
+
+    async def report_issues(
+        self,
+        *,
+        issues: typing.Sequence[ReportIssuesAdsRequestIssuesItem],
+        ad_group_id: typing.Optional[str] = OMIT,
+        ad_id: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ReportIssuesAdsResponse:
+        """
+        Reports why one of a runner's ads or ad groups can't deliver yet, and replaces what the runner reported for it before. The account running the campaign sees each issue, with what to change when it can fix it. An empty `issues` list clears the object's issues, and they also clear when the runner stops holding the campaign. Takes the runner's Whop session, a user API key, or a user OAuth token with `ad_campaign:update`. A token without that scope gets a 403, and anyone not holding the whole campaign gets a 404.
+
+        Parameters
+        ----------
+        issues : typing.Sequence[ReportIssuesAdsRequestIssuesItem]
+            Every issue the object has now, each reason once. Send an empty list when it has none.
+
+        ad_group_id : typing.Optional[str]
+            The ID of the ad group the issues are on, prefixed `adgrp_`.
+
+        ad_id : typing.Optional[str]
+            The ID of the ad the issues are on, prefixed `ad_`. Send exactly one of `ad_id` or `ad_group_id`.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ReportIssuesAdsResponse
+            issues recorded
+
+        Examples
+        --------
+        import asyncio
+
+        from whop_sdk import AsyncWhop
+        from whop_sdk.ads import ReportIssuesAdsRequestIssuesItem
+
+        client = AsyncWhop(
+            "2026-11-02",
+            idempotency_key="YOUR_IDEMPOTENCY_KEY",
+            token="YOUR_TOKEN",
+        )
+
+
+        async def main() -> None:
+            await client.ads.report_issues(
+                issues=[
+                    ReportIssuesAdsRequestIssuesItem(
+                        reason="content_rejected",
+                    )
+                ],
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.report_issues(
+            issues=issues, ad_group_id=ad_group_id, ad_id=ad_id, request_options=request_options
+        )
+        return _response.data
 
     async def report_stats(
         self,
