@@ -23,10 +23,12 @@ from ..types.invoice import Invoice
 from ..types.invoice_pdf import InvoicePdf
 from .types.create_invoices_request_billing_address import CreateInvoicesRequestBillingAddress
 from .types.create_invoices_request_items_item import CreateInvoicesRequestItemsItem
+from .types.issue_invoices_request_collection_method import IssueInvoicesRequestCollectionMethod
 from .types.list_invoices_request_direction import ListInvoicesRequestDirection
 from .types.list_invoices_request_order import ListInvoicesRequestOrder
 from .types.list_invoices_request_status import ListInvoicesRequestStatus
 from .types.list_invoices_response import ListInvoicesResponse
+from .types.send_invoices_request_collection_method import SendInvoicesRequestCollectionMethod
 from .types.update_invoices_request_billing_address import UpdateInvoicesRequestBillingAddress
 from .types.update_invoices_request_items_item import UpdateInvoicesRequestItemsItem
 from pydantic import ValidationError
@@ -233,7 +235,7 @@ class RawInvoicesClient:
             The issuing account.
 
         items : typing.Sequence[CreateInvoicesRequestItemsItem]
-            The variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant; a recurring variant must belong to a product, bills its renewal price and, once the invoice is paid, renews as a subscription charged to the payment method that paid it. With several items, every item that has a product must be a regular product, and all items need compatible payment, tax, and access settings.
+            The variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant; a recurring variant must belong to a product, bills its renewal price and, once the invoice is paid, renews as a subscription collected by the `collection_method` the invoice was sent or issued with. With several items, every item that has a product must be a regular product, and all items need compatible payment, tax, and access settings.
 
         billing_address : typing.Optional[CreateInvoicesRequestBillingAddress]
             Create a billing address linked to this member.
@@ -479,7 +481,7 @@ class RawInvoicesClient:
             When payment is due, as an ISO 8601 timestamp.
 
         items : typing.Optional[typing.Sequence[UpdateInvoicesRequestItemsItem]]
-            The variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant; a recurring variant must belong to a product, bills its renewal price and, once the invoice is paid, renews as a subscription charged to the payment method that paid it. With several items, every item that has a product must be a regular product, and all items need compatible payment, tax, and access settings.
+            The variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant; a recurring variant must belong to a product, bills its renewal price and, once the invoice is paid, renews as a subscription collected by the `collection_method` the invoice was sent or issued with. With several items, every item that has a product must be a regular product, and all items need compatible payment, tax, and access settings.
 
         mailing_address_id : typing.Optional[str]
             An address associated with the member. Mutually exclusive with billing_address.
@@ -793,6 +795,7 @@ class RawInvoicesClient:
         id: str,
         *,
         charge_at: typing.Optional[dt.datetime] = OMIT,
+        collection_method: typing.Optional[IssueInvoicesRequestCollectionMethod] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Invoice]:
         """
@@ -805,6 +808,9 @@ class RawInvoicesClient:
 
         charge_at : typing.Optional[dt.datetime]
             When to charge the draft's `payment_method_id`, as an ISO 8601 timestamp in the future. Only for a draft with a `payment_method_id` and a total above zero. Omit to charge on `due_at` if it is still ahead, or right away otherwise.
+
+        collection_method : typing.Optional[IssueInvoicesRequestCollectionMethod]
+            How the subscription this invoice starts collects each renewal. `charge_automatically` charges the payment method that paid the invoice each period: the draft's `payment_method_id`, or the one the customer pays the invoice link with. `send_invoice` issues a numbered invoice each period, due on the renewal date and emailed with its payment link to the latest invoice's `recipient_emails`, so it needs at least one recipient and isn't available for invoices billed to a business. Defaults to `charge_automatically`. Only for a draft with a recurring item. A scheduled send applies it when it fires (see `scheduled_collection_method`).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -820,6 +826,7 @@ class RawInvoicesClient:
             method="POST",
             json={
                 "charge_at": charge_at,
+                "collection_method": collection_method,
             },
             headers={
                 "content-type": "application/json",
@@ -994,6 +1001,7 @@ class RawInvoicesClient:
         id: str,
         *,
         charge_at: typing.Optional[dt.datetime] = OMIT,
+        collection_method: typing.Optional[SendInvoicesRequestCollectionMethod] = OMIT,
         send_at: typing.Optional[dt.datetime] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[Invoice]:
@@ -1007,6 +1015,9 @@ class RawInvoicesClient:
 
         charge_at : typing.Optional[dt.datetime]
             When to charge the draft's `payment_method_id`, as an ISO 8601 timestamp in the future and no earlier than `send_at`. Only for a draft with a `payment_method_id` and a total above zero. Omit to charge on `due_at` if it is still ahead when the draft is sent, or right away otherwise. A scheduled send that runs after `charge_at` charges right away.
+
+        collection_method : typing.Optional[SendInvoicesRequestCollectionMethod]
+            How the subscription this invoice starts collects each renewal. `charge_automatically` charges the payment method that paid the invoice each period: the draft's `payment_method_id`, or the one the customer pays the invoice link with. `send_invoice` issues a numbered invoice each period, due on the renewal date and emailed with its payment link to the latest invoice's `recipient_emails`, so it needs at least one recipient and isn't available for invoices billed to a business. Defaults to `charge_automatically`. Only for a draft with a recurring item. A scheduled send applies it when it fires (see `scheduled_collection_method`).
 
         send_at : typing.Optional[dt.datetime]
             When to send the draft, as an ISO 8601 timestamp in the future. Omit to send now.
@@ -1025,6 +1036,7 @@ class RawInvoicesClient:
             method="POST",
             json={
                 "charge_at": charge_at,
+                "collection_method": collection_method,
                 "send_at": send_at,
             },
             headers={
@@ -1437,7 +1449,7 @@ class AsyncRawInvoicesClient:
             The issuing account.
 
         items : typing.Sequence[CreateInvoicesRequestItemsItem]
-            The variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant; a recurring variant must belong to a product, bills its renewal price and, once the invoice is paid, renews as a subscription charged to the payment method that paid it. With several items, every item that has a product must be a regular product, and all items need compatible payment, tax, and access settings.
+            The variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant; a recurring variant must belong to a product, bills its renewal price and, once the invoice is paid, renews as a subscription collected by the `collection_method` the invoice was sent or issued with. With several items, every item that has a product must be a regular product, and all items need compatible payment, tax, and access settings.
 
         billing_address : typing.Optional[CreateInvoicesRequestBillingAddress]
             Create a billing address linked to this member.
@@ -1685,7 +1697,7 @@ class AsyncRawInvoicesClient:
             When payment is due, as an ISO 8601 timestamp.
 
         items : typing.Optional[typing.Sequence[UpdateInvoicesRequestItemsItem]]
-            The variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant; a recurring variant must belong to a product, bills its renewal price and, once the invoice is paid, renews as a subscription charged to the payment method that paid it. With several items, every item that has a product must be a regular product, and all items need compatible payment, tax, and access settings.
+            The variants being invoiced, all in the same currency. Each variant may appear once; use quantity for multiple units. Product and price come from each variant; a recurring variant must belong to a product, bills its renewal price and, once the invoice is paid, renews as a subscription collected by the `collection_method` the invoice was sent or issued with. With several items, every item that has a product must be a regular product, and all items need compatible payment, tax, and access settings.
 
         mailing_address_id : typing.Optional[str]
             An address associated with the member. Mutually exclusive with billing_address.
@@ -1999,6 +2011,7 @@ class AsyncRawInvoicesClient:
         id: str,
         *,
         charge_at: typing.Optional[dt.datetime] = OMIT,
+        collection_method: typing.Optional[IssueInvoicesRequestCollectionMethod] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Invoice]:
         """
@@ -2011,6 +2024,9 @@ class AsyncRawInvoicesClient:
 
         charge_at : typing.Optional[dt.datetime]
             When to charge the draft's `payment_method_id`, as an ISO 8601 timestamp in the future. Only for a draft with a `payment_method_id` and a total above zero. Omit to charge on `due_at` if it is still ahead, or right away otherwise.
+
+        collection_method : typing.Optional[IssueInvoicesRequestCollectionMethod]
+            How the subscription this invoice starts collects each renewal. `charge_automatically` charges the payment method that paid the invoice each period: the draft's `payment_method_id`, or the one the customer pays the invoice link with. `send_invoice` issues a numbered invoice each period, due on the renewal date and emailed with its payment link to the latest invoice's `recipient_emails`, so it needs at least one recipient and isn't available for invoices billed to a business. Defaults to `charge_automatically`. Only for a draft with a recurring item. A scheduled send applies it when it fires (see `scheduled_collection_method`).
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2026,6 +2042,7 @@ class AsyncRawInvoicesClient:
             method="POST",
             json={
                 "charge_at": charge_at,
+                "collection_method": collection_method,
             },
             headers={
                 "content-type": "application/json",
@@ -2200,6 +2217,7 @@ class AsyncRawInvoicesClient:
         id: str,
         *,
         charge_at: typing.Optional[dt.datetime] = OMIT,
+        collection_method: typing.Optional[SendInvoicesRequestCollectionMethod] = OMIT,
         send_at: typing.Optional[dt.datetime] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[Invoice]:
@@ -2213,6 +2231,9 @@ class AsyncRawInvoicesClient:
 
         charge_at : typing.Optional[dt.datetime]
             When to charge the draft's `payment_method_id`, as an ISO 8601 timestamp in the future and no earlier than `send_at`. Only for a draft with a `payment_method_id` and a total above zero. Omit to charge on `due_at` if it is still ahead when the draft is sent, or right away otherwise. A scheduled send that runs after `charge_at` charges right away.
+
+        collection_method : typing.Optional[SendInvoicesRequestCollectionMethod]
+            How the subscription this invoice starts collects each renewal. `charge_automatically` charges the payment method that paid the invoice each period: the draft's `payment_method_id`, or the one the customer pays the invoice link with. `send_invoice` issues a numbered invoice each period, due on the renewal date and emailed with its payment link to the latest invoice's `recipient_emails`, so it needs at least one recipient and isn't available for invoices billed to a business. Defaults to `charge_automatically`. Only for a draft with a recurring item. A scheduled send applies it when it fires (see `scheduled_collection_method`).
 
         send_at : typing.Optional[dt.datetime]
             When to send the draft, as an ISO 8601 timestamp in the future. Omit to send now.
@@ -2231,6 +2252,7 @@ class AsyncRawInvoicesClient:
             method="POST",
             json={
                 "charge_at": charge_at,
+                "collection_method": collection_method,
                 "send_at": send_at,
             },
             headers={

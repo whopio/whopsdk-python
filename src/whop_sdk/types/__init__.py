@@ -628,6 +628,7 @@ if typing.TYPE_CHECKING:
     from .invoice_line_item import InvoiceLineItem
     from .invoice_object import InvoiceObject
     from .invoice_pdf import InvoicePdf
+    from .invoice_scheduled_collection_method import InvoiceScheduledCollectionMethod
     from .invoice_status import InvoiceStatus
     from .invoice_statuses import InvoiceStatuses
     from .invoice_totals_status import InvoiceTotalsStatus
@@ -2131,6 +2132,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "InvoiceLineItem": ".invoice_line_item",
     "InvoiceObject": ".invoice_object",
     "InvoicePdf": ".invoice_pdf",
+    "InvoiceScheduledCollectionMethod": ".invoice_scheduled_collection_method",
     "InvoiceStatus": ".invoice_status",
     "InvoiceStatuses": ".invoice_statuses",
     "InvoiceTotalsStatus": ".invoice_totals_status",
@@ -3536,6 +3538,7 @@ __all__ = [
     "InvoiceLineItem",
     "InvoiceObject",
     "InvoicePdf",
+    "InvoiceScheduledCollectionMethod",
     "InvoiceStatus",
     "InvoiceStatuses",
     "InvoiceTotalsStatus",
