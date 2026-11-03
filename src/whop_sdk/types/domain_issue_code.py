@@ -38,6 +38,9 @@ DomainIssueCode = typing.Union[
         "email_unreachable",
         "email_identity_in_use",
         "email_verification_failed",
+        "subdomain_needs_whop_domain",
+        "root_domain_pending",
+        "root_domain_needs_action",
     ],
     typing.Any,
 ]

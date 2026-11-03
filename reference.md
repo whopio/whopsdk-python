@@ -17718,6 +17718,14 @@ client.domains.list(
 <dl>
 <dd>
 
+**subdomain:** `typing.Optional[ListDomainsRequestSubdomain]` — Only domains with subdomain in this state, such as `ready`, or `any` for every domain that has subdomain.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **website:** `typing.Optional[ListDomainsRequestWebsite]` — Only domains with website in this state, such as `ready`, or `any` for every domain that has website.
     
 </dd>
@@ -17788,7 +17796,7 @@ Pass `registration` to buy the domain through Whop; it's the default when you pa
 
 Pass `registration.auth_code` to transfer in a domain you own at another registrar. The transfer starts once its `amount_due` is paid, or at once when `amount_due` is `null`. While `registration.phase` is `transferring`, its `issues` say what the transfer needs from you.
 
-Pass `verification` to connect a domain you registered elsewhere: its `issues` list the TXT and routing records to publish. Pass `website` with an `app_id` to serve that app on the domain.
+Pass `verification` to connect a domain you registered elsewhere: its `issues` list the TXT and routing records to publish. A subdomain of a domain this account bought through Whop takes `subdomain` by default, and Whop publishes its DNS records itself. Pass `website` with an `app_id` to serve that app on the domain.
 
 To change a domain you already have, update it instead. Adding a domain this account deleted revives it under its original ID.
 </dd>
@@ -17814,7 +17822,7 @@ client = Whop(
 )
 
 client.domains.create(
-    domain="store.example.com",
+    domain="www.bought.com",
 )
 
 ```
@@ -17855,7 +17863,7 @@ client.domains.create(
 <dl>
 <dd>
 
-**email:** `typing.Optional[CreateDomainsRequestEmail]` — Send and receive email on the domain. Only a domain bought through Whop, or a subdomain of one in the same account, can have it. Whop publishes the DNS records and stays `pending` until its email provider verifies them, then turns `ready`. Pass `null` to remove email.
+**email:** `typing.Optional[CreateDomainsRequestEmail]` — Send and receive email on the domain. It needs `registration` or `subdomain`, so only a domain bought through Whop, or a subdomain of one in the same account, can have it. Whop publishes the DNS records and stays `pending` until its email provider verifies them, then turns `ready`. Pass `null` to remove email.
     
 </dd>
 </dl>
@@ -17880,6 +17888,14 @@ client.domains.create(
 <dd>
 
 **registration:** `typing.Optional[CreateDomainsRequestRegistration]` — Buy the domain through Whop, or transfer in a domain you own elsewhere with `auth_code`, then renew it every year and let Whop run its DNS. Pass `null` to release an unpaid or failed purchase, or to cancel a transfer while its current registrar can still stop it.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**subdomain:** `typing.Optional[CreateDomainsRequestSubdomain]` — Use a subdomain of a domain this account bought through Whop, such as shop.example.com under example.com. It's the default when you add such a subdomain without a capability. Whop publishes its DNS records in the root domain's zone, so it needs nothing from you: it stays `pending` until the root domain is set up, then turns `ready`. Whop releases it, and its website, when the account no longer holds the root domain, and deletes it when the root domain leaves the account. Pass `null` to release it. Can't be combined with `verification` or `registration`.
     
 </dd>
 </dl>
@@ -18140,7 +18156,7 @@ client.domains.update(
 <dl>
 <dd>
 
-**email:** `typing.Optional[UpdateDomainsRequestEmail]` — Send and receive email on the domain. Only a domain bought through Whop, or a subdomain of one in the same account, can have it. Whop publishes the DNS records and stays `pending` until its email provider verifies them, then turns `ready`. Pass `null` to remove email.
+**email:** `typing.Optional[UpdateDomainsRequestEmail]` — Send and receive email on the domain. It needs `registration` or `subdomain`, so only a domain bought through Whop, or a subdomain of one in the same account, can have it. Whop publishes the DNS records and stays `pending` until its email provider verifies them, then turns `ready`. Pass `null` to remove email.
     
 </dd>
 </dl>
@@ -18165,6 +18181,14 @@ client.domains.update(
 <dd>
 
 **registration:** `typing.Optional[UpdateDomainsRequestRegistration]` — Buy the domain through Whop, or transfer in a domain you own elsewhere with `auth_code`, then renew it every year and let Whop run its DNS. Pass `null` to release an unpaid or failed purchase, or to cancel a transfer while its current registrar can still stop it.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**subdomain:** `typing.Optional[UpdateDomainsRequestSubdomain]` — Use a subdomain of a domain this account bought through Whop, such as shop.example.com under example.com. It's the default when you add such a subdomain without a capability. Whop publishes its DNS records in the root domain's zone, so it needs nothing from you: it stays `pending` until the root domain is set up, then turns `ready`. Whop releases it, and its website, when the account no longer holds the root domain, and deletes it when the root domain leaves the account. Pass `null` to release it. Can't be combined with `verification` or `registration`.
     
 </dd>
 </dl>

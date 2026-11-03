@@ -10,6 +10,7 @@ if typing.TYPE_CHECKING:
     from .create_domains_request_email import CreateDomainsRequestEmail
     from .create_domains_request_pixel import CreateDomainsRequestPixel
     from .create_domains_request_registration import CreateDomainsRequestRegistration
+    from .create_domains_request_subdomain import CreateDomainsRequestSubdomain
     from .create_domains_request_transfer import CreateDomainsRequestTransfer
     from .create_domains_request_transfer_destination import CreateDomainsRequestTransferDestination
     from .create_domains_request_verification import CreateDomainsRequestVerification
@@ -22,6 +23,7 @@ if typing.TYPE_CHECKING:
     from .list_domains_request_platform import ListDomainsRequestPlatform
     from .list_domains_request_registration import ListDomainsRequestRegistration
     from .list_domains_request_status import ListDomainsRequestStatus
+    from .list_domains_request_subdomain import ListDomainsRequestSubdomain
     from .list_domains_request_transfer import ListDomainsRequestTransfer
     from .list_domains_request_verification import ListDomainsRequestVerification
     from .list_domains_request_website import ListDomainsRequestWebsite
@@ -40,6 +42,7 @@ if typing.TYPE_CHECKING:
     from .update_domains_request_email import UpdateDomainsRequestEmail
     from .update_domains_request_pixel import UpdateDomainsRequestPixel
     from .update_domains_request_registration import UpdateDomainsRequestRegistration
+    from .update_domains_request_subdomain import UpdateDomainsRequestSubdomain
     from .update_domains_request_transfer import UpdateDomainsRequestTransfer
     from .update_domains_request_transfer_destination import UpdateDomainsRequestTransferDestination
     from .update_domains_request_verification import UpdateDomainsRequestVerification
@@ -49,6 +52,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CreateDomainsRequestEmail": ".create_domains_request_email",
     "CreateDomainsRequestPixel": ".create_domains_request_pixel",
     "CreateDomainsRequestRegistration": ".create_domains_request_registration",
+    "CreateDomainsRequestSubdomain": ".create_domains_request_subdomain",
     "CreateDomainsRequestTransfer": ".create_domains_request_transfer",
     "CreateDomainsRequestTransferDestination": ".create_domains_request_transfer_destination",
     "CreateDomainsRequestVerification": ".create_domains_request_verification",
@@ -61,6 +65,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ListDomainsRequestPlatform": ".list_domains_request_platform",
     "ListDomainsRequestRegistration": ".list_domains_request_registration",
     "ListDomainsRequestStatus": ".list_domains_request_status",
+    "ListDomainsRequestSubdomain": ".list_domains_request_subdomain",
     "ListDomainsRequestTransfer": ".list_domains_request_transfer",
     "ListDomainsRequestVerification": ".list_domains_request_verification",
     "ListDomainsRequestWebsite": ".list_domains_request_website",
@@ -79,6 +84,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "UpdateDomainsRequestEmail": ".update_domains_request_email",
     "UpdateDomainsRequestPixel": ".update_domains_request_pixel",
     "UpdateDomainsRequestRegistration": ".update_domains_request_registration",
+    "UpdateDomainsRequestSubdomain": ".update_domains_request_subdomain",
     "UpdateDomainsRequestTransfer": ".update_domains_request_transfer",
     "UpdateDomainsRequestTransferDestination": ".update_domains_request_transfer_destination",
     "UpdateDomainsRequestVerification": ".update_domains_request_verification",
@@ -112,6 +118,7 @@ __all__ = [
     "CreateDomainsRequestEmail",
     "CreateDomainsRequestPixel",
     "CreateDomainsRequestRegistration",
+    "CreateDomainsRequestSubdomain",
     "CreateDomainsRequestTransfer",
     "CreateDomainsRequestTransferDestination",
     "CreateDomainsRequestVerification",
@@ -124,6 +131,7 @@ __all__ = [
     "ListDomainsRequestPlatform",
     "ListDomainsRequestRegistration",
     "ListDomainsRequestStatus",
+    "ListDomainsRequestSubdomain",
     "ListDomainsRequestTransfer",
     "ListDomainsRequestVerification",
     "ListDomainsRequestWebsite",
@@ -142,6 +150,7 @@ __all__ = [
     "UpdateDomainsRequestEmail",
     "UpdateDomainsRequestPixel",
     "UpdateDomainsRequestRegistration",
+    "UpdateDomainsRequestSubdomain",
     "UpdateDomainsRequestTransfer",
     "UpdateDomainsRequestTransferDestination",
     "UpdateDomainsRequestVerification",
