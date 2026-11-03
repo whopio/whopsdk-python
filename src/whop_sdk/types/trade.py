@@ -99,6 +99,11 @@ class Trade(UniversalBaseModel):
     `market`, `limit`, `take_profit` or `stop_loss` for an order. `null` otherwise.
     """
 
+    parent_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    For a take-profit or stop-loss sent with an order, that order's trade, prefixed `tint_`. `null` otherwise.
+    """
+
     price: typing.Optional[Money] = pydantic.Field(default=None)
     """
     The limit price of the order in USD. A market order's price is the mid price moved by `slippage_bps`; a take-profit or stop-loss's is the worst price its market order may fill at once triggered. `null` for other types.

@@ -11,6 +11,7 @@ from ..core.pagination import AsyncPager, SyncPager
 from ..core.parse_error import ParsingError
 from ..core.pydantic_utilities import parse_obj_as
 from ..core.request_options import RequestOptions
+from ..core.serialization import convert_and_respect_annotation_metadata
 from ..errors.bad_request_error import BadRequestError
 from ..errors.conflict_error import ConflictError
 from ..errors.forbidden_error import ForbiddenError
@@ -22,6 +23,8 @@ from ..types.v1error_response import V1ErrorResponse
 from .types.create_trades_request_instrument_type import CreateTradesRequestInstrumentType
 from .types.create_trades_request_order_type import CreateTradesRequestOrderType
 from .types.create_trades_request_side import CreateTradesRequestSide
+from .types.create_trades_request_stop_loss import CreateTradesRequestStopLoss
+from .types.create_trades_request_take_profit import CreateTradesRequestTakeProfit
 from .types.create_trades_request_time_in_force import CreateTradesRequestTimeInForce
 from .types.create_trades_request_type import CreateTradesRequestType
 from .types.list_trades_request_direction import ListTradesRequestDirection
@@ -198,6 +201,8 @@ class RawTradesClient:
         side: typing.Optional[CreateTradesRequestSide] = OMIT,
         size: typing.Optional[str] = OMIT,
         slippage_bps: typing.Optional[int] = OMIT,
+        stop_loss: typing.Optional[CreateTradesRequestStopLoss] = OMIT,
+        take_profit: typing.Optional[CreateTradesRequestTakeProfit] = OMIT,
         time_in_force: typing.Optional[CreateTradesRequestTimeInForce] = OMIT,
         trigger_price: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -252,6 +257,12 @@ class RawTradesClient:
         slippage_bps : typing.Optional[int]
             Only for a market order or a close. The worst price as basis points from the mid price, from 1 to 1000; defaults to 100 for a perpetual, and to the swap route's own default for spot.
 
+        stop_loss : typing.Optional[CreateTradesRequestStopLoss]
+            Only for a perpetual order that opens or adds to a position. A stop-loss for the order's full size, armed once the order fills and sent with it as its own trade, whose `parent_id` is this trade.
+
+        take_profit : typing.Optional[CreateTradesRequestTakeProfit]
+            Only for a perpetual order that opens or adds to a position. A take-profit for the order's full size, armed once the order fills and sent with it as its own trade, whose `parent_id` is this trade.
+
         time_in_force : typing.Optional[CreateTradesRequestTimeInForce]
             Only for a perpetual limit order. `good_til_canceled` rests on the book until it fills; `add_liquidity_only` is canceled instead of filling at once; `immediate_or_cancel` fills what it can now and cancels the rest. Defaults to `good_til_canceled`. The trade stays `processing` while the order rests.
 
@@ -285,6 +296,12 @@ class RawTradesClient:
                 "side": side,
                 "size": size,
                 "slippage_bps": slippage_bps,
+                "stop_loss": convert_and_respect_annotation_metadata(
+                    object_=stop_loss, annotation=CreateTradesRequestStopLoss, direction="write"
+                ),
+                "take_profit": convert_and_respect_annotation_metadata(
+                    object_=take_profit, annotation=CreateTradesRequestTakeProfit, direction="write"
+                ),
                 "time_in_force": time_in_force,
                 "trigger_price": trigger_price,
                 "type": type,
@@ -697,6 +714,8 @@ class AsyncRawTradesClient:
         side: typing.Optional[CreateTradesRequestSide] = OMIT,
         size: typing.Optional[str] = OMIT,
         slippage_bps: typing.Optional[int] = OMIT,
+        stop_loss: typing.Optional[CreateTradesRequestStopLoss] = OMIT,
+        take_profit: typing.Optional[CreateTradesRequestTakeProfit] = OMIT,
         time_in_force: typing.Optional[CreateTradesRequestTimeInForce] = OMIT,
         trigger_price: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
@@ -751,6 +770,12 @@ class AsyncRawTradesClient:
         slippage_bps : typing.Optional[int]
             Only for a market order or a close. The worst price as basis points from the mid price, from 1 to 1000; defaults to 100 for a perpetual, and to the swap route's own default for spot.
 
+        stop_loss : typing.Optional[CreateTradesRequestStopLoss]
+            Only for a perpetual order that opens or adds to a position. A stop-loss for the order's full size, armed once the order fills and sent with it as its own trade, whose `parent_id` is this trade.
+
+        take_profit : typing.Optional[CreateTradesRequestTakeProfit]
+            Only for a perpetual order that opens or adds to a position. A take-profit for the order's full size, armed once the order fills and sent with it as its own trade, whose `parent_id` is this trade.
+
         time_in_force : typing.Optional[CreateTradesRequestTimeInForce]
             Only for a perpetual limit order. `good_til_canceled` rests on the book until it fills; `add_liquidity_only` is canceled instead of filling at once; `immediate_or_cancel` fills what it can now and cancels the rest. Defaults to `good_til_canceled`. The trade stays `processing` while the order rests.
 
@@ -784,6 +809,12 @@ class AsyncRawTradesClient:
                 "side": side,
                 "size": size,
                 "slippage_bps": slippage_bps,
+                "stop_loss": convert_and_respect_annotation_metadata(
+                    object_=stop_loss, annotation=CreateTradesRequestStopLoss, direction="write"
+                ),
+                "take_profit": convert_and_respect_annotation_metadata(
+                    object_=take_profit, annotation=CreateTradesRequestTakeProfit, direction="write"
+                ),
                 "time_in_force": time_in_force,
                 "trigger_price": trigger_price,
                 "type": type,
