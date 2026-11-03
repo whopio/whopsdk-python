@@ -38,7 +38,7 @@ class TeamMember(UniversalBaseModel):
 
     id: str = pydantic.Field()
     """
-    Team member ID. Accepted members have an ID starting with `ausr_` or `mber_`, and pending invites one starting with `ausri_`. Treat it as opaque: both member prefixes are accepted wherever a team member ID is.
+    Team member ID. Accepted members have an ID starting with `ausr_` or `mber_`, and pending invites one starting with `ausri_` or `minv_`. Treat it as opaque: both member prefixes are accepted wherever a team member ID is.
     """
 
     is_agent: bool = pydantic.Field()
