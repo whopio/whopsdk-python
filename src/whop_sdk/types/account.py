@@ -142,6 +142,11 @@ class Account(UniversalBaseModel):
     The account's most recent financing application. Computed only on `retrieve` and `me` for callers with `company:balance:read` scope; `null` otherwise, or when the account has never applied for financing.
     """
 
+    funds_release_at: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    When a suspended account can pay out its balance to its own payout method, as an ISO 8601 timestamp. A dispute can move it later. Computed on `retrieve`, `me`, and `suspend`; `null` otherwise, when `status` is not `suspended`, and when the suspension holds the balance.
+    """
+
     home_preferences: typing.List[AccountHomePreferencesItem]
     id: str = pydantic.Field()
     """
