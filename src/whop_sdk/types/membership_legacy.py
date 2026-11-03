@@ -10,6 +10,7 @@ from .cancelation_status import CancelationStatus
 from .currencies import Currencies
 from .membership_legacy_company import MembershipLegacyCompany
 from .membership_legacy_custom_field_responses_item import MembershipLegacyCustomFieldResponsesItem
+from .membership_legacy_external_accounts_item import MembershipLegacyExternalAccountsItem
 from .membership_legacy_feedback_option import MembershipLegacyFeedbackOption
 from .membership_legacy_member import MembershipLegacyMember
 from .membership_legacy_plan import MembershipLegacyPlan
@@ -72,6 +73,11 @@ class MembershipLegacy(UniversalBaseModel):
     custom_field_responses: typing.List[MembershipLegacyCustomFieldResponsesItem] = pydantic.Field()
     """
     The customer's responses to custom checkout questions configured on the product at the time of purchase.
+    """
+
+    external_accounts: typing.Optional[typing.List[MembershipLegacyExternalAccountsItem]] = pydantic.Field(default=None)
+    """
+    The member's accounts on outside platforms, such as Discord and Telegram. Empty when the member has none linked. Null in webhooks.
     """
 
     feedback_option: typing.Optional[MembershipLegacyFeedbackOption] = pydantic.Field(default=None)

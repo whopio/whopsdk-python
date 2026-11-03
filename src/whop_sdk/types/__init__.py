@@ -752,10 +752,13 @@ if typing.TYPE_CHECKING:
     from .membership_cancel_option import MembershipCancelOption
     from .membership_cancellation_modes import MembershipCancellationModes
     from .membership_collection_method import MembershipCollectionMethod
+    from .membership_external_account import MembershipExternalAccount
+    from .membership_external_account_platform import MembershipExternalAccountPlatform
     from .membership_feedback_option import MembershipFeedbackOption
     from .membership_legacy import MembershipLegacy
     from .membership_legacy_company import MembershipLegacyCompany
     from .membership_legacy_custom_field_responses_item import MembershipLegacyCustomFieldResponsesItem
+    from .membership_legacy_external_accounts_item import MembershipLegacyExternalAccountsItem
     from .membership_legacy_feedback_option import MembershipLegacyFeedbackOption
     from .membership_legacy_member import MembershipLegacyMember
     from .membership_legacy_plan import MembershipLegacyPlan
@@ -764,6 +767,7 @@ if typing.TYPE_CHECKING:
     from .membership_legacy_user import MembershipLegacyUser
     from .membership_list_item import MembershipListItem
     from .membership_list_item_company import MembershipListItemCompany
+    from .membership_list_item_external_accounts_item import MembershipListItemExternalAccountsItem
     from .membership_list_item_feedback_option import MembershipListItemFeedbackOption
     from .membership_list_item_member import MembershipListItemMember
     from .membership_list_item_plan import MembershipListItemPlan
@@ -2253,10 +2257,13 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MembershipCancelOption": ".membership_cancel_option",
     "MembershipCancellationModes": ".membership_cancellation_modes",
     "MembershipCollectionMethod": ".membership_collection_method",
+    "MembershipExternalAccount": ".membership_external_account",
+    "MembershipExternalAccountPlatform": ".membership_external_account_platform",
     "MembershipFeedbackOption": ".membership_feedback_option",
     "MembershipLegacy": ".membership_legacy",
     "MembershipLegacyCompany": ".membership_legacy_company",
     "MembershipLegacyCustomFieldResponsesItem": ".membership_legacy_custom_field_responses_item",
+    "MembershipLegacyExternalAccountsItem": ".membership_legacy_external_accounts_item",
     "MembershipLegacyFeedbackOption": ".membership_legacy_feedback_option",
     "MembershipLegacyMember": ".membership_legacy_member",
     "MembershipLegacyPlan": ".membership_legacy_plan",
@@ -2265,6 +2272,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "MembershipLegacyUser": ".membership_legacy_user",
     "MembershipListItem": ".membership_list_item",
     "MembershipListItemCompany": ".membership_list_item_company",
+    "MembershipListItemExternalAccountsItem": ".membership_list_item_external_accounts_item",
     "MembershipListItemFeedbackOption": ".membership_list_item_feedback_option",
     "MembershipListItemMember": ".membership_list_item_member",
     "MembershipListItemPlan": ".membership_list_item_plan",
@@ -3660,10 +3668,13 @@ __all__ = [
     "MembershipCancelOption",
     "MembershipCancellationModes",
     "MembershipCollectionMethod",
+    "MembershipExternalAccount",
+    "MembershipExternalAccountPlatform",
     "MembershipFeedbackOption",
     "MembershipLegacy",
     "MembershipLegacyCompany",
     "MembershipLegacyCustomFieldResponsesItem",
+    "MembershipLegacyExternalAccountsItem",
     "MembershipLegacyFeedbackOption",
     "MembershipLegacyMember",
     "MembershipLegacyPlan",
@@ -3672,6 +3683,7 @@ __all__ = [
     "MembershipLegacyUser",
     "MembershipListItem",
     "MembershipListItemCompany",
+    "MembershipListItemExternalAccountsItem",
     "MembershipListItemFeedbackOption",
     "MembershipListItemMember",
     "MembershipListItemPlan",

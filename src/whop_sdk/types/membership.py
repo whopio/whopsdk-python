@@ -7,6 +7,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .membership_affiliate import MembershipAffiliate
 from .membership_cancel_option import MembershipCancelOption
 from .membership_collection_method import MembershipCollectionMethod
+from .membership_external_account import MembershipExternalAccount
 from .membership_feedback_option import MembershipFeedbackOption
 from .membership_member import MembershipMember
 from .membership_most_recent_action import MembershipMostRecentAction
@@ -77,6 +78,7 @@ class Membership(UniversalBaseModel):
     When access ends for a membership with a fixed expiration, as an ISO 8601 timestamp. `null` when the membership has no expiration, such as a renewing membership.
     """
 
+    external_accounts: typing.Optional[typing.List[MembershipExternalAccount]] = None
     feedback_option: typing.Optional[MembershipFeedbackOption] = pydantic.Field(default=None)
     """
     The account's own cancel reason the member picked, as they saw it. `null` when the member picked a default category or gave no reason.
