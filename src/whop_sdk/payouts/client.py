@@ -118,7 +118,7 @@ class PayoutsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-02-1",
+            "2026-11-03",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -150,6 +150,7 @@ class PayoutsClient:
         *,
         amount: float,
         payout_method_id: str,
+        quote_token: str,
         account_id: typing.Optional[str] = OMIT,
         acknowledge_bank_warning: typing.Optional[bool] = OMIT,
         currency: typing.Optional[str] = OMIT,
@@ -157,14 +158,13 @@ class PayoutsClient:
         notes: typing.Optional[str] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         platform_covers_fees: typing.Optional[bool] = OMIT,
-        quote_token: typing.Optional[str] = OMIT,
         speed: typing.Optional[CreatePayoutsRequestSpeed] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
         user_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreatePayoutsResponse:
         """
-        Sends money from an account or user balance to a saved payout method for that owner.
+        Sends money from an account or user balance to a saved payout method for that owner. First create a quote with POST /payouts/quotes, then submit its quote_token with the same payout details before it expires.
 
         Parameters
         ----------
@@ -173,6 +173,9 @@ class PayoutsClient:
 
         payout_method_id : str
             The saved payout method to deliver to (a potk_ identifier).
+
+        quote_token : str
+            Required server-signed token from POST /payouts/quotes, matching this payout's owner, method, amount, currency and speed. Submit before expiry. For an uncertain payout, retry with the original token and Idempotency-Key to recover the existing payout.
 
         account_id : typing.Optional[str]
             Account to pay out from, prefixed `biz_`. Provide exactly one of `account_id` or `user_id`.
@@ -195,14 +198,11 @@ class PayoutsClient:
         platform_covers_fees : typing.Optional[bool]
             Whether the parent platform covers the payout fee instead of the account being paid out. Omit to use the platform's configured fee coverage policy; pass `false` to opt out of it. `true` is only accepted for accounts that belong to a platform, and requires the platform's policy to cover this payout method's category or a caller authorized to manage the platform's child account fees.
 
-        quote_token : typing.Optional[str]
-            The server-signed quote_token returned by POST /payouts/quotes. Send it when the ledger account's payout_quote_required is true. A business with quote enforcement on refuses a payout without it with the invalid_payout_quote error type. When provided, Whop will not commit a provider payout below the destination amount the quote showed.
-
         speed : typing.Optional[CreatePayoutsRequestSpeed]
             How fast the funds should arrive. `instant` is only accepted when the account and payout method are eligible; otherwise the payout is rejected.
 
         statement_descriptor : typing.Optional[str]
-            Payment description sent with the payout, such as an invoice number or what it pays for. Must be 5-80 printable ASCII characters (letters, digits, spaces and punctuation); Whop sends it in upper case. Not all countries and banks show it on the recipient's statement, and it is not the sender name. Without a `quote_token`, omit or pass `null` to use the default descriptor. With a `quote_token`, set this value when creating the quote; the payout request may omit it but cannot add or change it.
+            Payment description sent with the payout, such as an invoice number or what it pays for. Must be 5-80 printable ASCII characters (letters, digits, spaces and punctuation); Whop sends it in upper case. Not all countries and banks show it on the recipient's statement, and it is not the sender name. Set this value when creating the quote; the payout request may omit it but cannot add or change it.
 
         user_id : typing.Optional[str]
             User to pay out from, prefixed `user_`. Provide exactly one of `account_id` or `user_id`.
@@ -220,18 +220,20 @@ class PayoutsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-02-1",
+            "2026-11-03",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
         client.payouts.create(
             amount=50.0,
             payout_method_id="potk_xxxxxxxxxxxxxx",
+            quote_token="signed-payout-quote",
         )
         """
         _response = self._raw_client.create(
             amount=amount,
             payout_method_id=payout_method_id,
+            quote_token=quote_token,
             account_id=account_id,
             acknowledge_bank_warning=acknowledge_bank_warning,
             currency=currency,
@@ -239,7 +241,6 @@ class PayoutsClient:
             notes=notes,
             payment_method_id=payment_method_id,
             platform_covers_fees=platform_covers_fees,
-            quote_token=quote_token,
             speed=speed,
             statement_descriptor=statement_descriptor,
             user_id=user_id,
@@ -310,7 +311,7 @@ class PayoutsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-02-1",
+            "2026-11-03",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -368,7 +369,7 @@ class PayoutsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-02-1",
+            "2026-11-03",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -416,7 +417,7 @@ class PayoutsClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-02-1",
+            "2026-11-03",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -544,7 +545,7 @@ class AsyncPayoutsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-02-1",
+            "2026-11-03",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -583,6 +584,7 @@ class AsyncPayoutsClient:
         *,
         amount: float,
         payout_method_id: str,
+        quote_token: str,
         account_id: typing.Optional[str] = OMIT,
         acknowledge_bank_warning: typing.Optional[bool] = OMIT,
         currency: typing.Optional[str] = OMIT,
@@ -590,14 +592,13 @@ class AsyncPayoutsClient:
         notes: typing.Optional[str] = OMIT,
         payment_method_id: typing.Optional[str] = OMIT,
         platform_covers_fees: typing.Optional[bool] = OMIT,
-        quote_token: typing.Optional[str] = OMIT,
         speed: typing.Optional[CreatePayoutsRequestSpeed] = OMIT,
         statement_descriptor: typing.Optional[str] = OMIT,
         user_id: typing.Optional[str] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> CreatePayoutsResponse:
         """
-        Sends money from an account or user balance to a saved payout method for that owner.
+        Sends money from an account or user balance to a saved payout method for that owner. First create a quote with POST /payouts/quotes, then submit its quote_token with the same payout details before it expires.
 
         Parameters
         ----------
@@ -606,6 +607,9 @@ class AsyncPayoutsClient:
 
         payout_method_id : str
             The saved payout method to deliver to (a potk_ identifier).
+
+        quote_token : str
+            Required server-signed token from POST /payouts/quotes, matching this payout's owner, method, amount, currency and speed. Submit before expiry. For an uncertain payout, retry with the original token and Idempotency-Key to recover the existing payout.
 
         account_id : typing.Optional[str]
             Account to pay out from, prefixed `biz_`. Provide exactly one of `account_id` or `user_id`.
@@ -628,14 +632,11 @@ class AsyncPayoutsClient:
         platform_covers_fees : typing.Optional[bool]
             Whether the parent platform covers the payout fee instead of the account being paid out. Omit to use the platform's configured fee coverage policy; pass `false` to opt out of it. `true` is only accepted for accounts that belong to a platform, and requires the platform's policy to cover this payout method's category or a caller authorized to manage the platform's child account fees.
 
-        quote_token : typing.Optional[str]
-            The server-signed quote_token returned by POST /payouts/quotes. Send it when the ledger account's payout_quote_required is true. A business with quote enforcement on refuses a payout without it with the invalid_payout_quote error type. When provided, Whop will not commit a provider payout below the destination amount the quote showed.
-
         speed : typing.Optional[CreatePayoutsRequestSpeed]
             How fast the funds should arrive. `instant` is only accepted when the account and payout method are eligible; otherwise the payout is rejected.
 
         statement_descriptor : typing.Optional[str]
-            Payment description sent with the payout, such as an invoice number or what it pays for. Must be 5-80 printable ASCII characters (letters, digits, spaces and punctuation); Whop sends it in upper case. Not all countries and banks show it on the recipient's statement, and it is not the sender name. Without a `quote_token`, omit or pass `null` to use the default descriptor. With a `quote_token`, set this value when creating the quote; the payout request may omit it but cannot add or change it.
+            Payment description sent with the payout, such as an invoice number or what it pays for. Must be 5-80 printable ASCII characters (letters, digits, spaces and punctuation); Whop sends it in upper case. Not all countries and banks show it on the recipient's statement, and it is not the sender name. Set this value when creating the quote; the payout request may omit it but cannot add or change it.
 
         user_id : typing.Optional[str]
             User to pay out from, prefixed `user_`. Provide exactly one of `account_id` or `user_id`.
@@ -655,7 +656,7 @@ class AsyncPayoutsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-02-1",
+            "2026-11-03",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -665,6 +666,7 @@ class AsyncPayoutsClient:
             await client.payouts.create(
                 amount=50.0,
                 payout_method_id="potk_xxxxxxxxxxxxxx",
+                quote_token="signed-payout-quote",
             )
 
 
@@ -673,6 +675,7 @@ class AsyncPayoutsClient:
         _response = await self._raw_client.create(
             amount=amount,
             payout_method_id=payout_method_id,
+            quote_token=quote_token,
             account_id=account_id,
             acknowledge_bank_warning=acknowledge_bank_warning,
             currency=currency,
@@ -680,7 +683,6 @@ class AsyncPayoutsClient:
             notes=notes,
             payment_method_id=payment_method_id,
             platform_covers_fees=platform_covers_fees,
-            quote_token=quote_token,
             speed=speed,
             statement_descriptor=statement_descriptor,
             user_id=user_id,
@@ -753,7 +755,7 @@ class AsyncPayoutsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-02-1",
+            "2026-11-03",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -819,7 +821,7 @@ class AsyncPayoutsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-02-1",
+            "2026-11-03",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -875,7 +877,7 @@ class AsyncPayoutsClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-02-1",
+            "2026-11-03",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
