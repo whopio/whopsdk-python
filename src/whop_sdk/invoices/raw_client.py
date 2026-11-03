@@ -703,7 +703,11 @@ class RawInvoicesClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def generate_pdf(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        id: str,
+        *,
+        include_descriptions: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[InvoicePdf]:
         """
         Generates the invoice as a PDF and returns a short-lived link to download it. A draft shows its estimated totals. The buyer's name and email need `member:basic:read` and `member:email:read`, and the Pay now link on an open invoice needs `payment:charge`, or `invoice:create` or `invoice:update` when it has no `payment_method_id`. Each call generates a new file and link, so this endpoint does not replay `Idempotency-Key` responses.
@@ -712,6 +716,9 @@ class RawInvoicesClient:
         ----------
         id : str
             The invoice's pay_ ID.
+
+        include_descriptions : typing.Optional[bool]
+            Whether to print each line item's `description` under it. Defaults to `true`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -725,7 +732,14 @@ class RawInvoicesClient:
             f"invoices/{encode_path_param(id)}/generate_pdf",
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
+            json={
+                "include_descriptions": include_descriptions,
+            },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
+            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:
@@ -1919,7 +1933,11 @@ class AsyncRawInvoicesClient:
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def generate_pdf(
-        self, id: str, *, request_options: typing.Optional[RequestOptions] = None
+        self,
+        id: str,
+        *,
+        include_descriptions: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[InvoicePdf]:
         """
         Generates the invoice as a PDF and returns a short-lived link to download it. A draft shows its estimated totals. The buyer's name and email need `member:basic:read` and `member:email:read`, and the Pay now link on an open invoice needs `payment:charge`, or `invoice:create` or `invoice:update` when it has no `payment_method_id`. Each call generates a new file and link, so this endpoint does not replay `Idempotency-Key` responses.
@@ -1928,6 +1946,9 @@ class AsyncRawInvoicesClient:
         ----------
         id : str
             The invoice's pay_ ID.
+
+        include_descriptions : typing.Optional[bool]
+            Whether to print each line item's `description` under it. Defaults to `true`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1941,7 +1962,14 @@ class AsyncRawInvoicesClient:
             f"invoices/{encode_path_param(id)}/generate_pdf",
             base_url=self._client_wrapper.get_environment().api,
             method="POST",
+            json={
+                "include_descriptions": include_descriptions,
+            },
+            headers={
+                "content-type": "application/json",
+            },
             request_options=request_options,
+            omit=OMIT,
         )
         try:
             if 200 <= _response.status_code < 300:

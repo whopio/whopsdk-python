@@ -401,7 +401,13 @@ class InvoicesClient:
         _response = self._raw_client.charge(id, payment_method_id=payment_method_id, request_options=request_options)
         return _response.data
 
-    def generate_pdf(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> InvoicePdf:
+    def generate_pdf(
+        self,
+        id: str,
+        *,
+        include_descriptions: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> InvoicePdf:
         """
         Generates the invoice as a PDF and returns a short-lived link to download it. A draft shows its estimated totals. The buyer's name and email need `member:basic:read` and `member:email:read`, and the Pay now link on an open invoice needs `payment:charge`, or `invoice:create` or `invoice:update` when it has no `payment_method_id`. Each call generates a new file and link, so this endpoint does not replay `Idempotency-Key` responses.
 
@@ -409,6 +415,9 @@ class InvoicesClient:
         ----------
         id : str
             The invoice's pay_ ID.
+
+        include_descriptions : typing.Optional[bool]
+            Whether to print each line item's `description` under it. Defaults to `true`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -431,7 +440,9 @@ class InvoicesClient:
             id="id",
         )
         """
-        _response = self._raw_client.generate_pdf(id, request_options=request_options)
+        _response = self._raw_client.generate_pdf(
+            id, include_descriptions=include_descriptions, request_options=request_options
+        )
         return _response.data
 
     def issue(
@@ -1058,7 +1069,13 @@ class AsyncInvoicesClient:
         )
         return _response.data
 
-    async def generate_pdf(self, id: str, *, request_options: typing.Optional[RequestOptions] = None) -> InvoicePdf:
+    async def generate_pdf(
+        self,
+        id: str,
+        *,
+        include_descriptions: typing.Optional[bool] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> InvoicePdf:
         """
         Generates the invoice as a PDF and returns a short-lived link to download it. A draft shows its estimated totals. The buyer's name and email need `member:basic:read` and `member:email:read`, and the Pay now link on an open invoice needs `payment:charge`, or `invoice:create` or `invoice:update` when it has no `payment_method_id`. Each call generates a new file and link, so this endpoint does not replay `Idempotency-Key` responses.
 
@@ -1066,6 +1083,9 @@ class AsyncInvoicesClient:
         ----------
         id : str
             The invoice's pay_ ID.
+
+        include_descriptions : typing.Optional[bool]
+            Whether to print each line item's `description` under it. Defaults to `true`.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -1096,7 +1116,9 @@ class AsyncInvoicesClient:
 
         asyncio.run(main())
         """
-        _response = await self._raw_client.generate_pdf(id, request_options=request_options)
+        _response = await self._raw_client.generate_pdf(
+            id, include_descriptions=include_descriptions, request_options=request_options
+        )
         return _response.data
 
     async def issue(
