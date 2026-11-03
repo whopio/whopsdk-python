@@ -36,7 +36,7 @@ class AdPlatformIssue(UniversalBaseModel):
 
     title: str = pydantic.Field()
     """
-    A short, creator-facing title for the issue.
+    A short, creator-facing title for the issue: the rule a content-review rejection names, or a generic label.
     """
 
     if IS_PYDANTIC_V2:
