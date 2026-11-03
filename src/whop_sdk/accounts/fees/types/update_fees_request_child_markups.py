@@ -14,12 +14,12 @@ from .update_fees_request_child_markups_transfers import UpdateFeesRequestChildM
 
 class UpdateFeesRequestChildMarkups(UniversalBaseModel):
     """
-    Default markups for connected accounts. Available on accounts without a parent, even before any accounts connect.
+    Default markups for subaccounts. Available on accounts without a parent, even before any accounts connect.
     """
 
     card_spend: typing.Optional[UpdateFeesRequestChildMarkupsCardSpend] = pydantic.Field(default=None)
     """
-    The markup on card purchases settled by the connected account. `null` clears the custom markup.
+    The markup on card purchases settled by the subaccount. `null` clears the custom markup.
     """
 
     crypto_swaps: typing.Optional[UpdateFeesRequestChildMarkupsCryptoSwaps] = pydantic.Field(default=None)

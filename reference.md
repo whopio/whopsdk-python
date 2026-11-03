@@ -209,7 +209,7 @@ client.account_links.create(
 <dl>
 <dd>
 
-Lists accounts visible to the credential. User tokens return the user's business accounts; Account API keys return the requesting account and its connected accounts.
+Lists accounts visible to the credential. User tokens return the user's business accounts; Account API keys return the requesting account and its subaccounts.
 </dd>
 </dl>
 </dd>
@@ -344,7 +344,7 @@ client.accounts.list()
 <dl>
 <dd>
 
-**parent_account_id:** `typing.Optional[str]` — For platforms: the parent account ID whose direct connected accounts to return. Requires `payout:account:read` on the parent account.
+**parent_account_id:** `typing.Optional[str]` — For platforms: the parent account ID whose direct subaccounts to return. Requires `payout:account:read` on the parent account.
     
 </dd>
 </dl>
@@ -384,7 +384,7 @@ client.accounts.list()
 <dl>
 <dd>
 
-Creates an account. User tokens create business accounts; Account API keys create connected accounts. Tax fields (`tax_remitted_by`, `tax_type`, `product_tax_code_id`, `business_address`, `tax_identifiers`) are configured with Update Account, not at creation.
+Creates an account. User tokens create business accounts; Account API keys create subaccounts. Tax fields (`tax_remitted_by`, `tax_type`, `product_tax_code_id`, `business_address`, `tax_identifiers`) are configured with Update Account, not at creation.
 </dd>
 </dl>
 </dd>
@@ -439,7 +439,7 @@ client.accounts.create()
 <dl>
 <dd>
 
-**country:** `typing.Optional[str]` — The ISO 3166-1 alpha-2 country code where the account's business is located (e.g. `US`). Defaults to the parent account's country for connected accounts.
+**country:** `typing.Optional[str]` — The ISO 3166-1 alpha-2 country code where the account's business is located (e.g. `US`). Defaults to the parent account's country for subaccounts.
     
 </dd>
 </dl>
@@ -455,7 +455,7 @@ client.accounts.create()
 <dl>
 <dd>
 
-**email:** `typing.Optional[str]` — The email address of the account owner. Required when creating a connected account.
+**email:** `typing.Optional[str]` — The email address of the account owner. Required when creating a subaccount.
     
 </dd>
 </dl>
@@ -479,7 +479,7 @@ client.accounts.create()
 <dl>
 <dd>
 
-**send_customer_emails:** `typing.Optional[bool]` — Whether Whop sends transactional emails to customers on behalf of the connected account.
+**send_customer_emails:** `typing.Optional[bool]` — Whether Whop sends transactional emails to customers on behalf of the subaccount.
     
 </dd>
 </dl>
@@ -800,7 +800,7 @@ client.accounts.retrieve(
 <dl>
 <dd>
 
-Deletes a connected account directly owned by the authenticated platform account. The account must have no settled, pending, or reserved balance in any currency and no active, trialing, or past-due memberships. The account stops resolving immediately, and its products, plans, and team access are removed in the background; payment history is retained. Deletion cannot be undone through the API. This cannot delete the platform account itself or an account owned by another platform.
+Deletes a subaccount directly owned by the authenticated platform account. The account must have no settled, pending, or reserved balance in any currency and no active, trialing, or past-due memberships. The account stops resolving immediately, and its products, plans, and team access are removed in the background; payment history is retained. Deletion cannot be undone through the API. This cannot delete the platform account itself or an account owned by another platform.
 </dd>
 </dl>
 </dd>
@@ -841,7 +841,7 @@ client.accounts.delete(
 <dl>
 <dd>
 
-**id:** `str` — Connected account ID, prefixed `biz_`.
+**id:** `str` — Subaccount ID, prefixed `biz_`.
     
 </dd>
 </dl>
@@ -873,7 +873,7 @@ client.accounts.delete(
 <dl>
 <dd>
 
-Updates an account. User tokens can update business accounts; Account API keys can update connected accounts.
+Updates an account. User tokens can update business accounts; Account API keys can update subaccounts.
 </dd>
 </dl>
 </dd>
@@ -1592,7 +1592,7 @@ client.accounts.retry_ads_payment(
 <dl>
 <dd>
 
-Suspends a connected account directly owned by the authenticated platform account. This cannot suspend the platform account itself or an account owned by another platform.
+Suspends a subaccount directly owned by the authenticated platform account. This cannot suspend the platform account itself or an account owned by another platform.
 </dd>
 </dl>
 </dd>
@@ -1633,7 +1633,7 @@ client.accounts.suspend(
 <dl>
 <dd>
 
-**id:** `str` — Connected account ID, prefixed `biz_`.
+**id:** `str` — Subaccount ID, prefixed `biz_`.
     
 </dd>
 </dl>
@@ -9766,7 +9766,7 @@ client.bounties.list()
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[str]` — Scope the list to this account (`biz_` tag). Requires read access to the account; account API keys may pass their own account or a connected account.
+**account_id:** `typing.Optional[str]` — Scope the list to this account (`biz_` tag). Requires read access to the account; account API keys may pass their own account or a subaccount.
     
 </dd>
 </dl>
@@ -11621,7 +11621,7 @@ client.cards.update(
 <dl>
 <dd>
 
-Creates a future-dated card cashback rule for your direct connected accounts, funded by the authenticated platform account. Creating a rule does not transfer funds; pay cashback out with `POST /cashback_rules/payout`. Requires `payout:transfer_funds`. Supports `Idempotency-Key` for safe retries.
+Creates a future-dated card cashback rule for your direct subaccounts, funded by the authenticated platform account. Creating a rule does not transfer funds; pay cashback out with `POST /cashback_rules/payout`. Requires `payout:transfer_funds`. Supports `Idempotency-Key` for safe retries.
 </dd>
 </dl>
 </dd>
@@ -11712,7 +11712,7 @@ client.cashback_rules.create(
 <dl>
 <dd>
 
-**scoped_account_id:** `typing.Optional[str]` — Account ID, prefixed `biz_`, of one direct connected account to limit the rule to. Required when both merchant filters are omitted or `null`, in which case the rule matches all eligible transactions for that account. Otherwise, omit or set `null` to designate all direct connected accounts.
+**scoped_account_id:** `typing.Optional[str]` — Account ID, prefixed `biz_`, of one direct subaccount to limit the rule to. Required when both merchant filters are omitted or `null`, in which case the rule matches all eligible transactions for that account. Otherwise, omit or set `null` to designate all direct subaccounts.
     
 </dd>
 </dl>
@@ -11855,7 +11855,7 @@ client.cashback_rules.list()
 <dl>
 <dd>
 
-Pays out cashback on demand from the authenticated platform's available USD balance to its direct connected accounts. Covers completed, unpaid card transactions created before the request, each under its latest matching rule, which must be funded by the authenticated platform. Filters combine, and an empty body includes every eligible transaction. Payouts process in the background and amounts are calculated then, so the response confirms queuing, not payment. If a payout fails for insufficient funds, add USD to the platform's balance. Requires `payout:transfer_funds`. Supports `Idempotency-Key`, and overlapping requests cannot pay the same card transaction twice.
+Pays out cashback on demand from the authenticated platform's available USD balance to its direct subaccounts. Covers completed, unpaid card transactions created before the request, each under its latest matching rule, which must be funded by the authenticated platform. Filters combine, and an empty body includes every eligible transaction. Payouts process in the background and amounts are calculated then, so the response confirms queuing, not payment. If a payout fails for insufficient funds, add USD to the platform's balance. Requires `payout:transfer_funds`. Supports `Idempotency-Key`, and overlapping requests cannot pay the same card transaction twice.
 </dd>
 </dl>
 </dd>
@@ -11894,7 +11894,7 @@ client.cashback_rules.payout()
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[str]` — Pay only this direct connected account.
+**account_id:** `typing.Optional[str]` — Pay only this direct subaccount.
     
 </dd>
 </dl>
@@ -11910,7 +11910,7 @@ client.cashback_rules.payout()
 <dl>
 <dd>
 
-**transaction_id:** `typing.Optional[str]` — Pay only this card transaction belonging to a direct connected account.
+**transaction_id:** `typing.Optional[str]` — Pay only this card transaction belonging to a direct subaccount.
     
 </dd>
 </dl>
@@ -16109,7 +16109,7 @@ client.disputes.list()
 <dl>
 <dd>
 
-**include_connected_accounts:** `typing.Optional[bool]` — Also cover the account's connected accounts. Requires `account_id`, and is a 400 without it. Without `query`, covers the disputes of the account and every connected account, in any order. The listing is cut off after 10 seconds; add a `query` to narrow it. With `query`, matches on dispute, payment, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`); free-text queries such as a name search only the named account. Connected accounts' disputes are returned only for connected accounts you can read disputes on.
+**include_subaccounts:** `typing.Optional[bool]` — Also cover the account's subaccounts. Requires `account_id`, and is a 400 without it. Without `query`, covers the disputes of the account and every subaccount, in any order. The listing is cut off after 10 seconds; add a `query` to narrow it. With `query`, matches on dispute, payment, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`); free-text queries such as a name search only the named account. Subaccounts' disputes are returned only for subaccounts you can read disputes on.
     
 </dd>
 </dl>
@@ -16236,7 +16236,7 @@ client.disputes.summary()
 <dl>
 <dd>
 
-**include_connected_accounts:** `typing.Optional[bool]` — Also cover the account's connected accounts. Requires `account_id`, and is a 400 without it. Without `query`, covers the disputes of the account and every connected account, in any order. The listing is cut off after 10 seconds; add a `query` to narrow it. With `query`, matches on dispute, payment, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`); free-text queries such as a name search only the named account. Connected accounts' disputes are returned only for connected accounts you can read disputes on.
+**include_subaccounts:** `typing.Optional[bool]` — Also cover the account's subaccounts. Requires `account_id`, and is a 400 without it. Without `query`, covers the disputes of the account and every subaccount, in any order. The listing is cut off after 10 seconds; add a `query` to narrow it. With `query`, matches on dispute, payment, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`); free-text queries such as a name search only the named account. Subaccounts' disputes are returned only for subaccounts you can read disputes on.
     
 </dd>
 </dl>
@@ -23418,7 +23418,7 @@ client.financial_reports.retrieve(
 <dl>
 <dd>
 
-Lists payment-financing applications. Without `account_id`, an account credential lists its own account and its direct connected accounts, but not deeper descendants, and a user credential lists every account it can read applications for.
+Lists payment-financing applications. Without `account_id`, an account credential lists its own account and its direct subaccounts, but not deeper descendants, and a user credential lists every account it can read applications for.
 </dd>
 </dl>
 </dd>
@@ -30834,7 +30834,7 @@ client.partners.retrieve(
 <dl>
 <dd>
 
-Lists the payment method domains registered for your account and its connected accounts. Deprecated: list domains with `GET /domains` and the `apple_pay` filter instead.
+Lists the payment method domains registered for your account and its subaccounts. Deprecated: list domains with `GET /domains` and the `apple_pay` filter instead.
 </dd>
 </dl>
 </dd>
@@ -30873,7 +30873,7 @@ client.payment_method_domains.list()
 <dl>
 <dd>
 
-**account_id:** `typing.Optional[str]` — Only domains registered for this account (`biz_` tag). Defaults to the caller's account plus its connected accounts.
+**account_id:** `typing.Optional[str]` — Only domains registered for this account (`biz_` tag). Defaults to the caller's account plus its subaccounts.
     
 </dd>
 </dl>
@@ -32829,7 +32829,7 @@ client.payments.list(
 <dl>
 <dd>
 
-**include_connected_accounts:** `typing.Optional[bool]` — Also cover the account's connected accounts. Requires `account_id`, and is a 400 without it. Without `query`, lists the payments of the account and every connected account, newest first by `created_at` only; another `order` is a 400. The listing is cut off after 10 seconds, which a rare filter on an account with little recent activity can reach; add a `query` to narrow it. With `query`, matches on payment, dispute, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`); free-text queries such as a name search only the named account. Connected accounts' payments are returned only for connected accounts you can read payments on.
+**include_subaccounts:** `typing.Optional[bool]` — Also cover the account's subaccounts. Requires `account_id`, and is a 400 without it. Without `query`, lists the payments of the account and every subaccount, newest first by `created_at` only; another `order` is a 400. The listing is cut off after 10 seconds, which a rare filter on an account with little recent activity can reach; add a `query` to narrow it. With `query`, matches on payment, dispute, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`); free-text queries such as a name search only the named account. Subaccounts' payments are returned only for subaccounts you can read payments on.
     
 </dd>
 </dl>
@@ -33519,7 +33519,7 @@ client.payments.summary(
 <dl>
 <dd>
 
-**include_connected_accounts:** `typing.Optional[bool]` — Only for searches: with `query`, also search the account's connected accounts. Requires `account_id` and `query`, and is a 400 without either; it never lists connected accounts' payments on its own. Matches on payment, dispute, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`). Free-text queries such as a name search only the named account. Connected accounts' payments are returned only for connected accounts you can read payments on.
+**include_subaccounts:** `typing.Optional[bool]` — Only for searches: with `query`, also search the account's subaccounts. Requires `account_id` and `query`, and is a 400 without either; it never lists subaccounts' payments on its own. Matches on payment, dispute, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`). Free-text queries such as a name search only the named account. Subaccounts' payments are returned only for subaccounts you can read payments on.
     
 </dd>
 </dl>
@@ -44226,7 +44226,7 @@ client.team_members.update(
 <dl>
 <dd>
 
-Lists trades you can access, newest first. User credentials see their own trades and those of accounts they belong to, including connected accounts; account credentials see their account and its connected accounts.
+Lists trades you can access, newest first. User credentials see their own trades and those of accounts they belong to, including subaccounts; account credentials see their account and its subaccounts.
 </dd>
 </dl>
 </dd>
@@ -48209,7 +48209,7 @@ client.webhooks.create(
 <dl>
 <dd>
 
-**child_resource_events:** `typing.Optional[bool]` — Whether to send events for child resources. For example, if the webhook is created for an account, enabling this sends events only from its connected accounts.
+**child_resource_events:** `typing.Optional[bool]` — Whether to send events for child resources. For example, if the webhook is created for an account, enabling this sends events only from its subaccounts.
     
 </dd>
 </dl>
@@ -49031,7 +49031,7 @@ client.accounts.customer_tracking.retrieve(
 <dl>
 <dd>
 
-Retrieves the account's fees as a single document keyed by fee, with any markups its platform adds. Connected accounts see the rates in effect for them. `adjustable` on each fee says what you may change with Update Account Fees.
+Retrieves the account's fees as a single document keyed by fee, with any markups its platform adds. Subaccounts see the rates in effect for them. `adjustable` on each fee says what you may change with Update Account Fees.
 </dd>
 </dl>
 </dd>
@@ -49201,7 +49201,7 @@ client.accounts.fees.update(
 <dl>
 <dd>
 
-**child_markups:** `typing.Optional[UpdateFeesRequestChildMarkups]` — Default markups for connected accounts. Available on accounts without a parent, even before any accounts connect.
+**child_markups:** `typing.Optional[UpdateFeesRequestChildMarkups]` — Default markups for subaccounts. Available on accounts without a parent, even before any accounts connect.
     
 </dd>
 </dl>
@@ -49209,7 +49209,7 @@ client.accounts.fees.update(
 <dl>
 <dd>
 
-**covered_payout_fees:** `typing.Optional[UpdateFeesRequestCoveredPayoutFees]` — Changes to the payout fees this account covers for connected accounts. Send either all or individual category keys. Omitted categories stay unchanged; category changes have no effect while all is true.
+**covered_payout_fees:** `typing.Optional[UpdateFeesRequestCoveredPayoutFees]` — Changes to the payout fees this account covers for subaccounts. Send either all or individual category keys. Omitted categories stay unchanged; category changes have no effect while all is true.
     
 </dd>
 </dl>
@@ -49305,7 +49305,7 @@ client.accounts.fees.update(
 <dl>
 <dd>
 
-**markups:** `typing.Optional[UpdateFeesRequestMarkups]` — Markups on this connected account, set by the platform it is connected to.
+**markups:** `typing.Optional[UpdateFeesRequestMarkups]` — Markups on this subaccount, set by the platform it is connected to.
     
 </dd>
 </dl>
@@ -49644,7 +49644,7 @@ Required scopes depend on the preferences being updated:
 | Preferences | Required scope |
 | --- | --- |
 | `ads_payment_methods`, `ads_reporting_currency`, `ads_scheduling_timezone`, `ads_triple_whale_integration`, `ads_certifications` | `ad_campaign:create` |
-| `cards_auto_top_up`, `cards_notifications`, `covers_connected_account_negative_balances` | `payout:account:update` |
+| `cards_auto_top_up`, `cards_notifications`, `covers_subaccount_negative_balances` | `payout:account:update` |
 | `dispute_fighter_enabled` | `payment:dispute` |
 | `economic_intelligence_duration_key`, `economic_intelligence_auto_renew` | `company:update` |
 | `feedback_options`, `customer_tracking` | `company:manage_checkout` |
@@ -49755,7 +49755,7 @@ client.accounts.preferences.update(
 <dl>
 <dd>
 
-**covers_connected_account_negative_balances:** `typing.Optional[bool]` — Whether this account covers its connected accounts' negative balances. When a connected account's balance drops below zero (from refunds, disputes, or fees), this account's available balance in the same currency pays it back, up to what is available. Only accounts with connected accounts can set it. Requires the `payout:account:update` scope on your API key.
+**covers_subaccount_negative_balances:** `typing.Optional[bool]` — Whether this account covers its subaccounts' negative balances. When a subaccount's balance drops below zero (from refunds, disputes, or fees), this account's available balance in the same currency pays it back, up to what is available. Only accounts with subaccounts can set it. Requires the `payout:account:update` scope on your API key.
     
 </dd>
 </dl>

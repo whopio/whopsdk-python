@@ -14,12 +14,12 @@ from .update_fees_request_markups_transfers import UpdateFeesRequestMarkupsTrans
 
 class UpdateFeesRequestMarkups(UniversalBaseModel):
     """
-    Markups on this connected account, set by the platform it is connected to.
+    Markups on this subaccount, set by the platform it is connected to.
     """
 
     card_spend: typing.Optional[UpdateFeesRequestMarkupsCardSpend] = pydantic.Field(default=None)
     """
-    The markup on card purchases settled by the connected account. `null` clears the custom markup.
+    The markup on card purchases settled by the subaccount. `null` clears the custom markup.
     """
 
     crypto_swaps: typing.Optional[UpdateFeesRequestMarkupsCryptoSwaps] = pydantic.Field(default=None)

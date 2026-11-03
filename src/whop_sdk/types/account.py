@@ -63,7 +63,7 @@ class Account(UniversalBaseModel):
 
     can_transfer_pending_balance_to_children: bool = pydantic.Field()
     """
-    Whether pending funds may be transferred from this platform account to its connected accounts.
+    Whether pending funds may be transferred from this platform account to its subaccounts.
     """
 
     cancellation_policy: typing.Optional[File] = pydantic.Field(default=None)
@@ -209,7 +209,7 @@ class Account(UniversalBaseModel):
 
     parent_account: typing.Optional[AccountParent] = pydantic.Field(default=None)
     """
-    Parent account for connected accounts, or `null` for standalone accounts.
+    Parent account for subaccounts, or `null` for standalone accounts.
     """
 
     partner: typing.Optional[AccountPartner] = pydantic.Field(default=None)

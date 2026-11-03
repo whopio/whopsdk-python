@@ -23,7 +23,7 @@ class Webhook(UniversalBaseModel):
 
     child_resource_events: bool = pydantic.Field()
     """
-    Whether events are sent for child resources. For example, if the webhook is on an account, enabling this sends events only from its connected accounts.
+    Whether events are sent for child resources. For example, if the webhook is on an account, enabling this sends events only from its subaccounts.
     """
 
     consecutive_failures: int = pydantic.Field()

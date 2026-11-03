@@ -57,7 +57,7 @@ class RawTradesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Trade, ListTradesResponse]:
         """
-        Lists trades you can access, newest first. User credentials see their own trades and those of accounts they belong to, including connected accounts; account credentials see their account and its connected accounts.
+        Lists trades you can access, newest first. User credentials see their own trades and those of accounts they belong to, including subaccounts; account credentials see their account and its subaccounts.
 
         Parameters
         ----------
@@ -567,7 +567,7 @@ class AsyncRawTradesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Trade, ListTradesResponse]:
         """
-        Lists trades you can access, newest first. User credentials see their own trades and those of accounts they belong to, including connected accounts; account credentials see their account and its connected accounts.
+        Lists trades you can access, newest first. User credentials see their own trades and those of accounts they belong to, including subaccounts; account credentials see their account and its subaccounts.
 
         Parameters
         ----------

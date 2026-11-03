@@ -65,7 +65,7 @@ class RawBountiesClient:
         Parameters
         ----------
         account_id : typing.Optional[str]
-            Scope the list to this account (`biz_` tag). Requires read access to the account; account API keys may pass their own account or a connected account.
+            Scope the list to this account (`biz_` tag). Requires read access to the account; account API keys may pass their own account or a subaccount.
 
         user_id : typing.Optional[str]
             List the bounties this user participated in (`user_` tag). Must be the authenticated user.
@@ -660,7 +660,7 @@ class AsyncRawBountiesClient:
         Parameters
         ----------
         account_id : typing.Optional[str]
-            Scope the list to this account (`biz_` tag). Requires read access to the account; account API keys may pass their own account or a connected account.
+            Scope the list to this account (`biz_` tag). Requires read access to the account; account API keys may pass their own account or a subaccount.
 
         user_id : typing.Optional[str]
             List the bounties this user participated in (`user_` tag). Must be the authenticated user.

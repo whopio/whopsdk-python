@@ -60,7 +60,7 @@ class TradesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[Trade, ListTradesResponse]:
         """
-        Lists trades you can access, newest first. User credentials see their own trades and those of accounts they belong to, including connected accounts; account credentials see their account and its connected accounts.
+        Lists trades you can access, newest first. User credentials see their own trades and those of accounts they belong to, including subaccounts; account credentials see their account and its subaccounts.
 
         Parameters
         ----------
@@ -104,7 +104,7 @@ class TradesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -227,7 +227,7 @@ class TradesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -282,7 +282,7 @@ class TradesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -315,7 +315,7 @@ class TradesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -367,7 +367,7 @@ class AsyncTradesClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[Trade, ListTradesResponse]:
         """
-        Lists trades you can access, newest first. User credentials see their own trades and those of accounts they belong to, including connected accounts; account credentials see their account and its connected accounts.
+        Lists trades you can access, newest first. User credentials see their own trades and those of accounts they belong to, including subaccounts; account credentials see their account and its subaccounts.
 
         Parameters
         ----------
@@ -413,7 +413,7 @@ class AsyncTradesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -545,7 +545,7 @@ class AsyncTradesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -608,7 +608,7 @@ class AsyncTradesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -649,7 +649,7 @@ class AsyncTradesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

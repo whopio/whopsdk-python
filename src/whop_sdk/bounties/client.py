@@ -70,7 +70,7 @@ class BountiesClient:
         Parameters
         ----------
         account_id : typing.Optional[str]
-            Scope the list to this account (`biz_` tag). Requires read access to the account; account API keys may pass their own account or a connected account.
+            Scope the list to this account (`biz_` tag). Requires read access to the account; account API keys may pass their own account or a subaccount.
 
         user_id : typing.Optional[str]
             List the bounties this user participated in (`user_` tag). Must be the authenticated user.
@@ -127,7 +127,7 @@ class BountiesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -232,7 +232,7 @@ class BountiesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -282,7 +282,7 @@ class BountiesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -360,7 +360,7 @@ class BountiesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -406,7 +406,7 @@ class BountiesClient:
         from whop_sdk import Whop
 
         client = Whop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -469,7 +469,7 @@ class AsyncBountiesClient:
         Parameters
         ----------
         account_id : typing.Optional[str]
-            Scope the list to this account (`biz_` tag). Requires read access to the account; account API keys may pass their own account or a connected account.
+            Scope the list to this account (`biz_` tag). Requires read access to the account; account API keys may pass their own account or a subaccount.
 
         user_id : typing.Optional[str]
             List the bounties this user participated in (`user_` tag). Must be the authenticated user.
@@ -528,7 +528,7 @@ class AsyncBountiesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -642,7 +642,7 @@ class AsyncBountiesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -700,7 +700,7 @@ class AsyncBountiesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -786,7 +786,7 @@ class AsyncBountiesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )
@@ -840,7 +840,7 @@ class AsyncBountiesClient:
         from whop_sdk import AsyncWhop
 
         client = AsyncWhop(
-            "2026-11-03",
+            "2026-11-03-1",
             idempotency_key="YOUR_IDEMPOTENCY_KEY",
             token="YOUR_TOKEN",
         )

@@ -52,7 +52,7 @@ class RawFinancingApplicationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> SyncPager[FinancingApplication, ListFinancingApplicationsResponse]:
         """
-        Lists payment-financing applications. Without `account_id`, an account credential lists its own account and its direct connected accounts, but not deeper descendants, and a user credential lists every account it can read applications for.
+        Lists payment-financing applications. Without `account_id`, an account credential lists its own account and its direct subaccounts, but not deeper descendants, and a user credential lists every account it can read applications for.
 
         Parameters
         ----------
@@ -608,7 +608,7 @@ class AsyncRawFinancingApplicationsClient:
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncPager[FinancingApplication, ListFinancingApplicationsResponse]:
         """
-        Lists payment-financing applications. Without `account_id`, an account credential lists its own account and its direct connected accounts, but not deeper descendants, and a user credential lists every account it can read applications for.
+        Lists payment-financing applications. Without `account_id`, an account credential lists its own account and its direct subaccounts, but not deeper descendants, and a user credential lists every account it can read applications for.
 
         Parameters
         ----------

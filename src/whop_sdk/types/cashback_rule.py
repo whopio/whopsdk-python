@@ -54,7 +54,7 @@ class CashbackRule(UniversalBaseModel):
 
     scoped_account_id: typing.Optional[str] = pydantic.Field(default=None)
     """
-    Connected account ID, prefixed `biz_`. Null designates all direct connected accounts of the funding platform.
+    Subaccount ID, prefixed `biz_`. Null designates all direct subaccounts of the funding platform.
     """
 
     starts_at: str = pydantic.Field()

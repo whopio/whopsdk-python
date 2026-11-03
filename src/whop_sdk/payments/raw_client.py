@@ -70,7 +70,7 @@ class RawPaymentsClient:
         currency: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
         query: typing.Optional[str] = None,
-        include_connected_accounts: typing.Optional[bool] = None,
+        include_subaccounts: typing.Optional[bool] = None,
         member_id: typing.Optional[str] = None,
         membership_id: typing.Optional[str] = None,
         product_id: typing.Optional[str] = None,
@@ -138,8 +138,8 @@ class RawPaymentsClient:
         query : typing.Optional[str]
             Search payments by payment ID, dispute ID, user ID, membership ID, user email, name, or username. Email filtering requires the member:email:read permission.
 
-        include_connected_accounts : typing.Optional[bool]
-            Also cover the account's connected accounts. Requires `account_id`, and is a 400 without it. Without `query`, lists the payments of the account and every connected account, newest first by `created_at` only; another `order` is a 400. The listing is cut off after 10 seconds, which a rare filter on an account with little recent activity can reach; add a `query` to narrow it. With `query`, matches on payment, dispute, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`); free-text queries such as a name search only the named account. Connected accounts' payments are returned only for connected accounts you can read payments on.
+        include_subaccounts : typing.Optional[bool]
+            Also cover the account's subaccounts. Requires `account_id`, and is a 400 without it. Without `query`, lists the payments of the account and every subaccount, newest first by `created_at` only; another `order` is a 400. The listing is cut off after 10 seconds, which a rare filter on an account with little recent activity can reach; add a `query` to narrow it. With `query`, matches on payment, dispute, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`); free-text queries such as a name search only the named account. Subaccounts' payments are returned only for subaccounts you can read payments on.
 
         member_id : typing.Optional[str]
             Only payments made by this member, prefixed `mber_`.
@@ -240,7 +240,7 @@ class RawPaymentsClient:
                 "currency": currency,
                 "user_id": user_id,
                 "query": query,
-                "include_connected_accounts": include_connected_accounts,
+                "include_subaccounts": include_subaccounts,
                 "member_id": member_id,
                 "membership_id": membership_id,
                 "product_id": product_id,
@@ -302,7 +302,7 @@ class RawPaymentsClient:
                         currency=currency,
                         user_id=user_id,
                         query=query,
-                        include_connected_accounts=include_connected_accounts,
+                        include_subaccounts=include_subaccounts,
                         member_id=member_id,
                         membership_id=membership_id,
                         product_id=product_id,
@@ -651,7 +651,7 @@ class RawPaymentsClient:
         dispute_created_after: typing.Optional[dt.datetime] = None,
         dispute_created_before: typing.Optional[dt.datetime] = None,
         query: typing.Optional[str] = None,
-        include_connected_accounts: typing.Optional[bool] = None,
+        include_subaccounts: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[SummaryPaymentsResponse]:
         """
@@ -716,8 +716,8 @@ class RawPaymentsClient:
         query : typing.Optional[str]
             Search payments by payment ID, dispute ID, user ID, membership ID, user email, name, or username.
 
-        include_connected_accounts : typing.Optional[bool]
-            Only for searches: with `query`, also search the account's connected accounts. Requires `account_id` and `query`, and is a 400 without either; it never lists connected accounts' payments on its own. Matches on payment, dispute, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`). Free-text queries such as a name search only the named account. Connected accounts' payments are returned only for connected accounts you can read payments on.
+        include_subaccounts : typing.Optional[bool]
+            Only for searches: with `query`, also search the account's subaccounts. Requires `account_id` and `query`, and is a 400 without either; it never lists subaccounts' payments on its own. Matches on payment, dispute, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`). Free-text queries such as a name search only the named account. Subaccounts' payments are returned only for subaccounts you can read payments on.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -759,7 +759,7 @@ class RawPaymentsClient:
                 if dispute_created_before is not None
                 else None,
                 "query": query,
-                "include_connected_accounts": include_connected_accounts,
+                "include_subaccounts": include_subaccounts,
             },
             request_options=request_options,
         )
@@ -1784,7 +1784,7 @@ class AsyncRawPaymentsClient:
         currency: typing.Optional[str] = None,
         user_id: typing.Optional[str] = None,
         query: typing.Optional[str] = None,
-        include_connected_accounts: typing.Optional[bool] = None,
+        include_subaccounts: typing.Optional[bool] = None,
         member_id: typing.Optional[str] = None,
         membership_id: typing.Optional[str] = None,
         product_id: typing.Optional[str] = None,
@@ -1852,8 +1852,8 @@ class AsyncRawPaymentsClient:
         query : typing.Optional[str]
             Search payments by payment ID, dispute ID, user ID, membership ID, user email, name, or username. Email filtering requires the member:email:read permission.
 
-        include_connected_accounts : typing.Optional[bool]
-            Also cover the account's connected accounts. Requires `account_id`, and is a 400 without it. Without `query`, lists the payments of the account and every connected account, newest first by `created_at` only; another `order` is a 400. The listing is cut off after 10 seconds, which a rare filter on an account with little recent activity can reach; add a `query` to narrow it. With `query`, matches on payment, dispute, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`); free-text queries such as a name search only the named account. Connected accounts' payments are returned only for connected accounts you can read payments on.
+        include_subaccounts : typing.Optional[bool]
+            Also cover the account's subaccounts. Requires `account_id`, and is a 400 without it. Without `query`, lists the payments of the account and every subaccount, newest first by `created_at` only; another `order` is a 400. The listing is cut off after 10 seconds, which a rare filter on an account with little recent activity can reach; add a `query` to narrow it. With `query`, matches on payment, dispute, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`); free-text queries such as a name search only the named account. Subaccounts' payments are returned only for subaccounts you can read payments on.
 
         member_id : typing.Optional[str]
             Only payments made by this member, prefixed `mber_`.
@@ -1954,7 +1954,7 @@ class AsyncRawPaymentsClient:
                 "currency": currency,
                 "user_id": user_id,
                 "query": query,
-                "include_connected_accounts": include_connected_accounts,
+                "include_subaccounts": include_subaccounts,
                 "member_id": member_id,
                 "membership_id": membership_id,
                 "product_id": product_id,
@@ -2018,7 +2018,7 @@ class AsyncRawPaymentsClient:
                             currency=currency,
                             user_id=user_id,
                             query=query,
-                            include_connected_accounts=include_connected_accounts,
+                            include_subaccounts=include_subaccounts,
                             member_id=member_id,
                             membership_id=membership_id,
                             product_id=product_id,
@@ -2368,7 +2368,7 @@ class AsyncRawPaymentsClient:
         dispute_created_after: typing.Optional[dt.datetime] = None,
         dispute_created_before: typing.Optional[dt.datetime] = None,
         query: typing.Optional[str] = None,
-        include_connected_accounts: typing.Optional[bool] = None,
+        include_subaccounts: typing.Optional[bool] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[SummaryPaymentsResponse]:
         """
@@ -2433,8 +2433,8 @@ class AsyncRawPaymentsClient:
         query : typing.Optional[str]
             Search payments by payment ID, dispute ID, user ID, membership ID, user email, name, or username.
 
-        include_connected_accounts : typing.Optional[bool]
-            Only for searches: with `query`, also search the account's connected accounts. Requires `account_id` and `query`, and is a 400 without either; it never lists connected accounts' payments on its own. Matches on payment, dispute, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`). Free-text queries such as a name search only the named account. Connected accounts' payments are returned only for connected accounts you can read payments on.
+        include_subaccounts : typing.Optional[bool]
+            Only for searches: with `query`, also search the account's subaccounts. Requires `account_id` and `query`, and is a 400 without either; it never lists subaccounts' payments on its own. Matches on payment, dispute, user or membership ID, buyer email, or a card's first 6 or 8 digits and last 4 separated by a space or dash (`424242 4242`). Free-text queries such as a name search only the named account. Subaccounts' payments are returned only for subaccounts you can read payments on.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -2476,7 +2476,7 @@ class AsyncRawPaymentsClient:
                 if dispute_created_before is not None
                 else None,
                 "query": query,
-                "include_connected_accounts": include_connected_accounts,
+                "include_subaccounts": include_subaccounts,
             },
             request_options=request_options,
         )
