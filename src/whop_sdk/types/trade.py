@@ -96,12 +96,12 @@ class Trade(UniversalBaseModel):
     object: TradeObject
     order_type: typing.Optional[TradeOrderType] = pydantic.Field(default=None)
     """
-    `market` or `limit` for an order. `null` otherwise.
+    `market`, `limit`, `take_profit` or `stop_loss` for an order. `null` otherwise.
     """
 
     price: typing.Optional[Money] = pydantic.Field(default=None)
     """
-    The limit price of the order in USD. A market order's price is the mid price moved by `slippage_bps`. `null` for other types.
+    The limit price of the order in USD. A market order's price is the mid price moved by `slippage_bps`; a take-profit or stop-loss's is the worst price its market order may fill at once triggered. `null` for other types.
     """
 
     reduce_only: typing.Optional[bool] = pydantic.Field(default=None)
@@ -132,6 +132,11 @@ class Trade(UniversalBaseModel):
     step: typing.Optional[TradeStep] = pydantic.Field(default=None)
     """
     What a live trade is doing now: `depositing` while the wallet's USDT0 is being sent to the bridge, `landing` once sent and until it reaches the trading balance, `placing` while the order or close is with the venue, `withdrawing` while USDC heads back to the wallet, `returning` while money an unfilled order bridged in goes back. `null` once the trade is no longer pending or processing.
+    """
+
+    trigger_price: typing.Optional[Money] = pydantic.Field(default=None)
+    """
+    The price in USD at which a take-profit or stop-loss sends its market order. `null` for other orders and types.
     """
 
     type: TradeType = pydantic.Field()

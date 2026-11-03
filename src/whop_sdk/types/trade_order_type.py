@@ -2,4 +2,4 @@
 
 import typing
 
-TradeOrderType = typing.Union[typing.Literal["market", "limit"], typing.Any]
+TradeOrderType = typing.Union[typing.Literal["market", "limit", "take_profit", "stop_loss"], typing.Any]
