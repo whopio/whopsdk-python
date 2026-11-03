@@ -19,7 +19,7 @@ class UpdateApiKeysRequestPermissionsStatementsItem(UniversalBaseModel):
 
     resources: typing.Optional[typing.List[str]] = pydantic.Field(default=None)
     """
-    Resource identifiers the statement applies to, for example `biz_xxx` or `biz_xxx|pass_*`. Defaults to the key's owning resource when omitted.
+    Resource identifiers the statement applies to, for example `biz_xxx` or `biz_xxx|prod_*`. Defaults to the key's owning resource when omitted.
     """
 
     if IS_PYDANTIC_V2:
