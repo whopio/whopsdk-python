@@ -10,6 +10,7 @@ FinancingProviderReason = typing.Union[
         "processor_connection_required",
         "minimum_volume_not_met",
         "turned_off_in_checkout_settings",
+        "billing_address_hidden",
         "provider_review",
         "dispute_rate_near_limit",
         "dispute_rate_exceeded",
